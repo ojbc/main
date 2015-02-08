@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:Validate
+		xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+		xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+		xmlns:um="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+		xmlns:sv="http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0"
+		xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
+	<sv:SubscriptionValidationMessage>
+		<smext:SubscriptionIdentification>
+			<nc20:IdentificationID></nc20:IdentificationID>
+		</smext:SubscriptionIdentification>
+	</sv:SubscriptionValidationMessage>
+	<b:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b:TopicExpression>
+</b:Validate>

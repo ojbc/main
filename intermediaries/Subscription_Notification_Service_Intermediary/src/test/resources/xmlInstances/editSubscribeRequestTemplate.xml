@@ -1,0 +1,53 @@
+<b:Subscribe xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+    xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+    xmlns:sm="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+    xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+    xmlns:add="http://www.w3.org/2005/08/addressing"
+    xmlns:topics="http://ojbc.org/wsn/topics"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
+    <b:ConsumerReference>
+        <add:Address>http://www.ojbc.org/OJB/SubscribeNotify</add:Address>
+        <add:ReferenceParameters/>
+        <add:Metadata/>
+    </b:ConsumerReference>
+    <b:Filter>
+        <b:TopicExpression
+            Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
+            topics:person/arrest</b:TopicExpression>
+    </b:Filter>
+    <b:InitialTerminationTime/>
+    <b:SubscriptionPolicy/>
+    <sm:SubscriptionMessage>
+        <smext:Subject>
+            <nc20:PersonName>
+                <nc20:PersonFullName>Test Person</nc20:PersonFullName>
+            </nc20:PersonName>
+            <jxdm41:PersonAugmentation>
+                <jxdm41:PersonStateFingerprintIdentification>
+                    <nc20:IdentificationID>A9999999</nc20:IdentificationID>
+                </jxdm41:PersonStateFingerprintIdentification>
+            </jxdm41:PersonAugmentation>
+        </smext:Subject>
+        <nc20:ContactEmailID>po6@localhost</nc20:ContactEmailID>
+        <smext:SystemName>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</smext:SystemName>
+		<smext:SubscriptionQualifierIdentification>
+		      <nc20:IdentificationID>1234578</nc20:IdentificationID>
+		</smext:SubscriptionQualifierIdentification>    
+		<nc:DateRange>
+	         <nc:StartDate>
+	            <nc:Date>START_DATE_TOKEN</nc:Date>
+	         </nc:StartDate>
+	         <nc:EndDate>
+	            <nc:Date>END_DATE_TOKEN</nc:Date>
+	         </nc:EndDate>
+      	 </nc:DateRange>
+        <submsg-ext:SubscriptionIdentification
+            xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
+            <nc:IdentificationID xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                >SUBSCRIPTION_ID</nc:IdentificationID>
+            <nc:IdentificationSourceText xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                >Subscriptions</nc:IdentificationSourceText>
+        </submsg-ext:SubscriptionIdentification>      	 
+    </sm:SubscriptionMessage>
+</b:Subscribe>

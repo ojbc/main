@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+    
+		
+	<!-- Subscription Secure flow -->
+	<routeContext id="subscriptionSecureRouteContext" xmlns="http://camel.apache.org/schema/spring">		
+		<camel:route id="subscriptionSecureRoute">
+		
+			<camel:from	uri="notificationBrokerServiceSecureEndpoint" />
+			
+			<camel:log message="Entering Subscription Secure Route"/>
+			
+			<!--  Perform some generic message processing --> 
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:logRoute"/>
+			
+			<camel:doTry>
+				<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
+
+				<camel:setHeader headerName="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
+				<camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}"/>
+
+				<camel:to uri="direct:processSubscription"/>
+
+				<camel:doCatch >
+					<camel:exception>org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException</camel:exception>
+					<camel:log message="An Invalid SAML Token exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
+					<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
+				</camel:doCatch>
+				<camel:doCatch>
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
+					<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
+				</camel:doCatch>
+			</camel:doTry>	
+			
+			<camel:to uri="direct:logRoute"/>
+			
+		</camel:route>
+		
+		
+		<camel:route id="subscriptionManagerServiceSecureRoute">
+		
+			<camel:from	uri="subscriptionManagerServiceSecureEndpoint" />
+			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.header.operationName} == 'Unsubscribe'</camel:simple>	      	
+
+					<camel:log message="Entering Unsubscription Secure Route"/>
+					
+					<!--  Perform some generic message processing --> 
+					<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+					
+					<camel:to uri="direct:logRoute"/>
+					
+					<camel:doTry>
+						<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
+		
+						<camel:setHeader headerName="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
+						<camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}"/>
+		
+						<camel:to uri="direct:processUnsubscription"/>
+		
+						<camel:doCatch >
+							<camel:exception>org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException</camel:exception>
+							<camel:log message="An Invalid SAML Token exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
+							<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
+						</camel:doCatch>
+						<camel:doCatch>
+							<camel:exception>java.lang.Exception</camel:exception>
+							<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
+							<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
+						</camel:doCatch>
+					</camel:doTry>	
+					
+					<camel:to uri="direct:logRoute"/>
+					
+				</camel:when>
+				
+				<camel:when>
+					<camel:simple>${in.header.operationName} == 'Validate'</camel:simple>	      
+					
+					<camel:log message="Entering validate route"/>	
+					
+					<camel:to uri="direct:logRoute"/>
+					
+					<camel:to uri="bean:subscriptionValidationMessageProcessor?method=validateSubscription"/>
+					
+					<camel:to uri="direct:logRoute"/>
+					
+				</camel:when>
+				
+				<camel:otherwise>
+					<camel:log message="Unsupported operation: ${in.header.operationName}"/>
+				</camel:otherwise>				
+			</camel:choice>
+			
+			
+			
+		</camel:route>
+	</routeContext>	
+		
+</beans>
+

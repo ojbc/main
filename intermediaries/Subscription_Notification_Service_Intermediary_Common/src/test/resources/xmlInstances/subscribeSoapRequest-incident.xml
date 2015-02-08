@@ -1,0 +1,41 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+	<soapenv:Body>
+		<b:Subscribe xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+			xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+			xmlns:sm="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0" xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+			xmlns:add="http://www.w3.org/2005/08/addressing"
+			xmlns:topics="http://ojbc.org/wsn/topics"
+			xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
+			<b:ConsumerReference>
+				<add:Address>http://www.ojbc.org/OJB/SubscribeNotify</add:Address>
+				<add:ReferenceParameters />
+				<add:Metadata />
+			</b:ConsumerReference>
+			<b:Filter>
+				<b:TopicExpression
+					Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
+					topics:person/incident</b:TopicExpression>
+			</b:Filter>
+			<b:InitialTerminationTime />
+			<b:SubscriptionPolicy />
+			<sm:SubscriptionMessage>
+				<smext:Subject>
+					<nc20:PersonBirthDate>
+						<nc20:Date>1980-01-01</nc20:Date>
+					</nc20:PersonBirthDate>
+					<nc20:PersonName>
+						<nc20:PersonGivenName>John</nc20:PersonGivenName>
+						<nc20:PersonSurName>Doe</nc20:PersonSurName>
+						<nc20:PersonFullName>John Doe</nc20:PersonFullName>
+					</nc20:PersonName>
+				</smext:Subject>
+				<nc20:ContactEmailID>po6@localhost</nc20:ContactEmailID>
+				<smext:SystemName>{http://demostate.gov/SystemNames/1.0}SystemA
+				</smext:SystemName>
+		        <smext:SubscriptionQualifierIdentification>
+		            <nc20:IdentificationID>302593</nc20:IdentificationID>
+		        </smext:SubscriptionQualifierIdentification>				
+			</sm:SubscriptionMessage>
+		</b:Subscribe>
+	</soapenv:Body>
+</soapenv:Envelope>

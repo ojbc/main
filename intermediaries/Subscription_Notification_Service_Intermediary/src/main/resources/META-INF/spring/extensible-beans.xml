@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+
+	<!--
+	Will want to sub this for Vermont 
+	<bean id="notificationFilterStrategy" class="org.ojbc.intermediaries.sn.notification.filter.DuplicateNotificationFilterStrategy">
+		<property name="dataSource" ref="dataSource" />
+	</bean> -->
+	
+	<bean id="notificationFilterStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="notificationFilterStrategy" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="sqlLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.processor.audit.NullObjectLoggingProcessor" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="emailFormatter" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="emailFormatter" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter">
+				<property name="systemIdentifierToDescriptorMap" ref="systemIdentifierToDescriptorMap" />
+				<property name="defaultEmailTemplate" ref="defaultEmailFormatter" />
+				<property name="topicSystemTemplateMap">
+					<util:map>
+						<entry key="{http://ojbc.org/wsn/topics}:person/arrest">
+							<util:map>
+								<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultArrestEmailFormatter" />
+							</util:map>
+						</entry>
+						<entry key="{http://ojbc.org/wsn/topics}:person/incident">
+							<util:map>
+								<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultIncidentEmailFormatter" />
+							</util:map>
+						</entry>
+						<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment">
+							<util:map>
+								<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultChCycleEmailFormatter" />
+							</util:map>
+						</entry>
+					</util:map>
+				</property>
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="dataSource" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+				<property name="url" value="jdbc:h2:mem:subscription" />
+				<property name="username" value="sa" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="systemIdentifierToDescriptorMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="systemIdentifierToDescriptorMap" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:map>
+				<entry key="{http://demostate.gov/SystemNames/1.0}SystemA" value="Parole case information" />
+				<entry key="{http://demostate.gov/SystemNames/1.0}SystemB" value="Probation case information" />
+				<entry key="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB" value="Subscription" />
+				<entry key="{http://ojbc.org}CriminalHistoryCycleTrackingID" value="Criminal History Cycle Information" />
+			</util:map>
+
+		</constructor-arg>
+	</bean>
+
+	<bean id="emailEnhancementStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="emailEnhancementStrategy" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.intermediaries.sn.notification.CompositeEmailEnhancementStrategy">
+				<property name="compositeStrategy">
+					<util:list id="emailEnhancementStrategyList">
+						<bean class="org.ojbc.intermediaries.sn.notification.WhitelistFilteringEmailEnhancementStrategy">
+							<property name="whitelist" ref="whitelist-set" />
+						</bean>
+						<bean class="org.ojbc.intermediaries.sn.notification.CCLookupEmailEnhancementStrategy">
+							<property name="ccLookupMap" ref="cc-map" />
+						</bean>
+						<bean class="org.ojbc.intermediaries.sn.notification.StaticBCCEmailEnhancementStrategy">
+							<property name="bccAddress" value="${publishSubscribe.bcc}" />
+						</bean>
+					</util:list>
+				</property>
+			</bean>
+		</constructor-arg>
+	</bean>
+	
+    <!-- This Spring config file is responsible for setting up two objects.  One is a Map (with id="cc-map") that
+         establishes an email address to be cc'd for each "to" address.  The other is a Set (with id="whitelist-set") that
+         establishes a whitelist for email notifications, such that if a "to" address is not in this list, it will not get
+         notified. Note that the "whitelist-set" can be any Set...we just happen to make the Map do double-duty as both
+         the cc lookup and the whitelist.  -->
+
+	<util:map map-class="java.util.HashMap" id="cc-map">
+		<!-- If you add new test data, you'll need to add the email addys to the whitelist or they won't produce notifications -->
+		<entry key="po1@localhost" value="sup@localhost" />
+		<entry key="po2@localhost" value="sup@localhost" />
+		<entry key="po3@localhost" value="sup@localhost" />
+		<entry key="po4@localhost" value="sup@localhost" />
+		<entry key="po5@localhost" value="sup@localhost" />
+		<entry key="po6@localhost" value="sup@localhost" />
+	</util:map>
+
+	<bean id="whitelist-set" factory-bean="cc-map" factory-method="keySet" />
+
+	<bean id="validationExemptionFilter" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="validationExemptionFilter" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.intermediaries.sn.dao.DefaultValidationExemptionFilter" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="gracePeriodStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="gracePeriodStrategy" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.intermediaries.sn.dao.DefaultGracePeriodStrategy" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="validationDueDateStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="validationDueDateStrategy" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.intermediaries.sn.dao.DefaultValidationDueDateStrategy" />
+		</constructor-arg>
+	</bean>
+	
+</beans>

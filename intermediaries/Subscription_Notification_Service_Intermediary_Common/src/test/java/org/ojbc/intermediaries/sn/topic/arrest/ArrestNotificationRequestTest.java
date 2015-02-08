@@ -1,0 +1,197 @@
+package org.ojbc.intermediaries.sn.topic.arrest;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+
+import java.util.List;
+
+import org.ojbc.intermediaries.sn.notification.NotificationRequest.Alias;
+import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
+
+import org.apache.camel.Message;
+import org.apache.commons.lang.StringUtils;
+import org.junit.Test;
+import org.mockito.Mockito;
+import org.w3c.dom.Document;
+
+public class ArrestNotificationRequestTest {
+	
+	@Test
+	public void test() throws Exception {
+		Message message = Mockito.mock(Message.class);
+		
+		Mockito.when(message.getBody(Document.class)).thenReturn(TestNotificationBuilderUtil.getMessageBody("src/test/resources/xmlInstances/notificationSoapRequest.xml"));
+		
+		ArrestNotificationRequest request = new ArrestNotificationRequest(message);
+		
+		assertThat(request.isNotificationEventDateInclusiveOfTime(), is(false));
+		assertThat(request.getNotificationEventDate().toString("yyyy-MM-dd"), is("2013-09-06"));
+		assertThat(request.getPersonFirstName(), is("Homer"));
+		assertThat(request.getPersonMiddleName(), is(StringUtils.EMPTY));
+		assertThat(request.getPersonLastName(), is("Simpson"));
+		assertThat(request.getPersonNameSuffix(), is(StringUtils.EMPTY));
+		assertThat(request.getNotifyingAgencyName(), is("Honolulu PD"));
+		assertThat(request.getNotificationEventIdentifier(), is(StringUtils.EMPTY));
+		assertThat(request.getAttorneyGeneralIndicator(), is("false"));
+		assertThat(request.getSubjectIdentifiers().size(), is(1));
+		assertThat(request.getSubjectIdentifiers().get("SID"), is("A9999999"));
+		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/arrest"));
+		assertThat(request.getPersonBookingName(), is("Simpson, Homer"));
+		assertThat(request.getBookingDateTimeDisplay(), is("2013-09-06"));
+		
+        assertEquals(2013, request.getNotificationEventDate().getYear());
+        assertEquals(9, request.getNotificationEventDate().getMonthOfYear());
+        assertEquals(6, request.getNotificationEventDate().getDayOfMonth());
+        
+        List<String> arrestChargeStrings = request.getArrestCharges();
+        assertEquals(1, arrestChargeStrings.size());
+        assertEquals("Description: Assault Severity: very severe, ARN: I-04679", arrestChargeStrings.get(0));
+		
+	}
+
+	@Test
+	public void testArrestWithIncidentInfo() throws Exception {
+		Message message = Mockito.mock(Message.class);
+		
+		Mockito.when(message.getBody(Document.class)).thenReturn(TestNotificationBuilderUtil.getMessageBody("src/test/resources/xmlInstances/notificationMessage-arrestWithIncidentInfo.xml"));
+		
+		ArrestNotificationRequest request = new ArrestNotificationRequest(message);
+		
+		assertThat(request.isNotificationEventDateInclusiveOfTime(), is(true));
+		assertThat(request.getNotificationEventDate().toString("yyyy-MM-dd HH:mm:ss"), is("2014-01-01 08:06:02"));
+		assertThat(request.getPersonFirstName(), is("Mark"));
+		assertThat(request.getPersonMiddleName(), is(StringUtils.EMPTY));
+		assertThat(request.getPersonLastName(), is("Smith"));
+		assertThat(request.getPersonNameSuffix(), is(StringUtils.EMPTY));
+		assertThat(request.getPersonBirthDate(), is("1976-09-03"));
+		assertThat(request.getNotifyingAgencyName(), is("Burlington Police Department"));
+		assertThat(request.getNotificationEventIdentifier(), is(StringUtils.EMPTY));
+		assertThat(request.getAttorneyGeneralIndicator(), is(StringUtils.EMPTY));
+		assertThat(request.getSubjectIdentifiers().size(), is(1));
+		assertThat(request.getSubjectIdentifiers().get("SID"), is(StringUtils.EMPTY));
+		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/arrest"));
+		assertThat(request.getPersonBookingName(), is("Smith, Mark"));
+		assertThat(request.getBookingDateTimeDisplay(), is("2014-01-01 08:06:02"));
+		
+        assertEquals(2014, request.getNotificationEventDate().getYear());
+        assertEquals(1, request.getNotificationEventDate().getMonthOfYear());
+        assertEquals(1, request.getNotificationEventDate().getDayOfMonth());
+        
+        assertThat(request.getIncidentId(), is("14BU000056"));
+        assertThat(request.getIncidentDate(), is("2014-01-01T04:43:56Z"));
+        
+        assertThat(request.getIncidentLocationCity(), is("Burlington"));
+        assertThat(request.getIncidentLocationState(), is("VT"));
+        assertThat(request.getIncidentLocationStreetFullText(), is("1 Woodlawn Rd North Ave"));
+        assertThat(request.getInicidentLocationCompleteAddress(), is("1 Woodlawn Rd North Ave Burlington VT"));
+        
+        assertThat(request.getArresteeLastKnownAddressCity(), is("Arrestee City"));
+        assertThat(request.getArresteeLastKnownAddressState(), is("VT"));
+        assertThat(request.getArresteeLastKnownAddressStreetNumber(), is("600"));
+        assertThat(request.getArresteeLastKnownAddressStreet(), is("Arrestee Rd"));
+        
+        assertThat(request.getArresteeLastKnownAddressStreetFullText(), is("600 Arrestee Rd"));
+        assertThat(request.getArresteeLastKnownAddressCompleteAddress(), is("600 Arrestee Rd Arrestee City VT"));
+        
+        List<String> arrestOffenses = request.getOffenseStrings();
+        assertEquals(2, arrestOffenses.size());
+        
+        assertEquals("Offense Code: Driving Under Influence, Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D", arrestOffenses.get(0));
+        assertEquals("Offense Code: Robbery, Offense Description: Robbery", arrestOffenses.get(1));
+        
+        List<String> officerNames = request.getOfficerNames();
+        assertEquals(2, officerNames.size());
+        assertEquals("Officer 1 full name", officerNames.get(0));
+        assertEquals("Officer 2 full name", officerNames.get(1));
+
+        List<Alias> aliases = request.getAliases();
+        assertEquals(2, aliases.size());
+
+        assertEquals("Mark", aliases.get(0).getPersonFirstName());
+        assertEquals("Smitty", aliases.get(0).getPersonLastName());
+
+        assertEquals("Marc", aliases.get(1).getPersonFirstName());
+        assertEquals("Smith", aliases.get(1).getPersonLastName());
+
+        List<String> arrestChargeStrings = request.getArrestCharges();
+        assertEquals(0, arrestChargeStrings.size());
+        
+        List<String> personTelephoneNumbers = request.getPersonTelephoneNumbers();
+        assertEquals(2, personTelephoneNumbers.size());
+        assertEquals("8081234567", personTelephoneNumbers.get(0));
+        assertEquals("9999999999", personTelephoneNumbers.get(1));
+		
+	}
+
+	@Test
+	public void testArrestWithIncidentInfoNoAddressInfo() throws Exception {
+		Message message = Mockito.mock(Message.class);
+		
+		Mockito.when(message.getBody(Document.class)).thenReturn(TestNotificationBuilderUtil.getMessageBody("src/test/resources/xmlInstances/notificationMessage-arrestWithIncidentInfoWithNoAddressInfo.xml"));
+		
+		ArrestNotificationRequest request = new ArrestNotificationRequest(message);
+		
+		assertThat(request.isNotificationEventDateInclusiveOfTime(), is(true));
+		assertThat(request.getNotificationEventDate().toString("yyyy-MM-dd HH:mm:ss"), is("2014-01-01 08:06:02"));
+		assertThat(request.getPersonFirstName(), is("Mark"));
+		assertThat(request.getPersonMiddleName(), is(StringUtils.EMPTY));
+		assertThat(request.getPersonLastName(), is("Smith"));
+		assertThat(request.getPersonNameSuffix(), is(StringUtils.EMPTY));
+		assertThat(request.getPersonBirthDate(), is("1976-09-03"));
+		assertThat(request.getNotifyingAgencyName(), is("Burlington Police Department"));
+		assertThat(request.getNotificationEventIdentifier(), is(StringUtils.EMPTY));
+		assertThat(request.getAttorneyGeneralIndicator(), is(StringUtils.EMPTY));
+		assertThat(request.getSubjectIdentifiers().size(), is(1));
+		assertThat(request.getSubjectIdentifiers().get("SID"), is(StringUtils.EMPTY));
+		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/arrest"));
+		assertThat(request.getPersonBookingName(), is("Smith, Mark"));
+		assertThat(request.getBookingDateTimeDisplay(), is("2014-01-01 08:06:02"));
+		
+        assertEquals(2014, request.getNotificationEventDate().getYear());
+        assertEquals(1, request.getNotificationEventDate().getMonthOfYear());
+        assertEquals(1, request.getNotificationEventDate().getDayOfMonth());
+        
+        assertThat(request.getIncidentId(), is("14BU000056"));
+        assertThat(request.getIncidentDate(), is("2014-01-01T04:43:56Z"));
+        
+        assertNull(request.getIncidentLocationCity());
+        assertNull(request.getIncidentLocationState());
+        assertThat(request.getIncidentLocationStreetFullText(), is(""));
+        
+        assertNull(request.getArresteeLastKnownAddressCity());
+        assertNull(request.getArresteeLastKnownAddressState());
+        assertNull(request.getArresteeLastKnownAddressStreetNumber());
+        assertNull(request.getArresteeLastKnownAddressStreet());
+        
+        assertThat(request.getArresteeLastKnownAddressStreetFullText(), is(""));
+
+        List<String> arrestOffenses = request.getOffenseStrings();
+        assertEquals(2, arrestOffenses.size());
+        
+        assertEquals("Offense Code: Driving Under Influence, Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D", arrestOffenses.get(0));
+        assertEquals("Offense Code: Robbery, Offense Description: Robbery", arrestOffenses.get(1));
+        
+        List<String> officerNames = request.getOfficerNames();
+        assertEquals(2, officerNames.size());
+        assertEquals("Officer 1 full name", officerNames.get(0));
+        assertEquals("Officer 2 full name", officerNames.get(1));
+
+        List<Alias> aliases = request.getAliases();
+        assertEquals(2, aliases.size());
+
+        assertEquals("Mark", aliases.get(0).getPersonFirstName());
+        assertEquals("Smitty", aliases.get(0).getPersonLastName());
+
+        assertEquals("Marc", aliases.get(1).getPersonFirstName());
+        assertEquals("Smith", aliases.get(1).getPersonLastName());
+
+        List<String> arrestChargeStrings = request.getArrestCharges();
+        assertEquals(0, arrestChargeStrings.size());
+        
+        List<String> personTelephoneNumbers = request.getPersonTelephoneNumbers();
+        assertEquals(0, personTelephoneNumbers.size());
+		
+	}
+}

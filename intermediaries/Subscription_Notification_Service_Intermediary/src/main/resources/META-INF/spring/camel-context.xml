@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Subscription_Notification_Service_Intermediary">
+		<camel:propertyPlaceholder id="springPropertiesToLoad" location="ref:springProperties" />
+		<camel:routeContextRef ref="searchQueryRoutes" />
+		<camel:routeContextRef ref="subscriptionSecureRouteContext" />
+  
+		<endpoint id="smtpEndpoint"
+			uri="${publishSubscribe.smtpServerProtocol}://${publishSubscribe.smtpServerName}:${publishSubscribe.smtpServerPort}/?password=${publishSubscribe.emailPassword}&amp;from=${publishSubscribe.emailFromAddress}&amp;username=${publishSubscribe.emailUserID}&amp;contentType=text/html" />
+		<endpoint id="notificationNonwhitelistFileDrop" uri="file:///${publishSubscribe.notificationNonwhitelistDrop}" />
+        
+		<camel:route>
+    
+			<camel:from uri="notificationBrokerServiceEndpoint" />
+
+			<camel:log message="This is the operation: ${header.operationName}" />
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.header.operationName} == 'Notify'</camel:simple>
+					<camel:log message="In notify block" />		      	
+					<camel:choice>
+						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/arrest' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/arrest'</camel:xpath>
+							<camel:setHeader headerName="notificationTopic">
+								<constant>arrest</constant>
+							</camel:setHeader>
+						</camel:when>
+						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/incident' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
+							<camel:setHeader headerName="notificationTopic">
+								<constant>incident</constant>
+							</camel:setHeader>
+						</camel:when>
+						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/criminalHistoryCycleTrackingIdentifierAssignment' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'</camel:xpath>
+							<camel:setHeader headerName="notificationTopic">
+								<constant>criminalHistoryCycleTrackingIdentifierAssignment</constant>
+							</camel:setHeader>
+						</camel:when>
+						<camel:otherwise>
+							<camel:log message="Notification does not contain a valid topic" />
+						</camel:otherwise>
+					</camel:choice>
+					<camel:to uri="direct:processNotification" />
+				</camel:when>
+				<camel:when>
+					<camel:simple>${in.header.operationName} == 'Subscribe'</camel:simple>
+					<camel:log message="In subscribe block" />
+					<camel:doTry>
+						<camel:setHeader headerName="subscriptionOwner">
+							<constant>SYSTEM</constant>
+						</camel:setHeader>
+						<camel:to uri="direct:processSubscription" />
+						<camel:doCatch>
+							<camel:exception>java.lang.Exception</camel:exception>
+							<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO" />
+							<camel:to uri="bean:genericFaultProcessor?method=createFault" />
+						</camel:doCatch>
+					</camel:doTry>
+				</camel:when>
+
+				<camel:when>
+					<camel:simple>${in.header.operationName} == 'GetCurrentMessage'</camel:simple>
+					<camel:log message="In get current message" />
+					<camel:to uri="bean:genericFaultProcessor?method=createFault" />
+				</camel:when>
+
+				<camel:when>	      
+					<camel:simple>${in.header.operationName} == 'RegisterPublisher'</camel:simple>
+					<camel:log message="In register publisher service" />
+					<camel:to uri="bean:genericFaultProcessor?method=createFault" />
+				</camel:when>
+			</camel:choice>
+		</camel:route>
+
+		<camel:route id="processSubscriptions">
+
+			<camel:from uri="direct:processSubscription" />
+
+			<transacted ref="txPolicy"/>
+
+			<camel:choice>
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/arrest' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/arrest'</camel:xpath>
+					<camel:to uri="direct:processSubscriptionArrest" />
+				</camel:when>
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/incident' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
+					<camel:to uri="direct:processSubscriptionIncident" />
+				</camel:when>
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/criminalHistoryCycleTrackingIdentifierAssignment' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'</camel:xpath>
+					<camel:to uri="direct:processSubscriptionChCycle" />
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="Subscription does not contain valid topic" />
+					<camel:throwException ref="invalidTopicException" />
+				</camel:otherwise>
+			</camel:choice>
+
+		</camel:route>
+
+		<camel:route>
+    
+			<camel:from uri="subscriptionManagerServiceEndpoint" />
+
+			<camel:log message="This is the operation: ${header.operationName}" />
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.header.operationName} == 'Unsubscribe'</camel:simple>
+					<camel:log message="In unsubscribe block" />
+
+					<camel:setHeader headerName="subscriptionOwner">
+						<constant>SYSTEM</constant>
+					</camel:setHeader>
+
+					<camel:to uri="direct:processUnsubscription" />
+				</camel:when>
+			</camel:choice>
+		</camel:route>
+
+		<camel:route id="processUnsubscriptions">
+    
+			<camel:from uri="direct:processUnsubscription" />
+
+			<camel:choice>
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/arrest' and
+	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/arrest'</camel:xpath>
+					<camel:to uri="direct:processUnsubscribeArrest" />
+				</camel:when>
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/incident' and
+	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
+					<camel:to uri="direct:processUnsubscribeIncident" />
+				</camel:when>
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/criminalHistoryCycleTrackingIdentifierAssignment' and
+	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'</camel:xpath>
+					<camel:to uri="direct:processUnsubscribeChCycle" />
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="Unsubscription does not contain valid topic" />
+					<camel:to uri="bean:genericFaultProcessor?method=createFault" />
+				</camel:otherwise>
+			</camel:choice>
+		</camel:route>
+   
+		<camel:route>
+			<camel:from uri="direct:processSubscriptionArrest" />
+			<camel:log message="Processing Subscription (arrest)" />
+			<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+		</camel:route>
+
+		<camel:route>
+			<camel:from uri="direct:processSubscriptionIncident" />
+			<camel:log message="Processing Subscription (incident)" />
+			<camel:to uri="bean:incidentSubscriptionProcessor?method=subscribe" />
+		</camel:route>
+	
+												
+		<camel:route>
+			<camel:from uri="direct:processSubscriptionChCycle" />
+			<camel:log message="Processing Subscription(ChCycle)" />
+			<camel:to uri="bean:chCycleSubscriptionProcessor?method=subscribe" />
+		</camel:route>		
+			
+		<camel:route>
+			<camel:from uri="direct:processUnsubscribeChCycle" />
+			<camel:log message="Processing Unsubscription(ChCycle)" />
+			<camel:to uri="bean:chCycleSubscriptionProcessor?method=unsubscribe" />
+		</camel:route>
+	
+		
+		<camel:route>
+			<camel:from uri="direct:processUnsubscribeArrest" />
+			<camel:log message="Processing Unsubscription (arrest)" />
+			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />
+		</camel:route>		
+			
+		<camel:route>
+			<camel:from uri="direct:processUnsubscribeIncident" />
+			<camel:log message="Processing Unsubscription (incident)" />
+			<camel:to uri="bean:incidentSubscriptionProcessor?method=unsubscribe" />
+		</camel:route>
+
+		<camel:route>
+
+			<camel:from uri="direct:processNotification" />
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
+					<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
+				</camel:when>
+				<camel:when>
+					<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
+					<camel:to uri="bean:incidentNotificationProcessor?method=findSubscriptionsForNotification" />
+				</camel:when>
+				<camel:when>
+					<camel:simple>${in.header.notificationTopic} == 'criminalHistoryCycleTrackingIdentifierAssignment'</camel:simple>
+					<camel:to uri="bean:chCycleNotificationProcessor?method=findSubscriptionsForNotification" />
+				</camel:when>
+			</camel:choice>
+
+			<camel:split>
+
+				<camel:header>emailNotifications</camel:header>
+
+				<camel:choice>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
+						<camel:to uri="bean:arrestNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
+						<camel:to uri="bean:incidentNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'criminalHistoryCycleTrackingIdentifierAssignment'</camel:simple>
+						<camel:to uri="bean:chCycleNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+				</camel:choice>
+
+				<camel:setHeader headerName="emailBody">
+					<camel:simple>${body}</camel:simple>
+				</camel:setHeader>
+
+				<camel:choice>
+					<camel:when>    			
+    				<!-- If this notification object has some blocked (non-whitelisted) email addresses -->
+						<camel:simple>${in.header.blocked} != '[]'</camel:simple>
+
+						<camel:split>
+
+							<camel:header>blocked</camel:header>
+
+							<camel:setHeader headerName="blockedAddress">
+								<camel:simple>${body}</camel:simple>
+							</camel:setHeader>
+							<camel:setBody>
+								<camel:simple>${header.emailBody}</camel:simple>
+							</camel:setBody>
+
+							<camel:setHeader headerName="CamelFileName">
+								<camel:simple>${date:now:yyyyMMdd}/${header.blockedAddress}_${in.header.subjectIdentifier}_${date:now:yyyy-MM-ddhhmmss}.txt</camel:simple>
+							</camel:setHeader>
+
+							<camel:log
+								message="The email address ${header.blockedAddress} is not in the white list and will be written to the file system with the name ${in.header.CamelFileName}"
+								logName="notificationLogger" />
+						
+						<!-- We throttle here in case multiple messages come in at the same time -->
+							<camel:throttle timePeriodMillis="1000">
+								<camel:constant>1</camel:constant>
+								<camel:to uri="notificationNonwhitelistFileDrop" />
+							</camel:throttle>
+
+						</camel:split>
+
+					</camel:when>
+
+					<camel:when>
+				
+					<!-- When this notification object has a non-null "to" address (i.e., a valid email can be sent) -->
+						<camel:simple>${in.header.to} != null</camel:simple>
+					
+						<camel:log message="headers: ${in.headers}" />
+						<camel:log message="Email Address is in whitelist: TO=${in.header.to}" />
+
+						<camel:to uri="direct:processEmailNotifications" />
+
+					</camel:when>
+
+					<camel:otherwise>
+
+						<camel:log loggingLevel="WARN"
+							message="Invalid email notification, contained no to: address and no blocked (non-whitelisted) addresses. Header info follows:" />
+						<camel:log loggingLevel="WARN" message="headers: ${in.headers}" />
+
+					</camel:otherwise>
+
+				</camel:choice>
+
+			</camel:split>
+
+		</camel:route>
+
+		<camel:route>
+			<camel:from uri="direct:processEmailNotifications" />
+			<camel:log message="The email address(es) ${in.header.to} will be sent a notification.  To: ${in.header.to}, CC: ${in.header.cc}, BCC: ${in.header.bcc}"
+				logName="notificationLogger" />
+
+			<removeHeaders pattern="emailBody" />
+
+			<camel:choice>
+				<camel:when>
+					<method ref="sendEmailNotificationsByConfigurationProcessor" method="sendEmailNotificationsToRecipients" />
+					<camel:to uri="smtpEndpoint" />
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="No email will be sent, email property sendEmailNotifications set to false"></camel:log>
+				</camel:otherwise>
+			</camel:choice>
+		</camel:route>
+
+	</camel:camelContext>
+
+	<bean id="genericFaultProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor" />
+
+	<bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
+		<property name="dataSource" ref="dataSource" />
+		<property name="faultMessageProcessor" ref="faultMessageProcessor" />
+	</bean>
+  
+  <!-- Only use this setting when doing a bulk load, otherwise comment it out. -->
+	<bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
+		<property name="name" value="default" />
+		<property name="queueSize" value="2048" />
+	</bean>
+
+	<bean id="invalidTopicException" class="org.ojbc.intermediaries.sn.exception.InvalidTopicException">
+		<constructor-arg index="0" value="Invalid topic in message." />
+	</bean>
+
+	<bean id="accessControlProcessor" class="org.ojbc.processor.accesscontrol.AccessControlProcessor" />
+
+	<bean id="sendEmailNotificationsByConfigurationProcessor" class="org.ojbc.processor.BooleanPropertyWrapper">
+		<property name="booleanProperty" value="${publishSubscribe.sendEmailNotifications}" />
+	</bean>
+  
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="txPolicy" class="org.apache.camel.spring.spi.SpringTransactionPolicy">
+		<property name="transactionManager" ref="txManager" />
+		<property name="propagationBehaviorName" value="PROPAGATION_REQUIRED" />
+	</bean>
+
+</beans>

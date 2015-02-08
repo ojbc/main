@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.ojbc.bundles.intermediaries.sn</groupId>
+	<artifactId>Subscription_Notification_Service_Intermediary_Common</artifactId>
+	<packaging>bundle</packaging>
+	<version>1.0.0</version>
+
+	<name>OJB :: Subscription_Notification_Service_Intermediary_Common :: Intermediary</name>
+	<url>http://www.ojbc.org</url>
+
+
+	<properties>
+		<jodatime-version>1.6.2</jodatime-version>
+		<commons-lang-version>2.4</commons-lang-version>
+		<ojbc-resources-version>2.0.0</ojbc-resources-version>
+		<ojbc-utilities-version>[1.0.22,)</ojbc-utilities-version>
+		<ojbc-niem-dom-utilities-version>1.0.2</ojbc-niem-dom-utilities-version>
+		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+		<slf4j-version>1.6.4</slf4j-version>
+		<log4j-version>1.2.16</log4j-version>
+		<junit.version>4.10</junit.version>
+		<hamcrest.version>1.3.RC2</hamcrest.version>
+		<velocity-version>1.7</velocity-version>
+		<mockito.version>1.9.0</mockito.version>
+		<httpcomponents.version>4.2.5</httpcomponents.version>
+		<wiser.version>3.1.7</wiser.version>
+		<dbunit.version>2.4.9</dbunit.version>
+		<commonsIo.version>2.4</commonsIo.version>
+		<spring-version>3.0.7.RELEASE</spring-version>
+		<h2-mock-database-version>[1.0.0,)</h2-mock-database-version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>${velocity-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${jodatime-version}</version>
+		</dependency>
+
+		<!-- OJB Shared Bundles -->
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>OJB_Utilities</artifactId>
+			<version>${ojbc-utilities-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>OJB_Resources</artifactId>
+			<version>${ojbc-resources-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>OJB_NIEM_DOM_Utilities</artifactId>
+			<version>${ojbc-niem-dom-utilities-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit-dep</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>${dbunit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		 <dependency>
+		 	<groupId>org.ojbc.bundles.utilities</groupId>
+		 	<artifactId>h2-mock-database</artifactId>
+		 	<version>${h2-mock-database-version}</version>
+		 	<scope>test</scope>
+		 </dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hamcrest</groupId>
+					<artifactId>hamcrest-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>${hamcrest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpcomponents.version}</version>
+			<scope>test</scope>
+		</dependency>
+		 
+		<dependency>
+			<groupId>org.subethamail</groupId>
+			<artifactId>subethasmtp</artifactId>
+			<version>${wiser.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commonsIo.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<defaultGoal>install</defaultGoal>
+
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>META-INF/spring/**</include>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/main/java</directory>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>${maven-bundle-plugin-version}</version>
+				<extensions>true</extensions>
+				<configuration><instructions>
+					<Import-Package>javax.xml.*,*</Import-Package>
+					<Export-Package>org.ojbc.*</Export-Package>
+				</instructions></configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

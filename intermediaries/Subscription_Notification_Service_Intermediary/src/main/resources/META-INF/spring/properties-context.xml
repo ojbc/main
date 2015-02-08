@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+	
+	<util:properties id="classpathProperties" location="classpath:Subscription_Notification_Service_Intermediary.cfg" />
+
+	<util:properties id="contextProperties"/>
+
+	<bean id="derivedBundleOsgiProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="propertiesArray">
+			<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+				</property>
+				<property name="targetMethod">
+					<value>getPropertiesList</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+		<property name="propertiesArray" ref="propertiesList" />
+	</bean>
+	
+	<util:properties id="springProperties">
+	   <prop key="maxSubscriptionsCount">${subscriptionSearchQuery.maxSubscriptionsCount}</prop>
+	   <prop key="smtpServerName">${publishSubscribe.smtpServerName}</prop>
+	   <prop key="bcc">${publishSubscribe.bcc}</prop>
+	   <prop key="dbAuditLog">${publishSubscribe.dbAuditLog}</prop>
+  	</util:properties>
+  	
+</beans>

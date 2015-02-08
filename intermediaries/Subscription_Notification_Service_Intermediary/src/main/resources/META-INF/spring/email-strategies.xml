@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       ">
+	<!-- TODO: Remove this file once you demonstrate that the read-from-etc approach works for Hawaii
+				Note: also remove the file from src/test/resources/etc, and also email-strategies.xml from src/test/resources/META-INF/spring!
+	<import resource="file:etc/OJB_Notification_Broker_Service_Intermediary_EmailStrategyConfig.xml" /> -->
+
+</beans>	
