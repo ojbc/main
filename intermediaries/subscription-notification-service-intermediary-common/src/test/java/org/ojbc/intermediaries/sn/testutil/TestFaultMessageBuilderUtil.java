@@ -3,6 +3,7 @@ package org.ojbc.intermediaries.sn.testutil;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -32,11 +33,8 @@ public class TestFaultMessageBuilderUtil {
     {
     	Document doc = FaultMessageBuilderUtil.createUnableToValidateSubscriptionFault("12345");
     	
-    	XmlUtils.printNode(doc);
-    	
     	String fault = OJBUtils.getStringFromDocument(doc);
-    	
-    	XmlUtils.validateInstanceNonNIEMXsd("../OJB_Resources/src/main/resources/service-specifications/Subscription_Notification_Service/WSDL/wsn/b-2.xsd", fault);
+        validateAgainstWSNSpec(parseString(fault));
     	
     	assertEquals("12345", XmlUtils.xPathStringSearch(doc, "/b-2:UnableToValidateSubscriptionFault/subfltrsp-exch:SubscriptionValidationFaultResponseMessage/subfltrsp-ext:SubscriptionIdentification/nc:IdentificationID"));
     	assertEquals("Subscriptions", XmlUtils.xPathStringSearch(doc, "/b-2:UnableToValidateSubscriptionFault/subfltrsp-exch:SubscriptionValidationFaultResponseMessage/subfltrsp-ext:SubscriptionIdentification/nc:IdentificationSourceText"));
@@ -47,19 +45,13 @@ public class TestFaultMessageBuilderUtil {
     @Test
     public void testCreateUnableToDestorySubscriptionFault() throws Exception {
         String fault = FaultMessageBuilderUtil.createUnableToDestorySubscriptionFault();
-        log.debug(fault);
-
-        XmlUtils.validateInstanceNonNIEMXsd("../OJB_Resources/src/main/resources/service-specifications/Subscription_Notification_Service/WSDL/wsn/b-2.xsd", fault);
-
+        validateAgainstWSNSpec(parseString(fault));
     }
 
     @Test
     public void testCreateSubscribeCreationFailedFaultErrorResponse() throws Exception {
         String fault = FaultMessageBuilderUtil.createSubscribeCreationFailedFaultErrorResponse("Some Error Text");
-        log.debug(fault);
-
-        XmlUtils.validateInstanceNonNIEMXsd("../OJB_Resources/src/main/resources/service-specifications/Subscription_Notification_Service/WSDL/wsn/b-2.xsd", fault);
-
+        validateAgainstWSNSpec(parseString(fault));
         validateFaultResponse(fault);
     }
 
@@ -70,10 +62,7 @@ public class TestFaultMessageBuilderUtil {
         emailAddresses.add("2@2.com");
 
         String fault = FaultMessageBuilderUtil.createSubscribeCreationFailedFaultInvalidEmailResponse(emailAddresses);
-        log.debug(fault);
-
-        XmlUtils.validateInstanceNonNIEMXsd("../OJB_Resources/src/main/resources/service-specifications/Subscription_Notification_Service/WSDL/wsn/b-2.xsd", fault);
-
+        validateAgainstWSNSpec(parseString(fault));
         validateFaultResponse(fault);
 
     }
@@ -81,21 +70,22 @@ public class TestFaultMessageBuilderUtil {
     @Test
     public void testCreateSubscribeCreationFailedFaultAccessDenialResponse() throws Exception {
         String fault = FaultMessageBuilderUtil.createSubscribeCreationFailedFaultAccessDenialResponse("The user is not privileged to create subscriptions");
-        log.debug(fault);
-
-        XmlUtils.validateInstanceNonNIEMXsd("../OJB_Resources/src/main/resources/service-specifications/Subscription_Notification_Service/WSDL/wsn/b-2.xsd", fault);
-
+        validateAgainstWSNSpec(parseString(fault));
         validateFaultResponse(fault);
     }
 
     @Test
     public void testCreateUnableToDestorySubscriptionFaultAccessDenialResponse() throws Exception {
         String fault = FaultMessageBuilderUtil.createUnableToDestorySubscriptionFaultAccessDenialResponse("The user is not privileged to create subscriptions");
-        log.debug(fault);
-
-        XmlUtils.validateInstanceNonNIEMXsd("../OJB_Resources/src/main/resources/service-specifications/Subscription_Notification_Service/WSDL/wsn/b-2.xsd", fault);
-
+        validateAgainstWSNSpec(parseString(fault));
         validateFaultResponse(fault);
+    }
+    
+    private Document parseString(String s) throws Exception {
+    	DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
+		docBuilderFact.setNamespaceAware(true);
+		DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
+		return docBuilder.parse(new ByteArrayInputStream(s.getBytes()));
     }
 
     private void validateFaultResponse(String fault) throws Exception {
@@ -114,6 +104,11 @@ public class TestFaultMessageBuilderUtil {
         XmlUtils.validateInstance(iepdRootPath, "Subscription_Fault_Response.xsd", document, new ResourceResolver(iepdRootPath));
 
     }
+    
+    private void validateAgainstWSNSpec(Document response) throws Exception {
+		XmlUtils.validateInstance("service-specifications/Subscription_Notification_Service/WSDL/wsn", "b-2.xsd", response, new IEPDResourceResolver(
+				"..", "service-specifications/Subscription_Notification_Service/WSDL/wsn"));
+	}
     
     private static final class ResourceResolver extends IEPDResourceResolver {
 
