@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.ojbc.bundles.intermediaries.sn</groupId>
-	<artifactId>Subscription_Notification_Service_Intermediary</artifactId>
+	<artifactId>subscription-notification-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
 	<version>1.0.0</version>
 	<name>OJB :: Subscription_Notification_Service_Intermediary :: Intermediary</name>
@@ -108,7 +108,7 @@
 		<!-- OJB Shared Bundles -->
 		<dependency>
 			<groupId>org.ojbc.bundles.intermediaries.sn</groupId>
-			<artifactId>Subscription_Notification_Service_Intermediary_Common</artifactId>
+			<artifactId>subscription-notification-service-intermediary-common</artifactId>
 			<version>${intermediary-common-version}</version>
 		</dependency>
 		<dependency>
