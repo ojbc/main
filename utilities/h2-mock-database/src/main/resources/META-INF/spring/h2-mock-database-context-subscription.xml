@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- FYI to connect to an in-memory H2 database remotely, use a URL like:  jdbc:h2:tcp:localhost:49093/mem:subscription -->
+	<bean id="subscriptionDataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose">
+        <constructor-arg>
+            <bean class="org.h2.jdbcx.JdbcDataSource">
+                <property name="URL" value="jdbc:h2:tcp:localhost:49093/mem:subscription"/>
+                <property name="user" value="sa"/>
+             </bean>
+        </constructor-arg>
+    </bean>
+    
+    <jdbc:initialize-database data-source="subscriptionDataSource">
+        <jdbc:script location="classpath:sql-subscription/h2-schema.sql"/>
+        <jdbc:script location="classpath:sql-subscription/h2-test-data.sql"/>
+	</jdbc:initialize-database>
+	
+</beans>

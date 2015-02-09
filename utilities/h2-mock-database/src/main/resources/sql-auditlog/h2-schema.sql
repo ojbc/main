@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `AuditLog` (
+  id int identity not null,
+  origin varchar(100),
+  destination varchar(100),
+  replyTo varchar(100),
+  messageID varchar(100),
+  federationID varchar(100),
+  employerName varchar(100),
+  employerSubUnitName varchar(100),
+  userLastName varchar(100),
+  userFirstName varchar(100),
+  identityProviderID varchar(100),
+  hostAddress varchar(100),
+  camelContextID varchar(100),
+  osgiBundleName varchar(100),
+  osgiBundleVersion varchar(20),
+  osgiBundleDescription varchar(100),
+  soapMessage clob,
+  timestamp TIMESTAMP AS CURRENT_TIMESTAMP() 
+);
