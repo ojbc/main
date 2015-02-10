@@ -4,15 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.ojbc.util.OJBUtils;
-import org.ojbc.util.xml.IEPDResourceResolver;
-import org.ojbc.util.xml.XmlUtils;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -23,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,7 +34,7 @@ import org.w3c.dom.Node;
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml", "classpath:META-INF/spring/h2-mock-database-context-subscription.xml", })
 @DirtiesContext
 public class TestSubscriptionValidationMessageProcessor {
-	
+
 	private static final Log log = LogFactory.getLog(TestSubscriptionValidationMessageProcessor.class);
 
 	@Resource
@@ -76,8 +75,12 @@ public class TestSubscriptionValidationMessageProcessor {
 	}
 
 	private void validateAgainstWSNSpec(Document response) throws Exception {
-		XmlUtils.validateInstance("service-specifications/Subscription_Notification_Service/WSDL/wsn", "b-2.xsd", response, new IEPDResourceResolver(
-				"..", "service-specifications/Subscription_Notification_Service/WSDL/wsn"));
+		 String b2RootXsdPath = "service-specifications/Subscription_Notification_Service/WSDL/wsn/b-2.xsd";
+         String b2RootXsdDir =  "service-specifications/Subscription_Notification_Service/WSDL/wsn";
+         String wsdlDir = "service-specifications/Subscription_Notification_Service/WSDL";
+         String subNotDir = "service-specifications/Subscription_Notification_Service";
+         List<String> xsdDirPaths = Arrays.asList(b2RootXsdDir, wsdlDir, subNotDir);
+         XmlUtils.validateInstanceWithAbsoluteClasspaths(b2RootXsdPath, xsdDirPaths, response);
 	}
 
 	@Test
