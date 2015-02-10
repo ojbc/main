@@ -17,7 +17,7 @@
         </constructor-arg>
     </bean>
     
-    <jdbc:initialize-database data-source="policyAcknowledgementDataSource">
+    <jdbc:initialize-database data-source="policyAcknowledgementDataSource" ignore-failures="ALL">
 		<jdbc:script location="classpath:sql-policy-acknowledgement/h2-schema.sql"/>
 		<jdbc:script location="classpath:sql-policy-acknowledgement/h2-test-data.sql"/>
 	</jdbc:initialize-database>

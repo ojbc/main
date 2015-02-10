@@ -17,7 +17,7 @@
         </constructor-arg>
     </bean>
     
-    <jdbc:initialize-database data-source="subscriptionDataSource">
+    <jdbc:initialize-database data-source="subscriptionDataSource" ignore-failures="ALL">
         <jdbc:script location="classpath:sql-subscription/h2-schema.sql"/>
         <jdbc:script location="classpath:sql-subscription/h2-test-data.sql"/>
 	</jdbc:initialize-database>

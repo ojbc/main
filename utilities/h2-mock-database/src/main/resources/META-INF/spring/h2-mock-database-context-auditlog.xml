@@ -18,7 +18,7 @@
         </constructor-arg>
     </bean>
     
-    <jdbc:initialize-database data-source="auditLogDataSource">
+    <jdbc:initialize-database data-source="auditLogDataSource" ignore-failures="ALL">
 		<jdbc:script location="classpath:sql-auditlog/h2-schema.sql"/>
 	</jdbc:initialize-database>
 	
