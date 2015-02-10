@@ -12,7 +12,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 	
-	<util:properties id="classpathProperties" location="classpath:Subscription_Notification_Service_Intermediary.cfg" />
+	<util:properties id="classpathProperties" location="classpath:subscription-notification-service-intermediary.cfg" />
 
 	<util:properties id="contextProperties"/>
 
@@ -20,7 +20,7 @@
 		<property name="propertiesArray">
 			<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 				<property name="targetObject">
-					<ref bean="org.ojbc.bundles.intermediaries.Subscription_Notification_Service_Intermediary-context" />
+					<ref bean="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
 				</property>
 				<property name="targetMethod">
 					<value>getPropertiesList</value>
