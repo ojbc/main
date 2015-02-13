@@ -14,11 +14,64 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 
 public class EmailEnhancementStrategyTest {
     
     private static final Log log = LogFactory.getLog(EmailEnhancementStrategyTest.class);
 
+    @Test
+    public void testTopicMapEmailEnhancementStrategy() throws Exception {
+    	
+    	Map<String, EmailEnhancementStrategy> strategyTopicMap = new HashMap<String, EmailEnhancementStrategy>();
+    	strategyTopicMap.put("{http://ojbc.org/wsn/topics}:person/arrest", new EmailEnhancementStrategy() {
+			@Override
+			public EmailNotification enhanceEmail(EmailNotification emailNotification) {
+				emailNotification.setSubjectName("arrestTopicName");
+				return emailNotification;
+			}
+		});
+    	strategyTopicMap.put("{http://ojbc.org/wsn/topics}:person/incident", new EmailEnhancementStrategy() {
+			@Override
+			public EmailNotification enhanceEmail(EmailNotification emailNotification) {
+				emailNotification.setSubjectName("incidentTopicName");
+				return emailNotification;
+			}
+		});
+    	TopicMapEmailEnhancementStrategy strategy = new TopicMapEmailEnhancementStrategy();
+    	strategy.setDefaultStrategy(new EmailEnhancementStrategy() {
+			@Override
+			public EmailNotification enhanceEmail(EmailNotification emailNotification) {
+				emailNotification.setSubjectName("defaultTopicName");
+				return emailNotification;
+			}
+		});
+    	strategy.setStrategyTopicMap(strategyTopicMap);
+    	
+    	EmailNotification n = new EmailNotification();
+        n.setSubjectName("subjectName");
+        NotificationRequest notificationRequest = new ArrestNotificationRequest(TestNotificationBuilderUtil.getMessageBody("src/test/resources/xmlInstances/notificationSoapRequest.xml"));
+        n.setNotificationRequest(notificationRequest);
+        
+        assertEquals("arrestTopicName", strategy.enhanceEmail(n).getSubjectName());
+        
+        n = new EmailNotification();
+        n.setSubjectName("subjectName");
+        notificationRequest = new ArrestNotificationRequest(TestNotificationBuilderUtil.getMessageBody("src/test/resources/xmlInstances/notificationSoapRequest-incident.xml"));
+        n.setNotificationRequest(notificationRequest);
+        
+        assertEquals("incidentTopicName", strategy.enhanceEmail(n).getSubjectName());
+    	
+        n = new EmailNotification();
+        n.setSubjectName("subjectName");
+        notificationRequest = new ArrestNotificationRequest(TestNotificationBuilderUtil.getMessageBody("src/test/resources/xmlInstances/notificationMessage-crimHistCycleUpdate.xml"));
+        n.setNotificationRequest(notificationRequest);
+        
+        assertEquals("defaultTopicName", strategy.enhanceEmail(n).getSubjectName());
+    	
+    }
+    
     @Test
     public void testDefaultEnhancementStrategy() {
 
