@@ -163,7 +163,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		for (WiserMessage email : emails) {
 		    
 			String emailMessage = dumpEmail(email);
-			assertThat(emailMessage.replaceAll("[\r\n\t]", ""), containsString("ARREST CHARGES:<br/>Description: KEEP PISTOL Severity: FB, ARN: 14-377370<br/>Description: ELECTRIC GUNS Severity: MD, ARN: 14-377371<br/><br/><br/>Positively identified by fingerprint."));
+			assertThat(emailMessage.replaceAll("[\r\n\t]", ""), containsString("ARREST CHARGES:<br/>Description: KEEP PISTOL Severity: FB, ARN: 14-377370<br/>Description: ELECTRIC GUNS Severity: MD, ARN: 14-377371<br/><br/><br/>Positively identified by fingerprint in demostate."));
 		}
 		
 	}

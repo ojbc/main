@@ -18,12 +18,12 @@
 			<value><![CDATA[Booking Name: $emailNotification.notificationRequest.personBookingName<br/>Name in $subscribingSystemDescriptor: $emailNotification.subjectName<br/>
 SID: $emailNotification.notificationRequest.subjectIdentifiers.get("SID")<br/>
 DATE/TIME OF BOOKING: $emailNotification.notificationRequest.bookingDateTimeDisplay<br/>
-ARRESTING AGENCY: $emailNotification.notificationRequest.notifyingAgencyName<br/>ATTORNEY GENERAL CASE: $emailNotification.notificationRequest.attorneyGeneralIndicator<br/>
+ARRESTING AGENCY: $emailNotification.notificationRequest.notifyingAgencyName<br/>
 ARREST CHARGES:<br/>
 #foreach ($chargeString in $emailNotification.notificationRequest.arrestCharges)
 $chargeString<br/>
 #end
-<br/><br/>Positively identified by fingerprint.]]></value>
+<br/><br/>Positively identified by fingerprint in demostate.]]></value>
 		</property>
 	</bean>
        
