@@ -297,7 +297,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
         
         //There will be two notifications because we are BCCing based on the BCC property defined in the config file
         notifyAndAssertBasics("notificationSoapRequest-incident.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/jxdm41:Incident/nc:ActivityDate", 
-                "An individual for whom you have subscribed to be notified was involved in an incident documented by the following law enforcement agency:<br/>\n" +
+                "An individual for whom you have subscribed to be notified was involved in an incident documented by the following demostate law enforcement agency:<br/>\n" +
                 "Montpelier Police Department<br/>\n" +
                 "Incident Date/Time: " + dateString +"<br/>\n" +
                 "Incident Report #:123457 <br/>\n" +

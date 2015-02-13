@@ -41,7 +41,7 @@ $chargeString<br/>
 			<value>Incident Notification [Subject $emailNotification.subjectName]</value>
 		</property>
 		<property name="emailBodyTemplate">
-			<value><![CDATA[An individual for whom you have subscribed to be notified was involved in an incident documented by the following law enforcement agency:<br/>
+			<value><![CDATA[An individual for whom you have subscribed to be notified was involved in an incident documented by the following demostate law enforcement agency:<br/>
 $emailNotification.notificationRequest.notifyingAgencyName<br/>
 Incident Date/Time: $emailNotification.notificationRequest.incidentDateTimeDisplay<br/>
 Incident Report #:$emailNotification.notificationRequest.notificationEventIdentifier <br/>
