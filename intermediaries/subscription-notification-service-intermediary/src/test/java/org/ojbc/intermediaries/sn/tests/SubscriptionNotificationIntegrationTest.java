@@ -289,13 +289,14 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	
     @Test
     public void notificationIncident() throws Exception {
+    	
+
         String response = invokeRequest("subscribeSoapRequest-incident.xml", notificationBrokerUrl);
         
         assertThat(response, containsString("<wsnt:SubscriptionReference>"));   
         
         String dateString = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         
-        //There will be two notifications because we are BCCing based on the BCC property defined in the config file
         notifyAndAssertBasics("notificationSoapRequest-incident.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/jxdm41:Incident/nc:ActivityDate", 
                 "An individual for whom you have subscribed to be notified was involved in an incident documented by the following demostate law enforcement agency:<br/>\n" +
                 "Montpelier Police Department<br/>\n" +
@@ -304,8 +305,8 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
                 "Subject Name: Doe, John<br/>\n" +
                 "Subject date of birth:1980-01-01<br/>\n" +
                 "Role: Witness<br/>\n" +
-                "Offense Code: Driving Under Influence, Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D<br/>\n" +
-                "Offense Code: Robbery, Offense Description: Robbery<br/>\n" +
+                "Offense Code: Driving Under Influence<br/>Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D<br/><br/>\n" +
+                "Offense Code: Robbery<br/>Offense Description: Robbery<br/><br/>\n" +
                 "Officer: Clancy Wiggum<br/>\n" +
                 "To follow up on this incident, please call Montpelier Police Department."
                 , 3);

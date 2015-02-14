@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.notification.Offense;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
-
-import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -66,6 +65,14 @@ public class NotificationBrokerUtils {
         return topic;
     }
     
+    /**
+     * This method will return a list of Offense String that are used to create email notification text in a velocity template.
+     * 
+     * It is cleaner to do this in Java rather than velocity.
+     * 
+     * @param offenses
+     * @return
+     */
     public static List<String> getOffenseStrings(List<Offense> offenses) {
 
         // Add offense info
@@ -73,24 +80,23 @@ public class NotificationBrokerUtils {
 
         if (offenses != null) {
             for (Offense offense : offenses) {
-                StringBuffer emailBody = new StringBuffer();
+                StringBuffer offenseString = new StringBuffer();
                 if (StringUtils.isNotEmpty(offense.getFbiNdexCode()) || StringUtils.isNotBlank(offense.getOffenseCategoryText()) || StringUtils.isNotBlank(offense.getOffenseDescriptionText())) {
                     // If both are set, then the NDex code is displayed. Or If just Ndex code is set, only display ndex code
                     if ((StringUtils.isNotEmpty(offense.getFbiNdexCode()) && StringUtils.isNotEmpty(offense.getOffenseCategoryText())) || StringUtils.isNotEmpty(offense.getFbiNdexCode())) {
-                        emailBody.append("Offense Code: " + offense.getFbiNdexCode() + ", ");
+                        offenseString.append("Offense Code: " + offense.getFbiNdexCode() + "<br/>");
                     }
 
                     // If offense category is set but ndex is not set, display offense category
                     if (StringUtils.isNotEmpty(offense.getOffenseCategoryText()) && StringUtils.isEmpty(offense.getFbiNdexCode())) {
-                        emailBody.append("Offense Code: " + offense.getOffenseCategoryText() + ", ");
+                        offenseString.append("Offense Code: " + offense.getOffenseCategoryText() + "<br/>");
                     }
 
                     if (StringUtils.isNotEmpty(offense.getOffenseDescriptionText())) {
-                        emailBody.append("Offense Description: " + offense.getOffenseDescriptionText() + ", ");
+                        offenseString.append("Offense Description: " + offense.getOffenseDescriptionText() + "<br/>");
                     }
-
-                    emailBody.delete(emailBody.length() - 2, emailBody.length());
-                    ret.add(emailBody.toString());
+                    
+                    ret.add(offenseString.toString());
 
                 }
             }

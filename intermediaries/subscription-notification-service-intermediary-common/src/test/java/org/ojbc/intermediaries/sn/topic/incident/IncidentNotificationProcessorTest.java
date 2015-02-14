@@ -40,9 +40,9 @@ public class IncidentNotificationProcessorTest {
     "Subject Name: Doe, John<br/>\n" +
     "Subject date of birth:1980-01-01<br/>\n" +
     "Role: Witness<br/>\n" +
-    "Offense Code: Driving Under Influence, Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D<br/>\n" +
-    "Offense Code: ROB, Offense Description: Robbery<br/>\n" +
-    "Offense Code: Driving Under Influence, Offense Description: DUI<br/>\n" +
+    "Offense Code: Driving Under Influence<br/>Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D<br/><br/>\n" +
+    "Offense Code: ROB<br/>Offense Description: Robbery<br/><br/>\n" +
+    "Offense Code: Driving Under Influence<br/>Offense Description: DUI<br/><br/>\n" +
     "To follow up on this incident, please call Montpelier Police Department.";
     
     private static final Log log = LogFactory.getLog(IncidentNotificationProcessorTest.class);
@@ -56,7 +56,7 @@ public class IncidentNotificationProcessorTest {
         EmailNotification email = new EmailNotification();
         email.addToAddressee("po1@localhost");
         email.setSubjectName("offenderName");
-        email.setSubscribingSystemIdentifier("{http://demostate.gov/SystemNames/1.0}SystemA");
+        email.setSubscribingSystemIdentifier("{http://hijis.hawaii.gov/ParoleCase/1.0}HawaiiParolingAuthority");
         email.setNotificationRequest(new IncidentNotificationRequest(getNotificationMessage()));
         
         Exchange e = new DefaultExchange((CamelContext) null);

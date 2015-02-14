@@ -98,8 +98,8 @@ public class ArrestNotificationRequestTest {
         List<String> arrestOffenses = request.getOffenseStrings();
         assertEquals(2, arrestOffenses.size());
         
-        assertEquals("Offense Code: Driving Under Influence, Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D", arrestOffenses.get(0));
-        assertEquals("Offense Code: Robbery, Offense Description: Robbery", arrestOffenses.get(1));
+        assertEquals("Offense Code: Driving Under Influence<br/>Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D<br/>", arrestOffenses.get(0));
+        assertEquals("Offense Code: Robbery<br/>Offense Description: Robbery<br/>", arrestOffenses.get(1));
         
         List<String> officerNames = request.getOfficerNames();
         assertEquals(2, officerNames.size());
@@ -170,8 +170,8 @@ public class ArrestNotificationRequestTest {
         List<String> arrestOffenses = request.getOffenseStrings();
         assertEquals(2, arrestOffenses.size());
         
-        assertEquals("Offense Code: Driving Under Influence, Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D", arrestOffenses.get(0));
-        assertEquals("Offense Code: Robbery, Offense Description: Robbery", arrestOffenses.get(1));
+        assertEquals("Offense Code: Driving Under Influence<br/>Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D<br/>", arrestOffenses.get(0));
+        assertEquals("Offense Code: Robbery<br/>Offense Description: Robbery<br/>", arrestOffenses.get(1));
         
         List<String> officerNames = request.getOfficerNames();
         assertEquals(2, officerNames.size());

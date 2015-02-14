@@ -59,7 +59,7 @@ public class IncidentNotificationRequestTest {
 		
 		List<String> offenseStrings = request.getOffenseStrings();
 		assertEquals(2, offenseStrings.size());
-		assertEquals("Offense Code: Driving Under Influence, Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D", offenseStrings.get(0));
+		assertEquals("Offense Code: Driving Under Influence<br/>Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D<br/>", offenseStrings.get(0));
 		
 		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/incident"));
 		
