@@ -32,7 +32,7 @@ $chargeString<br/>
 			<value>CH Cycle Notification [Subject $emailNotification.subjectName]</value>
 		</property>
 		<property name="emailBodyTemplate">
-			<value><![CDATA[$emailNotification.notificationRequest.notifyingAgencyName requested an Arrest Tracking Number(ATN) for $emailNotification.notificationRequest.personFullName on $emailNotification.notificationRequest.eventDateTimeDisplay]]></value>
+			<value><![CDATA[$emailNotification.notificationRequest.notifyingAgencyName requested a demostate Arrest Tracking Number(ATN) for $emailNotification.notificationRequest.personFullName on $emailNotification.notificationRequest.eventDateTimeDisplay]]></value>
 		</property>
 	</bean>
        
