@@ -1,0 +1,204 @@
+package org.ojbc.util.camel.processor;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.ExchangePattern;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.cxf.CxfConstants;
+import org.apache.camel.impl.DefaultExchange;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.endpoint.Client;
+import org.ojbc.util.camel.helper.OJBUtils;
+
+public class MessageProcessor {
+	
+	private static final Log log = LogFactory.getLog( MessageProcessor.class );
+	
+	private String operationName;
+	private String operationNamespace;
+	private String destinationEndpoint;
+	
+	/**
+	 * By Default, the MessageProcessor will assume an asynchronous service
+	 */
+	private boolean callServiceSynchronous = false;
+	
+	/**
+	 * This method will extract a message ID from the Soap header and set that as a GUID to correlate requests and responses
+	 * It also creates a header that can be used to make a file name from the Message ID that works on all platforms.
+	 * 
+	 * @param exchange
+	 * @throws Exception
+	 */
+	
+	public void processRequestPayload(Exchange exchange) throws Exception
+	{
+		HashMap<String, String> wsAddressingHeadersMap = OJBUtils.returnWSAddressingHeadersFromCamelSoapHeaders(exchange);
+		
+		String requestID = wsAddressingHeadersMap.get("MessageID");	
+		
+		String replyTo = wsAddressingHeadersMap.get("ReplyTo");
+
+		if (StringUtils.isNotBlank(replyTo))
+		{
+			exchange.getIn().setHeader("WSAddressingReplyTo", replyTo);
+		}	
+		
+		if (StringUtils.isNotBlank(requestID))
+		{
+			String platformSafeFileName = requestID.replace(":", "");
+			exchange.getIn().setHeader("federatedQueryRequestGUID", requestID);
+			exchange.getIn().setHeader("platformSafeFileName", platformSafeFileName);
+		}
+		else
+		{
+			throw new Exception("Unable to find unique ID in Soap Header.  Was the message ID set in the Soap WS Addressing header?");
+		}	
+
+	}
+
+	
+	
+	
+	public void sendResponseMessage(CamelContext context, Exchange exchange) throws Exception
+	{
+		Exchange senderExchange = null;
+	
+		//If the synchronous header is set, change exchange pattern to InOut
+		if (callServiceSynchronous)
+		{
+			senderExchange = new DefaultExchange(context, ExchangePattern.InOut);
+		}	
+		else
+		{
+			senderExchange = new DefaultExchange(context, ExchangePattern.InOnly);
+		}	
+		
+		//This is used to propogate SAML tokens
+		String tokenID = (String)exchange.getIn().getHeader("tokenID");
+
+		if (StringUtils.isNotEmpty(tokenID))
+		{	
+			log.debug("Saml Token ID in Message Processor: " + tokenID);
+			senderExchange.getIn().setHeader("tokenID", tokenID);
+		}
+
+				
+		String requestID = (String)exchange.getIn().getHeader("federatedQueryRequestGUID");
+		
+    	//Create a new map with WS Addressing message properties that we want to override
+		HashMap<String, String> wsAddressingMessageProperties = new HashMap<String, String>();
+		wsAddressingMessageProperties.put("MessageID",requestID);
+
+		String replyTo = (String)exchange.getIn().getHeader("WSAddressingReplyTo");
+
+		if (StringUtils.isNotEmpty(replyTo))
+		{	
+			log.debug("WS Addressing Reply To Camel Header: " + replyTo);
+			wsAddressingMessageProperties.put("ReplyTo",replyTo);
+		}
+		
+		//Call method to create proper request context map
+		Map<String, Object> requestContext = OJBUtils.setWSAddressingProperties(wsAddressingMessageProperties);
+		
+		senderExchange.getIn().setHeader(Client.REQUEST_CONTEXT , requestContext);
+		
+        senderExchange.getIn().setBody(exchange.getIn().getBody());
+        
+	    ProducerTemplate template = context.createProducerTemplate();
+
+	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAME, getOperationName());
+	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, getOperationNamespace());
+	    
+		Exchange returnExchange = template.send("cxf:bean:" + destinationEndpoint + "?dataFormat=PAYLOAD",
+				senderExchange);
+		
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+	}
+	
+	/**
+	 * This method will use an existing exchange and set the 'out' message with the WS-Addressing message ID.  This removes all the headers from the 'in'
+	 * message which tend to confuse Camel.
+	 * 
+	 * @param exchange
+	 * @throws Exception
+	 */
+	public void prepareNewExchangeResponseMessage(Exchange exchange) throws Exception
+	{
+		String requestID = (String)exchange.getIn().getHeader("federatedQueryRequestGUID");
+		log.debug("Federeated Query Request ID: " + requestID);
+
+    	//Create a new map with WS Addressing message properties that we want to override
+		HashMap<String, String> wsAddressingMessageProperties = new HashMap<String, String>();
+		
+		if (StringUtils.isNotEmpty(requestID))
+		{	
+			wsAddressingMessageProperties.put("MessageID",requestID);
+		}
+
+		String replyTo = (String)exchange.getIn().getHeader("WSAddressingReplyTo");
+
+		if (StringUtils.isNotEmpty(replyTo))
+		{	
+			log.debug("WS Addressing Reply To Camel Header: " + replyTo);
+			wsAddressingMessageProperties.put("ReplyTo",replyTo);
+		}
+			
+		//Call method to create proper request context map
+		Map<String, Object> requestContext = OJBUtils.setWSAddressingProperties(wsAddressingMessageProperties);
+		exchange.getOut().setHeader(Client.REQUEST_CONTEXT , requestContext);
+
+		//We do this so we can preserve the recipient list rather than losing it in the out message
+		String recipientListReplyTo = (String) exchange.getIn().getHeader("recipientListReplyToEndpoint");
+		
+		if (StringUtils.isNotEmpty(recipientListReplyTo))
+		{	
+			exchange.getOut().setHeader("recipientListReplyToEndpoint", recipientListReplyTo);
+		}	
+			
+		exchange.getOut().setBody(exchange.getIn().getBody());
+	}
+
+
+	public String getOperationName() {
+		return operationName;
+	}
+
+	public void setOperationName(String operationName) {
+		this.operationName = operationName;
+	}
+
+	public String getOperationNamespace() {
+		return operationNamespace;
+	}
+
+	public void setOperationNamespace(String operationNamespace) {
+		this.operationNamespace = operationNamespace;
+	}
+
+	public String getDestinationEndpoint() {
+		return destinationEndpoint;
+	}
+
+	public void setDestinationEndpoint(String destinationEndpoint) {
+		this.destinationEndpoint = destinationEndpoint;
+	}
+
+	public boolean isCallServiceSynchronous() {
+		return callServiceSynchronous;
+	}
+
+	public void setCallServiceSynchronous(boolean callServiceSynchronous) {
+		this.callServiceSynchronous = callServiceSynchronous;
+	}
+
+}
