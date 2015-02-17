@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ca:Catalog xmlns:ca="http://niem.gov/niem/iem-catalog/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" ca:descriptionText="" s:id="_oWPtMJ0rEeCOYoYsdGRjLA" ca:iemName="Criminal History" ca:iemURI="" ca:iemVersionID="">
+  <ca:File ca:descriptionText="History of changes to this IEPD" s:id="_oWiBEJ0rEeCOYoYsdGRjLA" ca:natureURI="http://www.iana.org/assignments/media-types/application/text" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#change-log" ca:relativePathName="./changelog.txt"/>
+  <ca:File ca:descriptionText="Manifest of IEPD contents (this file)" s:id="_oWiBEZ0rEeCOYoYsdGRjLA" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#catalog" ca:relativePathName="./catalog.xml"/>
+  <ca:File ca:descriptionText="Mapping Spreadsheet" s:id="_oWiBEp0rEeCOYoYsdGRjLA" ca:natureURI="http://www.iana.org/assignments/media-types/application/vnd.ms-excel" ca:purposeURI="http://www.rddl.org/purposes#reference" ca:relativePathName="./mapping.xls"/>
+  <ca:FileSet ca:descriptionText="Subset schema set" s:id="_oWioIJ0rEeCOYoYsdGRjLA" ca:natureURI="http://niem.gov/niem/resources/natures/1#directory" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#subset" ca:relativePathName="./xsd/NIEM_2.0">
+    <ca:File ca:descriptionText="Wantlist for schema subset (wantlist.xsd)" s:id="_oWioIZ0rEeCOYoYsdGRjLA" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes#want-list" ca:relativePathName="./wantlist-NIEM_2.0.xml"/>
+  </ca:FileSet>
+  <ca:File ca:descriptionText="Extension schema" s:id="_oWioIp0rEeCOYoYsdGRjLA" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#extension-schema" ca:relativePathName="./xsd/rap-code.xsd"/>
+  <ca:File ca:descriptionText="Extension schema" s:id="_oWioI50rEeCOYoYsdGRjLA" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#extension-schema" ca:relativePathName="./xsd/RapSheet.xsd"/>
+  <ca:File ca:descriptionText="Extension schema" s:id="_oWioJJ0rEeCOYoYsdGRjLA" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#extension-schema" ca:relativePathName="./xsd/CriminalHistoryExtension.xsd"/>
+  <ca:File ca:descriptionText="Extension schema" s:id="_oWioJZ0rEeCOYoYsdGRjLA" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#extension-schema" ca:relativePathName="./xsd/ErrorReporting.xsd"/>
+  <ca:File ca:descriptionText="Exchange schema" s:id="_oWjPMJ0rEeCOYoYsdGRjLA" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#exchange-schema" ca:relativePathName="./xsd/Criminal_History.xsd"/>
+  <ca:File ca:descriptionText="Sample instance" s:id="_oWjPMZ0rEeCOYoYsdGRjLA" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#sample-instance" ca:relativePathName="./xml/Criminal_History.xml"/>
+  <ca:Metadata>
+    <ca:SecurityMarkingText></ca:SecurityMarkingText>
+    <ca:CreationDate>2010-05-26</ca:CreationDate>
+    <ca:StatusText></ca:StatusText>
+    <ca:DomainText></ca:DomainText>
+    <ca:AuthoritativeSource>
+      <ca:Name></ca:Name>
+      <ca:POC>
+        <ca:POCName></ca:POCName>
+        <ca:POCEmail></ca:POCEmail>
+        <ca:POCTelephone></ca:POCTelephone>
+      </ca:POC>
+    </ca:AuthoritativeSource>
+  </ca:Metadata>
+</ca:Catalog>
