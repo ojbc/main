@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:Q1="http://nlets.org/niem2/rapsheet/1.0/codes" xmlns:Q2="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://nlets.org/niem2/rapsheet/1.0/codes">
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="NIEM_2.0/structures/2.0/structures.xsd"/>
+  <xsd:simpleType name="PurposeCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="A"/>
+      <xsd:enumeration value="C"/>
+      <xsd:enumeration value="D"/>
+      <xsd:enumeration value="F"/>
+      <xsd:enumeration value="H"/>
+      <xsd:enumeration value="I"/>
+      <xsd:enumeration value="J"/>
+      <xsd:enumeration value="S"/>
+      <xsd:enumeration value="V"/>
+      <xsd:enumeration value="X"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="PurposeCodeType">
+    <xsd:simpleContent>
+      <xsd:extension base="Q1:PurposeCodeSimpleType">
+        <xsd:attributeGroup ref="Q2:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="IdentificationCategoryCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="Air Force Serial"/>
+      <xsd:enumeration value="Air Force Guard Serial"/>
+      <xsd:enumeration value="Alien Registration"/>
+      <xsd:enumeration value="Army Serial"/>
+      <xsd:enumeration value="Bureau Fugitive Index"/>
+      <xsd:enumeration value="Canadian Social Insurance"/>
+      <xsd:enumeration value="Correctional ID"/>
+      <xsd:enumeration value="Identification Order"/>
+      <xsd:enumeration value="Marine Corps Serial"/>
+      <xsd:enumeration value="Mariner's Document ID"/>
+      <xsd:enumeration value="National Agency Case"/>
+      <xsd:enumeration value="National Guard Serial"/>
+      <xsd:enumeration value="Navy Serial"/>
+      <xsd:enumeration value="Offender ID"/>
+      <xsd:enumeration value="Originating Agency Police ID"/>
+      <xsd:enumeration value="Passport"/>
+      <xsd:enumeration value="Personal Identification"/>
+      <xsd:enumeration value="Port Security Card"/>
+      <xsd:enumeration value="Royal Candian Mounted Police ID"/>
+      <xsd:enumeration value="Selective Service"/>
+      <xsd:enumeration value="State ID Card"/>
+      <xsd:enumeration value="US Coast Guard Serial"/>
+      <xsd:enumeration value="Veterans Administration Claim"/>
+      <xsd:enumeration value="Unknown"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="IdentificationCategoryCodeType">
+    <xsd:simpleContent>
+      <xsd:extension base="Q1:IdentificationCategoryCodeSimpleType">
+        <xsd:attributeGroup ref="Q2:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="BloodTypeCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="A Positive"/>
+      <xsd:enumeration value="A Negative"/>
+      <xsd:enumeration value="A Unknown"/>
+      <xsd:enumeration value="AB Positive"/>
+      <xsd:enumeration value="AB Negative"/>
+      <xsd:enumeration value="AB Unknown"/>
+      <xsd:enumeration value="B Positive"/>
+      <xsd:enumeration value="B Negative"/>
+      <xsd:enumeration value="B Unknown"/>
+      <xsd:enumeration value="O Positive"/>
+      <xsd:enumeration value="O Negative"/>
+      <xsd:enumeration value="O Unknown"/>
+      <xsd:enumeration value="Unknown"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="BloodTypeCodeType">
+    <xsd:simpleContent>
+      <xsd:extension base="Q1:BloodTypeCodeSimpleType">
+        <xsd:attributeGroup ref="Q2:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="EthnicityCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="African"/>
+      <xsd:enumeration value="Alaska Native"/>
+      <xsd:enumeration value="American Indian"/>
+      <xsd:enumeration value="Asian Indian"/>
+      <xsd:enumeration value="Black or African American"/>
+      <xsd:enumeration value="Cambodian"/>
+      <xsd:enumeration value="Central American"/>
+      <xsd:enumeration value="Chinese"/>
+      <xsd:enumeration value="European"/>
+      <xsd:enumeration value="Filipino"/>
+      <xsd:enumeration value="Great Britain"/>
+      <xsd:enumeration value="Haitian"/>
+      <xsd:enumeration value="Hispanic or Latino"/>
+      <xsd:enumeration value="Indonesian"/>
+      <xsd:enumeration value="Japanese"/>
+      <xsd:enumeration value="Korean"/>
+      <xsd:enumeration value="Malaysian"/>
+      <xsd:enumeration value="Mexican"/>
+      <xsd:enumeration value="Middle Eastern"/>
+      <xsd:enumeration value="Mixed"/>
+      <xsd:enumeration value="Native Hawaiian"/>
+      <xsd:enumeration value="Not Hispanic or Latino"/>
+      <xsd:enumeration value="Pacific Islander"/>
+      <xsd:enumeration value="Pakastani"/>
+      <xsd:enumeration value="Polynesian"/>
+      <xsd:enumeration value="Puerto Rican"/>
+      <xsd:enumeration value="Samoan"/>
+      <xsd:enumeration value="Slavic"/>
+      <xsd:enumeration value="South American"/>
+      <xsd:enumeration value="Spanish Origin"/>
+      <xsd:enumeration value="Thai"/>
+      <xsd:enumeration value="Unknown"/>
+      <xsd:enumeration value="Vietnamese"/>
+      <xsd:enumeration value="White American"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="EthnicityCodeType">
+    <xsd:simpleContent>
+      <xsd:extension base="Q1:EthnicityCodeSimpleType">
+        <xsd:attributeGroup ref="Q2:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="EyeColorCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="Black"/>
+      <xsd:enumeration value="Blue"/>
+      <xsd:enumeration value="Brown"/>
+      <xsd:enumeration value="Gray"/>
+      <xsd:enumeration value="Green"/>
+      <xsd:enumeration value="Hazel"/>
+      <xsd:enumeration value="Maroon"/>
+      <xsd:enumeration value="Multicolored"/>
+      <xsd:enumeration value="Pink"/>
+      <xsd:enumeration value="Unknown"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="EyeColorCodeType">
+    <xsd:simpleContent>
+      <xsd:extension base="Q1:EyeColorCodeSimpleType">
+        <xsd:attributeGroup ref="Q2:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="HairColorCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="Bald"/>
+      <xsd:enumeration value="Black"/>
+      <xsd:enumeration value="Blonde or Strawberry"/>
+      <xsd:enumeration value="Blue"/>
+      <xsd:enumeration value="Brown"/>
+      <xsd:enumeration value="Gray Or Partially Gray"/>
+      <xsd:enumeration value="Green"/>
+      <xsd:enumeration value="Orange"/>
+      <xsd:enumeration value="Pink"/>
+      <xsd:enumeration value="Purple"/>
+      <xsd:enumeration value="Red Or Auburn"/>
+      <xsd:enumeration value="Sandy"/>
+      <xsd:enumeration value="White"/>
+      <xsd:enumeration value="Unknown"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="HairColorCodeType">
+    <xsd:simpleContent>
+      <xsd:extension base="Q1:HairColorCodeSimpleType">
+        <xsd:attributeGroup ref="Q2:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="MaritalStatusCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="Married"/>
+      <xsd:enumeration value="Widowed"/>
+      <xsd:enumeration value="Divorced"/>
+      <xsd:enumeration value="Separated"/>
+      <xsd:enumeration value="Never Married"/>
+      <xsd:enumeration value="Unmarried Partner"/>
+      <xsd:enumeration value="Unknown"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="MaritalStatusCodeType">
+    <xsd:simpleContent>
+      <xsd:extension base="Q1:MaritalStatusCodeSimpleType">
+        <xsd:attributeGroup ref="Q2:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="RaceCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="Asian"/>
+      <xsd:enumeration value="Black"/>
+      <xsd:enumeration value="Native American"/>
+      <xsd:enumeration value="Unknown"/>
+      <xsd:enumeration value="White"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="RaceCodeType">
+    <xsd:simpleContent>
+      <xsd:extension base="Q1:RaceCodeSimpleType">
+        <xsd:attributeGroup ref="Q2:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="SexCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="Male"/>
+      <xsd:enumeration value="Female"/>
+      <xsd:enumeration value="Other"/>
+      <xsd:enumeration value="Unknown"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="SexCodeType">
+    <xsd:simpleContent>
+      <xsd:extension base="Q1:SexCodeSimpleType">
+        <xsd:attributeGroup ref="Q2:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="SkinToneCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="Albino"/>
+      <xsd:enumeration value="Black"/>
+      <xsd:enumeration value="Dark"/>
+      <xsd:enumeration value="Dark Brown"/>
+      <xsd:enumeration value="Fair"/>
+      <xsd:enumeration value="Light"/>
+      <xsd:enumeration value="Light Brown"/>
+      <xsd:enumeration value="Medium"/>
+      <xsd:enumeration value="Medium Brown"/>
+      <xsd:enumeration value="Olive"/>
+      <xsd:enumeration value="Ruddy"/>
+      <xsd:enumeration value="Sallow"/>
+      <xsd:enumeration value="Yellow"/>
+      <xsd:enumeration value="Unknown"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="SkinToneCodeType">
+    <xsd:simpleContent>
+      <xsd:extension base="Q1:SkinToneCodeSimpleType">
+        <xsd:attributeGroup ref="Q2:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>
