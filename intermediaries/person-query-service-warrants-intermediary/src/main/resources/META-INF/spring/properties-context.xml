@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+
+	<bean id="bundlePropertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="propertiesArray">
+			<array>
+				<!-- The .cfg file from the classpath will be consulted first, followed by the optional .cfg file under $SERVICEMIX_HOME/etc  -->
+				<util:properties location="classpath:main/Person_Query_Service_Warrants_Intermediary.cfg"/>
+				<osgix:cm-properties id="osgiProperties"
+					persistent-id="Person_Query_Service_Warrants_Intermediary" />
+			</array>
+		</property>
+	</bean>
+	
+	<util:properties id="springProperties">
+		<prop key="dbAuditLog">${personQuery.warrants.dbAuditLog}</prop>
+	</util:properties>	
+	
+</beans>

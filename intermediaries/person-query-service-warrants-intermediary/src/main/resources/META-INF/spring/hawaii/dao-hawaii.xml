@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<bean id="sqlLoggingProcessor" class="org.ojbc.processor.audit.SQLLoggingProcessor">
+        <property name="dataSource" ref="auditLogDataSource"/>
+    </bean>
+    
+	<!-- RDBMS datasource, this connection is pooled -->
+	<bean id="auditLogDataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close">
+		<property name="driverClassName" value="${audit.dataSource.driverClass}" />
+		<property name="url" value="${audit.dataSource.jdbcUrl}" />
+		<property name="username" value="${audit.dataSource.user}" />
+		<property name="password" value="${audit.dataSource.password}" />
+		<property name="initialSize" value="${audit.dataSource.minPoolSize}" />
+		<property name="maxActive" value="${audit.dataSource.maxPoolSize}" />
+		<property name="validationQuery" value="select 1" />
+		<property name="testOnBorrow" value="true" />
+	</bean>    
+    
+</beans>

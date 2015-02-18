@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context-->
+<!-- These are common endpoints which are used by all state implementations -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"
+       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:util="http://www.springframework.org/schema/util"        
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+       ">
+       
+       <!-- Warrants Request Service, hosted by OJB -->
+	    <cxf:cxfEndpoint 
+	        id="personQueryRequestWarrantsService"
+	        address="${federatedQuery.warrants.personQueryEndpoint}"
+	        wsdlURL="classpath:service-specifications/Person_Query_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Service_-_Warrants.wsdl"
+	        serviceName="ojbc:Person-Query-Service---WarrantsService"
+			endpointName="ojbc:Person-Query-Secure-Service---Warrants"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0"
+	    >
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="warrantsRequestKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.warrants.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>
+
+    <!-- Warrants handler, hosted by OJB --> 
+    <cxf:cxfEndpoint 
+        id="personQueryResultsHandlerWarrantsService"
+        address="${federatedQuery.warrants.personQueryResultsHandlerWarrantsEndpoint}"
+        wsdlURL="classpath:service-specifications/Person_Query_Results_Handler_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Results_Handler_Service_-_Warrants.wsdl"
+        serviceName="ojbc:Person-Query-Results-Handler-Service---WarrantsService"
+		endpointName="ojbc:Person-Query-Results-Handler-Service---Warrants"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Warrants/1.0"
+    >
+     <cxf:features>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy/>
+          </wsam:Addressing>
+        </wsp:Policy>
+       </policy:policies>
+    </cxf:features>
+   </cxf:cxfEndpoint>      
+   
+   	<bean id="passwordCallbackHandler" class="org.ojbc.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${federatedQuery.warrants.keystoreCertificateAlias}" value="${federatedQuery.warrants.keyPassword}"/>
+            </map>
+        </property>
+	</bean>
+   
+   	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.saml.OJBSimpleWSPSamlTokenValidator"/>
+
+	<util:properties id="warrantsRequestKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${federatedQuery.warrants.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${federatedQuery.warrants.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${federatedQuery.warrants.keystoreLocation}</prop>
+	</util:properties>	
+      
+      
+   	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<httpj:engine-factory id="ClientAuthHttpsSettings"
+		bus="cxf">
+		<httpj:engine port="18602">
+			<httpj:tlsServerParameters>
+				<sec:keyManagers keyPassword="${federatedQuery.warrants.keyPassword}">
+					<sec:keyStore type="jks" password="${federatedQuery.warrants.keystorePassword}" file="${federatedQuery.warrants.keystoreLocation}" />
+				</sec:keyManagers>
+				<sec:cipherSuitesFilter>
+					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				</sec:cipherSuitesFilter>
+				<sec:clientAuthentication want="false"
+					required="false" />
+			</httpj:tlsServerParameters>
+		</httpj:engine>
+	</httpj:engine-factory>    
+
+</beans>
