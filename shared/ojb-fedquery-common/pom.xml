@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ojbc.util</groupId>
-  <artifactId>ojb-fedquery-utils</artifactId>
+  <artifactId>ojb-fedquery-common</artifactId>
   <packaging>bundle</packaging>
   <version>1.0.0</version>
   <name>ojb-fedquery-common</name>
@@ -12,7 +12,7 @@
   <dependencies>   
 	  <dependency>
 	  	<groupId>org.ojbc.util</groupId>
-		<artifactId>ojb-camel-utils</artifactId>
+		<artifactId>ojb-camel-common</artifactId>
 		<version>1.0.0</version>  
 	  </dependency>  	  
 	  <dependency>
@@ -40,7 +40,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Export-Package>org.ojbc.*</Export-Package>
+						<Export-Package>org.ojbc.util.fedquery.*</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>

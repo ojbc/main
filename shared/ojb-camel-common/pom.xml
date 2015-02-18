@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.util</groupId>
-	<artifactId>ojb-camel-utils</artifactId>
+	<artifactId>ojb-camel-common</artifactId>
 	<version>1.0.0</version>
 	<name>ojb-camel-common</name>
 	<packaging>bundle</packaging>
@@ -97,7 +97,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Export-Package>org.ojbc.*</Export-Package>
+						<Export-Package>org.ojbc.util.camel.*</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>
