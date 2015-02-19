@@ -19,13 +19,6 @@
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
-	<!-- State Specific Imports -->
-	<import resource="member-context.xml"/>
-	
-	<import resource="properties-context.xml"/>
-
-	<import resource="cxf-endpoints.xml"/>  
-
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Person_Query_Service_Warrants_Intermediary">
 	
 		<camel:propertyPlaceholder id="springPropertiesToLoad" location="ref:springProperties"/>
@@ -35,6 +28,13 @@
 
 		<endpoint id="personQueryResultsHandlerWarrantsServiceEndpoint"
 			uri="cxf:bean:personQueryResultsHandlerWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.warrants.personQueryIntermediaryCxflogging}" />
+
+	    <endpoint id="personQueryRequestWarrantsServiceAdapterEndpoint" 
+	    	uri="cxf:bean:personQueryRequestWarrantsServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.warrants.personQueryIntermediaryCxflogging}"/>
+	
+		<endpoint id="presentPersonQueryResultsWarrantsServiceEndpoint" 
+			uri="cxf:bean:presentPersonQueryResultsWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.warrants.personQueryIntermediaryCxflogging}"/>                        
+
 
 		<!-- Federated Search Request Handler-->
 		<camel:route>
@@ -245,5 +245,5 @@
 	</bean>
 
 	<bean id="accessControlProcessor" class="org.ojbc.processor.accesscontrol.AccessControlProcessor" />
-
+	
 </beans>

@@ -30,10 +30,19 @@
 	<jodatime-version>1.6.2</jodatime-version>
 	<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
-
+	<osgi-core-version>1.4.0</osgi-core-version>
+	<ojb-osgi-utils-version>1.0.0</ojb-osgi-utils-version>
   </properties>
 
 	<dependencies>
+	
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>${osgi-core-version}</version>
+			<scope>provided</scope>
+		</dependency>
+			
 		<!-- Camel libs -->
 	    <dependency>
 	      <groupId>org.apache.camel</groupId>
@@ -119,6 +128,12 @@
 			<artifactId>OJB_Config</artifactId>
 			<version>${ojbc-config-version}</version>
 		</dependency>	
+		
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-osgi-utils</artifactId>
+			<version>${ojb-osgi-utils-version}</version> 
+		</dependency>
 	
 		<!-- for testing -->
 		<dependency>

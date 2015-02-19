@@ -11,21 +11,33 @@
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
+	
+	<util:properties id="classpathProperties" location="classpath:person-query-service-warrants-intermediary.cfg" />
 
-	<bean id="bundlePropertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<util:properties id="contextProperties"/>
+
+	<bean id="derivedBundleOsgiProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="propertiesArray">
-			<array>
-				<!-- The .cfg file from the classpath will be consulted first, followed by the optional .cfg file under $SERVICEMIX_HOME/etc  -->
-				<util:properties location="classpath:main/Person_Query_Service_Warrants_Intermediary.cfg"/>
-				<osgix:cm-properties id="osgiProperties"
-					persistent-id="Person_Query_Service_Warrants_Intermediary" />
-			</array>
+			<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context" />
+				</property>
+				<property name="targetMethod">
+					<value>getPropertiesList</value>
+				</property>
+			</bean>
 		</property>
 	</bean>
+
+	<bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+		<property name="propertiesArray" ref="propertiesList" />
+	</bean>	
 	
 	<util:properties id="springProperties">
 		<prop key="dbAuditLog">${personQuery.warrants.dbAuditLog}</prop>
 	</util:properties>	
 	
+	
 </beans>
+
+
