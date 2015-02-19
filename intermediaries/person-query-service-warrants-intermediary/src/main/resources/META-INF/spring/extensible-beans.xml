@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+	
+	<bean id="sqlLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.processor.audit.SQLLoggingProcessor">
+        		<property name="dataSource" ref="dataSource"/>
+    		</bean>
+		</constructor-arg>
+	</bean>
+
+	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="dataSource" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+				<property name="url" value="jdbc:h2:mem:subscription" />
+				<property name="username" value="sa" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="wsAddressReplyToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="systemIdentifierToDescriptorMap" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:map map-class="java.util.HashMap">
+		        <entry key="${federatedQuery.warrants.presentPersonQueryResultsEndpoint}" value="presentPersonQueryResultsWarrantsServiceEndpoint"/>
+		  	</util:map>
+		</constructor-arg>
+	</bean>	
+	
+	<bean id="federatedQueryURIToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="systemIdentifierToDescriptorMap" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:map map-class="java.util.HashMap">
+				<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants" value="personQueryRequestWarrantsServiceAdapterEndpoint" />
+			</util:map>	
+		</constructor-arg>
+	</bean>	
+</beans>

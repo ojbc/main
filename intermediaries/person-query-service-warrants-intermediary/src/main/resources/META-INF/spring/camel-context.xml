@@ -85,6 +85,13 @@
 			<camel:setHeader headerName="operationName"><constant>Submit-Person-Query---Warrants</constant></camel:setHeader>
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0</constant></camel:setHeader>
 									
+			<!-- Since this is a query, we only call one endpoint -->						
+			<camel:setHeader headerName="adapterURI">
+				<camel:xpath resultType="java.lang.String">//nc20:IdentificationSourceText</camel:xpath>
+			</camel:setHeader>
+
+			<camel:to uri="bean:hashMapToAdapterAddressProcessor?method=overrideCXFAddress"/>
+									
 			<!-- Add the reply to address to the map using the federated query guid as the key -->
 			<camel:to 
 				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>

@@ -7,7 +7,7 @@
   <groupId>org.ojbc.bundles.intermediaries</groupId>
   <artifactId>Person_Query_Service_Warrants_Intermediary</artifactId>
   <packaging>bundle</packaging>
-  <version>1.0.9</version>
+  <version>1.0.0</version>
 
   <name>OJB :: Person_Query_Service_Warrants_Intermediary :: Intermediary</name>
   <url>http://www.search.org</url>
