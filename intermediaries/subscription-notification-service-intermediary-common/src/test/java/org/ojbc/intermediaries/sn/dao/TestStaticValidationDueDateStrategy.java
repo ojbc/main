@@ -6,6 +6,10 @@ import static org.junit.Assert.assertNull;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
+/**
+ * Basic unit test for static validation due date strategy.
+ *
+ */
 public class TestStaticValidationDueDateStrategy {
 
 	@Test
