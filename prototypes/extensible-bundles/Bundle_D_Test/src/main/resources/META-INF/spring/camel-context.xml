@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+       
+	
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+	
+		<!-- Disposition Reporting Service Handler -->
+		<camel:route id="testRoute">
+		
+			<camel:from uri="direct-vm:inputBundleD" />
+						
+			<camel:log message="Bundle D is going to throw an exception" />
+			
+			<camel:to uri="bean:throwExceptionBean?method=exceptionProcessor"/>
+			
+			<camel:to uri="direct-vm:inputBundleA" />
+			
+		</camel:route>
+		
+	</camel:camelContext>
+	
+	<bean id="throwExceptionBean" class="org.ojbc.exception.ThrowExceptionBean"/>		
+			
+</beans>
+

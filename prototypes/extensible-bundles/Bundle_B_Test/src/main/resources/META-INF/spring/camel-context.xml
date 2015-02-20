@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	This is the spring Camel Context for the "derived" bundle in the extensibility prototype.
+	
+	This bundle overrides some of the steps and properties in the "main" bundle (see Bundle A).
+	
+	See the javadoc in the Bundle Integration Test for an explanation of the prototype overall.
+	
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:exchange="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+
+	<bean id="org.ojbc.bundles.prototypes.Bundle_A_Test-context" class="org.ojbc.bundles.prototypes.shared.spring.OjbcContextImpl">
+		<property name="propertiesList" ref="propertiesList"/>
+		<property name="exposedBeans">
+			<util:map>
+				<entry key="bean4" value-ref="bundleBbean1"/>
+			</util:map>
+		</property>
+	</bean>
+
+	<util:properties id="classpathProperties" location="classpath:Bundle_B_Test.cfg" />
+	
+	<util:properties id="contextProperties">
+		<prop key="step7to">direct-vm:bundleBStep7</prop>
+		<prop key="message5">B.context.message5</prop>
+		<prop key="message6">B.context.message6</prop>
+	</util:properties>
+	
+	<bean id="bridgePropertyPlaceholder"
+		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+		<property name="propertiesArray" ref="propertiesList"/>
+	</bean>
+
+	<bean id="bundleBbean1" class="org.ojbc.bundles.prototypes.bundleb.beans.BundleBBean1">
+		<!-- TODO: maybe at some point we need Bundle A to expose the same service, so we can access its properties too -->
+		<property name="message4" value="${message4}"/>
+		<property name="message5" value="${message5}"/>
+		<property name="message6" value="${message6}"/>
+	</bean>
+
+	<bean id="messageEditProcessor" class="org.ojbc.bundles.prototypes.shared.util.MessageEditProcessor" />
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="bundleBcontext">
+
+		<camel:route id="bundleBstep7">
+			<camel:from uri="{{step7to}}" />
+			<camel:log message="Bundle B step 7" />
+			<camel:setHeader headerName="s">
+				<camel:constant>Bundle B step 7</camel:constant>
+			</camel:setHeader>
+			<camel:to uri="bean:messageEditProcessor"/>
+		</camel:route>
+
+		<!-- Disposition Reporting Service Handler -->
+		<camel:route id="testRoute">
+
+			<camel:from uri="direct-vm:inputBundleB" />
+
+			<camel:setBody>
+				<constant>BUNDLE B CHANGED THE BODY</constant>
+			</camel:setBody>
+
+			<camel:log message="Bundle B - DONE!" />
+
+			<camel:to uri="direct-vm:inputBundleA" />
+		</camel:route>
+
+	</camel:camelContext>
+
+</beans>
