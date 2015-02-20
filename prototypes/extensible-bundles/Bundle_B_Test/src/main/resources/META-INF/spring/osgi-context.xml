@@ -14,7 +14,7 @@
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
 
 	<!-- Define OSGi service that the main bundle will reference and call -->
-	<osgi:service ref="org.ojbc.bundles.prototypes.Bundle_A_Test-context" interface="org.ojbc.bundles.prototypes.shared.spring.OjbcContext"/>
+	<osgi:service ref="org.ojbc.bundles.prototypes.Bundle_A_Test-context" interface="org.ojbc.util.osgi.OjbcContext"/>
 	
 	<!-- Define a properties list with three components, in order of precedence:
 	

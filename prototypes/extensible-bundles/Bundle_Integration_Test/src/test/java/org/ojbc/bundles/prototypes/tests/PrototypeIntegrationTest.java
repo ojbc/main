@@ -24,7 +24,8 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.ServiceStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.bundles.prototypes.shared.spring.OjbcContext;
+import org.ojbc.util.osgi.AbstractPaxExamIntegrationTest;
+import org.ojbc.util.osgi.OjbcContext;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
@@ -32,6 +33,8 @@ import org.ops4j.pax.exam.karaf.options.KarafDistributionOption;
 import org.ops4j.pax.exam.karaf.options.LogLevelOption.LogLevel;
 import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
 import org.ops4j.pax.exam.options.MavenUrlReference;
+import org.ops4j.pax.exam.util.Filter;
+import org.springframework.context.ApplicationContext;
 
 /**
  * Pax Exam integration test that demonstrates how to test our prototype extensibility bundles.
@@ -52,6 +55,14 @@ public class PrototypeIntegrationTest extends AbstractPaxExamIntegrationTest {
 	@Inject
 	protected OjbcContext ojbcContext;
 
+	@Inject
+	@Filter(value = "(org.springframework.context.service.name=Bundle_A_Test)", timeout = 20000)
+	private ApplicationContext mainBundleContext;
+
+	@Inject
+	@Filter(value = "(org.springframework.context.service.name=Bundle_B_Test)", timeout = 20000)
+	private ApplicationContext derivedBundleContext;
+	
 	@Configuration
 	public Option[] config() {
 
@@ -87,7 +98,8 @@ public class PrototypeIntegrationTest extends AbstractPaxExamIntegrationTest {
 				// Install bundles under test (this is the equivalent of the Karaf shell command "install -s mvn:...")
 				// Note that "versionAsInProject" installs the version of the bundle based on the maven dependency in the pom
 				// Note that you want to start Bundle B first, since Bundle A references its service
-				mavenBundle().groupId("org.ojbc.bundles.prototypes.shared").artifactId("Util_Bundle").versionAsInProject().start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-utils").versionAsInProject().start(),
+				mavenBundle().groupId("org.ojbc.bundles.prototypes.shared").artifactId("Bundle_Integration_Test_Common").versionAsInProject().start(),
 				mavenBundle().groupId("org.ojbc.bundles.prototypes").artifactId("Bundle_B_Test").versionAsInProject().start(),
 				mavenBundle().groupId("org.ojbc.bundles.prototypes").artifactId("Bundle_A_Test").versionAsInProject().start(),
 
@@ -129,10 +141,12 @@ public class PrototypeIntegrationTest extends AbstractPaxExamIntegrationTest {
 		// demonstrate how to get a reference to an OSGi service defined in our code.  the ojbcContext is the service started up by Bundle B and used by Bundle A
 		// to get substitute beans, routes, and properties
 		assertNotNull(ojbcContext);
+		assertNotNull(mainBundleContext);
+		assertNotNull(derivedBundleContext);
 
 		// This is an example of issuing a command to the Karaf shell
-		// String command = executeCommand("osgi:list -t 1", 20000L, false);
-		// System.err.println(command);
+//		String command = executeCommand("osgi:list -t 1", 20000L, false);
+//		System.err.println(command);
 
 		// grab our Camel Contexts.  This demonstrates that Karaf makes Camel Contexts available as OSGi services.
 		
@@ -185,8 +199,6 @@ public class PrototypeIntegrationTest extends AbstractPaxExamIntegrationTest {
 		String fileLocation = e.getEndpointUri();
 		assertTrue(fileLocation.contains("?"));
 		File d = new File(new URL(fileLocation.split("\\?")[0]).toURI());
-		assertTrue(d.exists());
-		assertTrue(d.isDirectory());
 		File f = new File(d, "message.txt");
 		return f;
 	}

@@ -1,32 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>org.ojbc.bundles.prototypes</groupId>
-	<artifactId>Bundle_A_Test</artifactId>
-	<packaging>bundle</packaging>
+	<groupId>org.ojbc.bundles.prototypes.shared</groupId>
+	<artifactId>Bundle_Integration_Test_Common</artifactId>
 	<version>1.0.0</version>
-	<name>OJB :: Bundle_A_Test :: Connector</name>
+	<packaging>bundle</packaging>
+	<name>OJB :: Bundle_Integration_Test_Common :: Connector</name>
 
-    <properties>
-        <spring.version>3.0.7.RELEASE</spring.version>
-        <camel.version>2.10.7</camel.version>
-        <java.version>1.6</java.version>
+	<properties>
+		<spring.version>3.0.7.RELEASE</spring.version>
+		<camel.version>2.10.7</camel.version>
+		<java.version>1.6</java.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-    </properties>
+		<commons-logging-version>1.1.1</commons-logging-version>
+		<slf4j-version>1.6.4</slf4j-version>
+	</properties>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-osgi-utils</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-	
-		<dependency>
-			<groupId>org.ojbc.bundles.prototypes.shared</groupId>
-			<artifactId>Bundle_Integration_Test_Common</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 
@@ -36,15 +29,30 @@
 			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${commons-logging-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-version}</version>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-		
+
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/resources</directory>
@@ -54,8 +62,7 @@
 				</includes>
 			</resource>
 		</resources>
-		
-		
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -73,10 +80,11 @@
 				<configuration>
 					<instructions>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-						<Bundle-Name>${pom.name} </Bundle-Name>
+						<Bundle-Name>${pom.name}</Bundle-Name>
 					</instructions>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
 </project>

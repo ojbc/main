@@ -14,7 +14,7 @@
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
 
 	<!-- OSGi service reference to the context service defined in the "main" bundle (Bundle A) -->
-	<osgi:reference id="org.ojbc.bundles.prototypes.Bundle_A_Test-context" interface="org.ojbc.bundles.prototypes.shared.spring.OjbcContext" bean-name="org.ojbc.bundles.prototypes.Bundle_A_Test-context"/>
+	<osgi:reference id="org.ojbc.bundles.prototypes.Bundle_A_Test-context" interface="org.ojbc.util.osgi.OjbcContext" bean-name="org.ojbc.bundles.prototypes.Bundle_A_Test-context"/>
 
 	<!-- Properties list built from four components, in order of precedence:
 	

@@ -21,7 +21,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
 
-	<bean id="org.ojbc.bundles.prototypes.Bundle_A_Test-context" class="org.ojbc.bundles.prototypes.shared.spring.OjbcContextImpl">
+	<bean id="org.ojbc.bundles.prototypes.Bundle_A_Test-context" class="org.ojbc.util.osgi.OjbcContextImpl">
 		<property name="propertiesList" ref="propertiesList"/>
 		<property name="exposedBeans">
 			<util:map>

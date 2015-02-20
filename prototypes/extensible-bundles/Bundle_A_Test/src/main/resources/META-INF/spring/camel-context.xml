@@ -68,7 +68,7 @@
 		<property name="logMessageHelper" ref="bean4" />
 	</bean>
 
-	<bean id="bean3" class="org.ojbc.bundles.prototypes.shared.spring.SubstitutableObjectFactoryBean" factory-method="getObject">
+	<bean id="bean3" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="bean3" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.prototypes.Bundle_A_Test-context" />
 		<constructor-arg name="defaultObject">
@@ -76,7 +76,7 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="bean4" class="org.ojbc.bundles.prototypes.shared.spring.SubstitutableObjectFactoryBean" factory-method="getObject">
+	<bean id="bean4" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="bean4" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.prototypes.Bundle_A_Test-context" />
 		<constructor-arg name="defaultObject">

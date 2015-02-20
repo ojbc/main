@@ -22,8 +22,14 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-osgi-utils</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.ojbc.bundles.prototypes.shared</groupId>
-			<artifactId>Util_Bundle</artifactId>
+			<artifactId>Bundle_Integration_Test_Common</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 
