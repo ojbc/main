@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	This is the spring Camel Context for the "main" bundle in the extensibility prototype.
+	
+	This bundle sets up a default process, steps, and properties for the prototype component.  These defaults can be overridden by derived bundles (see Bundle B).
+	
+	See the javadoc in the Bundle Integration Test for an explanation of the prototype overall.
+	
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:exchange="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+
+	<util:properties id="classpathProperties" location="classpath:Bundle_A_Test.cfg" />
+
+	<util:properties id="contextProperties">
+		<prop key="property1">direct-vm:inputBundleB, direct-vm:inputBundleC,direct-vm:inputBundleD</prop>
+		<prop key="step1">direct:bundleAstep1</prop>
+		<prop key="step2">direct:bundleAstep2</prop>
+		<prop key="step3">bean:bundleAbean1?method=processExchange</prop>
+		<prop key="step4">direct:bundleAstep4</prop>
+		<prop key="step5">bean:bundleAbean1?method=processExchangeWithHelp</prop>
+		<prop key="step6">bean:bundleAbean2?method=processExchangeWithHelp</prop>
+		<prop key="step7to">direct:bundleAstep7</prop>
+		<prop key="step7from">direct:bundleAstep7</prop>
+		<prop key="message2">A.context.message2</prop>
+		<prop key="message3">A.context.message3</prop>
+		<prop key="message4">A.context.message4</prop>
+	</util:properties>
+
+	<bean id="derivedBundleOsgiProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="propertiesArray">
+			<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="org.ojbc.bundles.prototypes.Bundle_A_Test-context" />
+				</property>
+				<property name="targetMethod">
+					<value>getPropertiesList</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+		<property name="propertiesArray" ref="propertiesList" />
+	</bean>
+
+	<bean id="bundleAbean1" class="org.ojbc.bundles.prototypes.bundlea.beans.BundleABean1">
+		<property name="logMessageHelper" ref="bean3" />
+		<property name="message1" value="${message1}" />
+		<property name="message2" value="${message2}" />
+		<property name="message3" value="${message3}" />
+		<property name="message4" value="${message4}" />
+		<property name="message5" value="${message5}" />
+		<property name="message6" value="${message6}" />
+	</bean>
+
+	<bean id="bundleAbean2" class="org.ojbc.bundles.prototypes.bundlea.beans.BundleABean2">
+		<property name="logMessageHelper" ref="bean4" />
+	</bean>
+
+	<bean id="bean3" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="bean3" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.prototypes.Bundle_A_Test-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.bundles.prototypes.bundlea.beans.BundleABean3" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="bean4" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="bean4" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.prototypes.Bundle_A_Test-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.bundles.prototypes.bundlea.beans.BundleABean4" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="messageEditProcessor" class="org.ojbc.bundles.prototypes.shared.util.MessageEditProcessor" />
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="bundleAcontext">
+
+		<endpoint id="inputDir" uri="file:///tmp/ojb/direct-vm-test/input?idempotent=true" />
+
+		<endpoint id="inputDir2" uri="file:///tmp/ojb/direct-vm-test/input2?idempotent=true" />
+		<endpoint id="outputDir" uri="file:///tmp/ojb/direct-vm-test/output?idempotent=true" />
+
+		<camel:route id="testRoute2">
+			<camel:from uri="inputDir2" />
+			<camel:log message="Bundle A received file from input dir #2: ${file:name}" loggingLevel="INFO" />
+			<camel:to uri="{{step1}}" />
+			<camel:to uri="{{step2}}" />
+			<camel:to uri="{{step3}}" />
+			<camel:to uri="{{step4}}" />
+			<camel:to uri="{{step5}}" />
+			<camel:to uri="{{step6}}" />
+			<camel:to uri="{{step7to}}" />
+			<camel:to uri="outputDir" />
+		</camel:route>
+
+		<camel:route id="bundleAstep1">
+			<camel:from uri="{{step1}}" />
+			<camel:log message="Bundle A step 1" />
+			<camel:setHeader headerName="s">
+				<camel:constant>Bundle A step 1</camel:constant>
+			</camel:setHeader>
+			<camel:to uri="bean:messageEditProcessor" />
+		</camel:route>
+
+		<camel:route id="bundleAstep2">
+			<camel:from uri="{{step2}}" />
+			<camel:log message="Bundle A step 2" />
+			<camel:setHeader headerName="s">
+				<camel:constant>Bundle A step 2</camel:constant>
+			</camel:setHeader>
+			<camel:to uri="bean:messageEditProcessor" />
+		</camel:route>
+
+		<camel:route id="bundleAstep4">
+			<camel:from uri="{{step4}}" />
+			<camel:log message="Bundle A step 4" />
+			<camel:setHeader headerName="s">
+				<camel:constant>Bundle A step 4</camel:constant>
+			</camel:setHeader>
+			<camel:to uri="bean:messageEditProcessor" />
+		</camel:route>
+
+		<camel:route id="bundleAstep7">
+			<camel:from uri="{{step7from}}" />
+			<camel:log message="Bundle A step 7" />
+			<camel:setHeader headerName="s">
+				<camel:constant>Bundle A step 7</camel:constant>
+			</camel:setHeader>
+			<camel:to uri="bean:messageEditProcessor" />
+		</camel:route>
+
+		<camel:route id="testRoute">
+
+			<camel:from uri="inputDir" />
+
+			<camel:log message="Bundle A received file: ${file:name}" />
+
+			<camel:doTry>
+
+				<camel:convertBodyTo type="java.lang.String" />
+
+				<camel:log message="Bundle A - Message Body: ${body}" />
+
+				<!-- Simple bundle call <camel:to uri="direct-vm:inputBundleB"/> -->
+
+				<!-- Recipient List inline <camel:recipientList> <camel:simple>direct-vm:inputBundleB, direct-vm:inputBundleC,direct-vm:inputBundleD</camel:simple> 
+					</camel:recipientList> -->
+
+				<!-- Recipient List from property -->
+				<camel:recipientList>
+					<camel:simple>{{property1}}</camel:simple>
+				</camel:recipientList>
+
+				<doCatch>
+					<!-- catch exception -->
+					<exception>java.lang.Exception</exception>
+					<log message="Bundle A caught an exception - ${exception.message}" />
+				</doCatch>
+			</camel:doTry>
+		</camel:route>
+
+		<camel:route id="testReturnRoute">
+
+			<camel:from uri="direct-vm:inputBundleA" />
+
+			<camel:log message="Message in Bundle A in Direct VM response route: ${body}" />
+
+		</camel:route>
+
+	</camel:camelContext>
+
+</beans>

@@ -1,0 +1,240 @@
+<Schema name="OJBC Analytics">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="County">
+    <Hierarchy name="County" visible="true" hasAll="true" allMemberName="All Counties" allMemberCaption="All Counties" primaryKey="CountyID">
+      <Table name="County">
+      </Table>
+      <Level name="County" visible="true" table="County" column="CountyName" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Agency">
+    <Hierarchy name="Agency" visible="true" hasAll="true" allMemberName="All Agencies" allMemberCaption="All Agencies" primaryKey="AgencyID">
+      <Table name="Agency">
+      </Table>
+      <Level name="Agency" visible="true" table="Agency" column="AgencyName" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Race">
+    <Hierarchy name="Race" visible="true" hasAll="true" primaryKey="PersonRaceID" caption="Race">
+      <Table name="PersonRace">
+      </Table>
+      <Level name="Race" visible="true" table="PersonRace" column="PersonRaceDescription" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Offense Type" caption="Type of Offense">
+    <Hierarchy name="OffenseType" visible="true" hasAll="true" allMemberName="All Offenses" primaryKey="OffenseTypeID" caption="Offense Type">
+      <Table name="OffenseType">
+      </Table>
+      <Level name="OffenseType" visible="true" column="OffenseTypeID" nameColumn="OffenseDescription" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" caption="Type of Offense">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="Drug Offense" visible="true" hasAll="true" allMemberName="All Offenses" primaryKey="OffenseTypeID" caption="Drug Offense">
+      <Table name="OffenseType">
+      </Table>
+      <Level name="DrugOffense" visible="true" column="IsDrugOffense" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Is Drug Offense">
+      </Level>
+      <Level name="OffenseType" visible="true" column="OffenseDescription" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" caption="Type of Offense">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="Offense Severity" visible="true" hasAll="true" allMemberName="All Severities" allMemberCaption="All Severities" primaryKey="OffenseTypeID" caption="Offense Severity">
+      <Table name="OffenseType">
+      </Table>
+      <Level name="OffenseSeverity" visible="true" column="OffenseSeverity" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" caption="Severity of Offense">
+      </Level>
+      <Level name="OffenseType" visible="true" column="OffenseDescription" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" caption="Type of Offense">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Sex">
+    <Hierarchy name="PersonSex" visible="true" hasAll="true" allMemberName="All Sexes" allMemberCaption="All Sexes" caption="Sex">
+      <Table name="PersonSex">
+      </Table>
+      <Level name="PersonSex" visible="true" table="PersonSex" column="PersonSexID" nameColumn="PersonSexDescription" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Disposition">
+    <Hierarchy name="Disposition" visible="true" hasAll="true" primaryKey="DispositionID">
+      <Table name="Disposition">
+      </Table>
+      <Level name="Conviction" visible="true" table="Disposition" column="IsConviction" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Convicted?">
+        <NameExpression>
+          <SQL dialect="mysql">
+            <![CDATA[IF(IsConviction='Y',"Convicted", "Not Convicted")]]>
+          </SQL>
+        </NameExpression>
+      </Level>
+      <Level name="Disposition" visible="true" table="Disposition" column="DispositionDescription" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Age">
+    <Hierarchy name="PersonAge" visible="true" hasAll="true" primaryKey="PersonAgeID" caption="Age">
+      <Table name="PersonAge">
+      </Table>
+      <Level name="AgeRange" visible="true" column="AgeRange5" ordinalColumn="AgeRange5Sort" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="AgeYears" visible="true" column="AgeInYears" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Risk Score">
+    <Hierarchy name="RiskScore" visible="true" hasAll="true" allMemberName="All Risk Scores" allMemberCaption="All Risk Scores" primaryKey="RiskScoreID" caption="Risk Score">
+      <Table name="RiskScore">
+      </Table>
+      <Level name="Risk Score" visible="true" table="RiskScore" column="RiskScoreDescription" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Pretrial Service">
+    <Hierarchy name="PretrialService" visible="true" hasAll="true" allMemberName="All Pretrial Services" allMemberCaption="All Pretrial Services" primaryKey="PretrialServiceID" caption="Pretrial Service">
+      <Table name="PretrialService">
+      </Table>
+      <Level name="Pretrial Service Participant" visible="true" table="PretrialService" column="IsParticipant" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" caption="Participant?">
+      </Level>
+      <Level name="Pretrial Service" visible="true" table="PretrialService" column="PretrialServiceDescription" ordinalColumn="PretrialServiceID" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="YesNoIndicator">
+    <Hierarchy name="YesNoIndicator" visible="true" hasAll="true" allMemberName="All Options" allMemberCaption="All Options" primaryKey="YesNoID" caption="Yes/No">
+      <Table name="YesNo">
+      </Table>
+      <Level name="YesNoIndicator" visible="true" table="YesNo" column="YesNoDescription" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Incident Type">
+    <Hierarchy name="IncidentType" visible="true" hasAll="true" allMemberName="All Types" allMemberCaption="All Types" primaryKey="IncidentTypeID" caption="Incident Type">
+      <Table name="IncidentType">
+      </Table>
+      <Level name="IncidentType" visible="true" table="IncidentType" column="IncidentTypeDescription" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Time Of Day">
+    <Hierarchy name="Time" visible="true" hasAll="true" allMemberName="All Times" allMemberCaption="All Times" primaryKey="TimeID" caption="Time Of Day">
+      <Table name="Time">
+      </Table>
+      <Level name="Hour" visible="true" table="Time" column="Hour" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="TimeDimension" visible="true" highCardinality="false" name="Date">
+    <Hierarchy name="DateYMD" visible="true" hasAll="true" primaryKey="DateID" caption="Year/Month/Day">
+      <Table name="Date">
+      </Table>
+      <Level name="Year" visible="true" table="Date" column="YearLabel" type="String" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+      </Level>
+      <Level name="Month" visible="true" column="MonthName" ordinalColumn="Month" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+      </Level>
+      <Level name="Day" visible="true" column="Day" type="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="ArrestCharge" caption="Arrest Charge" visible="true" cache="true" enabled="true">
+    <View alias="ArrestCharge">
+      <SQL dialect="mysql">
+        <![CDATA[select pa.ArrestID as ArrestID,
+    pa.DateID,
+    pa.TimeID,
+    pa.CountyID,
+    pa.ArresteeAgeID,
+    pa.ArresteeSexID,
+    pa.ArresteeRaceID,
+    pa.ArrestingAgencyID,
+    pa.ViolatedConditionsOfRelease,
+    datediff(sad.CalendarDate, pad.CalendarDate) as DaysBetweenArrests,
+    if(datediff(sad.CalendarDate, pad.CalendarDate) <= 180, 1, 0) as SixMonthRearrest,
+    if(datediff(sad.CalendarDate, pad.CalendarDate) <= 365, 1, 0) as OneYearRearrest,
+    if(datediff(sad.CalendarDate, pad.CalendarDate) <= 730, 1, 0) as TwoYearRearrest,
+    if(pc.DispositionID=1 and sc.DispositionID=1, datediff(scd.CalendarDate, pcd.CalendarDate), null) as DaysBetweenConvictions,
+    if(if(pc.DispositionID=1 and sc.DispositionID=1, datediff(scd.CalendarDate, pcd.CalendarDate), null) <= 365, 1, 0) as OneYearReconviction,
+    if(if(pc.DispositionID=1 and sc.DispositionID=1, datediff(scd.CalendarDate, pcd.CalendarDate), null) <= 730, 1, 0) as TwoYearReconviction,
+    pc.ChargeID,
+    pc.ArrestOffenseTypeID,
+    pc.DispositionID as PriorDispositionID,
+    pc.SentenceTermDays,
+    pc.SentenceFineAmount,
+    sc.DispositionID as SubsequentDispositionID,
+    psp.PretrialServiceID,
+    psp.AssessedNeedID,
+    psp.RiskScoreID
+    from (((Arrest as pa inner join Date as pad on pa.DateID=pad.DateID) inner join
+            (Charge as pc inner join Date as pcd on pc.DispositionDateID=pcd.DateID) on pa.ArrestID=pc.ArrestID) left join
+          ((Arrest as sa inner join Date as sad on sa.DateID=sad.DateID) left join
+            (
+                (select ArrestID, min(DispositionDateID) as DispositionDateID, DispositionID from Charge where DispositionID=1 group by ArrestID) as sc inner join
+                    Date as scd on sc.DispositionDateID=scd.DateID) on sa.ArrestID=sc.ArrestID) on pa.SubsequentArrestID=sa.ArrestID)
+            left join PretrialServiceParticipation as psp on pa.ArrestID=psp.ArrestID]]>
+      </SQL>
+    </View>
+    <DimensionUsage source="County" name="County" visible="true" foreignKey="CountyID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Agency" name="Agency" visible="true" foreignKey="ArrestingAgencyID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Race" name="Race" visible="true" foreignKey="ArresteeRaceID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Offense Type" name="Offense Type" visible="true" foreignKey="ArrestOffenseTypeID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Sex" name="Sex" visible="true" foreignKey="ArresteeSexID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Disposition" name="Disposition" visible="true" foreignKey="DispositionID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Risk Score" name="Risk Score" visible="true" foreignKey="RiskScoreID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Pretrial Service" name="Pretrial Service" visible="true" foreignKey="PretrialServiceID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Age" name="Age" caption="Age" visible="true" foreignKey="ArresteeAgeID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="YesNoIndicator" name="ViolatedConditionsOfRelease" caption="Violated Release Conditions" visible="true" foreignKey="ViolatedConditionsOfRelease" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Date" name="Date" visible="true" foreignKey="DateID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Time Of Day" name="Time Of Day" visible="true" foreignKey="TimeID" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="ArrestChargeCount" column="ChargeID" datatype="Integer" aggregator="distinct-count" caption="Arrest Charge Count" visible="true"/>
+    <Measure name="SixMonthRearrestCount" column="SixMonthRearrest" datatype="Integer" aggregator="sum" caption="Six Month Rearrest Count" visible="true"/>
+    <Measure name="OneYearRearrestCount" column="OneYearRearrest" datatype="Integer" aggregator="sum" caption="One Year Rearrest Count" visible="true"/>
+    <Measure name="TwoYearRearrestCount" column="TwoYearRearrest" datatype="Integer" aggregator="sum" caption="Two Year Rearrest Count" visible="true"/>
+    <Measure name="OneYearReconvictionCount" column="OneYearReconviction" datatype="Integer" aggregator="sum" caption="One Year Reconviction Count" visible="true"/>
+    <Measure name="TwoYearReconvictionCount" column="TwoYearReconviction" datatype="Integer" aggregator="sum" caption="Two Year Reconviction Count" visible="true"/>
+    <Measure name="TotalSentenceTerm" column="SentenceTermDays" datatype="Numeric" aggregator="avg" caption="Sentence Term (Days)" visible="true"/>
+    <Measure name="TotalFineAmount" column="SentenceFineAmount" datatype="Numeric" aggregator="avg" caption="Sentence Fine Amount" visible="true"/>
+    <Measure name="DaysUntilSubsequentArrest" column="DaysBetweenArrests" datatype="Numeric" aggregator="distinct-count" caption="Days Until Next Arrest" visible="true"/>
+  </Cube>
+  <Cube name="Incident" caption="Incident" visible="true" cache="true" enabled="true">
+    <Table name="Incident">
+    </Table>
+    <DimensionUsage source="Agency" name="Agency" visible="true" foreignKey="ReportingAgencyID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Incident Type" name="Incident Type" visible="true" foreignKey="IncidentTypeID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Date" name="Date" visible="true" foreignKey="DateID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Time Of Day" name="Time Of Day" visible="true" foreignKey="TimeID" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="IncidentCount" column="IncidentID" datatype="Integer" aggregator="distinct-count" caption="Incident Count" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="PretrialServicesParticipation" caption="Pretrial Services Participation" visible="true" cache="true" enabled="true">
+    <View alias="PretrialServicesParticipation">
+      <SQL dialect="mysql">
+        <![CDATA[select PretrialServiceParticipationID, PretrialServiceParticipation.PretrialServiceID, ArresteeRaceID,
+        ArresteeSexID, ArresteeAgeID, PretrialServiceParticipation.CountyID, IntakeDateID
+        from PretrialServiceParticipation, Arrest
+        where PretrialServiceParticipation.ArrestID=Arrest.ArrestID]]>
+      </SQL>
+    </View>
+    <DimensionUsage source="Pretrial Service" name="Pretrial Service" visible="true" foreignKey="PretrialServiceID" highCardinality="false"/>
+    <DimensionUsage source="Race" name="Race" visible="true" foreignKey="ArresteeRaceID" highCardinality="false"/>
+    <DimensionUsage source="Sex" name="Sex" visible="true" foreignKey="ArresteeSexID" highCardinality="false"/>
+    <DimensionUsage source="Age" name="Age" visible="true" foreignKey="ArresteeAgeID" highCardinality="false"/>
+    <DimensionUsage source="County" name="County" visible="true" foreignKey="CountyID" highCardinality="false"/>
+    <DimensionUsage source="Date" name="Intake Date" visible="true" foreignKey="IntakeDateID" highCardinality="false"/>
+    <Measure name="PretrialServiceParticipantCount" column="PretrialServiceParticipationID" datatype="Integer" aggregator="distinct-count" caption="Pretrial Service Participant Count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
