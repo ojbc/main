@@ -13,9 +13,15 @@
 		<junit-version>4.10</junit-version>
 		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
 		<ojb-common-version>2.0.0</ojb-common-version>
+		<xmlunit.version>1.5</xmlunit.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>${xmlunit.version}</version>
+		</dependency>	
 		<dependency>
 			<groupId>org.ojbc.util</groupId>
 			<artifactId>ojb-camel-common</artifactId>

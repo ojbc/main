@@ -1,0 +1,8 @@
+<isres-doc:IncidentVehicleSearchResults xmlns:isres-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0">
+   <srm:SearchResultsMetadata xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0">
+      <srer:SearchRequestError xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0">
+         <srer:ErrorText>The source systems timed out or had an error condition.  Please try your search again later.</srer:ErrorText>
+         <intel:SystemName xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">All Systems</intel:SystemName>
+      </srer:SearchRequestError>
+   </srm:SearchResultsMetadata>
+</isres-doc:IncidentVehicleSearchResults>
