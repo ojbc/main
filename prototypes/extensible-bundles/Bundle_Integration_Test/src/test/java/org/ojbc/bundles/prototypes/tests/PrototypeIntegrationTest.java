@@ -33,6 +33,8 @@ import org.ops4j.pax.exam.karaf.options.KarafDistributionOption;
 import org.ops4j.pax.exam.karaf.options.LogLevelOption.LogLevel;
 import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
 import org.ops4j.pax.exam.options.MavenUrlReference;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerMethod;
 import org.ops4j.pax.exam.util.Filter;
 import org.springframework.context.ApplicationContext;
 
@@ -48,6 +50,7 @@ import org.springframework.context.ApplicationContext;
  *
  */
 @RunWith(PaxExam.class)
+@ExamReactorStrategy(PerMethod.class)
 public class PrototypeIntegrationTest extends AbstractPaxExamIntegrationTest {
 
 	private static final String KARAF_VERSION = "2.2.11";

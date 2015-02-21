@@ -22,6 +22,8 @@ import javax.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ServiceStatus;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.osgi.AbstractPaxExamIntegrationTest;
@@ -33,6 +35,8 @@ import org.ops4j.pax.exam.karaf.options.KarafDistributionOption;
 import org.ops4j.pax.exam.karaf.options.LogLevelOption.LogLevel;
 import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
 import org.ops4j.pax.exam.options.MavenUrlReference;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerMethod;
 import org.ops4j.pax.exam.util.Filter;
 import org.springframework.context.ApplicationContext;
 
@@ -48,7 +52,10 @@ import org.springframework.context.ApplicationContext;
  *
  */
 @RunWith(PaxExam.class)
+@ExamReactorStrategy(PerMethod.class)
 public class MainBundleOnlyTest extends AbstractPaxExamIntegrationTest {
+	
+	private static final Log log = LogFactory.getLog(MainBundleOnlyTest.class);
 
 	private static final String KARAF_VERSION = "2.2.11";
 
@@ -85,7 +92,7 @@ public class MainBundleOnlyTest extends AbstractPaxExamIntegrationTest {
 				// keepRuntimeFolder(),
 
 				// Set the logging level for Karaf
-				logLevel(LogLevel.DEBUG),
+				logLevel(LogLevel.INFO),
 
 				// Install Karaf Spring and Camel features (this is the equivalent of Karaf shell command "features:install")
 				KarafDistributionOption.features(karafSpringFeature, "spring", "spring-tx", "spring-test"),
@@ -94,6 +101,7 @@ public class MainBundleOnlyTest extends AbstractPaxExamIntegrationTest {
 				// Install bundles under test (this is the equivalent of the Karaf shell command "install -s mvn:...")
 				// Note that "versionAsInProject" installs the version of the bundle based on the maven dependency in the pom
 				// Note that you want to start Bundle B first, since Bundle A references its service
+				KarafDistributionOption.replaceConfigurationFile("etc/ojbc.context.services.cfg", new File("src/main/config/ojbc.context.services.cfg")),
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-utils").versionAsInProject().start(),
 				mavenBundle().groupId("org.ojbc.bundles.prototypes.shared").artifactId("Bundle_Integration_Test_Common").versionAsInProject().start(),
 				mavenBundle().groupId("org.ojbc.bundles.prototypes").artifactId("Bundle_A_Test").versionAsInProject().start(),
@@ -103,7 +111,6 @@ public class MainBundleOnlyTest extends AbstractPaxExamIntegrationTest {
 
 				// Install compendium config files for bundles under test
 				KarafDistributionOption.replaceConfigurationFile("etc/Bundle_A_Test.cfg", new File("src/main/config/Bundle_A_Test.cfg")),
-				KarafDistributionOption.replaceConfigurationFile("etc/Bundle_B_Test.cfg", new File("src/main/config/Bundle_B_Test.cfg")),
 
 		};
 	}
@@ -173,12 +180,11 @@ public class MainBundleOnlyTest extends AbstractPaxExamIntegrationTest {
 		assertEquals("Bundle A step 1", br.readLine());
 		assertEquals("Bundle A step 2", br.readLine());
 		assertEquals(
-				"Bundle A Bean 1:1=A.properties.message1|2=A.context.message2|3=A.compendium.message3|4=B.properties.message4|5=B.context.message5|6=B.compendium.message6|",
+				"Bundle A Bean 1:1=A.properties.message1|2=A.context.message2|3=A.compendium.message3|4=A.context.message4|5=A.properties.message5|6=A.compendium.message6|",
 				br.readLine());
 		assertEquals("Bundle A step 4", br.readLine());
 		assertEquals("Bundle A Bean 3:m=Message via helper", br.readLine());
-		assertEquals("Bundle B Bean 1:4=B.properties.message4|5=B.context.message5|6=B.compendium.message6|", br.readLine());
-		assertEquals("Bundle B step 7", br.readLine());
+		assertEquals("Bundle A step 7", br.readLine());
 
 		br.close();
 		outputFile.delete();

@@ -43,6 +43,7 @@ public class Activator implements BundleActivator {
 							serviceProperties.setProperty("org.springframework.osgi.bean.name", serviceName);
 							service.setProperties(serviceProperties);
 							serviceList.add(service);
+							log.info("Registered no-op OjbcContext service with name: " + serviceName);
 						}
 					}
 				}
