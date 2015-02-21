@@ -74,7 +74,9 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<DynamicImport-Package>*</DynamicImport-Package>
 						<Export-Package>org.ojbc.*</Export-Package>
+						<Bundle-Activator>org.ojbc.util.osgi.activator.Activator</Bundle-Activator>
 					</instructions>
 				</configuration>
 			</plugin>
