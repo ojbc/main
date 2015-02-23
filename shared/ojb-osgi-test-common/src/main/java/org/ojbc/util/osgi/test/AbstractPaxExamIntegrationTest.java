@@ -20,7 +20,7 @@
    Modifications made by the OJBC are:  Copyright (c) 2015 Open Justice Broker Consortium
    
  */
-package org.ojbc.util.osgi;
+package org.ojbc.util.osgi.test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
