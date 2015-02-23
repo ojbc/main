@@ -49,7 +49,7 @@ public class ActivationWithTwoServicesTest extends AbstractActivationTest {
 
 	@Override
 	protected File getConfigFile() {
-		return new File("src/test/config/ojb-osgi-utils-two-services.cfg");
+		return new File("src/test/config/ojb-osgi-common-two-services.cfg");
 	}
 
 }

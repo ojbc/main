@@ -43,7 +43,7 @@ public class ActivationWithOneServiceTest extends AbstractActivationTest {
 
 	@Override
 	protected File getConfigFile() {
-		return new File("src/test/config/ojb-osgi-utils-one-service.cfg");
+		return new File("src/test/config/ojb-osgi-common-one-service.cfg");
 	}
 
 }

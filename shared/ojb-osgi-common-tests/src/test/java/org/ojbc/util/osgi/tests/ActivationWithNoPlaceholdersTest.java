@@ -33,7 +33,7 @@ public class ActivationWithNoPlaceholdersTest extends AbstractActivationTest {
 
 	@Override
 	protected File getConfigFile() {
-		return new File("src/test/config/ojb-osgi-utils-noprops.cfg");
+		return new File("src/test/config/ojb-osgi-common-noprops.cfg");
 	}
 
 }

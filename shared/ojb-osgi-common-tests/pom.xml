@@ -12,6 +12,7 @@
 		<karaf-version>2.2.11</karaf-version>
 		<slf4j-version>1.7.4</slf4j-version>
 		<camel.version>2.10.7</camel.version>
+		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
 	</properties>
 
 	<dependencies>
@@ -73,8 +74,8 @@
 		
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-osgi-utils</artifactId>
-			<version>1.0.0</version>
+			<artifactId>ojb-osgi-common</artifactId>
+			<version>${ojb-osgi-common-version}</version>
 		</dependency>
 
 	</dependencies>
