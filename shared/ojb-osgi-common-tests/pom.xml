@@ -2,7 +2,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
-	<artifactId>ojb-osgi-utils-tests</artifactId>
+	<artifactId>ojb-osgi-common-tests</artifactId>
 	<version>1.0.0</version>
 	
 	<properties>
