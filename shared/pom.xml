@@ -8,6 +8,6 @@
     <module>ojb-common</module>
     <module>ojb-camel-common</module>
     <module>ojb-fedquery-common</module>
-    <module>ojb-osgi-utils</module>
+    <module>ojb-osgi-common</module>
   </modules>
 </project>
