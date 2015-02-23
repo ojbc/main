@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.ojbc.bundles.shared</groupId>
+	<groupId>org.ojbc.util</groupId>
 	<artifactId>ojb-common</artifactId>
 	<version>2.0.0</version>
 	<name>OJB :: ojb-common :: Shared</name>
@@ -29,9 +29,9 @@
 	</properties>
 
 	<dependencies>
-		 <!-- note any project "parent" that depends on OJB_Utilities will have a transitive
+		 <!-- note any project "parent" that depends on ojb-common will have a transitive
 		 	dependency on these saxon dependencies, unless that parent project edits its
-		 	declared OJB_Utilities dependency to specify exclusion elements on these transitive
+		 	declared ojb-common dependency to specify exclusion elements on these transitive
 		 	saxon jars.  Having saxon on the classpath causes TransformerFactory instances and other
 		 	transform code to behave unexpectedly when saxon is included unintentionally.
 		-->

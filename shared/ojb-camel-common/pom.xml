@@ -44,10 +44,10 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
+			<groupId>org.ojbc.util</groupId>
 			<artifactId>ojb-common</artifactId>
 			<version>2.0.0</version>
-			<!-- Exclude older saxon from ojb connector classpath. Saxon is a dependency
+			<!-- Exclude older saxon from classpath. Saxon is a dependency
 				in ojb-common. We don't want it included transitively on the ojb connector
 				classpath, so we need to exclude it. When saxon is on the classpath, it gets
 				used by the JVM during certain non explicit TransformerFactory calls. When
