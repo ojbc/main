@@ -2,9 +2,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
-	<artifactId>ojb-osgi-utils</artifactId>
+	<artifactId>ojb-osgi-common</artifactId>
 	<version>1.0.0</version>
-	<name>OJB :: ojb-osgi-utils :: Shared</name>
+	<name>OJB :: ojb-osgi-common :: Shared</name>
 	<packaging>bundle</packaging>
 
 	<url>http://www.ojbc.org</url>
