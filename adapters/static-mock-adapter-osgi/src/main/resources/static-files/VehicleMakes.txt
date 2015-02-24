@@ -1,0 +1,5191 @@
+DONU|Donahue Corp., The
+BOMB|Bombardier Ltd.
+PIXI|Pixie Piker Travel Trailer
+USCW|U.S. COACHWORKS, INC.;ZEIGLER, IL
+COUA|Country-Aire Travel Trailer
+IND|Indian (Taiwan)
+SCHF|SCHIFSKY TRAILERS
+STOU|Stoughton Trailers, Inc.Stoughton, Wisconsin
+NASA|Nasan Trailer
+PARW|Parkwood Homes, Inc.
+HIND|Hindustan
+JIMA|Jim Dandy, Inc.Chickasha, Oklahoma
+COOK|Cook Semi Trailer
+HERI|Heritage Mobile Homes
+TRTN|Triton Trailer Corp.Allentown, Wisconsin; manufacturestrailers including snowmobile trailers
+VITO|Vito Mfg. Co.Hazleton, Pennsylvania
+HYDE|Hyde Corp.Hurst, Texas
+HOML|HomeliteDiv. Textron, Inc.
+DERE|De Rose Industries Inc.Indianapolis, Indiana
+ELCO|Elcona Homes Corp
+ROBI|Robin Mfg. Co.
+AMCO|A & M Coach
+HAUT|Haul-It-All-Flatbed Trailer
+COBU|Coburn Industries, Inc.
+SIGN|Lear SieglerMfd. by Signal Div. of Lear Siegler,Inc.
+ABER|Aberdeen Boat Trailer
+LACY|Lacey, W.E. & Sons
+LAYT|Layton Homes Corp.
+WHKA|Whitehead & Kales
+FROL|Frolic Homes, Inc.
+GRDN|GREAT DANE INCORPORATED; FARM & GARDEN EQUIP
+PEAK|PEAK MANUFACTURING, INC. NORTH BATLEFORD, SK CANADA
+SECU|Security Industries
+SUMM|Summers Mfg. Co.
+SKYI|Skylark Industries, Inc.Bristol, Indiana
+WILS|Wilson
+RYCS|Rycsa
+PHEP|Phelps Horse Trailer
+DELK|DELKRON TRANSMISSION
+FIBI|FIBERGLASS INTERNATIONAL, INC.; SCHALLER, IS
+WISO|Penn RoyalMfd. by Wisconsin Homes, Inc.
+MAYF|Mayflower Trailers or Homes
+VALL|Valley Foundry & Machine Works
+SNRZ|Remington HomesDallas, Texas (Division of SunrizonHomes, Inc.)
+IONI|Ioni-A-Home Mfg. Co.
+IRD|IRD
+EXTR|Extreme Custom Trailers
+EARI|Easy Rider Trailer
+GGMA|Gas Gas Motors of America, LLC
+SPEM|Specialty Mfg. Co.Red Bay, Alabama
+WEHL|WE-HAUL TRAILERS; DIVISION OF FOREST RIVER, INC. GOSHEN. IN
+SHIM|ShipmateSemek Mfg., Inc.
+JUIL|Five-Star ST, LTD Edition. or C2(mfd. by Juili Entp. Co., Ltd.,imported by General Moped Co. Inc)
+ENGF|English Ford (British)
+CMPS|Campsite Mfg. Co.Seminole, Texas
+JOPL|Joplin
+GITA|Gitane
+WIGW|Wigwam Motor Home
+PRST|Prestige Custom TrailersChristopher,I1
+COAM|MiddleburyMfd. by Coachmen Homes Div.Coachman Industries, Inc.
+TRLP|TRL ENTERPRISES TRAILERS LOVELAND, COLORADO
+OLGE|Olgen Mfg. Co.
+CAMD|Camel Camper Trailer
+PERC|I.B. Perch Co.
+FAST|FAST ; SNOWMOBILES (TO INCLUDE BLADE MODEL)
+AALI|Aalite Co.
+JACO|EstatePower mowers--mfd. by Jacobsen Manu-facturing Co.
+GARN|Gardner-Denver Cooper Industries, Inc.Denver, Colorado (formerly Gardener-Denver Co.)
+BERT|Bertran Trailer
+FRBA|Francis-Barnett
+SIST|Silver Star Trailer
+SALI|Saling Mfg. Co.
+DURB|DurobiltEl Monte, California
+JERR|Jerrytime Camper
+UNEX|UNITED EXPRESS LINE,INC; BRISTOL INDIANA
+DALE|Dalesman (United Kingdom)
+CRGR|Charger
+ASEC|All South Equipment Corp.
+BOMG|Bomag Trailer
+DELH|Delhi Metal Products, Ltd.Delhi, Ontario, Canada--mfrs. boattrailers
+HURS|Hurst Trailers, Inc.Washburn, Tennessee
+ZETR|Zetor/Zetor North America
+ORIO|Oriole Trailer Mfg. Co.
+DIVO|Divco-Wayne Industries
+OPTI|Optima Ind., LLC
+FELB|Felber
+MMCO|Milwaukee Motorcycle Co.
+JAC|Jackson Trailer
+JIAL|Jialing Ind., Co., Ltd. Group
+DOLI|Dolphin HomesDiv. Tidwell Ind., Inc., Haleyville,Alabama
+BEAR|Motor Homes of America, Inc.
+TURN|Turner
+KURM|Kurmann Trailer Mfg. Co.
+SPRR|Superior Office Trailer
+GOOD|Good Mfg. Co.
+CMPF|Campfire Travel Trailer
+GRSO|Coventry Mobile HomeMfd. by Great Southwest Corp.
+SYRE|Syrena
+JSMH|J.S. Mobile Homes
+CONI|Conestoga Mobile Homes
+FLOW|Flow Boy, Inc.Norman, Oklahoma
+SPEP|Spencer Sports Products
+SHIV|Shivvers, Inc.
+TRIU|Triumph
+MANO|Manor Homes, Inc.
+PINS|Pinson Truck Equipment Co.
+HLFM|Haul-A-Fame, Inc.
+MRTE|Motorette
+DURA|Durant
+DEVN|Devine's Machine & Design, Inc.Grantville, Pennsylvania
+RAMR|Ramsey Trailers
+VADO|Vador
+STOC|Stockland
+SIMW|SIMPSON WELDING & CUSTOM TRAILERS / HOWBOY TRAILERS; HUGO, OK
+GPRX|GRAND PRIX TRAILER MANUFACTURING, CO.; FREDERICK, MD
+FSTL|FASTLINE; KANSAS
+TIST|Tri-State Homes, Inc.
+NORX|Northwestern Mobile HomesDiv. Rainway Manufacturing Company
+DOUE|Double E Trailer Mfg.Commanche, Oklahoma
+HALN|HAULIN TRAILERS LLC, MUSKEGON, MI TRAILERS
+MERZ|Mercedes-Benz
+RLAC|Allen, R. L. Company, Inc.Battle Creek, Michigan
+MRNE|MARINE TRANSPORTATION CO., INC.; NORWELL, MA
+ARCC|Arctco, Inc.See Arctic Enterprises
+WAGT|Wagon Train, Inc.
+EMBB|Embassy Mobile HomesDiv. of Guerdon Industries
+FACE|Facel-Vega
+WESI|Western Dynamics Corp.
+ELDC|El Do-Craft Boat Co., Inc.Boat trailers--Smackover, Arkansas
+SAMC|Safari Motor Coaches, Inc.Harrisburg, OR
+MBEE|Motobee
+FRAN|Franklin
+MATA|Matra
+TEJA|Tejas Trailers, Inc.Bellville, Texas
+SNTR|Sun Trailer & UtilitiesMid-West City, Oklahoma
+ALFA|Alfa Romeo
+RAMN|Ramlin
+PLAS|Plastic Forming Co.
+KOMP|Kompak Camping Trailer
+EDSE|Edsel
+FAIH|Colonnade Mobile HomesMfd. by Fairmont Homes, Inc.
+WARE|Warren Mfg. Co.
+CANT|Canton Trailer Co.
+SEAL|Sea Lion Utility Trailer
+RRAA|R & H Horse Trailer
+CUSB|Custom Bond Mfg. Co.Lansing, Michigan
+GLSC|Glassic
+HLRI|HIGH-LITE RIDES, INC.; GREER, SC
+KOSC|Kosch Co.
+MNLN|Main Line, Inc.
+TRUE|Truck Equipment Service Co.Lincoln, Nebraska
+MNAR|Monarch (Sweden)
+BELF|Bell Mfg. Corp.
+DART|Dart
+PRIJ|Pride & Joy Mini Motor Home
+CORY|Corey Enterprises
+SAUB|SAUBER MANUFACTURING COMPANY; VIRGIL, IL
+HUSQ|Husqvarna
+JAMM|JAMMER CYCLE PRODUCTS, INC BURBANK, CA
+WEST|Westways Mfg.
+TRAP|Transit
+ANTO|Anton Mfg. Co.
+MAL|Mal Tractor
+TKNG|TIMBERKING, INC
+SEWR|SEWER EQUIPMENT CO. OF AMERICA
+BRRO|Burro, Inc.Plymouth, Minnesota
+NOEL|Noel Mfg.
+GUST|Gustafson Mfg. Co., Inc.
+JAYS|Jays Hy Lift Manufacturing Co.
+AMME|Ammex
+NISS|Nissan
+TRAB|Trabant
+SOUD|SOUDRE KERR, INC.; COOKSHIRE, QUEBEC CANADA
+BOYR|Boyer Industries
+GRAE|Grace, W. E., Manufacturing Co.
+ARIT|Arista
+FIAT|Fiat
+ALAS|Alaskan Camper
+CAMF|Camp Four Industries, Inc.
+OPEL|Opel (imported by Buick)
+BAME|Bame Three Axle Trailer
+EZCK|E-Z Camper (or Kamper)
+TLMC|Ozark TrailwayMfd. by Tri-Lakes Mfg. Co., Inc.
+JOLI|Johnny Lightning
+WHIS|George White & Sons Co., Ltd.,(Canada)
+RAVE|Ravens-Metal Products, Inc.Parkersburg, West Virginia
+BREI|Brent IndustriesShell Rock, Iowa
+APPL|Appleby Camper Trailer
+TWEN|Twentieth Century Mfg. Co.or 20th Century Mfg. Co.
+HUBE|J. M. Huber Corp.
+BROK|Broken Arrow Mobile Home
+KENT|Kentucky Mfg. Co.Louisville, Kentucky
+BZEL|B & Z Electric Car Co.
+ZUND|Zundapp
+HEIT|Heilite Trailers, Inc.
+AUBN|Auburn Homes
+HICO|HICO Corp. of America
+TETO|Teton Travel Trailer
+BYSN|BYSON TRAILERS
+FORD|Ford (also see English, French,German, and Italian Ford)
+FMC|FMC Corp.
+HYCA|Hycaloader Co., Inc.
+WYNO|Wynona Corp.Nappanee, Indiana
+CLIH|Cliff Hall, Inc.
+SAIJ|St. Joseph Marine Trailer
+CUAS|CassMfd. by Custom Assembly
+BSA|BSA (United Kingdom)
+LECT|Lectracan
+ENER|Energy Mfg. Co.
+MAIC|Maico (West Germany)
+SHAN|Shanghai Jialing Vehicle Business Co., Ltd.
+STAN|Standard
+SOVA|Sovam
+ALLA|Allard
+COMY|CommuneMfd. by Community Homes, Inc.
+FELL|Fellwon Trailer
+OTAS|Otasco
+TLTR|Trailite Trailer
+POLA|Polar Mfg. Co.Holdingford, Minnesota
+MTTI|M.T. Trailers, Inc.
+PION|Pioneer Sales & Mfg. Co.
+BERM|Bermar Mfg. Corp.
+TRSY|Tri-Pak Systems Co.Louisville, Kentucky
+UMOG|UNIMOG
+SPTR|SUPERIOR TRAILERS OF GA. INC.; DANIELSVILLE, GA
+ITAV|Italvelo
+CAMA|Cambridge Homes, Inc.
+TROP|Tropicana Mfg. Co.
+WORI|Worthington Compressors, Inc.Holyoke, Massachusetts
+TACO|Tacoma Trailer
+BADC|Badger Construction Equipment Co.,Division of Burro-Badger Corp.
+EZDU|EZ Dumper
+BALE|BaleMuvr
+HILP|Hilltopper Mfg. Corp.
+USCA|U.S. CARGO, INC
+AAWS|A-A WELDING SERVICEMOUNT PLEASANT, TEXAS_; ANS OR CLINT R. WOODS INC
+TBC|Travel Cruiser
+CHIE|Chief Ocala Trailer Mfg.
+STRE|Streamline Trailer Co.
+KISS|KISSEL MOTOR CAR COMPANY OR KISSEL INDUSTRIES
+AAB|A.A.B. Co., Inc.
+CONO|Condor Coach
+ATLA|Atlantic Coast Camper
+APAE|Apache Corp.
+ALTE|Altec IndustriesIndianapolis, Indiana
+EXHE|EXCELSIOR-HENDERSON MOTORCYCLES
+ROBM|Robinhood Motor Homes, Inc.Redondo Beach, California
+BEAM|Beach-Craft Motor Homes Corp.Elkhart, Indiana
+HEIL|Heil Co.
+BMTR|Boat Master TrailersFt. Myers, FL
+KWNS|Kensington Welding & Trailer Co.Kensington, Connecticut
+OWAT|Owatonna Manufacturing Co., Inc.
+WYNN|Wynn Trailer Works
+CARR|Carrie-Craft Div.Div. Thrift Cts. of America
+ABCC|ABC Coach Co.From 1960 on, see Vought Industries
+KONT|Kontiki Camper Trailer
+MCOX|MECOX RESOURCES SA DE CV; MEXICO
+WERS|Werts Corp., Inc.
+COMA|Comanche Mobile Homes
+MORT|Moritz, Inc.Mansfield, Ohio
+GLND|G & G TRAILERS; GILLIAND & GILLIAND; PRESTON GILLIAND, HALLS, TN
+EMBA|Embassy HomesDiv. of Guerdon Industries
+CUKE|Cuke, Inc.Mendota, Illinois
+AMIN|Advance MixerFt. Wayne, IN; truck, front dischargetransit mix
+BERG|Bergantine
+HIGC|High Country Trailer Sales & Mfg.
+CHAC|Challenge-Cook Brothers, Inc.Industry, California
+PEND|Pendlay
+RUST|Rustler Horse Trailer
+BOMF|Bomford & Evershed, Ltd. (England)
+DOWE|Downer Industries
+CAND|Canadian Trailmobile Ltd.
+ROCT|Rockport Trailer Mfg. Corp.
+BUCY|Bucyrus-Erie Co.
+TRBC|Trav Otel Industries
+BULT|Bultaco (Spain)
+DWTE|Down (2) Earth Trailers
+WSTI|Western Trailers IncCo-Tem Corp. Boise, Idaho
+TZ|TZ
+MBCC|McBurnie Coach Craft, Inc.
+KIPC|Kipco
+KNGS|Kingsway Travel Trailer
+PUZE|Puzey Bros., Inc.Fairmont, Illinois
+CABK|Campus Bike
+JJNE|J-J-N ENTERPRISES; SISKETON,MO
+OSHK|Oshkosh Motor Truck Co.
+CURR|CURRAHEE TRAILERS
+HERT|Herter Snowmobile Trailer
+BAIN|Bainbridge Motor Home
+GATP|Gator Products, Inc.Jacksonville, Florida
+MARS|Mars Camper Co.
+LKWD|Lakewood
+BRWD|Broward Trailer
+CADI|Cadillac
+HYLT|Hylton Homes, Inc.Phil Campbell, Alabama
+SUPE|Superior Motor Home
+PULD|Pull-Do Trailers
+CHER|Cherokee Mobile Homes
+TNTL|TN TRAILERS, LLC; SHIPSHEWANA, INDIANA
+OKLH|Oklahoma Trailer, Inc.Mfrs. boat trailers--Kingfisher,Oklahoma
+BOBC|Bob Coons
+FRRS|Ferris Ind.
+TOWM|Tow Mobile Forklift
+CLOV|Cloud Electric Vehicles
+ROKW|Rockwood, Inc.Millersburg, Indiana
+AMDI|Agricultural Machinery Div.Div. FMC--mfrs the Bean sprayer
+CALD|E. L. Caldwell & Sons, Inc.
+THMP|Thompson Concrete Pump Trailer
+ECHE|Echelon Motorcycles
+TOHA|Tohatsu
+CHAG|Charger Pick-up Campers
+FWD|FWD Corp.
+IOWA|Iowa Manufacturing Co.Cedar Rapids, Iowa
+ROLY|Royal Land Yacht
+IMPA|Impala Mobile Homes & Travel Trailers
+FOR|Forte Trailer
+YSOB|Ysob Co.
+STIL|Stillwater Supply Co.
+CFBT|Custom Fab Body Bodies andTrailers, Inc.Indiana, Pennsylvania
+FOST|Foster Flatbed Trailer
+ALTA|Alta
+BUG|Bug
+HORT|Hornet Flatbed Trailer
+RCCM|RC COMPONENTS
+DDTI|D & D Trailer Inc.Trenton, New Jersey
+AVEN|Avenger
+BIGV|Big Valley Trailers, Inc.Wynne, Arkansas
+BALI|Balko, Inc.
+LOLA|Lola
+NECT|Neckover Trailer Mfg. Co.Troup, Texas
+ASI|ASI Trailer
+LEWI|Lewis-Shepard
+STAO|Starcraft Corp.
+VIRI|Virginian Coach Camper Corp.
+GRES|Great Escape
+PAND|PANDA MOTOR SPORTS NORTH AMERICA, INC.
+STID|Stidham Horse Trailer
+CARW|Carnes Welding & Fabricating Co.Crescent, Oklahoma
+PAIS|Paris
+MANN|Manning, Richard
+ZNEL|Zanella
+GILB|Gilbern
+DEER|Deere, JohnDeere & Co.
+HERD|Herd Seeder Co., Inc.
+OPL|Opel
+ARMC|ARMOR CHASSIS, LLC; RIDGELAND, SC
+KUTK|Kut-Kwick Corp.Mfrs. industrial mowers--Brunswick,Georgia
+AIRO|Air-O-Motor Home
+SEID|Seiden Mobile Homes
+ROLL|Rollfast
+AUPR|Austin Products, Inc.Subsidiary Austin Industries, Inc.
+ADMT|Adams Trailer Mfg.
+DAVC|Davenco, Inc.Roscoe, Illinois
+ROLR|ROLLS RITE TRAILERS, INC; MARIANNE, FL
+MOBB|Mobilaire Mobile Homes
+ROCK|Rockford
+ETNY|E. D. Etnyre & CompanyOregon, Illinois
+DALW|Dalewood Manufacturing Co., Inc.Lauderdale, Mississippi
+TARA|Tara Products, Inc.White Pigeon, Michigan
+GROE|Gronewegen B.V.Netherlands
+JTIL|J.T. Ind., Ltd.Lenox, Iowa
+CHEO|Cherokee Camper
+HANS|Hanson Machinery Co.
+NELN|Nelson-Dykes Co.
+KUBO|Kubota Tractor Corp.Compton, California
+SOPK|Sopko Mfg., Inc.
+JDHS|JD HANDLING SYSTEMS OR D.J. STEELE & CONSTRUCTION
+TWKL|TWINKLE; HEARSES
+BOWS|Bowsman TrailersThree Rivers, Michigan
+EGLR|Eaglerock Trailers, Inc.
+GARR|Garrett-Weldco Industries, Inc.
+HNLC|H.N.L. CORP AND OR HENRY L. LANCIANI CORP.
+DIXI|DixieFruehauf Corp. Plant
+HWKT|HAWK TRAILERS, LLC; MANAWA, WI
+MVAU|M.V. Agusta
+LONC|Lone Star Classics
+PAMU|PACE AMERICAN OF UTAH, INC.; HURRICAN UTAH
+STMC|Supertrail Mfg. Co., Inc.Aberdeen, Misssippi
+VLCT|Velocette
+VERN|Vermeer Manufacturing Co.
+MOTO|Motoroam Industries, Inc.Galva, Illinois
+HORI|Horizon Mobile Homes
+FONA|Fontaine Truck Equipment Co.Birmingham, Alabama
+OPER|Open Roadsters of Texas
+BALK|Balkan
+BUTE|Butler, L. T.
+MGNO|Mgnol Tandem Boat Trailer
+CHAL|Chamberlin TrailersHampton, Iowa
+CIRH|Circle H Horse Trailer
+RPII|H & H SnowmobilesCleveland, OH
+XCEL|X-CEL TRAILERS, INC.; FORNEY, TX
+TRMN|Transmission (Generic Code--for useonly when manufacturer is notlisted)
+AMRI|Americana Mobile Homes, Inc.
+SCAN|ScaniaOrange, Connecticut (Saab-Scania ofAmerica, Inc.)
+BILL|Bills Welding Model Trailer
+SUNB|Sunbeam
+NDMC|NISSAN DIESEL MOTOR CO.
+BUCI|Bucita Pop Top Trailer
+KANZ|Kanzol Enterprises, Inc.
+JIEE|JI-EE Ind., Co., Ltd.
+WELC|Welch Mfg. & Engineering Co.
+OTPE|Outdoor Power Equipment
+INRP|Intrapid Trailer
+MAKV|Mark V Trailer
+BELU|Belarus Machinery, Inc.
+FIRE|Firestone Tractor
+PEER|Peerless
+CLAI|Classic Motor Carriages, Inc.(Hallandale, FL)
+ANGE|Angelus Trailer Mfg. Co.
+SWGN|SOUTHWEST GOOSENECK; SAN ANTONIO, TX
+SANG|Sangyong
+VIND|Vindale Corp.
+STEE|Steed-Pollak Mfg. Co.
+PAUL|Pauli Cooling Systems, Inc.
+HENR|Henry J.
+ARRO|Arrow
+HOWS|Howse Implement Co., Inc.
+ERIG|Erie-Go Mfg., Inc.
+MOBV|Mobile Tops, Inc.
+BLIX|Blix Coach
+CLAZ|Clayton Craft
+TRAM|Trail-Wide Corp.
+JETM|Jetmobile
+GEHL|Gehl Co.
+TODC|Todco
+RACI|Racine Construction Tool Div.,Racine Federated, Inc.
+BBCB|B & B Custom Built TrailersNewport, Arkansas
+CAVE|Caveman Industries
+GNMI|General Marine Industries
+GRIF|Griffith
+RVII|RV Industries, Inc.
+JASO|Jason Mfg.
+PUMM|Puma
+VREN|VOR ENDURO MOTORCYCLE, ITALY
+ROUL|Roulette Caravan Co.
+TRNS|Transliner Insulated Tank Trailer
+BENS|Benson Truck Bodies, Inc.Mineral Wells, West Virginia
+BTVS|Batavus Mo-ped
+CAPE|CapreCarrocerias Preconstruidas SASan Nicholas, Mexico, bus trailers
+ROTE|Rotech, Inc.
+BLUJ|Blue, John Co.Huntsville, Alabama
+HRTL|HEARTLAND TRAILER MANUFACTURING & SALES, INC.; SIKESTON, MO BARLOW TRAILERS
+AMEL|American Economobile Hilif
+ABIA|ABI Leisure Inc.Ontario, Canada
+CROF|Crofton Cub
+STAG|Stage Coach Mfg. Co.
+BASS|Bass Trail Trailer Co., Inc.Mfrs. boat trailers--Midway, Arkansas
+BULM|BULK MANUFACTURING COMPANY; PLANT CITY, FLORIDA
+MOBT|Mobile Scout Mfg. Corp.Arlington, Texas
+MNTE|Montebello Mobile Home Trailer
+PATZ|Patz Co.
+LBAU|LEBEAU ENTERPRISES; LEXINGTON, NC
+LIBH|Liberty Homes, Inc.Goshen, Indiana
+DROT|Drott Manufacturing Co.Div. J. I. Case Co.
+KLCL|Kelly-Creswall Co., Inc.Xenia, Ohio
+WOLF|G.T.Wolfe Mobile Homes
+BROW|Brown TrailerDiv. Clark Equipment Co.
+RFCM|RFC Mfg., Inc.
+TATR|Tatra
+BANH|Bankhead Enterprises, Inc.Atlanta, Georgia
+MOTB|MOTOBECANE; SCOOTERS & CYCLES
+BRDL|Bradley GT
+DIAD|Diamond Mobile Home Mfg.
+SEXT|SEXTON MOTORCYCLE COMPANY
+KOOL|Kools Brothers, Inc.
+FEYF|Fey, Frank & Co.
+HSMI|H & S Mfg. Co., Inc.
+DEWL|D & E WELDING; LYONS, GA
+SPAM|SpacemasterColumbia, Tennessee
+SPMC|Speedster Motorcars
+LNCI|Lancia
+NORU|Northern Star Mobile Home
+WAGN|Wagner
+CHIM|Chipmore Mfg. Co., Inc.Mfrs. chippers--Bay City, Michigan
+VAGA|VagabondDiv. Guerdon Industries
+BLAK|Black Diamond Enterprises
+GATE|Gates, Walter C.
+STRI|Strick Trailers Corp.Fort Washington, Pennsylvania
+RAMS|Ramses
+CATC|Classic Aluminum Trailer Corp.
+ALED|Allied
+SPOM|Shalimar Mobile HomesMfd. by Sportcraft Homes
+WAYC|Wayne Corp.Richmond, IN
+LACH|Lawn Chief
+WMEI|W & M ENTERPRISES, INC.; LAWRENCEBURG, INDIANA
+MLLR|Miller
+HIAB|Hiab Cranes and Loaders, Inc.Newark, Delaware
+LITP|Little Prince Travel TrailerMfrs. boat trailers
+CLOU|Clough Equipment Co.Seattle, Washington
+PRIO|Prior Products, Inc.Dallas, Texas
+NEWP|Newport Homes, Inc.
+ENPR|Enterprise Motor Home
+FLOI|Florida Wholesale Distributor
+GLAS|Glas
+HUTC|HUTCO BOAT TRAILER
+ROCB|Rockin-Bar Trailers Ltd.Durant, Oklahoma
+MYFA|Mayfairer Motor Home
+CUSF|Custom Craft Mfg. Co.
+SPCT|Spector Manufacturing, Inc.
+MORD|GrasshopperMfd. by Moridge Mfg., Inc.
+MAJO|Major Way
+BADR|Badger Machine Div.Ronco Engineering Co.
+KNBR|Ken-Bar
+CHLG|Challenger Trailer
+SKYH|Skyhomes, Inc.Div. Skyline Homes
+BRTE|Brute Equipment Inc.Glen Alan, Mississippi
+SALM|The Salem Tool Co.
+KOMC|K & O MANUFACTURING CO., INC.;HULL, IA
+KRAE|Krager Kustom Koach, Inc.
+FERE|Ferree Trailer Corp.Climax, North Carolina
+GEOR|Cruisemaster Motor HomeMfd. by Georgie Boy Mfg., Inc.Edwardsburg, Michigan
+PADG|Padgett, Inc.
+BMMM|Beatrice Motor Mart Mfg. & Easy-Haul
+HERB|Herbst Brothers
+DAEW|Daewoo
+LULL|Lull Engineering Co.Subsidiary N. Marshal Seeburg & Sons,Inc.
+SHOO|Shoops Horse Trailer
+NEWM|Newham Enterprises
+FIAA|Fiat-Abarth
+LASE|Laser
+LICO|Linco Trailer Home
+LNDR|Land Rover
+BAUG|Baughman Mfg. Co.
+REDR|Red River Custom TrailerClarksville, Texas
+BIBK|Big Inch Bikes
+BETT|Better Built
+HRVY|FORCE MANUFACTURING, INC. AND/OR HARVEY; BANGOR MAINE, NANCY HARVEY
+CARE|Cardinal Industries
+MERT|Merit Tank & BodyBerkeley, California
+MTBE|Lemoped (model of Motobecane)
+KNTC|Kinetic
+CHIS|Chisolm Trailers, Inc.Chickasha, Oklahoma
+GEEB|Gee-Bee-Dee Manufacturing & Supply Co.
+CRIM|Crimson HomesDiv. Winston Industries, Inc.
+GELT|Gelt Trailers
+PORT|Porta-Built Industries
+DUCA|Ducati
+PLAC|Plastic Engs. & Consultants
+SMMO|S M Moon
+REYN|Reynolds Mfg. Co.
+TRVS|Travis
+KEVC|Kevco Ind.
+SPAC|Space Age Campers
+GOKT|Go Kart
+AEAG|American Eagle (also see make Eagle)
+BOB|Bob S Trailer
+OMNI|Omni Motorsports, Inc.
+MTCI|Mississippi Tank Co., Inc.Hattiesburg, Mississippi
+CUSH|Cushman
+LOCK|LOCKE ENTERPRISES OF NEW YORK, INC; LOCKE,NEW YORK
+DSSC|Super CookerMfd. by Deep South Sales Co.
+FRCS|Francis Travel Trailer
+AJTR|A. J. Travelute Trailer Mfg. Co.
+NORI|Norris Homes, Inc.
+GLUT|G & L Utility Trailers
+PAST|Pastime Mfg. Co.
+SKOD|Skoda
+SHER|Shertzer Dump Trailer
+COMT|Comet Riding Mower
+GOGA|Go-Tag-Along
+LEYL|Leyland TractorsBritish Leyland - Dist. by UniversalTractor-Equipment Corp. Richmond,Virginia
+MELR|Bobcat Skid Steer LoaderManufactured by Melroe Div.
+WHIE|White Line Mfg. & Dist. Co.
+SPTL|Sportsliner Camping Trailer
+SEAF|Seagrave Fire ApparatusClintonville, Wisconsin
+ENGI|EconomyGarden tractor--mfd. by EngineeringProducts Co., Inc.
+NUWE|NuWay Mobile Home Mfg. Co.
+MCCU|McCulloch Mite-E-Lite, Inc.,McCulloch Corp.
+NEWC|New Comer Industries, Inc.Goshen, Indiana
+REXM|Rex Mobile HomesDiv. of Divco-Wayne Industries
+REDM|Country EstateMfd. by Redman Homes, Inc.
+FUER|Fuerst Brothers, Inc.
+WORR|Worrell Trailer Mfg.
+PJTM|P.J. Trailer Manufacturing, IncSumner, TX; utility trailer
+SMTS|Southern Missouri Trailer Sales
+CMIC|CMI Corp.
+SUZI|Suzuki
+HAMI|Hamilton Trailer
+BRCV|BROWN CARGO VAN, INC.; LAWRENCE, KS
+CUBS|Cubster
+GLNL|Glen-L TrailersLewiston, Idaho
+GRVE|Clark-Gravely Corp.Gravely tractors
+MOUA|Mount Vernon Mobile HomeDiv. Concord Mobile Homes
+DESA|De Soto Coach Co.
+WARM|Warrior Mfr.Henderson, Texas
+VACD|Big SurMfg. by Vacation Industries
+PNNT|Penn Trailer
+MIKA|Mikasa
+VACT|VACTRON TRAILERS, MANUFACTURED BY: A COMPLETE ASSEMBLY;MASCOTTE, FL
+ASA|ASA
+MASE|Maserati
+LOOD|Loodcraft
+BENT|Bentley
+COUR|Courthouse Camper Trailer
+GLAD|Gladding Travel Trailer
+WILC|Will Craft Camper Trailer
+INTR|International Trailer Corp.
+AVAO|Avalon Mobile Homes
+CORG|Corder Mfg. Co., Inc.
+ALTC|THE ALUMINUM TRAILER COMPANY; NAPPANEE, INDIANA
+PDV|PDV
+BKDN|BUCK DANDY COMPANY; TEXAS
+PGRM|Pilgrim Intl., Inc.
+ATHE|Athey Products Corp.
+EJAY|El-Jay Div. Iowa Mfg. Co.
+NAMC|N & Ha Mfg. Co.
+FLOA|Float-On of FloridaBoat Trailers--Ft. Pierce, Florida
+RIME|Rimer, Inc.
+ELLS|Ellis Trailer Co.Sylmar, California
+MEDA|Medallion Mobile Homes
+SUNN|Sun Valley
+STEC|Steco Trailer Co.
+FUQU|Fuqua Homes, Inc.Div. Fuqua Industries--Arlington, Texas
+ARTI|Artie
+CLEN|Clenet Coach Works
+JMGL|Jimglo Trailers & ProductsPhoenix, AZ; car trailers andutility trailers
+WATR|Walter Products & Engineering Co.
+SIEM|SIEMS ENTERPRISES; SHELLEY, IDAHO TRAILERS
+SAGE|Sage Mfg. Co.
+BACC|Bar-C Horse Trailer
+SMAL|Smalley Mfg. Co.
+AERI|Aeroil Products Co., Inc.Bensenville, Illinois
+UDMP|U-Dump, Inc.Ocala, Florida
+NVTA|NVT America (moped)
+HESS|Hesse Corp.Kansas City, Missouri
+WICT|Williams Craft, Inc.
+VANO|Van Car Corp.
+SNWC|SNOW Co.
+CORO|Corona Coach Co.
+DCNT|DISCOUNT TRAILERS; FORT WORTH, TX
+IKA|I. K. A.
+EVLT|EVERLITE, INC.; LONGVIEW, TX - FLEETRITE & OTHER MODEL OR SERIES
+GRYE|Grycner
+BUIC|Buick
+VANS|Vanson Boat Trailer
+PARR|Parker
+HITC|Hitching Rail Trailer
+TROT|Trotwood Trailer
+BONC|Bonanza Travel Coach, Inc.
+AELI|Aero Liner Co.
+NICK|Nickel & HolmanFenton, Michigan
+CJGC|China Jiangmen Group Co., Ltd.
+KAZU|Kazuma (Stannic Mfg. Co., Ltd.)
+CHMP|Champ Horse Trailer
+THOE|THOMAS EQUIPMENT LTD.; NEW BRUNSWICK, CANADA
+ROTI|Rockett TrailersMedley, FL; boat trailers
+ANDR|Andrews Payloader
+SHTR|S & H Trailer Mfg. Co., Inc.Madill, Oklahoma
+IJBD|International Jet Boats De Mexico S.A.De C. V.Mexico; trailers
+LRNG|LORANGER ENTERPRISES, INC.; SAN ANTONIO, TX
+STPK|Stewart Park Homes, Inc.
+SNUB|SNUB-HARBOR OR DAY'S DRYDOCK TRAILERS; INDIANA
+CROW|Crown Line
+FOUN|Fountain Flatbed Trailer
+FERT|Fertilizer Dealer Supply, Inc.Philo, Illinois
+ITAS|Itasca Motor HomesDiv. Winnebago Ind., Inc.,Forest City, Iowa
+XYZ|XYZ Trailer
+MOLY|Mobility, Inc.Minneapolis, Minnesota
+OLAT|Olathe Mfg. Co., Inc.
+HELM|Helm Mfg. Co.
+BMBR|Bombardier Inc.Valcourt, Quebec; Ski-Doo/Moto Ski
+LABE|Lady Bea TrailersMalden, Massachusetts
+PRTT|Port Trailer Mfg. Co.City of Industry, California
+SPAT|Spartan Aircraft Co.
+AATM|ALL-AMERICAN TRAILER MFG. CO., INC.; SELMA, AL
+CAMU|Camp-Mor, Inc.
+GASE|Garber Seeders, Inc.
+SEAW|Sears, Wendell
+OCCH|Orange County Choppers
+CEVA|Ceva Mfg. Co.
+ZIPP|Zipper, Inc.
+SWEM|SMPMfd. by Sweetwater Metal Products Co.,Inc.
+SUPM|Supreme Industries, Inc.Louisville, Tennessee
+WARO|Wain-Roy, Inc.
+LOFT|Loftness Mfg. Co.
+STEP|Stepper Trailer
+BELN|Bellamy's Mfr. & Research ProductsHiltons, Virginia
+ASPE|Aspen Camper, Inc.
+CUMB|Cumberland CoachesH & W Mfg. Co.
+BOBK|Bobko, IncMichigan City, Indiana
+HD|Harley-Davidson
+ORIG|Original Equipment Manufacturing, LTD.Sudbury, Ontario
+NERC|Nerco Trailer
+FIVK|Five-K Trailer Co., Inc.Bethalto, Illinois
+CONE|Concord Travelers
+HOLW|Hollywood Mobile Homes
+SBRT|Seabring Home, Inc.
+NEAL|Neal Mfg. Co., Inc.
+PLAL|Play-Mor Trailers, Inc.Westphalia, Missouri
+BOWE|Bowers Mfg. Co.
+SUFW|Sunflower Mfg. Co., Inc.
+CGXP|J & L'S CARGO EXPRESS, INC.; BRISTOL, INDIANA
+REEV|Reeves Trailer
+CAMR|Campers, Inc.
+FHMC|F & H Mfg. Co.
+RIVR|Bill Rivers
+CENA|Central Industries, Inc.
+DENE|Denver Trailer Supply, Inc.
+WATF|Watford
+QVAL|Qvale Automotive Group
+LEXS|Lexus
+WORK|Work-N-Play
+HEAR|Hearthside Mobile HomesDiv. Moduline International, Inc.
+BRON|Broncco (Italy)
+MTPI|ColumbiaSee MTD Products, Inc.
+FOMO|Foremost (also see make J.C.Penney)
+TOWE|Towner Mfg. Co.
+KAYD|Kaydel, Inc.
+SIAT|Siata
+RACH|Rach WeldingSt. Joseph, Michigan
+ROLF|Roll-O-Flex, LTD.Regina, Saskatchewan
+CSMC|Circle Supreme Mfg.Knowville, Tennessee
+LAKE|BestrailMfd. by Lakeside Industries
+NEWD|New Dimension
+HFTD|Hatfield Welding & TrailerSales, Inc.Mt. Pleasant, Texas
+BDFL|Bender-Florin
+CCCY|CAREFREE CUSTOM CYCLES, LLC
+FORE|Ford's Mobile Home Mfg.
+ELWN|Easy Lawn, Inc.
+TMTR|Travel Mate Trailer
+TROY|Troyler Corp.
+CAPR|Capri
+CAMI|Cam-Pact Co., Inc.
+LOAK|Load King Trailer Co.Div. of CMI Corp.--Elk Point, SouthDakota
+HMST|HOMESTEADER, INC.; NEW TAZEWELL, TN
+CLAT|Clayton Homes, Inc.Div. of Clayton Industries, Inc.,Knoxville, Tennessee
+AROM|AERO MANUFACTURING, INC.; SYRACUSE, INDIANA
+PULL|Pull A Long Mfg. & Sales
+BBTM|B & B Trailer Mfg., Inc.Wapanuck, Oklahoma
+HALE|Hale Horse Trailer
+HOWA|Cycle-SleeperMfd. by Howard Mfg. Co.
+GEMI|Gemini
+COMD|Commander Motor Home
+MRTI|Martin Lowboy Semi Trailer
+BONI|Bonnieville Mfg. Co.
+SIMS|Simson
+AMES|Amerigo Travel Trailer
+TYAN|Tyran
+VLCN|VULCAN WORKS, INC; MANCHESTER, NEW HAMPSHIRE; MOTORCYCLES
+STAA|Star Machine Shop Co. Ltd.
+RIND|Rich Industries
+MODH|Modern Mobile Homes
+HILD|Hill Dump Trailer
+SCHE|Schenkel Brothers Mfg. Co.
+FRTV|Foretravel, Inc.Nacogdoches, Texas
+BULK|Bulk-Hauler TrailerSee Kellebrew Mfg. Co.
+ALPI|Alpine
+EXCI|Excel Industries, Inc.Hesston, Kansas
+CONG|Conestega Mfg. Co.
+CHET|Cheston & Eshelman Co.
+COPA|Cooper Alpine Motor Home
+ABAR|Abarth
+GOCO|Co Corp.
+DUNL|Dunham Lehr, Inc.
+MCOY|McCoy/Taylor, Inc.
+PTRB|Peterbilt Motors Co.Div. of Paccar, Inc.
+HYTK|HYDRO TEK CORP.; REDLANDS, CA
+HECK|Heckaman Mfg., Inc.
+ULTR|Ultra, Inc.
+CRCF|CREW CHIEF MOTORHOME/HAULER
+RAYM|Raymur Acceptance Corp.
+CNRY|Conroy IndustriesNew Braunfels, Texas
+HOF|Hoffman
+REBE|Rebel Mobile HomeDiv. Skyline Homes
+WISG|Wise-Craft Mfg.
+EMER|EMERSON TRAILERS, INC., FLORIDA
+MOBL|Mobile Home Co.
+STU|Studebaker
+MOTM|Motom
+SABE|Recreatives, Inc.See Sabre
+DEXT|Dexter Trailer, Inc.
+DAFF|Daffin Mfg. Co.
+BALT|Baltz Industries, Inc.Pocahontas, Arizona
+STRH|STROHL CORPORATION; MISHAWAKA,IN ; VARIOUS STYLES TRAILERS
+ALAI|Alair Coach Corp.
+ACAE|Academy Mobile Home Corp.
+OZBK|OZBIKE; CYCLE IMPORTS; MIAMI,FL
+CADF|CADILLAC FABRICATION INC
+AMEB|American Body & Trailer Co.
+EASM|Easom Engineering
+TRAV|Travoy Motor Home
+BMW|BMW
+SCOR|Scorpion
+RELM|Reliart Trailer Mfg. Co.
+PIER|Pierce Lowboy Trailer
+VEEN|V. E. Enterprises
+PALE|Palace Corp.
+DUPN|Dupont Service Center, Inc.
+GECI|General Engines Co., Inc.Throfare, New Jersey
+MSTG|MUSTANG; CONSTRUCTION EQUIPMENT ETC.
+BIEW|Biewer Industries
+JAYW|Jay Wren Trailer
+SWNS|Swanson Tilt trailer
+ROSC|Rosco Mfg. Co.Minneapolis, Minnesota
+FREE|Freeway Travelers, Inc.
+CLUM|Columbia Trailer Co., Ltd.Vancouver, Canada
+CASL|Casal
+FLNG|SAUK CENTRE WELDING & MACHINE WORKS, INC. FELLING TRAILERS
+AZTE|Aztec Mobile Homes
+CROT|Croft-INS
+GLIT|Glitsch
+TVR|TVR
+TOYP|Toyopet
+FROS|Frost Trailer Co.West Monroe, Louisiana
+REVN|Revcon
+KNOW|Knowles Mfg. Co.
+DEWE|DEW Eze Mfg., Inc.
+OFFI|Officer, TheElkhart, Indiana
+CLIP|Clipper Mfg. Co.
+BOCS|Bo Cats, Inc.Garden City, Kansas
+PAEN|Page Engineering Co.
+CALM|Calumet Co., Inc.
+SENO|Senora TrailersYuma, AZ; trailers
+REGI|Regis Corp.
+MYWA|My-Way Corp.Longwood, Florida
+WLDE|Wilderness Travel Trailer
+SOWI|Southwind Motor Home
+HRIG|HRI (Heartland Rig)
+MOTS|Montesa (Spain)
+CIMR|Cimarron Mfg. Co.Oklahoma City, Oklahoma
+CRRV|Cruiser RV, LLC
+RNCE|Rance Aluminum, Inc.
+BECK|Becker, Charles H., Inc.
+UNIL|United Mobile Sales
+ACAI|Antique & Collectible Autos, Inc.
+PREO|Prevost Car, Inc.Mfrs. of &quot;Prevost Bus&quot;--Sainte Claire,Quebec, Canada
+SWIM|Swisher Mower & Machine Co.Warrensburg, Missouri
+BOYD|Boyd, E.G., Trailer Co.
+BIMO|Bi-Motor Stallion
+TRPT|Tri-Sport/Steen (formerly Alsport/Steen)
+DAUP|Dauphin
+DAYT|Dayton Electric Mfg. Co.Mfrs. air compressors--Chicago, Illinois
+MUHL|Muhlberg
+YACH|Yacht Club
+VISQ|Vista Queen Trailer
+TWIT|Twilite Mobile Home Mfg.
+NUEL|Nuell Coach Corp.
+MOUN|Mountaineer Mfg. Co.
+ALLE|Allegro Motor Home
+NABO|Nabors Trailers, Inc.Mansfield, Louisiana
+JAYD|Jay Dee IndustriesCassopolis, Michigan
+KNC|Ken Craft Trailer
+VM|VM Boat Trailer
+SMLX|Simplex
+CCMH|Country Coach Motor HomeJunction City, Oregon
+PLAM|Playmate Coaches
+MUST|Mustang
+RTRR|R.T.R. Trailers, Inc.
+INPX|Indiana Phoenix
+FARH|Farmhand, Inc.
+MOCY|Mod Cycles Corp.
+WESN|Westinghouse Equipped Mobile Home
+STEW|Stewart Engineering & Equipment Co.
+WIBH|Wisconsin Body & Hoist
+DURI|Durabilt Industries, Inc.
+MOBO|Mobile Mfg. Corp.
+PONI|Pontiac (Canadian) (Also see makePontiac)
+TRSG|TransglobalNew York; flatbed trailers
+BIOT|Biot Camping Trailer
+HOWL|How-Lo Campers Co.
+MGS|MGS, Inc.
+GREG|Air-Flo Mobile HomeMfd. by Gregory Mfg. Co.
+ONAN|Onan Corp.Minneapolis, Minnesota
+ARGS|Argosy Travel TrailerVersailles, Ohio--Sub. of Airstream
+BRID|Bridgestone
+DANU|Danuvia
+FRNA|Frazer-Nash
+COLB|Columbia Mfg. Co. (subsidiary Yard-Man Co. - Columbia Commuter)
+AMHO|American Hoist & Derrick Co.
+ROPE|Roper Outdoor Power ProductsKankakee, Illinois
+AZAL|Azalea Homes
+BEJE|Beijing Jeep
+FRUN|Fruin
+MARU|Marusho
+VANM|Van American, Inc.Goshen, Indiana
+LBOY|Lawn BoyMfrd. by Outboard Marine Corp.
+WESE|Western
+SARC|Starcraft Mfg. Co.
+OSBO|C. D. Osborn & SonGrand Rapids, Michigan
+DUAM|DuAl Mfg. Co.
+CONH|Condor Motor Home
+KOME|KometicSee Moto Kometik
+ACAD|Acadian (GM of Canada)
+TFLG|TUFF/LUGG MANUFACTURING
+REDI|Redi-Go Traveler
+WILX|Wilson Trailer Co., Inc.Grain, livestock trailers--Sioux City,Iowa
+HERO|Heron Travel Campers
+BRAS|Brasinca
+AMEA|American BeautyMfd. by American Shelter Systems, Inc.
+EATO|Eaton Corp.Cleveland, Ohio
+HAWN|HAWN FREEWAY TRAILER SALES (HAWN TRAILERS); DALLAS, TEXAS
+KINF|King-Co
+LAYO|Layton Mfg. Co., Inc.Salem, Oregon
+LIGT|Lighter-Bilt Trailers, Inc.Durham, California
+SEAN|Seaman Digz-AllMerrill, Iowa
+CUAP|CUSTOM AMUSEMENT PRODUCTS, COMPANY; DOVER, FLORIDA
+ANDE|Ander-Ett, Inc.
+CMCO|BirchwoodMfd. by Conchemco Homes Group
+WIPT|Melvin Manufacturing Corp.See Whip It Snowmobiles
+SHGO|Short Go, Inc.
+CNLS|CORNELIUS MANUFACTURING, INC.; ELNORA, IN
+SCOA|Scootalong
+SHEB|Shelby American
+WHES|WHEEL ESTATE SALES & SERVICE, INC; TRADE NAME/STEWART LODGES
+PREM|Premier
+JACK|Jack's Trailer Mfg.
+BGHM|Bingham
+TSTL|TEAM SPIRIT TRAILERS; ELKHART, INDIANA
+TEAR|Tear Drop, Inc.
+APPA|APPALACHIAN MFG. INC.;ELKHART, IN
+BLGA|Blue Gator Boat Trailer
+KROM|Kromag (Subs. of Puch)
+TANM|T & M EnterprisesCookville, Texas
+ALCI|Allen Coachworks Inc.(Mexican Manufacturer)
+SPRS|HoosierBoat Trailer--mfd. by Spreuer and Son,c.
+OLYP|Olympic Trailers
+MICG|Michigan Central Airlines
+JOYC|Joy Mfg. Co. (Air Power Group)Montgomeryville, Pennsylvania
+TIAR|Tiara Industries
+SWAE|Swan Industries
+GENC|GENERAL ENGINES CO. INC.; FLORIDA EAGER BEAVER & INTERSTATE
+KRGO|Kargo TrailersIvyland, Pennsylvania
+JFW|J.F.W. Mfg., Inc.Wichita, Kansas
+VOLU|Volunteer Mfg. Corp.
+RIGH|Right Products, Inc.
+LCRT|L-Cart, Inc.
+COMM|Com-Camp
+DLHY|Delahaye
+DETT|Detroit Tool, Inc.
+HARI|Hartford Homes, Inc.
+ODOM|Odom Boyd Trailer Mfg. Co.Conroe, Texas
+GIRA|Girard's Mfg. Co.
+NEWT|New Paris Traveler Corp.New Paris, Indiana
+NRTS|NorthwaySee Northway Snowmobiles
+AGRI|Agri-Supply Co.
+DAYB|CommandoYard tractor--mfd. by Daybrook-OttawaDiv.
+EAGL|Eagle Trailer Mfg., Inc.
+AURR|Aurora
+HUNE|Hunter Custom TrailersKingsbury, Indiana
+WIZA|Western Auto Supply Co.Also see make Wizard
+MOTA|Motoc Semi Flatbed Trailer
+MOBF|Mobile Freeze
+SCMI|Scott Midland Div.Div. A-T-O, Inc.
+AUTU|Auto Union
+TRIK|Trike
+QE|QE Mfg. Co., Inc.New Berlin, Pennsylvania
+DRES|Dresser Industries, Inc.
+LEAD|Leader Horse Trailer
+TRIL|ChanceyMfd. by Trail-O-Matic
+CISI|Cisitalia
+KENY|KENNY BOYCE MOTORCYCLES
+MAUL|Mauldin Mfg. Co., Inc.
+CORS|Corsair Div.Div. Divco-Wayne Industries
+CHEC|Checker
+THOP|Thor Power Tool Co.
+STLG|Sterling
+ELEC|Elec-Trac
+BYER|Byerly Trailer & Mfg. Co.
+LMMC|L & M Trailer Mfg.
+GETM|Getman Brothers Mfg. Co.Marion, Ohio
+RANH|Ranch King Enterprises, Inc.Bellville, Texas
+JEEP|Jeep (for model years 1989 throughresent)
+ROCM|Rockie Mountain Mfg., Inc.
+MILL|Miller Trailers Inc.Bradenton, Florida
+LESC|Lesco, Inc.
+TCRW|Triple Crown Trailers, Inc.
+ANAL|Ana-Log
+GINE|Ginetta
+TOPK|Top Kat
+RAYE|Rayne Plane, Inc.
+HOP|Hop Cap P/U Camper Trailer
+MCAF|M. P. McCaffrey
+KIDR|KIDRON; TRAILERS
+DIGM|Digmor Equipment & Engineering Co., Inc.
+AMC|AMC Trailer
+CUST|CMW (Custom Metal Works)
+CORV|Corvette Travel Trailer
+META|Metal Craft ManufacturingGreenville, North Carolina
+TRTQ|TRANSTEQ (Transportation Techniques, LLC)
+SCOT|Scott
+ALNM|ALLEN MANUFACTURING, INC; FORT MORGAN, CO; TRAILERS
+PNZR|PANZER MOTORCYCLE WORKS, LLC COLORADO
+PDAA|P/D
+TRVE|Traveleze Industries, Inc.
+HWRO|Hewitt-Robins Crushing & VibratingDiv. Litton Systems, Inc.Equipment Div.
+OCMI|CLASSIC MANUFACTURING, INC. OR OWENS-CLASSIC MANUFACTURING, INC.; STURGIS, MI
+BROE|Brooten Fabricating, Inc.
+AUTR|Autocarrier and A.C.
+BRTI|Brae Trailers, IncStoughton, WI; piggyback semi-trailers
+EMON|Emergency One, Inc.
+CUKH|Custom King Horse Trailer
+GLRV|GLENDALE RECREATIONAL VEHICLES; STRATHROY, ONTARIO, CANADA
+CBTL|CUSTOM BUILT TRAILERS AN OR CUSTOM TRIKES, INC.
+ELLE|Elgin-Leach Corp.
+FORN|Forney Horse Trailer
+LG|L & G Trailer
+DELR|Del Rey Industries, Inc.
+PERR|Perris Valley Campers
+NIAG|Niagara Trailer Co.
+TRAH|Art Roll Mfg. Co., Inc.New name is Trail-R-Craft, Inc.
+BLAI|Blair Horse Trailer
+PARU|Parkway Mfg. Co.
+WAYN|Wayne SweeperSweeper Div., FMC, Pomona, California
+RUSE|Frank Russell Mfg. Co.
+COYO|Coyote Mfg. Corp.Corona, California
+AUTB|Autobieu
+PRTG|Prestige HousingConway, Arkansas
+ULMC|ULTRA MOTORCYCLE CO.
+SATR|Saturn Corporation
+ZAPP|ZAP (Zero Air Pollution)
+TRIP|Triple R TrailerStockton, Missouri
+RBYD|RECREATION BY DESIGN LLC.; ELKHART, IN
+CYCK|Cycle Kamp, Inc.Anaheim, California
+LWLF|LONE WOLF TTRAILER CO. INC.; FALKVILLE, AL
+ZIM|Zim
+COCO|Conmaco, Inc.
+TORN|Tornado (British)
+BUCK|Buck Camper Co.
+DUTT|Dutton-Lainson Co., Mfg. Div.Mfrs. of boat trailers,
+REVE|Revella Camping Trailer
+USSM|U.S. Suzuki Motor Corp., Inc.Santa Fe Springs, CA
+MILY|ExhibitorMfd. by Miley Trailer Co., Inc.
+ECOB|Eco-Bike Elec Motorcycle
+NEVD|Nevadan Mfg. Co.
+CLMN|Coleman
+PALN|Palmetto Sales of Laurens
+HARM|Hart Mfg., Inc.Chickasha, Oklahoma
+BROS|Bros. Div.American Hoist Derrick Co., St. Paul,Minnesota
+NOMA|Nomad Trailers & Mobile HomesDewey, Oklahoma
+ELET|Electra Vacation Home
+DELM|Delmar Mfg. Co., Inc.
+KBAR|K-Bar Industries, IncSavage, MN; utility trailers
+EBUS|E-Bus
+COAS|Coastal Trailer Corp.
+LEVI|LEVIS MOTORCYCLES; GREAT BRITAIN
+WILL|Willys-Overland
+HUMS|Humes Truck & Trailer Mfg. Co
+BRAW|Brandywine Travel Trailer
+JALL|Jalldee, Inc.Spencer, Wisconsin
+WERN|Siefmund Werner
+CLAX|Claxton
+LINW|Linwood Mfg., Inc.
+CURT|CurtisDiv. Globemaster Mobile Homes
+BOCE|Broce Manufacturing Co.
+TRUW|Tru-Tow Trailers
+ARCA|Arctic Cat
+HAML|Hamlite
+MCKA|John A. McKay
+VANP|Vance Campers, Inc.
+SCHW|Schwartz Mfg. Co.
+CACV|CLASSIC ACQUISITIONS/CLASSIC VENTURES; HERNANDO,FLORIDA
+AJW|AJW
+RIPC|Ripco, Inc.
+SPRN|Springtrail Mfg. Co.Springfield, Missouri
+MERR|Mercury Trailer Industries
+CADE|Cadet Coach Corp.
+SCTI|Star Custom Trailers, Inc.Lebanon, Tennessee
+CRLY|Crowley Mfg.Mathiston, Mississippi
+DOMO|DO-MOR Equipment, Inc.
+TAMP|Tampo Manufacturing Co. Inc.
+NEVI|Neville Welding, Inc.
+UNIA|Union Machine & Tool Works
+SOUW|Southwest Truck Body Co.St. Louis, Missouri
+HILL|Hillman
+LEON|Leon Manufacturing Co., Ltd.,(Canada)
+POLR|Poloron Homes of Pa., Inc.Middleburg, Pennsylvania
+EXIS|EXISS ALUMINAM TRAILERS, INC.; EL RENO, OK
+EASW|Easy Traveler Trailer
+DORT|DORT MOTOR CAR COMPANY; FLINT, MICHIGAN
+ODSS|Odyssey
+CAMO|Camper Corp. of America
+PGAS|PEGASUS VANS & TRAILERS, INC SANDUSKY, OH
+FATC|Fat City Choppers
+ULTI|ULTIMATE TRAILERS; LAKEVIEW TERRACE, CA
+CATL|Catalina Motor Home
+TRRT|Trailerette Trailer
+YANG|Yangzhou Tonghua Semi-Trailer Co., Ltd.
+COWY|Conway
+SEAT|Seat
+PHIL|Phill Trailer
+PONT|Pontiac
+HRTN|HORTON VANS, INC.; EATONTON, GO
+CORB|Corbitt
+FIAC|Fieldacre Horse Trailer
+ALLK|All Lakes Trailer
+ASHD|Ashdown Mfg. Corp.Ashdown, Arkansas
+VIST|Vista Liner Coach & Trailer
+LOVE|J. E. Love Co.
+NORJ|Norjack, Incl
+SURE|Sureload
+CREE|Cree Coaches, Inc.Div. of Southwest Michigan Ind.,Marcellus, Michigan
+TXTT|Traxcavator Tract
+BROB|Brobts & Associates
+OLDS|Oldsmobile
+TROR|Troyer Mfg. Co.
+STAR|Star
+BIBB|BIBB WELDING & TRAILERS, LLC; MACON, GEORGIA
+TPHT|TOP HAT INDUSTRIES, MT. PLEASANT, TX (TRAILERS)
+BRST|Briggs & Stratton Corp.
+LOGI|Logic Motor Co.
+NRWD|NORTHWOOD OF VIRGINIA; WINCHESTER VIRGINIA
+CEIQ|CEI EQUIPMENT COMPANY, INC; CEDAR RAPIDS, IA
+RORA|Road Ranger Camper Trailer
+ENCO|ENCORE; RIDING LAWNMOWERS
+PERF|Performance Products, Inc.
+DANB|Danny Boy Trailer
+KMMC|K & M Mfg. Co.Renville, Minnesota
+VESP|Vespa
+AGCO|AGCO INC. FORMERLY ALLIS CHALMERS & K-H DEUTZ OF GERMANY
+DOUB|Double Shuffle Mobile Home
+ASPT|ASPT
+GAFN|Gafner Machine, Inc.Escanaba, Michigan
+KROS|Kross KountryLittle Chute, Wisconsin
+NERA|New Era Trans Co.
+CORN|Corn Belt Manufacturing, Inc.Early, Iowa
+ZIMR|Zimmerman Automobiles
+ARRT|Arrow Trailers, Inc.Affiliated with Great Dane Trailers--Memphis, Tennessee
+ZCZY|Zastavia (ZCZ-Yugoslavia)
+EALO|Easy Loader Trailer
+PARI|Parilla
+TUFN|Tuff-N-Lite
+RHNO|Rhino Trailer Mfg.
+CLMB|Columbia
+BARK|Barker Trailer Manufacturers, Inc.Phoenix, Arizona
+LEE|Lee
+CSTW|C & S Trailer WorldFort Worth, Texas
+CLIT|Clinton Engine Corp.
+PALW|Palmer Machine Works, Inc.Armory, Mississippi
+PRDE|Pride Heavy Vehicle Ind. & Pride Enterprises
+HOPK|Hopkins Mfg. Corp.
+OSI|Osi
+MAYS|Mays Industries, Inc.Boaz, Alabama
+UNIO|United States Mobile Homes
+BOAR|Boardman Co.
+MULQ|Multiquip
+DENZ|Denzel
+TOWP|Tow Pro, Inc.McKinney, Texas
+GORM|Gorman-Rupp Company, TheMansfield, Ohio
+DILO|Dillon Enterprises, Inc.North Liberty, Indiana
+LIPR|Little Prospector Motor Home
+PINI|Pinifarina
+GERL|Gerlinger Foundry Machine Works
+VAQU|Vaquero Trailer
+STRB|Starbuck Trailer
+LIGC|Little Giant Crane & Shovel, Inc.Des Moines, Iowa
+CONY|Cony Truck (Japan)
+CUSL|Custom Plumbing Co.
+MNTA|MantaSee Three R Industries, Inc.
+BLDC|Black and Decker
+ALLU|All States Trailer Co.
+HADX|HADDOX QUALITY TRAILERS; OKLAHOMA
+PNHL|PINE-HILL MANUFACTURING, CO.; GAP, PENNSYLVANIA
+KINC|BuckinghamMfd. by King Homes, Inc., Elkhart,Indiana
+WESH|Western Coach Corp.
+KWDT|Dart, KW
+TOWR|Towmaster
+UNIP|Unipower
+CPTN|COMPETITION TRAILERS, INC HENDERSON, TEXAS
+EZZY|Ezzy Load Boat Trailer
+WALL|Wallstrong Boat Trailer
+TADN|Tecnica AutomotrizDel Noroeste SAMexico; trailers
+FIST|Fiesta (imported by Ford)
+DUTC|Dutchman ManufacturingMiddlebury, IN
+REDD|Red Dale Coach Co.
+MALH|Malheur Mobile Homes, Inc.
+CMPT|Compact Equipment Co.
+BNDT|BANDIT INDUSTRIES; MICHIGAN
+PROG|Progress
+CONR|Conner Industries, Inc.
+FEDL|Federal
+TRBE|Transfer
+PYRA|Pyramid Mobil Homes
+REEG|Reed Mfg. Co.
+ACE|Ace Trailer of America
+MAXE|Maxey Mfg., Inc.
+WRAN|Wrangler Recreational ProductsFlorence, Alabama
+ROAL|Roadway Trailer, Ltd.
+APEX|Apex Travelers, Inc.Elkhart, Indiana
+DEGE|DeGeest Mfg. Co.Sioux Falls, South Dakota
+WHLE|Wheeler Truck TrailerMorley, Missouri
+BIAN|Bianchi
+SUBT|Suburban Motors, Inc.
+RVIS|R-VISION, INC. INDIANA; MANUFACTURER OF TRAIL BAY TRAVEL TRAILER AND OTHER BRANDS
+MORI|Morris Brothers
+ESSE|Essex
+PCTL|PARIS CUSTOM TRAILER CO.; TEXAS
+ACGC|American Custom Electric Cars and Golf Carts
+FLAN|A.Claeys Flandria (Belgium,imported by Saint Tropez)
+WLLS|Willys
+SILP|Silver Pigeon
+ENSE|Ensenada Mobile Homes
+KROP|Kropf Mfg. Co., Inc.
+ONTR|Ontario Bus Industries, Inc.Mississauga, Ontario, Canada; bus.
+DEAL|Deutz-Allis Corporation
+ROBR|Robin Hood Travel Trailers
+PINC|Pincor Products
+BLOM|BLOOMERTRAILER MANUFACTURING, INC.; LAMARQUE, TX
+TAHI|Tahiti Ski Trailers
+LARK|Lark Trailer
+LDMS|LOADMASTER INC; INDIANA
+LINF|Lincraft Industries
+SPOC|Sportcoach Corporation of America
+FAYE|Fayette Trailer
+MNAC|Monaco Motor Home
+MOBI|Motobic
+TRAG|Trailco-Norwin
+ASUN|Asuna
+CIRV|Circle V Horse Trailer
+MQPW|MQ Power
+DYNM|Dynamark Tractor Mower
+KAES|Fahrzeugwerke GMBHKarls Kaessbohrer, Germany
+GATO|Gator Trailers Corp.
+STOW|EconorollMfd. by Stow Mfg. Co.
+CROE|Cross Truck Equipment Co., Inc.Canton, Ohio
+JETS|Jet Stream Camping Trailer
+NEBM|New Bame Trailer
+ARII|ARISTOCRAT INDUSTRIES, INC.; GOSHEN, IN
+GLBL|GLOBAL ELECTRIC MOTOR CARS, LLC, FARGO,NORTH DAKOTA 2 & 4 PASSENGER, LONG & SHORT UTILITY TYPE VEHIC
+TOUR|Tourite Mobile Homes Mfg.
+BOWI|Bowie Industries Corp.Bowie, Texas
+KRUZ|Kruz, Inc.
+MOWE|Mowett Sales Co., Inc.
+LILA|Lilac
+GRUM|Grumman-Olsen
+PRAM|PRESTON AMUSEMENTS, INC.; ALVARADO, TX
+BROO|Brooklyn Trailer
+MURP|Murphy Engineering Co., Inc.
+CMBL|Campbell Coach Co., Inc.Mfrs. horse trailes--Cheney, Kansas
+LASH|Lake & Shore Camper
+WINP|Winpower Corp.Newton, Iowa
+BAMH|Barrington HomesSubsidiary Fleetwood Interprises
+TASP|TARASPORT TRAILERS, INC.; SWEETWATER, TN
+BROU|Brougham Industries, Inc.
+RDKG|Road King Travel Trailer
+RAYC|RAYCO MANUFACTURING,INC.; WOOSTER, OH ; EQUIPMENT & TRAILERS
+CICC|CIRCLE C MANUFACTURER; LIVINGSTON, TX
+PARM|Parmiter, P. J. & Sons Ltd.
+NORT|Norton (England)
+GNSH|GENERAL SHELTERS; CENTER, TX CARGO TRAILERS ETC.
+STRA|Strale
+KENA|Kent Air Tool Co.
+HSTR|Hostar Marine Transport Systems, Inc.
+RROV|Range Rover of North America
+WAND|Wanderer Camper
+ROAE|Roadliner Mfg. Division
+JOSO|Carl A. Johnson & Sons
+SCHD|Schrader Dump Trailer
+FRUE|Fruehauf Corp.Detroit, Michigan
+METZ|Metzendorf Trailer Mfg.
+BEPO|Beaird-Poulan Div., Emerson ElectricCo.
+SHAW|Shaw-Wynn Homes Corp.
+CANN|CANNONDALE CORPORATION, MAKER OF MOTORCYCLES
+CPIU|CPI U.S.A.
+GLEN|Glenhill Road Machinery
+TMC|Transportation Manufacturing CorporationRoswell, New Mexico
+SANT|Santo
+GSIN|G. S. Industries, Inc.
+GENA|General
+BUNY|Bunyan, Paul Co.
+CLAB|B.M. Clark Co., Inc.
+WHIY|Whitley Mfg. Co.
+BLAW|Blackwell Burner Co.San Antonio, Texas .
+STAV|Starlite Mfg. Co.
+GREL|Great Lakes Mobile HomesDiv. of Guerdon Industries
+MOCR|Motocicletas Carabela SA
+INTP|Interstate Products
+REO|Reo
+CLAN|Clar-Mont Mfg. Co.
+MTPA|Maxwell Trailers & Pickup AccessoriesMexico, MO
+ALBE|Alberta Trailer Co., Ltd.
+ACEE|Ace Enterprises, Inc.Miami, Florida
+SUNO|Sunline Coach Co.
+VSTA|Vista Custom TrailerJane, Missouri
+TAGE|Target Products Division, Federal-Mogul Corp.
+VOGA|Volga
+MONG|Lac St-Jean Motoneige, Ltd.See Montagnais
+EZHA|E Z HaulDiv. of Parkhurst Manufacturing Co.
+POR|Por Trailer
+AIRC|Aircap Manufacturers, Inc.Tupelo, Mississippi--mfrs. power mowers
+MARB|Marbrough Boat Trailer
+RADC|Roadcraft Mfg. & Leasing
+FISC|Fischer
+PWTR|PW Trailer
+HINE|Hines Mfg. Co.Rocky Mount, North Carolina
+YENT|YENTES BROTHERS WELDING; LANCASTER, CALIFORNIA
+ENVY|Envoy
+COLL|COLLINS BUS
+KARD|KARD CO, RENSSELAER, INDIANA
+DRAK|DRAKE TRUCK BODIES, VERNON BRIDGE, PRINCE EDWARD ISLAND , CANADA
+SHSY|Sherwood Sentry Horse Trailer
+FRES|Friess Trailer
+SOON|Sooner Mfg.
+FILK|Finger Lakes Trailer
+RICR|Richardson Mfg. Co., Inc.
+VCAT|Vacationeer Trail trailer
+SANR|Santeler Brothers
+BEEH|Beechwood Motor Home
+SVAC|Super Vacuuming Mfg. Co., Inc.
+SPCY|Springcycle
+LELY|The Lely Corp.
+TRAJ|Trail-It Coach Mfg. Co.
+ALPF|Alpine Mfg. Co.
+BILE|Biltmore Mobile Homes
+BORF|Born Free
+AMFA|American DreamMfd. by American Family Homes, Inc.
+DUPL|Duplex Truck Div.Div. of The Nolan Co., Midvale, Ohio
+STAD|Standard Steel
+WCMS|W.C. Manufacturing & Specialty Co.
+ROLI|Rolite, Inc.
+CSTM|Coastal Mfg. Co. or Coastal Building Systems
+KASS|Kassborth
+HUNM|Hunt's Trailer Mfg.
+VIVI|Vivian Industrial PlasticsVivian, Louisiana
+CANE|Cane River Trailer Co., Inc.Natchitoches, Louisiana
+AVA|Ava Travel Trailer
+BUCO|Bucko, Inc.Buhl, Indiana
+ITAL|Italjet
+SUND|Sundial Motor Home
+CASC|Cascade Corp.
+WILD|Wildcat
+NELL|Nallej of Florida
+BRIS|Bristol
+EVNI|Electric Vehicles Northwest, Inc.
+MCNM|MCN Mobile Homes Corp.
+KOEH|Master Div., Koehring Co.
+TRHO|Trail Horse
+PARL|Park Royal
+CRWE|Craft Weld Trailer
+FLIN|Flintstone IndustriesOcilla, Georgia
+VICH|Victorian Homes, Inc.Middlebury, Indiana
+EPCC|EPI Erwin Precision Inc. & EPI Custom Cycles
+WTSN|Watsonian
+SITE|Sightseer Motor Home
+TUFB|Tufby Converter Dolly
+TRUT|Tru-Trailer Co.
+LESR|Leisure Manor, Inc.
+LLTR|L & L Trailers
+PREW|Prew Proco Travel Trailer
+RUMI|Rumi
+AMCP|AMCO Products
+TRPH|TROPHY HOMES, INC.; ELKHART, IN
+CHPR|ChaparralSee Chaparral Industries, Inc.
+ARNO|Arnolt-Bristol
+LOTU|Lotus
+MEYR|Meyer Mfg. Corp.
+EMW|EMW
+DINA|Dina Camiones S. A. De C. V.
+SELM|Selma Trailer & Mfg. Co.
+ROOT|Rootes
+MARF|Long Haul, TheMfd. by Mark Fore Vatco Ind. (M.F.V.)
+TANK|Tankraft Trailer
+SALE|Salem Mobile Home Trailer
+MONH|Monarch Mobile Homes
+CAPT|Capacity of Texas, Inc.Longview, Texas
+ECOF|Econo Flo Bulk Service
+GENG|General Coach Mfg. Co.Div. of Divco-Wayne Industries
+HUFY|Huffy Corp. (Dayton, Ohio)
+KLAE|Klassen Homes, Ltd.
+SKIM|Skim Air Trailer
+VERM|Vermette Machine Co.
+PARH|BunkhouseModel of Siesta--mfd.by Park Homes, Inc.
+FORH|Forester
+DTCH|DUTCH PARK HOMES, INC.; GOSHEN, IN
+EDWN|Edwins
+ABBO|Abbot, Paul Co., Inc.
+TALM|Taylor Metal Works, Inc.Milan, Tennessee
+ELLI|Elliott Mobile Home Mfg.
+HAHN|Hahn, Inc.Evansville, Indiana
+SHAV|Shaver Mfg. Co.
+TRMP|Triumph Machinery Co.
+HM|HM
+ASHT|Ashton Trailer
+NHYD|Northern Hydrolics, Inc.
+GALB|Galbreath, Inc.Mfrs. refuse containers and trailers--Winimac, Indiana
+RILE|Riley
+POWL|Powell
+BRCT|Bear Cat Mfg., Inc.Wickenburg, Arizona
+BORC|Borg Co.
+WIGA|Wig-A-Wam, Inc.
+DUPX|Duplex Mill & Manufacturing Co.
+DAND|Dan Dee Industries, Inc.
+FLAS|Flasko Mfg. Co.
+XMRK|EXMARK RIDING LAWN MOWER
+OWNS|Owens Mfg. Co.
+KMAR|K-Mart Camper Foldup
+SETR|SETRA OF NORTH AMERICA
+KWKT|Kwick Kit Cement Mixer
+LAMO|Lamborghini
+DETO|DeTomaso
+HSQV|Husqvarna
+KEN|Ken Trailer
+ROYL|Royal Industries Noble Div.
+BOIS|Boise Cascade Mobile HOmeBoise, Idaho
+CAMV|Camp-N-All Co.
+MARO|Marlette Homes, Inc.Marlette, Michigan (formerly MarletteCoach Co.)
+ROYG|Royal Cargo Trailers, Inc.
+MIDS|Midas International Corp.
+WESC|West Coach Mfg. Co.
+RUSH|Rushmore Homes
+TENN|Tennessee Trailer
+PARD|Pardonnet Mfg. Co.Livonia, Michigan
+MOBH|Mobile Facility Engineering Co.
+GBCO|Gilson Brothers Company
+HRG|HRG
+DUNB|Dunbar KappleBatavia, Illinois
+PICW|Pickwick
+BBEE|BeeBee Sales Co.
+SPON|Sport King Campers
+CITA|Citation Travel Trailer
+FEMC|Feldman Engineering & Mfg., Co.
+MCCK|McCook Mfg. Co.
+JLGI|JLG Ind., Inc.
+ROCN|Rockland Homes, Inc.
+MILR|Miller Equip. Div., Miller Equip. Co
+OSSA|Ossa (Spain)
+ARSN|ARSENAL TRAILER MANUFACTURING, INC; HARRISONBURG, VA
+MONR|Monroe Tractor
+HEST|Hester Plow Co., Inc.
+DILY|DillyNelson-Dykes Co., Inc.
+DEAN|Dean Industries, Inc.
+INLI|Inline Southwest Horse Trailer
+FLAH|Flaherty Manufacturing Co.Div. of Koehring Co.
+MRTN|MARTINS ENTERPRISES; DONALDS, SC
+YOUN|Young Spring & Wire
+MODN|Modern
+COLT|Colt
+JJ|J & J Flatbed Trailer
+SNFL|Sunflower Travel Trailer
+STCC|Stucco Trailer
+CPNK|COMPTANK, CORP.; BOTHWELL, ONTARIO, CANADA
+NASU|Nashua Mfg. Co.
+INTT|Interstate Trailers, Inc.Arlington, Texas
+JOMA|Johnson Mfg. Co., Inc.
+LFZA|LaforzaUtility vehicle; Hayward, California
+AMTC|American Transportation Corp.
+REMQ|REMEQ, INC.; PRINCEVILLE, QUEBEC CANADA
+HAMP|Hampton Homes, Inc.Edwardsburg, Michigan
+PLYC|Playcat Industries, Inc.Polar BearSee Raybon Manufacturing CompanyPolar Bear/Whip ItSee Raybon Manuf
+JECR|Jec Ro
+EAGE|Eagle Equipment
+HAWK|Hawkeye Camping Trailer
+SUNV|Sun Devil Trailers, Inc.Boat trailers--Tulsa, Oklahoma
+BELE|Bel-Aire Mobile Homes
+LEIT|Leisure Home TrailerManufacturer-Leisure Time
+WTZR|I.R. Witzer Company, Inc.
+DYNA|Dynahoe Truck
+TOKE|Token Flatbed Trailer
+MARL|Marshall
+WOOC|Wood/Chuck Chipper Corp.Mfrs. brushchippers--Shelby, NorthCarolina
+JAKL|Jackel Motorsports or China Jialing Ind. Co., Ltd.
+LSKP|Lori Engineering Corp.
+TUCE|Al Tucker Trailer Co.
+SCTK|SCAT TRAK; CONSTRUCTION EQUIPMENT
+ECOH|Ecohl Trailers
+BNZA|Bonanza
+FLEN|Fleming Mfg. Co., Inc.Long Lake, Minnesota
+CUTU|Cushman Turf-OMC Lincoln
+HWMC|H. & W. Mfg. Co.
+KNG|King Horse Trailer
+TANO|Tandom Boat Trailer
+FOWN|Four Winns
+ALAC|All A Cart Mfg., Inc.
+BRIE|Bridge Mfg. and Equipment Co.Woodburn, Indiana
+HONO|Honorbuilt Trailer Mfg.
+LASL|LaSalle HomesDiv. of Tidwell Industries, Inc.,Ripley, Mississippi
+BERK|Berkley
+BNTM|Bantam
+ERSK|Erskine
+LANL|Easy RiderMfd. by Landoll Corp.
+SPAA|Space Motor Home
+UBUS|U.S. Bus Corp.
+MURE|Murena
+ALOU|Aloutte
+SMAR|Smartlee
+TAUN|Taunus (German Ford)
+BRUZ|BrutanzaSee Brutanza Engineering, Inc.
+REDS|Redstone Coach Co.
+TRAI|Trailex, Inc.Canfield, Ohio
+SWAN|Swanee Trailer Mfg. Co.
+MTCH|Matchless
+SAND|SANDS WELDING INC; ALBANY,MN
+KRAU|Krause Plow Corp., Inc.
+SMIR|Smith-Roles Ltd.
+DUTE|Dutec Trailer
+HART|Hartman
+GIAN|Giannini
+NWMC|New McGrath
+PRTN|PROTAINER, INC; PROTRAILER (TRADE NAME) ALEXANDRIA, MN
+LNCO|Lincoln Electric Co.Cleveland, Ohio
+TEXO|Texoma, Inc.
+SCHR|Schlemmer Boat Co.
+BUSP|Buffalo-Springfield Div.Div. of Koehring Co.
+PALM|Palm Trailers
+HENM|Hendrix Manufacturing Co.
+CYSC|Cyclescoot
+TRFR|Trailer Wheel and Frame Co.Bellville, Texas
+DM|DM Utility TrailerGoodfield, Illinois
+ATTC|Associated Truck & TrailerTigard, Oregon
+RICK|Rickman
+MAXC|Maxcraft Trailer Mfg.
+TAKA|Taka (Imported by Rockford)
+COTC|CARRY ON TRAILER CORP
+HOLZ|Holmes-Craft
+LBTY|LIBERTY, INC. MAKER OF TRAV-A LONG TRAILER, LITTLE RIVER,SC
+SHEM|Puller-TensionerMfd. by Sherman & Reilly, Inc.
+KAMI|Kami
+WISC|Wisconsin Trailer Co., Inc.Richfield, Wisconsin
+KENM|Kent Mfg. Co., Inc.
+FARW|Farenwald Boat Trailer
+HAPY|Happy Travl'r Coaches, Inc.
+SCOE|Scott Equipment Co.
+MTRY|TRAILERS DE MONTERREY, S.A. NUEVO LEON, MEXICO
+DRIF|Driftwood Homes Corp.
+ELDO|El Dorado Mfg., Ltd.
+REDG|Red Gooser Horse Trailer
+PAKH|Parkhurst Mfg. Co., Inc.Sedalia, Missouri
+COCP|Conceptor Industries, Inc.
+SNOE|Snowflake Coach Industry
+CAAR|Carabela (Mexico)
+SHDO|Shadow TrailersShadow Boat Trailer, Glencoe, OK
+FABC|F.A.B. Mfg. Co.
+MAEN|Mays Enterprises, Inc.Albertville, Alabama
+SOLE|Solectria
+CTRI|Contrail International
+PTV|PTV
+CALN|Callen Camper Co.
+RIVS|Montgomery Ward (Riverside)MONT for reference only
+CRST|Crest Trailer
+ARGO|Argonaut State Limousine
+TIDW|Dorado Mobile HomesMfd. by Tidwell Industries, Inc.
+BURK|Burkhart Trailer Mfg. Co.
+SILC|Dorsett Mobile HomesMfd. by Silvercrest Industries, Inc.
+LANR|Lancer
+TLCC|TLC Carrossiers
+NICE|Niceson Boat Trailer
+BCMW|BEACON METAL WORKS
+ARMA|Armadillo Trailers, Inc.Utility Trailer, Deport, Texas
+OLYM|Olympia Motor Home
+STAX|Star Mobile Homes
+BUDC|Budd Co. Trailer Division, TheFormerly Ginchy Mfg. Corp.--Downingtown,Pennsylvania
+CANS|C & S
+SACH|Sachs
+DOLA|Dolan Corp.
+TRET|Trail-Et Horse Trailer
+RAMP|R & A MANUFACTURING PARTENRS, LTD.; HOUSTON, TX
+GM|General Motors
+EXCL|Excalibur
+METO|Metoo Travel Trailer
+BARH|Barth corp.
+ICRP|IC CORPORATION;FORMERLY AMERICAN TRANSPORTATION CORPORATION
+WTXD|West Texas Dollies
+CROI|Crossland Industries
+WSK|WSK
+NAVJ|Navajo Horse Trailer
+SNAP|Snapper
+AMEC|American Aluminum Co.
+TTSI|Transport Systems, Inc.Denton, Texas
+BREN|Brenner Tank, Inc.Fond du Lac, Wisconsin
+HGON|Hagon
+BELV|Belvedere Mobile Homes
+KRIS|Kris Kraft Mobile Homes
+BEEA|Beechcraft Mobile Home
+SCAP|Scamper Coach Trailer
+POIR|Poirier
+PEAC|Peace
+MUVA|Muv-All Trailers Multech Corp.
+ALMI|Almac Industries, Ltd.Ville D'Anjou, Quebec
+BART|Bartolini Chassis Trailer
+LIGH|Light Equipment Div.Div. of J. I. Case Co.
+RICN|Richland Homes Mfg. Co.Subsidiary Magnolia Mobile Home
+RELB|Reliable Tank Inc.Rhone, Texas
+KOMA|Komatsu American Corp.
+PHII|Phillips TrailersChickasha, Oklahoma
+TRIS|Triumph Sales & Service
+PICK|Pick-Up Top Mfg.
+TRIG|Triggs-Miner Corp.
+ISEI|I.S.E., Inc.Denver, Colorado
+THRU|Thru-Air Trailers, LLC
+HBTC|H & B Trailer Co.Damascus, Arkansas
+ASM|ASM TRAILERS; MOUNTAINBURG, AR
+LEIU|Leisure Products, Inc.
+CCDI|C & C DISTRIBUTORS, INC.; WINSLOW, ME
+ASPS|Aspes
+LEEB|Lee Boy Construction Equipment
+WERG|Wenger Mfg.
+GLEC|Glen & Cecil Mobile Home Manufacturing& Sales
+MARH|Alexandria Mobile HomeMfd. by Marietta Homes
+AUDI|Audi
+CARP|Carpenter Manufacturing, IncMitchell, IN
+LGCH|Long Chih Industrial Co., LtdTaipai, Taiwan
+YALE|Materials Handling Div., Eaton Corp.
+AMMA|Amerind-Mackissic, Inc.
+RAIB|Rainbow Camper Co.
+DAMO|Damon Industries, Inc.Elkhart, Indiana
+CUNN|Cunningham
+PORD|PORTA-DOCK, INC
+REGE|Regent Homes Corp.
+CODY|Cody Motorcycle Trailer
+WOOM|Ranger Trail TrailersMfd. by Wood Mfg. Co., Inc.
+DOO|Doo Snowmobile Trailer
+HRTI|Herter's, Inc.Waseca, MN
+SPRM|Sportmasters of Tennessee, Inc.
+RRNR|Ridge Runner Industries, Inc.Fairmount, West Virginia
+MASL|Masterbilt Trailers, Inc.
+CRYS|Crystal Welding Inc.
+ASTR|Astro Mobile Homes Mfg. Co.
+KANN|Kannon Motorcycles, LLC or SJH Mfg., Inc.
+ALYT|Aly Travel TrailersDiv. Layton Homes Corp.
+YARB|Comet Motorcycle TrailerMfd. by Yarbrough Mfg. Co., Inc.
+CMMS|Cummins Engine Co., Inc.
+HNSO|Hanson Camping Trailer
+CHCO|Champ Corp.
+ARPS|Arps Div.Div. Chromalloy American Corp.
+MCFA|McFarlane Mfg. Co., Inc.
+KNIG|Knight Mfg. Corp.
+WOON|Woodline Custom Camper
+CRKG|Carrier King Trailer
+NORW|Northwest Trailers
+WEAV|Weaver & SonsDiv. Ventoura Corporation
+ADMI|Admiration HomesElkhart, Indiana
+KAJU|Kaj'n Homes, Inc.
+TVLC|Travelcraft Motor Home
+DABR|Brown, Dave L., Inc.
+SEEM|Seemore Flatbed Trailer
+ATWO|Atwood Mobile Home
+BLAZ|Blazon Mobile Homes Corp.
+ENVA|ENVASES DE ACERO, S.A. DE C.V. MEXICO; TRAILER
+SUGG|SUGGS MANUFACTURING CO., INC.; LAGRANGE, NC
+SLOA|Sloat Mfg. Co.
+INDM|Indio Trailer Mfg. Corp.
+VEGL|Veglia
+BELL|Bella Casa Co.
+JAMC|JAMCO TRAILERS; BRUCEFIELD, ONTARIO, CANADA
+LIPP|Lippert Components Mfg., Inc.
+ZIMM|Consort Mobile HomesMfd. by Zimmer Homes Corp.
+RECS|Rec-Sha Trailer
+OTWA|Ottawa Truck, Inc.
+BLKE|Bulk Equipment Mfr. Inc.Bulkiner Feed Trailer
+HLME|Holmes Trailers
+UNID|United Fiberglass
+PORC|Pioneer Div., Portec, Inc.
+SPYK|Spyker Motorcars
+TRLN|SkeeterMfd. by Trailers, Inc.
+DMHC|DMH Co.Div. of National Gypsum Co., St. Louis,Michigan
+HUME|Humbee Surrey
+SPYD|Spyder
+BUCS|Buckskin Trailer Mfg. Co.Boosier City, Lousisiana
+AMPF|AMERICAN PERFORMANCE CYCLE;BULLHEAD CITY, AZ; SPIRIT AND BIG BOY CYCLES
+OREG|MANGMfd. by Oregon Mfg. Co., Inc.
+EASU|East Se Trailer
+DISC|Discover 25 Motor Home
+LINC|Lincoln-Continental
+TG|Tote Gote
+TRCO|Trailer Coach Metal Spec.Vancouver, Washington
+CATA|Catalina Amphibious Homes
+HOIN|Hornet Industries, Inc.
+INTC|Interconsult Mfg. Co.
+MANC|MANCO PRODUCTS, INC
+CONW|Continental Homes, Inc.
+BJMS|Bill James Trailer SalesWinfield, Texas
+GAAC|General Amer Aero Coach
+TRAR|Transvair
+LEMC|Lemco Tool Corp.Cogan Station, Pennsylvania
+KAST|Kasten Mfg. Co.Allenton, Wisconsin
+MOCA|Monte Carlo Mobile Homes
+HIHK|HITCH-HIKER MANUFACTURING, INC., NEW MIDDLETOWN, OH
+CALK|Calkins Trailer
+DOUJ|Double J Horse Trailer
+KENC|Kden-Craft Products, Inc.
+NOVA|NOVA FABRICATING, INC.; AVON, MN
+ATSP|ATLAS SPECIALITY_PRODUCTS/TRAILERS
+BLAR|Blaze Industries
+DODE|Dodge Woodcraft
+TORR|Torrot
+OBRI|Obrect Trailer
+COCF|Country Comfort Trailers
+AIRM|Air-Flo Mfg. Co., Inc.Fort Worth, Texas
+ASTO|Aston-Martin
+JANT|Jantz Mfg., Inc.
+SUMT|Summitt Trailer
+CIRR|Circle R, Inc.
+LONG|Long Mfg. N.C., Inc., Const. & Ind. Div.Tarboro, North Carolina
+ESCO|Exco Boat Trailers
+ALEN|Allen Engineering Corp.
+RECR|Recreative Industries, Inc.
+LINT|Lintzcraft Travel Trailer
+CURB|Curbmaster of America, Inc.
+AMTS|AMERICAN TRAVEL SYSTEMS, INC.; ELKHART, IN
+STAT|Startrek
+DTRV|DOUBLETREE RV, LLC; LAGRANGE, INDIANA
+BEEG|Beemer & Grubb Enterprises
+TEPE|Tempe Trailers
+SCHK|Schetzky Equipment Corp.
+CENY|Century Engineering Corp.
+ACME|Acme Trailer Mfg. Co.
+KODI|Kodiak Coach & Mfg. Co.
+IDLE|Idle-Time Cabover Camper Trailer
+SEAG|Seagull
+CHIC|Chickasha Mobile Homes
+TRAA|Trader Horn Trailer Supply
+FREF|French Ford
+LYNR|Lynn-Towtruck
+ARMO|Armor Mobile Homes Mfg. Co.Subsidiary Magnolia Mobile Home
+TOPP|Topper Mobile Homes, Inc.
+STTT|Star Transport Trailers, Inc.Sunnyside, Washington
+SFET|Safet Camper
+SCRP|ScorpionCrosby, MN
+WOLS|Wolseley
+UNIV|Universal Camper Mfg.
+YENK|Yenko
+CCTI|C & C TRAILERS, INC. NORMAN OKLAHOMA
+COLG|Colony Mfg. & Sales Corp.
+SEOV|Searover TC Camper
+SPPI|Speedway Products, Inc.Mansfield, OH
+TESC|T.E.S. (Truck Equipment & Sales Co.)
+BIGJ|Big Joe Manufacturing Co.
+HSKE|HUSKEE LAWN & GARDEN EQUIPMENT
+SNBR|SunBird, Inc.
+ZIEM|Zieman
+FERR|Ferrari
+MAXL|Maxwell
+MCYM|McCoy Miller
+JAYK|Jay-Kee Mfg., Inc.State Center, Iowa
+MOBK|Mobile Holding Corp.
+SONI|Soni II
+PIKE|Pike Trailer CoSouth Gate, California
+CHUK|Chukar, Inc.Phoenix, Arizona
+HDSN|Hudson Trailer
+YADR|Yadro TrailersMilwaukee, Wisconsin
+SUTP|Sutphen Corp.Amlin, Ohio
+DUNR|DUN-RITE MANUFACTURING LLC; DENVER, CO
+EAGB|Eager Beaver Trailer
+BOSS|BOSS HOSS CYCLE, INC. ; DYERSBURG, TN
+LSLN|L & S LINE MFG.; BRISTOL, TENNESSEE
+ROL|Rolls-Royce
+HOMS|Ernest Holmes Div.
+LIEB|Lieber Industries, Inc.
+STEY|Steyr-Puch
+REAL|Realco Trailer
+INGS|Ingersoll-Rand Co.Woodcliff Lake, New Jersey
+SPTN|Spartan Motors, Inc.Mfd. in Charlotte, Michigan
+JMCY|Jet
+EASE|Eastern-Bilt, Inc.
+COMP|Commodore Corp.Syracuse, Indiana
+KIBB|KIBBI, INC.; ELKHART, INDIANA
+LAND|Landcraft Corp.
+AUBU|Auburn
+AMEM|American Trailer & Mfg. Co.See also Transporter, Downey, California
+THSE|Thomsen Equipment Co.
+MERK|Merkur
+GMRE|GMR Enterprises, Inc.
+ROYA|Royal Brothers
+RAW|Arkansas TravelerMfd. by Rawhide Stock & Horse TrailerMfr., Inc.
+ROCS|Manitou Mobile HomesMfd. by Rochester Homes, Inc.
+DESI|Design StructuresMfrs. office and special purposetrailers--Lombard, Illinois
+CUBC|Cub Cadet Corp.Subsidiary of MTD Products, Inc.Purchased Cub Cadet tractor line fromInternational Ha
+TAMA|Tama
+SVTR|Silver Trail
+APAH|Apacheon Coach Co.
+TOGO|Tow Go TrailersTonganoxie, Kansas
+EMAX|E-Max Motorcycles/GGC-Global Generation Cult GMBH
+ELCA|Elcar Mobile Homes, Inc.Div. Divco-Wayne Industries
+OBER|Oberlin Trailers, Inc.
+EXEC|Executive Industries, Inc.
+MJCK|MI-JACK PRODUCTS; HAZEL CREST, IL
+FOML|Formaloy Flat Snowmobile Trailer
+GORE|Gore Trailer
+GRRM|GRM
+SAFT|Safti
+CNST|Constructore Trailers, Inc.Sarasota, Florida
+CMCI|CHARLESTON MARINE CONTAINERS, INC. CHARLESTON, SC
+MCOL|McCollough CorporationBrookfield, MO
+MAXI|Maxim Ind., Inc.Mfr. of Maxim Fire Trucks, Middleboro,Massachusetts
+PREV|Presvac Systems (Burlington) Ltd.
+CRVM|Country R. V. Mfg., Inc.Elkhart, Indiana
+CVWE|C & V Welding and Fabricating
+PACK|Packard
+CLAM|Clark Mfg. Co.
+BAMC|Baron Motorcycle Co.
+BSB|Busse Brown Trailer
+COCL|COUNTRY CLIPPER; RIDING MOWERS; JAZEE MODEL DIVISION OF SHIVVERS MANUFACTURING
+BEAD|Beardmore
+VTEC|Vac-Tec
+TEXS|Texas Bragg EnterprisesMt. Pleasant, TX; utility trailers
+NICH|Nichols Mfg. Co., Inc.
+AM|A & M Boat Trailer
+GIBR|Gibraltar Industries, Inc.
+RIDG|Ridgecraft Corp.Breckenridge, Texas
+HYLN|Hy-line Enterprises, Inc.Elkhart, Indiana
+TCHA|Tchaika
+SPEC|Special (Go-cart, Golf Cart, seeOperating Manual, Part 1,Section 2)
+DUDE|Dude Trailer
+NUON|Number One
+AAWL|AA WELDING SERVICE/CLINT R. WOODS, INC.; MT. PLEASANT, TX
+MAGL|Magline, Inc.Pinconning, Michigan
+PSCC|Pure Steel Custom Cycles, Inc.
+EXTO|E Z Tow Manufacturing Co.Madison, Connecticut
+MINN|Minelli
+CWPC|CHOPPER WORKS, PERFORMANCE, INC.; HAMPSTESD, NH
+GOLA|Gold Leaf Engineering Co.
+RENT|Rent-A-Trailer Corp.
+AWAY|Away We Go Travel Trailer
+MARG|MARINE GROUP LLC; MURFREESBORO, TN (PRO-CRAFT)
+QUAK|Quaker City Iron Works, Inc.Philadelphia, Pennsylvania
+PULP|Pullers Pride, Inc., or Murphy's Welding
+BRKW|Brookwood Mobile Home
+ROOF|Roofmaster
+CALO|Capriolo
+GLOV|Glover Plastic Sprayer
+DATS|Datsun
+STEM|SterlingSterling-Salem Corp.
+RDGL|RIDGELINE, INC; WASHBURN, TN
+NEWN|Newman Trailers
+TWN|TWN
+HOLV|Holva Travel Trailer
+ROUS|Roust-About
+GEEC|Geer Co.
+ELGI|Elgin
+DD|Double Horse Trailer
+SODE|Soderstrom Machine ShopCanton, South Dakota
+BERE|Berkeley Pump Co.
+CLND|Cross Lander
+MALN|Malanca
+JROD|J-Rod Trailer Co.Red Oak, Texas
+HUTR|Hunter Structures Trailer
+JOHO|Johnson Motors
+BEDF|Bedford
+ROLT|Rolling Thunder
+BOAS|AlsportSee Boa-Ski Alsport Ltd.
+CHEM|Chem-Farm, Inc.
+DIDI|Didier Mfg. Co.Franksville, Wisconsin
+INTE|International Coach Mfg.
+WESR|Westland Trailer Co.Portland, Oregon
+MACC|McDonald Camper Kit Distributor
+HFTY|Heafty Trailer Mfg. & Sales
+BEAE|Beaver Monterey Motor Home
+SIGA|Sigame Corp.Gardena, California
+DONH|Donhal, Inc.
+MITC|Mitchell Industrial Tire Co., Inc.Chattanooga, Tennessee
+RITE|Rite-On TrailersDiv. of Windward Marketing
+BREK|Break
+CALF|California Camper Mfg.
+NUCN|NU-CENTURY; MADERA, CA
+SUZU|Suzulight Su
+LAZJ|Lazy J Horse Trailer
+SOND|Son-Dyke Trailer Co.Boat Trailers--Calico Rock, Arakansas
+SPAH|Sparrowhawk Trailer Co.
+FIRB|Fireball Trailer Mfg.
+WALT|Walter Motor Truck Co.
+ALLR|All Star Coach, Inc.
+LELA|Leland Engineering, Inc.
+LLOY|Lloyd
+SPOR|Sportsman
+SARA|Saracen
+REMK|Remke Trailer
+LOWB|Low Boy Trailer
+PRIC|ElktonMfd. by Price-Meyers Corp.
+PLEM|Pleasureway Mfg.
+ARTX|Artex Fabricators, Ltd.
+BMMF|B & M Mfg. Co.South Camdenton, Missouri
+WISH|Wishbone Trailers, Inc.Hot Springs, Arkansas
+MTRA|C & C IndustriesMfg. of Master Track F.B. Trailer;Gaithersburg, MD
+EVER|Evergreen Log Trailer
+BREE|Breeze Motor Home
+URAL|URAL MOTORCYCLES OF AMERICA; PREVIOUSLY OR ALSO KNOWN AS: IRBIT MOTORWORKS OF AMERICA; REDMOND, WA
+WICH|Style-Craft Mobile HomesMfd. by Wickes Homes
+DANC|Danco Trailers, Inc.
+KIA|KIA Motors Corporation
+NOBL|Noble Cultivators Ltd.
+CONP|Consolidated Mobile Industries
+GONA|Gonard Enterprises, Inc.
+WELB|Circle LMfd. by Well-Built Trailers, Inc.
+PECO|Peco, Inc.
+HIWY|HI-WAY STAR, INC; ODESSA, FL
+ELGN|Elgin Sweeper CompanyElgin, Illinois
+DURC|Durcholz Trailer
+KANH|Kan Haul Trailer Sales
+SILT|Silent Hoist & Crane Co.
+PLAT|Platt Trailer Co.
+SUBA|Subaru
+JUDE|Jude Tent Trailer
+RMWC|Country-BoyMfd. by Reid's Mfg. & Welding Co.
+MRIN|JamaicaMfd. by Marion Homes, Inc.
+LITD|Little Dude Trailer Co.Affiliated with Texas Dude, Inc.(Formerly Texas Royal Mfg. Co.)Fort Worth, Te
+NVAE|Novae Corp.
+COAC|Coach Craft, Inc.
+ARAB|Arabi Homes, Inc.Arabi, Georgia
+MCCO|McCoy Mfg. & Sales Co.
+JJJ|J.J.J., Inc.
+MIDL|CapellaMfd. by Midland Industries, Inc.
+TTII|T & T Industtries, Inc.
+JAHN|Jahn Flatbed Trailer
+CIRM|CIRCLE M TRAILERS
+TINK|Tinker Clubs of America, Inc.
+SWGR|Griswold IndustriesSee Swinger Snowmobiles
+VOLK|Volkswagen
+ARMR|Armor Mobile Systems, Inc.
+OCKE|Ockelbo Industry AB
+MOAL|Monte Aluminum Trailer Dump
+EMPI|Empire Trailer, Inc.
+CPTV|COMPETITIVE TRAILERS, INC.; BELLFLOWER CALIFORNIA
+RYDR|Ryder
+PARC|Paris Trailer Co.
+DUKE|Duke Mobile Homes
+SHOM|Sho-Me Campers Co.
+MACR|Master Craft Industrial Equip. Corp.
+BAJA|BAJA USA MOPEDS, CYCLES & 3 WHEELERS
+RUGG|Rugg Manufacturing Co.
+HICH|High Chaparral, Inc.Ft. Worth, Texas
+BANK|Bankhead Welding Service
+ROWS|Rowse Hydraulic Rake Co.
+MUNT|Muntz
+EIGH|Eight Point
+PEUG|Peugeot
+DELU|Delto Homes, Inc.
+CAVC|Cavalier Trailer Mfg. Co.
+ESCA|Escape Trailer
+SFM|SFM
+AMRO|American Road Machinery, Inc.
+LIBA|Liberty Coach Co.
+CHPT|Chicago Pneumatic Tool Co.
+OPEN|Open Road Industries
+BUIL|Built Rite Trailer
+KW|Kenworth Motor Truck Co.Div. of Paccar, Inc. Also includesKenworth Glider.
+GREI|GreenvillaMfd. by Greenville Mobile Homes
+DENC|DENCO MANUFACTURING
+AMYP|AMERICAN YARD PRODUCTS, RIDING MOWERS, MOWERS;WEEDEATER & ELECTOLUX BRAND PRODUCTS
+BELH|Belshe TrailerTecumseh, Oklahoma
+TQAA|Tradewind Industries, Inc.Formerly J. H. Holland Co.
+PONE|Ponderosa Industries
+BRAC|Braco Custom ProductsCassopolis, Michigan
+WABC|Wabco Construction & Mining EquipmentSubsidiary of American Standard, Inc.Group
+UTAH|Utah King Motor Home
+PEGA|Pegaso
+CHRS|Chrysler Boat Co.
+WWMC|WILD WEST MOTOR COMPANY; POWAY, CA. (PEACEMAKER MODEL)
+CAML|Camp-A-While Homes Mfg. Co.
+TERM|Terramite Corp.
+POOL|Poole, Inc.
+RUTM|Ruttman
+DARF|Darf Corp.
+HIGH|Highway Trailer
+LDAZ|Lazy Daze Motor HomeMfd. in Pomona, California
+YAZO|Yazoo Mfg. Co., Inc.Jackson, Mississippi
+WTMM|WTM, Inc.
+MANT|Manatee HomesCommerce, Texas
+AMLF|American Lifan Ind., Inc.
+PENN|J. C. Penney
+ACEC|Ace Traveler Corp.
+ROCF|Rockford Welding & Machine
+BYRM|Byers Mfg. Inc.Lawton, Michigan
+BURR|Burris Stock Trailer
+LONB|Lone Star Boat Mfg.
+RAPI|Rapid Traveler Coaches
+MATE|Mate, Inc.Katy, Texas
+NSU|Nsu Prinz
+POLB|Raybon Manufacturing CompanyWallingford, CT
+FLYI|Flying Dutchman
+HODG|HODGES CUSTOM HAULERS; BENTON, KY
+CARG|Carriage, Inc.
+DOOL|Doolittle
+AGTR|Ag-Tronic, Inc.
+NIMR|Nimrod Tent Trailer
+BEAV|Beaver Trailer
+MARR|Marlin Mfg.
+MEIT|Meitian Motorcycle Co., Ltd. Or Shanghai Meitian Motorcycle Co., Ltd.
+BAIL|Baillie's Tri-R Welding
+OTLW|OUTLAW TRAILER, MFG.; ST. JOSEPH, MO
+PALC|Pal Mfg. Co., Inc.
+ROAR|Roadmaster Rail, Inc.
+BAYC|Bay City Shovels, Inc.
+BIRM|Birmingham Mfg. Co., Inc.Springfield, Alabama
+DAVY|Davey Compressor Co.
+CTEC|COR-TECH MFG., INC., LUVERNE, MN
+ARIN|Ariens Co.
+OKHT|OK Horse Trailer
+SCHU|Schnure Ho' Trailer
+MIKR|Mikrus
+CBMA|C. B. Mfg. Co., Inc.
+SIEB|Siebert Trailers, Inc.Stockton, California
+RUPP|Rupp
+BEDE|Bedell Trailers
+BRGV|Bridgeville Trailers, Inc.
+CARF|Care-Free Camper Mfg. Co.
+PDRS|Pederson
+AERO|Aircraft (see Operating Manual,Part 1, Section 2.)
+SUNM|FlamencoMfd. by Sundancer Div. of WinstonIndustries
+UNVE|Unverferth-McCurdy Mfg. Co., Inc.
+HKEG|Truck Trailer Sales & ServiceYankton, South Dakota, Inc.
+TRCC|Tracker Corp.Boat trailers--Winchester, Tennessee
+BLIN|B-Line Farm EQuip.Mfrs. Cartow & Snowmobile trailersBristol, Virginia
+MCBM|MCCLOSKEY BROTHERS MANUFACTURING; CANADA LIT.ONTARIO
+BELR|Bellew's Perris Balley Campers
+CALY|Calypso
+ARIE|Ariel (British)
+MAXP|Maxi Products Co., Inc.
+JAWA|Babetta (mfd. by Jawa, imported byAmerican Jawa, Ltd., Plainview,New York)
+MCRD|McCord Manufacturing Co.
+TRCP|Tracpac Snowmobile Trailer
+PRIM|Prime Mover
+CHRI|Christianson Industries, Inc.Edwardsburg, Michigan
+WHZR|Whizzer
+COAH|Coachmen Homes Corp.Subsidiary Coachmen Industries, Inc.,Middlebury, Indiana
+SCAD|Scad-A-Bout Mfg. & Aluminum Co.
+DMP|DMP
+BLIZ|Blizzard Mfg., Inc.
+KURT|Kurtis Kraft
+HUSF|Husky Farm Equipment Ltd.Ontario, Canada
+ERIC|Erickson Corp.
+VICO|Victory Implement Co.
+CANG|Canoga Classic Campers
+PLYM|Plymouth
+CRPT|CARPENTER INDUSTRIES INC.
+ALLT|All-State Trailer Co.
+HARB|Harbortown Mobile HomeLeola, Pennsylvania
+LMC|LMC
+METR|Metropolitan
+MEDF|Medford Industries
+MXAT|MAX-ATLAS EQUIPMENT INTERNATIONAL, INC.; ST-JEAN-SUR-RICHELIEU, QUEBEC CANADA
+KILG|Kilgore IndustriesPomona, California
+HYOS|HYOSUNG MOTORCYCLES & MOPEDS; CHINA
+RANE|Randolph Coach
+CHAT|Chateau Mfg. Co., Inc.
+NOMO|Northwestern Motor Co.Subsidiary Fairmont Railway Motors, Inc.
+ALLP|All Purpose Trailer Co., Inc.Jefferson, South Dakota
+TWFC|TRAILER WHEEL & FRAME COMPANY; TEXAS
+CENT|Centaur
+GNWF|GENERAL WELDING & FAB., ELMA,NEW YORK
+WHEL|Wheel Campers Corp.
+SPRD|Sperry Rand
+CMSU|CAM SUPERLINE, INC.; GREENCASTLE,PA
+TRBD|Travois Trailer
+MAPL|Maple Leaf, Inc.Middlebury, Indiana
+NRTW|Northway Trailer
+TRIH|Trihawk Inc.
+HIGK|Highway Trailer of Wisconsin &California
+AMSW|American Steel Works
+DOWH|Downey Sheet Metal Shop
+DAIR|Dairy Equipment Co.Madison, Wisconsin
+FRIG|Friggstad Mfg., Ltd., (Canada)
+SOUA|Southeast Mfg. Co., Inc.
+CBUT|Butler, C. Trailer Mfg. Co.Greensboro, North Carolina
+ODEL|ODell Mfg. Co.
+FIEM|Fields Mfg. Co.
+CHII|BonnavillaMfd. by Chief Industries
+JERW|Jerry's Welding Service (JWS)Freeport, Illinois
+LOND|London Motors
+PATH|Pathfinder Mobile Homes
+TTMC|Cycle-MateMfd. by T & T Industries
+POWE|Powerline ProductsDiv. of White Oak, Inc.--Washington,Indiana
+SAMP|Sampson
+NHRZ|New Horizons or Horizons, Inc.
+HICK|Hickey Trail-Blazer
+WARS|Warszawa
+AMF|AMF Lawn & Garden Div.AMF, Inc.
+YAGE|Yanger Mobile Homes
+IPSC|IPSCO-Lambton Steel
+JOUR|Journey Motor Homes, Inc.Elkhart, Indiana
+BOBB|Bobbi-Kar
+ZHON|ZHONGYU GROUP; MOTORCYCLES ETC.
+JLTL|J & L Tank, Inc.Saginaw, Texas
+KOHL|Kohler Co.
+DMFT|D.M.F. Trailer Mfg., Inc.
+TOUA|Toura Products
+ACRO|Acro Tank Co.Springfield, Missouri
+POLL|Pollock Industries
+AUHE|Austin-Healy
+STLY|STANLEY YARD & GARDEN TRACTOR/MOWER ETC.
+GRIZ|Grizzly Mfg. Co., Inc.
+HILO|Hilton Mobile Homes, Inc.
+MIRA|Mirage Motorhomes, Inc.
+HI|Hi-Lo Travel Trailer
+MCIN|MCIsee Motor Coach Industries, Inc.
+RANL|R-Anell Homes, Inc.Denver, Colorado
+ATLS|Atlas Hoist & Body, Inc.
+ROYF|Royco Mfg. Co.
+WHHA|Whitehaul Kaler Trailer
+KYMC|KYMCO SCOOTERS & MOTORCYCLES
+ALUC|Aluma Craft
+ASIN|Ashland Industries, Inc.
+THOR|Thoroughbred Boat Trailer
+LARO|Larson Machine, Inc.Princeville, Illinois
+TRLR|Unpublished trailer mfr.
+EACR|Eagle Crusher Co., Inc.
+BLUB|Blue Bird Body Co.
+BIGH|Big Horn Trailer
+VNGM|VANGUARD INDUSTRIES OF MICHIGAN, INC.; COLON, MI
+TRLC|Trailco Mfg. & Sales Co.Div. of Dorsey Trailers--Hummels Wharf,Pennsylvania
+WWWH|W & W White Horse Trailer
+RCKL|Big AMfd. by Rickel Mfg. Corp.
+HOLO|Holiday Royal Travel Trailer
+KOST|Koster Mfg., Inc.
+MORS|Morse Horse Trailer
+CAPI|Capitol
+GUER|Guerdon Industries
+MELM|Melmak Motor Home
+VERI|Veritas
+SABQ|Sabre Equipment Div.Div. Sabre Metal Products
+TRJN|Trojan Industries, Inc.
+TRVM|Traveliner Motor Home
+PITZ|John Pitzer Mfg. Co.Glenwood, Iowa
+CHAM|Champion Home Builders Co.Dryden, Michigan
+BUEL|Buell Motor Co.
+PTRT|IndependenceMfd. by Patriot Homes, Inc.
+CHNO|Chinook
+MAHO|Mahoning Homes, Inc.
+SPEG|Spirit Eagle
+BETA|Beta
+GRAF|Graffin Wellpoint Corp.
+ABC|ABC (Aluminum Body Corp.)
+SUFL|Super Flea
+DEIC|Deico Auto Carrier Trailer
+BURL|Burlington Mfg. Co.
+BLAH|Blanchard Foundry Co.
+KINA|King Fish Boat Trailer
+LINM|ApacheMfd. by Lindig Mfg. Corp.
+PRIN|Princess Homes
+ADLR|ADLER
+SHJZ|SHIJIAZHUANG MFG MOTORCYCLES AND ATV'S
+LDTC|Loadmaster Trailer Co., Ltd.
+ZOBO|Zoboda
+SNOW|Unlisted Snowmobile Manufacturer
+COAI|COACH HOUSE,INC.; NOKOMIS,FL;CLASS B MOTORHOME
+MEAN|Mean
+CUSE|Custom Engineering
+SKIT|Ski-Tow Mfg. Co., Inc.Elkhart, Indiana
+ORTH|Orthman Mfg., Inc.
+TOTL|Total Performance, Inc.
+PENT|Penton (KTM--Austria)
+BEVR|Beaver Mfg. Corp.
+TRLO|Travel Long Inc.
+DDFB|D & D FABRICATIONS, ST LOUISS, MICHIGAN / TRAIL-TECH TRAILERS
+TIMP|Timpte, Inc.Denver, Colorado
+QUIN|Quincy Compressor Div.Colt Ind, Inc., Quincy, Illinois
+EDWA|Edwards Trailer
+ALME|Alma Trailer Co.
+MBCP|MOBILE CONCEPTS BY SCOTTY; MT. PLEASANT, PA
+SNOB|Sea BirdMfd. by Sno-Bird Trailer Co., Inc.
+BARI|Barrentine Mfg. Co.Greenwood, Mississippi
+SALV|Salvaco, Inc.Columbus, Ohio
+PAKM|Pak-Mor Mfg. Co.
+GUZO|Guazzoni
+MELG|Melges Boat Works, Inc.Zenda, Wisconsin
+RCON|reconstructed trailers
+STAP|Star Tank & Trailer Mfg. Co.
+KLAS|Klassic Trailer Mfg.
+MAVI|Maginniss Vibrator Equip Co.
+BRDK|Brooks Horse Trailer
+WELD|Weld-It CompanyLos Angeles, California
+IRBK|Irabeck & Co.Harrington, Delaware
+BERR|Bering
+BRRN|Braun Ind., Inc.
+GARE|Garelli
+TWRI|Tow-Rite Mfg.
+GILT|Gilmore-Tatge Mfg. Co., Inc.
+KESL|KESLER MANUFACTURING, INC; LOYAL, WISCONSIN;TRAILERS
+INDP|Independent Mfg. Co., Inc.
+SHAM|GalwayMfd. by Shamrock Homes
+CHIN|Ching-Kan-Shan
+HONE|Honeywell Motor Prods., Honeywell,Inc.
+REDK|Reddick Equipment Co., Inc.
+EIDA|Eidal International Corp.
+LANG|Langley Mfg. Div., M.D. Knowlton Co.
+COLU|Columbine Camp & Coach
+ATLC|Atlantic Mobile Corp.
+KGHY|Kings Highway
+NASH|Nash
+HEIN|Heinkel
+GFTR|G & F TrailerBoat trailer mfd. in Bainbridge, Georgia
+OVER|Overland
+MIL|Miller Electric Mfg. Co.Manufactures arc welders
+JIND|JINDO CORPORATION; SEOUL,SOUTH KOREA
+HRTO|HORTON TRAILERS
+TAUB|Taube Tool Corp.Mfd. Taube n Taube Trailer,Richmond, Indiana
+CRFT|Craftsman
+ESTM|Estate Mfg., Inc.Motor homes--Elkhart, Indiana
+TRPE|Terraplane
+STST|Stewart & Stevenson
+NEOS|Neosho Custom Coach Co.Div. Gearhart's Building Materials
+KASE|Kasey
+SANI|Sani-Cruiser Co.
+TERS|Terry Industries of Virginia
+CIRD|Circle D Trailer
+GOLE|Golden Coach Mfg. Co.
+WRLD|World Trailers, Inc.Ocala, Florida
+REAR|Rear's Mfg. Co.
+ACTD|Action Industries
+AIRP|Air-O-Corp.
+KGMF|K & G Mfg. Co.Decatur, Illinois
+DICO|Dico Co.Des Moines, Iowa
+KINZ|KINZE; FARM & GARDEN EQUIPMENT
+PIPE|Pipestone Tandem Boat Trailer
+SPEL|Special Endeavors, Inc.Omaha, Nebraska
+CGMT|CARGOMATE TRAILER ; CAMPING
+CONF|CONFEDERATE MOTOR WORKS, INC.
+HENE|Henred-Fruehauf (Pty.) Ltd.South Africa
+WILW|Williamsen Truck Equipment Corp.Mfr. &quot;Williamsen Dump & Special Trailer&quot;Salt Lake City, Utah
+HAMR|HAMPTON AMUSEMENT RIDES, LLC; MISSOURI
+ARRW|Arrowhead Trailers
+ANGL|Angel
+MAUR|Maurell Trailer
+MENS|Macanismos Ensamblados S. A. De C. V.Mexico; tank trailers
+HOWR|Howard Rotavator Co., Inc., Subsidi-ary of Howard Machinery, Ltd.
+COBM|COBRA MOTORCYCLES
+BBCH|B & B Cozy-Home
+HALM|Hallmark Motor Home
+FIED|Field Office Mfg. Co.
+KELO|Kellogg-American, Inc.
+SKYC|Skycraft Trailer
+CLVR|Cleavers of BismarkBismark, Arkansas
+MOHO|Mobile Home Industries, Inc.Tallahassee, Florida
+SOUE|Southeastern
+BOCK|Bock Products, Inc.Elkhart, Indiana
+LITC|Little Chum Mfg. Co.
+TMBL|TIMBERLAND RV COMPANY; PERU, IN
+REMB|Rembrant Mobile Home
+SERA|Sera
+AMPH|Amphicar
+ESIX|Essix
+NOCO|North Country
+SEAS|Sea Stallion TrailersKlamath Falls, Oregon
+CWTR|C & W TrailersGolden, MS
+HUSS|Huss Sales, Inc.
+MNNI|MINI DIVISION OF BMW MAKER OF COOPER & COOPER-S
+GEEL|GEELY OF SHANGHAI CHINA; MOTORCYCLES,MOPEDS & PASSENGER CARS
+LEWA|Lewaub Trailer Mfg.
+ALAB|Alabama Trailer Co.Birmingham, Alabama
+RAYG|Raygo, Inc.Minneapolis, Minnesota
+NWCT|Northwest Custom TrailerRochester, Washington
+TEMP|Tempo
+SHIB|Shipbuilt Van Trailer
+ADVN|Advance Machine Co.
+BROA|Broadlane Homes, Inc. of Indiana
+AAVH|Armet Armored Vehicles
+FNTM|Fantic
+HUDS|Hudson
+JENS|Jensen
+LONR|Longrun
+ALUE|AlouetteSee Alouette Recreation Products, Ltd.
+CATI|Carson Trailer IncCarson, CA; utility trailers
+LAFR|American La FranceDiv. of A-T-O, Inc.
+PRCW|Precision Cycle Works
+THAM|Thames
+DIVE|Dively Mfg. Co.Claysburg, Pennsylvania
+KINL|Kinlon or Chongqing Kinlon Science & Tech. Grp.
+TWIC|Necedah FlyersMfd. by Twin City Racing
+LOAD|Load Rite TrailersDiv. of Pennsbury Mfg., Inc.
+WING|Winger Mfg. Co.
+WAST|Waverly StructuresNorth Carolina
+HARF|Harrison Trailer Mfg. Co.
+PROL|PRO LINE TRAILERS; COCOA, FL
+CSMM|CSM Manufacturing Co.Oklahoma City, Oklahoma
+ASBY|Ashby Brothers
+MCCL|McClain Trailer Mfg. Co.Boat trailers--Houston, Texas
+VANC|Van Camp Equipment
+HOLS|Holiday Trailer Sales & Mfg. Co.
+RABB|Rabbit
+WYDR|John T. Wydro
+MASN|MASSON'S WELDING
+COOS|Coos-Bilt Trailers
+KMNM|KMN Modern Farm Equipment, Inc.
+RAMB|Rambler-manufactured prior to 1966(1966 and later Ramblers manufac-tured by American Motors - seeAme
+UTIM|Util-I-VanMfd. by Utilimaster Div. HolidayRambler Corp.
+SIME|Simek Mfg., Inc.
+ROLH|Roll-A-Long & Sterling Coach Co.
+PACS|Pacesetter
+ELKH|Elkhart Mfg. Co.
+MIST|Mistral
+SPRY|Sprayrite Mfg. Co.
+LETO|Letourneau, R. G.
+PAGS|Pagsta
+CONS|Contessa
+HIGL|Master HouseMfd. by Highlander
+BALB|Balboa Motor Home
+COML|Commercial StructuresNappanee, Indiana
+TUCR|Sno-CatMfd. by Tucker-Sno-Cat Corp.
+SIXP|Six Pac Camper
+BUFF|Buffalo-Bomag Div.Div. of Koehring Co.
+CHCI|Chance Coach IncWitchita, KS, city transit buses
+BJMC|BJ Mfg. Co.Harrison, Arkansas
+SUEQ|Superior Equipment Co.Buckeye Products
+SHWM|Show-Me Trailers, Inc.Smithton, Missouri
+BWHO|B & W Homes, Inc.
+TWMI|TRAILS WEST MANUFACTURING OF IDAHO, INC.; PRESTON, ID
+CMPG|CAMPAGNA MOTO SPORT, INC; PLESSISVILLE, QUEBEC, CANADA
+PANO|Panorama Homes, Inc.
+BEBO|Bee Bob Trailers
+LYMA|Lyman Metal Products Corp.
+SWXP|SOUTHWEST EXPRESSLINE, WHITE PIGEON,MICHIGAN
+BONA|Bon-Aire Homes, Inc.
+OAKC|Oak Coach Co.
+WRIH|Kitty HawkMfd. by Wright Brothers, Inc.
+INGE|Ingerson Mfg. Co.
+MBTR|Mobile Traveler
+OSCA|Osca
+CALT|Cal Trailer ManufacturingSan Fernando, California
+MAGO|Magnolia Travel Trailer
+ITAI|Italia
+SKPP|Skippy Trailer
+AARD|Aardvark Co.Waxahachie, Texas
+RELA|Reliant
+LTCH|LEITCHFIELD TRUCK EQUIPMENT, INC,; LEITCHFIELD, KY
+BUSO|Bushog Div.Subsidary of Allied Products Corp.Selma, Alabama
+VALC|Valley Campers
+RELI|Reliance Trailer Mfg.Div. Redwood Reliance Sales Co.,Cotati, California
+DETH|Dethmers Manufacturing CompanyBoyden, IA
+SECO|Seco Mfg. Co.
+FLOE|FLOE INTERNATIONAL
+LICH|Lichty's Blacksmithing, Inc.Silverton, Oregon
+LEEN|L & E Enterprises
+CHYI|Chin Yuan Chi Casting Corp.Paichung, Taiwan
+HRTK|Harmon Tank Co.Lubbock, Texas
+GEO|GEO
+KALY|Kalyn Co.
+ETON|E-TON DYNAMICS TECHNOLOGY INDUSTRY CO., LTD
+SPCE|Space Assemblies, Inc.Middlebury, Indiana
+FOLA|Foland Enterprises
+SIMP|LandlordMfd. by Simplicity Mfg. Co., Inc.
+PLRN|Poloron
+ALIS|Allis Chalmers
+PASO|Parson Co. Div.Div. of Koehring Co.
+HINS|Hinson Mfg. Co., Inc.
+JERS|Jersey Trailer
+BUGA|Bugatti
+TRWD|Travel World, Inc.Utility Trailers; Hope Hill,North Carolina
+EATN|EAST TENNESSEE TRAILERS LLC; MOSHEIM, TN
+DITR|DIAMOND TRAILERS, INC. SHANDON,OH
+CLAA|Clapper Camper
+PITN|Pitman Div., A. B. Chance Co.
+DYMC|Dynamic Industries, Inc.
+MOBE|Moto Beta
+TJAA|Tjaarda
+DALI|Dalton, Inc.
+PRMO|Prince Motors
+FRRA|Ferrara Fire Apparatus
+COSU|Concrete Surfacing Machinery Div.,Stewart Industries, Inc.
+PRAT|PRATT INDUSTRIES, INC.; BELLEAIR BLUFFS, FL
+CNRD|Concord Products, Inc.
+JACL|Jaclen Mfg. Co.
+STRK|Star TrailMfd. by Stark Bros. Motor Sales
+KOUN|Kountryaire Travel Trailer
+MAGI|Magic Touch, Inc.
+NRVR|North River HomesHamilton, Alabama
+FOTX|Fotografix Boat Trailers
+TBCT|TBC
+PELI|Pelican Aluminum Mfg.
+FORA|Forage King Industries Inc.
+SLPE|Sleep Easy Trailer
+POWR|Power Curber, Inc.
+SOTH|SOUTH BAY TRAILERS; LOUISVILLE, KY
+LANA|Lancer Mobile Homes
+DESP|Dragon ESP, Ltd., or Environmental Service Products
+ROKL|Rockland Mfg. Co., Inc.
+DONS|Dons Boat Trailer
+HURO|Huron Industries, Inc.
+CHIA|Chicago Pneumatic Equipment Div.Chicago Pneumatic Tool Co., FranklinPennsylvania
+MGM|M.G.M., Inc.
+DBDL|Double Delight, Inc.
+KNXM|Kinroad Xintian Motorcycle Mfg. Co., Ltd.
+ARIS|Aristocrat Motor Home
+SPLZ|Specialized Trailers
+MONT|Monte
+LENT|Lee Enterprises Mfg. Co., Inc.
+PIQU|Piqua Engineering, Inc.
+ROK|Rockne
+CAMT|Camelot Camper Trailer
+TRUM|Triumph Motor Co. (TRIU for autoentry)
+AJS|AJS (United Kingdom)
+OZAR|Ozark Trailer & Mobile Homes
+DREA|Dreamer
+BRIG|Brigadier Mobile HomesDiv. Brigadier Industries, Inc.
+GAZ|GAZ
+GRAP|Graham-Paige
+ZARC|Zar Car
+TIMB|Timberline Mfg. Co.
+NEWH|Sperry New HollandDiv. Sperry Corp., New Holland,Pennsylvania
+PLEA|Pleasure Homes Mfg.
+THON|Thorns Trailer
+WINL|Winder Liberator Camper
+MLTI|Multition Hydraulic Truck
+MANG|Mangar Co.
+ROLS|Rolls International TrailerMobile Home
+REXH|Rexhall
+ELVC|Electric Vehicle Corp. (mfrs. ofreplicas, Minneapolis, MN)
+TRLK|Trail King IndustriesDiv. W.A.S., Inc., Mitchell,South Dakota
+TEC|TEC
+LEEC|Lee Coaches
+LLOD|Lloyd's Trailer Finishing
+ALPH|Alpha
+DYNW|Dynaweld Trailer
+TRHK|Trail Hawk
+EXEZ|EXCEL EZLOAD TRAILERS, LLC; AMARILLO,TX
+MASR|MastercraftBryan Metal Products, Inc.
+THOC|Thor California, Inc.
+CONC|Concord Mobile Homes
+AVCO|Avco Corp.
+OELR|Oelrich Mfg. Co.
+PECT|Pennstyle Campers, Inc.
+KVCH|Kovatch
+TOTC|Tote Co.Lenox, Iowa
+TRAC|Trail Aire, Inc.
+EXCN|Excellance, Inc.
+BRET|Brentwood Mobile HomesSubsidiary DeRose Industries, Inc.
+SHWI|Schwinn Motor Scooters
+ATLD|Atlas DivisionDiv. Lonergan Corporation
+CARN|Carolina Mobile Homes
+LIND|Linde
+MORU|Moto Rumi
+AMI|American Microcar, Inc.
+GILD|AlanMfd. by Giles Industries
+DYNC|Dynacruiser Mount Trailer
+RUNA|Run-About
+ABFI|ABF, INDUSTRIES; NEBRASKA
+BOBM|Bobby's Custom Camper Mfg.
+STRM|Streamline Motor Home
+JJTM|J & J TRAILER MANUFACTURING OR J.D.J. TRAILER MANUFACTURING, ONTARIO, CANADA
+KENW|Kenway Campers, Inc.
+DEUT|Deutz Tractor
+MOSW|Mobile Sweeper Div.Div. of Athey Products Corp.
+JORG|Ira Jorgenson
+VALI|Valiant
+SNDR|Hainan-Sundiro
+GULF|Gulf States Mfg. Corp.
+QING|CHINA QINGQI GROUP, INC; MOTORCYCLES, MOPEDS, SCOOTERS, ETC
+GLOS|Globestar Industries, Inc.
+KEAR|KEARNEY TRAILERS CO. GRNADSALINE, TX
+PCM|PCM Div.Div. of Koehring Co.
+DRIE|Drifter Mfg. Co.
+COMU|Commuter Industries, Inc.
+WAYF|Wayfarer Coach Mfg.Div. St. Paul Fence & Iron Works
+LANE|Lane Horse Trailer
+LEES|Leesburg Div.Div. of Divco-Wayne Industries
+LOM|Lombard
+CRCO|Connell Industries, Inc.Greene, New York
+ERIN|Erin Truck and Body EquipmentDolton, Illinois
+SWM|SWM
+STAM|Starmaster Camping Trailer
+RAPS|RAPSURE, INC; NAPPANEE, IN UTILITY & OTHER TYPE TRAILERS
+MBIE|Mobile InternationalTulsa, Oklahoma
+MAJR|Majestic Rides Mfg., Inc.New Waterford, Ohio
+MOJA|Mojave
+UNIT|United Trailer Service & Supply Co.
+MIND|MILLER INDUSTRIES, INC., OOLTEWAH, TENNESSEE
+KAYF|Kayout-Forester Travel Trailer
+TOLO|Tour-A-Lodge
+TRTL|Triad Trailers Ltd.New Milford, Connecticut
+BRMR|BRI-MAR MANUFACTURING; CHAMBERSBURG, PA
+POLS|E-Z-GoSee Polaris Industries Inc.
+ACTO|Acton Mobile Industries, Inc.Elburn, Illinois
+STAC|Stack Truck, Inc.
+IDEL|Ideal Industries
+HUMM|HUMMER; FORMERLY CODED AS AMGN/AMERICAN GENERAL CORP. AS OF 3/1/02 PART OF THE GENERAL MOTORS (GM) V
+KIOT|Kioti
+LAZE|Lazer
+ISO|ISO
+LUXU|Luxury Homes, Inc.
+CNCG|Continental Cargo
+CHKE|CHEROKEE MANUFACTURING COMPANY; SWEETWATER, TN
+LONN|Lonnie's Trailer Sales
+MORR|Morris
+SELO|Selox Mfg., Ltd.Toronto, Ontario, Canada
+BOER|Boerne Trailer Mfg. or Inter-National Crane & Trailer, Inc.
+GRAC|Graciela
+YOUG|Young Corp.
+ROMA|Romae IndustriesMountain View, Missouri
+TERA|Terra Cruiser Div.Div, of Divco-Wayne Industries
+SPRE|Sprite
+PRKA|Pines Trailer Corp.Pine Grove, Pennsylvania
+EQPR|Equipment Pro or Milron Co., Inc.
+ADA|Ada Horse Trailer
+SHIL|Shiloh HomesDouble Springs, Alabama
+AMBA|Ambassador
+WINS|Windsor Mobile Homes (old code WIND)
+TART|Tartan Corp.Div. American Duralite Corporation
+RITT|River Trail TrailersLittle Rock, Arkansas
+SHOP|Shopmade Flatbed Trailer
+MIFU|Mitsubishi FUSO Truck of America, IncFor vehicles with gross vehicle weight(GVW) of over 7,000 pound
+JIMD|Jim & Dave's Trailer Mfg.
+KEYO|Keystone Trailer & Equipment Co.Kansas City, Missouri
+LACC|Laconia Custom Cycles
+SWNG|Swinger Camper Mobile Home
+RHIN|Rhino Tool Company
+XPFI|XPLORER MOTOR HOME DIV OF FRANK INDUSTRIES
+PANH|Panhard
+VNHL|VAN HOOL BUSES & MOTOR COACHES
+BANN|Banner Industries, Inc.
+LIBY|LIBERTY INDUSTRIES; CLAYTON, INDIANA
+AETA|Aeta
+KUTZ|KUTZ FARM EQUIPMENT; PINE GROVE, PA
+CIMC|CIMC HEAVY INDUSTRIES, LTD.; SHENZHEN, CHINA
+JDER|Deere and CompanyMoline, IL
+BRAF|Bradford IndustriesBradford, Illinois
+FAWN|Fawn Corp.
+TAHO|Tahoe Motor Home
+ZLMC|Zhejiang Lingyun Motorcycle Co., Ltd.
+BLUG|Blue-Ridge Pre-Built Mobile Homes
+TRVC|Travco Corp.
+ROLM|Rolling Homes, Ltd.
+DEGL|Degelman Industries, Ltd. (Canada)
+PAGE|Page Trailer
+LALL|LaSalle
+APLE|Appleton Trailer
+BONE|Bond Mobile Homes, Inc.
+ZMCC|ZIMMER MOTOR CAR COMPANY; SYRACUSE, NY
+RIVT|Riverside Trailer Mfg. Co.
+HOOS|Hoosier Mobile Homes
+CAPC|Capco Flatbed
+JOHN|Johnson Corp.
+CHES|Chesapeake Mobile Homes
+TOPT|TOP-3 TRAILERS; TEXAS
+DEBO|Debonair
+ROYS|Royals InternationalMillersburg, Indiana
+LITS|Little Sport Enterprises
+EBON|Ebony Line Products
+DLPH|DOLPHIN MOTORHOMES
+SPWY|Speedway
+MGOS|MONGOOSE TRAILERS;TEXAS
+WARD|Montgomery Ward
+DIAG|DIAMOND G TRAILER COMPANY /GRAHAM FABRICATIONS, INC.; PURVIS, MISSISSIPPI; MANUFACTURING HOME OF DRE
+GUTH|Guthrie Trailer Sales, Inc.Great Bend, Kansas
+TETT|TET
+HLPK|Holly Parks, Inc.Mobile Homes
+BUDS|Budson Knobby Flatbed Trailer
+RAYN|Raynell Campers
+AONE|A-1 Trailer
+RGAA|R & G
+NORM|Norman
+DYEC|Dynasty Electric Car Corp.
+ALLI|Allis-Chalmers Corp.
+TREA|Treasure Chest Products
+GONU|Golden Nugget Travel Trailer
+SURF|Surf-Rider, Inc.
+CONV|Continental of Colorado, Inc.
+INDE|Independent Products Co.
+CHIB|Chibi
+EXC|Excel Motor Home Truck
+ALUT|ALUTREC INC. STE-AGATHE, QUEBEC CANADA
+RADE|Radamacher Trailer
+KAKI|Kamp King Utopian
+LGND|LEGEND TRAILERS, INC
+FALC|Falcon (British)
+LADA|Lada (imported from USSR)
+CACY|Caper Cycle
+COUN|Country Squire Travel Trailer
+CLSS|Classic Mfg., Inc.
+TRAW|Travelaire Trailer Mfg.
+INTS|Interstate Travel Trailer
+WAGO|Wagon-Haven, Inc.
+SPAR|Sparta
+PRAR|Prarie Schooner, Inc.Elkhart, Indiana
+AUST|Austin
+RELC|Relco Corp.Mfd. in North Billerica, Massachusetts
+CITI|Citicar (electric car)
+MDLR|MODULAR SYSTEMS, INC; INDIANA
+BRAT|Brantley Mfg. Co.Fredrick, Oklahoma
+SIMO|Simon Utility Trailer
+KUHN|Kuhn Farm Machinery, Inc.
+ALKO|Alois Kober (AL-KO)
+DOT|Dot
+YAMP|Yampa Coach Mfg.
+MOGA|Morgan Equipment Co.
+GIBL|Gibraltar Coach Mfg. Co.
+BELT|Bell's Custom Coaches
+CACA|Car Caddy
+THEU|Theurer Atlantic, Inc.Newark, New Jersey
+BURC|Burch Trailer
+LONL|Longlife
+RINK|Rink Mfg. Co.
+ABCO|ABCO Trailer Mfg. Co.
+TYCB|Trailers Y Casetas Bonanza S. A.Mexico; trailers
+CASH|Cascade Coach Co.
+GALA|Galactic Corp.
+RYAN|Ryan Mfg.
+GMC|General Motors Corp.
+PUCK|Puckett Brothers Mfd. Div. Co. Inc.Lithonia, Georgia
+LBOS|LOAD BOSS,INC/CHARLES H BURKETTS AUTORAMA INC; MANNS CHOICE,PENNSYLVANIA
+MILT|Miller Tilt-Top Trailer Inc.Milwaukee, Wisconsin
+GLDV|Goldenvale, Inc.
+LUFK|Lufkin TrailersDiv. of Lufkin Industries--Lufkin, Texas
+BRUT|Brutt
+AIRI|Air Support IndustriesGlassboro, New Jersey
+INFI|Infiniti
+MAYR|Mayrath Industries, Inc.
+TNSC|Transco Trailer
+PARX|Parkwood Mobile Homes of Florida
+GILG|GILLIG CORPORATION HAYWARD, CALIFORNIA , BUS
+CALH|California Mobile Homes
+DODG|Dodge
+KMCU|Kawasaki Motors Corp., U.S.A.Santa Ana, CA
+PANE|Panther Westwinds, Ltd.
+ALMC|Al-Mac Products, Inc.
+DRAG|Drag Master Utility Trailer
+NEWE|New England Homes or Trailers
+MULE|Multech Corp.Canton, South Dakota and Souix City,Iowa
+POND|Ponderosa Homes, Inc.
+JUNR|Junior Camping Trailer
+KOVA|John R. Kovar Mfg. Co., Inc.
+ELCY|Electric Cycle
+DILL|Dillis Trailer Mfg.
+HOUG|Hough Brothers, Inc.
+GSM|GSM
+PAMA|Pama Camper
+CAP|Capri (imported by Mercury priorto 1979)
+SAME|Same & Lamborghini Tractors of NorthAmerica, Inc.
+DUAE|Dual Evans Corp.
+INGL|Blanco (model of Intramotor)
+MAST|Masterline Co., Inc.
+CUSI|Custom Homes, Inc.
+JMS|James
+ESTA|Establishment
+ISLA|Islander Motor Home
+LECH|Lechmere Construction
+BARO|Baron Homes, Inc. (old code CGC)Formerly C&G Corp., Elhart, Indiana
+ARTA|Art James Mfg.
+MMCL|Mini-Marcellino
+STRC|Strahan Mfg. Co.
+PART|Part (Generic Code--for use onlywhen manufacturer is not listed)
+AERG|Aero Glass Boat Co.
+AMEP|American Way Homes Corp.
+HENS|Henslee Mobile Homes, Inc.
+SMIH|L. B. Smith, Inc.Manufacturer of Smithco. Trailers
+GLEH|Glen Manor Homes, Inc.
+WOLV|Wolverine Camper
+ZELI|Zeligson
+LUVI|Luv-It Mfg.
+WINC|Winco Div.Dyna Technology, Inc., Minneapolis,Minnesota
+SUN|Sun
+EONE|E-One
+BRSH|BRUSH ROADSTER
+MARQ|Marquette Custom Boat Trailer
+KLIN|Klinger Products
+SURV|Surveyor Motor Home
+TRMI|Traveler Mfg. Inc.Concordia, Missouri
+DSWS|DWS Storeway TrailerCrossville, Tennessee
+YELL|Yellowstone, Inc.
+OVBT|OBERBILT TRAILER COMPANY DRUMRIGHT, OK
+LNCE|Lance Truck Mount Camper
+SKIP|Skipper B Trailer Co., Inc.Div. of Anderson Ind., Inc., Burleson,(formerly Brown Ind.)Texas
+TOPC|Top Campers
+OLDT|Olds Trails Trailer
+PKLC|Lindsay Co., Inc., P. K.Deerfield, New Hampshire
+SMRT|SMART
+INTI|International Industries, Inc.
+SPEI|Speicher Brothers, Inc.Auger products
+DAF|DAF
+DEMC|Demo Horse Trailer
+CASE|Case, J. I., Co.Subsidiary Tenneco. Inc.
+TRBF|Trainliner
+HOMM|Homeway Mobile Homes
+GEM|Gem Industries, Inc.Grand Rapids, Michigan
+SING|Single Tilt Trailer
+CHUB|Chubbs, Inc.
+AC|A C (Great Britian)
+PWTC|POWER TRAC MACHINERY
+UTHM|Utah Mobile Homes
+AMQT|AMERICAN QUANTUM CYCLES, INC. ; MELBOURNE, FL
+MBIL|Mobile Traveler
+SANL|Santa Cruz Trailer Mfg. Co.
+COWM|Continental World MarineMexico; trailers
+BUCN|Buckeye Flatbed Trailer
+DRML|Dreamliner Trailer
+COMN|Comet Construction Co.
+TRLE|Trail-Easy Travel Trailer
+HIBT|Hilbilt Mfg. Co.Benton, Arkansas
+NEWL|Newell Coach Corp.Miami, Oklahoma
+LCHG|LONG CHANG; USA ATVS
+BUCC|Buccaneer Mobile HomesDiv. Brigadier Industries, Inc.
+TIGE|Tiger Trailer
+LUGR|Luger Industries
+BMEQ|Boise Mobile Equipment
+RUCK|Rucker Performance Motorcycle Co.
+CREO|Crest Mobile Homes, Inc.
+GERC|Generac Corp.
+TRSM|Transmobile Trailer
+MURM|Carry-AllScrapers, rooters and chisels--mfd. byMurray Mfg. Co.
+HILC|Hill Country Homes, Inc.
+PEDA|Pedalpower Electroped
+CRGK|CARGO KING, LLC; WHITE PEGEON, MICHIGAN
+DIVC|Divco
+LNEW|LA NEW INDUSTRIES, INC; MINNESOTA
+RNMT|Renaissance Motors
+THUL|Thule Trailers, Inc.
+KAMP|Kampers Kabin
+SUNS|Sunshine HomesRed Bay, Alabama
+DOEP|Doepker Industries Ltd.
+BILR|Biltrite Mobile Homes
+ELIT|Elite Mfg.Camper Shells--Merced, California
+GABR|Gabriel Auto Carrier
+MRTZ|Martinez Trailer
+PONY|Ponycycle
+COLP|Colt Camper, Inc.
+ERIE|Erie City Welding & Spring
+EREK|Erectors & Fabricators, Inc.Tonganoxie, Kansas
+TECN|Tecnoma, Ltd., (Canada)
+AQUA|AquaforgeWentzville, Missouri
+VANT|Vanette
+ROCO|R. O. Corp.
+HANK|Hank's Mobile Home Service
+OLIV|Oliver
+EVAS|Evanston Coach Co.
+DCCS|Deep South Sales Co.Valdosta, Georgia
+EVRY|Everybody's Motor Car Mfg.
+GLOM|Globemaster Mobile Homes
+ROAD|Road Motor Home
+THGH|The Highland GroupBeachwood, OH; utility trailers
+ALAN|Allen Camper Mfg. Co., Inc.
+VATC|Van Tech
+AGDC|Aragon Distributing Co., Inc.
+MOND|Mondial
+EMPG|Empire Generator Corp.
+PLTM|PLATINUM MANUFACTURING LLC; OKLAHOMA CITY, OK
+CREQ|Crescent Trailers, Inc.
+HIAA|Hiawatha Mobile Homes
+MWMC|M & W Mfg. Co.
+ROSE|Rosemont Mobile HomeDiv. DeRose Industries
+GERR|Forest ParkMfd. by Gerring Industries, Inc.
+DAYS|Day's DrydockNorth Webster, IN; trailers.
+VERS|Versatile Manufacturing Co.Div. Versatile Cornat Corp., KansasCity, Missouri
+MOSK|Moskovitch
+SCOM|Scotsman Mfg. Co.
+FIRT|Air BuoyBoat trailers--mfd. by Firestone Tire &bber Products
+JRMC|J & R MANUFACTURING CO., LLC; TRINITY AL.
+CHAI|Chaika
+CARM|Carma Mfg. Co.
+HEAT|Heathkit
+WTMI|WTM, INC.; HALEYVILLE, AL
+SIRC|SUN INTERNATIONAL RACING CORPORATION; CALIFORNIA
+INMN|INMAN TRAILERS; INMAN, KS
+SIEA|Silver Eagle Travel Trailer
+MOBW|Mobile Unit Mfg., Inc.
+CHPL|Chaperalle Horse Trailer
+CAUL|Caulkins Boat Trailer
+STTR|Star Trans
+SUPR|Superior Trailer WorksLos Angeles, California
+PERM|Perma Tent Camper
+PEDD|Peddlers Choice
+ENGN|(Generic Code--for use only whenmanufacturer is not listed)
+TRBO|Trail Boss
+LORK|Lorak, Inc.
+MERI|Merritt Equipment Co.Portland, Oregon
+MDST|Mid States Camping Trailer
+SWIN|Swinger
+OPED|BolensMfd. by Outdoor Power Equipment Div.,FMC
+JAY|Jayco, Inc.
+MKMH|MK 5-1400 Motor Home
+ARPT|AMERICAN TRANSPORTATION; BUS
+FLMR|FIRST LINE REFINISHING; CORINTH, NY
+CHOC|Chrysler Outboard CorporationHartford, WI
+CLMC|Clemco Industries
+REDC|Red Cat Motors
+MAGA|Magna American Corp.
+PRMC|PREMCO PRODUCTS, INC.; LA VERNE, CA; TRIPLE L TRIALERS
+GIGI|GIGI Industries, Inc.Motor homes
+ARMS|Armstrong Siddeley
+HRRM|HARRIMAN SALES, INC.; DEKALB JCT, NEW YORK
+CLCO|Calico TrailersQuitman, Arkansas
+HERC|Hercules
+RUTT|Rutt
+MORN|Morgan Trailer Mfg. CoMorgantown, Pennsylvania
+SMOK|Smokey Trailer
+NOVB|Nova Bus
+WTWI|Circle J Stock TrailerMfd. by Western World Inc., previouslyknown as Western Trailers Works, Inc.
+SUBL|Sun Blazer Travel Trailer
+BFOS|B.FOSTER & COMPANY, INC.; WAYNESBORO,PA
+LARS|Larsen Lapline Trailer
+TRAK|Trailorama
+MERC|MercurySee Mercury Marine
+DARV|Darvon Double Trailer
+LONE|CrestlaneMfd. by Lonergan Corp.
+TARG|Target Coach Mfg. Co.Div. Central Builders Supply
+EZUT|E-Z Utility TrailerMfd. by Dutchie, Leola, Pennsylvania
+VICT|Victoria
+NFLY|New Flyer
+BEEM|Beemer Trailer Mfg. & Sales
+GISN|Gilson
+PFAP|Precision Fire Apparatus
+COPP|Copperstate Coach Co.
+ALSE|All Seasons Motor Home
+IHTM|IRON HORSE TRAILER MANUFACTURING; TEXAS
+LACR|La Crosse
+WALR|Walker Mobile Homes
+LNPD|LAND PRIDE FARM & GARDENING EQUIPMENT; MOWERS, ETC.
+KELL|C.C. Kelley & Son
+MBWI|M-B-W, Inc.
+MOUT|Mountain Manufacturing Co., Inc.
+HOND|Honda
+BGDG|BIG DOG CUSTOM MOTORCYCLES, INC.
+LEAF|Lea-Francis
+MONB|Monarch Boat Co.Camper Division
+PORK|Porta-Kamp Mfg.
+MOCC|Mobley Metal Works
+MELA|Melmar Motor Home
+ANDI|Anderson Mobile Homes Mfg. Co.
+HOUH|House of Harmony, Inc.
+SEMN|Seminole Boat Trailer
+JOEW|Joe's Welding ServiceSalem, Illinois
+MAUM|MAUER MANUFACTURER, INC.; IOWA, TRAILERS
+AZMF|A-Z MANUFACTURING; MADERA, CA
+VIVA|Viva Motor Home
+HRTR|Herter
+MARP|Marathon Homes Corp.Elkhart, Indiana
+SNDP|SANDPIPER
+STCR|Steelcraft Log Trailer
+FUNL|Funliner Mfg. Co.
+NORO|North American Shipbuilding
+BEAC|Beachcomber Industries Ltd.Morden, Manitoba
+MALR|Mallard
+HLWD|Hellwood Trailer
+CTSI|CONSTRUCTION TRAILER SPECIALISTS, INC.; SIKESTON, MO
+FOOT|Foot Hill Horse Trailer
+BYMW|BOYDSTUN METAL WORKS, INC.PORTLAND, OREGON
+KERR|JOHN KERR MANUFACTURING, CO.
+WINE|Windward Enterprises
+ARSC|Ascort
+BKHM|BECKHAM TRAILERS, INC.; WICHITA , KANSAS
+MOBX|Mobilemanor, Inc.
+GARD|Gardner, Inc.Mfrs. travel trailers--Bristol, Indiana
+FOSJ|Fost Joe Dog
+JEHM|JEHM POWERSPORTS; MOTOR SCOOTERS, MOTORCYCLES, ATVS, ETC.
+LORA|Lorain Div.Div. of Koehring Co.
+WARH|Warhawk Mfg. Co.
+ALWY|Alloway Mfg. Co., Inc.
+TMMI|T & M MANUFACTURING, INC.; PRINCETON, ONTARIO CANADA
+AMTR|American Tractor Equipment Corp.
+KIMI|King Midget
+DODD|Dodd Mfg. Co., Inc.
+GENF|General Coach of FloridaDiv. of Divco-Wayne Industries
+TMCI|TMC Inc.Poskin, WI; mfg. pontoon trailers
+HUML|Hummel
+BUSH|Bushcraft Trailer
+LAWC|L. A. Woods Co., Inc.Lawrenceville, Illinois
+VERA|Versatile Power Corp.Grantsburg, Wisconsin
+DIAT|Diamond T
+HYST|Hyster Co.
+LNWF|LONE WOLFE
+STAS|Star Fire, Inc.
+TESI|Testi
+ITNL|International Truck & Engine Corp.
+LEM|Lem
+WILK|WILKENS MANUFACTURING, INC.; STOCKTON, KANSAS
+NEGR|Harvard (model of Negrini)
+HARN|Harnischfegar Corp.Subsidiary of Harnischfeger P&H
+INGR|Ingram Manufacturing Co.
+SELY|Selby Mfg. Co.Nicollet, Minnesota
+MOBP|Mobile of Marysville
+FARG|Fargo
+SKTM|Skyteam Corp., Ltd.
+BIRD|Bird
+FALL|FallsRiding lawn mower
+PARO|Pace Arrow
+NHGT|New Heights, LLC
+WISD|Wise Welding, Inc.
+HINT|Hinomoto Tractor Sales USA, Inc.Houston, Texas
+USAF|U.S. AIRFORCE VEHICLE; MAKE IS UNKNOWN
+MILA|Millan Flatdeck
+FOUR|Four Seasons Travel Trailer
+HOLN|Holstein Mfg., Inc.Holstein, Iowa
+TTIN|Titan Trailers, Inc.
+GRLK|Great Lake
+WLWE|Wells Western Trailers; Also see Western Recreation Mfg., Inc.
+ATAS|Atlas
+JPTR|Jupiter
+PINE|Pines Trailer CorpChicago, Illinios
+WILY|Wil-Trail Corp.
+SOIL|Soil Mover Mfd. Div.
+GEEN|General Engines Co., Inc.Throfare, New Jersey
+LIOL|Lional Enterprises, Inc.
+EAST|Easton Car & Construction
+WAGM|Wagon Master Trailer
+NORV|NorthlandMagline, Inc.
+TITN|TITAN MOTORCYCLE
+ARMT|American Road Trailer Camper
+RELT|Realite Trailer
+FECH|FECHTNER TRAILERS, ELBOW LAKE, MN
+NODE|Hauler-TrailerMfd. by Nodine Mfg.
+GEN|General Coach Works of CanadaDiv. of Divco-Wayne Industries
+GAST|Gast Manufacturing Co.
+WPAR|Woodland Park, Inc.Middleberry, Iowa
+KONK|Kon Kwest Mfg.
+CRMT|CAR MATE TRAILERS; LEEPER, PENNSYLVANIA
+WESG|Westgo Industries, Inc.
+BADG|Badger Trailer Co.
+JOES|Joe's Custom Boat Trailer
+SWIT|C.M.Cub (mfd. by SWI Tong Corp.,imported by Convenience Machines)
+WYFR|Wy Frame Corp.Elkhart, Indiana
+CUSM|Custom Trailers, Inc.Springfield, Missouri
+STAW|Star Meteor FloridaDiv. of Divco-Wayne Industries
+AQUT|Aqualand TrailersDiv. Mid-Atlantic Metal Distributors
+PEEL|Peel
+BANT|BantamDiv. of Koehring Co., Waverly, Iowa
+EHMC|EHM Mfg. Co.
+WHIT|White Motor Corp.
+MTD|Lawn FliteMfd. by MTD Products, Inc.
+PAUG|Paughco, Inc.Carson City, NV
+SEAM|Seal MateDiv. of Tateco, Inc.
+CONN|Connaught
+SPRA|Sprayline Two Wheel Trailer
+REED|Reed Enterprises, Inc.
+ENRT|En Route, Inc.Elkhart, Indiana
+WAYP|WAYNE METAL PRODUCTS;MARKLE,INDIANA
+SNTE|SANTEE INDUSTRIES SYLMAR, CA
+KMSR|Kamasura (U.S.A.)
+CROR|Crossroads
+ITLR|INDIANA TRAILER MANUFACTURING
+EZAC|E.Z.A. Mfg. Co.
+GDAN|Great Dane Trailers, Inc.Savannah, Georgia
+PITT|Pittsburgh Forging Co., Farm ToolsDiv.
+CANA|Can-Am
+PACE|Pacemaker
+TROQ|Trophy Travel Trailer
+AMRD|AMRAD PRODUCTS & SUPPLY (SNOWMOBILE & UTILITY TRAILERS)
+EVES|Eversman Mfg. Co.
+DAIH|Daihatsu
+GRZL|Grizzly Corp.
+LIFM|Liftmaster, Inc.
+DESO|DeSoto
+BRIC|Bricklin
+CWCF|CWC Feather-Lite Mfg. Co.El Reno, Oklahoma
+RUII|Rush Industries, Inc.Elkhart, Indiana
+SCEN|Scenic Campers Co.
+BENL|Benlo Co.
+MIDQ|Mid-Equipment Corp.
+WSTN|Western (NEV) Neighborhood Electric Vehicles
+MDTR|M-D Trailer Co.Fort Worth, Texas
+ORCO|Orcon Incustries
+GSCR|GARDEN STATE CHASSIS REMANUFACTURING, INC
+WASP|Wasp
+USTS|USTS MANUFACTURING. INC; CANTON, OHIO
+TREC|Trevco Enterprises
+INDI|Indiana
+OMAH|Omaha Standard Flatbed Trailer
+LOMC|Lomac Boat Trailer
+USN|U.S. NAVY; MAKE IS UNKNOWN
+COMI|Competitive Boat Trailer
+GOLM|Golden West Mobile Homes
+DECA|Decamp Homes, Inc.
+BABC|Babcock's Mobile Home Mfg. Co.
+KORY|Kory Farm Equipment Div.
+PORB|Portable Elevator Mfg. Div.,Dynamics Corp. of America
+DENN|Dennison Utility Trailer
+BINK|Binkley Co., The
+MNTG|Montgomery, Bill
+CREL|Corbin Electric
+HAFL|Haflinger
+WWEK|Westerwalder EisenwerkWest Germany
+COCH|Cochran Western Corp.Subsidiary of Western Gear Corp.
+MICA|Michalke Mfg. Corp.
+AURA|Auranthetic Charger
+MICC|Micro Concept Cars
+WRIG|Hunter's DreamMfd. by Wright Industries, Inc.
+MRQM|Marquez Mfg., Ltd.Sunnyside, Washington
+BALD|Baldwin Enterprises
+TIDE|Tide Craft, Inc.
+ROYH|Roycraft Coach Co.
+NOTH|Nothsway Tandem Trailer
+MERW|Merhow Industries
+ROAG|Roadrunner Mfg. Corp.
+TRBL|Trailblazer Trailer
+MOBG|Mobile Engineering Co.
+CRAM|Craftmade Homes, Inc.
+MIDC|Mid-Cal Forklift, Inc.
+MULL|Muller Machinery Co.Metuchen, New Jersey
+FRRV|FOREST RIVER, INC.; GOSHEN, INDIANA TRAILERS
+VALA|Valiant Mobile Homes
+MJMT|M.J.M. Trailer Mfg., Inc.
+PANN|Pannonia
+ALMA|Alma
+RIVU|River Run
+PNTA|Panterra
+SOUT|Southlane Horse Trailer
+COUB|COUNTRY BLACKSMITH LLC
+DEKC|Dekco Mobile Mfg.Menahga, Minnesota
+AREC|American Road EquipmentOmaha, Nebraska
+TRYC|Tryco Mfg. Co., Inc.Decatur, Illinois
+INME|Intermeccanica
+NECK|Neckar
+ELMA|Ellis Mfg. Co., Inc.
+ARTH|Artcraft Mobile Homes Mfg. Co.
+BOWN|Bowen Mobile Homes, Inc.Mfd. by Bowen Mobile Homes, Inc.
+BBW|BOURGET'S BIKE WORKS
+SPHL|SPORT HAULER BY SPORT CHASSIS AT FREIGHTRLINER IN TULSA, OK___MAKER OF SPORT HAULER TRUCK & TRAILER
+EEZY|EE-ZY Trailer Co.
+ITOM|Itom
+MAZD|Mazda
+FARK|Farm King, Ltd., (Canada)
+ADVE|Adventure Wheels Motor Home
+ROOS|ROOSE MANUFACTURING; PELLA, IA
+HOLL|Holland Trailers
+DARB|Darby Industries
+CALC|Calcinator
+WARI|WARRIOR TRAILERS, ONTARIO, CA
+ATV|All Terrain Vehicle (for furtherexplanation--see OperatingManual, Part 1, Section 2.)
+CROH|Cross Hill Mobile Homes
+LD|L & D TRAILERS INCORPORATED; SIKESTON,MO
+ULTM|ULTIMA MOTORCYCLE
+SPRI|Sprite
+TAIL|Tailor Maid Industries
+NORC|Norcal Boat Trailer
+SMWD|SmallwoodCounty Line Co.
+HILI|Hillco, Inc.
+KIEF|Kiefer Built, Inc.Kanawha, Iowa
+SATO|Satoh Japanese Tractor
+MTMV|MIGHTY MOVER TRAILERS, INC; CALIFORNIA
+FNM|FNM
+LOVB|Lovebug Travel Trailer
+VENG|Vengeance Motorcycle; Div. of Vengeance Performance Products, LLC
+DAIN|D & A Vehicles, Inc.
+VICN|Vicon Farm Machinery, Inc.
+SOLO|Solo Motors, Inc.
+CAST|Castle Enterprises, Inc.
+HUPM|Hupmobile
+KAWK|Kawasaki (Japan)
+DRGL|Draglite Trailer
+ANDS|ANDERSON MANUFACTURING; CAMILLA, GA
+MAVE|Maverick Mobile Home
+WILA|Willmar ManufacturingWillmar, Minnesota
+VKNG|Viking Snowmobiles, Inc.Twin Valley, MN
+CMWC|CMWC Trailer Co., Inc.
+TACR|Tracer Horse Trailer
+FURA|Furatell IndustriesBruce, Wisconsin
+HOUE|Houle Industries, Inc.
+TYEC|The Tye Co., Inc.
+PARK|Park Lane Mobile Homes
+WART|Wartburg
+AGRO|Agrolina SAMexicali, Baha, CA; trailers
+VCTY|Victory Motorcycles
+MYCO|Myco Industries
+AVAC|Avalair Corp.
+FIVE|Five Star Engineering, Inc.
+LERY|Le Roi Div.Dresser Ind., Inc., Sidney, Ohio
+OMEG|Omega (Italian)
+BUDG|Budger Mfg. Co.
+CHAE|Challenger Homes, Inc.Columbia, Tennessee
+CARI|Caribou Craft Pickup Camper & TrailerMfg. Co.
+KDMA|K-D Mfg. Co.
+SULL|Sullair Corp.Michigan City, Indiana
+AAA|AAA Mobile Home Mfg. Co.
+AMED|American Coach Co.Div. Detroiter Homes
+DAWS|DAWSON ENTERPRISES; ELKHART, IN
+ICL|ICL Cargo Trailer
+SPRO|Sprout, Waldron & Co., Inc.
+SIN|Singer
+MATR|Matrette
+ODYS|Odyssey Trailer Co.
+PGSS|PEAGUSAS
+BARE|Barrett Trailers, Inc.Oklahoma City, Oklahoma--(See Circle BLivestock Trailer)
+WILZ|Wilray ManufacturingFt. Benton, Montana
+TOMO|TOMOS/TOMAS; BULLET, SPRINT & OTHER MODELS
+AMAU|American Augers, Inc.
+MRS|M-R-S Manufacturing Co.
+TIFF|TIFFIN MOTORHOMES, INC; RED BAY, ALABAMA; ALLEGRO, PHAETON, ZEPHER MODELS
+CAGI|Cagiva
+WSTX|WES-TEX MANUFACTURING, INC.; LUBBOCK, TX
+SNOJ|Sabre JetSee Sno*Jet, Inc.
+CONL|Connell Industries, Inc.Phil Campbell, Alabama
+GENI|GENIE CONSTRUCTION EQUIPMENT; AERIAL,SCISSOR LIFTS ETC.
+CSHM|Cushman
+APRI|APRILIA MOTORCYCLES
+MSFI|Massey-Ferguson, Inc.Des Moines, IA
+BUHL|Buhl Machine Works
+PYLE|Pyle Haul-It-All Flatbed
+TENA|Tennant Co.
+VEAM|Vehiculos Automares Mexacano S. A.De C. V. (Mexican manufacturer)
+TRUC|Truco
+BIGI|Big Well Industries
+CHFB|CHEROKEE FABRICATION, INC.; OCALA, FLORIDA
+CREX|Cable Crane and Excavator Div.FMC Corp.
+FIAL|Fiat-Allis Construction Machinery, Inc.
+TLTM|TRAILERMAN TRAILERS,INC/INLOW CUSTOM TRAILERS; LOUISIANA, MISSOURI
+BALL|Ballien Mfg. Co.
+BWAY|BETTER-WAY PRODUCTS, INC; INDIANA (BISSON)
+FRAK|Franklin Homes, Inc.Russellville, Alabama
+MADD|Madden TrailerAshdown, Arkansas
+SERR|Scotty SportsmanMfd. by Serro Travel Trailer Co.
+IMPB|I. M. P. (U.S.)
+CHRO|Chromalloy American Corp., FarmSystems Division
+BORG|Borgward
+TRIB|Triple B Mfg. Co., Inc.Mascoutah, Illinois
+ALAD|Aladdin Trailer Co.
+INLA|Inland Equipment Corp.St. Charles, Illinois
+STON|Stoner Trail
+CITR|Citroen
+HAWT|Hawthorne
+WEND|Wendax
+SPEN|Spen & Co.
+MORM|Morgan Mobile, Inc.
+TWIL|Twilight Coach Mfg.
+FORI|Forest City Industries, Inc.
+PEMB|PEMBERTON FABRICATORS, INC.; RANCOCAS, NJ
+MPC|MPC Cruiser Camper Trailer
+PROT|Pro-Trail, Inc.Nashville, Tennessee
+CARH|Cardinal Homes, Inc.
+DOON|Doonan Trailer Corp.Great Bend, Kansas
+BELA|Bel-Aire Campers or Coaches
+YUCH|Yuchi Mobile Homes
+OVRL|Over-Lowe Co.
+ANDH|Anderson Coach Co.
+SNAT|Snatcher Trailer CompanyBettendorf, Louisiana
+SELR|Sellers Trailer
+LEVC|Levco Manufacturers, Inc.
+PHEL|Phelan Mfg. Co.Nashville, Tennessee
+TERX|Terex Div.Euclid & Terex products
+PARP|Park Trailer Corp.
+GOLI|Goliath
+MAHI|MAHINDRA; TOMBALL,TX;MAKER OF VARIOUS SIZES TRACTORS & OTHER FARM/GARDEN EQUIPMENT
+EMPR|Empress Industries
+SCHA|Schantz & Sons, Inc.Marine, Illinois
+ARNT|Arndt TrailersHorse trailers
+FRAI|Franklin Coach Co.
+LAFY|Lafayette Motor Home
+MCNA|McNamee Coach Corp.
+NWMR|NEWMAR CORPORATION; NAPPANEE, IN_
+MOBC|Mobile Chapel Trailer
+WEER|Weeres Trailer
+DARC|Darcell Industries, Inc.
+FALN|Falcon Coach Co.
+BAKI|Baker Trailer & Body Co.
+TEBB|Tebben Mfg. Co., Inc.
+OSAG|Osage Trailer Mfg. Co., Inc.
+MANA|MANAC, Inc.
+TIBR|Ti-Brook, Inc.Brookville, Pennsylvania
+COYN|Coynco Products
+BARC|Barcraft Homes, Inc.
+DIVA|Diva
+UNIF|MountaineerLawn & Garden tractor--mfd. by UnitedFarm Tools, Inc.
+DIAO|Diamond SWalters, Oklahoma
+BOCA|Bocar
+SPRT|Sportcoach Motor HomeMfd. by Sportscoach Corp. of America,Chatsworth, California
+CHEV|Chevrolet
+RUSS|Russco Lowboy Trailer
+GALT|Gallatin HomesBelgrade, Montana
+INFY|Infinity Trailer Sales
+AIRF|Airflyte Mfg. Co.
+TOWD|Tow Mor ProductsCanon, Georgia
+CLAY|Clay Camper Co.
+THII|THOROUGHBRED INDUSTRIES, INC; RIDGELAND, SC STARLITE MODEL
+VNTO|VENTO MOTORCYCLES
+RONC|Ronco Coaches, Inc.
+EVTX|Electric Vehicles of Texas
+GYEL|Gypsum Express LTDBaldwinsville, NY; makes convertordollies
+KAYO|Kayot, Inc.
+SNWB|Snowbear, Ltd.
+SCTS|SCOTT'S RIDING MOWERS/TRACTORS MFG FOR SCOTTS BY JOHN DEERE
+AVIO|Avion Coach Corp.
+HME|HME, INCORPORATED; WYOMING, MI
+SABI|Sabine Mfg., Inc.
+EXPL|Explorer
+VRSA|Versa Two Wheel Trailer
+GREM|Green Mfg., Inc.
+STEU|Steury Trailer
+HYDY|Hy-Dynamic Div.Bucyrus-Erie Co.
+SCTB|Scoutboat Trailer
+SPMN|Sportsman
+CUSO|Custom Frames, Inc.Normandy, Tennessee
+SATU|Saturn HomesDiv. Harrelson Corporation
+AMDB|AMERICAN DIRT BIKE, INC.; CALIFORNIA
+MCCA|McCain Industries
+CAMC|Camp Cruiser Mfg. Co.
+ERIS|Erie-Sprayer Co.
+LAVE|Laverda
+SCMP|Scamp Trailer
+WANC|Wabash National CorporationLafayette, Indiana
+KEPT|Kempter Trailer
+LBT|LBTDiv. Fruehauf Corp.
+KOMR|Komar
+SKAM|Skamper Corp.
+OWNA|Ownahome, Inc.
+NOLE|Nolena Foster Trailer
+HECO|Heco Boat Trailer
+CANO|Canoga Mfg. Co., Inc.Mfg. Cement Mixer
+ROGR|Rogers Trailers, Inc.
+XLST|X-L SPECIALIZED TRAILERS; OELWIN, IA.; SD,DDE,MFG,HDG,LSD TRAILERS
+IMCO|INTERMOUNTAIN WHOLESALE, INC. ;COMMERCE CITY, CO
+STRD|Stardust Travel Trailer
+CANV|Canadian Electric Vehicles, Ltd.
+BOND|Bond
+TOMC|Towmotor Corp.Subsidiary Caterpillar Tractor Co.
+MHEB|EBY, M.H., Inc.Blue Ball, Pennsylvania
+TACQ|Tacquito
+DURE|Dura-Craft Mobile Homes
+BMC|B M C
+HALC|Halco Co.
+DAZN|Dazon, Inc.
+CHAH|Charmac Trailers
+HGRV|Hairgrove Construction Equipment
+HIGA|Highway Cruisers, Inc.
+MESA|Mesa III Travel Trailer
+KANE|Kane TrailersGreeley, Colorado
+MODR|MODERN, INC. TEXAS
+DRDN|DARDON, INC.
+FELD|Feldman Custom TrailersBowling Green, Kentucky
+PAIU|Paiute Trailers
+LISL|Lislet Foundries, Ltd.
+ALL|All American Campers
+BJEN|B & J Enterprises, Inc.Sikeston, Mo; mfg. utility trailers
+PRAE|Prairie Trailer Sales & Service
+GOLN|Go-Lite, Inc.
+ALLD|Allied ProductsDiv. Lonergan Corporation
+HUNT|Huntsman, Inc.Chetopa, Kansas
+FORF|Foreman Mfg. Co.
+KINE|King Trailer Co., Inc.
+ITAF|Italian Ford
+SNTT|Snowton Trailer
+GLEA|Gleason Corp.
+KROW|Krown Camper
+MZ|MZ
+TYBE|Tybex Corp.Bangor, Pennsylvania & Belvidere, N.J.
+ATLN|Atlantic Mobile Sales
+WSTR|Western Star
+STOP|Stopover Traveler & Camper Co.
+DAIM|Daimler
+MERY|Merry Mfg. Corp.Marysville,Washington--mfrs. cultivators
+ETXL|East Texas Longhorn Trailers, LLC
+TRAE|Trail Haven Div.
+WCTR|West Coaster Mailster3 wheels
+MOBJ|Mobile Garage Mfg. Co.
+HOMD|Homemade motorcycle code (seeOperating Manual, Part 1,Section 2.)
+TSSY|Tessy
+MUDC|Mud Cat Div., National Car RentalSystem, Inc.
+WLDT|WELDTITE TRAILERS; HUNTERSVILLE, NC
+NACR|National Crane Corporation, Subsidi-ary of Walter Kidde & Co., Inc.
+BESA|Besasie Automobile Co., Inc
+AMPT|Amphicat
+IVEC|Iveco Trucks of North America, Inc.Mfrs. of Magirus Tractors
+DELT|Delta Truck Trailer Co., Inc.Camden, Arkansas
+USAC|USA Motor Corp.Bremen, IN; manufactures motor homes
+BROD|Broadmore Mobile HomesSubsidiary of Fleetwood Trailers &Mobile Homes
+HAYN|Haynes Mfg. Co., Inc.Chickasha, Oklahoma
+TROU|Troy Industries
+TAYD|Taylor-Dunn Industrial Electric VehiclesAnaheim, California
+YORM|York Modern Corp.
+SQUI|Squire Travel Trailer
+GOAT|BILLY GOAT LAWN VACUUM
+TRLL|Trillium Trailer
+DYNS|Dynamics Corp. of America
+VANB|Van Bibber Enterprises
+KITM|CompanionMfd. by Kit Mfg. Co.
+TUKA|Tuk-A-Way-Trailer
+BWCT|B & W Custom Trailers, Inc.
+STAL|Grenadier Mobile HomesMfd. by Statler Homes Mfg.
+LIGP|Little Giant Products, Inc.Peoria, Illinois
+FLEX|Flexible
+PERS|Peerless International Co., Inc.
+CWJT|Creekside Welding and Jamar Trailers
+BEAT|Beall Trans-Liner, Inc.Portland, Oregon
+FAN|Fanc Motor Home Truck
+TRIN|Trinity Products
+UTOP|Utopia Coach Corp.
+LUBB|Lubbock
+LINP|Lincoln Park Mobile Homes, Inc.Shipshewana, Indiana
+CZ|CZ (Czechoslavakia--also see makeJawa/CZ)
+CUYL|Cuyler Corp.
+GOOS|Gooseneck Trailer Mfg. Co., Inc.Bryan, Texas
+TROM|Trombly Woodworking Co.
+THRE|Three-Dimensional Mobiles
+JW|J & W TRAILERS; LAMAR, MO
+TRSU|Travel Supreme, Inc.
+SNRG|Southern Energy Homes, Inc.Addison, Alabama
+JACB|Jacobsen Trailers, Inc.
+LANU|Landau Motor HomeAnaheim, Claifornia
+SECY|Servicycle
+UNIR|Universal Tractor Foreign Trade Co.
+MIDI|Midwest Industries, Inc.Ida Grove, Iowa
+TAWA|Tawas Trailers, Inc.
+FTRC|FAST TRAC MANUFACTURING; MOTORCYCLES, CALIFORNIA AS OF 5/2002 KNOWN AS CHEROKEE MOTORCYCLE COMPANY,
+TOYO|Toyocar Van Container Trailer
+ESHL|Eshelman Sportabout
+DECO|DeCourville
+NODI|Nordic
+MERM|CharismaMfd, by Merrimac Corp.
+TWIS|TWIST N GO MOTOR SCOOTERS & CYCLES
+POWM|Powell Mfg. Co., Inc.
+RNSO|Rinso Forklift
+MRCU|Mercury (See Mercury Marine)
+REBL|Rebel Boat Trailer
+HALR|Halliburton Co.
+FRAZ|Frazier
+YORK|York Forklift
+DEVL|Devil Travel Trailer
+HOBA|Hobart Brothers Co.Troy, Ohio
+JONS|C. S. Johnson Co.
+KIND|King Richards, Inc.
+DORS|Dorsey Trailers Inc.Elba, Alabama
+MRCT|M & R Enterprises, Inc., or Honeysuckle Enterprises, Inc.
+CAVA|Cavalier Homes, Inc.
+TRNT|TRANSPORT TRAILERS; FENNVILLE, MI
+PRYE|Pryer Industries (Ada, Ohio)
+HRTG|HERITAGE CUSTOM TRAILERS; BENTON,ILLINOIS
+ANTH|Anthony Co.
+JOSH|Joshua Trailer
+REMO|Remolques Tanques Y Equipos S.A. DE C.V.
+DUGO|Dusgo Trailer
+CLON|Colonial Flatbed Trailer
+LIQU|Liquid & Bulk Tank Div.Div. of Fruehauf Corp.--Omaha, Nebraska
+QLTY|QUALITY BUILT TRAILER, INC.; NEW MARKET, TN
+STPH|STEPHENS PNEUMATICS, INC.; HASLET, TEXAS
+MAYC|Mayco Pump Corp.Los Angeles, California
+VANR|Van Guard Trailer, Ltd.
+ACKN|A & C Knight, Ltd.
+HOLY|Holly Industries (or Coach Co.)
+HARV|Harvest Motor Home
+COMV|Commuter Vehicles, Inc.
+AMT|Amtec Trailer
+LINV|Linville Horse Trailer
+COON|Coon Custom Coach Mfg.
+DOUD|DOUBLE D DISTRIBUTORS, INC; PINK HILL, NORTH CAROLINA
+GADB|Gadabout
+DAKO|Dakota Mfg. Co., Inc.Mitchell, South Dakota
+THAT|Joseph Thatcher
+MOOD|Moody Mfg. Co.
+MODL|LamplighterMfd. by Moduline International, Inc.
+WESD|West Wind Trailer Co.
+BRAD|Brandt Trailers, Inc.
+HOLE|Holden Trailer Mfg. Co.Holiday House, Inc.
+LUXO|Luxor-Leffingwell Coach
+USCG|U.S. COAST GUARD; MAKE IS UNKNOWN
+PHOE|Phoenix
+MOBN|Mobile Home Service
+SCIO|SCION; NEW LINE/MAKE OF VEHICLE UNDER THE TOYOTA BRAND ______MODELS INCLUDE THE XA & AB
+TRRD|Tri-Rod
+WHIP|Whippet
+DANA|Dana Truck Mount Camper
+WADE|WADE SERVICES, INC.; ELLISVILLE, MS
+TRIV|Trivellato
+TRAO|Transcraft Corp.Anna, Illinois
+TJJJ|TRIPLE &quot;J&quot; CUSTOM TRAILERS, GANSEVOORT, NY
+BALZ|Balzer Manufacturing Corp.
+LAKL|Lakeland Camper & Mfg.Drayton Plains, Michigan
+SUPT|Super Two
+MAXO|Maxon EagleMfd. by Maxon Industries, Inc.
+WORL|World Wide Industries
+FLAG|Flag Ship Boat Trailer
+MWST|Martco Waste System Equipment
+HOLR|Aluma-liteMfd. by Holiday Rambler Corp.
+WARR|Warrenville Trailer Mfg., Inc.Warrenville, Illinois
+RRMA|Fat CatMfd. by R & R Mfg. Co.
+NAVI|Navistar
+BJCT|BJ'S CUSTOM TRAILERS; WOODSTOCK, AL
+FIBE|Fiberfab, Inc. (Minneapolis, MN)
+GARY|Gary Carolina Co.
+THUN|Thunderbird CastlesDiv. Thunderbird Products
+CAT|Caterpillar Tractor Co.
+SMEA|Smeal
+WEMA|WeMac Mfg. Co.North Kansas City, Missouri
+ENTR|ELKHART, INDIANA
+TORA|Tora (Imported by Rockford)
+PARE|Park Estates Homes
+STOL|STOLL TRAILERS, INC; ABBEVILLE, SC
+GALI|Galion Manufacturing Div.Div. Dresser Industries, Inc.
+HYUN|Hyundai
+WEEK|Week-N-Der Pickup Camper
+LYNH|FloTrailMfd. by Lynch Manufacturing
+FORR|Fostron's Factory Outlet Trailers
+BLAC|Black Diamond Trailer, Inc.New Tazewell, Tennessee
+GRAO|Graco, Inc.
+USEL|U.S. Electricar Corp.
+BVCR|BEAVER CREK ENT. ; MOKENA, IL
+AMCR|AMERICAN CRUISER MOTORHOME, NAPPANEE, IN
+DURO|Duro Mobile Homes
+VADA|Vada Open Top Cattle Trailer
+MATL|Matlock Trailer Corp.Nashville, Tennessee
+MDNA|Modena
+GLWO|EZZ PullMfd. by Glass-Wood Products, Inc.
+LARA|Larado Mobile Homes
+LOWP|Low Pro Custom Trailer
+TORO|Toro Co.
+DAVI|Davis
+HORN|Horner-Golem Co.
+JLM|Bass TrackerMfd. by JLM Industries
+EMCO|Emmco Trailer
+GIVE|Givens Mfg. Co.
+HILS|Hilo Snyder Travel Trailer
+OKLA|Oklahoma Horse Trailer
+CUSC|Custom Coach Co.
+CLAR|Construction Machinery Div., ClarkEquipment Co.
+MCCY|McClenny Machine Co. of Virginia, Inc.Suffolk, Virginia
+THMS|Thomas Built Bus Co.
+CRON|Crown
+HAUL|Haulette Trailer
+FLEA|Fleet-Aire Camper Co.
+WESL|Western Trailer Coach
+WHTN|Whiteman Ind.
+CONU|Consulier
+EXCE|Excell Travel Trailer
+STEA|Steadman Containers Ltd.Brampton, Ontario
+SCUL|Scully Coach Co., Inc.
+TRBB|Trav-L-Homes
+KLMK|Klimek Welding and ManufacturingMaple Lake, MN; manufactures trailers.
+SKIK|Ski Kart
+BLAS|Blaine's Custom Mfg. ServiceJackson, Mississippi
+HRSE|HORSE CREEK MANUFACTURING; COOKVILLE, TX
+UNIE|United Mfg. Co.
+SSTL|BPMfd, by SS Trailer Co.
+TRCR|Travel Car Motor Home
+DELL|Dellow
+ELKR|Elk River Corp.
+NOBI|Nobility Homes, Inc.Ocala, Florida
+GZL|Gazelle
+UNCR|Unit Crane & Shovel Corp.
+AMPC|Ampco Mfg.
+ORBI|Orbit Industries, Inc.
+ASVE|Assembled Vehicle (for furtherexplanation see Operating Manual,Part 1, Section 2.)
+MACL|MAC-LANDER, INC; OSCEOLA, FL
+CRUI|Cruisaire Motor Corp.
+DWNS|Downs Clark Trailer
+BULR|Bulk Resources, Inc., doing business as Bulk Mfg. Co.
+TRMR|TRAILMANOR, INC.; LAKE CITY, TN
+NEVL|Nevlen Company Inc.Wakefield, Massachusetts
+RSTB|R/S Truck Body Co., Inc.Allen, Kentucky
+KARI|Kari Cool Trailer
+MOBS|Mobile Products, Inc.
+HEDW|Hed-Way, Inc.
+MG|MG
+AIRE|Aire-Line Mobile Homes
+ALLN|Alloy Machine Products Corp.
+DRIV|Drive On Trailer Mfg.Mishawaka, Indiana
+DANT|Dandy Mobile HomesMfd. by Dan's Trailer Supply, Inc.
+ALMN|Alumna-Weld, Inc.Friendship, Arkansas
+REX|Rex
+DUES|Duesenberg
+BEAI|Beaird PaylinerShreveport, Louisiana
+FIKO|FIAT KOBELCO; CONSTRUCTION EQUIPMENT/MACHINERY
+GRVM|Grove Mfg. Co.Affiliated with Kidde, Inc.,Shady Grove,Pennsylvania
+HUWA|Huber-Warco
+DIAS|Diamond-BiltMfd. by Diamond Steel Co., Inc.
+MNSN|MONSOON (ATV'S) ALL TERRAIN VEHICLES
+LEER|Leer, Inc.Elkhart, Indiana
+SLEL|Solo Electra
+ONEI|Oneida Coach Mfg.Grand Ledge, Michigan
+KYRV|KEYSTONE RV COMPANY, GOSHEN, IN. (SPRINGDALE TRAILER MODEL)
+TRRY|TERRY'S UTILITY TRAILER OR TERRY W. BECK; WARRENVILLE, SC
+SISU|Sisu USA Inc.
+DYTC|DAYTEC CENTER; HESPERIA, CA ; MOTORCYCLE FRAMES & PARTS
+MODU|Module, Inc.
+CARB|Caravan Industries
+BROT|Brooks Brothers Trailers, Inc.
+INVA|Invader Travel Trailer
+HAUA|Haul-A-Day Trailers
+CTRC|Central Trailer Corp.
+SELB|Selburn Flatbed Trailer
+MRIO|Marion Trailer SalesMarion, Indiana
+AVAN|AVANTI CYCLES,MOPEDS & SCOOTERS
+HNMR|Hahn Motors, Inc.
+MANK|Mankato Mobile Homes, Inc.
+AUTS|Auto Ski IncLevis, Quebec
+ARLB|Arlberg
+MITT|Mitts-Merrill, Inc.
+ROLP|MayberryMfd. by Rollohome Corp.
+MULT|Multi Trailer
+BILK|Bilken EnterprisesMfr. of Specialty Trailer (bought out byAmerican Enterprises)
+SUVE|Suvega Tiger
+FOUT|Four State Industries, Inc.Elkhart, Indiana
+KNOX|Knox Homes Corp.
+BRIH|Brighton Built TrailersBrighton, Iowa
+AJIN|A & J Industries Custom Fiberglassing
+NORD|Nordine Mfg. Co.
+MASY|Massey
+VACE|Vacationar Motor Home Truck
+ASBU|Asbury Industries, Inc.
+VTNR|VENTURE TRAILERS
+VET|Vet Boat Trailer
+NUWA|Nu-Wa Campers, Inc.
+CULL|Cullip Industries
+ALCA|Alcan American, Inc.
+LODC|Bushog/Loadcraft (Div. Allied ProductsBrady, TexasCorp.)
+HINO|Hino
+VANG|Vanguard (Canada)
+BRIT|Bristol Mfg. Co.
+CACR|Can-Car(Canadian Car Trailer Sales Div.)Rexdale, Ontario--Div. of Hawker-Siddeley, Canada
+WSBT|Wonder State Boat Trailer
+DKR|DKR
+VESE|Vesely Co.
+KAMA|Kamp-A-While Industries
+AZTX|AZTX or Az-Tex Trailers
+UNLI|UNILLI ATVS ETC
+TTMI|TRINITY TRAILER MEG., INC. BOISE, ID
+PAMC|Pamco Trailer
+AMCC|American Clipper Corp.Morgan Hill, California
+BEET|Beeat Truck Mount Camper
+YAMT|Yamoto
+WHTM|Whiteman Mfg. Co.
+KARO|Kar-Go Metal Stamping Co.Willow Grove, Pennsylvania
+RRMM|ROYAL RIDER MOTORCYCLE MANUFACTURING CO., INC.; HUDSON, FL
+TRUK|Unpublished truck mfr.(see Operating Manual, Part 1,Section 2)
+VACN|Vac-Con
+BROY|Brown Industries
+SUNT|Sunset Travelers
+SUNI|Sunset Mobile Homes
+GRER|Gregory Trailer Sales
+DONG|Dong Feng (East Wind)
+MLXC|Mobilux
+DITE|Di Tella
+ROCE|Rocket Trailer, Ltd.
+VINC|Black Knight (model of Vincent)
+HADL|Hadley Trailer Mfg. Co.North Carolina
+COLE|Coleman Camping Trailers
+RECO|Reconstructed Motorcycle (SeeOperating Manual,Part 1)
+BOUL|Boulder Trailer
+WEBE|Weber
+CRIC|Cricket Corp.Elkhart, Indiana
+JHNS|Johns Corp.
+AATS|AAA Trailer SalesMt. Pleasant, TX
+POIE|Pointer-Willamette
+VENC|Venus Coaches
+CASA|Casa Manana Mfg. Corp.
+KOTR|King of the Road Trailer Co.Conyers, Georgia
+DAVO|Davron Traveler, Inc.
+PFAU|Pfaudler Co.
+CNTR|Centreville Trailer
+DELP|Delphi Body Works, Inc.
+CRAW|Crawler Trailer
+DMBT|DMB Trailers
+MUSG|Mustang Trailer Mfg., Inc.Quitman, Arkansas
+FLE|Fleet Cap'n Trailers
+EEE|CANADIAN MOTORHOME
+WORH|Work Horse Mfg.
+KATO|Kato Engineering, Subsidiary ofReliance Electric
+MARN|Marion Metal Products Co.
+HICS|Hicks
+LDTL|LOAD TRAIL, INC.; SUMNER, TX
+CHIP|Chippewa Mobile Homes Corp.
+BROR|Brock Star Trailer
+KENN|Kenron Corp.
+READ|READI-BUILT TRAILERS; THOMASVILLE, NC
+SHOW|Showco Nomad Trailer
+PETR|Peter Pirsch & Sons Co.Kenosha, Wisconsin
+ROSS|J.H. Ross Co.
+SPEE|Speedway Trailer Div.Div. Dunphy Boat Corp.
+FAIM|Fairmont Steel Products
+AMJE|American Jenbach Corp.
+GEOT|Georgia Trailer & Equipment Corp.Macon, Georgia
+APOL|Apollo Homes
+RAMA|Ramada Tent Camping Trailer
+NICW|NICHOLS CUSTOM WELDING; HOME OF NICHOLS TRAILERS; FARMINGTON, ME
+SAIC|St. Clair Custom Built
+LITT|Littleford Brothers, Inc.Mfrs. rollers
+CLIF|Cliff Office Trailer
+BARR|Barret
+BEAL|Beall, Inc.Billings, Montana
+FLEE|Fleetcraft Corp.
+APAC|Apache Coach Co.
+GUES|Guest Industries, Inc.
+PORE|Portable Structures
+CITY|City Dump Trailer
+ENVI|Envirotech Corp., EIMCO ProcessMachinery Div.
+RATC|Ratco WeldingBillings, Montana
+RHEA|RHEA'S TRAILER SALES, INC.; TEXAS
+NULF|Nu-Life Environmental, Inc.
+PLAG|Plattsburg Mfg.
+ISU|Isuzu
+RAIC|Rainbow Corp.
+TOYT|Toyota
+LOGN|Logan Coach, Inc.Logan, Utah
+YANM|Yanmar Tractor USA, Inc.Bensenville, Illinois
+DROP|Dropbox, Inc.
+BOWM|Bowman & Sons
+ABTM|Amco Boat Trailer
+GYPS|Gypsy Campers, Inc.
+ECSA|EcsaMexico; trailers
+RECG|Reco Goliath Tent Trailer
+GREA|Great Divide Coach Mfg.
+SPEK|Speed King Mfg. Co., Inc.
+AXLE|Axle & Equipment Sales Co.Naperville, Indiana
+LAMB|Lambretta
+GOEB|Goebel Trailer Co.
+NEDL|NEDLAND INDUSTRIES, INC.; RIDGELAND, WI
+BITT|Bitter
+HIGY|Highway IndustriesEdgerton, Wisconsin
+WALA|Ward LaFrance International Inc.
+FORU|Fortune Homes Corp.
+GRUE|Gruendler Crusher and Pulverizer Co.
+RYOB|Ryobi
+OTTE|Otterbacher Mfg., Inc.Crestline, Ohio
+RANC|Rancho Trailers, Inc.
+HOMA|Holiday Marine Sales, Inc.
+WILR|Willborn Brothers
+MOTR|Mo Trailer Corp.Goshen, Indiana
+HORX|Horex
+AMEE|American Duralite Corp.
+BGCH|Big Bear Choppers
+JOHS|Johnson's Trailer Building & Repair
+ECON|Economy-Wisconsin
+DIXO|Dixon Industries, Inc.Coffeyville, Kansas
+DANZ|DANZER INDUSTRIES & DANZER/MORRISON; HAGERSTOWN, MD
+MARW|Marshfield Homes, Inc.
+YETT|Yetter Mfg. Co.
+FREA|Freeway, Inc.
+LARV|Firma LenkoSee Larvin
+WORT|Worthington Champ
+DOMI|Dominion Road Machinery Co., Ltd.
+TEXL|Tex Willett Co.
+RIVE|Riverdale Steel Works
+REVS|Reeves Roofing Equipment Co.
+KINS|Kingston Horse Trailer
+TWIG|Twin Grove Mfg., Inc.Verona, Wisconsin
+MGNM|Magnum ManufacturingHarrisburg, OR; recreational vehicles
+MZMA|Mzma
+SPAE|Space-Craft Trailers Mfg.
+ENGL|English Industries
+GLMB|Golfmobile
+KRDL|Kreidler
+TEEN|Tee Nee Trailer Co.Youngstown, Ohio
+MART|Martin Trailers, Ltd.St. Laurent, Montreal
+WALD|Waldon, Inc.
+ROBT|Robert Horse Trailer
+VOLV|Volvo
+STRR|Starcrest Motor Home
+STCO|Starcraft Corporation
+NEWI|New Idea Electric Lawn Garden Tractor
+MNRK|Monark
+GLFI|FeedlinerMfd. by Globe Fabricators, Inc.
+ARMH|Armor Homes of Virginia
+BOMA|Bo-Mar Mfg. Co.
+IMPD|Imperial Industries
+NEVM|Neval Motorcycles Ltd.
+MONU|Montgomery Mfg. Co.
+RANG|Ranger Boats & Trailers
+GUID|Guidon Camper Trailer
+YARM|YARD MACHINE; SUBSIDIARY OF MTD INDUSTRIES (MOWERS ETC)
+CLWX|Clark-Wilcox
+BOLG|Bolinger Flatbed Trailer
+LNST|LONE STAR MANUFACTURING; VALLEY VIEW , TEXAS
+STOD|Stoddard Mfg. Co.Waterloo, Iowa
+FOX|Fox
+PASI|PERFECTION ARCHITECTURAL SYSTEMS, INC.; BOYNTON BEACH, FL
+SKYJ|Skyjack
+PRNE|Pro One
+NEWS|New Style Homes, Inc.Pineville, Missouri
+GARP|Gardner-Pacific-Sunrader, Inc.Vallejo, California
+TRAL|Trail-Or-Floats
+GWM|Ottawa Truck Div., Gulf & WesternMfg., Co.
+TWRT|TOWRITE MANUFACTURING; BUNN LEVEL, NC; TTRAILERS & DOLLIES
+CUBT|Cub Camper Trailers
+MORE|Moretti
+RVTI|Randall's VIP Trailers, IncTempe, AZ; boat and utilitytrailers
+DACO|Daco Trailer Corp.Pocahontas, Arkansas
+PREB|Prebuilt Mfg.
+VOUG|Vought Industries
+RALL|Rallymaster Travel TrailerArlington, Texas
+WLTR|WALTRON LIMITED/ALDURA; RIDGETOWN, ONTARIO CANADA
+SUPI|Superior Ideal, Inc.Oskaloosa, Iowa
+SNTA|Santa Fe Trailer Co.
+DATO|Daton
+LEAR|Lear Siegler, Inc., Hutchinson Div.
+DCTR|Diamond City Trailer Mfg.Murfreesboro, Arkansas
+CAMM|Camper City Coach Craft
+SEAR|Sears, Roebuck & Co.
+HOLA|Holland Transplanter Co.
+SCHI|Schertzer Equipment Co.
+KOLB|Kolberg Mfg. Corp., Subsidiary ofPortec, Inc.
+TRRI|AquariusBoat trailers--mfd. by Trail-Rite, Inc.
+MODI|Modernistic Industries
+UNIM|United States Aluminum Co.
+SCOU|Scout Motor Home
+IMPE|Imperial(for model years 1955-1983, useVMA/IMPE; for models prior to 1955and model years 1990-1993,
+FETE|Feterl Mfg. Co.
+WALK|Walker Stainless Equipment Co.New Lisbon, Wisconsin
+REID|Reids Trailers, Inc.Pleasant Garden, North Carolina
+TODD|Toddy Custom Built TrailersMfrs. stock trailers--Bradford, Arizona
+BNHR|Ben Hur
+MILW|Milwaukee Electric Tool Corp.
+INOR|Idaho Norland Co.
+DERB|Derbi Motor Corp.
+VENU|Venus
+KARA|KARAVAN TRAILERS, INC.
+DIAB|Diamond B
+COME|Comet Corp.Spokane, Washington
+BERH|Berkshire Industries
+COOE|Coose Trailer Mfg. Co.Lockwood, Missouri
+AAPX|AAPEX TRAILERS, INC.; CHICAGO, IL
+GORB|Gorbett BrothersFort Worth, Texas
+FLEM|Fleetwing Mobile Homes
+MALL|Mallard Coach Corp.
+LANT|Lanheim, Inc.
+DARG|Dargo Mfg.
+ELDE|Elder Trailer & Body
+CORT|Cortez House Trailer
+KTM|KTM
+FACL|Facellia
+NBAY|NORTHERN BAY CO. INC. ; PENOBSCOT, ME
+TRMC|Tramco, Inc.Mfrs. liquid propane gas transport--Dallas, Texas
+LANP|Lanes Pacesetter Trailer
+ARND|Arnold Travel Trailer Mfg. Co.
+CALI|Calvia Brothers Trailer Mfg.
+JACS|Jacobsen Mobile Homes
+FORT|Fort Smith Camper Mfg. Co.
+AVNT|Avant
+WASW|Warner & Swasey Co.
+PALO|Palamino Camping Trailer
+LODE|Load Star Corp.Macon, Georgia
+HOWE|Howe Engineered Sales Co.Waterloo, Iowa
+BEBE|Bebe
+WILM|Sun-RayMfd. by Wilson Trailer Mart
+STAF|Stam Mfg. Co.
+REEL|REEL TRAILERS
+CHKG|CHASSIS KING, LLC; CLEARWATER, FL
+FRON|Frontier Homes Corp.
+BYRS|Byers
+SAVN|Savannah Homes, Inc.Savannah, Tennessee
+AUWE|Austin-Western Div.Clark Equipment Co.
+PORS|Porsche
+DRYD|Drydock Trailer, Inc.Boat trailers--Freeport, Florida
+MOMO|Moto Morini
+INDA|Indies House, Inc.Hackleburg, Alabama
+BLRG|BLUE RIDGE TRAILERS
+WEDG|Wedgewood Homes
+SPET|Speedex Tractor Co.Ravenna, Ohio
+EAGI|Eagle International, Inc.Mfrs. buses--Brownsville, Texas
+IAME|I. A. M. E.
+LITK|Lift Truck, Inc.
+SWEP|Sweepster, Inc.
+WALE|Walker Tractor Mfg.
+SCHL|Schevelle Homes Sales Corp. of Alabama
+BEAN|Bear Industrial Trailers
+TRAZ|Travelpak Car Topper Sales
+LONA|Lonaire Mfg. Corp.
+VIRG|Virginia Mobile Homes Industries
+MURR|Murray Ohio Manufacturing Co.Brentwood, Tennessee
+MCRR|Mc Kee Roughrider
+TUTR|Tule Trooper
+WATT|Watt Camper
+MNRC|Monarc
+WTCI|Watson Tractor Co., Inc.Danielsville, Georgia
+HAUR|HAULRITE, INC.; MT. JULIET, TENNESSEE **(NOT HAULRITE OF MISSOURI VMA/BMMF)**
+AJAX|Ajax Trailer Co.
+STEG|Stew-Gar, Inc.
+MONN|Monon Trailer Div.Div. of Evans Products Co.--Monon,Indiana
+CIRK|Circle K KennimoreOklahoma City, Oklahoma
+CFCH|Colony Factory Crafted HomesShippenville, PA
+EMML|EML
+CHEN|Cheney Weeder, Inc.
+MAJE|Majestic Corp.
+CRGP|CARGO PRO TRAILERS
+DTRL|Detrail Trailer
+STUA|Stuart
+KAYW|Kaywood Homes, Inc.
+KWMH|K & K Mobile Homes
+MERH|Mercury Coach Corp.
+LILN|Lil Indian
+MLLM|MILLENIUM TRAILERS, INC.; ADDISON, AL
+GHIE|Ghieapy Jol Trailer
+ITAT|Italtelai Mfg. Co. (Italy)
+EXTL|Extend-Ell Industries
+SVCH|Specialized Vehicles Corp.
+FLOR|Florig Equipment Co., Inc.Conshohocken, Pennsylvania
+TONC|Tonco Lowboy Trailer
+BRDR|Broderson Manufacturing Corp.
+DIXE|Dixie Craft Trailers, Inc.Eupora, Mississippi
+GARL|Garlock Equipment Co.
+THOA|BoatoterMfd. by Thomas Mfg.
+ARRC|Arrow Campers, Inc.
+CLEM|Clement-Braswell
+MIT|Mitchell Camper Trailer
+DICK|Dickirson Equipment Corp.Salem, Illinois
+CORR|Correct Craft, Inc.
+PENI|Peninsula Camper Mfg.
+WARW|Warwick
+JAEG|Jaeger Machine co.Columbus, Ohio
+MARV|Mar-Val Industries, Inc.
+ALST|Allied Steel and Tractor Products,Inc.
+PAMR|Pace American, Inc.White Pigeon, Michigan (throughMarch, 1988)Middlebury, Indiana (EffectiveApril, 1
+ASHL|Ashley
+KLEI|Klein Products, Inc.
+LFET|Lifetime Custom Coach
+GILS|Gilson Brothers Co.
+CULP|Culpepper Trailer Co.Clinton, Arkansas
+COMR|Commercial Vehicles, Inc.Tulsa, Oklahoma
+MECH|Mech Handling Co.
+WILF|Wildfire
+ERCE|Eric Enterprises, Inc.Coventry, Connecticut
+CHEP|Chevron Corp.Elkhart, Indiana
+EXCY|EXTREME CYCLES (MOTORCYCLES)
+VWTC|Truckin TrailerMfd. by V.W.T. Corp.
+OHTA|Ohta
+SCOC|Scotsman Industries, Inc.
+ELJA|Eljay Mfg. Co.
+BRAY|Bray Trailers
+BRTT|Baretta
+FN|FN
+ANDM|Andrea Mobile Homes
+NEUF|Karl M. Neufeld
+CARD|Caravel IndustriesWylliesburg, Virginia
+TRLM|Trail Master Trailers, Inc.Coleman, Oklahoma
+RLST|ROLLINGSTAR, MFG., INC. ; BARNEVELD, NY
+XPLO|Xplorer Enterprises of Constantine
+VNTG|VANTAGE DUMP TRAILERS, INC.; KATY, TX
+SMTC|S & M Trailer Co.
+THIL|Thiele, Inc.Windber, Pennsylvania
+FUJI|Fuji Robbt Jr (Mfd. by H-MVehicles, Inc.)
+TRST|Trail Star Tent Trailer
+LEKT|Lektracycle
+MAPO|Marion Power Shovel Co., IncDiv. of Dresser Ind.
+BREZ|Breeze Camping Travel Trailer
+LOWE|Lowe IndustriesLebanon, Missouri
+MAYB|Maybach (Brand within Mercedes-Benz)
+URIL|Urili Flatbed Trailer
+KENS|Kensington Motor
+CMEO|Cameo Travel Trailer
+UD|Nissan Diesel Motor Co. (for reference
+ONYX|ONYX FLYER
+MOSE|MoserSee also Vim Trailer
+AUTM|Auto-Mate
+ADVS|Advanced Vehicle SystemChattanooga, TN; electric shuttle bus
+FRIE|Friendship Mobile Homes
+MUNC|Muncy Homes, Inc.Muncy, Pennsylvania
+SUPF|Superformance International (Maker of replica vehicles)
+STRL|Starline Trailer Mfg. Co.
+MLNG|Moling Corp. and Car King Dolly Trailers
+BRAV|Bravo Trailer
+HOLK|Holmes Wrecker
+TYSO|Tyson Skylark Trailer
+STMP|Stampings, Inc.
+COLS|Columbia Mobile Homes, Inc.
+DSPD|Desperado Motor Racing & Motorcycles, Inc.
+HERZ|Herzig Mfg. Co.
+KBHC|KBH CORPORATION; CLARKSDALE, MS
+MOBR|Mobile Office, Inc.
+JBEN|J B EnterprisesElkhart, IN
+MACD|MacDonald's Mobile Homes
+ARCT|Arctic Enterprises, Inc.Thief River Falls, Minnesota
+YWAA|Y W
+SNBT|Sun Belt Energy Housing, Inc.
+MONC|Daytona Mobile HomesMfd. by Monarch Industries
+LOUD|Loudo Enterprises, LLC
+APEC|Apeco Mobile HomesDiv. Apeco Corp.
+ACTE|Active Homes Corp.
+ATEX|Attex
+HAUI|Haulmark Industries, Inc.
+UNII|Univision Industries Ltd.
+MIDD|Middlesex Equipment Co.
+AGYL|Argyle
+GLST|Glastron, Inc.New Braunfels, Texas
+TRKG|Trail King Travel Trailer
+PBTI|Pacific Boat Trailers, Inc.Anaheim, California
+GCMC|G. & C. Mfg. Co.
+AMER|American Motors (see make Ramblerfor Ramblers manufactured priorto 1966)
+SPLT|Sportliner Tent Trailer
+TRDD|Trac
+ATCH|Attachment Technologies, Inc. (ATI)
+MOTN|Classic (model of Motron)
+LUND|Lundell Mfg. Co., Inc.
+TYLM|Taylor Made Choppers
+TROJ|Trojan
+ALAR|All Around Horse Trailer
+LANH|Landola Homes, Inc.
+BAKR|Baker Material Handling Corp.
+TCI|Talbot-Carlson, Inc.Audubon, Iowa
+DIAM|Diamond G EquipmentOklahoma City, Oklahoma
+ALLB|Allied American Builders Corp.
+TRTT|Traveliner Travel Trailer
+CLIN|Cline
+GRAB|Grady-White Boat Co.
+PETT|Pettibone Mercury, SubsidiaryMercury Mfg. Co.
+ROV|Rover
+AVAL|Available
+VACG|Vacation Wagon, Inc.
+TRI|Tri-Way HD Snowmobile Trailer
+MOBU|Cinderella Mobile HomesMfd. by Mobile Structures, Inc.
+SCMM|Schramm, Inc.West Chester, Pennsylvania
+HIRE|Hire Dump Trailer
+ASMT|ASM TRAILERS; MOUNTAINBURG, AR
+PACC|Pacemaker Mobile Homes & Travel TrailerDiv. Lonergan Corporation
+INTL|International Harvester Co.
+BLMT|Belmont Machine
+KOFF|KMMKoffel Machine & Metal Fabricating, Inc.
+SWEE|Sweetheart Motor Home
+TOTE|TotemallMfd. by Birmingham Mfg. Co., Inc.
+GRNH|Greenhaven Mobile House Trailer
+HAPP|Happy Wanderer Industry, Inc.
+SUMI|Superior Mfg., Inc.
+LDMX|Load Max Trailers, Ltd.
+CULN|Cullison Mfg., Inc.
+ZOLL|Zollinger Trailer Co.
+CENI|Centurion International, Inc.Waco, Texas
+ALFB|ALFAB INC.; TRAILERS
+TUBO|Turnbow Trailer
+MBM|M.B.M.
+DILM|Dille & McGuire Mfg. Co.Richmond, Indiana
+KLI|K Line Trailer
+BIGF|Bigfoot Ind., Inc.
+TIOG|Tioga Motor Home
+PEAR|Ben Pearson Mfg. Co., Inc.
+KOMF|Komfort Travel Trailer
+NEVA|Nevada Air Products Co.
+WWTH|WORTHINGTON WELDING, INC. TRAILERS; PENNSYLVANIA 4MV OR 1W9/OO3
+CLAC|Classic Roadsters, Ltd.
+METV|METAVIC TRAILERS; ST. PIERRE-BAPTISTE, QUEBEC CANADA
+PANT|Panther
+TALR|Taylor Mfg. Co., Inc.
+MELO|Melody Home Mfg. Co.
+PACB|Pacemaker Boat Trailer
+DUGA|Dugan Trailer, Inc.Groesbeck, Texas
+CAVL|Calvacade Industries, Inc.White Pigeon, Michigan
+BIRE|Bird Engineering, Inc.
+STLN|Sterline Flatbed Trailer
+AUTI|Auto Trailer Co.
+NSUF|Nsu-Fiat
+SNAK|Snake River Trailers
+MAGT|Magnum Custom Trailer Mfg. Co.Boat utility trailers--Austin, Texas
+DONL|Donnell Boat Trailer
+FWTI|FWT, Inc.
+ROKN|Rokon
+HORS|Horseman Camper
+CVLO|CAVALLO
+MIMO|Minneapolis-Moline (MOTEC), Inc.
+SAFE|Safeway Mobile Homes Div.Div. Commodore Corporation
+TRAD|Trail Car Boat Trailer
+GORO|Gordon Smith & Co., Inc.Bowling Green, Kentucky
+JOWE|Jowett
+STRN|Saturn
+OMST|Omsteel Products Corp.
+NAHE|Nash-Healy
+CALU|Calumet Coach Co.
+TRIM|Pullman TrailmobileDiv. of Pullman, Inc.--Chicago, Illinois
+LILZ|Lil'ZManufactured by Zieman Products
+THNK|THINK ELECTRIC VEHICLES; DIVISION OF FORD MOTOR COMPANY
+EVSI|Electric Vehicle Systems, Inc.
+STER|Sterling Industrial Corp.
+DAVE|Dave Hicks Co., Inc.
+HABN|Haban/Agri-Fab or Agri-Fab/Haban
+SUNE|Sunliner Motor Home
+MONS|Monson & Sons Trailer
+CHAP|Chaparral
+GARH|Garway Homes, Inc.
+CRI|Chris Craft Corp.
+EVAP|Evans-Plugge Co., Inc.Columbus, Nebraska
+MORG|Morgan
+RDLY|RIDLEY MOTORCYCLE COMPANY; OKLAHOMA CITY, OK
+CMCW|CCM/Clews
+BROH|The Broyhill Co.
+SPBD|Speed Bird
+EXPD|EXPEDITION MOTORHOMES; MANUFACTURED BY FLEETWOOD
+REXN|Rexnord, Inc.
+MASV|Master View
+CRWN|Crown Coach or Crown Cargo Coach
+CRFI|Craftsman Ind., Inc.
+RAES|Raes Utility Trailer
+ROAF|Roadmaster Mfg. Co.
+KILL|Kill Bros.Delphos, Ohio
+TRKM|Tracker Marine, Inc.Nixa, Missouri
+OFFC|Office Master, Inc.Hampshire, Tennessee
+BURO|Burrito (also see make J.C.Penney)
+AIRS|Airstream Travel TrailersJackson Center, Ohio
+RCMH|RC Motor Home
+MOUM|Mountain View Campers
+HEAL|Heald, Inc.
+SILV|Silver Streak Trailer Co.
+MOFF|MOFFETT ENGINEERING, LTD; FORKLIFTS ETC
+DERH|Denzin & Rahn Mfg. Co., Inc.
+CHTH|Cheetah
+PILG|Pilgrim Mfg. Co.
+TRRR|TRIPLR R TRAILERS INC. BOONEVILLE,MISSISSIPPI
+SBTT|Sebring Home Corp.
+LINH|LINHAI MOPEDS, POWERMAX; CHINA
+PEMC|Pennsbury Manufacturing CorpBensalem, PA; boat trailers
+TAYL|Taylor Mobile HomesDiv. Troy Lumber Company
+OUTD|Outdoor Equipment
+HIGE|Highway Sleeper Corp.
+JAMA|Ja-Mar Manufacturing IncSikeston, MO
+JAGU|Jaguar
+TWIN|Twin Trailer
+UHAU|U-HaulPhoenix, AZ; utility trailers
+ENMC|Encore Motorcycle Co., USA
+RVKO|Hitch HikerMfd.by R. V. Kompacts, Inc.
+AGRA|AG-Rain, Inc.
+BLST|Blake TrailersStar, Idaho
+PLAI|Plains Industries, Inc.
+AYRW|Ayr-Way CampersDiv. K. V. Molded Products, Inc.
+TNKC|Tanckon FRP, Inc.
+LOCO|Locomobile
+CRSN|Carsons Mfg., Inc.
+CAMP|Camper De Ville, Inc.
+NATW|Nationwide
+LYNC|Lyncoach & Truck Co.
+DEMU|De Muth Steel Products Co.
+CENR|Century Auto Body & Trailer Mfg. Co.
+SUNL|Sun State Mobile Homes
+BEEE|Bee-Line Travel Trailers or MobileHomes, Inc.
+BUNT|Bunton CompanyLouisville, Kentucky
+ESCT|Escort Trailer Corp.Seattle, Washington
+AMET|American Trailer Specialists
+MACG|MacGregor Yacht Corp.Costa Mesa, California
+VNTC|Vanguard National Trailer Corp.
+ZONG|Zongshen Motorcycle Co., Ltd., or Cixi Zongshen Motorcycle Co., Ltd.
+DAVN|Davenport Trailer or Mobile Home Co.
+STUZ|Stutz
+HYSH|HAYSHED TRAILERS; ALBERTA CANADA
+BIZZ|Bizzarrini
+TCIP|HerculiftMfd. by TCI Power Products, Inc.
+DYCY|Dynacycle
+ADVA|Advance Mfg. Co.
+CVCO|Cavco Ind.
+HELT|Heltzel Co.
+TEXA|Texan Trailer Mfg. Co.
+WEIE|Weirs Trailer Sales
+PASQ|Pasquali, USAVerona, Wisconsin
+UTBC|UTILITY TOOL & BODY CO., INC. CLINTONVILLE, WI
+ATLT|Atlas Tool & Mfg. Co.
+CNTL|Continental Wheel & Trailer
+GENM|General Homes Div.Div. of Divco-Wayne Industries
+FIES|Fiesta
+JIAN|JIANSHE MOTORCYCLES & MOTORSCOOTERS, CHINA
+JZRC|JZ Riders Custom Motorcycles
+JB|JB
+SOTW|Southwest Welding & Mfg. Co.
+LUED|Luedtke Mfg., Inc.Allenton, Wisconsin
+BANM|Bantam
+TRAU|Travel Industries
+LONF|F. A. Long
+HOME|Aly AllianceMfd. by Homette Corp.
+EIDL|Eidal International Corp.
+SWIF|Swift Motorsports, Inc.
+PITD|Pitman Div., Emerson Electric Co.
+HOWC|Howard Commercial Turf Equipment Co.Mfrs. Mowers--St. Louis, Missouri
+LAN|Lane Flatbed Trailer
+CALS|Calis Travel Trailer
+RAIN|Rainway Mfg. Co.
+MDS|MDS
+LAGO|Lagonda
+SMIT|Smith, T. L., Co.Div. A-T-O, Inc.
+USMC|U.S. MARINE CORPS; MAKE IS UNKNOWN
+PRCA|Pierce Arrow
+MCCM|McCrabb Mfg., Inc.West Liberty, Iowa
+ESCP|Escapade Motor Home
+SIMN|Simenson Mfg. Co.
+REIN|Reinell Boat Trailer
+WITZ|Witzco Trailers, Inc.
+TRAY|Travelmaster, Inc.
+MALY|Malyette
+PETM|Pettibone Michigan Corp., SubsidiaryMercury Mfg., Co.
+SKIR|AriensSee Skiroule Ltd
+SHAS|Shasta Industries
+SHAR|Sharratt Mobile Homes & Supplies
+FLYL|Flying L Trailer, Inc.Falls City, Nebraska
+MVEN|Marine Venture Enterprisers, Inc.Baltimore, Maryland
+HOLT|Holt Trailer
+CHPM|Champion Pneumatic Machinery Co.,Inc.
+GLRD|Glasride Trailer
+KUST|Kustom Kraft
+VALY|Valley TrailersCynthiana, Ohio
+BRNG|BERING TRUCK DISTRIBUTION, LLC FRONT ROYAL, VA
+PERL|Peerless DivisionDiv. of Lear Siegler--Tualatin, Oregon
+BELP|Bellaire Products
+FORL|Forlyn Engineering Co.
+FUTU|Futurama
+FIRS|First American Coach
+HOLU|Holland Camper Co.
+ALLW|Allentown Brake & Wheel Service, Inc.Allentown, Pennsylvania
+BREM|Bremen Sport Equipment, Inc.(Bremen,IN)
+SYCA|Sycamore Mobile Homes
+CRUM|Cruzmaster Camper
+DALT|DALTON ENTERPRISES INC.
+FHL|FHL
+RICA|Richard Piche, Inc.Quebec, Canada
+GLOB|Globe Camper Mfg.
+LAOT|BrindleLaOtto Metal Fobricating Co., Inc.
+GILM|Gilmore Trailer, Inc.Seneca, Pennsylvania
+NEWK|New Yorker Homes Corp.
+WNDH|Windham Mfg. Co., Inc.Mfgs. loaders
+MAQI|Marque, Inc.Bristol, Indiana
+HILF|Hill Mfg. Co.
+ODGL|ArgoSee Onatario Drive & Gear Ltd.
+COLM|Columbia Tractor Mower
+HYTR|Hyundai Trailers
+TORC|Torch IndustriesElkhart, Indiana
+HALL|Hall, R.D. Mfg., Inc.
+OHIO|Ohio Body Mfg. Co.New London, Ohio
+ELKA|ELK AUTOMOTIVE; ELKHART, IN
+ELVA|Elva
+ROAB|Roam-A-Bout Camper
+RIVW|Riviera Mfg. Co.
+JEP|Jeep (for model years prior to 1970)
+FRED|Frederick-Willys
+GROV|Grove
+ARIC|Aristocrat Trailer SalesDiv. I. B. Perch Company
+TMTL|TM Trailer
+MOHA|Mohawk, Inc.
+CIRC|Circle S Star RouteSulphur Springs, Texas
+VNTU|Ventura Tent Camper
+GFHT|G & F HORSE TRAILER REPAIR; RIVERSIDE, CALIFORNIA
+BEC|Beck Camping Trailer
+EWAL|Red Ewald, Inc.
+AQCR|Aqua Cruiser, Inc.Columbia, Tennessee
+SIM|Simca
+KNTI|Kent Industries, Inc.Bristol, Indiana
+KELS|Kelson Engineering Co.
+SHOV|Shovel Supply Co., Inc.
+GFST|GULF STREAM
+MSTW|MASTER TOW INC. FAYETTEVILLE, NC
+UNIS|United States Mobile Homes (Florida)
+SCEP|Scepter Utility Trailer
+SAA|Saab
+DB|D.B.
+RRSC|Road Rescue
+TREK|Trek, Inc.Elkhart, Indiana
+SPOK|Spokane Travel Homes
+CARO|Carolina Travel Trailers
+KARS|Karson Industries, Inc.
+MAIR|Mair & Son., Inc.
+VANV|Van Veen
+BEIL|Beiler Hydraulics, Inc.
+FEST|Festival Homes of Ohio, Inc.Greenwich, Ohio
+THBT|Thunderbolt Trailer
+HIAW|Hiawatha
+WETR|Western Products Div., DouglasDynamics, Inc.
+MAHA|Marmon Harrington
+RAYI|Raymond Products Co.
+LAWR|Lawrence Trailer
+THRC|Three C's, Inc.
+TOWL|Tow Low
+SILE|Silver Leaf Mfg. Co.
+HESC|Woods Div., Hesston Corp.
+RICL|Richards & Clark Mfg. Co.
+WELL|Wells Cargo, IncElkhart, IN; commercial trailers
+ULAC|ULTRA ACQUISITION CORPORATION; RIVERSIDE, CA
+SOSL|SOUTHERN SALES, INC; TRAVELERS REST,SC
+JCBE|JCB Excavators, Inc.Whitemarsh, Maryland
+WHTP|White Pine Campers, Inc.Waupaca, Wisconsin
+BATA|Batavia Trailers, Inc.
+HOLP|Hole Pumps
+ALLM|All Steel Mfg. Co.
+LCIN|Loncin Group Import & Export Co., Ltd.
+LMLC|LML Corp.
+SANP|Santa Fe Springs Div.Div. of Divco-Wayne Industries
+VACR|Vector Aeromotive Corporation
+FIGU|Figura, MikeBruce, Wisconsin
+BMBM|B-M-B. Mfg. Co.
+FSLD|Fast Load
+KOZY|Kozy Coach Co.
+FARM|Unpublished farm or garden equipment mfr(See Operating Manual, Part 1,Section 2)
+BRTO|Bertolini Container Co.Butler, New Jersey
+THRM|Three-Way Campers Mfg.
+TAKE|Takeuchi Manufacturing (U.S.) Ltd.Atlanta, GA; manufactures compact trackequipment
+EMME|Emmert Mfg. Co., Inc.
+COVE|Covered Wagon Trailer
+BRND|Brandy IndustriesColon, MI; white tail camping trailers.
+TOWN|New CastleMfd. by Town & Country Mfg. Co.
+SWIS|Swiss Colony Travelers, Inc.Div. Herrli Industries
+DAVD|David Mfg. Co.Mason City, Iowa
+CONM|Contempori Mobile Homes, Inc.
+DEEP|Deep Sanderson
+WHSP|WHISPERING PINE CAMPER TRAILER
+COXS|Cox Trailers
+MFAB|Metal Fabrication, IncWinchester, TN
+ROTO|Rotocraft Boat TrailerGrants Pass, Oregon
+ELVT|Electric Vehicle Technologies
+NUTT|Nuttall Trailers
+FLOD|Florida Trailer Co.
+UTE|Ute Trailer
+VISC|Viscount Trailers
+PENU|Penn-Cupit Industries Ltd.
+HOAN|Holman
+MRCO|Marco
+AVIA|Avia
+JWBC|Christie, J. W. Bill, Inc.Collin County, Texas
+BIMT|Bimota Motorcycles
+MKEE|McKee Farm Technologies, Inc.
+OGLE|Ogle
+TRLI|Trail It Horse Trailer
+CARA|Car Camp
+TUFT|Tuff Thom Trailers, Inc.Brunswick, Georgia
+HUMB|Humber
+GRAV|Gray-Velle Mobile HomesDiv. of Stahan Manufacturing Co.
+YMCL|Yamaha Motor Company, Ltd.Cypress, CA
+STLO|Stilo Trailer
+JAMB|Jamboree Motor Home Truck
+BEEC|Beechwood Industries, Inc.
+KOEN|Koehn Mfg., Inc.
+ROMI|Rome Industries, Inc.
+FRYE|Frye
+TSCC|AKTIVSee Tucker Sno-Cat Corporation
+NORS|Norse Trailer
+SANK|Sanker Mfg. & Supply
+POIN|Pointer
+GOGE|Go-Tel Leasing Corp.
+HARR|Harrington Mfg. Co., Inc.Mfr. of Roanoke-Hustler, Lewiston, NorthCarolina
+ESQU|Esquire
+YUKO|Yukon Delta
+LODA|Lodal, Inc.Kinsford, Michigan
+TITL|Titleist Travel Trailer
+CLEV|Cleveland Trencher Co.Div. American Hoist & Derrick Co.
+EADU|East Dump Trailer
+RICD|Darian Mobile HomesMfd. by Richardson Div. GreatSouthwestern Corp.
+ISET|Isetta
+VOLO|Voloci
+RNSM|Ransome
+VACA|Vacation Homes
+FREN|French Horse Trailer
+YAMA|Chappy (mfd. by Yamaha Motor Corp.)
+SUNR|Sun ChaserMfd. by Sun Recreational Industries, Ltd
+UNTD|United Rock Picker Co.
+PIED|PiedmontDiv. of Concord Mobile Homes
+SECI|Star Electric Cars
+MACK|Mack Trucks, Inc.
+AROS|Aros
+TTTI|Transport Trailers, Inc.Cedar Rapids, Iowa
+PORL|Portland Wire & Iron Works
+LAWN|Lawndale Homes, Inc.
+CHTM|Chatham Enterprises Custom Mfg. & Sales
+DAYO|Daytona
+RANA|Ranchette Travel Trailer
+ACOR|Acorn Equipment Corp.
+GOLD|Gold Star Mobile Homes, Inc.
+MOWA|Montgomery Ward - Snowmobiles
+DETI|Detroiter Homes
+GHMI|G & H Manufacturing, Inc.Arlington, TX; trailers.
+BUTT|Butterfield Musketeer
+BLUE|Blue Ribbon Coach Co.
+SMIL|Smily
+WITA|Wisconsin Tag-A-Long Trailer
+NEOP|Neoplan USA CorporationLamar, CO; transit buses
+COTT|Cottage-Ette Mfg.
+HARH|Hart Mobile Homes Corp.
+TGRL|Tigerline Trailer
+TOWC|Towncrier Camper
+GABB|Gabbianno
+COND|Condor
+WALM|Wallstrom Boat Trailer
+CWTE|C & W Truck & Equip. Co., Inc.
+VAUX|Vauxhall
+AZTC|Aztec Products Inc.Mansfield, Texas
+TRAF|Trailmaster Tanks, Inc.Ft. Worth, Texas
+CFHG|Chunfeng Holding Group Co., Ltd.
+JIMS|Jim's Trailer ShopPortland, Oregon
+LANC|Lanchester
+TAYR|Taylor Machine Works, Inc.
+DONA|Don-A-Bell Homes, Inc.
+VTMT|VERTEMATI MOTORCYCLES
+XTRA|X-Tra Camper Co.
+FLAI|Flair Industries of Illinois, Inc.Macomb, Illinois
+HAIR|Hairgrove Industries, Inc.Longview, Texas
+QUIC|Quickload
+AUTO|AUTOCAR & AUTOCAR LLC CARS & TRUCKS
+BRUN|Brunswick Travel Trailer
+PROW|Prowler Industries
+MIDM|Midmark
+CRCN|CROSS COUNTRY MANUFACTURING; GREENE, NEW YORK (TRAILERS)
+BNDR|Bounder Motor HomeMfd. by Fleetwood, Decatur, Indiana
+THOS|Thomas Conveyor Co.
+BIGT|Big Tex
+SOCT|Southern Classic Trailer Mfg., Inc.
+MEYE|Meyer Morton Co.
+HORC|Horch Limousine
+LEIS|Leisuretime Motor Home
+DUEL|Duel
+WERT|Werts BiltMfd. by Werts Welding Service
+COSM|Cosmo
+IKAR|Ikarus Buses and Coaches
+YLN|YLN (Yue Loong Motor Co.)
+COZA|Cozad Trailer SalesStockton, California
+TUFC|Tuff Cat Trailers, Inc.Tekonsha, Michigan
+MONI|Monitor Coach Co.
+BRAU|Braughms Travel Trailer
+VENT|Ventoura Corp.
+SNLT|Sun-Lite, Inc.Bristol, Indiana
+SNOC|Snow Tri Scat
+CABA|Cabana Motor Home
+PETE|Peterson
+MONO|Mono
+HOL|Holsclaw Brothers, Inc.Evansville, Indiana
+EVAN|Evans Mfg. Co., Inc., JohnSumter, South Carolina
+CAPL|Capitol Trailer Coach Co.
+ARRM|Arrow Motor Homes
+CAMB|Cambridge Mfg. Co., Inc.
+PANA|Pan American Mobile HomesDiv. of Divco-Wayne Industries
+ECMY|Economy Camper Co.
+TRVL|Travel Home, Inc.
+VULC|Vulcan Trailer Mfg. Co.Birmingham, Alabama
+ROAM|Roaminghome Co., Inc.
+TRQU|Travel Queen Coaches
+MCCB|McCabe-Powers Body Co.
+DUAL|Dual-Wide, Inc.
+CHRV|Chateau Recreational Vehicle Div.Christiana, Pennsylvania
+VANA|Van Art, Inc.
+VERT|Vertex
+HIDE|Hide-A-Way Camper
+ABCH|ABC HomesDiv. Divco-Wayne Industries
+EXCR|Excelsior
+CBCM|C & B CUSTOM MODULAR, INC.; BRISTOL, TENNESSEE
+MILC|Milco Tank & Boat Co.
+SCHN|Schien Body & Equipment Co.Carlinville, Illinois
+NOMN|Nomanco, Inc.
+INDN|Indian Campers, Inc.
+HRLL|Harrell Mfr.North Carolina
+SRCO|SearsSears, Roebuck & Company
+MASS|Massey-Ferguson, Inc.
+FRAC|Frank Motor Homes, Inc.
+HOLH|HOLIDAY HOUSE
+MARK|Marking Mfg.
+RAID|Leisure Vehicles, Inc.Troy, MI
+STOT|Stoner Totter Trailer
+MANE|Manet
+CPPR|C/P Products Corp.
+UAZ|UAZ (Ulianovsk Automobile Zavod)
+ECNO|ECONOLINE TRAILERS, INC. ; DOUBLE SPRINGS, ALABAMA
+PHAA|P & H
+MOGU|Moto Guzzi (Italy)
+COOP|Cooper
+RETT|RETTIG ENTERPRISES; SIKESTON, MO
+IBEN|Iben Boat Trailer
+CATM|Cat
+UTIL|Utility Trailer Mfg. Co.City of Industry, California
+MLTK|MULTITEK, INC; PRENTICE, WI TRAILER & CONST EQUIP
+EGLE|Eagle (also see make American Eagle)
+PRAI|Prairie Schooner
+CAPM|Caprice Homes Mfs. Co.
+BOTL|Boatel Trailer
+LSUR|LEISURE TRAVEL VANS, LTD.; MORDEN, ME
+TRSP|Trans-Sport
+TRMB|Trailmobile
+THOM|Thomas & Co.
+CAMS|Campers Unlimited
+PTRK|PRO-TRAK TTRAILERS, INC.; CANTON, TX
+OWED|Owen Div., Anvil Attachments, Inc.
+CONX|Continental Mfg. Co., Inc.
+BOXR|Boxer Trailer
+ADMS|Adams Engineering Co.
+LARN|W. F. Larson, Inc.
+CROS|Crosley
+JPUT|J.P. Utility Trailers & Welding
+ALLO|Alloy Trailers, Inc.Spokane, Washington
+FTWD|AvionMfd. by Fleetwood Enterprises
+PITM|Pitman Brothers Co.
+CMCC|CALIFORNIA MOTORCYCLE COMPANY; GILROY,CA; VENTANA,CABRILLO KING & DIABLO MOTORCYCLES
+THIM|Thimsen Mfg. Co.
+BODZ|Bod-Eze
+HUGH|Hughes
+MERB|Mercury Boat Co.
+WAYS|Wayside Campers
+COLF|Colonial Mobile Homes Mfg.
+EDEY|DovekieMfd. by Edey & Duff
+CONT|Continental
+BARL|Bartlett Trailer Corp.Chicago, Illinois--Predecessor toBartlett Lifting Devices
+SAVA|Savage Coach Mfg., Inc.
+COT|Corner Utility Trailer
+UNMO|United Motors
+ROBB|ROBB KAUFMAN, INC.; LEXINGTON, NORTH CAROLINA
+ATCO|Atlas Copco, Inc.Wayne, New Jersey
+RUCH|Ruchmore Homes
+MEAD|Meade
+ATK|ATK America Inc
+BRAN|Branstrator Engineering Corp.
+THAC|The Thackery Co., Inc.
+LESA|Les Autobus M.C.I.
+BROC|BrockwayDiscontinued production in 1977
+BUDR|Buck Dragster Flatbed
+KIT|Kit House Trailer
+PLAN|Planet Plows, Inc.
+DLPE|DELOUPE, INC.; QUEBEC, CANADA
+KALL|Kallio Co.Fremont, Nebraska
+WRKH|WORKHORSE CUSTOM CHASIS
+CIMA|Cimatti
+BRTR|Bear Trailer Mfg., Inc.Lebanon, Missouri
+RWMI|Rice & Woolard Mfg., IncNaylor, MO
+BILT|Biltwell (or Builtwell)
+CRNP|CORN PRO TRAILERS
+HIUT|Hi-U-Trailer Mfg.
+TYCO|Toyoco
+MRRA|Murray Marine Corp.
+VOGU|Vogue Motor Home
+MWCH|Mid-West Choppers, Inc.
+PUCH|Puch
+PIOE|Pioneer Coach Mfg.
+BRLL|Borella
+WHMA|White Materials Handling, SubsidiaryWhite Motor Corp.
+SPEA|Marvin A. Spears Co.
+CYCL|Unpublished motorcycle mfr. (seeOperating Manual, Part 1,Section 2)
+OVEL|Overland Mfg. Co.
+ENZM|Enzmann
+HECD|Heckendorn Mfg. Co.Cedar Point, Kansas
+CAME|Camp Equipment Co., Inc
+EVEN|Evens Trailer Mfg., Inc.
+FUTR|Futura Mobile Home
+VIBO|Dynapac Mfg., Inc.
+SILL|Silverline
+RECB|R.E. Custom Boat TrailersWest Columbia, South Carolina
+TEMK|Tem Ken Trailers Mfg.
+BELS|Bell's Camp Trailers
+INDU|IMEIndustrial & Municipal Engineering, Inc.
+THPN|Thompson
+DETE|Detroit Trailer Co.Detroit, Michigan
+TMCC|THUNDER MOUNTAIN CUSTON CYCLES; LOVELAND, COLORADO
+CENU|Centurion Travel Trailer
+MARC|Marcos
+SABR|Sabra
+ZIL|Zil
+CART|Car-Tel Corp.
+SCAG|SCAG POWER EQUIPMENT, DIVISION OF MTEALCRAFT OF MAYVILLE,WI MAKER OF POWER RIDING MOWERS
+KRST|KRISTI TRAILER INDUSTRIES, INC; CANASTOTA, NY
+LEIR|Leisure Craft
+BATM|Bantam Camp Trailer
+WALH|Walsh Body & Trailer
+WOOS|Woodsmen Camper
+SPAN|Spano Crane Sales & Service Corp.
+ALVI|Alvis
+SMPI|SAM PATTON INDUSTRIES
+ROLC|Rolco Mfg. Co.
+PACI|Pacific Campers
+AUTT|Automatic Drilling Machines, Inc.
+ALLL|Allied Leisure, Inc.
+TURT|Turtle Top
+LILL|Lilliston Corp.Albany, Georgia
+LOPR|Loprofile Boat Trailer
+MACA|MacDonald Camper Kit
+MSI|M-System, Inc.
+MRAU|Marauder Travelers, Inc.
+ROCH|Rochdale
+HDMC|AMFSee Harley-Davidson
+BNST|B & S Boat Trailer Mfg. Co.Gainesville, Florida
+HUSK|Husky
+ALMD|Allmand, Inc.Holdrege, Nebraska
+LNRD|LEINARD ALUMINUM BUILDINGS, UTILITY TRAILERS; MT. AIRY, NC
+KARR|Kar-Rite CorporationFranklin Park, Illinois
+BULL|Bullmobile Trailer, Inc.Caldwell, Kansas
+GRSP|Gran Spree Mini Camper
+VALK|Valkrie
+BLAB|Black Built
+GORD|Gordon
+HUST|Hustler Boat TrailerPowell, Tennessee
+FRHH|FOUR H MFG., INC; SUMNER, IA
+CHAU|Chausse Manufacturing Co., Inc.
+EZLD|E-Z Loader Boat Trailer
+TYLR|TCI,Inc.Benson, Minnesota
+LGLX|Legendary Luxury Coach, LLC
+WOOA|Woodland Camper Co.
+FACT|Factory Outlet Trailers
+BRIL|Brillion Iron Works Div., BeatriceFoods Co.
+KELE|Kelley ManufacturingBogata, Texas
+MAI|Mai Mfg. Co.
+KNLH|KNL Holdings, LLC
+TTTR|Trans-Trail Trailer
+DEVI|Deville Industries, Inc.
+RITB|Rite-Bilt
+NASM|Nash Mfg.
+RBRC|Mini-CruiserMfd. by R.B.R. Corp.
+HAYE|EnerexMfd. by Hayes Equip. Corp.
+STOE|Stone Construction Equipment Inc.Honeyoye, New York
+PREI|Pre-Built Structures
+DONM|Don May EnterprisesRichardson, Texas
+CMAC|Construction Machinery Co.
+HANN|Clifford B. Hanney & Sons, Inc.
+RORU|Road Runner
+PEAB|Peabody Solid Waste Management
+OMCJ|OMC JohnsonBoat trailers--Waukegan, Illinois
+NFLD|Enfield India LimitedMadras, India
+DELA|De-Lar, Inc.
+CHIL|Chilton Trailer Co., Inc.
+SVCC|Sun Valley Car Carriers
+BEDX|Bendix Corp.Mfr. of mobile homes and recreationalvehicles
+ROYC|Royal Crest Co.
+IOMO|Iowa Mold Tooling Co., Inc.
+STDP|Steyr-Daimler-Puch
+LEDW|Ledwell & Son Enterprises, Inc.Texarkana, Texas
+MCKT|Mack Trailer Mfg. Co., Inc.Detroit, Michigan
+TRFL|Trail Flight
+LODZ|LOAD-EAZ Trailer Inc.Bensalem, Pennsylvania
+MMMC|M & M Mfg. Co.
+DARW|Darwin
+SKYL|AlyMfd. by Skyline Corp.
+ZMMN|ZIMMERMAN TRAILERS
+UNGE|Unger Motor Home
+DIPL|Diplomat Motor Home
+HEND|Hendrickson Manufacturing Co.
+SCHT|Schult Mobile Homes Corp.Middlebury, Indiana
+HARW|Harlow Travel Trailer
+PIRC|Pierce Mfg., Inc.Mfr. of Pierce Duplex,Appleton, Wisconsin
+CNWD|Conwed Trailer
+HARD|Hardee Mfg. Co.Affiliated with Harsco Corp., PlantCity, Florida
+QUIK|QUIK MANUFACTURING, CO; FOUNTAIN VALLEY, CA
+BERV|Ber-Vac (Canada)
+EMPC|Empire Corp., Inc.
+BLOO|Bloom, Inc.
+LILC|Lil' Cat, Inc.Elkhart, Indiana
+MCQU|McQuerry Tan Trailer
+BLIT|Blitz Mfg. Co.
+MALE|Marathon Le Tourneau Co.
+GIND|Gindy Mfg. Corp.Downingtown, Pennsylvania
+POLI|POLINI MOTORCYCLES
+WRVI|WESTERN RECREATIONAL VEHICLES, INC.; YAKIMA, WA
+ORLA|Orlando Boar Co.
+VINT|Vintage Homes
+PERO|Perone Trailer
+SMBT|SMB Teleiamotre (Bologna, Italy)
+SCHM|Schiebout Mfg. Co.
+MOOR|Moore Equipment Co.
+MINI|Miniscooter
+NEPT|Neptune Corp.
+KART|Kartote
+VEGA|Vegas Mfg. Co.
+NUWH|NUWA Horizon Camper Trailer
+GREE|Green Boat Trailer
+LFTL|LafayetteLowboy trailers
+TRVA|Cozy CraftMfd. by Travelcraft, Inc.
+STNH|Stanley Hydraulic Tools
+SOLS|Southern Lifestyle Homes, Inc.Addison, Alabama
+NATL|National Mobile Homes
+DEMP|Dempster
+TALB|Talbert Mfg. Inc.Rensselaer, Indiana
+BERO|Bertone
+RPTR|RAPTOR; ATV
+ZLMI|Zhejiang Leike Machinery Co., Ltd.
+WOOD|Woodill Wildfire
+HIVW|High View, Inc.
+TOHO|Tourhome Camper Trailer
+AUKR|Autokraft
+COUI|Countryside Industries, Inc.
+KAIS|Kaiser
+ESSK|Essick Trailer
+MALS|Marliss Industries, Inc.
+INTM|International Mobile Homes of California
+JEWE|Jewel Trailer, Inc.
+SIER|Sierra Campers Mfg.
+NORN|North American Mfg. Co.
+CHAR|Charlamor Corp.
+SAHA|Sahara Mobile Homes
+PWDY|Power Dyne
+DPWC|D & P Welding Co.
+LYNN|Lynnton Mfg. Co.
+ROGE|Rogers Brothers Corp.
+HACK|Hackney & Sons, Inc.
+TMBW|TimberwolfElkhart, Indiana
+HUSA|HUSABERG MOTORCYCLES, SWEDEN
+JENN|JENNINGS TRAILERS, INC; EMORY, TEXAS
+BYOR|Baker-York Forklift
+WANA|Wanamaker Trailer
+TEXK|Texarkana Div.Div. of Divco-Wayne Industries
+PRES|Presidential Mobile HomesDiv. U. S. Aluminum Company
+HETG|Heritage by Abel Corp. or Franklin Coach Co., Inc.
+KENO|Kenskill Trailer Corp.
+SHEL|Shelby Mobile HomesDiv. Commodore Corporation
+AJXE|Ajax Electric Motor Corp.
+CLEG|Cleveland Mfg. Co., Inc. (CMC)
+GE|General Electric
+AUG|Augustana
+VAL|VAL
+BARN|Barnes Pump Drain Unit
+FAAL|Fabricated Alloy Building Co., LLC
+FLAM|Flamingo Trailer Mfg.
+HILM|Hillcrest Homes, Inc.Div. Skyline Homes
+FORG|Foremost Mobile Home Mfg.
+GENT|Gentry
+ZIEG|Ziegler
+RCLP|Road Clipper
+RCKN|ROCKIN L. RIGGIN CORP.; GRAHAM, TEXAS
+TUFF|Tuffy
+FAIR|Fairthorpe
+USAV|U-Save TrailersPomona, California
+TILT|Tilton-Hilton
+QINJ|Qianjiang Motorcycle Group Corp.
+XTRM|XTREME ATVS
+OASI|Oasis Travel Trailer
+RKTA|Roketa Powersports
+GLSS|Glass Stream TrailersNashville, Georgia
+HOUF|House of Architecture
+TRTR|Trail Tramp
+RICH|Richardson Homes Corp.
+MANM|MANN MADE PRODUCTS INC. TRAILMANN TRAILERS (TRADE NAME)
+HIGW|Highway Manufacturing Co.Div. of Motac, Inc.
+STET|Stewart, Inc.
+FERG|Ferguson Mfg. Co., Inc.
+NELS|Nelson Mfg. Co.Ottawa, Ohio
+CTTM|Cleveland T-Trike Mfg., Inc.
+BRCO|Barco Mfg. Co.Johnstown, Pennsylvania
+HERR|Herrli Industries, Inc.
+DIAR|Diamond ReoDiscontinued production in 1974
+WDMZ|WOOD-MIZER PRODUCTS, INC.; INDIANAPOLIS, IN
+FINN|FINN CORPORATION; FAIRFIELD, OH
+MONA|Monarch
+PLES|Pleasuremate Industries
+PEQU|PEQUAGordonville, Pennsylvania
+BOAN|Boanza Mobile Homes
+HEWE|Hein-Werner Corp.
+TREX|TRAILERS EXPRESS, INC. SIKESTON, MO
+RKWL|Rockwell
+DELS|Delta Homes Corp.
+COMC|Comanche Trailer Corp.
+ARCO|Arcos Boat Trailer
+HAFA|Hartman-Fabco, Inc.
+LBHR|LIEBHERR COMPANIES; CRANES & CONSTRUCTION EQUIPMENT
+TORI|Torino
+VHMC|Virginia Homes Mfg. Corp.Boydton, Virginia
+MADM|MADAMI MOTOR SCOOTERS, ETC.
+LION|Liftall ForkliftMfg. by Lion Mfg. Co., Inc.
+TPLN|TOPLINE MANUFACTURING, CO., INC.; TREMONT, MISSISSIPPI
+GLEB|Glenbrook Homes Of Tennesee
+WICK|Wicks Engineering & Construction Co.
+DUNH|Dunham Mfg. Co., Inc.Minden, Louisiana
+FLEO|Big Bear (mfd. by Flexo Products Co)
+GRIM|Grimmer-Schmidt Corp.Franklin, Indiana
+COTN|Cotton
+BADE|Balderson, Inc.
+SHIP|Shippette Mobile Homes
+RZRB|RAZORBACK TRAILERS; PENNSYLVANIA
+ZHEJ|Zhejiang Xingfu Motorcycle Machine Co., Ltd.
+IHHI|ISHIKAWAJIMA-HARIMA HEAVY INDURSTRIES CO, LTD.; JAPAN
+GOGO|Gogomobile
+FONT|Fontenelle Homes, Inc.
+TRHM|Travelo Homes Co.Div. Saginaw Products
+CONZ|ConvertoCambridge City, Indiana--Div. Golay &Co., Inc.
+KMGI|KMG INTERNATIONAL; TANGO TRADE NAME
+SIMT|Simpson Enterprises, Inc.
+FIFE|Fife Trailer
+SHRC|SHERCO MOTORCYCLE
+COMO|Comet Mobile Homes
+PEEK|Peek
+GILE|Gilera
+MALO|Malro USA DistributorsHeber, CA; recreational trailer
+REDH|RED HORSE MOTORWORKS; LENEXA, KS
+WRAG|Wrangler Trailers
+CRIT|Criterion Homes Mfg. Inc.Largo, Florida
+CIWE|City Welding & Mfg. Co.Aluminum truck bodies & steel chassis
+BAMA|Badger-Northland, Inc.Subsidiary Massey-Ferguson, Inc.
+KAUF|KAUFMAN TRAILERS INC.
+RITZ|Ranger Mobile HomesMfd. by Ritz-Craft, Inc. of Indiana(see Ritz-Craft of Pa., Inc.)
+MALA|Malaguti
+BARA|Bar-A-Horse Trailer
+JACC|Jac-Trac, Inc.Marshfield, WI
+SKYT|SKYTRAK; CONSTRUCTION EQUIPMENT;FORKLIFT ETC.
+VNTR|VENTURI PARIS S. A.
+BRIO|Bristol HomesDiv. Tidwell Ind., Inc., Goshen, Indiana
+CLAS|Classic Trailer Mfg.
+CAMY|Cam-O-Tel Corp.
+MEBT|MEB TRAILER SALES; WALNUT RIDGE, ARKANSAS
+NARD|Nardi-Danese
+AIH|AMERICAN IRONHORSE MOTORCYCLES FT. WORTH, TEXAS
+WFMI|W.F. Mickey Body Co., Inc.
+GUIZ|Guizzo
+OSTD|Oshkosh Trailer DivisionBradenton, FL; manufactures trailers
+WHKE|Whites/Keene Mfg.
+MCKY|McKay Mfg. Co., Inc.
+HOLI|Holiday Industries, Inc.
+TALG|Tailgater
+HULL|HullcoSikeson, Missouri (Sikeston TrailerSales)
+TRAS|Travel Equipment Corp.
+WOLM|Wolfe Mfg. Co.
+PRHT|Parkhurst
+FLMG|Fleming Equipment Co.Ashdown, Arkansas
+KNGH|Kingham
+EVIN|Evinrude Motors
+LIBE|Liberty Travel Trailers
+FLOT|Flote-Aire Corp.
+TROX|Troxell Trailer Mfg.Ft. Worth, Texas
+WINN|Winnebago Industries, Inc.
+EMPL|Empire Plow Co.
+CHUC|Chuck Beck Motorsports
+ADET|Adette
+BOLA|Boles-Aero, Inc.
+KAL|Kal-Custom Boat Trailer
+FEDE|Federal Trailer Co.
+FOXI|Foxi
+TAGA|Tag-A-Long Trailers
+FMSH|Farm Shop, Inc.Congerville, Illinois
+VILL|Villiers
+ALSP|Alsport/Steen (also see Tri-Sport/Steen)
+JOBS|Job Site Trailer
+SCAT|Skat (or Skat-Kitty)
+AMEI|American Pipe & Steel Corp.
+WIGG|Wiggins Lifts Co., Inc.Mfgs. Forklifts
+CPTC|Charlie Perkins Trailer Company, IncHamshire, TX
+MODE|Model A and Model T Motor CarReproduction Corp.
+PREC|Keel-HaulerMfd. by Precision Deburring &Fabricating, Inc.
+CHEX|Chevelle Mobile Homes, Inc.
+WINI|Winston IndustriesMobile homes--Double Springs, Alabama
+HUNG|Huntington Distributors
+POLO|Poloron ProductsMfrs. riding mowers--Harrison, New York
+COBR|AC Cobra
+MCCR|McCarthy Trailers
+EATR|Easy Trail, IncBoat Trailers - Madison, Alabama
+HARK|Harklau Industries, Ind.Humboldt, Iowa
+ALTK|Allied Tank
+VW|Veenema & Wiegers, Inc.Mfrs. &quot;V & W&quot; trailers--No. Haledon,New Jersey
+SEMC|Semlac Corp.
+CARL|Carlisle
+TRVO|Stow and GoMfd. by TRV Corp.
+FULL|Fuller Mfg. Co.
+SCLR|Schuler Mfg. & Equipment Co., Inc.
+ESCC|Esco Corp.
+GILL|Gill Mfg. Co.
+WILG|Wildgoose
+JACT|Jack's Trailer Mfg. of Florida
+HMDE|Homemade Trailer code (See OperatingManual, Part 1, Section 2.)page 1-33)
+SKMD|Academy Mobile HomesMfd. by Skyline Motorized Div.
+DEMM|Demco
+SEAC|Seacamper Boat Trailer
+PIPR|Piper Industries, Inc.
+CALW|Caldweld Div., Smith International,Inc.
+AME|American Trailers, Inc.Div. Polar Mfg. Co.
+GARB|Gar-Bro Manufacturing Co.
+BJAA|Baja Custom Trailers
+HKRY|Hickory King Horse Trailer
+MHMC|Blair HouseMfd. by Manufactured Housing ManagementCorp.
+GREB|Great Bend Mfg. Co., Inc.
+HOBO|Ho-Bo Trailers
+TRCF|Trailcraft Boat Trailer
+NORR|Northern Cruisers
+CHMT|Champion Trailers
+MALI|Malibu Campers
+GOOY|Goodyear Camper Mfg., Inc.Lincoln, Nebraska
+IMPI|Imperial Mobile Homes
+UTEL|Uteliner Motor Home
+DITC|Ditch Witch Div.Div. of Charles Machine Works, DIWTfor reference only
+INMC|INDEPENDENCE MOTORCYCLE COMPANY
+COTZ|Cortez Motor Home
+CBRO|CARTER BROTHERS
+BAKE|Baker Equipment & Engineering Co.
+AUTH|Auto Homes Industries
+TIMK|Timken Bearing Boat Trailer
+WTKI|Westank Industries, Inc.
+SCAM|Scamp
+CRAN|Crane & Hoist OperationsSubsidiary of Dresser Industries, Inc.
+EGIL|Eagle
+ALIE|Allied
+CRAF|Craftsman (also see make Sears,Roebuck & Co.)
+AMRC|American Coupler Systems, Inc.
+BUCM|Buckeye Mobile Homes, Inc.
+KSEA|KASEA MOTORCYCLES
+HODA|Ace (model of Hodaka)
+GENR|General Moped Co. (New York,New York)
+CMIL|CMI Load KingElk Point, SD; commercial trailers
+BENE|Benelli (Italy)
+TYLE|Tyler Coach Mfg.
+TROH|Trojan Homes
+RVOK|River Oaks Homes, Inc.Boaz, Alabama
+PADA|Panda Motor Home
+GLEL|Glendale Mobile Homes
+GRNE|Green & Green Mfg. Co., Inc.Lancaster, Texas
+GADA|Gad-About Trailers
+ROEN|Royal Enfield
+SPNR|Sprinter
+OMCH|BOAT TRAILERS, WAUKEGAN, ILLINOIS
+GLBE|Globe
+ACUR|Acura
+CARK|Carley
+JSWP|JOHNSTON SWEEPER CO., CHINO, CA
+MDAM|MID AMERICA MFG.; INC.; BERTRAND, MO
+MILE|Miller & Smith
+TRAQ|TransporterAmerican Trailer & Mfg. Co.
+RIVC|Rivercraft Boat Trailers
+CCC|CCCCrane Carrier (A CCI Co.)
+CNMI|CONTRACT MANUFACTURERS INC ALSO KNOWN AS :CM TRAILERS; MADILL, OK
+CALL|Callahan Engineering Co.
+WESS|Westward Coach Mfg.
+CRET|Creightons TrailerMaryland
+HARG|Harding Trailer Co.Fort Myers, Florida
+MARI|Marine Camper Trailer
+CEEZ|CZ Engineering, Inc.Dixon, Missouri
+REMC|RemcoMfd. by Rome Engineering & Mfg. Co.
+MJME|MJM Enterprises, Inc.
+PROM|Promark Products Corp.
+SMYD|SOUTHMAYD EQUIPMENT CORPORATION
+CLYP|Clypso Motor Home
+TECM|Tecumseh Products Co., Engine Div.
+ARNL|Arnold Mfg. Co.
+ZAPO|Zaporozhets
+THND|Thunderbikes, Inc.
+MONV|Monticlaire Mobile Homes
+AURO|Aurora Mobile Homes
+BREW|Brewer Utility
+TOTA|Totem Total Trailer
+PLAY|Playboy
+TRPR|Tramper Travel Trailer
+MOTE|Motel Mobile Corporation of America
+CAPA|Capital Industries, Inc.
+CORD|Cord
+CAHA|Campbell-Hausfeld Div., Scott &Fetzer Co.
+DAWE|Dawes Products Co.
+CARY|Carey Trailers, Inc.Weatherford, Texas
+FRHT|Freightliner Corp.
+TRIT|Tri-Star Corp.
+BRAL|Brall Motor Home
+WATS|Watson Industries
+SPPR|Spartan ProductsWest St. Paul, Minnesota
+ACCU|ACCU-TEK,INC.; SHREWSBURY, MASSACHUSETTS
+MAYA|Mayfair Mobile HomeDiv. of DeRose Ind., Inc.,Indianapolis, Indiana
+ABTR|A & B Trailer Mfg. Co., Inc.Crown Point, Indiana
+WLCH|Welchel Enterprises, LLC
+MURT|Murray TrailersCaldwell, Idaho
+AVGN|AVENGER CORPORATION; MICHIGAN
+HENK|Henke Manufacturing Corp.
+MLBL|MLBLT
+METL|Mercantile Mfg. Co., Inc.
+WAGC|Wago Campers
+TRYB|TROY-BILT FARM & GARDEN EQUIPMENT
+BIVO|Bivouac Industries, Inc.Vandalia, Michigan
+TWST|Twister
+SPTM|SPECTRUM STEEL, HYRUM, UTAH
+GIAA|GiantManufactured by Caldwell & Sons
+TRVR|TrailevatorDiv. Magline, Inc.
+NEHO|New Holland Haybine
+MONW|Montone Mfg. Co.Hazelton, Pennsylvania
+FXBB|Fox Better Built Trailers
+DNPR|DNEPR/Kiev Motorzykly Zavod
+NAMO|Namco., Inc.
+SOCI|Society Coach Builders
+MBCO|M-B Co., Inc. of Wisconsin
+FLBR|Felburn Flatbed Trailer
+ZWIC|Zwickau
+LAGU|Lagusa Motor Coach
+TRTC|TRAILTECH; GRAVELBOURG,SASKATCHEWAN CANADA
+HOBB|Hobbs TrailersDiv. of Fruehauf Corp.--Fort Worth,Texas
+LUNG|Lundgreen Flatbed
+AMGN|AM General Corporation
+TERR|Terravac Corp.Stockton, California
+TECU|Tecumseh
+ALLC|Allied Mfg. Co.
+TITA|Titan Trailer Corp.Div. Concord Mobile Homes--Woodland,California
+REDA|Red Arrow Trailer Co.
+AGCH|Ag-Chem Equipment Co. Inc.Edina, Minnesota
+HHTC|H & H TRAILER CO.
+YARD|Yard-Man Co.
+SHL|SHL
+GOEV|Gorilla Electric Vehicles
+LNDN|London Taxi
+MIDE|Midway Engineering Co.
+GRAM|Gramm
+JINS|JINSCENG MOTORCYCLES/MINIBIKES, CHINA
+SAFA|Safari
+SCIT|SCI Trailer
+GARO|Garwood
+XKEL|Xkeleton Motorcycles, LLC
+LHRN|LONGHORN TANK & TRAILER, INC; GRAVETTE, ARKANSAS
+SILA|Sila Autoretta
+CMOR|C-Mor
+BETH|Bethany Fellowship
+RCHS|Richards Utility Trailer
+DELO|De Lorean (imported from Belfast,Northern Ireland, UK)
+CHRY|Chrysler
+SPED|Speed
+BLTR|Bullet Trailers, Inc.Boat Trailers, Glen Burnie, Maryland
+JENE|Jen Sell Corp.Elkhart, Indiana
+CAPH|CataphoteDiv. Ferro Corp., Jackson, Mississippi
+BAND|Bandera Trailer
+KTMX|KTMMEX Motorcycle Mfg.
+RENA|Renault
+GOLL|Golden State Mobile Homes
+HANO|HanoverKingfisher, Oklahoma
+AERA|Aerocar
+HOTC|Hotchkiss
+SHAC|Shamrock CampersDiv. Classic Mfg. Co.
+HONG|Hongki or Hong-Chi
+BIGB|Big Bubba's
+GEMT|Gemtop
+HIST|Highstone Trailer
+SNSA|Sensation
+MESS|Messerschmitt
+FRIS|Frisky
+SALB|Salsbury
+BARB|Telsmith Div., Subsidiary of Barber-Greene Co.
+ALJO|AljoDiv. Skyline Homes
+JARC|Jarco, Inc.Newport Beach, California
+ECTA|Ecstasy Trikes of Allentown, Inc
+ALOH|Aloha Trailer Co.
+DICH|Charlevoix Mobile HomesMfd. by Dickinson Homes, Inc.
+WLKR|Walker
+CUSA|Custom Camper Co.
+TANN|Tannehill Trailer
+DXIE|Dixie Chopper
+THIE|Thiermann Utility Equipment Div.Milwaukee, Wisconsin
+DELN|Delavan Trailer
+JJT|Jerry James TrailersSikeston, MO; utility trailers
+RIDE|Ride-On, Inc.Mfrs. boat trailers--Ceres, California
+TIME|Time OutT.O. Corp.
+NABI|North American Bus Ind.
+GRAH|Graham
+KITK|Kitty Cat (Kit Kat)
+COLO|Colorado Mobile Homes
+GREV|Greeves
+HEWI|Hewitt-Lucas Body Co.
+WRGH|WRIGHT; STANDER & SENTAR MOWER MODELS;FARM & GARDEN EQUIPMENT
+WANE|Wa-Nee Homes Corp.
+TRBR|Trail Breaker
+ARGG|Argo
+HILT|Hilltop Mfg., Inc.El Dorado, Arkansas
+PLMA|PALM AIRE, INC.; ELKHART, IN
+RAND|Randall, Walter
+DRSN|Dressen Custom Trailers, Inc.
+BTEC|BRADTEC, LTD.; DERBY, KS
+SOL|Sol Cat Boat Trailer
+CARS|Carry Craft Trailers
+HOLM|FairwayMfd. by Holiday Homes, Div. of BeatriceFoods
+INTG|Integrity Custom Trailers or R & D Fabrication
+WYLI|Wylie Manufacturing Co.Subsidiary E. D. Etynre & Co.--Oregon,Illinois
+ASPL|Asplundh Manufacturing Div.,Asplundh Tree Expert Co.
+HLDH|Holandia Holder
+ESTE|Estevan Industries, Ltd.
+LASA|LaSalleDiv. Globemaster M.H.
+WOND|Wonder Land Camper
+DINL|DINLI ATV'S
+HTCH|Hitachi
+PRIV|Private CoachDiv. F & L Construction
+RCIN|R.C. Industries, Inc.Goshen, Indiana
+GINR|Gin Ray Mfg. Co.Nicollet, Minnesota
+QUAL|Quality Trailer
+QSAP|Quality Steel & Aluminum Products
+MARM|Marmon
+GARS|Garson Flatbed Trailer
+CRGO|CARGO CRAFT, INC.; GEORGIA
+CHVL|Chevallero Motor Home
+OWES|Mighty MidgetMfd. by Owens-Classis, Inc.
+SNBO|Sunbird Boat CompanyColumbia, SC; boat trailers.Haleyville, Alabama
+TIAK|Triangle-K Trailer Co.Drumright, Oklahoma
+MNDI|MOND INDUSTRIES, INC.MISSISSAUGA, ONTARIO, CANADA; PURCHASED BY TRAILMOBILE IN 1999 TRAILEMOBILE IN
+ACMM|Acme Mfg. Co., Inc.
+MORW|Morger Welding & Mfg., Inc.Bakersfield, California
+WW|W-W TrailersStock Trailers
+RDER|Raider
+MAVL|Marvell Mobile Home
+MCQV|McQuerry Horse Trailer
+BRDC|BRADCO; DIVISION OF ATTACHMENT TECHNOLOGIES, INC.IOWA
+INSL|Insley Four Wheel Tag Trailer
+ZETA|Zeta
+FULT|Fulton Boat Trailer
+HOOP|Hooper Trailer Sales, Inc.Monticello, GA; flatbed trailers.
+KEYI|Key Industries, Inc.
+RANS|Ransome Lift Equipment Co., Subsidi-ary of Giles & Ransome, Inc.
+DESG|Design Intennt, Inc.Livingston, Tennessee
+GIDD|Giddings Machine Co., Inc.Fort Collins, Colorado
+VLLA|Villager Travel Trailer
+SYLV|Sylvan Double Snowmobile Trailer
+LANM|Landmaster
+GRAD|GradallDiv. of Warner & Swasey Co.
+HMVE|Free-Way II, (Mfd. by H-MVehicles, Inc.)
+TRIA|Trail Mate Trailer Co.Bellingham, Washington
+OLSO|Olson
+TXMX|Tex Mex Trailers
+TRBA|Travette Mfg.
+PENS|Pennsylvania Furnace and IronMfrs. tankers--company bought out byDairy Equipment, Madison, Wisconsin
+MAIN|Mark Line Industries, Inc.Bristol, Indiana
+SUNW|HogerMfd. by Sundowner Trailer Co.
+NRWN|Norwin Trailer
+GLAT|Glasstite, Inc.Dunnell, Minnesota
+INGT|Inger-Teco Corp.
+INMA|Insley Manufacturing Co.Subsidiary AMCA International Corp.
+POPC|Popcycle Motors, LLC
+BHNK|BEHNKE ENTERPRISES, INC; FARLEY, IA
+BLAO|Blaw-Knox Construction Equipment Co.Div. of White Consolidated Industries,Inc. Matoon, Illinois
+COEQ|Unpublished construction equipment mfr.(See Operating Manual, Part 1,Section 2)
+BOAT|Boatel Ski
+FRNK|Franklin Equipment Co.
+HURU|Hustler-Rustler
+DATR|Dart Truck Co., PACCAR, Inc.
+CHLY|CHARLY ELECTRIC MOTOR SCOOTERS ETC.
+VIKI|Viking
+WSID|WILD SIDE LLC; FRANKLIN, TN
+MLRO|Melroe Tractor Truck
+WTTS|Wesco Truck & Trailer SalesWoodland, California
+ONOI|Ono, Inc.
+VENM|Ventura Mfg. and Implement Co.Oxnard, California
+CHPN|CHAMPION BUS, INC. MICHIGAN
+FIEL|Field & StreamManufacturer Vacation Industries
+MIDT|Midwest Mini-Tote Co.Muskego, Wisconsin
+JERA|Jeraco Enterprises, Inc.Milton, Pennsylvania
+KPRC|Kay Park-Rec Corp.
+RIVN|Brown Trencher Div., Rivinius, Inc.
+GANN|Gannon Manufacturing Co., Inc.
+BRGS|Briggs Manufacturing, Inc.
+INVO|INNO VAN; MORAINE, OHIO/MERC HOLDING CO.
+TAIZ|Taizhou Hisource Intl. Trade Co., Ltd.
+ALUM|Aluminum
+ATOC|A-T-O Construction Equipment Div.,A-T-O, Inc.
+MAGN|Magnolia Mobile Homes Mfg.
+DELX|Deluxe Homes, Inc.
+CARC|Carter Trailer Co., Inc.Newport, Arkansas
+WILO|Wil-Ro, Inc.Gallatin, Tennessee
+BURN|Burnup and Sims, Inc.West Palm Beach, Florida
+PHIM|Phillips Mfg. Co., Inc.Lehi, Utah
+CERT|Certified Boat Trailer
+SUNH|Sunhome Mfg.
+MARA|Mark Twain Mfg. Co.
+SHBA|Sherwood Baronet Tent Trailer
+GEER|Geering Industries, Inc.
+RONS|RON'S TRAILERS INC.; OREGON, OH
+WHEE|Wheel Horse Products, Inc.Subsidiary American Motors Corp., SouthBend, Indiana
+MADR|Del RioMfd. by Madrid Homes
+RACM|Racmac Trailer
+MASC|Mascot Homes, Inc.
+CSTL|COASTAL METAL FAB, INC.; TOPSHAM, ME
+SUSQ|Susquehanna-Santee Boat Works, Inc.Boat Trailers; Willow Street,Pennsylvania
+RNKE|REINKE MFG. INC; DESCHLER, NEBRASKA
+AMCM|Ameri-Camp
+EAGC|Eagle Custom Coach Mfg. Co.
+STEO|Steelco, Inc.Alto Loma, Texas
+HIBD|Hibdon Mfg. Co.
+HARC|Harris Honker Camper Mfg.
+MIDW|Midwest Mobile Homes & Trailer Mfg. Co.
+HAYS|Hayes Log Truck
+CANC|Can-Car Inc.Tree-farming equipment--Div. Hawker-Siddeley Canada, Ontario, Canada
+POCL|Poclain Div., J. I. Case
+ADBV|A D BOIVIN SNOWMOBILES; SNOW HAWK MODELS
+OPNR|Open Road Campers, Inc.
+WHIA|White Star Trailer
+FELP|Felps Mfg. Corp.Johnson City, Texas
+HYLD|Hylander Utility Trailer
+DKW|DKW
+NORH|Northwest Engineering Co.
+EKCH|EK-CHOR MOTORCYCLE COMPANY; SHANGHAI, CHINA
+PINT|Pinto
+EASY|Easyown Mfg. Co.
+GERA|Gerard Lowboy Trailer
+WIND|Windjammer Motorcoach
+GSEN|GOLD STAR ENTERPRISES; SIKESTON, MO
+FABO|FabcoDiv. of Kelsey-Hayes Co.
+GENE|General Trailer Co., Inc.Springfield, Oregon
+CLUA|Clua .
+RING|Ring-o-matic Mfg. Co.Pella, Iowa
+OAKL|Oakland
+DOUG|Douglas Homes, Inc.
+BEEI|Bee Trailers, Inc.
+KEMP|Kempf Car Hauler
+AMTN|American Trencher, Inc.
+IRDG|IRONDOG TRAILERS
+KAM|Kama
+JRDN|JERR-DAN
+RUSO|RUSH & SON, INC; LENOIR CITY, TENNESSEE
+PARS|ParkmasterDiv. American Sterling Enterprises
+SPNT|SPRINTER MOTORCYCLE
+ROYE|Royer Foundry and Machine Co.Kingston, Pennsylvania
+FUNT|Funtime Camper Trailer
+DUPA|Dupage Coach Co.
+TUCK|Tucker
+ALEX|Alexander-Reynolds Corp.
+FIEA|Alex Fiegelson Co.
+TRAN|Trans Canada Rent-A-Trailer System
+CBRA|COBRA TRAILERS, GERMANY; ALFRED SPINDELBERGER
+SOUH|Southern Trailers
+ERMC|ELK RIVER MACHINE CO.; ELK RIVER, MN
+EUCL|Euclid, Inc., Subsidiary of WhiteMotor Corp.
+BLRT|Bilt-Rite Trailers, Inc.
+TRMA|Trac-Machinery Corp.Subsidiary of E. D. Etnyre & Co.
+JWSS|Johnson Welding & Steel SupplyPhilo, Illinois
+TELS|Tel Star Trailers
+AGSY|Ag-Systems, Inc.Hutchinson, Minnesota
+IDEC|I.D.E.C.O.
+ADSP|Adspa Mobile HomeMfd. by Ad Space, Inc., Pomona, CA
+COPC|Copco Steel & EngineeringSouthbend, Indiana
+GENU|Genuine Scooter Co.
+HUFF|Huffy
+SEMO|Semo Tank/Baker Equip. Co.
+PRON|LES MACHINERIES PRONOVOST, INC; CANADA
+YENC|Yenco
+PANZ|Panoz Auto Development Co.
+KISM|Kismet Mfg. Co.
+BAY|Bay Trailers
+DORI|Dormi Industries, Inc.
+ESSI|Essick/Hadco Div.Div. A-T-O, Inc. (Formerly EssickMfg. Co.)
+TLT|T & L TrailersSikeston, MO; utility trailers
+CHMC|CHEROKEE MOTORCYCLE COMPANY; OKLAHOMA FORMERLY KNOWN AS ''FAST TRAC MANUFACTURING '' OUT OF CALIFORN
+FORC|Forrest City Machine Works, Inc.
+GOFF|Goff Mfg. Corp.
+SEWP|Jenkins Equipment Co., Inc. Subsidi-ary of Sweepster, Inc.
+INNO|Innocenti
+OTOS|Otosan
+ALLS|All State
+DYST|Dynastar/Dynastar Motorsports, Inc.
+SPOS|Sportsman's Dream Mfg. Co.
+HDHM|H. D. Hudson Manufacturing Co.
+DIAC|DIAMOND C MT. PLEASANT,TX, CAR HAULER
+GREN|Greencastle Coach Co.
+VNDN|Vanden Plas
+QUTY|QUALITY MFG. CO., INC.; ROME, NEW YORK
+AOKT|A-OK Trailers
+FORS|Fort Lupton Campers
+GENH|General Coach Works, Inc.
+CLBR|Cleveland Brothers Equipment Co.D & B Products
+BLAE|Blazer
+MASG|Master Liner Mfg. Co.
+AVTI|Avanti
+BLLV|Bellview Camper
+CMFB|Com-Fab, Inc.
+UNIC|Unicar
+WACK|Wacker Corp.Milwaukee, Wisconsin
+ROGU|Rogue River Trailer Mfg. Co.
+UNVT|Universal Trailers, Inc.
+ALCO|Alcoa Trailer
+PAIN|Paccar IncorporatedBellvue, WA
+KCCF|Killer Chopper Cycle Fabrication, LLC
+MACO|Macoma Engineering, Inc.
+HOLD|Holden
+TRBZ|Trail Blazer
+AMHL|American Hauler Ind.
+MAVN|Marvin Landplane
+PASS|Passport
+HSKY|Hus-Key Mfg., Inc.
+CHMI|Chaparral Mfg., Inc.
+VRMO|Vermont Traveler
+HORZ|Horizon Motor Home
+REA|Rea Trailer Co.Elgin, Illinois
+MIDA|Mid-Atlantic Homes Co.
+ALLF|Allisons Fiberglass mfg.,Inc.
+TOPB|TOP BRAND TRAILERS
+JIMG|Jim Glo TrailersWilcox, AZ
+KATL|Katolight Corp.
+CCMF|C&C MANUFACTURING & FAB; HAZLETON, PA
+BOON|Boone Trailers, Inc.Palmer, Massachusetts
+STRG|TK Sterling
+PRLT|PRO LITE TRAILERS; PECULIAR, MISSOURI
+AMEH|American Pride HomesDiv. Challenger Homes
+FOUW|Four Winds
+METE|Meteor (Canadian Mercury)
+TERF|Terra-Marina Mfg. Co.
+OCIM|OCI MANUFACTURING CO.; OREGON, IL
+MOUE|Mountain Valley Enterprises
+AUTA|Autobianchi
+BURE|Burkeen Equipment & Supply Co.Memphis, Tennessee
+LONH|Longmark Mobile Homes
+WESM|Westholt Mfg.
+DMVE|D.M. & V. Enterprises, Inc.
+MWGE|M & W Gear Co., Inc.
+BINS|Binks Mfg. Co.Franklin Park, Illinois
+GOLK|Golden Isle Trailers, Inc.
+MAV|Maverick
+TEEH|T&E ENTERPRISES OF HERSCHER, INC.; HERSCHER.IL
+BUDD|Buddy Mobile Homes, Inc.Div. Skyline Homes
+DMI|DMI, Inc.Goodfield, Illinois
+MRED|Mr. Ed. Boat Trailer
+HAMB|Hamby Co.
+WAYM|Waymatic Welding & Fabricating Co.Fulton, Kentucky
+CAFF|Califfo
+GLCG|Great Lakes Cargo, LLC
+ROAC|Road Roamer Campers
+BETE|Betten France TransportationKentucky
+PENC|Pennco Industries, Inc.Subsidiary of DEC International, Inc.--Warren, Pennsylvania
+JAMI|JAMIE'S WELDING; OKLAHOMA
+BRWN|Brown
+CLST|Claster Trailer
+CLEA|Cleasby
+FALM|Falco Mfg. Co.
+PALL|Palliser (racing car)
+ARTG|Artcraft of Georgia
+SEAB|Sea Breeze Trailer
+MNRO|Monroe Motors Inc., Wally-Mo DivisionHolladay, Tennessee; manufactures carcarriers and utility trail
+MAGC|Magic Tilt Trailer Mfg. Co., Inc.Boat trailers--Clearwater, Florida
+PUMA|Puma Camper SalesDiv. American Sterling Enterprises
+FOUS|Four Star Coach Co.
+WWTM|W.W. TRAILER MANUFACTURERS, INC; OKLAHOMA
+KNNW|Kenworth Northwest, Inc.Seattle, Washington
+TRIW|Tri-Way Trailer
+ELCT|Electric Wheel Co.
+ALFO|Alforge Metals Corp.Ontario, Canada
+WHGM|White GMC
+LONT|Long Trailer Co., Inc.Tarboro, North Carolina
+KEYS|Keystone Coach Mfg. Co.
+REMI|Countryside Mobile HomeMfd. by Remic Industries, Inc.
+TRQN|Travel Queen Motor Home
+SNYD|Snyder Trailer Co.
+CATO|Catolac Corp.
+CASR|Cash Trailers, Inc.Troy, Alabama
+YANK|Yankee
+ENCR|Encore
+LNGH|Longhorn Trailers; Also see McKinley Enterprises
+PHLI|Philift Equipment Sales Co.
+MOLL|Molloy Mobile Crafts
+RABJ|Rabbit, Jr.
+CHEE|Cherne Industrial, Inc.Edina, Minnesota
+HELR|Helmers Custom Coach
+RIVI|Riviera
+GLID|Glider Mobile Homes Corp
+LUKY|Lucky
+VICR|Victor Mobile HomesDiv. DeRose Industries
+OUTM|EvinrudeSee Outboard Marine Corporation
+PROP|Proper Chopper Motorcycles
+USA|U.S. ARMY VEHICLE; MAKE IS UNKNOWN
+BUTL|Butler Mfg. Co.
+HOWD|Howdan Mfg. Co.
+ANCH|AhoyMfd. by Anchor Homes, Inc.
+BLUI|Bluebird International
+SNLG|Sun L Group, Inc.
+PIAZ|Piazio
+HARL|Hartline Travel Trailers
+FLEI|Flexi-Coil Ltd.
+TCIN|TC Industries, Inc.Crystal Lake, Illinois
+MANI|Manitowc Engineering Co., Inc.
+HRBN|Harben, Inc.
+SAMS|Sams
+RIIN|R & I IndustriesCity of Industry, California
+DEST|Destiny Industries, Inc.Moultrie, Georgia
+GIAT|Osterlund, Inc.Harrisburg, Pennsylvania
+CLVA|Calvade Trailer
+WINT|Winter Weiss Co.
+HILB|Hillsboro Industries, Inc.
+TAND|Tanden Boat Trailer
+WECR|Westcraft Mobile Homes
+CRRN|CARRON TRUCK REPAIR, LTD; GRANITE CITY ILLINOIS
+MEDI|Medical Coaches, Inc.
+MITS|Mitsubishi
+TOTM|Topline Trailers ManufacturingFort Worth, TX
+ADDI|Addison HomesDiv. of Penthouse Industries, Inc.Addison, Alabama
+AMEN|Amen
+HENN|Henderson Mfg. Co.
+LANS|Landis Steel Co.
+CEZE|Cezetta
