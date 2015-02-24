@@ -7,10 +7,13 @@
   <modules>
     <module>shared</module>
     <module>utilities</module>
+    <module>connectors</module>
     <module>intermediaries</module>
+    <module>adapters</module>
+    <module>prototypes/extensible-bundles</module>
     <!--
     <module>analytics</module>
-    <module>prototypes</module>
+
   -->
   </modules>
 </project>
