@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exchange:VehicleSearchRequest
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/VehicleSearchRequest/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/VehicleSearchRequest/1.0"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/VehicleSearchRequest/1.0 ../xsd/exchange_schema.xsd" s:metadata="SM003">
+	<ext:Vehicle>
+		<nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
+		<nc:ItemModelName>Titan</nc:ItemModelName>
+		<nc:ConveyanceRegistrationPlateIdentification>
+			<nc:IdentificationID>ABC123</nc:IdentificationID>
+		</nc:ConveyanceRegistrationPlateIdentification>
+		<nc:VehicleIdentification>
+			<nc:IdentificationID>1234567890ABCDEFGH</nc:IdentificationID>
+		</nc:VehicleIdentification>
+		<ext:VehicleYearRange>
+			<nc:StartDate>
+				<nc:Year>2005</nc:Year>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Year>2009</nc:Year>
+			</nc:EndDate>
+		</ext:VehicleYearRange>
+		<ext:VehicleMakeCode>Nissan</ext:VehicleMakeCode>
+	</ext:Vehicle>
+	<ext:SourceSystemNameText>System 1</ext:SourceSystemNameText>
+	<ext:SourceSystemNameText>System 2</ext:SourceSystemNameText>
+	<ext:SearchMetadata s:id="SM003">
+		<ext:SearchRequestOnBehalfOfText>John Doe</ext:SearchRequestOnBehalfOfText>
+		<ext:SearchPurposeText>Criminal Justice</ext:SearchPurposeText>
+	</ext:SearchMetadata>
+</exchange:VehicleSearchRequest>

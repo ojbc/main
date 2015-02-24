@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:NotificationMessage 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:tns="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" 
+	xmlns:tns1="http://ojbc.org/IEPD/Extensions/Notification/1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd">
+	  <tns1:NotifyingArrest s:id="A001">
+	  	<tns1:NotifyingActivityReportingSystemURI>SystemURIHere</tns1:NotifyingActivityReportingSystemURI>
+	  	<j:Arrest>
+	  		<nc:ActivityDate>
+	  			<nc:Date>2013-09-06</nc:Date>
+	  		</nc:ActivityDate>
+	  		<j:ArrestAgency>
+	  			<nc:OrganizationName>Honolulu PD</nc:OrganizationName>
+	  		</j:ArrestAgency>
+	  		<j:ArrestOfficial>
+	  			<nc:RoleOfPersonReference s:ref="P002"/>
+	  		</j:ArrestOfficial>
+	  		<j:ArrestSubject>
+	  			<nc:RoleOfPersonReference s:ref="P001"/>
+	  		</j:ArrestSubject>
+	  	</j:Arrest>
+	  	<j:Incident>
+			<nc:ActivityIdentification>
+					<nc:IdentificationID>123457</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityCategoryText>Law Incident</nc:ActivityCategoryText>
+				<nc:ActivityDate>
+					<nc:Date>2001-01-01</nc:Date>
+				</nc:ActivityDate>
+				<j:IncidentAugmentation>
+					<j:IncidentReportingOfficial>
+						<nc:RoleOfPersonReference s:ref="P002" />
+						<j:EnforcementOfficialUnit>
+							<nc:OrganizationName>Montpelier Police Department</nc:OrganizationName>
+							<nc:OrganizationPrimaryContactInformation>
+								<nc:ContactTelephoneNumber>
+									<nc:FullTelephoneNumber>
+										<nc:TelephoneNumberFullID>8926610093</nc:TelephoneNumberFullID>
+									</nc:FullTelephoneNumber>
+								</nc:ContactTelephoneNumber>
+							</nc:OrganizationPrimaryContactInformation>
+						</j:EnforcementOfficialUnit>
+					</j:IncidentReportingOfficial>
+				</j:IncidentAugmentation>
+			</j:Incident>
+			<j:Offense s:id="Offense214519">
+	           <nc:ActivityDescriptionText>Robbery</nc:ActivityDescriptionText>
+	           <tns1:OffenseFBINDEXCode>Robbery</tns1:OffenseFBINDEXCode>
+	           <j:OffenseCategoryText>ROB</j:OffenseCategoryText>
+	        </j:Offense>
+	  </tns1:NotifyingArrest>
+	  <nc:ActivityInvolvedPersonAssociation>
+	    <nc:ActivityReference s:ref="A001"/>
+	    <nc:PersonReference s:ref="P001"/>
+	  </nc:ActivityInvolvedPersonAssociation>
+	  <j:Person s:id="P001">
+		  	<nc:PersonAlternateName>
+		  		<nc:PersonGivenName>Homie</nc:PersonGivenName>
+		  		<nc:PersonSurName>Simpson</nc:PersonSurName>
+		  	</nc:PersonAlternateName>
+		  	<nc:PersonAlternateName>
+		  		<nc:PersonGivenName>H</nc:PersonGivenName>
+		  		<nc:PersonSurName>Sampson</nc:PersonSurName>
+		  	</nc:PersonAlternateName>
+		  	<nc:PersonBirthDate>
+		  		<nc:Date>1955-01-15</nc:Date>
+		  	</nc:PersonBirthDate>
+		  	<nc:PersonName>
+		  		<nc:PersonGivenName>Homer</nc:PersonGivenName>
+		  		<nc:PersonSurName>Simpson</nc:PersonSurName>
+		  	</nc:PersonName>
+	  </j:Person>
+	   <j:Person s:id="P002">
+	  	<nc:PersonName>
+	  		<nc:PersonGivenName>Clancy</nc:PersonGivenName>
+	  		<nc:PersonSurName>Wiggum</nc:PersonSurName>
+	  	</nc:PersonName>
+	  </j:Person>
+	  <nc:ContactInformation s:id="CI001">
+	  	<nc:ContactMailingAddress>
+	  		<nc:StructuredAddress>
+	  			<nc:LocationStreet>
+	  				<nc:StreetNumberText>123</nc:StreetNumberText>
+	  				<nc:StreetName>Maple Ave</nc:StreetName>
+	  			</nc:LocationStreet>
+	  			<nc:LocationCityName>Springfield</nc:LocationCityName>
+	  			<nc:LocationStateName>PA</nc:LocationStateName>
+	  		</nc:StructuredAddress>
+	  	</nc:ContactMailingAddress>
+	  	<nc:ContactTelephoneNumber>
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>555-555-1234</nc:TelephoneNumberFullID>
+			</nc:FullTelephoneNumber>
+		</nc:ContactTelephoneNumber>
+	  </nc:ContactInformation>
+	  <nc:PersonContactInformationAssociation>
+	  	<nc:PersonReference s:ref="P001"/>
+	  	<nc:ContactInformationReference s:ref="CI001"/>
+	  </nc:PersonContactInformationAssociation>
+</tns:NotificationMessage>

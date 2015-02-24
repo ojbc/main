@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?>
+
+<!--
+    Document: $Id: missing-person-ndex.xml 1933 2010-05-19 20:50:45Z jw7 $
+    Original : 12/5/2007
+    Updated : 12/4/2008 - Updated for N-DEx 2.1 and to correct a business rule issue.
+					6/22/2009 - Updated person physical feature for IA RC 2 schemas.
+					7/1/2009 - Replaced marriage association with marital status code element.
+					5/14/2010 - Updated N-DEx version number in header to 2.1.1
+    LEXS version : 3.1.4
+    N-DEx version : 2.1.1
+    Description : This scenario represents a possible N-DEx Missing Person Report submission.  This scenario demonstrates the consolidation of report data as 
+			might be submitted by a RMS.  Submitted from the RMS, the scenario focuses on the primary activity of Missing Person Occurrence, but includes the ancillary 
+			activity of Service Call as related back to the CAD entry.  The scenario illustrates the possibility that ancillary activities may have concluded/been closed 
+			despite the primary activity being current/active.  This scenario demonstrates inclusion of property that is descriptive of a person in that they were wearing 
+			it at the time of activity.  The scenario further demonstrates attachment inclusion within a record.  
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexia.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+-->
+<ndexia:MissingPersonReport 
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+    xmlns:i="http://niem.gov/niem/appinfo/2.0" 
+    xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
+    xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" 
+    xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
+    xmlns:mmucc_2="http://niem.gov/niem/mmucc_2/2.0" 
+    xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+    xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+    xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
+    xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" 
+    xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+    xmlns:s="http://niem.gov/niem/structures/2.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1 ../xsd/ndexia/ndexia/2.1/ndexia.xsd">
+    
+    <!--======== Metadata for Missing Person Occurrence Reporting Officer Narrative Account Description  ==========-->
+    <lexsdigest:Metadata s:id="MMissingPersonOccurrenceDeclarationNarrativeSP1">
+		<nc:ReportedDate>
+			<nc:Date>2006-12-01</nc:Date>
+		</nc:ReportedDate>
+    </lexsdigest:Metadata>
+
+	<!--================================= Enforcement Unit  ============================-->
+	<ndexia:EnforcementUnit>
+		<j:EnforcementUnitNumberIdentification>
+			<nc:IdentificationID>6</nc:IdentificationID>
+		</j:EnforcementUnitNumberIdentification>
+		<ndexia:EnforcementUnitAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Unit1"/>
+		</ndexia:EnforcementUnitAugmentation>		
+	</ndexia:EnforcementUnit>
+	    
+    <!--=======================  Location 1 - Missing Person Residence / Dispatch Location  =======================-->
+    <ndexia:Location>
+        <nc:LocationAddress>
+            <nc:StructuredAddress>
+                <nc:LocationStateUSPostalServiceCode>TX</nc:LocationStateUSPostalServiceCode>
+                <nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+            </nc:StructuredAddress>
+        </nc:LocationAddress>
+        <ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+        <ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+        <ndexia:LocationAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Location1"/>
+        </ndexia:LocationAugmentation>
+    </ndexia:Location>
+    
+    <!--=======================  Location 2 - Caller's Location / Caller's Home  =======================-->
+    <ndexia:Location>
+        <nc:LocationAddress>
+            <nc:StructuredAddress>
+                <nc:LocationStateUSPostalServiceCode>TX</nc:LocationStateUSPostalServiceCode>
+                <nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+            </nc:StructuredAddress>
+        </nc:LocationAddress>
+        <ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+        <ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+        <ndexia:LocationAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Location2"/>
+        </ndexia:LocationAugmentation>
+    </ndexia:Location>
+    
+    <!--=======================  Missing Person Occurrence  =======================-->
+    <ndexia:MissingPersonOccurrence>
+        <ndexia:ActivityStatus>
+            <ndexia:ActivityStatusAugmentation>
+                <ndexia:IncidentStatusCode>Active</ndexia:IncidentStatusCode>
+            </ndexia:ActivityStatusAugmentation>
+        </ndexia:ActivityStatus>
+        <ndexia:ActivityAugmentation>
+	        <lexslib:SameAsDigestReference lexslib:ref="MissingPersonOccurrence1"/>
+        </ndexia:ActivityAugmentation>
+        <ndexia:MissingPersonOccurrenceCaseNumberText>21-509825-06</ndexia:MissingPersonOccurrenceCaseNumberText>
+        <ndexia:ReportingOfficerNarrativeAccountDescriptionText s:metadata="MMissingPersonOccurrenceDeclarationNarrativeSP1">I went to 1313 Mockingbird Lane, rang door bell, and no one answered the door.  The door was locked.  I checked the grounds.  Nothing seemed out of order, though there was a weeks worth of mail and newspapers on the porch.  I verified that there was no car present in the garage, which was also locked.  I left my business card inside the front storm door and requested a phone call.  This call is considered closed.  Please enter Mr. Wilson in NCIC as a Missing Person upon completion of signed missing person report.</ndexia:ReportingOfficerNarrativeAccountDescriptionText>
+    </ndexia:MissingPersonOccurrence>
+    
+    <!--============================== Person 1 ==============================-->
+    <ndexia:Person>
+        <nc:PersonEthnicityCode>N</nc:PersonEthnicityCode>
+        <nc:PersonName>
+        	<nc:PersonNamePrefixText>Mr.</nc:PersonNamePrefixText>
+        	<nc:PersonNameSuffixText>Jr.</nc:PersonNameSuffixText>
+        </nc:PersonName>
+        <ndexia:PersonPhysicalFeature>
+            <nc:PhysicalFeatureCategoryCode>SC FHD</nc:PhysicalFeatureCategoryCode>
+            <ndexia:PhysicalFeatureAugmentation>
+				<ndexia:PhysicalFeatureImage>
+					<ansi-nist:PhysicalFeatureDescriptionDetail>
+						<ansi-nist:PhysicalFeatureDescriptionText>lightning scar over right eye</ansi-nist:PhysicalFeatureDescriptionText>
+					</ansi-nist:PhysicalFeatureDescriptionDetail>
+				</ndexia:PhysicalFeatureImage>
+            </ndexia:PhysicalFeatureAugmentation>
+        </ndexia:PersonPhysicalFeature>
+        <ndexia:PersonPhysicalFeature>
+            <nc:PhysicalFeatureCategoryCode>EXTR VRT</nc:PhysicalFeatureCategoryCode>
+            <ndexia:PhysicalFeatureAugmentation>
+				<ndexia:PhysicalFeatureImage>
+					<ansi-nist:PhysicalFeatureDescriptionDetail>
+						<ansi-nist:PhysicalFeatureDescriptionText>Bolts protruding from left and right side of neck</ansi-nist:PhysicalFeatureDescriptionText>
+					</ansi-nist:PhysicalFeatureDescriptionDetail>
+				</ndexia:PhysicalFeatureImage>
+            </ndexia:PhysicalFeatureAugmentation>
+        </ndexia:PersonPhysicalFeature>
+        <ndexia:PersonPhysicalFeature>
+            <nc:PhysicalFeatureCategoryCode>RTAT BACK</nc:PhysicalFeatureCategoryCode>
+            <ndexia:PhysicalFeatureAugmentation>
+				<ndexia:PhysicalFeatureImage>
+					<ansi-nist:PhysicalFeatureDescriptionDetail>
+						<ansi-nist:PhysicalFeatureColorDetail>
+							<ansi-nist:PhysicalFeaturePrimaryColorCode>BLACK</ansi-nist:PhysicalFeaturePrimaryColorCode>
+						</ansi-nist:PhysicalFeatureColorDetail>
+						<ansi-nist:PhysicalFeatureDescriptionText>Tattoo of heart saying "mother I love you" on back</ansi-nist:PhysicalFeatureDescriptionText>
+					</ansi-nist:PhysicalFeatureDescriptionDetail>
+				</ndexia:PhysicalFeatureImage>
+            </ndexia:PhysicalFeatureAugmentation>
+        </ndexia:PersonPhysicalFeature>
+        <nc:PersonPrimaryLanguage>
+            <nc:LanguageCode>eng</nc:LanguageCode>
+        </nc:PersonPrimaryLanguage>
+        <j:PersonAugmentation>
+            <j:PersonNCICIdentification>
+                <nc:IdentificationID>M123456789</nc:IdentificationID>
+            </j:PersonNCICIdentification>
+        </j:PersonAugmentation>
+        <ndexia:PersonAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Person1"/>
+            <nc:EmployeeOccupationCategoryText>Retired Accountant</nc:EmployeeOccupationCategoryText>
+            <ndexia:MaritalStatusCode>widowed</ndexia:MaritalStatusCode>
+            <ndexia:PersonBuildCode>Large</ndexia:PersonBuildCode>
+            <ndexia:PersonDentalCharacteristicCode>Denture Upper</ndexia:PersonDentalCharacteristicCode>
+            <ndexia:PersonDentalCharacteristicCode>Denture Lower</ndexia:PersonDentalCharacteristicCode>
+            <ndexia:PersonEyewearCode>None</ndexia:PersonEyewearCode>
+            <ndexia:PersonFacialHairCode>Clean Shaven</ndexia:PersonFacialHairCode>
+            <ndexia:PersonHairLengthCode>Short_Collar Length</ndexia:PersonHairLengthCode>
+            <ndexia:PersonHairStyleCode>Greasy</ndexia:PersonHairStyleCode>
+            <ndexia:PersonHandednessCode>Ambidextrous</ndexia:PersonHandednessCode>
+            <ndexia:PersonSpeechDescriptionCode>Loud</ndexia:PersonSpeechDescriptionCode>
+        </ndexia:PersonAugmentation>
+    </ndexia:Person>
+    
+    <!--====================== Person 2 ======================-->
+    <ndexia:Person>
+        <nc:PersonName>
+        	<nc:PersonNamePrefixText>Ms.</nc:PersonNamePrefixText>
+        </nc:PersonName>
+        <ndexia:PersonAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Person2"/>
+        </ndexia:PersonAugmentation>
+    </ndexia:Person>
+    
+    <!--============================== Service Call ==============================-->
+    <ndexia:ServiceCall>
+        <ndexia:ActivityStatus>
+            <nc:StatusDate>
+                <nc:Date>2006-12-01</nc:Date>
+            </nc:StatusDate>
+            <ndexia:ActivityStatusAugmentation>
+                <ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+            </ndexia:ActivityStatusAugmentation>
+        </ndexia:ActivityStatus>
+        <j:ServiceCallClearanceText>I went to 1313 Mockingbird Lane, rang door bell, and no one answered the door.  The door was locked.  I checked the grounds.  Nothing seemed out of order, though there was a weeks worth of mail and newspapers on the porch.  I verified that there was no car present in the garage, which was also locked.  I left my business card inside the front storm door and requested a phone call.  This call is considered closed.  Please enter Mr. Wilson in NCIC as a Missing Person upon completion of signed missing person report.</j:ServiceCallClearanceText>
+        <ndexia:ServiceCallAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="ServiceCall1"/>
+            <ndexia:ServiceCallCategoryCode>Missing Person</ndexia:ServiceCallCategoryCode>
+            <ndexia:ServiceCallClearanceCategoryCode>Missing Person</ndexia:ServiceCallClearanceCategoryCode>
+            <ndexia:ServiceCallMechanismCode>Phone</ndexia:ServiceCallMechanismCode>
+        </ndexia:ServiceCallAugmentation>
+    </ndexia:ServiceCall>
+    
+    <!--============================== Vehicle ==============================-->
+    <ndexia:Vehicle>
+        <ndexia:VehicleAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Vehicle1"/>
+            <ndexia:ConveyanceFuelCategoryCode>Gasoline</ndexia:ConveyanceFuelCategoryCode>
+            <ndexia:ConveyanceRegistration>
+            	<nc:ConveyanceRegistrationDecal>
+            		<nc:DecalYearDate>2007</nc:DecalYearDate>
+            	</nc:ConveyanceRegistrationDecal>
+                <nc:ConveyanceRegistrationPlateCategoryCode>PE</nc:ConveyanceRegistrationPlateCategoryCode>
+            </ndexia:ConveyanceRegistration>
+            <ndexia:ItemQuantityStatusValue>
+				<ndexia:ItemStatus>
+					<ndexia:ItemStatusAugmentation>
+					   <ndexia:ItemStatusCode>Unknown</ndexia:ItemStatusCode>
+					</ndexia:ItemStatusAugmentation>
+				</ndexia:ItemStatus>
+            </ndexia:ItemQuantityStatusValue>
+        </ndexia:VehicleAugmentation>
+    </ndexia:Vehicle>
+
+</ndexia:MissingPersonReport>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions 
+	xmlns="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:Q1="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" 
+	xmlns:tns="http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0" 
+	targetNamespace="http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0"
+	xmlns:policy="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMUserSystemToSystem.wsdl" />
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" schemaLocation="../../artifacts/service_model/information_model/Person_Query_Request-IEPD/xsd/Person_Query_Request.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="Person-Query-Request">
+        <wsdl:part name="Person-Query-Request" element="Q1:PersonRecordRequest"/>
+    </wsdl:message>
+    <wsdl:portType name="Person-Query-Service---Criminal-History">
+        <wsdl:operation name="Submit-Person-Query---Criminal-History">
+            <wsdl:input name="Person-Query-Request" message="tns:Person-Query-Request"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="Person-Query-Service---Criminal-History_SecureSOAPBinding" type="tns:Person-Query-Service---Criminal-History">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#GFIPMUserSystemToSystem" />
+        <wsdl:operation name="Submit-Person-Query---Criminal-History">
+            <soap:operation soapAction="Submit-Person-Query---Criminal-History" style="document"/>
+            <wsdl:input name="Person-Query-Request">
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+     <wsdl:binding name="Person-Query-Service---Criminal-HistorySOAPBinding" type="tns:Person-Query-Service---Criminal-History">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsaw:UsingAddressing wsdl:required="true" />
+        <wsdl:operation name="Submit-Person-Query---Criminal-History">
+            <soap:operation soapAction="Submit-Person-Query---Criminal-History" style="document"/>
+            <wsdl:input name="Person-Query-Request">
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="Person-Query-Service---Criminal-HistoryService">
+        <wsdl:port name="Person-Query-Service---Criminal-History" binding="tns:Person-Query-Service---Criminal-HistorySOAPBinding">
+            <soap:address location="localhost"/>
+        </wsdl:port>
+         <wsdl:port name="Person-Query-Secure-Service---Criminal-History" binding="tns:Person-Query-Service---Criminal-History_SecureSOAPBinding">
+            <soap:address location="http://localhost/secure"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

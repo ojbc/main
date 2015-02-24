@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	targetNamespace="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="./Subset/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:complexType name="SubscriptionQueryRequestType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:SubscriptionIdentification"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscriptionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

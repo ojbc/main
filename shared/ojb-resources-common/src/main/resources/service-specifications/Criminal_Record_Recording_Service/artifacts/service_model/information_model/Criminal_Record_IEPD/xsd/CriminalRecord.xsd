@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:cr="http://ojbc.org/IEPD/CriminalRecord/1.0" xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/CriminalRecordExtension/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:rap-code="http://nlets.org/niem2/rapsheet/1.0/codes" xmlns:i="http://niem.gov/niem/appinfo/2.0" targetNamespace="http://ojbc.org/IEPD/CriminalRecord/1.0">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="niem/appinfo/2.0/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalRecordExtension/1.0" schemaLocation="./CriminalRecordExtension.xsd"/>
+	<xsd:element name="ArrestRecord" type="ext:CriminalRecordType">
+		<xsd:annotation>
+			<xsd:documentation>Detailed information for an arrest.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeRecord" type="ext:CriminalRecordType">
+		<xsd:annotation>
+			<xsd:documentation>Detailed information for a charge.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeDispositionRecord" type="ext:CriminalRecordType">
+		<xsd:annotation>
+			<xsd:documentation>Detailed information for a charge disposition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

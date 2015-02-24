@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ext="http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" targetNamespace="http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="./Subset/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:complexType name="FirearmRegistrationRequestType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:FirearmRegistrationIdentification"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonFirearmRegistrationRequestType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:PersonFirearmRegistrationIdentification"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="FirearmRegistrationIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to the registration of a firearm.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonFirearmRegistrationIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

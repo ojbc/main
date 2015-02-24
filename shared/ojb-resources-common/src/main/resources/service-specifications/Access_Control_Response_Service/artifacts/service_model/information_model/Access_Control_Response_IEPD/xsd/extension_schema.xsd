@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:exchange="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/AccessControlResultsMetadata/1.0" xmlns:p="http://ojbc.org/IEPD/Extensions/AccessControlDecisionContexts/PolicyBasedAccessControlDecisionContext/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/AccessControlResultsMetadata/1.0" schemaLocation="access-control-results-metadata.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/AccessControlDecisionContexts/PolicyBasedAccessControlDecisionContext/1.0" schemaLocation="AccessControlDescisionContexts/PolicyBasedAccessControlDecisionContext.xsd"/>
+	<xsd:complexType name="AccessControlResponseType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an access control policy decision</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:AccessControlDecision" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="srm:AccessControlResultsMetadata" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="AccessControlDecisionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for details of an access control decision</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:AccessDeniedIndicator"/>
+					<xsd:element ref="ext:AccessDecisionDescriptionText" minOccurs="0"/>
+					<xsd:element ref="ext:AccessDecisionResourceURI" minOccurs="0"/>
+					<xsd:element ref="ext:AccessControlDecisionContext" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="AccessControlDecisionContextType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for details of an access control decision</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:AccessControlDecisionContextRepresentation"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="AccessControlDecisionContext" type="ext:AccessControlDecisionContextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional, extensible, detail that applies to the access control decision.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AccessControlDecisionContextRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Specific detail that applies to the access control decision.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AccessControlDecision" type="ext:AccessControlDecisionType">
+		<xsd:annotation>
+			<xsd:documentation>An access control decision.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AccessDeniedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if access is denied, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AccessDecisionDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the access decision.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AccessDecisionResourceURI" type="niem-xs:anyURI">
+		<xsd:annotation>
+			<xsd:documentation>A resource to which an access decision has been rendered.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

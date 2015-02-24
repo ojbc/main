@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Q1:PersonRecordRequest 
+	xmlns:Q1="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" 
+	xmlns:Q3="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:p="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0 ../xsd/Person_Query_Request.xsd">
+  <Q1:PersonRecordRequestIdentification>
+    <Q3:IdentificationID>12345</Q3:IdentificationID>
+    <Q3:IdentificationSourceText></Q3:IdentificationSourceText>
+  </Q1:PersonRecordRequestIdentification>
+</Q1:PersonRecordRequest>

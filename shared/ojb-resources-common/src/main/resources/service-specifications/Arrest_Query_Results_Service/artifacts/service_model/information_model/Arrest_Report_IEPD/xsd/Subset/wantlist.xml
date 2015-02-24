@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?><w:WantList xmlns:w="http://niem.gov/niem/wantlist/2" xmlns:ut_offender_10="http://niem.gov/niem/ut_offender-tracking-misc/1.0" xmlns:usps_10="http://niem.gov/niem/usps_states/1.0" xmlns:unece_10="http://niem.gov/niem/unece_rec20-misc/1.0" xmlns:ucr_10="http://niem.gov/niem/ucr/1.0" xmlns:u_10="http://niem.gov/niem/universal/1.0" xmlns:twpdes_10="http://niem.gov/niem/twpdes/1.0" xmlns:scr_10="http://niem.gov/niem/domains/screening/1.0" xmlns:s_10="http://niem.gov/niem/structures/1.0" xmlns:nonauth_10="http://niem.gov/niem/nonauthoritative-code/1.0" xmlns:nlets_10="http://niem.gov/niem/nlets/1.0" xmlns:niem-xsd_10="http://niem.gov/niem/proxy/xsd/1.0" xmlns:nibrs_10="http://niem.gov/niem/nibrs_misc/1.0" xmlns:ncic_10="http://niem.gov/niem/ncic_2000/1.0" xmlns:mn_off_10="http://niem.gov/niem/mn_offense/1.0" xmlns:mmucc_2_10="http://niem.gov/niem/mmucc_2/1.0" xmlns:lasd_10="http://niem.gov/niem/lasd/1.0" xmlns:j_10="http://niem.gov/niem/domains/justice/1.0" xmlns:itis_10="http://niem.gov/niem/itis/1.0" xmlns:it_10="http://niem.gov/niem/domains/internationalTrade/1.0" xmlns:iso_639-2t_10="http://niem.gov/niem/iso_639-2t/1.0" xmlns:iso_639-2b_10="http://niem.gov/niem/iso_639-2b/1.0" xmlns:iso_4217_10="http://niem.gov/niem/iso_4217/1.0" xmlns:iso_3166_10="http://niem.gov/niem/iso_3166/1.0" xmlns:ism_10="http://niem.gov/niem/ic-ism/1.0" xmlns:ip_10="http://niem.gov/niem/domains/infrastructureProtection/1.0" xmlns:intel_10="http://niem.gov/niem/domains/intelligence/1.0" xmlns:im_10="http://niem.gov/niem/domains/immigration/1.0" xmlns:i_10="http://niem.gov/niem/appinfo/1.0" xmlns:have_10="http://niem.gov/niem/have/1.0" xmlns:gs_10="http://niem.gov/niem/geospatial/1.0" xmlns:fips_6-4_10="http://niem.gov/niem/fips_6-4/1.0" xmlns:fips_5-2_10="http://niem.gov/niem/fips_5-2/1.0" xmlns:fips_10-4_10="http://niem.gov/niem/fips_10-4/1.0" xmlns:eo-12958_10="http://niem.gov/niem/eo-12958/1.0" xmlns:em_10="http://niem.gov/niem/domains/emergencyManagement/1.0" xmlns:edxl-de_10="http://niem.gov/niem/edxl-de/1.0" xmlns:edxl-cap_10="http://niem.gov/niem/edxl-cap/1.0" xmlns:edxl_10="http://niem.gov/niem/edxl/1.0" xmlns:dod_jcs-pub2.0_10="http://niem.gov/niem/dod_jcs-pub2.0-misc/1.0" xmlns:dod_10="http://niem.gov/niem/dod_misc/1.0" xmlns:census_10="http://niem.gov/niem/census/1.0" xmlns:can_10="http://niem.gov/niem/post-canada/1.0" xmlns:c_10="http://niem.gov/niem/common/1.0" xmlns:apco_10="http://niem.gov/niem/apco/1.0" xmlns:ansi_d20_10="http://niem.gov/niem/ansi_d20/1.0" xmlns:ut_offender_20="http://niem.gov/niem/ut_offender-tracking-misc/2.0" xmlns:usps_20="http://niem.gov/niem/usps_states/2.0" xmlns:unece_20="http://niem.gov/niem/unece_rec20-misc/2.0" xmlns:ucr_20="http://niem.gov/niem/ucr/2.0" xmlns:twpdes_20="http://niem.gov/niem/twpdes/2.0" xmlns:s_20="http://niem.gov/niem/structures/2.0" xmlns:nonauth_20="http://niem.gov/niem/nonauthoritative-code/2.0" xmlns:niem-xsd_20="http://niem.gov/niem/proxy/xsd/2.0" xmlns:nga_20="http://niem.gov/niem/nga/2.0" xmlns:nc_20="http://niem.gov/niem/niem-core/2.0" xmlns:mn_off_20="http://niem.gov/niem/mn_offense/2.0" xmlns:lasd_20="http://niem.gov/niem/lasd/2.0" xmlns:iso_639-3_20="http://niem.gov/niem/iso_639-3/2.0" xmlns:iso_4217_20="http://niem.gov/niem/iso_4217/2.0" xmlns:iso_3166_20="http://niem.gov/niem/iso_3166/2.0" xmlns:i_20="http://niem.gov/niem/appinfo/2.0" xmlns:fips_6-4_20="http://niem.gov/niem/fips_6-4/2.0" xmlns:fips_5-2_20="http://niem.gov/niem/fips_5-2/2.0" xmlns:fips_10-4_20="http://niem.gov/niem/fips_10-4/2.0" xmlns:fbi_20="http://niem.gov/niem/fbi/2.0" xmlns:dod_jcs-pub2.0_20="http://niem.gov/niem/dod_jcs-pub2.0-misc/2.0" xmlns:census_20="http://niem.gov/niem/census/2.0" xmlns:can_20="http://niem.gov/niem/post-canada/2.0" xmlns:atf_20="http://niem.gov/niem/atf/2.0" xmlns:ansi-nist_20="http://niem.gov/niem/ansi-nist/2.0" xmlns:ansi_d20_20="http://niem.gov/niem/ansi_d20/2.0" xmlns:scr_20="http://niem.gov/niem/domains/screening/2.0" xmlns:sar_20="http://niem.gov/niem/sar/2.0" xmlns:nlets_20="http://niem.gov/niem/nlets/2.0" xmlns:mmucc_2_20="http://niem.gov/niem/mmucc_2/2.0" xmlns:m_20="http://niem.gov/niem/domains/maritime/2.0" xmlns:it_20="http://niem.gov/niem/domains/internationalTrade/2.0" xmlns:itis_20="http://niem.gov/niem/itis/2.0" xmlns:ip_20="http://niem.gov/niem/domains/infrastructureProtection/2.0" xmlns:intel_20="http://niem.gov/niem/domains/intelligence/2.0" xmlns:im_20="http://niem.gov/niem/domains/immigration/2.0" xmlns:hazmat_20="http://niem.gov/niem/hazmat/2.0" xmlns:have-codes_20="http://niem.gov/niem/have-codes/2.0" xmlns:geo_20="http://niem.gov/niem/geospatial/2.0" xmlns:fs_20="http://niem.gov/niem/domains/familyServices/2.0" xmlns:em_20="http://niem.gov/niem/domains/emergencyManagement/2.0" xmlns:edxl-have_20="http://niem.gov/niem/edxl-have/2.0" xmlns:edxl-de_20="http://niem.gov/niem/edxl-de/2.0" xmlns:edxl-cap_20="http://niem.gov/niem/edxl-cap/2.0" xmlns:edxl_20="http://niem.gov/niem/edxl/2.0" xmlns:dea_20="http://niem.gov/niem/dea/2.0" xmlns:cbrncl_20="http://niem.gov/niem/cbrncl/2.0" xmlns:cbrn_20="http://niem.gov/niem/domains/cbrn/2.0" xmlns:apco_20="http://niem.gov/niem/apco/2.0" xmlns:j40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:scr_21="http://niem.gov/niem/domains/screening/2.1" xmlns:sar_21="http://niem.gov/niem/sar/2.1" xmlns:nlets_21="http://niem.gov/niem/nlets/2.1" xmlns:mmucc_2_21="http://niem.gov/niem/mmucc_2/2.1" xmlns:m_21="http://niem.gov/niem/domains/maritime/2.1" xmlns:it_21="http://niem.gov/niem/domains/internationalTrade/2.1" xmlns:itis_21="http://niem.gov/niem/itis/2.1" xmlns:ip_21="http://niem.gov/niem/domains/infrastructureProtection/2.1" xmlns:intel_21="http://niem.gov/niem/domains/intelligence/2.1" xmlns:im_21="http://niem.gov/niem/domains/immigration/2.1" xmlns:hazmat_21="http://niem.gov/niem/hazmat/2.1" xmlns:have-codes_21="http://niem.gov/niem/have-codes/2.1" xmlns:geo_21="http://niem.gov/niem/geospatial/2.1" xmlns:fs_21="http://niem.gov/niem/domains/familyServices/2.1" xmlns:em_21="http://niem.gov/niem/domains/emergencyManagement/2.1" xmlns:edxl-have_21="http://niem.gov/niem/edxl-have/2.1" xmlns:edxl-de_21="http://niem.gov/niem/edxl-de/2.1" xmlns:edxl-cap_21="http://niem.gov/niem/edxl-cap/2.1" xmlns:edxl_21="http://niem.gov/niem/edxl/2.1" xmlns:dea_21="http://niem.gov/niem/dea/2.1" xmlns:cbrncl_21="http://niem.gov/niem/cbrncl/2.1" xmlns:cbrn_21="http://niem.gov/niem/domains/cbrn/2.1" xmlns:apco_21="http://niem.gov/niem/apco/2.1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:JIEMInformationDimensionProfile="http:///schemas/JIEMInformationDimensionProfile/_cv4P0J5iEd6S-6vlgzIJ1g/0" xmlns:NIEMUMLProfile="http:///schemas/NIEMUMLProfile/_dyQGgKecEd6WcIPZjZ3akQ/0" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" w:product="NIEM" w:release="2.0">
+<w:Element w:name="nc_20:PersonEyeColorText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonEyeColor" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactInformation" w:isReference="false"/>
+<w:Element w:name="nc_20:ActivityDateRepresentation" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonStateIdentification" w:isReference="false"/>
+<w:Element w:name="nc_20:Metadata" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactMailingAddress" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactMeans" w:isReference="false"/>
+<w:Element w:name="nc_20:Location" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonSexText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonSex" w:isReference="false"/>
+<w:Element w:name="nc_20:ItemColorDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:ItemColor" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonHairColorText" w:isReference="false"/>
+<w:Element w:name="nc_20:EntityPerson" w:isReference="false"/>
+<w:Element w:name="nc_20:EntityRepresentation" w:isReference="false"/>
+<w:Element w:name="nc_20:RoleOf" w:isReference="false"/>
+<w:Element w:name="nc_20:IdentificationJurisdictionText" w:isReference="false"/>
+<w:Element w:name="nc_20:IdentificationJurisdiction" w:isReference="false"/>
+<w:Element w:name="nc_20:DriverLicenseAssociation" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonEmploymentAssociation" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonInvolvedInDrivingIncidentAssociation" w:isReference="false"/>
+<w:Element w:name="nc_20:PhysicalFeatureCategoryText" w:isReference="false"/>
+<w:Element w:name="nc_20:PhysicalFeatureCategory" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonResidentText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonResident" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonContactInformationAssociation" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonOrganizationAffiliationAssociation" w:isReference="false"/>
+<w:Element w:name="nc_20:AddressSecondaryUnitText" w:isReference="false"/>
+<w:Element w:name="nc_20:DriverLicense" w:isReference="false"/>
+<w:Element w:name="nc_20:MarriageAssociation" w:isReference="false"/>
+<w:Element w:name="nc_20:ResidenceAssociation" w:isReference="false"/>
+<w:Element w:name="nc_20:Organization" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonOwnsItemAssociation" w:isReference="false"/>
+<w:Element w:name="nc_20:IntoxicationIntoxicantCategoryText" w:isReference="false"/>
+<w:Element w:name="nc_20:IntoxicationIntoxicantCategory" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonHairColorCode" w:isReference="false"/>
+<w:Element w:name="nc_20:TangibleItem" w:isReference="false"/>
+<w:Element w:name="nc_20:Date" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactTelephoneNumber" w:isReference="false"/>
+<w:Element w:name="nc_20:Case" w:isReference="false"/>
+<w:Element w:name="nc_20:ActivityDate" w:isReference="false"/>
+<w:Element w:name="nc_20:NANPTelephoneNumber" w:isReference="false"/>
+<w:Element w:name="nc_20:LocationStreet" w:isReference="false"/>
+<w:Element w:name="nc_20:LocationStateName" w:isReference="false"/>
+<w:Element w:name="nc_20:Person" w:isReference="false"/>
+<w:Element w:name="nc_20:DateTime" w:isReference="false"/>
+<w:Element w:name="nc_20:EmployeeOccupationText" w:isReference="false"/>
+<w:Element w:name="nc_20:EmployeeOccupation" w:isReference="false"/>
+<w:Element w:name="nc_20:StructuredAddress" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonRaceText" w:isReference="false"/>
+<w:Element w:name="nc_20:MeasureText" w:isReference="false"/>
+<w:Element w:name="nc_20:EntityOrganization" w:isReference="false"/>
+<w:Element w:name="nc_20:DriverLicenseCommercialStatusText" w:isReference="false"/>
+<w:Element w:name="nc_20:Incident" w:isReference="false"/>
+<w:Element w:name="nc_20:Person" w:isReference="true"/>
+<w:Element w:name="nc_20:LocationDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:IncidentLocation" w:isReference="false"/>
+<w:Element w:name="nc_20:ItemModelName" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactInformationIsHomeIndicator" w:isReference="false"/>
+<w:Element w:name="nc_20:TelephoneNumberRepresentation" w:isReference="false"/>
+<w:Element w:name="nc_20:LocationAddress" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonNameSuffixText" w:isReference="false"/>
+<w:Element w:name="nc_20:InjuryDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:CaseTrackingID" w:isReference="false"/>
+<w:Element w:name="nc_20:LocaleCensusBlockID" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonAgeMeasure" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonSurName" w:isReference="false"/>
+<w:Element w:name="nc_20:ItemModelYearDate" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactEntity" w:isReference="false"/>
+<w:Element w:name="nc_20:StreetNumberText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonRace" w:isReference="false"/>
+<w:Element w:name="nc_20:AddressDeliveryPoint" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonClothing" w:isReference="false"/>
+<w:Element w:name="nc_20:ActivityCategoryText" w:isReference="false"/>
+<w:Element w:name="nc_20:Item" w:isReference="true"/>
+<w:Element w:name="nc_20:LocationPostalCode" w:isReference="false"/>
+<w:Element w:name="nc_20:DispositionDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:IntoxicationAlcoholInvolvedIndicator" w:isReference="false"/>
+<w:Element w:name="nc_20:TelephoneExchangeID" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonAlternateName" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonOtherIdentification" w:isReference="false"/>
+<w:Element w:name="nc_20:EmploymentLocation" w:isReference="true"/>
+<w:Element w:name="nc_20:OrganizationLocation" w:isReference="false"/>
+<w:Element w:name="nc_20:DriverLicenseIdentification" w:isReference="false"/>
+<w:Element w:name="nc_20:ImageOperator" w:isReference="false"/>
+<w:Element w:name="nc_20:RoleOfPerson" w:isReference="true"/>
+<w:Element w:name="nc_20:PersonPhysicalFeature" w:isReference="false"/>
+<w:Element w:name="nc_20:CommentText" w:isReference="false"/>
+<w:Element w:name="nc_20:OrganizationSubUnit" w:isReference="false"/>
+<w:Element w:name="nc_20:ItemOtherIdentification" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactInformationIsEmergencyIndicator" w:isReference="false"/>
+<w:Element w:name="nc_20:Employer" w:isReference="false"/>
+<w:Element w:name="nc_20:AddressRepresentation" w:isReference="false"/>
+<w:Element w:name="nc_20:Location" w:isReference="true"/>
+<w:Element w:name="nc_20:PersonMiddleName" w:isReference="false"/>
+<w:Element w:name="nc_20:DocumentIdentification" w:isReference="false"/>
+<w:Element w:name="nc_20:IntoxicationTestCategoryText" w:isReference="false"/>
+<w:Element w:name="nc_20:ItemReceiptIdentification" w:isReference="false"/>
+<w:Element w:name="nc_20:LocationLocale" w:isReference="false"/>
+<w:Element w:name="nc_20:BinaryAvailableIndicator" w:isReference="false"/>
+<w:Element w:name="nc_20:ActivityIdentification" w:isReference="false"/>
+<w:Element w:name="nc_20:Organization" w:isReference="true"/>
+<w:Element w:name="nc_20:IdentificationID" w:isReference="false"/>
+<w:Element w:name="nc_20:IdentificationSourceText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:ActivityDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:ItemActionText" w:isReference="false"/>
+<w:Element w:name="nc_20:IntoxicationLevelText" w:isReference="false"/>
+<w:Element w:name="nc_20:DocumentCreationDate" w:isReference="false"/>
+<w:Element w:name="nc_20:Incident" w:isReference="true"/>
+<w:Element w:name="nc_20:TelephoneAreaCodeID" w:isReference="false"/>
+<w:Element w:name="nc_20:ReleaseIssuer" w:isReference="false"/>
+<w:Element w:name="nc_20:Activity" w:isReference="true"/>
+<w:Element w:name="nc_20:OrganizationName" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonMaritalStatusText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonName" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonInjury" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonHeightMeasure" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonIntoxication" w:isReference="false"/>
+<w:Element w:name="nc_20:DocumentCreator" w:isReference="false"/>
+<w:Element w:name="nc_20:DocumentDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:OrganizationSubUnitName" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactInformationIsWorkIndicator" w:isReference="false"/>
+<w:Element w:name="nc_20:Employee" w:isReference="true"/>
+<w:Element w:name="nc_20:DispositionText" w:isReference="false"/>
+<w:Element w:name="nc_20:TelephoneLineID" w:isReference="false"/>
+<w:Element w:name="nc_20:OrganizationUnitName" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactInformationIsPrimaryIndicator" w:isReference="false"/>
+<w:Element w:name="nc_20:IntoxicationDrugInvolvedIndicator" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactInformation" w:isReference="true"/>
+<w:Element w:name="nc_20:LocationContactInformation" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonGivenName" w:isReference="false"/>
+<w:Element w:name="nc_20:LocaleDistrictName" w:isReference="false"/>
+<w:Element w:name="nc_20:InjuryTreatmentText" w:isReference="false"/>
+<w:Element w:name="nc_20:EmploymentContactInformation" w:isReference="true"/>
+<w:Element w:name="nc_20:MeasureValue" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonDependentQuantity" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonDigitalImage" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonEducationLevelText" w:isReference="false"/>
+<w:Element w:name="nc_20:MeasureUnitText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonMedicationRequiredText" w:isReference="false"/>
+<w:Element w:name="nc_20:DriverLicense" w:isReference="true"/>
+<w:Element w:name="nc_20:ItemMakeName" w:isReference="false"/>
+<w:Element w:name="nc_20:DateRepresentation" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonBirthDate" w:isReference="false"/>
+<w:Element w:name="nc_20:StreetName" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonSSNIdentification" w:isReference="false"/>
+<w:Element w:name="nc_20:DriverLicenseCommercialStatus" w:isReference="false"/>
+<w:Element w:name="nc_20:ClothingDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:LocalePoliceBeatText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonHairColor" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonUSCitizenIndicator" w:isReference="false"/>
+<w:Element w:name="nc_20:LocationName" w:isReference="false"/>
+<w:Element w:name="nc_20:LocationCityName" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonFullName" w:isReference="false"/>
+<w:Element w:name="nc_20:BinaryObject" w:isReference="false"/>
+<w:Element w:name="nc_20:ItemDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonWeightMeasure" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonBirthLocation" w:isReference="false"/>
+<w:Element w:name="nc_20:RoleOfItem" w:isReference="true"/>
+<w:Element w:name="nc_20:Case" w:isReference="true"/>
+<w:Element w:name="nc_20:LocationState" w:isReference="false"/>
+<w:Element w:name="nc_20:BinaryBase64Object" w:isReference="false"/>
+<w:Element w:name="nc_20:OrganizationPrimaryContactInformation" w:isReference="false"/>
+<w:Element w:name="j40:Witness" w:isReference="false"/>
+<w:Element w:name="j40:ArrestBloodAlcoholContentNumberText" w:isReference="false"/>
+<w:Element w:name="j40:ArrestProbableCauseText" w:isReference="false"/>
+<w:Element w:name="j40:PersonFBIIdentification" w:isReference="false"/>
+<w:Element w:name="j40:Court" w:isReference="false"/>
+<w:Element w:name="j40:Statute" w:isReference="false"/>
+<w:Element w:name="j40:OrganizationORIIdentification" w:isReference="false"/>
+<w:Element w:name="j40:IncidentViolatedStatuteAssociation" w:isReference="false"/>
+<w:Element w:name="j40:ArrestArraignmentDate" w:isReference="false"/>
+<w:Element w:name="j40:PersonAFISIdentification" w:isReference="false"/>
+<w:Element w:name="j40:PersonRegisteredOffenderIndicator" w:isReference="false"/>
+<w:Element w:name="j40:Offense" w:isReference="false"/>
+<w:Element w:name="j40:DrivingIncident" w:isReference="false"/>
+<w:Element w:name="j40:Arrest" w:isReference="false"/>
+<w:Element w:name="j40:ArrestSummonsIndicator" w:isReference="false"/>
+<w:Element w:name="j40:ActivityIncidentAssociation" w:isReference="false"/>
+<w:Element w:name="j40:ActivityWitnessAssociation" w:isReference="false"/>
+<w:Element w:name="j40:DrivingIncidentHazMatText" w:isReference="false"/>
+<w:Element w:name="j40:ActivityCourtAssociation" w:isReference="false"/>
+<w:Element w:name="j40:ActivityInformationReporterAssociation" w:isReference="false"/>
+<w:Element w:name="j40:ActivityCaseAssociation" w:isReference="false"/>
+<w:Element w:name="j40:Charge" w:isReference="true"/>
+<w:Element w:name="j40:DrivingIncidentCMVText" w:isReference="false"/>
+<w:Element w:name="j40:IncidentAssistingOfficial" w:isReference="false"/>
+<w:Element w:name="j40:IncidentReportingOfficial" w:isReference="false"/>
+<w:Element w:name="j40:WarrantAppearanceBail" w:isReference="false"/>
+<w:Element w:name="j40:StatuteCodeSectionIdentification" w:isReference="false"/>
+<w:Element w:name="j40:BookingRelease" w:isReference="false"/>
+<w:Element w:name="j40:Statute" w:isReference="true"/>
+<w:Element w:name="j40:ChargeUCRCrimeCategoryText" w:isReference="false"/>
+<w:Element w:name="j40:BailSetAmount" w:isReference="false"/>
+<w:Element w:name="j40:BookingSubjectCustodyTransfer" w:isReference="false"/>
+<w:Element w:name="j40:ChargeIdentification" w:isReference="false"/>
+<w:Element w:name="j40:Booking" w:isReference="false"/>
+<w:Element w:name="j40:BookingDocumentControlIdentification" w:isReference="false"/>
+<w:Element w:name="j40:Court" w:isReference="true"/>
+<w:Element w:name="j40:BookingTelephoneCallDate" w:isReference="false"/>
+<w:Element w:name="j40:EnforcementOfficialUnit" w:isReference="false"/>
+<w:Element w:name="j40:ArrestLocation" w:isReference="false"/>
+<w:Element w:name="j40:EnforcementOfficialBadgeIdentification" w:isReference="false"/>
+<w:Element w:name="j40:BailPostedAmount" w:isReference="false"/>
+<w:Element w:name="j40:BookingSeizedProperty" w:isReference="false"/>
+<w:Element w:name="j40:DrivingIncidentCMV" w:isReference="false"/>
+<w:Element w:name="j40:BookingTelephoneCallSupervisingOfficial" w:isReference="false"/>
+<w:Element w:name="j40:CourtDivisionText" w:isReference="false"/>
+<w:Element w:name="j40:CustodyTransferReceivingEnforcementOfficial" w:isReference="false"/>
+<w:Element w:name="j40:ChargeVictim" w:isReference="false"/>
+<w:Element w:name="j40:ArrestCharge" w:isReference="false"/>
+<w:Element w:name="j40:ChargeDisposition" w:isReference="false"/>
+<w:Element w:name="j40:EnforcementUnitSectionIdentification" w:isReference="false"/>
+<w:Element w:name="j40:ArrestOfficial" w:isReference="false"/>
+<w:Element w:name="j40:StatuteDescriptionText" w:isReference="false"/>
+<w:Element w:name="j40:BailSetCourt" w:isReference="false"/>
+<w:Element w:name="j40:BailPostedBond" w:isReference="false"/>
+<w:Element w:name="j40:ChargeStatute" w:isReference="false"/>
+<w:Element w:name="j40:BookingTransportOfficial" w:isReference="false"/>
+<w:Element w:name="j40:CustodyTransferProperty" w:isReference="false"/>
+<w:Element w:name="j40:Witness" w:isReference="true"/>
+<w:Element w:name="j40:DrivingIncidentHazMat" w:isReference="false"/>
+<w:Element w:name="j40:BookingEmployee" w:isReference="false"/>
+<w:Element w:name="j40:ChargeSequenceID" w:isReference="false"/>
+<w:Element w:name="j40:BookingSearchOfficial" w:isReference="false"/>
+<w:Element w:name="j40:ChargeFilingDate" w:isReference="false"/>
+<w:Element w:name="j40:ArrestWarrant" w:isReference="false"/>
+<w:Element w:name="j40:ChargeFilerEntity" w:isReference="false"/>
+<w:Element w:name="j40:ArrestAgency" w:isReference="false"/>
+<w:Element w:name="j40:BondSuretyName" w:isReference="false"/>
+<w:Element w:name="j40:BookingTelephoneCall" w:isReference="false"/>
+<w:Element w:name="j40:ChargeSeverityText" w:isReference="false"/>
+<w:Element w:name="j40:EnforcementUnitName" w:isReference="false"/>
+<w:Element w:name="j40:ChargeNarrative" w:isReference="false"/>
+<w:Element w:name="j40:ChargeApplicabilityText" w:isReference="false"/>
+<w:Element w:name="j40:ArrestSubject" w:isReference="false"/>
+<w:Type w:isRequested="true" w:name="nc_20:OrganizationType">
+          
+          <w:ElementInType w:name="nc_20:OrganizationUnitName" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:OrganizationName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:OrganizationSubUnitName" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:OrganizationLocation" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:OrganizationSubUnit" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:OrganizationPrimaryContactInformation" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:LocationType">
+          
+          <w:ElementInType w:name="nc_20:LocationName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:LocationDescriptionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:LocationLocale" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:LocationContactInformation" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:LocationAddress" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ActivityType">
+          
+          <w:ElementInType w:name="nc_20:ActivityCategoryText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:ActivityDescriptionText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:ActivityIdentification" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:ActivityDateRepresentation" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:LocaleType">
+          
+          <w:ElementInType w:name="nc_20:LocaleDistrictName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:LocaleCensusBlockID" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:LocalePoliceBeatText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:TextType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:IdentificationType">
+          
+          <w:ElementInType w:name="nc_20:IdentificationID" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:IdentificationSourceText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonType">
+          
+          <w:ElementInType w:name="nc_20:PersonDependentQuantity" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonEducationLevelText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonDescriptionText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonMedicationRequiredText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonUSCitizenIndicator" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonMaritalStatusText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:PersonName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonBirthLocation" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonWeightMeasure" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonHairColor" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonOtherIdentification" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonHeightMeasure" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonRace" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonBirthDate" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonSSNIdentification" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonIntoxication" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonAlternateName" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonPhysicalFeature" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonInjury" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonClothing" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonAgeMeasure" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonDigitalImage" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonStateIdentification" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonNameType">
+          
+          <w:ElementInType w:name="nc_20:PersonNameSuffixText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonMiddleName" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonFullName" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonGivenName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonSurName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:IncidentType">
+          
+        <w:ElementInType w:name="nc_20:IncidentLocation" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ContactInformationType">
+          
+        <w:ElementInType w:name="nc_20:ContactEntity" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:ContactMeans" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:NANPTelephoneNumberType">
+          
+          <w:ElementInType w:name="nc_20:TelephoneLineID" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:TelephoneExchangeID" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:TelephoneAreaCodeID" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:AssociationType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:MetadataType">
+          
+          <w:ElementInType w:name="nc_20:CommentText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ImageType">
+          
+        <w:ElementInType w:name="nc_20:ImageOperator" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:BinaryType">
+          
+          <w:ElementInType w:name="nc_20:BinaryAvailableIndicator" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:BinaryObject" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PropertyType">
+          
+        <w:ElementInType w:name="nc_20:RoleOfItem" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:MeasureType">
+          
+          <w:ElementInType w:name="nc_20:MeasureUnitText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:MeasureValue" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:AddressType">
+          
+        <w:ElementInType w:name="nc_20:AddressRepresentation" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:CaseType">
+          
+          <w:ElementInType w:name="nc_20:CaseTrackingID" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:DateType">
+          
+        <w:ElementInType w:name="nc_20:DateRepresentation" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ProperNameTextType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonAssociationType">
+          
+        <w:ElementInType w:name="nc_20:Person" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:EntityType">
+          
+        <w:ElementInType w:name="nc_20:EntityRepresentation" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonNameTextType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:WeightMeasureType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonContactInformationAssociationType">
+          
+          <w:ElementInType w:name="nc_20:ContactInformationIsPrimaryIndicator" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:ContactInformationIsWorkIndicator" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:ContactInformationIsHomeIndicator" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:ContactInformationIsEmergencyIndicator" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:ContactInformation" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:DriverLicenseBaseType">
+          
+        <w:ElementInType w:name="nc_20:DriverLicenseIdentification" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:QuantityType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:NumericType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PhysicalFeatureType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonOrganizationAssociationType">
+          
+        <w:ElementInType w:name="nc_20:Organization" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ItemType">
+          
+          <w:ElementInType w:name="nc_20:ItemActionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:ItemDescriptionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:ItemReceiptIdentification" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:ItemOtherIdentification" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:TangibleItemType">
+          
+          <w:ElementInType w:name="nc_20:ItemModelName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:ItemMakeName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:ItemModelYearDate" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:StreetType">
+          
+          <w:ElementInType w:name="nc_20:StreetNumberText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:StreetName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:StructuredAddressType">
+          
+          <w:ElementInType w:name="nc_20:LocationCityName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:LocationPostalCode" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:AddressDeliveryPoint" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:LocationState" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:DispositionType">
+          
+          <w:ElementInType w:name="nc_20:DispositionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:DispositionDescriptionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:DriverLicenseAssociationType">
+          
+        <w:ElementInType w:name="nc_20:DriverLicense" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonEmploymentAssociationType">
+          
+        <w:ElementInType w:name="nc_20:Employer" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:EmploymentContactInformation" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+<w:ElementInType w:name="nc_20:Employee" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+<w:ElementInType w:name="nc_20:EmploymentLocation" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:DriverLicenseType">
+          
+        <w:ElementInType w:name="nc_20:DriverLicenseCommercialStatus" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:DocumentType">
+          
+          <w:ElementInType w:name="nc_20:DocumentDescriptionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:DocumentCreationDate" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:DocumentCreator" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:DocumentIdentification" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ReleaseType">
+          
+        <w:ElementInType w:name="nc_20:ReleaseIssuer" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ActivityPersonAssociationType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ClothingType">
+          
+          <w:ElementInType w:name="nc_20:ClothingDescriptionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:IntoxicationType">
+          
+          <w:ElementInType w:name="nc_20:IntoxicationTestCategoryText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:IntoxicationLevelText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:IntoxicationDrugInvolvedIndicator" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:IntoxicationAlcoholInvolvedIndicator" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:AmountType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:LengthMeasureType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonUnionAssociationType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonResidenceAssociationType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonLocationAssociationType">
+          
+        <w:ElementInType w:name="nc_20:Location" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:TelephoneNumberType">
+          
+        <w:ElementInType w:name="nc_20:TelephoneNumberRepresentation" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonItemAssociationType">
+          
+        <w:ElementInType w:name="nc_20:Item" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:InjuryType">
+          
+          <w:ElementInType w:name="nc_20:InjuryTreatmentText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:InjuryDescriptionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:TimeMeasureType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j40:WitnessType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j40:BailType">
+          
+          <w:ElementInType w:name="j40:BailSetAmount" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="j40:BailPostedAmount" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="j40:BailPostedBond" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:BailSetCourt" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:BondType">
+          
+          <w:ElementInType w:name="j40:BondSuretyName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j40:DrivingIncidentType">
+          
+        <w:ElementInType w:name="j40:DrivingIncidentCMV" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:DrivingIncidentHazMat" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:ActivityIncidentAssociationType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j40:ChargeType">
+          
+          <w:ElementInType w:name="j40:ChargeUCRCrimeCategoryText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="j40:ChargeApplicabilityText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="j40:ChargeSeverityText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="j40:ChargeStatute" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ChargeFilingDate" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ChargeIdentification" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ChargeVictim" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ChargeNarrative" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ChargeSequenceID" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ChargeFilerEntity" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ChargeDisposition" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:StatuteType">
+          
+          <w:ElementInType w:name="j40:StatuteDescriptionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="j40:StatuteCodeSectionIdentification" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:CustodyTransferType">
+          
+        <w:ElementInType w:name="j40:CustodyTransferProperty" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:CustodyTransferReceivingEnforcementOfficial" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:BookingType">
+          
+        <w:ElementInType w:name="j40:BookingSeizedProperty" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:BookingSearchOfficial" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:BookingEmployee" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:BookingTelephoneCall" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:BookingTransportOfficial" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:BookingSubjectCustodyTransfer" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:BookingRelease" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:BookingDocumentControlIdentification" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:EnforcementOfficialType">
+          
+        <w:ElementInType w:name="j40:EnforcementOfficialBadgeIdentification" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:EnforcementOfficialUnit" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:BookingTelephoneCallType">
+          
+        <w:ElementInType w:name="j40:BookingTelephoneCallSupervisingOfficial" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:BookingTelephoneCallDate" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:CourtType">
+          
+          <w:ElementInType w:name="j40:CourtDivisionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j40:ArrestType">
+          
+        <w:ElementInType w:name="j40:Booking" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ArrestOfficial" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ArrestAgency" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ArrestWarrant" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ArrestLocation" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:ArrestCharge" w:minOccurs="1" w:maxOccurs="unbounded" w:isReference="false"/>
+<w:ElementInType w:name="j40:ArrestSubject" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:EnforcementUnitType">
+          
+          <w:ElementInType w:name="j40:EnforcementUnitName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="j40:EnforcementUnitSectionIdentification" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:IncidentAugmentationType">
+          
+        <w:ElementInType w:name="j40:IncidentReportingOfficial" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="j40:IncidentAssistingOfficial" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:ActivityCourtAssociationType">
+          
+        <w:ElementInType w:name="j40:Court" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:ViolatedStatuteAssociationType">
+          
+        <w:ElementInType w:name="j40:Statute" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:ActivityCaseAssociationType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j40:WarrantType">
+          
+        <w:ElementInType w:name="j40:WarrantAppearanceBail" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:CourtOrderType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j40:VictimType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j40:ActivityWitnessAssociationType">
+          
+        <w:ElementInType w:name="j40:Witness" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j40:SubjectType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j40:ChargeDispositionType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="niem-xsd_20:string">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="niem-xsd_20:boolean">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="niem-xsd_20:decimal">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="niem-xsd_20:date">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="niem-xsd_20:gYear">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="niem-xsd_20:dateTime">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="niem-xsd_20:base64Binary">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="fbi_20:HAICodeType"/>
+<w:Type w:isRequested="true" w:name="fbi_20:HAICodeSimpleType"/>
+</w:WantList>

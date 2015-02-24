@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" 
+	xmlns:qre="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" 
+	xmlns:tns="http://www.example.org/search-result-metadata" targetNamespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" schemaLocation="access-denial.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" schemaLocation="query-request-error-reporting.xsd"/>
+	<xsd:complexType name="QueryResultsMetadataType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="iad:InformationAccessDenial" minOccurs="0"/>
+					<xsd:element ref="qre:QueryRequestError" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="QueryResultsMetadata" type="qrm:QueryResultsMetadataType"/>
+</xsd:schema>

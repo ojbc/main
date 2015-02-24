@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:Q1="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:tns="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" version="1">
+ <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../Subset/niem/structures/2.0/structures.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="../Subset/niem/domains/jxdm/4.1/jxdm.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../Subset/niem/niem-core/2.0/niem-core.xsd"/>
+  <xsd:complexType abstract="false" mixed="false" name="AttorneyGeneralCaseType">
+    <xsd:annotation/>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="tns:AttorneyGeneralCaseIndicator"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="AttorneyGeneralCaseIndicator" nillable="false" type="niem-xsd:boolean">
+    <xsd:annotation>
+      <xsd:documentation>True if the case is handled by the attorney general, false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="AttorneyGeneralCaseDetails" nillable="false" type="tns:AttorneyGeneralCaseType">
+    <xsd:annotation/>
+  </xsd:element>
+  <xsd:annotation/>
+</xsd:schema>

@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?>
+
+<!--
+    Document: $Id: missing-person-lexs.xml 1934 2010-05-19 20:52:43Z jw7 $
+    Original : 11/19/2007
+    Updated :12/4/2008 - Updated for N-DEx 2.1 and to correct a business rule issue.
+					6/22/2009 - Updated person physical feature for IA RC 2 schemas.
+					7/1/2009 - Replaced marriage association with marital status code element.
+					5/14/2010 - Updated N-DEx version number in header to 2.1.1
+    LEXS version : 3.1.4
+	N-DEx version : 2.1.1
+    Description : This scenario represents a possible N-DEx Missing Person Report submission.  This scenario demonstrates the consolidation of report data as 
+			might be submitted by a RMS.  Submitted from the RMS, the scenario focuses on the primary activity of Missing Person Occurrence, but includes the ancillary 
+			activity of Service Call as related back to the CAD entry.  The scenario illustrates the possibility that ancillary activities may have concluded/been closed 
+			despite the primary activity being current/active.  This scenario demonstrates inclusion of property that is descriptive of a person in that they were wearing 
+			it at the time of activity.  The scenario further demonstrates attachment inclusion within a record.  
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexia.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+-->
+<lexspd:doPublish
+	    xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	    xmlns:em="http://niem.gov/niem/domains/emergencyManagement/2.0"
+	    xmlns:fips_10-4="http://niem.gov/niem/fips_10-4/1.0"
+	    xmlns:i="http://niem.gov/niem/appinfo/2.0"
+	    xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+		xmlns:im="http://niem.gov/niem/domains/immigration/2.0"
+		xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
+		xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+	    xmlns:lexscodes="http://usdoj.gov/leisp/lexs/codes/3.1"    
+	    xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+		xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" 
+	    xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+		xmlns:nonauth="http://niem.gov/niem/nonauthoritative-code/1.0"
+		xmlns:s="http://niem.gov/niem/structures/2.0"
+		xmlns:scr="http://niem.gov/niem/domains/screening/2.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://usdoj.gov/leisp/lexs/publishdiscover/3.1 ../xsd/lexs/publish-discover/3.1/publish-discover.xsd">
+	
+	<lexs:PublishMessageContainer>
+	
+		<lexs:PublishMessage>
+		
+			<lexs:PDMessageMetadata>
+				<lexs:LEXSVersion>3.1.4</lexs:LEXSVersion>
+				<lexs:MessageDateTime>2006-12-01T09:30:47.0Z</lexs:MessageDateTime>
+				<lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
+				<lexs:DataSensitivity>SBU</lexs:DataSensitivity>
+			</lexs:PDMessageMetadata>
+			
+			<lexs:DataSubmitterMetadata>
+				<lexs:SystemIdentifier>
+					<lexs:ORI>GA1234567</lexs:ORI>
+					<nc:OrganizationName>Georgia Bureau of Investigation</nc:OrganizationName>
+					<lexs:SystemID>GIBRS</lexs:SystemID>
+				</lexs:SystemIdentifier>
+				
+				<lexs:SystemContact>
+					<nc:PersonGivenName>James</nc:PersonGivenName>
+					<nc:PersonSurName>West</nc:PersonSurName>
+					<nc:ContactTelephoneNumber>
+						<nc:NANPTelephoneNumber>
+							<nc:TelephoneAreaCodeID>123</nc:TelephoneAreaCodeID>
+							<nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+							<nc:TelephoneLineID>1212</nc:TelephoneLineID>
+						</nc:NANPTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+				</lexs:SystemContact>
+			</lexs:DataSubmitterMetadata>
+			
+			<lexs:DataItemPackage>
+				<lexs:PackageMetadata>
+					<lexs:DataItemID>MISSPERS_00923482</lexs:DataItemID>
+					<lexs:DataItemContact>
+						<nc:PersonGivenName>Mary</nc:PersonGivenName>
+						<nc:PersonSurName>Smith</nc:PersonSurName>
+						<nc:ContactTelephoneNumber>
+							<nc:FullTelephoneNumber>
+								<nc:TelephoneNumberFullID>333-444-5555</nc:TelephoneNumberFullID>
+								<nc:TelephoneSuffixID>6</nc:TelephoneSuffixID>
+							</nc:FullTelephoneNumber>
+						</nc:ContactTelephoneNumber>
+					</lexs:DataItemContact>
+					<lexs:DataItemDate>1967-08-13</lexs:DataItemDate>
+					<!-- DataItemReferenceID may be the same as the DataItemID, or may be a more human-readable version of DataItemID -->
+					<lexs:DataItemReferenceID>21-509825-06</lexs:DataItemReferenceID>
+					<lexs:DataItemPublishInstruction>Insert</lexs:DataItemPublishInstruction>
+					<lexs:DataItemStatus>Open</lexs:DataItemStatus>
+					<lexs:DataOwnerMetadata>
+						<lexs:DataOwnerIdentifier>
+							<lexs:ORI>GA1234567</lexs:ORI>
+							<nc:OrganizationName>Georgia Bureau of Investigation</nc:OrganizationName>
+							<lexs:SystemID>GIBRS</lexs:SystemID>
+						</lexs:DataOwnerIdentifier>
+						<lexs:DataOwnerContact>
+							<nc:PersonGivenName>James</nc:PersonGivenName>
+							<nc:PersonSurName>West</nc:PersonSurName>
+							<nc:ContactTelephoneNumber>
+								<nc:FullTelephoneNumber>
+									<nc:TelephoneNumberFullID>123-555-1212</nc:TelephoneNumberFullID>
+								</nc:FullTelephoneNumber>
+							</nc:ContactTelephoneNumber>
+						</lexs:DataOwnerContact>
+					</lexs:DataOwnerMetadata>
+					<lexs:DisseminationCriteriaValue>
+						<lexs:DisseminationCriteriaDomainText>N-DEx</lexs:DisseminationCriteriaDomainText>
+						<lexs:DisseminationCriteriaText>Green</lexs:DisseminationCriteriaText>
+					</lexs:DisseminationCriteriaValue>
+					<lexs:DataItemCategory>
+						<lexs:DataItemCategoryText>Missing Person Report</lexs:DataItemCategoryText>
+					</lexs:DataItemCategory>
+				</lexs:PackageMetadata>
+				
+				<lexs:Digest>
+				
+					<!--=======================  Activity - Missing Person Occurrence  =======================-->
+					<lexsdigest:EntityActivity>
+						<lexsdigest:Metadata s:id="MMissingPersonOccurrenceDeclarationNarrative1">
+							<nc:ReportedDate>
+								<nc:Date>2006-12-01</nc:Date>
+							</nc:ReportedDate>
+						</lexsdigest:Metadata>
+						
+						<nc:Activity s:id="MissingPersonOccurrence1">
+							<nc:ActivityIdentification>
+								<nc:IdentificationID>21-509825-06</nc:IdentificationID>
+							</nc:ActivityIdentification>
+							<nc:ActivityCategoryText>Missing Person Occurrence</nc:ActivityCategoryText>
+							<nc:ActivityDescriptionText s:metadata="MMissingPersonOccurrenceDeclarationNarrative1">According to Ms. Wilson, her father and her are very close, talking and visiting each other regularly.  She has not seen or heard from her father in three days and is concerned that something may have happened.  She indicated that her father has no friends or relatives with which he might be visiting.  She noticed that her father's car is missing from the garage, which was said to also be unusual since he does not take the car out in the rain and it has been raining for the last 5-7 days.  She describes her father as a "home body with expensive tastes."</nc:ActivityDescriptionText>
+						</nc:Activity>
+					</lexsdigest:EntityActivity>
+					
+					<!--=======================  Activity Service Call  =======================-->
+					<lexsdigest:EntityActivity>
+						<nc:Activity s:id="ServiceCall1">
+						<nc:ActivityIdentification>
+								<nc:IdentificationID>509825-05</nc:IdentificationID>
+							</nc:ActivityIdentification>
+							<nc:ActivityCategoryText>Service Call</nc:ActivityCategoryText>
+							<nc:ActivityDate>
+								<nc:Date>2006-12-01</nc:Date>
+							</nc:ActivityDate>
+							<nc:ActivityDescriptionText>Caller believes father is missing.  Has not seen or heard from him for 3 days.  States this is very unusual and requests an officer drive by to check things out.</nc:ActivityDescriptionText>
+						</nc:Activity>
+					</lexsdigest:EntityActivity>
+					
+					<!--=======================  Person 1 - Missing Person  =======================-->
+					<lexsdigest:EntityPerson s:id="EPerson1">
+						<lexsdigest:Metadata s:id="MPerson1">
+							<nc:SourceIDText>Person_0055324</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<lexsdigest:Metadata s:id="MMissingPerson1">
+							<nc:SourceIDText>MissingPerson_0012334555</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<lexsdigest:Person s:id="Person1" s:metadata="MPerson1">
+							<nc:PersonAgeMeasure>
+								<nc:MeasurePointValue>75</nc:MeasurePointValue>
+								<nc:TimeUnitCode>ANN</nc:TimeUnitCode>
+							</nc:PersonAgeMeasure>
+							<nc:PersonBirthDate>
+								<nc:Date>1931-12-01</nc:Date>
+							</nc:PersonBirthDate>
+							<!-- Use this type for abstract element 'nc:PersonCitizenship' -->
+							<nc:PersonCitizenshipFIPS10-4Code>US</nc:PersonCitizenshipFIPS10-4Code>
+							<nc:PersonEyeColorCode>BLK</nc:PersonEyeColorCode>
+							<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
+							<nc:PersonHeightMeasure>
+								<nc:MeasureRangeValue>
+									<nc:RangeMinimumValue>72</nc:RangeMinimumValue>
+									<nc:RangeMaximumValue>83</nc:RangeMaximumValue>
+								</nc:MeasureRangeValue>
+								<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+							</nc:PersonHeightMeasure>
+							<nc:PersonName>
+								<nc:PersonGivenName>Rosco</nc:PersonGivenName>
+								<nc:PersonSurName>Wilson</nc:PersonSurName>
+							</nc:PersonName>
+							<nc:PersonRaceCode>U</nc:PersonRaceCode>
+							<nc:PersonSexCode>M</nc:PersonSexCode>
+							<nc:PersonWeightMeasure>
+								<nc:MeasureRangeValue>
+									<nc:RangeMinimumValue>230</nc:RangeMinimumValue>
+									<nc:RangeMaximumValue>260</nc:RangeMaximumValue>
+								</nc:MeasureRangeValue>
+								<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+							</nc:PersonWeightMeasure>
+						</lexsdigest:Person>
+						
+						<j:MissingPerson s:id="MissingPerson1" s:metadata="MMissingPerson1">
+							<nc:RoleOfPersonReference s:ref="Person1"/>
+							<j:MissingPersonCircumstanceText>Unknown</j:MissingPersonCircumstanceText>
+							<j:MissingPersonDeclarationDate>
+								<nc:Date>2006-12-01</nc:Date>
+							</j:MissingPersonDeclarationDate>
+							<j:MissingPersonLastSeenDate>
+								<nc:Date>2006-11-27</nc:Date>
+							</j:MissingPersonLastSeenDate>
+						</j:MissingPerson>
+						
+					</lexsdigest:EntityPerson>
+					
+					<!--=======================  Person 2 - Service Call Caller / Declaration Person / Last Seen Witness  =======================-->
+					<lexsdigest:EntityPerson>
+						<lexsdigest:Metadata s:id="MPerson2">
+							<nc:SourceIDText>Person_0023485875</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<lexsdigest:Metadata s:id="MMissingPersonWitness1">
+							<nc:SourceIDText>MissingPerson_695236</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<lexsdigest:Person s:id="Person2" s:metadata="MPerson2">
+							<nc:PersonAgeMeasure>
+								<nc:MeasurePointValue>31</nc:MeasurePointValue>
+								<nc:TimeUnitCode>ANN</nc:TimeUnitCode>
+							</nc:PersonAgeMeasure>
+							<nc:PersonBirthDate>
+								<nc:Date>1975-11-18</nc:Date>
+							</nc:PersonBirthDate>
+							<!-- Use this type for abstract element 'nc:PersonCitizenship' -->
+							<nc:PersonCitizenshipFIPS10-4Code>US</nc:PersonCitizenshipFIPS10-4Code>
+							<nc:PersonName>
+								<nc:PersonGivenName>Trudy</nc:PersonGivenName>
+								<nc:PersonSurName>Wilson</nc:PersonSurName>
+							</nc:PersonName>
+						</lexsdigest:Person>
+						
+						<j:MissingPersonLastSeenWitness s:id="MissingPersonWitness1" s:metadata="MMissingPersonWitness1">
+							<nc:RoleOfPersonReference s:ref="Person2"/>
+						</j:MissingPersonLastSeenWitness>
+					</lexsdigest:EntityPerson>
+					
+					<!--=======================  Person 3 - Operator / Dispatcher  =======================-->
+					<lexsdigest:EntityPerson>
+						<lexsdigest:Metadata s:id="MPerson3">
+							<nc:SourceIDText>Person_234234566</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<lexsdigest:Person s:id="Person3" s:metadata="MPerson3">
+							<nc:PersonName>
+								<nc:PersonSurName>Grey</nc:PersonSurName>
+							</nc:PersonName>
+						</lexsdigest:Person>
+					</lexsdigest:EntityPerson>
+					
+					<!--=======================  Person 4 - Officer  =======================-->
+					<lexsdigest:EntityPerson>
+						<lexsdigest:Metadata s:id="MPerson4">
+							<nc:SourceIDText>Person_4564567800005</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<lexsdigest:Metadata s:id="MOfficer1">
+							<nc:SourceIDText>Officer_4564564</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<lexsdigest:Person s:id="Person4" s:metadata="MPerson4">
+							<nc:PersonName>
+								<nc:PersonSurName>Peoples</nc:PersonSurName>
+							</nc:PersonName>
+						</lexsdigest:Person>
+						
+						<j:ServiceCallDispatchedOfficial s:id="Officer1" s:metadata="MOfficer1">
+							<nc:RoleOfPersonReference s:ref="Person4"/>
+							<j:EnforcementOfficialBadgeIdentification>
+								<nc:IdentificationID>372</nc:IdentificationID>
+							</j:EnforcementOfficialBadgeIdentification>
+						</j:ServiceCallDispatchedOfficial>
+					</lexsdigest:EntityPerson>
+                    
+					<!--=======================  Enforcement Unit  =======================-->
+					<lexsdigest:EntityOrganization>
+						<lexsdigest:Metadata s:id="MUnit1">
+							<nc:SourceIDText>Unit_203</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<nc:Organization s:id="Unit1" s:metadata="MUnit1">
+							<nc:OrganizationCategoryText>Criminal Justice</nc:OrganizationCategoryText>
+							<nc:OrganizationName>Texas State Police</nc:OrganizationName>
+						</nc:Organization>
+					</lexsdigest:EntityOrganization>
+					
+					<!--=======================  Involved Property (Vehicle)  =======================-->
+					<lexsdigest:EntityVehicle>
+						<lexsdigest:Metadata s:id="MVehicle1">
+							<nc:SourceIDText>Conveyance_1234556</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<nc:Vehicle s:id="Vehicle1" s:metadata="MVehicle1">
+							<nc:ItemDescriptionText>Has bumper sticker on trunk lid that reads, "Drive it like you stole it!"</nc:ItemDescriptionText>
+							<nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
+							<nc:ItemModelYearDate>1951</nc:ItemModelYearDate>
+							<nc:VehicleStyleCode>2T</nc:VehicleStyleCode>
+							<nc:ConveyanceEngineQuantity>1</nc:ConveyanceEngineQuantity>
+							<nc:ConveyanceRegistrationPlateIdentification>
+								<nc:IdentificationID>LVNLRG1</nc:IdentificationID>
+								<j:IdentificationJurisdictionNCICLISCode>TX</j:IdentificationJurisdictionNCICLISCode>
+							</nc:ConveyanceRegistrationPlateIdentification>
+							<nc:VehicleIdentification>
+								<nc:IdentificationID>AB0046T99J1245786</nc:IdentificationID>
+							</nc:VehicleIdentification>
+							<nc:VehicleMakeCode>PACK</nc:VehicleMakeCode>
+						</nc:Vehicle>
+					</lexsdigest:EntityVehicle>
+					
+					<!--=======================  Location 1 - Missing Person Residence / Dispatch Location  =======================-->
+					<lexsdigest:EntityLocation>
+						<lexsdigest:Metadata s:id="MLocation1">
+							<nc:SourceIDText>Location_234234551</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<nc:Location s:id="Location1" s:metadata="MLocation1">
+							<nc:LocationAddress>
+								<nc:StructuredAddress>
+									<nc:LocationStreet>
+										<nc:StreetNumberText>1313</nc:StreetNumberText>
+										<nc:StreetName>Mockingbird</nc:StreetName>
+										<nc:StreetCategoryText>Lane</nc:StreetCategoryText>
+									</nc:LocationStreet>
+									<nc:LocationCityName>Mortuary</nc:LocationCityName>
+									<nc:LocationStateName>Texas</nc:LocationStateName>
+									<nc:LocationCountryName>United States</nc:LocationCountryName>
+									<nc:LocationPostalCode>13013</nc:LocationPostalCode>
+								</nc:StructuredAddress>
+							</nc:LocationAddress>
+						</nc:Location>
+					</lexsdigest:EntityLocation>
+					
+					<!--=======================  Location 2 - Caller's Location / Caller's Home  =======================-->
+					<lexsdigest:EntityLocation>
+						<lexsdigest:Metadata s:id="MLocation2">
+							<nc:SourceIDText>Location_234234552</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<nc:Location s:id="Location2" s:metadata="MLocation2">
+							<nc:LocationAddress>
+								<nc:StructuredAddress>
+									<nc:LocationStreet>
+										<nc:StreetNumberText>8429</nc:StreetNumberText>
+										<nc:StreetName>Mountain</nc:StreetName>
+										<nc:StreetCategoryText>Road</nc:StreetCategoryText>
+									</nc:LocationStreet>
+									<nc:LocationCityName>Mortuary</nc:LocationCityName>
+									<nc:LocationStateName>Texas</nc:LocationStateName>
+									<nc:LocationCountryName>United States</nc:LocationCountryName>
+									<nc:LocationPostalCode>13013</nc:LocationPostalCode>
+								</nc:StructuredAddress>
+							</nc:LocationAddress>
+						</nc:Location>
+					</lexsdigest:EntityLocation>
+					
+					<!--=======================  Telephone Number 1 - Service Call Telephone Number  =======================-->
+					<lexsdigest:EntityTelephoneNumber>
+						<lexsdigest:Metadata s:id="MTelephone1">
+							<nc:SourceIDText>ContactInformation_Telephone_00234</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<lexsdigest:TelephoneNumber s:id="Telephone1" s:metadata="MTelephone1">
+							<nc:NANPTelephoneNumber>
+								<nc:TelephoneAreaCodeID>309</nc:TelephoneAreaCodeID>
+								<nc:TelephoneExchangeID>684</nc:TelephoneExchangeID>
+								<nc:TelephoneLineID>1333</nc:TelephoneLineID>
+							</nc:NANPTelephoneNumber>
+						</lexsdigest:TelephoneNumber>
+					</lexsdigest:EntityTelephoneNumber>
+					
+					<!--=======================  Telephone Number 2 - Missing Person Telephone Number  =======================-->
+					<lexsdigest:EntityTelephoneNumber>
+						<lexsdigest:Metadata s:id="MTelephone2">
+							<nc:SourceIDText>ContactInformation_Telephone_12312355</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<lexsdigest:TelephoneNumber s:id="Telephone2" s:metadata="MTelephone2">
+							<nc:NANPTelephoneNumber>
+								<nc:TelephoneAreaCodeID>309</nc:TelephoneAreaCodeID>
+								<nc:TelephoneExchangeID>684</nc:TelephoneExchangeID>
+								<nc:TelephoneLineID>2489</nc:TelephoneLineID>
+							</nc:NANPTelephoneNumber>
+						</lexsdigest:TelephoneNumber>
+					</lexsdigest:EntityTelephoneNumber>
+					
+					<!--=======================  Associations  =======================-->
+					<lexsdigest:Associations>
+						
+						<!--    Service Call Dispatched Officer Association    -->
+						<j:ActivityEnforcementOfficialAssociation>
+							<nc:ActivityReference s:ref="ServiceCall1"/>
+							<nc:PersonReference s:ref="Person4"/>
+						</j:ActivityEnforcementOfficialAssociation>
+						
+						<!--    Declaration Person Association   -->
+						<lexsdigest:DeclarationPersonAssociation>
+							<lexsdigest:DeclarationPersonReference s:ref="Person2"/>
+							<lexsdigest:MissingPersonReference s:ref="Person1"/>
+						</lexsdigest:DeclarationPersonAssociation>
+
+						<!--    Person to Image Association     -->
+						<lexsdigest:EntityPersonImageAssociation>
+							<lexsdigest:EntityReference s:ref="EPerson1"/>
+							<lexsdigest:AttachmentLinkReference s:ref="PAttachment1"/>
+						</lexsdigest:EntityPersonImageAssociation>
+						
+						<!--    Person Telephone Number Association (Links the missing person to his home telephone number)    -->
+						<lexsdigest:EntityTelephoneNumberAssociation>
+							<nc:PersonReference s:ref="Person1"/>
+							<lexsdigest:TelephoneNumberReference s:ref="Telephone2"/>
+							<lexsdigest:TelephoneNumberHomeIndicator>true</lexsdigest:TelephoneNumberHomeIndicator>
+						</lexsdigest:EntityTelephoneNumberAssociation>
+						
+						<!--    Person Telephone Number Association (Links the daughter to her home telephone number)    -->
+						<lexsdigest:EntityTelephoneNumberAssociation>
+							<nc:PersonReference s:ref="Person2"/>
+							<lexsdigest:TelephoneNumberReference s:ref="Telephone1"/>
+							<lexsdigest:TelephoneNumberHomeIndicator>true</lexsdigest:TelephoneNumberHomeIndicator>
+						</lexsdigest:EntityTelephoneNumberAssociation>
+						
+						<!-- Vehicle to Missing Person Occurrence Association -->
+						<lexsdigest:IncidentInvolvedItemAssociation>
+							<nc:ActivityReference s:ref="MissingPersonOccurrence1"/>
+							<nc:ItemReference s:ref="Vehicle1"/>
+						</lexsdigest:IncidentInvolvedItemAssociation>
+						
+						<!--   Reporting Officer Association   -->
+						<lexsdigest:IncidentReportingOfficialAssociation>
+							<nc:ActivityReference s:ref="MissingPersonOccurrence1"/>
+							<nc:PersonReference s:ref="Person4"/>
+						</lexsdigest:IncidentReportingOfficialAssociation>
+						
+						<!-- Missing Person Occurrence to Service Call Association -->
+						<lexsdigest:IncidentServiceCallAssociation>
+							<nc:ActivityReference s:ref="ServiceCall1"/>
+							<nc:ActivityReference s:ref="MissingPersonOccurrence1"/>
+						</lexsdigest:IncidentServiceCallAssociation>
+						
+						<!-- Person Last Seen Witness Association -->
+						<lexsdigest:PersonLastSeenWitnessAssociation>
+							<lexsdigest:MissingPersonReference s:ref="Person1"/>
+							<lexsdigest:WitnessPersonReference s:ref="Person2"/>
+						</lexsdigest:PersonLastSeenWitnessAssociation>
+						
+						<!--     Service Call Caller Association    -->
+						<lexsdigest:ServiceCallCallerAssociation>
+							<nc:ActivityReference s:ref="ServiceCall1"/>
+							<nc:PersonReference s:ref="Person2"/>
+						</lexsdigest:ServiceCallCallerAssociation>
+					
+						<!--     Service Call Dispatcher Association    -->
+						<lexsdigest:ServiceCallDispatcherAssociation>
+							<nc:ActivityReference s:ref="ServiceCall1"/>
+							<nc:PersonReference s:ref="Person3"/>
+						</lexsdigest:ServiceCallDispatcherAssociation>
+						
+						<!-- Service Call Dispatch Location Association 1 (Missing Person Residence) -->
+						<lexsdigest:ServiceCallDispatchLocationAssociation>
+							<nc:ActivityReference s:ref="ServiceCall1"/>
+							<nc:LocationReference s:ref="Location1"/>
+						</lexsdigest:ServiceCallDispatchLocationAssociation>
+						
+						<!--    Service Call Origination Location    -->
+						<lexsdigest:ServiceCallLocationAssociation>
+							<nc:ActivityReference s:ref="ServiceCall1"/>
+							<nc:LocationReference s:ref="Location2"/>
+						</lexsdigest:ServiceCallLocationAssociation>
+						
+						<!--     Service Call Operator Association    -->
+						<lexsdigest:ServiceCallOperatorAssociation>
+							<nc:ActivityReference s:ref="ServiceCall1"/>
+							<nc:PersonReference s:ref="Person3"/>
+						</lexsdigest:ServiceCallOperatorAssociation>
+						
+						<!--     Service Call Telephone Number Association    -->
+						<!-- This is where the call ORIGINATED from, i.e. the daughter's house -->
+						<lexsdigest:ServiceCallTelephoneNumberAssociation>
+							<nc:ActivityReference s:ref="ServiceCall1"/>
+							<lexsdigest:TelephoneNumberReference s:ref="Telephone1"/>
+						</lexsdigest:ServiceCallTelephoneNumberAssociation> 
+						
+						<!--     Missing Person Occurrence to Person Association -->
+						<nc:ActivityInvolvedPersonAssociation>
+							<nc:ActivityReference s:ref="MissingPersonOccurrence1"/>
+							<nc:PersonReference s:ref="Person1"/>
+						</nc:ActivityInvolvedPersonAssociation>
+						
+						<!-- Father/Daughter Relationship -->
+						<nc:ImmediateFamilyAssociation>
+							<nc:PersonParentReference s:ref="Person1"/>
+							<nc:PersonChildReference s:ref="Person2"/>
+						</nc:ImmediateFamilyAssociation>
+						
+						<!--    Enforcement Official's Unit Association    -->
+						<nc:PersonAssignedUnitAssociation>
+							<nc:PersonReference s:ref="Person4"/>
+							<nc:OrganizationReference s:ref="Unit1"/>
+						</nc:PersonAssignedUnitAssociation>
+						
+						<!--  Last Place the Missing Person was seen -->
+						<nc:PersonLastSeenLocationAssociation>
+							<nc:PersonReference s:ref="Person1"/>
+							<nc:LocationReference s:ref="Location1"/>
+						</nc:PersonLastSeenLocationAssociation>
+						
+						<!-- Person Vehicle Association (between the Missing Person and his vehicle) -->
+						<nc:PersonOwnsItemAssociation>
+							<nc:PersonReference s:ref="Person1"/>
+							<nc:ItemReference s:ref="Vehicle1"/>
+						</nc:PersonOwnsItemAssociation>
+					
+						<!-- Missing Person Residence association. -->
+						<nc:ResidenceAssociation>
+							<nc:PersonReference s:ref="Person1"/>
+							<nc:LocationReference s:ref="Location1"/>
+						</nc:ResidenceAssociation>
+						
+						<!-- Daughter to residence association. -->
+						<nc:ResidenceAssociation>
+							<nc:PersonReference s:ref="Person2"/>
+							<nc:LocationReference s:ref="Location2"/>
+						</nc:ResidenceAssociation>
+						
+					</lexsdigest:Associations>
+					
+				</lexs:Digest>
+				
+				<!--======================= N-DEx Data ======================-->
+				<lexs:StructuredPayload>
+					<lexs:StructuredPayloadMetadata>
+						<lexs:CommunityURI>http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1</lexs:CommunityURI>
+						<lexs:CommunityDescription>N-DEx IncidentArrest</lexs:CommunityDescription>
+						<lexs:CommunityVersion>2.1</lexs:CommunityVersion>
+					</lexs:StructuredPayloadMetadata>
+					
+                    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="missing-person-ndex.xml" />
+					
+				</lexs:StructuredPayload>
+				
+				<!--====================  Attachment Link for picture of missing person  ====================-->
+				<lexs:AttachmentLink s:id="PAttachment1">
+					<lexs:AttachmentURI>http://www.gbi.gov/sketch20050211.jpg</lexs:AttachmentURI>
+					<lexs:AttachmentViewableIndicator>true</lexs:AttachmentViewableIndicator>
+					<nc:BinaryDescriptionText>Photo of missing person (image is of Herman Munster)</nc:BinaryDescriptionText>
+				</lexs:AttachmentLink>
+				
+			</lexs:DataItemPackage>
+			
+			<!--=======================  Attachment for picture of missing person  =======================-->
+			<lexs:Attachment>
+				<lexs:AttachmentURI>http://www.gbi.gov/sketch20050211.jpg</lexs:AttachmentURI>
+				<nc:Binary>
+					<!-- Binary Object is a B/W JPEG of Herman Munster, which is also used in other examples   -->
+					<nc:BinaryBase64Object>					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
+					</nc:BinaryBase64Object>
+					<nc:BinaryCaptureDate><nc:Date>1967-05-08</nc:Date></nc:BinaryCaptureDate>
+					<nc:BinaryCategoryText>Home Photograph</nc:BinaryCategoryText>
+				</nc:Binary>
+			</lexs:Attachment>
+			
+		</lexs:PublishMessage>
+	</lexs:PublishMessageContainer>
+</lexspd:doPublish>

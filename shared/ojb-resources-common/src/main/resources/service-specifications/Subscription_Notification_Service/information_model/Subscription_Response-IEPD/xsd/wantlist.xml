@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w:WantList w:release="2.1-with-domain-updates" w:product="NIEM"
+  w:nillableDefault="true"
+  xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+  xmlns:w="http://niem.gov/niem/wantlist/2.2"
+  xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0">
+  <w:Element w:name="intel:SystemName" w:isReference="false" w:nillable="false"/>
+  <w:Type w:name="nc:EmailType" w:isRequested="false">
+    <w:ElementInType w:name="nc:EmailRecipientAddressID"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:TextType" w:isRequested="true"/>
+  <w:Type w:name="niem-xsd:boolean" w:isRequested="true"/>
+</w:WantList>

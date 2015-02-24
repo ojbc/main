@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<cat:Catalog xmlns:cat="http://reference.niem.gov/niem/resource/mpd/catalog/1.0/" cat:descriptionText="This is the information model for the OJBC Notification Service" cat:mpdClassCode="iepd" cat:mpdName="MPD" cat:mpdURI="http://example/MPD" cat:mpdVersionID="1.0">
+  <cat:FileSet cat:files="fs_1_1 fs_1_2" cat:id="fs_1" cat:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/nature#file-set" cat:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/purpose#extension-schema-set">
+    <cat:File cat:id="fs_1_1" cat:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/nature#niem-extension-schema" cat:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/purpose#set-member" cat:relativePathName="xsd/notificationExtension.xsd"/>
+    <cat:File cat:id="fs_1_2" cat:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/nature#niem-extension-schema" cat:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/purpose#set-member" cat:relativePathName="xsd/State_Extensions/HawaiiExtensions.xsd"/>
+  </cat:FileSet>
+  <cat:FileSet cat:files="fs_2_1" cat:id="fs_2" cat:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/nature#file-set" cat:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/purpose#exchange-schema-set">
+    <cat:File cat:id="fs_2_1" cat:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/nature#niem-exchange-schema" cat:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/purpose#set-member" cat:relativePathName="xsd/notificationExchange.xsd"/>
+  </cat:FileSet>
+  <cat:FileSet cat:files="fs_3_1 fs_3_2" cat:id="fs_3" cat:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/nature#file-set" cat:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/purpose#subset-schema-set">
+    <cat:File cat:id="fs_3_1" cat:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/nature#niem-subset-schema" cat:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/purpose#set-member" cat:relativePathName="xsd/notificationNIEMCoreSubset.xsd"/>
+    <cat:File cat:id="fs_3_2" cat:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/nature#niem-subset-schema" cat:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/purpose#set-member" cat:relativePathName="xsd/notificationJxdmSubset.xsd"/>
+  </cat:FileSet>
+  <cat:File cat:id="sample1" cat:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/nature#xml" cat:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/purpose#sample-instance" cat:relativePathName="./xml/NotificationMessage_Sample.xml"/>
+  <cat:File cat:id="changelog1" cat:natureURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/nature#text" cat:purposeURI="http://reference.niem.gov/niem/resource/mpd/lexicon/1.1/purpose#changelog" cat:relativePathName="./changelog.txt"/>
+  <cat:Metadata>
+    <cat:SecurityMarkingText>Unclassified</cat:SecurityMarkingText>
+    <cat:CreationDate>2013-09-06-04:00</cat:CreationDate>
+    <cat:StatusText>Prototype</cat:StatusText>
+    <cat:KeywordText>Notification, Subscription/Notification, OJBC</cat:KeywordText>
+    <cat:DomainText>OJBC</cat:DomainText>
+    <cat:ExchangePartnerName>notification Agency</cat:ExchangePartnerName>
+    <cat:AuthoritativeSource>
+      <cat:ASName>OJBC</cat:ASName>
+      <cat:ASWebSiteURL>ojbc.org</cat:ASWebSiteURL>
+      <cat:POC>
+        <cat:POCName>Andrew Owen</cat:POCName>
+        <cat:POCEmail>andrew@search.org</cat:POCEmail>
+        <cat:POCTelephone>916-215-3933</cat:POCTelephone>
+      </cat:POC>
+    </cat:AuthoritativeSource>
+  </cat:Metadata>
+</cat:Catalog>

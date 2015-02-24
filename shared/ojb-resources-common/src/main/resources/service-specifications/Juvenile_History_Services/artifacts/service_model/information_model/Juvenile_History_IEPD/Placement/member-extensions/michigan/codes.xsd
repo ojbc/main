@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/michigan/codes/1.0" xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/michigan/codes/1.0">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../../../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../../../Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../../Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" schemaLocation="../../../JuvenileHistoryCommonExtension.xsd"/>
+	<xsd:annotation>
+		<xsd:appinfo>
+			<appinfo:ConformantIndicator>true</appinfo:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:simpleType name="FacilitySecurityCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the security of the facility.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Secure">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Non-secure">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="FacilitySecurityCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the security of the facility.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="codes:FacilitySecurityCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="PlacementCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of juvenile placement.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Juvenile Detention Facility">
+				<xsd:annotation>
+					<xsd:documentation>The placement of a juvenile in a licensed juvenile detention facility..</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Foster Home">
+				<xsd:annotation>
+					<xsd:documentation>The placement of juvenile in a twenty four hour a day substitute care away from their parents, guardians, or legal custodians, and for whom (in NA cases) the court has given the Department of Human Services placement and care responsibility, including, but not limited to care provided to a child in a foster family home, foster family group home, or child caring institution licensed or approved under MCL 722.111 et seq., or care provided to a child in a relative's home pursuant to an order of the court.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Group Home">
+				<xsd:annotation>
+					<xsd:documentation>A licensed home for the temporary board and care of abused, neglected, or delinquent children.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Residential">
+				<xsd:annotation>
+					<xsd:documentation>Out of home, staffed facility in which a juvenile will live for a period of time (typically 6 to 18 months).  Courts generally will employ this option only when all community-based choices have been exhausted or when the safety of the community/juvenile is in jeopardy.  Common services available in placement facilities include treatment for sexual offending, drug/alcohol addiction, fire setting behavior, aggression/violent behavior, and complex mental health disorders.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Mother">
+				<xsd:annotation>
+					<xsd:documentation>Custodial or non-custodial parent.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Father">
+				<xsd:annotation>
+					<xsd:documentation>Custodial or non-custodial parent.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Stepfather">
+				<xsd:annotation>
+					<xsd:documentation>Custodial or non-custodial parent.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Stepmother">
+				<xsd:annotation>
+					<xsd:documentation>Custodial or non-custodial parent.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Relative/Fictive Kin">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Jail">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PlacementCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of juvenile placement.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="codes:PlacementCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="FacilitySecurityCode" type="codes:FacilitySecurityCategoryCodeType" substitutionGroup="nc:FacilityCategory">
+		<xsd:annotation>
+			<xsd:documentation>The security of the facility.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PlacementCategoryCode" type="codes:PlacementCategoryCodeType" substitutionGroup="cyfs:PlacementCategory">
+		<xsd:annotation>
+			<xsd:documentation>A type of juvenile placement.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

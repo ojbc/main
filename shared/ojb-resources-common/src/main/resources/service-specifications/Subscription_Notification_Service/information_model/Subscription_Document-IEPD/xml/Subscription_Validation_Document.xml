@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:SubscriptionValidationMessage 
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+	xmlns:sv="http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0"
+	xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0 ../xsd/Subscription_Validation_Document.xsd">
+	<smext:SubscriptionIdentification>
+		<nc20:IdentificationID>1234567</nc20:IdentificationID>
+	</smext:SubscriptionIdentification>
+</sv:SubscriptionValidationMessage>

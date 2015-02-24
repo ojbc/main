@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+	elementFormDefault="qualified"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+		schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1"
+		schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
+
+	<xsd:complexType name="IncidentSearchRequestType">
+		<!-- TODO: Need to add Nature element -->
+		<xsd:annotation>
+			<xsd:documentation>A data type for a set of details that can be used
+				to search for an incident.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:Incident" />
+					<xsd:element ref="nc:Location" minOccurs="0" />
+					<xsd:element ref="j:ActivityLocationAssociation"
+						minOccurs="0" />
+					<xsd:element ref="ext:SourceSystemNameText" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="ext:SearchMetadata" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SearchMetadata" type="ext:SearchMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>Information that further qualifies the search.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchQualifierCode" type="ext:SearchQualifierCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Details about how to interpret the content of an element for the purpose of searching.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SearchMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for information that further qualifies the search.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:MetadataType">
+				<xsd:choice>
+					<xsd:element ref="ext:SearchQualifierCode" minOccurs="0"/>
+					<xsd:sequence>
+						<xsd:element ref="ext:SearchRequestOnBehalfOfText" minOccurs="0"/>
+						<xsd:element ref="ext:SearchPurposeText" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SearchPurposeText">
+		<xsd:annotation>
+			<xsd:documentation>The reason for executing the search.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchRequestOnBehalfOfText">
+		<xsd:annotation>
+			<xsd:documentation>An explanation of who the search is being submitted for in the case where a user is acting for someone else in submitting a search request.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SearchQualifierCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="ext:SearchQualifierCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SearchQualifierCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="startsWith">
+				<xsd:annotation>
+					<xsd:documentation>Return search results that start with this criteria</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="exact">
+				<xsd:annotation>
+					<xsd:documentation>Return search results that match exactly this criteria</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="LocationCityTown" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A generic/abstract element for a city or town.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="StructuredAddress" type="ext:StructuredAddressType" substitutionGroup="nc:AddressRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A geophysical location.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="StructuredAddressType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a geophysical location.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:StructuredAddressType">
+				<xsd:sequence>
+					<xsd:element ref="ext:LocationCityTown" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="IncidentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an occurrence or an event that may require a response.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:IncidentType">
+				<xsd:sequence>
+					<xsd:element ref="ext:IncidentCategoryCode" minOccurs="0"/>
+					<xsd:element ref="ext:IncidentNatureText" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="Incident" type="ext:IncidentType">
+		<xsd:annotation>
+			<xsd:documentation>An occurrence or an event that may require a response.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that is to be queried. Absence of this element indicates that all known systems shall be queried.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IncidentCategoryCode" type="ext:IncidentCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>The kind of incident.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IncidentCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type to specify the kind of incident.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="ext:IncidentCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="IncidentCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type to specify the kind of incident.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Law">
+				<xsd:annotation>
+					<xsd:documentation>Law Incident</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Traffic">
+				<xsd:annotation>
+					<xsd:documentation>Traffic Incident</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Citation">
+				<xsd:annotation>
+					<xsd:documentation>Citation</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Field_Interview">
+				<xsd:annotation>
+					<xsd:documentation>Field Interview</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="IncidentNatureText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the nature of an incident.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

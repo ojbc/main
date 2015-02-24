@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:ParoleCaseTermination 
+	xmlns:Q2="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0" 
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:p="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0 ../xsd/Parole_Case_Termination.xsd ">
+  <Q2:ParoleCase>
+    <Q2:ParoleeIdentity>
+      <nc:IdentityPersonRepresentation>
+        <nc:PersonName/>
+      </nc:IdentityPersonRepresentation>
+    </Q2:ParoleeIdentity>
+    <Q2:ParoleHearing>
+      <nc:ActivityDate>
+        <nc:Date>2001-01-01</nc:Date>
+      </nc:ActivityDate>
+      <nc:ActivityDescriptionText>nc:ActivityDescriptionText</nc:ActivityDescriptionText>
+    </Q2:ParoleHearing>
+    <j:Supervision>
+      <nc:SupervisionPerson>
+        <nc:PersonName/>
+      </nc:SupervisionPerson>
+      <nc:SupervisionSupervisor>
+        <nc:EntityOrganization>
+          <nc:OrganizationName>nc:OrganizationName</nc:OrganizationName>
+        </nc:EntityOrganization>
+      </nc:SupervisionSupervisor>
+    </j:Supervision>
+    <nc:PersonAliasIdentityAssociation>
+      <nc:PersonReference/>
+      <nc:IdentityReference/>
+    </nc:PersonAliasIdentityAssociation>
+    <nc:ContactInformation>
+      <nc:ContactEmailID>nc:ContactEmailID</nc:ContactEmailID>
+    </nc:ContactInformation>
+    <nc:PersonContactInformationAssociation>
+      <nc:PersonReference/>
+      <nc:ContactInformationReference/>
+    </nc:PersonContactInformationAssociation>
+  </Q2:ParoleCase>
+  <Q2:SystemName>Q2:SystemName</Q2:SystemName>
+</p:ParoleCaseTermination>

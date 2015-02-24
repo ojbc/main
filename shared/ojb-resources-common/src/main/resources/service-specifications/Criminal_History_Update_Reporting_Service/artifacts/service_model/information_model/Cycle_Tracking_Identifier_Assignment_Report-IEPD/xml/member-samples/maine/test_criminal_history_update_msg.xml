@@ -1,0 +1,121 @@
+<exc:CycleTrackingIdentifierAssignmentReport
+	xmlns:exc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	xmlns:s="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0 ../../../xsd/exchange-schema.xsd">
+	<ext:CycleTrackingIdentifierAssignment>
+		<ext:CycleTrackingIdentification>
+			<nc:IdentificationID>000005B</nc:IdentificationID>
+		</ext:CycleTrackingIdentification>
+		<j:OriginatorOrganization s:ref="ORG_ME0101800"/>
+		<nc:Case>
+			<j:ActivityAugmentation>
+				<j:CaseNumberText>ME01-67660</j:CaseNumberText>
+			</j:ActivityAugmentation>
+		</nc:Case>
+		<j:Charge s:id="CHRG_001">
+			<j:ChargeDescriptionText>ASSAULT</j:ChargeDescriptionText>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>628</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteText>17-A MRSA SUBSECTION 207(1)</j:StatuteText>
+			</j:ChargeStatute>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>001</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+		</j:Charge>
+		<j:Charge s:id="CHRG_002">
+			<j:ChargeDescriptionText>REFUSING TO SUBMIT TO ARREST OR DETENTION</j:ChargeDescriptionText>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>7210</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteText>17-A MRSA SUBSECTION 751-A(1)(A)</j:StatuteText>
+			</j:ChargeStatute>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>002</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+		</j:Charge>
+		<j:Charge s:id="CHRG_003">
+			<j:ChargeDescriptionText>CRIMINAL TRESPASS</j:ChargeDescriptionText>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>692</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteText>17-A MRSA SUBSECTION 402(1)(D)</j:StatuteText>
+			</j:ChargeStatute>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>003</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+		</j:Charge>
+		<j:Charge s:id="CHRG_004">
+			<j:ChargeDescriptionText>DISORDERLY CONDUCT</j:ChargeDescriptionText>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>4457</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteText>17-A MRSA SUBSECTION 501(2)</j:StatuteText>
+			</j:ChargeStatute>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>004</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+		</j:Charge>
+		<j:Arrest>
+			<nc:ActivityDate>
+				<nc:Date>2001-11-18</nc:Date>
+			</nc:ActivityDate>
+		</j:Arrest>
+		<j:Offense s:id="OFF_2001-11-16">
+			<nc:ActivityDate>
+				<nc:Date>2001-11-16</nc:Date>
+			</nc:ActivityDate>
+		</j:Offense>
+		<j:Offense s:id="OFF_2001-11-18">
+			<nc:ActivityDate>
+				<nc:Date>2001-11-18</nc:Date>
+			</nc:ActivityDate>
+		</j:Offense>
+		<j:Subject>
+			<nc:RoleOfPerson s:ref="P001"></nc:RoleOfPerson>
+		</j:Subject>
+		<j:OffenseChargeAssociation>
+			<j:Offense s:ref="OFF_2001-11-18"></j:Offense>
+			<j:Charge s:ref="CHRG_001"></j:Charge>
+		</j:OffenseChargeAssociation>
+		<j:OffenseChargeAssociation>
+			<j:Offense s:ref="OFF_2001-11-18"></j:Offense>
+			<j:Charge s:ref="CHRG_002"></j:Charge>
+		</j:OffenseChargeAssociation>
+		<j:OffenseChargeAssociation>
+			<j:Offense s:ref="OFF_2001-11-16"></j:Offense>
+			<j:Charge s:ref="CHRG_003"></j:Charge>
+		</j:OffenseChargeAssociation>
+		<j:OffenseChargeAssociation>
+			<j:Offense s:ref="OFF_2001-11-18"></j:Offense>
+			<j:Charge s:ref="CHRG_004"></j:Charge>
+		</j:OffenseChargeAssociation>
+	</ext:CycleTrackingIdentifierAssignment>
+	<nc:Organization s:id="ORG_ME0101800">
+		<nc:OrganizationName>UNIVERSITY OF MAINE PD ORONO</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ME0101800</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:Organization>
+	<nc:Person s:id="P001">
+		<nc:PersonBirthDate>
+			<nc:Date>1969-11-17</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>JOE</nc:PersonGivenName>
+			<nc:PersonSurName>SMITH</nc:PersonSurName>
+		</nc:PersonName>
+	</nc:Person>
+</exc:CycleTrackingIdentifierAssignmentReport>

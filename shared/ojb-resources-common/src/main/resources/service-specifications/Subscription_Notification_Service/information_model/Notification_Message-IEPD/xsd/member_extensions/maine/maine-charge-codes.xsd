@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0" 
+	xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
+	elementFormDefault="qualified">
+	
+	<xsd:import schemaLocation="../../Subset/niem/structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+	<xsd:import schemaLocation="../../CriminalHistoryUpdate.xsd" namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"/>
+
+	<xsd:element name="ChargeEnhancingFactorCode" type="me:ChargeEnhancingFactorCodeType" substitutionGroup="chu:ChargeEnhancingFactorCodeRepresentation">
+		<xsd:annotation>
+			 <xsd:documentation>A code for a factor that modifies the charge, specific to the state of Maine.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+
+	<xsd:simpleType name="ChargeEnhancingFactorCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="A">
+				<xsd:annotation>
+					<xsd:documentation>Attempt</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="C">
+				<xsd:annotation>
+					<xsd:documentation>Conspiracy</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="D">
+				<xsd:annotation>
+					<xsd:documentation>Dangerous Weapon</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="F">
+				<xsd:annotation>
+					<xsd:documentation>Firearm or Dangerous Weapon</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FL">
+				<xsd:annotation>
+					<xsd:documentation>Firearm</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="O">
+				<xsd:annotation>
+					<xsd:documentation>Other</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="P">
+				<xsd:annotation>
+					<xsd:documentation>Priors</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="S">
+				<xsd:annotation>
+					<xsd:documentation>Solicitation</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="ChargeEnhancingFactorCodeType">	
+		<xsd:simpleContent>
+			<xsd:extension base="me:ChargeEnhancingFactorCodeSimpleType">
+				 <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>

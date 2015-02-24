@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://niem.gov/niem/ansi-nist/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
+  <xsd:import schemaLocation="../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
+  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:simpleType name="COLCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="BLACK"/>
+      <xsd:enumeration value="BLUE"/>
+      <xsd:enumeration value="BROWN"/>
+      <xsd:enumeration value="GRAY"/>
+      <xsd:enumeration value="GREEN"/>
+      <xsd:enumeration value="MULTI"/>
+      <xsd:enumeration value="ORANGE"/>
+      <xsd:enumeration value="OUTLINE"/>
+      <xsd:enumeration value="PURPLE"/>
+      <xsd:enumeration value="RED"/>
+      <xsd:enumeration value="WHITE"/>
+      <xsd:enumeration value="YELLOW"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="COLCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ansi-nist:COLCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="FPCCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="0"/>
+      <xsd:enumeration value="1"/>
+      <xsd:enumeration value="10"/>
+      <xsd:enumeration value="11"/>
+      <xsd:enumeration value="12"/>
+      <xsd:enumeration value="13"/>
+      <xsd:enumeration value="14"/>
+      <xsd:enumeration value="15"/>
+      <xsd:enumeration value="19"/>
+      <xsd:enumeration value="2"/>
+      <xsd:enumeration value="255"/>
+      <xsd:enumeration value="3"/>
+      <xsd:enumeration value="4"/>
+      <xsd:enumeration value="5"/>
+      <xsd:enumeration value="6"/>
+      <xsd:enumeration value="7"/>
+      <xsd:enumeration value="8"/>
+      <xsd:enumeration value="9"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="FPCCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ansi-nist:FPCCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="FingerprintType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:FingerPositionCode" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ImageCaptureType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:CaptureDeviceMakeText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:CaptureDeviceModelText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:CaptureDeviceSerialNumberText" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="NISTImageType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ImageType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ImageType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="PCCCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="ABSTRACT"/>
+      <xsd:enumeration value="ANIMAL"/>
+      <xsd:enumeration value="FLAG"/>
+      <xsd:enumeration value="HUMAN"/>
+      <xsd:enumeration value="OBJECT"/>
+      <xsd:enumeration value="OTHER"/>
+      <xsd:enumeration value="PLANT"/>
+      <xsd:enumeration value="SYMBOL"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="PCCCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ansi-nist:PCCCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="PSCCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="ABBODY"/>
+      <xsd:enumeration value="ABBPART"/>
+      <xsd:enumeration value="ABFACE"/>
+      <xsd:enumeration value="ABSTRACT"/>
+      <xsd:enumeration value="ANKLET"/>
+      <xsd:enumeration value="BIRD"/>
+      <xsd:enumeration value="BLUEFL"/>
+      <xsd:enumeration value="BODBND"/>
+      <xsd:enumeration value="BRACE"/>
+      <xsd:enumeration value="BRIT"/>
+      <xsd:enumeration value="CAT"/>
+      <xsd:enumeration value="CONFED"/>
+      <xsd:enumeration value="DOG"/>
+      <xsd:enumeration value="DOMESTIC"/>
+      <xsd:enumeration value="DRAGON"/>
+      <xsd:enumeration value="DRAW"/>
+      <xsd:enumeration value="FBODY"/>
+      <xsd:enumeration value="FBPART"/>
+      <xsd:enumeration value="FFACE"/>
+      <xsd:enumeration value="FIGURE"/>
+      <xsd:enumeration value="FIRE"/>
+      <xsd:enumeration value="FRATERNAL"/>
+      <xsd:enumeration value="FREEFRM"/>
+      <xsd:enumeration value="GANG"/>
+      <xsd:enumeration value="HEADBND"/>
+      <xsd:enumeration value="HORSE"/>
+      <xsd:enumeration value="INSECT"/>
+      <xsd:enumeration value="LILY"/>
+      <xsd:enumeration value="MABSTRACT"/>
+      <xsd:enumeration value="MANIMAL"/>
+      <xsd:enumeration value="MBODY"/>
+      <xsd:enumeration value="MBPART"/>
+      <xsd:enumeration value="MFACE"/>
+      <xsd:enumeration value="MFLAG"/>
+      <xsd:enumeration value="MHUMAN"/>
+      <xsd:enumeration value="MILITARY"/>
+      <xsd:enumeration value="MISC"/>
+      <xsd:enumeration value="MOBJECTS"/>
+      <xsd:enumeration value="MPLANT"/>
+      <xsd:enumeration value="MSYMBOLS"/>
+      <xsd:enumeration value="MYTH"/>
+      <xsd:enumeration value="NARCOTICS"/>
+      <xsd:enumeration value="NATION"/>
+      <xsd:enumeration value="NATURE"/>
+      <xsd:enumeration value="NAZI"/>
+      <xsd:enumeration value="NECKLC"/>
+      <xsd:enumeration value="PARTS"/>
+      <xsd:enumeration value="PLANE"/>
+      <xsd:enumeration value="POLITIC"/>
+      <xsd:enumeration value="PROFESS"/>
+      <xsd:enumeration value="REDFL"/>
+      <xsd:enumeration value="ROLES"/>
+      <xsd:enumeration value="ROSE"/>
+      <xsd:enumeration value="SHIRT"/>
+      <xsd:enumeration value="SKULL"/>
+      <xsd:enumeration value="SLEEVE"/>
+      <xsd:enumeration value="SNAKE"/>
+      <xsd:enumeration value="SPORT"/>
+      <xsd:enumeration value="STATE"/>
+      <xsd:enumeration value="TRAIN"/>
+      <xsd:enumeration value="TULIP"/>
+      <xsd:enumeration value="USA"/>
+      <xsd:enumeration value="VEHICLE"/>
+      <xsd:enumeration value="VESSEL"/>
+      <xsd:enumeration value="VICIOUS"/>
+      <xsd:enumeration value="WEAP"/>
+      <xsd:enumeration value="WILD"/>
+      <xsd:enumeration value="WORDING"/>
+      <xsd:enumeration value="YELFL"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="PSCCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ansi-nist:PSCCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="PhysicalFeatureColorDetailType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:PhysicalFeaturePrimaryColorCode" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureSecondaryColorCode" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PhysicalFeatureDescriptionType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:PhysicalFeatureColorDetail" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureCategoryCode" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureClassCode" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureDescriptionText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureSubClassCode" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PhysicalFeatureImageType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="NISTImageType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="ansi-nist:NISTImageType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:PhysicalFeatureDescriptionDetail" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureSize" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PhysicalFeatureSizeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:PhysicalFeatureHeightMeasure" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureWidthMeasure" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="SMDCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="BRANDED"/>
+      <xsd:enumeration value="CHEMICAL"/>
+      <xsd:enumeration value="CUT"/>
+      <xsd:enumeration value="MARK"/>
+      <xsd:enumeration value="SCAR"/>
+      <xsd:enumeration value="TATTOO"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="SMDCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ansi-nist:SMDCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:element name="ActivityAgencyNotificationIndicator" type="niem-xsd:boolean" nillable="true"/>
+  <xsd:element name="CaptureDeviceMakeText" type="nc:TextType" nillable="true"/>
+  <xsd:element name="CaptureDeviceModelText" type="nc:TextType" nillable="true"/>
+  <xsd:element name="CaptureDeviceSerialNumberText" type="nc:TextType" nillable="true"/>
+  <xsd:element name="FingerPositionCode" type="ansi-nist:FPCCodeType" nillable="true"/>
+  <xsd:element name="FingerprintImagePosition" type="ansi-nist:FingerprintType" nillable="true"/>
+  <xsd:element name="ImageCaptureDetail" type="ansi-nist:ImageCaptureType" nillable="true"/>
+  <xsd:element name="PhysicalFeatureCategoryCode" type="ansi-nist:SMDCodeType" nillable="true"/>
+  <xsd:element name="PhysicalFeatureClassCode" type="ansi-nist:PCCCodeType" nillable="true"/>
+  <xsd:element name="PhysicalFeatureColorDetail" type="ansi-nist:PhysicalFeatureColorDetailType" nillable="true"/>
+  <xsd:element name="PhysicalFeatureDescriptionDetail" type="ansi-nist:PhysicalFeatureDescriptionType" nillable="true"/>
+  <xsd:element name="PhysicalFeatureDescriptionText" type="nc:TextType" nillable="true"/>
+  <xsd:element name="PhysicalFeatureHeightMeasure" type="niem-xsd:nonNegativeInteger" nillable="true"/>
+  <xsd:element name="PhysicalFeatureImage" type="ansi-nist:PhysicalFeatureImageType" substitutionGroup="ansi-nist:RecordImage" nillable="true">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="RecordImage"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeaturePrimaryColorCode" type="ansi-nist:COLCodeType" nillable="true"/>
+  <xsd:element name="PhysicalFeatureSecondaryColorCode" type="ansi-nist:COLCodeType" nillable="true"/>
+  <xsd:element name="PhysicalFeatureSize" type="ansi-nist:PhysicalFeatureSizeType" nillable="true"/>
+  <xsd:element name="PhysicalFeatureSubClassCode" type="ansi-nist:PSCCodeType" nillable="true"/>
+  <xsd:element name="PhysicalFeatureWidthMeasure" type="niem-xsd:nonNegativeInteger" nillable="true"/>
+  <xsd:element name="RecordImage" abstract="true"/>
+</xsd:schema>
