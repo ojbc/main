@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:ProbationCaseOfficerChange
+	xmlns:Q1="http://niem.gov/niem/unece_rec20-misc/2.0" 
+	xmlns:Q11="http://niem.gov/niem/fbi/2.0" 
+	xmlns:Q12="http://niem.gov/niem/fips_5-2/2.0" 
+	xmlns:Q13="http://niem.gov/niem/iso_639-3/2.0" 
+	xmlns:Q2="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0" 
+	xmlns:Q3="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:Q4="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:p="http://ojbc.org/IEPD/Exchange/ProbationCaseOfficerChange/1.0" 
+	xmlns:p1="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProbationCaseOfficerChange/1.0 ../xsd/Probation_Officer_Change.xsd">
+	
+	<Q2:ProbationCase>
+	
+  <Q2:Supervision>
+    <Q3:SupervisionPersonStatus>
+      <Q3:StatusText></Q3:StatusText>
+    </Q3:SupervisionPersonStatus>
+     <Q3:SupervisionSupervisor>
+      <Q3:EntityPerson>
+      	<Q3:PersonName>
+      		<Q3:PersonGivenName></Q3:PersonGivenName>
+      		<Q3:PersonSurName></Q3:PersonSurName>
+      	</Q3:PersonName>
+      </Q3:EntityPerson>
+    </Q3:SupervisionSupervisor>
+    <Q4:SupervisionAugmentation>
+      <Q4:SupervisionAssignedTerm/>
+      <Q4:SupervisionLevelText/>
+    </Q4:SupervisionAugmentation>
+    <Q2:Probationer>
+      <Q3:PersonName>
+        <Q3:PersonGivenName></Q3:PersonGivenName>
+        <Q3:PersonSurName></Q3:PersonSurName>
+      </Q3:PersonName>
+      <Q4:PersonAugmentation/>
+    </Q2:Probationer>
+  </Q2:Supervision>
+  <Q3:PersonContactInformationAssociation>
+  	<Q3:PersonReference/>
+    <Q3:ContactInformationReference/>
+  </Q3:PersonContactInformationAssociation>
+  
+  </Q2:ProbationCase>
+  <Q2:SystemName>SomeSystemURI</Q2:SystemName>
+  
+</p:ProbationCaseOfficerChange>

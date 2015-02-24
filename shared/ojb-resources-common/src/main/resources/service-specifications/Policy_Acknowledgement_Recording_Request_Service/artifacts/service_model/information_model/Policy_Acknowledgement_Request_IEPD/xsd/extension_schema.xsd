@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ext="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingRequestExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingRequestExtension/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:complexType name="AcknowledgementRecordingRequestForAllPoliciesType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for set of details associated with a policy acknowledgement request for all policies.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:DocumentType">
+				<xsd:sequence>
+					<xsd:element ref="ext:PolicyAcknowledgementIndicator"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="PolicyAcknowledgementIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a policy or policies have been acknowledged, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

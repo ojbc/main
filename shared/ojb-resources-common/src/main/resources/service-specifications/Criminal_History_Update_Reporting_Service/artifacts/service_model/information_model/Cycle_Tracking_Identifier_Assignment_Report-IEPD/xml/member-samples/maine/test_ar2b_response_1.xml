@@ -1,0 +1,87 @@
+<exc:CycleTrackingIdentifierAssignmentReport
+	xmlns:exc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:s="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0 ../../../xsd/exchange-schema.xsd">
+	<ext:CycleTrackingIdentifierAssignment>
+		<ext:CycleTrackingIdentification>
+			<nc:IdentificationID>777777F</nc:IdentificationID>
+		</ext:CycleTrackingIdentification>
+		<j:OriginatorOrganization s:ref="ORG_ME0110000"></j:OriginatorOrganization>
+		<j:CaseProsecutionAttorney>
+			<ext:ProsecutionAttorneyOrganization
+				s:ref="ORG_ME011013A"></ext:ProsecutionAttorneyOrganization>
+		</j:CaseProsecutionAttorney>
+		<nc:Case>
+			<j:ActivityAugmentation>
+				<j:CaseNumberText>12-777777</j:CaseNumberText>
+			</j:ActivityAugmentation>
+		</nc:Case>
+		<j:Charge s:id="CHRG_001">
+			<j:ChargeDescriptionText>THEFT BY UNAUTHORIZED TAKING OR TRANSFER</j:ChargeDescriptionText>
+			<j:ChargeEnhancingFactor>
+				<j:ChargeEnhancingFactorDescriptionText>ATTEMPT</j:ChargeEnhancingFactorDescriptionText>
+				<me:ChargeEnhancingFactorCode>A</me:ChargeEnhancingFactorCode>
+			</j:ChargeEnhancingFactor>
+			<j:ChargeEnhancingFactor>
+				<j:ChargeEnhancingFactorDescriptionText>DANGEROUS WEAPON</j:ChargeEnhancingFactorDescriptionText>
+				<me:ChargeEnhancingFactorCode>D</me:ChargeEnhancingFactorCode>
+			</j:ChargeEnhancingFactor>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>8427</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteText>17-A MRSA SUBSECTION 353(1)(B)(4)</j:StatuteText>
+			</j:ChargeStatute>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>001</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+		</j:Charge>
+		<j:Arrest>
+			<nc:ActivityDate>
+				<nc:Date>2012-07-07</nc:Date>
+			</nc:ActivityDate>
+		</j:Arrest>
+		<j:Offense s:id="OFF_2012-07-07">
+			<nc:ActivityDate>
+				<nc:Date>2012-07-07</nc:Date>
+			</nc:ActivityDate>
+		</j:Offense>
+		<j:Subject>
+			<nc:RoleOfPerson s:ref="P001"></nc:RoleOfPerson>
+		</j:Subject>
+		<j:OffenseChargeAssociation>
+			<j:Offense s:ref="OFF_2012-07-07"></j:Offense>
+			<j:Charge s:ref="CHRG_001"></j:Charge>
+		</j:OffenseChargeAssociation>
+	</ext:CycleTrackingIdentifierAssignment>
+	<nc:Organization s:id="ORG_ME0110000">
+		<nc:OrganizationName>PISCATAQUIS CO SO DOVER FOXCROFT</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ME0110000</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:Organization>
+	<nc:Organization s:id="ORG_ME011013A">
+		<nc:OrganizationName>PISCATAQUIS COUNTY DISTRICT ATTORNEY</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ME011013A</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:Organization>
+	<nc:Person s:id="P001">
+		<nc:PersonBirthDate>
+			<nc:Date>1967-07-17</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>HOMER</nc:PersonGivenName>
+			<nc:PersonMiddleName>J</nc:PersonMiddleName>
+			<nc:PersonSurName>SIMPSON</nc:PersonSurName>
+		</nc:PersonName>
+	</nc:Person>
+</exc:CycleTrackingIdentifierAssignmentReport>

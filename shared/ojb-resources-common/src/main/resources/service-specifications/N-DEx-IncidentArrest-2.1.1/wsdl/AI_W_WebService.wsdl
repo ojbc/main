@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s0:definitions name="AI_W_SourceDataIntegrationServiceDefinitions" targetNamespace="urn://com.raytheon.ndex.ai.webservice" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s2="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s1="urn://com.raytheon.ndex.ai.webservice">
+  <s0:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn://com.raytheon.ndex.ai.webservice" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="java:com.raytheon.ndex.ai.webservice"/>
+      <xs:element name="submitBundle1_0_4">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="data" type="xs:string"/>
+            <xs:element name="submittingAgencyName" type="xs:string"/>
+
+            <xs:element name="fileName" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="submitBundle1_0_4Response">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="java:SubmitResponse" xmlns:java="java:com.raytheon.ndex.ai.webservice"/>
+          </xs:sequence>
+
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="submitNDExIEPD1_0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="data" type="xs:string"/>
+            <xs:element name="submittingAgencyName" type="xs:string"/>
+            <xs:element name="fileName" type="xs:string"/>
+          </xs:sequence>
+
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="submitNDExIEPD1_0Response">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="java:SubmitResponse" xmlns:java="java:com.raytheon.ndex.ai.webservice"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="isAlive">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="isAliveResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="xs:boolean"/>
+
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="java:com.raytheon.ndex.ai.webservice" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="SubmitResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="SubmitResponseDetailsArray" nillable="true" type="java:SubmitResponseDetails" xmlns:java="java:com.raytheon.ndex.ai.webservice"/>
+          <xs:element minOccurs="1" name="FileLevelResultCode" nillable="false" type="xs:int"/>
+
+          <xs:element minOccurs="1" name="FileLevelResultMessage" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="SubmitResponseDetails">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="MessageNumber" nillable="false" type="xs:int"/>
+          <xs:element minOccurs="1" name="PackageNumber" nillable="false" type="xs:int"/>
+          <xs:element minOccurs="1" name="PackageResultCode" nillable="false" type="xs:int"/>
+          <xs:element minOccurs="1" name="PackageResultMessage" nillable="true" type="xs:string"/>
+
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </s0:types>
+  <s0:message name="submitBundle1_0_4">
+    <s0:part name="parameters" element="s1:submitBundle1_0_4">
+    </s0:part>
+  </s0:message>
+  <s0:message name="isAlive">
+
+    <s0:part name="parameters" element="s1:isAlive">
+    </s0:part>
+  </s0:message>
+  <s0:message name="submitBundle1_0_4Response">
+    <s0:part name="parameters" element="s1:submitBundle1_0_4Response">
+    </s0:part>
+  </s0:message>
+  <s0:message name="submitNDExIEPD1_0Response">
+    <s0:part name="parameters" element="s1:submitNDExIEPD1_0Response">
+
+    </s0:part>
+  </s0:message>
+  <s0:message name="isAliveResponse">
+    <s0:part name="parameters" element="s1:isAliveResponse">
+    </s0:part>
+  </s0:message>
+  <s0:message name="submitNDExIEPD1_0">
+    <s0:part name="parameters" element="s1:submitNDExIEPD1_0">
+    </s0:part>
+
+  </s0:message>
+  <s0:portType name="AI_W_SourceDataIntegrationWSPortType">
+    <s0:operation name="submitBundle1_0_4" parameterOrder="parameters">
+      <s0:input message="s1:submitBundle1_0_4">
+    </s0:input>
+      <s0:output message="s1:submitBundle1_0_4Response">
+    </s0:output>
+    </s0:operation>
+    <s0:operation name="submitNDExIEPD1_0" parameterOrder="parameters">
+
+      <s0:input message="s1:submitNDExIEPD1_0">
+    </s0:input>
+      <s0:output message="s1:submitNDExIEPD1_0Response">
+    </s0:output>
+    </s0:operation>
+    <s0:operation name="isAlive" parameterOrder="parameters">
+      <s0:input message="s1:isAlive">
+    </s0:input>
+      <s0:output message="s1:isAliveResponse">
+
+    </s0:output>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="AI_W_SourceDataIntegrationServiceSoapBinding" type="s1:AI_W_SourceDataIntegrationWSPortType">
+    <s2:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="submitBundle1_0_4">
+      <s2:operation soapAction="" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="submitNDExIEPD1_0">
+      <s2:operation soapAction="" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="isAlive">
+      <s2:operation soapAction="" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="AI_W_SourceDataIntegrationService">
+    <s0:port name="AI_W_SourceDataIntegrationServicePort" binding="s1:AI_W_SourceDataIntegrationServiceSoapBinding">
+      <s2:address location="http://services.ndex.fbi.gov:6001/DataSubmission/services/AI_W_SourceDataIntegrationService/"/>
+
+    </s0:port>
+  </s0:service>
+</s0:definitions>

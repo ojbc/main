@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+	xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" 
+	xmlns:caseplan="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/CasePlanResults/1.0" 
+	xmlns:hearing="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/HearingResults/1.0" 
+	xmlns:intake="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/IntakeResults/1.0" 
+	xmlns:offense="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/OffenseResults/1.0" 
+	xmlns:placement="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/PlacementResults/1.0" 
+	xmlns:referral="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/ReferralResults/1.0" 
+	xmlns:tns="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0" 
+	targetNamespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+	
+	<wsdl:import namespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/CasePlanResults/1.0" location="CasePlan/JuvenileCasePlanHistoryResultsInterface.wsdl"/>
+	<wsdl:import namespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/HearingResults/1.0" location="Hearing/JuvenileHearingHistoryResultsInterface.wsdl"/>
+	<wsdl:import namespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/IntakeResults/1.0" location="Intake/JuvenileIntakeHistoryResultsInterface.wsdl"/>
+	<wsdl:import namespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/OffenseResults/1.0" location="Offense/JuvenileOffenseHistoryResultsInterface.wsdl"/>
+	<wsdl:import namespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/PlacementResults/1.0" location="Placement/JuvenilePlacementHistoryResultsInterface.wsdl"/>
+	<wsdl:import namespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/ReferralResults/1.0" location="Referral/JuvenileReferralHistoryResultsInterface.wsdl"/>
+	
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
+	
+	<wsdl:service name="JuvenileCasePlanHistoryResultsService">
+		<wsdl:port name="JuvenileCasePlanHistoryResultsSOAPPort_SystemToSystem" binding="caseplan:JuvenileCasePlanHistoryResultsSOAPBinding_SystemToSystem">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+		<wsdl:port name="JuvenileCasePlanHistoryResultsSOAPPort" binding="caseplan:JuvenileCasePlanHistoryResultsSOAPBinding">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:service name="JuvenileHearingHistoryResultsService">
+		<wsdl:port name="JuvenileHearingHistoryResultsSOAPPort_SystemToSystem" binding="hearing:JuvenileHearingHistoryResultsSOAPBinding_SystemToSystem">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+		<wsdl:port name="JuvenileHearingHistoryResultsSOAPPort" binding="hearing:JuvenileHearingHistoryResultsSOAPBinding">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:service name="JuvenileIntakeHistoryResultsService">
+		<wsdl:port name="JuvenileIntakeHistoryResultsSOAPPort_SystemToSystem" binding="intake:JuvenileIntakeHistoryResultsSOAPBinding_SystemToSystem">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+		<wsdl:port name="JuvenileIntakeHistoryResultsSOAPPort" binding="intake:JuvenileIntakeHistoryResultsSOAPBinding">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:service name="JuvenileOffenseHistoryResultsService">
+		<wsdl:port name="JuvenileOffenseHistoryResultsSOAPPort_SystemToSystem" binding="offense:JuvenileOffenseHistoryResultsSOAPBinding_SystemToSystem">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+		<wsdl:port name="JuvenileOffenseHistoryResultsSOAPPort" binding="offense:JuvenileOffenseHistoryResultsSOAPBinding">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:service name="JuvenilePlacementHistoryResultsService">
+		<wsdl:port name="JuvenilePlacementHistoryResultsSOAPPort_SystemToSystem" binding="placement:JuvenilePlacementHistoryResultsSOAPBinding_SystemToSystem">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+		<wsdl:port name="JuvenilePlacementHistoryResultsSOAPPort" binding="placement:JuvenilePlacementHistoryResultsSOAPBinding">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:service name="JuvenileReferralHistoryResultsService">
+		<wsdl:port name="JuvenileReferralHistoryResultsSOAPPort_SystemToSystem" binding="referral:JuvenileReferralHistoryResultsSOAPBinding_SystemToSystem">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>
+		<wsdl:port name="JuvenileReferralHistoryResultsSOAPPort" binding="referral:JuvenileReferralHistoryResultsSOAPBinding">
+			<soap:address location="https://localhost"/>
+		</wsdl:port>	
+	</wsdl:service>
+</wsdl:definitions>

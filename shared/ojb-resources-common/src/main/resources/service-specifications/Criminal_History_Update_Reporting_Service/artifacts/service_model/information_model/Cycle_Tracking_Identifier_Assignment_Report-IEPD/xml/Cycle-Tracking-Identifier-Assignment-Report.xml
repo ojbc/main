@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exc:CycleTrackingIdentifierAssignmentReport
+	xmlns:exc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	xmlns:s="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0 ../xsd/exchange-schema.xsd">
+	<ext:CycleTrackingIdentifierAssignment>
+		<nc:ActivityDate>
+			<nc:DateTime>2014-10-03T06:54:00</nc:DateTime>
+		</nc:ActivityDate>
+		<ext:CycleTrackingIdentification>
+			<nc:IdentificationID>123456A</nc:IdentificationID>
+		</ext:CycleTrackingIdentification>
+		<j:OriginatorOrganization s:ref="ORG001" />
+		<j:CaseProsecutionAttorney>
+			<ext:ProsecutionAttorneyOrganization
+				s:ref="ORG002" />
+		</j:CaseProsecutionAttorney>
+		<nc:Case>
+			<j:ActivityAugmentation>
+				<j:CaseNumberText>1234</j:CaseNumberText>
+			</j:ActivityAugmentation>
+		</nc:Case>
+		<j:Charge s:id="C001">
+			<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
+			<j:ChargeEnhancingFactor>
+				<j:ChargeEnhancingFactorDescriptionText>modifier description</j:ChargeEnhancingFactorDescriptionText>
+				<me:ChargeEnhancingFactorCode>S</me:ChargeEnhancingFactorCode>
+			</j:ChargeEnhancingFactor>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>004290</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteText>17-A MRSA SUBSECTION 651(1)(D)</j:StatuteText>
+			</j:ChargeStatute>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>123</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+		</j:Charge>
+		<j:Charge s:id="C002">
+			<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
+			<j:ChargeEnhancingFactor>
+				<j:ChargeEnhancingFactorDescriptionText>modifier description</j:ChargeEnhancingFactorDescriptionText>
+				<me:ChargeEnhancingFactorCode>A</me:ChargeEnhancingFactorCode>
+			</j:ChargeEnhancingFactor>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>04291</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteText>19-A Subsection 651(1)(B)</j:StatuteText>
+			</j:ChargeStatute>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>456</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+		</j:Charge>
+		<j:Arrest>
+			<nc:ActivityDate>
+				<nc:Date>2014-06-10</nc:Date>
+			</nc:ActivityDate>
+		</j:Arrest>
+		<j:Offense s:id="O001">
+			<nc:ActivityDate>
+				<nc:Date>2014-06-10</nc:Date>
+			</nc:ActivityDate>
+		</j:Offense>
+		<j:Subject>
+			<nc:RoleOfPerson s:ref="P001" />
+		</j:Subject>
+		<j:OffenseChargeAssociation>
+			<j:Offense s:ref="O001"/>
+			<j:Charge s:ref="C001"/>
+		</j:OffenseChargeAssociation>
+		<j:OffenseChargeAssociation>
+			<j:Offense s:ref="O001"/>
+			<j:Charge s:ref="C002"/>
+		</j:OffenseChargeAssociation>
+	</ext:CycleTrackingIdentifierAssignment>
+	<nc:Organization s:id="ORG001">
+		<nc:OrganizationName>Portland Police Department</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ME0000000</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:Organization>
+	<nc:Organization s:id="ORG002">
+		<nc:OrganizationName>Cumberland County Prosecutor</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ME0000001</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:Organization>
+	<nc:Person s:id="P001">
+		<nc:PersonBirthDate>
+			<nc:Date>1962-02-20</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Walter</nc:PersonGivenName>
+			<nc:PersonMiddleName>A</nc:PersonMiddleName>
+			<nc:PersonSurName>White</nc:PersonSurName>
+		</nc:PersonName>
+	</nc:Person>
+</exc:CycleTrackingIdentifierAssignmentReport>

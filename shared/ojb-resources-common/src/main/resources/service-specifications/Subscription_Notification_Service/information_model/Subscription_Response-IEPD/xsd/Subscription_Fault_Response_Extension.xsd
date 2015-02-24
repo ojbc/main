@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	elementFormDefault="qualified">
+	
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import schemaLocation="../../../Subset/niem/structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+	<xsd:import schemaLocation="../../../Subset/niem/proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
+	<xsd:import schemaLocation="../../Subset/niem/domains/intelligence/2.1/intelligence.xsd" namespace="http://niem.gov/niem/domains/intelligence/2.1"/>
+	
+	<xsd:complexType name="SubscriptionFaultResponseMessageType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:InvalidEmailAddressList" minOccurs="0"/>
+					<xsd:element ref="ext:AccessDenial" minOccurs="0"/>
+					<xsd:element ref="ext:InvalidSecurityToken" minOccurs="0"/>
+					<xsd:element ref="ext:SubscriptionRequestError" minOccurs="0"/>
+					<xsd:element ref="ext:SubscriptionIdentification" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SubscriptionValidationFaultResponseMessageType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:AccessDenial" minOccurs="0"/>
+					<xsd:element ref="ext:InvalidSecurityToken" minOccurs="0"/>
+					<xsd:element ref="ext:SubscriptionIdentification" minOccurs="0"/>
+					<xsd:element ref="ext:InvalidSubscriptionIdentifierIndicator" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	
+	<xsd:element name="InvalidSubscriptionIdentifierIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the subscription identifier is invalid or doesn't exist, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="SubscriptionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An unique identifier assigned to a subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="InvalidEmailAddressListType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="nc:EmailRecipientAddressID" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="InvalidSecurityTokenType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:InvalidSecurityTokenIndicator"/>
+					<xsd:element ref="ext:InvalidSecurityTokenDescriptionText" minOccurs="0"/>					
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="AccessDenialType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an explanation of a persons
+				inability to access requested information</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:AccessDenialIndicator" />
+					<xsd:element ref="ext:AccessDenyingSystemNameText" minOccurs="0"/>
+					<xsd:element ref="ext:AccessDenialReasonText" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	 <xsd:complexType name="SubscriptionRequestErrorType">
+  	<xsd:complexContent>
+  		<xsd:extension base="s:ComplexObjectType">
+  			<xsd:sequence>	
+  				<xsd:element ref="ext:SubscriptionTopicNotSpecifiedIndicator" minOccurs="0"/>
+  				<xsd:element ref="ext:SubscriptionSubjectFingerprintIdentificationNotSpecifiedIndicator" minOccurs="0"/>
+  				<xsd:element ref="ext:SubscriptionSubjectNameNotSpecifiedIndicator" minOccurs="0"/>
+  				<xsd:element ref="ext:SubscriptionStartDateNotSpecifiedIndicator" minOccurs="0"/>
+  				<xsd:element ref="ext:SubscriptionEmailAddressNotSpecifiedIndicator" minOccurs="0"/>
+  				<xsd:element ref="ext:SubscriptionEndDateBeforeStartDateIndicator" minOccurs="0"/>
+  				<xsd:element ref="ext:ErrorText" minOccurs="0"/>
+  				<xsd:element ref="intel:SystemName" minOccurs="0"/>
+  			</xsd:sequence>
+  		</xsd:extension>
+  	</xsd:complexContent>
+  </xsd:complexType>
+	
+	<xsd:element name="SubscriptionTopicNotSpecifiedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if subscription request cannot be processed because the subscription topic was not specified, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionSubjectFingerprintIdentificationNotSpecifiedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if subscription request cannot be processed because the request is missing the subject's fingerprint identifier, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionSubjectNameNotSpecifiedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if subscription request cannot be processed because the request is missing the subject's name, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionStartDateNotSpecifiedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if subscription request cannot be processed because the request is missing a subscription start date, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionEmailAddressNotSpecifiedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if subscription request cannot be processed because the request is missing an email address, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionEndDateBeforeStartDateIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if subscription request cannot be processed because the requested end date is before the requested start date, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="SubscriptionRequestError" type="ext:SubscriptionRequestErrorType">
+		<xsd:annotation>
+			<xsd:documentation>An error with the subscription request.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InvalidEmailAddressList" type="ext:InvalidEmailAddressListType">
+		<xsd:annotation>
+			<xsd:documentation>A list of e-mail addresses that were provided with the subscription request message that are not allowed to be on a subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AccessDenial" type="ext:AccessDenialType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the scenario where a user requesting to create a subscription has been denied the access to do so.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		<xsd:element name="AccessDenialIndicator" type="xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a user's request for a subscription is denied, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AccessDenyingSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of the system that has denied access.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AccessDenialReasonText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>An explanation about why access was denied.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ErrorText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the error.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="InvalidSecurityToken" type="ext:InvalidSecurityTokenType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a user's invalid or non-existent security token. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InvalidSecurityTokenIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the user's security token is incomplete or entirely missing, false otherwise.  This is not used to indicate that some access control decision was made, instead this suggests that the security token did provide enough information to even conduct access control.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InvalidSecurityTokenDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>An description of what makes a security token invalid.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

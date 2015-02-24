@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
+	elementFormDefault="qualified" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+		schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
+
+	<xsd:complexType name="IncidentReportRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a request for a specific report
+				recorded for an incident.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:Incident" />
+					<xsd:element ref="ext:SourceSystemNameText" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that is to be queried.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		<xsd:complexType name="IncidentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an occurrence or an event that
+				may
+				require a response.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:IncidentType">
+				<xsd:sequence>
+					<xsd:element ref="ext:IncidentCategoryCode" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentCategoryCode" type="ext:IncidentCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>The kind of incident.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IncidentCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type to specify the kind of incident.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="ext:IncidentCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="IncidentCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type to specify the kind of incident.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Law">
+				<xsd:annotation>
+					<xsd:documentation>Law Incident</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Traffic">
+				<xsd:annotation>
+					<xsd:documentation>Traffic Incident</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Citation">
+				<xsd:annotation>
+					<xsd:documentation>Citation</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Field_Interview">
+				<xsd:annotation>
+					<xsd:documentation>Field Interview</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+		<xsd:element name="Incident" type="ext:IncidentType">
+		<xsd:annotation>
+			<xsd:documentation>An occurrence or an event that may require a
+				response.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

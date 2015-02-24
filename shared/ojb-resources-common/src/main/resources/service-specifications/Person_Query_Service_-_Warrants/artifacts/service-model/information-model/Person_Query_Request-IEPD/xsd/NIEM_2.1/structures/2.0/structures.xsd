@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" targetNamespace="http://niem.gov/niem/structures/2.0" version="alpha2">
+
+  <import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../appinfo/2.0/appinfo.xsd"/>
+
+  <annotation>
+    <appinfo>
+      <i:resource i:name="Object"/>
+  </appinfo>
+  </annotation>
+
+  <annotation>
+    <appinfo>
+      <i:resource i:name="Association"/>
+  </appinfo>
+  </annotation>
+
+  <attribute name="id" type="ID"/>
+  <attribute name="linkMetadata" type="IDREFS"/>
+  <attribute name="metadata" type="IDREFS"/>
+  <attribute name="ref" type="IDREF"/>
+  <attribute name="sequenceID" type="integer"/>
+   
+  <attributeGroup name="SimpleObjectAttributeGroup">
+    <attribute ref="s:id"/>
+    <attribute ref="s:metadata"/>
+    <attribute ref="s:linkMetadata"/>
+  </attributeGroup>
+
+  <element abstract="true" name="Augmentation" type="s:AugmentationType"/>
+  <element abstract="true" name="Metadata" type="s:MetadataType"/>
+
+  <complexType abstract="true" name="AugmentationType">
+      <attribute ref="s:id"/>
+      <attribute ref="s:metadata"/>
+  </complexType>
+
+  <complexType abstract="true" name="ComplexObjectType">
+      <attribute ref="s:id"/>
+      <attribute ref="s:metadata"/>
+      <attribute ref="s:linkMetadata"/>
+  </complexType>
+
+  <complexType abstract="true" name="MetadataType">
+      <attribute ref="s:id"/>
+  </complexType>
+
+  <complexType final="#all" name="ReferenceType">
+      <attribute ref="s:id"/>
+      <attribute ref="s:ref"/>
+      <attribute ref="s:linkMetadata"/>
+  </complexType>
+
+</schema>

@@ -1,0 +1,2089 @@
+<?xml version="1.0"?><?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?><!--
+    Document: $Id:burglary-incident-w-arrest-expanded-lexs.xml 1127 2008-11-04 19:28:33Z jw7 $
+    Original : 11/04/2008
+    Updated : 5/14/2010 - Corrected business rule failures and updated N-DEx version number in header to 2.1.1
+    LEXS version : 3.1.4
+	N-DEx version : 2.1.1
+    Description : This scenario expands the "Burglary Incident With Arrest - Basic" scenario by broadening the overall scope of the incident as well as including 
+			more entity detail and reinforcing use of XML IDs and references by calling them out in the scenario spreadsheet.  The use of entity metadata to manage 
+			data submitted to N-DEx is demonstrated through the use of Source ID Text, Logical ID Text, Reported Date and Last Update Date.  Sameness of entities 
+			as determined by the data item owner is also communicated using Source ID Text and Logical ID Text metadata.  Metadata is further used to clarify associations 
+			through the use of Comment Text.  In addition, this scenario expands on the "basic" version by including additional offenses, a warrant activity, society as 
+			victim, collected evidence, depiction of a registered offender person, property owned by arrestee, and property stolen by arrestee.  Also demonstrated are 
+			the concepts of entities having multiple roles; status, quantity, and value of property; and the difference between a physical piece of property (ID card, license) 
+			used for identification and property identification identifiers (ID card number, license number) used as identifiers of a person. 
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexib.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+--><lexspd:doPublish xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:em="http://niem.gov/niem/domains/emergencyManagement/2.0" xmlns:fips_10-4="http://niem.gov/niem/fips_10-4/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:im="http://niem.gov/niem/domains/immigration/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:lexscodes="http://usdoj.gov/leisp/lexs/codes/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:nonauth="http://niem.gov/niem/nonauthoritative-code/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:scr="http://niem.gov/niem/domains/screening/2.0">
+    <lexs:PublishMessageContainer>
+        <lexs:PublishMessage>
+            <lexs:PDMessageMetadata>
+                <lexs:LEXSVersion>3.1.4</lexs:LEXSVersion>
+                <lexs:MessageDateTime>2006-12-01T09:30:47.0Z</lexs:MessageDateTime>
+                <lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
+                <lexs:DataSensitivity>SBU</lexs:DataSensitivity>
+            </lexs:PDMessageMetadata>
+            <lexs:DataSubmitterMetadata>
+                <lexs:SystemIdentifier>
+                    <lexs:ORI>NMNSP0000</lexs:ORI>
+                    <nc:OrganizationName>New Mexico Department of Public Safety</nc:OrganizationName>
+                    <lexs:SystemID>NIBRS</lexs:SystemID>
+                </lexs:SystemIdentifier>
+                <lexs:SystemContact>
+                    <nc:PersonGivenName>James</nc:PersonGivenName>
+                    <nc:PersonSurName>West</nc:PersonSurName>
+                    <nc:ContactTelephoneNumber>
+                        <nc:NANPTelephoneNumber>
+                            <nc:TelephoneAreaCodeID>123</nc:TelephoneAreaCodeID>
+                            <nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+                            <nc:TelephoneLineID>1212</nc:TelephoneLineID>
+                        </nc:NANPTelephoneNumber>
+                    </nc:ContactTelephoneNumber>
+                </lexs:SystemContact>
+            </lexs:DataSubmitterMetadata>
+            <lexs:DataItemPackage>
+                <lexs:PackageMetadata>
+                    <lexs:DataItemID>burglaryarrest1</lexs:DataItemID>
+                    <lexs:DataItemContact>
+                        <nc:PersonGivenName>Mary</nc:PersonGivenName>
+                        <nc:PersonSurName>Smith</nc:PersonSurName>
+                        <nc:ContactTelephoneNumber>
+                            <nc:FullTelephoneNumber>
+                                <nc:TelephoneNumberFullID>333-444-5555</nc:TelephoneNumberFullID>
+                                <nc:TelephoneSuffixID>6</nc:TelephoneSuffixID>
+                            </nc:FullTelephoneNumber>
+                        </nc:ContactTelephoneNumber>
+                    </lexs:DataItemContact>
+                    <lexs:DataItemDate>2006-11-13</lexs:DataItemDate>
+                    <lexs:DataItemReferenceID>000000000003</lexs:DataItemReferenceID>
+                    <lexs:DataItemPublishInstruction>Insert</lexs:DataItemPublishInstruction>
+                    <lexs:DataItemStatus>Closed</lexs:DataItemStatus>
+                    <lexs:DataOwnerMetadata>
+                        <lexs:DataOwnerIdentifier>
+                            <lexs:ORI>NM1234567</lexs:ORI>
+                            <nc:OrganizationName>Sante Fe Police Department</nc:OrganizationName>
+                            <lexs:SystemID>NIBRS</lexs:SystemID>
+                        </lexs:DataOwnerIdentifier>
+                        <lexs:DataOwnerContact>
+                            <nc:PersonGivenName>James</nc:PersonGivenName>
+                            <nc:PersonSurName>West</nc:PersonSurName>
+                            <nc:ContactTelephoneNumber>
+                                <nc:NANPTelephoneNumber>
+                                    <nc:TelephoneAreaCodeID>123</nc:TelephoneAreaCodeID>
+                                    <nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+                                    <nc:TelephoneLineID>1212</nc:TelephoneLineID>
+                                </nc:NANPTelephoneNumber>
+                            </nc:ContactTelephoneNumber>
+                        </lexs:DataOwnerContact>
+                    </lexs:DataOwnerMetadata>
+                    <lexs:DisseminationCriteriaValue>
+                        <lexs:DisseminationCriteriaDomainText>N-DEx</lexs:DisseminationCriteriaDomainText>
+                        <lexs:DisseminationCriteriaText>Green</lexs:DisseminationCriteriaText>
+                    </lexs:DisseminationCriteriaValue>
+                    <lexs:DataItemCategory>
+                        <lexs:DataItemCategoryText>Incident Report</lexs:DataItemCategoryText>
+                    </lexs:DataItemCategory>
+                </lexs:PackageMetadata>
+                <lexs:Digest>
+                    <!--=======================  Activity Incident  =======================-->
+                    <lexsdigest:EntityActivity>
+                        <lexsdigest:Metadata s:id="MIncident1">
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                        </lexsdigest:Metadata>
+                        <nc:Activity s:metadata="MIncident1" s:id="Incident1">
+                            <nc:ActivityIdentification>
+                                <nc:IdentificationID>000000000003</nc:IdentificationID>
+                            </nc:ActivityIdentification>
+                            <nc:ActivityCategoryText>Incident</nc:ActivityCategoryText>
+                            <!-- Example shows a date, although a date range time could be specified instead. -->
+                            <nc:ActivityDate>
+                                <nc:DateTime>1997-03-12T00:01:00.0Z</nc:DateTime>
+                            </nc:ActivityDate>
+                            <nc:ActivityDescriptionText>On 3/12/1997 at 12:01 a.m., Mr. Donald R. Duck (Witness 1) saw a white male break the glass of his neighbor's (Jacob Joe) front door.  Mr. Duck placed a 911 call on his cell phone to report the incident.  Within minutes, police arrived at the residence (1 NW Brockway Avenue) to find the subject ransacking the house.  Officer Bond was the responding officer.  Upon seeing Officer Bond and Officer Bond Identifying himself as an officer, the subject darted out a back window with a black gunny sac in hand and disappeared into the night.  Upon review of the exit point, 2 (one left and one right) size 10 Red Wing boot impressions were found leaving the window area (casting taken).  In addition, a man's black leather wallet containing a Diner Club Card, Public Library Card, a condom and a New Mexico Concealed  Weapon Permit.   All documents were issued to one Thomas C. Farr, SSN:  968526352, permit number  G8251, expiration 1/26/2002.  When questioning the Victim, Victim indicated that he knew Mr. Farr.  They had once been step siblings.  Apparently, the victims mother and step father had divorced some time ago, victim estimated eight years earlier.  Victim indicated the subject had been an acquaintance since 1980, but there is no reason that Mr. Farr should have been on the victims property.  Victim will provide a list of missing property.</nc:ActivityDescriptionText>
+                        </nc:Activity>
+                    </lexsdigest:EntityActivity>
+                    <!--=======================  Activity Arrest  =======================-->
+                    <lexsdigest:EntityActivity>
+                        <lexsdigest:Metadata s:id="MArrestNarrative1">
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:ReportedDate>
+                        </lexsdigest:Metadata>
+                        <nc:Activity s:id="Arrest1">
+                            <nc:ActivityIdentification>
+                                <nc:IdentificationID>223344556677</nc:IdentificationID>
+                            </nc:ActivityIdentification>
+                            <nc:ActivityCategoryText>Arrest</nc:ActivityCategoryText>
+                            <nc:ActivityDate>
+                                <!-- Date fields can be full date, or date and time, or year, or month/year.  -->
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:ActivityDate>
+                            <nc:ActivityDescriptionText s:metadata="MArrestNarrative1">On March 18, 1997,  Mr. Thomas C. Farr (white, male, SSN:  968526352) came into the office and indicated that he wished to renew his offender registration saying that he could not remember when it expired, but he did not want to abscond from his duties.  Per procedure, I ran Mr. Farr through our system to verify his need to register.  As a part of that check, I found that a warrant had been issued for Mr. Farr on a burglary offense and a flight to avoid offense.  As a result of this warrant, I placed Mr. Farr under arrest.  Mr. Farr indicated that he had not stolen anything in his life.  He did indicate that he had recovered some things that belonged to him from his brother's residence, but that was only after many attempts to have his brother return to him what was rightfully his.  He indicated that the necklace he was wearing was one of the retreived items as was a firearm later recovered from his residence.  When asked about the other items listed as stolen on the theft report, Mr. Farr indicated he didn't know anything about them and insited that he only took what was his.</nc:ActivityDescriptionText>
+                        </nc:Activity>
+                    </lexsdigest:EntityActivity>
+                    <!--=======================  Activity Offense 1  =======================-->
+                    <lexsdigest:EntityActivity>
+                        <nc:Activity s:id="Offense1">
+                            <nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+                        </nc:Activity>
+                    </lexsdigest:EntityActivity>
+                    <!--=======================  Activity Offense 2  =======================-->
+                    <lexsdigest:EntityActivity>
+                        <nc:Activity s:id="Offense2">
+                            <nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+                        </nc:Activity>
+                    </lexsdigest:EntityActivity>
+                    <!--=======================  Activity Offense 3  =======================-->
+                    <lexsdigest:EntityActivity>
+                        <nc:Activity s:id="Offense3">
+                            <nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+                        </nc:Activity>
+                    </lexsdigest:EntityActivity>
+                    <!--=======================  Activity Service Call  =======================-->
+                    <lexsdigest:EntityActivity>
+                        <nc:Activity s:id="ServiceCall1">
+                            <nc:ActivityIdentification>
+                                <nc:IdentificationID>509825-05</nc:IdentificationID>
+                            </nc:ActivityIdentification>
+                            <nc:ActivityCategoryText>Service Call</nc:ActivityCategoryText>
+                        </nc:Activity>
+                    </lexsdigest:EntityActivity>
+                    <!--=======================  Activity Warrant  =======================-->
+                    <lexsdigest:EntityActivity>
+                        <nc:Activity s:id="Warrant1">
+                            <nc:ActivityIdentification>
+                                <nc:IdentificationID>9059622235-06</nc:IdentificationID>
+                            </nc:ActivityIdentification>
+                            <nc:ActivityCategoryText>Warrant</nc:ActivityCategoryText>
+                            <nc:ActivityDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ActivityDate>
+                            <nc:ActivityDescriptionText>Arrest Warrant, Nationwide Extradition Authorized</nc:ActivityDescriptionText>
+                        </nc:Activity>
+                    </lexsdigest:EntityActivity>
+                    <!--=======================  Person 1 - Witness  =======================-->
+                    <lexsdigest:EntityPerson>
+                        <lexsdigest:Metadata s:id="MWitness1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>8594</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MWitnessPerson1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>2585</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Person s:metadata="MWitnessPerson1" s:id="WitnessPerson1">
+                            <nc:PersonAgeMeasure>
+                                <nc:MeasurePointValue>35</nc:MeasurePointValue>
+                                <nc:TimeUnitCode>ANN</nc:TimeUnitCode>
+                            </nc:PersonAgeMeasure>
+                            <nc:PersonBirthDate>
+                                <nc:Date>1962-04-21</nc:Date>
+                            </nc:PersonBirthDate>
+                            <nc:PersonName>
+                                <nc:PersonGivenName>Donald</nc:PersonGivenName>
+                                <nc:PersonMiddleName>R</nc:PersonMiddleName>
+                                <nc:PersonSurName>Duck</nc:PersonSurName>
+                                <nc:PersonFullName>Donald R. Duck</nc:PersonFullName>
+                            </nc:PersonName>
+                            <nc:PersonRaceCode>W</nc:PersonRaceCode>
+                            <nc:PersonSexCode>M</nc:PersonSexCode>
+                            <nc:PersonSSNIdentification>
+                                <nc:IdentificationID>645076893</nc:IdentificationID>
+                            </nc:PersonSSNIdentification>
+                        </lexsdigest:Person>
+                        <j:Witness s:metadata="MWitness1" s:id="Witness1">
+                            <nc:RoleOfPersonReference s:ref="WitnessPerson1"></nc:RoleOfPersonReference>
+                            <j:WitnessAccountDescriptionText>Saw an older white male break a front door window and enter into a neighbor's house.  Called 911 for assistance.</j:WitnessAccountDescriptionText>
+                            <j:WitnessDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </j:WitnessDate>
+                        </j:Witness>
+                    </lexsdigest:EntityPerson>
+                    <!--===============  Person 2 - Subject and Arrestee and Registered Offender  ===============-->
+                    <lexsdigest:EntityPerson>
+                        <lexsdigest:Metadata s:id="MSubject1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>1118</nc:SourceIDText>
+                            <lexsdigest:LogicalIDText>2222</lexsdigest:LogicalIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MArrestSubject1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>2820</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MRegisteredOffender1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1995-12-25</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1982-01-11</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>18523</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MSubjectArresteePerson1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>1874</nc:SourceIDText>
+                            <lexsdigest:LogicalIDText>1620</lexsdigest:LogicalIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Person s:metadata="MSubjectArresteePerson1" s:id="SubjectArresteePerson1">
+                            <nc:PersonAgeMeasure>
+                                <nc:MeasurePointValue>61</nc:MeasurePointValue>
+                                <nc:TimeUnitCode>ANN</nc:TimeUnitCode>
+                            </nc:PersonAgeMeasure>
+                            <nc:PersonBirthDate>
+                                <nc:Date>1936-01-01</nc:Date>
+                            </nc:PersonBirthDate>
+                            <nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
+                            <nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+                            <nc:PersonHeightMeasure>
+                                <nc:MeasurePointValue>70</nc:MeasurePointValue>
+                                <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+                            </nc:PersonHeightMeasure>
+                            <nc:PersonName>
+                                <nc:PersonGivenName>Thomas</nc:PersonGivenName>
+                                <nc:PersonMiddleName>C</nc:PersonMiddleName>
+                                <nc:PersonSurName>Farr</nc:PersonSurName>
+                                <nc:PersonFullName>Thomas C. Farr</nc:PersonFullName>
+                            </nc:PersonName>
+                            <nc:PersonRaceCode>W</nc:PersonRaceCode>
+                            <nc:PersonSexCode>M</nc:PersonSexCode>
+                            <nc:PersonSSNIdentification>
+                                <nc:IdentificationID>968526352</nc:IdentificationID>
+                            </nc:PersonSSNIdentification>
+                            <nc:PersonWeightMeasure>
+                                <nc:MeasurePointValue>180</nc:MeasurePointValue>
+                                <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+                            </nc:PersonWeightMeasure>
+                            <j:PersonAugmentation>
+                                <j:PersonFBIIdentification>
+                                    <nc:IdentificationID>90070000</nc:IdentificationID>
+                                </j:PersonFBIIdentification>
+                                <j:PersonStateFingerprintIdentification>
+                                    <!-- This field replaces N-DEx 1.0 PersonStateID field -->
+                                    <nc:IdentificationID>NM63535</nc:IdentificationID>
+                                    <j:IdentificationJurisdictionNCICRESCode>NM</j:IdentificationJurisdictionNCICRESCode>
+                                </j:PersonStateFingerprintIdentification>
+                            </j:PersonAugmentation>
+                        </lexsdigest:Person>
+                        <j:ArrestSubject s:metadata="MArrestSubject1" s:id="ArrestSubject1">
+                            <nc:RoleOfPersonReference s:ref="SubjectArresteePerson1"></nc:RoleOfPersonReference>
+                        </j:ArrestSubject>
+                        <j:RegisteredOffender s:metadata="MRegisteredOffender1" s:id="RegisteredOffender1">
+                            <nc:RoleOfPersonReference s:ref="SubjectArresteePerson1"></nc:RoleOfPersonReference>
+                            <j:RegisteredOffenderDescription>Public Intoxication conviction.</j:RegisteredOffenderDescription>
+                            <j:RegisteredOffenderEndDate>
+                                <nc:Date>1999-12-31</nc:Date>
+                            </j:RegisteredOffenderEndDate>
+                            <j:RegisteredOffenderIdentification>
+                                <nc:IdentificationID>195687</nc:IdentificationID>
+                                <nc:IdentificationJurisdictionText>Santa Fe City</nc:IdentificationJurisdictionText>
+                            </j:RegisteredOffenderIdentification>
+                            <j:RegisteredOffenderReportingCriteriaText>Must report annually to Santa Fe PD.</j:RegisteredOffenderReportingCriteriaText>
+                        </j:RegisteredOffender>
+                        <j:Subject s:metadata="MSubject1" s:id="Subject1">
+                            <nc:RoleOfPersonReference s:ref="SubjectArresteePerson1"></nc:RoleOfPersonReference>
+                        </j:Subject>
+                    </lexsdigest:EntityPerson>
+                    <!--=======================  Person 3 - Victim  =======================-->
+                    <lexsdigest:EntityPerson>
+                        <lexsdigest:Metadata s:id="MVictim1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>1091</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MVictimPerson1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>1012</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Person s:metadata="MVictimPerson1" s:id="VictimPerson1">
+                            <nc:PersonAgeMeasure>
+                                <nc:MeasurePointValue>50</nc:MeasurePointValue>
+                                <nc:TimeUnitCode>ANN</nc:TimeUnitCode>
+                            </nc:PersonAgeMeasure>
+                            <nc:PersonBirthDate>
+                                <nc:Date>1947-03-12</nc:Date>
+                            </nc:PersonBirthDate>
+                            <nc:PersonName>
+                                <nc:PersonGivenName>Jacob</nc:PersonGivenName>
+                                <nc:PersonSurName>Joe</nc:PersonSurName>
+                                <nc:PersonFullName>Jacob Joe</nc:PersonFullName>
+                            </nc:PersonName>
+                            <nc:PersonRaceCode>W</nc:PersonRaceCode>
+                            <nc:PersonSexCode>M</nc:PersonSexCode>
+                            <nc:PersonSSNIdentification>
+                                <nc:IdentificationID>205683521</nc:IdentificationID>
+                            </nc:PersonSSNIdentification>
+                            <j:PersonAugmentation>
+                                <nc:DriverLicense>
+                                    <nc:DriverLicenseIdentification>
+                                        <nc:IdentificationID>C5766238</nc:IdentificationID>
+                                        <nc:IdentificationExpirationDate>
+                                            <nc:Date>2010-12-14</nc:Date>
+                                        </nc:IdentificationExpirationDate>
+                                        <j:IdentificationJurisdictionNCICLISCode>NM</j:IdentificationJurisdictionNCICLISCode>
+                                    </nc:DriverLicenseIdentification>
+                                </nc:DriverLicense>
+                            </j:PersonAugmentation>
+                        </lexsdigest:Person>
+                        <j:Victim s:metadata="MVictim1" s:id="Victim1">
+                            <nc:RoleOfPersonReference s:ref="VictimPerson1"></nc:RoleOfPersonReference>
+                        </j:Victim>
+                    </lexsdigest:EntityPerson>
+                    <!--=======================  Person 4 - Officer (Reporting) and Witness  =======================-->
+                    <lexsdigest:EntityPerson>
+                        <lexsdigest:Metadata s:id="MOfficer1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1990-01-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>1506</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MWitness2">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>4971</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MOfficerPerson1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-09-06</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>6258</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Person s:metadata="MOfficerPerson1" s:id="OfficerPerson1">
+                            <nc:PersonName>
+                                <nc:PersonSurName>Bond</nc:PersonSurName>
+                                <nc:PersonFullName>Officer Bond</nc:PersonFullName>
+                            </nc:PersonName>
+                        </lexsdigest:Person>
+                        <j:IncidentReportingOfficial s:metadata="MOfficer1" s:id="Officer1">
+                            <nc:RoleOfPersonReference s:ref="OfficerPerson1"></nc:RoleOfPersonReference>
+                            <j:EnforcementOfficialBadgeIdentification>
+                                <nc:IdentificationID>1506</nc:IdentificationID>
+                            </j:EnforcementOfficialBadgeIdentification>
+                        </j:IncidentReportingOfficial>
+                        <j:Witness s:metadata="MWitness2" s:id="Witness2">
+                            <nc:RoleOfPersonReference s:ref="OfficerPerson1"></nc:RoleOfPersonReference>
+                            <j:WitnessAccountDescriptionText>Responded to burglary call from dispatcher. Arrived at residence at 12:25 a.m. to find the front door standing open with the glass broken out.  I drew my weapon and entered the structure.  Proceeding through the entry way and entered the kitchen hearing loud noise in back, up-stairs portion of the residence.  I proceeded up the back stairs where I encountered subject going through a jewelry box at the end of the hallway.  Startling the subject (white, male, black clothes, and gloves), he dropped the jewelry box and exited through an exterior window.  I immediately went down stairs and out the kitchen door expecting to find the subject, but only found some foot prints and a wallet containing a condom, Diner Club Card, Library Card, and a Conceal Weapon Permit  All identification had the name Thomas C. Farr appearing on it.</j:WitnessAccountDescriptionText>
+                            <j:WitnessDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </j:WitnessDate>
+                        </j:Witness>
+                    </lexsdigest:EntityPerson>
+                    <!--=======================  Person 5 - Operator  =======================-->
+                    <lexsdigest:EntityPerson>
+                        <lexsdigest:Metadata s:id="MOperatorPerson1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1989-09-22</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>9</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Person s:metadata="MOperatorPerson1" s:id="OperatorPerson1">
+                            <nc:PersonName>
+                                <nc:PersonFullName>Cara Jones</nc:PersonFullName>
+                            </nc:PersonName>
+                        </lexsdigest:Person>
+                    </lexsdigest:EntityPerson>
+                    <!--=======================  Person 6 - Dispatcher  =======================-->
+                    <lexsdigest:EntityPerson>
+                        <lexsdigest:Metadata s:id="MDispatcherPerson1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1988-09-26</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>1</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Person s:metadata="MDispatcherPerson1" s:id="DispatcherPerson1">
+                            <nc:PersonName>
+                                <nc:PersonFullName>Rick Williams</nc:PersonFullName>
+                            </nc:PersonName>
+                        </lexsdigest:Person>
+                    </lexsdigest:EntityPerson>
+                    <!--=======================  Person 7 - Officer (Arresting)  =======================-->
+                    <lexsdigest:EntityPerson>
+                        <lexsdigest:Metadata s:id="MOfficer2">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1994-09-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>785</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MOfficerPerson2">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1994-09-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>6205</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Person s:metadata="MOfficerPerson2" s:id="OfficerPerson2">
+                            <nc:PersonName>
+                                <nc:PersonSurName>Steal</nc:PersonSurName>
+                                <nc:PersonFullName>Officer Steal</nc:PersonFullName>
+                            </nc:PersonName>
+                        </lexsdigest:Person>
+                        <j:ArrestOfficial s:metadata="MOfficer2" s:id="Officer2">
+                            <nc:RoleOfPersonReference s:ref="OfficerPerson2"></nc:RoleOfPersonReference>
+                            <j:EnforcementOfficialBadgeIdentification>
+                                <nc:IdentificationID>785</nc:IdentificationID>
+                            </j:EnforcementOfficialBadgeIdentification>
+                        </j:ArrestOfficial>
+                    </lexsdigest:EntityPerson>
+                    <!--=======================  Property 1 - Evidence  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MProperty1">
+                            <nc:SourceIDText>801425</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MProperty1" s:id="Property1">
+                            <nc:ItemSerialIdentification>
+                                <nc:IdentificationID>6859501256</nc:IdentificationID>
+                            </nc:ItemSerialIdentification>
+                        </nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Property 2 - Evidence  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MProperty2">
+                            <nc:SourceIDText>915284</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MProperty2" s:id="Property2">
+                            <nc:ItemDescriptionText>Library Card</nc:ItemDescriptionText>
+                            <nc:ItemSerialIdentification>
+                                <nc:IdentificationID>620105896</nc:IdentificationID>
+                            </nc:ItemSerialIdentification>
+                        </nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Property 3 - Evidence  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MProperty3">
+                            <nc:SourceIDText>111630</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MProperty3" s:id="Property3">
+                            <nc:ItemDescriptionText>Permit to carry; Exp 2002-01-26 State of New Mexico issuing authority.</nc:ItemDescriptionText>
+                            <nc:ItemSerialIdentification>
+                                <nc:IdentificationID>G8251</nc:IdentificationID>
+                            </nc:ItemSerialIdentification>
+                        </nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Property 4 - Evidence  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MProperty4">
+                            <nc:SourceIDText>118830</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MProperty4" s:id="Property4">
+                            <nc:ItemDescriptionText>Black Leather Wallet</nc:ItemDescriptionText>
+                        </nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Property 5  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MProperty5">
+                            <nc:SourceIDText>918830</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MProperty5" s:id="Property5">
+                            <nc:ItemDescriptionText>Pearl handle knife</nc:ItemDescriptionText>
+                        </nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Property 6  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MProperty6">
+                            <nc:SourceIDText>618835</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MProperty6" s:id="Property6">
+                            <nc:ItemDescriptionText>Black Leather Belt, with 6 inch PBR buckle.  The buckle reads, "1992 World Champion".</nc:ItemDescriptionText>
+                        </nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Property 7 - Evidence =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MProperty7">
+                            <nc:SourceIDText>617735</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MProperty7" s:id="Property7">
+                            <nc:ItemDescriptionText>Trojan Slim</nc:ItemDescriptionText>
+                        </nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Firearm - Evidence  =======================-->
+                    <lexsdigest:EntityFirearm>
+                        <lexsdigest:Metadata s:id="MFirearm1">
+                            <nc:SourceIDText>1000622155</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Firearm s:metadata="MFirearm1" s:id="Firearm1">
+                            <nc:ItemSerialIdentification>
+                                <nc:IdentificationID>2459-82-324</nc:IdentificationID>
+                            </nc:ItemSerialIdentification>
+                            <nc:FirearmMakeCode>SII</nc:FirearmMakeCode>
+                            <nc:FirearmCategoryCode>P</nc:FirearmCategoryCode>
+                            <nc:FirearmCategoryDescriptionCode>R</nc:FirearmCategoryDescriptionCode>
+                            <nc:FirearmCaliberCode>40</nc:FirearmCaliberCode>
+                            <nc:FirearmFinishCode>COM</nc:FirearmFinishCode>
+                        </nc:Firearm>
+                    </lexsdigest:EntityFirearm>
+                    <!--=======================  Forensic Specimen - Evidence  =======================-->
+                    <lexsdigest:EntitySubstance>
+                        <lexsdigest:Metadata s:id="MForensicSpecimen1">
+                            <nc:SourceIDText>85123</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Substance s:metadata="MForensicSpecimen1" s:id="ForensicSpecimen1">
+                            <nc:ItemDescriptionText>2 (one left and one right) size 10 Red Wing boot impressions were found leaving the window area only partial right heel print.</nc:ItemDescriptionText>
+                        </nc:Substance>
+                    </lexsdigest:EntitySubstance>
+                    <!--=======================  Jewelry 1 - Evidence  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MJewelry1">
+                            <nc:SourceIDText>102030</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MJewelry1" s:id="Jewelry1"></nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Jewelry 2  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MJewelry2">
+                            <nc:SourceIDText>802563</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MJewelry2" s:id="Jewelry2"></nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Jewelry Stone  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <nc:TangibleItem s:id="JewelryStone1">
+                            <nc:ItemSerialIdentification>
+                                <nc:IdentificationID>A-685-3</nc:IdentificationID>
+                            </nc:ItemSerialIdentification>
+                        </nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Precious Metal 1  =======================-->
+                    <lexsdigest:EntitySubstance>
+                        <nc:Substance s:id="PreciousMetal1">
+                            <nc:ItemDescriptionText>14 Karat Yellow Gold</nc:ItemDescriptionText>
+                        </nc:Substance>
+                    </lexsdigest:EntitySubstance>
+                    <!--=======================  Precious Metal 2  =======================-->
+                    <lexsdigest:EntitySubstance>
+                        <nc:Substance s:id="PreciousMetal2">
+                            <nc:ItemDescriptionText>18 Karat White Gold</nc:ItemDescriptionText>
+                        </nc:Substance>
+                    </lexsdigest:EntitySubstance>
+                    <!--=======================  Publication  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MPublication1">
+                            <nc:SourceIDText>91425</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MPublication1" s:id="Publication1">
+                            <nc:ItemDescriptionText>The first published Punisher in a comic book.</nc:ItemDescriptionText>
+                        </nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Structure  =======================-->
+                    <lexsdigest:EntityTangibleItem>
+                        <lexsdigest:Metadata s:id="MStructure1">
+                            <nc:SourceIDText>90001526</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:TangibleItem s:metadata="MStructure1" s:id="Structure1"></nc:TangibleItem>
+                    </lexsdigest:EntityTangibleItem>
+                    <!--=======================  Enforcement Unit 1  =======================-->
+                    <lexsdigest:EntityOrganization>
+                        <lexsdigest:Metadata s:id="MUnit1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1967-05-27</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>1018</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Organization s:metadata="MUnit1" s:id="Unit1">
+                            <nc:OrganizationCategoryText>Criminal Justice</nc:OrganizationCategoryText>
+                            <nc:OrganizationName>Sante Fe Police Department</nc:OrganizationName>
+                        </nc:Organization>
+                    </lexsdigest:EntityOrganization>
+                    <!--=======================  Enforcement Unit 2  =======================-->
+                    <lexsdigest:EntityOrganization>
+                        <lexsdigest:Metadata s:id="MUnit2">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1987-11-25</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>9851</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Organization s:metadata="MUnit2" s:id="Unit2">
+                            <nc:OrganizationCategoryText>Criminal Justice</nc:OrganizationCategoryText>
+                            <nc:OrganizationName>Sante Fe Police Department</nc:OrganizationName>
+                        </nc:Organization>
+                    </lexsdigest:EntityOrganization>
+                    <!--=======================  Organization 1  =======================-->
+                    <lexsdigest:EntityOrganization>
+                        <lexsdigest:Metadata s:id="MOrganization1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1965-03-19</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>8910</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Organization s:metadata="MOrganization1" s:id="Organization1">
+                            <nc:OrganizationCategoryText>Criminal Justice</nc:OrganizationCategoryText>
+                            <nc:OrganizationName>Sante Fe Police Department</nc:OrganizationName>
+                        </nc:Organization>
+                    </lexsdigest:EntityOrganization>
+                    <!--=======================  Organization 2  =======================-->
+                    <lexsdigest:EntityOrganization>
+                        <lexsdigest:Metadata s:id="MOrganization2">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1980-10-14</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>218</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Organization s:metadata="MOrganization2" s:id="Organization2">
+                            <nc:OrganizationCategoryText>Criminal Justice</nc:OrganizationCategoryText>
+                            <nc:OrganizationName>Sante Fe Municipal Court</nc:OrganizationName>
+                        </nc:Organization>
+                    </lexsdigest:EntityOrganization>
+                    <!--=======================  Organization 3 - Victim =======================-->
+                    <lexsdigest:EntityOrganization>
+                        <lexsdigest:Metadata s:id="MVictim2">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>1</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MOrganization3">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-21</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>1</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Organization s:metadata="MOrganization3" s:id="Organization3">
+                            <nc:OrganizationCategoryText>Society</nc:OrganizationCategoryText>
+                            <nc:OrganizationName>Society</nc:OrganizationName>
+                        </nc:Organization>
+                        <j:Victim s:metadata="MVictim2" s:id="Victim2">
+                            <nc:RoleOfPersonReference s:ref="Organization3"></nc:RoleOfPersonReference>
+                        </j:Victim>
+                    </lexsdigest:EntityOrganization>
+                    <!--=======================  Location 1 - Dispatch Location / Victim's Home  =======================-->
+                    <lexsdigest:EntityLocation>
+                        <lexsdigest:Metadata s:id="MLocation1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>620</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Location s:metadata="MLocation1" s:id="Location1">
+                            <nc:LocationAddress>
+                                <nc:StructuredAddress>
+                                    <nc:LocationStreet>
+                                        <nc:StreetFullText>1 NW Brockway Avenue</nc:StreetFullText>
+                                        <nc:StreetNumberText>1</nc:StreetNumberText>
+                                        <nc:StreetName>Brockway</nc:StreetName>
+                                        <nc:StreetCategoryText>Avenue</nc:StreetCategoryText>
+                                    </nc:LocationStreet>
+                                    <nc:LocationCityName>Santa Fe</nc:LocationCityName>
+                                    <nc:LocationStateName>New Mexico</nc:LocationStateName>
+                                    <nc:LocationCountryName>United States</nc:LocationCountryName>
+                                </nc:StructuredAddress>
+                            </nc:LocationAddress>
+                        </nc:Location>
+                    </lexsdigest:EntityLocation>
+                    <!--=======================  Location 2 - Witness' Home  =======================-->
+                    <lexsdigest:EntityLocation>
+                        <lexsdigest:Metadata s:id="MLocation2">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>5623</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Location s:metadata="MLocation2" s:id="Location2">
+                            <nc:LocationAddress>
+                                <nc:StructuredAddress>
+                                    <nc:LocationStreet>
+                                        <nc:StreetFullText>11 NW Brockway Avenue</nc:StreetFullText>
+                                        <nc:StreetNumberText>11</nc:StreetNumberText>
+                                        <nc:StreetName>Brockway</nc:StreetName>
+                                        <nc:StreetCategoryText>Avenue</nc:StreetCategoryText>
+                                    </nc:LocationStreet>
+                                    <nc:LocationCityName>Santa Fe</nc:LocationCityName>
+                                    <nc:LocationStateName>New Mexico</nc:LocationStateName>
+                                    <nc:LocationCountryName>United States</nc:LocationCountryName>
+                                </nc:StructuredAddress>
+                            </nc:LocationAddress>
+                        </nc:Location>
+                    </lexsdigest:EntityLocation>
+                    <!--=======================  Location 3 - Subject's Home  =======================-->
+                    <lexsdigest:EntityLocation>
+                        <lexsdigest:Metadata s:id="MLocation3">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>3269</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Location s:metadata="MLocation3" s:id="Location3">
+                            <nc:LocationAddress>
+                                <nc:StructuredAddress>
+                                    <nc:LocationStreet>
+                                        <nc:StreetFullText>928 Bently Drive</nc:StreetFullText>
+                                        <nc:StreetNumberText>928</nc:StreetNumberText>
+                                        <nc:StreetName>Bentley</nc:StreetName>
+                                        <nc:StreetCategoryText>Drive</nc:StreetCategoryText>
+                                    </nc:LocationStreet>
+                                    <nc:LocationCityName>Santa Fe</nc:LocationCityName>
+                                    <nc:LocationStateName>New Mexico</nc:LocationStateName>
+                                    <nc:LocationCountryName>United States</nc:LocationCountryName>
+                                </nc:StructuredAddress>
+                            </nc:LocationAddress>
+                        </nc:Location>
+                    </lexsdigest:EntityLocation>
+                    <!--=======================  Location 4 - Arrest Location  =======================-->
+                    <lexsdigest:EntityLocation>
+                        <lexsdigest:Metadata s:id="MLocation4">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-18</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>6271</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <nc:Location s:metadata="MLocation4" s:id="Location4">
+                            <nc:LocationAddress>
+                                <nc:StructuredAddress>
+                                    <nc:LocationStreet>
+                                        <nc:StreetFullText>1028 Jenkins Road</nc:StreetFullText>
+                                        <nc:StreetNumberText>1028</nc:StreetNumberText>
+                                        <nc:StreetName>Jenkins</nc:StreetName>
+                                        <nc:StreetCategoryText>Road</nc:StreetCategoryText>
+                                    </nc:LocationStreet>
+                                    <nc:LocationCityName>Santa Fe</nc:LocationCityName>
+                                    <nc:LocationStateName>New Mexico</nc:LocationStateName>
+                                    <nc:LocationCountryName>United States</nc:LocationCountryName>
+                                </nc:StructuredAddress>
+                            </nc:LocationAddress>
+                        </nc:Location>
+                    </lexsdigest:EntityLocation>
+                    <!--==================  Telephone Number 1 - Service Call / Witness Telephone Number  ==================-->
+                    <lexsdigest:EntityTelephoneNumber>
+                        <lexsdigest:Metadata s:id="MTelephoneNumber1">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>6824</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:TelephoneNumber s:metadata="MTelephoneNumber1" s:id="TelephoneNumber1">
+                            <nc:NANPTelephoneNumber>
+                                <nc:TelephoneAreaCodeID>304</nc:TelephoneAreaCodeID>
+                                <nc:TelephoneExchangeID>685</nc:TelephoneExchangeID>
+                                <nc:TelephoneLineID>7180</nc:TelephoneLineID>
+                            </nc:NANPTelephoneNumber>
+                            <lexsdigest:TelephoneNumberCategoryCode>Mobile</lexsdigest:TelephoneNumberCategoryCode>
+                        </lexsdigest:TelephoneNumber>
+                    </lexsdigest:EntityTelephoneNumber>
+                    <!--=====================  Telephone Number 2 - Victim Telephone Number  =====================-->
+                    <lexsdigest:EntityTelephoneNumber>
+                        <lexsdigest:Metadata s:id="MTelephoneNumber2">
+                            <nc:LastUpdatedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:LastUpdatedDate>
+                            <nc:ReportedDate>
+                                <nc:Date>1997-03-12</nc:Date>
+                            </nc:ReportedDate>
+                            <nc:SourceIDText>2121</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:TelephoneNumber s:metadata="MTelephoneNumber2" s:id="TelephoneNumber2">
+                            <nc:NANPTelephoneNumber>
+                                <nc:TelephoneAreaCodeID>304</nc:TelephoneAreaCodeID>
+                                <nc:TelephoneExchangeID>685</nc:TelephoneExchangeID>
+                                <nc:TelephoneLineID>4020</nc:TelephoneLineID>
+                            </nc:NANPTelephoneNumber>
+                            <lexsdigest:TelephoneNumberCategoryCode>LandLine</lexsdigest:TelephoneNumberCategoryCode>
+                        </lexsdigest:TelephoneNumber>
+                    </lexsdigest:EntityTelephoneNumber>
+                    <!--=======================  Associations  =======================-->
+                    <lexsdigest:Associations>
+                        <!--     Service Call Dispatched Officer (Person 4) Association     -->
+                        <j:ActivityEnforcementOfficialAssociation>
+                            <nc:ActivityReference s:ref="ServiceCall1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="OfficerPerson1"></nc:PersonReference>
+                        </j:ActivityEnforcementOfficialAssociation>
+                        <!--     Arrest Location Association     -->
+                        <j:ActivityLocationAssociation>
+                            <nc:ActivityReference s:ref="Arrest1"></nc:ActivityReference>
+                            <nc:LocationReference s:ref="Location4"></nc:LocationReference>
+                        </j:ActivityLocationAssociation>
+                        <!--     Arrest Offense Associations     -->
+                        <lexsdigest:ArrestOffenseAssociation>
+                            <nc:ActivityReference s:ref="Arrest1"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                        </lexsdigest:ArrestOffenseAssociation>
+                        <lexsdigest:ArrestOffenseAssociation>
+                            <nc:ActivityReference s:ref="Arrest1"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="Offense2"></nc:ActivityReference>
+                        </lexsdigest:ArrestOffenseAssociation>
+                        <lexsdigest:ArrestOffenseAssociation>
+                            <nc:ActivityReference s:ref="Arrest1"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="Offense3"></nc:ActivityReference>
+                        </lexsdigest:ArrestOffenseAssociation>
+                        <!--     Arrest to Arresting Officer (Person 7) Association     -->
+                        <lexsdigest:ArrestOfficerAssociation>
+                            <nc:ActivityReference s:ref="Arrest1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="OfficerPerson2"></nc:PersonReference>
+                        </lexsdigest:ArrestOfficerAssociation>
+                        <!--     Arrest to Subject Association     -->
+                        <lexsdigest:ArrestSubjectAssociation>
+                            <nc:ActivityReference s:ref="Arrest1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                        </lexsdigest:ArrestSubjectAssociation>
+                        <!--     Victim's Telephone Number    -->
+                        <lexsdigest:EntityTelephoneNumberAssociation>
+                            <nc:PersonReference s:ref="VictimPerson1"></nc:PersonReference>
+                            <lexsdigest:TelephoneNumberReference s:ref="TelephoneNumber2"></lexsdigest:TelephoneNumberReference>
+                        </lexsdigest:EntityTelephoneNumberAssociation>
+                        <!--     Witness/Service Caller's Telephone Number    -->
+                        <lexsdigest:EntityTelephoneNumberAssociation>
+                            <nc:PersonReference s:ref="WitnessPerson1"></nc:PersonReference>
+                            <lexsdigest:TelephoneNumberReference s:ref="TelephoneNumber1"></lexsdigest:TelephoneNumberReference>
+                        </lexsdigest:EntityTelephoneNumberAssociation>
+                        <!-- Incident Arrest Association -->
+                        <lexsdigest:IncidentArrestAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="Arrest1"></nc:ActivityReference>
+                        </lexsdigest:IncidentArrestAssociation>
+                        <!-- Incident Property (Evidence) Associations -->
+                        <lexsdigest:IncidentEvidenceAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="ForensicSpecimen1"></nc:ItemReference>
+                        </lexsdigest:IncidentEvidenceAssociation>
+                        <lexsdigest:IncidentEvidenceAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Jewelry1"></nc:ItemReference>
+                        </lexsdigest:IncidentEvidenceAssociation>
+                        <lexsdigest:IncidentEvidenceAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Firearm1"></nc:ItemReference>
+                        </lexsdigest:IncidentEvidenceAssociation>
+                        <lexsdigest:IncidentEvidenceAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Property1"></nc:ItemReference>
+                        </lexsdigest:IncidentEvidenceAssociation>
+                        <lexsdigest:IncidentEvidenceAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Property2"></nc:ItemReference>
+                        </lexsdigest:IncidentEvidenceAssociation>
+                        <lexsdigest:IncidentEvidenceAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Property3"></nc:ItemReference>
+                        </lexsdigest:IncidentEvidenceAssociation>
+                        <lexsdigest:IncidentEvidenceAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Property4"></nc:ItemReference>
+                        </lexsdigest:IncidentEvidenceAssociation>
+                        <lexsdigest:IncidentEvidenceAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Property7"></nc:ItemReference>
+                        </lexsdigest:IncidentEvidenceAssociation>
+                        <!-- Incident Property Associations -->
+                        <lexsdigest:IncidentInvolvedItemAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Jewelry2"></nc:ItemReference>
+                        </lexsdigest:IncidentInvolvedItemAssociation>
+                        <lexsdigest:IncidentInvolvedItemAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Publication1"></nc:ItemReference>
+                        </lexsdigest:IncidentInvolvedItemAssociation>
+                        <!--     Incident Location Association    -->
+                        <lexsdigest:IncidentLocationAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:LocationReference s:ref="Location1"></nc:LocationReference>
+                        </lexsdigest:IncidentLocationAssociation>
+                        <!--     Incident to Offense Associations    -->
+                        <lexsdigest:IncidentOffenseAssociation>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                        </lexsdigest:IncidentOffenseAssociation>
+                        <lexsdigest:IncidentOffenseAssociation>
+                            <nc:ActivityReference s:ref="Offense2"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                        </lexsdigest:IncidentOffenseAssociation>
+                        <lexsdigest:IncidentOffenseAssociation>
+                            <nc:ActivityReference s:ref="Offense3"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                        </lexsdigest:IncidentOffenseAssociation>
+                        <!--    Incident Reporting Official Association    -->
+                        <lexsdigest:IncidentReportingOfficialAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="OfficerPerson1"></nc:PersonReference>
+                        </lexsdigest:IncidentReportingOfficialAssociation>
+                        <!--    Incident Service Call Association    -->
+                        <lexsdigest:IncidentServiceCallAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="ServiceCall1"></nc:ActivityReference>
+                        </lexsdigest:IncidentServiceCallAssociation>
+                        <!--     Incident Subject Association    -->
+                        <lexsdigest:IncidentSubjectPersonAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                        </lexsdigest:IncidentSubjectPersonAssociation>
+                        <!--     Incident Victim Associations    -->
+                        <lexsdigest:IncidentVictimOrganizationAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:OrganizationReference s:ref="Organization3"></nc:OrganizationReference>
+                        </lexsdigest:IncidentVictimOrganizationAssociation>
+                        <lexsdigest:IncidentVictimPersonAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="VictimPerson1"></nc:PersonReference>
+                        </lexsdigest:IncidentVictimPersonAssociation>
+                        <!--     Incident Witness Associations    -->
+                        <lexsdigest:IncidentWitnessAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="WitnessPerson1"></nc:PersonReference>
+                        </lexsdigest:IncidentWitnessAssociation>
+                        <lexsdigest:IncidentWitnessAssociation>
+                            <nc:ActivityReference s:ref="Incident1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="OfficerPerson1"></nc:PersonReference>
+                        </lexsdigest:IncidentWitnessAssociation>
+                        <!--     Offense Location Associations    -->
+                        <lexsdigest:OffenseLocationAssociation>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                            <nc:LocationReference s:ref="Location1"></nc:LocationReference>
+                        </lexsdigest:OffenseLocationAssociation>
+                        <lexsdigest:OffenseLocationAssociation>
+                            <nc:ActivityReference s:ref="Offense2"></nc:ActivityReference>
+                            <nc:LocationReference s:ref="Location1"></nc:LocationReference>
+                        </lexsdigest:OffenseLocationAssociation>
+                        <lexsdigest:OffenseLocationAssociation>
+                            <nc:ActivityReference s:ref="Offense3"></nc:ActivityReference>
+                            <nc:LocationReference s:ref="Location1"></nc:LocationReference>
+                        </lexsdigest:OffenseLocationAssociation>
+                        <!--   Offense Subject Associations   -->
+                        <lexsdigest:OffenseSubjectPersonAssociation>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                        </lexsdigest:OffenseSubjectPersonAssociation>
+                        <lexsdigest:OffenseSubjectPersonAssociation>
+                            <nc:ActivityReference s:ref="Offense2"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                        </lexsdigest:OffenseSubjectPersonAssociation>
+                        <lexsdigest:OffenseSubjectPersonAssociation>
+                            <nc:ActivityReference s:ref="Offense3"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                        </lexsdigest:OffenseSubjectPersonAssociation>
+                        <!--   Offense Victim Associations   -->
+                        <lexsdigest:OffenseVictimOrganizationAssociation>
+                            <nc:ActivityReference s:ref="Offense2"></nc:ActivityReference>
+                            <nc:OrganizationReference s:ref="Organization3"></nc:OrganizationReference>
+                        </lexsdigest:OffenseVictimOrganizationAssociation>
+                        <lexsdigest:OffenseVictimPersonAssociation>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="VictimPerson1"></nc:PersonReference>
+                        </lexsdigest:OffenseVictimPersonAssociation>
+                        <lexsdigest:OffenseVictimPersonAssociation>
+                            <nc:ActivityReference s:ref="Offense3"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="VictimPerson1"></nc:PersonReference>
+                        </lexsdigest:OffenseVictimPersonAssociation>
+                        <!--   Offense Witness Associations   -->
+                        <lexsdigest:OffenseWitnessAssociation>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="WitnessPerson1"></nc:PersonReference>
+                        </lexsdigest:OffenseWitnessAssociation>
+                        <lexsdigest:OffenseWitnessAssociation>
+                            <nc:ActivityReference s:ref="Offense3"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="WitnessPerson1"></nc:PersonReference>
+                        </lexsdigest:OffenseWitnessAssociation>
+                        <!--     Subject Warrant Association    -->
+                        <lexsdigest:PersonOfInterestAssociation>
+                            <nc:ActivityReference s:ref="Warrant1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                        </lexsdigest:PersonOfInterestAssociation>
+                        <!--     Service Call Caller Association    -->
+                        <lexsdigest:ServiceCallCallerAssociation>
+                            <nc:ActivityReference s:ref="ServiceCall1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="WitnessPerson1"></nc:PersonReference>
+                        </lexsdigest:ServiceCallCallerAssociation>
+                        <!--     Service Call Dispatcher Association    -->
+                        <lexsdigest:ServiceCallDispatcherAssociation>
+                            <nc:ActivityReference s:ref="ServiceCall1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="DispatcherPerson1"></nc:PersonReference>
+                        </lexsdigest:ServiceCallDispatcherAssociation>
+                        <!--   Service Call Dispatch Location Association   -->
+                        <lexsdigest:ServiceCallDispatchLocationAssociation>
+                            <nc:ActivityReference s:ref="ServiceCall1"></nc:ActivityReference>
+                            <nc:LocationReference s:ref="Location1"></nc:LocationReference>
+                        </lexsdigest:ServiceCallDispatchLocationAssociation>
+                        <!--   Service Call Location Association   -->
+                        <lexsdigest:ServiceCallLocationAssociation>
+                            <nc:ActivityReference s:ref="ServiceCall1"></nc:ActivityReference>
+                            <nc:LocationReference s:ref="Location2"></nc:LocationReference>
+                        </lexsdigest:ServiceCallLocationAssociation>
+                        <!--     Service Call Operator Association    -->
+                        <lexsdigest:ServiceCallOperatorAssociation>
+                            <nc:ActivityReference s:ref="ServiceCall1"></nc:ActivityReference>
+                            <nc:PersonReference s:ref="OperatorPerson1"></nc:PersonReference>
+                        </lexsdigest:ServiceCallOperatorAssociation>
+                        <!--     Service Call Telephone Number Association    -->
+                        <lexsdigest:ServiceCallTelephoneNumberAssociation>
+                            <nc:ActivityReference s:ref="ServiceCall1"></nc:ActivityReference>
+                            <lexsdigest:TelephoneNumberReference s:ref="TelephoneNumber1"></lexsdigest:TelephoneNumberReference>
+                        </lexsdigest:ServiceCallTelephoneNumberAssociation>
+                        <!--     Subject Victim Association    -->
+                        <lexsdigest:SubjectVictimAssociation s:id="SubjectVictimAssoc1">
+                            <nc:AssociationBeginDate>
+                                <nc:Year>1980</nc:Year>
+                            </nc:AssociationBeginDate>
+                            <lexsdigest:SubjectPersonReference s:ref="SubjectArresteePerson1"></lexsdigest:SubjectPersonReference>
+                            <lexsdigest:VictimPersonReference s:ref="VictimPerson1"></lexsdigest:VictimPersonReference>
+                        </lexsdigest:SubjectVictimAssociation>
+                        <!--    Warrant Issuing Authority Association    -->
+                        <nc:ActivityInformationClearerOrganizationAssociation>
+                            <nc:ActivityReference s:ref="Warrant1"></nc:ActivityReference>
+                            <nc:OrganizationReference s:ref="Organization2"></nc:OrganizationReference>
+                        </nc:ActivityInformationClearerOrganizationAssociation>
+                        <!--    Warrant Complainant Organization Association    -->
+                        <nc:ActivityInvolvedOrganizationAssociation>
+                            <nc:ActivityReference s:ref="Warrant1"></nc:ActivityReference>
+                            <nc:OrganizationReference s:ref="Organization1"></nc:OrganizationReference>
+                        </nc:ActivityInvolvedOrganizationAssociation>
+                        <!--    Offense Property Associations    -->
+                        <nc:ActivityItemAssociation>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Jewelry1"></nc:ItemReference>
+                        </nc:ActivityItemAssociation>
+                        <nc:ActivityItemAssociation>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Jewelry2"></nc:ItemReference>
+                        </nc:ActivityItemAssociation>
+                        <nc:ActivityItemAssociation>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Publication1"></nc:ItemReference>
+                        </nc:ActivityItemAssociation>
+                        <nc:ActivityItemAssociation>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Firearm1"></nc:ItemReference>
+                        </nc:ActivityItemAssociation>
+                        <nc:ActivityItemAssociation>
+                            <nc:ActivityReference s:ref="Offense3"></nc:ActivityReference>
+                            <nc:ItemReference s:ref="Structure1"></nc:ItemReference>
+                        </nc:ActivityItemAssociation>
+                        <!--    Warrant Agency Association    -->
+                        <nc:ActivityResponsibleOrganizationAssociation>
+                            <nc:ActivityReference s:ref="Warrant1"></nc:ActivityReference>
+                            <nc:OrganizationReference s:ref="Organization1"></nc:OrganizationReference>
+                        </nc:ActivityResponsibleOrganizationAssociation>
+                        <!--    Jewelry Metal/Stone Associations    -->
+                        <nc:ItemContainerAssociation>
+                            <nc:ItemReference s:ref="PreciousMetal1"></nc:ItemReference>
+                            <nc:ContainerReference s:ref="Jewelry1"></nc:ContainerReference>
+                        </nc:ItemContainerAssociation>
+                        <nc:ItemContainerAssociation>
+                            <nc:ItemReference s:ref="PreciousMetal2"></nc:ItemReference>
+                            <nc:ContainerReference s:ref="Jewelry2"></nc:ContainerReference>
+                        </nc:ItemContainerAssociation>
+                        <nc:ItemContainerAssociation>
+                            <nc:ItemReference s:ref="JewelryStone1"></nc:ItemReference>
+                            <nc:ContainerReference s:ref="Jewelry2"></nc:ContainerReference>
+                        </nc:ItemContainerAssociation>
+                        <!--    Organization Location Association    -->
+                        <nc:LocationOrganizationAssociation>
+                            <nc:LocationReference s:ref="Location4"></nc:LocationReference>
+                            <nc:OrganizationReference s:ref="Organization1"></nc:OrganizationReference>
+                        </nc:LocationOrganizationAssociation>
+                        <!--    Enforcement Official Unit Association    -->
+                        <nc:PersonAssignedUnitAssociation>
+                            <nc:PersonReference s:ref="OfficerPerson1"></nc:PersonReference>
+                            <nc:OrganizationReference s:ref="Unit1"></nc:OrganizationReference>
+                        </nc:PersonAssignedUnitAssociation>
+                        <nc:PersonAssignedUnitAssociation>
+                            <nc:PersonReference s:ref="OfficerPerson2"></nc:PersonReference>
+                            <nc:OrganizationReference s:ref="Unit2"></nc:OrganizationReference>
+                        </nc:PersonAssignedUnitAssociation>
+                        <!--   Service Call Dispatch Location Owner Association   -->
+                        <nc:PersonLocationAssociation>
+                            <nc:PersonReference s:ref="VictimPerson1"></nc:PersonReference>
+                            <nc:LocationReference s:ref="Location1"></nc:LocationReference>
+                        </nc:PersonLocationAssociation>
+                        <!--   Person 2 (Subject) Property Associations   -->
+                        <nc:PersonOwnsItemAssociation>
+                            <!-- begin and end dates reflect issue and expiration date of the property, which is a card -->
+                            <nc:AssociationBeginDate>
+                                <nc:YearMonth>1996-08</nc:YearMonth>
+                            </nc:AssociationBeginDate>
+                            <nc:AssociationEndDate>
+                                <nc:YearMonth>1998-08</nc:YearMonth>
+                            </nc:AssociationEndDate>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Property1"></nc:ItemReference>
+                        </nc:PersonOwnsItemAssociation>
+                        <nc:PersonOwnsItemAssociation>
+                            <!-- begin and end dates reflect issue and expiration date of the property, which is a card -->
+                            <nc:AssociationBeginDate>
+                                <nc:Year>1995</nc:Year>
+                            </nc:AssociationBeginDate>
+                            <nc:AssociationEndDate>
+                                <nc:Year>2000</nc:Year>
+                            </nc:AssociationEndDate>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Property2"></nc:ItemReference>
+                        </nc:PersonOwnsItemAssociation>
+                        <nc:PersonOwnsItemAssociation>
+                            <!-- begin and end dates reflect issue and expiration date of the property, which is a permit -->
+                            <nc:AssociationBeginDate>
+                                <nc:Date>1997-01-26</nc:Date>
+                            </nc:AssociationBeginDate>
+                            <nc:AssociationEndDate>
+                                <nc:Date>2002-01-26</nc:Date>
+                            </nc:AssociationEndDate>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Property3"></nc:ItemReference>
+                        </nc:PersonOwnsItemAssociation>
+                        <nc:PersonOwnsItemAssociation>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Property4"></nc:ItemReference>
+                        </nc:PersonOwnsItemAssociation>
+                        <nc:PersonOwnsItemAssociation>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Property7"></nc:ItemReference>
+                        </nc:PersonOwnsItemAssociation>
+                        <!--   Person 3 (Victim) Property Associations   -->
+                        <nc:PersonOwnsItemAssociation>
+                            <nc:PersonReference s:ref="VictimPerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Jewelry1"></nc:ItemReference>
+                        </nc:PersonOwnsItemAssociation>
+                        <nc:PersonOwnsItemAssociation>
+                            <nc:PersonReference s:ref="VictimPerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Jewelry2"></nc:ItemReference>
+                        </nc:PersonOwnsItemAssociation>
+                        <nc:PersonOwnsItemAssociation>
+                            <nc:PersonReference s:ref="VictimPerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Firearm1"></nc:ItemReference>
+                        </nc:PersonOwnsItemAssociation>
+                        <nc:PersonOwnsItemAssociation>
+                            <nc:PersonReference s:ref="VictimPerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Publication1"></nc:ItemReference>
+                        </nc:PersonOwnsItemAssociation>
+                        <!--   Arrestee (Person 2) Property Associations   -->
+                        <nc:PersonPossessesItemAssociation>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Jewelry1"></nc:ItemReference>
+                        </nc:PersonPossessesItemAssociation>
+                        <nc:PersonPossessesItemAssociation>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Property5"></nc:ItemReference>
+                        </nc:PersonPossessesItemAssociation>
+                        <nc:PersonPossessesItemAssociation>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                            <nc:ItemReference s:ref="Property6"></nc:ItemReference>
+                        </nc:PersonPossessesItemAssociation>
+                        <!--   Warrant Offense Associations   -->
+                        <nc:RelatedActivityAssociation>
+                            <nc:ActivityReference s:ref="Warrant1"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="Offense1"></nc:ActivityReference>
+                        </nc:RelatedActivityAssociation>
+                        <nc:RelatedActivityAssociation>
+                            <nc:ActivityReference s:ref="Warrant1"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="Offense2"></nc:ActivityReference>
+                        </nc:RelatedActivityAssociation>
+                        <nc:RelatedActivityAssociation>
+                            <nc:ActivityReference s:ref="Warrant1"></nc:ActivityReference>
+                            <nc:ActivityReference s:ref="Offense3"></nc:ActivityReference>
+                        </nc:RelatedActivityAssociation>
+                        <!--   Subject (Person 2) Residence   -->
+                        <nc:ResidenceAssociation>
+                            <nc:PersonReference s:ref="SubjectArresteePerson1"></nc:PersonReference>
+                            <nc:LocationReference s:ref="Location3"></nc:LocationReference>
+                        </nc:ResidenceAssociation>
+                        <!--   Victim (Person 3) Residence Association   -->
+                        <nc:ResidenceAssociation>
+                            <nc:PersonReference s:ref="VictimPerson1"></nc:PersonReference>
+                            <nc:LocationReference s:ref="Location1"></nc:LocationReference>
+                        </nc:ResidenceAssociation>
+                        <!-- Witness (Person 1) Residence Association -->
+                        <nc:ResidenceAssociation>
+                            <nc:PersonReference s:ref="WitnessPerson1"></nc:PersonReference>
+                            <nc:LocationReference s:ref="Location2"></nc:LocationReference>
+                        </nc:ResidenceAssociation>
+                    </lexsdigest:Associations>
+                </lexs:Digest>
+                <!--======================= N-DEx Data ======================-->
+                <lexs:StructuredPayload>
+                    <lexs:StructuredPayloadMetadata>
+                        <lexs:CommunityURI>http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1</lexs:CommunityURI>
+                        <lexs:CommunityDescription>N-DEx IncidentArrest</lexs:CommunityDescription>
+                        <lexs:CommunityVersion>2.1</lexs:CommunityVersion>
+                    </lexs:StructuredPayloadMetadata>
+                    
+                    
+                    <ndexia:IncidentReport xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:mmucc_2="http://niem.gov/niem/mmucc_2/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" xmlns:s="http://niem.gov/niem/structures/2.0" xml:base="burglary-incident-w-arrest-expanded-ndex.xml">
+                        <!--====================== Metadata for Subject Victim Association  ====================-->
+                        <lexsdigest:Metadata s:id="MSubjectVictimAssocSP1">
+                            <nc:CommentText>Subject and Victim were previously step-siblings</nc:CommentText>
+                        </lexsdigest:Metadata>
+                        <!--====================== Metadata for Evidence  ====================-->
+                        <lexsdigest:Metadata s:id="MEvidenceSP1">
+                            <nc:SourceIDText>8135962</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MEvidenceSP2">
+                            <nc:SourceIDText>8135963</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MEvidenceSP3">
+                            <nc:SourceIDText>8135964</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MEvidenceSP4">
+                            <nc:SourceIDText>8135965</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MEvidenceSP5">
+                            <nc:SourceIDText>8135966</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MEvidenceSP6">
+                            <nc:SourceIDText>8135967</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MEvidenceSP7">
+                            <nc:SourceIDText>8135968</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <lexsdigest:Metadata s:id="MEvidenceSP8">
+                            <nc:SourceIDText>28912314</nc:SourceIDText>
+                        </lexsdigest:Metadata>
+                        <!--================================= Incident  ============================-->
+                        <ndexia:Incident>
+                            <ndexia:ActivityStatus>
+                                <nc:StatusDate>
+                                    <nc:Date>1997-03-18</nc:Date>
+                                </nc:StatusDate>
+                                <ndexia:ActivityStatusAugmentation>
+                                    <ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+                                </ndexia:ActivityStatusAugmentation>
+                            </ndexia:ActivityStatus>
+                            <j:IncidentAugmentation>
+                                <j:IncidentEvidenceHeldIndicator>true</j:IncidentEvidenceHeldIndicator>
+                                <j:IncidentExceptionalClearanceCode>N</j:IncidentExceptionalClearanceCode>
+                                <j:IncidentLightingCode>darkness</j:IncidentLightingCode>
+                            </j:IncidentAugmentation>
+                            <ndexia:IncidentAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Incident1"></lexslib:SameAsDigestReference>
+                                <ndexia:IncidentWeatherCode>07</ndexia:IncidentWeatherCode>
+                            </ndexia:IncidentAugmentation>
+                        </ndexia:Incident>
+                        <!--================================= Arrest  ============================-->
+                        <ndexia:Arrest>
+                            <j:ArrestCategoryCode>T</j:ArrestCategoryCode>
+                            <ndexia:ArrestAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Arrest1"></lexslib:SameAsDigestReference>
+                            </ndexia:ArrestAugmentation>
+                        </ndexia:Arrest>
+                        <!--================================= Offense 1 ============================-->
+                        <ndexia:Offense>
+                            <ndexia:ActivityAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Offense1"></lexslib:SameAsDigestReference>
+                            </ndexia:ActivityAugmentation>
+                            <j:IncidentFactor>
+                                <j:IncidentFactorCode>N</j:IncidentFactorCode>
+                            </j:IncidentFactor>
+                            <j:IncidentForce>
+                                <j:ForceCategoryCode>90</j:ForceCategoryCode>
+                            </j:IncidentForce>
+                            <j:IncidentStructuresEnteredQuantity>1</j:IncidentStructuresEnteredQuantity>
+                            <j:Statute>
+                                <j:StatuteCodeIdentification>
+                                    <nc:IdentificationID>7399</nc:IdentificationID>
+                                    <nc:IdentificationJurisdictionText>New Mexico</nc:IdentificationJurisdictionText>
+                                </j:StatuteCodeIdentification>
+                                <j:StatuteDescriptionText>Burglary</j:StatuteDescriptionText>
+                            </j:Statute>
+                            <ndexia:CriminalActivityCategoryCode>None</ndexia:CriminalActivityCategoryCode>
+                            <ndexia:OffenseBiasMotivationCode>None</ndexia:OffenseBiasMotivationCode>
+                            <ndexia:OffenseCode>Burglary_forced entry_residence</ndexia:OffenseCode>
+                            <ndexia:OffenseCompletedIndicator>true</ndexia:OffenseCompletedIndicator>
+                            <ndexia:OffenseEntryPoint>
+                                <j:PassagePointMethodCode>F</j:PassagePointMethodCode>
+                                <j:PassagePointMethodOfAccessCode>Broke Glass</j:PassagePointMethodOfAccessCode>
+                                <ndexia:PassagePointAugmentation>
+                                    <ndexia:PassagePointCode>Door_Front</ndexia:PassagePointCode>
+                                    <ndexia:PassagePointSecurityCategoryCode>Lock_Deadbolt</ndexia:PassagePointSecurityCategoryCode>
+                                </ndexia:PassagePointAugmentation>
+                            </ndexia:OffenseEntryPoint>
+                            <ndexia:OffenseExitPoint>
+                                <j:PassagePointMethodCode>F</j:PassagePointMethodCode>
+                                <j:PassagePointMethodOfAccessCode>Bodily Force</j:PassagePointMethodOfAccessCode>
+                                <ndexia:PassagePointAugmentation>
+                                    <ndexia:PassagePointCode>Upper Level</ndexia:PassagePointCode>
+                                    <ndexia:PassagePointCode>Window_Rear</ndexia:PassagePointCode>
+                                    <ndexia:PassagePointSecurityCategoryCode>Lock</ndexia:PassagePointSecurityCategoryCode>
+                                </ndexia:PassagePointAugmentation>
+                            </ndexia:OffenseExitPoint>
+                        </ndexia:Offense>
+                        <!--================================= Offense 2 ============================-->
+                        <ndexia:Offense>
+                            <ndexia:ActivityAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Offense2"></lexslib:SameAsDigestReference>
+                            </ndexia:ActivityAugmentation>
+                            <j:Statute>
+                                <j:StatuteCodeIdentification>
+                                    <nc:IdentificationID>34.2</nc:IdentificationID>
+                                    <nc:IdentificationJurisdictionText>New Mexico</nc:IdentificationJurisdictionText>
+                                </j:StatuteCodeIdentification>
+                                <j:StatuteDescriptionText>Flight to avoid apprehension</j:StatuteDescriptionText>
+                            </j:Statute>
+                            <ndexia:OffenseBiasMotivationCauseCode>None</ndexia:OffenseBiasMotivationCauseCode>
+                            <ndexia:OffenseBiasMotivationCode>None</ndexia:OffenseBiasMotivationCode>
+                            <ndexia:OffenseCode>Flight To Avoid</ndexia:OffenseCode>
+                            <ndexia:OffenseCompletedIndicator>true</ndexia:OffenseCompletedIndicator>
+                        </ndexia:Offense>
+                        <!--================================= Offense 3 ============================-->
+                        <ndexia:Offense>
+                            <ndexia:ActivityAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Offense3"></lexslib:SameAsDigestReference>
+                            </ndexia:ActivityAugmentation>
+                            <j:Statute>
+                                <j:StatuteCodeIdentification>
+                                    <nc:IdentificationID>82.2.5a</nc:IdentificationID>
+                                    <nc:IdentificationJurisdictionText>New Mexico</nc:IdentificationJurisdictionText>
+                                </j:StatuteCodeIdentification>
+                                <j:StatuteDescriptionText>Destruction of private property.</j:StatuteDescriptionText>
+                            </j:Statute>
+                            <ndexia:OffenseBiasMotivationCauseCode>None</ndexia:OffenseBiasMotivationCauseCode>
+                            <ndexia:OffenseBiasMotivationCode>None</ndexia:OffenseBiasMotivationCode>
+                            <ndexia:OffenseCode>Damage Property_private</ndexia:OffenseCode>
+                            <ndexia:OffenseCompletedIndicator>true</ndexia:OffenseCompletedIndicator>
+                        </ndexia:Offense>
+                        <!--============================== Service Call =========================-->
+                        <ndexia:ServiceCall>
+                            <ndexia:ActivityStatus>
+                                <nc:StatusDate>
+                                    <nc:Date>1997-03-12</nc:Date>
+                                </nc:StatusDate>
+                                <ndexia:ActivityStatusAugmentation>
+                                    <ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+                                </ndexia:ActivityStatusAugmentation>
+                            </ndexia:ActivityStatus>
+                            <j:ServiceCallClearanceText>Responded to burglary call from dispatcher. Arrived at residence at 12:25 a.m. to find the front door standing open with the glass broken out.  I drew my weapon and entered the structure after requesting back-up.  Proceeding through the entry way and entered the kitchen hearing loud noise in back of the residence.  I proceeded down a small hallway to a back bedroom where I encountered subject dragging a 56 inch plasma TV across the floor.  Startling the subject, he dropped the TV and attempted to exit the room through an exterior window.  I immediately pursued and subdued subject without further incident.</j:ServiceCallClearanceText>
+                            <j:ServiceCallDispatchedDate>
+                                <nc:DateTime>1997-03-12T13:00:00.0Z</nc:DateTime>
+                            </j:ServiceCallDispatchedDate>
+                            <ndexia:ServiceCallAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="ServiceCall1"></lexslib:SameAsDigestReference>
+                                <ndexia:ServiceCallCategoryCode>Burglary</ndexia:ServiceCallCategoryCode>
+                                <ndexia:ServiceCallClearanceCategoryCode>Burglary</ndexia:ServiceCallClearanceCategoryCode>
+                                <ndexia:ServiceCallMechanismCode>E911</ndexia:ServiceCallMechanismCode>
+                            </ndexia:ServiceCallAugmentation>
+                        </ndexia:ServiceCall>
+                        <!--============================== Warrant =========================-->
+                        <ndexia:Warrant>
+                            <ndexia:ActivityStatus>
+                                <nc:StatusDate>
+                                    <nc:Date>1997-03-12</nc:Date>
+                                </nc:StatusDate>
+                                <ndexia:ActivityStatusAugmentation>
+                                    <ndexia:IncidentStatusCode>Active</ndexia:IncidentStatusCode>
+                                </ndexia:ActivityStatusAugmentation>
+                            </ndexia:ActivityStatus>
+                            <ndexia:ActivityStatus>
+                                <nc:StatusText>Served</nc:StatusText>
+                                <nc:StatusDate>
+                                    <nc:Date>1997-03-18</nc:Date>
+                                </nc:StatusDate>
+                            </ndexia:ActivityStatus>
+                            <ndexia:WarrantAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Warrant1"></lexslib:SameAsDigestReference>
+                            </ndexia:WarrantAugmentation>
+                        </ndexia:Warrant>
+                        <!--============================== Person 1 - Witness =========================-->
+                        <ndexia:Person>
+                            <nc:PersonEthnicityCode>N</nc:PersonEthnicityCode>
+                            <nc:PersonResidentCode>R</nc:PersonResidentCode>
+                            <ndexia:PersonAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="WitnessPerson1"></lexslib:SameAsDigestReference>
+                            </ndexia:PersonAugmentation>
+                        </ndexia:Person>
+                        <ndexia:Witness>
+                            <ndexia:WitnessAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Witness1"></lexslib:SameAsDigestReference>
+                                <ndexia:WitnessSequenceNumberText>1</ndexia:WitnessSequenceNumberText>
+                            </ndexia:WitnessAugmentation>
+                        </ndexia:Witness>
+                        <!--================== Person 2 - Subject, Arrestee (Arrest Subject), and Registered Offender =================-->
+                        <ndexia:Person>
+                            <nc:PersonResidentCode>R</nc:PersonResidentCode>
+                            <j:PersonAugmentation>
+                                <j:PersonConcealedFirearmPermitHolderIndicator>true</j:PersonConcealedFirearmPermitHolderIndicator>
+                            </j:PersonAugmentation>
+                            <ndexia:PersonAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="SubjectArresteePerson1"></lexslib:SameAsDigestReference>
+                                <j:SubjectCautionInformationCode>01</j:SubjectCautionInformationCode>
+                                <ndexia:PersonConcealedFirearmPermitIdentification>
+                                    <nc:IdentificationID>W1234</nc:IdentificationID>
+                                    <nc:IdentificationExpirationDate>
+                                        <nc:Date>2002-01-26</nc:Date>
+                                    </nc:IdentificationExpirationDate>
+                                    <j:IdentificationJurisdictionNCICLISCode>NM</j:IdentificationJurisdictionNCICLISCode>
+                                </ndexia:PersonConcealedFirearmPermitIdentification>
+                                <ndexia:SubjectCautionInformationText>Subject has permit to carry firearm.</ndexia:SubjectCautionInformationText>
+                            </ndexia:PersonAugmentation>
+                        </ndexia:Person>
+                        <ndexia:Subject>
+                            <ndexia:SubjectAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Subject1"></lexslib:SameAsDigestReference>
+                                <ndexia:SubjectMOActionCode>Broke Window</ndexia:SubjectMOActionCode>
+                                <ndexia:SubjectMOActionCode>Defeated Security</ndexia:SubjectMOActionCode>
+                                <ndexia:SubjectMOActionCode>Forced Entry</ndexia:SubjectMOActionCode>
+                                <ndexia:SubjectMOActionCode>Took Specific Items</ndexia:SubjectMOActionCode>
+                                <ndexia:SubjectMOActionCode>Used Gloves</ndexia:SubjectMOActionCode>
+                                <ndexia:SubjectMOObservationCode>Never spoke</ndexia:SubjectMOObservationCode>
+                                <ndexia:SubjectSequenceNumberText>1</ndexia:SubjectSequenceNumberText>
+                            </ndexia:SubjectAugmentation>
+                        </ndexia:Subject>
+                        <ndexia:ArrestSubject>
+                            <ndexia:ArrestSubjectAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="ArrestSubject1"></lexslib:SameAsDigestReference>
+                                <j:ArrestSequenceID>
+                                    <nc:IdentificationID>1</nc:IdentificationID>
+                                </j:ArrestSequenceID>
+                                <j:ArrestSubjectCountCode>C</j:ArrestSubjectCountCode>
+                                <j:ChargeUCRCode>90D</j:ChargeUCRCode>
+                                <ndexia:ArresteeArmedWithCode>01</ndexia:ArresteeArmedWithCode>
+                                <ndexia:ArresteeClearanceIndicator>true</ndexia:ArresteeClearanceIndicator>
+                            </ndexia:ArrestSubjectAugmentation>
+                        </ndexia:ArrestSubject>
+                        <ndexia:RegisteredOffender>
+                            <ndexia:RegisteredOffenderAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="RegisteredOffender1"></lexslib:SameAsDigestReference>
+                                <ndexia:RegisteredOffenderCategoryCode>Convicted Person</ndexia:RegisteredOffenderCategoryCode>
+                            </ndexia:RegisteredOffenderAugmentation>
+                        </ndexia:RegisteredOffender>
+                        <!--============================== Person 3 - Victim =========================-->
+                        <ndexia:Person>
+                            <nc:PersonEthnicityCode>N</nc:PersonEthnicityCode>
+                            <nc:PersonResidentCode>R</nc:PersonResidentCode>
+                            <ndexia:PersonAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="VictimPerson1"></lexslib:SameAsDigestReference>
+                            </ndexia:PersonAugmentation>
+                        </ndexia:Person>
+                        <ndexia:Victim>
+                            <j:VictimCategoryCode>I</j:VictimCategoryCode>
+                            <ndexia:VictimAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Victim1"></lexslib:SameAsDigestReference>
+                                <ndexia:VictimSequenceNumberText>1</ndexia:VictimSequenceNumberText>
+                            </ndexia:VictimAugmentation>
+                        </ndexia:Victim>
+                        <!--============================== Person 4  - Officer (Reporting) and Witness =========================-->
+                        <ndexia:Person>
+                            <nc:PersonName>
+                                <nc:PersonNamePrefixText>Officer</nc:PersonNamePrefixText>
+                            </nc:PersonName>
+                            <ndexia:PersonAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="OfficerPerson1"></lexslib:SameAsDigestReference>
+                            </ndexia:PersonAugmentation>
+                        </ndexia:Person>
+                        <ndexia:EnforcementOfficial>
+                            <ndexia:EnforcementOfficialActivityCategoryCode>Other</ndexia:EnforcementOfficialActivityCategoryCode>
+                            <j:EnforcementOfficialAssignmentCategoryCode>G</j:EnforcementOfficialAssignmentCategoryCode>
+                            <ndexia:EnforcementOfficialAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Officer1"></lexslib:SameAsDigestReference>
+                            </ndexia:EnforcementOfficialAugmentation>
+                        </ndexia:EnforcementOfficial>
+                        <ndexia:Witness>
+                            <ndexia:WitnessAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Witness2"></lexslib:SameAsDigestReference>
+                                <ndexia:WitnessSequenceNumberText>2</ndexia:WitnessSequenceNumberText>
+                            </ndexia:WitnessAugmentation>
+                        </ndexia:Witness>
+                        <!--============================== Person 7 - Officer (Arresting) =========================-->
+                        <ndexia:Person>
+                            <nc:PersonName>
+                                <nc:PersonNamePrefixText>Officer</nc:PersonNamePrefixText>
+                            </nc:PersonName>
+                            <ndexia:PersonAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="OfficerPerson2"></lexslib:SameAsDigestReference>
+                            </ndexia:PersonAugmentation>
+                        </ndexia:Person>
+                        <ndexia:EnforcementOfficial>
+                            <ndexia:EnforcementOfficialActivityCategoryCode>Other</ndexia:EnforcementOfficialActivityCategoryCode>
+                            <j:EnforcementOfficialAssignmentCategoryCode>K</j:EnforcementOfficialAssignmentCategoryCode>
+                            <ndexia:EnforcementOfficialAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Officer2"></lexslib:SameAsDigestReference>
+                            </ndexia:EnforcementOfficialAugmentation>
+                        </ndexia:EnforcementOfficial>
+                        <!--================================= Property 1 - Evidence ============================-->
+                        <ndexia:TangibleItem s:id="PropertySP1">
+                            <ndexia:ItemCategoryCode>Credit_Bank_ID</ndexia:ItemCategoryCode>
+                            <ndexia:TangibleItemAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Property1"></lexslib:SameAsDigestReference>
+                                <ndexia:CreditBankIDCardCategoryCode>Diners Club Card</ndexia:CreditBankIDCardCategoryCode>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                </ndexia:ItemQuantityStatusValue>
+                            </ndexia:TangibleItemAugmentation>
+                        </ndexia:TangibleItem>
+                        <ndexia:Evidence s:metadata="MEvidenceSP5" s:id="EvidenceSP5">
+                            <nc:RoleOfItemReference s:ref="PropertySP1"></nc:RoleOfItemReference>
+                            <j:EvidenceReceiptIdentification>
+                                <nc:IdentificationID>81-003-05</nc:IdentificationID>
+                            </j:EvidenceReceiptIdentification>
+                        </ndexia:Evidence>
+                        <!--================================= Property 2 - Evidence ============================-->
+                        <ndexia:TangibleItem s:id="PropertySP2">
+                            <ndexia:ItemCategoryCode>Credit_Bank_ID</ndexia:ItemCategoryCode>
+                            <ndexia:TangibleItemAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Property2"></lexslib:SameAsDigestReference>
+                                <ndexia:CreditBankIDCardCategoryCode>Identification Card</ndexia:CreditBankIDCardCategoryCode>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                </ndexia:ItemQuantityStatusValue>
+                            </ndexia:TangibleItemAugmentation>
+                        </ndexia:TangibleItem>
+                        <ndexia:Evidence s:metadata="MEvidenceSP6" s:id="EvidenceSP6">
+                            <nc:RoleOfItemReference s:ref="PropertySP2"></nc:RoleOfItemReference>
+                            <j:EvidenceReceiptIdentification>
+                                <nc:IdentificationID>81-003-06</nc:IdentificationID>
+                            </j:EvidenceReceiptIdentification>
+                        </ndexia:Evidence>
+                        <!--================================= Property 3 - Evidence ============================-->
+                        <ndexia:TangibleItem s:id="PropertySP3">
+                            <ndexia:ItemCategoryCode>Credit_Bank_ID</ndexia:ItemCategoryCode>
+                            <ndexia:TangibleItemAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Property3"></lexslib:SameAsDigestReference>
+                                <ndexia:CreditBankIDCardCategoryText>Concealed Weapon Permit</ndexia:CreditBankIDCardCategoryText>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                </ndexia:ItemQuantityStatusValue>
+                            </ndexia:TangibleItemAugmentation>
+                        </ndexia:TangibleItem>
+                        <ndexia:Evidence s:metadata="MEvidenceSP4" s:id="EvidenceSP4">
+                            <nc:RoleOfItemReference s:ref="PropertySP3"></nc:RoleOfItemReference>
+                            <j:EvidenceReceiptIdentification>
+                                <nc:IdentificationID>81-003-04</nc:IdentificationID>
+                            </j:EvidenceReceiptIdentification>
+                        </ndexia:Evidence>
+                        <!--================================= Property 4 - Evidence ============================-->
+                        <ndexia:TangibleItem s:id="PropertySP4">
+                            <ndexia:ItemCategoryCode>Clothing</ndexia:ItemCategoryCode>
+                            <ndexia:TangibleItemAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Property4"></lexslib:SameAsDigestReference>
+                                <ndexia:ClothingCategoryCode>Wallet</ndexia:ClothingCategoryCode>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                </ndexia:ItemQuantityStatusValue>
+                            </ndexia:TangibleItemAugmentation>
+                        </ndexia:TangibleItem>
+                        <ndexia:Evidence s:metadata="MEvidenceSP7" s:id="EvidenceSP7">
+                            <nc:RoleOfItemReference s:ref="PropertySP4"></nc:RoleOfItemReference>
+                            <j:EvidenceReceiptIdentification>
+                                <nc:IdentificationID>81-003-07</nc:IdentificationID>
+                            </j:EvidenceReceiptIdentification>
+                        </ndexia:Evidence>
+                        <!--================================= Property 5 ============================-->
+                        <ndexia:TangibleItem>
+                            <ndexia:ItemCategoryCode>Knife</ndexia:ItemCategoryCode>
+                            <ndexia:TangibleItemAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Property5"></lexslib:SameAsDigestReference>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                </ndexia:ItemQuantityStatusValue>
+                                <ndexia:KnifeCategoryCode>Locking Blade</ndexia:KnifeCategoryCode>
+                            </ndexia:TangibleItemAugmentation>
+                        </ndexia:TangibleItem>
+                        <!--================================= Property 6 ============================-->
+                        <ndexia:TangibleItem>
+                            <ndexia:ItemCategoryCode>Clothing</ndexia:ItemCategoryCode>
+                            <ndexia:TangibleItemAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Property6"></lexslib:SameAsDigestReference>
+                                <ndexia:ClothingCategoryCode>Belt</ndexia:ClothingCategoryCode>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                </ndexia:ItemQuantityStatusValue>
+                            </ndexia:TangibleItemAugmentation>
+                        </ndexia:TangibleItem>
+                        <!--================================= Property 7 - Evidence ============================-->
+                        <ndexia:TangibleItem s:id="PropertySP7">
+                            <ndexia:ItemCategoryCode>Consumable Good</ndexia:ItemCategoryCode>
+                            <ndexia:TangibleItemAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Property7"></lexslib:SameAsDigestReference>
+                                <ndexia:ConsumableGoodsCategoryText>Condom</ndexia:ConsumableGoodsCategoryText>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                </ndexia:ItemQuantityStatusValue>
+                            </ndexia:TangibleItemAugmentation>
+                        </ndexia:TangibleItem>
+                        <ndexia:Evidence s:metadata="MEvidenceSP8" s:id="EvidenceSP8">
+                            <nc:RoleOfItemReference s:ref="PropertySP7"></nc:RoleOfItemReference>
+                            <j:EvidenceReceiptIdentification>
+                                <nc:IdentificationID>81-003-08</nc:IdentificationID>
+                            </j:EvidenceReceiptIdentification>
+                        </ndexia:Evidence>
+                        <!--================================= Firearm - Evidence ============================-->
+                        <ndexia:Firearm s:id="FirearmSP1">
+                            <ndexia:ItemNCICIdentification>
+                                <nc:IdentificationID>G363524789</nc:IdentificationID>
+                            </ndexia:ItemNCICIdentification>
+                            <ndexia:FirearmAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Firearm1"></lexslib:SameAsDigestReference>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                    <ndexia:ItemStatus>
+                                        <nc:StatusDate>
+                                            <nc:Date>1997-03-12</nc:Date>
+                                        </nc:StatusDate>
+                                        <ndexia:ItemStatusAugmentation>
+                                            <ndexia:ItemStatusCode>Stolen</ndexia:ItemStatusCode>
+                                        </ndexia:ItemStatusAugmentation>
+                                    </ndexia:ItemStatus>
+                                    <ndexia:ItemValue>
+                                        <nc:ItemValueAmount nc:currencyCode="USD">700</nc:ItemValueAmount>
+                                        <nc:ItemValueDate>
+                                            <nc:Date>1997-03-14</nc:Date>
+                                        </nc:ItemValueDate>
+                                        <ndexia:ItemValueAugmentation>
+                                            <ndexia:ItemValueAssigningMethodCode>Victims valuation</ndexia:ItemValueAssigningMethodCode>
+                                        </ndexia:ItemValueAugmentation>
+                                    </ndexia:ItemValue>
+                                </ndexia:ItemQuantityStatusValue>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                    <ndexia:ItemStatus>
+                                        <nc:StatusDate>
+                                            <nc:Date>1997-03-18</nc:Date>
+                                        </nc:StatusDate>
+                                        <ndexia:ItemStatusAugmentation>
+                                            <ndexia:ItemStatusCode>Recovered</ndexia:ItemStatusCode>
+                                        </ndexia:ItemStatusAugmentation>
+                                    </ndexia:ItemStatus>
+                                    <ndexia:ItemValue>
+                                        <nc:ItemValueAmount nc:currencyCode="USD">800</nc:ItemValueAmount>
+                                        <nc:ItemValueDate>
+                                            <nc:Date>1997-03-19</nc:Date>
+                                        </nc:ItemValueDate>
+                                        <ndexia:ItemValueAugmentation>
+                                            <ndexia:ItemValueAssigningMethodCode>Law enforcement fair market estimate</ndexia:ItemValueAssigningMethodCode>
+                                        </ndexia:ItemValueAugmentation>
+                                    </ndexia:ItemValue>
+                                </ndexia:ItemQuantityStatusValue>
+                            </ndexia:FirearmAugmentation>
+                        </ndexia:Firearm>
+                        <ndexia:Evidence s:metadata="MEvidenceSP3" s:id="EvidenceSP3">
+                            <nc:RoleOfItemReference s:ref="FirearmSP1"></nc:RoleOfItemReference>
+                            <j:EvidenceReceiptIdentification>
+                                <nc:IdentificationID>81-003-03</nc:IdentificationID>
+                            </j:EvidenceReceiptIdentification>
+                        </ndexia:Evidence>
+                        <!--================================= Forensic Specimen - Evidence ============================-->
+                        <ndexia:ForensicSpecimen s:id="ForensicSpecimenSP1">
+                            <ndexia:SubstanceAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="ForensicSpecimen1"></lexslib:SameAsDigestReference>
+                            </ndexia:SubstanceAugmentation>
+                            <ndexia:ForensicSpecimenCategoryCode>Shoe Impression_Casting</ndexia:ForensicSpecimenCategoryCode>
+                        </ndexia:ForensicSpecimen>
+                        <ndexia:Evidence s:metadata="MEvidenceSP1" s:id="EvidenceSP1">
+                            <nc:RoleOfItemReference s:ref="ForensicSpecimenSP1"></nc:RoleOfItemReference>
+                            <j:EvidenceReceiptIdentification>
+                                <nc:IdentificationID>81-003-01</nc:IdentificationID>
+                            </j:EvidenceReceiptIdentification>
+                        </ndexia:Evidence>
+                        <!--================================= Jewelry 1 - Evidence ============================-->
+                        <ndexia:Jewelry s:id="JewelrySP1">
+                            <ndexia:ItemNCICIdentification>
+                                <nc:IdentificationID>A135654720</nc:IdentificationID>
+                            </ndexia:ItemNCICIdentification>
+                            <nc:JewelryCategoryCode>NE</nc:JewelryCategoryCode>
+                            <ndexia:JewelryAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Jewelry1"></lexslib:SameAsDigestReference>
+                                <ndexia:ItemGenderUseCode>Female</ndexia:ItemGenderUseCode>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                    <ndexia:ItemStatus>
+                                        <nc:StatusDate>
+                                            <nc:Date>1997-03-12</nc:Date>
+                                        </nc:StatusDate>
+                                        <ndexia:ItemStatusAugmentation>
+                                            <ndexia:ItemStatusCode>Stolen</ndexia:ItemStatusCode>
+                                        </ndexia:ItemStatusAugmentation>
+                                    </ndexia:ItemStatus>
+                                    <ndexia:ItemValue>
+                                        <nc:ItemValueAmount nc:currencyCode="USD">200</nc:ItemValueAmount>
+                                        <nc:ItemValueDate>
+                                            <nc:Date>1997-03-14</nc:Date>
+                                        </nc:ItemValueDate>
+                                        <ndexia:ItemValueAugmentation>
+                                            <ndexia:ItemValueAssigningMethodCode>Victims valuation</ndexia:ItemValueAssigningMethodCode>
+                                        </ndexia:ItemValueAugmentation>
+                                    </ndexia:ItemValue>
+                                </ndexia:ItemQuantityStatusValue>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                    <ndexia:ItemStatus>
+                                        <nc:StatusDate>
+                                            <nc:Date>1997-03-18</nc:Date>
+                                        </nc:StatusDate>
+                                        <ndexia:ItemStatusAugmentation>
+                                            <ndexia:ItemStatusCode>Recovered</ndexia:ItemStatusCode>
+                                        </ndexia:ItemStatusAugmentation>
+                                    </ndexia:ItemStatus>
+                                    <ndexia:ItemValue>
+                                        <nc:ItemValueAmount nc:currencyCode="USD">200</nc:ItemValueAmount>
+                                        <nc:ItemValueDate>
+                                            <nc:Date>1997-03-18</nc:Date>
+                                        </nc:ItemValueDate>
+                                        <ndexia:ItemValueAugmentation>
+                                            <ndexia:ItemValueAssigningMethodCode>Law enforcement fair market estimate</ndexia:ItemValueAssigningMethodCode>
+                                        </ndexia:ItemValueAugmentation>
+                                    </ndexia:ItemValue>
+                                </ndexia:ItemQuantityStatusValue>
+                            </ndexia:JewelryAugmentation>
+                        </ndexia:Jewelry>
+                        <ndexia:Evidence s:metadata="MEvidenceSP2" s:id="EvidenceSP2">
+                            <nc:RoleOfItemReference s:ref="JewelrySP1"></nc:RoleOfItemReference>
+                            <j:EvidenceReceiptIdentification>
+                                <nc:IdentificationID>81-003-02</nc:IdentificationID>
+                            </j:EvidenceReceiptIdentification>
+                        </ndexia:Evidence>
+                        <!--================================= Jewelry 2 ============================-->
+                        <ndexia:Jewelry>
+                            <ndexia:ItemNCICIdentification>
+                                <nc:IdentificationID>A625496300</nc:IdentificationID>
+                            </ndexia:ItemNCICIdentification>
+                            <nc:JewelryCategoryCode>RI</nc:JewelryCategoryCode>
+                            <ndexia:JewelryAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Jewelry2"></lexslib:SameAsDigestReference>
+                                <ndexia:ItemGenderUseCode>Female</ndexia:ItemGenderUseCode>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                    <ndexia:ItemStatus>
+                                        <nc:StatusDate>
+                                            <nc:Date>1997-03-12</nc:Date>
+                                        </nc:StatusDate>
+                                        <ndexia:ItemStatusAugmentation>
+                                            <ndexia:ItemStatusCode>Stolen</ndexia:ItemStatusCode>
+                                        </ndexia:ItemStatusAugmentation>
+                                    </ndexia:ItemStatus>
+                                    <ndexia:ItemValue>
+                                        <nc:ItemValueAmount nc:currencyCode="USD">10000</nc:ItemValueAmount>
+                                        <nc:ItemValueDate>
+                                            <nc:Date>1997-03-14</nc:Date>
+                                        </nc:ItemValueDate>
+                                        <ndexia:ItemValueAugmentation>
+                                            <ndexia:ItemValueAssigningMethodCode>Victims valuation</ndexia:ItemValueAssigningMethodCode>
+                                        </ndexia:ItemValueAugmentation>
+                                    </ndexia:ItemValue>
+                                </ndexia:ItemQuantityStatusValue>
+                            </ndexia:JewelryAugmentation>
+                        </ndexia:Jewelry>
+                        <!--================================= Jewelry Stone ============================-->
+                        <ndexia:JewelryStone>
+                            <nc:JewelryStoneCaratText>2 Carat</nc:JewelryStoneCaratText>
+                            <nc:JewelryStoneColorText>Blue</nc:JewelryStoneColorText>
+                            <nc:JewelryStoneCutText>Oval</nc:JewelryStoneCutText>
+                            <ndexia:JewelryStoneAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="JewelryStone1"></lexslib:SameAsDigestReference>
+                                <ndexia:ItemQuantityStatusValue>
+                                    <nc:ItemQuantity>1</nc:ItemQuantity>
+                                </ndexia:ItemQuantityStatusValue>
+                                <ndexia:JewelryStoneCategoryCode>Diamond</ndexia:JewelryStoneCategoryCode>
+                            </ndexia:JewelryStoneAugmentation>
+                        </ndexia:JewelryStone>
+                        <!--================================= Precious Metal 1 ============================-->
+                        <ndexia:PreciousMetal>
+                            <ndexia:SubstanceAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="PreciousMetal1"></lexslib:SameAsDigestReference>
+                            </ndexia:SubstanceAugmentation>
+                            <ndexia:PreciousMetalCode>Gold</ndexia:PreciousMetalCode>
+                        </ndexia:PreciousMetal>
+                        <!--================================= Precious Metal 2 ============================-->
+                        <ndexia:PreciousMetal>
+                            <ndexia:SubstanceAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="PreciousMetal2"></lexslib:SameAsDigestReference>
+                            </ndexia:SubstanceAugmentation>
+                            <ndexia:PreciousMetalCode>Gold</ndexia:PreciousMetalCode>
+                        </ndexia:PreciousMetal>
+                        <!--================================= Publication ============================-->
+                        <ndexia:Publication>
+                            <nc:DocumentPublicationDate>
+                                <nc:YearMonth>1974-02</nc:YearMonth>
+                            </nc:DocumentPublicationDate>
+                            <nc:DocumentSubjectText>Fiction-Comic</nc:DocumentSubjectText>
+                            <nc:DocumentTitleText>The Amazing Spider-man #129</nc:DocumentTitleText>
+                            <ndexia:ItemQuantityStatusValue>
+                                <nc:ItemQuantity>1</nc:ItemQuantity>
+                                <ndexia:ItemStatus>
+                                    <nc:StatusDate>
+                                        <nc:Date>1997-03-12</nc:Date>
+                                    </nc:StatusDate>
+                                    <ndexia:ItemStatusAugmentation>
+                                        <ndexia:ItemStatusCode>Stolen</ndexia:ItemStatusCode>
+                                    </ndexia:ItemStatusAugmentation>
+                                </ndexia:ItemStatus>
+                                <ndexia:ItemValue>
+                                    <nc:ItemValueAmount nc:currencyCode="USD">5000</nc:ItemValueAmount>
+                                    <nc:ItemValueDate>
+                                        <nc:Date>1997-03-14</nc:Date>
+                                    </nc:ItemValueDate>
+                                    <ndexia:ItemValueAugmentation>
+                                        <ndexia:ItemValueAssigningMethodCode>Victims valuation</ndexia:ItemValueAssigningMethodCode>
+                                    </ndexia:ItemValueAugmentation>
+                                </ndexia:ItemValue>
+                            </ndexia:ItemQuantityStatusValue>
+                            <ndexia:PublicationAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Publication1"></lexslib:SameAsDigestReference>
+                            </ndexia:PublicationAugmentation>
+                        </ndexia:Publication>
+                        <!--================================= Structure ============================-->
+                        <ndexia:Structure>
+                            <ndexia:ItemQuantityStatusValue>
+                                <nc:ItemQuantity>1</nc:ItemQuantity>
+                                <ndexia:ItemStatus>
+                                    <nc:StatusDate>
+                                        <nc:Date>1997-03-12</nc:Date>
+                                    </nc:StatusDate>
+                                    <ndexia:ItemStatusAugmentation>
+                                        <ndexia:ItemStatusCode>Damaged</ndexia:ItemStatusCode>
+                                    </ndexia:ItemStatusAugmentation>
+                                </ndexia:ItemStatus>
+                                <ndexia:ItemValue>
+                                    <nc:ItemValueAmount nc:currencyCode="USD">200</nc:ItemValueAmount>
+                                    <nc:ItemValueDate>
+                                        <nc:Date>1997-03-14</nc:Date>
+                                    </nc:ItemValueDate>
+                                    <ndexia:ItemValueAugmentation>
+                                        <ndexia:ItemValueAssigningMethodCode>Replacement cost or Actual cash cost</ndexia:ItemValueAssigningMethodCode>
+                                    </ndexia:ItemValueAugmentation>
+                                </ndexia:ItemValue>
+                            </ndexia:ItemQuantityStatusValue>
+                            <ndexia:StructureCategoryCode>Residential_Single Occupancy</ndexia:StructureCategoryCode>
+                            <ndexia:StructureOccupiedCode>Inhabited</ndexia:StructureOccupiedCode>
+                            <ndexia:StructureResidentialSingleOccupancyCategoryCode>House</ndexia:StructureResidentialSingleOccupancyCategoryCode>
+                            <ndexia:StructureAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Structure1"></lexslib:SameAsDigestReference>
+                            </ndexia:StructureAugmentation>
+                        </ndexia:Structure>
+                        <!--================================= Enforcement Unit 1 ============================-->
+                        <ndexia:EnforcementUnit>
+                            <j:EnforcementUnitNumberIdentification>
+                                <nc:IdentificationID>62</nc:IdentificationID>
+                            </j:EnforcementUnitNumberIdentification>
+                            <j:OrganizationAugmentation>
+                                <j:OrganizationORIIdentification>
+                                    <nc:IdentificationID>NMNSP0000</nc:IdentificationID>
+                                </j:OrganizationORIIdentification>
+                            </j:OrganizationAugmentation>
+                            <ndexia:EnforcementUnitAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Unit1"></lexslib:SameAsDigestReference>
+                            </ndexia:EnforcementUnitAugmentation>
+                        </ndexia:EnforcementUnit>
+                        <!--================================= Enforcement Unit 2 ============================-->
+                        <ndexia:EnforcementUnit>
+                            <j:EnforcementUnitNumberIdentification>
+                                <nc:IdentificationID>612</nc:IdentificationID>
+                            </j:EnforcementUnitNumberIdentification>
+                            <j:OrganizationAugmentation>
+                                <j:OrganizationORIIdentification>
+                                    <nc:IdentificationID>NMNSP0000</nc:IdentificationID>
+                                </j:OrganizationORIIdentification>
+                            </j:OrganizationAugmentation>
+                            <ndexia:EnforcementUnitAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Unit2"></lexslib:SameAsDigestReference>
+                            </ndexia:EnforcementUnitAugmentation>
+                        </ndexia:EnforcementUnit>
+                        <!--================================= Organization 1 ============================-->
+                        <ndexia:Organization>
+                            <ndexia:OrganizationCategoryNDExCode>Criminal Justice</ndexia:OrganizationCategoryNDExCode>
+                            <j:OrganizationAugmentation>
+                                <j:OrganizationORIIdentification>
+                                    <nc:IdentificationID>NM1234567</nc:IdentificationID>
+                                </j:OrganizationORIIdentification>
+                            </j:OrganizationAugmentation>
+                            <ndexia:OrganizationAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Organization1"></lexslib:SameAsDigestReference>
+                            </ndexia:OrganizationAugmentation>
+                        </ndexia:Organization>
+                        <!--================================= Organization 2 ============================-->
+                        <ndexia:Organization>
+                            <ndexia:OrganizationCategoryNDExCode>Criminal Justice</ndexia:OrganizationCategoryNDExCode>
+                            <ndexia:OrganizationAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Organization2"></lexslib:SameAsDigestReference>
+                            </ndexia:OrganizationAugmentation>
+                        </ndexia:Organization>
+                        <!--================================= Organization 3 - Victim ============================-->
+                        <ndexia:Organization>
+                            <ndexia:OrganizationCategoryNDExCode>Society</ndexia:OrganizationCategoryNDExCode>
+                            <ndexia:OrganizationAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Organization3"></lexslib:SameAsDigestReference>
+                            </ndexia:OrganizationAugmentation>
+                        </ndexia:Organization>
+                        <ndexia:Victim>
+                            <j:VictimCategoryCode>S</j:VictimCategoryCode>
+                            <ndexia:VictimAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Victim2"></lexslib:SameAsDigestReference>
+                                <ndexia:VictimSequenceNumberText>2</ndexia:VictimSequenceNumberText>
+                            </ndexia:VictimAugmentation>
+                        </ndexia:Victim>
+                        <!--============================== Location 1 - Dispatch Location / Victim's Home =========================-->
+                        <ndexia:Location>
+                            <nc:LocationAddress>
+                                <nc:StructuredAddress>
+                                    <ndexia:LocationStreet>
+                                        <ndexia:StreetAugmentation>
+                                            <ndexia:StreetPostdirectionalCode>Northwest</ndexia:StreetPostdirectionalCode>
+                                        </ndexia:StreetAugmentation>
+                                    </ndexia:LocationStreet>
+                                    <nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+                                    <nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+                                </nc:StructuredAddress>
+                            </nc:LocationAddress>
+                            <ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+                            <ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+                            <ndexia:LocationAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Location1"></lexslib:SameAsDigestReference>
+                            </ndexia:LocationAugmentation>
+                        </ndexia:Location>
+                        <!--============================== Location 2 - Witness' Home =========================-->
+                        <ndexia:Location>
+                            <nc:LocationAddress>
+                                <nc:StructuredAddress>
+                                    <ndexia:LocationStreet>
+                                        <ndexia:StreetAugmentation>
+                                            <ndexia:StreetPostdirectionalCode>Northwest</ndexia:StreetPostdirectionalCode>
+                                        </ndexia:StreetAugmentation>
+                                    </ndexia:LocationStreet>
+                                    <nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+                                    <nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+                                </nc:StructuredAddress>
+                            </nc:LocationAddress>
+                            <ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+                            <ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+                            <ndexia:LocationAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Location2"></lexslib:SameAsDigestReference>
+                            </ndexia:LocationAugmentation>
+                        </ndexia:Location>
+                        <!--============================== Location 3 - Subject's Home =========================-->
+                        <ndexia:Location>
+                            <nc:LocationAddress>
+                                <nc:StructuredAddress>
+                                    <nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+                                    <nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+                                </nc:StructuredAddress>
+                            </nc:LocationAddress>
+                            <ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+                            <ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+                            <ndexia:LocationAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Location3"></lexslib:SameAsDigestReference>
+                            </ndexia:LocationAugmentation>
+                        </ndexia:Location>
+                        <!--============================== Location 4 - Arrest Location =========================-->
+                        <ndexia:Location>
+                            <nc:LocationAddress>
+                                <nc:StructuredAddress>
+                                    <nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+                                    <nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+                                </nc:StructuredAddress>
+                            </nc:LocationAddress>
+                            <ndexia:LocationGeneralCategoryCode>Public_Non Residential</ndexia:LocationGeneralCategoryCode>
+                            <ndexia:LocationCategoryCode>Law Enforcement Facility_City</ndexia:LocationCategoryCode>
+                            <ndexia:LocationAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="Location4"></lexslib:SameAsDigestReference>
+                            </ndexia:LocationAugmentation>
+                        </ndexia:Location>
+                        <!--============================== Subject Victim Association =========================-->
+                        <ndexia:SubjectVictimAssociation s:metadata="MSubjectVictimAssocSP1">
+                            <ndexia:SubjectVictimAssociationAugmentation>
+                                <lexslib:SameAsDigestReference lexslib:ref="SubjectVictimAssoc1"></lexslib:SameAsDigestReference>
+                                <ndexia:VictimToSubjectRelationshipCode>Acquaintance</ndexia:VictimToSubjectRelationshipCode>
+                            </ndexia:SubjectVictimAssociationAugmentation>
+                        </ndexia:SubjectVictimAssociation>
+                    </ndexia:IncidentReport>
+                </lexs:StructuredPayload>
+                <!--=======================  Package Attachment Link for Stylesheet used for Rendering  =======================-->
+                <lexs:AttachmentLink s:id="PAttachment2">
+                    <lexs:AttachmentURI>http://www.gtri.org/LEXS/examples/XMLViewer.xsl</lexs:AttachmentURI>
+                    <lexs:AttachmentViewableIndicator>false</lexs:AttachmentViewableIndicator>
+                    <nc:BinaryDescriptionText>XML Stylesheet for pretty-printing any XML content as a tree.</nc:BinaryDescriptionText>
+                </lexs:AttachmentLink>
+                <!--=======================  Rendering Instructions  =======================-->
+                <lexs:RenderingInstructions>
+                    <lexs:RenderingMethod>HTMLStyleSheet</lexs:RenderingMethod>
+                    <lexs:RenderingReference s:ref="PAttachment2"></lexs:RenderingReference>
+                    <lexs:RenderingDescription>Pretty prints a message</lexs:RenderingDescription>
+                </lexs:RenderingInstructions>
+            </lexs:DataItemPackage>
+            <!--=======================  Message Attachment containing Stylesheet  =======================-->
+            <lexs:Attachment>
+                <lexs:AttachmentURI>http://www.gtri.org/LEXS/examples/XMLViewer.xsl</lexs:AttachmentURI>
+                <nc:Binary>
+                    <!-- This Binary is actually a stylesheet that should show the XML data in tree form using HTML. -->
+                    <nc:BinaryBase64Object>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48eHNsOnN0eWxlc2hlZXQgeG1sbnM6eHNsPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L1hTTC9UcmFuc2Zvcm0iIHZlcnNpb249IjEuMCI+DQoNCiAgPHhzbDpvdXRwdXQgbWV0aG9kPSJodG1sIiBlbmNvZGluZz0iVVRGLTgiIGluZGVudD0ieWVzIiBvbWl0LXhtbC1kZWNsYXJhdGlvbj0ieWVzIiBtZWRpYS10eXBlPSJ0ZXh0L2h0bWwiIHN0YW5kYWxvbmU9InllcyIvPg0KDQogIDx4c2w6dGVtcGxhdGUgbWF0Y2g9Ii9jaGlsZDo6KlsxXSI+DQogICAgPGh0bWw+DQogICAgICA8aGVhZD4NCiAgICAgICAgPHRpdGxlPkRhdGEgVmlldzwvdGl0bGU+DQogICAgICAgIDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQogICAgICAgICAgYm9keSB7IGZvbnQtc2l6ZTogc21hbGxlciB9DQogICAgICAgICAgZGl2LCBpbWcgeyBib3JkZXI6IDBweDsgbWFyZ2luOiAwcHg7IHBhZGRpbmc6IDBweCB9DQogICAgICAgICAgZGl2Lk5vZGUgKiB7IHZlcnRpY2FsLWFsaWduOiBtaWRkbGUgfQ0KICAgICAgICAgIGkuQXR0cmlidXRlVmFsICB7IGNvbG9yOiByZ2IoNTAsMTI3LDEyNykgfQ0KICAgICAgICAgIGkuRWxlbWVudFZhbCAgeyBjb2xvcjogcmdiKDQwLDAsMjU1KSB9DQogICAgICAgICAgYi5BdHRyaWJ1dGUgICB7IGNvbG9yOiAjNzcxNTFGIH0NCiAgICAgICAgPC9zdHlsZT4NCiAgICAgIDwvaGVhZD4NCiAgICAgIDxib2R5Pg0KICAgICAgICA8Yj48eHNsOnZhbHVlLW9mIHNlbGVjdD0ibmFtZSgpIi8+PC9iPg0KICAgICAgICA8eHNsOmFwcGx5LXRlbXBsYXRlcyBtb2RlPSJsaW5lIi8+DQogICAgICA8L2JvZHk+DQogICAgPC9odG1sPg0KICA8L3hzbDp0ZW1wbGF0ZT4NCg0KICA8IS0tIFNob3cgZWFjaCB0cmVlIGxpbmUgLS0+DQogIDx4c2w6dGVtcGxhdGUgbWF0Y2g9IioiIG1vZGU9ImxpbmUiPg0KICAgIDxkaXYgY2xhc3M9Ik5vZGUiPg0KICAgICAgPHhzbDpjYWxsLXRlbXBsYXRlIG5hbWU9ImdyYWZ0Ii8+DQogICAgICA8eHNsOmFwcGx5LXRlbXBsYXRlcyBzZWxlY3Q9Ii4iIG1vZGU9Iml0ZW0iLz4NCiAgICA8L2Rpdj4gICAgDQogICAgPHhzbDphcHBseS10ZW1wbGF0ZXMgc2VsZWN0PSJjaGlsZDo6KiIgbW9kZT0ibGluZSIvPg0KICA8L3hzbDp0ZW1wbGF0ZT4NCiAgDQogIDx4c2w6dGVtcGxhdGUgbWF0Y2g9IioiIG1vZGU9Iml0ZW0iPg0KICAgICAgPGI+PHhzbDp2YWx1ZS1vZiBzZWxlY3Q9Im5hbWUoKSIvPjwvYj4NCiAgICAgIDx4c2w6aWYgdGVzdD0iQCoiPg0KICAgICAgICAgIDx4c2w6dGV4dD4gWyAgPC94c2w6dGV4dD4gICAgICANCiAgICAgICAgICAgIDx4c2w6Zm9yLWVhY2ggc2VsZWN0PSJAKiI+DQogICAgICAgICAgICAgICAgPGIgY2xhc3M9IkF0dHJpYnV0ZSI+PHhzbDp2YWx1ZS1vZiBzZWxlY3Q9Im5hbWUoKSIvPjwvYj4NCiAgICAgICAgICAgICAgICA8eHNsOnRleHQ+ID0gIjwveHNsOnRleHQ+DQogICAgICAgICAgICAgICAgPGkgY2xhc3M9IkF0dHJpYnV0ZVZhbCI+PHhzbDp2YWx1ZS1vZiBzZWxlY3Q9Ii4iLz48L2k+DQogICAgICAgICAgICAgICAgPHhzbDp0ZXh0PiIgPC94c2w6dGV4dD4NCiAgICAgICAgICAgIDwveHNsOmZvci1lYWNoPg0KICAgICAgICAgIDx4c2w6dGV4dD4gXSA8L3hzbDp0ZXh0Pg0KICAgICAgPC94c2w6aWY+DQogICAgICA8eHNsOnRleHQ+ICAgIDwveHNsOnRleHQ+DQogICAgICA8aSBjbGFzcz0iRWxlbWVudFZhbCI+PHhzbDp2YWx1ZS1vZiBzZWxlY3Q9InRleHQoKSIvPjwvaT4NCiAgPC94c2w6dGVtcGxhdGU+DQogICANCiAgPCEtLSBUZW1wbGF0ZXMgdXNlZCB0byBnZW5lcmF0ZSB0aGUgInN0aWNrIHN0YWNrIiBvZg0KICAgICAgIHRyZWUgY29ubmVjdG9ycyAtLT4NCg0KICA8eHNsOnRlbXBsYXRlIG5hbWU9ImdyYWZ0Ij4NCiAgICA8IS0tIEdlbmVyYXRlIGFuY2VzdG9yIGNvbm5lY3RvcnMgLS0+DQogICAgPHhzbDphcHBseS10ZW1wbGF0ZXMgc2VsZWN0PSJhbmNlc3Rvcjo6KiIgbW9kZT0idHJlZSIvPg0KDQogICAgPCEtLSBHZW5lcmF0ZSBjdXJyZW50LW5vZGUgY29ubmVjdG9yIC0tPg0KICAgIDx4c2w6Y2hvb3NlPg0KICAgICAgPHhzbDp3aGVuIHRlc3Q9ImZvbGxvd2luZy1zaWJsaW5nOjoqIj4NCiAgICAgICAgPHhzbDp0ZXh0IGRpc2FibGUtb3V0cHV0LWVzY2FwaW5nPSJ5ZXMiPiZhbXA7bmJzcDsmYW1wO25ic3A74pScJmFtcDtuYnNwOzwveHNsOnRleHQ+DQogICAgICA8L3hzbDp3aGVuPg0KICAgICAgPHhzbDpvdGhlcndpc2U+DQogICAgICAgIDx4c2w6dGV4dCBkaXNhYmxlLW91dHB1dC1lc2NhcGluZz0ieWVzIj4mYW1wO25ic3A7JmFtcDtuYnNwO+KUlCZhbXA7bmJzcDs8L3hzbDp0ZXh0Pg0KICAgICAgPC94c2w6b3RoZXJ3aXNlPg0KICAgIDwveHNsOmNob29zZT4NCiAgPC94c2w6dGVtcGxhdGU+DQoNCiAgPCEtLSBTdXBwcmVzcyBhbmNlc3RvciBjb25uZWN0b3IgZm9yIHRoZSB0b3Agbm9kZSAtLT4NCg0KICA8eHNsOnRlbXBsYXRlIG1hdGNoPSIvY2hpbGQ6OipbMV0iIG1vZGU9InRyZWUiLz4NCg0KICA8IS0tIFNob3cgYW5jZXN0b3IgY29ubmVjdG9ycyBmb3IgYWxsIG90aGVyIG5vZGUgdHlwZXMgLS0+DQoNCiAgPHhzbDp0ZW1wbGF0ZSBtYXRjaD0iKiIgbW9kZT0idHJlZSI+DQogICAgPHhzbDpjaG9vc2U+DQogICAgICA8eHNsOndoZW4gdGVzdD0iZm9sbG93aW5nLXNpYmxpbmc6OioiPg0KICAgICAgICA8eHNsOnRleHQgZGlzYWJsZS1vdXRwdXQtZXNjYXBpbmc9InllcyI+JmFtcDtuYnNwOyZhbXA7bmJzcDvilIImYW1wO25ic3A7PC94c2w6dGV4dD4NCiAgICAgIDwveHNsOndoZW4+DQogICAgICA8eHNsOm90aGVyd2lzZT4NCiAgICAgICAgPHhzbDp0ZXh0IGRpc2FibGUtb3V0cHV0LWVzY2FwaW5nPSJ5ZXMiPiZhbXA7bmJzcDsmYW1wO25ic3A7JmFtcDtuYnNwO+KImSZhbXA7bmJzcDs8L3hzbDp0ZXh0Pg0KICAgICAgPC94c2w6b3RoZXJ3aXNlPg0KICAgIDwveHNsOmNob29zZT4NCiAgPC94c2w6dGVtcGxhdGU+DQoNCjwveHNsOnN0eWxlc2hlZXQ+</nc:BinaryBase64Object>
+                    <nc:BinaryDescriptionText>XML Stylesheet for pretty-printing any XML content as a tree.</nc:BinaryDescriptionText>
+                    <nc:BinaryFormatID>application/xml+xslt</nc:BinaryFormatID>
+                    <nc:BinaryFormatStandardName>MIME</nc:BinaryFormatStandardName>
+                    <nc:BinaryCategoryText>Stylesheet</nc:BinaryCategoryText>
+                </nc:Binary>
+            </lexs:Attachment>
+        </lexs:PublishMessage>
+    </lexs:PublishMessageContainer>
+</lexspd:doPublish>

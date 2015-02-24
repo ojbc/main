@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notification:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd">
+		<notificationExt:NotifyingCriminalHistoryUpdate s:id="d1e1">
+			<notificationExt:NotifyingActivityReportingSystemNameText>SystemName</notificationExt:NotifyingActivityReportingSystemNameText>
+			<notificationExt:NotifyingActivityReportingSystemURI>SystemURIHere</notificationExt:NotifyingActivityReportingSystemURI>
+			<chu:CycleTrackingIdentifierAssignment>
+				<nc:ActivityDate>
+					<nc:DateTime>2014-11-11T12:00:00</nc:DateTime>
+				</nc:ActivityDate>
+				<chu:CycleTrackingIdentification>
+					<nc:IdentificationID>123456A</nc:IdentificationID>
+				</chu:CycleTrackingIdentification>
+				<chu:OriginatorOrganizationReference
+					s:ref="d1e132" />
+				<chu:ProsecutionAttorneyOrganizationReference
+					s:ref="d1e147" />
+				<nc:Case>
+					<nc:ActivityIdentification>
+						<nc:IdentificationID>1234</nc:IdentificationID>
+					</nc:ActivityIdentification>
+				</nc:Case>
+				<j:Charge s:id="d1e27">
+					<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
+					<chu:ChargeEnhancingFactor>
+						<j:ChargeEnhancingFactorDescriptionText>modifier description
+						</j:ChargeEnhancingFactorDescriptionText>
+						<me:ChargeEnhancingFactorCode>S</me:ChargeEnhancingFactorCode>
+					</chu:ChargeEnhancingFactor>
+					<j:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>004290</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+						<j:StatuteText>17-A MRSA SUBSECTION 651(1)(D)</j:StatuteText>
+					</j:ChargeStatute>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>123</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</j:Charge>
+				<j:Charge s:id="d1e61">
+					<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
+					<chu:ChargeEnhancingFactor>
+						<j:ChargeEnhancingFactorDescriptionText>modifier description
+						</j:ChargeEnhancingFactorDescriptionText>
+						<me:ChargeEnhancingFactorCode>A</me:ChargeEnhancingFactorCode>
+					</chu:ChargeEnhancingFactor>
+					<j:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>04291</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+						<j:StatuteText>19-A Subsection 651(1)(B)</j:StatuteText>
+					</j:ChargeStatute>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>456</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</j:Charge>
+			</chu:CycleTrackingIdentifierAssignment>
+		</notificationExt:NotifyingCriminalHistoryUpdate>
+		<nc:ActivityInvolvedPersonAssociation>
+			<nc:ActivityReference s:ref="d1e1" />
+			<nc:PersonReference s:ref="d1e162" />
+		</nc:ActivityInvolvedPersonAssociation>
+		<j:Person s:id="d1e162">
+			<nc:PersonBirthDate>
+				<nc:Date>1975-02-20</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Walter</nc:PersonGivenName>
+				<nc:PersonMiddleName>A</nc:PersonMiddleName>
+				<nc:PersonSurName>White</nc:PersonSurName>
+			</nc:PersonName>
+		</j:Person>
+		<j:Organization s:id="d1e132">
+			<nc:OrganizationName>Portland Police Department</nc:OrganizationName>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ME0000000</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:Organization>
+		<j:Organization s:id="d1e147">
+			<nc:OrganizationName>Cumberland County Prosecutor
+			</nc:OrganizationName>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ME0000001</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:Organization>
+	</notification:NotificationMessage>

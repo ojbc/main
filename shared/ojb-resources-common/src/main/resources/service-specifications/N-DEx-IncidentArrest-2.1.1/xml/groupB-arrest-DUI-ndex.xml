@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?>
+
+<!--
+	Document: $Id: groupB-arrest-DUI-ndex.xml 1932 2010-05-19 20:47:04Z jw7 $
+	Original : 11/21/2007
+	Updated : 12/4/2008 - Updated for N-DEx 2.1 and to correct a business rule issue.
+					5/14/2010 - Updated N-DEx version number in header to 2.1.1
+	LEXS version : 3.1.4
+	N-DEx version : 2.1.1
+	Description : This scenario represents a possible N-DEx Arrest Report submission.  This scenario demonstrates a basic Arrest Report with the primary 
+			activity of Arrest and the required ancillary activity of Offense.  The scenario applies the NIBRS Group "B" offense logic which is founded on the idea 
+			that arrests involving certain offenses are not required to have incident data collected, which serves as the primary basis for the N-DEx Arrest Report. 
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexia.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+-->
+<ndexia:ArrestReport 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:i="http://niem.gov/niem/appinfo/2.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
+	xmlns:mmucc_2="http://niem.gov/niem/mmucc_2/2.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
+	xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1 ../xsd/ndexia/ndexia/2.1/ndexia.xsd">
+    
+    <j:OrganizationORIIdentification>
+		<nc:IdentificationID>TN0470100</nc:IdentificationID>
+    </j:OrganizationORIIdentification>
+    <ndexia:NIBRSReportCategoryCode>Group B Arrest Report</ndexia:NIBRSReportCategoryCode>
+	
+	<!--================================= Arrest  ============================-->
+	<ndexia:Arrest>
+		<j:ArrestCategoryCode>O</j:ArrestCategoryCode>
+		<ndexia:ArrestAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Arrest1"/>
+		</ndexia:ArrestAugmentation>
+	</ndexia:Arrest>
+	
+	<!--================================= Arrestee Role ============================-->
+	<ndexia:ArrestSubject>
+		<ndexia:ArrestSubjectAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="ArrestSubject1"/>
+			<j:ArrestSequenceID>
+				<nc:IdentificationID>1</nc:IdentificationID>
+			</j:ArrestSequenceID>
+			<j:ArrestSubjectCountCode>N</j:ArrestSubjectCountCode>
+			<j:ChargeUCRCode>90D</j:ChargeUCRCode>
+			<j:Statute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>TN87C</nc:IdentificationID>
+					<nc:IdentificationJurisdictionText>Tennessee</nc:IdentificationJurisdictionText>
+				</j:StatuteCodeIdentification>
+				<j:StatuteDescriptionText>Driving Under the Influence</j:StatuteDescriptionText>
+			</j:Statute>
+			<ndexia:ArresteeArmedWithCode>01</ndexia:ArresteeArmedWithCode>
+			<ndexia:ArresteeJuvenileDispositionCode>R</ndexia:ArresteeJuvenileDispositionCode>
+		</ndexia:ArrestSubjectAugmentation>
+	</ndexia:ArrestSubject>
+	
+	<!--============================== Officer Role =========================-->
+	<ndexia:EnforcementOfficial>
+		<ndexia:EnforcementOfficialActivityCategoryCode>Traffic Stop</ndexia:EnforcementOfficialActivityCategoryCode>
+		<j:EnforcementOfficialAssignmentCategoryCode>G</j:EnforcementOfficialAssignmentCategoryCode>
+		<ndexia:EnforcementOfficialAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Officer1"/>
+		</ndexia:EnforcementOfficialAugmentation>
+	</ndexia:EnforcementOfficial>
+	
+	<!--================================= Offense ============================-->
+	<ndexia:Offense>
+		<ndexia:ActivityAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Offense1"/>
+		</ndexia:ActivityAugmentation>	
+		<ndexia:OffenseCode>Driving Under Influence_liquor</ndexia:OffenseCode>
+	</ndexia:Offense>
+	
+	<!--================================= Enforcement Unit  ============================-->
+	<ndexia:EnforcementUnit>
+		<j:EnforcementUnitNumberIdentification>
+			<nc:IdentificationID>85</nc:IdentificationID>
+		</j:EnforcementUnitNumberIdentification>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>TN0470100</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+		<ndexia:EnforcementUnitAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Org1"/>
+		</ndexia:EnforcementUnitAugmentation>		
+	</ndexia:EnforcementUnit>
+	
+	<!--============================== Person 1 =========================-->
+	<ndexia:Person>
+		<nc:PersonEthnicityCode>U</nc:PersonEthnicityCode>
+		<nc:PersonResidentCode>R</nc:PersonResidentCode>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="ArrestSubjectPerson1"/>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+	
+	<!--============================== Person 2 =========================-->
+	<ndexia:Person>
+		<nc:PersonName>
+			<nc:PersonNamePrefixText>Captain</nc:PersonNamePrefixText>
+		</nc:PersonName>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="OfficerPerson1"/>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+		
+</ndexia:ArrestReport>

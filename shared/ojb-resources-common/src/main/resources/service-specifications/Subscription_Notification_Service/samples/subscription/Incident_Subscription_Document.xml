@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:Subscribe xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:add="http://www.w3.org/2005/08/addressing"
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+	xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:sm="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
+	<b:ConsumerReference>
+		<add:Address>http://www.ojbc.org/OJB/SubscribeNotify</add:Address>
+		<add:ReferenceParameters />
+		<add:Metadata />
+	</b:ConsumerReference>
+	<b:Filter>
+		<b:TopicExpression
+			Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/incident</b:TopicExpression>
+	</b:Filter>
+	<b:SubscriptionPolicy />
+	<sm:SubscriptionMessage>
+		<smext:Subject>
+			<nc20:PersonBirthDate>
+				<nc20:Date>1980-01-01</nc20:Date>
+			</nc20:PersonBirthDate>
+			<nc20:PersonName>
+				<nc20:PersonGivenName>John</nc20:PersonGivenName>
+				<nc20:PersonSurName>Doe</nc20:PersonSurName>
+				<nc20:PersonFullName>John Doe</nc20:PersonFullName>
+			</nc20:PersonName>
+		</smext:Subject>
+		<nc20:ContactEmailID>testimap@locahost</nc20:ContactEmailID>
+		<nc20:ContactEmailID>email@local.gov</nc20:ContactEmailID>
+		<!-- We need to figure out the formal name for the portal -->
+		<smext:SystemName>portal</smext:SystemName>
+		<smext:SubscriptionQualifierIdentification>
+			<nc20:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
+			</nc20:IdentificationID>
+		</smext:SubscriptionQualifierIdentification>
+		<nc20:DateRange>
+			<nc20:StartDate>
+				<nc20:Date>2014-06-20</nc20:Date>
+			</nc20:StartDate>
+			<nc20:EndDate>
+				<nc20:Date>2015-06-20</nc20:Date>
+			</nc20:EndDate>
+		</nc20:DateRange>
+	</sm:SubscriptionMessage>
+</b:Subscribe>

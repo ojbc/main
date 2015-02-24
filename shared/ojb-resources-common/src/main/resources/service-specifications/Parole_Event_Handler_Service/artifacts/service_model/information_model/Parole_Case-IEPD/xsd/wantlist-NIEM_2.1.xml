@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><w:WantList xmlns:w="http://niem.gov/niem/wantlist/2" xmlns:ut_offender_10="http://niem.gov/niem/ut_offender-tracking-misc/1.0" xmlns:usps_10="http://niem.gov/niem/usps_states/1.0" xmlns:unece_10="http://niem.gov/niem/unece_rec20-misc/1.0" xmlns:ucr_10="http://niem.gov/niem/ucr/1.0" xmlns:u_10="http://niem.gov/niem/universal/1.0" xmlns:twpdes_10="http://niem.gov/niem/twpdes/1.0" xmlns:scr_10="http://niem.gov/niem/domains/screening/1.0" xmlns:s_10="http://niem.gov/niem/structures/1.0" xmlns:nonauth_10="http://niem.gov/niem/nonauthoritative-code/1.0" xmlns:nlets_10="http://niem.gov/niem/nlets/1.0" xmlns:niem-xsd_10="http://niem.gov/niem/proxy/xsd/1.0" xmlns:nibrs_10="http://niem.gov/niem/nibrs_misc/1.0" xmlns:ncic_10="http://niem.gov/niem/ncic_2000/1.0" xmlns:mn_off_10="http://niem.gov/niem/mn_offense/1.0" xmlns:mmucc_2_10="http://niem.gov/niem/mmucc_2/1.0" xmlns:lasd_10="http://niem.gov/niem/lasd/1.0" xmlns:j_10="http://niem.gov/niem/domains/justice/1.0" xmlns:itis_10="http://niem.gov/niem/itis/1.0" xmlns:it_10="http://niem.gov/niem/domains/internationalTrade/1.0" xmlns:iso_639-2t_10="http://niem.gov/niem/iso_639-2t/1.0" xmlns:iso_639-2b_10="http://niem.gov/niem/iso_639-2b/1.0" xmlns:iso_4217_10="http://niem.gov/niem/iso_4217/1.0" xmlns:iso_3166_10="http://niem.gov/niem/iso_3166/1.0" xmlns:ism_10="http://niem.gov/niem/ic-ism/1.0" xmlns:ip_10="http://niem.gov/niem/domains/infrastructureProtection/1.0" xmlns:intel_10="http://niem.gov/niem/domains/intelligence/1.0" xmlns:im_10="http://niem.gov/niem/domains/immigration/1.0" xmlns:i_10="http://niem.gov/niem/appinfo/1.0" xmlns:have_10="http://niem.gov/niem/have/1.0" xmlns:gs_10="http://niem.gov/niem/geospatial/1.0" xmlns:fips_6-4_10="http://niem.gov/niem/fips_6-4/1.0" xmlns:fips_5-2_10="http://niem.gov/niem/fips_5-2/1.0" xmlns:fips_10-4_10="http://niem.gov/niem/fips_10-4/1.0" xmlns:eo-12958_10="http://niem.gov/niem/eo-12958/1.0" xmlns:em_10="http://niem.gov/niem/domains/emergencyManagement/1.0" xmlns:edxl-de_10="http://niem.gov/niem/edxl-de/1.0" xmlns:edxl-cap_10="http://niem.gov/niem/edxl-cap/1.0" xmlns:edxl_10="http://niem.gov/niem/edxl/1.0" xmlns:dod_jcs-pub2.0_10="http://niem.gov/niem/dod_jcs-pub2.0-misc/1.0" xmlns:dod_10="http://niem.gov/niem/dod_misc/1.0" xmlns:census_10="http://niem.gov/niem/census/1.0" xmlns:can_10="http://niem.gov/niem/post-canada/1.0" xmlns:c_10="http://niem.gov/niem/common/1.0" xmlns:apco_10="http://niem.gov/niem/apco/1.0" xmlns:ansi_d20_10="http://niem.gov/niem/ansi_d20/1.0" xmlns:ut_offender_20="http://niem.gov/niem/ut_offender-tracking-misc/2.0" xmlns:usps_20="http://niem.gov/niem/usps_states/2.0" xmlns:unece_20="http://niem.gov/niem/unece_rec20-misc/2.0" xmlns:ucr_20="http://niem.gov/niem/ucr/2.0" xmlns:twpdes_20="http://niem.gov/niem/twpdes/2.0" xmlns:s_20="http://niem.gov/niem/structures/2.0" xmlns:nonauth_20="http://niem.gov/niem/nonauthoritative-code/2.0" xmlns:niem-xsd_20="http://niem.gov/niem/proxy/xsd/2.0" xmlns:nga_20="http://niem.gov/niem/nga/2.0" xmlns:nc_20="http://niem.gov/niem/niem-core/2.0" xmlns:mn_off_20="http://niem.gov/niem/mn_offense/2.0" xmlns:lasd_20="http://niem.gov/niem/lasd/2.0" xmlns:iso_639-3_20="http://niem.gov/niem/iso_639-3/2.0" xmlns:iso_4217_20="http://niem.gov/niem/iso_4217/2.0" xmlns:iso_3166_20="http://niem.gov/niem/iso_3166/2.0" xmlns:i_20="http://niem.gov/niem/appinfo/2.0" xmlns:fips_6-4_20="http://niem.gov/niem/fips_6-4/2.0" xmlns:fips_5-2_20="http://niem.gov/niem/fips_5-2/2.0" xmlns:fips_10-4_20="http://niem.gov/niem/fips_10-4/2.0" xmlns:fbi_20="http://niem.gov/niem/fbi/2.0" xmlns:dod_jcs-pub2.0_20="http://niem.gov/niem/dod_jcs-pub2.0-misc/2.0" xmlns:census_20="http://niem.gov/niem/census/2.0" xmlns:can_20="http://niem.gov/niem/post-canada/2.0" xmlns:atf_20="http://niem.gov/niem/atf/2.0" xmlns:ansi-nist_20="http://niem.gov/niem/ansi-nist/2.0" xmlns:ansi_d20_20="http://niem.gov/niem/ansi_d20/2.0" xmlns:scr_20="http://niem.gov/niem/domains/screening/2.0" xmlns:sar_20="http://niem.gov/niem/sar/2.0" xmlns:nlets_20="http://niem.gov/niem/nlets/2.0" xmlns:mmucc_2_20="http://niem.gov/niem/mmucc_2/2.0" xmlns:m_20="http://niem.gov/niem/domains/maritime/2.0" xmlns:it_20="http://niem.gov/niem/domains/internationalTrade/2.0" xmlns:itis_20="http://niem.gov/niem/itis/2.0" xmlns:ip_20="http://niem.gov/niem/domains/infrastructureProtection/2.0" xmlns:intel_20="http://niem.gov/niem/domains/intelligence/2.0" xmlns:im_20="http://niem.gov/niem/domains/immigration/2.0" xmlns:hazmat_20="http://niem.gov/niem/hazmat/2.0" xmlns:have-codes_20="http://niem.gov/niem/have-codes/2.0" xmlns:geo_20="http://niem.gov/niem/geospatial/2.0" xmlns:fs_20="http://niem.gov/niem/domains/familyServices/2.0" xmlns:em_20="http://niem.gov/niem/domains/emergencyManagement/2.0" xmlns:edxl-have_20="http://niem.gov/niem/edxl-have/2.0" xmlns:edxl-de_20="http://niem.gov/niem/edxl-de/2.0" xmlns:edxl-cap_20="http://niem.gov/niem/edxl-cap/2.0" xmlns:edxl_20="http://niem.gov/niem/edxl/2.0" xmlns:dea_20="http://niem.gov/niem/dea/2.0" xmlns:cbrncl_20="http://niem.gov/niem/cbrncl/2.0" xmlns:cbrn_20="http://niem.gov/niem/domains/cbrn/2.0" xmlns:apco_20="http://niem.gov/niem/apco/2.0" xmlns:j40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:scr_21="http://niem.gov/niem/domains/screening/2.1" xmlns:sar_21="http://niem.gov/niem/sar/2.1" xmlns:nlets_21="http://niem.gov/niem/nlets/2.1" xmlns:mmucc_2_21="http://niem.gov/niem/mmucc_2/2.1" xmlns:m_21="http://niem.gov/niem/domains/maritime/2.1" xmlns:it_21="http://niem.gov/niem/domains/internationalTrade/2.1" xmlns:itis_21="http://niem.gov/niem/itis/2.1" xmlns:ip_21="http://niem.gov/niem/domains/infrastructureProtection/2.1" xmlns:intel_21="http://niem.gov/niem/domains/intelligence/2.1" xmlns:im_21="http://niem.gov/niem/domains/immigration/2.1" xmlns:hazmat_21="http://niem.gov/niem/hazmat/2.1" xmlns:have-codes_21="http://niem.gov/niem/have-codes/2.1" xmlns:geo_21="http://niem.gov/niem/geospatial/2.1" xmlns:fs_21="http://niem.gov/niem/domains/familyServices/2.1" xmlns:em_21="http://niem.gov/niem/domains/emergencyManagement/2.1" xmlns:edxl-have_21="http://niem.gov/niem/edxl-have/2.1" xmlns:edxl-de_21="http://niem.gov/niem/edxl-de/2.1" xmlns:edxl-cap_21="http://niem.gov/niem/edxl-cap/2.1" xmlns:edxl_21="http://niem.gov/niem/edxl/2.1" xmlns:dea_21="http://niem.gov/niem/dea/2.1" xmlns:cbrncl_21="http://niem.gov/niem/cbrncl/2.1" xmlns:cbrn_21="http://niem.gov/niem/domains/cbrn/2.1" xmlns:apco_21="http://niem.gov/niem/apco/2.1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:JIEMInformationDimensionProfile="http:///schemas/JIEMInformationDimensionProfile/_cv4P0J5iEd6S-6vlgzIJ1g/0" xmlns:NIEMUMLProfile="http:///schemas/NIEMUMLProfile/_dyQGgKecEd6WcIPZjZ3akQ/0" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" w:product="NIEM" w:release="2.1">
+<w:Element w:name="nc_20:PersonSexCode" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonAliasIdentityAssociation" w:isReference="false"/>
+<w:Element w:name="nc_20:EntityPerson" w:isReference="false"/>
+<w:Element w:name="nc_20:PhysicalFeatureCategoryText" w:isReference="false"/>
+<w:Element w:name="nc_20:PhysicalFeatureCategory" w:isReference="false"/>
+<w:Element w:name="nc_20:Date" w:isReference="false"/>
+<w:Element w:name="nc_20:ActivityDate" w:isReference="false"/>
+<w:Element w:name="nc_20:ActivityDateRepresentation" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonSurName" w:isReference="false"/>
+<w:Element w:name="nc_20:SupervisionSupervisor" w:isReference="false"/>
+<w:Element w:name="nc_20:ActivityDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonSSNIdentification" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonNameSuffixText" w:isReference="false"/>
+<w:Element w:name="nc_20:EntityRepresentation" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonStateIdentification" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonBirthDate" w:isReference="false"/>
+<w:Element w:name="nc_20:SupervisionFacility" w:isReference="false"/>
+<w:Element w:name="nc_20:FacilityName" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonDescriptionText" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonName" w:isReference="false"/>
+<w:Element w:name="nc_20:SupervisionRelease" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonPhysicalFeature" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonMiddleName" w:isReference="false"/>
+<w:Element w:name="nc_20:DateRepresentation" w:isReference="false"/>
+<w:Element w:name="nc_20:Person" w:isReference="true"/>
+<w:Element w:name="nc_20:PersonSex" w:isReference="false"/>
+<w:Element w:name="nc_20:Identity" w:isReference="true"/>
+<w:Element w:name="nc_20:PersonGivenName" w:isReference="false"/>
+<w:Element w:name="nc_20:IdentityPersonRepresentation" w:isReference="false"/>
+<w:Element w:name="nc_20:IdentificationID" w:isReference="false"/>
+<w:Element w:name="nc_20:SupervisionPerson" w:isReference="false"/>
+<w:Element w:name="nc_20:PhysicalFeature" w:isReference="false"/>
+<w:Element w:name="nc_20:EntityOrganization" w:isReference="false"/>
+<w:Element w:name="nc_20:OrganizationName" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactEmailID" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactMeans" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactInformation" w:isReference="false"/>
+<w:Element w:name="nc_20:ContactInformation" w:isReference="true"/>
+<w:Element w:name="nc_20:PersonContactInformationAssociation" w:isReference="false"/>
+<w:Element w:name="nc_20:PersonFullName" w:isReference="false"/>
+<w:Element w:name="nc_20:Supervision" w:isReference="false"/>
+<w:Element w:name="j41:Parole" w:isReference="false"/>
+<w:Element w:name="j41:TermDuration" w:isReference="false"/>
+<w:Element w:name="j41:SupervisionAssignedTerm" w:isReference="false"/>
+<w:Element w:name="j41:SupervisionAugmentation" w:isReference="false"/>
+<w:Element w:name="j41:Supervision" w:isReference="false"/>
+<w:Type w:isRequested="true" w:name="nc_20:PersonNameTextType">
+          
+          <w:AttributeInType w:name="nc_20:personNameInitialIndicator"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ProperNameTextType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:TextType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonType">
+          
+          <w:ElementInType w:name="nc_20:PersonDescriptionText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:PersonStateIdentification" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonSSNIdentification" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonSex" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonBirthDate" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:PersonPhysicalFeature" w:minOccurs="0" w:maxOccurs="unbounded" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:IdentificationType">
+          
+          <w:ElementInType w:name="nc_20:IdentificationID" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonNameType">
+          
+          <w:ElementInType w:name="nc_20:PersonGivenName" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonNameSuffixText" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonMiddleName" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonSurName" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+          <w:ElementInType w:name="nc_20:PersonFullName" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:IdentityType">
+          
+        <w:ElementInType w:name="nc_20:IdentityPersonRepresentation" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:IdentityAssociationType">
+          
+        <w:ElementInType w:name="nc_20:Person" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+<w:ElementInType w:name="nc_20:Identity" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:AssociationType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ActivityType">
+          
+          <w:ElementInType w:name="nc_20:ActivityDescriptionText" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        <w:ElementInType w:name="nc_20:ActivityDateRepresentation" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:SupervisionType">
+          
+        <w:ElementInType w:name="nc_20:SupervisionPerson" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:SupervisionSupervisor" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:SupervisionFacility" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+<w:ElementInType w:name="nc_20:SupervisionRelease" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:EntityType">
+          
+        <w:ElementInType w:name="nc_20:EntityRepresentation" w:minOccurs="1" w:maxOccurs="unbounded" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:FacilityType">
+          
+          <w:ElementInType w:name="nc_20:FacilityName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:DateType">
+          
+        <w:ElementInType w:name="nc_20:DateRepresentation" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PhysicalFeatureType">
+          
+        <w:ElementInType w:name="nc_20:PhysicalFeatureCategory" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ReleaseType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:OrganizationType">
+          
+          <w:ElementInType w:name="nc_20:OrganizationName" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+        </w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:ContactInformationType">
+          
+        <w:ElementInType w:name="nc_20:ContactMeans" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="nc_20:PersonContactInformationAssociationType">
+          
+        <w:ElementInType w:name="nc_20:ContactInformation" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+<w:ElementInType w:name="nc_20:Person" w:minOccurs="1" w:maxOccurs="1" w:isReference="true"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="niem-xsd_20:string">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="niem-xsd_20:duration">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="niem-xsd_20:date">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j41:PersonType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j41:TermType">
+          
+        </w:Type>
+<w:Type w:isRequested="true" w:name="j41:SupervisionAugmentationType">
+          
+        <w:ElementInType w:name="j41:SupervisionAssignedTerm" w:minOccurs="1" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="j41:SupervisionType">
+          
+        <w:ElementInType w:name="j41:SupervisionAugmentation" w:minOccurs="0" w:maxOccurs="1" w:isReference="false"/>
+</w:Type>
+<w:Type w:isRequested="true" w:name="fbi_20:SEXCodeType"/>
+<w:Type w:isRequested="true" w:name="fbi_20:SEXCodeSimpleType">
+          <w:Facet w:facet="enumeration" w:value="M"/>
+          <w:Facet w:facet="enumeration" w:value="U"/>
+          <w:Facet w:facet="enumeration" w:value="F"/>
+        </w:Type>
+</w:WantList>

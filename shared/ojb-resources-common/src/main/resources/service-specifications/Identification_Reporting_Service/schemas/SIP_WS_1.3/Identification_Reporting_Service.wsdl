@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pidrequest="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0" xmlns:pidresults="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsoma="http://www.w3.org/2007/08/soap12-mtom-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0">
+	<wsp:Policy wsu:Id="MTOMPolicy">
+		<wsoma:MTOM/>
+	</wsp:Policy>
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0" schemaLocation="../../artifacts/service_model/information_model/Identification_IEPD/xsd/person_identification_request_schema.xsd"/>
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" schemaLocation="../../artifacts/service_model/information_model/Identification_IEPD/xsd/person_identification_results_schema.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="PersonIdentificationRequest">
+		<wsdl:part name="PersonIdentificationRequest" element="pidrequest:PersonIdentificationRequest"/>
+	</wsdl:message>
+	<wsdl:message name="PersonIdentificationResults">
+		<wsdl:part name="PersonIdentificationResults" element="pidresults:PersonIdentificationResults"/>
+	</wsdl:message>
+	<wsdl:portType name="Identification-Reporting-Service">
+		<wsdl:operation name="ReportPersonIdentificationRequest">
+			<wsdl:input name="PersonIdentificationRequest" message="tns:PersonIdentificationRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReportPersonIdentificationResults">
+			<wsdl:input name="PersonIdentificationResults" message="tns:PersonIdentificationResults"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<!-- Secure, GFIPM-conforming binding -->
+	<wsdl:binding name="Identification-Reporting-Secure-ServiceSOAPBinding" type="tns:Identification-Reporting-Service">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem"/>
+		<wsp:PolicyReference URI="#MTOMPolicy" wsdl:required="true"/>
+		<wsdl:operation name="ReportPersonIdentificationRequest">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0/ReportPersonIdentificationRequest" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportPersonIdentificationResults">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0/ReportPersonIdentificationResults" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Identification-Reporting-ServiceService">
+		<wsdl:port name="Identification-Reporting-Secure-Service" binding="tns:Identification-Reporting-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<isr-doc:IncidentSearchRequest
+	xmlns:isr-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
+	xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+	xmlns:demostate-codes="http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0"
+	xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0 ../xsd/member-extensions/demostate/LocationCodes.xsd">
+	<isr:Incident s:id="I001">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>12345</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:DateTime>2012-04-01T12:00:00</nc:DateTime>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:DateTime>2012-04-01T12:00:00</nc:DateTime>
+			</nc:EndDate>
+		</nc:ActivityDateRange>
+		<isr:IncidentCategoryCode>Law</isr:IncidentCategoryCode>
+	</isr:Incident>
+	<nc:Location s:id="L001">
+		<nc:LocationAddress>
+			<isr:StructuredAddress>
+				<nc:LocationStreet>
+					<nc:StreetNumberText>101</nc:StreetNumberText>
+					<nc:StreetName>Main Street</nc:StreetName>
+				</nc:LocationStreet>
+				<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+				<nc:LocationStateUSPostalServiceCode>VT
+					</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationPostalCode>00000</nc:LocationPostalCode>
+				<demostate-codes:LocationCityTownCode>Bloomfield Township</demostate-codes:LocationCityTownCode>
+			</isr:StructuredAddress>
+		</nc:LocationAddress>
+	</nc:Location>
+	<jxdm41:ActivityLocationAssociation>
+		<nc:ActivityReference s:ref="I001" />
+		<nc:LocationReference s:ref="L001" />
+	</jxdm41:ActivityLocationAssociation>
+	<isr:SourceSystemNameText>{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS</isr:SourceSystemNameText>
+	<isr:SearchMetadata s:id="SM003">
+		<isr:SearchRequestOnBehalfOfText>John Doe</isr:SearchRequestOnBehalfOfText>
+		<isr:SearchPurposeText>Criminal Justice</isr:SearchPurposeText>
+	</isr:SearchMetadata>
+</isr-doc:IncidentSearchRequest>

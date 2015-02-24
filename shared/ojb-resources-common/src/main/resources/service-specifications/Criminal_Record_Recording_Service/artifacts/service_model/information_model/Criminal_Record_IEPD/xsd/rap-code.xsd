@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:rap-code="http://nlets.org/niem2/rapsheet/1.0/codes" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://niem.gov/niem/appinfo/2.0" targetNamespace="http://nlets.org/niem2/rapsheet/1.0/codes" version="1">
+	<xsd:annotation>
+		<xsd:documentation>Support tables for RapSheet Spec</xsd:documentation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="niem/appinfo/2.0/appinfo.xsd"/>
+	<xsd:simpleType name="BloodTypeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="A Positive"/>
+			<xsd:enumeration value="A Negative"/>
+			<xsd:enumeration value="A Unknown"/>
+			<xsd:enumeration value="AB Positive"/>
+			<xsd:enumeration value="AB Negative"/>
+			<xsd:enumeration value="AB Unknown"/>
+			<xsd:enumeration value="B Positive"/>
+			<xsd:enumeration value="B Negative"/>
+			<xsd:enumeration value="B Unknown"/>
+			<xsd:enumeration value="O Positive"/>
+			<xsd:enumeration value="O Negative"/>
+			<xsd:enumeration value="O Unknown"/>
+			<xsd:enumeration value="Unknown"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="EthnicitySimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="African"/>
+			<xsd:enumeration value="Alaska Native"/>
+			<xsd:enumeration value="American Indian"/>
+			<xsd:enumeration value="Asian Indian"/>
+			<xsd:enumeration value="Black Or African American"/>
+			<xsd:enumeration value="Cambodian"/>
+			<xsd:enumeration value="Central American"/>
+			<xsd:enumeration value="Chinese"/>
+			<xsd:enumeration value="European"/>
+			<xsd:enumeration value="Filipino"/>
+			<xsd:enumeration value="Great Britain"/>
+			<xsd:enumeration value="Haitian"/>
+			<xsd:enumeration value="Hispanic Or Latino"/>
+			<xsd:enumeration value="Indonesian"/>
+			<xsd:enumeration value="Japanese"/>
+			<xsd:enumeration value="Korean"/>
+			<xsd:enumeration value="Malaysian"/>
+			<xsd:enumeration value="Mexican"/>
+			<xsd:enumeration value="Middle Eastern"/>
+			<xsd:enumeration value="Mixed"/>
+			<xsd:enumeration value="Native Hawaiian"/>
+			<xsd:enumeration value="Not Hispanic Or Latino"/>
+			<xsd:enumeration value="Pacific Islander"/>
+			<xsd:enumeration value="Pakastani"/>
+			<xsd:enumeration value="Polynesian"/>
+			<xsd:enumeration value="Puerto Rican"/>
+			<xsd:enumeration value="Samoan"/>
+			<xsd:enumeration value="Slavic"/>
+			<xsd:enumeration value="South American"/>
+			<xsd:enumeration value="Spanish Origin"/>
+			<xsd:enumeration value="Thai"/>
+			<xsd:enumeration value="Unknown"/>
+			<xsd:enumeration value="Vietnamese"/>
+			<xsd:enumeration value="White American"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="EyeColorSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Black"/>
+			<xsd:enumeration value="Blue"/>
+			<xsd:enumeration value="Brown"/>
+			<xsd:enumeration value="Gray"/>
+			<xsd:enumeration value="Green"/>
+			<xsd:enumeration value="Hazel"/>
+			<xsd:enumeration value="Maroon"/>
+			<xsd:enumeration value="Multicolored"/>
+			<xsd:enumeration value="Pink"/>
+			<xsd:enumeration value="Unknown"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="HairColorSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Bald"/>
+			<xsd:enumeration value="Black"/>
+			<xsd:enumeration value="Blonde Or Strawberry"/>
+			<xsd:enumeration value="Blue"/>
+			<xsd:enumeration value="Brown"/>
+			<xsd:enumeration value="Gray Or Partially Gray"/>
+			<xsd:enumeration value="Green"/>
+			<xsd:enumeration value="Orange"/>
+			<xsd:enumeration value="Pink"/>
+			<xsd:enumeration value="Purple"/>
+			<xsd:enumeration value="Red Or Auburn"/>
+			<xsd:enumeration value="Sandy"/>
+			<xsd:enumeration value="White"/>
+			<xsd:enumeration value="Unknown"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="IdentificationCategorySimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Air Force Serial"/>
+			<xsd:enumeration value="Air Force Guard Serial"/>
+			<xsd:enumeration value="Alien Registration"/>
+			<xsd:enumeration value="Army Serial"/>
+			<xsd:enumeration value="Bureau Fugitive Index"/>
+			<xsd:enumeration value="Canadian Social Insurance"/>
+			<xsd:enumeration value="Correctional ID"/>
+			<xsd:enumeration value="Identification Order"/>
+			<xsd:enumeration value="Marine Corps Serial"/>
+			<xsd:enumeration value="Mariner's Document ID"/>
+			<xsd:enumeration value="National Agency Case"/>
+			<xsd:enumeration value="National Guard Serial"/>
+			<xsd:enumeration value="Navy Serial"/>
+			<xsd:enumeration value="Offender ID"/>
+			<xsd:enumeration value="Originating Agency Police ID"/>
+			<xsd:enumeration value="Passport"/>
+			<xsd:enumeration value="Personal Identification"/>
+			<xsd:enumeration value="Port Security Card"/>
+			<xsd:enumeration value="Royal Canadian Mounted Police ID"/>
+			<xsd:enumeration value="Selective Service"/>
+			<xsd:enumeration value="State ID Card"/>
+			<xsd:enumeration value="US Coast Guard Serial"/>
+			<xsd:enumeration value="Veterans Administration Claim"/>
+			<xsd:enumeration value="Unknown"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MaritalStatusSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Married"/>
+			<xsd:enumeration value="Widowed"/>
+			<xsd:enumeration value="Divorced"/>
+			<xsd:enumeration value="Separated"/>
+			<xsd:enumeration value="Never Married"/>
+			<xsd:enumeration value="Unmarried Partner"/>
+			<xsd:enumeration value="Unknown"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="PurposeCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="A"/>
+			<xsd:enumeration value="C"/>
+			<xsd:enumeration value="D"/>
+			<xsd:enumeration value="F"/>
+			<xsd:enumeration value="H"/>
+			<xsd:enumeration value="I"/>
+			<xsd:enumeration value="J"/>
+			<xsd:enumeration value="R"/>
+			<xsd:enumeration value="S"/>
+			<xsd:enumeration value="V"/>
+			<xsd:enumeration value="X"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RaceSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Asian"/>
+			<xsd:enumeration value="Black"/>
+			<xsd:enumeration value="Native American"/>
+			<xsd:enumeration value="Unknown"/>
+			<xsd:enumeration value="White"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SexSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Female"/>
+			<xsd:enumeration value="Male"/>
+			<xsd:enumeration value="Other"/>
+			<xsd:enumeration value="Unknown"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SkinToneSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Albino"/>
+			<xsd:enumeration value="Black"/>
+			<xsd:enumeration value="Dark"/>
+			<xsd:enumeration value="Dark Brown"/>
+			<xsd:enumeration value="Fair"/>
+			<xsd:enumeration value="Light"/>
+			<xsd:enumeration value="Light Brown"/>
+			<xsd:enumeration value="Medium"/>
+			<xsd:enumeration value="Medium Brown"/>
+			<xsd:enumeration value="Olive"/>
+			<xsd:enumeration value="Ruddy"/>
+			<xsd:enumeration value="Sallow"/>
+			<xsd:enumeration value="Yellow"/>
+			<xsd:enumeration value="Unknown"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="BloodTypeType">
+		<xsd:annotation>
+			<xsd:documentation/>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="rap-code:BloodTypeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="EthnicityType">
+		<xsd:annotation>
+			<xsd:documentation/>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="rap-code:EthnicitySimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="EyeColorType">
+		<xsd:annotation>
+			<xsd:documentation/>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="rap-code:EyeColorSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="HairColorType">
+		<xsd:annotation>
+			<xsd:documentation/>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="rap-code:HairColorSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="IdentificationCategoryType">
+		<xsd:annotation>
+			<xsd:documentation/>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="rap-code:IdentificationCategorySimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="MaritalStatusType">
+		<xsd:annotation>
+			<xsd:documentation/>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="rap-code:MaritalStatusSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="PurposeCodeType">
+		<xsd:annotation>
+			<xsd:documentation/>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="rap-code:PurposeCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="RaceType">
+		<xsd:annotation>
+			<xsd:documentation/>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="rap-code:RaceSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="SexType">
+		<xsd:annotation>
+			<xsd:documentation/>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="rap-code:SexSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="SkinToneType">
+		<xsd:annotation>
+			<xsd:documentation/>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="rap-code:SkinToneSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>

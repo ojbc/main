@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0" 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	elementFormDefault="qualified">
+	
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import schemaLocation="../../Subset/niem/structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+	<xsd:import schemaLocation="../../Subset/niem/proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
+	
+	<xsd:complexType name="SubscriptionResponseMessageType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:SubscriptionCreatedIndicator" minOccurs="0"/>
+					<xsd:element ref="ext:SubscriptionValidatedIndicator" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:element name="SubscriptionCreatedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a subscription has been created, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="SubscriptionValidatedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a subscription has been validated, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

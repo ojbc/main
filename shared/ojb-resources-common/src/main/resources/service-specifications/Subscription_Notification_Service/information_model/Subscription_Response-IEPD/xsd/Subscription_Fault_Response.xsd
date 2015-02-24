@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0" 
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0" 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" 
+	elementFormDefault="qualified">
+	
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" schemaLocation="Subscription_Fault_Response_Extension.xsd"/>
+	
+	<xsd:element name="SubscriptionFaultResponseMessage" type="ext:SubscriptionFaultResponseMessageType"/>
+	<xsd:element name="SubscriptionValidationFaultResponseMessage" type="ext:SubscriptionValidationFaultResponseMessageType"/>
+</xsd:schema>

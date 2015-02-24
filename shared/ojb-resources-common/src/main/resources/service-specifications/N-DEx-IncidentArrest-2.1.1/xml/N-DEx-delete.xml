@@ -1,0 +1,96 @@
+<?xml version="1.0"?><?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?><!--
+    Document: $Id: $
+    Original : 07/23/2009
+    Updated : 5/14/2010 - Added reason for deletion to sample, and updated N-DEx version number in header to 2.1.1
+    LEXS version  : 3.1.4
+	N-DEx version : 2.1.1
+    Description : This scenario represents an N-DEx submission designed to remove Data Item data previously submitted to N-DEx.  
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexia.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+--><lexspd:doPublish xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:lexscodes="http://usdoj.gov/leisp/lexs/codes/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0">
+    <lexs:PublishMessageContainer>
+        <lexs:PublishMessage>
+            <lexs:PDMessageMetadata>
+                <lexs:LEXSVersion>3.1.4</lexs:LEXSVersion>
+                <lexs:MessageDateTime>2007-02-14T10:30:47.0Z</lexs:MessageDateTime>
+                <lexs:MessageSequenceNumber>272</lexs:MessageSequenceNumber>
+                <lexs:DataSensitivity>SBU</lexs:DataSensitivity>
+            </lexs:PDMessageMetadata>
+            <lexs:DataSubmitterMetadata>
+                <lexs:SystemIdentifier>
+                    <lexs:ORI>GA1234567</lexs:ORI>
+                    <nc:OrganizationName>Georgia Bureau of Investigation</nc:OrganizationName>
+                    <lexs:SystemID>GIBRS</lexs:SystemID>
+                </lexs:SystemIdentifier>
+                <lexs:SystemContact>
+                    <nc:PersonGivenName>James</nc:PersonGivenName>
+                    <nc:PersonSurName>West</nc:PersonSurName>
+                    <nc:ContactTelephoneNumber>
+                        <nc:NANPTelephoneNumber>
+                            <nc:TelephoneAreaCodeID>123</nc:TelephoneAreaCodeID>
+                            <nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+                            <nc:TelephoneLineID>1212</nc:TelephoneLineID>
+                        </nc:NANPTelephoneNumber>
+                    </nc:ContactTelephoneNumber>
+                </lexs:SystemContact>
+            </lexs:DataSubmitterMetadata>
+            <lexs:DataItemPackage>
+                <lexs:PackageMetadata>
+                    <lexs:DataItemID>12345678</lexs:DataItemID>
+                    <lexs:DataItemContact>
+                        <nc:PersonGivenName>Mary</nc:PersonGivenName>
+                        <nc:PersonSurName>Smith</nc:PersonSurName>
+                        <nc:ContactTelephoneNumber>
+                            <nc:FullTelephoneNumber>
+                                <nc:TelephoneNumberFullID>333-444-5555</nc:TelephoneNumberFullID>
+                                <nc:TelephoneSuffixID>6</nc:TelephoneSuffixID>
+                            </nc:FullTelephoneNumber>
+                        </nc:ContactTelephoneNumber>
+                    </lexs:DataItemContact>
+                    <lexs:DataItemDate>1967-08-13</lexs:DataItemDate>
+                    <!-- DataItemReferenceID may be the same as the DataItemID, or may be a more human-readable version of DataItemID -->
+                    <lexs:DataItemReferenceID>334455667788</lexs:DataItemReferenceID>
+                    <lexs:DataItemPublishInstruction>Delete</lexs:DataItemPublishInstruction>
+                    <lexs:DataItemStatus>Completed</lexs:DataItemStatus>
+                    <lexs:DataOwnerMetadata>
+                        <lexs:DataOwnerIdentifier>
+                            <lexs:ORI>GA1234567</lexs:ORI>
+                            <nc:OrganizationName>Georgia Bureau of Investigation</nc:OrganizationName>
+                            <lexs:SystemID>GIBRS</lexs:SystemID>
+                        </lexs:DataOwnerIdentifier>
+                        <lexs:DataOwnerContact>
+                            <nc:PersonGivenName>James</nc:PersonGivenName>
+                            <nc:PersonSurName>West</nc:PersonSurName>
+                            <nc:ContactTelephoneNumber>
+                                <nc:NANPTelephoneNumber>
+                                    <nc:TelephoneAreaCodeID>123</nc:TelephoneAreaCodeID>
+                                    <nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+                                    <nc:TelephoneLineID>1212</nc:TelephoneLineID>
+                                </nc:NANPTelephoneNumber>
+                            </nc:ContactTelephoneNumber>
+                        </lexs:DataOwnerContact>
+                    </lexs:DataOwnerMetadata>
+                    <lexs:DisseminationCriteriaValue>
+                        <lexs:DisseminationCriteriaDomainText>N-DEx</lexs:DisseminationCriteriaDomainText>
+                        <lexs:DisseminationCriteriaText>Green</lexs:DisseminationCriteriaText>
+                    </lexs:DisseminationCriteriaValue>
+                    <lexs:DataItemCategory>
+                        <lexs:DataItemCategoryText>Arrest Report</lexs:DataItemCategoryText>
+                    </lexs:DataItemCategory>
+                    <!-- Reason for deletion of the data item -->
+                    <lexs:DomainAttribute>
+                        <lexs:AttributeName>Reason for Deletion</lexs:AttributeName>
+                        <lexs:AttributeValue>Free-text reason the deletion is being made.</lexs:AttributeValue>
+                        <lexs:Domain>N-DEx</lexs:Domain>
+                    </lexs:DomainAttribute>
+                </lexs:PackageMetadata>
+                <!-- Data Item does not require either a Digest or Structured Payload in this case.  -->
+            </lexs:DataItemPackage>
+        </lexs:PublishMessage>
+    </lexs:PublishMessageContainer>
+</lexspd:doPublish>

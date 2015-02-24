@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<c:Catalog 
+	xmlns:q="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0" 
+	xmlns:cp="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0" 
+	xmlns:h="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHearingHistoryResponse/1.0" 
+	xmlns:i="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0" 
+	xmlns:o="http://ojbc.org/IEPD/Exchange/JuvenileOffenseHistoryResponse/1.0" 
+	xmlns:p="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0" 
+	xmlns:r="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0" 
+	xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+	<c:MPD c:mpdURI="http://ojbc.org/juvenile-demographics/1.0rev1/" c:mpdClassURIList="http://reference.niem.gov/niem/specification/model-package-description/3.0/#MPD
+		 http://reference.niem.gov/niem/specification/model-package-description/3.0/#IEPD" c:mpdName="JuvenileHistory" c:mpdVersionID="1.0rev1">
+		<c:MPDInformation>
+			<c:AuthoritativeSource>
+				<nc:EntityOrganization>
+					<nc:OrganizationName>MTG Management Consultants LLC</nc:OrganizationName>
+					<nc:OrganizationPrimaryContactInformation>
+						<nc:ContactWebsiteURI>http://www.mtgmc.com</nc:ContactWebsiteURI>
+					</nc:OrganizationPrimaryContactInformation>
+				</nc:EntityOrganization>
+			</c:AuthoritativeSource>
+			<c:CreationDate>2014-08-04</c:CreationDate>
+			<c:StatusText>Release Candidate</c:StatusText>
+		</c:MPDInformation>
+		<c:IEPConformanceTarget structures:id="JuvenileHistoryQuery-IEP">
+			<nc:DescriptionText>
+                An IEP class for a juvenile history query.
+            </nc:DescriptionText>
+			<c:HasDocumentElement c:qualifiedNameList="q:JuvenileHistoryQuery"/>
+			<c:XMLSchemaValid>
+				<c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+			</c:XMLSchemaValid>
+			<c:IEPSampleXMLDocument c:pathURI="samples/information/JuvenileHistoryQuery_Sample.xml"/>
+		</c:IEPConformanceTarget>
+		<c:IEPConformanceTarget structures:id="JuvenileCasePlanHistoryResponse-IEP">
+			<nc:DescriptionText>
+                An IEP class for a juvenile case plan history response.
+            </nc:DescriptionText>
+			<c:HasDocumentElement c:qualifiedNameList="cp:JuvenileCasePlanHistoryResponse"/>
+			<c:XMLSchemaValid>
+				<c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+			</c:XMLSchemaValid>
+			<c:IEPSampleXMLDocument c:pathURI="samples/information/JuvenileCasePlanHistoryResponse_Sample.xml"/>
+		</c:IEPConformanceTarget>
+		<c:IEPConformanceTarget structures:id="JuvenileHearingHistoryResponse-IEP">
+			<nc:DescriptionText>
+                An IEP class for a juvenile hearing history response.
+            </nc:DescriptionText>
+			<c:HasDocumentElement c:qualifiedNameList="h:JuvenileHearingHistoryResponse"/>
+			<c:XMLSchemaValid>
+				<c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+			</c:XMLSchemaValid>
+			<c:IEPSampleXMLDocument c:pathURI="samples/information/JuvenileHearingHistoryResponse_Sample.xml"/>
+		</c:IEPConformanceTarget>
+		<c:IEPConformanceTarget structures:id="JuvenileIntakeHistoryResponse-IEP">
+			<nc:DescriptionText>
+                An IEP class for a juvenile intake history response.
+            </nc:DescriptionText>
+			<c:HasDocumentElement c:qualifiedNameList="i:JuvenileIntakeHistoryResponse"/>
+			<c:XMLSchemaValid>
+				<c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+			</c:XMLSchemaValid>
+			<c:IEPSampleXMLDocument c:pathURI="samples/information/JuvenileIntakeHistoryResponse_Sample.xml"/>
+		</c:IEPConformanceTarget>
+		<c:IEPConformanceTarget structures:id="JuvenileOffenseHistoryResponse-IEP">
+			<nc:DescriptionText>
+                An IEP class for a juvenile offense history response.
+            </nc:DescriptionText>
+			<c:HasDocumentElement c:qualifiedNameList="o:JuvenileOffenseHistoryResponse"/>
+			<c:XMLSchemaValid>
+				<c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+			</c:XMLSchemaValid>
+			<c:IEPSampleXMLDocument c:pathURI="samples/information/JuvenileOffenseHistoryResponse_Sample.xml"/>
+		</c:IEPConformanceTarget>
+		<c:IEPConformanceTarget structures:id="JuvenilePlacementHistoryResponse-IEP">
+			<nc:DescriptionText>
+                An IEP class for a juvenile placement history response.
+            </nc:DescriptionText>
+			<c:HasDocumentElement c:qualifiedNameList="p:JuvenilePlacementHistoryResponse"/>
+			<c:XMLSchemaValid>
+				<c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+			</c:XMLSchemaValid>
+			<c:IEPSampleXMLDocument c:pathURI="samples/information/JuvenilePlacementHistoryResponse_Sample.xml"/>
+		</c:IEPConformanceTarget>
+		<c:IEPConformanceTarget structures:id="JuvenileReferralHistoryResponse-IEP">
+			<nc:DescriptionText>
+                An IEP class for a juvenile referral history response.
+            </nc:DescriptionText>
+			<c:HasDocumentElement c:qualifiedNameList="r:JuvenileReferralHistoryResponse"/>
+			<c:XMLSchemaValid>
+				<c:XMLCatalog c:pathURI="xml-catalog.xml"/>
+			</c:XMLSchemaValid>
+			<c:IEPSampleXMLDocument c:pathURI="samples/information/JuvenileReferralHistoryResponse_Sample.xml"/>
+		</c:IEPConformanceTarget>
+		<c:ReadMe c:pathURI="Readme.doc"/>
+		<c:MPDChangeLog c:pathURI="artifacts/changelog.html"/>
+		<c:Wantlist c:pathURI="schemas/information/Subset/wantlist.xml"/>
+		<c:ConformanceAssertion c:pathURI="niem-conformance-assertion.docx"/>
+		<c:ExtensionSchemaDocument c:pathURI="schemas/information/JuvenileHistoryCommonExtension.xsd"/>
+	</c:MPD>
+</c:Catalog>

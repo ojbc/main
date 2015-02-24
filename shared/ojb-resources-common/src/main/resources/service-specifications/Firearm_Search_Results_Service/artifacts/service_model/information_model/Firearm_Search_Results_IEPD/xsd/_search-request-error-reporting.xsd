@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd"/>
+	<xsd:element name="SearchRequestError" type="srer:SearchRequestErrorType"/>
+	<xsd:complexType name="SearchRequestErrorType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="srer:ErrorText"/>
+					<xsd:element ref="intel:SystemName" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="ErrorText" type="nc:TextType"/>
+</xsd:schema>

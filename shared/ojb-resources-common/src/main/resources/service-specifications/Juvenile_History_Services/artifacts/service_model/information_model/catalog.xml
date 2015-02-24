@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<catalog>
+    - <!--   Catalog Files Section   -->
+    <catalog href="catalog.html">Catalog</catalog>
+    <metadata href="metadata.xml">Metadata</metadata>
+    - <!--   Service Description Files Section    -->
+    <service-description href="artifacts/JuvenileHistory_SDD_v_1.0.0.doc">Service Description Document Template</service-description>
+    - <!--   Service Interface Files Section    -->
+    <service-interface-description href="artifacts/JuvenileHistory_SIDD_v_1.0.0.doc">Service Interface Description Document Template</service-interface-description>
+    - <!--   Schema and Sample Files Section - Web Services    -->
+     <wsdl-schema href="schemas\SIP\JuvenileHistoryResultsServiceCore.wsd">Juvenile History Requesting Entity Web Service Schema</wsdl-schema>
+	<wsdl-schema href="schemas\SIP\ResultsInterface\JuvenileHistoryResultsInterface.wsdl">Juvenile History Requesting Entity Web Service Interface</wsdl-schema>
+    <wsdl-schema href="schemas\SIP\JuvenileHistoryRequestServiceCore.wsdl">Juvenile History Responding Entity Web Service Schema</wsdl-schema>
+     <wsdl-schema href="schemas\SIP\RequestInterface\JuvenileHistoryRequestInterface.wsdl">Juvenile History Responding Entity Web Service Interface</wsdl-schema>
+    <wsdl-schema href="schemas\SIP\JuvenileHistoryPolicy.wsdl">Juvenile History Service Policy</wsdl-schema>
+     <wsdl-schema href="samples\SIP\JuvenileHistoryQueryMessage-SOAP.xml">Juvenile History Query Message SOAP Sample</wsdl-schema>
+     <wsdl-schema href="samples\SIP\JuvenileHistoryQueryAck-SOAP.xml">Juvenile History Query Acknowledgement SOAP Sample</wsdl-schema>
+     <wsdl-schema href="samples\SIP\JuvenileHistoryQueryFault-SOAP.xml">Juvenile History Query Fault SOAP Sample</wsdl-schema>
+    <wsdl-schema href="samples\SIP\\JuvenileHistoryResponseMessage-SOAP.xml">Juvenile History Response Message SOAP Sample</wsdl-schema>
+     <wsdl-schema href="samples\SIP\\JuvenileHistoryResponseAck-SOAP.xml">Juvenile History Response Acknowledgement SOAP Sample</wsdl-schema>
+     <wsdl-schema href="samples\SIP\\JuvenileHistoryResponseFault-SOAP.xml">Juvenile History Response Fault SOAP Sample</wsdl-schema>
+    - <!--   Schema and Sample Files Section - Information Model    -->
+    <iepd-catalog href="MPD_catalog.xml">IEPD Catalog</iepd-catalog>
+    - <!--   Other Documents Section    -->
+</catalog>

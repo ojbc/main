@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exchange:IncidentPersonSearchRequest
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:inc="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0 ../xsd/exchange_schema.xsd" s:metadata="SM003">
+	<nc:Person>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>123456</nc:IdentificationID>
+		</nc:PersonOtherIdentification>
+	</nc:Person>
+	<inc:SourceSystemNameText>System1</inc:SourceSystemNameText>
+	<ext:SearchMetadata s:id="SM003">
+		<ext:SearchRequestOnBehalfOfText>John Doe</ext:SearchRequestOnBehalfOfText>
+		<ext:SearchPurposeText>Criminal Justice</ext:SearchPurposeText>
+	</ext:SearchMetadata>
+</exchange:IncidentPersonSearchRequest>

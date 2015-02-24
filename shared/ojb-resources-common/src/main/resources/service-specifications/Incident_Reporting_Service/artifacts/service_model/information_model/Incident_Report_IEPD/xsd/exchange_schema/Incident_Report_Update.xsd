@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0" 
+	xmlns:tns="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../NIEM_2.0/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" schemaLocation="../lexs/publish-discover/3.1/publish-discover.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="../extension_schema/search-results-metadata.xsd"/>
+	
+	<xsd:element name="IncidentReportUpdate" type="tns:IncidentReportUpdateType">
+		<xsd:annotation>
+			<xsd:documentation>An update to a comprehensive collection of information about an occurrence or event that may require or has required a response.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="IncidentReportUpdateType">
+		<xsd:complexContent> 
+			<xsd:annotation>
+				<xsd:documentation>A data type for an update to a comprehensive collection of information about an occurrence or event that may require or has required a response.</xsd:documentation>
+			</xsd:annotation>
+		<xsd:extension base="s:ComplexObjectType">
+			<xsd:sequence>
+				<xsd:element ref="lexspd:doPublish"/>
+				<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:Q1="http://hijis.hawaii.gov/BookingReportExtension/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://hijis.hawaii.gov/ArrestReport/1.0">
+  <xsd:import namespace="http://hijis.hawaii.gov/BookingReportExtension/1.0" schemaLocation="BookingReportExtension.xsd"/>
+  <xsd:element name="CJISDocument" type="Q1:CJISDocumentType"/>
+</xsd:schema>

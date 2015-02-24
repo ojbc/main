@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" schemaLocation="member-extensions/hawaii/hawaii-statewide-firearm-codes.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0" schemaLocation="member-extensions/demostate/demostate-firearm-codes.xsd"/>
+	<xsd:complexType name="FirearmSearchResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for set of details associated with a Firearm.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:FirearmSearchResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="FirearmSearchResult" type="ext:FirearmSearchResultType">
+		<xsd:annotation>
+			<xsd:documentation>A set of details that can be used to search for a Firearm.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="FirearmSearchResultType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for set of details associated with a Firearm Registration.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Person"/>
+					<xsd:element ref="ext:Firearm"/>
+					<xsd:element ref="ext:ItemRegistration"/>
+					<xsd:element ref="nc:PropertyRegistrationAssociation"/>
+					<xsd:element ref="ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
+					<xsd:element ref="ext:SearchResultCategoryText" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FirearmType">
+		<xsd:complexContent>
+			<xsd:extension base="nc:FirearmType">
+				<xsd:sequence>
+					<xsd:element ref="ext:FirearmMakeRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ext:FirearmStatus" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FirearmStatusType">
+		<xsd:complexContent>
+			<xsd:extension base="nc:StatusType">
+				<xsd:sequence>
+					<xsd:element ref="ext:FirearmStatusRepresentation" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="FirearmStatus" type="ext:FirearmStatusType">
+		<xsd:annotation>
+			<xsd:documentation>The state or disposition of a firearm.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegistrationStatus" type="ext:RegistrationStatusType">
+		<xsd:annotation>
+			<xsd:documentation>The state or disposition of a registration.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmStatusRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A head element for ways to represent the status of a firearm.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmRegistrationStatusRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A head element for ways to represent the status of a firearm registration.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmRegistrationStatusText" type="nc:TextType" substitutionGroup="ext:FirearmRegistrationStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>The status of a firearm registration.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="ItemRegistrationType">
+		<xsd:complexContent>
+			<xsd:extension base="nc:ItemRegistrationType">
+				<xsd:sequence>
+					<xsd:element ref="ext:RegistrationStatus" minOccurs="0"/>
+					<xsd:element ref="ext:RegistrationNotesText" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="RegistrationStatusType">
+		<xsd:complexContent>
+			<xsd:extension base="nc:StatusType">
+				<xsd:sequence>
+					<xsd:element ref="ext:FirearmRegistrationStatusRepresentation" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="Firearm" type="ext:FirearmType">
+		<xsd:annotation>
+			<xsd:documentation>
+				Firearm.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ItemRegistration" type="ext:ItemRegistrationType">
+		<xsd:annotation>
+			<xsd:documentation>
+				A Item Registration.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmStatusText" type="nc:TextType" substitutionGroup="ext:FirearmStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>
+				Status of the firearm (stolen, lost, etc).
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegistrationNotesText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Registration notes.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that is to be queried. Absence of this element indicates that all known systems shall be queried.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of search result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmMakeRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for the make of a firearm. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmMakeText" type="nc:TextType" substitutionGroup="ext:FirearmMakeRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A text representation of a make of a firearm. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

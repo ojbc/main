@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema 
+	xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0" 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
+	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../../../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../../../Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../../Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" schemaLocation="../../../JuvenileHistoryCommonExtension.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0" schemaLocation="../../JuvenileHearingHistoryExtension.xsd"/>
+	
+	<xsd:annotation>
+		<xsd:appinfo>
+			<appinfo:ConformantIndicator>true</appinfo:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+
+	<xsd:simpleType name="HearingCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of juvenile hearing.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Preliminary hearing">
+				<xsd:annotation>
+					<xsd:documentation>The first stage of processing a juvenile delinquency proceeding when the juvenile is in custody, or custody or placement is requested.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Preliminary inquiry">
+				<xsd:annotation>
+					<xsd:documentation>An informal review by the court to determine appropriate action on a petition where no request for detention is made.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Pretrial Conference">
+				<xsd:annotation>
+					<xsd:documentation>A conference between the parties to discuss questions or matters that can be resolved prior to adjudication.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Adjudication">
+				<xsd:annotation>
+					<xsd:documentation>Judicial determination whether a juvenile is responsible for the allegations contained in a petition.  May be the result of a plea or a trial.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Bench Trial">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Jury Trial">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Competency Hearing">
+				<xsd:annotation>
+					<xsd:documentation>Judicial determination whether  a juvenile is competent to stand trial.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Disposition Hearing">
+				<xsd:annotation>
+					<xsd:documentation>Hearing to consider and order specific treatment options including probation, placement and other conditions.  (See MCL 712A.18)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Dispositional Review">
+				<xsd:annotation>
+					<xsd:documentation>Hearing to review dispositional orders in which the court may continue, modify or amend the dispositional order or treatment plan.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Detention Hearing">
+				<xsd:annotation>
+					<xsd:documentation>Hearing held after the receipt of a petition alleging a juvenile has violated probation to determine if the juvenile should be placed or continued in detention.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Probation Violation Hearing">
+				<xsd:annotation>
+					<xsd:documentation>Hearing held after the receipt of a supplemental petition alleging a juvenile has violated probation.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Phase I Waiver Hearing">
+				<xsd:annotation>
+					<xsd:documentation>A hearing, after the prosecutor files a motion to waive, to determine whether there is probable cause to believe the charged offense is a felony and if the juvenile who is 14 or older committed the offense.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Phase II Waiver Hearing">
+				<xsd:annotation>
+					<xsd:documentation>A hearing held to determine whether the interests of a 14, 15, or 16 year old juvenile and the public would best be served by granting a motion waiving delinquency jurisdiction allowing the juvenile to be tried in the same manner as an adult. (See MCL 712A.4; MCR 3.950 for more information).</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Designation Arraignment">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Designation Preliminary Examination">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Designtion Hearing">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Desgination adjudication or trial">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Designation Sentencing">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Contempt of Court (on a Motion to Show Cause)">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Dismissal">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="HearingCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of juvenile Hearing.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="codes:HearingCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="HearingDispositionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of juvenile hearing.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Petition authorized">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Petition not authorized">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Refer to alternative services">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Placed on the Consent Calendar">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Placed on diversion">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Attorney appointed">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Placement determination">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Title IV-E language">
+				<xsd:annotation>
+					<xsd:documentation>if necessary</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Bond may be set if out of home placement is ordered">
+				<xsd:annotation>
+					<xsd:documentation>detention, jail, foster home, shelter care</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Next hearing scheduled">
+				<xsd:annotation>
+					<xsd:documentation>if appropriate</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Determine notice issues">
+				<xsd:annotation>
+					<xsd:documentation>who and how</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="American Indian tribe or band notified">
+				<xsd:annotation>
+					<xsd:documentation>status cases only</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Adjournment">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Adjudication hearing set">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Bench trial set">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Jury trial set">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Case dismissed">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Other stipulations between the parties noted">
+				<xsd:annotation>
+					<xsd:documentation>agreements</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Order for competency evaluation requested">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Plea is accepted">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Plea is rejected">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Plea is taken under advisement">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Order fingerprinting">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Order an abstract to Sec. of State">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Order licensing sanctions">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Placement determination">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Title IV-E language (if necessary)">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Bond may be set if out of home placement is ordered">
+				<xsd:annotation>
+					<xsd:documentation> detention, jail, foster home, shelter care</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Guilty or not guilty determination by judge or referee">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The juvenile is competent">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The juvenile is not competent to proceed and will remain incompetent">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The juvenile is not competent to proceed but may be restored to competency">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The proceedings on the charges shall proceed immediately">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The proceedings on the charges are suspended pending restoration efforts">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Warn and dismiss">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Probation">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Refer to Michigan DHS for placement and care">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Order HIV, Sex offender registration and/DNA testing">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Order costs, fees, etc.">
+				<xsd:annotation>
+					<xsd:documentation>victim rights, state costs, court fees, restitution, etc.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Continue Probation">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Modify previous dispositional orders">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Release of jurisdiction">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Plea accepted to probation violation">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Modify previous dispositional orders">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Set a probation violation hearing">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Probation violation dismissed">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Finding the juvenile violated probation">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Finding the juvenile did not violate probation">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Determine probable cause">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Phase I waived by parties">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Deny the motion to waive">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Schedule Phase II hearing">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The motion to waive jurisdiction is denied and the case shall proceed under the juvenile code">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The motion to waive jurisdiction is granted and the case is transferred to the court having general criminal jurisdiction">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Preliminary examination waived">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Probable cause does exist">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Probable cause does not exist">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The request for designation is granted">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The request for designation is not granted">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Schedule sentencing hearing">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Sentence as an adult">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Blended sentence">
+				<xsd:annotation>
+					<xsd:documentation> juvenile probation with option to return for adult sentence</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Juvenile disposition">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The person is guilty of contempt of court">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The person is not guilty of contempt of court">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="The motion is denied">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Sentencing factors listed">
+				<xsd:annotation>
+					<xsd:documentation>fines, jail, etc.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="HearingDispositionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an outcome of a juvenile Hearing.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="codes:HearingDispositionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+	<xsd:element name="HearingCategoryCode" type="codes:HearingCategoryCodeType" substitutionGroup="ext:HearingCategoryRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A type of juvenile hearing.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HearingDispositionCode" type="codes:HearingDispositionCodeType" substitutionGroup="ext:HearingDispositionRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A type of outcome of a juvenile hearing.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

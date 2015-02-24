@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:Q1="http://hijis.hawaii.gov/BookingReportExtension/1.0" xmlns:Q2="http://niem.gov/niem/niem-core/2.0" xmlns:Q3="http://niem.gov/niem/domains/jxdm/4.0" xmlns:Q4="http://niem.gov/niem/proxy/xsd/2.0" xmlns:Q5="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://hijis.hawaii.gov/BookingReportExtension/1.0">
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="NIEM_2.0/structures/2.0/structures.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="NIEM_2.0/domains/jxdm/4.0/jxdm.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="NIEM_2.0/niem-core/2.0/niem-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="NIEM_2.0/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:complexType name="CJISDocumentType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:AttorneyGeneralCaseIndicator"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q1:RecordCategoryText"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:PersonEmploymentAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An employment of a person.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:Court">
+        <xsd:annotation>
+          <xsd:documentation>Details about a court or a unit of a court responsible for trying justice proceedings.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" ref="Q3:Arrest">
+        <xsd:annotation>
+          <xsd:documentation>Details about the apprehension of a subject by a peace official based on an observed or a reported violation of a law or ordinance, an outstanding arrest warrant, or probable cause information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:PersonInvolvedInDrivingIncidentAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between a person and a driving incident in which that person was involved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:Location">
+        <xsd:annotation>
+          <xsd:documentation>Details about a physical location.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:DrivingIncident">
+        <xsd:annotation>
+          <xsd:documentation>Details about an incident involving a vehicle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:Organization">
+        <xsd:annotation>
+          <xsd:documentation>A unit which conducts some sort of business or operations.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:Offense">
+        <xsd:annotation>
+          <xsd:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred during an incident.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:MessageIdentification"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q1:IncidentOffenseViolatedStatuteAssociation"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:MarriageAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between two persons who are legally married to each other.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q1:PersonChargeAssociation"/>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:DomesticViolenceChildrenPresentIndicator"/>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:PreviousArrest"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:DriverLicenseAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between a driver license and a person.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:ContactInformation">
+        <xsd:annotation>
+          <xsd:documentation>Details about how to contact a person or an organization.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:PreviousDomesticViolenceArrestIndicator"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:ActivityWitnessAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between an activity and a witness.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:PersonOrganizationAffiliationAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between a person and an organization.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:Case">
+        <xsd:annotation>
+          <xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:ResidenceAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between a person and a location where that person lives.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:ActivityIncidentAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between an activity and an incident.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:ActivityCaseAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between an activity and a case.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:Statute">
+        <xsd:annotation>
+          <xsd:documentation>Details about a unique identifier of a law, rule, or ordinance within a jurisdiction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="1" ref="Q1:Person"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:Witness">
+        <xsd:annotation>
+          <xsd:documentation>Details about a person who has observed an incident.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:PersonContactInformationAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between a person and contact information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:TangibleItem">
+        <xsd:annotation>
+          <xsd:documentation>A physical object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" ref="Q1:Greenbox"/>
+      <xsd:element maxOccurs="1" minOccurs="1" ref="Q1:DocumentRequester"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:DriverLicense">
+        <xsd:annotation>
+          <xsd:documentation>Details about a license issued to a person granting driving privileges.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:ActivityInformationReporterAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between an activity and a person who reports information about that activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:PersonOwnsItemAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between a person and a property item that person owns.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:Metadata">
+        <xsd:annotation>
+          <xsd:documentation>Information that further qualifies primary data; data about data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:DocumentCreatorSystem"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:ActivityCourtAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between an activity and a court.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AttorneyGeneralCaseIndicator" type="Q4:string"/>
+  <xsd:element name="RecordCategoryText" type="Q4:string"/>
+  <xsd:element name="MessageIdentification" type="Q2:IdentificationType"/>
+  <xsd:element name="IncidentOffenseViolatedStatuteAssociation" type="Q1:IncidentOffenseViolatedStatuteAssociationType"/>
+  <xsd:complexType name="IncidentOffenseViolatedStatuteAssociationType">
+    <xsd:complexContent>
+      <xsd:extension base="Q3:ViolatedStatuteAssociationType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q1:OffenseReference"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="OffenseReference" type="Q5:ReferenceType"/>
+  <xsd:element name="PersonChargeAssociation" type="Q1:PersonChargeAssociationType"/>
+  <xsd:complexType name="PersonChargeAssociationType">
+    <xsd:complexContent>
+      <xsd:extension base="Q2:AssociationType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q2:PersonReference">
+            <xsd:annotation>
+              <xsd:documentation>A human being.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:ChargeReference">
+            <xsd:annotation>
+              <xsd:documentation>Details about a formal allegation that a specific person has committed a specific offense.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="DomesticViolenceChildrenPresentIndicator" type="Q4:string"/>
+  <xsd:element name="PreviousArrest" type="Q4:string"/>
+  <xsd:element name="PreviousDomesticViolenceArrestIndicator" type="Q4:string"/>
+  <xsd:element name="Person" type="Q1:PersonType"/>
+  <xsd:complexType name="PersonType">
+    <xsd:complexContent>
+      <xsd:extension base="Q2:PersonType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:PersonFBIIdentification">
+            <xsd:annotation>
+              <xsd:documentation>A number issued by the FBI's Automated Fingerprint Identification System (AFIS) based on submitted fingerprints.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="Q3:PersonRegisteredOffenderIndicator">
+            <xsd:annotation>
+              <xsd:documentation>True if a person is required to register as an offender; false otherwise.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="Greenbox" type="Q1:GreenboxType"/>
+  <xsd:complexType name="GreenboxType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:GreenboxIdentPCN"/>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:GreenboxIdentProcessControlFlag"/>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:GreenboxIdentOBTSActionCode"/>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:GreenboxIdentMasterOTN"/>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:GreenboxIdentReadOnly"/>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:GreenboxIdentRecordType"/>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:GreenboxIdentOBTSControlFlag"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="GreenboxIdentPCN" type="Q4:string"/>
+  <xsd:element name="GreenboxIdentProcessControlFlag" type="Q4:string"/>
+  <xsd:element name="GreenboxIdentOBTSActionCode" type="Q4:string"/>
+  <xsd:element name="GreenboxIdentMasterOTN" type="Q4:string"/>
+  <xsd:element name="GreenboxIdentReadOnly" type="Q4:string"/>
+  <xsd:element name="GreenboxIdentRecordType" type="Q4:string"/>
+  <xsd:element name="GreenboxIdentOBTSControlFlag" type="Q4:string"/>
+  <xsd:element name="DocumentRequester" type="Q4:string"/>
+  <xsd:element name="DocumentCreatorSystem" type="Q4:string"/>
+  <xsd:complexType name="IncidentType">
+    <xsd:complexContent>
+      <xsd:extension base="Q2:IncidentType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q1:IncidentResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="IncidentResponse" type="Q1:IncidentResponseType"/>
+  <xsd:complexType name="IncidentResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="Q2:ActivityType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:IncidentReportingOfficial">
+            <xsd:annotation>
+              <xsd:documentation>A peace official that submitted an incident report in an incident.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:IncidentAssistingOfficial">
+            <xsd:annotation>
+              <xsd:documentation>A peace official that assisted in processing an incident.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="BookingType">
+    <xsd:complexContent>
+      <xsd:extension base="Q3:BookingType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:BookingHoldRequestedOfficial"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:BookingSubject"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:BookingApprovingSupervisor"/>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q1:PrimaryOrganization"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:BookingHoldForInvestigation"/>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q1:BookingAssistingOfficial"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:BookingWarrantCheckIndicator"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="BookingHoldRequestedOfficial" type="Q3:EnforcementOfficialType"/>
+  <xsd:element name="BookingSubject" type="Q1:BookingSubject"/>
+  <xsd:complexType name="BookingSubject">
+    <xsd:complexContent>
+      <xsd:extension base="Q3:SubjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:BookingSubjectTimeInState"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="BookingSubjectTimeInState" type="Q1:TimeInStateType"/>
+  <xsd:complexType name="TimeInStateType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" ref="Q1:TimeInStateQualifier"/>
+      <xsd:element maxOccurs="1" minOccurs="1" ref="Q1:TimeInStateValue"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="TimeInStateQualifier" type="Q4:string"/>
+  <xsd:element name="TimeInStateValue" type="Q4:decimal"/>
+  <xsd:element name="BookingApprovingSupervisor" type="Q3:EnforcementOfficialType"/>
+  <xsd:element name="PrimaryOrganization" type="Q1:JusticeOrganizationType"/>
+  <xsd:complexType name="JusticeOrganizationType">
+    <xsd:complexContent>
+      <xsd:extension base="Q2:OrganizationType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="Q3:OrganizationORIIdentification">
+            <xsd:annotation>
+              <xsd:documentation>A unique identifier assigned to a justice-related organization by the federal government.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="BookingHoldForInvestigation" type="Q4:string"/>
+  <xsd:element name="BookingAssistingOfficial" type="Q3:EnforcementOfficialType"/>
+  <xsd:element name="BookingWarrantCheckIndicator" type="Q4:boolean"/>
+  <xsd:element name="Booking" substitutionGroup="Q3:Booking" type="Q1:BookingType"/>
+  <xsd:element name="ActivityResultTime" substitutionGroup="Q2:DateRepresentation" type="Q4:dateTime"/>
+  <xsd:element name="ArrestAgency" substitutionGroup="Q3:ArrestAgency" type="Q1:JusticeOrganizationType"/>
+  <xsd:element name="ArrestDayOfTheWeek" substitutionGroup="Q2:DateRepresentation" type="Q4:string"/>
+  <xsd:element name="OffenseDayOfTheWeek" substitutionGroup="Q2:DateRepresentation" type="Q4:string"/>
+  <xsd:element name="Time" substitutionGroup="Q2:DateRepresentation" type="Q4:dateTime"/>
+</xsd:schema>

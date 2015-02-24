@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pidresults:PersonIdentificationResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0 ../xsd/person_identification_results_schema.xsd" xmlns:pidresults="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>D5673124</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<j:Subject structures:id="Subject01">
+		<nc:RoleOfPerson>
+			<nc:PersonName>
+				<nc:PersonGivenName>Joe</nc:PersonGivenName>
+				<nc:PersonMiddleName>D</nc:PersonMiddleName>
+				<nc:PersonSurName>Smith</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<nc:PersonStateIdentification>
+				<nc:IdentificationID>SID</nc:IdentificationID>
+			</nc:PersonStateIdentification>
+			<j:PersonAugmentation>
+				<j:PersonFBIIdentification>
+					<nc:IdentificationID>FBI_ID</nc:IdentificationID>
+				</j:PersonFBIIdentification>
+			</j:PersonAugmentation>
+			<ext:PersonTrackingIdentidication>
+				<nc:IdentificationID>OTN</nc:IdentificationID>
+			</ext:PersonTrackingIdentidication>
+		</nc:RoleOfPerson>
+	</j:Subject>
+	<ext:IdentificationResultsDocument structures:id="Doc_01">
+		<nc:BinaryID>ID3245</nc:BinaryID>
+		<ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</ext:DocumentBinary>
+	</ext:IdentificationResultsDocument>
+	<ext:LinkedSystems>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>SYSTEM_ID_01</nc:IdentificationID>
+			<nc:SystemName>SYSTEM_NAME_01</nc:SystemName>
+		</intel:SystemIdentification>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>SYSTEM_ID_02</nc:IdentificationID>
+			<nc:SystemName>SYSTEM_NAME_02</nc:SystemName>
+		</intel:SystemIdentification>
+	</ext:LinkedSystems>
+	<nc:PersonDocumentAssociation>
+		<nc:Person structures:ref="Subject01"/>
+		<nc:Document structures:ref="Doc_01"/>
+	</nc:PersonDocumentAssociation>
+</pidresults:PersonIdentificationResults>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exchange:VehicleSearchResults
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0 ../xsd/exchange_schema.xsd ">
+	<ext:VehicleSearchResult>
+		<ext:Vehicle>
+			<nc:ItemCategoryText>Passenger Vehicle</nc:ItemCategoryText>
+			<nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
+			<nc:ItemModelName>Titan</nc:ItemModelName>
+			<nc:ItemModelYearDate>2008</nc:ItemModelYearDate>
+			<nc:ConveyanceRegistrationPlateIdentification>
+				<nc:IdentificationID>ABC123</nc:IdentificationID>
+				<nc:IdentificationExpirationDate>
+					<nc:Date>2014-01-02</nc:Date>
+				</nc:IdentificationExpirationDate>
+				<j:IdentificationJurisdictionUSPostalServiceCode>VT</j:IdentificationJurisdictionUSPostalServiceCode>
+			</nc:ConveyanceRegistrationPlateIdentification>
+			<nc:VehicleDoorQuantity>4</nc:VehicleDoorQuantity>
+			<nc:VehicleIdentification>
+				<nc:IdentificationID>1234567890ABCDEFGH</nc:IdentificationID>
+			</nc:VehicleIdentification>
+			<nc:ConveyanceRegistration>
+				<nc:ConveyanceRegistrationPlateCategoryCode>CI</nc:ConveyanceRegistrationPlateCategoryCode>
+				<nc:ConveyanceRegistrationPlateCategoryText>City-Owned or Municipal Vehicle</nc:ConveyanceRegistrationPlateCategoryText>
+			</nc:ConveyanceRegistration>
+			<ext:VehicleMakeCode>Nissan</ext:VehicleMakeCode>
+		</ext:Vehicle>
+		<ext:SourceSystemNameText>System 1</ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>1234</nc:IdentificationID>
+			<intel:SystemName>System 1</intel:SystemName>
+		</intel:SystemIdentifier>
+	</ext:VehicleSearchResult>
+	<ext:VehicleSearchResult>
+		<ext:Vehicle>
+			<nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
+			<nc:ItemModelName>Titan</nc:ItemModelName>
+			<nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
+			<nc:ConveyanceRegistrationPlateIdentification>
+				<nc:IdentificationID>ABC123</nc:IdentificationID>
+				<nc:IdentificationExpirationDate>
+					<nc:Date>2014-01-02</nc:Date>
+				</nc:IdentificationExpirationDate>
+			</nc:ConveyanceRegistrationPlateIdentification>
+			<nc:VehicleDoorQuantity>2</nc:VehicleDoorQuantity>
+			<nc:VehicleIdentification>
+				<nc:IdentificationID>1234567890ABCDEFGH</nc:IdentificationID>
+			</nc:VehicleIdentification>
+			<nc:ConveyanceRegistration>
+				<nc:ConveyanceRegistrationPlateCategoryCode>CI</nc:ConveyanceRegistrationPlateCategoryCode>
+				<nc:ConveyanceRegistrationPlateCategoryText>City-Owned or Municipal Vehicle</nc:ConveyanceRegistrationPlateCategoryText>
+			</nc:ConveyanceRegistration>
+			<ext:VehicleMakeCode>Nissan</ext:VehicleMakeCode>
+		</ext:Vehicle>
+		<ext:SourceSystemNameText>System 2</ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>1234</nc:IdentificationID>
+			<intel:SystemName>System 2</intel:SystemName>
+		</intel:SystemIdentifier>
+	</ext:VehicleSearchResult>
+</exchange:VehicleSearchResults>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:PersonSearchResults xmlns:Q1="http://niem.gov/niem/usps_states/2.0"
+	xmlns:Q3="http://niem.gov/niem/domains/jxdm/4.1" xmlns:Q31="http://niem.gov/niem/niem-core/2.0"
+	xmlns:Q32="http://niem.gov/niem/domains/intelligence/2.1" xmlns:Q4="http://hijis.hawaii.gov/PersonSearchResultsExtension/1.0"
+	xmlns:p="http://hijis.hawaii.gov/PersonSearchResultsCombined/1.0"
+	xmlns:p1="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://hijis.hawaii.gov/PersonSearchResultsCombined/1.0 ../xsd/Person_Search_Results_-_Combined.xsd" />

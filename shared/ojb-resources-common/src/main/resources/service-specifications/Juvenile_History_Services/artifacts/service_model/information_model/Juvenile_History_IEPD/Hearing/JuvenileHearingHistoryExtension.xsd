@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
+	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" schemaLocation="../JuvenileHistoryCommonExtension.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0" schemaLocation="member-extensions/michigan/codes.xsd"/>
+	<xsd:annotation>
+		<xsd:appinfo>
+			<appinfo:ConformantIndicator>true</appinfo:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:complexType name="CourtEventAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for local extensions related to a juvenile referral.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="ext:ContemptOfCourtIndicator" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="ext:HearingCategoryRepresentation" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="ext:HearingDispositionRepresentation" minOccurs="1" maxOccurs="unbounded"/>
+					<xsd:element ref="ext:ProbationViolationIndicator" minOccurs="1" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="JuvenileHearingHistoryType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the hearing history of a juvenile.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="cext:JuvenileHistoryType">
+				<xsd:sequence>
+					<xsd:element ref="cyfs:CourtCase" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="CourtEventAugmentation" type="ext:CourtEventAugmentationType" substitutionGroup="j:CourtEventAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Local extensions for a Hearing of a juvenile.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HearingCategoryRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>An abstract placeholder for a kind of hearing</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HearingDispositionRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>An abstract placeholder for a kind of hearing disposition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileHearingHistory" type="ext:JuvenileHearingHistoryType">
+		<xsd:annotation>
+			<xsd:documentation>The history of hearings involving a juvenile.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ContemptOfCourtIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Indicates whether the hearing is related to a contempt of court.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProbationViolationIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Indicates whether the hearing is related to a probation violation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

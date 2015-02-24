@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aqrequest:ArrestQueryRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestQueryRequest/1.0 ../xsd/arrest_query_request_schema.xsd" xmlns:aqrequest="http://ojbc.org/IEPD/Exchange/ArrestQueryRequest/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:PersonStateIdentification>
+		<nc:IdentificationID>SID</nc:IdentificationID>
+	</nc:PersonStateIdentification>
+</aqrequest:ArrestQueryRequest>
