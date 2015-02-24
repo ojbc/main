@@ -117,12 +117,12 @@
 		</dependency>		
 		<!-- OJB Shared Bundles -->
 	    <dependency>
-	      <groupId>org.ojbc.util</groupId>
+	      <groupId>org.ojbc.bundles.shared</groupId>
 	      <artifactId>ojb-fedquery-common</artifactId>
 	      <version>${ojb-fedquery-common}</version>
 	    </dependency>
 	    <dependency>
-	      <groupId>org.ojbc.util</groupId>
+	      <groupId>org.ojbc.bundles.shared</groupId>
 	      <artifactId>ojb-camel-common</artifactId>
 	      <version>${ojb-camel-common}</version>
 	    </dependency>
