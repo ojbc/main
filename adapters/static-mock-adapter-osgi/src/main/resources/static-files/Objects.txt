@@ -1,0 +1,3 @@
+Steel Shovel	Tool	Craftsman	Pro
+Crowbar	Tool	Unknown	Unknown
+Wrench	Tool	Craftsman	Pro

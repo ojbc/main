@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exchange:PersonSearchResults
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0 ../xsd/exchange_schema.xsd ">
+	<srm:SearchResultsMetadata>
+		<srer:SearchErrors>
+			<intel:SystemName>CJIS HI</intel:SystemName>
+			<srer:SearchResultsExceedThresholdError>
+				<srer:SearchResultsRecordCount>3000</srer:SearchResultsRecordCount>
+			</srer:SearchResultsExceedThresholdError>
+		</srer:SearchErrors>
+	</srm:SearchResultsMetadata>
+</exchange:PersonSearchResults>
