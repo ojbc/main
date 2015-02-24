@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:policy="http://cxf.apache.org/policy" xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security" xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xsi:schemaLocation="
+    http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+    http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+    http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+    http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+    http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+    ">
+
+	<!-- Person Search Request Service -->
+	<cxf:cxfEndpoint id="personSearchRequestService"
+		address="${genericMockAdapter.personSearchRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Person_Search_Request_Service/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
+		serviceName="ojbc:Person_Search_Request_Service_Service" endpointName="ojbc:Person_Search_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Person Search Results handler Service -->
+	<cxf:cxfEndpoint id="personSearchResultsHandlerService"
+		address="${genericMockAdapter.personSearchResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Person_Search_Results_Service/schema/SIP_WS_1.2/Person_Search_Results_Service.wsdl"
+		serviceName="ojbc:Person_Search_Results_Service_Service" endpointName="ojbc:Person_Search_Results_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
+	<!-- Firearm Search Request Service -->
+
+	<cxf:cxfEndpoint id="FirearmSearchRequestService"
+		address="${genericMockAdapter.firearmSearchRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Firearm_Search_Request_Service/schema/SIP_WS_1.2/Firearm_Search_Request_Service.wsdl"
+		serviceName="ojbc:Firearm_Search_Request_Service_Service"
+		endpointName="ojbc:Firearm_Search_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Firearm Search Results handler Service -->
+
+	<cxf:cxfEndpoint id="FirearmSearchResultsService"
+		address="${genericMockAdapter.firearmSearchResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Firearm_Search_Results_Service/schema/SIP_WS_1.2/Firearm_Search_Results_Service.wsdl"
+		serviceName="ojbc:Firearm_Search_Results_Service_Service"
+		endpointName="ojbc:Firearm_Search_Results_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmSearchResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
+	<!-- Incident Search Request Service -->
+
+	<cxf:cxfEndpoint id="IncidentSearchRequestService"
+		address="${genericMockAdapter.incidentSearchRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Incident_Search_Request_Service/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
+		serviceName="ojbc:Incident_Search_Request_Service_Service"
+		endpointName="ojbc:Incident_Search_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Incident Search Results handler Service -->
+
+	<cxf:cxfEndpoint id="IncidentSearchResultsService"
+		address="${genericMockAdapter.incidentSearchResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Incident_Search_Results_Service/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
+		serviceName="ojbc:Incident_Search_Results_Service_Service"
+		endpointName="ojbc:Incident_Search_Results_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
+	<!-- Criminal History Request handler -->
+	<cxf:cxfEndpoint id="personQueryRequestCriminalHistoryService"
+		address="${genericMockAdapter.personQueryCriminalHistoryEndpoint}"
+		wsdlURL="classpath:service-specifications/Person_Query_Service_-_Criminal_History/schema/SIP_WS_1.2/Person_Query_Service_-_Criminal_History.wsdl"
+		serviceName="ojbc:Person-Query-Service---Criminal-HistoryService"
+		endpointName="ojbc:Person-Query-Secure-Service---Criminal-History"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Warrants Request handler -->
+	<cxf:cxfEndpoint id="personQueryRequestWarrantsService"
+		address="${genericMockAdapter.personQueryWarrantsEndpoint}"
+		wsdlURL="classpath:service-specifications/Person_Query_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Service_-_Warrants.wsdl"
+		serviceName="ojbc:Person-Query-Service---WarrantsService"
+		endpointName="ojbc:Person-Query-Secure-Service---Warrants"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Criminal History response handler -->
+	<cxf:cxfEndpoint id="personQueryResultsHandlerCriminalHistoryService"
+		address="${genericMockAdapter.personQueryResultsHandlerCriminalHistoryEndpoint}"
+		wsdlURL="classpath:service-specifications/Person_Query_Results_Handler_Service_-_Criminal_History/schema/SIP_WS_1.2/Person_Query_Results_Handler_Service_-_Criminal_History.wsdl"
+		serviceName="ojbc:Person-Query-Results-Handler-Service---Criminal-HistoryService"
+		endpointName="ojbc:Person-Query-Results-Handler-Service---Criminal-History"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
+	<!-- Warrants response handler -->
+	<cxf:cxfEndpoint id="personQueryResultsHandlerWarrantsService"
+		address="${genericMockAdapter.personQueryResultsHandlerWarrantsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Person_Query_Results_Handler_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Results_Handler_Service_-_Warrants.wsdl"
+		serviceName="ojbc:Person-Query-Results-Handler-Service---WarrantsService"
+		endpointName="ojbc:Person-Query-Results-Handler-Service---Warrants"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Warrants/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
+	<!-- Incident Report Request Handler -->
+	<cxf:cxfEndpoint id="incidentReportRequestService"
+		address="${genericMockAdapter.personQueryIncidentReportEndpoint}"
+		wsdlURL="classpath:service-specifications/Incident_Report_Request_Service/schema/SIP_WS_1.2/Incident_Report_Request_Service.wsdl"
+		serviceName="ojbc:Incident_Report_Request_Service_Service"
+		endpointName="ojbc:Incident_Report_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Incident Report Response Handler -->
+	<cxf:cxfEndpoint id="incidentReportResultsService"
+		address="${genericMockAdapter.personQueryResultsHandlerIncidentReportResultsEndpoint}"
+		wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
+	<!-- Firearm Reg Query Request Handler -->
+	<cxf:cxfEndpoint id="firearmRegistrationQueryRequestService"
+		address="${genericMockAdapter.personQueryFirearmEndpoint}"
+		wsdlURL="classpath:service-specifications/Firearm_Registration_Query_Request_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Request_Service.wsdl"
+		serviceName="ojbc:Firearm_Registration_Query_Request_Service_Service"
+		endpointName="ojbc:Firearm_Registration_Query_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Firearm Reg Query Response Handler -->
+	<cxf:cxfEndpoint id="firearmRegistrationQueryResultsService"
+		address="${genericMockAdapter.personQueryResultsHandlerFirearmEndpoint}"
+		wsdlURL="classpath:service-specifications/Firearm_Registration_Query_Results_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Results_Service.wsdl"
+		serviceName="ojbc:Firearm_Registration_Query_Results_Service_Service"
+		endpointName="ojbc:Firearm_Registration_Query_Results_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Case Plan History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileCasePlanHistoryRequestService"
+		address="${genericMockAdapter.casePlanHistoryRequestServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileCasePlanHistoryRequestService"
+		endpointName="ojbc:JuvenileCasePlanHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Case Plan History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileCasePlanHistoryResultsService"
+		address="${genericMockAdapter.casePlanHistoryResultsServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileCasePlanHistoryResultsService"
+		endpointName="ojbc:JuvenileCasePlanHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
+   
+	<!-- Juvenile Hearing History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileHearingHistoryRequestService"
+		address="${genericMockAdapter.hearingHistoryRequestServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileHearingHistoryRequestService"
+		endpointName="ojbc:JuvenileHearingHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Hearing History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileHearingHistoryResultsService"
+		address="${genericMockAdapter.hearingHistoryResultsServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileHearingHistoryResultsService"
+		endpointName="ojbc:JuvenileHearingHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>    
+   
+	<!-- Juvenile Intake History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileIntakeHistoryRequestService"
+		address="${genericMockAdapter.intakeHistoryRequestServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileIntakeHistoryRequestService"
+		endpointName="ojbc:JuvenileIntakeHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Intake History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileIntakeHistoryResultsService"
+		address="${genericMockAdapter.intakeHistoryResultsServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileIntakeHistoryResultsService"
+		endpointName="ojbc:JuvenileIntakeHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>       
+   
+	<!-- Juvenile Offense History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileOffenseHistoryRequestService"
+		address="${genericMockAdapter.offenseHistoryRequestServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileOffenseHistoryRequestService"
+		endpointName="ojbc:JuvenileOffenseHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Offense History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileOffenseHistoryResultsService"
+		address="${genericMockAdapter.offenseHistoryResultsServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileOffenseHistoryResultsService"
+		endpointName="ojbc:JuvenileOffenseHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
+	
+	<!-- Juvenile Placement History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenilePlacementHistoryRequestService"
+		address="${genericMockAdapter.placementHistoryRequestServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenilePlacementHistoryRequestService"
+		endpointName="ojbc:JuvenilePlacementHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Placement History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenilePlacementHistoryResultsService"
+		address="${genericMockAdapter.placementHistoryResultsServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenilePlacementHistoryResultsService"
+		endpointName="ojbc:JuvenilePlacementHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
+	
+	
+	<!-- Juvenile Referral History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileReferralHistoryRequestService"
+		address="${genericMockAdapter.referralHistoryRequestServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileReferralHistoryRequestService"
+		endpointName="ojbc:JuvenileReferralHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Referral History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileReferralHistoryResultsService"
+		address="${genericMockAdapter.referralHistoryResultsServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileReferralHistoryResultsService"
+		endpointName="ojbc:JuvenileReferralHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>    	
+
+
+	<bean id="dropAllMessageHeadersStrategy"
+		class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">
+		<!-- Set relayHeaders to false to drop all SOAP headers. This was originally 
+			in the incident search cxf-endpoints file -->
+		<property name="relayHeaders" value="false" />
+	</bean>
+
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+		<property name="passwords">
+			<map>
+				<entry key="${genericMockAdapter.keystoreCertificateAlias}"
+					value="${genericMockAdapter.keyPassword}" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator" />
+
+	<util:properties id="mockKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${genericMockAdapter.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${genericMockAdapter.keystoreCertificateAlias}
+		</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${genericMockAdapter.keystoreLocation}</prop>
+	</util:properties>
+
+
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. Server side SSL connection -->
+	<httpj:engine-factory id="ClientAuthHttpsSettings"
+		bus="cxf">
+		<httpj:engine port="${genericMockAdapter.requestEndpointPort}">
+			<httpj:tlsServerParameters>
+				<sec:keyManagers keyPassword="${genericMockAdapter.keyPassword}">
+					<sec:keyStore type="jks"
+						password="${genericMockAdapter.keystorePassword}" file="${genericMockAdapter.keystoreLocation}" />
+				</sec:keyManagers>
+				<sec:cipherSuitesFilter>
+					<sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					<sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					<sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					<sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				</sec:cipherSuitesFilter>
+				<sec:clientAuthentication want="false"
+					required="false" />
+			</httpj:tlsServerParameters>
+		</httpj:engine>
+	</httpj:engine-factory>
+
+	<!-- Used for outbound SSL/TLS Connection. No CCA, just SSL. Client side 
+		SSL connection -->
+	<http:conduit name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${genericMockAdapter.truststorePassword}" file="${genericMockAdapter.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+				<!-- these filters ensure that a strong ciphersuite will be used -->
+				<sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				<sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				<sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				<sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>
+</beans>
