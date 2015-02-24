@@ -71,10 +71,6 @@
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 
-			<!-- Log pertinent request data -->
-			<camel:to uri="bean:federatedQueryAuditLogger?method=auditSearchParameters"/>
-			
-			
 			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
 			<!-- Change this XPath to match what you need -->
 			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
@@ -90,7 +86,7 @@
 				<camel:xpath resultType="java.lang.String">//nc20:IdentificationSourceText</camel:xpath>
 			</camel:setHeader>
 
-			<camel:to uri="bean:hashMapToAdapterAddressProcessor?method=overrideCXFAddress"/>
+			<camel:to uri="bean:uriToAdapterAddressProcessor?method=overrideCXFAddress"/>
 									
 			<!-- Add the reply to address to the map using the federated query guid as the key -->
 			<camel:to 
@@ -199,7 +195,7 @@
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 					
-					<camel:log message="About to send entity merge message to ${in.headers.recipientListReplyToEndpoint}" />			
+					<camel:log message="About to send warrants query response message to ${in.headers.recipientListReplyToEndpoint}" />			
 								
 					<camel:recipientList>
 						<camel:header>recipientListReplyToEndpoint</camel:header>
@@ -219,29 +215,25 @@
 	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
 
 	<bean id="federatedQueryResponseAggregator"
-		class="org.ojbc.processor.federatedQuery.FederatedQueryResponseHandlerAggregator">
+		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
 		<property name="federatedQueryManager">
 			<ref bean="federatedQueryManager" />
 		</property>
 	</bean>
 
-	<bean id="messageProcessor" class="org.ojbc.processor.MessageProcessor" />
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 
 	<!-- Used to retrieve and persist SAML tokens -->
-	<bean id="camelSAMLTokenProcessor" class="org.ojbc.saml.CamelSAMLTokenProcessor">
+	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
 		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	</bean>
-	<bean id="ojbSamlMap" class="org.ojbc.saml.OJBSamlMap" />
+	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
 
-	<bean id="prepareFederateQueryMessage" class="org.ojbc.processor.federatedQuery.PrepareFederatedQueryMessage"/>
+	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage"/>
 
 	
-	<bean id="wsAddressingReplyToManager" class="org.ojbc.processor.federatedQuery.WSAddressingReplyToManager">
+	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
 		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
-	</bean>
-	 
-	<bean id="federatedQueryAuditLogger" class="org.ojbc.audit.processor.FederatedQueryAuditLogger">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	</bean>
 	 
 	<!-- Properties used inside camel routes as spring 'beans' -->  
@@ -251,6 +243,10 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="accessControlProcessor" class="org.ojbc.processor.accesscontrol.AccessControlProcessor" />
+	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
+	
+	<bean id="uriToAdapterAddressProcessor" class="org.ojbc.util.fedquery.processor.URIToAdapterAddressProcessor">
+		<property name="adapterURItoAddressMap" ref="adapterURItoAddressMap"/>
+	</bean>
 	
 </beans>
