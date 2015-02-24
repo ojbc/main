@@ -3,12 +3,12 @@ package org.ojbc.util.osgi.tests;
 import static org.ops4j.pax.exam.CoreOptions.maven;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.karafDistributionConfiguration;
-import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.logLevel;
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.keepRuntimeFolder;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.logLevel;
 
 import java.io.File;
 
-import org.ojbc.util.osgi.AbstractPaxExamIntegrationTest;
+import org.ojbc.util.osgi.test.AbstractPaxExamIntegrationTest;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.karaf.options.KarafDistributionOption;
@@ -35,7 +35,9 @@ public abstract class AbstractActivationTest extends AbstractPaxExamIntegrationT
 
 				KarafDistributionOption.replaceConfigurationFile("etc/ojbc.context.services.cfg", getConfigFile()),
 				
-				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-common").versionAsInProject().start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-test-common").versionAsInProject().start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-common").versionAsInProject().start()
+				
 
 		// Use custom pax url config in Karaf, by installing it into the etc directory.  This allows you to point pax url at local maven repo (useful for offline dev)
 		// KarafDistributionOption.replaceConfigurationFile("etc/org.ops4j.pax.url.mvn.cfg", new File("src/main/config/org.ops4j.pax.url.mvn.cfg")),

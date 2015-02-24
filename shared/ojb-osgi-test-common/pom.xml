@@ -2,8 +2,10 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
-	<artifactId>ojb-osgi-common-tests</artifactId>
+	<artifactId>ojb-osgi-test-common</artifactId>
 	<version>1.0.0</version>
+	<name>OJB :: ojb-osgi-test-common :: Shared</name>
+	<packaging>bundle</packaging>
 	
 	<properties>
 		<pax-exam.version>3.6.0</pax-exam.version>
@@ -11,9 +13,6 @@
 		<felix-version>3.2.2</felix-version>
 		<karaf-version>2.2.11</karaf-version>
 		<slf4j-version>1.7.4</slf4j-version>
-		<camel.version>2.10.7</camel.version>
-		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
-		<ojb-osgi-test-common-version>1.0.0</ojb-osgi-test-common-version>
 	</properties>
 
 	<dependencies>
@@ -53,13 +52,7 @@
 			<artifactId>pax-exam-link-mvn</artifactId>
 			<version>${pax-exam.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.camel.karaf</groupId>
-			<artifactId>apache-camel</artifactId>
-			<version>${camel.version}</version>
-			<type>xml</type>
-			<classifier>features</classifier>
-		</dependency>
+
 		<dependency>
 			<groupId>org.ops4j.pax.url</groupId>
 			<artifactId>pax-url-aether</artifactId>
@@ -69,20 +62,6 @@
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-osgi-test-common</artifactId>
-			<version>${ojb-osgi-test-common-version}</version>
-		</dependency>		
-		
-		<!-- Bundles under test -->
-		
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-osgi-common</artifactId>
-			<version>${ojb-osgi-common-version}</version>
 		</dependency>
 
 	</dependencies>
@@ -112,6 +91,18 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<DynamicImport-Package>*</DynamicImport-Package>
+					</instructions>
+				</configuration>					
+			</plugin>
+		
 		</plugins>
 	</build>
 

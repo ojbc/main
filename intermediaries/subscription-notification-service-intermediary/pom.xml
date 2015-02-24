@@ -28,7 +28,7 @@
 		<h2-mock-database-version>1.0.1</h2-mock-database-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<bouncycastle-version>140</bouncycastle-version>
-		<ojb-osgi-utils-version>1.0.0</ojb-osgi-utils-version>
+		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
 	</properties>
 
 	<dependencies>
@@ -124,8 +124,8 @@
 
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-osgi-utils</artifactId>
-			<version>${ojb-osgi-utils-version}</version> 
+			<artifactId>ojb-osgi-common</artifactId>
+			<version>${ojb-osgi-common-version}</version> 
 		</dependency>
 		
 		<!-- Test Dependencies -->
