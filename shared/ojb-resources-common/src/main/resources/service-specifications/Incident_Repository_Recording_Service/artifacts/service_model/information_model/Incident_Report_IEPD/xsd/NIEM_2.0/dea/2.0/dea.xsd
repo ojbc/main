@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://niem.gov/niem/dea/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dea="http://niem.gov/niem/dea/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:simpleType name="DrugCategoryCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="A1"/>
+      <xsd:enumeration value="A2"/>
+      <xsd:enumeration value="A3"/>
+      <xsd:enumeration value="A4"/>
+      <xsd:enumeration value="A5"/>
+      <xsd:enumeration value="A6"/>
+      <xsd:enumeration value="A7"/>
+      <xsd:enumeration value="A8"/>
+      <xsd:enumeration value="B1"/>
+      <xsd:enumeration value="B2"/>
+      <xsd:enumeration value="B3"/>
+      <xsd:enumeration value="C1"/>
+      <xsd:enumeration value="C2"/>
+      <xsd:enumeration value="C3"/>
+      <xsd:enumeration value="C4"/>
+      <xsd:enumeration value="C5"/>
+      <xsd:enumeration value="D1"/>
+      <xsd:enumeration value="D2"/>
+      <xsd:enumeration value="D3"/>
+      <xsd:enumeration value="D4"/>
+      <xsd:enumeration value="E1"/>
+      <xsd:enumeration value="G1"/>
+      <xsd:enumeration value="G2"/>
+      <xsd:enumeration value="G3"/>
+      <xsd:enumeration value="H1"/>
+      <xsd:enumeration value="H2"/>
+      <xsd:enumeration value="H3"/>
+      <xsd:enumeration value="H4"/>
+      <xsd:enumeration value="L1"/>
+      <xsd:enumeration value="L2"/>
+      <xsd:enumeration value="L3"/>
+      <xsd:enumeration value="L4"/>
+      <xsd:enumeration value="L5"/>
+      <xsd:enumeration value="M1"/>
+      <xsd:enumeration value="M2"/>
+      <xsd:enumeration value="M3"/>
+      <xsd:enumeration value="M4"/>
+      <xsd:enumeration value="M5"/>
+      <xsd:enumeration value="N1"/>
+      <xsd:enumeration value="N2"/>
+      <xsd:enumeration value="N3"/>
+      <xsd:enumeration value="N4"/>
+      <xsd:enumeration value="N5"/>
+      <xsd:enumeration value="N6"/>
+      <xsd:enumeration value="N7"/>
+      <xsd:enumeration value="N8"/>
+      <xsd:enumeration value="N9"/>
+      <xsd:enumeration value="R1"/>
+      <xsd:enumeration value="S1"/>
+      <xsd:enumeration value="S2"/>
+      <xsd:enumeration value="Z1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="DrugCategoryCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="dea:DrugCategoryCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>

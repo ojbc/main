@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://niem.gov/niem/ucr/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ucr="http://niem.gov/niem/ucr/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:simpleType name="OffenseCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="09A"/>
+      <xsd:enumeration value="09B"/>
+      <xsd:enumeration value="09C"/>
+      <xsd:enumeration value="100"/>
+      <xsd:enumeration value="11A"/>
+      <xsd:enumeration value="11B"/>
+      <xsd:enumeration value="11C"/>
+      <xsd:enumeration value="11D"/>
+      <xsd:enumeration value="120"/>
+      <xsd:enumeration value="13A"/>
+      <xsd:enumeration value="13B"/>
+      <xsd:enumeration value="13C"/>
+      <xsd:enumeration value="200"/>
+      <xsd:enumeration value="210"/>
+      <xsd:enumeration value="220"/>
+      <xsd:enumeration value="23A"/>
+      <xsd:enumeration value="23B"/>
+      <xsd:enumeration value="23C"/>
+      <xsd:enumeration value="23D"/>
+      <xsd:enumeration value="23E"/>
+      <xsd:enumeration value="23F"/>
+      <xsd:enumeration value="23G"/>
+      <xsd:enumeration value="23H"/>
+      <xsd:enumeration value="240"/>
+      <xsd:enumeration value="250"/>
+      <xsd:enumeration value="26A"/>
+      <xsd:enumeration value="26B"/>
+      <xsd:enumeration value="26C"/>
+      <xsd:enumeration value="26D"/>
+      <xsd:enumeration value="26E"/>
+      <xsd:enumeration value="270"/>
+      <xsd:enumeration value="280"/>
+      <xsd:enumeration value="290"/>
+      <xsd:enumeration value="35A"/>
+      <xsd:enumeration value="35B"/>
+      <xsd:enumeration value="36A"/>
+      <xsd:enumeration value="36B"/>
+      <xsd:enumeration value="370"/>
+      <xsd:enumeration value="39A"/>
+      <xsd:enumeration value="39B"/>
+      <xsd:enumeration value="39C"/>
+      <xsd:enumeration value="39D"/>
+      <xsd:enumeration value="40A"/>
+      <xsd:enumeration value="40B"/>
+      <xsd:enumeration value="510"/>
+      <xsd:enumeration value="520"/>
+      <xsd:enumeration value="90A"/>
+      <xsd:enumeration value="90B"/>
+      <xsd:enumeration value="90C"/>
+      <xsd:enumeration value="90D"/>
+      <xsd:enumeration value="90E"/>
+      <xsd:enumeration value="90F"/>
+      <xsd:enumeration value="90G"/>
+      <xsd:enumeration value="90H"/>
+      <xsd:enumeration value="90I"/>
+      <xsd:enumeration value="90J"/>
+      <xsd:enumeration value="90Z"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="OffenseCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ucr:OffenseCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>

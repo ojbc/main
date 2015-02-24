@@ -14,7 +14,7 @@
 	<properties>
 		<jodatime-version>1.6.2</jodatime-version>
 		<commons-lang-version>2.4</commons-lang-version>
-		<ojbc-resources-version>2.0.0</ojbc-resources-version>
+		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 		<ojbc-utilities-version>[1.0.22,)</ojbc-utilities-version>
 		<ojbc-niem-dom-utilities-version>1.0.2</ojbc-niem-dom-utilities-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
@@ -66,8 +66,8 @@
 
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>OJB_Resources</artifactId>
-			<version>${ojbc-resources-version}</version>
+			<artifactId>ojb-resources-common</artifactId>
+			<version>${ojb-resources-common-version}</version>
 		</dependency>
 
 		<dependency>

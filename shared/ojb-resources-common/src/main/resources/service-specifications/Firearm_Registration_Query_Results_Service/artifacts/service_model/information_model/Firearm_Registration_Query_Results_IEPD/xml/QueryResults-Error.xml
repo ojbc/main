@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exchange:FirearmRegistrationQueryResults
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0 ../xsd/exchange_schema.xsd"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
+	xmlns:qre="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<qrm:QueryResultsMetadata>
+		<qre:QueryRequestError>
+			<qre:ErrorText>
+				String
+			</qre:ErrorText>
+			<intel:SystemName>String</intel:SystemName>
+		</qre:QueryRequestError>
+	</qrm:QueryResultsMetadata>
+</exchange:FirearmRegistrationQueryResults>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
+	<xsd:complexType name="SubscriptionSearchRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a message to submit a subscription-based
+				search.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

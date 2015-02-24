@@ -1,0 +1,7 @@
+Todos:
+
+What is OJB_Generic_Mock_Adapter, and do we need it anymore?
+
+Remove old mock adapter projects (or migrate to a deprecated area in SVN)
+
+Migrate to a single (and appropriately named, for demostate) keystore and truststore (no longer should use hawaii/HIJIS test keystores)

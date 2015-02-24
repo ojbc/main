@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions 
+	xmlns="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:Q1="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" 
+	xmlns:tns="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0" 
+	targetNamespace="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0"
+	xmlns:policy="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" schemaLocation="../../artifacts/service_model/information_model/Criminal_History-IEPD/xsd/Criminal_History.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="Criminal-History">
+        <wsdl:part name="Criminal-History" element="Q1:CriminalHistory"/>
+    </wsdl:message>
+    <wsdl:portType name="Person-Query-Results-Handler-Service---Criminal-History">
+        <wsdl:operation name="Report-Person-Query-Results---Criminal-History">
+            <wsdl:input name="Criminal-History" message="tns:Criminal-History"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="Person-Query-Results-Handler-Service---Criminal-HistorySOAPBinding" type="tns:Person-Query-Results-Handler-Service---Criminal-History">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#GFIPMSystemToSystem" />
+        <wsdl:operation name="Report-Person-Query-Results---Criminal-History">
+            <soap:operation soapAction="Report-Person-Query-Results---Criminal-History" style="document"/>
+            <wsdl:input name="Criminal-History">
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="Person-Query-Results-Handler-Service---Criminal-HistoryService">
+        <wsdl:port name="Person-Query-Results-Handler-Service---Criminal-History" binding="tns:Person-Query-Results-Handler-Service---Criminal-HistorySOAPBinding">
+            <soap:address location="localhost"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

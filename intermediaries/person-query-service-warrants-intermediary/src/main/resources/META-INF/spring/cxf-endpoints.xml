@@ -80,6 +80,7 @@
     <!-- Present Warrant Query Results typically hosted by a Web App, called by broker, address set dynamically-->
     <cxf:cxfEndpoint 
         id="presentPersonQueryResultsWarrantsService"
+        address="${federatedQuery.warrants.presentPersonQueryResultsEndpoint}"
         wsdlURL="classpath:service-specifications/Person_Query_Results_Handler_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Results_Handler_Service_-_Warrants.wsdl"
         serviceName="ojbc:Person-Query-Results-Handler-Service---WarrantsService"
 		endpointName="ojbc:Person-Query-Results-Handler-Service---Warrants"
@@ -96,7 +97,7 @@
     </cxf:features>
     </cxf:cxfEndpoint>
    
-   	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.processor.WSAddressingEndpointProcessor">
+   	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
 		<property name ="endpointReplyToMap" ref="wsAddressReplyToEndpointMap"/>
 	</bean>		
 
@@ -104,7 +105,7 @@
         <entry key="${federatedQuery.warrants.presentPersonQueryResultsEndpoint}" value="presentPersonQueryResultsWarrantsServiceEndpoint"/>
   	</util:map>
    
-    <bean id="federatedQueryMessageProcessor" class="org.ojbc.processor.federatedQuery.FederatedQueryMessageProcessor">
+    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
 		<property name="federatedQueryManager">
 			<ref bean="federatedQueryManager" />
 		</property>
@@ -115,7 +116,7 @@
 		<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants" value="personQueryRequestWarrantsServiceAdapterEndpoint" />
 	</util:map>
 
-	<bean class="org.ojbc.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
 		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	</bean>
 
@@ -139,7 +140,7 @@
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>
    
-   	<bean id="passwordCallbackHandler" class="org.ojbc.ws.security.ClientCallbackMap">
+   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
                 <entry key="${federatedQuery.warrants.keystoreCertificateAlias}" value="${federatedQuery.warrants.keyPassword}"/>
@@ -147,7 +148,7 @@
         </property>
 	</bean>
    
-   	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.saml.OJBSimpleWSPSamlTokenValidator"/>
+   	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
 
 	<util:properties id="warrantsRequestKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w:WantList w:release="2.1" w:product="NIEM"
+  xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+  xmlns:usps="http://niem.gov/niem/usps_states/2.0"
+  xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+  xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+  xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:w="http://niem.gov/niem/wantlist/2">
+  <w:Element w:name="intel:SystemIdentifier" w:isReference="false"/>
+  <w:Element w:name="intel:SystemName" w:isReference="false"/>
+  <w:Element w:name="j:Court" w:isReference="false"/>
+  <w:Element w:name="j:CourtName" w:isReference="false"/>
+  <w:Element w:name="j:Person" w:isReference="false"/>
+  <w:Element w:name="j:PersonAugmentation" w:isReference="false"/>
+  <w:Element w:name="j:PersonFBIIdentification" w:isReference="false"/>
+  <w:Element w:name="j:PersonStateFingerprintIdentification" w:isReference="false"/>
+  <w:Element w:name="nc:AddressDeliveryPoint" w:isReference="false"/>
+  <w:Element w:name="nc:AddressFullText" w:isReference="false"/>
+  <w:Element w:name="nc:AddressRepresentation" w:isReference="false"/>
+  <w:Element w:name="nc:Case" w:isReference="false"/>
+  <w:Element w:name="nc:CaseCategoryText" w:isReference="false"/>
+  <w:Element w:name="nc:CaseDocketID" w:isReference="false"/>
+  <w:Element w:name="nc:CaseTrackingID" w:isReference="false"/>
+  <w:Element w:name="nc:Date" w:isReference="false"/>
+  <w:Element w:name="nc:DateRepresentation" w:isReference="false"/>
+  <w:Element w:name="nc:DriverLicense" w:isReference="false"/>
+  <w:Element w:name="nc:DriverLicenseIdentification" w:isReference="false"/>
+  <w:Element w:name="nc:Identification" w:isReference="false"/>
+  <w:Element w:name="nc:IdentificationID" w:isReference="false"/>
+  <w:Element w:name="nc:IdentificationJurisdiction" w:isReference="false"/>
+  <w:Element w:name="nc:IdentificationJurisdictionText" w:isReference="false"/>
+  <w:Element w:name="nc:IdentificationSourceText" w:isReference="false"/>
+  <w:Element w:name="nc:Location" w:isReference="true"/>
+  <w:Element w:name="nc:Location" w:isReference="false"/>
+  <w:Element w:name="nc:LocationAddress" w:isReference="false"/>
+  <w:Element w:name="nc:LocationCityName" w:isReference="false"/>
+  <w:Element w:name="nc:LocationPostalCode" w:isReference="false"/>
+  <w:Element w:name="nc:LocationPostalExtensionCode" w:isReference="false"/>
+  <w:Element w:name="nc:LocationState" w:isReference="false"/>
+  <w:Element w:name="nc:LocationStateUSPostalServiceCode" w:isReference="false"/>
+  <w:Element w:name="nc:LocationStreet" w:isReference="false"/>
+  <w:Element w:name="nc:MeasurePointValue" w:isReference="false"/>
+  <w:Element w:name="nc:MeasureText" w:isReference="false"/>
+  <w:Element w:name="nc:MeasureUnitText" w:isReference="false"/>
+  <w:Element w:name="nc:MeasureValue" w:isReference="false"/>
+  <w:Element w:name="nc:Person" w:isReference="true"/>
+  <w:Element w:name="nc:Person" w:isReference="false"/>
+  <w:Element w:name="nc:PersonAgeMeasure" w:isReference="false"/>
+  <w:Element w:name="nc:PersonBirthDate" w:isReference="false"/>
+  <w:Element w:name="nc:PersonEyeColor" w:isReference="false"/>
+  <w:Element w:name="nc:PersonEyeColorText" w:isReference="false"/>
+  <w:Element w:name="nc:PersonGivenName" w:isReference="false"/>
+  <w:Element w:name="nc:PersonHairColor" w:isReference="false"/>
+  <w:Element w:name="nc:PersonHairColorText" w:isReference="false"/>
+  <w:Element w:name="nc:PersonHeightMeasure" w:isReference="false"/>
+  <w:Element w:name="nc:PersonMiddleName" w:isReference="false"/>
+  <w:Element w:name="nc:PersonName" w:isReference="false"/>
+  <w:Element w:name="nc:PersonNameSuffixText" w:isReference="false"/>
+  <w:Element w:name="nc:PersonOtherIdentification" w:isReference="false"/>
+  <w:Element w:name="nc:PersonPhysicalFeature" w:isReference="false"/>
+  <w:Element w:name="nc:PersonRace" w:isReference="false"/>
+  <w:Element w:name="nc:PersonRaceText" w:isReference="false"/>
+  <w:Element w:name="nc:PersonSSNIdentification" w:isReference="false"/>
+  <w:Element w:name="nc:PersonSex" w:isReference="false"/>
+  <w:Element w:name="nc:PersonSexText" w:isReference="false"/>
+  <w:Element w:name="nc:PersonSurName" w:isReference="false"/>
+  <w:Element w:name="nc:PersonWeightMeasure" w:isReference="false"/>
+  <w:Element w:name="nc:PhysicalFeatureDescriptionText" w:isReference="false"/>
+  <w:Element w:name="nc:ResidenceAssociation" w:isReference="false"/>
+  <w:Element w:name="nc:StreetCategoryText" w:isReference="false"/>
+  <w:Element w:name="nc:StreetExtensionText" w:isReference="false"/>
+  <w:Element w:name="nc:StreetFullText" w:isReference="false"/>
+  <w:Element w:name="nc:StreetName" w:isReference="false"/>
+  <w:Element w:name="nc:StreetNumberText" w:isReference="false"/>
+  <w:Element w:name="nc:StreetPostdirectionalText" w:isReference="false"/>
+  <w:Element w:name="nc:StreetPredirectionalText" w:isReference="false"/>
+  <w:Element w:name="nc:StructuredAddress" w:isReference="false"/>
+  <w:Type w:name="intel:SystemIdentifierType" w:isRequested="true">
+    <w:ElementInType w:name="intel:SystemName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="j:CourtType" w:isRequested="true">
+    <w:ElementInType w:name="j:CourtName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="j:PersonAugmentationType" w:isRequested="true">
+    <w:ElementInType w:name="j:PersonFBIIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="j:PersonStateFingerprintIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:DriverLicense" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="j:PersonType" w:isRequested="true">
+    <w:ElementInType w:name="j:PersonAugmentation" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:ActivityType" w:isRequested="true"/>
+  <w:Type w:name="nc:AddressType" w:isRequested="true">
+    <w:ElementInType w:name="nc:AddressRepresentation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:AssociationType" w:isRequested="true"/>
+  <w:Type w:name="nc:CaseType" w:isRequested="true">
+    <w:ElementInType w:name="nc:CaseCategoryText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:CaseDocketID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:CaseTrackingID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:DateType" w:isRequested="true">
+    <w:ElementInType w:name="nc:DateRepresentation"
+      w:isReference="false" w:minOccurs="1" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:DriverLicenseBaseType" w:isRequested="true">
+    <w:ElementInType w:name="nc:DriverLicenseIdentification"
+      w:isReference="false" w:minOccurs="1" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:DriverLicenseType" w:isRequested="true"/>
+  <w:Type w:name="nc:IdentificationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
+      w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:IdentificationJurisdiction"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:IdentificationSourceText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:LengthMeasureType" w:isRequested="true"/>
+  <w:Type w:name="nc:LocationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:LocationAddress" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:MeasurePointValueType" w:isRequested="true"/>
+  <w:Type w:name="nc:MeasureType" w:isRequested="true">
+    <w:ElementInType w:name="nc:MeasureUnitText" w:isReference="false"
+      w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:MeasureValue" w:isReference="false"
+      w:minOccurs="1" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:OrganizationType" w:isRequested="true"/>
+  <w:Type w:name="nc:PersonLocationAssociationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:Location" w:isReference="true"
+      w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:Person" w:isReference="true"
+      w:minOccurs="1" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:PersonNameTextType" w:isRequested="true"/>
+  <w:Type w:name="nc:PersonNameType" w:isRequested="true">
+    <w:ElementInType w:name="nc:PersonGivenName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonMiddleName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonNameSuffixText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonSurName" w:isReference="false"
+      w:minOccurs="1" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:PersonResidenceAssociationType" w:isRequested="true"/>
+  <w:Type w:name="nc:PersonType" w:isRequested="true">
+    <w:ElementInType w:name="nc:PersonAgeMeasure" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonHairColor" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonHeightMeasure"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonName" w:isReference="false"
+      w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonOtherIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonPhysicalFeature"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonSSNIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonWeightMeasure"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:PhysicalFeatureType" w:isRequested="true">
+    <w:ElementInType w:name="nc:PhysicalFeatureDescriptionText"
+      w:isReference="false" w:minOccurs="1" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:ProperNameTextType" w:isRequested="true"/>
+  <w:Type w:name="nc:StreetType" w:isRequested="true">
+    <w:ElementInType w:name="nc:StreetCategoryText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:StreetExtensionText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:StreetFullText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:StreetName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:StreetNumberText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:StreetPostdirectionalText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:StreetPredirectionalText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:StructuredAddressType" w:isRequested="true">
+    <w:ElementInType w:name="nc:AddressDeliveryPoint"
+      w:isReference="false" w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:LocationCityName" w:isReference="false"
+      w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:LocationPostalCode"
+      w:isReference="false" w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:LocationPostalExtensionCode"
+      w:isReference="false" w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:LocationState" w:isReference="false"
+      w:minOccurs="1" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:TextType" w:isRequested="true"/>
+  <w:Type w:name="nc:TimeMeasureType" w:isRequested="true"/>
+  <w:Type w:name="nc:WeightMeasureType" w:isRequested="true"/>
+  <w:Type w:name="niem-xsd:date" w:isRequested="true"/>
+  <w:Type w:name="niem-xsd:string" w:isRequested="true"/>
+  <w:Type w:name="usps:USStateCodeSimpleType" w:isRequested="true">
+    <w:Facet w:facet="enumeration" w:value="AA"/>
+    <w:Facet w:facet="enumeration" w:value="AE"/>
+    <w:Facet w:facet="enumeration" w:value="AK"/>
+    <w:Facet w:facet="enumeration" w:value="AL"/>
+    <w:Facet w:facet="enumeration" w:value="AP"/>
+    <w:Facet w:facet="enumeration" w:value="AR"/>
+    <w:Facet w:facet="enumeration" w:value="AS"/>
+    <w:Facet w:facet="enumeration" w:value="AZ"/>
+    <w:Facet w:facet="enumeration" w:value="CA"/>
+    <w:Facet w:facet="enumeration" w:value="CO"/>
+    <w:Facet w:facet="enumeration" w:value="CT"/>
+    <w:Facet w:facet="enumeration" w:value="DC"/>
+    <w:Facet w:facet="enumeration" w:value="DE"/>
+    <w:Facet w:facet="enumeration" w:value="FL"/>
+    <w:Facet w:facet="enumeration" w:value="FM"/>
+    <w:Facet w:facet="enumeration" w:value="GA"/>
+    <w:Facet w:facet="enumeration" w:value="GU"/>
+    <w:Facet w:facet="enumeration" w:value="HI"/>
+    <w:Facet w:facet="enumeration" w:value="IA"/>
+    <w:Facet w:facet="enumeration" w:value="ID"/>
+    <w:Facet w:facet="enumeration" w:value="IL"/>
+    <w:Facet w:facet="enumeration" w:value="IN"/>
+    <w:Facet w:facet="enumeration" w:value="KS"/>
+    <w:Facet w:facet="enumeration" w:value="KY"/>
+    <w:Facet w:facet="enumeration" w:value="LA"/>
+    <w:Facet w:facet="enumeration" w:value="MA"/>
+    <w:Facet w:facet="enumeration" w:value="MD"/>
+    <w:Facet w:facet="enumeration" w:value="ME"/>
+    <w:Facet w:facet="enumeration" w:value="MH"/>
+    <w:Facet w:facet="enumeration" w:value="MI"/>
+    <w:Facet w:facet="enumeration" w:value="MN"/>
+    <w:Facet w:facet="enumeration" w:value="MO"/>
+    <w:Facet w:facet="enumeration" w:value="MP"/>
+    <w:Facet w:facet="enumeration" w:value="MS"/>
+    <w:Facet w:facet="enumeration" w:value="MT"/>
+    <w:Facet w:facet="enumeration" w:value="NC"/>
+    <w:Facet w:facet="enumeration" w:value="ND"/>
+    <w:Facet w:facet="enumeration" w:value="NE"/>
+    <w:Facet w:facet="enumeration" w:value="NH"/>
+    <w:Facet w:facet="enumeration" w:value="NJ"/>
+    <w:Facet w:facet="enumeration" w:value="NM"/>
+    <w:Facet w:facet="enumeration" w:value="NV"/>
+    <w:Facet w:facet="enumeration" w:value="NY"/>
+    <w:Facet w:facet="enumeration" w:value="OH"/>
+    <w:Facet w:facet="enumeration" w:value="OK"/>
+    <w:Facet w:facet="enumeration" w:value="OR"/>
+    <w:Facet w:facet="enumeration" w:value="PA"/>
+    <w:Facet w:facet="enumeration" w:value="PR"/>
+    <w:Facet w:facet="enumeration" w:value="PW"/>
+    <w:Facet w:facet="enumeration" w:value="RI"/>
+    <w:Facet w:facet="enumeration" w:value="SC"/>
+    <w:Facet w:facet="enumeration" w:value="SD"/>
+    <w:Facet w:facet="enumeration" w:value="TN"/>
+    <w:Facet w:facet="enumeration" w:value="TX"/>
+    <w:Facet w:facet="enumeration" w:value="UT"/>
+    <w:Facet w:facet="enumeration" w:value="VA"/>
+    <w:Facet w:facet="enumeration" w:value="VI"/>
+    <w:Facet w:facet="enumeration" w:value="VT"/>
+    <w:Facet w:facet="enumeration" w:value="WA"/>
+    <w:Facet w:facet="enumeration" w:value="WI"/>
+    <w:Facet w:facet="enumeration" w:value="WV"/>
+    <w:Facet w:facet="enumeration" w:value="WY"/>
+  </w:Type>
+  <w:Type w:name="usps:USStateCodeType" w:isRequested="true"/>
+</w:WantList>

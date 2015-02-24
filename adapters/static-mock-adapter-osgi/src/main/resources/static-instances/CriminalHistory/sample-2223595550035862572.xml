@@ -1,0 +1,197 @@
+<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.0" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
+    <ch:RapSheet>
+        <ch:Metadata>
+            <nc:ReportingOrganizationText>State CHRI</nc:ReportingOrganizationText>
+        </ch:Metadata>
+        <ch:Introduction>
+            <ch:RapSheetRequest>
+                <ch:PurposeCode>A</ch:PurposeCode>
+                <ch:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</ch:Attention>
+                <ch:RapSheetPerson>
+                    <nc:PersonBirthDate>
+                        <nc:Date>1943-05-16</nc:Date>
+                    </nc:PersonBirthDate>
+                    <nc:PersonName>
+                        <nc:PersonGivenName>Debra</nc:PersonGivenName>
+                        <nc:PersonMiddleName>R</nc:PersonMiddleName>
+                        <nc:PersonSurName>Zamora</nc:PersonSurName>
+                    </nc:PersonName>
+                </ch:RapSheetPerson>
+            </ch:RapSheetRequest>
+        </ch:Introduction>
+        <ch:RapSheetPerson s:id="P23">
+            <nc:PersonAlternateName>
+                <nc:PersonGivenName>Debra R</nc:PersonGivenName>
+                <nc:PersonSurName>Zamora</nc:PersonSurName>
+            </nc:PersonAlternateName>
+            <nc:PersonAlternateName>
+                <nc:PersonGivenName>Debra</nc:PersonGivenName>
+                <nc:PersonSurName>Zamora-Madison</nc:PersonSurName>
+            </nc:PersonAlternateName>
+            <nc:PersonBirthDate>
+                <nc:Date>1943-05-16</nc:Date>
+            </nc:PersonBirthDate>
+            <nc:PersonEyeColorText>Black</nc:PersonEyeColorText>
+            <nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
+            <nc:PersonHeightMeasure>
+                <nc:MeasurePointValue>66</nc:MeasurePointValue>
+                <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+            </nc:PersonHeightMeasure>
+            <nc:PersonName>
+                <nc:PersonGivenName>Debra</nc:PersonGivenName>
+                <nc:PersonMiddleName>R</nc:PersonMiddleName>
+                <nc:PersonSurName>Zamora</nc:PersonSurName>
+            </nc:PersonName>
+            <nc:PersonRaceCode>U</nc:PersonRaceCode>
+            <nc:PersonSexCode>F</nc:PersonSexCode>
+            <nc:PersonSSNIdentification>
+                <nc:IdentificationID>229-78-7109</nc:IdentificationID>
+                <nc:IdentificationSourceText>SSA</nc:IdentificationSourceText>
+            </nc:PersonSSNIdentification>
+            <jxdm40:PersonAugmentation>
+                <jxdm40:PersonFBIIdentification>
+                    <nc:IdentificationID>674329EM1</nc:IdentificationID>
+                    <nc:IdentificationSourceText/>
+                </jxdm40:PersonFBIIdentification>
+                <jxdm40:PersonStateFingerprintIdentification>
+                    <nc:IdentificationID>A2442666</nc:IdentificationID>
+                    <nc:IdentificationSourceText/>
+                </jxdm40:PersonStateFingerprintIdentification>
+            </jxdm40:PersonAugmentation>
+        </ch:RapSheetPerson>
+        <ch:PersonBiometricsAssociation>
+            <nc:PersonReference s:ref="P23"/>
+            <nc:Biometric>
+                <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
+                <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
+            </nc:Biometric>
+            <ch:PersonBiometrics/>
+        </ch:PersonBiometricsAssociation>
+        <nc:Location s:id="L321865016">
+            <nc:LocationAddress>
+                <nc:AddressFullText>591 Queens Lane Danville, VA 24541</nc:AddressFullText>
+            </nc:LocationAddress>
+        </nc:Location>
+        <ch:Agency s:id="AGY470836590">
+            <nc:OrganizationName>ROUND HILL PD</nc:OrganizationName>
+        </ch:Agency>
+        <ch:Agency s:id="AGY877171195">
+            <nc:OrganizationName>Richmond (city) County Probation</nc:OrganizationName>
+        </ch:Agency>
+        <ch:Agency s:id="AGY-1884824720">
+            <nc:OrganizationName>LAWRENCEVILLE PD</nc:OrganizationName>
+        </ch:Agency>
+        <nc:ResidenceAssociation>
+            <nc:PersonReference s:ref="P23"/>
+            <nc:LocationReference s:ref="L321865016"/>
+        </nc:ResidenceAssociation>
+        <ch:RapSheetCycle>
+            <ch:CycleEarliestDate>
+                <nc:Date>2008-08-09</nc:Date>
+            </ch:CycleEarliestDate>
+            <ch:Arrest s:id="A4934391934">
+                <nc:ActivityDate>
+                    <nc:Date>2008-08-09</nc:Date>
+                </nc:ActivityDate>
+                <jxdm40:ArrestAgencyRecordIdentification>
+                    <nc:IdentificationID>581-7835446</nc:IdentificationID>
+                </jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC65010491</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>FC</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC65010491</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+            </ch:Arrest>
+            <ch:CourtAction>
+                <jxdm40:CourtCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeDisposition>
+                        <nc:DispositionDate>
+                            <nc:Date>2009-04-01</nc:Date>
+                        </nc:DispositionDate>
+                        <nc:DispositionDescriptionText>NOT GUILTY</nc:DispositionDescriptionText>
+                    </jxdm40:ChargeDisposition>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC65010491</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>FC</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC65010491</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:CourtCharge>
+            </ch:CourtAction>
+        </ch:RapSheetCycle>
+        <ch:RapSheetCycle>
+            <ch:CycleEarliestDate>
+                <nc:Date>2013-05-26</nc:Date>
+            </ch:CycleEarliestDate>
+            <ch:Arrest s:id="A0926898914">
+                <nc:ActivityDate>
+                    <nc:Date>2013-05-26</nc:Date>
+                </nc:ActivityDate>
+                <jxdm40:ArrestAgencyRecordIdentification>
+                    <nc:IdentificationID>990-7847068</nc:IdentificationID>
+                </jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC35230873</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>PM</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC35230873</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC79897972</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>VL</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC79897972</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeDisposition>
+                        <nc:DispositionDescriptionText>LACK OF PROS</nc:DispositionDescriptionText>
+                    </jxdm40:ChargeDisposition>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC37767178</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>FCMD</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC37767178</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeDisposition>
+                        <nc:DispositionDescriptionText>LACK OF PROS</nc:DispositionDescriptionText>
+                    </jxdm40:ChargeDisposition>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC06034646</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>NA</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC06034646</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+            </ch:Arrest>
+        </ch:RapSheetCycle>
+        <ch:ArrestAgencyAssociation>
+            <nc:ActivityReference s:ref="A4934391934"/>
+            <nc:OrganizationReference s:ref="AGY-1884824720"/>
+        </ch:ArrestAgencyAssociation>
+        <ch:ArrestAgencyAssociation>
+            <nc:ActivityReference s:ref="A0926898914"/>
+            <nc:OrganizationReference s:ref="AGY470836590"/>
+        </ch:ArrestAgencyAssociation>
+    </ch:RapSheet>
+</ch-doc:CriminalHistory>

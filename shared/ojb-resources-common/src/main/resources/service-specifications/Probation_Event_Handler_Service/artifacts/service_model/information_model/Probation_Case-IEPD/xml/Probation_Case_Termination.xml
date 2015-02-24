@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:ProbationCaseTermination xmlns:Q1="http://niem.gov/niem/unece_rec20-misc/2.0"
+	xmlns:Q11="http://niem.gov/niem/fbi/2.0" xmlns:Q12="http://niem.gov/niem/fips_5-2/2.0"
+	xmlns:Q13="http://niem.gov/niem/iso_639-3/2.0" xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0"
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:p="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0"
+	xmlns:p1="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0 ../xsd/Probation_Case_Termination.xsd">
+
+	<pcext:ProbationCase>
+
+		<pcext:Supervision>
+			<nc20:SupervisionPersonStatus>
+				<nc20:StatusText>06</nc20:StatusText>
+			</nc20:SupervisionPersonStatus>
+			<nc20:SupervisionSupervisor>
+				<nc20:EntityOrganization>
+					<nc20:OrganizationIdentification>
+						<nc20:IdentificationID>002045G</nc20:IdentificationID>
+					</nc20:OrganizationIdentification>
+				</nc20:EntityOrganization>
+				<nc20:EntityPerson s:id="d1e69">
+					<nc20:PersonName>
+						<nc20:PersonGivenName>Jim</nc20:PersonGivenName>
+						<nc20:PersonSurName>Twichell</nc20:PersonSurName>
+					</nc20:PersonName>
+					<nc20:PersonOtherIdentification>
+						<nc20:IdentificationID>590</nc20:IdentificationID>
+						<nc20:IdentificationCategoryText>Enforcement Official Badge ID
+						</nc20:IdentificationCategoryText>
+					</nc20:PersonOtherIdentification>
+				</nc20:EntityPerson>
+			</nc20:SupervisionSupervisor>
+			<jxdm41:SupervisionAugmentation>
+				<jxdm41:SupervisionAssignedTerm>
+					<nc20:ActivityDateRange>
+						<nc20:StartDate>
+							<nc20:Date>2003-04-22</nc20:Date>
+						</nc20:StartDate>
+					</nc20:ActivityDateRange>
+				</jxdm41:SupervisionAssignedTerm>
+				<jxdm41:SupervisionLevelText>14</jxdm41:SupervisionLevelText>
+			</jxdm41:SupervisionAugmentation>
+			<pcext:Probationer s:id="d1e119">
+				<nc20:PersonBirthDate>
+					<nc20:Date>1960-04-12</nc20:Date>
+				</nc20:PersonBirthDate>
+				<nc20:PersonName>
+					<nc20:PersonGivenName>John</nc20:PersonGivenName>
+					<nc20:PersonMiddleName>K</nc20:PersonMiddleName>
+					<nc20:PersonSurName>Smith</nc20:PersonSurName>
+				</nc20:PersonName>
+				<nc20:PersonRaceText>H</nc20:PersonRaceText>
+				<nc20:PersonSexCode>M</nc20:PersonSexCode>
+				<nc20:PersonSSNIdentification>
+					<nc20:IdentificationID>576962146</nc20:IdentificationID>
+				</nc20:PersonSSNIdentification>
+				<jxdm41:PersonAugmentation>
+					<jxdm41:PersonStateFingerprintIdentification>
+						<nc20:IdentificationID>A01222</nc20:IdentificationID>
+					</jxdm41:PersonStateFingerprintIdentification>
+				</jxdm41:PersonAugmentation>
+			</pcext:Probationer>
+			<pcext:SupervisionIdentification>
+				<nc20:IdentificationID>1234</nc20:IdentificationID>
+			</pcext:SupervisionIdentification>
+		</pcext:Supervision>
+		<nc20:ContactInformation s:id="OfficerEmail01">
+			<nc20:ContactEmailID>johnjones@aol.com</nc20:ContactEmailID>
+		</nc20:ContactInformation>
+		<nc20:ContactInformation s:id="SupervisorEmail01">
+			<nc20:ContactEmailID>xxx@aol.com</nc20:ContactEmailID>
+		</nc20:ContactInformation>
+		<nc20:PersonContactInformationAssociation>
+			<nc20:PersonReference s:ref="d1e69"/>
+			<nc20:ContactInformationReference s:ref="SupervisorEmail01"/>
+		</nc20:PersonContactInformationAssociation>
+		<nc20:PersonContactInformationAssociation>
+			<nc20:PersonReference s:ref="Officer01"/>
+			<nc20:ContactInformationReference s:ref="OfficerEmail01"/>
+		</nc20:PersonContactInformationAssociation>
+		<nc20:Person s:id="Officer01">
+			<nc20:PersonName>
+				<nc20:PersonGivenName>John</nc20:PersonGivenName>
+				<nc20:PersonSurName>Jones</nc20:PersonSurName>
+			</nc20:PersonName>
+		</nc20:Person>
+		<jxdm41:EnforcementOfficial>
+			<nc20:RoleOfPersonReference s:ref="Officer01"/>
+		</jxdm41:EnforcementOfficial>
+	</pcext:ProbationCase>
+	<pcext:SystemName>SomeSystemURI</pcext:SystemName>
+
+</p:ProbationCaseTermination>

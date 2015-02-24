@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is an example of an unsubscription in the manual subscription scenario.   -->
+<b:Unsubscribe xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:um="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+	xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
+	<um:UnsubscriptionMessage>
+		<smext:SubscriptionIdentification>
+			<nc20:IdentificationID>19ec7fb5-4e29-4657-a86d-1a9711330e10,A109918642-HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc20:IdentificationID>
+			<nc20:IdentificationSourceText>Subscriptions</nc20:IdentificationSourceText>
+		</smext:SubscriptionIdentification>
+	</um:UnsubscriptionMessage>
+	<b:TopicExpression
+		Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b:TopicExpression>
+</b:Unsubscribe>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exchange:FirearmRegistrationRequest 
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryRequest/1.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:p="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:fext="http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryRequest/1.0 ../xsd/exchange_schema.xsd">
+  <fext:FirearmRegistrationIdentification>
+    <nc:IdentificationID>1234</nc:IdentificationID>
+    <nc:IdentificationSourceText>Firearm Registration System</nc:IdentificationSourceText>
+	</fext:FirearmRegistrationIdentification>
+</exchange:FirearmRegistrationRequest>

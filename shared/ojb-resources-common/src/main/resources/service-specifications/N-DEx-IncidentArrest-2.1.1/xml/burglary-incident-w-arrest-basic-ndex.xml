@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?>
+
+<!--
+	Document: $Id:burglary-incident-w-arrest-basic-ndex.xml 1128 2008-11-04 19:28:44Z jw7 $
+	Original : 11/21/2007
+	Updated : 12/4/2008 - Renamed to add "basic" to the filename, updated for N-DEx 2.1, and corrected a business rule issue.
+					5/14/2010 - Updated N-DEx version number in header to 2.1.1
+	LEXS version : 3.1.4
+	N-DEx version : 2.1.1
+	Description : This scenario represents a possible N-DEx Incident Report submission.  This somewhat simplistic scenario illustrates what a basic Incident Report that 
+			includes an Arrest might look like.  The scenario demonstrates the interaction of activities within an Incident Report.  The scenario involves the primary activity 
+			of Incident interacting with ancillary activities of Offense, Service Call, and Arrest.  The scenario illustrates the interaction of entities with roles and the concept 
+			of entities being able to have multiple roles within the context of a data item.   
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexia.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+-->
+<ndexia:IncidentReport 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:i="http://niem.gov/niem/appinfo/2.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
+	xmlns:mmucc_2="http://niem.gov/niem/mmucc_2/2.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
+	xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1 ../xsd/ndexia/ndexia/2.1/ndexia.xsd">
+	
+	<!--================================= Incident  ============================-->
+	<ndexia:Incident>
+		<ndexia:ActivityStatus>
+			<ndexia:ActivityStatusAugmentation>
+				<ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+			</ndexia:ActivityStatusAugmentation>
+		</ndexia:ActivityStatus>
+		
+		<j:IncidentAugmentation>
+			<j:IncidentExceptionalClearanceCode>N</j:IncidentExceptionalClearanceCode>
+			<j:IncidentLightingCode>darkness</j:IncidentLightingCode>
+		</j:IncidentAugmentation>
+		
+		<ndexia:IncidentAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Incident1" />
+			<ndexia:IncidentWeatherCode>07</ndexia:IncidentWeatherCode>
+		</ndexia:IncidentAugmentation>
+	</ndexia:Incident>
+
+	<!--================================= Offense ============================-->
+	<ndexia:Offense>
+		<ndexia:ActivityAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Offense1" />
+		</ndexia:ActivityAugmentation>
+		<j:IncidentFactor>
+			<j:IncidentFactorCode>N</j:IncidentFactorCode>
+		</j:IncidentFactor>
+		<j:IncidentForce>
+			<j:ForceCategoryCode>90</j:ForceCategoryCode>
+		</j:IncidentForce>
+		<j:IncidentStructuresEnteredQuantity>1</j:IncidentStructuresEnteredQuantity>
+		<j:Statute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>7399</nc:IdentificationID>
+				<nc:IdentificationJurisdictionText>New Mexico</nc:IdentificationJurisdictionText>
+			</j:StatuteCodeIdentification>
+			<j:StatuteDescriptionText>Burglary</j:StatuteDescriptionText>
+		</j:Statute>
+		<ndexia:CriminalActivityCategoryCode>None</ndexia:CriminalActivityCategoryCode>
+		<ndexia:OffenseBiasMotivationCode>None</ndexia:OffenseBiasMotivationCode>
+		<ndexia:OffenseCode>Burglary_forced entry_residence</ndexia:OffenseCode>
+		<ndexia:OffenseCompletedIndicator>false</ndexia:OffenseCompletedIndicator>
+		<ndexia:OffenseEntryPoint>
+			<j:PassagePointMethodCode>F</j:PassagePointMethodCode>
+			<j:PassagePointMethodOfAccessCode>Broke Glass</j:PassagePointMethodOfAccessCode>
+			<ndexia:PassagePointAugmentation>
+				<ndexia:PassagePointCode>Door_Front</ndexia:PassagePointCode>
+				<ndexia:PassagePointSecurityCategoryCode>Lock_Deadbolt</ndexia:PassagePointSecurityCategoryCode>
+			</ndexia:PassagePointAugmentation>
+		</ndexia:OffenseEntryPoint>
+	</ndexia:Offense>
+	
+	<!--============================== Service Call =========================-->
+	<ndexia:ServiceCall>
+		<ndexia:ActivityStatus>
+			<nc:StatusDate>
+				<nc:Date>1997-03-12</nc:Date>
+			</nc:StatusDate>
+			<ndexia:ActivityStatusAugmentation>
+				<ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+			</ndexia:ActivityStatusAugmentation>
+		</ndexia:ActivityStatus>
+		<j:ServiceCallClearanceText>Responded to burglary call from dispatcher. Arrived at residence at 12:25 a.m. to find the front door standing open with the glass broken out.  I drew my weapon and entered the structure after requesting back-up.  Proceeding through the entry way and entered the kitchen hearing loud noise in back of the residence.  I proceeded down a small hallway to a back bedroom where I encountered subject dragging a 56 inch plasma TV across the floor.  Startling the subject, he dropped the TV and attempted to exit the room through an exterior window.  I immediately pursued and subdued subject without further incident.</j:ServiceCallClearanceText>
+		<j:ServiceCallDispatchedDate>
+			<nc:DateTime>1997-03-12T13:00:00.0Z</nc:DateTime>
+		</j:ServiceCallDispatchedDate>
+		<ndexia:ServiceCallAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="ServiceCall1"/>
+			<ndexia:ServiceCallCategoryCode>Burglary</ndexia:ServiceCallCategoryCode>
+			<ndexia:ServiceCallClearanceCategoryCode>Burglary</ndexia:ServiceCallClearanceCategoryCode>
+			<ndexia:ServiceCallMechanismCode>E911</ndexia:ServiceCallMechanismCode>
+		</ndexia:ServiceCallAugmentation>
+	</ndexia:ServiceCall>
+	
+	<!--================================= Arrest  ============================-->
+	<ndexia:Arrest>
+		<j:ArrestCategoryCode>T</j:ArrestCategoryCode>
+		<ndexia:ArrestAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Arrest1" />
+		</ndexia:ArrestAugmentation>
+	</ndexia:Arrest>
+	
+	<!--============================== Person 1 =========================-->
+	<ndexia:Person>
+		<nc:PersonEthnicityCode>N</nc:PersonEthnicityCode>
+		<nc:PersonResidentCode>R</nc:PersonResidentCode>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="WitnessPerson1"/>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+		
+	<!--============================== Witness =========================-->
+	<ndexia:Witness>
+		<ndexia:WitnessAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Witness1"/>
+			<ndexia:WitnessSequenceNumberText>1</ndexia:WitnessSequenceNumberText>
+		</ndexia:WitnessAugmentation>
+	</ndexia:Witness>
+		
+	<!--============================== Person 2 =========================-->
+	<ndexia:Person>
+		<nc:PersonResidentCode>R</nc:PersonResidentCode>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="SubjectArresteePerson1"/>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+		
+	<!--============================== Subject =========================-->
+	<ndexia:Subject>
+		<ndexia:SubjectAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Subject1"/>
+			<ndexia:SubjectMOActionText>Ransacked Premises</ndexia:SubjectMOActionText>
+			<ndexia:SubjectSequenceNumberText>1</ndexia:SubjectSequenceNumberText>
+		</ndexia:SubjectAugmentation>
+	</ndexia:Subject>
+	
+	<!--======================== Arrest Subject  ============================-->
+	<ndexia:ArrestSubject>
+		<ndexia:ArrestSubjectAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="ArrestSubject1"/>
+			<j:ArrestSequenceID>
+				<nc:IdentificationID>1</nc:IdentificationID>
+			</j:ArrestSequenceID>
+			<j:ArrestSubjectCountCode>C</j:ArrestSubjectCountCode>
+			<j:ChargeUCRCode>90D</j:ChargeUCRCode>
+			<ndexia:ArresteeArmedWithCode>01</ndexia:ArresteeArmedWithCode>
+		</ndexia:ArrestSubjectAugmentation>
+	</ndexia:ArrestSubject>
+		
+	<!--============================== Person 3 =========================-->
+	<ndexia:Person>
+		<nc:PersonEthnicityCode>N</nc:PersonEthnicityCode>
+		<nc:PersonResidentCode>R</nc:PersonResidentCode>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="VictimPerson1"/>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+	
+	<!--============================== Victim ===========================-->
+	<ndexia:Victim>
+		<j:VictimCategoryCode>I</j:VictimCategoryCode>
+		<ndexia:VictimAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Victim1"/>
+			<ndexia:VictimSequenceNumberText>1</ndexia:VictimSequenceNumberText>
+		</ndexia:VictimAugmentation>
+	</ndexia:Victim>
+	
+	<!--============================== Person 4 =========================-->
+	<ndexia:Person>
+		<nc:PersonName>
+			<nc:PersonNamePrefixText>Officer</nc:PersonNamePrefixText>
+		</nc:PersonName>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="OfficerPerson1"/>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+	
+	<!--================================= Officer  ============================-->
+	<ndexia:EnforcementOfficial>
+		<ndexia:EnforcementOfficialActivityCategoryCode>Other</ndexia:EnforcementOfficialActivityCategoryCode>
+		<j:EnforcementOfficialAssignmentCategoryCode>G</j:EnforcementOfficialAssignmentCategoryCode>
+		<ndexia:EnforcementOfficialAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Officer1"/>
+		</ndexia:EnforcementOfficialAugmentation>
+	</ndexia:EnforcementOfficial>
+	
+	<!--============================== Location 1 - Dispatch Location / Victim's Home =========================-->
+	<ndexia:Location>
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<ndexia:LocationStreet>
+					<ndexia:StreetAugmentation>
+						<ndexia:StreetPostdirectionalCode>Northwest</ndexia:StreetPostdirectionalCode>
+					</ndexia:StreetAugmentation>
+				</ndexia:LocationStreet>
+				<nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+		<ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+		<ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+		<ndexia:LocationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Location1" />
+		</ndexia:LocationAugmentation>
+	</ndexia:Location>
+	
+	<!--============================== Location 2 - Witness' Home =========================-->
+	<ndexia:Location>
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<ndexia:LocationStreet>
+					<ndexia:StreetAugmentation>
+						<ndexia:StreetPostdirectionalCode>Northwest</ndexia:StreetPostdirectionalCode>
+					</ndexia:StreetAugmentation>
+				</ndexia:LocationStreet>
+				<nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+		<ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+		<ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+		<ndexia:LocationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Location2" />
+		</ndexia:LocationAugmentation>
+	</ndexia:Location>
+	
+	<!--============================== Location 3 - Subject's Home =========================-->	
+	<ndexia:Location>
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+		<ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+		<ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+		<ndexia:LocationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Location3" />
+		</ndexia:LocationAugmentation>
+	</ndexia:Location>
+	
+	<!--================================= Enforcement Unit  ============================-->
+	<ndexia:EnforcementUnit>
+		<j:EnforcementUnitNumberIdentification>
+			<nc:IdentificationID>62</nc:IdentificationID>
+		</j:EnforcementUnitNumberIdentification>
+		<ndexia:EnforcementUnitAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Unit1"/>
+		</ndexia:EnforcementUnitAugmentation>
+	</ndexia:EnforcementUnit>
+
+</ndexia:IncidentReport>

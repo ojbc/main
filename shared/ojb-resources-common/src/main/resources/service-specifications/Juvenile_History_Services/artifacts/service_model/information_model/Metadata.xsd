@@ -1,0 +1,901 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Global Infrastructure/Standards Working Group (GISWG) 
+		Service Specification Package (SSP) Metadata Schema for the Global Reference Architecture (GRA)
+
+		Copyright (c) 2011 by the Global Infrastructure/Standards Working Group (GISWG). All Rights Reserved.
+		=================================================================================================
+
+		Notes:
+		=====
+		1. Most all elements are defined globally and use named types. Exceptions are those elements that are collections.
+		2. Root element is ServiceMetadata
+
+		Revision History
+		============
+		20081009 : Initial creation. Iveta Topalova (GISWG Services Inplementation Committee (SIC))
+		20090428 : Revision to incorporate new metadata elements. Chandra Jonelagadda & Iveta Topalova (GISWG SIC)
+		20090618 : Reconciliation and revision to align with metadata requirements. Iveta Topalova (GISWG SIC) & Joseph Mierwa (IJIS-Technical Advisory Committee)
+		20091115 : Revision taking metrics and better organizing and defining the contents. Joseph Mierwa (IJIS-Technical Advisory Committee)
+		20091117 : Review and preparation for release. Iveta Topalova (GISWG SIC)
+    20110718 : 1.0.0 Release modifications. Iveta Topalova (GISWG SIC)
+    20110718 : 1.0.0 Final Review. James Dyche (GISWG SIC), Iveta Topalova (GISWG SIC)
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gra="http://it.ojp.gov/gsp/services/1.0.0" targetNamespace="http://it.ojp.gov/gsp/services/1.0.0" elementFormDefault="qualified">
+	<xs:complexType name="AgreementType">
+		<xs:annotation>
+			<xs:documentation>A data structure representing an agreement, formal or informal, associated with a service, application or thing, tangible or otherwise.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element ref="gra:AgreementDescriptionText"/>
+				<xs:element ref="gra:AgreementURI"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AmountType">
+		<xs:annotation>
+			<xs:documentation>A data type for an amount of money.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute ref="gra:currencyText" use="optional" default="USD"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="BusinessContextType">
+		<xs:annotation>
+			<xs:documentation>A data structure representing the collection of details describing the business context in which the service operates.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:DomainDescription"/>
+			<xs:element ref="gra:Classifications" minOccurs="0"/>
+			<xs:element ref="gra:ExchangePartnerTypes" minOccurs="0"/>
+			<xs:element ref="gra:Endorsements" minOccurs="0"/>
+			<xs:element ref="gra:Sponsors" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CostType">
+		<xs:annotation>
+			<xs:documentation>A data structure representing the costs associating with using something.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:UsageCostAmount" minOccurs="0"/>
+			<xs:element ref="gra:UsageUnitCostAmount" minOccurs="0"/>
+			<xs:element ref="gra:CreationCostAmount" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DomainDescriptionType">
+		<xs:annotation>
+			<xs:documentation>A data structure representing the primary domain or line of business (LoB) that a service covers.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:DomainNameText"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EntityType">
+		<xs:annotation>
+			<xs:documentation>A data structure representing either a person or an organization.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="Organization" type="gra:OrganizationType"/>
+				<xs:element name="Person" type="gra:PersonContactInformationType"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IEPDReferenceType">
+		<xs:annotation>
+			<xs:documentation>A data structure describing the name and location of an IEPD.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:IEPDName" maxOccurs="unbounded"/>
+			<xs:element ref="gra:IEPDURL" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganizationType">
+		<xs:annotation>
+			<xs:documentation>A data structure describing a body of people grouped together for a common purpose.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:OrganizationName"/>
+			<xs:element ref="gra:OrganizationAcronym" minOccurs="0"/>
+			<xs:element ref="gra:OrganizationFullAddressText" minOccurs="0"/>
+			<xs:element ref="gra:OrganizationWebSiteURL" minOccurs="0"/>
+			<xs:element ref="gra:OrganizationRoleDescriptionText"/>
+			<xs:element ref="gra:OrganizationRoleDetailedDescriptionText" minOccurs="0"/>
+			<xs:element ref="gra:OrganizationPointOfContact" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PerformanceMetricsType">
+		<xs:annotation>
+			<xs:documentation>A data type describing a collection of performance amd quality of service (QoS) characteristics that a service is either expected or required to meet once implemented.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:ServiceResponseTime"/>
+			<xs:element ref="gra:ServiceAverageThroughput" minOccurs="0"/>
+			<xs:element ref="gra:ServiceMaximumThroughput" minOccurs="0"/>
+			<xs:element ref="gra:ServiceAvailability" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonContactInformationType">
+		<xs:annotation>
+			<xs:documentation>A data structure describing a persons name and the means to contact that person.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:ContactPersonName"/>
+			<xs:element ref="gra:ContactPersonEmailID" minOccurs="0"/>
+			<xs:element ref="gra:ContactPersonPhoneNumberID"/>
+			<xs:element ref="gra:ContactPersonAddress" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceActionType">
+		<xs:annotation>
+			<xs:documentation>A data structure representing a services action information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:ActionName"/>
+			<xs:element ref="gra:ActionPurpose"/>
+			<xs:element ref="gra:MessageExchangePattern"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceDescriptionType">
+		<xs:annotation>
+			<xs:documentation>A data structure representing the details describing a service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:ServicePurposeText"/>
+			<xs:element ref="gra:ServiceScopeDescriptionText"/>
+			<xs:element ref="gra:ServiceDescriptionSummaryText" minOccurs="0"/>
+			<xs:element ref="gra:ServiceDescriptionText" minOccurs="0"/>
+			<xs:element ref="gra:ServiceDescriptionKeywordText" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="gra:ServiceCapabilities"/>
+			<xs:element ref="gra:ServiceRealWorldEffects"/>
+			<xs:sequence minOccurs="0">
+				<xs:choice>
+					<xs:element ref="gra:SecurityClassificationText"/>
+					<xs:any namespace="gra:SecurityClassificationAny"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:element ref="gra:ServiceDependencies" minOccurs="0"/>
+			<xs:element ref="gra:IEPDReferences" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceIdentificationType">
+		<xs:annotation>
+			<xs:documentation>A data structure representing the means of uniquely identifying a service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:ServiceFullNameText" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="gra:ServiceID" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="gra:ServiceURI" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="gra:ServiceNameAbbreviationText" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceInteractionProfileType">
+		<xs:annotation>
+			<xs:documentation>A data structure containing information about the Service Interaction Profile Implemented</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:SIPName"/>
+			<xs:element ref="gra:SIPVersion"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceInterfaceSpecificationType">
+		<xs:annotation>
+			<xs:documentation>A data type representing details relating to the interface of a service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:URIDetails"/>
+			<xs:element ref="gra:ServiceActions" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="gra:ServiceInteractionProfiles" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="gra:SecurityImplementedIndicator"/>
+			<xs:element ref="gra:SecurityDescriptionText" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceLevelAgreementsType">
+		<xs:annotation>
+			<xs:documentation>A collection of policies, agreements, licensing and any other goverenace or performance documentation specifying constraints and any other details regarding the realization of a service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:ServicePolicyAndContracts"/>
+			<xs:element ref="gra:PerformanceMetrics"/>
+			<xs:element ref="gra:ServiceUsageDetails"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceMetadataType">
+		<xs:annotation>
+			<xs:documentation>A data structure representing details and characteristics describing a service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:ServiceIdentification"/>
+			<xs:element ref="gra:ServiceDescription"/>
+			<xs:element ref="gra:VersionInformation"/>
+			<xs:element ref="gra:RelatedOrganizationInformation" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="gra:BusinessContext"/>
+			<xs:element ref="gra:ServiceInterface" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="gra:ServiceLevelAgreements"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServicePolicyAndContractsType">
+		<xs:annotation>
+			<xs:documentation>A data type describing a collection of policies and other agreement documentation specifying constraints and any other details regarding the realization of a service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:ApplicablePoliciesIndicator"/>
+			<xs:element ref="gra:ApplicablePolicies" minOccurs="0"/>
+			<xs:element ref="gra:ApplicableContractsIndicator"/>
+			<xs:element ref="gra:ApplicableContracts" minOccurs="0"/>
+			<xs:element ref="gra:ApplicableAgreementsIndicator"/>
+			<xs:element ref="gra:ApplicableAgreements" minOccurs="0"/>
+			<xs:element ref="gra:ApplicableUmbrellaAgreementsIndicator"/>
+			<xs:element ref="gra:ApplicableUmbrellaAgreements" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceUsageType">
+		<xs:annotation>
+			<xs:documentation>A data type describing a collection of  licensing and any other usage goverenace constraints regarding the realization of a service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:ApprovalRequiredIndicator"/>
+			<xs:element ref="gra:LicensingRequiredIndicator"/>
+			<xs:element ref="gra:LicensingAgreement" minOccurs="0"/>
+			<xs:element name="ServiceCost" type="gra:CostType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="SummaryTextType">
+		<xs:annotation>
+			<xs:documentation>A string limited to 160 characters for summary descriptivr text.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="160"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="URIDetailType">
+		<xs:annotation>
+			<xs:documentation>A collection containing URIs information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:URIAddress"/>
+			<xs:element ref="gra:URIDescription"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UsageUnitAmountType">
+		<xs:annotation>
+			<xs:documentation>A data type for an amount of money based on a per unit basis.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gra:AmountType">
+				<xs:attribute ref="gra:unitMeasureText" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="VersionInformationType">
+		<xs:annotation>
+			<xs:documentation>A data structure representing a version for something, such as a service, document, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gra:MajorVersion"/>
+			<xs:element ref="gra:MinorVersion"/>
+			<xs:element ref="gra:RevisionVersion" minOccurs="0"/>
+			<xs:element ref="gra:CreationDate"/>
+			<xs:element ref="gra:ActivationDate" minOccurs="0"/>
+			<xs:element ref="gra:LastRevisionDate" minOccurs="0"/>
+			<xs:element ref="gra:NextRevisionDate" minOccurs="0"/>
+			<xs:element ref="gra:ExpirationDate" minOccurs="0"/>
+			<xs:element ref="gra:LifecycleStatus"/>
+			<xs:element ref="gra:AlertsAndNotifications" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Attributes are defined below -->
+	<xs:attribute name="currencyText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A unit of money or exchange.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="unitMeasureText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A unit of measure in time or quanta.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<!-- All elements begin here in alphanumeric ascending order -->
+	<xs:element name="ActionName" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A service action performed within this service interface.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ActionPurpose" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A description of the Service Action purpose performed by this service interface.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ActivationDate" type="xs:date">
+		<xs:annotation>
+			<xs:documentation>A date when a service was or will be first available in production. Do NOT confuse with the date you submitted this service to a registry. The format is YYYY-MM.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Agreement" type="gra:AgreementType">
+		<xs:annotation>
+			<xs:documentation>A description or reference to an applicable Agreement or MOU governing the use, administration, or implementation of a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="AgreementDescriptionText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A free text description of an agreement, formal or informal, associated with a service, application or thing, tangible or otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="AgreementURI" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>A locator referencing an agreement, formal or informal, associated with a service, application or thing, tangible or otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="AlertsAndNotifications" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>A URL to sign up for alerts and notifications for a specific service</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ApplicableAgreements">
+		<xs:annotation>
+			<xs:documentation>A collection of applicable Agreements or MOUs governing the use, administration, or implementation of a service</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:Agreement" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ApplicableAgreementsIndicator" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>True when there are any applicable agreements or Memoranda Of Understanding (MOUs) relating to the use, administration, or implementation of a service; False otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ApplicableContracts">
+		<xs:annotation>
+			<xs:documentation>A collection of any formal contracts associated with a service, application or thing, tangible or otherwise.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:Contract" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ApplicableContractsIndicator" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>True when there are any applicable contracts relating to the use, administration, or implementation of a service; False otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ApplicablePolicies">
+		<xs:annotation>
+			<xs:documentation>A collection of all policies that in some way constrain, govern, or control the usage of a service, application, process. etc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:PolicyText"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ApplicablePoliciesIndicator" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>True when there are any applicable policies governing the use, administration, or implementation of a service; False otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ApplicableUmbrellaAgreements">
+		<xs:annotation>
+			<xs:documentation>A collection of all umbrella agreements that in some way constrain, govern, or control the usage of a service, application, process. etc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:UmbrellaAgreement" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ApplicableUmbrellaAgreementsIndicator" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>True when there are any applicable umbrella agreements relating to the use, administration, or implementation of a service; False otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ApprovalRequiredIndicator" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>True when a permission must first be obtained prior to using a service or performing some action in a business process; False otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="BusinessContext" type="gra:BusinessContextType">
+		<xs:annotation>
+			<xs:documentation>A collection of details describing the business context in which the service operates.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CapabilityDescriptionText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A free text format description of the capability provided by a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Classification" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A classification defining the relationship between a service and an applicable enterprise architecture and business reference model.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Classifications">
+		<xs:annotation>
+			<xs:documentation>A collection of classifications defining the relationship between a service and an applicable enterprise architecture and business reference model.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:Classification"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ContactPersonAddress" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A physical address of a person in full text form.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ContactPersonEmailID" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>An Email of a person.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ContactPersonName" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A name of a person designated as a point of contact.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ContactPersonPhoneNumberID" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A phone number of the person designated as the point of contact for the organization.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Contract" type="gra:AgreementType">
+		<xs:annotation>
+			<xs:documentation>A formal contract associated with a service, application, process, tranaction, or thing, tangible or otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CreationCostAmount" type="gra:AmountType">
+		<xs:annotation>
+			<xs:documentation>A cost create a thing, such as an application or service  This includes the full cost to design, manage, develop, test, implement and maintain.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CreationDate" type="xs:date">
+		<xs:annotation>
+			<xs:documentation>A date designation when a service was first created. Do NOT to be confuse with the date a service is submitted to a registry. The format is YYYY-MM.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DomainDescription" type="gra:DomainDescriptionType">
+		<xs:annotation>
+			<xs:documentation>A primary domain or line of business (LoB) that a service covers.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DomainNameText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A name of a primary domain or line of business (LoB) that a service covers.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Endorsements">
+		<xs:annotation>
+			<xs:documentation>A collection of names and acronyms of professional or governmental organizations or people that endorse this service as an official business exchange.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:Endorser" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Endorser" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A name of professional or governmental organizations that endorse this service as an official business exchange.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ExchangePartnerTypes">
+		<xs:annotation>
+			<xs:documentation>A collection of the types/categories of organizations that would commonly use a service.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:ExchangePartnerTypeDescriptionText"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ExchangePartnerTypeDescriptionText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A text description for the type/category of organization that would commonly use a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ExpirationDate" type="xs:date">
+		<xs:annotation>
+			<xs:documentation>A year and month (YYYY-MM) this service is expected to be no longer available (if applicable).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="IEPDName" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A human readable identification of the IEPD</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="IEPDReference" type="gra:IEPDReferenceType">
+		<xs:annotation>
+			<xs:documentation>A set or reference information identifying an Information Exchange Package Document which the service uses in its data model</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="IEPDReferences">
+		<xs:annotation>
+			<xs:documentation>A collection of reference information identifying all Information Exchange Package Documents which the service uses in its data model</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:IEPDReference" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IEPDURL" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>A URL where the IEPD is posted and available.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LastRevisionDate" type="xs:date">
+		<xs:annotation>
+			<xs:documentation>A date with the year and month specifying when this service information was last revised. Do NOT confuse with the date the service itself was last revised with generating new service documentation. The format is YYYY-MM.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LicensingAgreement" type="gra:AgreementType">
+		<xs:annotation>
+			<xs:documentation>A type of licensing for a service or application. Descriptive values could be In House, No License,  Open Source, Purchase License, etc.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LicensingRequiredIndicator" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>True when a license is required to use a service or application; False otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LifecycleStatus" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A word indicating the current stage of the service within the development lifecycle.  Valid values are; In Design, In Development, Release Candidate, Operational/Production, Deprecated</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MajorVersion" type="xs:integer">
+		<xs:annotation>
+			<xs:documentation>A value identifying the primary version number.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MessageExchangePattern" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A category of transaction this service is designed and used for: query/response, message, publish/subscribe, document, etc.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PerformanceMetrics" type="gra:PerformanceMetricsType">
+		<xs:annotation>
+			<xs:documentation>A collection of performance amd quality of service (QoS) characteristics that a service is either expected or required to meet once implemented.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MinorVersion" type="xs:integer">
+		<xs:annotation>
+			<xs:documentation>A value designating a minor version number.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="NextRevisionDate" type="xs:date">
+		<xs:annotation>
+			<xs:documentation>A year and month (YYYY-MM) a service is expected to be revised.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Organization" type="gra:OrganizationType">
+		<xs:annotation>
+			<xs:documentation>A body of people grouped together for a common purpose.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="OrganizationAcronym" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>An acronym for the agency.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="OrganizationFullAddressText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A physical address of an agency in full text form.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="OrganizationName" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A full name of the agency.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="OrganizationPointOfContact" type="gra:PersonContactInformationType">
+		<xs:annotation>
+			<xs:documentation>A person designated as the point of contact for an organization.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="OrganizationRoleDescriptionText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>An organizations role defined in free form text. Examples could be creator, provider, owner, maintainer, authorities source, etc.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="OrganizationRoleDetailedDescriptionText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A very detailed textual explanation of the role and responsibilities of an organization.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="OrganizationWebSiteURL" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>An internet address of the agency's web site.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceResponseTime" type="xs:duration">
+		<xs:annotation>
+			<xs:documentation>A description of the average response time for a service.  The response time is calculated as the time input is provided to the service until the service completes its process or provides output for the consumer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PolicyText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A description of a policy document that in some way, constrains, governs, or controls the usage of a service, application, process. etc.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="RealWorldEffectDescriptionText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A free text description of a real world effect provided by a Service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="RelatedOrganizationInformation">
+		<xs:annotation>
+			<xs:documentation>A collection of organizations that are somehow related to the service.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:Organization" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RevisionVersion" type="xs:integer">
+		<xs:annotation>
+			<xs:documentation>A value designating a minor version revision number.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SecurityClassificationText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Any applicable classification of the security level of the information exchanged by the service, such as SBU, Secret, etc. If there is no strict classification this field can contain a brief statement regarding the security of the data.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SecurityDescriptionText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A text description that identifies the security which was implemented to protect this service interface (GFIPM, Trusted Broker, etc)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SecurityImplementedIndicator" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>True when security has been implemented to access this service.False otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceAction" type="gra:ServiceActionType">
+		<xs:annotation>
+			<xs:documentation>A complex element containing Actions information.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceActions">
+		<xs:annotation>
+			<xs:documentation>A collection of service actions related to a service.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:ServiceAction" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ServiceAvailability" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A description or measurement of the expected availbility that a service is usable.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceAverageThroughput" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A description of how often a service is expected to be, or actually used, averaged over a period of time.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceCapabilities">
+		<xs:annotation>
+			<xs:documentation>An enumeration of the capabilities provided by a service. The capabilities will be described in a free text format.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:CapabilityDescriptionText" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ServiceDependencies">
+		<xs:annotation>
+			<xs:documentation>A collection of all services upon which a service directly depends to deliver its real world effects.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:ServiceDependency" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ServiceDependency" type="gra:ServiceIdentificationType">
+		<xs:annotation>
+			<xs:documentation>A specific service upon which a service directly depends to deliver its real world effects.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceDescription" type="gra:ServiceDescriptionType">
+		<xs:annotation>
+			<xs:documentation>A set of details describing a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceDescriptionKeywords">
+		<xs:annotation>
+			<xs:documentation>A collection of search terms that would not otherwise be in other metadata attributes (e.g., Child Support Warrant, Domestic Relations Warrant, Domestics).</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:ServiceDependency" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ServiceDescriptionKeywordText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A search term that would not otherwise be in other metadata attributes (e.g., Child Support Warrant, Domestic Relations Warrant, Domestics).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceDescriptionSummaryText" type="gra:SummaryTextType">
+		<xs:annotation>
+			<xs:documentation>A brief summary of this service for short display purposes.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceDescriptionText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A human readable narrative description of this service—may contain as much detail as you think useful to those with a potential interest in this service and its business usage/application.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceFullNameText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A human readable identification of the service</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceID" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>An identification of the service in a service registry and/or repository.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceIdentification" type="gra:ServiceIdentificationType">
+		<xs:annotation>
+			<xs:documentation>A means of uniquely identifying a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceInteractionProfile" type="gra:ServiceInteractionProfileType">
+		<xs:annotation>
+			<xs:documentation>A set of information about the Service Interaction Profile Implemented.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceInteractionProfiles">
+		<xs:annotation>
+			<xs:documentation>A collection of sets of details about the Service Interaction Profile Implemented</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:ServiceInteractionProfile" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ServiceInterface" type="gra:ServiceInterfaceSpecificationType">
+		<xs:annotation>
+			<xs:documentation>A set of details relating to the interface of a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceLevelAgreements" type="gra:ServiceLevelAgreementsType">
+		<xs:annotation>
+			<xs:documentation>A collection of policies, agreements, licensing and any other goverenace or performance documentation specifying constraints and any other details regarding the realization of a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceMaximumThroughput" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A description of the limit of how often a service is able to be accessed or used at, over a period of time during peak capacity.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceMetadata" type="gra:ServiceMetadataType">
+		<xs:annotation>
+			<xs:documentation>A set of details and characteristics describing a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceNameAbbreviationText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A human readable abbreviation of the Service Name.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServicePolicyAndContracts" type="gra:ServicePolicyAndContractsType">
+		<xs:annotation>
+			<xs:documentation>A collection of policies and other agreement documentation specifying constraints and any other details regarding the realization of a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServicePurposeText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A purpose which the service intends or resolves, to perform or accomplish.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceRealWorldEffects">
+		<xs:annotation>
+			<xs:documentation>A collection of the Real World Effects Provided by the Service.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:RealWorldEffectDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ServiceScopeDescriptionText" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A definition of the scope of a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceUsageDetails" type="gra:ServiceUsageType">
+		<xs:annotation>
+			<xs:documentation>A collection of  licensing and any other usage goverenace constraints regarding the realization of a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ServiceURI" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>A fully qualified locator of the service interface potentially including version and environment.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SIPName" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A name of the Service Interaction Profile Implemented.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SIPVersion" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A version of the Service Interaction Profile Implemented</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Sponsor" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A description of professional or governmental organization(s) or person that sponsored, contributed, or participated in the development of a service.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Sponsors">
+		<xs:annotation>
+			<xs:documentation>A collection of professional or governmental organization(s) or person that sponsored, contributed, or participated in the development of a service.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:Sponsor" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UmbrellaAgreement" type="gra:AgreementType">
+		<xs:annotation>
+			<xs:documentation>An umbrella agreement that in some way constrain, govern, or control the usage of a service, application, process. etc.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="URIDetail" type="gra:URIDetailType">
+		<xs:annotation>
+			<xs:documentation>A collection containing URIs information.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="URIDetails">
+		<xs:annotation>
+			<xs:documentation>A collection URI details.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="gra:URIDetail" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UsageCostAmount" type="gra:AmountType">
+		<xs:annotation>
+			<xs:documentation>A total cost to use something, such as a service, etc. </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="UsageUnitCostAmount" type="gra:AmountType">
+		<xs:annotation>
+			<xs:documentation>A cost associated with a service(e.g. transaction, unlimited transactions, minutes of use).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="URIAddress" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>A fully qualified locator of the service interface potentially including version and environment.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="URIDescription" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A description of the URI. This would provide better understanding of what is actually at the URI address.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VersionInformation" type="gra:VersionInformationType">
+		<xs:annotation>
+			<xs:documentation>A structured representation of a version for something, such as a service, document, etc.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

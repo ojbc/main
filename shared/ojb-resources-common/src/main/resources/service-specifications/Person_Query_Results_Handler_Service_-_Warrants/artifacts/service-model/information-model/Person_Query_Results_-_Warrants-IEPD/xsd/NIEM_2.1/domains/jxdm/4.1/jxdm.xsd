@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://niem.gov/niem/domains/jxdm/4.1" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+  <xsd:annotation>
+    <xsd:documentation>Justice</xsd:documentation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../../appinfo/2.1/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.1"/>
+  <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
+  <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:import schemaLocation="../../../usps_states/2.0/usps_states.xsd" namespace="http://niem.gov/niem/usps_states/2.0"/>
+  <xsd:complexType name="BailType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for details of a commitment made to secure the release of a subject being held in custody and suspected of a crime.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ActivityType">
+        <xsd:sequence>
+          <xsd:element ref="j:BailSetAmount" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CaseType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an applied augmentation for type nc:CaseType</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="CaseType"/>
+        <i2:AugmentedTypeIndicator>true</i2:AugmentedTypeIndicator>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:CaseType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CitationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an official summons to appear in court or pay a fine.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ActivityType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CourtOrderType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a direction of a judge not including a judgement, which determines some point or directs some steps in proceedings.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ActivityType">
+        <xsd:sequence>
+          <xsd:element ref="j:CourtOrderDesignatedSubject" minOccurs="1" maxOccurs="1"/>
+          <xsd:element ref="j:CourtOrderIssuingCourt" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="j:CourtOrderIssuingDate" minOccurs="1" maxOccurs="1"/>
+          <xsd:element ref="j:CourtOrderJurisdiction" minOccurs="1" maxOccurs="1"/>
+          <xsd:element ref="j:CourtOrderStatus" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CourtType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a court or a unit of a court responsible for trying justice proceedings.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="OrganizationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:OrganizationType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PersonAugmentationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for additional information about a person.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="AugmentationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:AugmentationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PersonType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an applied augmentation for type nc:PersonType</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="PersonType"/>
+        <i2:AugmentedTypeIndicator>true</i2:AugmentedTypeIndicator>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:PersonType">
+        <xsd:sequence>
+          <xsd:element ref="j:PersonAugmentation" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SubjectType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a person who is involved or suspected of being involved in an incident or criminal activity.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="nc:RoleOfPersonReference" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="WarrantType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an authorization for an enforcement official to perform a specified action.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="CourtOrderType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="j:CourtOrderType">
+        <xsd:sequence>
+          <xsd:element ref="j:WarrantLevelText" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="Bail" type="j:BailType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Details about a commitment made (and possibly secured by cash or property) to secure the release of a subject being held in custody and suspected of a crime.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="BailSetAmount" type="nc:AmountType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An amount of bail set for defendant.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Case" type="j:CaseType" substitutionGroup="nc:Case" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Applied augmentation for type nc:CaseType</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="Case"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CourtOrder" type="j:CourtOrderType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Details about a direction of a judge not included in a judgment, which determines some point or directs some step in proceedings.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CourtOrderDesignatedSubject" type="j:SubjectType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A person to which a court order applies. The subject could be a Protected Party, the recipient of a Summons or Subpoena, the subject of a Warrant, etc.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CourtOrderIssuingCourt" type="j:CourtType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A court that issued a court order.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CourtOrderIssuingDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A date a court order was issued by a judicial official.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CourtOrderJurisdiction" type="nc:JurisdictionType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An area in which a court order can be enforced.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CourtOrderStatus" type="nc:StatusType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A state of a court order.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="IdentificationJurisdictionUSPostalServiceCode" type="usps:USStateCodeType" substitutionGroup="nc:IdentificationJurisdiction" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An area, region, or unit in which a unique identification is issued.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="IdentificationJurisdiction"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Person" type="j:PersonType" substitutionGroup="nc:Person" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Applied augmentation for type nc:PersonType</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="Person"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonAugmentation" type="j:PersonAugmentationType" substitutionGroup="s:Augmentation" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Additional information about a person.</xsd:documentation>
+      <xsd:appinfo>
+        <i:AppliesTo i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="PersonType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A number issued by the FBI's Automated Fingerprint Identification System (AFIS) based on submitted fingerprints.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Warrant" type="j:WarrantType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An authorization for an enforcement official to perform a specified action.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="WarrantLevelText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An offense level associated with a warrant to be served.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Oracle JAX-WS 2.1.5. -->
+<s0:definitions xmlns:s0="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:s1="urn://gov.usdoj.publish.webservice" xmlns:s2="http://schemas.xmlsoap.org/wsdl/soap12/"
+  name="AI_W_SourceDataIntegrationServiceDefinitions"
+  targetNamespace="urn://gov.usdoj.publish.webservice">
+
+  <s0:types>
+    <xs:schema xmlns:tns="urn://gov.usdoj.publish.webservice"
+      xmlns:xs="http://www.w3.org/2001/XMLSchema"
+      targetNamespace="urn://gov.usdoj.publish.webservice" attributeFormDefault="unqualified"
+      elementFormDefault="qualified">
+
+      <xs:import namespace="http://www.w3.org/2001/XMLSchema"/>
+
+      <xs:element name="submitDataItem" type="tns:submitDataItemType"/>
+      <xs:element name="submitDataItemResponse" type="tns:submitDataItemResponseType"/>
+      <xs:element name="submitBundle" type="tns:submitBundleType"/>
+      <xs:element name="submitBundleResponse" type="tns:submitBundleResponseType"/>
+
+      <xs:complexType name="submitDataItemType">
+        <xs:sequence>
+          <xs:element name="dataItem" type="tns:dataItemType"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="submitDataItemResponseType">
+        <xs:sequence>
+          <xs:element name="publishResponse" type="tns:publishResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="submitBundleType">
+        <xs:sequence>
+          <xs:element name="dataItem" type="tns:dataItemType"/>
+          <xs:element name="submittingAgencyORI" type="xs:string"/>
+          <xs:element name="messageTimestamp" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="submitBundleResponseType">
+        <xs:sequence>
+          <xs:element name="publishResponse" type="tns:publishResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="dataItemType">
+        <xs:annotation>
+          <xs:documentation>Element containing data item document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:any/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="publishResponse">
+        <xs:sequence>
+          <xs:element name="resultCode">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Success"/>
+                <xs:enumeration value="Warning"/>
+                <xs:enumeration value="Error"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element minOccurs="0" name="resultMessage" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+
+  </s0:types>
+  <s0:message name="submitDataItemMsg">
+    <s0:part element="s1:submitDataItem" name="parameters"/>
+  </s0:message>
+  <s0:message name="submitDataItemResponseMsg">
+    <s0:part element="s1:submitDataItemResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="submitBundleMsg">
+    <s0:part element="s1:submitBundle" name="parameters"/>
+  </s0:message>
+  <s0:message name="submitBundleResponseMsg">
+    <s0:part element="s1:submitBundleResponse" name="parameters"/>
+  </s0:message>
+
+  <s0:portType name="AI_SourceDataIntegrationWSPortType">
+    <s0:operation name="doSubmitDataItem" parameterOrder="parameters">
+      <s0:input message="s1:submitDataItemMsg"/>
+      <s0:output message="s1:submitDataItemResponseMsg"/>
+    </s0:operation>
+    <s0:operation name="doSubmitBundle" parameterOrder="parameters">
+      <s0:input message="s1:submitBundleMsg"/>
+      <s0:output message="s1:submitBundleResponseMsg"/>
+    </s0:operation>
+  </s0:portType>
+
+  <s0:binding name="AI_SourceDataIntegrationServiceSoapBinding"
+    type="s1:AI_SourceDataIntegrationWSPortType">
+    <s2:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="doSubmitDataItem">
+      <s2:operation soapAction="" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="doSubmitBundle">
+      <s2:operation soapAction="" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+
+  <s0:service name="AI_SourceDataIntegrationService">
+    <s0:port binding="s1:AI_SourceDataIntegrationServiceSoapBinding"
+      name="AI_SourceDataIntegrationServicePort">
+      <s2:address location=""/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

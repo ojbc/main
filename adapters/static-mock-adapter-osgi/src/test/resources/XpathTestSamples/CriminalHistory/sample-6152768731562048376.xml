@@ -1,0 +1,195 @@
+<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.0" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
+    <ch:RapSheet>
+        <ch:Metadata>
+            <nc:ReportingOrganizationText>State CHRI</nc:ReportingOrganizationText>
+        </ch:Metadata>
+        <ch:Introduction>
+            <ch:RapSheetRequest>
+                <ch:PurposeCode>A</ch:PurposeCode>
+                <ch:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</ch:Attention>
+                <ch:RapSheetPerson>
+                    <nc:PersonBirthDate>
+                        <nc:Date>1949-03-10</nc:Date>
+                    </nc:PersonBirthDate>
+                    <nc:PersonName>
+                        <nc:PersonGivenName>Kevin</nc:PersonGivenName>
+                        <nc:PersonMiddleName>A</nc:PersonMiddleName>
+                        <nc:PersonSurName>Reyna</nc:PersonSurName>
+                    </nc:PersonName>
+                </ch:RapSheetPerson>
+            </ch:RapSheetRequest>
+        </ch:Introduction>
+        <ch:RapSheetPerson s:id="P2">
+            <nc:PersonBirthDate>
+                <nc:Date>1949-03-10</nc:Date>
+            </nc:PersonBirthDate>
+            <nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+            <nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
+            <nc:PersonHeightMeasure>
+                <nc:MeasurePointValue>65</nc:MeasurePointValue>
+                <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+            </nc:PersonHeightMeasure>
+            <nc:PersonName>
+                <nc:PersonGivenName>Kevin</nc:PersonGivenName>
+                <nc:PersonMiddleName>A</nc:PersonMiddleName>
+                <nc:PersonSurName>Reyna</nc:PersonSurName>
+            </nc:PersonName>
+            <nc:PersonRaceCode>W</nc:PersonRaceCode>
+            <nc:PersonSexCode>M</nc:PersonSexCode>
+            <jxdm40:PersonAugmentation>
+                <jxdm40:PersonFBIIdentification>
+                    <nc:IdentificationID>964590BC1</nc:IdentificationID>
+                    <nc:IdentificationSourceText/>
+                </jxdm40:PersonFBIIdentification>
+                <jxdm40:PersonStateFingerprintIdentification>
+                    <nc:IdentificationID>A1860213</nc:IdentificationID>
+                    <nc:IdentificationSourceText/>
+                </jxdm40:PersonStateFingerprintIdentification>
+            </jxdm40:PersonAugmentation>
+        </ch:RapSheetPerson>
+        <ch:PersonBiometricsAssociation>
+            <nc:PersonReference s:ref="P2"/>
+            <nc:Biometric>
+                <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
+                <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
+            </nc:Biometric>
+            <ch:PersonBiometrics/>
+        </ch:PersonBiometricsAssociation>
+        <nc:Location s:id="L642597087">
+            <nc:LocationAddress>
+                <nc:AddressFullText>2711 Shobe Lane Denver, CO 80202</nc:AddressFullText>
+            </nc:LocationAddress>
+        </nc:Location>
+        <ch:Agency s:id="AGY-1221021188">
+            <nc:OrganizationName>PUEBLO PD</nc:OrganizationName>
+        </ch:Agency>
+        <ch:Agency s:id="AGY266024667">
+            <nc:OrganizationName>NATHROP PD</nc:OrganizationName>
+        </ch:Agency>
+        <ch:Agency s:id="AGY-950303046">
+            <nc:OrganizationName>Otero County Jail</nc:OrganizationName>
+        </ch:Agency>
+        <nc:ResidenceAssociation>
+            <nc:PersonReference s:ref="P2"/>
+            <nc:LocationReference s:ref="L642597087"/>
+        </nc:ResidenceAssociation>
+        <ch:RapSheetCycle>
+            <ch:CycleEarliestDate>
+                <nc:Date>2013-02-13</nc:Date>
+            </ch:CycleEarliestDate>
+            <ch:Supervision s:id="A7383042295SC">
+                <nc:ActivityCategoryText>CUSTODY</nc:ActivityCategoryText>
+                <nc:ActivityDate>
+                    <nc:Date>2013-02-13</nc:Date>
+                </nc:ActivityDate>
+                <nc:SupervisionCustodyStatus>
+                    <nc:StatusDescriptionText>SENT MISD</nc:StatusDescriptionText>
+                </nc:SupervisionCustodyStatus>
+                <nc:SupervisionRelease>
+                    <nc:ActivityDate>
+                        <nc:Date>2013-05-14</nc:Date>
+                    </nc:ActivityDate>
+                </nc:SupervisionRelease>
+            </ch:Supervision>
+        </ch:RapSheetCycle>
+        <ch:RapSheetCycle>
+            <ch:CycleEarliestDate>
+                <nc:Date>2012-07-04</nc:Date>
+            </ch:CycleEarliestDate>
+            <ch:Arrest s:id="A7383042295">
+                <nc:ActivityDate>
+                    <nc:Date>2012-07-04</nc:Date>
+                </nc:ActivityDate>
+                <jxdm40:ArrestAgencyRecordIdentification>
+                    <nc:IdentificationID>170-5589010</nc:IdentificationID>
+                </jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC07566089</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>MD</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC07566089</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+            </ch:Arrest>
+            <ch:CourtAction>
+                <jxdm40:CourtCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeDisposition>
+                        <nc:DispositionDate>
+                            <nc:Date>2013-02-13</nc:Date>
+                        </nc:DispositionDate>
+                        <nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+                    </jxdm40:ChargeDisposition>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC07566089</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>MD</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC07566089</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:CourtCharge>
+            </ch:CourtAction>
+            <ch:Sentencing>
+                <jxdm40:Sentence>
+                    <jxdm40:SentenceCharge>
+                        <jxdm40:ChargeTrackingIdentification>
+                            <nc:IdentificationID>AC07566089</nc:IdentificationID>
+                        </jxdm40:ChargeTrackingIdentification>
+                    </jxdm40:SentenceCharge>
+                    <jxdm40:SentenceDescriptionText>ON 02/13/2013 SUBJECT SENTENCED TO 90 DAYS CONFINEMENT AND A FINE OF $95.88</jxdm40:SentenceDescriptionText>
+                </jxdm40:Sentence>
+            </ch:Sentencing>
+        </ch:RapSheetCycle>
+        <ch:RapSheetCycle>
+            <ch:CycleEarliestDate>
+                <nc:Date>2012-12-03</nc:Date>
+            </ch:CycleEarliestDate>
+            <ch:Arrest s:id="A2466315862">
+                <nc:ActivityDate>
+                    <nc:Date>2012-12-03</nc:Date>
+                </nc:ActivityDate>
+                <jxdm40:ArrestAgencyRecordIdentification>
+                    <nc:IdentificationID>779-7423533</nc:IdentificationID>
+                </jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeDisposition>
+                        <nc:DispositionDescriptionText>LACK OF PROS</nc:DispositionDescriptionText>
+                    </jxdm40:ChargeDisposition>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC12536658</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>MD</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC12536658</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC79275657</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>FA</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC79275657</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+            </ch:Arrest>
+        </ch:RapSheetCycle>
+        <ch:ArrestAgencyAssociation>
+            <nc:ActivityReference s:ref="A7383042295"/>
+            <nc:OrganizationReference s:ref="AGY266024667"/>
+        </ch:ArrestAgencyAssociation>
+        <ch:ArrestAgencyAssociation>
+            <nc:ActivityReference s:ref="A2466315862"/>
+            <nc:OrganizationReference s:ref="AGY-1221021188"/>
+        </ch:ArrestAgencyAssociation>
+        <ch:SupervisionAgencyAssociation>
+            <ch:SupervisionReference s:ref="A7383042295SC"/>
+            <nc:OrganizationReference s:ref="AGY-950303046"/>
+        </ch:SupervisionAgencyAssociation>
+    </ch:RapSheet>
+</ch-doc:CriminalHistory>

@@ -85,7 +85,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-osgi-utils</artifactId>
+			<artifactId>ojb-osgi-common</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-osgi-test-common</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 

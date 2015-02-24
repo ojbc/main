@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0" 
+	xmlns:exc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
+	elementFormDefault="qualified">
+	
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0" schemaLocation="extension-schema.xsd"/>
+	
+	<xsd:element name="CycleTrackingIdentifierAssignmentReport" type="ext:CycleTrackingIdentifierAssignmentReportType">
+		<xsd:annotation>
+			<xsd:documentation>A report that contains information about the assigning of a criminal history tracking identifier as well as information about charges, persons, and agencies involved in activity leading up to the request of the tracking identifier.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exchange:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd" xmlns:exchange="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:hi_codes_hajis="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>ID</nc:IdentificationID>
+		<nc:IdentificationCategoryText>TRANSACTIONID</nc:IdentificationCategoryText>
+	</nc:DocumentIdentification>
+	<nc:Case structures:id="CASE_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>ID</nc:IdentificationID>
+			<nc:IdentificationCategoryText>DISP_EXTERNAL_CASE_NO</nc:IdentificationCategoryText>
+		</nc:ActivityIdentification>
+		<j:CaseAugmentation>
+			<j:CaseCharge structures:id="CHARGE_01">
+				<j:ChargeDisposition>
+					<nc:DispositionEntity>
+						<nc:EntityOrganization>
+							<j:OrganizationAugmentation>
+								<j:OrganizationORIIdentification>
+									<nc:IdentificationID>ID45367</nc:IdentificationID>
+								</j:OrganizationORIIdentification>
+							</j:OrganizationAugmentation>
+						</nc:EntityOrganization>
+					</nc:DispositionEntity>
+					<nc:DispositionDate>
+						<nc:Date>2013-11-05</nc:Date>
+					</nc:DispositionDate>
+					<ext:ChargeDispositionAugmentation>
+						<hi_codes_hajis:DispositionCode>AQI</hi_codes_hajis:DispositionCode>
+						<hi_codes_hajis:DispositionCategoryCode>PROS</hi_codes_hajis:DispositionCategoryCode>
+					</ext:ChargeDispositionAugmentation>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>ID764767</nc:IdentificationID>
+					<nc:IdentificationCategoryText>CHARGEOTN</nc:IdentificationCategoryText>
+				</j:ChargeIdentification>
+				<j:ChargePlea>
+					<ext:PleaAugmentation>
+						<hi_codes_hajis:PleaCode>C</hi_codes_hajis:PleaCode>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>String</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
+					</ext:PleaAugmentation>
+				</j:ChargePlea>
+				<j:ChargeSentence>
+					<nc:ActivityDate>
+						<nc:Date>2013-11-05</nc:Date>
+					</nc:ActivityDate>
+					<j:SentenceCharge>
+						<j:ChargeDisposition>
+							<ext:ChargeDispositionAugmentation>
+								<hi_codes_hajis:DispositionCode>BRS</hi_codes_hajis:DispositionCode>
+								<hi_codes_hajis:DispositionCategoryCode>SCT</hi_codes_hajis:DispositionCategoryCode>
+							</ext:ChargeDispositionAugmentation>
+						</j:ChargeDisposition>
+					</j:SentenceCharge>
+					<j:SentenceCondition>
+						<nc:ConditionDisciplinaryAction>
+							<nc:DisciplinaryActionFee>
+								<nc:ObligationDueAmount>
+									<nc:Amount>100.00</nc:Amount>
+								</nc:ObligationDueAmount>
+								<ext:ObligationUnitText>Dollars</ext:ObligationUnitText>
+							</nc:DisciplinaryActionFee>
+						</nc:ConditionDisciplinaryAction>
+					</j:SentenceCondition>
+					<ext:SentenceAugmentation>
+						<hi_codes_hajis:SentenceCategoryCode>DON</hi_codes_hajis:SentenceCategoryCode>
+					</ext:SentenceAugmentation>
+				</j:ChargeSentence>
+				<j:ChargeSequenceID>4</j:ChargeSequenceID>
+				<ext:ChargeAugmentation>
+					<ext:InitialCharge>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>54-345-34565</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
+						<ext:ChargeAugmentation>
+							<hi_codes_hajis:ChargeSeverityCode>FB</hi_codes_hajis:ChargeSeverityCode>
+						</ext:ChargeAugmentation>
+					</ext:InitialCharge>
+					<ext:FinalCharge>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>54-345-34565</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
+						<ext:ChargeAugmentation>
+							<ext:ChargeModifierText/>
+							<hi_codes_hajis:ChargeSeverityCode>FB</hi_codes_hajis:ChargeSeverityCode>
+						</ext:ChargeAugmentation>
+					</ext:FinalCharge>
+					<ext:ChargePardonDate>
+						<nc:Date>2013-11-05</nc:Date>
+					</ext:ChargePardonDate>
+				</ext:ChargeAugmentation>
+			</j:CaseCharge>
+			<j:CaseCourt>
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>Organization ID</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+				<nc:OrganizationLocation>
+					<nc:Address>
+						<nc:LocationCountyName>Court County Name</nc:LocationCountyName>
+					</nc:Address>
+				</nc:OrganizationLocation>
+			</j:CaseCourt>
+			<j:CaseCourtEvent>
+				<ext:CourtEventAugmentation>
+					<hi_codes_hajis:CourtEventCategoryCode>COP</hi_codes_hajis:CourtEventCategoryCode>
+				</ext:CourtEventAugmentation>
+			</j:CaseCourtEvent>
+			<j:CaseCourtEvent>
+				<nc:ActivityCategoryText>Disposition Next Date</nc:ActivityCategoryText>
+				<nc:ActivityDate>
+					<nc:Date>2013-11-05</nc:Date>
+				</nc:ActivityDate>
+			</j:CaseCourtEvent>
+			<j:CaseDefenseAttorney>
+				<ext:CaseOfficialAugmentation>
+					<hi_codes_hajis:CounselCategoryCode>PD</hi_codes_hajis:CounselCategoryCode>
+				</ext:CaseOfficialAugmentation>
+			</j:CaseDefenseAttorney>
+			<j:CaseJudge>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<nc:PersonFullName>L . Smith</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+			</j:CaseJudge>
+			<j:CaseOtherIdentification>
+				<nc:IdentificationID>ID</nc:IdentificationID>
+				<nc:IdentificationCategoryText>DISP_CASE_NO</nc:IdentificationCategoryText>
+			</j:CaseOtherIdentification>
+			<j:CaseOtherIdentification>
+				<nc:IdentificationID>ID</nc:IdentificationID>
+				<nc:IdentificationCategoryText>ERR_CASE_NO</nc:IdentificationCategoryText>
+			</j:CaseOtherIdentification>
+			<j:CaseTrial>
+				<nc:ActivityDate>
+					<nc:Date>2014-12-17</nc:Date>
+				</nc:ActivityDate>
+				<ext:CourtEventAugmentation>
+					<hi_codes_hajis:TrialCategoryCode>OTH</hi_codes_hajis:TrialCategoryCode>
+				</ext:CourtEventAugmentation>
+			</j:CaseTrial>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<ext:DeferredCase structures:id="DEFERRED_CASE_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>ID678656</nc:IdentificationID>
+			<nc:IdentificationCategoryText>Disposition Deferred Case Number</nc:IdentificationCategoryText>
+		</nc:ActivityIdentification>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>ID6786788</nc:IdentificationID>
+			<nc:IdentificationCategoryText>Sentence Deferred Case Number</nc:IdentificationCategoryText>
+		</nc:ActivityIdentification>
+		<j:CaseAugmentation>
+			<j:CaseCharge>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2014-12-17</nc:Date>
+					</nc:DispositionDate>
+					<ext:ChargeDispositionAugmentation>
+						<hi_codes_hajis:DispositionCode>JMC</hi_codes_hajis:DispositionCode>
+					</ext:ChargeDispositionAugmentation>
+				</j:ChargeDisposition>
+				<j:ChargeSentence>
+					<nc:ActivityDate>
+						<nc:Date>2014-12-17</nc:Date>
+					</nc:ActivityDate>
+					<j:SentenceCharge>
+						<j:ChargeDisposition>
+							<ext:ChargeDispositionAugmentation>
+								<hi_codes_hajis:DispositionCode>BRS</hi_codes_hajis:DispositionCode>
+							</ext:ChargeDispositionAugmentation>
+						</j:ChargeDisposition>
+					</j:SentenceCharge>
+				</j:ChargeSentence>
+			</j:CaseCharge>
+			<j:CaseCourtEvent>
+				<ext:CourtEventAugmentation>
+					<cyfs:NextCourtEvent>
+						<nc:ActivityCategoryText>Deferred Return Date</nc:ActivityCategoryText>
+						<nc:ActivityDate>
+							<nc:Date>2014-12-17</nc:Date>
+						</nc:ActivityDate>
+					</cyfs:NextCourtEvent>
+					<cyfs:NextCourtEvent>
+						<nc:ActivityCategoryText>Sentencing Next Date</nc:ActivityCategoryText>
+						<nc:ActivityDate>
+							<nc:Date>2014-12-17</nc:Date>
+						</nc:ActivityDate>
+					</cyfs:NextCourtEvent>
+				</ext:CourtEventAugmentation>
+			</j:CaseCourtEvent>
+		</j:CaseAugmentation>
+	</ext:DeferredCase>
+	<j:Arrest structures:id="ARREST_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>98-1488</nc:IdentificationID>
+			<nc:IdentificationCategoryText>CHARGEARN</nc:IdentificationCategoryText>
+		</nc:ActivityIdentification>
+				<nc:ActivityIdentification>
+			<nc:IdentificationID>ID45687</nc:IdentificationID>
+			<nc:IdentificationCategoryText>LREFORMATTEDARN</nc:IdentificationCategoryText>
+		</nc:ActivityIdentification>
+		
+		<j:ArrestCharge>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>54-345-34565</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+			<ext:ChargeAugmentation>
+				<hi_codes_hajis:ChargeSeverityCode>FB</hi_codes_hajis:ChargeSeverityCode>
+			</ext:ChargeAugmentation>
+		</j:ArrestCharge>
+	</j:Arrest>
+	<nc:Person structures:id="PARTY_01">
+		<nc:PersonBirthDate>
+			<nc:Date>1982-11-28</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Harold</nc:PersonGivenName>
+			<nc:PersonSurName>Davis</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>093452023</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonStateIdentification>
+			<nc:IdentificationID>HI2067898</nc:IdentificationID>
+		</nc:PersonStateIdentification>
+	</nc:Person>
+	<nc:ActivityPersonAssociation>
+		<nc:Activity structures:ref="CASE_01"/>
+		<nc:Activity structures:ref="DEFERRED_CASE_01"/>
+		<nc:Person structures:ref="PARTY_01"/>
+	</nc:ActivityPersonAssociation>
+	<j:ActivityArrestAssociation>
+		<nc:Activity structures:ref="CASE_01"/>
+		<nc:Activity structures:ref="DEFERRED_CASE_01"/>
+		<j:Arrest structures:ref="ARREST_01"/>
+	</j:ActivityArrestAssociation>
+</exchange:DispositionReport>

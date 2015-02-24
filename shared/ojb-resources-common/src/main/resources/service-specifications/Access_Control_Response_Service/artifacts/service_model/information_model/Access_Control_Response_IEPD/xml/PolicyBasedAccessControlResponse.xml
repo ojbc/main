@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exchange:AccessControlResponse 
+xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0 ../xsd/exchange_schema.xsd" 
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+xmlns:exchange="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" 
+xmlns:ext="http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0" 
+xmlns:p="http://ojbc.org/IEPD/Extensions/AccessControlDecisionContexts/PolicyBasedAccessControlDecisionContext/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<ext:AccessControlDecision structures:id="DECISION_01">
+		<ext:AccessDeniedIndicator>true</ext:AccessDeniedIndicator>
+		<ext:AccessDecisionDescriptionText>Access Denied</ext:AccessDecisionDescriptionText>
+		<ext:AccessDecisionResourceURI>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</ext:AccessDecisionResourceURI>
+		<ext:AccessControlDecisionContext>
+			<p:PolicyBasedAccessControlDecisionContext>
+				<p:Policy>
+					<!-- We need to agree on a format for policy URIs -->
+					<p:PolicyURI>http://ojbc.org/policies/privacy/hawaii/ManualSubscriptionPolicy</p:PolicyURI>
+					<p:PolicyLocationURL>http://hijis.hawaii.gov/privacy-policies/ManualSubscriptionPolicy.html</p:PolicyLocationURL>
+				</p:Policy>
+				<p:Policy>
+					<!-- We need to agree on a format for policy URIs -->
+					<p:PolicyURI>http://ojbc.org/policies/privacy/hawaii/MauiFirearmsPolicy</p:PolicyURI>
+					<p:PolicyLocationURL>http://hijis.hawaii.gov/privacy-policies/MauiFirearmsPolicy.html</p:PolicyLocationURL>
+				</p:Policy>
+			</p:PolicyBasedAccessControlDecisionContext>
+		</ext:AccessControlDecisionContext>
+	</ext:AccessControlDecision>
+</exchange:AccessControlResponse>

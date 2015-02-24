@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ca:Catalog xmlns:ca="http://niem.gov/niem/iem-catalog/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" ca:descriptionText="" s:id="_aktvYCaFEeGp6bFA4tShsg" ca:iemName="Parole Case" ca:iemURI="" ca:iemVersionID="">
+  <ca:File ca:descriptionText="History of changes to this IEPD" s:id="_alJ0QCaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/application/text" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#change-log" ca:relativePathName="./changelog.txt"/>
+  <ca:File ca:descriptionText="Manifest of IEPD contents (this file)" s:id="_alJ0QSaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#catalog" ca:relativePathName="./catalog.xml"/>
+  <ca:File ca:descriptionText="Mapping Spreadsheet" s:id="_alJ0QiaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/application/vnd.ms-excel" ca:purposeURI="http://www.rddl.org/purposes#reference" ca:relativePathName="./mapping.xls"/>
+  <ca:FileSet ca:descriptionText="Subset schema set" s:id="_alJ0QyaFEeGp6bFA4tShsg" ca:natureURI="http://niem.gov/niem/resources/natures/1#directory" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#subset" ca:relativePathName="./xsd/NIEM_2.1">
+    <ca:File ca:descriptionText="Wantlist for schema subset (wantlist.xsd)" s:id="_alJ0RCaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes#want-list" ca:relativePathName="./wantlist-NIEM_2.1.xml"/>
+  </ca:FileSet>
+  <ca:File ca:descriptionText="Extension schema" s:id="_alJ0RSaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#extension-schema" ca:relativePathName="./xsd/Parole_Case_Extensions.xsd"/>
+  <ca:File ca:descriptionText="Exchange schema" s:id="_alJ0RiaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#exchange-schema" ca:relativePathName="./xsd/Parole_Officer_Change.xsd"/>
+  <ca:File ca:descriptionText="Exchange schema" s:id="_alJ0RyaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#exchange-schema" ca:relativePathName="./xsd/Parole_Case_Termination.xsd"/>
+  <ca:File ca:descriptionText="Exchange schema" s:id="_alJ0SCaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#exchange-schema" ca:relativePathName="./xsd/Parole_Case_Initiation.xsd"/>
+  <ca:File ca:descriptionText="Sample instance" s:id="_alJ0SSaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#sample-instance" ca:relativePathName="./xml/Parole_Case_Termination.xml"/>
+  <ca:File ca:descriptionText="Sample instance" s:id="_alJ0SiaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#sample-instance" ca:relativePathName="./xml/Parole_Officer_Change.xml"/>
+  <ca:File ca:descriptionText="Sample instance" s:id="_alJ0SyaFEeGp6bFA4tShsg" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#sample-instance" ca:relativePathName="./xml/Parole_Case_Initiation.xml"/>
+  <ca:Metadata>
+    <ca:SecurityMarkingText></ca:SecurityMarkingText>
+    <ca:CreationDate>2010-06-24</ca:CreationDate>
+    <ca:StatusText></ca:StatusText>
+    <ca:DomainText></ca:DomainText>
+    <ca:AuthoritativeSource>
+      <ca:Name></ca:Name>
+      <ca:POC>
+        <ca:POCName></ca:POCName>
+        <ca:POCEmail></ca:POCEmail>
+        <ca:POCTelephone></ca:POCTelephone>
+      </ca:POC>
+    </ca:AuthoritativeSource>
+  </ca:Metadata>
+</ca:Catalog>

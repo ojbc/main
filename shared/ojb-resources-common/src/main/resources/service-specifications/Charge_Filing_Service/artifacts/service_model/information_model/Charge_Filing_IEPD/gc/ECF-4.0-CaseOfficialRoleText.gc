@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ ../xsd/common/genericode.xsd">
+  <Identification xmlns="">
+    <ShortName>CaseOfficialRoleText</ShortName>
+    <LongName>CaseOfficialRoleText</LongName>
+    <Version>4.0</Version>
+    <CanonicalUri>urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:CaseOfficialRoleText</CanonicalUri>
+    <CanonicalVersionUri>urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:CaseOfficialRoleText-4.0</CanonicalVersionUri>
+    <Agency>
+      <LongName>OASIS LegalXML Electronic Court Filing Technical Committee</LongName>
+      <Identifier />
+    </Agency>
+  </Identification>
+  <ColumnSet xmlns="">
+    <Column Id="code" Use="required">
+      <ShortName>Code</ShortName>
+      <Data Type="normalizedString" Lang="en" />
+    </Column>
+    <Column Id="name" Use="optional">
+      <ShortName>Name</ShortName>
+      <Data Type="string" Lang="en" />
+    </Column>
+    <Key Id="codeKey">
+      <ShortName>CodeKey</ShortName>
+      <ColumnRef Ref="code" />
+    </Key>
+  </ColumnSet>
+  <SimpleCodeList xmlns="">
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Lead attorney</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Gaurdian ad litem</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Child's attorney</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Friend of court</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CASA</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Court appointed special advocate</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Prosecutor</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Private defense counsel</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Public defender</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Conflict defender</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Plaintiff defender</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Defendant counsel</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Third party plaintiff attorney</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Intervenor attorney</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Petitioner attorney</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Respondent attorney</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Interpleader attorney</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Pro hac vice</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue />
+      </Value>
+    </Row>
+  </SimpleCodeList>
+</CodeList>

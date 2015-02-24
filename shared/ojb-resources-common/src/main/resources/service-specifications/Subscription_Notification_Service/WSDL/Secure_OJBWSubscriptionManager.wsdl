@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="OJBSubscriptionManager" targetNamespace="http://www.ojbc.org/SubscribeNotify/SubscriptionManager"
+    xmlns="http://www.ojbc.org/SubscribeNotify/SubscriptionManager" xmlns:tns="http://www.ojbc.org/SubscribeNotify/SubscriptionManager"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsnbn="http://docs.oasis-open.org/wsn/bw-2"
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+        
+    <wsdl:import namespace="http://docs.oasis-open.org/wsn/bw-2" 
+        location="wsn/bw-2.wsdl"/>
+    <wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/" location="../../../policy-assertions/GFIPMUserSystemToSystem.wsdl" />
+        
+    <wsdl:binding name="SecureWSNSubscriptionMangerSoapBinding"  type="wsnbn:OJBCSubscriptionManager">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#GFIPMUserSystemToSystem" />
+        <wsdl:operation name="Renew">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+             <wsdl:fault  name="ResourceUnknownFault">
+             	<soap:fault name="ResourceUnknownFault" use="literal" /> 
+             </wsdl:fault>
+	         <wsdl:fault  name="UnacceptableTerminationTimeFault">
+	         	<soap:fault name="UnacceptableTerminationTimeFault" use="literal" /> 
+	         </wsdl:fault> 
+        </wsdl:operation>
+        <wsdl:operation name="Unsubscribe">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+             <wsdl:fault  name="ResourceUnknownFault">
+             	<soap:fault name="ResourceUnknownFault" use="literal" /> 
+             </wsdl:fault>
+             <wsdl:fault  name="UnableToDestroySubscriptionFault">
+	         	<soap:fault name="UnableToDestroySubscriptionFault" use="literal" /> 
+	         </wsdl:fault> 
+        </wsdl:operation>
+        <wsdl:operation name="Validate">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+             <wsdl:fault  name="ResourceUnknownFault">
+             	<soap:fault name="ResourceUnknownFault" use="literal" /> 
+             </wsdl:fault>
+             <wsdl:fault  name="UnableToValidateSubscriptionFault">
+	         	<soap:fault name="UnableToValidateSubscriptionFault" use="literal" /> 
+	         </wsdl:fault> 
+        </wsdl:operation>
+    </wsdl:binding>    
+       
+    <wsdl:service name="SecureSubscriptionManagerServiceService">
+        <wsdl:port name="SecureSubscriptionManager" binding="tns:SecureWSNSubscriptionMangerSoapBinding">
+          <soap:address location="http://localhost:18041/OJB/SubscriptionManager"/>
+      </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

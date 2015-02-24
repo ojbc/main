@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ndexia:IncidentReport xsi:schemaLocation="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1 ndexia.xsd" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+	<ndexia:Incident s:id="INC1">
+		<ndexia:IncidentAugmentation xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1">
+			<lexslib:SameAsDigestReference lexslib:ref="INC1"/>
+			<!--this will reference an EntityActivity that represents Incident-->
+		</ndexia:IncidentAugmentation>
+	</ndexia:Incident>
+	<ndexia:IncidentEvidence>
+		<nc:RoleOfItemReference s:ref="ITEM1"/>
+	</ndexia:IncidentEvidence>
+	<ndexia:Arrest>
+		<ndexia:ArrestAugmentation s:id="ARREST1">
+			<lexslib:SameAsDigestReference lexslib:ref="ARREST1" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"/>
+			<!--this will reference an EntityActivity that represents an Arrest-->
+			<ndexia:ArrestCaseNumberText>239478295</ndexia:ArrestCaseNumberText>
+		</ndexia:ArrestAugmentation>
+	</ndexia:Arrest>
+	<ndexia:Organization s:id="ORG1">
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>83655221</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+		<ndexia:OrganizationAugmentation xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1">
+			<lexslib:SameAsDigestReference lexslib:ref="ORG1"/><!--this will reference entityorganization that represents the Agency for the officer-->
+		</ndexia:OrganizationAugmentation>
+	</ndexia:Organization>
+	<ndexia:TangibleItem s:id="ITEM1">
+		<ndexia:TangibleItemAugmentation xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1">
+			<lexslib:SameAsDigestReference lexslib:ref="ITEM1"></lexslib:SameAsDigestReference> <!--point to correct EntityTangibleItem -->
+		</ndexia:TangibleItemAugmentation>
+	</ndexia:TangibleItem>
+</ndexia:IncidentReport>

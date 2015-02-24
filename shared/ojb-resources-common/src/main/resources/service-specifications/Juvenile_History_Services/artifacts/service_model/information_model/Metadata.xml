@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gra:ServiceMetadata xsi:schemaLocation="http://it.ojp.gov/gsp/services/1.0.0 Metadata.xsd" xmlns:gra="http://it.ojp.gov/gsp/services/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<gra:ServiceIdentification>
+		<gra:ServiceFullNameText>Juvenile History Service</gra:ServiceFullNameText>
+		<gra:ServiceID>JuvenileHistory</gra:ServiceID>
+		<gra:ServiceURI>http://ojbc.org/juvenile-history/</gra:ServiceURI>
+		<gra:ServiceNameAbbreviationText>String</gra:ServiceNameAbbreviationText>
+	</gra:ServiceIdentification>
+	<gra:ServiceDescription>
+		<gra:ServicePurposeText>The purpose of the Juvenile History Service is to provide history information about a juvenile in the state of Michigan.</gra:ServicePurposeText>
+		<gra:ServiceScopeDescriptionText>The scope of the Juvenile History Service is all juveniles and agencies in the State of Mchigan involved in juvenile justice.</gra:ServiceScopeDescriptionText>
+		<gra:ServiceDescriptionSummaryText>The Juvenile History Service will be used by to retrieve history information about a juvenile in the state of Michigan.</gra:ServiceDescriptionSummaryText>
+		<gra:ServiceDescriptionText>This service is intended to answer the question of "What information is available about a juvenile in Michigan’s juvenile justice system?" It should enable service consumers to exchange information about the juvenile, reduce redundant assessments, and inform juvenile case planning.</gra:ServiceDescriptionText>
+		<gra:ServiceDescriptionKeywordText>Michigan</gra:ServiceDescriptionKeywordText>
+		<gra:ServiceDescriptionKeywordText>juvenile</gra:ServiceDescriptionKeywordText>
+		<gra:ServiceDescriptionKeywordText>justice</gra:ServiceDescriptionKeywordText>
+		<gra:ServiceDescriptionKeywordText>history</gra:ServiceDescriptionKeywordText>
+		<gra:ServiceCapabilities>
+			<gra:CapabilityDescriptionText>Provide history information about a juvenile </gra:CapabilityDescriptionText>
+		</gra:ServiceCapabilities>
+		<gra:ServiceRealWorldEffects>
+			<gra:RealWorldEffectDescriptionText>Reduce redundany juvenile assessments</gra:RealWorldEffectDescriptionText>
+			<gra:RealWorldEffectDescriptionText>Inform juvenile case planning</gra:RealWorldEffectDescriptionText>
+		</gra:ServiceRealWorldEffects>
+		<gra:SecurityClassificationText>Unclassified</gra:SecurityClassificationText>
+		<gra:IEPDReferences>
+			<gra:IEPDReference>
+				<gra:IEPDName>Juvenile History</gra:IEPDName>
+				<gra:IEPDURL>http://ojbc.org/juvenile-history/</gra:IEPDURL>
+			</gra:IEPDReference>
+		</gra:IEPDReferences>
+	</gra:ServiceDescription>
+	<gra:VersionInformation>
+		<gra:MajorVersion>1</gra:MajorVersion>
+		<gra:MinorVersion>0</gra:MinorVersion>
+		<gra:RevisionVersion>0</gra:RevisionVersion>
+		<gra:CreationDate>2014-09-16</gra:CreationDate>
+		<gra:ActivationDate>2014-09-16</gra:ActivationDate>
+		<gra:LastRevisionDate>2014-09-16</gra:LastRevisionDate>
+		<gra:NextRevisionDate>2014-10-01</gra:NextRevisionDate>
+		<gra:LifecycleStatus>Development</gra:LifecycleStatus>
+	</gra:VersionInformation>
+    <gra:RelatedOrganizationInformation>
+        <gra:Organization>
+            <gra:OrganizationName>MTG Management Consultants LLC</gra:OrganizationName>
+            <gra:OrganizationAcronym>MTG</gra:OrganizationAcronym>
+            <gra:OrganizationFullAddressText>401 Second Ave, Suite 240, Seattle, WA 98104</gra:OrganizationFullAddressText>
+            <gra:OrganizationWebSiteURL>http://mtgmc.com</gra:OrganizationWebSiteURL>
+            <gra:OrganizationRoleDescriptionText>Service Modeler</gra:OrganizationRoleDescriptionText>
+            <gra:OrganizationRoleDetailedDescriptionText>MTG developed the Juvenile History Service Models for the National Center for State Courts (NCSC) and the State of Michigan.</gra:OrganizationRoleDetailedDescriptionText>
+            <gra:OrganizationPointOfContact>
+                <gra:ContactPersonName>James E. Cabral Jr</gra:ContactPersonName>
+                <gra:ContactPersonEmailID>jcabral@mtgmc.com</gra:ContactPersonEmailID>
+                <gra:ContactPersonPhoneNumberID>206-442-5010</gra:ContactPersonPhoneNumberID>
+            </gra:OrganizationPointOfContact>
+        </gra:Organization>
+    </gra:RelatedOrganizationInformation>
+	<gra:BusinessContext>
+		<gra:DomainDescription>
+			<gra:DomainNameText>Juvenile justice</gra:DomainNameText>
+		</gra:DomainDescription>
+		<gra:Classifications>
+			<gra:Classification>Unclassified</gra:Classification>
+		</gra:Classifications>
+		<gra:ExchangePartnerTypes>
+			<gra:ExchangePartnerTypeDescriptionText>Juvenile Justice agencies</gra:ExchangePartnerTypeDescriptionText>
+		</gra:ExchangePartnerTypes>
+		<gra:Sponsors>
+			<gra:Sponsor>US Department of Justice, Burea of Justice Assistance</gra:Sponsor>
+		</gra:Sponsors>
+	</gra:BusinessContext>
+	<gra:ServiceInterface>
+		<gra:URIDetails>
+			<gra:URIDetail>
+				<gra:URIAddress>http://ojbc.org/juvenile-history/</gra:URIAddress>
+				<gra:URIDescription>Juvenile History Service</gra:URIDescription>
+			</gra:URIDetail>
+		</gra:URIDetails>
+		<gra:ServiceActions>
+			<gra:ServiceAction>
+				<gra:ActionName>SubmitJuvenileHistoryQuery</gra:ActionName>
+				<gra:ActionPurpose>Request for juvenile history information</gra:ActionPurpose>
+				<gra:MessageExchangePattern>Request-Reply</gra:MessageExchangePattern>
+			</gra:ServiceAction>
+		</gra:ServiceActions>
+		<gra:ServiceInteractionProfiles>
+			<gra:ServiceInteractionProfile>
+				<gra:SIPName>Reliable Secure Web Services</gra:SIPName>
+				<gra:SIPVersion>1.0</gra:SIPVersion>
+			</gra:ServiceInteractionProfile>
+		</gra:ServiceInteractionProfiles>
+		<gra:SecurityImplementedIndicator>true</gra:SecurityImplementedIndicator>
+		<gra:SecurityDescriptionText>The exchange of juvenile information is limited by state statute.</gra:SecurityDescriptionText>
+	</gra:ServiceInterface>
+	<gra:ServiceLevelAgreements>
+		<gra:ServicePolicyAndContracts>
+			<gra:ApplicablePoliciesIndicator>true</gra:ApplicablePoliciesIndicator>
+			<gra:ApplicablePolicies>
+				<gra:PolicyText>String</gra:PolicyText>
+			</gra:ApplicablePolicies>
+			<gra:ApplicableContractsIndicator>true</gra:ApplicableContractsIndicator>
+			<gra:ApplicableContracts>
+				<gra:Contract>
+					<gra:AgreementDescriptionText>TBD</gra:AgreementDescriptionText>
+				</gra:Contract>
+			</gra:ApplicableContracts>
+			<gra:ApplicableAgreementsIndicator>true</gra:ApplicableAgreementsIndicator>
+			<gra:ApplicableAgreements>
+				<gra:Agreement>
+					<gra:AgreementDescriptionText>TBD</gra:AgreementDescriptionText>
+				</gra:Agreement>
+			</gra:ApplicableAgreements>
+			<gra:ApplicableUmbrellaAgreementsIndicator>true</gra:ApplicableUmbrellaAgreementsIndicator>
+			<gra:ApplicableUmbrellaAgreements>
+				<gra:UmbrellaAgreement>
+					<gra:AgreementDescriptionText>TBD</gra:AgreementDescriptionText>
+				</gra:UmbrellaAgreement>
+			</gra:ApplicableUmbrellaAgreements>
+		</gra:ServicePolicyAndContracts>
+		<gra:PerformanceMetrics>
+			<gra:ServiceResponseTime>P1Y2M3DT10H30M0S</gra:ServiceResponseTime>
+			<gra:ServiceAverageThroughput>TBD</gra:ServiceAverageThroughput>
+			<gra:ServiceMaximumThroughput>TBD</gra:ServiceMaximumThroughput>
+			<gra:ServiceAvailability>TBD</gra:ServiceAvailability>
+		</gra:PerformanceMetrics>
+		<gra:ServiceUsageDetails>
+			<gra:ApprovalRequiredIndicator>true</gra:ApprovalRequiredIndicator>
+			<gra:LicensingRequiredIndicator>true</gra:LicensingRequiredIndicator>
+			<gra:LicensingAgreement>
+				<gra:AgreementDescriptionText>String</gra:AgreementDescriptionText>
+			</gra:LicensingAgreement>
+			<gra:ServiceCost>
+				<gra:UsageCostAmount gra:currencyText="USD">0.0</gra:UsageCostAmount>
+				<gra:UsageUnitCostAmount gra:currencyText="USD">0.0</gra:UsageUnitCostAmount>
+				<gra:CreationCostAmount gra:currencyText="USD">0.0</gra:CreationCostAmount>
+			</gra:ServiceCost>
+		</gra:ServiceUsageDetails>
+	</gra:ServiceLevelAgreements>
+</gra:ServiceMetadata>

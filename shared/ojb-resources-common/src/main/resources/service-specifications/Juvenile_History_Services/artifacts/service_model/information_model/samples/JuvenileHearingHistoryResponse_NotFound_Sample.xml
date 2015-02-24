@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a sample for the case when a hearing history does not exist for an identifier -->
+<doc:JuvenileHearingHistoryResponse 
+	xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0" 
+	xmlns="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHearingHistoryResponse/1.0" 
+	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHearingHistoryResponse/1.0 ../Juvenile_History_IEPD/Hearing/JuvenileHearingHistoryResponse.xsd">
+	<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
+	<cext:JuvenileHistoryQueryCriteria>
+		<cext:JuvenileInformationRecordID>
+			<IdentificationID>100</IdentificationID>
+			<IdentificationSourceText>Court</IdentificationSourceText>
+		</cext:JuvenileInformationRecordID>
+	</cext:JuvenileHistoryQueryCriteria>
+	<ext:JuvenileHearingHistory>
+		<cext:JuvenileInformationAvailabilityCode>NOT FOUND</cext:JuvenileInformationAvailabilityCode>
+	</ext:JuvenileHearingHistory>
+</doc:JuvenileHearingHistoryResponse>

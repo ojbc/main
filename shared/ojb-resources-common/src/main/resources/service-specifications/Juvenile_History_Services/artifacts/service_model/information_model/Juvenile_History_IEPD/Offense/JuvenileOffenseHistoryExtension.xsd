@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/1.0" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
+	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/michigan/codes/1.0" 
+	targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/1.0">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/michigan/codes/1.0" schemaLocation="member-extensions/michigan/codes.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" schemaLocation="../JuvenileHistoryCommonExtension.xsd"/>
+	<xsd:annotation>
+		<xsd:appinfo>
+			<appinfo:ConformantIndicator>true</appinfo:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:complexType name="JuvenileOffenseHistoryType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the offense history of a juvenile.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="cext:JuvenileHistoryType">
+				<xsd:sequence>
+					<xsd:element ref="j:OffenseChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:OffenseLocationAssociation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SanctionAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for local extensions related to sanctions.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="ext:DispositionSanctionRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="VerdictAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for local extensions related to a verdict.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="ext:ChargeVerdictRepresentation" minOccurs="1" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="ChargeVerdictRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>An abstract placeholder for a charge verdict.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionSanctionRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>An abstract placeholder for a disposition sanction.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileOffenseHistory" type="ext:JuvenileOffenseHistoryType">
+		<xsd:annotation>
+			<xsd:documentation>The offense history of a juvenile.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="SanctionAugmentation" type="ext:SanctionAugmentationType" substitutionGroup="j:SanctionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Local extensions related to a sanction.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VerdictAugmentation" type="ext:VerdictAugmentationType" substitutionGroup="j:VerdictAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Local extensions related to a verdict.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

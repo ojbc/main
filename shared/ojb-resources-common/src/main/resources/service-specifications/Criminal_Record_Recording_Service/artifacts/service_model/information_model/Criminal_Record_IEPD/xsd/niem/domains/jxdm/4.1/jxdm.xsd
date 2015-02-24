@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" targetNamespace="http://niem.gov/niem/domains/jxdm/4.1" version="1">
+	<xsd:annotation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../../proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../appinfo/2.0/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/fbi/2.0" schemaLocation="../../../fbi/2.0/fbi.xsd"/>
+	<xsd:complexType name="ActivityCourtAssociationType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="AssociationType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="nc:ActivityReference" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:CourtReference" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ArrestType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="j:ArrestAgencyRecordIdentification" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="BookingType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="j:BookingAgencyRecordIdentification" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ChargeDispositionType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="DispositionType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:DispositionType">
+				<xsd:sequence>
+					<xsd:element ref="j:ChargeDispositionOtherText" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ChargeType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:ChargeApplicabilityText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeIdentification" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeNCICCode" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeReducingFactorText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeSpecialAllegationText" minOccurs="0" maxOccurs="unbounded"/>
+<!--					<xsd:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>-->
+					<xsd:element ref="j:ChargeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CourtType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="OrganizationType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:OrganizationType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="OrganizationAugmentationType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="AugmentationType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="j:OrganizationORIIdentification" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonAugmentationType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="AugmentationType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="nc:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonFirearmSalesDisqualifiedCode" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonRegisteredOffenderIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SentenceType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="j:SentenceDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="StatuteType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:StatuteCodeIdentification" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:StatuteJurisdiction" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:StatuteText" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SubjectType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:SubjectIdentification" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="TermType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="j:TermMaximumDuration" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:TermMinimumDuration" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="Arrest" type="j:ArrestType" nillable="true"/>
+	<xsd:element name="ArrestAgencyRecordIdentification" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="Booking" type="j:BookingType" nillable="true"/>
+	<xsd:element name="BookingAgencyRecordIdentification" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="ChargeReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:ReferenceTarget i:name="ChargeType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Charge" type="j:ChargeType" nillable="true"/>
+	<xsd:element name="ChargeApplicabilityText" type="nc:TextType" nillable="true"/>
+	<xsd:element name="ChargeCountQuantity" type="niem-xsd:nonNegativeInteger" nillable="true"/>
+	<xsd:element name="ChargeDescriptionText" type="nc:TextType" nillable="true"/>
+	<xsd:element name="ChargeDisposition" type="j:ChargeDispositionType" nillable="true"/>
+	<xsd:element name="ChargeDispositionOtherText" type="nc:TextType" nillable="true"/>
+	<xsd:element name="ChargeIdentification" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="ChargeNCICCode" type="fbi:OFFCodeType" nillable="true"/>
+	<xsd:element name="ChargeReducingFactorText" type="nc:TextType" nillable="true"/>
+	<xsd:element name="ChargeSequenceID" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="ChargeSeverityText" type="nc:TextType" nillable="true"/>
+	<xsd:element name="ChargeSpecialAllegationText" type="nc:TextType" nillable="true"/>
+<!--	<xsd:element name="ChargeStatute" type="j:StatuteType" nillable="true"/>-->
+	<xsd:element name="ChargeText" type="nc:TextType" nillable="true"/>
+	<xsd:element name="ChargeTrackingIdentification" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="CourtReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:ReferenceTarget i:name="CourtType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtCharge" type="j:ChargeType" nillable="true"/>
+	<xsd:element name="IdentificationJurisdictionNCICLSTACode" type="fbi:LSTACodeType" substitutionGroup="nc:IdentificationJurisdiction" nillable="true">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="IdentificationJurisdiction"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileAsAdultIndicator" type="niem-xsd:boolean" nillable="true"/>
+	<xsd:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="s:Augmentation">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:AppliesTo i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="OrganizationType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OrganizationORIIdentification" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="PersonAugmentation" type="j:PersonAugmentationType" substitutionGroup="s:Augmentation">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<i:AppliesTo i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="PersonType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="PersonFirearmSalesDisqualifiedCode" type="fbi:IFSCodeType" nillable="true"/>
+	<xsd:element name="PersonIrisFeatures" type="nc:BiometricType" nillable="true"/>
+	<xsd:element name="PersonPalmPrint" type="nc:BiometricType" nillable="true"/>
+	<xsd:element name="PersonRegisteredOffenderIndicator" type="niem-xsd:boolean" nillable="true"/>
+	<xsd:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="Sentence" type="j:SentenceType" nillable="true"/>
+	<xsd:element name="SentenceDescriptionText" type="nc:TextType" nillable="true"/>
+	<xsd:element name="StatuteCodeIdentification" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="StatuteJurisdiction" type="nc:JurisdictionType" nillable="true"/>
+	<xsd:element name="StatuteOffenseIdentification" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="StatuteText" type="nc:TextType" nillable="true"/>
+	<xsd:element name="SubjectIdentification" type="nc:IdentificationType" nillable="true"/>
+	<xsd:element name="SubjectOffenderNoticeText" type="nc:TextType" nillable="true"/>
+	<xsd:element name="SupervisionAssignedTerm" type="j:TermType" nillable="true"/>
+	<xsd:element name="SupervisionDisciplinaryAction" type="nc:DisciplinaryActionType" nillable="true"/>
+	<xsd:element name="TermMaximumDuration" type="niem-xsd:duration" nillable="true"/>
+	<xsd:element name="TermMinimumDuration" type="niem-xsd:duration" nillable="true"/>
+</xsd:schema>

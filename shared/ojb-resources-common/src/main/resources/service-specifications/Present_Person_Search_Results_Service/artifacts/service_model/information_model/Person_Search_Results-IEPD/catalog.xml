@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ca:Catalog xmlns:ca="http://niem.gov/niem/iem-catalog/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" ca:descriptionText="" s:id="_ulA-UJtDEeC6afnxuVHB5w" ca:iemName="Person Search Results" ca:iemURI="" ca:iemVersionID="">
+  <ca:File ca:descriptionText="History of changes to this IEPD" s:id="_ulBlYJtDEeC6afnxuVHB5w" ca:natureURI="http://www.iana.org/assignments/media-types/application/text" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#change-log" ca:relativePathName="./changelog.txt"/>
+  <ca:File ca:descriptionText="Manifest of IEPD contents (this file)" s:id="_ulBlYZtDEeC6afnxuVHB5w" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#catalog" ca:relativePathName="./catalog.xml"/>
+  <ca:File ca:descriptionText="Mapping Spreadsheet" s:id="_ulBlYptDEeC6afnxuVHB5w" ca:natureURI="http://www.iana.org/assignments/media-types/application/vnd.ms-excel" ca:purposeURI="http://www.rddl.org/purposes#reference" ca:relativePathName="./mapping.xls"/>
+  <ca:FileSet ca:descriptionText="Subset schema set" s:id="_ulBlY5tDEeC6afnxuVHB5w" ca:natureURI="http://niem.gov/niem/resources/natures/1#directory" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#subset" ca:relativePathName="./xsd/NIEM_2.1">
+    <ca:File ca:descriptionText="Wantlist for schema subset (wantlist.xsd)" s:id="_ulBlZJtDEeC6afnxuVHB5w" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes#want-list" ca:relativePathName="./wantlist-NIEM_2.1.xml"/>
+  </ca:FileSet>
+  <ca:File ca:descriptionText="Extension schema" s:id="_ulBlZZtDEeC6afnxuVHB5w" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#extension-schema" ca:relativePathName="./xsd/PersonSearchResultsExtension.xsd"/>
+  <ca:File ca:descriptionText="Exchange schema" s:id="_ulBlZptDEeC6afnxuVHB5w" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#exchange-schema" ca:relativePathName="./xsd/Person_Search_Results_-_Combined.xsd"/>
+  <ca:File ca:descriptionText="Sample instance" s:id="_ulBlZ5tDEeC6afnxuVHB5w" ca:natureURI="http://www.iana.org/assignments/media-types/text/xml" ca:purposeURI="http://niem.gov/niem/resources/purposes/1#sample-instance" ca:relativePathName="./xml/Person_Search_Results_-_Combined.xml"/>
+  <ca:Metadata>
+    <ca:SecurityMarkingText></ca:SecurityMarkingText>
+    <ca:CreationDate>2010-06-11</ca:CreationDate>
+    <ca:StatusText></ca:StatusText>
+    <ca:DomainText></ca:DomainText>
+    <ca:AuthoritativeSource>
+      <ca:Name></ca:Name>
+      <ca:POC>
+        <ca:POCName></ca:POCName>
+        <ca:POCEmail></ca:POCEmail>
+        <ca:POCTelephone></ca:POCTelephone>
+      </ca:POC>
+    </ca:AuthoritativeSource>
+  </ca:Metadata>
+</ca:Catalog>

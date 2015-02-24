@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:ctx="http://www.springframework.org/schema/context" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="properties-context.xml" />
+	<import resource="cxf-endpoints.xml" />
+	<import resource="dao.xml" />
+	
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Static_Mock_Adapter">
+
+		<camel:propertyPlaceholder location="ref:springProperties" id="springPropertiesToLoad"/>
+	
+		<!-- Search endpoints -->
+
+		<endpoint id="personSearchRequestServiceEndpoint"
+			uri="cxf:bean:personSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personSearchRequestMockCxflogging}" />
+
+		<endpoint id="personSearchResultsHandlerServiceEndpoint"
+			uri="cxf:bean:personSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personSearchRequestMockCxflogging}" />
+
+		<endpoint id="personSearchAdapterDir"
+			uri="file:///${genericMockAdapter.personSearchRequest.mockFileEndpoint}" />
+
+		<endpoint id="firearmSearchRequestServiceEndpoint"
+			uri="cxf:bean:FirearmSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.firearmSearchRequestMockCxflogging}" />
+
+		<endpoint id="firearmSearchResultsServiceEndpoint"
+			uri="cxf:bean:FirearmSearchResultsService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${genericMockAdapter.firearmSearchRequestMockCxflogging}" />
+
+		<endpoint id="firearmSearchAdapterDir"
+			uri="file:///${genericMockAdapter.firearmSearchRequest.mockFileEndpoint}" />
+
+		<endpoint id="incidentSearchRequestServiceEndpoint"
+			uri="cxf:bean:IncidentSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.incidentSearchRequestMockCxflogging}" />
+
+		<endpoint id="incidentSearchResultsServiceEndpoint"
+			uri="cxf:bean:IncidentSearchResultsService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${genericMockAdapter.incidentSearchRequestMockCxflogging}" />
+
+		<!-- Criminal History Query Endpoints -->
+		<endpoint id="personQueryRequestCriminalHistoryServiceEndpoint"
+			uri="cxf:bean:personQueryRequestCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="personQueryResultsHandlerCriminalHistoryServiceEndpoint"
+			uri="cxf:bean:personQueryResultsHandlerCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<!-- Warrants Query Endpoints -->
+		<endpoint id="personQueryRequestWarrantsServiceEndpoint"
+			uri="cxf:bean:personQueryRequestWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="personQueryResultsHandlerWarrantsServiceEndpoint"
+			uri="cxf:bean:personQueryResultsHandlerWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<!-- Incident Report Query Endpoints -->
+		<endpoint id="personQueryIncidentReportRequestServiceEndpoint"
+			uri="cxf:bean:incidentReportRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="personQueryIncidentReportResultsServiceEndpoint"
+			uri="cxf:bean:incidentReportResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<!-- Firearm Query Endpoints -->
+		<endpoint id="personQueryFirearmRegistratonQueryRequestServiceEndpoint"
+			uri="cxf:bean:firearmRegistrationQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="personQueryFirearmRegistratonQueryResultsServiceEndpoint"
+			uri="cxf:bean:firearmRegistrationQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+			
+		<!--  Case Plan -->
+		<endpoint id="juvenileCasePlanHistoryRequestServiceEndpoint"
+			uri="cxf:bean:juvenileCasePlanHistoryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="juvenileCasePlanHistoryResultsServiceEndpoint"
+			uri="cxf:bean:juvenileCasePlanHistoryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<!--  Hearing -->
+		<endpoint id="juvenileHearingHistoryRequestServiceEndpoint"
+			uri="cxf:bean:juvenileHearingHistoryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="juvenileHearingHistoryResultsServiceEndpoint"
+			uri="cxf:bean:juvenileHearingHistoryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<!--  Intake -->
+		<endpoint id="juvenileIntakeHistoryRequestServiceEndpoint"
+			uri="cxf:bean:juvenileIntakeHistoryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="juvenileIntakeHistoryResultsServiceEndpoint"
+			uri="cxf:bean:juvenileIntakeHistoryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<!--  Offense -->
+		<endpoint id="juvenileOffenseHistoryRequestServiceEndpoint"
+			uri="cxf:bean:juvenileOffenseHistoryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="juvenileOffenseHistoryResultsServiceEndpoint"
+			uri="cxf:bean:juvenileOffenseHistoryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<!--  Placement -->
+		<endpoint id="juvenilePlacementHistoryRequestServiceEndpoint"
+			uri="cxf:bean:juvenilePlacementHistoryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="juvenilePlacementHistoryResultsServiceEndpoint"
+			uri="cxf:bean:juvenilePlacementHistoryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<!--  Referral -->
+		<endpoint id="juvenileReferralHistoryRequestServiceEndpoint"
+			uri="cxf:bean:juvenileReferralHistoryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="juvenileReferralHistoryResultsServiceEndpoint"
+			uri="cxf:bean:juvenileReferralHistoryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+			
+
+		<!-- File endpoints for Queries -->
+		<endpoint id="criminalHistoryAdapterDir"
+			uri="file:///${genericMockAdapter.personQuery.mockFileEndpoint}/criminalHistory/" />
+
+		<endpoint id="warrantsAdapterDir"
+			uri="file:///${genericMockAdapter.personQuery.mockFileEndpoint}/warrants/" />
+
+		<endpoint id="incidentReportDir"
+			uri="file:///${genericMockAdapter.personQuery.mockFileEndpoint}/incidentReport/" />
+
+		<endpoint id="firearmRegistrationQueryDir"
+			uri="file:///${genericMockAdapter.personQuery.mockFileEndpoint}/firearmRegQuery/" />
+
+		<!-- Person Search Handler -->
+
+		<camel:route id="personSearchRequestService">
+			<camel:from uri="personSearchRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+						
+			<camel:log message="Inside Person Search Request Mock Adapter Route" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}${date:now:yyyy-MM-dd'T'HHmmssSSS}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID} and OJB State Context: ${in.headers.ojbStateContext}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=search" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>ReportPersonSearchResults</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/PersonSearchResultsService/1.0</constant>
+			</camel:setHeader>
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:to uri="personSearchResultsHandlerServiceEndpoint" />
+			<camel:log message="Called Person Search Response Handler" />
+		</camel:route>
+
+		<!-- Firearm Search Handler -->
+
+		<camel:route id="firearmSearchRequestService">
+			<camel:from uri="firearmSearchRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+						
+			<camel:log message="Inside Firearm Search Request Mock Adapter Route" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID} and OJB State Context: ${in.headers.ojbStateContext}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=search" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitFirearmSearchResults</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/FirearmSearchResultsService/1.0</constant>
+			</camel:setHeader>
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:to uri="firearmSearchResultsServiceEndpoint" />
+		</camel:route>
+
+		<!-- Incident Search Handler -->
+
+		<camel:route id="incidentSearchRequestService">
+			<camel:from uri="incidentSearchRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+									
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID} and operation name: ${in.headers.operationName}" />
+
+			<camel:convertBodyTo type="java.lang.String" />
+
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0</constant>
+			</camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.operationName} == 'SubmitIncidentSearchRequest'</camel:simple>
+				<camel:log message="Incident search request service operation invoked" />
+
+				<camel:log message="Calling static mock adapter" />
+				<camel:to
+					uri="bean:staticMockAdapterProcessor?method=search" />
+
+				<!-- Create new exchange using Camel header as the WS Addressing Message 
+					ID -->
+				<camel:to
+					uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+				<camel:setHeader headerName="operationName">
+					<constant>SubmitIncidentSearchResults</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:simple>${in.headers.operationName} == 'SubmitIncidentPersonSearchRequest'</camel:simple>
+				<camel:log
+					message="Incident Person search request service operation invoked (search by person ID)" />
+
+				<camel:log message="Calling static mock adapter" />
+				<camel:to
+					uri="bean:staticMockAdapterProcessor?method=search" />
+
+				<!-- Create new exchange using Camel header as the WS Addressing Message 
+					ID -->
+				<camel:to
+					uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+				<camel:setHeader headerName="operationName">
+					<constant>SubmitIncidentPersonSearchResults</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:simple>${in.headers.operationName} == 'SubmitIncidentVehicleSearchRequest'</camel:simple>
+				<camel:log
+					message="Incident Vehicle search request service operation invoked (search by vehicle ID)" />
+
+				<camel:log message="Calling static mock adapter" />
+				<camel:to
+					uri="bean:staticMockAdapterProcessor?method=search" />
+
+				<!-- Create new exchange using Camel header as the WS Addressing Message 
+					ID -->
+				<camel:to
+					uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+				<camel:setHeader headerName="operationName">
+					<constant>SubmitIncidentVehicleSearchResults</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:to uri="incidentSearchResultsServiceEndpoint" />
+		</camel:route>
+
+		<!-- Criminal History Query Request Handler -->
+		<camel:route id="criminalHistoryQueryRequestService">
+			<camel:from uri="personQueryRequestCriminalHistoryServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="Inside Person Query Criminal History Mock" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>Report-Person-Query-Results---Criminal-History</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="personQueryResultsHandlerCriminalHistoryServiceEndpoint" />
+			<camel:log message="Called Criminal History Response Handler" />
+		</camel:route>
+
+		<!-- Warrants Query Request Handler -->
+		<camel:route id="warrantQueryRequestService">
+			<camel:from uri="personQueryRequestWarrantsServiceEndpoint" />
+
+			<camel:to uri="direct:auditLog"/>
+						
+			<camel:log message="Inside Person Query Criminal Warrants Mock" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>Report-Person-Query-Results---Warrants</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Warrants/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="personQueryResultsHandlerWarrantsServiceEndpoint" />
+			<camel:log message="Called Warrants Response Handler" />
+		</camel:route>
+
+		<!-- Incident Report Request Handler -->
+		<camel:route id="incidentReportQueryRequestService">
+			<camel:from uri="personQueryIncidentReportRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="Inside Person Query Incident Report Mock" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>ReportIncident</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="personQueryIncidentReportResultsServiceEndpoint" />
+			<camel:log message="Called Incident Report Response Handler" />
+		</camel:route>
+
+		<!-- Firearm Report Request Handler -->
+		<camel:route id="firearmReportQueryRequestService" xmlns:firearms-exchange="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0">
+
+			<camel:from
+				uri="personQueryFirearmRegistratonQueryRequestServiceEndpoint" />
+				
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="Inside Person Query Firearm Reg Detail Mock" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="firearmQueryResultByPerson">
+				<xpath resultType="java.lang.String">count(//firearms-exchange:PersonFirearmRegistrationQueryResults)</xpath>
+			</camel:setHeader>
+
+			<camel:setHeader headerName="firearmQueryResultByFirearm">
+				<xpath resultType="java.lang.String">count(//firearms-exchange:FirearmRegistrationQueryResults)</xpath>
+			</camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.header.firearmQueryResultByPerson} == 1 and ${in.header.firearmQueryResultByFirearm} == 0</camel:simple>
+				<camel:log message="Use operation name for Firearm Query Result by Person" />
+
+				<camel:setHeader headerName="operationName">
+					<constant>SubmitPersonFirearmRegistrationQueryResults</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:simple>${in.header.firearmQueryResultByPerson} == 0 and ${in.header.firearmQueryResultByFirearm} == 1</camel:simple>
+				<camel:log message="Use operation name for Firearm Query Result by Firearm" />
+
+				<camel:setHeader headerName="operationName">
+					<constant>SubmitFirearmRegistrationQueryResults</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="personQueryFirearmRegistratonQueryResultsServiceEndpoint" />
+			<camel:log message="Called Firearm Query Response Handler" />
+		</camel:route>
+
+<!-- juvenileCasePlanHistoryRequestServiceEndpoint -->
+<!-- juvenileHearingHistoryRequestServiceEndpoint -->
+<!-- juvenileIntakeHistoryRequestServiceEndpoint -->
+<!-- juvenileOffenseHistoryRequestServiceEndpoint -->
+<!-- juvenilePlacementHistoryRequestServiceEndpoint -->
+<!-- juvenileReferralHistoryRequestServiceEndpoint -->
+
+		<!-- Juvenile Case Plan Request Handler -->
+		<camel:route id="juvenileCasePlanHistoryRequestServiceEndpointRoute">
+			<camel:from uri="juvenileCasePlanHistoryRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="Inside Juvenile Case Plan Mock" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitJuvenileCasePlanHistoryResponse</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="juvenileCasePlanHistoryResultsServiceEndpoint" />
+			<camel:log message="Called Juvenile Case Plan Handler" />
+		</camel:route>
+
+		<!-- Juvenile Hearing Request Handler -->
+		<camel:route id="juvenileHearingHistoryRequestServiceEndpointRoute">
+			<camel:from uri="juvenileHearingHistoryRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="Inside Juvenile Hearing Mock" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitJuvenileHearingHistoryResponse</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="juvenileHearingHistoryResultsServiceEndpoint" />
+			<camel:log message="Called Juvenile Hearing Handler" />
+		</camel:route>
+
+		<!-- Juvenile Intake Request Handler -->
+		<camel:route id="juvenileIntakeHistoryRequestServiceEndpointRoute">
+			<camel:from uri="juvenileIntakeHistoryRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="Inside Juvenile Intake Mock" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitJuvenileIntakeHistoryResponse</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="juvenileIntakeHistoryResultsServiceEndpoint" />
+			<camel:log message="Called Juvenile Intake Handler" />
+		</camel:route>
+		
+		<!-- Juvenile Offense Request Handler -->
+		<camel:route id="juvenileOffenseHistoryRequestServiceEndpointRoute">
+			<camel:from uri="juvenileOffenseHistoryRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="Inside Juvenile Offense Mock" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitJuvenileOffenseHistoryResponse</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="juvenileOffenseHistoryResultsServiceEndpoint" />
+			<camel:log message="Called Juvenile Offense Handler" />
+		</camel:route>
+		
+		<!-- Juvenile Placement Request Handler -->
+		<camel:route id="juvenilePlacementHistoryRequestServiceEndpointRoute">
+			<camel:from uri="juvenilePlacementHistoryRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="Inside Juvenile Placement Mock" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitJuvenilePlacementHistoryResponse</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="juvenilePlacementHistoryResultsServiceEndpoint" />
+			<camel:log message="Called Juvenile Placement Handler" />
+		</camel:route>		
+
+		<!-- Juvenile Referral Request Handler -->
+		<camel:route id="juvenileReferralHistoryRequestServiceEndpointRoute">
+			<camel:from uri="juvenileReferralHistoryRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="Inside Juvenile Referral Mock" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitJuvenileReferralHistoryResponse</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="juvenileReferralHistoryResultsServiceEndpoint" />
+			<camel:log message="Called Juvenile Referral Handler" />
+		</camel:route>	
+
+		<camel:route>
+			<camel:from uri="direct:auditLog"/>
+		
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+		</camel:route>
+
+	</camel:camelContext>
+
+	<!-- Spring Beans -->
+
+	<bean id="staticMockAdapterProcessor" class="org.search.ojb.broker.StaticMockAdapterProcessor">
+		<property name="staticMockQuery" ref="staticMockQuery" />
+	</bean>
+
+	<bean id="staticMockQuery" class="org.search.ojb.staticmock.StaticMockQuery" />
+
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+		
+</beans>

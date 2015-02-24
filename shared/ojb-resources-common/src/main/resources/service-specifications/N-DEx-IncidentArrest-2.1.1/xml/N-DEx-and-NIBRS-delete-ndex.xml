@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?>
+
+<!--
+	Document: $Id: N-DEx-and-NIBRS-delete.xml  $
+	Original : 07/23/2009
+	Updated : 5/14/2010 - Updated N-DEx version number in header to 2.1.1
+	LEXS version : 3.1.4
+	N-DEx version : 2.1.1
+	Description : This scenario represents an N-DEx submission designed to remove Data Item data previously submitted to N-DEx and extracted for NIBRS submission.  
+			The scenario builds upon the N-DEx-delete.xml sample to illustrate the added structure and contents of a submission needed to remove data previously extracted 
+			to NIBRS.  Such a submission would result in the deletion the N-DEx Data Item as well as the the NIBRS Data Item.  
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexia.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+-->
+<ndexia:ArrestReport 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1 ../xsd/ndexia/ndexia/2.1/ndexia.xsd">
+    
+    <j:OrganizationORIIdentification>
+		<nc:IdentificationID>GA1234500</nc:IdentificationID>
+    </j:OrganizationORIIdentification>
+    <ndexia:NIBRSReportCategoryCode>Group B Arrest Report</ndexia:NIBRSReportCategoryCode>
+	
+</ndexia:ArrestReport>

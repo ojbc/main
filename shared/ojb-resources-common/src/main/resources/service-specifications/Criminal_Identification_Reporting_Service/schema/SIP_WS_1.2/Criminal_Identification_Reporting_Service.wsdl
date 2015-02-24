@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:Q1="http://hijis.hawaii.gov/ArrestReport/1.0" xmlns:tns="http://hijis.hawaii.gov/ws/Criminal_Identification_Reporting_Service/1.0" targetNamespace="http://hijis.hawaii.gov/ws/Criminal_Identification_Reporting_Service/1.0">
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://hijis.hawaii.gov/ArrestReport/1.0" schemaLocation="../../artifacts/service_model/information_model/Arrest_Report-IEPD/xsd/Arrest_Report.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="Arrest-Report">
+        <wsdl:part name="Arrest-Report" element="Q1:CJISDocument"/>
+    </wsdl:message>
+    <wsdl:portType name="Criminal-Identification-Reporting-Service">
+        <wsdl:operation name="Report-Criminal-Identification">
+            <wsdl:input name="Arrest-Report" message="tns:Arrest-Report"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="Criminal-Identification-Reporting-ServiceSOAPBinding" type="tns:Criminal-Identification-Reporting-Service">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Report-Criminal-Identification">
+            <soap:operation soapAction="Report-Criminal-Identification" style="document"/>
+            <wsdl:input name="Arrest-Report">
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="Criminal-Identification-Reporting-ServiceService">
+        <wsdl:port name="Criminal-Identification-Reporting-Service" binding="tns:Criminal-Identification-Reporting-ServiceSOAPBinding">
+            <soap:address location=""/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
