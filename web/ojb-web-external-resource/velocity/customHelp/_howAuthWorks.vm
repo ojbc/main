@@ -1,0 +1,13 @@
+<p><b>USER AUTHENTICATION</b></p>
+
+<img src="#springUrl('/static/images/helpImages/discoveryServiceDraft4_cropped.jpg')"/>
+
+<p>
+	For each browser session, the first time a user navigates to the HIJIS Portal, they will be shown a Discovery Service (DS) page. The DS prompts the user to identify where they are employed.  From the drop down, they will select the agency to which they belong. After clicking 'select', the user will be redirected to their home agency's Identity Provider (IdP) login page.  
+</p>
+<p>
+	The user will then log in using their normal home agency name and password, and if successful, will be redirected to the HIJIS Portal.  This session will be single sign on, so any future Service Providers within the HIJIS network to which they navigate (while in the same browser) will be accessed as if they had logged on there as well.
+</p>
+<br/>
+<br/>
+<br/>

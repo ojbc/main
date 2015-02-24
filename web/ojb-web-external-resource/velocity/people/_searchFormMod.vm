@@ -1,0 +1,250 @@
+ <script type="text/javascript">
+	  $(function() {
+	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+          $.ajaxSetup({ cache: false });
+    	  
+    	  $('#searchForm').validate({
+                rules: {
+                    "ageRangeStart": {
+                        digits: true
+                    },
+                    "ageRangeEnd": {
+                        digits: true
+                    },
+                    "heightInFeet": {
+                        digits: true
+                    },
+                    "heightInInches": {
+                        digits: true
+                    },
+                    "heightTolerance": {
+                        digits: true
+                    },
+                    "advanceSearch.personWeight": {
+                        digits: true
+                    },
+                    "weightTolerance": {
+                        digits: true
+                    }
+                 
+                }
+            });
+    
+    	    var index = $('#searchTabs a[href="#${activeSearchTab}"]').parent().index();
+    	    $( "#searchTabs" ).tabs({ active: index});
+    	    if (index==0) {
+            	$("#search-tab-title").html("ADVANCED SEARCH: PERSON");  
+            } else {
+                $("#search-tab-title").html("SIMPLE SEARCH: PERSON");
+            }        	  	    
+    	    	
+    	    
+    	    $( ".datePicker" ).datepicker({
+    	       showOn: "both",
+    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+    	       buttonImageOnly: true,
+    	       shortYearCutoff: "+10",
+    	       dateFormat: 'mm/dd/yy',
+      	       onClose: function(dateText, inst) {
+          		$(this).datepicker('option', 'dateFormat', 'mm/dd/yy');      
+    	       }
+    	    });
+    	    
+    		$('#advanceSearchSubmitButton').click (
+    			function(){
+                    var isValidate=$("#searchForm").valid();
+                    if(!isValidate){
+                        alert("There are errors in your inputs, please correct them and try again");
+                    }else {
+                        ojbc.clearAllDefaultValues();
+                        var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+                    
+    		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+    				        $('#portalContent').html(data);
+    				        }).fail(ojbc.displayFailMessage)
+				    }
+    		  	}
+    		)
+
+    		$('#simpleSearchSubmitButton').click (
+    			function(){
+                    ojbc.clearAllDefaultValues();
+                    
+                    var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+                    
+    		  		$.post("#springUrl('/people/simpleSearch')",formData,function(data) {
+    				      $('#portalContent').html(data);
+    				    }).fail(ojbc.displayFailMessage)
+    		  	}
+    		)
+    	  
+    	   $("a[href='\\#advanceSearchTab']").click (
+                function(){
+                   $("#search-tab-title").html("ADVANCED SEARCH: PERSON");
+                }
+            )
+           $("a[href='\\#simpleSearchTab']").click (
+                function(){
+                   $("#search-tab-title").html("SIMPLE SEARCH: PERSON");
+                }
+            ) 
+            
+			$('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
+			$('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
+			
+            #if( $personSearchCommand.advanceSearch.sourceSystems )
+	   			$('#sourceSystemsCheckBoxes input').prop("checked", false); 
+		        
+		        #foreach($selectedSourceSystem in $personSearchCommand.advanceSearch.sourceSystems)
+		        	$("#sourceSystemsCheckBoxes input[value='$selectedSourceSystem']").prop('checked',true);
+		        #end
+	        #else
+	        	$('#sourceSystemsCheckBoxes input').prop("checked", true); 
+			#end
+                        
+            $('#advanceSearchClearButton').click (function(event){
+                  
+                  ojbc.clearSearchPurposeFields();
+                  ojbc.clearSearchResultsFilterFields();
+                  $.get("#springUrl('/people/searchForm?resetForm=true&activeSearchTab=advanceSearchTab')", function(data) {
+                    $('#portalContent').html(data);
+                    
+                    
+                  }).fail(ojbc.displayFailMessage)
+              });
+
+            $('#simpleSearchClearButton').click (function(event){
+                  
+                  ojbc.clearSearchPurposeFields();
+                  ojbc.clearSearchResultsFilterFields();
+                  $.get("#springUrl('/people/searchForm?resetForm=true')", function(data) {
+                    $('#portalContent').html(data);
+                    
+                    
+                  }).fail(ojbc.displayFailMessage)
+              });
+              
+            $("#simpleSearch").keyup(function(event){
+    			if(event.keyCode == 13){
+        			$("#simpleSearchSubmitButton").click();
+    			}
+			});
+			
+			//This allows the input fields on the search form to submit form with enter key
+			$('#advanceSearchTab input').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#advanceSearchSubmitButton').click();
+			    }
+			});
+
+			//This allows the select fields on the search form to submit form with enter key			
+			$('#advanceSearchTab select').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#advanceSearchSubmitButton').click();
+			    }
+			});			
+
+    	    ojbc.initializeAllInputWithDefaultValue();
+    	    
+    	    $('#demogFilterInfo').hide();    	       	    
+	    	$('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
+	    	$('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");    		
+			$('#sourceSystemsCheckBoxes > p > span').addClass("fieldText");     				
+       				    	    
+	  });
+  </script>
+
+<div id="sourceSystems" style="display: none;">
+	#parse('common/_systemsToQuery.vm')
+</div>
+<div id="sourceSystemsDisabled" style="display: none;">
+	#parse('common/_systemsToQuery_disabled.vm')
+</div>
+<div id="searchTabs" class="contentBox">
+    <div id="search-tab-title">ADVANCED SEARCH: PERSON</div>
+    <ul>
+        <li><a href="#advanceSearchTab">Advanced Search</a></li>
+        <li><a href="#simpleSearchTab">Simple Search</a></li>
+    </ul>
+    <form id='searchForm' >
+      <div id="simpleSearchTab">
+        <p> ENTER SEARCH CRITERIA BELOW </p>
+            
+            <div>   
+                #springFormInput("personSearchCommand.simpleSearch" "") <br/>
+                #springShowErrors( "<br/>" "error" )
+             </div>
+            
+         <div class="searchCancelSection" >
+            <a id="simpleSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
+            <a id="simpleSearchClearButton" class="grayButton"  >CLEAR</a>
+        </div>
+      </div>
+      <div id="advanceSearchTab">
+            #if($errors.hasGlobalErrors())
+                #foreach( $globalError in $errors.globalErrors )
+                    <div class="error"> $globalError.defaultMessage </div>
+                #end
+            #end
+     
+    	  		<table>
+    	  			<tr>
+    	  				<td>
+    				        <p class="searchSubHeader"> NAME</p>
+    				        <div>#springFormInput("personSearchCommand.advanceSearch.personGivenName" "") </div>
+    				        <div class="radioButtonBar" >#springFormRadioButtons("personSearchCommand.advanceSearch.personGivenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "" ) </div>   
+    				        <div>#springFormInput("personSearchCommand.advanceSearch.personMiddleName" "")</div>
+    				        <div>#springFormInput("personSearchCommand.advanceSearch.personSurName" "")</div>
+    				        <div class="radioButtonBar" > #springFormRadioButtons("personSearchCommand.advanceSearch.personSurNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "") </div>   
+    				        
+    				        <div class="labelText" >
+    				        	DOB From: 
+    				        		#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='datePicker'")<br>
+    				        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='datePicker'")
+    				        		#springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")
+                                 #springShowErrors( "<br/>" "error" )
+    				        </div>
+    				        
+    				        <div class="labelText" >
+    				        	Age Range:
+        			  		     #springFormInput("personSearchCommand.ageRangeStart" "") to #springFormInput("personSearchCommand.ageRangeEnd" "")<br/> 
+    				        	 #springBind("personSearchCommand.ageRangeStart")
+    				        	 #springShowErrors( "<br/>" "error" )
+    				        </div>
+    				        <p class="searchSubHeader" >DEMOGRAPHICS</p>
+    				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personRaceCode" $races "" ) </div>
+    				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personSexCode" $genders "" ) </div>
+    				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personEyeColor" $eyeColors "" ) </div>
+    				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personHairColor" $hairColors "") </div>
+    				        
+    				        <div class="labelText" >
+        				        Height #springFormInput("personSearchCommand.heightInFeet" "")' #springFormInput("personSearchCommand.heightInInches" "")" +/-#springFormInput("personSearchCommand.heightTolerance" "")" 
+        				        &nbsp;
+        				        Weight #springFormInput("personSearchCommand.advanceSearch.personWeight" "")+/-#springFormInput("personSearchCommand.weightTolerance" "")
+    				        </div>
+    		        	</td>
+    		  			<td>
+        			  		  <p class="searchSubHeader" >IDENTIFIERS</p>
+        			  		  <div>
+        			  		     #springFormInput("personSearchCommand.advanceSearch.personSID" "")<br/>
+        			  		     #springShowErrors( "<br/>" "error" )
+        			  		  </div>
+        			  		  <div>#springFormInput("personSearchCommand.advanceSearch.personFBINumber" "") </div>
+        			  		  <div>
+        			  		     #springFormInput("personSearchCommand.advanceSearch.personSocialSecurityNumber" "")<br/> 
+        			  		     #springShowErrors( "<br/>" "error" )
+        			  		  </div>
+        			  		  <div>#springFormInput("personSearchCommand.advanceSearch.personDriversLicenseNumber" "") </div>
+        			  		  <div>#springFormInput("personSearchCommand.advanceSearch.personDriversLicenseIssuer" "") </div>
+    					</td>
+    	        	<tr>
+    	        </table>
+    	        <div class="searchCancelSection" >
+    	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
+    	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
+    	        </div>
+        </div>
+    </form>
+  
+  
+</div>

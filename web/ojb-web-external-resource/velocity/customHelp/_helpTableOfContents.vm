@@ -1,0 +1,266 @@
+<script type="text/javascript">
+        
+        $(function(){
+        
+        	$('#help_Introduction').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/introduction')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+
+        	$('#help_Search').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/search')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+
+        	$('#help_Search_Person').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/search_Person')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_Search_Incident').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/search_Incident')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_Search_Firearm').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/search_Firearm')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_Sources').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/sources')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_Sources_CJIS').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/sources_CJIS')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_Sources_eBW').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/sources_eBW')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_Sources_Firearms').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/sources_Firearms')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_simpleSearch').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/simpleSearch')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_howSearchWorks').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/howSearchWorks')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_subManual').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/subManual')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_subManual_Arrest').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/subManual_Arrest')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+        	$('#help_howAuthWorks').click (function() {         	        	
+       	                        $('#searchBarButtonDiv').css("display", "none");
+
+    				$.post("#springUrl('/help/helpLeftBar')", 
+					function(data) {
+					      $('#filterColumn').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+
+    				$.post("#springUrl('/help/howAuthWorks')", 
+					function(data) {
+					      $('#portalContent').html(data);					      
+					}).fail(ojbc.displayFailMessage);
+					    
+				return false;
+			} 
+    		 )
+ 
+       })
+        
+</script>
+
+	<li><a id="help_Introduction" class="helpLink" href="#">Introduction and Overview</a></li>
+	<li><a id="help_Search" class="helpLink" href="#">Search Parameters</a></li>
+	<ul>
+	  <li><a id="help_Search_Person" class="helpLink" href="#">Person Search</a></li>
+	  <li><a id="help_Search_Incident" class="helpLink" href="#">Incident Search</a></li>
+	  <li><a id="help_Search_Firearm" class="helpLink" href="#">Firearm Search</a></li>
+	</ul>
+	<li><a id="help_Sources" class="helpLink" href="#">Data Sources Available</a></li>
+	<ul>
+	  <li><a id="help_Sources_CJIS" class="helpLink" href="#">Criminal History</a></li>
+	  <li><a id="help_Sources_eBW" class="helpLink" href="#">Warrants</a></li>
+	  <li><a id="help_Sources_Firearms" class="helpLink" href="#">Firearms</a></li>
+	</ul>
+	<li><a id="help_simpleSearch" class="helpLink" href="#">Simple Search Tutorial</a></li>
+	<li><a id="help_howSearchWorks" class="helpLink" href="#">Record Grouping (Entity Resolution)</a></li>
+	<li><a id="help_subManual" class="helpLink" href="#">Subscription Management</a></li>
+	<ul>
+	  <li><a id="help_subManual_Arrest" class="helpLink" href="#">Arrest Subscriptions</a></li>
+	</ul>
+	<li><a id="help_howAuthWorks" class="helpLink" href="#">User Authentication</a></li>

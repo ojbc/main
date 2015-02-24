@@ -1,0 +1,77 @@
+<p><b>PERSON SEARCH</b></p>
+
+<img src="#springUrl('/static/images/helpImages/personSearchExample.jpg')"/>
+
+<h2>Person Search Parameters</h2>
+
+<h3>VALID IDENTIFIERS</h3> (PARAMETERS THAT CAN BE USED BY THEMSELVES) WILL BE UPPER CASE
+<h3>Non-valid identifiers</h3> (Parameters that are used in addition to 1 or more valid identifiers) will be in proper case.
+<br/>
+<br/>
+<h3>First Name</h3>
+Also known as "Given Name". User has the ability to specify:
+	<ul>
+		<li>"Starts With": Results in subjects with the first name searched, as well as subjects with the first name plus additional characters. For example, a "Starts With" search on 'Bob' will return 'Bob', and then 'Bobby', etc.</li>
+		<li>"Exact Match": Results in subjects with <b>only</b> this exact first name. For example, an "Exact Match" search on 'Bob' will return <b>only</b> subjects with 'Bob' as their first name.</li>
+	</ul>
+<h3>Middle Name</h3>
+This parameter uses a "Starts With" qualifier by default.
+<h3>LAST NAME</h3>
+Currently, when the user selects either "Starts With" or "Exact Match", the results returned correspond to a "Sounds Like" search in CJIS-Hawaii. This is a known issue and is scheduled for resolution.
+<br/>
+<h3>SID #, FBI #, SSN, DL/ID #</h3>
+All of these parameters are valid identifiers. Only exact matches will return a result.
+<h4>SID #</h4>
+Hawaii State Identification numbers are formatted with 1 letter, followed by 7 digits.
+<h4>FBI #</h4>
+Federal Bureau of Investigation numbers are typically 9 alpha numeric characters.
+<h4>SSN</h4>
+Social security numbers should be searched using the format xxx-xx-xxxx.
+<br/>
+<h4>DL/ID #, Issuer</h4>
+Currently, when conducting an advanced search for Driver's License numbers against Criminal History records, it will only return "too many records".  This is a known issue that is under review.
+<br/><br/>
+Users can use the Driver's License number parameter when searching on Warrants or Maui Firearms records. Hawaii's driver's license format is H followed by 8 digits. The 'Issuer' parameter is not necessary to search for Hawaii DL's.
+<br/>
+<h3>Date of Birth From/To, Age Range, Race, Gender, Eye Color, Hair Color, Height, Weight</h3>
+<h4>When using 'Advanced Search' parameters to execute a search</h4>
+These parameters do not change the results for Criminal History searches. In the CJIS Hawaii source system, results would be sorted with the records that match both the valid identifier <b>and</b> this parameter first, followed by records that did not match this parameter further down the list. In the HIJIS Query, all results are sorted by last name, first name, SID, FBI #, etc. As such, there is no discernable difference in the Criminal History results when using this parameter.
+<br/><br/>
+For Warrant searches, DOB From/To, Age Range, and Gender perform as expected, only returning records that match the parameter specified. The user may use the lower limit, upper limit, or both together when setting the DOB or age ranges.
+<br/><br/>
+Race, Height, Weight, Eye Color, and Hair Color attributes are currently not in the data set that HIJIS receives from the Warrants system. As such, any values selected for these parameters are ignored when performing a Warrants query.
+<br/><br/>
+For Maui Firearms searches, DOB From/To, Age Range, Race, Gender, Eye Color, Hair Color, and Weight perform as expected, only returning records that match the parameter specified. The user must use a lower and upper limit when using the DOB or age ranges.
+<br/><br/>
+The Height parameter currently does not filter results from the Maui Firearms results.
+<br/><br/>
+
+<img src="#springUrl('/static/images/helpImages/personSearchDemographicsExample.jpg')"/>
+
+<h4>When using 'Demographics' parameters to filter search results</h4>
+After executing a search, the 'Demographics' parameters are located on the lower left of the application. These may be used to filter a large number of records. There are some slight differences in the way these parameters perform compared to when they are used in 'Advanced Search'.
+<br/>
+<h5>Age Range</h5>
+When filtering with the 'Age Range' parameter, the user must set <b>both</b> a lower and upper limit. Omitting one or the other will return a filter error.
+<br/><br/>
+Currently, this is the only demographic filter that works for Maui Firearms results.
+<br/>
+<h5>Race, Height, Weight</h5>
+When filtering on Criminal History returns, these parameters perform as expected.
+<br/><br/>
+As mentioned previously, Warrants records do not have these attributes. Instead of ignoring these parameters as in 'Advanced Search', the 'Demographics' filter tries to (and fails) to find matching records. As such, no Warrant records will be returned whenever one of these parameters is used to filter.
+<br/>
+<h5>Race</h5>
+Only 1 racial group may be selected from the dropdown.
+<br/>
+<h5>Height</h5>
+When using 'Height', the 'feet', 'inches', and 'variance' (+/-) fields are all mandatory. The 'feet' field must be greater than 0. The 'inches' field must be 0 <= inches < 12.
+<br/>
+<h5>Weight</h5>
+Likewise, when using weight, both the pounds and variance fields are mandatory.
+<br/><br/>
+<h5>Eye Color, Hair Color</h5>
+Currently, these parameters are not supported for filtering as the current person search results format does not include hair and eye color.  This is a known issue and under review.
+<br/>
+<br/>
+<br/>

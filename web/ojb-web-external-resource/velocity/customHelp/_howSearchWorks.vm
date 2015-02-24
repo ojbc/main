@@ -1,0 +1,11 @@
+<p><b>RECORD GROUPING (ENTITY RESOLUTION)</b></p>
+
+<p>
+	The HIJIS Portal merges similar search results through an 'Entity Resolution' algorithm. This algorithm compares record data and groups records with matching biometric identifiers, such as the fingerprint based SID and FBI number.  For records without biometric identifiers, the algorithm will compare all other parameters (SSN, Driver's License number, etc.) and groups the records if the similarities of those records are greater than a pre-defined threshold.
+</p>
+<p>
+	This capability greatly reduces the effort and confusion of wading through a large amount of records.
+</p>
+<br/>
+<br/>
+<br/>

@@ -1,0 +1,25 @@
+<p><b>SUBSCRIPTION MANAGEMENT</b></p>
+
+<img src="#springUrl('/static/images/helpImages/subManIcon.jpg')"/>
+<br></br>
+The Subscription Management service enables users to subscribe to <b>events</b> and receive <b>notifications</b> when those events occur.  
+<br></br>
+<img width = "100%" src="#springUrl('/static/images/helpImages/subManMain.jpg')"/>
+<h3>Creating a Subscription</h3>
+<p>
+To create a subscription, from the <b>Subscription Management</b> screen, select the <b>Add Subscription</b> button.
+</p>  
+<h3>Editing a Subscription</h3>
+<p>
+To edit an existing subscription, from the <b>Subscription Management</b> screen, select the <b>Edit</b> button to the left of an existing subscription.
+</p>
+<h3>Deleting a Subscription</h3>
+<p>
+To delete an existing subscription, from the <b>Subscription Management</b> screen, select the <b>Unsubscribe</b> button to the right of an existing subscription.
+</p>
+<p>
+The sub-topics will cover the different types of subscriptions.
+</p>
+<br/>
+<br/>
+<br/>

@@ -1,0 +1,50 @@
+<p><b>ARREST SUBSCRIPTIONS</b></p>
+<p>
+An arrest subscription is based on a person of interest.  When the individual, defined by a <b>State Identification Number (SID)</b>, is booked, a notification will be sent to the email address(es) specified in the subscription in near real-time and with pertinent information about the arrest.
+</p>
+<p>
+The <b>SID</b> of the person of interest is the match criteria for an arrest subscription.
+</p><br/>
+<h3>Creating/Editing an Arrest Subscription</h3>
+<img width = "100%" src="#springUrl('/static/images/helpImages/subManCreateArrest.jpg')"/>
+<p>
+	<ul>
+		<li>
+			<p>
+			SID<br/>
+			The format for this parameter is annnnnnn, 1 letter followed by 7 numbers.<br/>
+			Once a <b>SID</b> is entered, select the <b>magnifying glass</b> icon.<br/>
+			<i>*The SID cannot be modified after a subscription is created.</i>
+			</p>
+		</li>
+		<li>
+			<p>
+			Name<br/>
+			Set the person of interest's <b>alias</b> for the subscription from the dropdown list.  The alias list is populated from the criminal history database; in some cases there is only one alias.
+			</p>
+		</li>
+		<li>
+			<p>
+			Start Date<br/>
+			The <b>start date</b> is the current date and cannot be modified.
+			</p>
+		</li>
+		<li>
+			<p>
+			End Date<br/>
+			By default, a Criminial Justice subscription never expires. For a civil subscription, the <b>end date</b> is prepopulated with a date one year from the current date.  This field can be modified but never past one year from the current date to ensure that subscriptions are validated at least annually.
+			</p>
+		</li>
+		<li>
+			<p>
+			Email Address(es)<br/>
+			Up to three can be specified.  A notification will be sent to these email addresses when the person of interest is arrested, the subscription is due for validation or the subscription has expired.  For security reasons, some email addresses are invalid (i.e. Gmail, Yahoo, etc.).
+			</p>
+		</li>
+	</ul>
+	<br/>
+</p>
+<br/>
+<br/>
+<br/>
+<br/>

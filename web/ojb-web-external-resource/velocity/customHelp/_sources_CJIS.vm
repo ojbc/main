@@ -1,0 +1,25 @@
+<p><b>CRIMINAL HISTORY:</b></p>
+
+The statewide criminal justice information system (CJIS-Hawaii) provides access to adult Criminal History records.
+<br/><br/>
+There are 2 levels of access to these records:
+<ul>
+	<li>
+		Conviction Only
+		<p>
+			This information is available to the public, and as such it will be visible to all HIJIS Portal users. Covered in this data set are all convictions.
+		</p>
+	</li>
+	<li>
+		Full RAP
+		<p>
+			The full Record of Arrests data set is only available to authorized employees. The user will be able to see convictions, as well as arrests pending a final disposition and arrests resulting in dismissals and other non-convictions. 
+		</p>
+		<p>
+			Expungement data is currently not included in the full rap records.  This is a planned future enhancement.
+		</p>
+	</li>
+</ul>
+<br/>
+<br/>
+<br/>

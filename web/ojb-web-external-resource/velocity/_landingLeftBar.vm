@@ -1,0 +1,13 @@
+<div id = "filterColumn">
+     <ul>
+	<li>
+		<a id = "HIJIS Link" class = "sourceSystemLink" href = "http://hijis.hawaii.gov" target="_blank">HIJIS Website</a>
+	</li>
+	<li>
+		<a id = "HIJIS Link" class = "sourceSystemLink" href = "https://www.cjisportal.com/HI/cjisaudit/index.pl" target="_blank">CJIS Hawaii</a>
+	</li>
+	<li>
+		<a id = "HIJIS Link" class = "sourceSystemLink" href = "https://judiciary.ehawaii.gov/warrants/index.html" target="_blank">eBW</a>
+	</li>
+     </ul>
+</div>

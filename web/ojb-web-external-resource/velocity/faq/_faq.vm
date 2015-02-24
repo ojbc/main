@@ -1,0 +1,34 @@
+<div><hr /></div>
+
+<p>The FAQ is a dynamic resource for HIJIS portal users intended to assist with answering and troubleshooting common questions and issues.  In order to minimize the amount of trouble tickets created, users should first check this page.</p> 
+
+<p><a name="top"></a></p>
+
+<ol>
+
+<li><a href="#welcome">I've logged in with my username and password.  Why can't I see the portal welcome page?</a></li>
+<li><a href="#display">I can access the portal, but why does some or all of the portal display incorrectly?</a></li>
+
+</ol>
+
+<div><hr /></div>
+
+<p><a name="welcome"></a><b>I've logged in with my username and password.  Why can't I see the portal welcome page?</b></p>
+
+<p>A1:	Bookmarking the login page may prevent you from accessing the portal.  If this scenario applies to you, restart your browser and navigate to http://hijis.ehawaii.gov.</p> 
+
+<p>A2:	Your organization populates and sends a set of "attributes" containing non-sensitive information about you to the portal.  These attributes will determine if you can access the portal and which portal capabilities will be available to you.  Contact your IT administrator to ensure that these attributes have been populated correctly.</p>
+
+<p>A3:	The portal service may be down.  Confirm with your IT administrator.</p>
+
+<p>(<a href="#top">top</a>)</p>
+
+<div><hr /></div>
+
+<p><a name="display"></a><b>I can access the portal, but why does some or all of the portal display incorrectly?</b></p>
+
+<p>A1:	If you are using Internet Explorer, turn off compatibility view under "Tools".  You will need to restart your browser.</p>
+
+<p>A2:	Use other internet browsers, such as Mozilla Firefox or Google Chrome.</p>
+
+<p>(<a href="#top">top</a>)</p>
