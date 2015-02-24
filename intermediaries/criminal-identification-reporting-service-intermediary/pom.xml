@@ -71,7 +71,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.ojbc.util</groupId>
+			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-camel-common</artifactId>
 			<version>${ojb-camel-common-version}</version>
 		</dependency>

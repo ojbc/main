@@ -78,7 +78,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.ojbc.util</groupId>
+			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-common</artifactId>
 			<version>${ojb-common-version}</version>
 		</dependency>
