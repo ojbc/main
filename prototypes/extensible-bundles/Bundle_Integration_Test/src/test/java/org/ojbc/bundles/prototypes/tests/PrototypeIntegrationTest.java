@@ -24,8 +24,8 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.ServiceStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.util.osgi.AbstractPaxExamIntegrationTest;
 import org.ojbc.util.osgi.OjbcContext;
+import org.ojbc.util.osgi.test.AbstractPaxExamIntegrationTest;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
@@ -101,7 +101,8 @@ public class PrototypeIntegrationTest extends AbstractPaxExamIntegrationTest {
 				// Install bundles under test (this is the equivalent of the Karaf shell command "install -s mvn:...")
 				// Note that "versionAsInProject" installs the version of the bundle based on the maven dependency in the pom
 				// Note that you want to start Bundle B first, since Bundle A references its service
-				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-utils").versionAsInProject().start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-common").versionAsInProject().start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-test-common").versionAsInProject().start(),
 				mavenBundle().groupId("org.ojbc.bundles.prototypes.shared").artifactId("Bundle_Integration_Test_Common").versionAsInProject().start(),
 				mavenBundle().groupId("org.ojbc.bundles.prototypes").artifactId("Bundle_B_Test").versionAsInProject().start(),
 				mavenBundle().groupId("org.ojbc.bundles.prototypes").artifactId("Bundle_A_Test").versionAsInProject().start(),
