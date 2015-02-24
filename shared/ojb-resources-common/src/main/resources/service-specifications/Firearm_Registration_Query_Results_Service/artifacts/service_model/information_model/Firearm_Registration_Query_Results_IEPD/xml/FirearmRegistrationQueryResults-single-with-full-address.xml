@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exchange:FirearmRegistrationQueryResults 
+	xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0 ../xsd/exchange_schema.xsd" 
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0" 
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" 
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Person s:id="REGISTRANT">
+		<nc:PersonBirthDate>
+			<nc:Date>1969-01-27</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonBirthLocation>
+			<nc:LocationAddress>
+				<nc:AddressFullText>CityVille, CA 11111</nc:AddressFullText>
+			</nc:LocationAddress>
+		</nc:PersonBirthLocation>
+		<nc:PersonCitizenshipText>USA</nc:PersonCitizenshipText>
+		<nc:PersonComplexionText>Fair</nc:PersonComplexionText>
+		<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+		<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureText>72</nc:MeasureText>
+			<nc:LengthUnitCode>inches</nc:LengthUnitCode>
+		</nc:PersonHeightMeasure>
+		<nc:PersonName>
+			<nc:PersonFullName>John Smith</nc:PersonFullName>
+		</nc:PersonName>
+		<nc:PersonRaceCode>B</nc:PersonRaceCode>
+		<nc:PersonSexCode>F</nc:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonStateIdentification>
+			<nc:IdentificationID>67890-</nc:IdentificationID>
+		</nc:PersonStateIdentification>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureText>185</nc:MeasureText>
+			<nc:WeightUnitCode>lbs</nc:WeightUnitCode>
+		</nc:PersonWeightMeasure>
+	</nc:Person>
+	<ext:Firearm s:id="FIREARM">
+		<nc:ItemSerialIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:ItemSerialIdentification>
+		<nc:ItemModelName>Firearm</nc:ItemModelName>
+		<nc:FirearmBarrelLengthMeasure>
+			<nc:MeasureText>34</nc:MeasureText>
+			<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+		</nc:FirearmBarrelLengthMeasure>
+		<nc:FirearmCaliberText>3</nc:FirearmCaliberText>
+		<nc:FirearmGaugeText>.410</nc:FirearmGaugeText>
+		<hi:FirearmMakeCode>BHE</hi:FirearmMakeCode>
+		<ext:FirearmMakeText>BELKNAP</ext:FirearmMakeText>
+		<ext:FirearmReceivedDate>
+			<nc:Date>2000-06-07</nc:Date>
+		</ext:FirearmReceivedDate>
+		<ext:FirearmImporter>Simpson</ext:FirearmImporter>
+		<ext:FirearmAcquisition>
+			<ext:FirearmAcquisitionSourceDescriptionText>Dick's Sporting Goods</ext:FirearmAcquisitionSourceDescriptionText>
+			<ext:FirearmAcquisitionLocationAddress>
+				<nc:StructuredAddress>
+					<nc:AddressDeliveryPointText>123 Main Street</nc:AddressDeliveryPointText>
+					<nc:LocationCityName>New York</nc:LocationCityName>
+					<nc:LocationStateName>NY</nc:LocationStateName>
+					<nc:LocationPostalCode>10017</nc:LocationPostalCode>
+				</nc:StructuredAddress>
+			</ext:FirearmAcquisitionLocationAddress>
+		</ext:FirearmAcquisition>
+	</ext:Firearm>
+	<ext:FirearmRegistrant>
+		<ext:FirearmRegistrantCommentsText>This guy is a good guy.</ext:FirearmRegistrantCommentsText>
+		<ext:FirearmRegistrantLawEnforcementOfficersSafetyActIndicator>true</ext:FirearmRegistrantLawEnforcementOfficersSafetyActIndicator>
+		<nc:RoleOfPersonReference s:ref="REGISTRANT"/>
+	</ext:FirearmRegistrant>
+	<ext:ItemRegistration s:id="REGISTRATION">
+		<nc:RegistrationIdentification>
+			<nc:IdentificationID>123456</nc:IdentificationID>
+		</nc:RegistrationIdentification>
+		<nc:LocationCountyName>Williams</nc:LocationCountyName>
+		<nc:RegistrationEffectiveDate>
+			<nc:Date>2000-06-07</nc:Date>
+		</nc:RegistrationEffectiveDate>
+		<ext:AgeAtRegistration>
+			<nc:MeasureText>24</nc:MeasureText>
+		</ext:AgeAtRegistration>
+		<ext:PermitNumber>987654321</ext:PermitNumber>
+		<ext:PermitDate>
+			<nc:Date>2012-11-03</nc:Date>
+		</ext:PermitDate>
+		<ext:RegistrationNotesText>Notes</ext:RegistrationNotesText>
+	</ext:ItemRegistration>
+	<nc:Location s:id="LOC-1">
+		<nc:LocationAddress>
+			<nc:AddressFullText>123 Main Street Cityville CA</nc:AddressFullText>
+		</nc:LocationAddress>
+	</nc:Location>
+	<nc:ContactInformation s:id="PHONE-1">
+		<nc:ContactTelephoneNumber>
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>555-666-7777</nc:TelephoneNumberFullID>
+			</nc:FullTelephoneNumber>
+		</nc:ContactTelephoneNumber>
+	</nc:ContactInformation>
+	<nc:ContactInformation s:id="CONTACT-BUSINESS">
+		<nc:ContactTelephoneNumber>
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>111-222-3333</nc:TelephoneNumberFullID>
+			</nc:FullTelephoneNumber>
+		</nc:ContactTelephoneNumber>
+		<nc:ContactEntity>
+			<nc:EntityOrganization>
+				<nc:OrganizationLocation>
+					<nc:LocationAddress>
+						<nc:AddressFullText>321 Oak Street Cityville CA</nc:AddressFullText>
+					</nc:LocationAddress>
+				</nc:OrganizationLocation>
+			</nc:EntityOrganization>
+		</nc:ContactEntity>
+	</nc:ContactInformation>
+	<nc:PropertyRegistrationAssociation>
+		<nc:ItemRegistrationReference s:ref="REGISTRATION"/>
+		<nc:ItemReference s:ref="FIREARM"/>
+		<nc:ItemRegistrationHolderReference s:ref="REGISTRANT"/>
+	</nc:PropertyRegistrationAssociation>
+	<nc:ResidenceAssociation>
+		<nc:PersonReference s:ref="REGISTRANT"/>
+		<nc:LocationReference s:ref="LOC-1"/>
+	</nc:ResidenceAssociation>
+	<nc:PersonContactInformationAssociation>
+		<nc:PersonReference s:ref="REGISTRANT"/>
+		<nc:ContactInformationReference s:ref="PHONE-1"/>
+	</nc:PersonContactInformationAssociation>
+	<nc:PersonEmploymentAssociation>
+		<nc:EmployeeReference s:ref="REGISTRANT"/>
+		<nc:EmployeeOccupationText>Contractor</nc:EmployeeOccupationText>
+	</nc:PersonEmploymentAssociation>
+	<nc:EmployeeContactInformationAssociation>
+		<nc:PersonReference s:ref="REGISTRANT"/>
+		<nc:ContactInformationReference s:ref="CONTACT-BUSINESS"/>
+	</nc:EmployeeContactInformationAssociation>
+</exchange:FirearmRegistrationQueryResults>

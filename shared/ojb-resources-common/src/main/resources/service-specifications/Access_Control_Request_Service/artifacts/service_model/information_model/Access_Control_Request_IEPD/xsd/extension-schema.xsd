@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0" 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0" 
+	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	elementFormDefault="qualified">
+	
+	<xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xs:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+
+	<xs:element name="IdentityIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:IdentityAugmentationPoint">
+		<xs:annotation>
+			<xs:documentation>A unique identifier assigned to an identity.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CriminalJusticeOrganizationIndicator" type="niem-xs:boolean" substitutionGroup="nc30:OrganizationAugmentationPoint">
+		<xs:annotation>
+			<xs:documentation>True if the agency is a court or a government agency or any subunit thereof which performs the administration of criminal justice persuant a statue or executive order, and which allocates a substantial part of it's annual budget to the administration of criminal justice; False otherwise .</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LawEnforcementOrganizationIndicator" type="niem-xs:boolean" substitutionGroup="nc30:OrganizationAugmentationPoint">
+		<xs:annotation>
+			<xs:documentation>True if the agency is a government agency responsible for enforcing the law; False otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="FederatedQueryUserIndicator" type="niem-xs:boolean">
+		<xs:annotation>
+			<xs:documentation>True if the person is authorized to access federated query capabilities, false otherwise.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:complexType name="IdentityType">
+		<xs:complexContent>
+			<xs:extension base="nc30:IdentityType">
+				<xs:sequence>
+					<xs:element ref="ext:FederatedQueryUserIndicator" minOccurs="0"/>
+					<xs:element ref="nc30:ContactInformationAssociation" minOccurs="0"/>
+					<xs:element ref="nc30:PersonEmploymentAssociation" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="IdentityBasedAccessControlRequestType">
+		<xs:complexContent>
+			<xs:extension base="nc30:IdentityType">
+				<xs:sequence>
+					<xs:element ref="ext:PersonIdentity" />
+					<xs:element ref="ext:RequestedResourceRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+			
+	<xs:element name="PersonIdentity" type="ext:IdentityType"/>
+	
+	<xs:element name="RequestedResourceRepresentation" abstract="true">
+		<xs:annotation>
+			<xs:documentation>A place holder for a resource for which access is being requested</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="RequestedResourceURI" type="nc30:TextType" substitutionGroup="ext:RequestedResourceRepresentation">
+		<xs:annotation>
+			<xs:documentation>A URI assigned to a resource for which access is being requested.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="RequestedResourceFullyQualifiedServiceOperationNameText" type="nc30:TextType" substitutionGroup="ext:RequestedResourceRepresentation">
+		<xs:annotation>
+			<xs:documentation>A fully qualified name of a service operation for which access is being requested.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	
+</xs:schema>

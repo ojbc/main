@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?>
+
+<!--
+	Document: $Id: rape-with-sketch-incident-ndex.xml 2096 2010-10-05 21:49:42Z jw7 $
+	Original : 11/21/2007
+	Updated : 12/4/2008 - Updated for N-DEx 2.1 and to correct a business rule issue.
+					6/22/2009 - Updated person physical feature for IA RC 2 schemas.
+					5/14/2010 - Updated N-DEx version number in header to 2.1.1
+	LEXS version : 3.1.4
+	N-DEx version : 2.1.1
+	Description : This scenario represents a possible N-DEx Incident Report submission.   The scenario demonstrates the interaction of activities within an Incident 
+			Report.  The scenario involves the primary activity of Incident interacting with the ancillary activity of Offense.  This scenario illustrates the capture of 
+			descriptors/MO traits of an unknown subject and demonstrates inclusion of multiple attachments which are linked directly back to physical features 
+			(attributes) of the subject person, rather than to the subject person entity itself.  
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexia.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+-->
+<ndexia:IncidentReport 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:i="http://niem.gov/niem/appinfo/2.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
+    xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
+    xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" 
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
+	xmlns:mmucc_2="http://niem.gov/niem/mmucc_2/2.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
+	xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" 
+	xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1 ../xsd/ndexia/ndexia/2.1/ndexia.xsd">
+	
+	<!--================================= Image  ============================-->
+	<ndexia:Attachment>
+		<lexs:AttachmentURI>http://www.gbi.gov/sketch100020060211.jpg</lexs:AttachmentURI>
+		<ndexia:BinaryCategoryCode>Police Sketch</ndexia:BinaryCategoryCode>
+	</ndexia:Attachment>
+	
+	<!--================================= Enforcement Unit  ============================-->
+	<ndexia:EnforcementUnit>
+		<j:EnforcementUnitNumberIdentification>
+			<nc:IdentificationID>25</nc:IdentificationID>
+		</j:EnforcementUnitNumberIdentification>
+		<ndexia:EnforcementUnitAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Unit1"/>
+		</ndexia:EnforcementUnitAugmentation>
+	</ndexia:EnforcementUnit>
+	
+	<!--================================= Incident  ============================-->
+	<ndexia:Incident>
+		<ndexia:ActivityStatus>
+			<ndexia:ActivityStatusAugmentation>
+				<ndexia:IncidentStatusCode>Open</ndexia:IncidentStatusCode>
+			</ndexia:ActivityStatusAugmentation>
+		</ndexia:ActivityStatus>
+		
+		<j:IncidentAugmentation>
+			<j:IncidentLightingCode>darkness</j:IncidentLightingCode>
+		</j:IncidentAugmentation>
+		
+		<ndexia:IncidentAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Incident1"/>
+			<ndexia:IncidentWeatherCode>07</ndexia:IncidentWeatherCode>
+		</ndexia:IncidentAugmentation>
+	</ndexia:Incident>
+	
+	<!--============================== Location 1 =========================-->
+	<ndexia:Location>
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<nc:LocationStateUSPostalServiceCode>CO</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+		<ndexia:LocationGeneralCategoryCode>Commercial</ndexia:LocationGeneralCategoryCode>
+		<ndexia:LocationCategoryCode>Roadway_Alley</ndexia:LocationCategoryCode>
+		<ndexia:LocationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Location1"/>
+		</ndexia:LocationAugmentation>
+	</ndexia:Location>
+	
+		<!--============================== Location 2 =========================-->
+	<ndexia:Location>
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<ndexia:LocationStreet>
+					<ndexia:StreetAugmentation>
+						<ndexia:StreetPredirectionalCode>Northwest</ndexia:StreetPredirectionalCode>
+					</ndexia:StreetAugmentation>
+				</ndexia:LocationStreet>
+				<nc:LocationStateUSPostalServiceCode>AK</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+		<ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+		<ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+		<ndexia:LocationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Location2"/>
+		</ndexia:LocationAugmentation>
+	</ndexia:Location>
+	
+	<!--================================= Offense ============================-->
+	<ndexia:Offense>
+		<ndexia:ActivityAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Offense1"/>
+		</ndexia:ActivityAugmentation>
+		<j:IncidentFactor>
+			<j:IncidentFactorCode>N</j:IncidentFactorCode>
+		</j:IncidentFactor>
+		<ndexia:OffenseCode>Forcible Rape</ndexia:OffenseCode>
+		<ndexia:OffenseCompletedIndicator>true</ndexia:OffenseCompletedIndicator>
+	</ndexia:Offense>
+	
+	<!--============================== Person 1 =========================-->
+	<ndexia:Person>
+		<nc:PersonHairAppearanceText>Greasy</nc:PersonHairAppearanceText>
+		<nc:PersonHairLengthText>Short</nc:PersonHairLengthText>
+		<nc:PersonHairStyleText>Plastered</nc:PersonHairStyleText>
+		<!-- This person has 2 SMTs.  Sample illustrates use of AttachmentLinkReference in a structured payload element to indicate which tattoo image goes with which element. -->
+		<ndexia:PersonPhysicalFeature>
+			<nc:PhysicalFeatureCategoryCode>TAT L ARM</nc:PhysicalFeatureCategoryCode>
+			<ndexia:PhysicalFeatureAugmentation>
+				<ndexia:PhysicalFeatureImage>
+					<ansi-nist:PhysicalFeatureDescriptionDetail>
+						<ansi-nist:PhysicalFeatureDescriptionText>Tattoo of a help icon on the subjects arm</ansi-nist:PhysicalFeatureDescriptionText>
+					</ansi-nist:PhysicalFeatureDescriptionDetail>
+					<ndexia:PhysicalFeatureImageAugmentation>
+						<lexslib:AttachmentLinkReference lexslib:ref="PAttachment3"/>
+					</ndexia:PhysicalFeatureImageAugmentation>
+				</ndexia:PhysicalFeatureImage>
+            </ndexia:PhysicalFeatureAugmentation>
+		</ndexia:PersonPhysicalFeature>
+		<ndexia:PersonPhysicalFeature>
+			<nc:PhysicalFeatureCategoryCode>TAT R ARM</nc:PhysicalFeatureCategoryCode>
+			<ndexia:PhysicalFeatureAugmentation>
+				<ndexia:PhysicalFeatureImage>
+					<ansi-nist:PhysicalFeatureDescriptionDetail>
+						<ansi-nist:PhysicalFeatureDescriptionText>Tattoo of a warning icon on the subjects arm</ansi-nist:PhysicalFeatureDescriptionText>
+					</ansi-nist:PhysicalFeatureDescriptionDetail>
+					<ndexia:PhysicalFeatureImageAugmentation>
+						<lexslib:AttachmentLinkReference lexslib:ref="PAttachment4"/>
+					</ndexia:PhysicalFeatureImageAugmentation>
+				</ndexia:PhysicalFeatureImage>
+            </ndexia:PhysicalFeatureAugmentation>
+		</ndexia:PersonPhysicalFeature>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="SubjectPerson1"/>
+			<ndexia:PersonBuildCode>Large</ndexia:PersonBuildCode>
+			<ndexia:PersonSpeechDescriptionCode>Slurred</ndexia:PersonSpeechDescriptionCode>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+		
+	<!--============================== Person 2 =========================-->
+	<ndexia:Person>
+		<nc:PersonEthnicityCode>N</nc:PersonEthnicityCode>
+		<nc:PersonResidentCode>R</nc:PersonResidentCode>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="VictimPerson1"/>
+			<ndexia:PersonHairLengthCode>Long</ndexia:PersonHairLengthCode>
+			<ndexia:PersonHairStyleCode>Wavy</ndexia:PersonHairStyleCode>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+	
+	<!--============================== Subject Role =========================-->
+	<ndexia:Subject>
+		<ndexia:SubjectAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Subject1"/>
+			<ndexia:SubjectMOActionText>Wore ski mask</ndexia:SubjectMOActionText>
+			<ndexia:SubjectSequenceNumberText>1</ndexia:SubjectSequenceNumberText>
+		</ndexia:SubjectAugmentation>
+	</ndexia:Subject>
+		
+	<!--================================= Victim Role ============================-->
+	<ndexia:Victim>
+		<ndexia:VictimAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Victim1"/>
+			<ndexia:VictimSequenceNumberText>1</ndexia:VictimSequenceNumberText>
+		</ndexia:VictimAugmentation>
+	</ndexia:Victim>
+	
+	<!--================================= Victim Subject Relationship ============================-->
+	<ndexia:SubjectVictimAssociation>
+		<ndexia:SubjectVictimAssociationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="SubjectVictimAssoc1"/>
+			<ndexia:VictimToSubjectRelationshipCode>Stranger</ndexia:VictimToSubjectRelationshipCode>
+		</ndexia:SubjectVictimAssociationAugmentation>
+	</ndexia:SubjectVictimAssociation>
+	
+</ndexia:IncidentReport>    

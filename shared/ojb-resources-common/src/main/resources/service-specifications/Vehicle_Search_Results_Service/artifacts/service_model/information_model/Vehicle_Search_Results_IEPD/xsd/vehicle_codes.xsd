@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:i="http://niem.gov/niem/appinfo/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:codes="http://ojbc.org/IEPD/Extensions/VehicleCodes/1.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/VehicleCodes/1.0">
+	<xsd:annotation>
+		<xsd:documentation>Vermont Vehicle Codes</xsd:documentation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
+		schemaLocation="Subset/niem/appinfo/2.0/appinfo.xsd" />
+	<xsd:simpleType name="VehicleMakeCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for VehicleMake</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
+					i:name="Object" />
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Acura">
+				<xsd:annotation>
+					<xsd:documentation>Acura</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Alfa Romeo">
+				<xsd:annotation>
+					<xsd:documentation>Alfa Romeo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AM General Corp.">
+				<xsd:annotation>
+					<xsd:documentation>AM General Corp.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="American Motors">
+				<xsd:annotation>
+					<xsd:documentation>American Motors</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Audi">
+				<xsd:annotation>
+					<xsd:documentation>Audi</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Aurora">
+				<xsd:annotation>
+					<xsd:documentation>Aurora</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Austin">
+				<xsd:annotation>
+					<xsd:documentation>Austin</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BMW">
+				<xsd:annotation>
+					<xsd:documentation>BMW</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Boston Whaler, Inc">
+				<xsd:annotation>
+					<xsd:documentation>Boston Whaler, Inc</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Buick">
+				<xsd:annotation>
+					<xsd:documentation>Buick</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Cadillac">
+				<xsd:annotation>
+					<xsd:documentation>Cadillac</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Chevrolet">
+				<xsd:annotation>
+					<xsd:documentation>Chevrolet</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Chrysler">
+				<xsd:annotation>
+					<xsd:documentation>Chrysler</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Cooper">
+				<xsd:annotation>
+					<xsd:documentation>Cooper</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Daewoo">
+				<xsd:annotation>
+					<xsd:documentation>Daewoo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Daihatsu">
+				<xsd:annotation>
+					<xsd:documentation>Daihatsu</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Datsun">
+				<xsd:annotation>
+					<xsd:documentation>Datsun</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Dodge">
+				<xsd:annotation>
+					<xsd:documentation>Dodge</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Eagle">
+				<xsd:annotation>
+					<xsd:documentation>Eagle</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Fiat">
+				<xsd:annotation>
+					<xsd:documentation>Fiat</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Ford">
+				<xsd:annotation>
+					<xsd:documentation>Ford</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Four Winns, Inc">
+				<xsd:annotation>
+					<xsd:documentation>Four Winns, Inc</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="General Motors">
+				<xsd:annotation>
+					<xsd:documentation>General Motors</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Geo">
+				<xsd:annotation>
+					<xsd:documentation>Geo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GMC">
+				<xsd:annotation>
+					<xsd:documentation>GMC</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Honda">
+				<xsd:annotation>
+					<xsd:documentation>Honda</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Horch Limousine">
+				<xsd:annotation>
+					<xsd:documentation>Horch Limousine</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Hyundai">
+				<xsd:annotation>
+					<xsd:documentation>Hyundai</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Infiniti">
+				<xsd:annotation>
+					<xsd:documentation>Infiniti</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="International Harvester">
+				<xsd:annotation>
+					<xsd:documentation>International Harvester</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Isuzu">
+				<xsd:annotation>
+					<xsd:documentation>Isuzu</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Jaguar">
+				<xsd:annotation>
+					<xsd:documentation>Jaguar</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Jeep">
+				<xsd:annotation>
+					<xsd:documentation>Jeep</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Kenworth">
+				<xsd:annotation>
+					<xsd:documentation>Kenworth</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Kia Motors Corp.">
+				<xsd:annotation>
+					<xsd:documentation>Kia Motors Corp.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Land Rover">
+				<xsd:annotation>
+					<xsd:documentation>Land Rover</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Lexus">
+				<xsd:annotation>
+					<xsd:documentation>Lexus</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Lincoln-Continental">
+				<xsd:annotation>
+					<xsd:documentation>Lincoln-Continental</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Maserati">
+				<xsd:annotation>
+					<xsd:documentation>Maserati</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Mastercraft Boat Co">
+				<xsd:annotation>
+					<xsd:documentation>Mastercraft Boat Co</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Mazda">
+				<xsd:annotation>
+					<xsd:documentation>Mazda</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Mercedes-Benz">
+				<xsd:annotation>
+					<xsd:documentation>Mercedes-Benz</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Mercury">
+				<xsd:annotation>
+					<xsd:documentation>Mercury</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Merkur">
+				<xsd:annotation>
+					<xsd:documentation>Merkur</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MG">
+				<xsd:annotation>
+					<xsd:documentation>MG</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Mitsubishi">
+				<xsd:annotation>
+					<xsd:documentation>Mitsubishi</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Nissan">
+				<xsd:annotation>
+					<xsd:documentation>Nissan</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Oldsmobile">
+				<xsd:annotation>
+					<xsd:documentation>Oldsmobile</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Opel">
+				<xsd:annotation>
+					<xsd:documentation>Opel</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Packard">
+				<xsd:annotation>
+					<xsd:documentation>Packard</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Peugeot">
+				<xsd:annotation>
+					<xsd:documentation>Peugeot</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Plymouth">
+				<xsd:annotation>
+					<xsd:documentation>Plymouth</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Pontiac">
+				<xsd:annotation>
+					<xsd:documentation>Pontiac</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Porsche">
+				<xsd:annotation>
+					<xsd:documentation>Porsche</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Puch">
+				<xsd:annotation>
+					<xsd:documentation>Puch</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Regal Marine Ind, Inc">
+				<xsd:annotation>
+					<xsd:documentation>Regal Marine Ind, Inc</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Rover">
+				<xsd:annotation>
+					<xsd:documentation>Rover</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Saab">
+				<xsd:annotation>
+					<xsd:documentation>Saab</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Saturn">
+				<xsd:annotation>
+					<xsd:documentation>Saturn</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Saturn Corporation">
+				<xsd:annotation>
+					<xsd:documentation>Saturn Corporation</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Sea Ray Boats, Inc">
+				<xsd:annotation>
+					<xsd:documentation>Sea Ray Boats, Inc</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Sterling">
+				<xsd:annotation>
+					<xsd:documentation>Sterling</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Subaru">
+				<xsd:annotation>
+					<xsd:documentation>Subaru</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Suzuki">
+				<xsd:annotation>
+					<xsd:documentation>Suzuki</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Thomas &amp; Co">
+				<xsd:annotation>
+					<xsd:documentation>Thomas &amp; Co</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Tomos">
+				<xsd:annotation>
+					<xsd:documentation>Tomos</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Tornado">
+				<xsd:annotation>
+					<xsd:documentation>Tornado</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Toyota">
+				<xsd:annotation>
+					<xsd:documentation>Toyota</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Triumph">
+				<xsd:annotation>
+					<xsd:documentation>Triumph</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Volkswagon">
+				<xsd:annotation>
+					<xsd:documentation>Volkswagon</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Volvo">
+				<xsd:annotation>
+					<xsd:documentation>Volvo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Wellcraft Marine">
+				<xsd:annotation>
+					<xsd:documentation>Wellcraft Marine</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="VehicleMakeCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for VehicleMake</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
+					i:name="Object" />
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="codes:VehicleMakeCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>

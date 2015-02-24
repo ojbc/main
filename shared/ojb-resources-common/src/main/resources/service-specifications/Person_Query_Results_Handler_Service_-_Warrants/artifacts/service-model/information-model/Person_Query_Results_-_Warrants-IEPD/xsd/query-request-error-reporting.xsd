@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema 
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0">
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="NIEM_2.1/niem-core/2.0/niem-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="NIEM_2.1/structures/2.0/structures.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="NIEM_2.1/domains/intelligence/2.1/intelligence.xsd" />
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="NIEM_2.1/structures/2.0/structures.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="NIEM_2.1/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:complexType name="QueryErrorsType">
+  	<xsd:annotation>
+  		<xsd:documentation>A collection of errors reported subsequent to submission of a search request.</xsd:documentation>
+  	</xsd:annotation>
+  	<xsd:complexContent>
+  		<xsd:extension base="s:ComplexObjectType">
+  			<xsd:sequence>
+  				<xsd:element maxOccurs="1" minOccurs="0" ref="intel:SystemName"/>
+  				<xsd:element ref="qrer:QueryResultExceedThresholdError" minOccurs="0"/>
+  			</xsd:sequence>
+  		</xsd:extension>
+  	</xsd:complexContent>
+  </xsd:complexType>
+  
+    <xsd:complexType name="QueryResultExceedThresholdErrorType">
+  	<xsd:annotation>
+  		<xsd:documentation>A data type for a collection of errors reported subsequent to submission of a search request.</xsd:documentation>
+  	</xsd:annotation>
+  	<xsd:complexContent>
+  		<xsd:extension base="s:ComplexObjectType">
+  			<xsd:sequence>
+  				<xsd:element ref="qrer:QueryResultRecordCount" minOccurs="1"/>
+  			</xsd:sequence>
+  		</xsd:extension>
+  	</xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="QueryRequestErrorType">
+  	<xsd:complexContent>
+  		<xsd:extension base="s:ComplexObjectType">
+  			<xsd:sequence>
+  				<xsd:element ref="qrer:ErrorText" minOccurs="0"/>
+  				<xsd:element ref="intel:SystemName" minOccurs="0"/>
+  			</xsd:sequence>
+  		</xsd:extension>
+  	</xsd:complexContent>
+  </xsd:complexType>
+    <xsd:element name="QueryErrors" type="qrer:QueryErrorsType">
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			A collection of errors reported subsequent to submission of a search request.
+    		</xsd:documentation>
+    	</xsd:annotation>
+    </xsd:element>
+    <xsd:element name="QueryResultExceedThresholdError" type="qrer:QueryResultExceedThresholdErrorType">
+    	<xsd:annotation>
+    		<xsd:documentation>An error that occurs when a search request has returned a number of records that is greater than a pre-determined threshold.</xsd:documentation>
+    	</xsd:annotation>
+    </xsd:element>
+    <xsd:element name="QueryResultRecordCount" type="niem-xsd:decimal">
+    	<xsd:annotation>
+    		<xsd:documentation>A number of records returned for a given request.</xsd:documentation>
+    	</xsd:annotation>
+    </xsd:element>
+    <xsd:element name="QueryRequestError" type="qrer:QueryRequestErrorType"/>
+    <xsd:element name="ErrorText" type="nc:TextType"/>
+</xsd:schema>

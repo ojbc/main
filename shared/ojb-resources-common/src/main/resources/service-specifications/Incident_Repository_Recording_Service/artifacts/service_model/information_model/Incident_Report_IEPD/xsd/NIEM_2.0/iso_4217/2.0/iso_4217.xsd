@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://niem.gov/niem/iso_4217/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:iso_4217="http://niem.gov/niem/iso_4217/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:simpleType name="CurrencyCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="ADP"/>
+      <xsd:enumeration value="AED"/>
+      <xsd:enumeration value="AFA"/>
+      <xsd:enumeration value="ALL"/>
+      <xsd:enumeration value="AMD"/>
+      <xsd:enumeration value="ANG"/>
+      <xsd:enumeration value="AON"/>
+      <xsd:enumeration value="AOR"/>
+      <xsd:enumeration value="ARS"/>
+      <xsd:enumeration value="ATS"/>
+      <xsd:enumeration value="AUD"/>
+      <xsd:enumeration value="AWG"/>
+      <xsd:enumeration value="AZM"/>
+      <xsd:enumeration value="BAM"/>
+      <xsd:enumeration value="BBD"/>
+      <xsd:enumeration value="BDT"/>
+      <xsd:enumeration value="BEF"/>
+      <xsd:enumeration value="BGL"/>
+      <xsd:enumeration value="BGN"/>
+      <xsd:enumeration value="BHD"/>
+      <xsd:enumeration value="BIF"/>
+      <xsd:enumeration value="BMD"/>
+      <xsd:enumeration value="BND"/>
+      <xsd:enumeration value="BRL"/>
+      <xsd:enumeration value="BSD"/>
+      <xsd:enumeration value="BTN"/>
+      <xsd:enumeration value="BWP"/>
+      <xsd:enumeration value="BYR"/>
+      <xsd:enumeration value="BZD"/>
+      <xsd:enumeration value="CAD"/>
+      <xsd:enumeration value="CDF"/>
+      <xsd:enumeration value="CHF"/>
+      <xsd:enumeration value="CLF"/>
+      <xsd:enumeration value="CLP"/>
+      <xsd:enumeration value="CNY"/>
+      <xsd:enumeration value="COP"/>
+      <xsd:enumeration value="CRC"/>
+      <xsd:enumeration value="CUP"/>
+      <xsd:enumeration value="CVE"/>
+      <xsd:enumeration value="CYP"/>
+      <xsd:enumeration value="CZK"/>
+      <xsd:enumeration value="DEM"/>
+      <xsd:enumeration value="DJF"/>
+      <xsd:enumeration value="DKK"/>
+      <xsd:enumeration value="DOP"/>
+      <xsd:enumeration value="DZD"/>
+      <xsd:enumeration value="ECS"/>
+      <xsd:enumeration value="ECV"/>
+      <xsd:enumeration value="EEK"/>
+      <xsd:enumeration value="EGP"/>
+      <xsd:enumeration value="ERN"/>
+      <xsd:enumeration value="ESP"/>
+      <xsd:enumeration value="ETB"/>
+      <xsd:enumeration value="EUR"/>
+      <xsd:enumeration value="FIM"/>
+      <xsd:enumeration value="FJD"/>
+      <xsd:enumeration value="FKP"/>
+      <xsd:enumeration value="FRF"/>
+      <xsd:enumeration value="GBP"/>
+      <xsd:enumeration value="GEL"/>
+      <xsd:enumeration value="GHC"/>
+      <xsd:enumeration value="GIP"/>
+      <xsd:enumeration value="GMD"/>
+      <xsd:enumeration value="GNF"/>
+      <xsd:enumeration value="GRD"/>
+      <xsd:enumeration value="GTQ"/>
+      <xsd:enumeration value="GWP"/>
+      <xsd:enumeration value="GYD"/>
+      <xsd:enumeration value="HKD"/>
+      <xsd:enumeration value="HNL"/>
+      <xsd:enumeration value="HRK"/>
+      <xsd:enumeration value="HTG"/>
+      <xsd:enumeration value="HUF"/>
+      <xsd:enumeration value="IDR"/>
+      <xsd:enumeration value="IEP"/>
+      <xsd:enumeration value="ILS"/>
+      <xsd:enumeration value="INR"/>
+      <xsd:enumeration value="IQD"/>
+      <xsd:enumeration value="IRR"/>
+      <xsd:enumeration value="ISK"/>
+      <xsd:enumeration value="ITL"/>
+      <xsd:enumeration value="JMD"/>
+      <xsd:enumeration value="JOD"/>
+      <xsd:enumeration value="JPY"/>
+      <xsd:enumeration value="KES"/>
+      <xsd:enumeration value="KGS"/>
+      <xsd:enumeration value="KHR"/>
+      <xsd:enumeration value="KMF"/>
+      <xsd:enumeration value="KPW"/>
+      <xsd:enumeration value="KRW"/>
+      <xsd:enumeration value="KWD"/>
+      <xsd:enumeration value="KYD"/>
+      <xsd:enumeration value="KZT"/>
+      <xsd:enumeration value="LAK"/>
+      <xsd:enumeration value="LBP"/>
+      <xsd:enumeration value="LKR"/>
+      <xsd:enumeration value="LRD"/>
+      <xsd:enumeration value="LSL"/>
+      <xsd:enumeration value="LTL"/>
+      <xsd:enumeration value="LUF"/>
+      <xsd:enumeration value="LVL"/>
+      <xsd:enumeration value="LYD"/>
+      <xsd:enumeration value="MAD"/>
+      <xsd:enumeration value="MDL"/>
+      <xsd:enumeration value="MGF"/>
+      <xsd:enumeration value="MKD"/>
+      <xsd:enumeration value="MMK"/>
+      <xsd:enumeration value="MNT"/>
+      <xsd:enumeration value="MOP"/>
+      <xsd:enumeration value="MRO"/>
+      <xsd:enumeration value="MTL"/>
+      <xsd:enumeration value="MUR"/>
+      <xsd:enumeration value="MVR"/>
+      <xsd:enumeration value="MWK"/>
+      <xsd:enumeration value="MXN"/>
+      <xsd:enumeration value="MXV"/>
+      <xsd:enumeration value="MYR"/>
+      <xsd:enumeration value="MZM"/>
+      <xsd:enumeration value="NAD"/>
+      <xsd:enumeration value="NGN"/>
+      <xsd:enumeration value="NIO"/>
+      <xsd:enumeration value="NLG"/>
+      <xsd:enumeration value="NOK"/>
+      <xsd:enumeration value="NPR"/>
+      <xsd:enumeration value="NZD"/>
+      <xsd:enumeration value="OMR"/>
+      <xsd:enumeration value="PAB"/>
+      <xsd:enumeration value="PEN"/>
+      <xsd:enumeration value="PGK"/>
+      <xsd:enumeration value="PHP"/>
+      <xsd:enumeration value="PKR"/>
+      <xsd:enumeration value="PLN"/>
+      <xsd:enumeration value="PTE"/>
+      <xsd:enumeration value="PYG"/>
+      <xsd:enumeration value="QAR"/>
+      <xsd:enumeration value="ROL"/>
+      <xsd:enumeration value="RUB"/>
+      <xsd:enumeration value="RUR"/>
+      <xsd:enumeration value="RWF"/>
+      <xsd:enumeration value="SAR"/>
+      <xsd:enumeration value="SBD"/>
+      <xsd:enumeration value="SCR"/>
+      <xsd:enumeration value="SDD"/>
+      <xsd:enumeration value="SEK"/>
+      <xsd:enumeration value="SGD"/>
+      <xsd:enumeration value="SHP"/>
+      <xsd:enumeration value="SIT"/>
+      <xsd:enumeration value="SKK"/>
+      <xsd:enumeration value="SLL"/>
+      <xsd:enumeration value="SOS"/>
+      <xsd:enumeration value="SRG"/>
+      <xsd:enumeration value="STD"/>
+      <xsd:enumeration value="SVC"/>
+      <xsd:enumeration value="SYP"/>
+      <xsd:enumeration value="SZL"/>
+      <xsd:enumeration value="THB"/>
+      <xsd:enumeration value="TJR"/>
+      <xsd:enumeration value="TJS"/>
+      <xsd:enumeration value="TMM"/>
+      <xsd:enumeration value="TND"/>
+      <xsd:enumeration value="TOP"/>
+      <xsd:enumeration value="TPE"/>
+      <xsd:enumeration value="TRL"/>
+      <xsd:enumeration value="TTD"/>
+      <xsd:enumeration value="TWD"/>
+      <xsd:enumeration value="TZS"/>
+      <xsd:enumeration value="UAH"/>
+      <xsd:enumeration value="UGX"/>
+      <xsd:enumeration value="USD"/>
+      <xsd:enumeration value="USN"/>
+      <xsd:enumeration value="USS"/>
+      <xsd:enumeration value="UYU"/>
+      <xsd:enumeration value="UZS"/>
+      <xsd:enumeration value="VEB"/>
+      <xsd:enumeration value="VND"/>
+      <xsd:enumeration value="VUV"/>
+      <xsd:enumeration value="WST"/>
+      <xsd:enumeration value="XAF"/>
+      <xsd:enumeration value="XAG"/>
+      <xsd:enumeration value="XAU"/>
+      <xsd:enumeration value="XBA"/>
+      <xsd:enumeration value="XBB"/>
+      <xsd:enumeration value="XBC"/>
+      <xsd:enumeration value="XBD"/>
+      <xsd:enumeration value="XCD"/>
+      <xsd:enumeration value="XDR"/>
+      <xsd:enumeration value="XFO"/>
+      <xsd:enumeration value="XFU"/>
+      <xsd:enumeration value="XOF"/>
+      <xsd:enumeration value="XPD"/>
+      <xsd:enumeration value="XPF"/>
+      <xsd:enumeration value="XPT"/>
+      <xsd:enumeration value="XTS"/>
+      <xsd:enumeration value="XXX"/>
+      <xsd:enumeration value="YER"/>
+      <xsd:enumeration value="YUM"/>
+      <xsd:enumeration value="ZAL"/>
+      <xsd:enumeration value="ZAR"/>
+      <xsd:enumeration value="ZMK"/>
+      <xsd:enumeration value="ZRN"/>
+      <xsd:enumeration value="ZWD"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="CurrencyCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="iso_4217:CurrencyCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>

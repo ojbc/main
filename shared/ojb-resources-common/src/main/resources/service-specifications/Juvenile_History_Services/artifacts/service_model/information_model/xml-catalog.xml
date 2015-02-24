@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+	<uri name="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" uri="Juvenile_History_IEPD/JuvenileHistoryCommonExtension.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0" uri="Juvenile_History_IEPD/CasePlan/JuvenileCasePlanHistoryExtension.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0" uri="Juvenile_History_IEPD/CasePlan/JuvenileCasePlanHistoryResponse.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0" uri="Juvenile_History_IEPD/Hearing/JuvenileHearingHistoryExtension.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0" uri="Juvenile_History_IEPD/Hearing/JuvenileHearingHistoryResponse.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0" uri="Juvenile_History_IEPD/Intake/JuvenileIntakeHistoryExtension.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0" uri="Juvenile_History_IEPD/Intake/JuvenileIntakeHistoryResponse.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/1.0" uri="Juvenile_History_IEPD/Offense/JuvenileOffenseHistoryExtension.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Exchange/JuvenileOffenseHistoryResponse/1.0" uri="Juvenile_History_IEPD/Offense/JuvenileOffenseHistoryResponse.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/1.0" uri="Juvenile_History_IEPD/Placement/JuvenilePlacementHistoryExtension.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0" uri="Juvenile_History_IEPD/Placement/JuvenilePlacementHistoryResponse.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0" uri="Juvenile_History_IEPD/Query/JuvenileHistoryQuery.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0" uri="Juvenile_History_IEPD/Referral/JuvenileReferralHistoryExtension.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0" uri="Juvenile_History_IEPD/Referral/JuvenileReferralHistoryResponse.xsd"/>
+	<nextCatalog catalog="Juvenile_History_IEPD/Subset/xml-catalog.xml"/>
+</catalog>

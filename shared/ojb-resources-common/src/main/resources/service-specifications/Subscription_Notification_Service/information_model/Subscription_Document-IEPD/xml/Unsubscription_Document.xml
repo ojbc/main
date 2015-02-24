@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<um:UnsubscriptionMessage 
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+	xmlns:um="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+	xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0 ../xsd/Unsubscription_Document.xsd">
+	<smext:Subject>
+		<nc20:PersonBirthDate>
+			<nc20:Date>1980-01-01</nc20:Date>
+		</nc20:PersonBirthDate>
+		<nc20:PersonName>
+			<nc20:PersonGivenName>John</nc20:PersonGivenName>
+			<nc20:PersonSurName>Doe</nc20:PersonSurName>
+			<nc20:PersonFullName>John Doe</nc20:PersonFullName>
+		</nc20:PersonName>
+	</smext:Subject>
+	<nc20:ContactEmailID>testimap@locahost</nc20:ContactEmailID>
+	<smext:SystemName>{http://hijis.hawaii.gov/ParoleCase/1.0}HawaiiParolingAuthority</smext:SystemName>
+	
+	<!-- Deprecating nc20:Case -->
+	<nc20:Case>
+		<nc20:ActivityIdentification>
+			<nc20:IdentificationID>302593</nc20:IdentificationID>
+		</nc20:ActivityIdentification>
+	</nc20:Case>
+	<smext:SubscriptionQualifierIdentification>
+		<nc20:IdentificationID>302593</nc20:IdentificationID>
+	</smext:SubscriptionQualifierIdentification>
+</um:UnsubscriptionMessage>

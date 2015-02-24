@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:srm="http://ojbc.org/IEPD/Extensions/AccessControlResultsMetadata/1.0" xmlns:acrer="http://ojbc.org/IEPD/Extensions/AccessControlRequestErrorReporting/1.0" xmlns:tns="http://www.example.org/search-result-metadata" targetNamespace="http://ojbc.org/IEPD/Extensions/AccessControlResultsMetadata/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/AccessControlRequestErrorReporting/1.0" schemaLocation="access-control-request-error-reporting.xsd"/>
+	<xsd:complexType name="AccessControlResultsMetadataType">
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="acrer:AccessControlRequestError" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="AccessControlResultsMetadata" type="srm:AccessControlResultsMetadataType"/>
+</xsd:schema>

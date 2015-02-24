@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:Q1="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:Q2="http://niem.gov/niem/niem-core/2.0" xmlns:Q3="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+		schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1"
+		schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1"
+		schemaLocation="../../Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="../../Subset/niem/structures/2.0/structures.xsd" />
+
+	<xsd:complexType name="SubscriptionType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" ref="Q1:Subject" />
+					<xsd:element maxOccurs="unbounded" minOccurs="1"
+						ref="Q2:ContactEmailID">
+						<xsd:annotation>
+							<xsd:documentation>An electronic mailing address by which a
+								person or organization may be contacted.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" ref="Q1:SystemName" />
+					<xsd:element maxOccurs="1" minOccurs="0" ref="Q2:Case">
+						<xsd:annotation>
+							<xsd:documentation>An aggregation of information about a set of
+								related activities and events.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element ref="Q1:SubscriptionQualifierIdentification"
+						minOccurs="0" />
+					<xsd:element ref="Q2:DateRange" minOccurs="0" />
+					<xsd:element ref="Q1:SubscriptionIdentification"
+						minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="UnsubscriptionType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<!-- We need the choice here because unsubscriptions happen differently 
+					for automatic and manual subscriptions -->
+				<xsd:choice>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="0" ref="Q1:Subject" />
+						<xsd:element maxOccurs="unbounded" minOccurs="0"
+							ref="Q2:ContactEmailID">
+							<xsd:annotation>
+								<xsd:documentation>An electronic mailing address by which a
+									person
+									or organization may be contacted.
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element maxOccurs="1" minOccurs="0" ref="Q1:SystemName" />
+						<xsd:element maxOccurs="1" minOccurs="0" ref="Q2:Case">
+							<xsd:annotation>
+								<xsd:documentation>An aggregation of information about a set of
+									related activities and events.
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element ref="Q1:SubscriptionQualifierIdentification"
+							minOccurs="0" />
+						<xsd:element ref="Q2:DateRange" minOccurs="0" />
+					</xsd:sequence>
+					<xsd:sequence>
+						<xsd:element ref="Q1:SubscriptionIdentification" />
+					</xsd:sequence>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SubscriptionValidationType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="Q1:SubscriptionIdentification" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscriptionIdentification" type="Q2:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a subscription.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Subject" type="Q3:PersonType" />
+	<xsd:element name="SystemName" type="Q2:TextType" />
+	<xsd:element name="SubscriptionQualifierIdentification"
+		type="Q2:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identifier for a subscription, provided by the
+				subscribing system.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

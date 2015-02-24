@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:maine="http://www.maine.gov/dps/msp/MaineIncidentReportNDEx"
+	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       ">
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+	
+	<import resource="cxf-endpoints.xml" />
+	<import resource="properties-context.xml"/>
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" >
+	
+		<endpoint id="inputDir"
+			uri="file:///${incidentChargeReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${incidentChargeReporting.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
+
+		<endpoint id="deadLetterDir"
+			uri="file:///${incidentChargeReporting.ConnectorFileDirectory}/deadLetter" />
+			
+		<!-- Incident Reporting Service Handler -->
+		<camel:route id="IncidentReportingServiceHandlerRoute">
+		
+			<camel:from uri="inputDir" />
+			<camel:log
+				message="Received file for Incident Report Processing: ${file:name}" />
+			
+			<camel:convertBodyTo type="java.lang.String" charset="UTF-8"/>
+			
+			<camel:log message="This is the body: ${body}" loggingLevel="DEBUG"/>
+			
+			<camel:setHeader headerName="operationName">
+				<constant>ReportIncident</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="IncidentReportingServiceEndpoint" />
+			<camel:log message="Called intermediary" />
+
+		</camel:route>
+
+	</camel:camelContext>
+	
+</beans>

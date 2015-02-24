@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	targetNamespace="http://niem.gov/niem/domains/cyfs/2.1/1" version="1" 
+	xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:i="http://niem.gov/niem/appinfo/2.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:fips_6-4="http://niem.gov/niem/fips_6-4/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+  <xsd:annotation>
+    <xsd:documentation>Children, Youth, and Family Services</xsd:documentation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../../jxdm/4.1/jxdm.xsd" namespace="http://niem.gov/niem/domains/jxdm/4.1"/>
+  <xsd:import schemaLocation="../../../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
+  <xsd:import schemaLocation="../../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
+  <xsd:import schemaLocation="../../../../appinfo/2.1/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.1"/>
+  <xsd:import schemaLocation="../../../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>  
+  
+   <xsd:element name="TribalAffiliationText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>The tribe in which the child may be affiliated with.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonAugmentation" type="cyfs:PersonAugmentationType"/>
+  <xsd:complexType name="PersonAugmentationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for additional information about a person.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="AugmentationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:AugmentationType">
+        <xsd:sequence>
+          <xsd:element ref="cyfs:TribalAffiliationText" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+    <xsd:complexType name="PlacementType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for the placement history of a child or youth.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ActivityType">
+        <xsd:sequence>
+          <xsd:element ref="cyfs:PlacementCategory" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+    <xsd:element name="Placement" type="cyfs:PlacementType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Describes the placement history of the child</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PlacementCategory" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>A description of the type of placement (e.g., adoption, relative, etc.)</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

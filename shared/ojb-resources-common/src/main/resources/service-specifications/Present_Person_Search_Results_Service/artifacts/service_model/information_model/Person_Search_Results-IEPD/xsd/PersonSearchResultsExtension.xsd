@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:Q1="http://niem.gov/niem/domains/jxdm/4.1" xmlns:Q2="http://niem.gov/niem/niem-core/2.0" xmlns:Q3="http://niem.gov/niem/domains/intelligence/2.1" xmlns:Q4="http://hijis.hawaii.gov/PersonSearchResultsExtension/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://hijis.hawaii.gov/PersonSearchResultsExtension/1.0">
+  <xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="NIEM_2.1/domains/intelligence/2.1/intelligence.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="NIEM_2.1/niem-core/2.0/niem-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="NIEM_2.1/domains/jxdm/4.1/jxdm.xsd"/>
+  <xsd:complexType name="PersonSearchResultType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" ref="Q1:Person">
+        <xsd:annotation>
+          <xsd:documentation>Applied augmentation for type nc:PersonType</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q2:Location">
+        <xsd:annotation>
+          <xsd:documentation>Details about a physical location.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q2:ResidenceAssociation">
+        <xsd:annotation>
+          <xsd:documentation>An association between a person and a location where that person lives.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q2:Case">
+        <xsd:annotation>
+          <xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:Court">
+        <xsd:annotation>
+          <xsd:documentation>Details about a court or a unit of a court responsible for trying justice proceedings.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q3:SystemIdentifier">
+        <xsd:annotation>
+          <xsd:documentation>A number or code assigned by a system to uniquely identify a person or object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PersonSearchResultsType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q4:PersonSearchResult"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Q4:PersonSearchResultsError"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="PersonSearchResult" type="Q4:PersonSearchResultType"/>
+  <xsd:element name="PersonSearchResultsError" type="Q4:PersonSearchResultsErrorType"/>
+  <xsd:complexType name="PersonSearchResultsErrorType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" ref="Q4:ErrorText"/>
+      <xsd:element maxOccurs="1" minOccurs="1" ref="Q4:SearchSystemName"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="ErrorText" type="Q2:TextType"/>
+  <xsd:element name="SearchSystemName" type="Q2:TextType"/>
+</xsd:schema>

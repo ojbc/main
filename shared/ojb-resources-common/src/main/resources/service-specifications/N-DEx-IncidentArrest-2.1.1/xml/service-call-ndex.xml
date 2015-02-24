@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?>
+
+<!--
+    Document: $Id: service-call-ndex.xml 1939 2010-05-19 21:04:26Z jw7 $
+    Original : 12/5/2007
+    Updated : 12/4/2008 - Updated for N-DEx 2.1 and to correct a business rule issue.
+					5/14/2010 - Updated N-DEx version number in header to 2.1.1
+    LEXS version : 3.1.4
+    N-DEx version : 2.1.1
+    Description : This scenario represents a possible N-DEx Service Call Report submission.  This scenario involves a variation on the Missing Person Scenario as 
+			might be submitted by a CAD System.  This scenario focuses on the primary activity of Service Call.  The scenario demonstrates a basic report involving a 
+			possible missing person, gathered information, interaction of dispatch personnel and law enforcement, and resultant actions taken to close the service call.
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexia.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+-->
+<ndexia:ServiceCallReport 
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+    xmlns:i="http://niem.gov/niem/appinfo/2.0" 
+    xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
+    xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" 
+    xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
+    xmlns:mmucc_2="http://niem.gov/niem/mmucc_2/2.0" 
+    xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+    xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+    xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
+    xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" 
+    xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+    xmlns:s="http://niem.gov/niem/structures/2.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1 ../xsd/ndexia/ndexia/2.1/ndexia.xsd">
+
+	<!--================================= Enforcement Unit  ============================-->
+	<ndexia:EnforcementUnit>
+		<j:EnforcementUnitNumberIdentification>
+			<nc:IdentificationID>6</nc:IdentificationID>
+		</j:EnforcementUnitNumberIdentification>
+		<ndexia:EnforcementUnitAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Unit1"/>
+		</ndexia:EnforcementUnitAugmentation>		
+	</ndexia:EnforcementUnit>
+	    
+    <!--=======================   Location 1 - Missing Person Residence / Dispatch Location  =======================-->
+    <ndexia:Location>
+        <nc:LocationAddress>
+            <nc:StructuredAddress>
+                <nc:LocationStateUSPostalServiceCode>TX</nc:LocationStateUSPostalServiceCode>
+                <nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+            </nc:StructuredAddress>
+        </nc:LocationAddress>
+        <ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+        <ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+        <ndexia:LocationAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Location1"/>
+        </ndexia:LocationAugmentation>
+    </ndexia:Location>
+    
+    <!--=======================   Location 2 - Caller's Location / Caller's Home  =======================-->
+    <ndexia:Location>
+        <nc:LocationAddress>
+            <nc:StructuredAddress>
+                <nc:LocationStateUSPostalServiceCode>TX</nc:LocationStateUSPostalServiceCode>
+                <nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+            </nc:StructuredAddress>
+        </nc:LocationAddress>
+        <ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+        <ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+        <ndexia:LocationAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Location2"/>
+        </ndexia:LocationAugmentation>
+    </ndexia:Location>
+    
+    <!--============================== Person 1 ==============================-->
+    <ndexia:Person>
+        <nc:PersonName>
+        	<nc:PersonNamePrefixText>Mr.</nc:PersonNamePrefixText>
+        	<nc:PersonNameSuffixText>Jr.</nc:PersonNameSuffixText>
+        </nc:PersonName>
+        <ndexia:PersonAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Person1"/>
+            <ndexia:PersonBuildCode>Large</ndexia:PersonBuildCode>
+        </ndexia:PersonAugmentation>
+    </ndexia:Person>
+    
+    <!--====================== Person 2 ======================-->
+    <ndexia:Person>
+        <nc:PersonName>
+        	<nc:PersonNamePrefixText>Ms.</nc:PersonNamePrefixText>
+        </nc:PersonName>
+        <ndexia:PersonAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Person2"/>
+        </ndexia:PersonAugmentation>
+    </ndexia:Person>
+    
+    <!--============================== Service Call ==============================-->
+    <ndexia:ServiceCall>
+        <ndexia:ActivityStatus>
+            <ndexia:ActivityStatusAugmentation>
+                <ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+            </ndexia:ActivityStatusAugmentation>
+        </ndexia:ActivityStatus>
+        <j:ServiceCallClearanceText>I went to location 1, rang door bell, and no one answered the door.  I checked the grounds.  Upon entering the backyard, I noticed an open patio door.  I approached the door and continued to call for Mr. Wilson.  I heard what I thought was snoring coming from inside the house and continued to call as I stepped into the entry way.  After approximately 10 minutes of calling, a man responded.  I identified myself and asked the man to show himself.  He came into the room from a connecting hallway and identified himself as Mr. Rosco Wilson Jr. the owner of the home and father of Ms. Trudy Wilson.  I explained that his daughter had reported him missing and that I was there to check on him.  He explained that he had just been taking a nap.  Further, he indicated a recent verbal agrument with his daughter that has led him to not be taking her calls.  He had, in fact, unplugged his phone. Mr. Wilson appeared to be in fine health and sound mind. He indicated that daughter could be contacted to communicate father located, but indicated that he was not ready to speak with daughter. This call is considered closed.</j:ServiceCallClearanceText>
+        <ndexia:ServiceCallAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="ServiceCall1"/>
+            <ndexia:ServiceCallCategoryCode>Missing Person</ndexia:ServiceCallCategoryCode>
+            <ndexia:ServiceCallClearanceCategoryCode>Public Service</ndexia:ServiceCallClearanceCategoryCode>
+            <ndexia:ServiceCallMechanismCode>Phone</ndexia:ServiceCallMechanismCode>
+        </ndexia:ServiceCallAugmentation>
+    </ndexia:ServiceCall>
+    
+</ndexia:ServiceCallReport>

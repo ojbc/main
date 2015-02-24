@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:FirearmTypeCodes="http://ojbc.org/IEPD/Extensions/FirearmTypeCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0" schemaLocation="member-extensions/demostate/demostate-firearm-codes.xsd"/>
+	<xsd:element name="FirearmSearchRequest" type="ext:FirearmSearchRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A set of details that can be used to search for a Firearm Registration.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="FirearmSearchRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for set of details that can be used to
+				search for a Firearm Registration.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ext:Firearm" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="ext:ItemRegistration" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="nc:PropertyRegistrationAssociation" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="ext:SourceSystemNameText" maxOccurs="unbounded"/>
+					<xsd:element ref="ext:SearchMetadata" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FirearmType">
+		<xsd:complexContent>
+			<xsd:extension base="nc:FirearmType">
+				<xsd:sequence>
+					<xsd:element ref="ext:FirearmMakeRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="Firearm" type="ext:FirearmType">
+		<xsd:annotation>
+			<xsd:documentation>
+				A Firearm.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="ItemRegistrationType">
+		<xsd:complexContent>
+			<xsd:extension base="nc:ItemRegistrationType">
+				<xsd:sequence>
+					<xsd:element ref="ext:CurrentRegistrationIndicator" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="ItemRegistration" type="ext:ItemRegistrationType">
+		<xsd:annotation>
+			<xsd:documentation>
+				A Item Registration.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CurrentRegistrationIndicator" type="xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>
+				True if the firearm is currently registered; otherwise false.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchMetadata" type="ext:SearchMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>Information that further qualifies the search.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchQualifierCode" type="ext:SearchQualifierCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Details about how to interpret the content of an element for the purpose of searching.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SearchMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for information that further qualifies the search.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:MetadataType">
+				<xsd:choice>
+					<xsd:element ref="ext:SearchQualifierCode" minOccurs="0"/>
+					<xsd:sequence>
+						<xsd:element ref="ext:SearchRequestOnBehalfOfText" minOccurs="0"/>
+						<xsd:element ref="ext:SearchPurposeText" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SearchPurposeText">
+		<xsd:annotation>
+			<xsd:documentation>The reason for executing the search.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchRequestOnBehalfOfText">
+		<xsd:annotation>
+			<xsd:documentation>An explanation of who the search is being submitted for in the case where a user is acting for someone else in submitting a search request.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SearchQualifierCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="ext:SearchQualifierCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SearchQualifierCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="exact">
+				<xsd:annotation>
+					<xsd:documentation>Return search results that match exactly the search criteria.  </xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="partial">
+				<xsd:annotation>
+					<xsd:documentation>Return search results that include the search criteria; in other words the search criteria is a part of the returned result.  </xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that is to be queried. Absence of this element indicates that all known systems shall be queried.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmMakeRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for the make of a firearm. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmMakeText" type="nc:TextType" substitutionGroup="ext:FirearmMakeRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A text representation of a make of a firearm. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

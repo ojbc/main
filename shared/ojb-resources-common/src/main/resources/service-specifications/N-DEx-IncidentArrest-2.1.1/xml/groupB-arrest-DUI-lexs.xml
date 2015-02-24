@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?>
+
+<!--
+    Document: $Id: groupB-arrest-DUI-lexs.xml 1935 2010-05-19 20:54:55Z jw7 $
+    Original : 11/08/2007
+    Updated : 12/4/2008 - Updated for N-DEx 2.1 and to correct a business rule issue.
+					5/14/2010 - Corrected business rule failures and updated N-DEx version number in header to 2.1.1
+    LEXS version  : 3.1.4
+	N-DEx version : 2.1.1
+    Description : This scenario represents a possible N-DEx Arrest Report submission.  This scenario demonstrates a basic Arrest Report with the primary 
+			activity of Arrest and the required ancillary activity of Offense.  The scenario applies the NIBRS Group "B" offense logic which is founded on the idea 
+			that arrests involving certain offenses are not required to have incident data collected, which serves as the primary basis for the N-DEx Arrest Report.  
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexia.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+-->
+<lexspd:doPublish
+	    xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	    xmlns:em="http://niem.gov/niem/domains/emergencyManagement/2.0"
+	    xmlns:fips_10-4="http://niem.gov/niem/fips_10-4/1.0"
+	    xmlns:i="http://niem.gov/niem/appinfo/2.0"
+	    xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+		xmlns:im="http://niem.gov/niem/domains/immigration/2.0"
+		xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
+		xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+	    xmlns:lexscodes="http://usdoj.gov/leisp/lexs/codes/3.1"    
+	    xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+		xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" 
+	    xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+		xmlns:nonauth="http://niem.gov/niem/nonauthoritative-code/1.0"
+		xmlns:s="http://niem.gov/niem/structures/2.0"
+		xmlns:scr="http://niem.gov/niem/domains/screening/2.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://usdoj.gov/leisp/lexs/publishdiscover/3.1 ../xsd/lexs/publish-discover/3.1/publish-discover.xsd">
+
+	<lexs:PublishMessageContainer>
+	
+		<lexs:PublishMessage>
+		
+			<lexs:PDMessageMetadata>
+				<lexs:LEXSVersion>3.1.4</lexs:LEXSVersion>
+				<lexs:MessageDateTime>2006-12-01T09:30:47.0Z</lexs:MessageDateTime>
+				<lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
+				<lexs:DataSensitivity>SBU</lexs:DataSensitivity>
+			</lexs:PDMessageMetadata>
+			
+			<lexs:DataSubmitterMetadata>
+				<lexs:SystemIdentifier>
+					<lexs:ORI>TN1234500</lexs:ORI>
+					<nc:OrganizationName>Tennessee Bureau of Investigation</nc:OrganizationName>
+					<lexs:SystemID>TIBRS</lexs:SystemID>
+				</lexs:SystemIdentifier>
+				
+				<lexs:SystemContact>
+					<nc:PersonGivenName>Artemus</nc:PersonGivenName>
+					<nc:PersonSurName>Gordon</nc:PersonSurName>
+					<nc:ContactTelephoneNumber>
+						<nc:NANPTelephoneNumber>
+							<nc:TelephoneAreaCodeID>123</nc:TelephoneAreaCodeID>
+							<nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+							<nc:TelephoneLineID>1234</nc:TelephoneLineID>
+						</nc:NANPTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+				</lexs:SystemContact>
+			</lexs:DataSubmitterMetadata>
+			
+			<lexs:DataItemPackage>
+				<lexs:PackageMetadata>
+					<lexs:DataItemID>12345678</lexs:DataItemID>
+					<lexs:DataItemContact>
+						<nc:PersonGivenName>Mary</nc:PersonGivenName>
+						<nc:PersonSurName>Smith</nc:PersonSurName>
+						<nc:ContactTelephoneNumber>
+							<nc:FullTelephoneNumber>
+								<nc:TelephoneNumberFullID>333-444-5555</nc:TelephoneNumberFullID>
+								<nc:TelephoneSuffixID>6</nc:TelephoneSuffixID>
+							</nc:FullTelephoneNumber>
+						</nc:ContactTelephoneNumber>
+					</lexs:DataItemContact>
+					<lexs:DataItemDate>1967-08-13</lexs:DataItemDate>
+					<!-- DataItemReferenceID may be the same as the DataItemID, or may be a more human-readable version of DataItemID -->
+					<lexs:DataItemReferenceID>334455667788</lexs:DataItemReferenceID>
+					<lexs:DataItemPublishInstruction>Insert</lexs:DataItemPublishInstruction>
+					<lexs:DataItemStatus>Completed</lexs:DataItemStatus>
+					<lexs:DataOwnerMetadata>
+						<lexs:DataOwnerIdentifier>
+							<lexs:ORI>TN0470100</lexs:ORI>
+							<nc:OrganizationName>Knoxville Police Department</nc:OrganizationName>
+							<lexs:SystemID>KIBRS</lexs:SystemID>
+						</lexs:DataOwnerIdentifier>
+						<lexs:DataOwnerContact>
+							<nc:PersonGivenName>James</nc:PersonGivenName>
+							<nc:PersonSurName>West</nc:PersonSurName>
+							<nc:ContactTelephoneNumber>
+								<nc:NANPTelephoneNumber>
+									<nc:TelephoneAreaCodeID>123</nc:TelephoneAreaCodeID>
+									<nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+									<nc:TelephoneLineID>1212</nc:TelephoneLineID>
+								</nc:NANPTelephoneNumber>
+							</nc:ContactTelephoneNumber>
+						</lexs:DataOwnerContact>
+					</lexs:DataOwnerMetadata>
+					<lexs:DisseminationCriteriaValue>
+						<lexs:DisseminationCriteriaDomainText>N-DEx</lexs:DisseminationCriteriaDomainText>
+						<lexs:DisseminationCriteriaText>Green</lexs:DisseminationCriteriaText>
+					</lexs:DisseminationCriteriaValue>
+					<lexs:DataItemCategory>
+						<lexs:DataItemCategoryText>Arrest Report</lexs:DataItemCategoryText>
+					</lexs:DataItemCategory>
+				</lexs:PackageMetadata>
+				
+				<lexs:Digest>
+					
+					<!--=======================  Activity Arrest  =======================-->
+					<lexsdigest:EntityActivity>
+						<lexsdigest:Metadata s:id="MArrest1">
+							<nc:DistributionText>NIBRS</nc:DistributionText>
+						</lexsdigest:Metadata>
+						<lexsdigest:Metadata s:id="MArrestNarrative1">
+							<nc:ReportedDate>
+								<nc:Date>1996-09-12</nc:Date>
+							</nc:ReportedDate>
+						</lexsdigest:Metadata>
+						
+						<nc:Activity s:id="Arrest1" s:metadata="MArrest1">
+							<nc:ActivityIdentification>
+								<nc:IdentificationID>334455667788</nc:IdentificationID>
+							</nc:ActivityIdentification>
+							<nc:ActivityCategoryText>Arrest</nc:ActivityCategoryText>
+							<!-- Example shows a date, although a date range could be specified instead. -->
+							<nc:ActivityDate>
+								<!-- Date fields can be full date, or date and time, or year, or month/year.  -->
+								<nc:Date>1996-09-01</nc:Date>
+							</nc:ActivityDate>
+							<nc:ActivityDescriptionText s:metadata="MArrestNarrative1">A police officer (Captain Kangaroo Smith) driving a police cruiser pulls a car over during a routine traffic stop.  Upon observation of open beer bottles, Captain Smith performs a sobriety test on the driver.  The driver, Michael T. Leonard is arrested for Driving under the Influence (DUI).  The arrest took place on September 1, 1996.  Arrest Incident number 334455667788.  Arrestee is a White Male, age 16, and a resident of Knoxville TN.</nc:ActivityDescriptionText>
+						</nc:Activity>
+					</lexsdigest:EntityActivity>
+				
+					<!--=======================  Activity Offense  =======================-->
+					<lexsdigest:EntityActivity>
+						<nc:Activity s:id="Offense1">
+							<nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+						</nc:Activity>
+					</lexsdigest:EntityActivity>
+					
+					<!--=======================  Person 1 - Arrestee  =======================-->
+					<lexsdigest:EntityPerson>
+						<lexsdigest:Metadata s:id="MArrestSubject1">
+							<nc:DistributionText>NIBRS</nc:DistributionText>
+							<nc:SourceIDText>334455667788-arrestee1</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						<lexsdigest:Metadata s:id="MArrestSubjectPerson1">
+							<nc:SourceIDText>334455667788-arresteeperson1</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						
+						<lexsdigest:Person s:id="ArrestSubjectPerson1" s:metadata="MArrestSubjectPerson1">
+							<nc:PersonAgeMeasure>
+								<nc:MeasurePointValue>16</nc:MeasurePointValue>
+								<nc:TimeUnitCode>ANN</nc:TimeUnitCode>
+							</nc:PersonAgeMeasure>
+							<nc:PersonBirthDate>
+								<nc:Date>1980-08-10</nc:Date>
+							</nc:PersonBirthDate>
+							<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
+							<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+							<nc:PersonName>
+								<nc:PersonGivenName>Michael</nc:PersonGivenName>
+								<nc:PersonMiddleName>T</nc:PersonMiddleName>
+								<nc:PersonSurName>Leonard</nc:PersonSurName>
+								<nc:PersonFullName>Michael T Leonard</nc:PersonFullName>
+							</nc:PersonName>
+							<nc:PersonRaceCode>W</nc:PersonRaceCode>
+							<nc:PersonSexCode>M</nc:PersonSexCode>
+							<nc:PersonSSNIdentification>
+								<nc:IdentificationID>652036587</nc:IdentificationID>
+							</nc:PersonSSNIdentification>
+						</lexsdigest:Person>
+						<j:ArrestSubject s:id="ArrestSubject1" s:metadata="MArrestSubject1">
+							<nc:RoleOfPersonReference s:ref="ArrestSubject1"/>
+						</j:ArrestSubject>
+					</lexsdigest:EntityPerson>
+				
+					<!--=======================  Person 2 - Officer  =======================-->
+					<lexsdigest:EntityPerson>
+						<lexsdigest:Metadata s:id="MOfficer1">
+							<nc:SourceIDText>334455667788-officer1</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						<lexsdigest:Metadata s:id="MOfficerPerson1">
+							<nc:SourceIDText>334455667788-officerperson1</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						<lexsdigest:Person s:id="OfficerPerson1" s:metadata="MOfficerPerson1">
+							<nc:PersonName>
+								<nc:PersonGivenName>Kangaroo</nc:PersonGivenName>
+								<nc:PersonSurName>Smith</nc:PersonSurName>
+							</nc:PersonName>
+						</lexsdigest:Person>
+						<j:ArrestOfficial s:id="Officer1" s:metadata="MOfficer1">
+							<nc:RoleOfPersonReference s:ref="Officer1"/>
+							<j:EnforcementOfficialBadgeIdentification>
+								<nc:IdentificationID>5496</nc:IdentificationID>
+							</j:EnforcementOfficialBadgeIdentification>
+						</j:ArrestOfficial>
+					</lexsdigest:EntityPerson>
+					
+					<!--=======================  Enforcement Unit  =======================-->
+					<lexsdigest:EntityOrganization>
+						<lexsdigest:Metadata s:id="MOrg1">
+							<nc:SourceIDText>334455667788-enforcement1</nc:SourceIDText>
+						</lexsdigest:Metadata>
+						<nc:Organization s:id="Org1" s:metadata="MOrg1">
+							<nc:OrganizationCategoryText>Criminal Justice</nc:OrganizationCategoryText>
+							<nc:OrganizationName>Knoxville Police Department</nc:OrganizationName>
+						</nc:Organization>
+					</lexsdigest:EntityOrganization>
+				
+					<!--=======================  Associations  =======================-->
+					<lexsdigest:Associations>
+					
+						<!--     Arrest to Offense Association     -->
+						<lexsdigest:ArrestOffenseAssociation>
+							<nc:ActivityReference s:ref="Arrest1"/>
+							<nc:ActivityReference s:ref="Offense1"/>
+						</lexsdigest:ArrestOffenseAssociation>
+						
+						<!--     Arrest to Arresting Officer Association     -->
+						<lexsdigest:ArrestOfficerAssociation>
+							<nc:ActivityReference s:ref="Arrest1"/>
+							<nc:PersonReference s:ref="OfficerPerson1"/>
+						</lexsdigest:ArrestOfficerAssociation>
+						
+						<!--     Arrest to Subject Association     -->
+						<lexsdigest:ArrestSubjectAssociation>
+							<nc:ActivityReference s:ref="Arrest1"/>
+							<nc:PersonReference s:ref="ArrestSubjectPerson1"/>
+						</lexsdigest:ArrestSubjectAssociation>
+						
+						<!--     Arrestee to Offense Association    -->
+						<lexsdigest:OffenseSubjectPersonAssociation>
+							<nc:ActivityReference s:ref="Offense1"/>
+							<nc:PersonReference s:ref="ArrestSubjectPerson1"/>
+						</lexsdigest:OffenseSubjectPersonAssociation>
+						
+						<!--     Officer to Assigned Unit Association     -->
+						<nc:PersonAssignedUnitAssociation>
+							<nc:PersonReference s:ref="OfficerPerson1"/>
+							<nc:OrganizationReference s:ref="Org1"/>
+						</nc:PersonAssignedUnitAssociation>
+						
+					</lexsdigest:Associations>
+				
+				</lexs:Digest>
+				
+				<!--======================= N-DEx Data ======================-->
+				<lexs:StructuredPayload>
+					<lexs:StructuredPayloadMetadata>
+						<lexs:CommunityURI>http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1</lexs:CommunityURI>
+						<lexs:CommunityDescription>N-DEx IncidentArrest</lexs:CommunityDescription>
+						<lexs:CommunityVersion>2.1</lexs:CommunityVersion>
+					</lexs:StructuredPayloadMetadata>
+					
+                    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="groupB-arrest-DUI-ndex.xml" />
+					
+				</lexs:StructuredPayload>
+				
+				<!--=======================  Package Attachment Link for Stylesheet used for Rendering  =======================-->
+				<lexs:AttachmentLink s:id="PAttachment2">
+					<lexs:AttachmentURI>http://www.gtri.org/LEXS/examples/XMLViewer.xsl</lexs:AttachmentURI>
+					<lexs:AttachmentViewableIndicator>false</lexs:AttachmentViewableIndicator>
+					<nc:BinaryDescriptionText>XML Stylesheet for pretty-printing any XML content as a tree.</nc:BinaryDescriptionText>
+				</lexs:AttachmentLink>
+				
+				<!--=======================  Rendering Instructions  =======================-->
+				<lexs:RenderingInstructions>
+					<lexs:RenderingMethod>HTMLStyleSheet</lexs:RenderingMethod>
+					<lexs:RenderingReference s:ref="PAttachment2"/>
+					<lexs:RenderingDescription>Pretty prints a message</lexs:RenderingDescription>
+				</lexs:RenderingInstructions>
+					
+			</lexs:DataItemPackage>
+			
+			<!--=======================  Message Attachment containing Stylesheet  =======================-->
+			<lexs:Attachment>
+				<lexs:AttachmentURI>http://www.gtri.org/LEXS/examples/XMLViewer.xsl</lexs:AttachmentURI>
+				<nc:Binary>
+					<!-- This Binary is actually a stylesheet that shows the XML data in tree form using HTML. -->
+					<nc:BinaryBase64Object>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48eHNsOnN0eWxlc2hlZXQgeG1sbnM6eHNsPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L1hTTC9UcmFuc2Zvcm0iIHZlcnNpb249IjEuMCI+DQoNCiAgPHhzbDpvdXRwdXQgbWV0aG9kPSJodG1sIiBlbmNvZGluZz0iVVRGLTgiIGluZGVudD0ieWVzIiBvbWl0LXhtbC1kZWNsYXJhdGlvbj0ieWVzIiBtZWRpYS10eXBlPSJ0ZXh0L2h0bWwiIHN0YW5kYWxvbmU9InllcyIvPg0KDQogIDx4c2w6dGVtcGxhdGUgbWF0Y2g9Ii9jaGlsZDo6KlsxXSI+DQogICAgPGh0bWw+DQogICAgICA8aGVhZD4NCiAgICAgICAgPHRpdGxlPkRhdGEgVmlldzwvdGl0bGU+DQogICAgICAgIDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQogICAgICAgICAgYm9keSB7IGZvbnQtc2l6ZTogc21hbGxlciB9DQogICAgICAgICAgZGl2LCBpbWcgeyBib3JkZXI6IDBweDsgbWFyZ2luOiAwcHg7IHBhZGRpbmc6IDBweCB9DQogICAgICAgICAgZGl2Lk5vZGUgKiB7IHZlcnRpY2FsLWFsaWduOiBtaWRkbGUgfQ0KICAgICAgICAgIGkuQXR0cmlidXRlVmFsICB7IGNvbG9yOiByZ2IoNTAsMTI3LDEyNykgfQ0KICAgICAgICAgIGkuRWxlbWVudFZhbCAgeyBjb2xvcjogcmdiKDQwLDAsMjU1KSB9DQogICAgICAgICAgYi5BdHRyaWJ1dGUgICB7IGNvbG9yOiAjNzcxNTFGIH0NCiAgICAgICAgPC9zdHlsZT4NCiAgICAgIDwvaGVhZD4NCiAgICAgIDxib2R5Pg0KICAgICAgICA8Yj48eHNsOnZhbHVlLW9mIHNlbGVjdD0ibmFtZSgpIi8+PC9iPg0KICAgICAgICA8eHNsOmFwcGx5LXRlbXBsYXRlcyBtb2RlPSJsaW5lIi8+DQogICAgICA8L2JvZHk+DQogICAgPC9odG1sPg0KICA8L3hzbDp0ZW1wbGF0ZT4NCg0KICA8IS0tIFNob3cgZWFjaCB0cmVlIGxpbmUgLS0+DQogIDx4c2w6dGVtcGxhdGUgbWF0Y2g9IioiIG1vZGU9ImxpbmUiPg0KICAgIDxkaXYgY2xhc3M9Ik5vZGUiPg0KICAgICAgPHhzbDpjYWxsLXRlbXBsYXRlIG5hbWU9ImdyYWZ0Ii8+DQogICAgICA8eHNsOmFwcGx5LXRlbXBsYXRlcyBzZWxlY3Q9Ii4iIG1vZGU9Iml0ZW0iLz4NCiAgICA8L2Rpdj4gICAgDQogICAgPHhzbDphcHBseS10ZW1wbGF0ZXMgc2VsZWN0PSJjaGlsZDo6KiIgbW9kZT0ibGluZSIvPg0KICA8L3hzbDp0ZW1wbGF0ZT4NCiAgDQogIDx4c2w6dGVtcGxhdGUgbWF0Y2g9IioiIG1vZGU9Iml0ZW0iPg0KICAgICAgPGI+PHhzbDp2YWx1ZS1vZiBzZWxlY3Q9Im5hbWUoKSIvPjwvYj4NCiAgICAgIDx4c2w6aWYgdGVzdD0iQCoiPg0KICAgICAgICAgIDx4c2w6dGV4dD4gWyAgPC94c2w6dGV4dD4gICAgICANCiAgICAgICAgICAgIDx4c2w6Zm9yLWVhY2ggc2VsZWN0PSJAKiI+DQogICAgICAgICAgICAgICAgPGIgY2xhc3M9IkF0dHJpYnV0ZSI+PHhzbDp2YWx1ZS1vZiBzZWxlY3Q9Im5hbWUoKSIvPjwvYj4NCiAgICAgICAgICAgICAgICA8eHNsOnRleHQ+ID0gIjwveHNsOnRleHQ+DQogICAgICAgICAgICAgICAgPGkgY2xhc3M9IkF0dHJpYnV0ZVZhbCI+PHhzbDp2YWx1ZS1vZiBzZWxlY3Q9Ii4iLz48L2k+DQogICAgICAgICAgICAgICAgPHhzbDp0ZXh0PiIgPC94c2w6dGV4dD4NCiAgICAgICAgICAgIDwveHNsOmZvci1lYWNoPg0KICAgICAgICAgIDx4c2w6dGV4dD4gXSA8L3hzbDp0ZXh0Pg0KICAgICAgPC94c2w6aWY+DQogICAgICA8eHNsOnRleHQ+ICAgIDwveHNsOnRleHQ+DQogICAgICA8aSBjbGFzcz0iRWxlbWVudFZhbCI+PHhzbDp2YWx1ZS1vZiBzZWxlY3Q9InRleHQoKSIvPjwvaT4NCiAgPC94c2w6dGVtcGxhdGU+DQogICANCiAgPCEtLSBUZW1wbGF0ZXMgdXNlZCB0byBnZW5lcmF0ZSB0aGUgInN0aWNrIHN0YWNrIiBvZg0KICAgICAgIHRyZWUgY29ubmVjdG9ycyAtLT4NCg0KICA8eHNsOnRlbXBsYXRlIG5hbWU9ImdyYWZ0Ij4NCiAgICA8IS0tIEdlbmVyYXRlIGFuY2VzdG9yIGNvbm5lY3RvcnMgLS0+DQogICAgPHhzbDphcHBseS10ZW1wbGF0ZXMgc2VsZWN0PSJhbmNlc3Rvcjo6KiIgbW9kZT0idHJlZSIvPg0KDQogICAgPCEtLSBHZW5lcmF0ZSBjdXJyZW50LW5vZGUgY29ubmVjdG9yIC0tPg0KICAgIDx4c2w6Y2hvb3NlPg0KICAgICAgPHhzbDp3aGVuIHRlc3Q9ImZvbGxvd2luZy1zaWJsaW5nOjoqIj4NCiAgICAgICAgPHhzbDp0ZXh0IGRpc2FibGUtb3V0cHV0LWVzY2FwaW5nPSJ5ZXMiPiZhbXA7bmJzcDsmYW1wO25ic3A74pScJmFtcDtuYnNwOzwveHNsOnRleHQ+DQogICAgICA8L3hzbDp3aGVuPg0KICAgICAgPHhzbDpvdGhlcndpc2U+DQogICAgICAgIDx4c2w6dGV4dCBkaXNhYmxlLW91dHB1dC1lc2NhcGluZz0ieWVzIj4mYW1wO25ic3A7JmFtcDtuYnNwO+KUlCZhbXA7bmJzcDs8L3hzbDp0ZXh0Pg0KICAgICAgPC94c2w6b3RoZXJ3aXNlPg0KICAgIDwveHNsOmNob29zZT4NCiAgPC94c2w6dGVtcGxhdGU+DQoNCiAgPCEtLSBTdXBwcmVzcyBhbmNlc3RvciBjb25uZWN0b3IgZm9yIHRoZSB0b3Agbm9kZSAtLT4NCg0KICA8eHNsOnRlbXBsYXRlIG1hdGNoPSIvY2hpbGQ6OipbMV0iIG1vZGU9InRyZWUiLz4NCg0KICA8IS0tIFNob3cgYW5jZXN0b3IgY29ubmVjdG9ycyBmb3IgYWxsIG90aGVyIG5vZGUgdHlwZXMgLS0+DQoNCiAgPHhzbDp0ZW1wbGF0ZSBtYXRjaD0iKiIgbW9kZT0idHJlZSI+DQogICAgPHhzbDpjaG9vc2U+DQogICAgICA8eHNsOndoZW4gdGVzdD0iZm9sbG93aW5nLXNpYmxpbmc6OioiPg0KICAgICAgICA8eHNsOnRleHQgZGlzYWJsZS1vdXRwdXQtZXNjYXBpbmc9InllcyI+JmFtcDtuYnNwOyZhbXA7bmJzcDvilIImYW1wO25ic3A7PC94c2w6dGV4dD4NCiAgICAgIDwveHNsOndoZW4+DQogICAgICA8eHNsOm90aGVyd2lzZT4NCiAgICAgICAgPHhzbDp0ZXh0IGRpc2FibGUtb3V0cHV0LWVzY2FwaW5nPSJ5ZXMiPiZhbXA7bmJzcDsmYW1wO25ic3A7JmFtcDtuYnNwO+KImSZhbXA7bmJzcDs8L3hzbDp0ZXh0Pg0KICAgICAgPC94c2w6b3RoZXJ3aXNlPg0KICAgIDwveHNsOmNob29zZT4NCiAgPC94c2w6dGVtcGxhdGU+DQoNCjwveHNsOnN0eWxlc2hlZXQ+</nc:BinaryBase64Object>
+					<nc:BinaryDescriptionText>XML Stylesheet for pretty-printing any XML content as a tree.</nc:BinaryDescriptionText>
+					<nc:BinaryFormatID>application/xml+xslt</nc:BinaryFormatID>
+					<nc:BinaryFormatStandardName>MIME</nc:BinaryFormatStandardName>
+					<nc:BinaryCategoryText>Stylesheet</nc:BinaryCategoryText>
+				</nc:Binary>
+			</lexs:Attachment>
+			
+		</lexs:PublishMessage>
+		
+	</lexs:PublishMessageContainer>
+	
+</lexspd:doPublish>

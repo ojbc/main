@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://niem.gov/niem/usps_states/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:simpleType name="USStateCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="AA"/>
+      <xsd:enumeration value="AE"/>
+      <xsd:enumeration value="AK"/>
+      <xsd:enumeration value="AL"/>
+      <xsd:enumeration value="AP"/>
+      <xsd:enumeration value="AR"/>
+      <xsd:enumeration value="AS"/>
+      <xsd:enumeration value="AZ"/>
+      <xsd:enumeration value="CA"/>
+      <xsd:enumeration value="CO"/>
+      <xsd:enumeration value="CT"/>
+      <xsd:enumeration value="DC"/>
+      <xsd:enumeration value="DE"/>
+      <xsd:enumeration value="FL"/>
+      <xsd:enumeration value="FM"/>
+      <xsd:enumeration value="GA"/>
+      <xsd:enumeration value="GU"/>
+      <xsd:enumeration value="HI"/>
+      <xsd:enumeration value="IA"/>
+      <xsd:enumeration value="ID"/>
+      <xsd:enumeration value="IL"/>
+      <xsd:enumeration value="IN"/>
+      <xsd:enumeration value="KS"/>
+      <xsd:enumeration value="KY"/>
+      <xsd:enumeration value="LA"/>
+      <xsd:enumeration value="MA"/>
+      <xsd:enumeration value="MD"/>
+      <xsd:enumeration value="ME"/>
+      <xsd:enumeration value="MH"/>
+      <xsd:enumeration value="MI"/>
+      <xsd:enumeration value="MN"/>
+      <xsd:enumeration value="MO"/>
+      <xsd:enumeration value="MP"/>
+      <xsd:enumeration value="MS"/>
+      <xsd:enumeration value="MT"/>
+      <xsd:enumeration value="NC"/>
+      <xsd:enumeration value="ND"/>
+      <xsd:enumeration value="NE"/>
+      <xsd:enumeration value="NH"/>
+      <xsd:enumeration value="NJ"/>
+      <xsd:enumeration value="NM"/>
+      <xsd:enumeration value="NV"/>
+      <xsd:enumeration value="NY"/>
+      <xsd:enumeration value="OH"/>
+      <xsd:enumeration value="OK"/>
+      <xsd:enumeration value="OR"/>
+      <xsd:enumeration value="PA"/>
+      <xsd:enumeration value="PR"/>
+      <xsd:enumeration value="PW"/>
+      <xsd:enumeration value="RI"/>
+      <xsd:enumeration value="SC"/>
+      <xsd:enumeration value="SD"/>
+      <xsd:enumeration value="TN"/>
+      <xsd:enumeration value="TX"/>
+      <xsd:enumeration value="UT"/>
+      <xsd:enumeration value="VA"/>
+      <xsd:enumeration value="VI"/>
+      <xsd:enumeration value="VT"/>
+      <xsd:enumeration value="WA"/>
+      <xsd:enumeration value="WI"/>
+      <xsd:enumeration value="WV"/>
+      <xsd:enumeration value="WY"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="USStateCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="usps:USStateCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>

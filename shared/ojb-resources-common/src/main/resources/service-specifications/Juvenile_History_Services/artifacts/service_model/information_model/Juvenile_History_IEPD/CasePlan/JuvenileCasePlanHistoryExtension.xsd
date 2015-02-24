@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
+	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" schemaLocation="../JuvenileHistoryCommonExtension.xsd"/>
+
+	<xsd:annotation>
+		<xsd:appinfo>
+			<appinfo:ConformantIndicator>true</appinfo:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:complexType name="JuvenileCasePlanHistoryType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a juvenile case plan.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="cext:JuvenileHistoryType">
+				<xsd:sequence>
+					<xsd:element ref="ext:AssessmentIndicator" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="ext:CasePlanIndicator" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="AssessmentIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>An examination exists, more comprehensive than a screening, performed on each newly admitted juvenile soon after arrival to the facility. Assessment may include a review of relevant screening instruments, behavior observations, record review, and oral interview as well as other examination protocols and instruments.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CasePlanIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>A written, individualized plan exists for services and/or treatment for a juvenile supervised by the court. Individualize plans may be called a service plan, treatment plan, and/or case management plan.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileCasePlanHistory" type="ext:JuvenileCasePlanHistoryType">
+		<xsd:annotation>
+			<xsd:documentation>A juvenile case plan.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

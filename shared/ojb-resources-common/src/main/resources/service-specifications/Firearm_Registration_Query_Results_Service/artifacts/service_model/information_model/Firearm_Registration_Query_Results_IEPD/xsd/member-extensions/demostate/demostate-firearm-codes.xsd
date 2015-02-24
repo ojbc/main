@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0" 
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+	elementFormDefault="qualified">
+
+
+	<xsd:import schemaLocation="../../Subset/niem/fbi/2.0/fbi.xsd" namespace="http://niem.gov/niem/fbi/2.0"/>
+	<xsd:import schemaLocation="../../extension_schema.xsd" namespace="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"/>
+	
+	<xsd:element name="FirearmMakeCode" type="fbi:MAKCodeType" substitutionGroup="ext:FirearmMakeRepresentation"/>
+
+</xsd:schema>

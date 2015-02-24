@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://niem.gov/niem/fbi/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+  <xsd:annotation>
+    <xsd:documentation>FBI code lists for National Crime and Information Center (NCIC-2000), National Incident-Based Reporting System (NIBRS), and National Law Enforcement Data Exchange (N-DEx).</xsd:documentation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:simpleType name="VCOCodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for Vehicle Color.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="AME">
+        <xsd:annotation>
+          <xsd:documentation>AMETHYST</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BGE">
+        <xsd:annotation>
+          <xsd:documentation>BEIGE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BLK">
+        <xsd:annotation>
+          <xsd:documentation>BLACK</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BLU">
+        <xsd:annotation>
+          <xsd:documentation>BLUE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BRO">
+        <xsd:annotation>
+          <xsd:documentation>BROWN</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BRZ">
+        <xsd:annotation>
+          <xsd:documentation>BRONZE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CAM">
+        <xsd:annotation>
+          <xsd:documentation>CAMOUFLAGE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="COM">
+        <xsd:annotation>
+          <xsd:documentation>CHROME, STAINLESS STEEL</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CPR">
+        <xsd:annotation>
+          <xsd:documentation>COPPER</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CRM">
+        <xsd:annotation>
+          <xsd:documentation>CREAM, IVORY</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DBL">
+        <xsd:annotation>
+          <xsd:documentation>BLUE, DARK</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DGR">
+        <xsd:annotation>
+          <xsd:documentation>GREEN, DARK</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="GLD">
+        <xsd:annotation>
+          <xsd:documentation>GOLD</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="GRN">
+        <xsd:annotation>
+          <xsd:documentation>GREEN</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="GRY">
+        <xsd:annotation>
+          <xsd:documentation>GRAY</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="LAV">
+        <xsd:annotation>
+          <xsd:documentation>LAVENDER (PURPLE)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="LBL">
+        <xsd:annotation>
+          <xsd:documentation>BLUE, LIGHT</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="LGR">
+        <xsd:annotation>
+          <xsd:documentation>GREEN, LIGHT</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MAR">
+        <xsd:annotation>
+          <xsd:documentation>MAROON, BURGUNDY (PURPLE)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MUL/COL">
+        <xsd:annotation>
+          <xsd:documentation>MULTICOLORED</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MVE">
+        <xsd:annotation>
+          <xsd:documentation>MAUVE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ONG">
+        <xsd:annotation>
+          <xsd:documentation>ORANGE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PLE">
+        <xsd:annotation>
+          <xsd:documentation>PURPLE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PNK">
+        <xsd:annotation>
+          <xsd:documentation>PINK</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="RED">
+        <xsd:annotation>
+          <xsd:documentation>RED</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SIL">
+        <xsd:annotation>
+          <xsd:documentation>SILVER</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="TAN">
+        <xsd:annotation>
+          <xsd:documentation>TAN</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="TEA">
+        <xsd:annotation>
+          <xsd:documentation>TEAL</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="TPE">
+        <xsd:annotation>
+          <xsd:documentation>TAUPE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="TRQ">
+        <xsd:annotation>
+          <xsd:documentation>TURQUOISE (BLUE)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="WHI">
+        <xsd:annotation>
+          <xsd:documentation>WHITE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="YEL">
+        <xsd:annotation>
+          <xsd:documentation>YELLOW</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="VCOCodeType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for Vehicle Color.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="fbi:VCOCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="VMACodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for Vehicle Make.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token"/>
+  </xsd:simpleType>
+  <xsd:complexType name="VMACodeType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for Vehicle Make.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="fbi:VMACodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>

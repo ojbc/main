@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:ProbationCaseTermination xmlns:Q1="http://niem.gov/niem/unece_rec20-misc/2.0"
+	xmlns:Q11="http://niem.gov/niem/fbi/2.0" xmlns:Q12="http://niem.gov/niem/fips_5-2/2.0"
+	xmlns:Q13="http://niem.gov/niem/iso_639-3/2.0" xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0"
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:p="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0"
+	xmlns:p1="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0 ../xsd/Probation_Case_Termination.xsd">
+	
+	<pcext:ProbationCase>
+	
+	<pcext:Supervision>
+		<nc20:SupervisionSupervisor>
+			<nc20:EntityOrganization s:id="EO001">
+				<nc20:OrganizationIdentification>
+					<nc20:IdentificationID>002045G</nc20:IdentificationID>
+				</nc20:OrganizationIdentification>
+			</nc20:EntityOrganization>
+		</nc20:SupervisionSupervisor>
+		<jxdm41:SupervisionAugmentation>
+			<jxdm41:SupervisionAssignedTerm>
+				<nc20:ActivityDateRange>
+					<nc20:StartDate>
+						<nc20:Date>2011-04-26</nc20:Date>
+					</nc20:StartDate>
+				</nc20:ActivityDateRange>
+			</jxdm41:SupervisionAssignedTerm>
+			<jxdm41:SupervisionLevelText>13</jxdm41:SupervisionLevelText>
+		</jxdm41:SupervisionAugmentation>
+		<pcext:Probationer s:id="d1e5">
+			<nc20:PersonBirthDate>
+				<nc20:Date>1963-06-15</nc20:Date>
+			</nc20:PersonBirthDate>
+			<nc20:PersonName>
+				<nc20:PersonGivenName>Joe</nc20:PersonGivenName>
+				<nc20:PersonMiddleName>K.</nc20:PersonMiddleName>
+				<nc20:PersonSurName>Smith</nc20:PersonSurName>
+			</nc20:PersonName>
+		</pcext:Probationer>
+		<pcext:SupervisionIdentification>
+			<nc20:IdentificationID>1234</nc20:IdentificationID>
+		</pcext:SupervisionIdentification>
+	</pcext:Supervision>
+	<nc20:ContactInformation s:id="emaild1e69">
+		<nc20:ContactEmailID>test@test.com</nc20:ContactEmailID>
+	</nc20:ContactInformation>
+	<nc20:OrganizationContactInformationAssociation>
+		<nc20:OrganizationReference s:ref="EO001" />
+		<nc20:ContactInformationReference
+			s:ref="emaild1e69" />
+	</nc20:OrganizationContactInformationAssociation>
+	</pcext:ProbationCase>
+	
+	<pcext:SystemName>SomeSystemURI</pcext:SystemName>
+	
+</p:ProbationCaseTermination>

@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?>
+
+<!--
+	Document: $Id:burglary-incident-w-arrest-expanded-ndex.xml 1128 2008-11-04 19:28:44Z jw7 $
+	Original : 11/4/2008
+	Updated : 5/14/2010 - Corrected business rule failures and updated N-DEx version number in header to 2.1.1
+	LEXS version : 3.1.4
+	N-DEx version : 2.1.1
+	Description : This scenario expands the "Burglary Incident With Arrest - Basic" scenario by broadening the overall scope of the incident as well as including 
+			more entity detail and reinforcing use of XML IDs and references by calling them out in the scenario spreadsheet.  The use of entity metadata to manage 
+			data submitted to N-DEx is demonstrated through the use of Source ID Text, Logical ID Text, Reported Date and Last Update Date.  Sameness of entities 
+			as determined by the data item owner is also communicated using Source ID Text and Logical ID Text metadata.  Metadata is further used to clarify associations 
+			through the use of Comment Text.  In addition, this scenario expands on the "basic" version by including additional offenses, a warrant activity, society as 
+			victim, collected evidence, depiction of a registered offender person, property owned by arrestee, and property stolen by arrestee.  Also demonstrated are 
+			the concepts of entities having multiple roles; status, quantity, and value of property; and the difference between a physical piece of property (ID card, license) 
+			used for identification and property identification identifiers (ID card number, license number) used as identifiers of a person.   
+
+			Sample files that end in "-lexs.xml" only include content from the LEXS schemas; the Structured Payload only contains metadata and an empty Report element.  
+			These instances can be validated against the LEXS publish-discover.xsd schema.  The files that end in "-ndex.xml" only include content from the N-DEx 
+			schemas; each only includes a single N-DEx report element.  These instances can be validated against the N-DEx ndexia.xsd schema.  The remaining files 
+			illustrate a complete N-DEx submission that includes both "layers" combined into a single instance.  These instances can be validated against the LEXS 
+			publish-discover.xsd schema, but such validation will ignore everything in the Structured Payload except for the metadata; validation will check that the 
+			Structured Payload data is well-formed XML, but nothing more.
+-->
+<ndexia:IncidentReport 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:i="http://niem.gov/niem/appinfo/2.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
+	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
+	xmlns:mmucc_2="http://niem.gov/niem/mmucc_2/2.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
+	xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1 ../xsd/ndexia/ndexia/2.1/ndexia.xsd">
+	
+	<!--====================== Metadata for Subject Victim Association  ====================-->
+	<lexsdigest:Metadata s:id="MSubjectVictimAssocSP1">
+		<nc:CommentText>Subject and Victim were previously step-siblings</nc:CommentText>
+	</lexsdigest:Metadata>
+	
+	<!--====================== Metadata for Evidence  ====================-->
+	<lexsdigest:Metadata s:id="MEvidenceSP1">
+		<nc:SourceIDText>8135962</nc:SourceIDText>
+	</lexsdigest:Metadata>
+	
+	<lexsdigest:Metadata s:id="MEvidenceSP2">
+		<nc:SourceIDText>8135963</nc:SourceIDText>
+	</lexsdigest:Metadata>
+	
+	<lexsdigest:Metadata s:id="MEvidenceSP3">
+		<nc:SourceIDText>8135964</nc:SourceIDText>
+	</lexsdigest:Metadata>
+		
+	<lexsdigest:Metadata s:id="MEvidenceSP4">
+		<nc:SourceIDText>8135965</nc:SourceIDText>
+	</lexsdigest:Metadata>
+	
+	<lexsdigest:Metadata s:id="MEvidenceSP5">
+		<nc:SourceIDText>8135966</nc:SourceIDText>
+	</lexsdigest:Metadata>
+	
+	<lexsdigest:Metadata s:id="MEvidenceSP6">
+		<nc:SourceIDText>8135967</nc:SourceIDText>
+	</lexsdigest:Metadata>
+		
+	<lexsdigest:Metadata s:id="MEvidenceSP7">
+		<nc:SourceIDText>8135968</nc:SourceIDText>
+	</lexsdigest:Metadata>
+	
+	<lexsdigest:Metadata s:id="MEvidenceSP8">
+		<nc:SourceIDText>28912314</nc:SourceIDText>
+	</lexsdigest:Metadata>
+
+	<!--================================= Incident  ============================-->
+	<ndexia:Incident>
+		<ndexia:ActivityStatus>
+			<nc:StatusDate>
+				<nc:Date>1997-03-18</nc:Date>
+			</nc:StatusDate>
+			<ndexia:ActivityStatusAugmentation>
+				<ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+			</ndexia:ActivityStatusAugmentation>
+		</ndexia:ActivityStatus>
+		
+		<j:IncidentAugmentation>
+			<j:IncidentEvidenceHeldIndicator>true</j:IncidentEvidenceHeldIndicator>
+			<j:IncidentExceptionalClearanceCode>N</j:IncidentExceptionalClearanceCode>
+			<j:IncidentLightingCode>darkness</j:IncidentLightingCode>
+		</j:IncidentAugmentation>
+		
+		<ndexia:IncidentAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Incident1"/>
+			<ndexia:IncidentWeatherCode>07</ndexia:IncidentWeatherCode>
+		</ndexia:IncidentAugmentation>
+	</ndexia:Incident>
+	
+	<!--================================= Arrest  ============================-->
+	<ndexia:Arrest>
+		<j:ArrestCategoryCode>T</j:ArrestCategoryCode>
+		<ndexia:ArrestAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Arrest1"/>
+		</ndexia:ArrestAugmentation>
+	</ndexia:Arrest>
+	
+	<!--================================= Offense 1 ============================-->
+	<ndexia:Offense>
+		<ndexia:ActivityAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Offense1"/>
+		</ndexia:ActivityAugmentation>
+		<j:IncidentFactor>
+			<j:IncidentFactorCode>N</j:IncidentFactorCode>
+		</j:IncidentFactor>
+		<j:IncidentForce>
+			<j:ForceCategoryCode>90</j:ForceCategoryCode>
+		</j:IncidentForce>
+		<j:IncidentStructuresEnteredQuantity>1</j:IncidentStructuresEnteredQuantity>
+		<j:Statute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>7399</nc:IdentificationID>
+				<nc:IdentificationJurisdictionText>New Mexico</nc:IdentificationJurisdictionText>
+			</j:StatuteCodeIdentification>
+			<j:StatuteDescriptionText>Burglary</j:StatuteDescriptionText>
+		</j:Statute>
+		<ndexia:CriminalActivityCategoryCode>None</ndexia:CriminalActivityCategoryCode>
+		<ndexia:OffenseBiasMotivationCode>None</ndexia:OffenseBiasMotivationCode>
+		<ndexia:OffenseCode>Burglary_forced entry_residence</ndexia:OffenseCode>
+		<ndexia:OffenseCompletedIndicator>true</ndexia:OffenseCompletedIndicator>
+		<ndexia:OffenseEntryPoint>
+			<j:PassagePointMethodCode>F</j:PassagePointMethodCode>
+			<j:PassagePointMethodOfAccessCode>Broke Glass</j:PassagePointMethodOfAccessCode>
+			<ndexia:PassagePointAugmentation>
+				<ndexia:PassagePointCode>Door_Front</ndexia:PassagePointCode>
+				<ndexia:PassagePointSecurityCategoryCode>Lock_Deadbolt</ndexia:PassagePointSecurityCategoryCode>
+			</ndexia:PassagePointAugmentation>
+		</ndexia:OffenseEntryPoint>
+		<ndexia:OffenseExitPoint>
+			<j:PassagePointMethodCode>F</j:PassagePointMethodCode>
+			<j:PassagePointMethodOfAccessCode>Bodily Force</j:PassagePointMethodOfAccessCode>
+			<ndexia:PassagePointAugmentation>
+				<ndexia:PassagePointCode>Upper Level</ndexia:PassagePointCode>
+				<ndexia:PassagePointCode>Window_Rear</ndexia:PassagePointCode>
+				<ndexia:PassagePointSecurityCategoryCode>Lock</ndexia:PassagePointSecurityCategoryCode>
+			</ndexia:PassagePointAugmentation>
+		</ndexia:OffenseExitPoint>
+	</ndexia:Offense>
+
+<!--================================= Offense 2 ============================-->
+	<ndexia:Offense>
+		<ndexia:ActivityAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Offense2"/>
+		</ndexia:ActivityAugmentation>
+		<j:Statute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>34.2</nc:IdentificationID>
+				<nc:IdentificationJurisdictionText>New Mexico</nc:IdentificationJurisdictionText>
+			</j:StatuteCodeIdentification>
+			<j:StatuteDescriptionText>Flight to avoid apprehension</j:StatuteDescriptionText>
+		</j:Statute>
+		<ndexia:OffenseBiasMotivationCauseCode>None</ndexia:OffenseBiasMotivationCauseCode>
+		<ndexia:OffenseBiasMotivationCode>None</ndexia:OffenseBiasMotivationCode>
+		<ndexia:OffenseCode>Flight To Avoid</ndexia:OffenseCode>
+		<ndexia:OffenseCompletedIndicator>true</ndexia:OffenseCompletedIndicator>
+	</ndexia:Offense>
+	
+	<!--================================= Offense 3 ============================-->
+	<ndexia:Offense>
+		<ndexia:ActivityAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Offense3"/>
+		</ndexia:ActivityAugmentation>
+		<j:Statute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>82.2.5a</nc:IdentificationID>
+				<nc:IdentificationJurisdictionText>New Mexico</nc:IdentificationJurisdictionText>
+			</j:StatuteCodeIdentification>
+			<j:StatuteDescriptionText>Destruction of private property.</j:StatuteDescriptionText>
+		</j:Statute>
+		<ndexia:OffenseBiasMotivationCauseCode>None</ndexia:OffenseBiasMotivationCauseCode>
+		<ndexia:OffenseBiasMotivationCode>None</ndexia:OffenseBiasMotivationCode>
+		<ndexia:OffenseCode>Damage Property_private</ndexia:OffenseCode>
+		<ndexia:OffenseCompletedIndicator>true</ndexia:OffenseCompletedIndicator>
+	</ndexia:Offense>
+	
+	<!--============================== Service Call =========================-->
+	<ndexia:ServiceCall>
+		<ndexia:ActivityStatus>
+			<nc:StatusDate>
+				<nc:Date>1997-03-12</nc:Date>
+			</nc:StatusDate>
+			<ndexia:ActivityStatusAugmentation>
+				<ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+			</ndexia:ActivityStatusAugmentation>
+		</ndexia:ActivityStatus>
+		<j:ServiceCallClearanceText>Responded to burglary call from dispatcher. Arrived at residence at 12:25 a.m. to find the front door standing open with the glass broken out.  I drew my weapon and entered the structure after requesting back-up.  Proceeding through the entry way and entered the kitchen hearing loud noise in back of the residence.  I proceeded down a small hallway to a back bedroom where I encountered subject dragging a 56 inch plasma TV across the floor.  Startling the subject, he dropped the TV and attempted to exit the room through an exterior window.  I immediately pursued and subdued subject without further incident.</j:ServiceCallClearanceText>
+		<j:ServiceCallDispatchedDate>
+			<nc:DateTime>1997-03-12T13:00:00.0Z</nc:DateTime>
+		</j:ServiceCallDispatchedDate>
+		<ndexia:ServiceCallAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="ServiceCall1"/>
+			<ndexia:ServiceCallCategoryCode>Burglary</ndexia:ServiceCallCategoryCode>
+			<ndexia:ServiceCallClearanceCategoryCode>Burglary</ndexia:ServiceCallClearanceCategoryCode>
+			<ndexia:ServiceCallMechanismCode>E911</ndexia:ServiceCallMechanismCode>
+		</ndexia:ServiceCallAugmentation>
+	</ndexia:ServiceCall>
+	
+	<!--============================== Warrant =========================-->
+	<ndexia:Warrant>
+		<ndexia:ActivityStatus>
+			<nc:StatusDate>
+				<nc:Date>1997-03-12</nc:Date>
+			</nc:StatusDate>
+			<ndexia:ActivityStatusAugmentation>
+				<ndexia:IncidentStatusCode>Active</ndexia:IncidentStatusCode>
+			</ndexia:ActivityStatusAugmentation>
+		</ndexia:ActivityStatus>
+		<ndexia:ActivityStatus>
+			<nc:StatusText>Served</nc:StatusText>
+			<nc:StatusDate>
+				<nc:Date>1997-03-18</nc:Date>
+			</nc:StatusDate>
+		</ndexia:ActivityStatus>
+		<ndexia:WarrantAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Warrant1"/>
+		</ndexia:WarrantAugmentation>
+	</ndexia:Warrant>
+
+<!--============================== Person 1 - Witness =========================-->
+	<ndexia:Person>
+		<nc:PersonEthnicityCode>N</nc:PersonEthnicityCode>
+		<nc:PersonResidentCode>R</nc:PersonResidentCode>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="WitnessPerson1"/>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+	
+	<ndexia:Witness>
+		<ndexia:WitnessAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Witness1"/>
+			<ndexia:WitnessSequenceNumberText>1</ndexia:WitnessSequenceNumberText>
+		</ndexia:WitnessAugmentation>
+	</ndexia:Witness>
+	
+	<!--================== Person 2 - Subject, Arrestee (Arrest Subject), and Registered Offender =================-->
+	<ndexia:Person>
+		<nc:PersonResidentCode>R</nc:PersonResidentCode>
+		<j:PersonAugmentation>
+			<j:PersonConcealedFirearmPermitHolderIndicator>true</j:PersonConcealedFirearmPermitHolderIndicator>
+		</j:PersonAugmentation>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="SubjectArresteePerson1"/>
+			<j:SubjectCautionInformationCode>01</j:SubjectCautionInformationCode>
+			<ndexia:PersonConcealedFirearmPermitIdentification>
+				<nc:IdentificationID>W1234</nc:IdentificationID>
+				<nc:IdentificationExpirationDate>
+					<nc:Date>2002-01-26</nc:Date>
+				</nc:IdentificationExpirationDate>
+				<j:IdentificationJurisdictionNCICLISCode>NM</j:IdentificationJurisdictionNCICLISCode>
+			</ndexia:PersonConcealedFirearmPermitIdentification>
+			<ndexia:SubjectCautionInformationText>Subject has permit to carry firearm.</ndexia:SubjectCautionInformationText>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+	
+	<ndexia:Subject>
+		<ndexia:SubjectAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Subject1"/>
+			<ndexia:SubjectMOActionCode>Broke Window</ndexia:SubjectMOActionCode>
+			<ndexia:SubjectMOActionCode>Defeated Security</ndexia:SubjectMOActionCode>
+			<ndexia:SubjectMOActionCode>Forced Entry</ndexia:SubjectMOActionCode>
+			<ndexia:SubjectMOActionCode>Took Specific Items</ndexia:SubjectMOActionCode>
+			<ndexia:SubjectMOActionCode>Used Gloves</ndexia:SubjectMOActionCode>
+			<ndexia:SubjectMOObservationCode>Never spoke</ndexia:SubjectMOObservationCode>
+			<ndexia:SubjectSequenceNumberText>1</ndexia:SubjectSequenceNumberText>
+		</ndexia:SubjectAugmentation>
+	</ndexia:Subject>
+	
+	<ndexia:ArrestSubject>
+		<ndexia:ArrestSubjectAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="ArrestSubject1"/>
+			<j:ArrestSequenceID>
+				<nc:IdentificationID>1</nc:IdentificationID>
+			</j:ArrestSequenceID>
+			<j:ArrestSubjectCountCode>C</j:ArrestSubjectCountCode>
+			<j:ChargeUCRCode>90D</j:ChargeUCRCode>
+			<ndexia:ArresteeArmedWithCode>01</ndexia:ArresteeArmedWithCode>
+			<ndexia:ArresteeClearanceIndicator>true</ndexia:ArresteeClearanceIndicator>
+		</ndexia:ArrestSubjectAugmentation>
+	</ndexia:ArrestSubject>
+	
+	<ndexia:RegisteredOffender>
+		<ndexia:RegisteredOffenderAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="RegisteredOffender1"/>
+			<ndexia:RegisteredOffenderCategoryCode>Convicted Person</ndexia:RegisteredOffenderCategoryCode>
+		</ndexia:RegisteredOffenderAugmentation>
+	</ndexia:RegisteredOffender>
+	
+	<!--============================== Person 3 - Victim =========================-->
+	<ndexia:Person>
+		<nc:PersonEthnicityCode>N</nc:PersonEthnicityCode>
+		<nc:PersonResidentCode>R</nc:PersonResidentCode>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="VictimPerson1"/>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+	
+	<ndexia:Victim>
+		<j:VictimCategoryCode>I</j:VictimCategoryCode>
+		<ndexia:VictimAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Victim1"/>
+			<ndexia:VictimSequenceNumberText>1</ndexia:VictimSequenceNumberText>
+		</ndexia:VictimAugmentation>
+	</ndexia:Victim>
+	
+	<!--============================== Person 4  - Officer (Reporting) and Witness =========================-->
+	<ndexia:Person>
+		<nc:PersonName>
+			<nc:PersonNamePrefixText>Officer</nc:PersonNamePrefixText>
+		</nc:PersonName>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="OfficerPerson1"/>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+	
+	<ndexia:EnforcementOfficial>
+		<ndexia:EnforcementOfficialActivityCategoryCode>Other</ndexia:EnforcementOfficialActivityCategoryCode>
+		<j:EnforcementOfficialAssignmentCategoryCode>G</j:EnforcementOfficialAssignmentCategoryCode>
+		<ndexia:EnforcementOfficialAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Officer1"/>
+		</ndexia:EnforcementOfficialAugmentation>
+	</ndexia:EnforcementOfficial>
+	
+	<ndexia:Witness>
+		<ndexia:WitnessAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Witness2"/>
+			<ndexia:WitnessSequenceNumberText>2</ndexia:WitnessSequenceNumberText>
+		</ndexia:WitnessAugmentation>
+	</ndexia:Witness>
+	
+	<!--============================== Person 7 - Officer (Arresting) =========================-->
+	<ndexia:Person>
+		<nc:PersonName>
+			<nc:PersonNamePrefixText>Officer</nc:PersonNamePrefixText>
+		</nc:PersonName>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="OfficerPerson2"/>
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+	
+	<ndexia:EnforcementOfficial>
+		<ndexia:EnforcementOfficialActivityCategoryCode>Other</ndexia:EnforcementOfficialActivityCategoryCode>
+		<j:EnforcementOfficialAssignmentCategoryCode>K</j:EnforcementOfficialAssignmentCategoryCode>
+		<ndexia:EnforcementOfficialAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Officer2"/>
+		</ndexia:EnforcementOfficialAugmentation>
+	</ndexia:EnforcementOfficial>
+		
+	<!--================================= Property 1 - Evidence ============================-->
+	<ndexia:TangibleItem s:id="PropertySP1">
+		<ndexia:ItemCategoryCode>Credit_Bank_ID</ndexia:ItemCategoryCode>
+		<ndexia:TangibleItemAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Property1"/>
+			<ndexia:CreditBankIDCardCategoryCode>Diners Club Card</ndexia:CreditBankIDCardCategoryCode>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+			</ndexia:ItemQuantityStatusValue>
+		</ndexia:TangibleItemAugmentation>
+	</ndexia:TangibleItem>
+	
+	<ndexia:Evidence s:id="EvidenceSP5" s:metadata="MEvidenceSP5">
+		<nc:RoleOfItemReference s:ref="PropertySP1"/>
+		<j:EvidenceReceiptIdentification>
+			<nc:IdentificationID>81-003-05</nc:IdentificationID>
+		</j:EvidenceReceiptIdentification>
+	</ndexia:Evidence>
+	
+	<!--================================= Property 2 - Evidence ============================-->
+	<ndexia:TangibleItem s:id="PropertySP2">
+		<ndexia:ItemCategoryCode>Credit_Bank_ID</ndexia:ItemCategoryCode>
+		<ndexia:TangibleItemAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Property2"/>
+			<ndexia:CreditBankIDCardCategoryCode>Identification Card</ndexia:CreditBankIDCardCategoryCode>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+			</ndexia:ItemQuantityStatusValue>
+		</ndexia:TangibleItemAugmentation>
+	</ndexia:TangibleItem>
+	
+	<ndexia:Evidence s:id="EvidenceSP6" s:metadata="MEvidenceSP6">
+		<nc:RoleOfItemReference s:ref="PropertySP2"/>
+		<j:EvidenceReceiptIdentification>
+			<nc:IdentificationID>81-003-06</nc:IdentificationID>
+		</j:EvidenceReceiptIdentification>
+	</ndexia:Evidence>
+	
+	<!--================================= Property 3 - Evidence ============================-->
+	<ndexia:TangibleItem s:id="PropertySP3">
+		<ndexia:ItemCategoryCode>Credit_Bank_ID</ndexia:ItemCategoryCode>
+		<ndexia:TangibleItemAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Property3"/>
+			<ndexia:CreditBankIDCardCategoryText>Concealed Weapon Permit</ndexia:CreditBankIDCardCategoryText>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+			</ndexia:ItemQuantityStatusValue>
+		</ndexia:TangibleItemAugmentation>
+	</ndexia:TangibleItem>
+	
+	<ndexia:Evidence s:id="EvidenceSP4" s:metadata="MEvidenceSP4">
+		<nc:RoleOfItemReference s:ref="PropertySP3"/>
+		<j:EvidenceReceiptIdentification>
+			<nc:IdentificationID>81-003-04</nc:IdentificationID>
+		</j:EvidenceReceiptIdentification>
+	</ndexia:Evidence>
+	
+	<!--================================= Property 4 - Evidence ============================-->
+	<ndexia:TangibleItem s:id="PropertySP4">
+		<ndexia:ItemCategoryCode>Clothing</ndexia:ItemCategoryCode>
+		<ndexia:TangibleItemAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Property4"/>
+			<ndexia:ClothingCategoryCode>Wallet</ndexia:ClothingCategoryCode>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+			</ndexia:ItemQuantityStatusValue>
+		</ndexia:TangibleItemAugmentation>
+	</ndexia:TangibleItem>
+	
+	<ndexia:Evidence s:id="EvidenceSP7" s:metadata="MEvidenceSP7">
+		<nc:RoleOfItemReference s:ref="PropertySP4"/>
+		<j:EvidenceReceiptIdentification>
+			<nc:IdentificationID>81-003-07</nc:IdentificationID>
+		</j:EvidenceReceiptIdentification>
+	</ndexia:Evidence>
+	
+	<!--================================= Property 5 ============================-->
+	<ndexia:TangibleItem>
+		<ndexia:ItemCategoryCode>Knife</ndexia:ItemCategoryCode>
+		<ndexia:TangibleItemAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Property5"/>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+			</ndexia:ItemQuantityStatusValue>
+			<ndexia:KnifeCategoryCode>Locking Blade</ndexia:KnifeCategoryCode>
+		</ndexia:TangibleItemAugmentation>
+	</ndexia:TangibleItem>
+	
+	<!--================================= Property 6 ============================-->
+	<ndexia:TangibleItem>
+		<ndexia:ItemCategoryCode>Clothing</ndexia:ItemCategoryCode>
+		<ndexia:TangibleItemAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Property6"/>
+			<ndexia:ClothingCategoryCode>Belt</ndexia:ClothingCategoryCode>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+			</ndexia:ItemQuantityStatusValue>
+		</ndexia:TangibleItemAugmentation>
+	</ndexia:TangibleItem>
+	
+	<!--================================= Property 7 - Evidence ============================-->
+	<ndexia:TangibleItem s:id="PropertySP7">
+		<ndexia:ItemCategoryCode>Consumable Good</ndexia:ItemCategoryCode>
+		<ndexia:TangibleItemAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Property7"/>
+			<ndexia:ConsumableGoodsCategoryText>Condom</ndexia:ConsumableGoodsCategoryText>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+			</ndexia:ItemQuantityStatusValue>
+		</ndexia:TangibleItemAugmentation>
+	</ndexia:TangibleItem>
+	
+	<ndexia:Evidence s:id="EvidenceSP8" s:metadata="MEvidenceSP8">
+		<nc:RoleOfItemReference s:ref="PropertySP7"/>
+		<j:EvidenceReceiptIdentification>
+			<nc:IdentificationID>81-003-08</nc:IdentificationID>
+		</j:EvidenceReceiptIdentification>
+	</ndexia:Evidence>
+	
+	<!--================================= Firearm - Evidence ============================-->
+	<ndexia:Firearm s:id="FirearmSP1">
+		<ndexia:ItemNCICIdentification>
+			<nc:IdentificationID>G363524789</nc:IdentificationID>
+		</ndexia:ItemNCICIdentification>
+		<ndexia:FirearmAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Firearm1"/>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+				<ndexia:ItemStatus>
+					<nc:StatusDate>
+						<nc:Date>1997-03-12</nc:Date>
+					</nc:StatusDate>
+					<ndexia:ItemStatusAugmentation>
+						<ndexia:ItemStatusCode>Stolen</ndexia:ItemStatusCode>
+					</ndexia:ItemStatusAugmentation>
+				</ndexia:ItemStatus>
+				<ndexia:ItemValue>
+					<nc:ItemValueAmount nc:currencyCode="USD">700</nc:ItemValueAmount>
+					<nc:ItemValueDate>
+						<nc:Date>1997-03-14</nc:Date>
+					</nc:ItemValueDate>
+					<ndexia:ItemValueAugmentation>
+						<ndexia:ItemValueAssigningMethodCode>Victims valuation</ndexia:ItemValueAssigningMethodCode>
+					</ndexia:ItemValueAugmentation>
+				</ndexia:ItemValue>
+			</ndexia:ItemQuantityStatusValue>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+				<ndexia:ItemStatus>
+					<nc:StatusDate>
+						<nc:Date>1997-03-18</nc:Date>
+					</nc:StatusDate>
+					<ndexia:ItemStatusAugmentation>
+						<ndexia:ItemStatusCode>Recovered</ndexia:ItemStatusCode>
+					</ndexia:ItemStatusAugmentation>
+				</ndexia:ItemStatus>
+				<ndexia:ItemValue>
+					<nc:ItemValueAmount nc:currencyCode="USD">800</nc:ItemValueAmount>
+					<nc:ItemValueDate>
+						<nc:Date>1997-03-19</nc:Date>
+					</nc:ItemValueDate>
+					<ndexia:ItemValueAugmentation>
+						<ndexia:ItemValueAssigningMethodCode>Law enforcement fair market estimate</ndexia:ItemValueAssigningMethodCode>
+					</ndexia:ItemValueAugmentation>
+				</ndexia:ItemValue>
+			</ndexia:ItemQuantityStatusValue>
+		</ndexia:FirearmAugmentation>
+	</ndexia:Firearm>
+	
+	<ndexia:Evidence s:id="EvidenceSP3" s:metadata="MEvidenceSP3">
+		<nc:RoleOfItemReference s:ref="FirearmSP1"/>
+		<j:EvidenceReceiptIdentification>
+			<nc:IdentificationID>81-003-03</nc:IdentificationID>
+		</j:EvidenceReceiptIdentification>
+	</ndexia:Evidence>
+	
+	<!--================================= Forensic Specimen - Evidence ============================-->
+	<ndexia:ForensicSpecimen s:id="ForensicSpecimenSP1">
+		<ndexia:SubstanceAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="ForensicSpecimen1"/>
+		</ndexia:SubstanceAugmentation>
+		<ndexia:ForensicSpecimenCategoryCode>Shoe Impression_Casting</ndexia:ForensicSpecimenCategoryCode>
+	</ndexia:ForensicSpecimen>
+	
+	<ndexia:Evidence s:id="EvidenceSP1" s:metadata="MEvidenceSP1">
+		<nc:RoleOfItemReference s:ref="ForensicSpecimenSP1"/>
+		<j:EvidenceReceiptIdentification>
+			<nc:IdentificationID>81-003-01</nc:IdentificationID>
+		</j:EvidenceReceiptIdentification>
+	</ndexia:Evidence>
+	
+	<!--================================= Jewelry 1 - Evidence ============================-->
+	<ndexia:Jewelry s:id="JewelrySP1">
+		<ndexia:ItemNCICIdentification>
+			<nc:IdentificationID>A135654720</nc:IdentificationID>
+		</ndexia:ItemNCICIdentification>
+		<nc:JewelryCategoryCode>NE</nc:JewelryCategoryCode>
+		<ndexia:JewelryAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Jewelry1"/>
+			<ndexia:ItemGenderUseCode>Female</ndexia:ItemGenderUseCode>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+				<ndexia:ItemStatus>
+					<nc:StatusDate>
+						<nc:Date>1997-03-12</nc:Date>
+					</nc:StatusDate>
+					<ndexia:ItemStatusAugmentation>
+						<ndexia:ItemStatusCode>Stolen</ndexia:ItemStatusCode>
+					</ndexia:ItemStatusAugmentation>
+				</ndexia:ItemStatus>
+				<ndexia:ItemValue>
+					<nc:ItemValueAmount nc:currencyCode="USD">200</nc:ItemValueAmount>
+					<nc:ItemValueDate>
+						<nc:Date>1997-03-14</nc:Date>
+					</nc:ItemValueDate>
+					<ndexia:ItemValueAugmentation>
+						<ndexia:ItemValueAssigningMethodCode>Victims valuation</ndexia:ItemValueAssigningMethodCode>
+					</ndexia:ItemValueAugmentation>
+				</ndexia:ItemValue>
+			</ndexia:ItemQuantityStatusValue>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+				<ndexia:ItemStatus>
+					<nc:StatusDate>
+						<nc:Date>1997-03-18</nc:Date>
+					</nc:StatusDate>
+					<ndexia:ItemStatusAugmentation>
+						<ndexia:ItemStatusCode>Recovered</ndexia:ItemStatusCode>
+					</ndexia:ItemStatusAugmentation>
+				</ndexia:ItemStatus>
+				<ndexia:ItemValue>
+					<nc:ItemValueAmount nc:currencyCode="USD">200</nc:ItemValueAmount>
+					<nc:ItemValueDate>
+						<nc:Date>1997-03-18</nc:Date>
+					</nc:ItemValueDate>
+					<ndexia:ItemValueAugmentation>
+						<ndexia:ItemValueAssigningMethodCode>Law enforcement fair market estimate</ndexia:ItemValueAssigningMethodCode>
+					</ndexia:ItemValueAugmentation>
+				</ndexia:ItemValue>
+			</ndexia:ItemQuantityStatusValue>
+		</ndexia:JewelryAugmentation>
+	</ndexia:Jewelry>
+	
+	<ndexia:Evidence s:id="EvidenceSP2" s:metadata="MEvidenceSP2">
+		<nc:RoleOfItemReference s:ref="JewelrySP1"/>
+		<j:EvidenceReceiptIdentification>
+			<nc:IdentificationID>81-003-02</nc:IdentificationID>
+		</j:EvidenceReceiptIdentification>
+	</ndexia:Evidence>
+	
+	<!--================================= Jewelry 2 ============================-->
+	<ndexia:Jewelry>
+		<ndexia:ItemNCICIdentification>
+			<nc:IdentificationID>A625496300</nc:IdentificationID>
+		</ndexia:ItemNCICIdentification>
+		<nc:JewelryCategoryCode>RI</nc:JewelryCategoryCode>
+		<ndexia:JewelryAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Jewelry2"/>
+			<ndexia:ItemGenderUseCode>Female</ndexia:ItemGenderUseCode>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+				<ndexia:ItemStatus>
+					<nc:StatusDate>
+						<nc:Date>1997-03-12</nc:Date>
+					</nc:StatusDate>
+					<ndexia:ItemStatusAugmentation>
+						<ndexia:ItemStatusCode>Stolen</ndexia:ItemStatusCode>
+					</ndexia:ItemStatusAugmentation>
+				</ndexia:ItemStatus>
+				<ndexia:ItemValue>
+					<nc:ItemValueAmount nc:currencyCode="USD">10000</nc:ItemValueAmount>
+					<nc:ItemValueDate>
+						<nc:Date>1997-03-14</nc:Date>
+					</nc:ItemValueDate>
+					<ndexia:ItemValueAugmentation>
+						<ndexia:ItemValueAssigningMethodCode>Victims valuation</ndexia:ItemValueAssigningMethodCode>
+					</ndexia:ItemValueAugmentation>
+				</ndexia:ItemValue>
+			</ndexia:ItemQuantityStatusValue>
+		</ndexia:JewelryAugmentation>
+	</ndexia:Jewelry>
+	
+	<!--================================= Jewelry Stone ============================-->
+	<ndexia:JewelryStone>
+		<nc:JewelryStoneCaratText>2 Carat</nc:JewelryStoneCaratText>
+		<nc:JewelryStoneColorText>Blue</nc:JewelryStoneColorText>
+		<nc:JewelryStoneCutText>Oval</nc:JewelryStoneCutText>
+		<ndexia:JewelryStoneAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="JewelryStone1"/>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>1</nc:ItemQuantity>
+			</ndexia:ItemQuantityStatusValue>
+			<ndexia:JewelryStoneCategoryCode>Diamond</ndexia:JewelryStoneCategoryCode>
+		</ndexia:JewelryStoneAugmentation>
+	</ndexia:JewelryStone>
+	
+	<!--================================= Precious Metal 1 ============================-->
+	<ndexia:PreciousMetal>
+		<ndexia:SubstanceAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="PreciousMetal1"/>
+		</ndexia:SubstanceAugmentation>
+		<ndexia:PreciousMetalCode>Gold</ndexia:PreciousMetalCode>
+	</ndexia:PreciousMetal>
+	
+	<!--================================= Precious Metal 2 ============================-->
+	<ndexia:PreciousMetal>
+		<ndexia:SubstanceAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="PreciousMetal2"/>
+		</ndexia:SubstanceAugmentation>
+		<ndexia:PreciousMetalCode>Gold</ndexia:PreciousMetalCode>
+	</ndexia:PreciousMetal>
+	
+	<!--================================= Publication ============================-->
+	<ndexia:Publication>
+		<nc:DocumentPublicationDate>
+			<nc:YearMonth>1974-02</nc:YearMonth>
+		</nc:DocumentPublicationDate>
+		<nc:DocumentSubjectText>Fiction-Comic</nc:DocumentSubjectText>
+		<nc:DocumentTitleText>The Amazing Spider-man #129</nc:DocumentTitleText>
+		<ndexia:ItemQuantityStatusValue>
+		<nc:ItemQuantity>1</nc:ItemQuantity>
+			<ndexia:ItemStatus>
+				<nc:StatusDate>
+					<nc:Date>1997-03-12</nc:Date>
+				</nc:StatusDate>
+				<ndexia:ItemStatusAugmentation>
+					<ndexia:ItemStatusCode>Stolen</ndexia:ItemStatusCode>
+				</ndexia:ItemStatusAugmentation>
+			</ndexia:ItemStatus>
+			<ndexia:ItemValue>
+				<nc:ItemValueAmount nc:currencyCode="USD">5000</nc:ItemValueAmount>
+				<nc:ItemValueDate>
+					<nc:Date>1997-03-14</nc:Date>
+				</nc:ItemValueDate>
+				<ndexia:ItemValueAugmentation>
+					<ndexia:ItemValueAssigningMethodCode>Victims valuation</ndexia:ItemValueAssigningMethodCode>
+				</ndexia:ItemValueAugmentation>
+			</ndexia:ItemValue>
+		</ndexia:ItemQuantityStatusValue>
+		<ndexia:PublicationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Publication1"/>
+		</ndexia:PublicationAugmentation>
+	</ndexia:Publication>
+	
+	<!--================================= Structure ============================-->
+	<ndexia:Structure>
+		<ndexia:ItemQuantityStatusValue>
+		<nc:ItemQuantity>1</nc:ItemQuantity>
+			<ndexia:ItemStatus>
+				<nc:StatusDate>
+					<nc:Date>1997-03-12</nc:Date>
+				</nc:StatusDate>
+				<ndexia:ItemStatusAugmentation>
+					<ndexia:ItemStatusCode>Damaged</ndexia:ItemStatusCode>
+				</ndexia:ItemStatusAugmentation>
+			</ndexia:ItemStatus>
+			<ndexia:ItemValue>
+				<nc:ItemValueAmount nc:currencyCode="USD">200</nc:ItemValueAmount>
+				<nc:ItemValueDate>
+					<nc:Date>1997-03-14</nc:Date>
+				</nc:ItemValueDate>
+				<ndexia:ItemValueAugmentation>
+					<ndexia:ItemValueAssigningMethodCode>Replacement cost or Actual cash cost</ndexia:ItemValueAssigningMethodCode>
+				</ndexia:ItemValueAugmentation>
+			</ndexia:ItemValue>
+		</ndexia:ItemQuantityStatusValue>
+		<ndexia:StructureCategoryCode>Residential_Single Occupancy</ndexia:StructureCategoryCode>
+		<ndexia:StructureOccupiedCode>Inhabited</ndexia:StructureOccupiedCode>
+		<ndexia:StructureResidentialSingleOccupancyCategoryCode>House</ndexia:StructureResidentialSingleOccupancyCategoryCode>
+		<ndexia:StructureAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Structure1"/>
+		</ndexia:StructureAugmentation>
+	</ndexia:Structure>
+	
+	<!--================================= Enforcement Unit 1 ============================-->
+	<ndexia:EnforcementUnit>
+		<j:EnforcementUnitNumberIdentification>
+			<nc:IdentificationID>62</nc:IdentificationID>
+		</j:EnforcementUnitNumberIdentification>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>NMNSP0000</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+		<ndexia:EnforcementUnitAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Unit1"/>
+		</ndexia:EnforcementUnitAugmentation>
+	</ndexia:EnforcementUnit>
+	
+	<!--================================= Enforcement Unit 2 ============================-->
+	<ndexia:EnforcementUnit>
+		<j:EnforcementUnitNumberIdentification>
+			<nc:IdentificationID>612</nc:IdentificationID>
+		</j:EnforcementUnitNumberIdentification>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>NMNSP0000</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+		<ndexia:EnforcementUnitAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Unit2"/>
+		</ndexia:EnforcementUnitAugmentation>
+	</ndexia:EnforcementUnit>
+	
+	<!--================================= Organization 1 ============================-->
+	<ndexia:Organization>
+		<ndexia:OrganizationCategoryNDExCode>Criminal Justice</ndexia:OrganizationCategoryNDExCode>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>NM1234567</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+		<ndexia:OrganizationAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Organization1"/>
+		</ndexia:OrganizationAugmentation>
+	</ndexia:Organization>
+	
+	<!--================================= Organization 2 ============================-->
+	<ndexia:Organization>
+		<ndexia:OrganizationCategoryNDExCode>Criminal Justice</ndexia:OrganizationCategoryNDExCode>
+		<ndexia:OrganizationAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Organization2"/>
+		</ndexia:OrganizationAugmentation>
+	</ndexia:Organization>
+	
+	<!--================================= Organization 3 - Victim ============================-->
+	<ndexia:Organization>
+		<ndexia:OrganizationCategoryNDExCode>Society</ndexia:OrganizationCategoryNDExCode>
+		<ndexia:OrganizationAugmentation>
+            <lexslib:SameAsDigestReference lexslib:ref="Organization3"/>
+		</ndexia:OrganizationAugmentation>
+	</ndexia:Organization>
+	
+	<ndexia:Victim>
+		<j:VictimCategoryCode>S</j:VictimCategoryCode>
+		<ndexia:VictimAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Victim2"/>
+			<ndexia:VictimSequenceNumberText>2</ndexia:VictimSequenceNumberText>
+		</ndexia:VictimAugmentation>
+	</ndexia:Victim>
+	
+	<!--============================== Location 1 - Dispatch Location / Victim's Home =========================-->
+	<ndexia:Location>
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<ndexia:LocationStreet>
+					<ndexia:StreetAugmentation>
+						<ndexia:StreetPostdirectionalCode>Northwest</ndexia:StreetPostdirectionalCode>
+					</ndexia:StreetAugmentation>
+				</ndexia:LocationStreet>
+				<nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+		<ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+		<ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+		<ndexia:LocationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Location1"/>
+		</ndexia:LocationAugmentation>
+	</ndexia:Location>
+	
+	<!--============================== Location 2 - Witness' Home =========================-->
+	<ndexia:Location>
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<ndexia:LocationStreet>
+					<ndexia:StreetAugmentation>
+						<ndexia:StreetPostdirectionalCode>Northwest</ndexia:StreetPostdirectionalCode>
+					</ndexia:StreetAugmentation>
+				</ndexia:LocationStreet>
+				<nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+		<ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+		<ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+		<ndexia:LocationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Location2"/>
+		</ndexia:LocationAugmentation>
+	</ndexia:Location>
+	
+	<!--============================== Location 3 - Subject's Home =========================-->	
+	<ndexia:Location>
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+		<ndexia:LocationGeneralCategoryCode>Residential</ndexia:LocationGeneralCategoryCode>
+		<ndexia:LocationCategoryCode>Residential_House</ndexia:LocationCategoryCode>
+		<ndexia:LocationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Location3"/>
+		</ndexia:LocationAugmentation>
+	</ndexia:Location>
+	
+	<!--============================== Location 4 - Arrest Location =========================-->	
+	<ndexia:Location>
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<nc:LocationStateUSPostalServiceCode>NM</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+		<ndexia:LocationGeneralCategoryCode>Public_Non Residential</ndexia:LocationGeneralCategoryCode>
+		<ndexia:LocationCategoryCode>Law Enforcement Facility_City</ndexia:LocationCategoryCode>
+		<ndexia:LocationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="Location4"/>
+		</ndexia:LocationAugmentation>
+	</ndexia:Location>
+	
+	<!--============================== Subject Victim Association =========================-->
+	<ndexia:SubjectVictimAssociation s:metadata="MSubjectVictimAssocSP1">
+		<ndexia:SubjectVictimAssociationAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="SubjectVictimAssoc1"/>
+			<ndexia:VictimToSubjectRelationshipCode>Acquaintance</ndexia:VictimToSubjectRelationshipCode>
+		</ndexia:SubjectVictimAssociationAugmentation>
+	</ndexia:SubjectVictimAssociation>
+	
+</ndexia:IncidentReport>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:exchange="http://ojbc.org/IEPD/Exchange/AcknowledgementRecordingResponse/1.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponse/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponseMetadata/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponse/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponseMetadata/1.0" schemaLocation="acknowledgement-recording-response-metadata.xsd"/>
+	<xsd:complexType name="AcknowledgementRecordingResponseType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an acknowledgement recording request response</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+				<xsd:element ref="ext:PolicyAcknowledgementRecordingIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="srm:AcknowledgementRecordingResponseMetadata" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="PolicyAcknowledgementRecordingIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if policy acknowledgement has been recorded, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	
+</xsd:schema>
