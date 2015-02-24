@@ -1,13 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ojb.bundles</groupId>
-  <artifactId>ojb-intermediaries-parent</artifactId>
+  <artifactId>ojb-connectors-parent</artifactId>
   <version>0.0.1</version>
   <packaging>pom</packaging>
   <modules>
-    <module>person-query-service-warrants-intermediary</module>
-    <module>subscription-notification-service-intermediary-common</module>
-    <module>subscription-notification-service-intermediary</module>
-    <module>criminal-identification-reporting-service-intermediary</module>
+    <module>incident-reporting-service-connector</module>
   </modules>
 </project>
