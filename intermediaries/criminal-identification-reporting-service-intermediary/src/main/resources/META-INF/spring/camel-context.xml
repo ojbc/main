@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       ">
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	
+	<import resource="properties-context.xml"/>
+	<import resource="cxf-endpoints.xml"/>
+	
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+		<endpoint id="inputDir"
+			uri="file:///${subscriptionNotification.criminalIdentification.criminalIdentificationIntermediaryDirectory}/input?idempotent=true&amp;moveFailed=${subscriptionNotification.criminalIdentification.criminalIdentificationIntermediaryDirectory}/error&amp;move=processed/" />
+
+		<!-- Criminal Identification Service File Handler -->
+		<camel:route>
+			<camel:from uri="inputDir" />
+			<camel:log message="This is the body the service received: ${body}" />
+			<camel:to uri="direct:processArrestDocument" />
+		</camel:route>
+
+		<!-- Criminal Identification Service Handler -->
+		<camel:route>
+			<camel:from
+				uri="criminalIdentificationReportingServiceEndpoint" />
+			<camel:log message="Received criminal identification document for processing" />
+			<camel:to uri="direct:processArrestDocument" />
+		</camel:route>
+
+		<camel:route>
+			<camel:from uri="direct:processArrestDocument" />
+			<camel:log message="processing arrest document" />
+			<camel:to uri="xslt:xslt/arrestDocumentToNotification.xsl" />
+			<camel:log message="Document trannsformed" />
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewSimpleExchangeResponseMessage"/>
+			
+			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+
+			<camel:to uri="notificationBrokerServiceEndpoint" />
+			<camel:log message="Called notification broker" />	
+		</camel:route>
+
+	</camel:camelContext>
+
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
+	
+</beans>
