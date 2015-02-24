@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exchange:FirearmSearchResults
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0 ../xsd/exchange_schema.xsd ">
+	<srm:SearchResultsMetadata>
+		<iad:InformationAccessDenial>
+			<iad:InformationAccessDenialIndicator>true</iad:InformationAccessDenialIndicator>
+			<iad:InformationAccessDenyingSystemNameText>VIBRS</iad:InformationAccessDenyingSystemNameText>
+			<iad:InformationAccessDenialReasonText>user doesn't have access</iad:InformationAccessDenialReasonText>
+		</iad:InformationAccessDenial>
+	</srm:SearchResultsMetadata>
+</exchange:FirearmSearchResults>

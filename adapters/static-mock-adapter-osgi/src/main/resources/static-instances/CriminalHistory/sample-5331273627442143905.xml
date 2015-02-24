@@ -1,0 +1,172 @@
+<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.0" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
+    <ch:RapSheet>
+        <ch:Metadata>
+            <nc:ReportingOrganizationText>State CHRI</nc:ReportingOrganizationText>
+        </ch:Metadata>
+        <ch:Introduction>
+            <ch:RapSheetRequest>
+                <ch:PurposeCode>A</ch:PurposeCode>
+                <ch:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</ch:Attention>
+                <ch:RapSheetPerson>
+                    <nc:PersonBirthDate>
+                        <nc:Date>1931-09-25</nc:Date>
+                    </nc:PersonBirthDate>
+                    <nc:PersonName>
+                        <nc:PersonGivenName>Belinda</nc:PersonGivenName>
+                        <nc:PersonMiddleName>W</nc:PersonMiddleName>
+                        <nc:PersonSurName>McMann</nc:PersonSurName>
+                    </nc:PersonName>
+                </ch:RapSheetPerson>
+            </ch:RapSheetRequest>
+        </ch:Introduction>
+        <ch:RapSheetPerson s:id="P94">
+            <nc:PersonAlternateName>
+                <nc:PersonGivenName>Belinda G</nc:PersonGivenName>
+                <nc:PersonSurName>McMann</nc:PersonSurName>
+            </nc:PersonAlternateName>
+            <nc:PersonBirthDate>
+                <nc:Date>1931-09-25</nc:Date>
+            </nc:PersonBirthDate>
+            <nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+            <nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
+            <nc:PersonHeightMeasure>
+                <nc:MeasurePointValue>65</nc:MeasurePointValue>
+                <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+            </nc:PersonHeightMeasure>
+            <nc:PersonName>
+                <nc:PersonGivenName>Belinda</nc:PersonGivenName>
+                <nc:PersonMiddleName>W</nc:PersonMiddleName>
+                <nc:PersonSurName>McMann</nc:PersonSurName>
+            </nc:PersonName>
+            <nc:PersonRaceCode>U</nc:PersonRaceCode>
+            <nc:PersonSexCode>F</nc:PersonSexCode>
+            <nc:PersonWeightMeasure>
+                <nc:MeasurePointValue>174.9</nc:MeasurePointValue>
+                <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+            </nc:PersonWeightMeasure>
+            <jxdm40:PersonAugmentation>
+                <jxdm40:PersonStateFingerprintIdentification>
+                    <nc:IdentificationID>A7923088</nc:IdentificationID>
+                    <nc:IdentificationSourceText/>
+                </jxdm40:PersonStateFingerprintIdentification>
+            </jxdm40:PersonAugmentation>
+        </ch:RapSheetPerson>
+        <ch:PersonBiometricsAssociation>
+            <nc:PersonReference s:ref="P94"/>
+            <nc:Biometric>
+                <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
+                <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
+            </nc:Biometric>
+            <ch:PersonBiometrics/>
+        </ch:PersonBiometricsAssociation>
+        <nc:Location s:id="L1801764857">
+            <nc:LocationAddress>
+                <nc:AddressFullText>1175 Patton Lane Durham, NC 27713</nc:AddressFullText>
+            </nc:LocationAddress>
+        </nc:Location>
+        <ch:Agency s:id="AGY255431842">
+            <nc:OrganizationName>WAYNESVILLE PD</nc:OrganizationName>
+        </ch:Agency>
+        <nc:ResidenceAssociation>
+            <nc:PersonReference s:ref="P94"/>
+            <nc:LocationReference s:ref="L1801764857"/>
+        </nc:ResidenceAssociation>
+        <ch:RapSheetCycle>
+            <ch:CycleEarliestDate>
+                <nc:Date>2012-02-12</nc:Date>
+            </ch:CycleEarliestDate>
+            <ch:Arrest s:id="A4201524887">
+                <nc:ActivityDate>
+                    <nc:Date>2012-02-12</nc:Date>
+                </nc:ActivityDate>
+                <jxdm40:ArrestAgencyRecordIdentification>
+                    <nc:IdentificationID>427-9550426</nc:IdentificationID>
+                </jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC34850328</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>VL</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC34850328</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC88908473</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>FC</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC88908473</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+                <jxdm40:ArrestCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC07189768</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>MD</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC07189768</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:ArrestCharge>
+            </ch:Arrest>
+            <ch:CourtAction>
+                <jxdm40:CourtCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeDisposition>
+                        <nc:DispositionDate>
+                            <nc:Date>2012-09-14</nc:Date>
+                        </nc:DispositionDate>
+                        <nc:DispositionDescriptionText>NOT GUILTY</nc:DispositionDescriptionText>
+                    </jxdm40:ChargeDisposition>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC34850328</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>VL</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC34850328</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:CourtCharge>
+                <jxdm40:CourtCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeDisposition>
+                        <nc:DispositionDate>
+                            <nc:Date>2012-09-14</nc:Date>
+                        </nc:DispositionDate>
+                        <nc:DispositionDescriptionText>NOT GUILTY</nc:DispositionDescriptionText>
+                    </jxdm40:ChargeDisposition>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC88908473</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>FC</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC88908473</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:CourtCharge>
+                <jxdm40:CourtCharge>
+                    <jxdm40:ChargeDescriptionText/>
+                    <jxdm40:ChargeDisposition>
+                        <nc:DispositionDate>
+                            <nc:Date>2012-09-14</nc:Date>
+                        </nc:DispositionDate>
+                        <nc:DispositionDescriptionText>NOT GUILTY</nc:DispositionDescriptionText>
+                    </jxdm40:ChargeDisposition>
+                    <jxdm40:ChargeIdentification>
+                        <nc:IdentificationID>AC07189768</nc:IdentificationID>
+                    </jxdm40:ChargeIdentification>
+                    <jxdm40:ChargeSeverityText>MD</jxdm40:ChargeSeverityText>
+                    <jxdm40:ChargeTrackingIdentification>
+                        <nc:IdentificationID>AC07189768</nc:IdentificationID>
+                    </jxdm40:ChargeTrackingIdentification>
+                </jxdm40:CourtCharge>
+            </ch:CourtAction>
+        </ch:RapSheetCycle>
+        <ch:ArrestAgencyAssociation>
+            <nc:ActivityReference s:ref="A4201524887"/>
+            <nc:OrganizationReference s:ref="AGY255431842"/>
+        </ch:ArrestAgencyAssociation>
+    </ch:RapSheet>
+</ch-doc:CriminalHistory>

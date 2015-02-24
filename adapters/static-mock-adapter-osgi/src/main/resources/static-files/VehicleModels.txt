@@ -1,0 +1,1121 @@
+RRU|(PLYM) Road Runner, Plymouth
+880|(DODG) 880 Series, Dodge
+616|(MAZD) 616, Mazda
+EXC|(HYUN) Excel, Hyundai; (FORD) Excursion, Ford (see English, French, German, and Italian Ford)
+IMP|(ISU) Impulse, Isuzu; (CHEV) Impala, Chevrolet; (HILL) IMP, Hillman; (ROOT) Imp, Rootes; (SUBA) Impreza, Outback Impreza, Subaru; (SUNB) IMP, Sunbeam
+CL4|(MERZ) CLK430, Mercedes-Benz
+LOY|(SUBA) Loyale, Subaru
+SLX|(ACUR) SLX (sport utility), Acura
+REA|(BUIC) Reatta, Buick
+FZA|(OLDS) Firenza, Oldsmobile
+PRE|(HOND) Prelude, Honda; (EGIL) Premier, Eagle; (LINC) Premiere, Lincoln-Continental; (MITS) Precis, Mitsubishi; (STU) President, Studebaker; (TOYT) Pre Runner, Toyota
+ECP|(FORD) Escape, Ford (see English, French, German, and Italian Ford)
+NEO|(DODG) Neon, Dodge; (PLYM) Neon, Plymouth
+GIS|(ALFA) Giulia Spider, Alfa Romeo
+X90|(SUZI) X-90 (sport utility), Suzuki
+DAU|(RENA) Dauphine, Renault
+M45|(INFI) M45, Infiniti
+HEL|(AERO) Helicopters and other Rotor Wing (or rotary- blade drive aircraft)
+XKR|(JAGU) XKR, Jaguar
+I35|(INFI) I35, Infinit
+635|(BMW) 635 Series, BMW
+34L|(JAGU) 3.4 Litre, Jaguar
+MAL|(CHEV) Malibu Maxx
+PER|(ENGF) Perfect, English Ford (British)
+COR|(BENT) Corniche, Bentley; (CHRY) Cordoba, Chrysler; (DODG) Coronet, Dodge; (EDSE) Corsair, Edsel; (ENGF) Corsair, English Ford (British); (MITS) Cordia, Mitsubishi; (ROL) Corniche, Rolls-Royce; (TOYT) Corona, Toyota; (VOLK) Corrado, Volkswagen
+STA|(DODG) Stratus, Dodge; (FORD) Starliner, Ford (see English, French, German, and Italian Ford); (LINC) Standard, Lincoln-Continental; (MITS) Starion, Mitsubishi; (NASH) Statesman, Nash; (NISS) Stanza, Nissan; (OLDS) Starfire, Oldsmobile; (PONT) Star Chief, Pontiac; (PORS) Standard, Porsche; (SUBA) Standard, Subaru; (TOYT) Starlet, Toyota; (TRIU) Stag, Triumph
+ASC|(ISU) Ascender, Isuzu
+VAR|(VOLK) Variant, Volkswagen
+GRA|(FORD) Granada, Ford (see English, French, German, and Italian Ford); (PONT) Grand Prix, Pontiac; (STU) Grand Turismo, Studebaker
+Q45|(INFI) Q45, Infiniti
+F15|(FORD) F-150XLT (has third door on passenger side), Ford (see English, French, German, and Italian Ford)
+SRA|(GMC) Sierra, General Motors Corp.
+LTD|(FORD) LTD, Ford (see English, French, German, and Italian Ford)
+IPR|(CHRY) Imperial (for vehicle years prior to 1955 and for vehicle years 1990-1993; for 1955-1983, see make Imperial), Chrysler
+T10|(PONT) T-1000, Pontiac; (TOYT) T-100, Toyota
+ACUR-EL|EL, Acura (Import from Canada)
+REQ|(PACK) Request, Packard
+S22|(MERC) S-22, Mercury
+SOM|(BUIC) Somerset, Buick
+RX4|RX400 or RX400H (Hybrid)
+FRT|(NISS) Frontier, Nissan
+BAL|(PACK) Balboa, Packard
+PAR|(CHEV) Parkwood, Chevrolet; (MERC) Parklane, Mercury; (PONI) Parisienne, Pontiac (Canadian) (Also see make Pontiac); (PONT) Parisienne, Pontiac
+ELN|(HYUN) Elantra, Hyundai
+VUE|(STRN) Vue, Saturn
+V70|(VOLV) V70, Volvo
+HU3|HU3
+TNC|(CHRY) Town & Country Minivan, Chrysler
+R16|(RENA) R-16, Renault
+960|(VOLV) 960, Volvo
+765|(VOLV) 765 Series, Volvo
+FNZ|(SUZI) Forenza (S, EX, LX), Suzuki
+TC|(CHRY) TC, Chrysler; (SCIO) TC, Scion
+TOP|(MERC) Topaz, Mercury
+RIO|(KIA) RIO, Kia
+131|(FIAT) 131 Series, Fiat
+MUS|(FORD) Mustang, Ford (see English, French, German, and Italian Ford)
+UNO|(FIAT) Uno, Fiat
+R10|(RENA) R-10, Renault
+MNH|(MERC) Monarch, Mercury
+24L|(JAGU) 2.4 Litre, Jaguar
+E10|(BUGA) EB110, Bugatti
+GS4|(LEXS) GS400, Lexus
+TI|(BMW) TI, BMW
+FRF|(DESO) Firelite, DeSoto
+MC1|(MICC) MC1, Micro Concept Cars
+VIC|(FORD) Victoria, Ford (see English, French, German, and Italian Ford); (VAUX) Victor, Vauxhall
+32I|(BMW) 325i, BMW
+AZR|Azera
+EVE|(CHEV) Chevette, Chevrolet
+612|612 Scaglietti
+MGB|(MG) MGB, MG
+PIO|(DODG) Pioneer, Dodge
+ALO|(OLDS) Alero, Oldsmobile
+JTS|(OLDS) Jetstar, Oldsmobile
+R33|(LEXS) RX330, Lexus
+CAP|(CHEV) Caprice, Chevrolet; (ENGF) Capri, English Ford (British); (MERC) Capri (1979 and later), Mercury
+ENT|(HYUN) Entourage, Hyundai
+CMM|(MERC) Commuter, Mercury
+J30|(INFI) J30, Infiniti
+300|L300
+OMI|(DODG) Omni (also 024), Dodge
+JAL|(LAMO) Jalpa, Lamborghini
+EC1|(FORD) Econoline E150, Ford (see English, French, German, and Italian Ford)
+130|(PORS) 1300, Porsche; (SUBA) 1300 Series, Subaru; (TRIU) 1300, Triumph; (VOLK) 1300, Volkswagen
+420|(JAGU) 420, Jaguar; (MASE) 4200 GT, Maserati; (MERZ) 420 Series, Mercedes-Benz
+MAR|(HYUN) Marcia, Hyundai; (JAGU) Mark V Series, Jaguar; (AMER) Marlin, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (AUST) Marina, Austin; (FERR) F-550 Maranello, Ferrari; (MERC) Marquis, Mercury; (MG) Marina, MG
+DEV|(CADI) DeVille, Cadillac; (PANE) DeVille, Panther Westwinds, Ltd.
+MED|(AMER) Medallion (through vehicle year 1987), American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (EGIL) Medallion (vehicle year 1988), Eagle; (MERC) Medalist, Mercury
+RIC|(MONA) Richelieu, Monarch
+XB|(SCIO) XB, Scion
+FCX|(HOND) FCX (Fuel Cell Vehicle), Honda
+TES|(FERR) Testarossa, Ferrari
+ROY|(CHRY) Royal, Chrysler; (DODG) Royal, Dodge
+VNQ|Vanquish, Vanquish S
+SPI|(ALFA) Spider Series, Alfa Romeo; (AMER) Spirit, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (DODG) Spirit, Dodge; (FIAT) Spider Series, Fiat; (NSU) Spider (Wankel), Nsu Prinz; (PINI) Spidereuropa, Pinifarina; (TRIU) Spitfire, Triumph
+MKT|(MG) Mark II, MG
+SOL|(TOYT) Solara, Toyota; (PONT) Solstice, Pontiac
+AZT|(PONT) Aztek, Pontiac
+TRL|(PLYM) Trail Duster, Plymouth
+ASP|(DODG) Aspen, Dodge; (FORD) Aspire, Ford (see English, French, German, and Italian Ford); (CHRY) Aspen, Chrysler
+FES|(FORD) Festiva, Ford (see English, French, German, and Italian Ford)
+HAW|(HUMB) Hawk, Humber; (STU) Hawk Series, Studebaker
+TR4|(TRIU) TR-4 & TR-4A, Triumph
+MK7|(LINC) Mark VII, Lincoln-Continental
+95|(SAA) 95, Saab
+RAG|(GZL) Rage (sport utility), Gazelle
+EQX|(CHEV) Equinox, Chevrolet
+540|(BMW) 540, BMW
+SX4|(SUZI) SX4, Suzuki
+NIA|(METE) Niagara, Meteor (Canadian Mercury)
+SID|(ROL) Silver Dawn, Rolls-Royce
+OCT|(SKOD) Octavia, Skoda
+DB7|(ASTO) DB7 (Coupe), Volante (DB7), Aston Martin
+MAN|(KAIS) Manhattan, Kaiser; (OPEL) Manta, Opel (imported by Buick); (QVAL) Mangusta, Qvale Automotive Group
+151|(ENCR) M151, Encore
+BRA|(FIAT) Brava, Fiat
+350|(MASE) 3500 (series), Maserati; (ROV) 3500, Rover; (NISS) 350Z, Nissan ; (MERZ) E350 OR SLK350, Mercedes Benz; (MERZ) S350, Mercedes - Benz; (ISU) i350, Isuzu; (LEXS) IS350, Lexus
+DUE|(ALFA) Duetto, Alfa Romeo
+MIS|(MASE) Mistrell, Maserati; (MAZD) Miser (piston engine), Mazda
+PIN|(FORD) Pinto, Ford (see English, French, German, and Italian Ford)
+924|(PORS) 924, Porsche
+GLD|(ZMCC) Golden Spirit, Zimmer Motor Car Co.
+OLY|(OPEL) Olympia, Opel (imported by Buick)
+TSP|(PONT) Trans Sport/Transport, Pontiac; (VOLK) Transporter, Volkswagen
+CL6|(MERZ) CL600, Mercedes-Benz
+2CV|(CITR) 2CV, Citroen
+DEL|(HUDS) Deluxe, Hudson; (KAIS) Deluxe, Kaiser; (CHEV) Del Ray, Chevrolet; (DESO) Deluxe, DeSoto; (DODG) Deluxe, Dodge; (FORD) Deluxe, Ford (see English, French, German, and Italian Ford); (HILL) Deluxe, Hillman; (MORR) Deluxe, Morris; (OLDS) Deluxe, Oldsmobile; (PONT) Deluxe, Pontiac; (RAMB) Deluxe, Rambler (mfd. prior to 1966; 1966 and later Ramblers - see make American Motors); (SUNB) Deluxe, Sunbeam; (VANG) Deluxe, Vanguard (Canada)
+74I|(BMW) 740i, BMW
+CHI|(PONT) Chieftain, Pontiac
+CPR|(MNNI) Cooper/Cooper-S (rights bought by BMW), Mini
+442|(OLDS) 37350, Oldsmobile
+VEN|(CHEV) Venture (minivan), Chevrolet; (FREF) Vendome, French Ford; (PONT) Ventura, Pontiac
+IMA|(ISU) I-Mark, Isuzu
+206|(FERR) 206, Ferrari
+TRB|(MAZD) Tribute, Mazda; (SUBA) B9 Tribeca, Subaru
+PRO|(AERO) Propeller Driven; (FORD) Probe, Ford (see English, French, German, and Italian Ford); (MAZD) Familia, Protege, Mazda
+MIG|(DAYO) Migi, Daytona
+SAX|(AUHE) Saxon, Austin-Healy
+LON|(DETO) Longchamp, DeTomaso
+TSX|(ACUR) TSX, Acura
+TAL|(EGIL) Talon, Eagle; (TLCC) Talbo, TLC Carrossiers; (TLCC) Talbo Lago, TLC Carrossiers
+CRA|(PLYM) Cranbrook, Plymouth
+TVL|(INTL) Travelall, International Harvester
+ARI|(DODG) Aries, Dodge
+SCO|(MERK) Scorpio, Merkur; (STU) Scotsman, Studebaker
+E42|(MERZ) E420, Mercedes-Benz
+AAV|(AVTI) Series A, Avanti
+PTH|(NISS) Pathfinder (Armada), Nissan
+TYP|(GMC) Typhoon, General Motors Corp.; (RAMB) Typhoon, Rambler (mfd. prior to 1966; 1966 and later Ramblers - see make American Motors)
+RAN|(EDSE) Ranger, Edsel; (FORD) Ranchero, Ford (see English, French, German, and Italian Ford)
+TGA|(PORS) Targa, Porsche
+SIL|(OLDS) Silhouette, Oldsmobile
+STO|(GEO) Storm, GEO
+CEN|(BUIC) Century, Buick
+ADV|(DESO) Adventurer, DeSoto
+710|(DATS) 710, Datsun
+98|(OLDS) 98, Oldsmobile
+F55|(FORD) F550, Ford (see English, French, German, and Italian Ford)
+4R|(MG) Princess 4-R, MG
+KHA|(MASE) Khamsin, Maserati
+SPS|(MG) Sports Sedan, MG
+MK2|(ENGF) Mark II, English Ford (British); (LINC) Mark II, Lincoln-Continental
+GOL|(VOLK) Golf, Volkswagen
+G4|(PONT) G4, Pontiac
+KA|(FORD) KA, Ford (see English, French, German, and Italian Ford)
+203|(PEUG) 203, Peugeot
+MAI|(FORD) Mainline, Ford (see English, French, German, and Italian Ford)
+COQ|(FORD) Country Squire, Ford (see English, French, German, and Italian Ford); (PLYM) Conquest (vehicle years 1984-1986), Plymouth
+CM6|(SANG) CM600S, Sangyong
+MGO|(MERC) Montego, Mercury; (METE) Montego, Meteor (Canadian Mercury)
+928|(PORS) 928, Porsche
+MOD|(MODE) Model A, Model A and Model T Motor Car Reproduction Corp.
+FRS|(DESO) Firesweep, DeSoto
+190|(MERZ) 190 Series, Mercedes-Benz; (OPEL) 1900, Opel (imported by Buick); (VOLV) P1900, Volvo
+ECO|(FORD) Econoline 100, Ford (see English, French, German, and Italian Ford); (TOYT) Echo, Toyota
+20|(BMW) 200, BMW
+MIC|Micra
+ULT|(AERO) Ultralights
+525|(BMW) 525ia, BMW; (BMW) 525i, BMW
+CYC|(MERC) Cyclone, Mercury
+LW|(STRN) LW-Wagon, Saturn
+RL|RL
+FRY|(PONI) Firefly, Pontiac (Canadian) (Also see make Pontiac)
+SAB|(MERC) Sable, Mercury
+QST|(NISS) Quest, Nissan
+KR|(MESS) KR200, Messerschmitt
+SSP|(EXCL) SS Phaeton, Excalibur; (ROL) Silver Spirit, Rolls-Royce
+220|(MERZ) 220 Series, Mercedes-Benz
+XJ|(JAGU) XJ, Jaguar
+XK8|(JAGU) XK8, Jaguar
+AMA|(KIA) Amanti, Kia Motors Corp.
+SAT|(PLYM) Satellite, Plymouth
+MOA|(FORD) Model A, Ford (see English, French, German, and Italian Ford)
+WAV|Wave
+CIM|(CADI) Cimarron, Cadillac
+575|(FERR) 575 MM, Ferrari
+RNG|(FORD) Ranger (pickup), Ford (see English, French, German, and Italian Ford)
+30|(BMW) 3.0 Si, BMW
+MTA|(PONT) Montana, Pontiac
+C70|(VOLV) C70, Volvo
+VOG|(SIN) Vogue, Singer
+DEM|(DODG) Demon (Dart), Dodge
+ELD|(CADI) Eldorado, Cadillac
+244|(CLND) 244X, Cross Lander
+FLS|(DODG) Fleet Special, Dodge; (SOLE) Flash, Solectria
+XT6|(SUBA) XT6, Subaru
+DP|(OPEL) Diplomat, Opel (imported by Buick)
+HOM|(ISU) Hombre (pickup), Isuzu
+456|(FERR) 456GT, Ferrari
+SUF|(ASUN) Sunfire, Asuna
+LYN|(MERC) Lynx, Mercury
+GLC|(MAZD) GLC (&quot;Great Little Car&quot;), Mazda
+R35|(DODG) Ram 3500 (pickup), Dodge; (LEXS) RX350, Lexus; (MERZ) R350 (Sport Wagon), Mercedes Benz
+PRM|(DODG) Power Ram, Dodge
+LAR|(STU) Lark Series, Studebaker
+CRO|(IMPE) Crown, Imperial (for vehicle years 1955-1983, use VMA/IMPE; for vehicle years prior to 1955 and vehicle years 1990-1993, see make Chrysler); (TOYT) Crown, Toyota
+SL2|(MERZ) SLK230, Mercedes-Benz
+S90|(AUDI) Super 90, Audi; (VOLV) S90, Volvo
+G43|(LEXS) GS430, Lexus
+LK5|(MERZ) CLK55, Mercedes-Benz
+18|(RENA) 18i, Renault
+25|(ROV) Rover 25, Rover
+VAN|(JAGU) Vanden Plas, Jaguar; (ASTO) Vantage, Aston Martin; (GMC) Vandura, General Motors Corp.
+AVO|(CHEV) Aveo, Chevrolet
+NSX|NSX
+GT0|(PONT) GT0, Pontiac
+FBD|(PONT) Firebird, Firehawk, Trans Am (Firebird), Pontiac
+NBR|(FORD) Think Neighbor (Elec. Veh. Model Year 2002), Ford
+TG0|(PONT) Tempest GT0, Pontiac
+VEC|(VACR) Vector, Vector Aeromotive Corp.
+320|(BMW) 320i, BMW; (MERZ) 320 Series, Mercedes-Benz
+CMD|Commander
+750|(BMW) 750, BMW; (FIAT) 750, Fiat; (RENA) 750, Renault; (BMW) 750i, BMW; (BMW) 750L, BMW
+MZ3|(MAZD) Mazda 3, Mazda
+CAT|(CADI) Catera, Cadillac; (PONT) Catalina, Pontiac
+SDK|(SUZI) Sidekick, Suzuki
+POL|(DODG) Polara, Dodge; (VOLK) Polo, Volkswagen
+GAL|(FORD) Galaxie, Ford (see English, French, German, and Italian Ford); (MITS) Galant, Mitsubishi; (LAMO) Gallardo, Lamborghini
+VIL|(EDSE) Villager, Edsel; (MERC) Villager, Mercury
+OUT|(MITS) Outlander, Mitsubishi ; (STRN) Outlook, Saturn; (SUBA) Outback, Subaru
+Q56|(INFI) QX56, Infiniti
+LOT|(ENGF) Lotus, English Ford (British)
+FUL|(LNCI) Fulvia, Lancia
+ARN|(ALFA) Arna, Alfa Romeo; (AMER) American, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (BENT) Arnage, Bentley; (RAMB) American (AME for reference only), Rambler (mfd. prior to 1966; 1966 and later Ramblers - see make American Motors)
+LID|(CHRY) Lido, Chrysler
+SED|(KIA) Sedona, Kia
+U10|(CHEV) U100 (Joint Venture w/Daewoo); (DAEW) U100 (Joint Venture w/Chevrolet)
+GON|(RENA) Gordini, Renault
+113|(VOLK) 113, Volkswagen
+MGC|(MG) MGC, MG
+7LR|(FORD) 7 Litre, Ford (see English, French, German, and Italian Ford)
+A40|(AUST) A40, Austin
+T15|(TOYT) T-150, Toyota
+LR3|LR3
+380|(MERZ) 380 Series, Mercedes-Benz
+CTA|(ENGF) Cortina, English Ford (British)
+ETY|(JAGU) &quot;E&quot; Type, Jaguar
+RC|(AMER) Rambler Classic, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+GL|(SUBA) GL, Subaru; (VOLV) GL, Volvo
+MZ5|Mazda 5 (Five)
+SUN|(FORD) Sunliner, Ford (see English, French, German, and Italian Ford); (PLYM) Sundance, Plymouth; (PONT) Sunbird, Pontiac; (SOLE) Sunrise, Solectria
+GRM|(PONT) Grand AM, Pontiac
+ELI|(FORD) Elite, Ford (see English, French, German, and Italian Ford); (LOTU) Elite, Lotus
+F45|(FORD) F450, Ford (see English, French, German, and Italian Ford)
+IS3|(LEXS) IS300, Lexus
+DEF|(LNDR) Defender 90, Defender 110, Land Rover
+528|(BMW) 528i, BMW
+C8|(SPYK) C8 Laviolette, Spyker Motorcars; (SPYK) C8 Spyder, Spyker Motorcars
+JAV|(AMER) Javelin, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+CRU|(CHRY) PT Cruiser, Chrysler; (STU) Cruiser, Studebaker
+626|(MAZD) 626, Mazda
+CL5|(MERZ) CL500, Mercedes-Benz
+430|(MASE) 430, Maserati
+C22|(MERZ) C220, Mercedes-Benz
+XJ6|(JAGU) XJ6, Jaguar
+YAR|(TOYT) Yaris, Toyota
+WIN|(CHRY) Windsor, Chrysler; (FORD) Windstar, Ford (see English, French, German, and Italian Ford)
+129|(LAMO) LM129, Lamborghini
+POW|(DESO) Powermaster, DeSoto
+NEV|(FORD) Nevada, Ford (see English, French, German, and Italian Ford)
+MAU|(MERC) Marauder, Mercury
+TOY|(SPEC) Motorized Ride-On Toys
+V35|(DODG) Ram 3500 (van), Dodge
+RCH|(DODG) Ram Charger, Dodge
+CW1|(FORD) Club Wagon E150, Ford (see English, French, German, and Italian Ford)
+400|(AUDI) 4000, Audi; (DODG) 400 Series, Dodge; (LEXS) LS400, Lexus; (MASE) 4000 (series), Maserati; (MERZ) 400 Series, Mercedes-Benz
+CAV|(CHEV) Cavalier, Chevrolet; (PACK) Cavalier, Packard; (TOYT) Cavalier, Toyota
+INT|(JENS) Interceptor, Jensen; (ACUR) Integra, Acura; (DODG) Intrepid, Dodge; (OLDS) Intrigue, Oldsmobile; (CHRY) Intrepid, Chrysler
+CNF|(CHEV) Confederate (antique vehicle), Chevrolet
+M6|(BMW) M6, BMW
+ANG|(ITAF) Anglia, Italian Ford; (ENGF) Anglia, English Ford (British)
+911|(PORS) 911, Porsche
+AOW|(PLYM) Arrow (imported), Plymouth
+HUS|(HILL) Husky, Hillman
+JUS|(SUBA) Justy, Subaru
+CVR|(CHEV) Corsa (Corvair), Corvair, Chevrolet
+LEO|(SUBA) Leone GL Coupe, Subaru
+MZ6|(MAZD) 6 (Six), Mazda
+404|(PEUG) 404, Peugeot
+VED|(FREF) Vedette, French Ford; (SIM) Vedette, Simca
+808|(MAZD) 808 Series (piston engine), Mazda
+PHT|(ROL) Phantom, Rolls-Royce
+B22|(MAZD) B2200, Mazda
+X5|(BMW) X5, BMW
+SSK|(EXCL) SSK, Excalibur
+LBY|(JEEP) Liberty, Jeep
+GOF|(SPEC) Golf Carts
+RAH|(FORD) Ranch, Ford (see English, French, German, and Italian Ford)
+ULY|(FIAT) Ulysse, Fiat
+EPD|(FORD) Expedition, Ford (see English, French, German, and Italian Ford)
+BRW|(FORD) Brewster (antique vehicle), Ford
+S40|(LEXS) SC400, Lexus; (VOLV) S40, Volvo
+VIR|(ASTO) Saloon (Virage), Virage (Saloon), Aston Martin
+BUG|(VOLK) Beetle (Super Beetle or Bug), Volkswagen
+AGT|(ALFA) Alfetta GT, Alfa Romeo
+EXE|(CHRY) Executive Sedan, Chrysler; (PONT) Executive, Pontiac
+STE|(HYUN) Steilar, Hyundai; (DODG) Stealth, Dodge
+MUL|(BENT) Mulsanne, Bentley; (ROL) Mulsanne, Rolls-Royce
+TRZ|(BUIC) Terraza, Buick
+C25|(CHEV) C/K 2500, Chevrolet
+SPE|(BUIC) Special, Buick; (CHEV) Spectrum, Chevrolet; (FORD) Special, Ford (see English, French, German, and Italian Ford)
+NIV|(LADA) Niva, Lada (imported from USSR)
+RNO|Reno
+OAS|(ISU) Oasis (minivan), Isuzu
+COU|(LAMO) Countach, Lamborghini; (MERC) Cougar, Mercury
+CBO|(CHRY) PT Cabrio, Chrysler
+128|(FIAT) 128 Series, Fiat
+G40|(BUIC) GS400, Buick
+GIT|(ALFA) Giulietta, Alfa Romeo
+208|(FERR) 208, Ferrari
+I30|(INFI) I30, Infiniti
+SL6|(MERZ) SL600, Mercedes-Benz
+SFE|(HYUN) Santa Fe, Hyundai
+AVA|(HYUN) Avatar, Hyundai; (AUDI) Avant, Audi; (CHEV) Avalanche, Chevrolet; (NSU) Auto Nova, Nsu Prinz; (STU) Avanti, Studebaker; (TOYT) Avalon, Toyota; (LINC) Aviator, Lincoln
+LAN|Lancer Evolution
+SCA|(PLYM) Scamp (Valiant), Plymouth
+XTR|(NISS) X-Terra, Nissan
+75L|(BMW) 750iL, BMW
+SUB|(CHEV) Suburban, Chevrolet; (GMC) Suburban, General Motors Corp.; (PLYM) Suburban, Plymouth
+MEX|(MASE) Mexico, Maserati
+DEN|(GMC) Denali, General Motors Corp.
+SQA|(TOYT) Sequoia, Toyota
+R8|(RENA) R-8, Renault
+2ZX|(DATS) 280ZX, Datsun
+AA6|(AUDI) A6, Audi
+MIU|(LAMO) Miura SV, Lamborghini
+SL5|(MERZ) SL500, Mercedes-Benz
+PTA|(DETO) Pantera, DeTomaso
+520|(BMW) 520, BMW
+MIN|(AUST) Mini, Austin; (BREM) Mini-Mark, Bremen Sport Equipment, Inc. (Bremen, IN); (HILL) Minx, Hillman; (MITS) Minica, Mitsubishi; (MORR) Minor, Morris; (SUNB) Minx, Sunbeam
+V40|(VOLV) V40, Volvo
+TBZ|(CHEV) Trail Blazer, Chevrolet
+LT2|(FORD) LTD II, Ford (see English, French, German, and Italian Ford)
+323|(BMW) 323i, BMW; (MAZD) 323, Mazda
+L43|(LEXS) LS430, Lexus
+VRN|(SUZI) Verona, Suzuki
+CJ8|(JEEP) CJ-8, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) CJ-8, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) CJ-8, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+RSX|(ACUR) RSX, Acura
+FSY|Freestyle
+ENS|(VANG) Ensign, Vanguard (Canada)
+SL|(STRN) SL, Saturn
+KAP|(OPEL) Kapitan, Opel (imported by Buick)
+GTV|(ALFA) GT Veloce, Alfa Romeo
+745|(BMW) 745i, BMW; (VOLV) 745 Series, Volvo
+RRV|(LNDR) Range Rover, Land Rover
+MOY|(DAYO) Moya, Daytona
+BEA|(ACAD) Beaumont Series, Acadian (GM of Canada)
+RGL|Ridgeline
+F10|(DATS) F-10, Datsun; (FORD) F100, Ford (see English, French, German, and Italian Ford)
+TR3|(TRIU) TR-3 & TR-3A, Triumph
+TRN|(VOLK) Touran, Volkswagen
+CIV|(HOND) Civic (and CRX), Del Sol, Honda
+PON|(HYUN) Pony, Hyundai
+BAV|(BMW) Bavaria, BMW
+DB6|(ASTO) DB-6, Aston Martin
+XE|(NISS) XE, Nissan
+MAT|(AMER) Matador, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+HUM|(AMGN) Hummer, AM General Corp.; (HUMM) Hummer, HUMMER
+DAS|(VOLK) Dasher, Volkswagen
+LAU|(BREM) Laufer, Bremen Sport Equipment, Inc. (Bremen, IN); (PONI) Laurentian, Pontiac (Canadian) (Also see make Pontiac)
+TCN|Tucson
+GT|(ASUN) GT, Asuna; (ENGF) GT, English Ford (British); (OPEL) GT, Opel (imported by Buick); (TRIU) GT Series, Triumph; (FORD) GT, Ford
+LUV|(CHEV) Luv, Chevrolet
+SW|(STRN) SW, Saturn
+FUS|Fusion
+LMA|(CHEV) Lumina APV, Chevrolet
+BON|(PONT) Bonneville, Pontiac
+BEL|(BORG) Bel Air, Borgward; (CHEV) Bel Air, Chevrolet; (PLYM) Belvedere, Plymouth
+B30|(MAZD) B3000, Mazda
+348|(FERR) 348, Ferrari
+ROA|(BUIC) Roadmaster, Buick; (CLEN) Roadster, Clenet Coach Works; (DECO) Roadster, DeCourville
+LBN|(CHRY) Le Baron (for vehicle year 1978 or later), Chrysler
+F85|(OLDS) F-85, Oldsmobile
+TIG|(MESS) Tiger, Messerschmitt; (ROOT) Tiger, Rootes; (SUNB) Tiger, Sunbeam
+RDR|(DODG) Raider, Dodge
+633|(BMW) 633csi, BMW
+FLE|(CADI) Fleetwood, Cadillac; (CHEV) Fleetline, Chevrolet
+TOR|(FORD) Torino (Fairlane), Ford (see English, French, German, and Italian Ford); (OLDS) Toronado, Oldsmobile; (PONT) Torrent, Pontiac
+ML4|(MERZ) ML430, Mercedes-Benz
+SPN|(GMC) Sprint (VMA/GMSP for reference only), General Motors Corp.
+93|(SAA) 93 & 93B, Saab
+944|(PORS) 944, Porsche
+MK3|(LINC) Mark III, Lincoln-Continental; (VANG) Mark III, Vanguard (Canada)
+230|(MERZ) 230 Series, Mercedes-Benz
+ITA|(HUDS) Italia, Hudson
+ATR|(NISS) ALTRA-EV, Nissan
+CAM|(CHEV) Camaro, Chevrolet; (PLYM) Cambridge, Plymouth; (ROL) Camargue, Rolls-Royce; (TOYT) Camry, Toyota
+AM6|(CITR) AM16, Citroen
+FE|Farm and Garden Equipment
+XK|(JAGU) XK Series, Jaguar
+RDV|(BUIC) Rendezvous, Buick
+CAL|(BUIC) California, Buick; (CADI) Calais, Cadillac; (OLDS) Calais, Oldsmobile; (DODG) Caliber, Dodge
+CNT|(BUIC) Centurion, Buick; (FORD) Contour, Ford (see English, French, German, and Italian Ford)
+PHO|(DODG) Phoenix, Dodge; (PONT) Phoenix, Pontiac
+219|(MERZ) 219 Series, Mercedes-Benz
+RX7|(MAZD) RX7 (rotary engine), Mazda
+STY|(ISU) Stylus, Isuzu; (JAGU) S-Type, Jaguar; (CHEV) Style Line, Chevrolet
+AST|(CHEV) Astro Van, Chevrolet; (OPEL) Astra, Opel (imported by Buick); (PONT) Astre, Pontiac
+PAT|(PACK) Patrician, Packard; (JEEP) Patriot, Jeep
+BRT|(SUBA) Brat, Subaru
+CJ6|(JEEP) CJ-6, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) CJ-6, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) CJ-6, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+SWI|(DODG) Swinger (Dart), Dodge
+EGT|(BENT) Eight, Bentley
+SAL|(AERO) Sailplane (Glider); (CHRY) Salon, Chrysler
+HLX|(TOYT) Hi-Lux, Toyota
+PRV|(TOYT) Previa, Toyota
+360|360 Challenge Stradale
+DTS|DTS (Replaced DeVille Model Name)
+ZEP|(ENGF) Zephyr, English Ford (British); (LINC) Zephyr, Lincoln-Continental; (MERC) Zephyr, Mercury
+L6|(BMW) L6, BMW
+SRX|(CADI) SRX, Cadillac
+ML3|(MERZ) ML320 (sport utility), Mercedes-Benz
+TR8|(TRIU) TR8, Triumph
+CAB|(AUDI) Cabriolet, Audi; (BERO) Cabrio, Bertone; (GMC) Cabellero, General Motors Corp.; (PORS) Cabriolet, Porsche; (VOLK) Cabriolet, Volkswagen
+GLX|(CONU) GCP, Consulier
+TK|Trucks (including heavy-duty trucks, buses, motorized homes, etc.)
+PLA|(PLYM) Plaza, Plymouth
+740|(BMW) 740, BMW; (VOLV) 740 Series, Volvo
+VEL|(VAUX) Velox, Vauxhall
+GSP|Gran Sport
+930|(PORS) 930, Porsche
+SCI|(VOLK) Scirocco, Volkswagen
+COL|(MERC) Colony Park, Mercury
+CCR|(MERC) Country Cruiser, Mercury; (OLDS) Custom Cruiser, Oldsmobile
+560|(MERZ) 560 Series, Mercedes-Benz
+EDV|(MITS) Endeavor, Mitsubishi
+KOR|(DAEW) Korando, Daewoo
+ISE|(BMW) Isetta, BMW
+LS|(LINC) LS, Lincoln-Continental; (STRN) LS-Sedan, Saturn
+E50|(MERZ) E500, Mercedes-Benz
+PUN|(FIAT) Punto, Fiat
+SAM|(SUZI) Samurai, Suzuki
+99|(SAA) 99, Saab
+125|(TRIU) 1250, Triumph
+LS8|(LINC) LS8, Lincoln-Continental
+R12|(RENA) R-12, Renault
+RDX|RDX
+PHA|(ROL) Phantom, Rolls-Royce; (VOLK) Phaeton, Volkswagen
+825|(STLG) 825, Sterling; (GLBL) E825, Global Electric Motorcars
+OPT|(PASS) Optima, Passport; (KIA) Optima, Kia; (CHEV) Optra, Chevrolet
+TRK|(CHEV) Tracker (beginning vehicle year 1998), Chevrolet; (GEO) Tracker, GEO
+002|(BMW) 2002 Series, BMW
+XJR|(JAGU) XJR, Jaguar
+SYC|(GMC) Syclone, General Motors Corp.
+GPA|(PONI) Grand Parisienne, Pontiac (Canadian) (Also see make Pontiac)
+FPR|(ROL) Flying Spur, Rolls-Royce
+CST|(FORD) Customline, Ford (see English, French, German, and Italian Ford); (TOYT) Celica, Toyota
+C24|(MERZ) C240, Mercedes-Benz
+SON|(HYUN) Sonata, Hyundai; (GMC) Sonoma, General Motors Corp.; (SAA) Sonnet, Saab
+GLW|(MERZ) Gelaendewagen (G-Wagen), Mercedes-Benz
+FLA|(LNCI) Flavia, Lancia
+THA|(ENGF) Thames, English Ford (British)
+444|(VOLV) PV444, Volvo
+ELL|(CHEV) Chevelle, Concours (Chevelle only), Deluxe (Chevelle), Greenbrier (Chevelle), Nomad (Chevelle), Chevrolet
+AVN|(DODG) Avenger, Dodge
+AV|(ASVE) Assembled Vehicles
+MTZ|(CHEV) Matiz, Chevrolet; (PONT) Matiz, Pontiac
+DUN|(SPEC) Dune Buggies
+356|(PORS) 356, Porsche
+G55|(MERZ) G55, Mercedes-Benz
+KAD|(OPEL) Kadette, Opel (imported by Buick)
+R32|(VOLK) R32, Volkswagen
+HOL|(OLDS) Holiday, Oldsmobile
+SE|(ASUN) SE, Asuna; (NISS) SE-V6, Nissan
+CRF|(CHRY) Crossfire, Chrysler
+BVD|(OLDS) Bravada, Oldsmobile
+733|(BMW) 733 Series, BMW
+180|(AUST) 1800, Austin; (BMW) 1800, BMW; (MERZ) 180 Series, Mercedes-Benz; (VOLV) 1800 Series, Volvo
+245|(VOLV) 245 Series, Volvo
+XC7|(VOLV) XC70, Volvo
+A10|(AUST) A99 & 110, Austin
+V8|(AUDI) V-8, Audi
+A2|(AUDI) A2, Audi
+THU|(FORD) Thunderbird, Ford (see English, French, German, and Italian Ford); (MODE) 1955 Thunderbird, Model A and Model T Motor Car Reproduction Corp.
+AMG|(ISU) Amigo, Isuzu
+SIW|(ROL) Silver Wraith, Rolls-Royce
+310|(DATS) 310, Datsun
+DLM|(OLDS) Delmont 88, Oldsmobile
+F35|(FERR) F355, Ferrari; (FORD) F350, Ford (see English, French, German, and Italian Ford)
+SNI|(HUMB) Snipe, Humber; (HILL) Snipe, Hillman
+CRL|(PLYM) Caravelle, Plymouth
+SER|(ROL) Silver Seraph, Rolls-Royce
+504|(PEUG) 504 Series, Peugeot
+1LS|(AUDI) 100LS, Audi
+TRS|(CADI) Touring Sedan, Cadillac
+VIS|(EGIL) Vision, Eagle; (OLDS) Vista Cruiser, Oldsmobile
+MK5|(LINC) Mark V, Lincoln-Continental; (MORG) 4/4 Mark 5, Morgan
+CIR|(CHRY) Cirrus, Chrysler
+BET|(LNCI) Beta Series, Lancia
+AS6|(AUDI) S6, Audi
+510|(DATS) 510, Datsun
+SKH|(BUIC) Skyhawk, Buick
+CJ5|(JEEP) CJ-5, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) CJ-5, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) CJ-5, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+SEP|(KIA) Sephia, Kia Motors Corp.
+CSM|(MAZD) Cosmo, Mazda
+C65|CL65
+280|(BMW) 2800 Series, BMW; (DATS) 280Z, Datsun; (MERZ) 280 Series, Mercedes-Benz; (MERZ) SLK280, Mercedes - Benz; (ISU) i280, Isuzu
+VGR|(MERC) Nautica Villager, Villager Minivan, Mercury
+TL|Trailers
+XJ8|(JAGU) XJ8, Jaguar
+TER|(TOYT) Tercel, Toyota
+A55|(AUST) A55, Austin
+D21|(CITR) DS-21 & D21, Citroen
+GVY|(CHRY) Grand Voyager, Chrysler
+CLD|(CHEV) Colorado, Chevrolet
+ESC|(CADI) Escalade, Cadillac; (ENGF) Escort, English Ford (British); (FORD) Escort, Ford (see English, French, German, and Italian Ford)
+G5|(PONT) G5, Pontiac
+DUS|(PLYM) Duster, Plymouth
+SB|(VOLK) Squareback, Volkswagen
+M35|(MERZ) ML350, Mercedes-Benz; (INFI) M35, M35 Sport, M35 X, Infiniti
+450|(MERZ) 450 Series, Mercedes-Benz
+RX2|(MAZD) RX2 (rotary engine), Mazda
+2P2|(PONT) 2+2, Pontiac
+62|(CADI) 62 Series, Cadillac
+DAY|(DODG) Daytona, Dodge; (FERR) Daytona, Ferrari; (STU) Daytona, Studebaker
+CPE|(MASE) Coupe/Coupe GT, Maserati
+HOT|(AERO) Hot Air Balloon
+XTY|(JAGU) X-Type, Jaguar
+SUP|(HUDS) Super, Hudson; (BUIC) Super, Buick; (FORD) Super, Ford (see English, French, German, and Italian Ford); (HILL) Super Minx, Hillman; (LOTU) Super 7, Lotus; (OLDS) Super 88, Oldsmobile; (PONT) Super Chief, Pontiac; (PORS) Super, Porsche; (RAMB) Super, Rambler (mfd. prior to 1966; 1966 and later Ramblers - see make American Motors); (TOYT) Supra, Toyota
+MOC|(CHEV) Monte Carlo, Chevrolet
+DED|(LNCI) Dedra, Lancia
+INS|(HOND) Insight, Honda
+SNF|(PONT) Sunfire, Pontiac
+MEA|(DODG) Meadowbrook, Dodge
+LES|(BUIC) Le Sabre, Buick
+NX|(NISS) NX, Nissan
+VAL|(PLYM) Valiant, Plymouth
+CVN|(DODG) Caravan, Dodge; (CHRY) Caravan, Chrysler
+545|(BMW) 545i, BMW
+M30|(INFI) M30, Infiniti
+TTN|(NISS) Titan, Nissan
+B25|(MAZD) B2500, Mazda
+X3|(BMW) X3, BMW
+TR6|(TRIU) TR6, Triumph
+G25|(ALFA) GTV6 2.5, Alfa Romeo
+COB|(EXCL) Cobra, Excalibur; (FORD) Cobra (also see make Shelby American), Ford (see English, French, German, and Italian Ford); (VOLV) Combi, Volvo
+OXF|(MORR) Oxford, Morris
+GRE|(AMER) Gremlin, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+SPT|(CHEV) Sportvan, Chevrolet; (ENCR) Sport, Encore; (KIA) Sportage (sport utility), Kia Motors Corp.; (SUBA) Outback Sport (station wagon), Subaru
+LX|(RENA) Luxe, Renault
+QTO|(AUDI) Quattro, Audi
+V12|(JAGU) V12, Jaguar
+SC|(STRN) SC, Saturn
+3GT|(MITS) 3000 GT, Spyder 3000 GT, Mitsubishi
+XST|(FORD) Explorer Sport Trac, Ford (see English, French, German, and Italian Ford)
+A3|A3 (Sportback)
+XG|(HYUN) XG, Hyundai
+RAW|(FORD) Ranch Wagon, Ford (see English, French, German, and Italian Ford); (METE) Ranch Wagon, Meteor (Canadian Mercury)
+RAP|(SUNB) Rapier, Sunbeam
+CH2|(CHEV) Chevy II, Chevrolet
+ACV|(OLDS) Achieva, Oldsmobile
+TRV|(MORR) Traveller, Morris
+SEN|(DODG) Seneca, Dodge; (NISS) Sentra, Nissan
+BOR|(MASE) Bora, Maserati
+AX|(CITR) AX, Citroen
+MET|(CHEV) Metro (beginning vehicle year 1998), Chevrolet; (GEO) Metro, GEO; (NASH) Metropolitan, Nash
+RAB|(VOLK) Rabbit, Volkswagen
+C32|(MERZ) C320, Mercedes-Benz
+KIN|(CHEV) Kingswood, Chevrolet
+533|(BMW) 533i, BMW
+SSR|(EXCL) SS Roadster, Excalibur; (CHEV) SSR, Chevrolet
+DL|(SUBA) DL, Subaru; (VOLV) DL, Volvo
+C10|(CHEV) C10, Chevrolet
+TAU|(FORD) Taurus, Ford (see English, French, German, and Italian Ford)
+F65|(FORD) F650 Super Crew, Ford
+228|(MASE) 228, Maserati
+VEM|(DKW) Vemag, DKW
+PNT|(VOLK) Pointer, Volkswagon
+MTS|(JAGU) Mark Ten Salon, Jaguar
+FOX|(AUDI) 80 LS (Fox), Audi; (VOLK) Fox, Volkswagen
+CJ7|(JEEP) CJ-7, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) CJ-7, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) CJ-7, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+AA4|(AUDI) A4, Audi
+S55|SLK55
+RA|(AMER) Rambler American, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+FX4|(INFI) FX45, Infiniti
+MGT|(MG) MGC/GT, MG
+MER|(MASE) Merak, Maserati
+F25|(FORD) F250 Supercab (pickup), Ford (see English, French, German, and Italian Ford)
+CE|Construction Equipment
+FIE|(PONT) Fiero, Pontiac
+26S|(ALFA) 2600 Spider, Alfa Romeo
+SCP|(HYUN) Scoupe, Hyundai; (HILL) Sceptre, Hillman; (MONA) Sceptre, Monarch
+GHI|(MASE) Ghibli, Maserati
+92|9-2X
+ELA|(LOTU) Elan, Lotus
+TRE|(MITS) Tredia, Mitsubishi
+ENZ|(FERR) Enzo, Ferrari
+325|(BMW) 325, BMW; (BMW) 325Xi, BMW
+ID9|(CITR) ID-19, Citroen
+VIV|(VAUX) Viva, Vauxhall
+CTY|(FORD) Think City (Elec.Veh. Model Year 2002), Ford
+SPO|(AMER) Sportabout, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (BUIC) Sportswagon, Buick; (VOLV) Sport, Volvo
+EL|(ACUR) EL, Acura (Import from Canada)
+SIG|(MITS) Sigma, Mitsubishi; (PLYM) Signet (Valiant), Plymouth
+LUC|(MONA) Lucerne, Monarch; (BUIC) Lucerne, Buick
+Z3|(BMW) Z3, BMW
+ACC|(HYUN) Accent, Hyundai; (HOND) Accord, Honda; (PLYM) Acclaim, Plymouth
+DRA|(KAIS) Dragon, Kaiser
+PLT|(HOND) Pilot, Honda
+ALL|(CADI) Allante, Cadillac; (AUDI) Allroad, Audi
+G75|(SAA) GT 750, Saab
+ROD|(ISU) Rodeo, Isuzu; (DLHY) Roadster, Delahaye; (LAMO) Roadster, Lamborghini; (PANZ) Roadster, Panoz Auto Development Co.; (BRSH) Roadster, Brush (antique vehicles); (SHEB) Roadster, Shelby
+SCT|(INTL) Scout, International Harvester
+LEB|(IMPE) Le Baron (for vehicle year thru 1975), Imperial (for vehicle years 1955-1983, use VMA/IMPE; for vehicle years prior to 1955 and vehicle years 1990-1993, see make Chrysler)
+PRI|(BMC) Princess, B M C; (CHEV) Prism (beginning vehicle year 1998), Chevrolet; (GEO) Prizm, GEO; (NSU) Prinz, Nsu Prinz; (TOYT) Prius, Toyota
+PLU|(LOTU) Plus Two, Lotus
+L7|(BMW) L7, BMW
+VOY|(CHRY) Voyager, Chrysler; (MERC) Voyager, Mercury; (PLYM) Voyager, Plymouth
+SIC|(ROL) Silver Cloud, Rolls-Royce
+XJ4|(JAGU) XJ40, Jaguar
+WAG|(JEEP) Wagoneer, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) Wagoneer, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) Wagoneer, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (STU) Wagonaire, Studebaker
+SAR|(CHRY) Saratoga, Chrysler
+550|(BMW) 550i, BMW
+SL3|(MERZ) SLK320 Coupe/Roadster, Mercedes-Benz
+ENV|(GMC) Envoy, General Motors Corp.; (VAUX) Envoy, Vauxhall
+M12|(VACR) M12 (sport coupe), Vector Aeromotive Corp.
+TT|(AUDI) 2000 TT-Coupe, 2000 TT-Roadster, Audi
+CTS|(CADI) CTS, Cadillac
+AMB|(AMER) Ambassador, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (NASH) Ambassador, Nash; (RAMB) Ambassador, Rambler (mfd. prior to 1966; 1966 and later Ramblers - see make American Motors)
+ION|(STRN) Ion, Saturn
+D19|(CITR) DS-19, Citroen
+BJA|(SUBA) Baja, Subaru
+84C|(BMW) 840Ci, BMW
+STD|(OLDS) Standard, Oldsmobile
+JMY|(GMC) Jimmy, General Motors Corp.
+AS8|(AUDI) S8, Audi
+97|9-7X
+GRD|(PONT) Grand Ville, Pontiac
+AUR|(OLDS) Aurora, Oldsmobile; (STRN) Aura, XE, XR, Saturn
+2SX|(DATS) 200SX, Datsun
+SPC|(KIA) Spectra, Kia Motors Corp.
+REB|(AMER) Rebel, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+BAC|(BESA) Baci, Besasie Automobile Co., Inc.
+AMX|(AMER) AMX, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+SLS|SLS (Badged Separately Beginning 7/2003)
+412|(VOLK) 411/412, Volkswagen
+STR|(DODG) St. Regis, Dodge; (FIAT) Strada, Fiat; (PONI) Strato Chief, Pontiac (Canadian) (Also see make Pontiac); (PONT) Streamliner, Pontiac
+B20|(MAZD) B2000, Mazda
+GTI|(MASE) GTI Series, Maserati; (VOLK) GTI, Volkswagen
+COY|(FORD) Country Sedan, Ford (see English, French, German, and Italian Ford); (METE) Country Sedan, Meteor (Canadian Mercury)
+ODY|(HOND) Odyssey (minivan), Honda
+LCR|(TOYT) Land Cruiser, Toyota; (BUIC) Lacrosse, Buick
+MX6|(MAZD) MX6, Mazda
+C36|(MERZ) C36, Mercedes-Benz
+APO|(BUIC) Apollo, Buick
+GLT|(VOLV) GLT, Volvo
+S33|(MERC) S-33, Mercury; (METE) S-33, Meteor (Canadian Mercury)
+SPR|(AUHE) Sprite, Austin-Healy; (CHEV) Sprint, Chevrolet; (MG) Sprite, MG; (ROL) Silver Spur, Rolls-Royce; (MERZ) Sprinter, Mercedes-Benz ; (DODG) Sprinter, Dodge
+CLA|(RAMB) Classic, Rambler (mfd. prior to 1966; 1966 and later Ramblers - see make American Motors); (CHEV) Classic, Chevrolet
+XC9|(VOLV) XC90, Volvo
+J12|(JAGU) XJ12, Jaguar
+505|(PEUG) 505 Series, Peugeot
+MOT|(FORD) Model T, Ford (see English, French, German, and Italian Ford); (MERC) Montclair, Mercury
+SLR|(MERZ) SLR McLaren, Mercedes-Benz
+CNC|(CHRY) Concorde, Chrysler
+UPL|(CHEV) Uplander (Crossover Sport Van), Chevrolet
+XKE|(JAGU) XK-E Series, Jaguar
+FUT|(FORD) Futura, Ford (see English, French, German, and Italian Ford)
+E45|(FORD) Econoline E-450, Ford
+QX4|(INFI) QX4, Infiniti
+SR5|(TOYT) SR5, Toyota
+XL7|(SUZI) XL-7 or XL-7 Grand Vitara, Suzuki
+EPC|(VAUX) Epic, Vauxhall
+524|(BMW) 524 Series, BMW
+MAG|(DODG) Magnum, Dodge; (MG) Magnette, MG
+425|(MASE) 425, Maserati
+38L|(JAGU) 3.8 Litre, Jaguar
+CON|(AMER) Concord, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (BENT) Continental Convertible, Bentley; (CADI) Concours, Cadillac; (CHRY) Conquest (vehicle year 1987 and later), Chrysler; (DODG) Conquest (vehicle year 1986 only), Dodge; (ENGF) Consul, English Ford (British); (LINC) Continental, Lincoln-Continental
+AUD|(DKW) Audi, DKW
+FB|(VOLK) Fastback, Volkswagen
+90A|(SAA) 9000, Saab
+ZOD|(ENGF) Zodiac, English Ford (British)
+KAR|(PORS) Karman, Porsche; (VOLK) Karmann Ghia, Volkswagen
+FAR|(FORD) Fairmont, Ford (see English, French, German, and Italian Ford)
+RX3|(LEXS) RX300, Lexus; (MAZD) RX3 (rotary engine), Mazda
+CW3|(FORD) Club Wagon E350, Ford (see English, French, German, and Italian Ford)
+CRV|(HOND) CRV, Honda; (OLDS) Caravan, Oldsmobile; (RENA) Caravelle, Renault
+LAG|(ASTO) Lagonda, Aston Martin
+MLN|Milan
+WAS|(HUDS) Wasp, Hudson
+DIA|(LAMO) Diablo, Lamborghini; (MITS) Diamante, Mitsubishi
+G45|(BUIC) GS455, Buick; (LEXS) GS450h, Lexus
+X19|(BERO) X19, Bertone; (FIAT) X19, Fiat
+Z8|(BMW) Z8, BMW
+IND|(MASE) Indy, Maserati
+SHA|(DODG) Shadow, Dodge
+YUG|(ZCZY) Yugo (series), Zastavia (ZCZ-Yugoslavia)
+REP|Replica
+A90|(AUDI) 90, Audi
+120|(DATS) 1200, Datsun; (FIAT) 1200, Fiat; (SIM) 120, Simca; (TRIU) 1200, Triumph; (VOLK) 1200, Volkswagen
+735|(BMW) 735 Series, BMW
+DYN|(DODG) Dynasty, Dodge; (OLDS) Dynamic 88, Oldsmobile; (CHRY) Dynasty, Chrysler
+MAX|(BREM) Maxi-Taxi, Bremen Sport Equipment, Inc. (Bremen, IN); (DATS) Maxima, Datsun; (NISS) Maxima, Nissan
+780|(VOLV) 780 Series, Volvo
+ELC|(CHEV) El Camino, Chevrolet
+S60|(VOLV) S60, Volvo
+PCF|(CHRY) Pacifica (Sport Wagon), Chrysler
+TEM|(FORD) Tempo, Ford (see English, French, German, and Italian Ford); (PONI) Tempest, Pontiac (Canadian) (Also see make Pontiac)
+DB9|DB9
+ETO|(SIM) Etoile, Simca
+CLT|(DODG) Colt (imported), Dodge; (PLYM) Colt (Canadian), Plymouth
+GLS|(SIM) GLS, Simca
+MNA|(DETO) Mangusta, DeTomaso
+4RN|(TOYT) 4-Runner, Highlander (4Runner), Toyota
+L47|(LEXS) LX470, Lexus
+JAR|(LAMO) Jarma, Lamborghini
+ZX2|(FORD) ZX2, Ford
+CUT|(OLDS) Cutlass/Ciera, Supreme, Oldsmobile
+BIS|(BORG) Biscayne, Borgward; (CHEV) Biscayne, Chevrolet
+B23|(MAZD) B2300, Mazda
+530|(BMW) 530i, BMW
+85C|(BMW) 850Ci, BMW
+MTN|(MERC) Mountaineer (sport utility), Mercury
+RR|(AMER) Rambler Rogue, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+C35|(CHEV) C/K 3500, Chevrolet; (MERZ) C350, Mercedes Benz
+VCS|(ISU) VehiCross, Isuzu
+QCK|(ZMCC) Quick Silver, Zimmer Motor Car Co.
+CYN|(GMC) Canyon, General Motors Corp. ; (PORS) Cayenne, Porsche
+TIB|(HYUN) Tiburon, Hyundai
+968|(PORS) 968, Porsche
+318|(BMW) 318i, BMW
+LTC|(USEL) Lectric Leopard, U.S. Electricar Corp.
+AXI|(ISU) Axiom, Isuzu
+SM|(CITR) SM, Citroen
+403|(PEUG) 403, Peugeot
+SUR|(ASUN) Sunrunner, Asuna; (VOLK) Sunroof, Volkswagen
+122|(VOLV) 122 Series, Volvo
+24Z|(DATS) 240Z, Datsun
+HU2|(HUMM) Hummer 2, HUMMER
+MKL|Mark LT
+J10|(JEEP) J-10, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) J-10, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) J-10, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+COA|(TOYT) Corolla, Toyota
+VIT|(SUZI) Vitara, Suzuki; (TRIU) Vitesse, Triumph
+311|(DATS) 311, Datsun
+CHM|(STU) Champion, Studebaker
+600|(BMW) 600, BMW; (DODG) 600, Dodge; (FIAT) 600D, Fiat; (MERZ) 600 Series, S600, Mercedes-Benz; (PONT) 6000, Pontiac
+RIV|(BUIC) Riviera, Buick
+XPL|(FORD) Explorer, Ford (see English, French, German, and Italian Ford)
+440|(DODG) 440 Series, Dodge
+STM|(CHEV) Style Master, Chevrolet
+912|(PORS) 912, Porsche
+FRD|(DESO) Firedom, DeSoto
+FOC|(FORD) Focus, Ford (see English, French, German, and Italian Ford)
+VER|(LINC) Versailles, Lincoln-Continental
+CHL|(DODG) Challenger, Dodge
+FJC|FJ Cruiser
+S10|(CHEV) S10, Chevrolet
+FRO|(FORD) Frontenac, Ford (see English, French, German, and Italian Ford)
+EUR|(LOTU) Europa, Lotus; (VOLK) Eurovan, Volkswagen
+STS|STS (Badged Separately Beginning 7/2003)
+LEM|(METE) Lemoyne, Meteor (Canadian Mercury); (PONT) LeMans, Pontiac
+MAV|(FORD) Maverick, Ford (see English, French, German, and Italian Ford)
+CEL|(CHEV) Celebrity, Chevrolet
+RIM|(FIAT) Rimto, Fiat
+G20|(INFI) G20, Infiniti
+R4|(RENA) R-4, Renault
+160|(BMW) 1600, BMW; (HILL) 1600 Series, Hillman; (MG) 1600, MG; (PORS) 1600, Porsche; (SUBA) 1600 Series, Subaru
+WRG|(JEEP) Wrangler, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) Wrangler, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) Wrangler, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+RX|(SUBA) RX, Subaru
+JAC|(EXCL) JAC 427 Cobra, Excalibur
+LIM|(BUIC) Limited, Buick; (CHRY) Limousine, Chrysler; (PANE) Lima, Panther Westwinds, Ltd.
+BRK|(CHEV) Brookwood, Chevrolet
+E30|(MERZ) E300, Mercedes-Benz
+HEA|(JENS) Healy, Jensen
+SFT|(SUZI) Swift, Suzuki
+FAI|(FORD) Fairlane, Ford (see English, French, German, and Italian Ford)
+HHR|HHR
+C55|C55, CLS55
+88|(OLDS) 88, Oldsmobile
+FLM|(LNCI) Flaminia, Lancia
+GT6|(ALFA) Alfa GT6, Alfa Romeo
+512|(FERR) 512, Ferrari
+NOV|(CHEV) Nova (Chevy II & Concours), Chevrolet
+60|(CADI) 60 Series, Cadillac
+NIT|(DODG) Nitro, Dodge
+TUS|(TVR) Tuscan, TVR
+SP6|(TRIU) Sport &quot;6&quot;, Triumph
+75|(CADI) 75 Series, Cadillac; (ROV) Rover 75, Rover
+DIS|(LNDR) Discovery, Land Rover
+MID|(MG) Midget, MG
+REG|(BUIC) Regal, Buick; (OLDS) Regency (Ninety-eight Series), Oldsmobile
+CAR|(KAIS) Carolina, Kaiser; (OPEL) Caravan, Opel (imported by Buick); (PACK) Caribbean, Packard; (PORS) Carrera, Porsche; (TOYT) Carina, Toyota
+ALP|(ROOT) Alpine, Rootes; (SUNB) Alpine, Sunbeam
+HER|(TRIU) Herald, Triumph
+TRG|(VOLK) Touareg, Volkswagen
+EPI|(ENVY) Epic, Envoy; (CHEV) Epica, LS & LT, Chevrolet
+DB5|(ASTO) DB-5, Aston Martin
+260|(DATS) 260Z, Datsun; (MERZ) 260 Series, Mercedes-Benz; (VOLV) 260 Series, Volvo
+R17|(RENA) R-17, Renault
+S65|SL65
+EAG|(AMER) Eagle, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+GVT|(SUZI) Grand Vitara, Suzuki
+SMT|(MERZ) Smart City Vehicle, Mercedes-Benz
+PAC|(HUDS) Pacemaker, Hudson; (AMER) Pacer, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (EDSE) Pacer, Edsel
+SRB|(CHEC) Superba, Checker
+RAL|(OPEL) Rallye, Opel (imported by Buick)
+TRO|(NISS) Terrano, Nissan; (OLDS) Trofeo, Oldsmobile
+105|(ENGF) 105 E Series, English Ford (British)
+BLZ|(CHEV) Blazer, Chevrolet
+CL3|(MERZ) CLK350, Mercedes Benz
+929|(MAZD) 929, Mazda
+SKT|(SNOW) Skis and Tracks, Snowmobiles
+MGG|(MG) MGB/GT, MG
+ARM|Armada (Formerly Pathfinder Armada)
+WIL|(BUIC) Wildcat, Buick
+V50|(VOLV) V50 (Sport Wagon), Volvo
+330|(DODG) 330 Series, Dodge; (BMW) 330I, BMW; (LEXS) ES330, Lexus; (BMW) 330Xi, BMW
+XTC|(SUBA) XT Coupe, Subaru
+GLF|(SUBA) GLF, Subaru
+SAV|(GMC) Savanna (full-size van), General Motors Corp.; (PLYM) Savoy, Plymouth
+REL|(PLYM) Reliant, Plymouth
+OPI|(KIA) Opirus, KIA
+SKY|(BUIC) Skylark, Buick; (PONT) Sky Chief, Pontiac; (STRN) Sky, Saturn
+B40|(MAZD) B4000, Mazda
+GTX|(PLYM) GTX, Plymouth
+MGA|(MG) MGA, MG
+EV1|(GM) EV1, General Motors
+FX3|(INFI) FX35, Infiniti
+LK3|(MERZ) CLK320, Mercedes-Benz
+TAC|(TOYT) Tacoma, Toyota
+CMP|(JEEP) Compass, Jeep
+C23|(MERZ) C230, Mercedes-Benz
+85F|(FIAT) 850 Fastback, Fiat
+S30|(LEXS) SC300, Lexus
+SPW|(CREL) Sparrow, Corbin Motors (electric vehicles)
+102|(DKW) F102, DKW
+S80|(VOLV) S80, Volvo
+OME|(OLDS) Omega, Oldsmobile
+MON|(ALFA) Montreal, Alfa Romeo; (CHEV) Monza, Chevrolet; (DODG) Monaco, Dodge; (FERR) Mondial, Ferrari; (MERC) Monterey, Mercury; (METE) Montcalm, Meteor (Canadian Mercury); (MITS) Montero/Montero Sport, Mitsubishi
+GTP|(CONU) GTP, Consulier
+MG1|(MG) 1100, MG
+150|(FIAT) 1500, Fiat; (PORS) 1500, Porsche; (VOLK) 1500, Volkswagen
+C28|(MERZ) C280, Mercedes-Benz
+ARO|(SIM) Aronde, Simca; (SUZI) Aerio, Suzuki
+BOX|(PORS) Boxter 986, Porsche
+TRA|(ATV) Tracks only; (MERC) Tracer, Mercury; (SNOW) Tracks only, Snowmobiles
+ESP|(LAMO) Espada, Lamborghini; (LOTU) Esprit, Lotus; (PANZ) Esperante, Panoz
+RNR|(BUIC) Ranier, Buick
+CPS|(AUST) Cooper &quot;S&quot;, Austin
+R25|(DODG) Ram 2500 (pickup), Dodge
+DUR|(DODG) Durango, Dodge
+SUM|(EGIL) Summit, Eagle
+FUR|(PLYM) Fury (also Grand Fury), Plymouth
+MUR|(LAMO) Murcielago, Lamborghini ; (NISS) Murano, Nissan
+A60|(AUST) Cambridge, Austin
+J72|(PANE) J72, Panther Westwinds, Ltd.
+LR|(ROV) Land Rover, Rover
+PAS|(HOND) Passport, Honda; (TOYT) Paseo, Toyota; (VOLK) Passat, Volkswagen
+TOW|(CHEV) Townsman, Chevrolet; (CHRY) Town & Country, Chrysler; (LINC) Town Car, Lincoln-Continental
+500|(AUDI) 5000, Audi; (MASE) 5000 (series), Maserati; (FORD) Five Hundred (500), Ford; (MERZ) CLS500, Mercedes Benz; (MERZ) S500, Mercedes - Benz
+827|(STLG) 827, Sterling
+TRW|(ATV) Tracks and Wheels; (SNOW) Tracks and Wheels, Snowmobiles
+CLR|(KIA) Clarus, Kia Motors Corp.
+XL|(FORD) XL, Ford (see English, French, German, and Italian Ford)
+XJS|(JAGU) XJS, Jaguar
+650|(BMW) 650Ci, BMW; (BMW) 650i, BMW
+PRD|(PACK) Predictor, Packard
+SEB|(BREM) Sebring, Bremen Sport Equipment, Inc. (Bremen, IN); (CHRY) Sebring, Chrysler; (MASE) Sebring, Maserati
+FGO|(RENA) Fuego, Renault
+ZAG|(ALFA) Zagato, Alfa Romeo; (LNCI) Zagato, Lancia
+DLT|(OLDS) Delta 88, LSS (Delta 88), Royale, Oldsmobile
+WAY|(DODG) Wayfarer, Dodge
+SNA|(TOYT) Sienna (van), Toyota
+304|(PEUG) 304, Peugeot
+THI|(VOLK) The Thing, Volkswagen
+914|(PORS) 914, Porsche
+TUN|(TOYT) Tundra, Toyota
+XLR|(CADI) XLR, Cadillac
+SLH|(LAMO) Silhouette, Lamborghini
+CRE|(BREM) Creighton, Bremen Sport Equipment, Inc. (Bremen, IN); (FORD) Crestline, Ford (see English, French, German, and Italian Ford); (TOYT) Cressida, Toyota; (VAUX) Cresta, Vauxhall
+C15|(CHEV) C/K 1500, Chevrolet
+MCB|(VOLK) Microbus, Volkswagen
+BRE|(MERC) Breezeway, Mercury
+AVE|(KIA) Avella, Kia Motors Corp.; (TOYT) Avensis, Toyota
+VEG|(CHEV) Vega, Chevrolet
+MNR|Mariner
+AA8|(AUDI) A8, Audi
+PL8|(MORG) Plus 8 Series, Morgan
+140|(SUBA) 1400 Series, Subaru; (VOLV) 140 Series, Volvo
+MK4|(LINC) Mark IV, Lincoln-Continental; (ROV) Mark IV, Rover
+YUK|(GMC) Yukon, General Motors Corp.
+E43|(MERZ) E430, Mercedes-Benz
+CSX|(SHEB) CSX, Shelby American; (ACUR) CSX, Acura
+SEV|(CADI) Seville, Cadillac
+900|(SAA) 900, Saab
+VGN|(VOLK) Vanagon, Volkswagen
+BOB|(MERC) Bobcat, Mercury
+210|(CHEV) 210 Series, Chevrolet; (DATS) 210 (or B-210), B-210 (or 210), Datsun
+MX3|(MAZD) MX3, Mazda
+SOV|(JAGU) Sovereign, Jaguar
+VRS|(NISS) Versa, Nissan
+GOG|(GLAS) Goggomobile, Glas
+DAR|(KAIS) Darrin, Kaiser; (DODG) Dart, Dodge
+28I|(BMW) 328i, BMW
+JEP|(SANG) Jeep, Sangyong
+26P|(ALFA) 2600 Sprint, Alfa Romeo
+B26|(MAZD) B2600, Mazda
+FRE|(LNDR) Freelander, Land Rover; (FORD) Freestar, Ford
+SVX|(SUBA) SVX, Subaru
+M50|(MERZ) ML500, Mercedes-Benz
+ATO|(HYUN) Atos, Hyundai
+EC3|(FORD) Econoline E350, Ford (see English, French, German, and Italian Ford)
+MYS|(MERC) Mystique, Mercury
+V15|(DODG) Ram 1500 (van), Dodge
+E32|(MERZ) E320, Mercedes-Benz
+618|(MAZD) 618, Mazda
+340|(JAGU) 340, Jaguar
+S20|(HOND) S2000, Honda
+42L|(JAGU) 4.2 Litre, Jaguar
+EXP|(CHEV) Express (full-size van), Chevrolet; (FORD) EXP, Ford (see English, French, German, and Italian Ford); (MITS) Expo, Mitsubishi; (RENA) Export, Renault
+S70|(VOLV) S70, Volvo
+VIG|(ACUR) Vigor, Acura
+ECL|(CHRY) E Class, Chrysler; (LOTU) Eclat, Lotus; (MITS) Eclipse, Eclipse Spyder GS-T, Mitsubishi
+COM|(HUDS) Commodore, Hudson; (JEEP) Comanche, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) Comanche, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) Comanche, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (CHRY) Commander, Chrysler; (COMV) Comuta-Car, Commuter Vehicles, Inc.; (DODG) Compact Sportsman, Dodge; (FREF) Comete, French Ford; (MERC) Comet, Mercury; (STU) Commander, Studebaker
+FE2|(SUBA) Fe, Subaru
+DEA|(DETO) Deauville, DeTomaso
+250|(BMW) 2500 Series, BMW; (LEXS) ES250, Lexus; (MDNA) GT250, Modena; (MERZ) 250 Series, Mercedes-Benz; (TRIU) 250, Triumph; (LEXS) IS250, Lexus
+NY|(CHRY) New Yorker, Chrysler
+TRP|(ISU) Trooper, Isuzu
+TAH|(CHEV) Tahoe, Chevrolet
+RID|(METE) Rideau, Meteor (Canadian Mercury)
+CIT|(CHEV) Citation, Chevrolet; (EDSE) Citation, Edsel
+MIL|(ALFA) Milano, Alfa Romeo; (MAZD) Millenia, Mazda
+CK5|(MERZ) CLK500, Mercedes-Benz
+RS6|(AUDI) RS6, Audi
+CTV|(SOLE) Citi Van, Solectria
+604|(PEUG) 604, Peugeot
+RAM|(HUDS) Rambler, Hudson; (NASH) Rambler, Nash
+CVC|(FORD) Crown Victoria, Ford
+BLM|(AERO) Blimp
+QTM|(VOLK) Quantum, Volkswagen
+BRZ|(PLYM) Breeze, Plymouth
+LUX|(OPEL) Luxus, Opel (imported by Buick); (VANG) Luxury, Vanguard (Canada)
+SAP|(PLYM) Sapporo (imported), Plymouth
+M5|(BMW) M5, BMW
+CBT|(CHEV) Cobal, Chevrolet
+G6|(PONT) G6, Pontiac
+SIS|(ROL) Silver Shadow, Rolls-Royce
+AER|(CHEC) Aerobus, Checker; (FORD) Aerostar, Ford (see English, French, German, and Italian Ford)
+ELE|(BUIC) Electra (Park Avenue), Park Avenue (Electra), Buick; (BZEL) Electra-King, B & Z Electric Car Co.; (HOND) Element, Honda
+FAL|(FORD) Falcon, Ford (see English, French, German, and Italian Ford)
+VOL|(GAZ) Volga, GAZ; (PLYM) Volare, Plymouth
+LEG|(ACUR) Legend, Acura; (DAEW) Leganza, Daewoo; (SUBA) Legacy, Outback Legacy, Subaru
+CRS|(CHEV) Corsica, Chevrolet
+PAL|(BERO) Palinuro, Bertone
+G50|(SHEB) Cobra GT500, Shelby American; (MERZ) G500, Mercedes-Benz
+MTH|(CHEC) Marathon, Checker
+1GL|(AUDI) 100GL, Audi
+GCH|(JEEP) Grand Cherokee, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) Grand Cherokee, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) Grand Cherokee, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+3L|(ROV) 3 Litre, Rover
+MK8|(LINC) Mark VIII, Lincoln-Continental
+CLI|(MERC) Caliente, Mercury; (PACK) Clipper, Packard
+ALT|(NISS) Altima, Nissan
+SSE|(PONT) SSE, Pontiac
+GIP|(ALFA) Giulia Sprint, Alfa Romeo
+HOR|(HUDS) Hornet, Hudson; (AMER) Hornet, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (PLYM) Horizon (also TC3), Plymouth
+PUL|(NISS) Pulsar, Nissan
+KOM|(VOLK) Kombi, Volkswagen
+PRW|(PLYM) Prowler, Plymouth
+M3|(BMW) M3, BMW
+LIL|(DATS) LiL Hustler, Datsun
+VIB|(PONT) Vibe (sport wagon), Pontiac
+TUR|(MERC) Turnpike Cruiser, Mercury; (PLYM) Turismo, Plymouth
+EVP|(HOND) EVPLUS, Honda
+ARR|(ROOT) Arrow, Rootes; (SUNB) Arrow, Sunbeam
+A80|(AUDI) 80, Audi
+GS|(BUIC) Grand Sports (G.S.), Buick
+CHA|(DAIH) Charade, Daihatsu; (DODG) Charger (and Shelby Charger), Dodge; (GAZ) Chaika, GAZ; (MITS) Chariot, Mitsubishi; (PLYM) Champ (imported), Plymouth; (SIN) Chamois, Singer; (STU) Challenger, Studebaker
+MTX|(MITS) Mighty Max, Mitsubishi; (TOYT) Matrix (sport wagon), Toyota
+EC2|(FORD) Econoline E250, Ford (see English, French, German, and Italian Ford)
+TIP|(FERR) Tipo, Ferrari
+FAV|(CHRY) Fifth Avenue, Chrysler
+G35|(BUIC) GS350, Buick; (SHEB) Cobra GT350, Shelby American; (INFI) G35, Infiniti
+ELS|Elise
+QUA|(FERR) Quattrovalvolve, Ferrari; (MASE) Quattroporte, Maserati
+WHE|(ATV) Wheels only; (SNOW) Wheels only, Snowmobiles; (SPEC) Motorized Wheelchairs
+CAY|Cayman
+544|(VOLV) PV544, Volvo
+850|(AUDI) 850, Audi; (AUST) 850, Austin; (BMW) 850i, BMW; (MORR) 850 Series, Morris; (VOLV) 850 Series, Volvo
+TF|(MG) TF Series, MG
+CYL|Motorcycles
+328|(BMW) 328is, BMW; (FERR) 328, Ferrari
+535|(BMW) 535 Series, BMW
+LAS|(CHRY) Laser, Chrysler; (FORD) Laser (foreign and Puerto Rican distribution only), Ford (see English, French, German, and Italian Ford); (PLYM) Laser, Plymouth
+CHK|(JEEP) Cherokee, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) Cherokee, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) Cherokee, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+ABV|(AVTI) Series B, Avanti
+F40|(FERR) F40, Ferrari
+ISA|(BORG) Isabella, Borgward
+ALR|(BUIC) Allure, Buick
+760|(VOLV) 760, Volvo; (BMW) 760 LI, BMW ; (BMW) 760i, BMW
+V25|(DODG) Ram 2500 (van), Dodge
+CX7|(MAZD) CX7, Mazda
+BWD|(LINC) Blackwood, Lincoln
+MRL|(CREL) Merlin, Corbin Motors (electric vehicles)
+240|(MERZ) 240 Series, Mercedes-Benz; (NISS) 240SX, Nissan; (VOLV) 240 Series, Volvo
+MII|(MORR) Mini Series, Morris; (TOYT) Mark II, Toyota
+ENC|(AMER) Encore, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (BUIC) Enclave, Buick
+HON|(DATS) Honey Bee, Datsun
+NAV|(LINC) Navigator, Lincoln-Continental; (MAZD) Navajo, Mazda
+HAN|(BORG) Hansa, Borgward
+DAK|(JEEP) Dakar, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) Dakar, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) Dakar, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (DODG) Dakota, Dodge
+200|L200
+SKW|(SNOW) Skis and Wheels, Snowmobiles
+RAV|(TOYT) RAV4 (sport utility), Toyota
+ATL|(ACUR) TL, Acura
+E55|(MERZ) E55, Mercedes-Benz; (FORD) Econoline E-550, Ford
+ML5|(MERZ) ML55, Mercedes-Benz
+PRK|(BUIC) Park Avenue, Buick; (ROL) Park Ward, Rolls-Royce
+28|(BMW) 2.8, BMW
+GLE|(VOLV) GLE, Volvo
+CW2|(FORD) Club Wagon E250, Ford (see English, French, German, and Italian Ford)
+124|(FIAT) 124 Series, Fiat
+S43|(LEXS) SC430, Lexus; (MERZ) S430V, Mercedes-Benz
+PL4|(MORG) Plus 4 Series, Morgan
+GS3|(LEXS) GS300, Lexus
+SQU|(ENGF) Squire, English Ford (British); (FORD) Squire (Falcon or Fairlane), Ford (see English, French, German, and Italian Ford)
+LUM|(CHEV) Lumina, Chevrolet
+MIA|(MAZD) Miata (MX5), Merlot Mica (Miata), Mazda
+NUB|(DAEW) Nubira, Daewoo
+BER|(ALFA) Berlina, Alfa Romeo; (BORG) Beretta, Borgward; (CHEV) Beretta, Chevrolet; (LNCI) Berlina, Lancia; (SIM) Bertone, Simca
+KAL|(PANE) Killeta, Panther Westwinds, Ltd.
+610|(DATS) 610, Datsun
+BIT|(MASE) Biturbo, Maserati
+REK|(OPEL) Rekord, Opel (imported by Buick)
+R15|(DODG) Ram 1500 (pickup), Dodge; (RENA) R-15, Renault
+FOR|(SOLE) Force, Solectria; (SUBA) Forrester, Subaru; (SUZI) Forsa, Suzuki
+CVT|(CHEV) Corvette, Chevrolet
+FAB|(SKOD) Fabia, Skoda
+C43|(MERZ) C43, Mercedes-Benz
+100|(AUDI) 100, Audi; (AUHE) 100 Series, Austin-Healy; (DODG) A 100 Compact, Dodge; (ENGF) 100 E Series, English Ford (British); (NSU) 1000, Nsu Prinz; (SIM) 1000 & 1000GL, Simca; (SUBA) 100 Series, Subaru
+630|(BMW) 630csi, BMW
+RAD|Raider
+R5|(RENA) R-5, Renault
+EST|(BUIC) Estate Wagon, Buick; (CHEV) Estate Wagon, Chevrolet; (RENA) Estafette, Renault; (SUZI) Esteem, Suzuki
+WES|(AUST) Westminster, Austin
+LAF|(NASH) Lafayette, Nash
+SOR|(KIA) Sorrento, Kia
+RKY|(DAIH) Rocky, Daihatsu
+3TI|(BMW) 318ti, BMW
+INV|(ACAD) Invader Series, Acadian (GM of Canada); (BUIC) Invicta, Buick
+VIX|(TVR) Vixen, TVR
+96|(SAA) 96, Saab
+RX8|(MAZD) RX8, Mazda
+GRT|(SPEC) Go-Carts
+J20|(JEEP) J-20, Jeep (for vehicle years 1989 to present, use VMA/JEEP); (JEP) J-20, Jeep (for vehicle years prior to 1970, use VMA/JEP); (AMER) J-20, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER); (PONT) J2000, Pontiac
+940|(VOLV) 940, Volvo
+RLY|(GMC) Rally, General Motors Corp.; (SAT) Relay, Saturn
+LHS|(CHRY) LHS, Chrysler
+XJC|(JAGU) XJC, Jaguar
+CL|(ACUR) CL (sport coupe), Acura
+110|(AUST) 1100, Austin; (DATS) 110, Datsun; (FIAT) 1100 - D or R, Fiat; (MORR) 1100, Morris; (NSU) 110 Type, Nsu Prinz; (SUBA) 1100 Series, Subaru
+BAR|(FERR) Barchetta (or F130), F130 (Barchetta), Ferrari; (PLYM) Barracuda, Plymouth
+45|(ROV) Rover 45, Rover
+MDX|(ACUR) MDX, Acura
+645|(BMW) 645, BMW
+L45|(LEXS) LX450 (luxury sport utility), Lexus
+RS4|RS4
+GIU|(ALFA) Giulia, Alfa Romeo
+CRK|(PLYM) Cricket (imported), Plymouth
+FIR|(VAUX) Firenza, Vauxhall
+CUS|(IMPE) Custom, Imperial (for vehicle years 1955-1983, use VMA/IMPE; for vehicle years prior to 1955 and vehicle years 1990-1993, see make Chrysler); (CHEC) Custom, Checker; (DESO) Custom, DeSoto; (FORD) Custom, Ford (see English, French, German, and Italian Ford); (LINC) Custom, Lincoln-Continental; (MERC) Custom, Mercury; (OLDS) Custom, Oldsmobile; (PONT) Custom, Pontiac; (RAMB) Custom, Rambler (mfd. prior to 1966; 1966 and later Ramblers - see make American Motors)
+LS6|(LINC) LS6, Lincoln-Continental
+KR1|(MESS) KR201, Messerschmitt
+G47|(LEXS) GX470, Lexus
+MIR|(DODG) Mirada, Dodge; (MITS) Mirage, Mitsubishi
+JET|(HUDS) Jet, Hudson; (AERO) Jet Propelled; (MUNT) Jet, Muntz; (VOLK) Jetta, Volkswagen
+HGH|(TOYT) Highlander (beginning vehicle year 2001), Toyota
+MPV|(MAZD) MPV, Mazda
+FIT|Fit
+SPY|Spyder
+LEC|(RENA) Le Car, Renault
+SHM|(MASE) Shamal, Maserati
+CAN|(ACAD) Canso Series, Acadian (GM of Canada)
+XR4|(MERK) XR4Ti, Merkur
+308|(FERR) 308, Ferrari
+GST|(BEJE) Gang Star, Beijing Jeep
+AZU|(BENT) Azure, Bentley
+XA|(SCIO) XA, Scion
+PUR|(PONT) Pursuit, Pontiac
+MK6|(LINC) Mark VI, Lincoln-Continental
+405|(PEUG) 405, Peugeot
+SLV|(CHEV) Silverado, Chevrolet
+164|(ALFA) 164, Alfa Romeo; (VOLV) 164 Series, Volvo
+810|(DATS) 810, Datsun
+BRO|(BENT) Brooklands, Bentley; (CADI) Brougham, Cadillac; (FORD) Bronco/Bronco II, Ford (see English, French, German, and Italian Ford); (MERC) Brougham, Mercury
+V90|(VOLV) V90, Volvo
+SAF|(GMC) Safari, General Motors Corp.; (PONT) Safari, Pontiac
+JTF|(OLDS) Jetfire, Oldsmobile
+NEW|(CHRY) Newport, Chrysler
+TBR|(BENT) Turbo R, Bentley
+AXX|(NISS) Axxess, Nissan
+TR7|(TRIU) TR7, Triumph
+VIP|(DODG) Viper, Dodge; (PLYM) Vip, Plymouth
+DIP|(DODG) Diplomat, Dodge
+61|(CADI) 61 Series, Cadillac
+ALI|(AMER) Alliance, American Motors (see make Rambler for Ramblers mfd. prior to 1966), Jeep (for vehicle years 1970-1988, use VMA/AMER)
+LN7|(MERC) LN7, Mercury
+AS4|(AUDI) S4, Audi
+GMQ|Grand Marquis
+MR2|(TOYT) MR2, Toyota
