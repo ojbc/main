@@ -218,7 +218,7 @@
 			</Export-Package>
 	        <Require-Bundle>
 	        	org.apache.cxf.bundle, 
-	        	org.ojbc.util.ojb-common, 
+	        	org.ojbc.bundles.shared.ojb-common,
 	        	org.ojbc.bundles.shared.OJB_Resources
 	        </Require-Bundle>	      
 	        <Bundle-Activator>org.apache.camel.impl.osgi.Activator</Bundle-Activator>
