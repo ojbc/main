@@ -3,10 +3,9 @@ package org.ojbc.intermediaries.sn.subscription;
 import java.util.Arrays;
 import java.util.List;
 
-import org.ojbc.intermediaries.sn.util.EmailAddressValidatorResponse;
-import org.ojbc.validator.EmailValidator;
-
 import org.apache.commons.lang.StringUtils;
+import org.ojbc.intermediaries.sn.util.EmailAddressValidatorResponse;
+import org.ojbc.util.validator.EmailValidator;
 
 public class EmailAddressPatternValidator {
 
