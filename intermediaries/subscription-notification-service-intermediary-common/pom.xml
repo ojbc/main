@@ -15,7 +15,8 @@
 		<jodatime-version>1.6.2</jodatime-version>
 		<commons-lang-version>2.4</commons-lang-version>
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
-		<ojbc-utilities-version>[1.0.22,)</ojbc-utilities-version>
+		<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
+		<ojb-common-version>[2.0.0,)</ojb-common-version>
 		<ojbc-niem-dom-utilities-version>1.0.2</ojbc-niem-dom-utilities-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<slf4j-version>1.6.4</slf4j-version>
@@ -60,8 +61,14 @@
 		<!-- OJB Shared Bundles -->
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>OJB_Utilities</artifactId>
-			<version>${ojbc-utilities-version}</version>
+			<artifactId>ojb-camel-common</artifactId>
+			<version>${ojb-camel-common-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-common</artifactId>
+			<version>${ojb-common-version}</version>
 		</dependency>
 
 		<dependency>

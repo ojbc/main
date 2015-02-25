@@ -1,16 +1,15 @@
 package org.ojbc.intermediaries.sn.subscription;
 
-import org.ojbc.intermediaries.sn.exception.InvalidEmailAddressesException;
-import org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException;
-import org.ojbc.intermediaries.sn.exception.InvalidTopicException;
-import org.ojbc.intermediaries.sn.util.FaultMessageBuilderUtil;
-import org.ojbc.util.OJBUtils;
-
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapFault;
+import org.ojbc.intermediaries.sn.exception.InvalidEmailAddressesException;
+import org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException;
+import org.ojbc.intermediaries.sn.exception.InvalidTopicException;
+import org.ojbc.intermediaries.sn.util.FaultMessageBuilderUtil;
+import org.ojbc.util.camel.helper.OJBUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

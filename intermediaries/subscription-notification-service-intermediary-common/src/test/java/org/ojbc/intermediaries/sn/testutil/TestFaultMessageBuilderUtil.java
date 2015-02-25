@@ -18,7 +18,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.util.FaultMessageBuilderUtil;
-import org.ojbc.util.OJBUtils;
+import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.IEPDResourceResolver;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
