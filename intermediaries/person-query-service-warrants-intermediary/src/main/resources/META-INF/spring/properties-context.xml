@@ -12,7 +12,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 	
-	<util:properties id="classpathProperties" location="classpath:person-query-service-warrants-intermediary.cfg" />
+	<util:properties id="classpathProperties" location="classpath:person_query_service_warrants_intermediary.cfg" />
 
 	<util:properties id="contextProperties"/>
 

@@ -31,7 +31,7 @@
 	</bean>
 	
 	<bean id="wsAddressReplyToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="systemIdentifierToDescriptorMap" />
+		<constructor-arg name="beanName" value="wsAddressReplyToEndpointMap" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<util:map map-class="java.util.HashMap">
@@ -41,7 +41,7 @@
 	</bean>	
 	
 	<bean id="federatedQueryURIToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="systemIdentifierToDescriptorMap" />
+		<constructor-arg name="beanName" value="federatedQueryURIToEndpointMap" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<util:map map-class="java.util.HashMap">
@@ -54,7 +54,7 @@
 		<constructor-arg name="beanName" value="adapterURItoAddressMap" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context" />
 		<constructor-arg name="defaultObject">
-			<util:map map-class="java.util.HashMap">
+			<util:map>
 				<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants" value="${federatedQuery.warrants.personQueryWarrantsEndpoint}" />
 			</util:map>
 		</constructor-arg>
