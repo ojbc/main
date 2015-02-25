@@ -350,9 +350,9 @@
 		<constructor-arg index="0" value="Invalid topic in message." />
 	</bean>
 
-	<bean id="accessControlProcessor" class="org.ojbc.processor.accesscontrol.AccessControlProcessor" />
+	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
 
-	<bean id="sendEmailNotificationsByConfigurationProcessor" class="org.ojbc.processor.BooleanPropertyWrapper">
+	<bean id="sendEmailNotificationsByConfigurationProcessor" class="org.ojbc.util.model.BooleanPropertyWrapper">
 		<property name="booleanProperty" value="${publishSubscribe.sendEmailNotifications}" />
 	</bean>
   

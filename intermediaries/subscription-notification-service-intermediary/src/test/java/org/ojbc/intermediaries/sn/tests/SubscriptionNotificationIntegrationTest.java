@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.notification.filter.DuplicateNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
-import org.ojbc.processor.BooleanPropertyWrapper;
+import org.ojbc.util.model.BooleanPropertyWrapper;
 import org.subethamail.wiser.WiserMessage;
 
 public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {

@@ -28,7 +28,7 @@
 		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.processor.audit.NullObjectLoggingProcessor" />
+			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />
 		</constructor-arg>
 	</bean>
 
