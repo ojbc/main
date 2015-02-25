@@ -253,8 +253,8 @@
 						</Export-Package>
 						<Require-Bundle>
 							org.apache.cxf.bundle,
-							org.ojbc.util.ojb-common,
-							org.ojbc.util.ojb-camel-common,
+							org.ojbc.bundles.shared.ojb-common,
+							org.ojbc.bundles.shared.ojb-camel-common,
 							org.ojbc.bundles.shared.OJB_Resources,
 							org.ojbc.bundles.adapters.static-mock-adapter-osgi
 	        </Require-Bundle>
