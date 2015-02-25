@@ -211,7 +211,7 @@
 		
 	</routeContext>
 	
-	<bean id="messageProcessor" class="org.ojbc.processor.MessageProcessor" />
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	<bean id="subscriptionSAMLTokenProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSAMLTokenProcessor" />
 	
 	<bean id="subscriptionSearchErrorProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchErrorProcessor" />	
