@@ -8,6 +8,6 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        ">
 
-	<ctx:property-placeholder location="classpath:Criminal_Identification_Intermediary.cfg"/>
+	<ctx:property-placeholder location="classpath:criminal_identification_service_intermediary.cfg"/>
 		
 </beans>
