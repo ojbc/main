@@ -255,7 +255,7 @@
 							org.apache.cxf.bundle,
 							org.ojbc.bundles.shared.ojb-common,
 							org.ojbc.bundles.shared.ojb-camel-common,
-							org.ojbc.bundles.shared.ojb-resources-camel-common,
+							org.ojbc.bundles.shared.ojb-resources-common,
 							org.ojbc.bundles.adapters.static-mock-adapter-osgi
 	        </Require-Bundle>
 						<Bundle-Activator>org.apache.camel.impl.osgi.Activator</Bundle-Activator>
