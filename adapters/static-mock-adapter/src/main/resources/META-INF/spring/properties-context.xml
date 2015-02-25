@@ -16,7 +16,7 @@
 		<property name="propertiesArray">
 			<array>
 				<!-- .cfg file must be in smx/etc prior to deploying bundle -->
-				<osgix:cm-properties id="osgiProperties" persistent-id="Static_Mock_Adapter" />
+				<osgix:cm-properties id="osgiProperties" persistent-id="static_mock_adapter" />
 			</array>
 		</property>
 	</bean>

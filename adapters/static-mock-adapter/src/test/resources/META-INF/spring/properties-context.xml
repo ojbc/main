@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 
-	<ctx:property-placeholder location="classpath:Static_Mock_Adapter.cfg" />
+	<ctx:property-placeholder location="classpath:static_mock_adapter.cfg" />
 	
 	<util:properties id="springProperties">
 		<prop key="dbAuditLog">${genericMockAdapter.dbAuditLog}</prop>
