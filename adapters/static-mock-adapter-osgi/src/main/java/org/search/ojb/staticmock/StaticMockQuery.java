@@ -10,15 +10,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.Years;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
 import org.joda.time.format.ISODateTimeFormat;
-
-import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -36,7 +33,14 @@ public class StaticMockQuery {
     private static final String WARRANT_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/Warrant";
     private static final String INCIDENT_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/Incident";
     private static final String FIREARM_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/FirearmRegistration";
-
+    
+    private static final String JUVENILE_CASEPLAN_SAMPLES_DIRECTORY = "static-instances/JuvenileCasePlan";
+    private static final String JUVENILE_HISTORY_SAMPLES_DIRECTORY = "static-instances/JuvenileHistory";
+    private static final String JUVENILE_INTAKE_SAMPLES_DIRECTORY = "static-instances/JuvenileIntake";
+    private static final String JUVENILE_OFFENSE_SAMPLES_DIRECTORY = "static-instances/JuvenileOffense";
+    private static final String JUVENILE_PLACEMENT_SAMPLES_DIRECTORY = "static-instances/JuvenilePlacement";
+    private static final String JUVENILE_REFERRAL_SAMPLES_DIRECTORY = "static-instances/JuvenileReferral";
+    
     static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 
     public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History";
@@ -53,23 +57,109 @@ public class StaticMockQuery {
     public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByPerson";
     public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByFirearm";;
 
+    public static final String JUVENILE_CASE_PLAN_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanRequest";
+    public static final String JUVENILE_HEARING_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingRequest";
+    public static final String JUVENILE_INTAKE_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeRequest";
+    public static final String JUVENILE_OFFENSE_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseRequest";
+    public static final String JUVENILE_PLACEMENT_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementRequest";
+    public static final String JUVENILE_REFERRAL_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralRequest";
+    	
+    
     private ClasspathXmlDataSource criminalHistoryDataSource;
     private ClasspathXmlDataSource warrantDataSource;
     private ClasspathXmlDataSource incidentDataSource;
     private ClasspathXmlDataSource firearmRegistrationDataSource;
+    
+    private ClasspathXmlDataSource juvenileCasePlanDataSource;
+    private ClasspathXmlDataSource juvenileHistoryDataSource;
+    private ClasspathXmlDataSource juvenileIntakeDataSource;
+    private ClasspathXmlDataSource juvenileOffenseDataSource;
+    private ClasspathXmlDataSource juvenilePlacementDataSource;
+    private ClasspathXmlDataSource juvenileReferralDataSource;
 
     public StaticMockQuery() {
-        this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, FIREARM_PRODUCTION_SAMPLES_DIRECTORY);
+        this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, FIREARM_PRODUCTION_SAMPLES_DIRECTORY,
+        	JUVENILE_CASEPLAN_SAMPLES_DIRECTORY, JUVENILE_HISTORY_SAMPLES_DIRECTORY,JUVENILE_INTAKE_SAMPLES_DIRECTORY,JUVENILE_OFFENSE_SAMPLES_DIRECTORY,
+        JUVENILE_PLACEMENT_SAMPLES_DIRECTORY,JUVENILE_REFERRAL_SAMPLES_DIRECTORY);
     }
 
     StaticMockQuery(String criminalHistorySampleInstanceDirectoryRelativePath, String warrantSampleInstanceDirectoryRelativePath, String incidentSampleInstanceDirectoryRelativePath,
-            String firearmSampleInstanceDirectoryRelativePath) {
+            String firearmSampleInstanceDirectoryRelativePath, String juvenileCasePlanSampleInstanceDirectoryRelativePath, 
+            String juvenileHistorySampleInstanceDirectoryRelativePath, String juvenileIntakeSampleInstanceDirectoryRelativePath, String juvenileOffenseSampleInstanceDirectoryRelativePath, 
+            String juvenilePlacementSampleInstanceDirectoryRelativePath, String juvenileReferralSampleInstanceDirectoryRelativePath) {
         criminalHistoryDataSource = new ClasspathXmlDataSource(criminalHistorySampleInstanceDirectoryRelativePath);
         warrantDataSource = new ClasspathXmlDataSource(warrantSampleInstanceDirectoryRelativePath);
         incidentDataSource = new ClasspathXmlDataSource(incidentSampleInstanceDirectoryRelativePath);
         firearmRegistrationDataSource = new ClasspathXmlDataSource(firearmSampleInstanceDirectoryRelativePath);
+
+        juvenileCasePlanDataSource = new ClasspathXmlDataSource(juvenileCasePlanSampleInstanceDirectoryRelativePath);
+        juvenileHistoryDataSource= new ClasspathXmlDataSource(juvenileHistorySampleInstanceDirectoryRelativePath);
+        juvenileIntakeDataSource= new ClasspathXmlDataSource(juvenileIntakeSampleInstanceDirectoryRelativePath);
+        juvenileOffenseDataSource= new ClasspathXmlDataSource(juvenileOffenseSampleInstanceDirectoryRelativePath);
+        juvenilePlacementDataSource= new ClasspathXmlDataSource(juvenilePlacementSampleInstanceDirectoryRelativePath);
+        juvenileReferralDataSource= new ClasspathXmlDataSource(juvenileReferralSampleInstanceDirectoryRelativePath);       
     }
 
+    /**
+     * Get the total number of available juvenile case plan documents.
+     * 
+     * @return the document count
+     * @throws Exception
+     */
+    public int getJuvenileCasePlanDocumentCount() throws Exception {
+        return juvenileCasePlanDataSource.getDocuments().size();
+    }
+
+    /**
+     * Get the total number of available juvenile case plan documents.
+     * 
+     * @return the document count
+     * @throws Exception
+     */
+    public int getJuvenileHistoryDocumentCount() throws Exception {
+        return juvenileHistoryDataSource.getDocuments().size();
+    }
+    
+    /**
+     * Get the total number of available juvenile case plan documents.
+     * 
+     * @return the document count
+     * @throws Exception
+     */
+    public int getJuvenileIntakeDocumentCount() throws Exception {
+        return juvenileIntakeDataSource.getDocuments().size();
+    }
+    
+    /**
+     * Get the total number of available juvenile case plan documents.
+     * 
+     * @return the document count
+     * @throws Exception
+     */
+    public int getJuvenileOffenseDocumentCount() throws Exception {
+        return juvenileOffenseDataSource.getDocuments().size();
+    }
+    
+    /**
+     * Get the total number of available juvenile case plan documents.
+     * 
+     * @return the document count
+     * @throws Exception
+     */
+    public int getJuvenilePlacementDocumentCount() throws Exception {
+        return juvenilePlacementDataSource.getDocuments().size();
+    }
+    
+    /**
+     * Get the total number of available juvenile case plan documents.
+     * 
+     * @return the document count
+     * @throws Exception
+     */
+    public int getJuvenileReferralDocumentCount() throws Exception {
+        return juvenileReferralDataSource.getDocuments().size();
+    }    
+    
     /**
      * Get the total number of available criminal history documents.
      * 

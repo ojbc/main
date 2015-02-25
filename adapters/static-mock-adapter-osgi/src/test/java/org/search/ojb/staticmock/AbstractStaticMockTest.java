@@ -28,7 +28,10 @@ public abstract class AbstractStaticMockTest {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         documentBuilder = dbf.newDocumentBuilder();
-        staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", "XpathTestSamples/FirearmRegistration");
+        staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", "XpathTestSamples/FirearmRegistration",
+        		"XpathTestSamples/JuvenileCasePlan", "XpathTestSamples/JuvenileHistory", "XpathTestSamples/JuvenileIntake", "XpathTestSamples/JuvenileOffense","XpathTestSamples/JuvenilePlacement",
+        		"XpathTestSamples/JuvenileReferral"
+        );
     }
 
     protected Document buildBasePersonSearchRequestMessagePersonNameOnly(String systemId) throws Exception {
