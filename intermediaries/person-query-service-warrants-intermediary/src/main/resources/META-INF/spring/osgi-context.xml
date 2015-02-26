@@ -29,7 +29,7 @@
 	<util:list id="propertiesList">
 		<ref bean="classpathProperties"/>
 		<ref bean="contextProperties"/>
-		<osgix:cm-properties id="osgiProperties" persistent-id="person-query-service-warrants-intermediary"/>
+		<osgix:cm-properties id="osgiProperties" persistent-id="person_query_service_warrants_intermediary"/>
 		<ref bean="derivedBundleOsgiProperties"/>
 	</util:list>
 	
