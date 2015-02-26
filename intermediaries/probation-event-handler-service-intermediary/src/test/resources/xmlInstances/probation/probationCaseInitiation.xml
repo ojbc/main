@@ -1,0 +1,88 @@
+<pci:ProbationCaseInitiation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProbationCaseInitiation/1.0 ../../../../../../OJB_Resources/src/main/resources/service-specifications/Probation_Event_Handler_Service/schema/information/Probation_Case-IEPD/xsd/Probation_Case_Initiation.xsd"
+ xmlns:pci="http://ojbc.org/IEPD/Exchange/ProbationCaseInitiation/1.0"
+ xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0">
+      <pcext:ProbationCase>
+	      <pcext:CourtCase xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0">
+	         <nc20:CaseDocketID xmlns:nc20="http://niem.gov/niem/niem-core/2.0">9999</nc20:CaseDocketID>
+	         <jxdm41:CaseAugmentation xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
+	            <jxdm41:CaseCharge>
+	               <jxdm41:ChargeDisposition>
+	                  <nc20:DispositionDate xmlns:nc20="http://niem.gov/niem/niem-core/2.0">
+	                     <nc20:Date>2012-04-29</nc20:Date>
+	                  </nc20:DispositionDate>
+	               </jxdm41:ChargeDisposition>
+	               <jxdm41:ChargeStatute>
+	                  <jxdm41:StatuteCodeIdentification>
+	                     <nc20:IdentificationID xmlns:nc20="http://niem.gov/niem/niem-core/2.0">CHARGE123</nc20:IdentificationID>
+	                  </jxdm41:StatuteCodeIdentification>
+	               </jxdm41:ChargeStatute>
+	            </jxdm41:CaseCharge>
+	         </jxdm41:CaseAugmentation>
+	      </pcext:CourtCase>
+	      <pcext:Supervision xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0">
+	         <nc20:SupervisionPersonStatus xmlns:nc20="http://niem.gov/niem/niem-core/2.0">
+	            <nc20:StatusText>01</nc20:StatusText>
+	         </nc20:SupervisionPersonStatus>
+	         <nc20:SupervisionSupervisor xmlns:nc20="http://niem.gov/niem/niem-core/2.0">
+	            <nc20:EntityOrganization>
+	               <nc20:OrganizationIdentification>
+	                  <nc20:IdentificationID>1G</nc20:IdentificationID>
+	               </nc20:OrganizationIdentification>
+	            </nc20:EntityOrganization>
+	            <nc20:EntityPerson xmlns:s="http://niem.gov/niem/structures/2.0" s:id="d3e12212">
+	               <nc20:PersonName>
+	                  <nc20:PersonGivenName>SupGiven</nc20:PersonGivenName>
+	                  <nc20:PersonMiddleName>SupMiddle</nc20:PersonMiddleName>
+	                  <nc20:PersonSurName>SupSur</nc20:PersonSurName>
+	               </nc20:PersonName>
+	               <nc20:PersonOtherIdentification>
+	                  <nc20:IdentificationID>999</nc20:IdentificationID>
+	                  <nc20:IdentificationCategoryText>Enforcement Official Badge ID</nc20:IdentificationCategoryText>
+	               </nc20:PersonOtherIdentification>
+	            </nc20:EntityPerson>
+	         </nc20:SupervisionSupervisor>
+	         <jxdm41:SupervisionAugmentation xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
+	            <jxdm41:SupervisionAssignedTerm>
+	               <nc20:ActivityDateRange xmlns:nc20="http://niem.gov/niem/niem-core/2.0">
+	                  <nc20:StartDate>
+	                     <nc20:Date>2012-01-29</nc20:Date>
+	                  </nc20:StartDate>
+	               </nc20:ActivityDateRange>
+	            </jxdm41:SupervisionAssignedTerm>
+	            <jxdm41:SupervisionLevelText>10</jxdm41:SupervisionLevelText>
+	         </jxdm41:SupervisionAugmentation>
+	         <pcext:Probationer xmlns:s="http://niem.gov/niem/structures/2.0" s:id="d3e12163">
+	            <nc20:PersonBirthDate xmlns:nc20="http://niem.gov/niem/niem-core/2.0">
+	               <nc20:Date>1990-12-15</nc20:Date>
+	            </nc20:PersonBirthDate>
+	            <nc20:PersonName xmlns:nc20="http://niem.gov/niem/niem-core/2.0">
+	               <nc20:PersonGivenName>Given</nc20:PersonGivenName>
+	               <nc20:PersonMiddleName>Middle</nc20:PersonMiddleName>
+	               <nc20:PersonSurName>Sur</nc20:PersonSurName>
+	            </nc20:PersonName>
+	            <nc20:PersonRaceText xmlns:nc20="http://niem.gov/niem/niem-core/2.0">U</nc20:PersonRaceText>
+	            <nc20:PersonSexCode xmlns:nc20="http://niem.gov/niem/niem-core/2.0">M</nc20:PersonSexCode>
+	            <nc20:PersonSSNIdentification xmlns:nc20="http://niem.gov/niem/niem-core/2.0">
+	               <nc20:IdentificationID>999999999</nc20:IdentificationID>
+	            </nc20:PersonSSNIdentification>
+	            <jxdm41:PersonAugmentation xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
+	               <jxdm41:PersonStateFingerprintIdentification>
+	                  <nc20:IdentificationID xmlns:nc20="http://niem.gov/niem/niem-core/2.0">A1234567</nc20:IdentificationID>
+	               </jxdm41:PersonStateFingerprintIdentification>
+	            </jxdm41:PersonAugmentation>
+	         </pcext:Probationer>
+	         <pcext:SupervisionIdentification>
+	            <nc20:IdentificationID xmlns:nc20="http://niem.gov/niem/niem-core/2.0">999999</nc20:IdentificationID>
+	         </pcext:SupervisionIdentification>
+	      </pcext:Supervision>
+	      <nc20:ContactInformation xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" s:id="emaild3e12212">
+	         <nc20:ContactEmailID>officer.email@local.gov</nc20:ContactEmailID>
+	      </nc20:ContactInformation>
+	      <nc20:PersonContactInformationAssociation xmlns:nc20="http://niem.gov/niem/niem-core/2.0">
+	         <nc20:PersonReference xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="d3e12212"/>
+	         <nc20:ContactInformationReference xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="emaild3e12212"/>
+	      </nc20:PersonContactInformationAssociation>
+      </pcext:ProbationCase>
+      <pcext:SystemName>systemUri</pcext:SystemName>
+   </pci:ProbationCaseInitiation>
