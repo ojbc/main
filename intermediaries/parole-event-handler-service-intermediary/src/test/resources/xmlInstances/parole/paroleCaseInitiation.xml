@@ -1,0 +1,211 @@
+<p:ParoleCaseInitiation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0 ../../../../../../OJB_Resources_Vermont/src/main/resources/service-specifications/Parole_Event_Handler_Service/schema/information/Parole_Case-IEPD/xsd/Parole_Case_Initiation.xsd"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:Q2="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:p="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
+
+	<ParoleCase xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0">
+		<ParoleeIdentity xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"
+			xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="PersonAlias1">
+			<IdentityPersonRepresentation xmlns="http://niem.gov/niem/niem-core/2.0">
+				<PersonName>
+					<PersonGivenName>BILL</PersonGivenName>
+					<PersonMiddleName>L</PersonMiddleName>
+					<PersonSurName>SMITH</PersonSurName>
+				</PersonName>
+			</IdentityPersonRepresentation>
+		</ParoleeIdentity>
+		<ParoleeIdentity xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"
+			xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="PersonAlias2">
+			<IdentityPersonRepresentation xmlns="http://niem.gov/niem/niem-core/2.0">
+				<PersonName>
+					<PersonGivenName>BILL</PersonGivenName>
+					<PersonMiddleName>LION</PersonMiddleName>
+					<PersonSurName>SMITH</PersonSurName>
+				</PersonName>
+			</IdentityPersonRepresentation>
+		</ParoleeIdentity>
+		<ParoleeIdentity xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"
+			xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="PersonAlias3">
+			<IdentityPersonRepresentation xmlns="http://niem.gov/niem/niem-core/2.0">
+				<PersonName>
+					<PersonGivenName>BILL</PersonGivenName>
+					<PersonMiddleName>LIGHT</PersonMiddleName>
+					<PersonSurName>SMITHSON</PersonSurName>
+				</PersonName>
+			</IdentityPersonRepresentation>
+		</ParoleeIdentity>
+		<ParoleeIdentity xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"
+			xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="PersonAlias4">
+			<IdentityPersonRepresentation xmlns="http://niem.gov/niem/niem-core/2.0">
+				<PersonName>
+					<PersonGivenName>BILL</PersonGivenName>
+					<PersonMiddleName>L</PersonMiddleName>
+					<PersonSurName>SMITHY</PersonSurName>
+				</PersonName>
+			</IdentityPersonRepresentation>
+		</ParoleeIdentity>
+		<ParoleeIdentity xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"
+			xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="PersonAlias5">
+			<IdentityPersonRepresentation xmlns="http://niem.gov/niem/niem-core/2.0">
+				<PersonName>
+					<PersonGivenName>BILL</PersonGivenName>
+					<PersonMiddleName>JAMES</PersonMiddleName>
+					<PersonSurName>SABRE</PersonSurName>
+				</PersonName>
+			</IdentityPersonRepresentation>
+		</ParoleeIdentity>
+		<ParoleeIdentity xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"
+			xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="PersonAlias6">
+			<IdentityPersonRepresentation xmlns="http://niem.gov/niem/niem-core/2.0">
+				<PersonName>
+					<PersonSurName>CASH</PersonSurName>
+				</PersonName>
+			</IdentityPersonRepresentation>
+		</ParoleeIdentity>
+		<ParoleeIdentity xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"
+			xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="PersonAlias7">
+			<IdentityPersonRepresentation xmlns="http://niem.gov/niem/niem-core/2.0">
+				<PersonName>
+					<PersonGivenName>LIGHT</PersonGivenName>
+					<PersonSurName>LION</PersonSurName>
+				</PersonName>
+			</IdentityPersonRepresentation>
+		</ParoleeIdentity>
+		<ParoleHearing xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0">
+			<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+				<Date>2008-06-10</Date>
+			</ActivityDate>
+			<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0"/>
+		</ParoleHearing>
+		<ParoleHearing xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0">
+			<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+				<Date>2009-06-18</Date>
+			</ActivityDate>
+			<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0"/>
+		</ParoleHearing>
+		<ParoleHearing xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0">
+			<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+				<Date>2010-01-21</Date>
+			</ActivityDate>
+			<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0"/>
+		</ParoleHearing>
+		<ParoleHearing xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0">
+			<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+				<Date>2010-02-11</Date>
+			</ActivityDate>
+			<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0"/>
+		</ParoleHearing>
+		<ParoleHearing xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0">
+			<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+				<Date>2010-08-11</Date>
+			</ActivityDate>
+			<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0">rehab</ActivityDescriptionText>
+		</ParoleHearing>
+		<ParoleHearing xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0">
+			<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+				<Date>2013-10-02</Date>
+			</ActivityDate>
+			<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0"/>
+		</ParoleHearing>
+		<Supervision xmlns="http://niem.gov/niem/domains/jxdm/4.1">
+			<SupervisionRelease xmlns="http://niem.gov/niem/niem-core/2.0">
+				<ActivityDate>
+					<Date>2013-10-02</Date>
+				</ActivityDate>
+				<ActivityDescriptionText>Parole End Date</ActivityDescriptionText>
+			</SupervisionRelease>
+			
+			<SupervisionPerson xmlns="http://niem.gov/niem/niem-core/2.0"
+				xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="Person1">
+				<PersonBirthDate>
+					<Date>1973-05-13</Date>
+				</PersonBirthDate>
+				<PersonName>
+					<PersonGivenName>BILL</PersonGivenName>
+					<PersonMiddleName>LIGHT</PersonMiddleName>
+					<PersonSurName>SMITH</PersonSurName>
+				</PersonName>
+				<PersonSexCode>M</PersonSexCode>
+				<PersonSSNIdentification>
+					<IdentificationID>999999999</IdentificationID>
+				</PersonSSNIdentification>
+				<PersonStateIdentification>
+					<IdentificationID>A9999999</IdentificationID>
+				</PersonStateIdentification>
+			</SupervisionPerson>
+			
+			<SupervisionSupervisor xmlns="http://niem.gov/niem/niem-core/2.0">
+				<EntityOrganization>
+					<OrganizationName>Parole Authority</OrganizationName>
+				</EntityOrganization>
+				<EntityPerson xmlns:NS1="http://niem.gov/niem/structures/2.0"
+					NS1:id="ParoleOfficer1">
+					<PersonName>
+						<PersonFullName>OfficerLast, OfficerFirst</PersonFullName>
+					</PersonName>
+				</EntityPerson>
+			</SupervisionSupervisor>
+			
+			<SupervisionAugmentation>
+				<SupervisionAssignedTerm>
+					<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+						<Date>2010-09-15</Date>
+					</ActivityDate>
+					<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0">Parole
+						Start Date</ActivityDescriptionText>
+				</SupervisionAssignedTerm>
+			</SupervisionAugmentation>
+			
+		</Supervision>
+		<PersonAliasIdentityAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:ref="Person1"/>
+			<IdentityReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="PersonAlias1"/>
+		</PersonAliasIdentityAssociation>
+		<PersonAliasIdentityAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:ref="Person1"/>
+			<IdentityReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="PersonAlias2"/>
+		</PersonAliasIdentityAssociation>
+		<PersonAliasIdentityAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:ref="Person1"/>
+			<IdentityReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="PersonAlias3"/>
+		</PersonAliasIdentityAssociation>
+		<PersonAliasIdentityAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:ref="Person1"/>
+			<IdentityReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="PersonAlias4"/>
+		</PersonAliasIdentityAssociation>
+		<PersonAliasIdentityAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:ref="Person1"/>
+			<IdentityReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="PersonAlias5"/>
+		</PersonAliasIdentityAssociation>
+		<PersonAliasIdentityAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:ref="Person1"/>
+			<IdentityReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="PersonAlias6"/>
+		</PersonAliasIdentityAssociation>
+		<PersonAliasIdentityAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:ref="Person1"/>
+			<IdentityReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="PersonAlias7"/>
+		</PersonAliasIdentityAssociation>
+		<ContactInformation xmlns="http://niem.gov/niem/niem-core/2.0"
+			xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="paroleOfficerEmail1">
+			<ContactEmailID>officer_email@local.gov</ContactEmailID>
+		</ContactInformation>
+		<PersonContactInformationAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="ParoleOfficer1"/>
+			<ContactInformationReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="paroleOfficerEmail1"/>
+		</PersonContactInformationAssociation>
+	</ParoleCase>
+	<Q2:SystemName>{http://ojbc.org/ParoleCase/1.0}ParolingAuthority</Q2:SystemName>
+</p:ParoleCaseInitiation>

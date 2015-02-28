@@ -1,0 +1,102 @@
+<ParoleCaseTermination xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0 ../../../../../../OJB_Resources_Vermont/src/main/resources/service-specifications/Parole_Event_Handler_Service/schema/information/Parole_Case-IEPD/xsd/Parole_Case_Termination.xsd"
+ xmlns="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0">
+	<ParoleCase xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0">
+		<ParoleeIdentity xmlns:NS1="http://niem.gov/niem/structures/2.0"
+			NS1:id="PersonAlias1">
+			<IdentityPersonRepresentation xmlns="http://niem.gov/niem/niem-core/2.0">
+				<PersonName>
+					<PersonGivenName>JOE</PersonGivenName>
+					<PersonSurName> SMITH</PersonSurName>
+				</PersonName>
+			</IdentityPersonRepresentation>
+		</ParoleeIdentity>
+		<ParoleHearing>
+			<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+				<Date>2009-07-07</Date>
+			</ActivityDate>
+			<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0" />
+		</ParoleHearing>
+		<ParoleHearing>
+			<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+				<Date>2012-06-28</Date>
+			</ActivityDate>
+			<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0" />
+		</ParoleHearing>
+		<ParoleHearing>
+			<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+				<Date>2012-07-24</Date>
+			</ActivityDate>
+			<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0" />
+		</ParoleHearing>
+		<ParoleHearing>
+			<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+				<Date>2012-12-12</Date>
+			</ActivityDate>
+			<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0" />
+		</ParoleHearing>
+		<Supervision xmlns="http://niem.gov/niem/domains/jxdm/4.1">
+			<SupervisionFacility xmlns="http://niem.gov/niem/niem-core/2.0">
+				<FacilityName>AZSC</FacilityName>
+			</SupervisionFacility>
+			<SupervisionRelease xmlns="http://niem.gov/niem/niem-core/2.0">
+				<ActivityDate>
+					<Date>2013-06-30</Date>
+				</ActivityDate>
+				<ActivityDescriptionText>Parole End Date</ActivityDescriptionText>
+			</SupervisionRelease>
+			<SupervisionPerson xmlns="http://niem.gov/niem/niem-core/2.0"
+				xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="Person1">
+				<PersonBirthDate>
+					<Date>1986-04-10</Date>
+				</PersonBirthDate>
+				<PersonName>
+					<PersonGivenName>JOE</PersonGivenName>
+					<PersonSurName>SMITH</PersonSurName>
+				</PersonName>
+				<PersonSexCode>M</PersonSexCode>
+				<PersonStateIdentification>
+					<IdentificationID>A99999999</IdentificationID>
+				</PersonStateIdentification>
+			</SupervisionPerson>
+			<SupervisionSupervisor xmlns="http://niem.gov/niem/niem-core/2.0">
+				<EntityOrganization>
+					<OrganizationName>Parole Authority</OrganizationName>
+				</EntityOrganization>
+				<EntityPerson xmlns:NS1="http://niem.gov/niem/structures/2.0"
+					NS1:id="ParoleOfficer1">
+					<PersonName>
+						<PersonFullName>officerLast, officerFirst</PersonFullName>
+					</PersonName>
+				</EntityPerson>
+			</SupervisionSupervisor>
+			<SupervisionAugmentation>
+				<SupervisionAssignedTerm>
+					<ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
+						<Date>2013-01-03</Date>
+					</ActivityDate>
+					<ActivityDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0">Parole Start
+						Date</ActivityDescriptionText>
+				</SupervisionAssignedTerm>
+			</SupervisionAugmentation>
+		</Supervision>
+		<PersonAliasIdentityAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="Person1" />
+			<IdentityReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="PersonAlias1" />
+		</PersonAliasIdentityAssociation>
+		<ContactInformation xmlns="http://niem.gov/niem/niem-core/2.0"
+			xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="paroleOfficerEmail1">
+			<ContactEmailID>officer_email@local.gov</ContactEmailID>
+		</ContactInformation>
+		<PersonContactInformationAssociation
+			xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="ParoleOfficer1" />
+			<ContactInformationReference xmlns:NS1="http://niem.gov/niem/structures/2.0"
+				NS1:ref="paroleOfficerEmail1" />
+		</PersonContactInformationAssociation>
+	</ParoleCase>
+	<SystemName xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0">{http://ojbc.org/ParoleCase/1.0}ParolingAuthority</SystemName>
+</ParoleCaseTermination>

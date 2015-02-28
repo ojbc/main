@@ -14,9 +14,9 @@
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
 
 	<!-- OSGi service reference to the context service defined in the derived bundle -->
-	<osgi:reference id="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context"
+	<osgi:reference id="org.ojbc.bundles.intermediaries.probation-event-handler-service-intermediary-context"
 		interface="org.ojbc.util.osgi.OjbcContext"
-		bean-name="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context"/>
+		bean-name="org.ojbc.bundles.intermediaries.probation-event-handler-service-intermediary-context"/>
 
 	<!-- Properties list built from four components, in order of precedence:
 	
@@ -29,7 +29,7 @@
 	<util:list id="propertiesList">
 		<ref bean="classpathProperties"/>
 		<ref bean="contextProperties"/>
-		<osgix:cm-properties id="osgiProperties" persistent-id="person_query_service_warrants_intermediary"/>
+		<osgix:cm-properties id="osgiProperties" persistent-id="probation_event_handler_service_intermediary"/>
 		<ref bean="derivedBundleOsgiProperties"/>
 	</util:list>
 	
