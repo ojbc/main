@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:Subscribe xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+             xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+             xmlns:sm="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+             xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+             xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+             xmlns:add="http://www.w3.org/2005/08/addressing"
+             xmlns:topics="http://ojbc.org/wsn/topics">
+   <b:ConsumerReference>
+      <add:Address>http://www.ojbc.org/OJB/SubscribeNotify</add:Address>
+      <add:ReferenceParameters/>
+      <add:Metadata/>
+   </b:ConsumerReference>
+   <b:Filter>
+      <b:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">theTopic</b:TopicExpression>
+   </b:Filter>
+   <b:InitialTerminationTime/>
+   <b:SubscriptionPolicy/>
+   <sm:SubscriptionMessage>
+      <smext:Subject>
+         <nc20:PersonBirthDate>
+            <nc20:Date>1970-01-01</nc20:Date>
+         </nc20:PersonBirthDate>
+         <nc20:PersonName>
+            <nc20:PersonGivenName>Given</nc20:PersonGivenName>
+            <nc20:PersonSurName>Sur</nc20:PersonSurName>
+            <nc20:PersonFullName>Given Sur</nc20:PersonFullName>
+         </nc20:PersonName>
+         <jxdm41:PersonAugmentation>
+            <jxdm41:PersonStateFingerprintIdentification>
+               <nc20:IdentificationID>A9999999</nc20:IdentificationID>
+            </jxdm41:PersonStateFingerprintIdentification>
+         </jxdm41:PersonAugmentation>
+      </smext:Subject>
+      <nc20:ContactEmailID>officer.email@local.gov</nc20:ContactEmailID>
+      <smext:SystemName>systemUri</smext:SystemName>
+      <smext:SubscriptionQualifierIdentification>
+         <nc20:IdentificationID>999999</nc20:IdentificationID>
+      </smext:SubscriptionQualifierIdentification>
+      <nc20:DateRange>
+         <nc20:StartDate>
+            <nc20:Date>2013-04-26</nc20:Date>
+         </nc20:StartDate>
+      </nc20:DateRange>
+   </sm:SubscriptionMessage>
+</b:Subscribe>
