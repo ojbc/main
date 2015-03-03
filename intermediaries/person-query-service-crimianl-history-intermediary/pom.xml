@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.ojbc.bundles.intermediaries</groupId>
-  <artifactId>person-query-service-warrants-intermediary</artifactId>
+  <artifactId>person-query-service-criminal-history-intermediary</artifactId>
   <packaging>bundle</packaging>
   <version>1.0.0</version>
 
-  <name>OJB :: person-query-service-warrants-intermediary :: intermediary</name>
+  <name>OJB :: person-query-service-criminal-history-intermediary :: intermediary</name>
   <url>http://www.search.org</url>
 
   <properties>
