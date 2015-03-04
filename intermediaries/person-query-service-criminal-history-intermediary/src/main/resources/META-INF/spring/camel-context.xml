@@ -19,7 +19,7 @@
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="person_query_service_criminal_history_intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="person-query-service-criminal-history-intermediary">
 	
 		<camel:propertyPlaceholder id="springPropertiesToLoad" location="ref:springProperties"/>
 	
