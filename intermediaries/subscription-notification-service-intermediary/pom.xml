@@ -4,11 +4,11 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.ojbc.bundles.intermediaries.sn</groupId>
+	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>subscription-notification-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
 	<version>1.0.0</version>
-	<name>OJB :: Subscription_Notification_Service_Intermediary :: Intermediary</name>
+	<name>OJB :: Subscription_Notification_Service_Intermediary :: intermediary</name>
 
 	<properties>
 		<spring.version>3.0.7.RELEASE</spring.version>
@@ -108,7 +108,7 @@
 
 		<!-- OJB Shared Bundles -->
 		<dependency>
-			<groupId>org.ojbc.bundles.intermediaries.sn</groupId>
+			<groupId>org.ojbc.bundles.intermediaries</groupId>
 			<artifactId>subscription-notification-service-intermediary-common</artifactId>
 			<version>${intermediary-common-version}</version>
 		</dependency>
