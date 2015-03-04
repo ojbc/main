@@ -20,7 +20,6 @@
 		<saxon-version>8.7</saxon-version>
 		<servlet-api-version>2.5</servlet-api-version>
 		<bouncycastle-version>140</bouncycastle-version>	
-		<ojbc-config-version>1.0.0</ojbc-config-version>
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
 		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
