@@ -12,7 +12,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 	
-	<util:properties id="classpathProperties" location="classpath:subscription-notification-service-intermediary.cfg" />
+	<util:properties id="classpathProperties" location="classpath:subscription_notification_service_intermediary.cfg" />
 
 	<util:properties id="contextProperties"/>
 

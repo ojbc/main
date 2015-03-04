@@ -29,7 +29,7 @@
 	<util:list id="propertiesList">
 		<ref bean="classpathProperties"/>
 		<ref bean="contextProperties"/>
-		<osgix:cm-properties id="osgiProperties" persistent-id="subscription-notification-service-intermediary"/>
+		<osgix:cm-properties id="osgiProperties" persistent-id="subscription_notification_service_intermediary"/>
 		<ref bean="derivedBundleOsgiProperties"/>
 	</util:list>
 	
