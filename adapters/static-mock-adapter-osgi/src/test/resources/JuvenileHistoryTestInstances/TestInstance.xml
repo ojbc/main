@@ -6,12 +6,12 @@
 	xmlns:jh-container="http://ojbc.org/staticmock/JuvenileHistoryContainer/1.0"
 	xmlns:jh-referral="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0"
 	xmlns:jh-offense="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/1.0"
-	xmlns:jh-placement="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0"
+	xmlns:jh-placement="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/1.0"
 	xmlns:jh-intake="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0"
 	xmlns:jh-hearing="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0"
 	xmlns:jh-case-plan="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0"
 	xmlns:jh-referral-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0"
-	xmlns:jh-offense-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/michigan/codes/1.0"
+	xmlns:jh-offense-codes="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/michigan/codes/1.0"
 	xmlns:jh-placement-codes="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/michigan/codes/1.0"
 	xmlns:jh-intake-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/michigan/codes/1.0"
 	xmlns:jh-hearing-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0"
@@ -118,10 +118,10 @@
 				<jh-referral-codes:ReferralIssuerCategoryCode>Prosecutor</jh-referral-codes:ReferralIssuerCategoryCode>
 				<nc30:OrganizationLocation>
 					<nc30:Address>
-						<LocationStreet />
+						<nc30:LocationStreet />
 						<nc30:LocationCityName>Lansing</nc30:LocationCityName>
 						<jxdm50:LocationStateNCICRESCode>MI(1)</jxdm50:LocationStateNCICRESCode>
-						<LocationPostalCode />
+						<nc30:LocationPostalCode />
 					</nc30:Address>
 				</nc30:OrganizationLocation>
 				<nc30:OrganizationName>Lansing Prosecuting Attorney</nc30:OrganizationName>
@@ -141,10 +141,10 @@
 				<jh-referral-codes:ReferralIssuerCategoryCode>Prosecutor</jh-referral-codes:ReferralIssuerCategoryCode>
 				<nc30:OrganizationLocation>
 					<nc30:Address>
-						<LocationStreet />
+						<nc30:LocationStreet />
 						<nc30:LocationCityName>Lansing</nc30:LocationCityName>
 						<jxdm50:LocationStateNCICRESCode>MI(1)</jxdm50:LocationStateNCICRESCode>
-						<LocationPostalCode />
+						<nc30:LocationPostalCode />
 					</nc30:Address>
 				</nc30:OrganizationLocation>
 				<nc30:OrganizationName>Lansing Prosecuting Attorney</nc30:OrganizationName>
@@ -269,7 +269,7 @@
 		</jh-intake:JuvenileAssessmentAugmentation>
 	</cyfs:JuvenileIntakeAssessment>
 	<cyfs:CourtCase>
-		<ActivityDate />
+		<nc30:ActivityDate />
 		<jxdm50:CaseAugmentation>
 			<jxdm50:CaseDefendantParty s30:ref="Child1" xsi:nil="true" />
 			<jxdm50:CaseHearing s30:id="Hearing1">
