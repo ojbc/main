@@ -7,10 +7,10 @@
   <modules>
     <module>criminal-identification-reporting-service-intermediary</module>
     <module>parole-event-handler-service-intermediary</module>
+    <module>person-query-service-criminal-history-intermediary</module>
     <module>person-query-service-warrants-intermediary</module>
     <module>probation-event-handler-service-intermediary</module>
     <module>subscription-notification-service-intermediary-common</module>
     <module>subscription-notification-service-intermediary</module>
-
   </modules>
 </project>
