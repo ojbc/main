@@ -34,7 +34,7 @@
 
 			<convertBodyTo type="java.lang.String" />
 
-			<!-- Multicast to the core services, we should get the original exchange when the multicast is complete -->
+			<!-- Multicast to the core services and member specific routes so each route gets original message -->
 			<camel:multicast>
 				<camel:pipeline>
 					<camel:filter>
@@ -45,9 +45,21 @@
 						<camel:to uri="direct:callNotificationBroker"/>
 						
 					</camel:filter>	
-				</camel:pipeline>		
+				</camel:pipeline>	
+				
+				<camel:pipeline>
+					<camel:to uri="direct:memberSpecificRoutes"/>
+				</camel:pipeline>
+					
 			</camel:multicast>
 			
+
+		</camel:route>		
+		
+		<camel:route id="memberSpecificRoutes">
+
+			<camel:from uri="direct:memberSpecificRoutes"/>
+		
 			<!-- Set up member specific endpoints -->
 			<camel:setHeader headerName="routingSlipJurisdiction"><simple>{{criminalHistoryUpdateReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
 
@@ -60,8 +72,10 @@
 					<camel:header>routingSlipJurisdiction</camel:header>
 				</camel:recipientList>
 			</camel:filter>			
+		
+		
+		</camel:route>
 
-		</camel:route>		
 
 	    <camel:route id="callNotificationBrokerRoute"> 
 			

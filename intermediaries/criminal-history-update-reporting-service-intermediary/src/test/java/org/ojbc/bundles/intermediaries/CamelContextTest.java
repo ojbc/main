@@ -165,17 +165,27 @@ public class CamelContextTest {
 		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
 		assertEquals("http://docs.oasis-open.org/wsn/brw-2", opNamespace);
 
-		Document returnDocument = ex.getIn().getBody(Document.class);
+		Document returnDocumentNotificationBroker = ex.getIn().getBody(Document.class);
 
 		//Do some very basic assertions to assure the message is transformed.
 		//The XSLT test does a more complete examination of the transformation.
-		Node notifyNode = XmlUtils.xPathNodeSearch(returnDocument, "/b-2:Notify");
+		Node notifyNode = XmlUtils.xPathNodeSearch(returnDocumentNotificationBroker, "/b-2:Notify");
 		Node notifyMesssageNode = XmlUtils.xPathNodeSearch(notifyNode, "b-2:NotificationMessage");
 		
 		Node messageNode = XmlUtils.xPathNodeSearch(notifyMesssageNode, "b-2:Message");
 		assertNotNull(messageNode);
-		
-		//XmlUtils.printNode(returnDocument);
+
+		//Get the first exchange (the only one) to the logger
+		//This is what would be sent to the member specific route
+		Exchange exMemberSpecific = loggingEndpoint.getExchanges().get(0);
+
+		Document returnDocumentMemberSpecific = exMemberSpecific.getIn().getBody(Document.class);
+
+		//Make sure the root node here is the message to the orignal exchange
+		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentMemberSpecific, "/crimhistory-update-exch:CycleTrackingIdentifierAssignmentReport");
+		assertNotNull(rootNode);
+
+		//XmlUtils.printNode(returnDocumentMemberSpecific);
     }
 
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
