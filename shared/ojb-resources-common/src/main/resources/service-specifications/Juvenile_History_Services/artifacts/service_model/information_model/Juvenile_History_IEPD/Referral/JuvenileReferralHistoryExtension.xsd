@@ -44,6 +44,7 @@
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="ext:ReferralCategoryRepresentation" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="cext:JuvenileInformationRecordID" minOccurs="1" maxOccurs="1"/>
 					<xsd:element ref="cext:RelatedJuvenileHistoryRecords" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
