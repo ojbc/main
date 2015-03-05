@@ -106,12 +106,16 @@
 			<ext:AssessmentIndicator>true</ext:AssessmentIndicator>
 			<ext:CasePlanIndicator>true</ext:CasePlanIndicator>
 			<ext:CasePlanAugmentation>
+				<cext:JuvenileInformationRecordID>
+					<IdentificationID>CasePlan1</IdentificationID>
+					<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory</IdentificationSourceText>
+				</cext:JuvenileInformationRecordID>
 				<cext:RelatedJuvenileHistoryRecords>
 						<cext:RelatedJuvenileHistoryRecord>
 							<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
 							<cext:JuvenileInformationRecordID>
-								<IdentificationID>1234567</IdentificationID>
-								<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OttawaHearingHistory</IdentificationSourceText>
+								<IdentificationID>Hearing1</IdentificationID>
+								<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</IdentificationSourceText>
 							</cext:JuvenileInformationRecordID>
 						</cext:RelatedJuvenileHistoryRecord>
 						<cext:RelatedJuvenileHistoryRecord>
@@ -125,6 +129,10 @@
 			<ext:AssessmentIndicator>false</ext:AssessmentIndicator>
 			<ext:CasePlanIndicator>true</ext:CasePlanIndicator>
 			<ext:CasePlanAugmentation>
+				<cext:JuvenileInformationRecordID>
+					<IdentificationID>CasePlan2</IdentificationID>
+					<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory</IdentificationSourceText>
+				</cext:JuvenileInformationRecordID>
 				<cext:RelatedJuvenileHistoryRecords>
 						<cext:RelatedJuvenileHistoryRecord>
 							<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>

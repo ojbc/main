@@ -118,6 +118,10 @@
 						<codes:HearingDispositionCode>Title IV-E language</codes:HearingDispositionCode>
 						<codes:HearingDispositionCode>Adjournment</codes:HearingDispositionCode>
 						<ext:ProbationViolationIndicator>false</ext:ProbationViolationIndicator>
+						<cext:JuvenileInformationRecordID>
+							<IdentificationID>Hearing1</IdentificationID>
+							<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</IdentificationSourceText>
+						</cext:JuvenileInformationRecordID>
 					</ext:CourtEventAugmentation>
 				</j:CaseHearing>
 				<j:CaseHearing structures:id="Hearing2">
@@ -129,12 +133,16 @@
 						<codes:HearingCategoryCode>Bench Trial</codes:HearingCategoryCode>
 						<codes:HearingDispositionCode>American Indian tribe or band notified</codes:HearingDispositionCode>
 						<ext:ProbationViolationIndicator>false</ext:ProbationViolationIndicator>
+						<cext:JuvenileInformationRecordID>
+							<IdentificationID>Hearing2</IdentificationID>
+							<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</IdentificationSourceText>
+						</cext:JuvenileInformationRecordID>
 						<cext:RelatedJuvenileHistoryRecords>
 							<cext:RelatedJuvenileHistoryRecord>
 								<cext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</cext:JuvenileHistoryCategoryCode>
 								<cext:JuvenileInformationRecordID>
-									<IdentificationID>1234567</IdentificationID>
-									<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OttawaOffenseHistory</IdentificationSourceText>
+									<IdentificationID>Offense1</IdentificationID>
+									<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</IdentificationSourceText>
 								</cext:JuvenileInformationRecordID>
 							</cext:RelatedJuvenileHistoryRecord>
 							<cext:RelatedJuvenileHistoryRecord>
