@@ -30,7 +30,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="cext:JuvenileHistoryType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CasePlan" maxOccurs="unbounded"/>
+					<xsd:element ref="ext:CasePlan" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
