@@ -118,6 +118,22 @@
 			<ext:JuvenileAssessmentAugmentation>
 				<codes:JuvenileIntakeAssessmentCategoryCode>Assessment</codes:JuvenileIntakeAssessmentCategoryCode>
 				<codes:JuvenileIntakeAssessmentCategoryCode>Interview</codes:JuvenileIntakeAssessmentCategoryCode>
+				<cext:RelatedJuvenileHistoryRecords>
+					<cext:RelatedJuvenileHistoryRecord>
+						<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory
+						</cext:JuvenileHistoryCategoryCode>
+						<cext:JuvenileInformationRecordID>
+							<IdentificationID>1234567</IdentificationID>
+							<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OttawaHearingHistory
+							</IdentificationSourceText>
+						</cext:JuvenileInformationRecordID>
+					</cext:RelatedJuvenileHistoryRecord>
+					<cext:RelatedJuvenileHistoryRecord>
+						<cext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory
+						</cext:JuvenileHistoryCategoryCode>
+						<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+					</cext:RelatedJuvenileHistoryRecord>
+				</cext:RelatedJuvenileHistoryRecords>
 			</ext:JuvenileAssessmentAugmentation>
 		</cyfs:JuvenileIntakeAssessment>
 	</ext:JuvenileIntakeHistory>

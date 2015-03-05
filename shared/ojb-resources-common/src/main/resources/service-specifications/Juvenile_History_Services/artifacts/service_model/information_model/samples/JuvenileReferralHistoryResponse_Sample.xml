@@ -123,6 +123,19 @@
 			<ReferralPerson structures:ref="Child1" xsi:nil="true"/>
 			<ext:ReferralAugmentation>
 				<codes:ReferralCategoryCode>Complaint</codes:ReferralCategoryCode>
+				<cext:RelatedJuvenileHistoryRecords>
+					<cext:RelatedJuvenileHistoryRecord>
+						<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
+						<cext:JuvenileInformationRecordID>
+							<IdentificationID>1234567</IdentificationID>
+							<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OttawaHearingHistory</IdentificationSourceText>
+						</cext:JuvenileInformationRecordID>
+					</cext:RelatedJuvenileHistoryRecord>
+					<cext:RelatedJuvenileHistoryRecord>
+						<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
+						<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+					</cext:RelatedJuvenileHistoryRecord>
+				</cext:RelatedJuvenileHistoryRecords>
 			</ext:ReferralAugmentation>
 		</Referral>
 		<Referral structures:id="Referral2" structures:metadata="metadata1">
@@ -146,6 +159,12 @@
 			<ReferralPerson structures:ref="Child1" xsi:nil="true"/>
 			<ext:ReferralAugmentation>
 				<codes:ReferralCategoryCode>Petition</codes:ReferralCategoryCode>
+				<cext:RelatedJuvenileHistoryRecords>
+					<cext:RelatedJuvenileHistoryRecord>
+						<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
+						<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+					</cext:RelatedJuvenileHistoryRecord>
+				</cext:RelatedJuvenileHistoryRecords>
 			</ext:ReferralAugmentation>
 		</Referral>
 	</ext:JuvenileReferralHistory>

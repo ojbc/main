@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0">
+<xsd:schema 
+	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0">
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="./Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
@@ -118,7 +120,10 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="cext:JuvenileHistoryCategoryCode" minOccurs="0"/>
-					<xsd:element ref="cext:JuvenileInformationRecordID" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:choice>
+						<xsd:element ref="cext:JuvenileInformationRecordID" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element ref="cext:RelatedJuvenileHistoryRecordNotSupportedIndicator" />
+					</xsd:choice>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -174,6 +179,11 @@
 	<xsd:element name="JuvenileInformationRecordID" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A record identifier for information on a juvenile.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RelatedJuvenileHistoryRecordNotSupportedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a system does not support linking a specific kind of juvenile history record to another kind of juvenile history record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

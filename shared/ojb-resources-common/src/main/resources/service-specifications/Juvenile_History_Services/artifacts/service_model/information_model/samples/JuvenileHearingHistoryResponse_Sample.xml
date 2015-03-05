@@ -129,6 +129,19 @@
 						<codes:HearingCategoryCode>Bench Trial</codes:HearingCategoryCode>
 						<codes:HearingDispositionCode>American Indian tribe or band notified</codes:HearingDispositionCode>
 						<ext:ProbationViolationIndicator>false</ext:ProbationViolationIndicator>
+						<cext:RelatedJuvenileHistoryRecords>
+							<cext:RelatedJuvenileHistoryRecord>
+								<cext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</cext:JuvenileHistoryCategoryCode>
+								<cext:JuvenileInformationRecordID>
+									<IdentificationID>1234567</IdentificationID>
+									<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OttawaOffenseHistory</IdentificationSourceText>
+								</cext:JuvenileInformationRecordID>
+							</cext:RelatedJuvenileHistoryRecord>
+							<cext:RelatedJuvenileHistoryRecord>
+								<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
+								<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+							</cext:RelatedJuvenileHistoryRecord>
+						</cext:RelatedJuvenileHistoryRecords>
 					</ext:CourtEventAugmentation>
 				</j:CaseHearing>
 			</j:CaseAugmentation>
