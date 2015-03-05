@@ -2,6 +2,7 @@ package org.search.ojb.samplegen;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -9,13 +10,20 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 	private static final Log LOG = LogFactory.getLog(JuvenileHistorySampleGenerator.class);
 
-	private static final String[] OFFENSE_CODES = new String[] { "13.1017", "324.74203", "324.801261", "324.8015", "324.801771C-A", "29.29", "324.811296", "324.81133U", "324.811462", "324.82126C1", "324.821521", "328.2281E", "333.28359",
+    private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
+
+    private static final String[] OFFENSE_CODES = new String[] { "13.1017", "324.74203", "324.801261", "324.8015", "324.801771C-A", "29.29", "324.811296", "324.81133U", "324.811462", "324.82126C1", "324.821521", "328.2281E", "333.28359",
 			"333.7340A", "333.74012F", "55.3014", "333.74071A", "333.74101-E", "333.7417", "333.12531A", "125.14471B2", "333.17766B", "333.201992", "338.835", "338.10693", "125.2321", "380.18093B", "399.1585", "400.6073", "408.66", "168.4992",
 			"421.54D-A", "431.3304", "432.1102", "432.2183", "168.759", "436.19042B", "436.20253", "445.2A", "445.72B3C", "168.931A", "445.574A3C", "445.20812", "451.2501", "462.391", "480.17C3-A", "487.21421", "500.2062", "500.7034", "565.371",
 			"600.87279", "722.115F8A", "722.675", "750.164-A", "750.49-B", "750.50C2", "750.731", "168.933", "750.81C3", "750.9", "750.94", "750.110A3", "169.23312", "750.131A2", "750.14", "750.145D2F", "750.153", "169.243", "750.160C2B-",
@@ -69,17 +77,95 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		return ret;
 	}
 
-	private Document createJuvenileHistoryInstanceDocument(PersonElementWrapper kid, DateTime baseDate, String stateParam) throws IOException {
+	Document createJuvenileHistoryInstanceDocument(PersonElementWrapper kid, DateTime baseDate, String stateParam) throws IOException {
 		JuvenileHistory history = createJuvenileHistory(kid, baseDate, stateParam);
-		Document ret = writeHistoryToDocument(history);
+		Document ret = writeHistoryToDocument(history, baseDate);
 		return ret;
 	}
 
-	private Document writeHistoryToDocument(JuvenileHistory history) {
+	private Document writeHistoryToDocument(JuvenileHistory history, DateTime baseDate) {
 		// call a method to build a sub-element structure for each component of the history.  write unit tests that validate each of those sub-elements.
 		// then assemble them all into a container document, with the search params in a made-up structure at the top.  we can't validate that container
 		// document because we won't have a schema for it.
-		return null;
+		Document ret = documentBuilder.newDocument();
+		
+		Element root = ret.createElementNS(OjbcNamespaceContext.NS_JUVENILE_HISTORY_CONTAINER, "JuvenileHistoryContainer");
+		root.setPrefix(OjbcNamespaceContext.NS_PREFIX_JUVENILE_HISTORY_CONTAINER);
+		ret.appendChild(root);
+		
+		appendAvailabilityMetadata(ret, baseDate, history);
+		
+		new OjbcNamespaceContext().populateRootNamespaceDeclarations(root);
+		
+		return ret;
+		
+	}
+
+	private void appendAvailabilityMetadata(Document d, DateTime baseDate, JuvenileHistory history) {
+
+		Element root = d.getDocumentElement();
+		
+//		<jh-ext:JuvenileInformationAvailabilityMetadata s30:id="metadata">
+		
+		Element md = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationAvailabilityMetadata");
+		XmlUtils.addAttribute(md, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "metadata");
+		
+//		<nc30:LastUpdatedDate>
+//			<nc30:Date>1957-08-13</nc30:Date>
+//		</nc30:LastUpdatedDate>
+		
+		Element e = XmlUtils.appendElement(md, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");
+		e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date");
+		e.setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(baseDate));
+		
+//		<jh-ext:JuvenileInformationOwnerOrganization>
+//		<nc30:OrganizationBranchName>String</nc30:OrganizationBranchName>
+		
+		Element owner = XmlUtils.appendElement(md, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationOwnerOrganization");
+		e = XmlUtils.appendElement(owner, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
+		e.setTextContent(history.court.branchName);
+		
+//			<nc30:OrganizationLocation>
+		
+		e = XmlUtils.appendElement(owner, OjbcNamespaceContext.NS_NC_30, "OrganizationLocation");
+		e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Address");
+		Element street = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
+		XmlUtils.appendElement(street, OjbcNamespaceContext.NS_NC_30, "StreetFullText").setTextContent(history.court.addressStreetFullText);
+		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationCityName").setTextContent(history.court.city);
+		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "LocationStateNCICRESCode").setTextContent(history.court.state);
+		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode").setTextContent(history.court.zip);
+		
+//				<nc30:Address>
+//					<nc30:AddressSecondaryUnitText>String</nc30:AddressSecondaryUnitText>
+//					<nc30:LocationStreet>
+//						<nc30:StreetFullText>String</nc30:StreetFullText>
+//						<nc30:StreetNumberText>String</nc30:StreetNumberText>
+//						<nc30:StreetPredirectionalText>String</nc30:StreetPredirectionalText>
+//						<nc30:StreetName>String</nc30:StreetName>
+//						<nc30:StreetCategoryText>String</nc30:StreetCategoryText>
+//						<nc30:StreetPostdirectionalText>String</nc30:StreetPostdirectionalText>
+//						<nc30:StreetExtensionText>String</nc30:StreetExtensionText>
+//					</nc30:LocationStreet>
+//					<nc30:LocationCityName>String</nc30:LocationCityName>
+//					<jxdm50:LocationStateNCICRESCode>IN</jxdm50:LocationStateNCICRESCode>
+//					<nc30:LocationPostalCode>String</nc30:LocationPostalCode>
+//				</nc30:Address>
+//			</nc30:OrganizationLocation>
+		
+		XmlUtils.appendElement(owner, OjbcNamespaceContext.NS_NC_30, "OrganizationName").setTextContent(history.court.name);
+		
+//			<nc30:OrganizationName>String</nc30:OrganizationName>
+//		</jh-ext:JuvenileInformationOwnerOrganization>
+//		<jh-ext:JuvenileInformationRecordID>
+//			<nc30:IdentificationID>100</nc30:IdentificationID>
+//			<nc30:IdentificationSourceText>Court</nc30:IdentificationSourceText>
+//		</jh-ext:JuvenileInformationRecordID>
+		
+		Element recordId = XmlUtils.appendElement(md, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+		XmlUtils.appendElement(recordId, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+//	</jh-ext:JuvenileInformationAvailabilityMetadata>
+		
 	}
 
 	JuvenileHistory createJuvenileHistory(PersonElementWrapper kid, DateTime baseDate, String stateParam) throws IOException {
@@ -129,6 +215,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		int referralCount = generatePoissonInt(.8, true);
 		for (int i = 0; i < referralCount; i++) {
 			Referral referral = new Referral();
+			referral.id = "Referral-" + i;
 			referral.issuerCategory = generateRandomCodeFromList("Police", "Prosecutor", "School", "Court/Probation", "Social Services", "Other");
 			referral.category = generateRandomCodeFromList("Complaint", "Citation or Appearance Ticket", "Petition", "Community Referral");
 			if ("Police".equals(referral.issuerCategory)) {
@@ -155,6 +242,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		int hearingCount = generatePoissonInt(1.2, true);
 		for (int i = 0; i < hearingCount; i++) {
 			Hearing h = new Hearing();
+			h.id = "Hearing-" + i;
 			h.date = generateNormalRandomDateBefore(baseDate, 200);
 			h.contemptOfCourtIndicator = coinFlip(.2);
 			h.probationViolationIndicator = coinFlip(.4);
@@ -178,6 +266,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		int intakeCount = generatePoissonInt(1.2, true);
 		for (int i = 0; i < intakeCount; i++) {
 			Intake intake = new Intake();
+			intake.id = "Intake-" + i;
 			intake.date = generateNormalRandomDateBefore(baseDate, 150);
 			intake.assessmentCategory = generateRandomCodeFromList("Assessment", "Screening", "Interview", "Other");
 			intake.recommendedCourseOfAction = generateRandomCodeFromList("Court diversion", "Consent calendar", "Formal calendar", "Transfer");
@@ -186,6 +275,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		int offenseCount = generatePoissonInt(1.6, true);
 		for (int i = 0; i < offenseCount; i++) {
 			OffenseCharge offenseCharge = new OffenseCharge();
+			offenseCharge.id = "Offense-" + i;
 			offenseCharge.pacCode = generateRandomCodeFromList(OFFENSE_CODES);
 			DateTime offenseDate = generateNormalRandomDateBefore(baseDate, 400);
 			offenseCharge.offenseDate = offenseDate;
@@ -207,6 +297,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		int placementCount = generatePoissonInt(.8, true);
 		for (int i = 0; i < placementCount; i++) {
 			Placement placement = new Placement();
+			placement.id = "Placement-" + i;
 			placement.startDate = generateNormalRandomDateBefore(baseDate, 365);
 			placement.endDate = placement.startDate.plusDays(randomGenerator.nextInt(10, 180));
 			placement.placementCategory = generateRandomCodeFromList("Juvenile Detention Facility", "Foster Home", "Group Home", "Residential", "Mother", "Father", "Stepfather", "Stepmother", "Relative/Fictive Kin", "Jail");
@@ -221,6 +312,21 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			placement.facilityState = state;
 			placement.facilityZip = "12345";
 			ret.placements.add(placement);
+		}
+		for (IdentifiableHistoryComponent component : ret.getIdentifiableComponents()) {
+			List<IdentifiableHistoryComponent> others = new ArrayList<IdentifiableHistoryComponent>();
+			for (IdentifiableHistoryComponent innerComponent : ret.getIdentifiableComponents()) {
+				if (!(innerComponent.getClass() == component.getClass())) {
+					others.add(innerComponent);
+				}
+			}
+			if (!others.isEmpty()) {
+				Collections.shuffle(others);
+				int relatedCount = randomGenerator.nextInt(0, others.size() - 1);
+				if (relatedCount > 0) {
+					component.relatedComponents = others.subList(0, relatedCount);
+				}
+			}
 		}
 		return ret;
 	}
@@ -244,9 +350,23 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public List<Intake> intakes = new ArrayList<Intake>();
 		public List<OffenseCharge> offenseCharges = new ArrayList<OffenseCharge>();
 		public List<Placement> placements = new ArrayList<Placement>();
+		public List<IdentifiableHistoryComponent> getIdentifiableComponents() {
+			List<IdentifiableHistoryComponent> ret = new ArrayList<IdentifiableHistoryComponent>();
+			ret.addAll(referrals);
+			ret.addAll(hearings);
+			ret.addAll(intakes);
+			ret.addAll(offenseCharges);
+			ret.addAll(placements);
+			return Collections.unmodifiableList(ret);
+		}
+	}
+	
+	static abstract class IdentifiableHistoryComponent {
+		public String id;
+		public List<IdentifiableHistoryComponent> relatedComponents = new ArrayList<IdentifiableHistoryComponent>();
 	}
 
-	static final class Placement {
+	static final class Placement extends IdentifiableHistoryComponent {
 		public DateTime startDate;
 		public DateTime endDate;
 		public String placementCategory;
@@ -258,7 +378,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public String facilityZip;
 	}
 
-	static final class OffenseCharge {
+	static final class OffenseCharge extends IdentifiableHistoryComponent {
 		public String pacCode;
 		public DateTime offenseDate;
 		public DateTime filingDate;
@@ -269,13 +389,13 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public List<String> sanctions = new ArrayList<String>();
 	}
 
-	static final class Intake {
+	static final class Intake extends IdentifiableHistoryComponent {
 		public DateTime date;
 		public String assessmentCategory;
 		public String recommendedCourseOfAction;
 	}
 
-	static final class Hearing {
+	static final class Hearing extends IdentifiableHistoryComponent {
 		public DateTime date;
 		public boolean contemptOfCourtIndicator;
 		public boolean probationViolationIndicator;
@@ -283,7 +403,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public String disposition;
 	}
 
-	static final class Referral {
+	static final class Referral extends IdentifiableHistoryComponent {
 		public String category;
 		public String issuerCategory;
 		public String issuerName;

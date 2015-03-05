@@ -41,10 +41,11 @@
 			</nc30:OrganizationLocation>
 			<nc30:OrganizationName>String</nc30:OrganizationName>
 		</jh-ext:JuvenileInformationOwnerOrganization>
+		<!-- 
 		<jh-ext:JuvenileInformationRecordID>
 			<nc30:IdentificationID>100</nc30:IdentificationID>
 			<nc30:IdentificationSourceText>Court</nc30:IdentificationSourceText>
-		</jh-ext:JuvenileInformationRecordID>
+		</jh-ext:JuvenileInformationRecordID> -->
 	</jh-ext:JuvenileInformationAvailabilityMetadata>
 	<nc30:Person s30:id="Child1" s30:metadata="metadata">
 		<nc30:PersonName>

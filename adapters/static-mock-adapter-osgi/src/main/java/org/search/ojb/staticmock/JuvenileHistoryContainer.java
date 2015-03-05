@@ -104,6 +104,10 @@ public class JuvenileHistoryContainer {
 		Element containerAvailabilityMetadataElement = (Element) XmlUtils.xPathNodeSearch(containerDocument, "/jh-container:JuvenileHistoryContainer/jh-ext:JuvenileInformationAvailabilityMetadata");
 		root.appendChild(ret.adoptNode(containerAvailabilityMetadataElement));
 		
+		// TODO: Hold pending resolution to an identification structure for each object...
+		//Element recordId = XmlUtils.appendElement(containerAvailabilityMetadataElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+		//XmlUtils.appendElement(recordId, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(arg0)
+		
 		String childrenNodesXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id = " + messageSpecificChildXPath + "/@s30:ref]";
 		NodeList childrenNodes = XmlUtils.xPathNodeListSearch(containerDocument, childrenNodesXPath);
 		
