@@ -369,9 +369,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static final String NS_JUVENILE_HISTORY_REFERRAL_CODES = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0";
 	public static final String NS_PREFIX_JUVENILE_HISTORY_REFERRAL_CODES = "jh-referral-codes";
-	public static final String NS_JUVENILE_HISTORY_OFFENSE_CODES = "http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/michigan/codes/1.0";
+	public static final String NS_JUVENILE_HISTORY_OFFENSE_CODES = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/michigan/codes/1.0";
 	public static final String NS_PREFIX_JUVENILE_HISTORY_OFFENSE_CODES = "jh-offense-codes";
-	public static final String NS_JUVENILE_HISTORY_PLACEMENT_CODES = "http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/michigan/codes/1.0";
+	public static final String NS_JUVENILE_HISTORY_PLACEMENT_CODES = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0";
 	public static final String NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_CODES = "jh-placement-codes";
 	public static final String NS_JUVENILE_HISTORY_INTAKE_CODES = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/michigan/codes/1.0";
 	public static final String NS_PREFIX_JUVENILE_HISTORY_INTAKE_CODES = "jh-intake-codes";
