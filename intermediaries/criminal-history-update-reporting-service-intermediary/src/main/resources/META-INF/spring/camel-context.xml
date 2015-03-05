@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+       
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+		
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
+	
+		<camel:endpoint id="CriminalHistoryUpdateReportingServiceEndpoint"
+			uri="cxf:bean:CriminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+    
+    	<camel:endpoint id="notificationBrokerServiceEndpoint" 
+    		uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}"/>              
+	
+	
+		<camel:route id="CriminalHistoryUpdateReportingServiceHandlerRoute">
+		
+			<camel:from uri="CriminalHistoryUpdateReportingServiceEndpoint" />
+			
+			<!-- Connector developed by CHRI does not support ws-addressing -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+
+			<convertBodyTo type="java.lang.String" />
+
+			<!-- Multicast to the core services and member specific routes so each route gets original message -->
+			<camel:multicast>
+				<camel:pipeline>
+					<camel:filter>
+						<camel:simple>${properties:criminalHistoryUpdateReportingService.callNotificationBroker} == true</camel:simple>
+						
+						<camel:log message="About to call notification broker endpoint"/>
+						
+						<camel:to uri="direct:callNotificationBroker"/>
+						
+					</camel:filter>	
+				</camel:pipeline>	
+				
+				<camel:pipeline>
+					<camel:to uri="direct:memberSpecificRoutes"/>
+				</camel:pipeline>
+					
+			</camel:multicast>
+			
+
+		</camel:route>		
+		
+		<camel:route id="memberSpecificRoutes">
+
+			<camel:from uri="direct:memberSpecificRoutes"/>
+		
+			<!-- Set up member specific endpoints -->
+			<camel:setHeader headerName="routingSlipJurisdiction"><simple>{{criminalHistoryUpdateReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipJurisdiction} != ''</camel:simple>
+				
+				<camel:log message="About to call member specific routes using this routing slip: ${in.headers.routingSlipJurisdiction}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipJurisdiction</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		
+		</camel:route>
+
+
+	    <camel:route id="callNotificationBrokerRoute"> 
+			
+			<from uri="direct:callNotificationBroker"/>
+									
+			<camel:log message="Processing Notification Broker Route..."/>
+			
+			<camel:to uri="bean:cycleIdToNotifXsltParamMapper?method=populateHeaderWithXsltParams" />
+			
+			<camel:to uri="xslt:xslt/cycleTrackingIdentifierAssignmentReportToNotifications.xsl"/>
+			
+			<camel:log message="After xslt transformation: \n ${body}" />
+						
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+						
+			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+                                      	
+		    <camel:to uri="notificationBrokerServiceEndpoint"/>
+		        		
+		</camel:route>	
+
+	</camel:camelContext>
+		
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<bean id="cycleIdToNotifXsltParamMapper" class="org.ojbc.intermediaries.crimhistoryupdate.CycleIdToNotifXsltParamMapper">
+		<property name="cycleIdToNotifXsltParamMap" ref="cycleIdToNotifXsltParamMap" />
+	</bean>
+	
+	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
+    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
+        <property name="name" value="default" />
+        <property name="queueSize" value="2048" />
+    </bean>	
+    
+</beans>
+
+
