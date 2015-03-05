@@ -116,12 +116,16 @@ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffens
 			<j:Offense structures:id="Offense1">
 				<codes:OffensePACCCode>750.781A2</codes:OffensePACCCode>
 				<ext:OffenseAugmentation>
+					<cext:JuvenileInformationRecordID>
+						<IdentificationID>Offense1</IdentificationID>
+						<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</IdentificationSourceText>
+					</cext:JuvenileInformationRecordID>
 					<cext:RelatedJuvenileHistoryRecords>
 						<cext:RelatedJuvenileHistoryRecord>
 							<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
 							<cext:JuvenileInformationRecordID>
-								<IdentificationID>1234567</IdentificationID>
-								<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OttawaHearingHistory</IdentificationSourceText>
+								<IdentificationID>Hearing1</IdentificationID>
+								<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</IdentificationSourceText>
 							</cext:JuvenileInformationRecordID>
 						</cext:RelatedJuvenileHistoryRecord>
 						<cext:RelatedJuvenileHistoryRecord>
@@ -164,6 +168,10 @@ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffens
 			<j:Offense structures:id="Offense2">
 				<codes:OffensePACCCode>125.14471B1</codes:OffensePACCCode>
 				<ext:OffenseAugmentation>
+					<cext:JuvenileInformationRecordID>
+						<IdentificationID>Offense2</IdentificationID>
+						<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</IdentificationSourceText>
+					</cext:JuvenileInformationRecordID>
 					<cext:RelatedJuvenileHistoryRecords>
 						<cext:RelatedJuvenileHistoryRecord>
 							<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
