@@ -101,20 +101,12 @@
 		<property name ="endpointReplyToMap" ref="wsAddressReplyToEndpointMap"/>
 	</bean>		
 
-	<util:map map-class="java.util.HashMap" id="wsAddressReplyToEndpointMap" key-type="java.lang.String" value-type="java.lang.String">
-        <entry key="${federatedQuery.warrants.presentPersonQueryResultsEndpoint}" value="presentPersonQueryResultsWarrantsServiceEndpoint"/>
-  	</util:map>
-   
     <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
 		<property name="federatedQueryManager">
 			<ref bean="federatedQueryManager" />
 		</property>
 		<property name="federatedQueryEndpointMap" ref="federatedQueryURIToEndpointMap"/>
 	</bean>
-
-	<util:map map-class="java.util.HashMap" id="federatedQueryURIToEndpointMap">
-		<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants" value="personQueryRequestWarrantsServiceAdapterEndpoint" />
-	</util:map>
 
 	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
 		<property name="OJBSamlMap" ref="ojbSamlMap"/>
