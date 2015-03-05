@@ -87,4 +87,9 @@
 			<xsd:documentation>Local extensions related to a verdict.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="RelatedJuvenileHistoryRecords" type="cext:RelatedJuvenileHistoryRecordsType" substitutionGroup="j:OffenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Local extensions related to a verdict.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

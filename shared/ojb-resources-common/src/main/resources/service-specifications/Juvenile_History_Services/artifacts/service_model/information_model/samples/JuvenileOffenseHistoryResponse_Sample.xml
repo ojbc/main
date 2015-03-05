@@ -49,22 +49,6 @@ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffens
 				<IdentificationSourceText>Court</IdentificationSourceText>
 			</cext:JuvenileInformationRecordID>
 		</cext:JuvenileInformationAvailabilityMetadata>
-		<cext:RelatedJuvenileHistoryRecords>
-			<cext:RelatedJuvenileHistoryRecord>
-				<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
-				<cext:JuvenileInformationRecordID>
-					<IdentificationID>Record ID</IdentificationID>
-					<IdentificationSourceText>System Name</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-			</cext:RelatedJuvenileHistoryRecord>
-			<cext:RelatedJuvenileHistoryRecord>
-				<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
-				<cext:JuvenileInformationRecordID>
-					<IdentificationID>Record ID</IdentificationID>
-					<IdentificationSourceText>System Name</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-			</cext:RelatedJuvenileHistoryRecord>
-		</cext:RelatedJuvenileHistoryRecords>
 		<Person structures:id="Child1">
 			<PersonName>
 				<PersonGivenName>John</PersonGivenName>
@@ -131,6 +115,22 @@ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffens
 		<j:OffenseChargeAssociation>
 			<j:Offense structures:id="Offense1">
 				<codes:OffensePACCCode>750.781A2</codes:OffensePACCCode>
+				<ext:RelatedJuvenileHistoryRecords>
+					<cext:RelatedJuvenileHistoryRecord>
+						<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
+						<cext:JuvenileInformationRecordID>
+							<IdentificationID>1234567</IdentificationID>
+							<IdentificationSourceText>System Name</IdentificationSourceText>
+						</cext:JuvenileInformationRecordID>
+					</cext:RelatedJuvenileHistoryRecord>
+					<cext:RelatedJuvenileHistoryRecord>
+						<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
+						<cext:JuvenileInformationRecordID>
+							<IdentificationID>891011</IdentificationID>
+							<IdentificationSourceText>System Name</IdentificationSourceText>
+						</cext:JuvenileInformationRecordID>
+					</cext:RelatedJuvenileHistoryRecord>
+				</ext:RelatedJuvenileHistoryRecords>
 			</j:Offense>
 			<j:Charge structures:id="Charge1">
 				<j:ChargeDisposition>
