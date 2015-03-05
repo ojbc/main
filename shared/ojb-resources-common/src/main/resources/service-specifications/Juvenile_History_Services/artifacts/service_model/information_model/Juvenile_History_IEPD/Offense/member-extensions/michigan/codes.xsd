@@ -5656,10 +5656,7 @@
 			</xsd:enumeration>
 			<xsd:enumeration value="484.125">
 				<xsd:annotation>
-					<xsd:documentation>TELEPHONE COMPANIES - USE OF TELEPHONE LINES FOR COMMERCIAL ADVERTISING -
-#VALUE!
-#VALUE!
-</xsd:documentation>
+					<xsd:documentation>TELEPHONE COMPANIES - USE OF TELEPHONE LINES FOR COMMERCIAL ADVERTISING</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="484.16052">
