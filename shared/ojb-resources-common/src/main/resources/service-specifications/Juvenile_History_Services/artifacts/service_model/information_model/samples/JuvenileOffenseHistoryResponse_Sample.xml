@@ -8,7 +8,7 @@ xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
 xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffenseHistoryResponse/1.0" 
 xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/1.0" 
-xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/michigan/codes/1.0" 
+xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/michigan/codes/1.0" 
 xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffenseHistoryResponse/1.0 ../Juvenile_History_IEPD/Offense/JuvenileOffenseHistoryResponse.xsd">
 	<cext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</cext:JuvenileHistoryCategoryCode>
 	<cext:JuvenileHistoryQueryCriteria>
@@ -49,22 +49,6 @@ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffens
 				<IdentificationSourceText>Court</IdentificationSourceText>
 			</cext:JuvenileInformationRecordID>
 		</cext:JuvenileInformationAvailabilityMetadata>
-		<cext:RelatedJuvenileHistoryRecords>
-			<cext:RelatedJuvenileHistoryRecord>
-				<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
-				<cext:JuvenileInformationRecordID>
-					<IdentificationID>Record ID</IdentificationID>
-					<IdentificationSourceText>System Name</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-			</cext:RelatedJuvenileHistoryRecord>
-			<cext:RelatedJuvenileHistoryRecord>
-				<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
-				<cext:JuvenileInformationRecordID>
-					<IdentificationID>Record ID</IdentificationID>
-					<IdentificationSourceText>System Name</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-			</cext:RelatedJuvenileHistoryRecord>
-		</cext:RelatedJuvenileHistoryRecords>
 		<Person structures:id="Child1">
 			<PersonName>
 				<PersonGivenName>John</PersonGivenName>
@@ -131,6 +115,21 @@ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffens
 		<j:OffenseChargeAssociation>
 			<j:Offense structures:id="Offense1">
 				<codes:OffensePACCCode>750.781A2</codes:OffensePACCCode>
+				<ext:OffenseAugmentation>
+					<cext:RelatedJuvenileHistoryRecords>
+						<cext:RelatedJuvenileHistoryRecord>
+							<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
+							<cext:JuvenileInformationRecordID>
+								<IdentificationID>1234567</IdentificationID>
+								<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OttawaHearingHistory</IdentificationSourceText>
+							</cext:JuvenileInformationRecordID>
+						</cext:RelatedJuvenileHistoryRecord>
+						<cext:RelatedJuvenileHistoryRecord>
+							<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
+							<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+						</cext:RelatedJuvenileHistoryRecord>
+					</cext:RelatedJuvenileHistoryRecords>
+				</ext:OffenseAugmentation>
 			</j:Offense>
 			<j:Charge structures:id="Charge1">
 				<j:ChargeDisposition>
@@ -160,11 +159,18 @@ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffens
 					</ext:VerdictAugmentation>
 				</j:ChargeVerdict>
 			</j:Charge>
-
 		</j:OffenseChargeAssociation>
 		<j:OffenseChargeAssociation>
 			<j:Offense structures:id="Offense2">
 				<codes:OffensePACCCode>125.14471B1</codes:OffensePACCCode>
+				<ext:OffenseAugmentation>
+					<cext:RelatedJuvenileHistoryRecords>
+						<cext:RelatedJuvenileHistoryRecord>
+							<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
+							<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+						</cext:RelatedJuvenileHistoryRecord>
+					</cext:RelatedJuvenileHistoryRecords>
+				</ext:OffenseAugmentation>
 			</j:Offense>
 			<j:Charge structures:id="Charge2">
 				<j:ChargeDisposition>
