@@ -132,9 +132,6 @@ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffens
 			<j:Offense structures:id="Offense1">
 				<codes:OffensePACCCode>750.781A2</codes:OffensePACCCode>
 			</j:Offense>
-			<j:Offense structures:id="Offense2">
-				<codes:OffensePACCCode>125.14471B1</codes:OffensePACCCode>
-			</j:Offense>
 			<j:Charge structures:id="Charge1">
 				<j:ChargeDisposition>
 					<DispositionDate>
@@ -163,6 +160,12 @@ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffens
 					</ext:VerdictAugmentation>
 				</j:ChargeVerdict>
 			</j:Charge>
+
+		</j:OffenseChargeAssociation>
+		<j:OffenseChargeAssociation>
+			<j:Offense structures:id="Offense2">
+				<codes:OffensePACCCode>125.14471B1</codes:OffensePACCCode>
+			</j:Offense>
 			<j:Charge structures:id="Charge2">
 				<j:ChargeDisposition>
 					<DispositionDate>
@@ -194,6 +197,10 @@ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffens
 		</j:OffenseChargeAssociation>
 		<j:OffenseLocationAssociation>
 			<j:Offense structures:ref="Offense1" xsi:nil="true"/>
+			<Location structures:ref="Location2" xsi:nil="true"/>
+		</j:OffenseLocationAssociation>
+		<j:OffenseLocationAssociation>
+			<j:Offense structures:ref="Offense2" xsi:nil="true"/>
 			<Location structures:ref="Location2" xsi:nil="true"/>
 		</j:OffenseLocationAssociation>
 	</ext:JuvenileOffenseHistory>
