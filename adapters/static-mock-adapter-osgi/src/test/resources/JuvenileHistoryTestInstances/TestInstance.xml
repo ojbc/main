@@ -5,8 +5,8 @@
 	xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0"
 	xmlns:jh-container="http://ojbc.org/staticmock/JuvenileHistoryContainer/1.0"
 	xmlns:jh-referral="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0"
-	xmlns:jh-offense="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/1.0"
-	xmlns:jh-placement="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/1.0"
+	xmlns:jh-offense="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/1.0"
+	xmlns:jh-placement="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0"
 	xmlns:jh-intake="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0"
 	xmlns:jh-hearing="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0"
 	xmlns:jh-case-plan="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0"
@@ -298,6 +298,8 @@
 			</jxdm50:CaseHearing>
 		</jxdm50:CaseAugmentation>
 	</cyfs:CourtCase>
-	<jh-case-plan:AssessmentIndicator>true</jh-case-plan:AssessmentIndicator>
-	<jh-case-plan:CasePlanIndicator>true</jh-case-plan:CasePlanIndicator>
+	<jh-case-plan:CasePlan>
+		<jh-case-plan:AssessmentIndicator>true</jh-case-plan:AssessmentIndicator>
+		<jh-case-plan:CasePlanIndicator>true</jh-case-plan:CasePlanIndicator>
+	</jh-case-plan:CasePlan>
 </jh-container:JuvenileHistoryContainer>

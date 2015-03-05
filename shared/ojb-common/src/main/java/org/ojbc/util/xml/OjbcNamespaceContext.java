@@ -354,8 +354,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_JUVENILE_HISTORY_CASE_PLAN_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0";
 	public static final String NS_JUVENILE_HISTORY_HEARING_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0";
 	public static final String NS_JUVENILE_HISTORY_INTAKE_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0";
-	public static final String NS_JUVENILE_HISTORY_OFFENSE_EXT = "http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/1.0";
-	public static final String NS_JUVENILE_HISTORY_PLACEMENT_EXT = "http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/1.0";
+	public static final String NS_JUVENILE_HISTORY_OFFENSE_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/1.0";
+	public static final String NS_JUVENILE_HISTORY_PLACEMENT_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0";
 	public static final String NS_JUVENILE_HISTORY_REFERRAL_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0";
 	public static final String NS_JUVENILE_HISTORY_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0";
 	
