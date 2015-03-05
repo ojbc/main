@@ -12,7 +12,7 @@
 	
 	<bean id="sqlLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
 		</constructor-arg>
@@ -20,7 +20,7 @@
 
 	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="dataSource" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
@@ -32,7 +32,7 @@
 	
 	<bean id="federatedQueryURIToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="federatedQueryURIToEndpointMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<util:map map-class="java.util.HashMap">
 				<entry key="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS" value="incidentReportRequestFederatedServiceAdapterEndpoint" />
@@ -42,7 +42,7 @@
 
 	<bean id="adapterURItoAddressMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="adapterURItoAddressMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<util:map>
 				<entry key="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS" value="${federatedQuery.incidentReport.personQueryIncidentReportRequestRMSEndpoint}" />

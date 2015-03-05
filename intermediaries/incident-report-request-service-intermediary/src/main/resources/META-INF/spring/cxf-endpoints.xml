@@ -127,7 +127,7 @@
    
 	</bean>
    
-	<bean id="passwordCallbackHandler" class="org.ojbc.ws.security.ClientCallbackMap">
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
                 <entry key="${federatedQuery.incidentReport.keystoreCertificateAlias}" value="${federatedQuery.incidentReport.keyPassword}"/>
