@@ -65,7 +65,6 @@
                         
     <!-- Criminal History Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
 	<cxf:cxfEndpoint id="personQueryRequestCriminalHistoryServiceAdapter"
-		address="${federatedQuery.criminalHistory.personQueryCriminalHistoryEndpoint}"
 		wsdlURL="classpath:service-specifications/Person_Query_Service_-_Criminal_History/schema/SIP_WS_1.2/Person_Query_Service_-_Criminal_History.wsdl"
 		serviceName="ojbc:Person-Query-Service---Criminal-HistoryService"
 		endpointName="ojbc:Person-Query-Secure-Service---Criminal-History"
