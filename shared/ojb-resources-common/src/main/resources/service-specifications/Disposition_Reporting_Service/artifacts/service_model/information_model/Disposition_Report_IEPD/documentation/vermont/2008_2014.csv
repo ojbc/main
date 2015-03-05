@@ -1,0 +1,106 @@
+DOCKETIN,5007-12-09 Cncr,77-8-06 Gicr,616-4-08 Rdcr,383-6-11 Oscr,4097-10-09 Cncr,5042-9-04 Cncr,4142-8-04 Cncr,1239-11-05 Frcr
+FirstMid,Jeanne M.,Louise,Wendy J,Christine,Latonia,Carolyn,Ellen M.,Elizabeth A.
+LASTIN,Sevigny,Desnoyers,Pelkey-Grant,Billis,Congress,Walters,Ducharme,Gagne
+nameext, , , , , , , , 
+OffenseDate,11/3/2006,8/14/2006,4/19/2008,9/22/2009,10/15/2009, , , 
+ORI,2002,2003,2007,2005,406,2002,403,2003
+Incident,06a105324,06a204627,08c101995,09b203077,09es08002, , , 
+OFFLEV1,1,1,1,1,1, , , 
+offlevin,fel,fel,fel,fel,fel,fel,fel,fel
+Offense,13,13,13,13,13,13,13,13
+section1,2301,2301,2301,2301,2301, , , 
+cha1rank,90,90,90,90,90, , ,90
+offname1,MURDER-2ND DEG,MURDER-1ST DEG,MURDER-2ND DEG,MURDER-1ST DEG,MURDER-2ND DEG,2ND DEGREE MURDER,MURDER,MURDER-1ST DEG
+cha2rank,90,90,90,90,90,90,90,90
+offname2,MANSLAUGHTER,MURDER-2ND DEG,MANSLAUGHTER,MANSLAUGHTER,MURDER-2ND DEG,MANSLAUGHTER,MURDER-2ND DEG,MURDER-2ND DEG
+Dispute,221900,9131,102680,59200,220166,163129,161743,60505
+count,1,1,1,1,1,1,1,1
+Arraignment,12/17/2009,8/17/2006,4/24/2008,6/30/2011,10/16/2009, , , 
+Arrstdate,12/17/2009,8/16/2006,4/19/2008,6/28/2011,10/16/2009, , , 
+Age,59,49,43,44,30,43,38,29
+DOB,8/22/1950,9/30/1957,6/3/1965,3/11/1967,10/11/1979,10/20/1582,10/21/1582,10/22/1582
+AGEGROUP,10,8,7,7,5,7,6,4
+ATTORNEY,2,3,3,3,3,3,3,3
+Attyname,"St. Francis, John B.","Katims, Robert W.","Harnett, Matthew","Sleigh, David Collins","Yoder, Leroy PD","Williams, David J.","Katims, Robert W.","Albert, Daniel"
+attytype,priv,asg,asg,asg,asg,asg,asg,asg
+Bail,500000,0,150000,0,250000,0,0,500000
+Chgcode1,13V2301/2D,13V2301/1D,13V2301/2D,13V2301/1D,13V2301/2D, , ,13V2301/1D
+Chgcode2,13V2304,13V2301/2D,13V2304,13V2304,13V2301/2D,13V2304,13V2301/2D,13V2301/2D
+coff1,13,13,13,13,13,13,13,13
+offlev2,1,1,1,1,1, , , 
+Coflevin,fel,fel,fel,fel,fel,fel,fel,fel
+CONVLEV,1,1,1,1,1,1,1,1
+CONVOFF, , , , , ,2304,2303b,2303b
+Countyin,Chittenden,Grand Isle,Rutland,Orleans,Chittenden,Chittenden,Chittenden,Franklin
+COURTDIS,1,1,1,1,1,1,1,1
+Crtdisin,pnc,pnc,pg,pg,vjg,pg,pg,pg
+CTDocketid,2,1,1,1,2, , , 
+defdain,0,0,0,0,0,0,0,0
+defmoin,0,0,0,0,0,0,0,0
+DEFMONTH,0,0,0,0,0,0,0,0
+DEFYEAR,0,0,0,0,0,0,0,0
+Defyrin,0,0,0,0,0,0,0,0
+Dispodate,6/2/2011,7/1/2009,5/6/2010,11/2/2012,8/17/2011,11/15/2006,12/12/2006,4/30/2007
+diversion,0,0,0,0,0, , , 
+Diversiondate, , , , , , , , 
+FINE, , , , , , , , 
+FINECHNG, , , , , , , , 
+FINEGRP,0,0,0,0,0,0,0,0
+FTAdate, ,8/16/2006, , , , , , 
+FINESUSP, , , , , , , , 
+maxda,0,0,0,0,0,0,0,0
+maxmo,0,0,0,0,0,0,0,0
+MAXTERMD,5478.75,99999999,5478.75,5478.75,99999999,5478.75,36525,0
+maxyr,15,0,15,15,0,15,100,0
+minda,0,0,0,0,0,0,0,0
+minmo,9,0,0,0,0,0,0,0
+MINTERMD,1735.5,7305,2191.5,2556.75,7305,3652.5,9131.25,4383
+minyr,4,20,6,7,20,10,25,12
+NCONVTYP,0,0,0,0,0,0,0,0
+offcode1,MUR,MUR,MUR,MUR,MUR,MUR,MUR,MUR
+offcode2,MAN,MUR,MAN,MAN,MUR,MAN,MUR,MUR
+ofin,2,1,1,1,2,1,1,3
+PLEA,3,3,3,3,3,3,3,3
+PLEA2,2,2,1,1,3,1,1,1
+plea2in,pnc,pnc,pg,pg,png,pg,pg,pg
+Pleadate,12/17/2009,8/18/2006,4/24/2008,7/1/2011,10/16/2009, , , 
+PleaIn,png,png,png,png,png,png,png,png
+POB, , , ,"Boston, MA","New York, NY", ,"Burlington, VT",Connecticut
+PROB,0,1,0,0,0,0,0,0
+PROSDISP,1,1,1,1,1,1,1,1
+PSI,2,1,1,1,1,1,1,1
+psiin,NO,YES,YES,YES,YES,YES,YES,YES
+PTSTAT,3,5,5,5,5,5,5,5
+ptstatin,bailset,bailmitt,bailmitt,bailmitt,bailmitt,bailmitt,bailmitt,bailmitt
+Race,3, ,3,3,1, ,3,3
+REDCHG,YES,YES,YES,YES,NO,YES,YES,YES
+Redchgin,yes,yes,yes,yes,no,yes,yes,yes
+rest,0,0,0,0,0,0,0,0
+restinfo,NONE,NONE,NONE,NONE,NONE,NONE,NONE,NONE
+reszip,5494, ,5488,5860,5452, , , 
+RURURB,2,1,2,1,2,2,2,1
+Sentdate,6/2/2011,7/1/2009,5/6/2010,11/2/2012,8/17/2011, , , 
+Sentfine,0,0,0,0,0,0,0,0
+SENTYPE,4,17,4,4,4,4,4,4
+SERVE,0,5478.75,0,0,0,0,0,0
+serveda,0,0,0,0,0,0,0,0
+servemo,0,0,0,0,0,0,0,0
+Serveyr,0,15,0,0,0,0,0,0
+SUSPENS,0,2,0,0,0,0,0,0
+Suspndin,NONE,PART,NONE,NONE,NONE,NONE,NONE,NONE
+VSAin,2301,2301,2301,2301,2301,2301,2301,2301
+VTRES,1,0,1,1,1,1,1,0
+totalminyrs,4.751540041,20,6,7,20,10,25,12
+totalmaxyrs,15,273785.076,15,15,273785.076, , , 
+offtype2,MANSLAUT,MURDER,MANSLAUT,MANSLAUT,MURDER, , , 
+cha2clas,pers-hom,pers-hom,pers-hom,pers-hom,pers-hom,pers-hom,pers-hom,pers-hom
+cha2sxrg, , , , , , , , 
+dispoy,2011,2009,2010,2012,2011,2006,2006,2007
+PrimaryLast,0,1,1,1,1, , , 
+offtype1,MURDER,MURDER,MURDER,MURDER,MURDER,MURDER,MURDER,MURDER
+drugoff1,NOTDRUGS,NOTDRUGS,NOTDRUGS,NOTDRUGS,NOTDRUGS, , , 
+cha1clas,pers-hom,pers-hom,pers-hom,pers-hom,pers-hom, , ,pers-hom
+cha1sxrg, , , , , , , , 
+County,4,7,11,10,4,4,4,6
+defendid,168690,17875,100547,53849,144371,137020,23408,48181
+SENTENCE,2,3,2,2,2,2,2,2
