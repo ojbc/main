@@ -16,9 +16,6 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	
-	<import resource="properties-context.xml"/>
-	<import resource="cxf-endpoints.xml"/>
-	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
 		<endpoint id="inputDir"
 			uri="file:///${subscriptionNotification.criminalIdentification.criminalIdentificationIntermediaryDirectory}/input?idempotent=true&amp;moveFailed=${subscriptionNotification.criminalIdentification.criminalIdentificationIntermediaryDirectory}/error&amp;move=processed/" />
