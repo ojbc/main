@@ -106,12 +106,12 @@
 					<xsd:documentation/>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="Designtion Hearing">
+			<xsd:enumeration value="Designation Hearing">
 				<xsd:annotation>
 					<xsd:documentation/>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="Desgination adjudication or trial">
+			<xsd:enumeration value="Designation adjudication or trial">
 				<xsd:annotation>
 					<xsd:documentation/>
 				</xsd:annotation>

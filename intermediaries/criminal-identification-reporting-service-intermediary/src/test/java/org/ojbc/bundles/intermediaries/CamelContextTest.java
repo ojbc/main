@@ -8,8 +8,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:META-INF/spring/camel-context.xml" })
+@ContextConfiguration(locations={
+		"classpath:META-INF/spring/camel-context.xml", 
+		"classpath:META-INF/spring/cxf-endpoints.xml",
+		"classpath:META-INF/spring/properties-context.xml"}) 
 public class CamelContextTest {
 
 	@Test

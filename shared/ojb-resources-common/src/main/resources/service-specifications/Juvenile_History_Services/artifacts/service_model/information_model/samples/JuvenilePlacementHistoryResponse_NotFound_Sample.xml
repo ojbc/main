@@ -8,8 +8,8 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
 	xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0" 
-	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/1.0" 
-	xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/michigan/codes/1.0" 
+	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0" 
+	xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0" 
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0 ../Juvenile_History_IEPD/Placement/JuvenilePlacementHistoryResponse.xsd">
 	<cext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</cext:JuvenileHistoryCategoryCode>
 	<cext:JuvenileHistoryQueryCriteria>

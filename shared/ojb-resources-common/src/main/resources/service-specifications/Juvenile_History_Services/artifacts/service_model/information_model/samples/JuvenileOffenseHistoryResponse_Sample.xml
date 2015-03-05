@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doc:JuvenileOffenseHistoryResponse xmlns="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileOffenseHistoryResponse/1.0" xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/1.0" xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/michigan/codes/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileOffenseHistoryResponse/1.0 ../Juvenile_History_IEPD/Offense/JuvenileOffenseHistoryResponse.xsd">
+<doc:JuvenileOffenseHistoryResponse 
+xmlns="http://release.niem.gov/niem/niem-core/3.0/" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
+xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffenseHistoryResponse/1.0" 
+xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/1.0" 
+xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/michigan/codes/1.0" 
+xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffenseHistoryResponse/1.0 ../Juvenile_History_IEPD/Offense/JuvenileOffenseHistoryResponse.xsd">
 	<cext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</cext:JuvenileHistoryCategoryCode>
 	<cext:JuvenileHistoryQueryCriteria>
 		<cext:JuvenileInformationRecordID>
@@ -122,9 +132,6 @@
 			<j:Offense structures:id="Offense1">
 				<codes:OffensePACCCode>750.781A2</codes:OffensePACCCode>
 			</j:Offense>
-			<j:Offense structures:id="Offense2">
-				<codes:OffensePACCCode>125.14471B1</codes:OffensePACCCode>
-			</j:Offense>
 			<j:Charge structures:id="Charge1">
 				<j:ChargeDisposition>
 					<DispositionDate>
@@ -153,6 +160,12 @@
 					</ext:VerdictAugmentation>
 				</j:ChargeVerdict>
 			</j:Charge>
+
+		</j:OffenseChargeAssociation>
+		<j:OffenseChargeAssociation>
+			<j:Offense structures:id="Offense2">
+				<codes:OffensePACCCode>125.14471B1</codes:OffensePACCCode>
+			</j:Offense>
 			<j:Charge structures:id="Charge2">
 				<j:ChargeDisposition>
 					<DispositionDate>
@@ -184,6 +197,10 @@
 		</j:OffenseChargeAssociation>
 		<j:OffenseLocationAssociation>
 			<j:Offense structures:ref="Offense1" xsi:nil="true"/>
+			<Location structures:ref="Location2" xsi:nil="true"/>
+		</j:OffenseLocationAssociation>
+		<j:OffenseLocationAssociation>
+			<j:Offense structures:ref="Offense2" xsi:nil="true"/>
 			<Location structures:ref="Location2" xsi:nil="true"/>
 		</j:OffenseLocationAssociation>
 	</ext:JuvenileOffenseHistory>

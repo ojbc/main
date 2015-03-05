@@ -357,9 +357,9 @@
   </w:Type>
   <w:Type w:name="j:OffenseChargeAssociationType" w:isRequested="false">
     <w:ElementInType w:name="j:Offense" w:isReference="false"
-      w:minOccurs="1" w:maxOccurs="unbounded"/>
+      w:minOccurs="1" w:maxOccurs="1"/>
     <w:ElementInType w:name="j:Charge" w:isReference="false"
-      w:minOccurs="1" w:maxOccurs="unbounded"/>
+      w:minOccurs="1" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="j:OffenseDispositionAssociationType" w:isRequested="false">
     <w:ElementInType w:name="j:Offense" w:isReference="false"
