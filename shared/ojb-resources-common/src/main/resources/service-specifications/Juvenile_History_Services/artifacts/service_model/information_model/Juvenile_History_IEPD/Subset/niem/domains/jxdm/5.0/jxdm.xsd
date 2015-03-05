@@ -62,8 +62,8 @@
     <xs:complexContent>
       <xs:extension base="nc:AssociationType">
         <xs:sequence>
-          <xs:element ref="j:Offense"/>
-          <xs:element ref="j:Charge"/>
+          <xs:element ref="j:Offense" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="j:Charge" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -102,6 +102,7 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:OffenseDesignation" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="j:OffenseAugmentationPoint" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -280,6 +281,11 @@
   <xs:element name="Offense" type="j:OffenseType" nillable="true">
     <xs:annotation>
       <xs:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred during an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for OffenseType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OffenseChargeAssociation" type="j:OffenseChargeAssociationType" nillable="true">

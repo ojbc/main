@@ -18,7 +18,7 @@
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" schemaLocation="../JuvenileHistoryCommonExtension.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/michigan/codes/1.0" schemaLocation="member-extensions/michigan/codes.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0" schemaLocation="member-extensions/michigan/codes.xsd"/>
 
 	<xsd:annotation>
 		<xsd:appinfo>
@@ -34,6 +34,7 @@
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="cyfs:JuvenilePlacementFacilityAssociation" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="cext:RelatedJuvenileHistoryRecords" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
