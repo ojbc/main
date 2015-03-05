@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.util.xml.XmlUtils;
+import org.w3c.dom.Document;
 
 public class TestJuvenileHistorySampleGenerator {
 	
@@ -38,6 +40,12 @@ public class TestJuvenileHistorySampleGenerator {
 		assertTrue(juvenileHistory.offenseCharges.size() > 0);
 		assertTrue(juvenileHistory.intakes.size() > 0);
 		assertTrue(juvenileHistory.hearings.size() > 0);
+	}
+	
+	@Test
+	public void testBuildContainerDocument() throws Exception {
+		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
+		XmlUtils.printNode(d);
 	}
 	
 }
