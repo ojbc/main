@@ -34,6 +34,7 @@
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="cyfs:JuvenilePlacementFacilityAssociation" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="cext:RelatedJuvenileHistoryRecords" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
