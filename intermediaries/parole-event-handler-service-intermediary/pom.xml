@@ -29,7 +29,7 @@
 		<ojb-camel-common>1.0.0</ojb-camel-common>
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>	    
 		<osgi-core-version>1.4.0</osgi-core-version>
-		<ojb-osgi-utils-version>1.0.0</ojb-osgi-utils-version>
+		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
 	    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	</properties>
 
@@ -113,8 +113,8 @@
 
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-osgi-utils</artifactId>
-			<version>${ojb-osgi-utils-version}</version> 
+			<artifactId>ojb-osgi-common</artifactId>
+			<version>${ojb-osgi-common-version}</version> 
 		</dependency>
 
 

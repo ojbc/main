@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This is a sample for the case when an offense history does not exist for an identifier -->
 <doc:JuvenileOffenseHistoryResponse 
-	xmlns="http://release.niem.gov/niem/niem-core/3.0/" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
-	xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileOffenseHistoryResponse/1.0" 
-	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/1.0" 
-	xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/michigan/codes/1.0"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileOffenseHistoryResponse/1.0 ../Juvenile_History_IEPD/Offense/JuvenileOffenseHistoryResponse.xsd">
+xmlns="http://release.niem.gov/niem/niem-core/3.0/" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
+xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffenseHistoryResponse/1.0" 
+xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/1.0" 
+xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/michigan/codes/1.0" 
+xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffenseHistoryResponse/1.0 ../Juvenile_History_IEPD/Offense/JuvenileOffenseHistoryResponse.xsd">
 	<cext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</cext:JuvenileHistoryCategoryCode>
 	<cext:JuvenileHistoryQueryCriteria>
 		<cext:JuvenileInformationRecordID>
@@ -20,5 +19,98 @@
 	</cext:JuvenileHistoryQueryCriteria>
 	<ext:JuvenileOffenseHistory>
 		<cext:JuvenileInformationAvailabilityCode>NOT FOUND</cext:JuvenileInformationAvailabilityCode>
+		<cext:JuvenileInformationAvailabilityMetadata>
+			<LastUpdatedDate>
+				<Date>1957-08-13</Date>
+			</LastUpdatedDate>
+			<cext:JuvenileInformationOwnerOrganization>
+				<OrganizationBranchName>String</OrganizationBranchName>
+				<OrganizationLocation>
+					<Address>
+						<AddressSecondaryUnitText>String</AddressSecondaryUnitText>
+						<LocationStreet>
+							<StreetFullText>String</StreetFullText>
+							<StreetNumberText>String</StreetNumberText>
+							<StreetPredirectionalText>String</StreetPredirectionalText>
+							<StreetName>String</StreetName>
+							<StreetCategoryText>String</StreetCategoryText>
+							<StreetPostdirectionalText>String</StreetPostdirectionalText>
+							<StreetExtensionText>String</StreetExtensionText>
+						</LocationStreet>
+						<LocationCityName>String</LocationCityName>
+						<j:LocationStateNCICRESCode>IN</j:LocationStateNCICRESCode>
+						<LocationPostalCode>String</LocationPostalCode>
+					</Address>
+				</OrganizationLocation>
+				<OrganizationName>String</OrganizationName>
+			</cext:JuvenileInformationOwnerOrganization>
+			<cext:JuvenileInformationRecordID>
+				<IdentificationID>100</IdentificationID>
+				<IdentificationSourceText>Court</IdentificationSourceText>
+			</cext:JuvenileInformationRecordID>
+		</cext:JuvenileInformationAvailabilityMetadata>
+		<Person structures:id="Child1">
+			<PersonName>
+				<PersonGivenName>John</PersonGivenName>
+				<PersonMiddleName>Q</PersonMiddleName>
+				<PersonSurName>Doe</PersonSurName>
+				<j:PersonNameCategoryCode>provided</j:PersonNameCategoryCode>
+			</PersonName>
+			<PersonName>
+				<PersonGivenName>Johnny</PersonGivenName>
+				<PersonSurName>Doe</PersonSurName>
+				<j:PersonNameCategoryCode>alias</j:PersonNameCategoryCode>
+			</PersonName>
+			<PersonOtherIdentification>
+				<IdentificationID>100</IdentificationID>
+				<IdentificationSourceText>Court</IdentificationSourceText>
+			</PersonOtherIdentification>
+		</Person>
+		<Person structures:id="Parent1">
+			<PersonName>
+				<PersonGivenName>Jane</PersonGivenName>
+				<PersonMiddleName>M</PersonMiddleName>
+				<PersonSurName>Doe</PersonSurName>
+				<j:PersonNameCategoryCode>provided</j:PersonNameCategoryCode>
+			</PersonName>
+			<PersonOtherIdentification>
+				<IdentificationID>101</IdentificationID>
+				<IdentificationSourceText>Court</IdentificationSourceText>
+			</PersonOtherIdentification>
+		</Person>
+		<Location structures:id="Location1">
+			<Address>
+				<AddressSecondaryUnitText>#5</AddressSecondaryUnitText>
+				<LocationStreet>
+					<StreetFullText>100 Main Street</StreetFullText>
+				</LocationStreet>
+				<LocationCityName>Lansing</LocationCityName>
+				<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
+				<LocationPostalCode>48901-1000</LocationPostalCode>
+			</Address>
+		</Location>
+		<Location structures:id="Location2">
+			<Address>
+				<AddressSecondaryUnitText>#6</AddressSecondaryUnitText>
+				<LocationStreet>
+					<StreetFullText>100 Main Street</StreetFullText>
+				</LocationStreet>
+				<LocationCityName>Lansing</LocationCityName>
+				<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
+				<LocationPostalCode>48901-1000</LocationPostalCode>
+			</Address>
+		</Location>
+		<PersonResidenceAssociation>
+			<Person structures:ref="Child1" xsi:nil="true"/>
+			<Location structures:ref="Location1" xsi:nil="true"/>
+		</PersonResidenceAssociation>
+		<PersonResidenceAssociation>
+			<Person structures:ref="Parent1" xsi:nil="true"/>
+			<Location structures:ref="Location2" xsi:nil="true"/>
+		</PersonResidenceAssociation>
+		<cyfs:ParentChildAssociation>
+			<cyfs:Child structures:ref="Child1" xsi:nil="true"/>
+			<cyfs:Parent structures:ref="Parent1" xsi:nil="true"/>
+		</cyfs:ParentChildAssociation>
 	</ext:JuvenileOffenseHistory>
 </doc:JuvenileOffenseHistoryResponse>

@@ -30,8 +30,30 @@
 		<xsd:complexContent>
 			<xsd:extension base="cext:JuvenileHistoryType">
 				<xsd:sequence>
+					<xsd:element ref="ext:CasePlan" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CasePlanType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a juvenile case plan.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
 					<xsd:element ref="ext:AssessmentIndicator" minOccurs="0" maxOccurs="1"/>
 					<xsd:element ref="ext:CasePlanIndicator" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="ext:CasePlanAugmentationPoint" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CasePlanAugmentationType">
+		<xsd:complexContent>
+			<xsd:extension base="structures:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="cext:RelatedJuvenileHistoryRecords" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -49,6 +71,21 @@
 	<xsd:element name="JuvenileCasePlanHistory" type="ext:JuvenileCasePlanHistoryType">
 		<xsd:annotation>
 			<xsd:documentation>A juvenile case plan.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CasePlan" type="ext:CasePlanType">
+		<xsd:annotation>
+			<xsd:documentation>A written, individualized plan for services and/or treatment for a juvenile supervised by the court.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CasePlanAugmentationPoint" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>An augmentation point for CasePlanType.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CasePlanAugmentation" type="ext:CasePlanAugmentationType" substitutionGroup="ext:CasePlanAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An augmentation of case plan.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

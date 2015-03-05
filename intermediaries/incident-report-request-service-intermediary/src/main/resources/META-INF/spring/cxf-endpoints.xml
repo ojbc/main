@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context-->
+<!-- These are common endpoints which are used by all member implementations -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"
+       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:util="http://www.springframework.org/schema/util"        
+	   xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+       ">
+
+    <!-- Incident Report Request Service, hosted by broker, called by requesting application (usually a portal) address is static-->
+	<cxf:cxfEndpoint id="incidentReportRequestFederatedService"
+		address="${federatedQuery.incidentReport.personQueryEndpoint}"
+		wsdlURL="classpath:service-specifications/Incident_Report_Request_Service/schema/SIP_WS_1.2/Incident_Report_Request_Service.wsdl"
+		serviceName="ojbc:Incident_Report_Request_Service_Service" endpointName="ojbc:Incident_Report_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="incidentReportKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.incidentReport.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+    <!-- Incident Report Results Handler Service, hosted by broker, called by adapter, address is static --> 
+	<cxf:cxfEndpoint id="incidentReportResultsFederatedService"
+		address="${federatedQuery.incidentReport.personQueryResultsHandlerIncidentReportRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+		 <cxf:features> 
+ 			<policy:policies> 
+ 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+ 					<wsam:Addressing> 
+ 						<wsp:Policy /> 
+ 					</wsam:Addressing> 
+ 				</wsp:Policy> 
+ 			</policy:policies> 
+ 		</cxf:features>	 
+	</cxf:cxfEndpoint>
+                        
+    <!-- Warrants Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
+	<cxf:cxfEndpoint id="incidentReportRequestFederatedServiceAdapter"
+		wsdlURL="classpath:service-specifications/Incident_Report_Request_Service/schema/SIP_WS_1.2/Incident_Report_Request_Service.wsdl"
+		serviceName="ojbc:Incident_Report_Request_Service_Service" endpointName="ojbc:Incident_Report_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="incidentReportKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.incidentReport.keystoreCertificateAlias}" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+	
+    <!-- Present Warrant Query Results typically hosted by a Web App, called by broker, address set dynamically-->
+	<cxf:cxfEndpoint id="presentIncidentReportResultsFederatedService"
+		address="${federatedQuery.incidentReport.presentPersonQueryResultsWebApplicationEndpoint}"
+		wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+		 <cxf:features> 
+ 			<policy:policies> 
+ 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+ 					<wsam:Addressing> 
+ 						<wsp:Policy /> 
+ 					</wsam:Addressing> 
+ 				</wsp:Policy> 
+ 			</policy:policies> 
+ 		</cxf:features>	 
+	</cxf:cxfEndpoint>
+   
+    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+		<property name="federatedQueryEndpointMap" ref="federatedQueryURIToEndpointMap"/>
+	</bean>
+
+	<util:map map-class="java.util.HashMap" id="federatedQueryURIToEndpointMap">
+		<entry key="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS" value="incidentReportRequestFederatedServiceRMSEndpoint" />
+	</util:map>
+
+	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>
+
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${federatedQuery.warrants.truststorePassword}"
+					file="${federatedQuery.warrants.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>
+	
+   	<bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">
+	    <!--  Set relayHeaders to false to drop all SOAP headers -->
+    	<property name="relayHeaders" value="false"/>
+   
+	</bean>
+   
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${federatedQuery.incidentReport.keystoreCertificateAlias}" value="${federatedQuery.incidentReport.keyPassword}"/>
+            </map>
+        </property>
+	</bean>
+   
+   	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+
+	<util:properties id="incidentReportKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${federatedQuery.incidentReport.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${federatedQuery.incidentReport.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${federatedQuery.incidentReport.keystoreLocation}</prop>
+	</util:properties>	
+      
+      
+   	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<httpj:engine-factory id="ClientAuthHttpsSettings"
+		bus="cxf">
+		<httpj:engine port="18603">
+			<httpj:tlsServerParameters>
+				<sec:keyManagers keyPassword="${federatedQuery.incidentReport.keyPassword}">
+					<sec:keyStore type="jks" password="${federatedQuery.incidentReport.keystorePassword}" file="${federatedQuery.incidentReport.keystoreLocation}" />
+				</sec:keyManagers>
+				<sec:cipherSuitesFilter>
+					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				</sec:cipherSuitesFilter>
+				<sec:clientAuthentication want="false"
+					required="false" />
+			</httpj:tlsServerParameters>
+		</httpj:engine>
+	</httpj:engine-factory>    
+	
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${federatedQuery.incidentReport.truststorePassword}"
+					file="${federatedQuery.incidentReport.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>	
+</beans>
