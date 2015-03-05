@@ -39,22 +39,6 @@
 				<IdentificationSourceText>Court</IdentificationSourceText>
 			</cext:JuvenileInformationRecordID>
 		</cext:JuvenileInformationAvailabilityMetadata>
-		<cext:RelatedJuvenileHistoryRecords>
-			<cext:RelatedJuvenileHistoryRecord>
-				<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
-				<cext:JuvenileInformationRecordID>
-					<IdentificationID>Record ID</IdentificationID>
-					<IdentificationSourceText>System Name</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-			</cext:RelatedJuvenileHistoryRecord>
-			<cext:RelatedJuvenileHistoryRecord>
-				<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
-				<cext:JuvenileInformationRecordID>
-					<IdentificationID>Record ID</IdentificationID>
-					<IdentificationSourceText>System Name</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-			</cext:RelatedJuvenileHistoryRecord>
-		</cext:RelatedJuvenileHistoryRecords>
 		<Person structures:id="Child1">
 			<PersonName>
 				<PersonGivenName>John</PersonGivenName>
@@ -119,7 +103,9 @@
 			<cyfs:Parent structures:ref="Parent1" xsi:nil="true"/>
 		</cyfs:ParentChildAssociation>
 		<cyfs:CourtCase>
-			<ActivityDate/>
+			<ActivityDate>
+				<Date>2015-01-01</Date>
+			</ActivityDate>
 			<j:CaseAugmentation>
 				<j:CaseDefendantParty structures:ref="Child1" xsi:nil="true"/>
 				<j:CaseHearing structures:id="Hearing1">

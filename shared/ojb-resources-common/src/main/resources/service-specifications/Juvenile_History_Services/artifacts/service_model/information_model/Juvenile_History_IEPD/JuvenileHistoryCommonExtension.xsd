@@ -90,7 +90,6 @@
 				<xsd:sequence>
 					<xsd:element ref="cext:JuvenileInformationAvailabilityCode"/>
 					<xsd:element ref="cext:JuvenileInformationAvailabilityMetadata" minOccurs="0"/>
-					<xsd:element ref="cext:RelatedJuvenileHistoryRecords" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded"/>

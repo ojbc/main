@@ -49,22 +49,6 @@
 				<IdentificationSourceText>Court</IdentificationSourceText>
 			</cext:JuvenileInformationRecordID>
 		</cext:JuvenileInformationAvailabilityMetadata>
-		<cext:RelatedJuvenileHistoryRecords>
-			<cext:RelatedJuvenileHistoryRecord>
-				<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
-				<cext:JuvenileInformationRecordID>
-					<IdentificationID>Record ID</IdentificationID>
-					<IdentificationSourceText>System Name</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-			</cext:RelatedJuvenileHistoryRecord>
-			<cext:RelatedJuvenileHistoryRecord>
-				<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
-				<cext:JuvenileInformationRecordID>
-					<IdentificationID>Record ID</IdentificationID>
-					<IdentificationSourceText>System Name</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-			</cext:RelatedJuvenileHistoryRecord>
-		</cext:RelatedJuvenileHistoryRecords>
 		<Person structures:id="Child1">
 			<PersonName>
 				<PersonGivenName>John</PersonGivenName>
