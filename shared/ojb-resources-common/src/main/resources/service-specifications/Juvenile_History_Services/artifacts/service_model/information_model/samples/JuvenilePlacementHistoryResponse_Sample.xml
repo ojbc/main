@@ -131,12 +131,16 @@
 						<FacilityLocation structures:ref="Location2" xsi:nil="true"/>
 					</cyfs:PlacementFacility>
 				</cyfs:JuvenilePlacementFacilityAssociation>
+				<cext:JuvenileInformationRecordID>
+					<IdentificationID>Placement1</IdentificationID>
+					<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</IdentificationSourceText>
+				</cext:JuvenileInformationRecordID>
 				<cext:RelatedJuvenileHistoryRecords>
 						<cext:RelatedJuvenileHistoryRecord>
 							<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
 							<cext:JuvenileInformationRecordID>
-								<IdentificationID>1234567</IdentificationID>
-								<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OttawaHearingHistory</IdentificationSourceText>
+								<IdentificationID>Hearing1</IdentificationID>
+								<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</IdentificationSourceText>
 							</cext:JuvenileInformationRecordID>
 						</cext:RelatedJuvenileHistoryRecord>
 						<cext:RelatedJuvenileHistoryRecord>

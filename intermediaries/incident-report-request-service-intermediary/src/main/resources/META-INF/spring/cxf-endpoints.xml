@@ -93,10 +93,6 @@
 		<property name="federatedQueryEndpointMap" ref="federatedQueryURIToEndpointMap"/>
 	</bean>
 
-	<util:map map-class="java.util.HashMap" id="federatedQueryURIToEndpointMap">
-		<entry key="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS" value="incidentReportRequestFederatedServiceRMSEndpoint" />
-	</util:map>
-
 	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
 		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	</bean>
