@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       ">
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+					
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
+	
+		<camel:endpoint id="arrestReportingServiceEndpoint"
+			uri="cxf:bean:ArrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${arrestReportingService.cxflogging}" />
+		
+		<camel:endpoint id="notificationBrokerServiceEndpoint"
+			uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${arrestReportingService.cxflogging}"/>
+			
+		<!-- Incident Reporting Service Handler -->
+		<camel:route id="ArrestReportingServiceHandlerRoute">
+			<camel:from uri="arrestReportingServiceEndpoint" />
+			
+			<camel:log message="Entering Arrest Reporting Service Intermediary"/>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+
+			<!-- Multicast to the core services and member specific routes so each route gets original message -->
+			<camel:multicast>
+				<camel:pipeline>
+					<camel:filter>
+						<camel:simple>${properties:arrestReportingService.callNotificationBroker} == true</camel:simple>
+						
+						<camel:log message="About to call notification broker endpoint"/>
+						
+						<camel:to uri="direct:callNotificationBroker"/>
+						
+					</camel:filter>	
+				</camel:pipeline>	
+				
+				<camel:pipeline>
+					<camel:to uri="direct:memberSpecificRoutes"/>
+				</camel:pipeline>
+					
+			</camel:multicast>
+			
+		</camel:route>
+		
+		<camel:route id="memberSpecificRoutes">
+
+			<camel:from uri="direct:memberSpecificRoutes"/>
+		
+			<!-- Set up member specific endpoints -->
+			<camel:setHeader headerName="routingSlipJurisdiction"><simple>{{arrestReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipJurisdiction} != ''</camel:simple>
+				
+				<camel:log message="About to call member specific routes using this routing slip: ${in.headers.routingSlipJurisdiction}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipJurisdiction</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>		
+		
+		<route id="callNotificationBrokerRoute">
+            <from uri="direct:callNotificationBroker"/>
+            <log message="In state specific logic vermont" />
+
+			<!-- Send to notification intermediary -->
+
+			<camel:log message="Processing Arrest Report Notifications"/>
+						
+			<camel:to uri="xslt:xslt/arrestReportToNotifications.xsl?transformerFactory=sFactory"/>								
+											
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+							
+			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+         
+			<camel:log message="This is the notification message: ${body}" loggingLevel="DEBUG"/>
+			
+            <camel:throttle timePeriodMillis="1000">
+            	<constant>1</constant>
+            	<to uri="notificationBrokerServiceEndpoint"/>
+        	</camel:throttle>    
+            
+        </route>
+
+	</camel:camelContext>
+	
+	<bean id="sFactory" class="net.sf.saxon.TransformerFactoryImpl" />
+	
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
+    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
+        <property name="name" value="default" />
+        <property name="queueSize" value="2048" />
+    </bean>	
+</beans>
