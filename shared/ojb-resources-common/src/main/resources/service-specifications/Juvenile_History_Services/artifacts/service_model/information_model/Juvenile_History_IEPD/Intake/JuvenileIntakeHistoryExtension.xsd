@@ -45,6 +45,7 @@
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="ext:JuvenileIntakeAssessmentCategoryRepresentation" minOccurs="1" maxOccurs="unbounded"/>
+					<xsd:element ref="cext:RelatedJuvenileHistoryRecords" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

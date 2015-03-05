@@ -381,6 +381,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_CYFS = "http://release.niem.gov/niem/domains/cyfs/3.0/";
 	public static final String NS_PREFIX_CYFS = "cyfs";
 
+    public static final String NS_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE = "http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0";
+    public static final String NS_PREFIX_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE = "crimhistory-update-exch";
+
+    public static final String NS_ARREST_REPORTING_SERVICE = "http://ojbc.org/IEPD/Exchange/ArrestReport/1.0";
+    public static final String NS_PREFIX_ARREST_REPORTING_SERVICE = "arrest-exch";
+
     private Map<String, String> prefixToUriMap;
     private Map<String, String> uriToPrefixMap;
 
@@ -822,6 +828,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
         
         prefixToUriMap.put(NS_PREFIX_PROXY_XSD_30, NS_PROXY_XSD_30);
         uriToPrefixMap.put(NS_PROXY_XSD_30, NS_PREFIX_PROXY_XSD_30); 
+        
+        prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE, NS_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE);
+        uriToPrefixMap.put(NS_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE, NS_PREFIX_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE);
+
+        prefixToUriMap.put(NS_PREFIX_ARREST_REPORTING_SERVICE, NS_ARREST_REPORTING_SERVICE);
+        uriToPrefixMap.put(NS_ARREST_REPORTING_SERVICE, NS_PREFIX_ARREST_REPORTING_SERVICE);
+
     }
 
     @Override
