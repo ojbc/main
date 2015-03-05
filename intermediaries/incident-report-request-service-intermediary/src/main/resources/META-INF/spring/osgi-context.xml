@@ -16,7 +16,7 @@
 	<!-- OSGi service reference to the context service defined in the derived bundle -->
 	<osgi:reference id="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary-context"
 		interface="org.ojbc.util.osgi.OjbcContext"
-		bean-name="org.ojbc.bundles.intermediaries.person-query-service-warrants-intermediary-context"/>
+		bean-name="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary-context"/>
 
 	<!-- Properties list built from four components, in order of precedence:
 	
