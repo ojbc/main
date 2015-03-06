@@ -4,7 +4,7 @@
 	xmlns:cp="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0" 
 	xmlns:h="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHearingHistoryResponse/1.0" 
 	xmlns:i="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0" 
-	xmlns:o="http://ojbc.org/IEPD/Exchange/JuvenileOffenseHistoryResponse/1.0" 
+	xmlns:o="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileOffenseHistoryResponse/1.0" 
 	xmlns:p="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0" 
 	xmlns:r="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0" 
 	xmlns:c="http://reference.niem.gov/niem/resource/mpd/catalog/3.0/" 

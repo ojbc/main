@@ -8,7 +8,7 @@
 	<uri name="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0" uri="Juvenile_History_IEPD/Hearing/JuvenileHearingHistoryResponse.xsd"/>
 	<uri name="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0" uri="Juvenile_History_IEPD/Intake/JuvenileIntakeHistoryExtension.xsd"/>
 	<uri name="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0" uri="Juvenile_History_IEPD/Intake/JuvenileIntakeHistoryResponse.xsd"/>
-	<uri name="http://ojbc.org/IEPD/Extension/JuvenileOffenseHistoryExtension/1.0" uri="Juvenile_History_IEPD/Offense/JuvenileOffenseHistoryExtension.xsd"/>
+	<uri name="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/1.0" uri="Juvenile_History_IEPD/Offense/JuvenileOffenseHistoryExtension.xsd"/>
 	<uri name="http://ojbc.org/IEPD/Exchange/JuvenileOffenseHistoryResponse/1.0" uri="Juvenile_History_IEPD/Offense/JuvenileOffenseHistoryResponse.xsd"/>
 	<uri name="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/1.0" uri="Juvenile_History_IEPD/Placement/JuvenilePlacementHistoryExtension.xsd"/>
 	<uri name="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0" uri="Juvenile_History_IEPD/Placement/JuvenilePlacementHistoryResponse.xsd"/>
