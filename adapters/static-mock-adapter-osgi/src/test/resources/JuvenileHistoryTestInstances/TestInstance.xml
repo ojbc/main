@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jh-container:JuvenileHistoryContainer xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
-	xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0"
-	xmlns:jh-container="http://ojbc.org/staticmock/JuvenileHistoryContainer/1.0"
-	xmlns:jh-referral="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0"
-	xmlns:jh-offense="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/1.0"
-	xmlns:jh-placement="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0"
-	xmlns:jh-intake="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0"
-	xmlns:jh-hearing="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0"
-	xmlns:jh-case-plan="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0"
-	xmlns:jh-referral-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0"
-	xmlns:jh-offense-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/michigan/codes/1.0"
-	xmlns:jh-placement-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0"
-	xmlns:jh-intake-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/michigan/codes/1.0"
-	xmlns:jh-hearing-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0"
-	>
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:jh-container="http://ojbc.org/staticmock/JuvenileHistoryContainer/1.0"
+	xmlns:jh-referral="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0" xmlns:jh-offense="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/1.0"
+	xmlns:jh-placement="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0" xmlns:jh-intake="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0"
+	xmlns:jh-hearing="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0" xmlns:jh-case-plan="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0"
+	xmlns:jh-referral-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0" xmlns:jh-offense-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/michigan/codes/1.0"
+	xmlns:jh-placement-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0" xmlns:jh-intake-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/michigan/codes/1.0"
+	xmlns:jh-hearing-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0">
 	<jh-ext:JuvenileInformationAvailabilityMetadata s30:id="metadata">
 		<nc30:LastUpdatedDate>
 			<nc30:Date>1957-08-13</nc30:Date>
@@ -41,11 +33,10 @@
 			</nc30:OrganizationLocation>
 			<nc30:OrganizationName>String</nc30:OrganizationName>
 		</jh-ext:JuvenileInformationOwnerOrganization>
-		<!-- 
 		<jh-ext:JuvenileInformationRecordID>
 			<nc30:IdentificationID>100</nc30:IdentificationID>
 			<nc30:IdentificationSourceText>Court</nc30:IdentificationSourceText>
-		</jh-ext:JuvenileInformationRecordID> -->
+		</jh-ext:JuvenileInformationRecordID>
 	</jh-ext:JuvenileInformationAvailabilityMetadata>
 	<nc30:Person s30:id="Child1" s30:metadata="metadata">
 		<nc30:PersonName>
@@ -131,6 +122,16 @@
 		<nc30:ReferralPerson s30:ref="Child1" xsi:nil="true" />
 		<jh-referral:ReferralAugmentation>
 			<jh-referral-codes:ReferralCategoryCode>Complaint</jh-referral-codes:ReferralCategoryCode>
+			<jh-ext:JuvenileInformationRecordID>
+				<nc30:IdentificationID>Referral1</nc30:IdentificationID>
+				<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory</nc30:IdentificationSourceText>
+			</jh-ext:JuvenileInformationRecordID>
+			<jh-ext:RelatedJuvenileHistoryRecords>
+				<jh-ext:RelatedJuvenileHistoryRecord>
+					<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+					<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+				</jh-ext:RelatedJuvenileHistoryRecord>
+			</jh-ext:RelatedJuvenileHistoryRecords>
 		</jh-referral:ReferralAugmentation>
 	</nc30:Referral>
 	<nc30:Referral s30:id="Referral2" s30:metadata="metadata">
@@ -154,11 +155,33 @@
 		<nc30:ReferralPerson s30:ref="Child1" xsi:nil="true" />
 		<jh-referral:ReferralAugmentation>
 			<jh-referral-codes:ReferralCategoryCode>Petition</jh-referral-codes:ReferralCategoryCode>
+			<jh-ext:JuvenileInformationRecordID>
+				<nc30:IdentificationID>Referral2</nc30:IdentificationID>
+				<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory</nc30:IdentificationSourceText>
+			</jh-ext:JuvenileInformationRecordID>
+			<jh-ext:RelatedJuvenileHistoryRecords>
+				<jh-ext:RelatedJuvenileHistoryRecord>
+					<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+					<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+				</jh-ext:RelatedJuvenileHistoryRecord>
+			</jh-ext:RelatedJuvenileHistoryRecords>
 		</jh-referral:ReferralAugmentation>
 	</nc30:Referral>
 	<jxdm50:OffenseChargeAssociation>
 		<jxdm50:Offense s30:id="Offense1">
 			<jh-offense-codes:OffensePACCCode>750.781A2</jh-offense-codes:OffensePACCCode>
+			<jh-offense:OffenseAugmentation>
+				<jh-ext:JuvenileInformationRecordID>
+					<nc30:IdentificationID>Offense1</nc30:IdentificationID>
+					<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
+				</jh-ext:JuvenileInformationRecordID>
+				<jh-ext:RelatedJuvenileHistoryRecords>
+					<jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+						<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+					</jh-ext:RelatedJuvenileHistoryRecord>
+				</jh-ext:RelatedJuvenileHistoryRecords>
+			</jh-offense:OffenseAugmentation>
 		</jxdm50:Offense>
 		<jxdm50:Charge s30:id="Charge1">
 			<jxdm50:ChargeDisposition>
@@ -192,6 +215,18 @@
 	<jxdm50:OffenseChargeAssociation>
 		<jxdm50:Offense s30:id="Offense2">
 			<jh-offense-codes:OffensePACCCode>125.14471B1</jh-offense-codes:OffensePACCCode>
+			<jh-offense:OffenseAugmentation>
+				<jh-ext:JuvenileInformationRecordID>
+					<nc30:IdentificationID>Offense2</nc30:IdentificationID>
+					<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
+				</jh-ext:JuvenileInformationRecordID>
+				<jh-ext:RelatedJuvenileHistoryRecords>
+					<jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+						<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+					</jh-ext:RelatedJuvenileHistoryRecord>
+				</jh-ext:RelatedJuvenileHistoryRecords>
+			</jh-offense:OffenseAugmentation>
 		</jxdm50:Offense>
 		<jxdm50:Charge s30:id="Charge2">
 			<jxdm50:ChargeDisposition>
@@ -249,6 +284,23 @@
 					<nc30:FacilityLocation s30:ref="Location2" xsi:nil="true" />
 				</cyfs:PlacementFacility>
 			</cyfs:JuvenilePlacementFacilityAssociation>
+			<jh-ext:JuvenileInformationRecordID>
+				<nc30:IdentificationID>Placement1</nc30:IdentificationID>
+				<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
+			</jh-ext:JuvenileInformationRecordID>
+			<jh-ext:RelatedJuvenileHistoryRecords>
+				<jh-ext:RelatedJuvenileHistoryRecord>
+					<jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
+					<jh-ext:JuvenileInformationRecordID>
+						<nc30:IdentificationID>Hearing1</nc30:IdentificationID>
+						<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
+					</jh-ext:JuvenileInformationRecordID>
+				</jh-ext:RelatedJuvenileHistoryRecord>
+				<jh-ext:RelatedJuvenileHistoryRecord>
+					<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+					<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+				</jh-ext:RelatedJuvenileHistoryRecord>
+			</jh-ext:RelatedJuvenileHistoryRecords>
 		</jh-placement:JuvenilePlacementAugmentation>
 	</cyfs:JuvenilePlacement>
 	<cyfs:JuvenileIntakeAssessment>
@@ -267,6 +319,23 @@
 		<jh-intake:JuvenileAssessmentAugmentation>
 			<jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>Assessment</jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>
 			<jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>Interview</jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>
+			<jh-ext:JuvenileInformationRecordID>
+					<nc30:IdentificationID>Intake1</nc30:IdentificationID>
+					<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
+				</jh-ext:JuvenileInformationRecordID>
+				<jh-ext:RelatedJuvenileHistoryRecords>
+					<jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
+						<jh-ext:JuvenileInformationRecordID>
+							<nc30:IdentificationID>Hearing1</nc30:IdentificationID>
+							<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
+						</jh-ext:JuvenileInformationRecordID>
+					</jh-ext:RelatedJuvenileHistoryRecord>
+					<jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
+						<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+					</jh-ext:RelatedJuvenileHistoryRecord>
+				</jh-ext:RelatedJuvenileHistoryRecords>
 		</jh-intake:JuvenileAssessmentAugmentation>
 	</cyfs:JuvenileIntakeAssessment>
 	<cyfs:CourtCase>
@@ -283,6 +352,23 @@
 					<jh-hearing-codes:HearingDispositionCode>Title IV-E language</jh-hearing-codes:HearingDispositionCode>
 					<jh-hearing-codes:HearingDispositionCode>Adjournment</jh-hearing-codes:HearingDispositionCode>
 					<jh-hearing:ProbationViolationIndicator>false</jh-hearing:ProbationViolationIndicator>
+					<jh-ext:JuvenileInformationRecordID>
+						<nc30:IdentificationID>Hearing1</nc30:IdentificationID>
+						<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
+					</jh-ext:JuvenileInformationRecordID>
+					<jh-ext:RelatedJuvenileHistoryRecords>
+						<jh-ext:RelatedJuvenileHistoryRecord>
+							<jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
+							<jh-ext:JuvenileInformationRecordID>
+								<nc30:IdentificationID>Offense1</nc30:IdentificationID>
+								<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
+							</jh-ext:JuvenileInformationRecordID>
+						</jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:RelatedJuvenileHistoryRecord>
+							<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+							<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+						</jh-ext:RelatedJuvenileHistoryRecord>
+					</jh-ext:RelatedJuvenileHistoryRecords>
 				</jh-hearing:CourtEventAugmentation>
 			</jxdm50:CaseHearing>
 			<jxdm50:CaseHearing s30:id="Hearing2">
@@ -294,6 +380,23 @@
 					<jh-hearing-codes:HearingCategoryCode>Bench Trial</jh-hearing-codes:HearingCategoryCode>
 					<jh-hearing-codes:HearingDispositionCode>American Indian tribe or band notified</jh-hearing-codes:HearingDispositionCode>
 					<jh-hearing:ProbationViolationIndicator>false</jh-hearing:ProbationViolationIndicator>
+					<jh-ext:JuvenileInformationRecordID>
+						<nc30:IdentificationID>Hearing2</nc30:IdentificationID>
+						<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
+					</jh-ext:JuvenileInformationRecordID>
+					<jh-ext:RelatedJuvenileHistoryRecords>
+						<jh-ext:RelatedJuvenileHistoryRecord>
+							<jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
+							<jh-ext:JuvenileInformationRecordID>
+								<nc30:IdentificationID>Offense1</nc30:IdentificationID>
+								<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
+							</jh-ext:JuvenileInformationRecordID>
+						</jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:RelatedJuvenileHistoryRecord>
+							<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+							<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+						</jh-ext:RelatedJuvenileHistoryRecord>
+					</jh-ext:RelatedJuvenileHistoryRecords>
 				</jh-hearing:CourtEventAugmentation>
 			</jxdm50:CaseHearing>
 		</jxdm50:CaseAugmentation>
@@ -301,5 +404,24 @@
 	<jh-case-plan:CasePlan>
 		<jh-case-plan:AssessmentIndicator>true</jh-case-plan:AssessmentIndicator>
 		<jh-case-plan:CasePlanIndicator>true</jh-case-plan:CasePlanIndicator>
+		<jh-case-plan:CasePlanAugmentation>
+			<jh-ext:JuvenileInformationRecordID>
+				<nc30:IdentificationID>CasePlan1</nc30:IdentificationID>
+				<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory</nc30:IdentificationSourceText>
+			</jh-ext:JuvenileInformationRecordID>
+			<jh-ext:RelatedJuvenileHistoryRecords>
+				<jh-ext:RelatedJuvenileHistoryRecord>
+					<jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
+					<jh-ext:JuvenileInformationRecordID>
+						<nc30:IdentificationID>Hearing1</nc30:IdentificationID>
+						<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
+					</jh-ext:JuvenileInformationRecordID>
+				</jh-ext:RelatedJuvenileHistoryRecord>
+				<jh-ext:RelatedJuvenileHistoryRecord>
+					<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+					<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+				</jh-ext:RelatedJuvenileHistoryRecord>
+			</jh-ext:RelatedJuvenileHistoryRecords>
+		</jh-case-plan:CasePlanAugmentation>
 	</jh-case-plan:CasePlan>
 </jh-container:JuvenileHistoryContainer>
