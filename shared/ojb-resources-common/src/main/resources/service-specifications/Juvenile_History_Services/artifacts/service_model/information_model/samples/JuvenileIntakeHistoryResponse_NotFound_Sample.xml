@@ -17,22 +17,16 @@
 				<OrganizationBranchName>String</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
-						<AddressSecondaryUnitText>String</AddressSecondaryUnitText>
+						<AddressSecondaryUnitText>Suite 105</AddressSecondaryUnitText>
 						<LocationStreet>
-							<StreetFullText>String</StreetFullText>
-							<StreetNumberText>String</StreetNumberText>
-							<StreetPredirectionalText>String</StreetPredirectionalText>
-							<StreetName>String</StreetName>
-							<StreetCategoryText>String</StreetCategoryText>
-							<StreetPostdirectionalText>String</StreetPostdirectionalText>
-							<StreetExtensionText>String</StreetExtensionText>
+							<StreetFullText>128 6th Street</StreetFullText>
 						</LocationStreet>
-						<LocationCityName>String</LocationCityName>
+						<LocationCityName>Smithville</LocationCityName>
 						<j:LocationStateNCICRESCode>IN</j:LocationStateNCICRESCode>
-						<LocationPostalCode>String</LocationPostalCode>
+						<LocationPostalCode>45092-001</LocationPostalCode>
 					</Address>
 				</OrganizationLocation>
-				<OrganizationName>String</OrganizationName>
+				<OrganizationName>Iona Court</OrganizationName>
 			</cext:JuvenileInformationOwnerOrganization>
 			<cext:JuvenileInformationRecordID>
 				<IdentificationID>100</IdentificationID>

@@ -10,32 +10,27 @@
 		<cext:JuvenileInformationAvailabilityCode>NOT FOUND</cext:JuvenileInformationAvailabilityCode>
 		<cext:JuvenileInformationAvailabilityMetadata>
 			<LastUpdatedDate>
-				<Date>1957-08-13</Date>
+				<Date>1999-08-13</Date>
 			</LastUpdatedDate>
 			<cext:JuvenileInformationOwnerOrganization>
-				<OrganizationBranchName>String</OrganizationBranchName>
+				<OrganizationBranchName>2nd District</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
-						<AddressSecondaryUnitText>String</AddressSecondaryUnitText>
+						<AddressSecondaryUnitText/>
 						<LocationStreet>
-							<StreetFullText>String</StreetFullText>
-							<StreetNumberText>String</StreetNumberText>
-							<StreetPredirectionalText>String</StreetPredirectionalText>
-							<StreetName>String</StreetName>
+							<StreetFullText>127 Elm Street</StreetFullText>
 							<StreetCategoryText>String</StreetCategoryText>
-							<StreetPostdirectionalText>String</StreetPostdirectionalText>
-							<StreetExtensionText>String</StreetExtensionText>
 						</LocationStreet>
-						<LocationCityName>String</LocationCityName>
-						<j:LocationStateNCICRESCode>IN</j:LocationStateNCICRESCode>
-						<LocationPostalCode>String</LocationPostalCode>
+						<LocationCityName>Pennville</LocationCityName>
+						<j:LocationStateNCICRESCode>MI(2)</j:LocationStateNCICRESCode>
+						<LocationPostalCode>32157</LocationPostalCode>
 					</Address>
 				</OrganizationLocation>
-				<OrganizationName>String</OrganizationName>
+				<OrganizationName>Court</OrganizationName>
 			</cext:JuvenileInformationOwnerOrganization>
 			<cext:JuvenileInformationRecordID>
-				<IdentificationID>String</IdentificationID>
-				<IdentificationSourceText>String</IdentificationSourceText>
+				<IdentificationID>65478879</IdentificationID>
+				<IdentificationSourceText>System</IdentificationSourceText>
 			</cext:JuvenileInformationRecordID>
 		</cext:JuvenileInformationAvailabilityMetadata>
 		<Person structures:id="Child1">
@@ -84,8 +79,8 @@
 				<LocationStreet>
 					<StreetFullText>100 Main Street</StreetFullText>
 				</LocationStreet>
-				<LocationCityName>Lansing</LocationCityName>
-				<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
+				<LocationCityName>Ottawa</LocationCityName>
+				<j:LocationStateNCICRESCode>OT</j:LocationStateNCICRESCode>
 				<LocationPostalCode>48901-1000</LocationPostalCode>
 			</Address>
 		</Location>

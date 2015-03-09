@@ -14,29 +14,28 @@
 				<Date>1957-08-13</Date>
 			</LastUpdatedDate>
 			<cext:JuvenileInformationOwnerOrganization>
-				<OrganizationBranchName>String</OrganizationBranchName>
+				<OrganizationBranchName>2nd District</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
-						<AddressSecondaryUnitText>String</AddressSecondaryUnitText>
+						<AddressSecondaryUnitText>#12</AddressSecondaryUnitText>
 						<LocationStreet>
-							<StreetFullText>String</StreetFullText>
-							<StreetNumberText>String</StreetNumberText>
-							<StreetPredirectionalText>String</StreetPredirectionalText>
-							<StreetName>String</StreetName>
-							<StreetCategoryText>String</StreetCategoryText>
-							<StreetPostdirectionalText>String</StreetPostdirectionalText>
-							<StreetExtensionText>String</StreetExtensionText>
+							<StreetFullText>3545 Woodland Ave</StreetFullText>
+							<StreetNumberText>3545</StreetNumberText>
+							<StreetPredirectionalText>NE</StreetPredirectionalText>
+							<StreetName>Woodland Ave</StreetName>
+							<StreetCategoryText>City</StreetCategoryText>
+							<StreetPostdirectionalText>East</StreetPostdirectionalText>
 						</LocationStreet>
-						<LocationCityName>String</LocationCityName>
-						<j:LocationStateNCICRESCode>IN</j:LocationStateNCICRESCode>
-						<LocationPostalCode>String</LocationPostalCode>
+						<LocationCityName>Ottawa</LocationCityName>
+						<j:LocationStateNCICRESCode>OT</j:LocationStateNCICRESCode>
+						<LocationPostalCode>54987</LocationPostalCode>
 					</Address>
 				</OrganizationLocation>
-				<OrganizationName>String</OrganizationName>
+				<OrganizationName>Court</OrganizationName>
 			</cext:JuvenileInformationOwnerOrganization>
 			<cext:JuvenileInformationRecordID>
-				<IdentificationID>String</IdentificationID>
-				<IdentificationSourceText>String</IdentificationSourceText>
+				<IdentificationID>OTC23456567</IdentificationID>
+				<IdentificationSourceText>Court Record</IdentificationSourceText>
 			</cext:JuvenileInformationRecordID>
 		</cext:JuvenileInformationAvailabilityMetadata>
 		<Person structures:id="Child1">
