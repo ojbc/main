@@ -95,7 +95,8 @@
 				</nc:LocationStreet>
 				<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
 				<nc:LocationCityName>Anytown</nc:LocationCityName>
-				<nc:LocationStateNCICRESCode>PA</nc:LocationStateNCICRESCode>
+				<nc:LocationStateFIPS5-2AlphaCode>MI</nc:LocationStateFIPS5-2AlphaCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
 				<nc:LocationPostalCode>99199</nc:LocationPostalCode>
 			</nc:StructuredAddress>
 		</nc:LocationAddress>
