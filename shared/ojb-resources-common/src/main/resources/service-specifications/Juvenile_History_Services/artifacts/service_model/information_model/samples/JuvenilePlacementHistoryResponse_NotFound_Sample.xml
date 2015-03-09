@@ -24,25 +24,18 @@
 				<Date>1957-08-13</Date>
 			</LastUpdatedDate>
 			<cext:JuvenileInformationOwnerOrganization>
-				<OrganizationBranchName>String</OrganizationBranchName>
+				<OrganizationBranchName>Juvenile</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
-						<AddressSecondaryUnitText>String</AddressSecondaryUnitText>
 						<LocationStreet>
-							<StreetFullText>String</StreetFullText>
-							<StreetNumberText>String</StreetNumberText>
-							<StreetPredirectionalText>String</StreetPredirectionalText>
-							<StreetName>String</StreetName>
-							<StreetCategoryText>String</StreetCategoryText>
-							<StreetPostdirectionalText>String</StreetPostdirectionalText>
-							<StreetExtensionText>String</StreetExtensionText>
+							<StreetFullText>8342 North Ambrose Drive</StreetFullText>
 						</LocationStreet>
-						<LocationCityName>String</LocationCityName>
+						<LocationCityName>St Lauren</LocationCityName>
 						<j:LocationStateNCICRESCode>IN</j:LocationStateNCICRESCode>
-						<LocationPostalCode>String</LocationPostalCode>
+						<LocationPostalCode>75466</LocationPostalCode>
 					</Address>
 				</OrganizationLocation>
-				<OrganizationName>String</OrganizationName>
+				<OrganizationName>Iona County Court</OrganizationName>
 			</cext:JuvenileInformationOwnerOrganization>
 			<cext:JuvenileInformationRecordID>
 				<IdentificationID>100</IdentificationID>
