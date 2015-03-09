@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OJBAggregateResponseWrapper>
+<exchange:PersonSearchResults
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0 ../xsd/exchange_schema.xsd ">
+	<ext:PersonSearchResult xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+		<ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonAlternateName>
+				<nc:PersonFullName>Macho Man</nc:PersonFullName>
+			</nc:PersonAlternateName>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-02-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>JOHN</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>SMITH</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>150</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>9999999999</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A999999999</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</ext:Person>
+		<ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A123456</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<ext:SearchResultCategoryText>Criminal History
+		</ext:SearchResultCategoryText>
+	</ext:PersonSearchResult>
+	
+	<ext:PersonSearchResult xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+		<ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonAlternateName>
+				<nc:PersonFullName>Macho Man</nc:PersonFullName>
+			</nc:PersonAlternateName>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-02-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>JOHN</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>SMITH</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>150</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>9999999999</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A999999999</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</ext:Person>
+		<ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A1234567</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<ext:SearchResultCategoryText>Criminal History
+		</ext:SearchResultCategoryText>
+	</ext:PersonSearchResult>	
+	
+	<ext:PersonSearchResult xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+		<ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonAlternateName>
+				<nc:PersonFullName>Macho Man</nc:PersonFullName>
+			</nc:PersonAlternateName>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-02-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>JOHN</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>SMITH</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>150</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>9999999999</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A999999999</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</ext:Person>
+		<ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A1234568</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<ext:SearchResultCategoryText>Criminal History
+		</ext:SearchResultCategoryText>
+	</ext:PersonSearchResult>	
+	
+	<ext:PersonSearchResult xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+		<ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonAlternateName>
+				<nc:PersonFullName>Macho Man</nc:PersonFullName>
+			</nc:PersonAlternateName>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-02-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>JOHN</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>SMITH</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>150</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>9999999999</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A999999999</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</ext:Person>
+		<ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A123459</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<ext:SearchResultCategoryText>Criminal History
+		</ext:SearchResultCategoryText>
+	</ext:PersonSearchResult>	
+</exchange:PersonSearchResults>
+</OJBAggregateResponseWrapper>
