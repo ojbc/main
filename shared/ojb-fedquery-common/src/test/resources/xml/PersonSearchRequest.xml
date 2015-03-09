@@ -1,0 +1,18 @@
+<PersonSearchRequest
+	xmlns="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
+	xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="SM003">
+	<Person xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">
+		<PersonName xmlns="http://niem.gov/niem/niem-core/2.0">
+			<PersonSurName NS1:metadata="SM001">matthews</PersonSurName>
+		</PersonName>
+	</Person>
+	<SourceSystemNameText
+		xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS</SourceSystemNameText>
+	<SourceSystemNameText
+		xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Warrants</SourceSystemNameText>
+	<SearchMetadata
+		xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
+		NS1:id="SM001">
+		<SearchQualifierCode>exact</SearchQualifierCode>
+	</SearchMetadata>
+</PersonSearchRequest>
