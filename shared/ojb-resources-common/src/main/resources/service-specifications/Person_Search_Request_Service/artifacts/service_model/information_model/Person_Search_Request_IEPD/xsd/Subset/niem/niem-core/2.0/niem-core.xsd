@@ -727,4 +727,12 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="LocationStateFIPS10-4InternationalCode" type="fips_10-4:InternationalStateCodeType" substitutionGroup="nc:LocationState">
+    <xsd:annotation>
+      <xsd:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="LocationState"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
 </xsd:schema>
