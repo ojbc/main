@@ -72,7 +72,8 @@
 					</nc:LocationStreet>
 					<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
 					<nc:LocationCityName>Anytown</nc:LocationCityName>
-					<nc:LocationStateNCICRESCode>PA</nc:LocationStateNCICRESCode>
+					<nc:LocationStateFIPS5-2AlphaCode>MI</nc:LocationStateFIPS5-2AlphaCode>
+					<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
 					<nc:LocationPostalCode>99199</nc:LocationPostalCode>
 				</nc:StructuredAddress>
 			</nc:LocationAddress>
@@ -102,7 +103,7 @@
 		</nc:Metadata>
 	</ext:PersonSearchResult>
 	<ext:PersonSearchResult>
-		<ext:Person>
+		<ext:Person s:id="P002">
 			<nc:PersonAgeMeasure>
 				<nc:MeasurePointValue>67</nc:MeasurePointValue>
 			</nc:PersonAgeMeasure>
@@ -135,6 +136,25 @@
 				</jxdm:PersonStateFingerprintIdentification>
 			</jxdm:PersonAugmentation>
 		</ext:Person>
+		<nc:Location s:id="LOC02">
+			<nc:LocationAddress>
+				<nc:StructuredAddress>
+					<nc:LocationStreet>
+						<nc:StreetNumberText>123</nc:StreetNumberText>
+						<nc:StreetName>Main Street</nc:StreetName>
+					</nc:LocationStreet>
+					<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+					<nc:LocationCityName>Anytown</nc:LocationCityName>
+					<nc:LocationStateCanadianProvinceCode>AB</nc:LocationStateCanadianProvinceCode>
+					<nc:LocationCountryFIPS10-4Code>CN</nc:LocationCountryFIPS10-4Code>
+					<nc:LocationPostalCode>99199</nc:LocationPostalCode>
+				</nc:StructuredAddress>
+			</nc:LocationAddress>
+		</nc:Location>
+		<nc:ResidenceAssociation>
+			<nc:PersonReference s:ref="P002"/>
+			<nc:LocationReference s:ref="LOC02"/>
+		</nc:ResidenceAssociation>
 		<ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
 		</ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
@@ -145,7 +165,7 @@
 		</ext:SearchResultCategoryText>
 	</ext:PersonSearchResult>
 	<ext:PersonSearchResult>
-		<ext:Person>
+		<ext:Person s:id="P003">
 			<nc:PersonAgeMeasure>
 				<nc:MeasurePointValue>65</nc:MeasurePointValue>
 			</nc:PersonAgeMeasure>
@@ -178,6 +198,24 @@
 				</jxdm:PersonStateFingerprintIdentification>
 			</jxdm:PersonAugmentation>
 		</ext:Person>
+		<nc:Location s:id="LOC03">
+			<nc:LocationAddress>
+				<nc:StructuredAddress>
+					<nc:LocationStreet>
+						<nc:StreetNumberText>123</nc:StreetNumberText>
+						<nc:StreetName>Main Street</nc:StreetName>
+					</nc:LocationStreet>
+					<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+					<nc:LocationCityName>Anytown</nc:LocationCityName>
+					<nc:LocationStateFIPS10-4InternationalCode>CA01</nc:LocationStateFIPS10-4InternationalCode>
+					<nc:LocationPostalCode>99199</nc:LocationPostalCode>
+				</nc:StructuredAddress>
+			</nc:LocationAddress>
+		</nc:Location>
+		<nc:ResidenceAssociation>
+			<nc:PersonReference s:ref="P003"/>
+			<nc:LocationReference s:ref="LOC03"/>
+		</nc:ResidenceAssociation>
 		<ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
 		</ext:SourceSystemNameText>
 		<intel:SystemIdentifier>

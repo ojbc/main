@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <doc:JuvenileCasePlanHistoryResponse xmlns="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0" xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0 ../Juvenile_History_IEPD/CasePlan/JuvenileCasePlanHistoryResponse.xsd">
 	<cext:JuvenileHistoryCategoryCode>JuvenileCasePlanHistory</cext:JuvenileHistoryCategoryCode>
 	<cext:JuvenileHistoryQueryCriteria>
@@ -7,30 +8,33 @@
 		</cext:JuvenileInformationRecordID>
 	</cext:JuvenileHistoryQueryCriteria>
 	<ext:JuvenileCasePlanHistory>
-		<cext:JuvenileInformationAvailabilityCode>NOT FOUND</cext:JuvenileInformationAvailabilityCode>
+		<cext:JuvenileInformationAvailabilityCode>FOUND</cext:JuvenileInformationAvailabilityCode>
 		<cext:JuvenileInformationAvailabilityMetadata>
 			<LastUpdatedDate>
-				<Date>1999-08-13</Date>
+				<Date>1957-08-13</Date>
 			</LastUpdatedDate>
 			<cext:JuvenileInformationOwnerOrganization>
 				<OrganizationBranchName>2nd District</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
-						<AddressSecondaryUnitText/>
+						<AddressSecondaryUnitText>#12</AddressSecondaryUnitText>
 						<LocationStreet>
-							<StreetFullText>127 Elm Street</StreetFullText>
-							<StreetCategoryText>String</StreetCategoryText>
+							<StreetFullText>414 Washington Ave</StreetFullText>
+							<StreetNumberText>414</StreetNumberText>
+							<StreetName>Washington Ave</StreetName>
+							<StreetCategoryText>Avenue</StreetCategoryText>
 						</LocationStreet>
-						<LocationCityName>Pennville</LocationCityName>
-						<j:LocationStateNCICRESCode>MI(2)</j:LocationStateNCICRESCode>
-						<LocationPostalCode>32157</LocationPostalCode>
+						<LocationCityName>Grand Haven</LocationCityName>
+						<LocationStateFIPS5-2AlphaCode>MI</LocationStateFIPS5-2AlphaCode >
+						<LocationCountryFIPS10-4Code>US</LocationCountryFIPS10-4Code>
+						<LocationPostalCode>49417</LocationPostalCode>
 					</Address>
 				</OrganizationLocation>
 				<OrganizationName>Court</OrganizationName>
 			</cext:JuvenileInformationOwnerOrganization>
 			<cext:JuvenileInformationRecordID>
-				<IdentificationID>65478879</IdentificationID>
-				<IdentificationSourceText>System</IdentificationSourceText>
+				<IdentificationID>OTC23456567</IdentificationID>
+				<IdentificationSourceText>Court Record</IdentificationSourceText>
 			</cext:JuvenileInformationRecordID>
 		</cext:JuvenileInformationAvailabilityMetadata>
 		<Person structures:id="Child1">
@@ -69,7 +73,8 @@
 					<StreetFullText>100 Main Street</StreetFullText>
 				</LocationStreet>
 				<LocationCityName>Lansing</LocationCityName>
-				<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
+				<LocationStateFIPS5-2AlphaCode>MI</LocationStateFIPS5-2AlphaCode>
+				<LocationCountryFIPS10-4Code>US</LocationCountryFIPS10-4Code>
 				<LocationPostalCode>48901-1000</LocationPostalCode>
 			</Address>
 		</Location>
@@ -80,8 +85,9 @@
 					<StreetFullText>100 Main Street</StreetFullText>
 				</LocationStreet>
 				<LocationCityName>Ottawa</LocationCityName>
-				<j:LocationStateNCICRESCode>OT</j:LocationStateNCICRESCode>
-				<LocationPostalCode>48901-1000</LocationPostalCode>
+				<LocationCanadianProvinceCode>ON</LocationCanadianProvinceCode>
+				<LocationCountryFIPS10-4Code>CN</LocationCountryFIPS10-4Code>
+				<LocationPostalCode>K1S 1C20</LocationPostalCode>
 			</Address>
 		</Location>
 		<PersonResidenceAssociation>
