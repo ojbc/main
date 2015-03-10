@@ -19,10 +19,9 @@
 	<cxf-version>2.6.4</cxf-version>
 	<saxon-version>8.7</saxon-version>
 	<servlet-api-version>2.5</servlet-api-version>
-	<bouncycastle-version>140</bouncycastle-version>	
+	<bouncycastle-version>140</bouncycastle-version>
 	<ojb-fedquery-common>1.0.1</ojb-fedquery-common>
 	<ojb-camel-common>1.0.0</ojb-camel-common>
-	<ojbc-resources-version>2.0.0</ojbc-resources-version>
 	<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 	<commons-lang-version>2.4</commons-lang-version>
 	<spring-version>3.0.7.RELEASE</spring-version>
@@ -41,14 +40,14 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>${h2database-version}</version>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
 			<version>${osgi-core-version}</version>
 			<scope>provided</scope>
 		</dependency>
-			
+
 		<!-- Camel libs -->
 	    <dependency>
 	      <groupId>org.apache.camel</groupId>
@@ -99,7 +98,7 @@
 			<artifactId>bcprov-jdk16</artifactId>
 			<version>${bouncycastle-version}</version>
 		</dependency>
-       
+
         <dependency>
            <groupId>org.apache.cxf</groupId>
            <artifactId>cxf-rt-ws-security</artifactId>
@@ -115,7 +114,7 @@
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>${jodatime-version}</version>
-		</dependency>		
+		</dependency>
 		<!-- OJB Shared Bundles -->
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
@@ -127,24 +126,19 @@
 	      <artifactId>ojb-camel-common</artifactId>
 	      <version>${ojb-camel-common}</version>
 	    </dependency>
-	
+
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
 	      <artifactId>ojb-resources-common</artifactId>
 	      <version>${ojb-resources-common-version}</version>
 	    </dependency>
-<!-- 	    <dependency>
-	      <groupId>org.ojbc.bundles.shared</groupId>
-	      <artifactId>OJB_Resources</artifactId>
-	      <version>${ojbc-resources-version}</version>
-	    </dependency>
- -->
+
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-osgi-common</artifactId>
-			<version>${ojb-osgi-common-version}</version> 
+			<version>${ojb-osgi-common-version}</version>
 		</dependency>
-	
+
 		<!-- for testing -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -163,13 +157,13 @@
 			<artifactId>commons-io</artifactId>
 			<version>${apache-commons-io-version}</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
 			<version>${xmlunit-version}</version>
 			<scope>test</scope>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.utilities</groupId>
 			<artifactId>h2-mock-database</artifactId>
@@ -192,12 +186,12 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j-version}</version>
 		</dependency>
-	</dependencies>	
+	</dependencies>
 
 
   <build>
     <defaultGoal>install</defaultGoal>
-    
+
     <resources>
 		<resource>
 			<directory>${basedir}/src/main/resources</directory>
@@ -230,7 +224,7 @@
         </configuration>
       </plugin>
 
-      
+
       <plugin>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-maven-plugin</artifactId>
@@ -247,7 +241,7 @@
 	    <extensions>true</extensions>
 	    <configuration>
 	      <instructions>
-			<DynamicImport-Package>*</DynamicImport-Package>	      
+			<DynamicImport-Package>*</DynamicImport-Package>
 			<Import-Package>
 			META-INF.cxf,
 			META-INF.cxf.osgi,
@@ -270,7 +264,7 @@
 
     </plugins>
   </build>
-	
+
   <reporting>
     <plugins>
       <plugin>
@@ -279,5 +273,5 @@
         <version>${camel-version}</version>
       </plugin>
     </plugins>
-  </reporting>  
+  </reporting>
 </project>
