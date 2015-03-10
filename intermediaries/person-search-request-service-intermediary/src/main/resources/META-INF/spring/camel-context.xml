@@ -245,7 +245,7 @@
 			
 			<!-- This header is set to point the ER Request XSLT to the attribute parameters file to include in the request to the ER service -->
 			<camel:setHeader headerName="erAttributeParametersFilePath">
-				<camel:simple>{{federatedQuery.personSearch.entityResolutionURI}}</camel:simple>
+				<camel:constant>{{federatedQuery.personSearch.entityResolutionURI}}</camel:constant>
 			</camel:setHeader>
 
 			<!-- This header is set the ER record threshold that is set in the Person Search to ER XSLT below -->
