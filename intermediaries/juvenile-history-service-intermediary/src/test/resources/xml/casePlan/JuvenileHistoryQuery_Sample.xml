@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doc:JuvenileHistoryQuery 
+	xmlns="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0" 
+	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0 ../Juvenile_History_IEPD/Query/JuvenileHistoryQuery.xsd">
+	<cext:JuvenileHistoryQueryCriteria>
+		<cext:JuvenileInformationRecordID>
+			<nc:IdentificationID>100</nc:IdentificationID>
+			<nc:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanRequest</nc:IdentificationSourceText>
+		</cext:JuvenileInformationRecordID>
+	</cext:JuvenileHistoryQueryCriteria>
+</doc:JuvenileHistoryQuery>

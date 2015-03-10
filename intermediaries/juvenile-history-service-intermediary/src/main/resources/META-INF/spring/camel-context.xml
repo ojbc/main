@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:ctx="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+       xmlns:jhq="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0" 
+       xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+       xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+    <!-- needed cxf imports -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="juvenile-history-service-intermediary">
+	
+		<camel:propertyPlaceholder id="springPropertiesToLoad" location="ref:springProperties"/>
+		<camel:routeContextRef ref="federatedQueryRoutes"/>
+	
+		<!--  Case Plan -->
+		<endpoint id="juvenileCasePlanHistoryRequestFederatedServiceEndpoint"
+			uri="cxf:bean:juvenileCasePlanHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<endpoint id="juvenileCasePlanHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenileCasePlanHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+			
+		<endpoint id="juvenileCasePlanHistoryRequestAdapterServiceEndpoint"
+			uri="cxf:bean:juvenileCasePlanHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+	
+		<endpoint id="juvenileCasePlanHistoryResultsPortalServiceEndpoint"
+			uri="cxf:bean:juvenileCasePlanHistoryResultsPortalService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+                        
+
+		<!--  Hearing -->
+		<endpoint id="juvenileHearingHistoryRequestFederatedServiceEndpoint"
+			uri="cxf:bean:juvenileHearingHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<endpoint id="juvenileHearingHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenileHearingHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+			
+		<endpoint id="juvenileHearingHistoryRequestAdapterServiceEndpoint"
+			uri="cxf:bean:juvenileHearingHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+	
+		<endpoint id="juvenileHearingHistoryResultsPortalServiceEndpoint"
+			uri="cxf:bean:juvenileHearingHistoryResultsPortalService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<!--  Intake -->
+		<endpoint id="juvenileIntakeHistoryRequestFederatedServiceEndpoint"
+			uri="cxf:bean:juvenileIntakeHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<endpoint id="juvenileIntakeHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenileIntakeHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<endpoint id="juvenileIntakeHistoryRequestAdapterServiceEndpoint"
+			uri="cxf:bean:juvenileIntakeHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+	
+		<endpoint id="juvenileIntakeHistoryResultsPortalServiceEndpoint"
+			uri="cxf:bean:juvenileIntakeHistoryResultsPortalService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+			
+		<!--  Offense -->
+		<endpoint id="juvenileOffenseHistoryRequestFederatedServiceEndpoint"
+			uri="cxf:bean:juvenileOffenseHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<endpoint id="juvenileOffenseHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenileOffenseHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<endpoint id="juvenileOffenseHistoryRequestAdapterServiceEndpoint"
+			uri="cxf:bean:juvenileOffenseHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+	
+		<endpoint id="juvenileOffenseHistoryResultsPortalServiceEndpoint"
+			uri="cxf:bean:juvenileOffenseHistoryResultsPortalService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<!--  Placement -->
+		<endpoint id="juvenilePlacementHistoryRequestFederatedServiceEndpoint"
+			uri="cxf:bean:juvenilePlacementHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<endpoint id="juvenilePlacementHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenilePlacementHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<endpoint id="juvenilePlacementHistoryRequestAdapterServiceEndpoint"
+			uri="cxf:bean:juvenilePlacementHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+	
+		<endpoint id="juvenilePlacementHistoryResultsPortalServiceEndpoint"
+			uri="cxf:bean:juvenilePlacementHistoryResultsPortalService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+                      
+		<!--  Referral -->
+		<endpoint id="juvenileReferralHistoryRequestFederatedServiceEndpoint"
+			uri="cxf:bean:juvenileReferralHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<endpoint id="juvenileReferralHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenileReferralHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+
+		<endpoint id="juvenileReferralHistoryRequestAdapterServiceEndpoint"
+			uri="cxf:bean:juvenileReferralHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+	
+		<endpoint id="juvenileReferralHistoryResultsPortalServiceEndpoint"
+			uri="cxf:bean:juvenileReferralHistoryResultsPortalService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+                      
+		<!-- Federated Search Request Handlers-->
+		<camel:route id="juvenileCasePlanHistoryRequestFederatedServiceRoute">
+			<camel:from uri="juvenileCasePlanHistoryRequestFederatedServiceEndpoint" />
+			<camel:to uri="direct:federatedServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="juvenileHearingHistoryRequestFederatedServiceRoute">
+			<camel:from uri="juvenileHearingHistoryRequestFederatedServiceEndpoint" />
+			<camel:to uri="direct:federatedServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="juvenileIntakeHistoryRequestFederatedServiceRoute">
+			<camel:from uri="juvenileIntakeHistoryRequestFederatedServiceEndpoint" />
+			<camel:to uri="direct:federatedServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="juvenileOffenseHistoryRequestFederatedServiceRoute">
+			<camel:from uri="juvenileOffenseHistoryRequestFederatedServiceEndpoint" />
+			<camel:to uri="direct:federatedServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="juvenilePlacementHistoryRequestFederatedServiceRoute">
+			<camel:from uri="juvenilePlacementHistoryRequestFederatedServiceEndpoint" />
+			<camel:to uri="direct:federatedServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="juvenileReferralHistoryRequestFederatedServiceRoute">
+			<camel:from uri="juvenileReferralHistoryRequestFederatedServiceEndpoint" />
+			<camel:to uri="direct:federatedServiceEndpoint" />
+		</camel:route>	
+
+		<!-- Federated Search Result Handlers-->
+		<camel:route id="juvenileCasePlanHistoryResultsHandlerServiceRoute">
+			<camel:from uri="juvenileCasePlanHistoryResultsHandlerServiceEndpoint" />
+
+			<camel:log message="Entering Juvenile Case Plan Results Handler Service."/>
+
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenileCasePlanHistoryQuery</constant>
+			</camel:setHeader>
+			
+			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="juvenileHearingHistoryResultsHandlerServiceRoute">
+			<camel:from uri="juvenileHearingHistoryResultsHandlerServiceEndpoint" />
+			<camel:log message="Entering Juvenile Hearing Results Handler Service."/>
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenileHearingHistoryQuery</constant>
+			</camel:setHeader>
+			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="juvenileIntakeHistoryResultsHandlerServiceRoute">
+			<camel:from uri="juvenileIntakeHistoryResultsHandlerServiceEndpoint" />
+			<camel:log message="Entering Juvenile Intake Results Handler Service."/>
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenileIntakeHistoryQuery</constant>
+			</camel:setHeader>
+			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="juvenileOffenseHistoryResultsHandlerServiceRoute">
+			<camel:from uri="juvenileOffenseHistoryResultsHandlerServiceEndpoint" />
+			
+			<camel:log message="Entering Juvenile Offense Results Handler Service."/>
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenileOffenseHistoryQuery</constant>
+			</camel:setHeader>
+			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="juvenilePlacementHistoryResultsHandlerServiceRoute">
+			<camel:from uri="juvenilePlacementHistoryResultsHandlerServiceEndpoint" />
+			<camel:log message="Entering Juvenile Placement Results Handler Service."/>
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenilePlacementHistoryQuery</constant>
+			</camel:setHeader>
+			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="juvenileReferralHistoryResultsHandlerServiceRoute">
+			<camel:from uri="juvenileReferralHistoryResultsHandlerServiceEndpoint" />
+			<camel:log message="Entering Juvenile Referral Results Handler Service."/>
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenileReferralHistoryQuery</constant>
+			</camel:setHeader>
+			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
+		</camel:route>	
+
+		<camel:route id="determineEndpointsToCallAndOperationNameRoute">
+			<camel:from uri="direct:determineEndpointsToCallAndOperationName"/>
+			
+			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
+			<!-- Change this XPath to match what you need -->
+			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+				<camel:xpath>/jhq:JuvenileHistoryQuery/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText</camel:xpath>
+			</camel:setHeader>
+			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
+									
+			<!-- For this bundle, we re-use the inbound operation name and namespace 						
+			<camel:setHeader headerName="operationName"><constant>SubmitJuvenileCasePlanHistoryQuery</constant></camel:setHeader>
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0</constant></camel:setHeader>
+			-->
+
+			<camel:setHeader headerName="adapterURI">
+				<camel:xpath resultType="java.lang.String">/jhq:JuvenileHistoryQuery/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText</camel:xpath>
+			</camel:setHeader>
+
+			<camel:to uri="bean:uriToAdapterAddressProcessor?method=overrideCXFAddress"/>
+		</camel:route>
+		
+		<camel:route>
+			<camel:from uri="direct:setResponseOperationAndNamespace"/>
+
+			<!-- put into direct route, let's see if we need to set this. 
+	        <camel:setHeader headerName="operationName">
+	            <constant>SubmitJuvenileCasePlanHistoryResponse</constant>
+	        </camel:setHeader>
+	        <camel:setHeader headerName="operationNamespace">
+	            <constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/CasePlanResults/1.0</constant>
+	        </camel:setHeader>-->
+	        
+	        <camel:log message="This is a placeholder"/>
+	        
+		</camel:route>
+	</camel:camelContext>
+  
+</beans>

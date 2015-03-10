@@ -14,25 +14,18 @@
 				<Date>1957-08-13</Date>
 			</LastUpdatedDate>
 			<cext:JuvenileInformationOwnerOrganization>
-				<OrganizationBranchName>String</OrganizationBranchName>
+				<OrganizationBranchName>Juvenile Division</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
-						<AddressSecondaryUnitText>String</AddressSecondaryUnitText>
 						<LocationStreet>
-							<StreetFullText>String</StreetFullText>
-							<StreetNumberText>String</StreetNumberText>
-							<StreetPredirectionalText>String</StreetPredirectionalText>
-							<StreetName>String</StreetName>
-							<StreetCategoryText>String</StreetCategoryText>
-							<StreetPostdirectionalText>String</StreetPostdirectionalText>
-							<StreetExtensionText>String</StreetExtensionText>
+							<StreetFullText>322 North Elm Street</StreetFullText>
 						</LocationStreet>
-						<LocationCityName>String</LocationCityName>
-						<j:LocationStateNCICRESCode>IN</j:LocationStateNCICRESCode>
-						<LocationPostalCode>String</LocationPostalCode>
+						<LocationCityName>Jamesville</LocationCityName>
+						<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
+						<LocationPostalCode>98123</LocationPostalCode>
 					</Address>
 				</OrganizationLocation>
-				<OrganizationName>String</OrganizationName>
+				<OrganizationName>Jamesville City Court</OrganizationName>
 			</cext:JuvenileInformationOwnerOrganization>
 			<cext:JuvenileInformationRecordID>
 				<IdentificationID>100</IdentificationID>
