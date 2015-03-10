@@ -85,8 +85,7 @@
 					<StreetFullText>100 Main Street</StreetFullText>
 				</LocationStreet>
 				<LocationCityName>Ottawa</LocationCityName>
-				<LocationCanadianProvinceCode>ON</LocationCanadianProvinceCode>
-				<LocationCountryFIPS10-4Code>CN</LocationCountryFIPS10-4Code>
+				<LocationStateFIPS10-4InternationalCode>CA08</LocationStateFIPS10-4InternationalCode>
 				<LocationPostalCode>K1S 1C20</LocationPostalCode>
 			</Address>
 		</Location>
