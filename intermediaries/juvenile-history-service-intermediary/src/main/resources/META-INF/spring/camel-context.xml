@@ -8,10 +8,6 @@
        xmlns:cxf="http://camel.apache.org/schema/cxf"
        xmlns:ctx="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-       xmlns:jhq="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0" 
-       xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
-       xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
        xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -24,7 +20,6 @@
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="juvenile-history-service-intermediary">
 	
-		<camel:propertyPlaceholder id="springPropertiesToLoad" location="ref:springProperties"/>
 		<camel:routeContextRef ref="federatedQueryRoutes"/>
 	
 		<!--  Case Plan -->
@@ -196,28 +191,6 @@
 			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
 		</camel:route>	
 
-		<camel:route id="determineEndpointsToCallAndOperationNameRoute">
-			<camel:from uri="direct:determineEndpointsToCallAndOperationName"/>
-			
-			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
-			<!-- Change this XPath to match what you need -->
-			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
-				<camel:xpath>/jhq:JuvenileHistoryQuery/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText</camel:xpath>
-			</camel:setHeader>
-			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
-									
-			<!-- For this bundle, we re-use the inbound operation name and namespace 						
-			<camel:setHeader headerName="operationName"><constant>SubmitJuvenileCasePlanHistoryQuery</constant></camel:setHeader>
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0</constant></camel:setHeader>
-			-->
-
-			<camel:setHeader headerName="adapterURI">
-				<camel:xpath resultType="java.lang.String">/jhq:JuvenileHistoryQuery/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText</camel:xpath>
-			</camel:setHeader>
-
-			<camel:to uri="bean:uriToAdapterAddressProcessor?method=overrideCXFAddress"/>
-		</camel:route>
-		
 		<camel:route>
 			<camel:from uri="direct:setResponseOperationAndNamespace"/>
 

@@ -18,24 +18,29 @@
 		</cext:JuvenileInformationRecordID>
 	</cext:JuvenileHistoryQueryCriteria>
 	<ext:JuvenilePlacementHistory>
-		<cext:JuvenileInformationAvailabilityCode>NOT FOUND</cext:JuvenileInformationAvailabilityCode>
+		<cext:JuvenileInformationAvailabilityCode>FOUND</cext:JuvenileInformationAvailabilityCode>
 		<cext:JuvenileInformationAvailabilityMetadata>
 			<LastUpdatedDate>
 				<Date>1957-08-13</Date>
 			</LastUpdatedDate>
 			<cext:JuvenileInformationOwnerOrganization>
-				<OrganizationBranchName>Juvenile</OrganizationBranchName>
+				<OrganizationBranchName>2nd District</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
+						<AddressSecondaryUnitText>#12</AddressSecondaryUnitText>
 						<LocationStreet>
-							<StreetFullText>8342 North Ambrose Drive</StreetFullText>
+							<StreetFullText>414 Washington Ave</StreetFullText>
+							<StreetNumberText>414</StreetNumberText>
+							<StreetName>Washington Ave</StreetName>
+							<StreetCategoryText>Avenue</StreetCategoryText>
 						</LocationStreet>
-						<LocationCityName>St Lauren</LocationCityName>
-						<j:LocationStateNCICRESCode>IN</j:LocationStateNCICRESCode>
-						<LocationPostalCode>75466</LocationPostalCode>
+						<LocationCityName>Grand Haven</LocationCityName>
+						<LocationStateFIPS5-2AlphaCode>MI</LocationStateFIPS5-2AlphaCode >
+						<LocationCountryFIPS10-4Code>US</LocationCountryFIPS10-4Code>
+						<LocationPostalCode>49417</LocationPostalCode>
 					</Address>
 				</OrganizationLocation>
-				<OrganizationName>Iona County Court</OrganizationName>
+				<OrganizationName>Court</OrganizationName>
 			</cext:JuvenileInformationOwnerOrganization>
 			<cext:JuvenileInformationRecordID>
 				<IdentificationID>100</IdentificationID>
@@ -78,7 +83,8 @@
 					<StreetFullText>100 Main Street</StreetFullText>
 				</LocationStreet>
 				<LocationCityName>Lansing</LocationCityName>
-				<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
+				<LocationStateFIPS5-2AlphaCode>MI</LocationStateFIPS5-2AlphaCode>
+				<LocationCountryFIPS10-4Code>US</LocationCountryFIPS10-4Code>
 				<LocationPostalCode>48901-1000</LocationPostalCode>
 			</Address>
 		</Location>
@@ -88,9 +94,10 @@
 				<LocationStreet>
 					<StreetFullText>100 Main Street</StreetFullText>
 				</LocationStreet>
-				<LocationCityName>Lansing</LocationCityName>
-				<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
-				<LocationPostalCode>48901-1000</LocationPostalCode>
+				<LocationCityName>Ottawa</LocationCityName>
+				<LocationCanadianProvinceCode>ON</LocationCanadianProvinceCode>
+				<LocationCountryFIPS10-4Code>CN</LocationCountryFIPS10-4Code>
+				<LocationPostalCode>K1S 1C20</LocationPostalCode>
 			</Address>
 		</Location>
 		<PersonResidenceAssociation>

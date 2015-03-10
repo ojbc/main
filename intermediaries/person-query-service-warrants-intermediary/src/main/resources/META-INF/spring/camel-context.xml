@@ -94,7 +94,8 @@
 			
 			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
 			<camel:setHeader headerName="requestMessageBody">
-				<camel:simple>${body}</camel:simple>
+				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
+
 			</camel:setHeader>
 
 			<!-- This wiretap will start the message timer. -->
