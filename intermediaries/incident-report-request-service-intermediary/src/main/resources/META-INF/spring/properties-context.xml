@@ -33,11 +33,6 @@
 		<property name="propertiesArray" ref="propertiesList" />
 	</bean>	
 	
-	<util:properties id="springProperties">
-		<prop key="dbAuditLog">${federatedQuery.incidentReport.dbAuditLog}</prop>
-	</util:properties>	
-	
-	
 </beans>
 
 
