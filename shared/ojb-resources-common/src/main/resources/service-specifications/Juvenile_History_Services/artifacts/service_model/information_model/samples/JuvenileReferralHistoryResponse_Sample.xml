@@ -14,18 +14,23 @@
 				<Date>1957-08-13</Date>
 			</LastUpdatedDate>
 			<cext:JuvenileInformationOwnerOrganization>
-				<OrganizationBranchName>Juvenile Division</OrganizationBranchName>
+				<OrganizationBranchName>2nd District</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
+						<AddressSecondaryUnitText>#12</AddressSecondaryUnitText>
 						<LocationStreet>
-							<StreetFullText>322 North Elm Street</StreetFullText>
+							<StreetFullText>414 Washington Ave</StreetFullText>
+							<StreetNumberText>414</StreetNumberText>
+							<StreetName>Washington Ave</StreetName>
+							<StreetCategoryText>Avenue</StreetCategoryText>
 						</LocationStreet>
-						<LocationCityName>Jamesville</LocationCityName>
-						<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
-						<LocationPostalCode>98123</LocationPostalCode>
+						<LocationCityName>Grand Haven</LocationCityName>
+						<LocationStateFIPS5-2AlphaCode>MI</LocationStateFIPS5-2AlphaCode >
+						<LocationCountryFIPS10-4Code>US</LocationCountryFIPS10-4Code>
+						<LocationPostalCode>49417</LocationPostalCode>
 					</Address>
 				</OrganizationLocation>
-				<OrganizationName>Jamesville City Court</OrganizationName>
+				<OrganizationName>Court</OrganizationName>
 			</cext:JuvenileInformationOwnerOrganization>
 			<cext:JuvenileInformationRecordID>
 				<IdentificationID>100</IdentificationID>
@@ -61,26 +66,28 @@
 				<IdentificationSourceText>Court</IdentificationSourceText>
 			</PersonOtherIdentification>
 		</Person>
-		<Location structures:id="Location1" structures:metadata="metadata1">
+		<Location structures:id="Location1">
 			<Address>
 				<AddressSecondaryUnitText>#5</AddressSecondaryUnitText>
 				<LocationStreet>
 					<StreetFullText>100 Main Street</StreetFullText>
 				</LocationStreet>
 				<LocationCityName>Lansing</LocationCityName>
-				<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
+				<LocationStateFIPS5-2AlphaCode>MI</LocationStateFIPS5-2AlphaCode>
+				<LocationCountryFIPS10-4Code>US</LocationCountryFIPS10-4Code>
 				<LocationPostalCode>48901-1000</LocationPostalCode>
 			</Address>
 		</Location>
-		<Location structures:id="Location2" structures:metadata="metadata1">
+		<Location structures:id="Location2">
 			<Address>
 				<AddressSecondaryUnitText>#6</AddressSecondaryUnitText>
 				<LocationStreet>
 					<StreetFullText>100 Main Street</StreetFullText>
 				</LocationStreet>
-				<LocationCityName>Lansing</LocationCityName>
-				<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
-				<LocationPostalCode>48901-1000</LocationPostalCode>
+				<LocationCityName>Ottawa</LocationCityName>
+				<LocationCanadianProvinceCode>ON</LocationCanadianProvinceCode>
+				<LocationCountryFIPS10-4Code>CN</LocationCountryFIPS10-4Code>
+				<LocationPostalCode>K1S 1C20</LocationPostalCode>
 			</Address>
 		</Location>
 		<PersonResidenceAssociation structures:metadata="metadata1">
@@ -106,7 +113,7 @@
 						<Address>
 							<LocationStreet/>
 							<LocationCityName>Lansing</LocationCityName>
-							<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
+							<LocationStateFIPS5-2AlphaCode>MI</LocationStateFIPS5-2AlphaCode>
 							<LocationPostalCode/>
 						</Address>
 					</OrganizationLocation>
@@ -146,7 +153,7 @@
 						<Address>
 							<LocationStreet/>
 							<LocationCityName>Lansing</LocationCityName>
-							<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
+							<LocationStateFIPS5-2AlphaCode>MI</LocationStateFIPS5-2AlphaCode>
 							<LocationPostalCode/>
 						</Address>
 					</OrganizationLocation>

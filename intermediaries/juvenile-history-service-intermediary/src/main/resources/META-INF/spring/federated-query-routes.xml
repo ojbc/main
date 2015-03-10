@@ -8,6 +8,9 @@
        xmlns:cxf="http://camel.apache.org/schema/cxf"
        xmlns:ctx="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+       xmlns:jhq="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0" 
+       xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
        xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
        xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -28,7 +31,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:juvenileHistoryServices.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
@@ -56,7 +59,14 @@
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 
-			<camel:to uri="direct:determineEndpointsToCallAndOperationName"/>
+			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+				<camel:xpath>/jhq:JuvenileHistoryQuery/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText</camel:xpath>
+			</camel:setHeader>
+			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
+			
+			<camel:setHeader headerName="adapterURI">
+				<camel:xpath resultType="java.lang.String">/jhq:JuvenileHistoryQuery/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText</camel:xpath>
+			</camel:setHeader>
 									
 			<!-- Add the reply to address to the map using the federated query guid as the key -->
 			<camel:to 
@@ -66,14 +76,24 @@
 			<camel:to
 				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
 			
+			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
+			<camel:setHeader headerName="requestMessageBody">
+				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
+			</camel:setHeader>
+
 			<!-- This wiretap will start the message timer. There were anamolies with having it as part of the Recipient List -->
 			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
 
 			<camel:log message="Timer started"/>
 
-			<camel:recipientList delimiter="," parallelProcessing="false" onPrepareRef="prepareFederateQueryMessage">
-				<camel:header>federatedQueryRecipientListHeader</camel:header>
-			</camel:recipientList>
+			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
+				<camel:xpath>/jhq:JuvenileHistoryQuery/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText</camel:xpath>
+				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+				
+				<camel:recipientList>
+					<camel:header>webServiceEndpointToCall</camel:header>
+				</camel:recipientList>
+			</camel:split>
 
 		</camel:route>			
 				      
@@ -91,7 +111,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:juvenileHistoryServices.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
@@ -119,13 +139,13 @@
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
 				<completionTimeout>
-					<camel:simple>${bean:searchIntermediaryFederatedQueryTimeout.trim}</camel:simple>
+					<camel:simple>${properties:federatedQueryTimeout}</camel:simple>
 				</completionTimeout>
 				<completionSize>
 					<header>federatedQueryNumberOfEndpointsRequested</header>
 				</completionSize>
 				<log
-					message="completed by ${property.CamelAggregatedCompletedBy}, completion size ${property.CamelAggregatedSize}, aggregation key ${property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: ${bean:searchIntermediaryFederatedQueryTimeout.trim}"></log>
+					message="completed by ${property.CamelAggregatedCompletedBy}, completion size ${property.CamelAggregatedSize}, aggregation key ${property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: ${properties:federatedQueryTimeout}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
@@ -193,20 +213,29 @@
 	
 	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
 
-	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage"/>
+	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
+		<property name="uriToAdapterAddressProcessor" ref="uriToAdapterAddressProcessor"/>
+		<property name="federatedQueryEndpointMap" ref="federatedQueryURIToEndpointMap"/>
+	</bean>
 
+   	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
+		<property name ="endpointReplyToMap" ref="wsAddressReplyToEndpointMap"/>
+	</bean>		
+
+    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+	</bean>
+
+	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>
 	
 	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
 		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
 	</bean>
 	 
-	<!-- Properties used inside camel routes as spring 'beans' -->  
-  	<bean id="searchIntermediaryFederatedQueryTimeout" class="java.lang.String">
-		<constructor-arg>
-			<value>${federatedQueryTimeout}</value>
-		</constructor-arg>
-	</bean>
-
 	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
 	
 	<bean id="uriToAdapterAddressProcessor" class="org.ojbc.util.fedquery.processor.URIToAdapterAddressProcessor">
