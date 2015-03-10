@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context-->
+<!-- These are common endpoints which are used by all member implementations -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"
+       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:util="http://www.springframework.org/schema/util"        
+	   xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+       ">
+
+	<!-- Juvenile Case Plan History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileCasePlanHistoryRequestFederatedService"
+		address="${juvenileHistoryServices.casePlanHistoryRequestService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileCasePlanHistoryRequestService"
+		endpointName="ojbc:JuvenileCasePlanHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Case Plan History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileCasePlanHistoryResultsHandlerService"
+		address="${juvenileHistoryServices.casePlanHistoryResultsService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileCasePlanHistoryResultsService"
+		endpointName="ojbc:JuvenileCasePlanHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
+   
+	<!-- Juvenile Case Plan History Request Service, hosted by County Adapter -->
+	<cxf:cxfEndpoint id="juvenileCasePlanHistoryRequestAdapterService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileCasePlanHistoryRequestService"
+		endpointName="ojbc:JuvenileCasePlanHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Case Plan History Results Service, hosted by Portal -->
+	<cxf:cxfEndpoint id="juvenileCasePlanHistoryResultsPortalService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileCasePlanHistoryResultsService"
+		endpointName="ojbc:JuvenileCasePlanHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
+    
+	<!-- Juvenile Hearing History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileHearingHistoryRequestFederatedService"
+		address="${juvenileHistoryServices.hearingHistoryRequestService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileHearingHistoryRequestService"
+		endpointName="ojbc:JuvenileHearingHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Hearing History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileHearingHistoryResultsHandlerService"
+		address="${juvenileHistoryServices.hearingHistoryResultsService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileHearingHistoryResultsService"
+		endpointName="ojbc:JuvenileHearingHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>    
+   
+	<!-- Juvenile Hearing History Request Service, hosted by County Adapter -->
+	<cxf:cxfEndpoint id="juvenileHearingHistoryRequestAdapterService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileHearingHistoryRequestService"
+		endpointName="ojbc:JuvenileHearingHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Hearing History Results Service, hosted by Portal -->
+	<cxf:cxfEndpoint id="juvenileHearingHistoryResultsPortalService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileHearingHistoryResultsService"
+		endpointName="ojbc:JuvenileHearingHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint> 
+	   
+	<!-- Juvenile Intake History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileIntakeHistoryRequestFederatedService"
+		address="${juvenileHistoryServices.intakeHistoryRequestService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileIntakeHistoryRequestService"
+		endpointName="ojbc:JuvenileIntakeHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Intake History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileIntakeHistoryResultsHandlerService"
+		address="${juvenileHistoryServices.intakeHistoryResultsService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileIntakeHistoryResultsService"
+		endpointName="ojbc:JuvenileIntakeHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>       
+   
+	<!-- Juvenile Intake History Request Service, hosted by County Adapter -->
+	<cxf:cxfEndpoint id="juvenileIntakeHistoryRequestAdapterService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileIntakeHistoryRequestService"
+		endpointName="ojbc:JuvenileIntakeHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Intake History Results Service, hosted by Portal -->
+	<cxf:cxfEndpoint id="juvenileIntakeHistoryResultsPortalService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileIntakeHistoryResultsService"
+		endpointName="ojbc:JuvenileIntakeHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>       
+   
+	<!-- Juvenile Offense History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileOffenseHistoryRequestFederatedService"
+		address="${juvenileHistoryServices.offenseHistoryRequestService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileOffenseHistoryRequestService"
+		endpointName="ojbc:JuvenileOffenseHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Offense History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileOffenseHistoryResultsHandlerService"
+		address="${juvenileHistoryServices.offenseHistoryResultsService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileOffenseHistoryResultsService"
+		endpointName="ojbc:JuvenileOffenseHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
+	
+	<!-- Juvenile Offense History Request Service, hosted by County Adapter -->
+	<cxf:cxfEndpoint id="juvenileOffenseHistoryRequestAdapterService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileOffenseHistoryRequestService"
+		endpointName="ojbc:JuvenileOffenseHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+
+	<!-- Juvenile Offense History Results Service, hosted by Portal -->
+	<cxf:cxfEndpoint id="juvenileOffenseHistoryResultsPortalService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileOffenseHistoryResultsService"
+		endpointName="ojbc:JuvenileOffenseHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>     
+	 
+	<!-- Juvenile Placement History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenilePlacementHistoryRequestFederatedService"
+		address="${juvenileHistoryServices.placementHistoryRequestService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenilePlacementHistoryRequestService"
+		endpointName="ojbc:JuvenilePlacementHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Placement History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenilePlacementHistoryResultsHandlerService"
+		address="${juvenileHistoryServices.placementHistoryResultsService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenilePlacementHistoryResultsService"
+		endpointName="ojbc:JuvenilePlacementHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
+	
+	<!-- Juvenile Placement History Request Service, hosted by County Adapter -->
+	<cxf:cxfEndpoint id="juvenilePlacementHistoryRequestAdapterService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenilePlacementHistoryRequestService"
+		endpointName="ojbc:JuvenilePlacementHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Placement History Results Service, hosted by Portal -->
+	<cxf:cxfEndpoint id="juvenilePlacementHistoryResultsPortalService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenilePlacementHistoryResultsService"
+		endpointName="ojbc:JuvenilePlacementHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
+	
+	<!-- Juvenile Referral History Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileReferralHistoryRequestFederatedService"
+		address="${juvenileHistoryServices.referralHistoryRequestService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileReferralHistoryRequestService"
+		endpointName="ojbc:JuvenileReferralHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Referral History Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="juvenileReferralHistoryResultsHandlerService"
+		address="${juvenileHistoryServices.referralHistoryResultsService.endpoint}"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileReferralHistoryResultsService"
+		endpointName="ojbc:JuvenileReferralHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>    	
+   
+	<!-- Juvenile Referral History Request Service, hosted by County Adapter -->
+	<cxf:cxfEndpoint id="juvenileReferralHistoryRequestAdapterService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		serviceName="ojbc:JuvenileReferralHistoryRequestService"
+		endpointName="ojbc:JuvenileReferralHistoryRequest_Secure_SOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="juvenileHistoryServicesKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${juvenileHistoryServices.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Juvenile Referral History Results Service, hosted by Portal -->
+	<cxf:cxfEndpoint id="juvenileReferralHistoryResultsPortalService"
+		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		serviceName="ojbc:JuvenileReferralHistoryResultsService"
+		endpointName="ojbc:JuvenileReferralHistoryResultsSOAPPort"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>    	
+	
+   	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
+		<property name ="endpointReplyToMap" ref="wsAddressReplyToEndpointMap"/>
+	</bean>		
+
+    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+		<property name="federatedQueryEndpointMap" ref="federatedQueryURIToEndpointMap"/>
+	</bean>
+
+	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>
+	
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${juvenileHistoryServices.truststorePassword}"
+					file="${juvenileHistoryServices.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>
+   
+   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${juvenileHistoryServices.keystoreCertificateAlias}" value="${juvenileHistoryServices.keyPassword}"/>
+            </map>
+        </property>
+	</bean>
+   
+   	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+
+	<util:properties id="juvenileHistoryServicesKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${juvenileHistoryServices.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${juvenileHistoryServices.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${juvenileHistoryServices.keystoreLocation}</prop>
+	</util:properties>	
+      
+   	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<httpj:engine-factory id="ClientAuthHttpsSettings"
+		bus="cxf">
+		<httpj:engine port="${juvenileHistoryServices.portNumber}">
+			<httpj:tlsServerParameters>
+				<sec:keyManagers keyPassword="${juvenileHistoryServices.keyPassword}">
+					<sec:keyStore type="jks" password="${juvenileHistoryServices.keystorePassword}" file="${juvenileHistoryServices.keystoreLocation}" />
+				</sec:keyManagers>
+				<sec:cipherSuitesFilter>
+					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				</sec:cipherSuitesFilter>
+				<sec:clientAuthentication want="false"
+					required="false" />
+			</httpj:tlsServerParameters>
+		</httpj:engine>
+	</httpj:engine-factory>    
+</beans>
