@@ -22,8 +22,6 @@
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Incident_Report_Request_Service_Intermediary">
 	
-		<camel:propertyPlaceholder id="springPropertiesToLoad" location="ref:springProperties"/>
-	
 		<endpoint id="incidentReportRequestFederatedServiceEndpoint"
 			uri="cxf:bean:incidentReportRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.incidentReport.personQueryIntermediaryCxflogging}" />
 
@@ -43,7 +41,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:federatedQuery.incidentReport.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
@@ -87,20 +85,29 @@
 				<camel:xpath resultType="java.lang.String">//ext:SourceSystemNameText</camel:xpath>
 			</camel:setHeader>
 
-			<camel:to uri="bean:uriToAdapterAddressProcessor?method=overrideCXFAddress"/>
-									
 			<!-- Call method to populate federated query map and create federatedQueryRecipientListHeader (comma seperated camel endpoint list)-->
 			<camel:to
 				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
+				
+			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
+			<camel:setHeader headerName="requestMessageBody">
+				<camel:simple>${body}</camel:simple>
+			</camel:setHeader>
 			
 			<!-- This wiretap will start the message timer. There were anamolies with having it as part of the Recipient List -->
 			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
 
 			<camel:log message="Timer started"/>
 
-			<camel:recipientList delimiter="," parallelProcessing="false" onPrepareRef="prepareFederateQueryMessage">
-				<camel:header>federatedQueryRecipientListHeader</camel:header>
-			</camel:recipientList>
+			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
+				<camel:xpath>//ext:SourceSystemNameText</camel:xpath>
+				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+				
+				<camel:recipientList>
+					<camel:header>webServiceEndpointToCall</camel:header>
+				</camel:recipientList>
+				
+			</camel:split>
 
 		</camel:route>			
 				      
@@ -118,7 +125,7 @@
 				
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:federatedQuery.incidentReport.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
@@ -147,7 +154,7 @@
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
 				<completionTimeout>
-					<camel:simple>${bean:searchIntermediaryFederatedQueryTimeout.trim}</camel:simple>
+					<camel:simple>${properties:personQuery.incidentReport.personQueryIntermediaryFederatedQueryTimeout}</camel:simple>
 				</completionTimeout>
 				<completionSize>
 					<header>federatedQueryNumberOfEndpointsRequested</header>
@@ -203,13 +210,19 @@
 	</bean>
 	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
 
-	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage"/>
+	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
+		<property name="uriToAdapterAddressProcessor" ref="uriToAdapterAddressProcessor"/>
+		<property name="federatedQueryEndpointMap" ref="federatedQueryURIToEndpointMap"/>
+	</bean>
+	
+    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+	</bean>
 
-	<!-- Properties used inside camel routes as spring 'beans' -->  
-  	<bean id="searchIntermediaryFederatedQueryTimeout" class="java.lang.String">
-		<constructor-arg>
-			<value>${personQuery.incidentReport.personQueryIntermediaryFederatedQueryTimeout}</value>
-		</constructor-arg>
+	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	</bean>
 
 	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />

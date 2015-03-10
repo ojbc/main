@@ -86,17 +86,6 @@
  		</cxf:features>	 
 	</cxf:cxfEndpoint>
    
-    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-		<property name="federatedQueryEndpointMap" ref="federatedQueryURIToEndpointMap"/>
-	</bean>
-
-	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit
 		name="https://.*">
