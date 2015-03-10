@@ -55,11 +55,10 @@ public class PrepareFederatedQueryMessage  implements Processor{
 		//Remove system names from message
 		
 		//Retrieve original request message that is a Camel Header
-		CxfPayload cxfPayload = (CxfPayload)exchange.getIn().getHeader("requestMessageBody");
-    	Element requestMessage = (Element)cxfPayload.getBody().get(0);
+		Document requestMessage = (Document)exchange.getIn().getHeader("requestMessageBody");
 		
     	//Set body to request message with only source system name of adapter being called.
-    	Document requestMessageWithSystemNameForAdapter = removeSystemNamesNotIntendedForAdapter(requestMessage.getOwnerDocument(), systemName);
+    	Document requestMessageWithSystemNameForAdapter = removeSystemNamesNotIntendedForAdapter(requestMessage, systemName);
     	exchange.getIn().setBody(requestMessageWithSystemNameForAdapter);
 
     	//Set the Destination Override URL map entry so we can set the adapter address

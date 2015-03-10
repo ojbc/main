@@ -53,11 +53,7 @@ public class TestPrepareFederatedQueryMessage {
 	    exchange.getIn().setHeader("tokenID", "1234567");
 	    exchange.getIn().setHeader("WSAddressingReplyTo", "http://myReplyToAddress");
 	    
-	    CxfPayload<String[]> payload;
-	    List<Source> body = new ArrayList<Source>();
-        body.add(new DOMSource(searchDocument.getDocumentElement()));
-        payload = new CxfPayload<String[]>(new ArrayList<String[]>(), body, null);
-        exchange.getIn().setHeader("requestMessageBody", payload);
+        exchange.getIn().setHeader("requestMessageBody", searchDocument);
 	    
 	    //Set up the prepare federated query bean
 	    PrepareFederatedQueryMessage prepareFederatedQueryMessage = new PrepareFederatedQueryMessage();
