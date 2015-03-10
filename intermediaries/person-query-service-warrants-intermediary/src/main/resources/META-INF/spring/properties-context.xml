@@ -32,12 +32,7 @@
 	<bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray" ref="propertiesList" />
 	</bean>	
-	
-	<util:properties id="springProperties">
-		<prop key="dbAuditLog">${personQuery.warrants.dbAuditLog}</prop>
-	</util:properties>	
-	
-	
+
 </beans>
 
 

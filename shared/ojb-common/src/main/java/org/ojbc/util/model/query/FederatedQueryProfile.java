@@ -24,4 +24,10 @@ public class FederatedQueryProfile {
 		this.responseReceived = responseReceived;
 	}
 	
+	@Override
+	public String toString() {
+		return "FederatedQueryProfile [serviceName=" + serviceName
+				+ ", responseReceived=" + responseReceived + "]";
+	}
+	
 }

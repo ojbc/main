@@ -292,6 +292,7 @@ public class TestJuvenileHistoryServicesIntermediary {
 
         template.send("direct:casePlanFederatedServiceRequest", senderExchange);
 
+        casePlanAdapterRequestEndpoint.getReceivedExchanges();
         casePlanAdapterRequestEndpoint.assertIsSatisfied();
         
         //Confirm that the request file get to the Adapter
