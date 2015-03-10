@@ -4,7 +4,7 @@
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-fedquery-common</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>ojb-fedquery-common</name>
 
 	<url>http://www.ojbc.org</url>
@@ -21,6 +21,7 @@
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
 			<version>${xmlunit.version}</version>
+			<scope>test</scope>
 		</dependency>	
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>

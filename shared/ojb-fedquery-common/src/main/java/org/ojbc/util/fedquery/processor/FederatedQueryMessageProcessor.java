@@ -19,7 +19,6 @@ public class FederatedQueryMessageProcessor {
 	
 	private static final Log log = LogFactory.getLog( FederatedQueryMessageProcessor.class );
 	private Map<String, List<FederatedQueryProfile>> federatedQueryManager;	
-	private Map<String, String> federatedQueryEndpointMap;
 	
 	/**
 	 * This method accepts a NodeList of federated query endpoints that are to be called.  The NodeList is generated
@@ -33,12 +32,10 @@ public class FederatedQueryMessageProcessor {
 	 * @throws Exception
 	 */
 	
-	public void processSystemName(Exchange exchange, @Header("federatedQueryEndpointsNodeList") NodeList federatedQueryEndpoints) throws Exception
+	public void processSystemName(@Header("federatedQueryRequestGUID") String requestID, @Header("federatedQueryEndpointsNodeList") NodeList federatedQueryEndpoints) throws Exception
 	{
 		ArrayList<FederatedQueryProfile> queryProfileArray = new ArrayList<FederatedQueryProfile>();
 		
-		StringBuffer federatedQueryRecipientListHeader = new StringBuffer();
-	
 		//Iterate through the NodeList to see what systems to call
 		for(int i=0; i<federatedQueryEndpoints.getLength(); i++){
 			Node childNode = federatedQueryEndpoints.item(i);
@@ -53,24 +50,10 @@ public class FederatedQueryMessageProcessor {
 			//Add to array which is in the 'Map' of all queries, the map is keyed by WS-Address Message ID
 			queryProfileArray.add(systemProfile);
 			
-			//Look in Federated Query Map to get endpoint name from System name in message
-			String endpointID = federatedQueryEndpointMap.get(systemName);
-			
-			//Add to String which will make Camel Recipient List header
-			federatedQueryRecipientListHeader.append(endpointID);
-			federatedQueryRecipientListHeader.append(",");
-			
 		}
 
-		log.debug("Federated Query Recipient List Header: " + federatedQueryRecipientListHeader.toString());
-		
-		//Set recipient list header referred to in Camel Route
-		exchange.getIn().setHeader("federatedQueryRecipientListHeader", federatedQueryRecipientListHeader.toString());
-		
 		//Add the federated query profile array to query manager map
-		String requestID = (String)exchange.getIn().getHeader("federatedQueryRequestGUID");
 		federatedQueryManager.put(requestID, queryProfileArray);
-		
 	}
 	
 	/**
@@ -159,15 +142,4 @@ public class FederatedQueryMessageProcessor {
 			this.federatedQueryManager = federatedQueryManager;
 		}
 
-
-		public Map<String, String> getFederatedQueryEndpointMap() {
-			return federatedQueryEndpointMap;
-		}
-
-
-		public void setFederatedQueryEndpointMap(
-				Map<String, String> federatedQueryEndpointMap) {
-			this.federatedQueryEndpointMap = federatedQueryEndpointMap;
-		}
-	
 }
