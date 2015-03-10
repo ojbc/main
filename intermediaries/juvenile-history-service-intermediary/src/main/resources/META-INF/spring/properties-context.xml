@@ -33,11 +33,6 @@
 		<property name="propertiesArray" ref="propertiesList" />
 	</bean>	
 	
-	<util:properties id="springProperties">
-		<prop key="dbAuditLog">${juvenileHistoryServices.dbAuditLog}</prop>
-	</util:properties>	
-	
-	
 </beans>
 
 
