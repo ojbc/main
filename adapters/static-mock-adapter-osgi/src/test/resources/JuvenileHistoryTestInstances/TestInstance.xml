@@ -67,6 +67,14 @@
 			<nc30:IdentificationSourceText>Court</nc30:IdentificationSourceText>
 		</nc30:PersonOtherIdentification>
 	</nc30:Person>
+	<jh-container:AdditionalChildInformation>
+		<nc30:PersonBirthDate>
+			<nc30:Date>2000-01-02</nc30:Date>
+		</nc30:PersonBirthDate>
+		<nc30:PersonSSNIdentification>
+			<nc30:IdentificationID>123-45-6789</nc30:IdentificationID>
+		</nc30:PersonSSNIdentification>
+	</jh-container:AdditionalChildInformation>
 	<nc30:Location s30:id="Location1" s30:metadata="metadata">
 		<nc30:Address>
 			<nc30:AddressSecondaryUnitText>#5</nc30:AddressSecondaryUnitText>
@@ -320,22 +328,22 @@
 			<jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>Assessment</jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>
 			<jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>Interview</jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>
 			<jh-ext:JuvenileInformationRecordID>
-					<nc30:IdentificationID>Intake1</nc30:IdentificationID>
-					<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
-				</jh-ext:JuvenileInformationRecordID>
-				<jh-ext:RelatedJuvenileHistoryRecords>
-					<jh-ext:RelatedJuvenileHistoryRecord>
-						<jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
-						<jh-ext:JuvenileInformationRecordID>
-							<nc30:IdentificationID>Hearing1</nc30:IdentificationID>
-							<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
-						</jh-ext:JuvenileInformationRecordID>
-					</jh-ext:RelatedJuvenileHistoryRecord>
-					<jh-ext:RelatedJuvenileHistoryRecord>
-						<jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
-						<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
-					</jh-ext:RelatedJuvenileHistoryRecord>
-				</jh-ext:RelatedJuvenileHistoryRecords>
+				<nc30:IdentificationID>Intake1</nc30:IdentificationID>
+				<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
+			</jh-ext:JuvenileInformationRecordID>
+			<jh-ext:RelatedJuvenileHistoryRecords>
+				<jh-ext:RelatedJuvenileHistoryRecord>
+					<jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
+					<jh-ext:JuvenileInformationRecordID>
+						<nc30:IdentificationID>Hearing1</nc30:IdentificationID>
+						<nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
+					</jh-ext:JuvenileInformationRecordID>
+				</jh-ext:RelatedJuvenileHistoryRecord>
+				<jh-ext:RelatedJuvenileHistoryRecord>
+					<jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
+					<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+				</jh-ext:RelatedJuvenileHistoryRecord>
+			</jh-ext:RelatedJuvenileHistoryRecords>
 		</jh-intake:JuvenileAssessmentAugmentation>
 	</cyfs:JuvenileIntakeAssessment>
 	<cyfs:CourtCase>
