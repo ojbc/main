@@ -14,6 +14,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
+import org.search.ojb.samplegen.JuvenileHistorySampleGenerator.IdentifiableHistoryComponent;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -22,7 +23,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 	private static final String ID_SOURCE_TEXT = "CMS";
 
 	private static final Log LOG = LogFactory.getLog(JuvenileHistorySampleGenerator.class);
-
+	
     private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 
     private static final String[] OFFENSE_CODES = new String[] { "13.1017", "324.74203", "324.801261", "324.8015", "324.801771C-A", "29.29", "324.811296", "324.81133U", "324.811462", "324.82126C1", "324.821521", "328.2281E", "333.28359",
@@ -71,7 +72,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		return ret;
 	}
 
-	private List<Document> buildJuvenileHistoryInstanceDocuments(List<PersonElementWrapper> kids, DateTime baseDate, String stateParam) throws IOException {
+	private List<Document> buildJuvenileHistoryInstanceDocuments(List<PersonElementWrapper> kids, DateTime baseDate, String stateParam) throws Exception {
 		List<Document> ret = new ArrayList<Document>();
 		for (PersonElementWrapper kid : kids) {
 			ret.add(createJuvenileHistoryInstanceDocument(kid, baseDate, stateParam));
@@ -79,13 +80,13 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		return ret;
 	}
 
-	Document createJuvenileHistoryInstanceDocument(PersonElementWrapper kid, DateTime baseDate, String stateParam) throws IOException {
+	Document createJuvenileHistoryInstanceDocument(PersonElementWrapper kid, DateTime baseDate, String stateParam) throws Exception {
 		JuvenileHistory history = createJuvenileHistory(kid, baseDate, stateParam);
 		Document ret = writeHistoryToDocument(history, baseDate);
 		return ret;
 	}
 
-	private Document writeHistoryToDocument(JuvenileHistory history, DateTime baseDate) throws IOException {
+	private Document writeHistoryToDocument(JuvenileHistory history, DateTime baseDate) throws Exception {
 		// call a method to build a sub-element structure for each component of the history.  write unit tests that validate each of those sub-elements.
 		// then assemble them all into a container document, with the search params in a made-up structure at the top.  we can't validate that container
 		// document because we won't have a schema for it.
@@ -100,20 +101,74 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		appendLocations(ret, baseDate, history);
 		appendParentChildAssociations(ret, baseDate, history);
 		
+		appendReferrals(ret, baseDate, history);
+		
 		new OjbcNamespaceContext().populateRootNamespaceDeclarations(root);
 		
 		return ret;
 		
 	}
 	
+	private void appendReferrals(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
+		
+		Element root = d.getDocumentElement();
+		
+		int i=0;
+		
+		for(Referral referral : history.referrals) {
+			
+			i++;
+			
+			Element referralElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "Referral");
+			XmlUtils.addAttribute(referralElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", referral.id);
+			XmlUtils.addAttribute(referralElement, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "metadata");
+			Element e = XmlUtils.appendElement(referralElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(referral.date));
+			
+			Element issuerElement = XmlUtils.appendElement(referralElement, OjbcNamespaceContext.NS_NC_30, "ReferralIssuer");
+			Element orgElement = XmlUtils.appendElement(issuerElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");
+			XmlUtils.appendElement(orgElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_REFERRAL_CODES, "ReferralIssuerCategoryCode").setTextContent(referral.issuerCategory);
+			Element orgLocation = XmlUtils.appendElement(orgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationLocation");
+			e = XmlUtils.appendElement(orgLocation, OjbcNamespaceContext.NS_NC_30, "Address");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationStreet").setTextContent(referral.issuerStreet);
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationCityName").setTextContent(referral.issuerCity);
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "LocationStateNCICRESCode").setTextContent(referral.issuerState);
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode").setTextContent(referral.issuerZip);
+			XmlUtils.appendElement(orgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName").setTextContent(referral.issuerName);
+			
+			e = XmlUtils.appendElement(referralElement, OjbcNamespaceContext.NS_NC_30, "ReferralPerson");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "child");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_XSI, "nil", "true");
+			
+			Element aug = XmlUtils.appendElement(referralElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_REFERRAL_EXT, "ReferralAugmentation");
+			XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_REFERRAL_CODES, "ReferralCategoryCode").setTextContent(referral.category);
+			Element idElement = XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+			XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(referral.id);
+			XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(referral.getSource());
+			if (referral.relatedComponents.size() > 0 || referral.relatedUnsupportedClass != null) {
+				Element relatedRecordsElement = XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecords");
+				for (IdentifiableHistoryComponent related : referral.relatedComponents) {
+					Element relatedRecordElement = XmlUtils.appendElement(relatedRecordsElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecord");
+					XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryCategoryCode").setTextContent(related.getCategory());
+					idElement = XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+					XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(related.id);
+					XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(related.getSource());
+				}
+				if (referral.relatedUnsupportedClass != null) {
+					Element relatedRecordElement = XmlUtils.appendElement(relatedRecordsElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecord");
+					IdentifiableHistoryComponent fakeRelated = referral.relatedUnsupportedClass.newInstance();
+					XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryCategoryCode").setTextContent(fakeRelated.getCategory());
+					XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecordNotSupportedIndicator").setTextContent("true");
+				}
+			}
+			
+		}
+		
+	}
+
 	private void appendParentChildAssociations(Document d, DateTime baseDate, JuvenileHistory history) {
 
 		Element root = d.getDocumentElement();
-
-		//		<cyfs:ParentChildAssociation s30:metadata="metadata">
-		//		<cyfs:Child s30:ref="Child1" xsi:nil="true" />
-		//		<cyfs:Parent s30:ref="Parent1" xsi:nil="true" />
-		//	</cyfs:ParentChildAssociation>
 
 		if (history.mother != null) {
 			Element e = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_CYFS, "ParentChildAssociation");
@@ -369,6 +424,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		for (int i = 0; i < referralCount; i++) {
 			Referral referral = new Referral();
 			referral.id = "Referral-" + i;
+			referral.date = generateNormalRandomDateBefore(baseDate, 150);
 			referral.issuerCategory = generateRandomCodeFromList("Police", "Prosecutor", "School", "Court/Probation", "Social Services", "Other");
 			referral.category = generateRandomCodeFromList("Complaint", "Citation or Appearance Ticket", "Petition", "Community Referral");
 			if ("Police".equals(referral.issuerCategory)) {
@@ -467,9 +523,16 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			ret.placements.add(placement);
 		}
 		for (IdentifiableHistoryComponent component : ret.getIdentifiableComponents()) {
+			Class<IdentifiableHistoryComponent> unsupportedRelatedComponentClass = null;
+			if (coinFlip(.5)) {
+				while (unsupportedRelatedComponentClass == null || unsupportedRelatedComponentClass.isAssignableFrom(component.getClass())) {
+					unsupportedRelatedComponentClass = (Class<IdentifiableHistoryComponent>) generateRandomValueFromList(Referral.class, Placement.class, Intake.class, OffenseCharge.class, Hearing.class);
+				}
+			}
+			component.relatedUnsupportedClass = unsupportedRelatedComponentClass;
 			List<IdentifiableHistoryComponent> others = new ArrayList<IdentifiableHistoryComponent>();
 			for (IdentifiableHistoryComponent innerComponent : ret.getIdentifiableComponents()) {
-				if (!(innerComponent.getClass() == component.getClass())) {
+				if (!(innerComponent.getClass() == component.getClass() || innerComponent.getClass() == unsupportedRelatedComponentClass)) {
 					others.add(innerComponent);
 				}
 			}
@@ -517,6 +580,9 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 	static abstract class IdentifiableHistoryComponent {
 		public String id;
 		public List<IdentifiableHistoryComponent> relatedComponents = new ArrayList<IdentifiableHistoryComponent>();
+		public abstract String getSource();
+		public abstract String getCategory();
+		public Class<IdentifiableHistoryComponent> relatedUnsupportedClass;
 	}
 
 	static final class Placement extends IdentifiableHistoryComponent {
@@ -529,6 +595,14 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public String facilityCity;
 		public String facilityState;
 		public String facilityZip;
+		@Override
+		public String getSource() {
+			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory";
+		}
+		@Override
+		public String getCategory() {
+			return "JuvenilePlacementHistory";
+		}
 	}
 
 	static final class OffenseCharge extends IdentifiableHistoryComponent {
@@ -540,12 +614,28 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public DateTime dispositionDate;
 		public String verdict;
 		public List<String> sanctions = new ArrayList<String>();
+		@Override
+		public String getSource() {
+			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory";
+		}
+		@Override
+		public String getCategory() {
+			return "JuvenileOffenseHistory";
+		}
 	}
 
 	static final class Intake extends IdentifiableHistoryComponent {
 		public DateTime date;
 		public String assessmentCategory;
 		public String recommendedCourseOfAction;
+		@Override
+		public String getSource() {
+			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory";
+		}
+		@Override
+		public String getCategory() {
+			return "JuvenileIntakeHistory";
+		}
 	}
 
 	static final class Hearing extends IdentifiableHistoryComponent {
@@ -554,9 +644,18 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public boolean probationViolationIndicator;
 		public String hearingCategory;
 		public String disposition;
+		@Override
+		public String getSource() {
+			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory";
+		}
+		@Override
+		public String getCategory() {
+			return "JuvenileHearingHistory";
+		}
 	}
 
 	static final class Referral extends IdentifiableHistoryComponent {
+		public DateTime date;
 		public String category;
 		public String issuerCategory;
 		public String issuerName;
@@ -564,6 +663,14 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public String issuerCity;
 		public String issuerState;
 		public String issuerZip;
+		@Override
+		public String getSource() {
+			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory";
+		}
+		@Override
+		public String getCategory() {
+			return "JuvenileReferralHistory";
+		}
 	}
 
 	static final class Residence {
