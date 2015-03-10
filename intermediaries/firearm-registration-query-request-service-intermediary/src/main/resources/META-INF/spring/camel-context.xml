@@ -109,6 +109,11 @@
 			<!-- Call method to populate federated query map and create federatedQueryRecipientListHeader (comma seperated camel endpoint list)-->
 			<camel:to
 				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
+				
+			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
+			<camel:setHeader headerName="requestMessageBody">
+				<camel:simple>${body}</camel:simple>
+			</camel:setHeader>
 			
 			<!-- This wiretap will start the message timer. There were anamolies with having it as part of the Recipient List -->
 			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
