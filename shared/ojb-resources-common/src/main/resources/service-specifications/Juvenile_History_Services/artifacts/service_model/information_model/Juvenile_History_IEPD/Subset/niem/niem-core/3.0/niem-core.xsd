@@ -480,6 +480,11 @@
       <xs:documentation>A data concept for a state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="LocationStateFIPS10-4InternationalCode" type="fips_10-4:InternationalStateCodeType" substitutionGroup="nc:LocationState" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="LocationStateFIPS5-2AlphaCode" type="fips_5-2:USStateCodeType" substitutionGroup="nc:LocationState" nillable="true">
     <xs:annotation>
       <xs:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
