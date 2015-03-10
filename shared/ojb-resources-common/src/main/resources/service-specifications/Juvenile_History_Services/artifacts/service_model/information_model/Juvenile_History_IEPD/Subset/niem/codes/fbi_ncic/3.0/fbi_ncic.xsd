@@ -596,12 +596,12 @@ Czechoslovakia--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="FA">
         <xs:annotation>
-          <xs:documentation>Islas Malvinas</xs:documentation>
+          <xs:documentation>Falkland Islands, Colony of the</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="FA">
         <xs:annotation>
-          <xs:documentation>Falkland Islands, Colony of the</xs:documentation>
+          <xs:documentation>Islas Malvinas</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="FC">
@@ -1376,17 +1376,17 @@ Czechoslovakia--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="NX">
         <xs:annotation>
-          <xs:documentation>Bonaire (Netherlands Antilles)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NX">
-        <xs:annotation>
           <xs:documentation>Netherlands Antilles</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="NX">
         <xs:annotation>
           <xs:documentation>Curacao (Netherlands Antilles)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NX">
+        <xs:annotation>
+          <xs:documentation>Bonaire (Netherlands Antilles)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="NY">
@@ -2192,14 +2192,4 @@ USSR--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="RESCodeType">
-    <xs:annotation>
-      <xs:documentation>A data type for Registration state for boat registrations.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="ncic:RESCodeSimpleType">
-        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
 </xs:schema>

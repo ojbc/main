@@ -19,16 +19,15 @@
 					<Address>
 						<AddressSecondaryUnitText>#12</AddressSecondaryUnitText>
 						<LocationStreet>
-							<StreetFullText>3545 Woodland Ave</StreetFullText>
-							<StreetNumberText>3545</StreetNumberText>
-							<StreetPredirectionalText>NE</StreetPredirectionalText>
-							<StreetName>Woodland Ave</StreetName>
-							<StreetCategoryText>City</StreetCategoryText>
-							<StreetPostdirectionalText>East</StreetPostdirectionalText>
+							<StreetFullText>414 Washington Ave</StreetFullText>
+							<StreetNumberText>414</StreetNumberText>
+							<StreetName>Washington Ave</StreetName>
+							<StreetCategoryText>Avenue</StreetCategoryText>
 						</LocationStreet>
-						<LocationCityName>Ottawa</LocationCityName>
-						<j:LocationStateNCICRESCode>OT</j:LocationStateNCICRESCode>
-						<LocationPostalCode>54987</LocationPostalCode>
+						<LocationCityName>Grand Haven</LocationCityName>
+						<LocationStateFIPS5-2AlphaCode>MI</LocationStateFIPS5-2AlphaCode >
+						<LocationCountryFIPS10-4Code>US</LocationCountryFIPS10-4Code>
+						<LocationPostalCode>49417</LocationPostalCode>
 					</Address>
 				</OrganizationLocation>
 				<OrganizationName>Court</OrganizationName>
@@ -74,7 +73,8 @@
 					<StreetFullText>100 Main Street</StreetFullText>
 				</LocationStreet>
 				<LocationCityName>Lansing</LocationCityName>
-				<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
+				<LocationStateFIPS5-2AlphaCode>MI</LocationStateFIPS5-2AlphaCode>
+				<LocationCountryFIPS10-4Code>US</LocationCountryFIPS10-4Code>
 				<LocationPostalCode>48901-1000</LocationPostalCode>
 			</Address>
 		</Location>
@@ -84,9 +84,10 @@
 				<LocationStreet>
 					<StreetFullText>100 Main Street</StreetFullText>
 				</LocationStreet>
-				<LocationCityName>Lansing</LocationCityName>
-				<j:LocationStateNCICRESCode>MI(1)</j:LocationStateNCICRESCode>
-				<LocationPostalCode>48901-1000</LocationPostalCode>
+				<LocationCityName>Ottawa</LocationCityName>
+				<LocationCanadianProvinceCode>ON</LocationCanadianProvinceCode>
+				<LocationCountryFIPS10-4Code>CN</LocationCountryFIPS10-4Code>
+				<LocationPostalCode>K1S 1C20</LocationPostalCode>
 			</Address>
 		</Location>
 		<PersonResidenceAssociation>
