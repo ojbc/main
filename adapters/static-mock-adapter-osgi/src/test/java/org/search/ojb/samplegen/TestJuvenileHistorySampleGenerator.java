@@ -9,23 +9,25 @@ import org.joda.time.Years;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
+import org.search.ojb.staticmock.JuvenileHistoryContainer;
+import org.search.ojb.staticmock.JuvenileHistoryContainerTestUtils;
 import org.w3c.dom.Document;
 
 public class TestJuvenileHistorySampleGenerator {
-	
+
 	private static final Log LOG = LogFactory.getLog(TestJuvenileHistorySampleGenerator.class);
-	
+
 	private JuvenileHistorySampleGenerator juvenileHistorySampleGenerator;
 	private AbstractSampleGenerator.PersonElementWrapper testKid;
 	private DateTime baseDate;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		juvenileHistorySampleGenerator = new JuvenileHistorySampleGenerator();
 		testKid = juvenileHistorySampleGenerator.getRandomIdentity("WA");
 		baseDate = new DateTime();
 	}
-	
+
 	@Test
 	public void testCreateJuvenileHistory() throws Exception {
 		JuvenileHistorySampleGenerator.JuvenileHistory juvenileHistory = juvenileHistorySampleGenerator.createJuvenileHistory(testKid, baseDate, "WA");
@@ -41,11 +43,22 @@ public class TestJuvenileHistorySampleGenerator {
 		assertTrue(juvenileHistory.intakes.size() > 0);
 		assertTrue(juvenileHistory.hearings.size() > 0);
 	}
-	
+
 	@Test
-	public void testBuildContainerDocument() throws Exception {
+	public void testBuildReferralDocument() throws Exception {
 		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
-		XmlUtils.printNode(d);
+		//XmlUtils.printNode(d);
+		JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
+		Document referralDocument = juvenileHistoryContainer.buildReferralHistoryDocument();
+		JuvenileHistoryContainerTestUtils.validateReferralHistoryDocument(referralDocument);
 	}
-	
+
+	@Test
+	public void testBuildOffenseDocument() throws Exception {
+		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
+		//XmlUtils.printNode(d);
+		JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
+		Document referralDocument = juvenileHistoryContainer.buildOffenseHistoryDocument();
+		JuvenileHistoryContainerTestUtils.validateOffenseHistoryDocument(referralDocument);
+	}
 }

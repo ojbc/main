@@ -27,7 +27,7 @@
 						<nc30:StreetExtensionText>String</nc30:StreetExtensionText>
 					</nc30:LocationStreet>
 					<nc30:LocationCityName>String</nc30:LocationCityName>
-					<jxdm50:LocationStateNCICRESCode>IN</jxdm50:LocationStateNCICRESCode>
+					<nc30:LocationStateFIPS5-2AlphaCode>IN</nc30:LocationStateFIPS5-2AlphaCode>
 					<nc30:LocationPostalCode>String</nc30:LocationPostalCode>
 				</nc30:Address>
 			</nc30:OrganizationLocation>
@@ -82,7 +82,7 @@
 				<nc30:StreetFullText>100 Main Street</nc30:StreetFullText>
 			</nc30:LocationStreet>
 			<nc30:LocationCityName>Lansing</nc30:LocationCityName>
-			<jxdm50:LocationStateNCICRESCode>MI(1)</jxdm50:LocationStateNCICRESCode>
+			<nc30:LocationStateFIPS5-2AlphaCode>MI</nc30:LocationStateFIPS5-2AlphaCode>
 			<nc30:LocationPostalCode>48901-1000</nc30:LocationPostalCode>
 		</nc30:Address>
 	</nc30:Location>
@@ -93,7 +93,7 @@
 				<nc30:StreetFullText>100 Main Street</nc30:StreetFullText>
 			</nc30:LocationStreet>
 			<nc30:LocationCityName>Lansing</nc30:LocationCityName>
-			<jxdm50:LocationStateNCICRESCode>MI(1)</jxdm50:LocationStateNCICRESCode>
+			<nc30:LocationStateFIPS5-2AlphaCode>MI</nc30:LocationStateFIPS5-2AlphaCode>
 			<nc30:LocationPostalCode>48901-1000</nc30:LocationPostalCode>
 		</nc30:Address>
 	</nc30:Location>
@@ -120,7 +120,7 @@
 					<nc30:Address>
 						<nc30:LocationStreet />
 						<nc30:LocationCityName>Lansing</nc30:LocationCityName>
-						<jxdm50:LocationStateNCICRESCode>MI(1)</jxdm50:LocationStateNCICRESCode>
+						<nc30:LocationStateFIPS5-2AlphaCode>MI</nc30:LocationStateFIPS5-2AlphaCode>
 						<nc30:LocationPostalCode />
 					</nc30:Address>
 				</nc30:OrganizationLocation>
@@ -153,7 +153,7 @@
 					<nc30:Address>
 						<nc30:LocationStreet />
 						<nc30:LocationCityName>Lansing</nc30:LocationCityName>
-						<jxdm50:LocationStateNCICRESCode>MI(1)</jxdm50:LocationStateNCICRESCode>
+						<nc30:LocationStateFIPS5-2AlphaCode>MI</nc30:LocationStateFIPS5-2AlphaCode>
 						<nc30:LocationPostalCode />
 					</nc30:Address>
 				</nc30:OrganizationLocation>
