@@ -23,10 +23,10 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 	private static final String ID_SOURCE_TEXT = "CMS";
 
 	private static final Log LOG = LogFactory.getLog(JuvenileHistorySampleGenerator.class);
-	
-    private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 
-    private static final String[] OFFENSE_CODES = new String[] { "13.1017", "324.74203", "324.801261", "324.8015", "324.801771C-A", "29.29", "324.811296", "324.81133U", "324.811462", "324.82126C1", "324.821521", "328.2281E", "333.28359",
+	private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
+
+	private static final String[] OFFENSE_CODES = new String[] { "13.1017", "324.74203", "324.801261", "324.8015", "324.801771C-A", "29.29", "324.811296", "324.81133U", "324.811462", "324.82126C1", "324.821521", "328.2281E", "333.28359",
 			"333.7340A", "333.74012F", "55.3014", "333.74071A", "333.74101-E", "333.7417", "333.12531A", "125.14471B2", "333.17766B", "333.201992", "338.835", "338.10693", "125.2321", "380.18093B", "399.1585", "400.6073", "408.66", "168.4992",
 			"421.54D-A", "431.3304", "432.1102", "432.2183", "168.759", "436.19042B", "436.20253", "445.2A", "445.72B3C", "168.931A", "445.574A3C", "445.20812", "451.2501", "462.391", "480.17C3-A", "487.21421", "500.2062", "500.7034", "565.371",
 			"600.87279", "722.115F8A", "722.675", "750.164-A", "750.49-B", "750.50C2", "750.731", "168.933", "750.81C3", "750.9", "750.94", "750.110A3", "169.23312", "750.131A2", "750.14", "750.145D2F", "750.153", "169.243", "750.160C2B-",
@@ -91,79 +91,134 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		// then assemble them all into a container document, with the search params in a made-up structure at the top.  we can't validate that container
 		// document because we won't have a schema for it.
 		Document ret = documentBuilder.newDocument();
-		
+
 		Element root = ret.createElementNS(OjbcNamespaceContext.NS_JUVENILE_HISTORY_CONTAINER, "JuvenileHistoryContainer");
 		root.setPrefix(OjbcNamespaceContext.NS_PREFIX_JUVENILE_HISTORY_CONTAINER);
 		ret.appendChild(root);
-		
+
 		appendAvailabilityMetadata(ret, baseDate, history);
 		appendPeople(ret, baseDate, history);
 		appendLocations(ret, baseDate, history);
 		appendParentChildAssociations(ret, baseDate, history);
-		
+
 		appendReferrals(ret, baseDate, history);
-		
+		appendOffenseCharges(ret, baseDate, history);
+
 		new OjbcNamespaceContext().populateRootNamespaceDeclarations(root);
-		
+
 		return ret;
-		
+
 	}
-	
-	private void appendReferrals(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
-		
+
+	private void appendOffenseCharges(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
+
 		Element root = d.getDocumentElement();
-		
-		int i=0;
-		
-		for(Referral referral : history.referrals) {
-			
+
+		int i = 0;
+
+		for (OffenseCharge offense : history.offenseCharges) {
+
 			i++;
-			
+
+			Element offenseChargeElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JXDM_50, "OffenseChargeAssociation");
+			Element offenseElement = XmlUtils.appendElement(offenseChargeElement, OjbcNamespaceContext.NS_JXDM_50, "Offense");
+			XmlUtils.addAttribute(offenseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", offense.id);
+
+			XmlUtils.appendElement(offenseElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_OFFENSE_CODES, "OffensePACCCode").setTextContent(offense.pacCode);
+			Element aug = XmlUtils.appendElement(offenseElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_OFFENSE_EXT, "OffenseAugmentation");
+			appendRelatedRecordsStructure(offense, aug);
+
+			Element chargeElement = XmlUtils.appendElement(offenseChargeElement, OjbcNamespaceContext.NS_JXDM_50, "Charge");
+			Element e = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_50, "ChargeDisposition");
+			e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "DispositionDate");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(offense.dispositionDate));
+			e = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_50, "ChargeFilingDate");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(offense.filingDate));
+			if (offense.sanctionDate != null) {
+				Element sanctionElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_50, "ChargeSanction");
+				e = XmlUtils.appendElement(sanctionElement, OjbcNamespaceContext.NS_JXDM_50, "SanctionSetDate");
+				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(offense.sanctionDate));
+				aug = XmlUtils.appendElement(sanctionElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_OFFENSE_EXT, "SanctionAugmentation");
+				for (String sanctionString : offense.sanctions) {
+					XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_OFFENSE_CODES, "DispositionSanctionCode").setTextContent(sanctionString);
+				}
+			}
+
+			e = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_50, "ChargeSubject");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "child");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_XSI, "nil", "true");
+			if (offense.verdict != null) {
+				Element verdictElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_50, "ChargeVerdict");
+				e = XmlUtils.appendElement(verdictElement, OjbcNamespaceContext.NS_JXDM_50, "VerdictDispositionDate");
+				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(offense.verdictDate));
+				aug = XmlUtils.appendElement(verdictElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_OFFENSE_EXT, "VerdictAugmentation");
+				XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_OFFENSE_CODES, "ChargeVerdictCode").setTextContent(offense.verdict);
+			}
+
+		}
+
+	}
+
+	private void appendReferrals(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
+
+		Element root = d.getDocumentElement();
+
+		int i = 0;
+
+		for (Referral referral : history.referrals) {
+
+			i++;
+
 			Element referralElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "Referral");
 			XmlUtils.addAttribute(referralElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", referral.id);
 			XmlUtils.addAttribute(referralElement, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "metadata");
 			Element e = XmlUtils.appendElement(referralElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(referral.date));
-			
+
 			Element issuerElement = XmlUtils.appendElement(referralElement, OjbcNamespaceContext.NS_NC_30, "ReferralIssuer");
 			Element orgElement = XmlUtils.appendElement(issuerElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");
 			XmlUtils.appendElement(orgElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_REFERRAL_CODES, "ReferralIssuerCategoryCode").setTextContent(referral.issuerCategory);
 			Element orgLocation = XmlUtils.appendElement(orgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationLocation");
 			e = XmlUtils.appendElement(orgLocation, OjbcNamespaceContext.NS_NC_30, "Address");
-			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationStreet").setTextContent(referral.issuerStreet);
+			Element streetElement = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
+			XmlUtils.appendElement(streetElement, OjbcNamespaceContext.NS_NC_30, "StreetFullText").setTextContent(referral.issuerStreet);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationCityName").setTextContent(referral.issuerCity);
-			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "LocationStateNCICRESCode").setTextContent(referral.issuerState);
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationStateFIPS5-2AlphaCode").setTextContent(referral.issuerState);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode").setTextContent(referral.issuerZip);
 			XmlUtils.appendElement(orgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName").setTextContent(referral.issuerName);
-			
+
 			e = XmlUtils.appendElement(referralElement, OjbcNamespaceContext.NS_NC_30, "ReferralPerson");
 			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "child");
 			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_XSI, "nil", "true");
-			
+
 			Element aug = XmlUtils.appendElement(referralElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_REFERRAL_EXT, "ReferralAugmentation");
 			XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_REFERRAL_CODES, "ReferralCategoryCode").setTextContent(referral.category);
-			Element idElement = XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
-			XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(referral.id);
-			XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(referral.getSource());
-			if (referral.relatedComponents.size() > 0 || referral.relatedUnsupportedClass != null) {
-				Element relatedRecordsElement = XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecords");
-				for (IdentifiableHistoryComponent related : referral.relatedComponents) {
-					Element relatedRecordElement = XmlUtils.appendElement(relatedRecordsElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecord");
-					XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryCategoryCode").setTextContent(related.getCategory());
-					idElement = XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
-					XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(related.id);
-					XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(related.getSource());
-				}
-				if (referral.relatedUnsupportedClass != null) {
-					Element relatedRecordElement = XmlUtils.appendElement(relatedRecordsElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecord");
-					IdentifiableHistoryComponent fakeRelated = referral.relatedUnsupportedClass.newInstance();
-					XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryCategoryCode").setTextContent(fakeRelated.getCategory());
-					XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecordNotSupportedIndicator").setTextContent("true");
-				}
-			}
-			
+			appendRelatedRecordsStructure(referral, aug);
+
 		}
-		
+
+	}
+
+	public void appendRelatedRecordsStructure(IdentifiableHistoryComponent component, Element parentElement) throws InstantiationException, IllegalAccessException {
+		Element idElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+		XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(component.id);
+		XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(component.getSource());
+		if (component.relatedComponents.size() > 0 || component.relatedUnsupportedClass != null) {
+			Element relatedRecordsElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecords");
+			for (IdentifiableHistoryComponent related : component.relatedComponents) {
+				Element relatedRecordElement = XmlUtils.appendElement(relatedRecordsElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecord");
+				XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryCategoryCode").setTextContent(related.getCategory());
+				idElement = XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+				XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(related.id);
+				XmlUtils.appendElement(idElement, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(related.getSource());
+			}
+			if (component.relatedUnsupportedClass != null) {
+				Element relatedRecordElement = XmlUtils.appendElement(relatedRecordsElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecord");
+				IdentifiableHistoryComponent fakeRelated = component.relatedUnsupportedClass.newInstance();
+				XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryCategoryCode").setTextContent(fakeRelated.getCategory());
+				XmlUtils.appendElement(relatedRecordElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "RelatedJuvenileHistoryRecordNotSupportedIndicator").setTextContent("true");
+			}
+		}
 	}
 
 	private void appendParentChildAssociations(Document d, DateTime baseDate, JuvenileHistory history) {
@@ -195,9 +250,9 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 	}
 
 	private void appendLocations(Document d, DateTime baseDate, JuvenileHistory history) {
-		
+
 		Element root = d.getDocumentElement();
-		
+
 		appendLocation(root, history.kidResidence, "Location-K");
 		String motherResidenceRef = history.mother == null ? null : "Location-K";
 		String fatherResidenceRef = history.father == null ? null : "Location-K";
@@ -207,7 +262,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		if (history.kidResidence != history.fatherResidence && history.father != null) {
 			fatherResidenceRef = appendLocation(root, history.fatherResidence, "Location-F");
 		}
-		
+
 		Element e = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "PersonResidenceAssociation");
 		XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "metadata");
 		Element ee = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Person");
@@ -227,7 +282,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", motherResidenceRef);
 			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_XSI, "nil", "true");
 		}
-		
+
 		if (fatherResidenceRef != null) {
 			e = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "PersonResidenceAssociation");
 			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "metadata");
@@ -238,7 +293,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", fatherResidenceRef);
 			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_XSI, "nil", "true");
 		}
-		
+
 	}
 
 	protected String appendLocation(Element root, Residence residence, String locationName) {
@@ -249,13 +304,13 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		Element e = XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
 		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "StreetFullText").setTextContent(residence.street);
 		XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationCityName").setTextContent(residence.city);
-		XmlUtils.appendElement(address, OjbcNamespaceContext.NS_JXDM_50, "LocationStateNCICRESCode").setTextContent(residence.state);
+		XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationStateFIPS5-2AlphaCode").setTextContent(residence.state);
 		XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode").setTextContent(residence.zip);
 		return locationName;
 	}
-	
+
 	private void appendPeople(Document d, DateTime baseDate, JuvenileHistory history) throws IOException {
-		
+
 		Element root = d.getDocumentElement();
 
 		Element p = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "Person");
@@ -267,7 +322,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName").setTextContent(history.kid.middleName);
 		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonSurName").setTextContent(history.kid.lastName);
 		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "PersonNameCategoryCode").setTextContent("provided");
-		
+
 		if (coinFlip(.2)) {
 			e = XmlUtils.appendElement(p, OjbcNamespaceContext.NS_NC_30, "PersonName");
 			if (coinFlip(.5)) {
@@ -278,84 +333,84 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonSurName").setTextContent(history.kid.lastName);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "PersonNameCategoryCode").setTextContent("alias");
 		}
-		
-		Element recordId = XmlUtils.appendElement(p, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+
+		Element recordId = XmlUtils.appendElement(p, OjbcNamespaceContext.NS_NC_30, "PersonOtherIdentification");
 		XmlUtils.appendElement(recordId, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(history.kid.personId);
 		XmlUtils.appendElement(recordId, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(ID_SOURCE_TEXT);
-		
+
 		if (history.mother != null) {
-			
+
 			p = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "Person");
 			XmlUtils.addAttribute(p, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "mother");
 			XmlUtils.addAttribute(p, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "metadata");
-			
+
 			e = XmlUtils.appendElement(p, OjbcNamespaceContext.NS_NC_30, "PersonName");
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonGivenName").setTextContent(history.mother.firstName);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName").setTextContent(history.mother.middleName);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonSurName").setTextContent(history.mother.lastName);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "PersonNameCategoryCode").setTextContent("provided");
-			
-			recordId = XmlUtils.appendElement(p, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+
+			recordId = XmlUtils.appendElement(p, OjbcNamespaceContext.NS_NC_30, "PersonOtherIdentification");
 			XmlUtils.appendElement(recordId, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(history.mother.personId);
 			XmlUtils.appendElement(recordId, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(ID_SOURCE_TEXT);
-		
+
 		}
-		
+
 		if (history.father != null) {
-			
+
 			p = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "Person");
 			XmlUtils.addAttribute(p, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "father");
 			XmlUtils.addAttribute(p, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "metadata");
-			
+
 			e = XmlUtils.appendElement(p, OjbcNamespaceContext.NS_NC_30, "PersonName");
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonGivenName").setTextContent(history.father.firstName);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName").setTextContent(history.father.middleName);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonSurName").setTextContent(history.father.lastName);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "PersonNameCategoryCode").setTextContent("provided");
-			
-			recordId = XmlUtils.appendElement(p, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+
+			recordId = XmlUtils.appendElement(p, OjbcNamespaceContext.NS_NC_30, "PersonOtherIdentification");
 			XmlUtils.appendElement(recordId, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(history.father.personId);
 			XmlUtils.appendElement(recordId, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(ID_SOURCE_TEXT);
-		
+
 		}
-		
+
 		e = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_CONTAINER, "AdditionalChildInformation");
 		Element birthdate = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
 		XmlUtils.appendElement(birthdate, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(history.kid.birthdate));
 		Element ssn = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonSSNIdentification");
 		XmlUtils.appendElement(ssn, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(history.kid.nationalID);
-		
+
 	}
 
 	private void appendAvailabilityMetadata(Document d, DateTime baseDate, JuvenileHistory history) {
 
 		Element root = d.getDocumentElement();
-		
+
 		Element md = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationAvailabilityMetadata");
 		XmlUtils.addAttribute(md, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "metadata");
-		
+
 		Element e = XmlUtils.appendElement(md, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");
 		e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date");
 		e.setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(baseDate));
-		
+
 		Element owner = XmlUtils.appendElement(md, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationOwnerOrganization");
 		e = XmlUtils.appendElement(owner, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
 		e.setTextContent(history.court.branchName);
-		
+
 		e = XmlUtils.appendElement(owner, OjbcNamespaceContext.NS_NC_30, "OrganizationLocation");
 		e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Address");
 		Element street = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
 		XmlUtils.appendElement(street, OjbcNamespaceContext.NS_NC_30, "StreetFullText").setTextContent(history.court.addressStreetFullText);
 		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationCityName").setTextContent(history.court.city);
-		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "LocationStateNCICRESCode").setTextContent(history.court.state);
+		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationStateFIPS5-2AlphaCode").setTextContent(history.court.state);
 		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode").setTextContent(history.court.zip);
-		
+
 		XmlUtils.appendElement(owner, OjbcNamespaceContext.NS_NC_30, "OrganizationName").setTextContent(history.court.name);
-		
+
 		Element recordId = XmlUtils.appendElement(md, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
 		XmlUtils.appendElement(recordId, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(history.kid.personId);
 		XmlUtils.appendElement(recordId, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(ID_SOURCE_TEXT);
-		
+
 	}
 
 	JuvenileHistory createJuvenileHistory(PersonElementWrapper kid, DateTime baseDate, String stateParam) throws IOException {
@@ -491,9 +546,9 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			offenseCharge.filingDate = offenseDate.plusDays(randomGenerator.nextInt(2, 14));
 			offenseCharge.dispositionDate = offenseCharge.filingDate.plusDays(randomGenerator.nextInt(30, 180));
 			offenseCharge.verdictDate = offenseCharge.dispositionDate.plusDays(randomGenerator.nextInt(0, 30));
-			offenseCharge.sanctionDate = offenseCharge.verdictDate.plusDays(randomGenerator.nextInt(0, 30));
 			offenseCharge.verdict = generateRandomCodeFromList("Not responsible", "Responsible", "Dismissed");
 			if ("Responsible".equals(offenseCharge.verdict)) {
+				offenseCharge.sanctionDate = offenseCharge.verdictDate.plusDays(randomGenerator.nextInt(0, 30));
 				int sanctionCount = generatePoissonInt(.5, true);
 				for (int j = 0; j < sanctionCount; j++) {
 					offenseCharge.sanctions.add(generateRandomCodeFromList("Warning", "Probation", "Community service", "Payment of fines, fees, restitution", "Electronic tether", "Drug or other testing or screening",
@@ -566,6 +621,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public List<Intake> intakes = new ArrayList<Intake>();
 		public List<OffenseCharge> offenseCharges = new ArrayList<OffenseCharge>();
 		public List<Placement> placements = new ArrayList<Placement>();
+
 		public List<IdentifiableHistoryComponent> getIdentifiableComponents() {
 			List<IdentifiableHistoryComponent> ret = new ArrayList<IdentifiableHistoryComponent>();
 			ret.addAll(referrals);
@@ -576,12 +632,15 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			return Collections.unmodifiableList(ret);
 		}
 	}
-	
+
 	static abstract class IdentifiableHistoryComponent {
 		public String id;
 		public List<IdentifiableHistoryComponent> relatedComponents = new ArrayList<IdentifiableHistoryComponent>();
+
 		public abstract String getSource();
+
 		public abstract String getCategory();
+
 		public Class<IdentifiableHistoryComponent> relatedUnsupportedClass;
 	}
 
@@ -595,10 +654,12 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public String facilityCity;
 		public String facilityState;
 		public String facilityZip;
+
 		@Override
 		public String getSource() {
 			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory";
 		}
+
 		@Override
 		public String getCategory() {
 			return "JuvenilePlacementHistory";
@@ -614,10 +675,12 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public DateTime dispositionDate;
 		public String verdict;
 		public List<String> sanctions = new ArrayList<String>();
+
 		@Override
 		public String getSource() {
 			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory";
 		}
+
 		@Override
 		public String getCategory() {
 			return "JuvenileOffenseHistory";
@@ -628,10 +691,12 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public DateTime date;
 		public String assessmentCategory;
 		public String recommendedCourseOfAction;
+
 		@Override
 		public String getSource() {
 			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory";
 		}
+
 		@Override
 		public String getCategory() {
 			return "JuvenileIntakeHistory";
@@ -644,10 +709,12 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public boolean probationViolationIndicator;
 		public String hearingCategory;
 		public String disposition;
+
 		@Override
 		public String getSource() {
 			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory";
 		}
+
 		@Override
 		public String getCategory() {
 			return "JuvenileHearingHistory";
@@ -663,10 +730,12 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public String issuerCity;
 		public String issuerState;
 		public String issuerZip;
+
 		@Override
 		public String getSource() {
 			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory";
 		}
+
 		@Override
 		public String getCategory() {
 			return "JuvenileReferralHistory";

@@ -3,8 +3,6 @@ package org.search.ojb.staticmock;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -43,52 +41,42 @@ public class JuvenileHistoryContainerTest {
 	public void testBuildReferralHistoryDocument() throws Exception {
 		Document d = juvenileHistoryContainer.buildReferralHistoryDocument();
 		//XmlUtils.printNode(d);
-		validateInstance(d, "Referral", "Referral/JuvenileReferralHistoryExtension.xsd");
+		JuvenileHistoryContainerTestUtils.validateReferralHistoryDocument(d);
 	}
 
 	@Test
 	public void testBuildOffenseHistoryDocument() throws Exception {
 		Document d = juvenileHistoryContainer.buildOffenseHistoryDocument();
 		//XmlUtils.printNode(d);
-		validateInstance(d, "Offense", "Offense/JuvenileOffenseHistoryExtension.xsd");
+		JuvenileHistoryContainerTestUtils.validateOffenseHistoryDocument(d);
 	}
 
 	@Test
 	public void testBuildCasePlanHistoryDocument() throws Exception {
 		Document d = juvenileHistoryContainer.buildCasePlanHistoryDocument();
 		//XmlUtils.printNode(d);
-		validateInstance(d, "CasePlan", "CasePlan/JuvenileCasePlanHistoryExtension.xsd");
+		JuvenileHistoryContainerTestUtils.validateInstance(d, "CasePlan", "CasePlan/JuvenileCasePlanHistoryExtension.xsd");
 	}
 
 	@Test
 	public void testBuildPlacementHistoryDocument() throws Exception {
 		Document d = juvenileHistoryContainer.buildPlacementHistoryDocument();
 		//XmlUtils.printNode(d);
-		validateInstance(d, "Placement", "Placement/JuvenilePlacementHistoryExtension.xsd");
+		JuvenileHistoryContainerTestUtils.validateInstance(d, "Placement", "Placement/JuvenilePlacementHistoryExtension.xsd");
 	}
 
 	@Test
 	public void testBuildIntakeHistoryDocument() throws Exception {
 		Document d = juvenileHistoryContainer.buildIntakeHistoryDocument();
 		//XmlUtils.printNode(d);
-		validateInstance(d, "Intake", "Intake/JuvenileIntakeHistoryExtension.xsd");
+		JuvenileHistoryContainerTestUtils.validateInstance(d, "Intake", "Intake/JuvenileIntakeHistoryExtension.xsd");
 	}
 
 	@Test
 	public void testBuildHearingHistoryDocument() throws Exception {
 		Document d = juvenileHistoryContainer.buildHearingHistoryDocument();
 		//XmlUtils.printNode(d);
-		validateInstance(d, "Hearing", "Hearing/JuvenileHearingHistoryExtension.xsd");
-	}
-
-	private void validateInstance(Document d, String historyComponentFolderName, String historyComponentSchemaPath) throws Exception {
-		List<String> paths = new ArrayList<String>();
-		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/" + historyComponentFolderName);
-		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Subset");
-		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Subset/niem");
-		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/");
-		XmlUtils.validateInstanceWithAbsoluteClasspaths("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/" + historyComponentSchemaPath,
-				paths, d);
+		JuvenileHistoryContainerTestUtils.validateInstance(d, "Hearing", "Hearing/JuvenileHearingHistoryExtension.xsd");
 	}
 
 }
