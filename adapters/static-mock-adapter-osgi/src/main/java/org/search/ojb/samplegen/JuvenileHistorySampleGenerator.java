@@ -103,10 +103,33 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 		appendReferrals(ret, baseDate, history);
 		appendOffenseCharges(ret, baseDate, history);
+		appendOffenseLocations(ret, baseDate, history);
 
 		new OjbcNamespaceContext().populateRootNamespaceDeclarations(root);
 
 		return ret;
+
+	}
+
+	private void appendOffenseLocations(Document d, DateTime baseDate, JuvenileHistory history) {
+
+		Element root = d.getDocumentElement();
+
+		int i = 0;
+
+		for (OffenseCharge offense : history.offenseCharges) {
+
+			i++;
+			
+			Element assn = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JXDM_50, "OffenseLocationAssociation");
+			Element e = XmlUtils.appendElement(assn, OjbcNamespaceContext.NS_JXDM_50, "Offense");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", offense.id);
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_XSI, "nil", "true");
+			e = XmlUtils.appendElement(assn, OjbcNamespaceContext.NS_NC_30, "Location");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", offense.location.id);
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_XSI, "nil", "true");
+
+		}
 
 	}
 
@@ -253,14 +276,8 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 		Element root = d.getDocumentElement();
 
-		appendLocation(root, history.kidResidence, "Location-K");
-		String motherResidenceRef = history.mother == null ? null : "Location-K";
-		String fatherResidenceRef = history.father == null ? null : "Location-K";
-		if (history.kidResidence != history.motherResidence && history.mother != null) {
-			motherResidenceRef = appendLocation(root, history.motherResidence, "Location-M");
-		}
-		if (history.kidResidence != history.fatherResidence && history.father != null) {
-			fatherResidenceRef = appendLocation(root, history.fatherResidence, "Location-F");
+		for (Location location : history.getLocations()) {
+			appendLocation(root, location);
 		}
 
 		Element e = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "PersonResidenceAssociation");
@@ -269,44 +286,43 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "child");
 		XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_XSI, "nil", "true");
 		ee = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Location");
-		XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Location-K");
+		XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", history.kidResidence.id);
 		XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_XSI, "nil", "true");
 
-		if (motherResidenceRef != null) {
+		if (history.motherResidence != null) {
 			e = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "PersonResidenceAssociation");
 			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "metadata");
 			ee = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Person");
 			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "mother");
 			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_XSI, "nil", "true");
 			ee = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Location");
-			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", motherResidenceRef);
+			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", history.motherResidence.id);
 			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_XSI, "nil", "true");
 		}
 
-		if (fatherResidenceRef != null) {
+		if (history.fatherResidence != null) {
 			e = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "PersonResidenceAssociation");
 			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "metadata");
 			ee = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Person");
 			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "father");
 			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_XSI, "nil", "true");
 			ee = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Location");
-			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", fatherResidenceRef);
+			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", history.fatherResidence.id);
 			XmlUtils.addAttribute(ee, OjbcNamespaceContext.NS_XSI, "nil", "true");
 		}
 
 	}
 
-	protected String appendLocation(Element root, Residence residence, String locationName) {
+	protected void appendLocation(Element root, Location location2) {
 		Element location = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "Location");
-		XmlUtils.addAttribute(location, OjbcNamespaceContext.NS_STRUCTURES_30, "id", locationName);
+		XmlUtils.addAttribute(location, OjbcNamespaceContext.NS_STRUCTURES_30, "id", location2.id);
 		XmlUtils.addAttribute(location, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "metadata");
 		Element address = XmlUtils.appendElement(location, OjbcNamespaceContext.NS_NC_30, "Address");
 		Element e = XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
-		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "StreetFullText").setTextContent(residence.street);
-		XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationCityName").setTextContent(residence.city);
-		XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationStateFIPS5-2AlphaCode").setTextContent(residence.state);
-		XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode").setTextContent(residence.zip);
-		return locationName;
+		XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "StreetFullText").setTextContent(location2.street);
+		XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationCityName").setTextContent(location2.city);
+		XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationStateFIPS5-2AlphaCode").setTextContent(location2.state);
+		XmlUtils.appendElement(address, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode").setTextContent(location2.zip);
 	}
 
 	private void appendPeople(Document d, DateTime baseDate, JuvenileHistory history) throws IOException {
@@ -327,8 +343,10 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			e = XmlUtils.appendElement(p, OjbcNamespaceContext.NS_NC_30, "PersonName");
 			if (coinFlip(.5)) {
 				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonGivenName").setTextContent(getRandomIdentity(history.kid.state).firstName);
+				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName").setTextContent(history.kid.middleName);
 			} else {
 				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName").setTextContent(getRandomIdentity(history.kid.state).middleName);
+				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonGivenName").setTextContent(history.kid.firstName);
 			}
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonSurName").setTextContent(history.kid.lastName);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "PersonNameCategoryCode").setTextContent("alias");
@@ -475,6 +493,13 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 				ret.kid.lastName = ret.father.lastName;
 			}
 		}
+		if (ret.fatherResidence != null) {
+			ret.fatherResidence.id = "Residence-F";
+		}
+		if (ret.motherResidence != null) {
+			ret.motherResidence.id = "Residence-M";
+		}
+		ret.kidResidence.id = "Residence-K";
 		int referralCount = generatePoissonInt(.8, true);
 		for (int i = 0; i < referralCount; i++) {
 			Referral referral = new Referral();
@@ -556,6 +581,15 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 							"Out-of-state operated treatment facility", "State or public treatment/residential facility", "A referral or commitment to human services", "County jail", "Sentence as an Adult"));
 				}
 			}
+			offenseCharge.location = (Location) generateRandomValueFromList(ret.getLocations());
+			if (coinFlip(.4)) {
+				offenseCharge.location = new Location();
+				offenseCharge.location.street = buildRandomStreet();
+				offenseCharge.location.city = getRandomCity(state);
+				offenseCharge.location.state = state;
+				offenseCharge.location.zip = "12345";
+				offenseCharge.location.id = "OffenseLocation-" + i;
+			}
 			ret.offenseCharges.add(offenseCharge);
 		}
 		int placementCount = generatePoissonInt(.8, true);
@@ -631,6 +665,24 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			ret.addAll(placements);
 			return Collections.unmodifiableList(ret);
 		}
+
+		public List<Location> getLocations() {
+			List<Location> locations = new ArrayList<Location>();
+			locations.add(kidResidence);
+			if (motherResidence != null && !locations.contains(motherResidence)) {
+				locations.add(motherResidence);
+			}
+			if (fatherResidence != null && !locations.contains(fatherResidence)) {
+				locations.add(fatherResidence);
+			}
+			for (OffenseCharge offense : offenseCharges) {
+				if (offense.location != null && !locations.contains(offense.location)) {
+					locations.add(offense.location);
+				}
+			}
+			return locations;
+		}
+
 	}
 
 	static abstract class IdentifiableHistoryComponent {
@@ -675,6 +727,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public DateTime dispositionDate;
 		public String verdict;
 		public List<String> sanctions = new ArrayList<String>();
+		public Location location;
 
 		@Override
 		public String getSource() {
@@ -742,11 +795,15 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		}
 	}
 
-	static final class Residence {
+	static final class Residence extends Location {
+	}
+
+	static class Location {
 		public String street;
 		public String city;
 		public String state;
 		public String zip;
+		public String id;
 	}
 
 	static final class Court {

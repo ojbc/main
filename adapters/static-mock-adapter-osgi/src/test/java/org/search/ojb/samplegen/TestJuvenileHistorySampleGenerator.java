@@ -56,7 +56,7 @@ public class TestJuvenileHistorySampleGenerator {
 	@Test
 	public void testBuildOffenseDocument() throws Exception {
 		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
-		//XmlUtils.printNode(d);
+		XmlUtils.printNode(d);
 		JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
 		Document referralDocument = juvenileHistoryContainer.buildOffenseHistoryDocument();
 		JuvenileHistoryContainerTestUtils.validateOffenseHistoryDocument(referralDocument);

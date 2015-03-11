@@ -462,8 +462,26 @@ public abstract class AbstractSampleGenerator {
 	 * @return the randomly selected member of the list
 	 */
 	protected final Object generateRandomValueFromList(Object... list) {
+		if (list.length == 1) {
+			return list[0];
+		}
 		int i = randomGenerator.nextInt(0, list.length - 1);
 		return list[i];
+	}
+
+	/**
+	 * Generate a random value from among the values in the specified list
+	 * 
+	 * @param list
+	 *            the list of objects
+	 * @return the randomly selected member of the list
+	 */
+	protected final Object generateRandomValueFromList(List list) {
+		if (list.size() == 1) {
+			return list.get(0);
+		}
+		int i = randomGenerator.nextInt(0, list.size() - 1);
+		return list.get(i);
 	}
 
 	/**
