@@ -3,20 +3,6 @@
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>D567214</nc:IdentificationID>
 	</nc:DocumentIdentification>
-	<nc:DocumentSubmitter>
-		<nc:EntityOrganization>
-			<nc:OrganizationIdentification>
-				<nc:IdentificationID>ID23457</nc:IdentificationID>
-				<nc:IdentificationCategoryText>Organization/Agency ID</nc:IdentificationCategoryText>
-			</nc:OrganizationIdentification>
-			<nc:OrganizationName>Submitting Organization Name</nc:OrganizationName>
-			<j:OrganizationAugmentation>
-				<j:OrganizationORIIdentification>
-					<nc:IdentificationID>68796860</nc:IdentificationID>
-				</j:OrganizationORIIdentification>
-			</j:OrganizationAugmentation>
-		</nc:EntityOrganization>
-	</nc:DocumentSubmitter>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
 			<nc:PersonName>
@@ -33,6 +19,17 @@
 			</ext:PersonTrackingIdentidication>
 		</nc:RoleOfPerson>
 	</j:Subject>
+	<ext:IdentificationApplicantOrganization>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>ID23457</nc:IdentificationID>
+		</nc:OrganizationIdentification>
+		<nc:OrganizationName>Submitting Organization Name</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>68796860</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</ext:IdentificationApplicantOrganization>
 	<ext:IdentificationRequestDocument structures:id="Doc_01">
 		<ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</ext:DocumentBinary>
 	</ext:IdentificationRequestDocument>
