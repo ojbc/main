@@ -34,4 +34,12 @@ public class JuvenileHistoryContainerTestUtils {
 		validateInstance(d, "Placement", "Placement/JuvenilePlacementHistoryExtension.xsd");
 	}
 
+	public static void validateIntakeHistoryDocument(Document d) throws Exception {
+		validateInstance(d, "Intake", "Intake/JuvenileIntakeHistoryExtension.xsd");
+	}
+
+	public static void validateHearingHistoryDocument(Document d) throws Exception {
+		validateInstance(d, "Hearing", "Hearing/JuvenileHearingHistoryExtension.xsd");
+	}
+
 }
