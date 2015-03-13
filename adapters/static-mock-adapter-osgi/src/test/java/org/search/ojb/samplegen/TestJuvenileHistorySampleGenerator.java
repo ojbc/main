@@ -1,6 +1,7 @@
 package org.search.ojb.samplegen;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -8,7 +9,6 @@ import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.util.xml.XmlUtils;
 import org.search.ojb.staticmock.JuvenileHistoryContainer;
 import org.search.ojb.staticmock.JuvenileHistoryContainerTestUtils;
 import org.w3c.dom.Document;
@@ -16,6 +16,7 @@ import org.w3c.dom.Document;
 public class TestJuvenileHistorySampleGenerator {
 
 	private static final Log LOG = LogFactory.getLog(TestJuvenileHistorySampleGenerator.class);
+	private static final int TEST_CASES = 30;
 
 	private JuvenileHistorySampleGenerator juvenileHistorySampleGenerator;
 	private AbstractSampleGenerator.PersonElementWrapper testKid;
@@ -46,37 +47,68 @@ public class TestJuvenileHistorySampleGenerator {
 
 	@Test
 	public void testBuildReferralDocument() throws Exception {
-		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
-		//XmlUtils.printNode(d);
-		JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
-		Document referralDocument = juvenileHistoryContainer.buildReferralHistoryDocument();
-		JuvenileHistoryContainerTestUtils.validateReferralHistoryDocument(referralDocument);
+		for (int i = 0; i < TEST_CASES; i++) {
+			Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
+			//XmlUtils.printNode(d);
+			JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
+			Document dd = juvenileHistoryContainer.buildReferralHistoryDocument();
+			JuvenileHistoryContainerTestUtils.validateReferralHistoryDocument(dd);
+		}
 	}
 
 	@Test
 	public void testBuildOffenseDocument() throws Exception {
-		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
-		//XmlUtils.printNode(d);
-		JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
-		Document referralDocument = juvenileHistoryContainer.buildOffenseHistoryDocument();
-		JuvenileHistoryContainerTestUtils.validateOffenseHistoryDocument(referralDocument);
+		for (int i = 0; i < TEST_CASES; i++) {
+			Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
+			//XmlUtils.printNode(d);
+			JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
+			Document dd = juvenileHistoryContainer.buildOffenseHistoryDocument();
+			JuvenileHistoryContainerTestUtils.validateOffenseHistoryDocument(dd);
+		}
 	}
 
 	@Test
 	public void testBuildCasePlanDocument() throws Exception {
-		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
-		//XmlUtils.printNode(d);
-		JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
-		Document referralDocument = juvenileHistoryContainer.buildCasePlanHistoryDocument();
-		JuvenileHistoryContainerTestUtils.validateCasePlanHistoryDocument(referralDocument);
+		for (int i = 0; i < TEST_CASES; i++) {
+			Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
+			//XmlUtils.printNode(d);
+			JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
+			Document dd = juvenileHistoryContainer.buildCasePlanHistoryDocument();
+			JuvenileHistoryContainerTestUtils.validateCasePlanHistoryDocument(dd);
+		}
 	}
 
 	@Test
 	public void testBuildPlacementDocument() throws Exception {
-		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
-		//XmlUtils.printNode(d);
-		JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
-		Document referralDocument = juvenileHistoryContainer.buildPlacementHistoryDocument();
-		JuvenileHistoryContainerTestUtils.validatePlacementHistoryDocument(referralDocument);
+		for (int i = 0; i < TEST_CASES; i++) {
+			Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
+			//XmlUtils.printNode(d);
+			JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
+			Document dd = juvenileHistoryContainer.buildPlacementHistoryDocument();
+			JuvenileHistoryContainerTestUtils.validatePlacementHistoryDocument(dd);
+		}
 	}
+
+	@Test
+	public void testBuildIntakeDocument() throws Exception {
+		for (int i = 0; i < TEST_CASES; i++) {
+			Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
+			//XmlUtils.printNode(d);
+			JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
+			Document dd = juvenileHistoryContainer.buildIntakeHistoryDocument();
+			JuvenileHistoryContainerTestUtils.validateIntakeHistoryDocument(dd);
+		}
+	}
+
+	@Test
+	public void testBuildHearingDocument() throws Exception {
+		for (int i = 0; i < TEST_CASES; i++) {
+			Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
+			//XmlUtils.printNode(d);
+			JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
+			Document dd = juvenileHistoryContainer.buildHearingHistoryDocument();
+			JuvenileHistoryContainerTestUtils.validateHearingHistoryDocument(dd);
+		}
+	}
+
 }

@@ -106,6 +106,8 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		appendOffenseLocations(ret, baseDate, history);
 		appendCasePlans(ret, baseDate, history);
 		appendPlacements(ret, baseDate, history);
+		appendIntakes(ret, baseDate, history);
+		appendHearings(ret, baseDate, history);
 
 		new OjbcNamespaceContext().populateRootNamespaceDeclarations(root);
 
@@ -113,12 +115,70 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 	}
 
-	private void appendPlacements(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
-		
+	private void appendHearings(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
+
+		if (history.hearings.size() > 0) {
+
+			Element root = d.getDocumentElement();
+			Element caseElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_CYFS, "CourtCase");
+			Element caseAugmentationElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_JXDM_50, "CaseAugmentation");
+			Element e = XmlUtils.appendElement(caseAugmentationElement, OjbcNamespaceContext.NS_JXDM_50, "CaseDefendantParty");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "child");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_XSI, "nil", "true");
+
+			for (Hearing hearing : history.hearings) {
+
+				Element hearingElement = XmlUtils.appendElement(caseAugmentationElement, OjbcNamespaceContext.NS_JXDM_50, "CaseHearing");
+				e = XmlUtils.appendElement(hearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
+				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(hearing.date));
+
+				Element aug = XmlUtils.appendElement(hearingElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_HEARING_EXT, "CourtEventAugmentation");
+				XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_HEARING_EXT, "ContemptOfCourtIndicator").setTextContent(String.valueOf(hearing.contemptOfCourtIndicator));
+				XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_HEARING_CODES, "HearingCategoryCode").setTextContent(hearing.hearingCategory);
+				XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_HEARING_CODES, "HearingDispositionCode").setTextContent(hearing.disposition);
+				XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_HEARING_EXT, "ProbationViolationIndicator").setTextContent(String.valueOf(hearing.probationViolationIndicator));
+				
+				appendRelatedRecordsStructure(hearing, aug);
+				
+			}
+		}
+
+	}
+
+	private void appendIntakes(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
+
 		Element root = d.getDocumentElement();
-		
+
+		for (Intake intake : history.intakes) {
+
+			Element intakeElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_CYFS, "JuvenileIntakeAssessment");
+			Element e = XmlUtils.appendElement(intakeElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(intake.date));
+
+			e = XmlUtils.appendElement(intakeElement, OjbcNamespaceContext.NS_CYFS, "AssessmentRecommendation");
+			e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_CYFS, "AssessmentRecommendedCourseOfAction");
+			e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JUVENILE_HISTORY_INTAKE_EXT, "AssessmentRecommendedCourseOfActionAugmentation");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JUVENILE_HISTORY_INTAKE_CODES, "AssessmentRecommendedCourseOfActionCode").setTextContent(intake.recommendedCourseOfAction);
+
+			e = XmlUtils.appendElement(intakeElement, OjbcNamespaceContext.NS_CYFS, "Juvenile");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "child");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_XSI, "nil", "true");
+
+			Element aug = XmlUtils.appendElement(intakeElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_INTAKE_EXT, "JuvenileAssessmentAugmentation");
+			XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_JUVENILE_HISTORY_INTAKE_CODES, "JuvenileIntakeAssessmentCategoryCode").setTextContent(intake.assessmentCategory);
+
+			appendRelatedRecordsStructure(intake, aug);
+
+		}
+
+	}
+
+	private void appendPlacements(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
+
+		Element root = d.getDocumentElement();
+
 		for (Placement placement : history.placements) {
-			
+
 			Element placementElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_PLACEMENT_EXT, "JuvenilePlacement");
 			Element dateRangeElement = XmlUtils.appendElement(placementElement, OjbcNamespaceContext.NS_NC_30, "ActivityDateRange");
 			Element e = XmlUtils.appendElement(dateRangeElement, OjbcNamespaceContext.NS_NC_30, "StartDate");
@@ -138,15 +198,15 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", placement.facilityLocation.id);
 			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_XSI, "nil", "true");
 			appendRelatedRecordsStructure(placement, aug);
-			
+
 		}
-		
+
 	}
 
 	private void appendCasePlans(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
-		
+
 		Element root = d.getDocumentElement();
-		
+
 		Element casePlanElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_CASE_PLAN_EXT, "CasePlan");
 		XmlUtils.appendElement(casePlanElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_CASE_PLAN_EXT, "AssessmentIndicator").setTextContent(String.valueOf(history.casePlan.assessmentIndicator));
 		XmlUtils.appendElement(casePlanElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_CASE_PLAN_EXT, "CasePlanIndicator").setTextContent(String.valueOf(history.casePlan.casePlanIndicator));
@@ -163,7 +223,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		for (OffenseCharge offense : history.offenseCharges) {
 
 			i++;
-			
+
 			Element assn = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JXDM_50, "OffenseLocationAssociation");
 			Element e = XmlUtils.appendElement(assn, OjbcNamespaceContext.NS_JXDM_50, "Offense");
 			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", offense.id);
@@ -388,8 +448,8 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonGivenName").setTextContent(getRandomIdentity(history.kid.state).firstName);
 				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName").setTextContent(history.kid.middleName);
 			} else {
-				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName").setTextContent(getRandomIdentity(history.kid.state).middleName);
 				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonGivenName").setTextContent(history.kid.firstName);
+				XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName").setTextContent(getRandomIdentity(history.kid.state).middleName);
 			}
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonSurName").setTextContent(history.kid.lastName);
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "PersonNameCategoryCode").setTextContent("alias");
@@ -581,7 +641,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			h.contemptOfCourtIndicator = coinFlip(.2);
 			h.probationViolationIndicator = coinFlip(.4);
 			h.hearingCategory = generateRandomCodeFromList("Preliminary hearing", "Preliminary inquiry", "Pretrial Conference", "Adjudication", "Bench Trial", "Jury Trial", "Competency Hearing", "Disposition Hearing", "Dispositional Review",
-					"Detention Hearing", "Probation Violation Hearing", "Phase I Waiver Hearing", "Phase II Waiver Hearing", "Designation Arraignment", "Designation Preliminary Examination", "Designtion Hearing", "Desgination adjudication or trial",
+					"Detention Hearing", "Probation Violation Hearing", "Phase I Waiver Hearing", "Phase II Waiver Hearing", "Designation Arraignment", "Designation Preliminary Examination", "Designation Hearing", "Designation adjudication or trial",
 					"Designation Sentencing", "Contempt of Court (on a Motion to Show Cause)", "Dismissal");
 			h.disposition = generateRandomCodeFromList("Petition authorized", "Petition not authorized", "Refer to alternative services", "Placed on the Consent Calendar", "Placed on diversion", "Attorney appointed", "Placement determination",
 					"Title IV-E language", "Bond may be set if out of home placement is ordered", "Next hearing scheduled", "Determine notice issues", "American Indian tribe or band notified", "Adjournment", "Adjudication hearing set",
@@ -757,14 +817,16 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 		public Class<IdentifiableHistoryComponent> relatedUnsupportedClass;
 	}
-	
+
 	static final class CasePlan extends IdentifiableHistoryComponent {
 		public boolean casePlanIndicator;
 		public boolean assessmentIndicator;
+
 		@Override
 		public String getSource() {
 			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory";
 		}
+
 		@Override
 		public String getCategory() {
 			return "JuvenileCasePlanHistory";
