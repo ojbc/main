@@ -104,11 +104,54 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		appendReferrals(ret, baseDate, history);
 		appendOffenseCharges(ret, baseDate, history);
 		appendOffenseLocations(ret, baseDate, history);
+		appendCasePlans(ret, baseDate, history);
+		appendPlacements(ret, baseDate, history);
 
 		new OjbcNamespaceContext().populateRootNamespaceDeclarations(root);
 
 		return ret;
 
+	}
+
+	private void appendPlacements(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
+		
+		Element root = d.getDocumentElement();
+		
+		for (Placement placement : history.placements) {
+			
+			Element placementElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_PLACEMENT_EXT, "JuvenilePlacement");
+			Element dateRangeElement = XmlUtils.appendElement(placementElement, OjbcNamespaceContext.NS_NC_30, "ActivityDateRange");
+			Element e = XmlUtils.appendElement(dateRangeElement, OjbcNamespaceContext.NS_NC_30, "StartDate");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(placement.startDate));
+			e = XmlUtils.appendElement(dateRangeElement, OjbcNamespaceContext.NS_NC_30, "EndDate");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(placement.endDate));
+			XmlUtils.appendElement(placementElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_PLACEMENT_CODES, "PlacementCategoryCode").setTextContent(placement.placementCategory);
+			Element aug = XmlUtils.appendElement(placementElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_PLACEMENT_EXT, "JuvenilePlacementAugmentation");
+			Element facilityAssociationElement = XmlUtils.appendElement(aug, OjbcNamespaceContext.NS_CYFS, "JuvenilePlacementFacilityAssociation");
+			e = XmlUtils.appendElement(facilityAssociationElement, OjbcNamespaceContext.NS_CYFS, "PlacedJuvenile");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "child");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_XSI, "nil", "true");
+			Element facilityElement = XmlUtils.appendElement(facilityAssociationElement, OjbcNamespaceContext.NS_CYFS, "PlacementFacility");
+			XmlUtils.appendElement(facilityElement, OjbcNamespaceContext.NS_NC_30, "FacilityName").setTextContent(placement.facilityName);
+			XmlUtils.appendElement(facilityElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_PLACEMENT_CODES, "FacilitySecurityCode").setTextContent(placement.securityCode);
+			e = XmlUtils.appendElement(facilityElement, OjbcNamespaceContext.NS_NC_30, "FacilityLocation");
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", placement.facilityLocation.id);
+			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_XSI, "nil", "true");
+			appendRelatedRecordsStructure(placement, aug);
+			
+		}
+		
+	}
+
+	private void appendCasePlans(Document d, DateTime baseDate, JuvenileHistory history) throws Exception {
+		
+		Element root = d.getDocumentElement();
+		
+		Element casePlanElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_CASE_PLAN_EXT, "CasePlan");
+		XmlUtils.appendElement(casePlanElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_CASE_PLAN_EXT, "AssessmentIndicator").setTextContent(String.valueOf(history.casePlan.assessmentIndicator));
+		XmlUtils.appendElement(casePlanElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_CASE_PLAN_EXT, "CasePlanIndicator").setTextContent(String.valueOf(history.casePlan.casePlanIndicator));
+		Element aug = XmlUtils.appendElement(casePlanElement, OjbcNamespaceContext.NS_JUVENILE_HISTORY_CASE_PLAN_EXT, "CasePlanAugmentation");
+		appendRelatedRecordsStructure(history.casePlan, aug);
 	}
 
 	private void appendOffenseLocations(Document d, DateTime baseDate, JuvenileHistory history) {
@@ -526,8 +569,10 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			referral.issuerZip = "12345";
 			ret.referrals.add(referral);
 		}
-		ret.casePlanIndicator = coinFlip(.6);
-		ret.assessmentIndicator = coinFlip(.8);
+		CasePlan casePlan = new CasePlan();
+		ret.casePlan = casePlan;
+		casePlan.casePlanIndicator = coinFlip(.6);
+		casePlan.assessmentIndicator = coinFlip(.8);
 		int hearingCount = generatePoissonInt(1.2, true);
 		for (int i = 0; i < hearingCount; i++) {
 			Hearing h = new Hearing();
@@ -605,10 +650,22 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 				placement.securityCode = "Non-secure";
 			}
 			placement.facilityName = "Facility Name: " + placement.placementCategory;
-			placement.facilityStreet = buildRandomStreet();
-			placement.facilityCity = getRandomCity(state);
-			placement.facilityState = state;
-			placement.facilityZip = "12345";
+			if ("Mother".equals(placement.placementCategory) && coinFlip(.8)) {
+				placement.facilityName = "Mother's residence";
+				placement.facilityLocation = ret.motherResidence;
+			}
+			if ("Father".equals(placement.placementCategory) && coinFlip(.8)) {
+				placement.facilityName = "Father's residence";
+				placement.facilityLocation = ret.fatherResidence;
+			}
+			if (placement.facilityLocation == null) {
+				placement.facilityLocation = new Location();
+				placement.facilityLocation.street = buildRandomStreet();
+				placement.facilityLocation.city = getRandomCity(state);
+				placement.facilityLocation.state = state;
+				placement.facilityLocation.zip = "12345";
+				placement.facilityLocation.id = "FacilityLocation-" + i;
+			}
 			ret.placements.add(placement);
 		}
 		for (IdentifiableHistoryComponent component : ret.getIdentifiableComponents()) {
@@ -649,12 +706,11 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public Residence kidResidence;
 		public Court court;
 		public List<Referral> referrals = new ArrayList<Referral>();
-		boolean casePlanIndicator;
-		boolean assessmentIndicator;
 		public List<Hearing> hearings = new ArrayList<Hearing>();
 		public List<Intake> intakes = new ArrayList<Intake>();
 		public List<OffenseCharge> offenseCharges = new ArrayList<OffenseCharge>();
 		public List<Placement> placements = new ArrayList<Placement>();
+		public CasePlan casePlan;
 
 		public List<IdentifiableHistoryComponent> getIdentifiableComponents() {
 			List<IdentifiableHistoryComponent> ret = new ArrayList<IdentifiableHistoryComponent>();
@@ -663,6 +719,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 			ret.addAll(intakes);
 			ret.addAll(offenseCharges);
 			ret.addAll(placements);
+			ret.add(casePlan);
 			return Collections.unmodifiableList(ret);
 		}
 
@@ -680,6 +737,11 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 					locations.add(offense.location);
 				}
 			}
+			for (Placement p : placements) {
+				if (p.facilityLocation != null && !locations.contains(p.facilityLocation)) {
+					locations.add(p.facilityLocation);
+				}
+			}
 			return locations;
 		}
 
@@ -695,6 +757,19 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 		public Class<IdentifiableHistoryComponent> relatedUnsupportedClass;
 	}
+	
+	static final class CasePlan extends IdentifiableHistoryComponent {
+		public boolean casePlanIndicator;
+		public boolean assessmentIndicator;
+		@Override
+		public String getSource() {
+			return "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory";
+		}
+		@Override
+		public String getCategory() {
+			return "JuvenileCasePlanHistory";
+		}
+	}
 
 	static final class Placement extends IdentifiableHistoryComponent {
 		public DateTime startDate;
@@ -702,10 +777,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		public String placementCategory;
 		public String securityCode;
 		public String facilityName;
-		public String facilityStreet;
-		public String facilityCity;
-		public String facilityState;
-		public String facilityZip;
+		public Location facilityLocation;
 
 		@Override
 		public String getSource() {

@@ -56,9 +56,27 @@ public class TestJuvenileHistorySampleGenerator {
 	@Test
 	public void testBuildOffenseDocument() throws Exception {
 		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
-		XmlUtils.printNode(d);
+		//XmlUtils.printNode(d);
 		JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
 		Document referralDocument = juvenileHistoryContainer.buildOffenseHistoryDocument();
 		JuvenileHistoryContainerTestUtils.validateOffenseHistoryDocument(referralDocument);
+	}
+
+	@Test
+	public void testBuildCasePlanDocument() throws Exception {
+		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
+		//XmlUtils.printNode(d);
+		JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
+		Document referralDocument = juvenileHistoryContainer.buildCasePlanHistoryDocument();
+		JuvenileHistoryContainerTestUtils.validateCasePlanHistoryDocument(referralDocument);
+	}
+
+	@Test
+	public void testBuildPlacementDocument() throws Exception {
+		Document d = juvenileHistorySampleGenerator.createJuvenileHistoryInstanceDocument(testKid, baseDate, "WA");
+		//XmlUtils.printNode(d);
+		JuvenileHistoryContainer juvenileHistoryContainer = new JuvenileHistoryContainer(d);
+		Document referralDocument = juvenileHistoryContainer.buildPlacementHistoryDocument();
+		JuvenileHistoryContainerTestUtils.validatePlacementHistoryDocument(referralDocument);
 	}
 }
