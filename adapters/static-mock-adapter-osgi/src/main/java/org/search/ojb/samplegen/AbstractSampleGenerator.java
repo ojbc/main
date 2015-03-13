@@ -683,6 +683,7 @@ public abstract class AbstractSampleGenerator {
 		List<Document> warrants = new ArrayList<Document>();
 		List<Document> incidents = new ArrayList<Document>();
 		List<Document> firearmRegistrations = new ArrayList<Document>();
+		List<Document> juvenileHistories = new ArrayList<Document>();
 
 		if ("ALL".equals(type) || "CRIMINALHISTORY".equals(type)) {
 			generator = new CriminalHistorySampleGenerator();
@@ -704,11 +705,17 @@ public abstract class AbstractSampleGenerator {
 			firearmRegistrations = frsg.generateSample(sampleCount, today, null);
 		}
 
-		List<Document> allSamples = new ArrayList<Document>(criminalHistories.size() + warrants.size() + incidents.size() + firearmRegistrations.size());
+		if ("ALL".equals(type) || "JUVENILEHISTORY".equals(type)) {
+			JuvenileHistorySampleGenerator jhsg = new JuvenileHistorySampleGenerator();
+			juvenileHistories = jhsg.generateSample(sampleCount, today, null);
+		}
+
+		List<Document> allSamples = new ArrayList<Document>(criminalHistories.size() + warrants.size() + incidents.size() + firearmRegistrations.size() + juvenileHistories.size());
 		allSamples.addAll(criminalHistories);
 		allSamples.addAll(warrants);
 		allSamples.addAll(incidents);
 		allSamples.addAll(firearmRegistrations);
+		allSamples.addAll(juvenileHistories);
 
 		for (Document d : allSamples) {
 			File f = File.createTempFile("sample-", ".xml", destinationFile);
@@ -723,7 +730,7 @@ public abstract class AbstractSampleGenerator {
 
 	static void printUsage() {
 
-		System.out.println("Usage: java " + AbstractPersonSampleGenerator.class.getName() + " [Incident|CriminalHistory|Warrant|Firearm|All] [number of samples] [destination directory]");
+		System.out.println("Usage: java " + AbstractPersonSampleGenerator.class.getName() + " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|All] [number of samples] [destination directory]");
 
 	}
 
