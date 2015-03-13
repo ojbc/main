@@ -24,8 +24,18 @@
 			</ext:PersonTrackingIdentidication>
 		</nc:RoleOfPerson>
 	</j:Subject>
+	<ext:IdentificationApplicantOrganization>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>ID23457</nc:IdentificationID>
+		</nc:OrganizationIdentification>
+		<nc:OrganizationName>Submitting Organization Name</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>68796860</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</ext:IdentificationApplicantOrganization>
 	<ext:IdentificationResultsDocument structures:id="Doc_01">
-		<nc:BinaryID>ID3245</nc:BinaryID>
 		<ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</ext:DocumentBinary>
 	</ext:IdentificationResultsDocument>
 	<ext:LinkedSystems>
