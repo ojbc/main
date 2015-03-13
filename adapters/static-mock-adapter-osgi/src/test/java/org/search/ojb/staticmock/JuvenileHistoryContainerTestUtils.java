@@ -26,4 +26,12 @@ public class JuvenileHistoryContainerTestUtils {
 		validateInstance(d, "Offense", "Offense/JuvenileOffenseHistoryExtension.xsd");
 	}
 
+	public static void validateCasePlanHistoryDocument(Document d) throws Exception {
+		validateInstance(d, "CasePlan", "CasePlan/JuvenileCasePlanHistoryExtension.xsd");
+	}
+
+	public static void validatePlacementHistoryDocument(Document d) throws Exception {
+		validateInstance(d, "Placement", "Placement/JuvenilePlacementHistoryExtension.xsd");
+	}
+
 }
