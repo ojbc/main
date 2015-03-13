@@ -16,7 +16,7 @@ import org.w3c.dom.Document;
 public class TestJuvenileHistorySampleGenerator {
 
 	private static final Log LOG = LogFactory.getLog(TestJuvenileHistorySampleGenerator.class);
-	private static final int TEST_CASES = 30;
+	private static final int TEST_CASES = 10;
 
 	private JuvenileHistorySampleGenerator juvenileHistorySampleGenerator;
 	private AbstractSampleGenerator.PersonElementWrapper testKid;
