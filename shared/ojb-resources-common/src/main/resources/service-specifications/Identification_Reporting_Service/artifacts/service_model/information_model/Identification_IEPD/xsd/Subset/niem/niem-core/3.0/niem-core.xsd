@@ -34,7 +34,6 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:DocumentIdentification" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:DocumentSubmitter" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -195,11 +194,6 @@
   <xs:element name="DocumentIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification that references a document.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="DocumentSubmitter" type="nc:EntityType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>An entity responsible for making the resource available.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="EntityOrganization" type="nc:OrganizationType" substitutionGroup="nc:EntityRepresentation">
