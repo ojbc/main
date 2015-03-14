@@ -29,8 +29,7 @@ public abstract class AbstractStaticMockTest {
         dbf.setNamespaceAware(true);
         documentBuilder = dbf.newDocumentBuilder();
         staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", "XpathTestSamples/FirearmRegistration",
-        		"XpathTestSamples/JuvenileCasePlan", "XpathTestSamples/JuvenileHistory", "XpathTestSamples/JuvenileIntake", "XpathTestSamples/JuvenileOffense","XpathTestSamples/JuvenilePlacement",
-        		"XpathTestSamples/JuvenileReferral"
+        		"XpathTestSamples/JuvenileHistory"
         );
     }
 
