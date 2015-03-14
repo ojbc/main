@@ -33,7 +33,6 @@ public class StaticMockQuery {
     private static final String WARRANT_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/Warrant";
     private static final String INCIDENT_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/Incident";
     private static final String FIREARM_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/FirearmRegistration";
-    
     private static final String JUVENILE_HISTORY_SAMPLES_DIRECTORY = "static-instances/JuvenileHistory";
     
     static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
@@ -48,18 +47,12 @@ public class StaticMockQuery {
     public static final String INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS";
     public static final String FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms";
     public static final String FIREARM_MOCK_ADAPTER_FIREARM_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest";
-
+    public static final String JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---JuvenileHistory";
+    public static final String JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Person-Query-Service---JuvenileHistory";
+    
     public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByPerson";
     public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByFirearm";;
 
-    public static final String JUVENILE_CASE_PLAN_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanRequest";
-    public static final String JUVENILE_HEARING_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingRequest";
-    public static final String JUVENILE_INTAKE_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeRequest";
-    public static final String JUVENILE_OFFENSE_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseRequest";
-    public static final String JUVENILE_PLACEMENT_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementRequest";
-    public static final String JUVENILE_REFERRAL_SYSTEM_ID="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralRequest";
-    	
-    
     private ClasspathXmlDataSource criminalHistoryDataSource;
     private ClasspathXmlDataSource warrantDataSource;
     private ClasspathXmlDataSource incidentDataSource;
@@ -1084,11 +1077,17 @@ public class StaticMockQuery {
                 ret.addAll(personSearchFirearmRegistrationDocuments(personSearchRequestMessage, baseDate));
             } else if (INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
                 ret.addAll(personSearchIncidentDocuments(personSearchRequestMessage, baseDate));
+            } else if (JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
+                ret.addAll(personSearchJuvenileHistoryDocuments(personSearchRequestMessage, baseDate));
             } else {
                 throw new IllegalArgumentException("Unsupported system name: " + systemId);
             }
         }
         return ret;
+    }
+
+    private List<IdentifiableDocumentWrapper> personSearchJuvenileHistoryDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
+        return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getJuvenileHistoryXPaths(), juvenileHistoryDataSource);
     }
 
     private List<IdentifiableDocumentWrapper> personSearchIncidentDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
@@ -1142,6 +1141,44 @@ public class StaticMockQuery {
         xPaths.searchSystemId = INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID;
         xPaths.systemName = "Demo RMS";
         xPaths.recordType = "Incident";
+        return xPaths;
+    }
+
+    private SearchValueXPaths getJuvenileHistoryXPaths() {
+    	// TODO: need to add new xpaths for the new juvenile search params (alias, placement, parent names, etc.)
+        SearchValueXPaths xPaths = new SearchValueXPaths();
+        xPaths.ageXPath = null;
+        xPaths.birthdateXPath = "/jh-container:JuvenileHistoryContainer/jh-container:AdditionalChildInformation/nc30:PersonBirthDate/nc30:Date";
+        xPaths.ssnXPath = "/jh-container:JuvenileHistoryContainer/jh-container:AdditionalChildInformation/nc30:PersonSSNIdentification/nc30:IdentificationID";
+        xPaths.sidXPath = "/jh-container:JuvenileHistoryContainer/jh-container:AdditionalChildInformation/jxdm50:PersonStateFingerprintIdentification/nc30:IdentificationID";
+        xPaths.fbiXPath = null;
+        xPaths.dlXPath = null;
+        xPaths.dlJurisdictionXPath = null;
+        xPaths.lastNameXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id='child']/nc30:PersonName[jxdm50:PersonNameCategoryCode='provided']/nc30:PersonSurName";
+        xPaths.middleNameXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id='child']/nc30:PersonName[jxdm50:PersonNameCategoryCode='provided']/nc30:PersonMiddleName";
+        xPaths.firstNameXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id='child']/nc30:PersonName[jxdm50:PersonNameCategoryCode='provided']/nc30:PersonGivenName";
+        xPaths.eyeColorXPath = null;
+        xPaths.hairColorXPath = null;
+        xPaths.raceXPath = null;
+        xPaths.sexXPath = "/jh-container:JuvenileHistoryContainer/jh-container:AdditionalChildInformation/nc30:PersonSexCode";
+        xPaths.heightXPath = "/jh-container:JuvenileHistoryContainer/jh-container:AdditionalChildInformation/nc30:PersonHeightMeasure/nc30:MeasurePointValue";
+        xPaths.weightXPath = "/jh-container:JuvenileHistoryContainer/jh-container:AdditionalChildInformation/nc30:PersonWeightMeasure/nc30:MeasurePointValue";
+
+        xPaths.juvenilePlacementsXPath = "/jh-container:JuvenileHistoryContainer/jh-placement:JuvenilePlacement/jh-placement-codes:PlacementCategoryCode";
+        xPaths.addressStreetXPath = "/jh-container:JuvenileHistoryContainer/nc30:Location[@s30:id='Residence-K']/nc30:Address/nc30:LocationStreet/nc30:StreetFullText";
+        xPaths.addressCityXPath = "/jh-container:JuvenileHistoryContainer/nc30:Location[@s30:id='Residence-K']/nc30:Address/nc30:LocationCityName";
+        xPaths.addressStateXPath = "/jh-container:JuvenileHistoryContainer/nc30:Location[@s30:id='Residence-K']/nc30:Address/nc30:LocationStateFIPS5-2AlphaCode";
+        xPaths.addressZipXPath = "/jh-container:JuvenileHistoryContainer/nc30:Location[@s30:id='Residence-K']/nc30:Address/nc30:LocationPostalCode";
+        xPaths.aliasFirstNameXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id='child']/nc30:PersonName[jxdm50:PersonNameCategoryCode='alias']/nc30:PersonGivenName";
+        xPaths.aliasMiddleNameXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id='child']/nc30:PersonName[jxdm50:PersonNameCategoryCode='alias']/nc30:PersonMiddleName";
+        xPaths.aliasLastNameXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id='child']/nc30:PersonName[jxdm50:PersonNameCategoryCode='alias']/nc30:PersonSurName";
+        xPaths.parentFirstNamesXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id='mother' or @s30:id='father']/nc30:PersonName/nc30:PersonGivenName";
+        xPaths.parentMiddleNamesXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id='mother' or @s30:id='father']/nc30:PersonName/nc30:PersonMiddleName";
+        xPaths.parentLastNamesXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id='mother' or @s30:id='father']/nc30:PersonName/nc30:PersonSurName";
+        
+        xPaths.searchSystemId = JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID;
+        xPaths.systemName = "Juvenile Court Case Management System";
+        xPaths.recordType = "Juvenile Criminal History";
         return xPaths;
     }
 
@@ -1281,7 +1318,22 @@ public class StaticMockQuery {
             boolean checkHeight = checkIntegerRange(d, psp.height, psp.heightMin, psp.heightMax, xPaths.heightXPath);
             boolean checkWeight = checkIntegerRange(d, psp.weight, psp.weightMin, psp.weightMax, xPaths.weightXPath);
 
-            include = include && checkLastName && checkFirstName && checkEyeColor && checkHairColor && checkRace && checkSex && checkDateOfBirth && checkAge && checkHeight && checkWeight;
+            boolean checkAliasLastName = checkStringFieldMatches(d, psp.aliasLastName, xPaths.aliasLastNameXPath, psp.aliasLastNameStartsWith);
+            boolean checkAliasFirstName = checkStringFieldMatches(d, psp.aliasFirstName, xPaths.aliasFirstNameXPath, psp.aliasFirstNameStartsWith);
+            boolean checkAddressCity = checkFieldEqual(d, psp.addressCity, xPaths.addressCityXPath);
+            boolean checkAddressState = checkFieldEqual(d, psp.addressState, xPaths.addressStateXPath);
+            boolean checkAddressZip = checkFieldEqual(d, psp.addressZip, xPaths.addressZipXPath);
+            
+            boolean checkAddressStreet = checkFieldContains(d, psp.addressStreet, xPaths.addressStreetXPath);
+            
+            boolean checkPlacement = checkFieldMatchesList(d, psp.juvenilePlacement, xPaths.juvenilePlacementsXPath, false);
+            boolean checkParentLastName = checkFieldMatchesList(d, psp.parentLastName, xPaths.parentLastNamesXPath, psp.parentLastNameStartsWith);
+            boolean checkParentFirstName = checkFieldMatchesList(d, psp.parentFirstName, xPaths.parentFirstNamesXPath, psp.parentFirstNameStartsWith);
+
+            include = include && checkLastName && checkFirstName && checkEyeColor && checkHairColor && checkRace && checkSex;
+            include = include && checkDateOfBirth && checkAge && checkHeight && checkWeight;
+            include = include && checkAliasFirstName && checkAliasLastName && checkPlacement && checkAddressCity && checkAddressState;
+            include = include && checkAddressStreet && checkAddressZip && checkParentFirstName && checkParentLastName;
 
             if (include) {
                 matches.add(dw);
@@ -1290,7 +1342,38 @@ public class StaticMockQuery {
         return matches;
     }
 
-    private boolean checkIntegerRange(Document personSearchRequestMessage, Integer valueParam, Integer minValueParam, Integer maxValueParam, String xPathToDocumentValue) throws Exception {
+	private boolean checkFieldMatchesList(Document d, String valueParam, String xPathToDocumentValues, boolean startsWithCheck) throws Exception {
+		if (valueParam != null) {
+			NodeList documentElements = XmlUtils.xPathNodeListSearch(d, xPathToDocumentValues);
+			for (int i = 0; i < documentElements.getLength(); i++) {
+				Element documentElement = (Element) documentElements.item(i);
+				if (documentElement != null) {
+					String documentValue = documentElement.getTextContent();
+					if (documentValue != null && (startsWithCheck ? documentValue.toUpperCase().startsWith(valueParam.toUpperCase()) : documentValue.toUpperCase().equals(valueParam.toUpperCase()))) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+
+	private boolean checkFieldContains(Document d, String valueParam, String xPathToDocumentValue) throws Exception {
+    	boolean ret = true;
+    	if (valueParam != null) {
+    		Element documentElement = (Element) XmlUtils.xPathNodeSearch(d, xPathToDocumentValue);
+            if (documentElement != null) {
+                String documentValue = documentElement.getTextContent();
+                if (documentValue != null) {
+                	ret = documentValue.toUpperCase().contains(valueParam.toUpperCase());
+                }
+            }
+        }
+		return ret;
+	}
+
+	private boolean checkIntegerRange(Document personSearchRequestMessage, Integer valueParam, Integer minValueParam, Integer maxValueParam, String xPathToDocumentValue) throws Exception {
         if (valueParam == null && minValueParam == null && maxValueParam == null) {
             // skipping this query parameter
             return true;
@@ -1468,8 +1551,38 @@ public class StaticMockQuery {
         private String SID;
         private boolean firstNameSearchStartsWith;
         private boolean lastNameSearchStartsWith;
+        private String juvenilePlacement;
+        private String addressStreet;
+        private String addressCity;
+        private String addressState;
+        private String addressZip;
+        private String aliasFirstName;
+        private String aliasLastName;
+        private String parentFirstName;
+        private String parentLastName;
+        private boolean aliasFirstNameStartsWith;
+        private boolean aliasLastNameStartsWith;
+        private boolean parentFirstNameStartsWith;
+        private boolean parentLastNameStartsWith;
 
         public PersonSearchParameters(Document personSearchRequestMessage) throws Exception {
+        	juvenilePlacement = getElementContent(personSearchRequestMessage, "cyfs21:Placement/jh-placement-search-codes:PlacementCategoryCode");
+        	addressStreet = getElementContent(personSearchRequestMessage, "nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetFullText");
+        	addressCity = getElementContent(personSearchRequestMessage, "nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName");
+        	addressState = getElementContent(personSearchRequestMessage, "nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationStateFIPS5-2AlphaCode");
+        	addressZip = getElementContent(personSearchRequestMessage, "nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationPostalCode");
+        	aliasFirstName = getElementContent(personSearchRequestMessage, "psr:Person/nc:PersonAlternateName/nc:PersonGivenName");
+        	Element e = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage.getDocumentElement(), "psr:Person/nc:PersonAlternateName/nc:PersonGivenName");
+        	aliasFirstNameStartsWith = getStartsWithForElement(personSearchRequestMessage, e);
+        	aliasLastName = getElementContent(personSearchRequestMessage, "psr:Person/nc:PersonAlternateName/nc:PersonSurName");
+        	e = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage.getDocumentElement(), "psr:Person/nc:PersonAlternateName/nc:PersonSurName");
+        	aliasLastNameStartsWith = getStartsWithForElement(personSearchRequestMessage, e);
+        	parentFirstName = getElementContent(personSearchRequestMessage, "psr:Parent/nc:PersonName/nc:PersonGivenName");
+        	e = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage.getDocumentElement(), "psr:Parent/nc:PersonName/nc:PersonGivenName");
+        	parentFirstNameStartsWith = getStartsWithForElement(personSearchRequestMessage, e);
+        	parentLastName = getElementContent(personSearchRequestMessage, "psr:Parent/nc:PersonName/nc:PersonSurName");
+        	e = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage.getDocumentElement(), "psr:Parent/nc:PersonName/nc:PersonSurName");
+        	parentLastNameStartsWith = getStartsWithForElement(personSearchRequestMessage, e);
             String ageS = getElementContent(personSearchRequestMessage, "psr:Person/nc:PersonAgeMeasure/nc:MeasureText");
             if (ageS != null) {
                 age = Integer.parseInt(ageS);
@@ -1502,24 +1615,10 @@ public class StaticMockQuery {
             }
             lastName = getElementContent(personSearchRequestMessage, "psr:Person/nc:PersonName/nc:PersonSurName");
             Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage.getDocumentElement(), "psr:Person/nc:PersonName/nc:PersonSurName");
-            if (lastNameElement != null) {
-                String metadataAttribute = lastNameElement.getAttributeNS(OjbcNamespaceContext.NS_STRUCTURES, "metadata");
-                Element lastNameSearchMetadataElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage.getDocumentElement(), "psr:SearchMetadata[@s:id='" + metadataAttribute + "']");
-                if (lastNameSearchMetadataElement != null) {
-                    Element qualifierCodeElement = (Element) XmlUtils.xPathNodeSearch(lastNameSearchMetadataElement, "psr:SearchQualifierCode");
-                    lastNameSearchStartsWith = "startsWith".equals(qualifierCodeElement.getTextContent());
-                }
-            }
+            lastNameSearchStartsWith = getStartsWithForElement(personSearchRequestMessage, lastNameElement);
             firstName = getElementContent(personSearchRequestMessage, "psr:Person/nc:PersonName/nc:PersonGivenName");
             Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage.getDocumentElement(), "psr:Person/nc:PersonName/nc:PersonGivenName");
-            if (firstNameElement != null) {
-                String metadataAttribute = firstNameElement.getAttributeNS(OjbcNamespaceContext.NS_STRUCTURES, "metadata");
-                Element firstNameSearchMetadataElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage.getDocumentElement(), "psr:SearchMetadata[@s:id='" + metadataAttribute + "']");
-                if (firstNameSearchMetadataElement != null) {
-                    Element qualifierCodeElement = (Element) XmlUtils.xPathNodeSearch(firstNameSearchMetadataElement, "psr:SearchQualifierCode");
-                    firstNameSearchStartsWith = "startsWith".equals(qualifierCodeElement.getTextContent());
-                }
-            }
+            firstNameSearchStartsWith = getStartsWithForElement(personSearchRequestMessage, firstNameElement);
             race = getElementContent(personSearchRequestMessage, "psr:Person/nc:PersonRaceCode");
             sex = getElementContent(personSearchRequestMessage, "psr:Person/nc:PersonSexCode");
             SSN = getElementContent(personSearchRequestMessage, "psr:Person/nc:PersonSSNIdentification/nc:IdentificationID");
@@ -1578,7 +1677,72 @@ public class StaticMockQuery {
 
         }
 
-        public DateTime getDateOfBirth() {
+		public boolean getStartsWithForElement(Document personSearchRequestMessage, Element stringElement) throws Exception {
+			boolean b = false;
+            if (stringElement != null) {
+                String metadataAttribute = stringElement.getAttributeNS(OjbcNamespaceContext.NS_STRUCTURES, "metadata");
+                Element metadataElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage.getDocumentElement(), "psr:SearchMetadata[@s:id='" + metadataAttribute + "']");
+                if (metadataElement != null) {
+                    Element qualifierCodeElement = (Element) XmlUtils.xPathNodeSearch(metadataElement, "psr:SearchQualifierCode");
+                    b = "startsWith".equals(qualifierCodeElement.getTextContent());
+                }
+            }
+			return b;
+		}
+
+        public String getJuvenilePlacement() {
+			return juvenilePlacement;
+		}
+
+		public String getAddressStreet() {
+			return addressStreet;
+		}
+
+		public String getAddressCity() {
+			return addressCity;
+		}
+
+		public String getAddressState() {
+			return addressState;
+		}
+
+		public String getAddressZip() {
+			return addressZip;
+		}
+
+		public String getAliasFirstName() {
+			return aliasFirstName;
+		}
+
+		public String getAliasLastName() {
+			return aliasLastName;
+		}
+
+		public String getParentFirstName() {
+			return parentFirstName;
+		}
+
+		public String getParentLastName() {
+			return parentLastName;
+		}
+
+		public boolean isAliasFirstNameStartsWith() {
+			return aliasFirstNameStartsWith;
+		}
+
+		public boolean isAliasLastNameStartsWith() {
+			return aliasLastNameStartsWith;
+		}
+
+		public boolean isParentFirstNameStartsWith() {
+			return parentFirstNameStartsWith;
+		}
+
+		public boolean isParentLastNameStartsWith() {
+			return parentLastNameStartsWith;
+		}
+
+		public DateTime getDateOfBirth() {
             return dateOfBirth;
         }
 
@@ -1698,6 +1862,17 @@ public class StaticMockQuery {
         private String ageXPath;
         private String heightXPath;
         private String weightXPath;
+        private String juvenilePlacementsXPath;
+        private String addressStreetXPath;
+        private String addressCityXPath;
+        private String addressStateXPath;
+        private String addressZipXPath;
+        private String aliasFirstNameXPath;
+        private String aliasMiddleNameXPath;
+        private String aliasLastNameXPath;
+        private String parentFirstNamesXPath;
+        private String parentMiddleNamesXPath;
+        private String parentLastNamesXPath;
         private String searchSystemId;
         private String systemName;
         private String recordType;

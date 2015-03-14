@@ -74,6 +74,18 @@
 		<nc30:PersonSSNIdentification>
 			<nc30:IdentificationID>123-45-6789</nc30:IdentificationID>
 		</nc30:PersonSSNIdentification>
+		<jxdm50:PersonStateFingerprintIdentification>
+			<nc30:IdentificationID>A8116437</nc30:IdentificationID>
+		</jxdm50:PersonStateFingerprintIdentification>
+		<nc30:PersonHeightMeasure>
+        	<nc30:MeasurePointValue>48</nc30:MeasurePointValue>
+            <nc30:LengthUnitCode>INH</nc30:LengthUnitCode>
+        </nc30:PersonHeightMeasure>
+        <nc30:PersonWeightMeasure>
+            <nc30:MeasurePointValue>95</nc30:MeasurePointValue>
+            <nc30:WeightUnitCode>LBR</nc30:WeightUnitCode>
+        </nc30:PersonWeightMeasure>
+        <nc30:PersonSexCode>M</nc30:PersonSexCode>
 	</jh-container:AdditionalChildInformation>
 	<nc30:Location s30:id="Location1" s30:metadata="metadata">
 		<nc30:Address>

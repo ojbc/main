@@ -500,6 +500,17 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 		XmlUtils.appendElement(birthdate, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(history.kid.birthdate));
 		Element ssn = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonSSNIdentification");
 		XmlUtils.appendElement(ssn, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(history.kid.nationalID);
+		if (coinFlip(.5)) {
+			Element sid = appendElement(e, OjbcNamespaceContext.NS_JXDM_50, "PersonStateFingerprintIdentification");
+			XmlUtils.appendElement(sid, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(generateRandomID("A", 7));
+		}
+		Element h = appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
+        XmlUtils.appendElement(h, OjbcNamespaceContext.NS_NC_30, "MeasurePointValue").setTextContent(String.valueOf(Math.round(Double.parseDouble(history.kid.centimeters) * .39)));
+        XmlUtils.appendElement(h, OjbcNamespaceContext.NS_NC_30, "LengthUnitCode").setTextContent("INH");
+        Element w = appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonWeightMeasure");
+        XmlUtils.appendElement(w, OjbcNamespaceContext.NS_NC_30, "MeasurePointValue").setTextContent(String.valueOf(Math.round(Double.parseDouble(history.kid.pounds))));
+        XmlUtils.appendElement(w, OjbcNamespaceContext.NS_NC_30, "WeightUnitCode").setTextContent("LBR");
+        XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "PersonSexCode").setTextContent(history.kid.sex.substring(0, 1).toUpperCase());
 
 	}
 
@@ -535,8 +546,14 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 	}
 
 	JuvenileHistory createJuvenileHistory(PersonElementWrapper kid, DateTime baseDate, String stateParam) throws IOException {
+		
+		// make these people kids
 		int birthYearSubtraction = randomGenerator.nextInt(12, 17);
 		kid.birthdate = kid.birthdate.withYear(baseDate.getYear() - birthYearSubtraction);
+		
+		kid.centimeters = String.valueOf(Double.parseDouble(kid.centimeters) * .75);
+		kid.pounds = String.valueOf(Double.parseDouble(kid.pounds) * .5);
+		
 		String state = stateParam == null ? kid.state : stateParam;
 		JuvenileHistory ret = new JuvenileHistory();
 		ret.kid = kid;

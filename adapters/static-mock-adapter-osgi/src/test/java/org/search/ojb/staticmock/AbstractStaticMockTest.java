@@ -80,6 +80,15 @@ public abstract class AbstractStaticMockTest {
         return ret;
     }
 
+    protected Document buildJuvenilePersonSearchRequestMessage(String systemId) throws Exception {
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource r = resolver.getResource("TestRequestMessages/JuvenilePersonSearchRequest.xml");
+        Document ret = documentBuilder.parse(r.getInputStream());
+        Element systemElement = (Element) XmlUtils.xPathNodeSearch(ret.getDocumentElement(), "psr:SourceSystemNameText");
+        systemElement.setTextContent(systemId);
+        return ret;
+    }
+
     protected Document buildBaseIncidentSearchRequestMessage() throws Exception {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         Resource r = resolver.getResource("TestRequestMessages/BaseIncidentSearchRequest.xml");

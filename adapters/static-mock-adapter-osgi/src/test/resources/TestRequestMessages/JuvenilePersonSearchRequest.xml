@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exc:PersonSearchRequest
+	xmlns:exc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1" 
+	xmlns:micodes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0 ../xsd/exchange_schema.xsd"
+	s:metadata="SM003">
+	<ext:Person>
+		<nc:PersonAgeMeasure>
+			<nc:MeasureRangeValue>
+				<nc:RangeMinimumValue>38</nc:RangeMinimumValue>
+				<nc:RangeMaximumValue>42</nc:RangeMaximumValue>
+			</nc:MeasureRangeValue>
+		</nc:PersonAgeMeasure>
+		<!-- <nc:PersonBirthDate> <nc:Date>2012-11-12</nc:Date> </nc:PersonBirthDate> -->
+		<nc:PersonEyeColorCode>XXX</nc:PersonEyeColorCode>
+		<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
+		<nc:PersonHeightMeasure>
+			<!-- <nc:MeasureText>54</nc:MeasureText> -->
+			<nc:MeasureRangeValue>
+				<nc:RangeMinimumValue>72</nc:RangeMinimumValue>
+				<nc:RangeMaximumValue>75</nc:RangeMaximumValue>
+			</nc:MeasureRangeValue>
+			<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+		</nc:PersonHeightMeasure>
+		<nc:PersonName>
+			<nc:PersonGivenName s:metadata="SM001">Theodore</nc:PersonGivenName>
+			<nc:PersonSurName s:metadata="SM002">Williams</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonRaceCode>W</nc:PersonRaceCode>
+		<nc:PersonSexCode>M</nc:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonWeightMeasure>
+			<!-- <nc:MeasureText>150</nc:MeasureText> -->
+			<nc:MeasureRangeValue>
+				<nc:RangeMinimumValue>200</nc:RangeMinimumValue>
+				<nc:RangeMaximumValue>215</nc:RangeMaximumValue>
+			</nc:MeasureRangeValue>
+			<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+		</nc:PersonWeightMeasure>
+
+		<ext:PersonBirthDateRange>
+			<nc:StartDate>
+				<nc:Date>1970-01-01</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>1970-01-05</nc:Date>
+			</nc:EndDate>
+		</ext:PersonBirthDateRange>
+
+		<j:PersonAugmentation>
+			<nc:DriverLicense>
+				<nc:DriverLicenseIdentification>
+					<nc:IdentificationID>123456</nc:IdentificationID>
+					<nc:IdentificationSourceText>VT</nc:IdentificationSourceText>
+				</nc:DriverLicenseIdentification>
+			</nc:DriverLicense>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>123457</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>123458</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</ext:Person>
+	<ext:Parent s:id="PAR001">
+		<nc:PersonBirthDate>
+			<nc:Date>1957-09-13</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Walter</nc:PersonGivenName>
+			<nc:PersonSurName>White</nc:PersonSurName>
+		</nc:PersonName>
+	</ext:Parent>
+	<cyfs:Placement>
+		<micodes:PlacementCategoryCode>Foster Home</micodes:PlacementCategoryCode>
+	</cyfs:Placement>
+	<nc:Location s:id="LOC01">
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<nc:LocationStreet>
+					<nc:StreetFullText>4748 32nd Ave.</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Anytown</nc:LocationCityName>
+				<nc:LocationStateFIPS5-2AlphaCode>MI</nc:LocationStateFIPS5-2AlphaCode>
+				<nc:LocationPostalCode>99199</nc:LocationPostalCode>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+	</nc:Location>
+	<ext:SourceSystemNameText>[to fill in]</ext:SourceSystemNameText>
+	<ext:SearchMetadata s:id="SM001">
+		<ext:SearchQualifierCode>exact</ext:SearchQualifierCode>
+	</ext:SearchMetadata>
+	<ext:SearchMetadata s:id="SM002">
+		<ext:SearchQualifierCode>startsWith</ext:SearchQualifierCode>
+	</ext:SearchMetadata>
+	<ext:SearchMetadata s:id="SM003">
+		<ext:SearchRequestOnBehalfOfText>John Doe
+		</ext:SearchRequestOnBehalfOfText>
+		<ext:SearchPurposeText>Criminal Justice</ext:SearchPurposeText>
+	</ext:SearchMetadata>
+</exc:PersonSearchRequest>

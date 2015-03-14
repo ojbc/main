@@ -381,6 +381,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_CYFS = "http://release.niem.gov/niem/domains/cyfs/3.0/";
 	public static final String NS_PREFIX_CYFS = "cyfs";
 
+	public static final String NS_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES = "http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES = "jh-placement-search-codes";
+	public static final String NS_CYFS_21 = "http://niem.gov/niem/domains/cyfs/2.1/1";
+	public static final String NS_PREFIX_CYFS_21 = "cyfs21";
+
     public static final String NS_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE = "http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0";
     public static final String NS_PREFIX_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE = "crimhistory-update-exch";
 
@@ -396,6 +401,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
         prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_CONTAINER, NS_JUVENILE_HISTORY_CONTAINER);
         uriToPrefixMap.put(NS_JUVENILE_HISTORY_CONTAINER, NS_PREFIX_JUVENILE_HISTORY_CONTAINER);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES, NS_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES, NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES);
+        prefixToUriMap.put(NS_PREFIX_CYFS_21, NS_CYFS_21);
+        uriToPrefixMap.put(NS_CYFS_21, NS_PREFIX_CYFS_21);
         
         prefixToUriMap.put(NS_PREFIX_CYFS, NS_CYFS);
         uriToPrefixMap.put(NS_CYFS, NS_PREFIX_CYFS);
