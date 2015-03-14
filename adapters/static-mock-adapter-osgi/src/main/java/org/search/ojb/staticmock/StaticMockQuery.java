@@ -34,12 +34,7 @@ public class StaticMockQuery {
     private static final String INCIDENT_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/Incident";
     private static final String FIREARM_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/FirearmRegistration";
     
-    private static final String JUVENILE_CASEPLAN_SAMPLES_DIRECTORY = "static-instances/JuvenileCasePlan";
     private static final String JUVENILE_HISTORY_SAMPLES_DIRECTORY = "static-instances/JuvenileHistory";
-    private static final String JUVENILE_INTAKE_SAMPLES_DIRECTORY = "static-instances/JuvenileIntake";
-    private static final String JUVENILE_OFFENSE_SAMPLES_DIRECTORY = "static-instances/JuvenileOffense";
-    private static final String JUVENILE_PLACEMENT_SAMPLES_DIRECTORY = "static-instances/JuvenilePlacement";
-    private static final String JUVENILE_REFERRAL_SAMPLES_DIRECTORY = "static-instances/JuvenileReferral";
     
     static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 
@@ -70,44 +65,20 @@ public class StaticMockQuery {
     private ClasspathXmlDataSource incidentDataSource;
     private ClasspathXmlDataSource firearmRegistrationDataSource;
     
-    private ClasspathXmlDataSource juvenileCasePlanDataSource;
     private ClasspathXmlDataSource juvenileHistoryDataSource;
-    private ClasspathXmlDataSource juvenileIntakeDataSource;
-    private ClasspathXmlDataSource juvenileOffenseDataSource;
-    private ClasspathXmlDataSource juvenilePlacementDataSource;
-    private ClasspathXmlDataSource juvenileReferralDataSource;
 
     public StaticMockQuery() {
         this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, FIREARM_PRODUCTION_SAMPLES_DIRECTORY,
-        	JUVENILE_CASEPLAN_SAMPLES_DIRECTORY, JUVENILE_HISTORY_SAMPLES_DIRECTORY,JUVENILE_INTAKE_SAMPLES_DIRECTORY,JUVENILE_OFFENSE_SAMPLES_DIRECTORY,
-        JUVENILE_PLACEMENT_SAMPLES_DIRECTORY,JUVENILE_REFERRAL_SAMPLES_DIRECTORY);
+        	JUVENILE_HISTORY_SAMPLES_DIRECTORY);
     }
 
     StaticMockQuery(String criminalHistorySampleInstanceDirectoryRelativePath, String warrantSampleInstanceDirectoryRelativePath, String incidentSampleInstanceDirectoryRelativePath,
-            String firearmSampleInstanceDirectoryRelativePath, String juvenileCasePlanSampleInstanceDirectoryRelativePath, 
-            String juvenileHistorySampleInstanceDirectoryRelativePath, String juvenileIntakeSampleInstanceDirectoryRelativePath, String juvenileOffenseSampleInstanceDirectoryRelativePath, 
-            String juvenilePlacementSampleInstanceDirectoryRelativePath, String juvenileReferralSampleInstanceDirectoryRelativePath) {
+            String firearmSampleInstanceDirectoryRelativePath, String juvenileHistorySampleInstanceDirectoryRelativePath) {
         criminalHistoryDataSource = new ClasspathXmlDataSource(criminalHistorySampleInstanceDirectoryRelativePath);
         warrantDataSource = new ClasspathXmlDataSource(warrantSampleInstanceDirectoryRelativePath);
         incidentDataSource = new ClasspathXmlDataSource(incidentSampleInstanceDirectoryRelativePath);
         firearmRegistrationDataSource = new ClasspathXmlDataSource(firearmSampleInstanceDirectoryRelativePath);
-
-        juvenileCasePlanDataSource = new ClasspathXmlDataSource(juvenileCasePlanSampleInstanceDirectoryRelativePath);
         juvenileHistoryDataSource= new ClasspathXmlDataSource(juvenileHistorySampleInstanceDirectoryRelativePath);
-        juvenileIntakeDataSource= new ClasspathXmlDataSource(juvenileIntakeSampleInstanceDirectoryRelativePath);
-        juvenileOffenseDataSource= new ClasspathXmlDataSource(juvenileOffenseSampleInstanceDirectoryRelativePath);
-        juvenilePlacementDataSource= new ClasspathXmlDataSource(juvenilePlacementSampleInstanceDirectoryRelativePath);
-        juvenileReferralDataSource= new ClasspathXmlDataSource(juvenileReferralSampleInstanceDirectoryRelativePath);       
-    }
-
-    /**
-     * Get the total number of available juvenile case plan documents.
-     * 
-     * @return the document count
-     * @throws Exception
-     */
-    public int getJuvenileCasePlanDocumentCount() throws Exception {
-        return juvenileCasePlanDataSource.getDocuments().size();
     }
 
     /**
@@ -119,46 +90,6 @@ public class StaticMockQuery {
     public int getJuvenileHistoryDocumentCount() throws Exception {
         return juvenileHistoryDataSource.getDocuments().size();
     }
-    
-    /**
-     * Get the total number of available juvenile case plan documents.
-     * 
-     * @return the document count
-     * @throws Exception
-     */
-    public int getJuvenileIntakeDocumentCount() throws Exception {
-        return juvenileIntakeDataSource.getDocuments().size();
-    }
-    
-    /**
-     * Get the total number of available juvenile case plan documents.
-     * 
-     * @return the document count
-     * @throws Exception
-     */
-    public int getJuvenileOffenseDocumentCount() throws Exception {
-        return juvenileOffenseDataSource.getDocuments().size();
-    }
-    
-    /**
-     * Get the total number of available juvenile case plan documents.
-     * 
-     * @return the document count
-     * @throws Exception
-     */
-    public int getJuvenilePlacementDocumentCount() throws Exception {
-        return juvenilePlacementDataSource.getDocuments().size();
-    }
-    
-    /**
-     * Get the total number of available juvenile case plan documents.
-     * 
-     * @return the document count
-     * @throws Exception
-     */
-    public int getJuvenileReferralDocumentCount() throws Exception {
-        return juvenileReferralDataSource.getDocuments().size();
-    }    
     
     /**
      * Get the total number of available criminal history documents.
@@ -209,6 +140,19 @@ public class StaticMockQuery {
      * @throws Exception
      */
     public List<IdentifiableDocumentWrapper> queryDocuments(Document queryRequestMessage) throws Exception {
+    	return queryDocuments(queryRequestMessage, null);
+    }
+    
+    /**
+     * Perform a query (retrieving instances that match a (usually unique) identifier.
+     * 
+     * @param queryRequestMessage
+     *            the request message, assumed to be valid against some Query Service IEPD
+     * @param context an arbitrary object that callers can pass in to provide some context for the query; this will be specific to each type of query
+     * @return the matching document(s)
+     * @throws Exception
+     */
+    public List<IdentifiableDocumentWrapper> queryDocuments(Document queryRequestMessage, Object context) throws Exception {
 
         Element rootElement = queryRequestMessage.getDocumentElement();
 
@@ -291,7 +235,26 @@ public class StaticMockQuery {
         return searchDocuments(searchRequestMessage, baseDate);
     }
 
+    /**
+     * Perform a search (searching for instances that match a set of criteria) and returning the data in those matching instances as a Search Results message. The type of result message will depend on
+     * the type of request message passed in.
+     * 
+     * @param searchRequestMessage
+     *            the request message, assumed to be valid against some Search Service's IEPD
+     * @param context an arbitrary object that a caller can pass in to provide context for the request; specific to each type of search
+     * @return the search results
+     * @throws Exception
+     */
+    public Document searchDocuments(Document searchRequestMessage, Object context) throws Exception {
+        DateTime baseDate = new DateTime();
+        return searchDocuments(searchRequestMessage, baseDate, context);
+    }
+
     Document searchDocuments(Document searchRequestMessage, DateTime baseDate) throws Exception {
+        return searchDocuments(searchRequestMessage, baseDate, null);
+	}
+
+	Document searchDocuments(Document searchRequestMessage, DateTime baseDate, Object context) throws Exception {
         Element rootElement = searchRequestMessage.getDocumentElement();
         String rootNamespaceURI = rootElement.getNamespaceURI();
         String rootLocalName = rootElement.getLocalName();

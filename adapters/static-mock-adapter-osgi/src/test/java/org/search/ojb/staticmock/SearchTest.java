@@ -29,14 +29,7 @@ public class SearchTest extends AbstractStaticMockTest {
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Warrant", staticMockQuery.getWarrantDocumentCount());
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Incident", staticMockQuery.getIncidentDocumentCount());
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/FirearmRegistration", staticMockQuery.getFirearmRegistrationDocumentCount());
-        
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenileCasePlan", staticMockQuery.getJuvenileCasePlanDocumentCount());
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenileHistory", staticMockQuery.getJuvenileHistoryDocumentCount());
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenileIntake", staticMockQuery.getJuvenileIntakeDocumentCount());
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenileOffense", staticMockQuery.getJuvenileOffenseDocumentCount());
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenilePlacement", staticMockQuery.getJuvenilePlacementDocumentCount());
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenileReferral", staticMockQuery.getJuvenileReferralDocumentCount());
-
     }
 
     @Test
