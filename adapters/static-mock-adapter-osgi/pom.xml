@@ -5,7 +5,7 @@
 
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>static-mock-adapter-osgi</artifactId>
-	<version>1.0.10</version>
+	<version>1.0.11</version>
 	<packaging>bundle</packaging>
 
 	<name>OJB :: static-mock-adapter-osgi :: adapter</name>
