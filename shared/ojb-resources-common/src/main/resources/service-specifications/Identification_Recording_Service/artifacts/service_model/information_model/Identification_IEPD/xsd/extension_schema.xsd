@@ -13,6 +13,7 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="j:Subject"/>
+					<xsd:element ref="ext:IdentificationApplicantOrganization"/>
 					<xsd:element ref="ext:IdentificationRequestDocument" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PersonDocumentAssociation" minOccurs="0"/>
 				</xsd:sequence>
@@ -27,6 +28,7 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="j:Subject"/>
+					<xsd:element ref="ext:IdentificationApplicantOrganization"/>
 					<xsd:element ref="ext:IdentificationResultsDocument" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ext:LinkedSystems" minOccurs="0"/>
 					<xsd:element ref="nc:PersonDocumentAssociation" minOccurs="0"/>
@@ -54,6 +56,11 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:element name="IdentificationApplicantOrganization" type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>An organization providing the application and to be informed of identification results.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="IdentificationRequestDocument" type="ext:IdentificationDocumentType">
 		<xsd:annotation>
 			<xsd:documentation>An identification request document.</xsd:documentation>
