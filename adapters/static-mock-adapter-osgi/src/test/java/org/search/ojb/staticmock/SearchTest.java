@@ -1472,8 +1472,6 @@ public class SearchTest extends AbstractStaticMockTest {
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
         Document personSearchResults = staticMockQuery.searchDocuments(personSearchRequestMessage);
-        XmlUtils.printNode(personSearchResults);
-        XmlUtils.printNode(matches.get(0).getDocument());
     }
 
     @Test
