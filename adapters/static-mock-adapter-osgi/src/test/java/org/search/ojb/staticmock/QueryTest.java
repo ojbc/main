@@ -44,7 +44,7 @@ public class QueryTest extends AbstractStaticMockTest {
     @Test
     public void testJuvenileHistoryQueries() throws Exception {
     	Document queryRequestMessage = buildPersonQueryRequestMessage(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID, "sample-108040379083497483.xml");
-    	XmlUtils.printNode(queryRequestMessage);
+    	//XmlUtils.printNode(queryRequestMessage);
     	assertJuvenileHistoryComponentMessage(queryRequestMessage, "JuvenileReferralHistory", "jh-referral-doc:JuvenileReferralHistoryResponse", "nc30:Referral");
     	assertJuvenileHistoryComponentMessage(queryRequestMessage, "JuvenileIntakeHistory", "jh-intake-doc:JuvenileIntakeHistoryResponse", "cyfs:JuvenileIntakeAssessment");
     	assertJuvenileHistoryComponentMessage(queryRequestMessage, "JuvenilePlacementHistory", "jh-placement-doc:JuvenilePlacementHistoryResponse", "cyfs:JuvenilePlacement");
