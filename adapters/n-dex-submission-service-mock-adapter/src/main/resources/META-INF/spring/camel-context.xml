@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
+       ">
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<import resource="cxf-endpoints.xml"/>
+	<import resource="properties-context.xml"/>
+	
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+
+		<!-- N-DEx Web Service Handler -->
+		<camel:route>
+			<camel:from
+				uri="cxf:bean:N-DexActualServiceEndpoint?dataFormat=PAYLOAD" />
+
+			<camel:log message="Recieved N-DEx Mock web service invocation: ${body}" />
+			
+			<camel:to uri="bean:NDexMockResponses?method=returnSuccessResponse"/>
+			
+		</camel:route>
+	</camel:camelContext>
+	
+	<bean id="NDexMockResponses" class="org.ojbc.adapters.ndex.submission.mock.processor.NDexMockResponses"/>
+
+</beans>
