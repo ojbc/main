@@ -340,6 +340,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_ARREST_REPORTING_SERVICE = "http://ojbc.org/IEPD/Exchange/ArrestReport/1.0";
     public static final String NS_PREFIX_ARREST_REPORTING_SERVICE = "arrest-exch";
 
+    public static final String NS_JUVENILE_HISTORY_QUERY_SERVICE = "http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0";
+    public static final String NS_PREFIX_JUVENILE_HISTORY_QUERY_SERVICE = "jhq-exch";
+    
+    public static final String NS_JUVENILE_HISTORY_COMMON_EXT="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0";
+    public static final String NS_PREFIX_JUVENILE_HISTORY_COMMON_EXT="jhc-ext";
+    
     private Map<String, String> prefixToUriMap;
     private Map<String, String> uriToPrefixMap;
 
@@ -743,6 +749,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
         prefixToUriMap.put(NS_PREFIX_ARREST_REPORTING_SERVICE, NS_ARREST_REPORTING_SERVICE);
         uriToPrefixMap.put(NS_ARREST_REPORTING_SERVICE, NS_PREFIX_ARREST_REPORTING_SERVICE);
+
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_QUERY_SERVICE, NS_JUVENILE_HISTORY_QUERY_SERVICE);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_QUERY_SERVICE, NS_PREFIX_JUVENILE_HISTORY_QUERY_SERVICE);
+
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_COMMON_EXT, NS_JUVENILE_HISTORY_COMMON_EXT);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_COMMON_EXT, NS_PREFIX_JUVENILE_HISTORY_COMMON_EXT);
 
     }
 
