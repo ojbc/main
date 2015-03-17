@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Body>
+        <ns2:submitNDExIEPD1_0Response xmlns:ns2="urn://com.raytheon.ndex.ai.webservice">
+            <ns2:return>
+                <SubmitResponseDetailsArray xmlns="java:com.raytheon.ndex.ai.webservice">
+                    <MessageNumber>0</MessageNumber>
+                    <PackageNumber>0</PackageNumber>
+                    <PackageResultCode>0</PackageResultCode>
+                    <PackageResultMessage>success</PackageResultMessage>
+                </SubmitResponseDetailsArray>
+                <ns1:FileLevelResultCode xmlns:ns1="java:com.raytheon.ndex.ai.webservice"
+                    >0</ns1:FileLevelResultCode>
+                <ns1:FileLevelResultMessage xmlns:ns1="java:com.raytheon.ndex.ai.webservice"
+                    >success</ns1:FileLevelResultMessage>
+            </ns2:return>
+        </ns2:submitNDExIEPD1_0Response>
+    </soapenv:Body>
+</soapenv:Envelope>
