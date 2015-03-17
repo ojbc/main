@@ -43,68 +43,85 @@ public class JuvenileHistoryContainer {
 		namespaceContext = new OjbcNamespaceContext();
 	}
 	
+	public Document getDocumentForContext(Object context) throws Exception {
+		if ("JuvenileReferralHistory".equals(context)) {
+			return buildReferralHistoryDocument();
+		}
+		if ("JuvenileIntakeHistory".equals(context)) {
+			return buildIntakeHistoryDocument();
+		}
+		if ("JuvenilePlacementHistory".equals(context)) {
+			return buildPlacementHistoryDocument();
+		}
+		if ("JuvenileOffenseHistory".equals(context)) {
+			return buildOffenseHistoryDocument();
+		}
+		if ("JuvenileCasePlanHistory".equals(context)) {
+			return buildCasePlanHistoryDocument();
+		}
+		if ("JuvenileHearingHistory".equals(context)) {
+			return buildHearingHistoryDocument();
+		}
+		throw new IllegalArgumentException("Unknown context: " + context);
+	}
+	
 	public Document buildReferralHistoryDocument() throws Exception {
-		String messageSpecificChildXPath = "/jh-container:JuvenileHistoryContainer/nc30:Referral/nc30:ReferralPerson";
 		String messageSpecificLocationXPath = null;
 		String messageSpecificNodeXPath = "/jh-container:JuvenileHistoryContainer/nc30:Referral";
-		return buildMessageSpecificDocument(messageSpecificChildXPath, messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_REFERRAL_EXT, "JuvenileReferralHistory");
+		return buildMessageSpecificDocument(messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_REFERRAL_EXT, "JuvenileReferralHistory");
 	}
 
 	public Document buildIntakeHistoryDocument() throws Exception {
-		String messageSpecificChildXPath = "/jh-container:JuvenileHistoryContainer/cyfs:JuvenileIntakeAssessment/cyfs:Juvenile";
 		String messageSpecificLocationXPath = null;
 		String messageSpecificNodeXPath = "/jh-container:JuvenileHistoryContainer/cyfs:JuvenileIntakeAssessment";
-		return buildMessageSpecificDocument(messageSpecificChildXPath, messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_INTAKE_EXT, "JuvenileIntakeHistory");
+		return buildMessageSpecificDocument(messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_INTAKE_EXT, "JuvenileIntakeHistory");
 	}
 
 	public Document buildHearingHistoryDocument() throws Exception {
-		String messageSpecificChildXPath = "/jh-container:JuvenileHistoryContainer/cyfs:CourtCase/jxdm50:CaseAugmentation/jxdm50:CaseDefendantParty";
 		String messageSpecificLocationXPath = null;
 		String messageSpecificNodeXPath = "/jh-container:JuvenileHistoryContainer/cyfs:CourtCase";
-		return buildMessageSpecificDocument(messageSpecificChildXPath, messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_HEARING_EXT, "JuvenileHearingHistory");
+		return buildMessageSpecificDocument(messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_HEARING_EXT, "JuvenileHearingHistory");
 	}
 
 	public Document buildPlacementHistoryDocument() throws Exception {
-		String messageSpecificChildXPath = "/jh-container:JuvenileHistoryContainer/cyfs:JuvenilePlacement/jh-placement:JuvenilePlacementAugmentation/cyfs:JuvenilePlacementFacilityAssociation/cyfs:PlacedJuvenile";
 		String messageSpecificLocationXPath = "/jh-container:JuvenileHistoryContainer/cyfs:JuvenilePlacement/jh-placement:JuvenilePlacementAugmentation/cyfs:JuvenilePlacementFacilityAssociation/cyfs:PlacementFacility/nc30:FacilityLocation";
 		String messageSpecificNodeXPath = "/jh-container:JuvenileHistoryContainer/cyfs:JuvenilePlacement";
-		return buildMessageSpecificDocument(messageSpecificChildXPath, messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_PLACEMENT_EXT, "JuvenilePlacementHistory");
+		return buildMessageSpecificDocument(messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_PLACEMENT_EXT, "JuvenilePlacementHistory");
 	}
 
 	public Document buildCasePlanHistoryDocument() throws Exception {
-		String messageSpecificChildXPath = "/jh-container:JuvenileHistoryContainer/cyfs:ParentChildAssociation/cyfs:Child";
 		String messageSpecificLocationXPath = null;
-		String messageSpecificNodeXPath = "/jh-container:JuvenileHistoryContainer/jh-case-plan:AssessmentIndicator | /jh-container:JuvenileHistoryContainer/jh-case-plan:CasePlanIndicator";
-		return buildMessageSpecificDocument(messageSpecificChildXPath, messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_CASE_PLAN_EXT, "JuvenileCasePlanHistory");
+		String messageSpecificNodeXPath = "/jh-container:JuvenileHistoryContainer/jh-case-plan:CasePlan";
+		return buildMessageSpecificDocument(messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_CASE_PLAN_EXT, "JuvenileCasePlanHistory");
 	}
 
 	public Document buildOffenseHistoryDocument() throws Exception {
-		String messageSpecificChildXPath = "/jh-container:JuvenileHistoryContainer/jxdm50:OffenseChargeAssociation/jxdm50:Charge/jxdm50:ChargeSubject";
 		String messageSpecificLocationXPath = "/jh-container:JuvenileHistoryContainer/jxdm50:OffenseLocationAssociation/nc30:Location";
 		String messageSpecificNodeXPath = "/jh-container:JuvenileHistoryContainer/jxdm50:OffenseChargeAssociation";
-		Document ret = buildMessageSpecificDocument(messageSpecificChildXPath, messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_OFFENSE_EXT, "JuvenileOffenseHistory");
+		Document ret = buildMessageSpecificDocument(messageSpecificLocationXPath, messageSpecificNodeXPath, OjbcNamespaceContext.NS_JUVENILE_HISTORY_OFFENSE_EXT, "JuvenileOffenseHistory");
 		Element root = ret.getDocumentElement();
 		NodeList offenseLocationAssociationNodes = XmlUtils.xPathNodeListSearch(containerDocument, "/jh-container:JuvenileHistoryContainer/jxdm50:OffenseLocationAssociation");
 		for (int i=0;i < offenseLocationAssociationNodes.getLength();i++) {
-			root.appendChild(ret.adoptNode(offenseLocationAssociationNodes.item(i)));
+			root.appendChild(ret.importNode(offenseLocationAssociationNodes.item(i), true));
 		}
 		return ret;
 	}
 
-	protected Document buildMessageSpecificDocument(String messageSpecificChildXPath, String messageSpecificLocationXPath, String messageSpecificNodeXPath, String rootElementNamespaceURI, String rootElementName) throws Exception {
+	protected Document buildMessageSpecificDocument(String messageSpecificLocationXPath, String messageSpecificNodeXPath, String rootElementNamespaceURI, String rootElementName) throws Exception {
+		
 		Document ret = documentBuilder.newDocument();
 		
 		Element root = ret.createElementNS(rootElementNamespaceURI, rootElementName);
 		root.setPrefix(namespaceContext.getPrefix(rootElementNamespaceURI));
 		ret.appendChild(root);
 		
-		Element e = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationAvailabilityCode");
-		e.setTextContent("FOUND");
+		Element availabilityCodeElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationAvailabilityCode");
+		availabilityCodeElement.setTextContent("FOUND");
 		
 		Element containerAvailabilityMetadataElement = (Element) XmlUtils.xPathNodeSearch(containerDocument, "/jh-container:JuvenileHistoryContainer/jh-ext:JuvenileInformationAvailabilityMetadata");
-		root.appendChild(ret.adoptNode(containerAvailabilityMetadataElement));
+		root.appendChild(ret.importNode(containerAvailabilityMetadataElement, true));
 		
-		String childrenNodesXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id = " + messageSpecificChildXPath + "/@s30:ref]";
+		String childrenNodesXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id = 'child']";
 		NodeList childrenNodes = XmlUtils.xPathNodeListSearch(containerDocument, childrenNodesXPath);
 		
 		String parentNodesXPath = "/jh-container:JuvenileHistoryContainer/nc30:Person[@s30:id = /jh-container:JuvenileHistoryContainer/cyfs:ParentChildAssociation[cyfs:Child/@s30:ref = " + childrenNodesXPath + "/@s30:id]/cyfs:Parent/@s30:ref]";
@@ -121,11 +138,11 @@ public class JuvenileHistoryContainer {
 		NodeList childrenResidenceLocationNodes = XmlUtils.xPathNodeListSearch(containerDocument, "/jh-container:JuvenileHistoryContainer/nc30:Location[@s30:id = " + childrenResidenceNodesXPath + "/nc30:Location/@s30:ref]");
 		
 		for (int i=0;i < childrenNodes.getLength();i++) {
-			root.appendChild(ret.adoptNode(childrenNodes.item(i)));
+			root.appendChild(ret.importNode(childrenNodes.item(i), true));
 		}
 		
 		for (int i=0;i < parentNodes.getLength();i++) {
-			root.appendChild(ret.adoptNode(parentNodes.item(i)));
+			root.appendChild(ret.importNode(parentNodes.item(i), true));
 		}
 		
 		Set<String> locationIds = new HashSet<String>();
@@ -133,13 +150,13 @@ public class JuvenileHistoryContainer {
 		for (int i=0;i < parentResidenceLocationNodes.getLength();i++) {
 			Element parentResidenceLocationNode = (Element) parentResidenceLocationNodes.item(i);
 			locationIds.add(XmlUtils.xPathStringSearch(parentResidenceLocationNode, "@s30:id"));
-			root.appendChild(ret.adoptNode(parentResidenceLocationNode));
+			root.appendChild(ret.importNode(parentResidenceLocationNode, true));
 		}
 
 		for (int i=0;i < childrenResidenceLocationNodes.getLength();i++) {
 			Element childrenResidenceLocationNode = (Element) childrenResidenceLocationNodes.item(i);
 			if (!locationIds.contains(XmlUtils.xPathStringSearch(childrenResidenceLocationNode, "@s30:id"))) {
-				root.appendChild(ret.adoptNode(childrenResidenceLocationNode));
+				root.appendChild(ret.importNode(childrenResidenceLocationNode, true));
 			}
 		}
 		
@@ -148,27 +165,31 @@ public class JuvenileHistoryContainer {
 			for (int i=0;i < locationNodes.getLength();i++) {
 				Element locationNode = (Element) locationNodes.item(i);
 				if (!locationIds.contains(XmlUtils.xPathStringSearch(locationNode, "@s30:id"))) {
-					root.appendChild(ret.adoptNode(locationNode));
+					root.appendChild(ret.importNode(locationNode, true));
 				}
 			}
 		}
 
 		for (int i=0;i < parentResidenceNodes.getLength();i++) {
-			root.appendChild(ret.adoptNode(parentResidenceNodes.item(i)));
+			root.appendChild(ret.importNode(parentResidenceNodes.item(i), true));
 		}
 		
 		for (int i=0;i < childResidenceNodes.getLength();i++) {
-			root.appendChild(ret.adoptNode(childResidenceNodes.item(i)));
+			root.appendChild(ret.importNode(childResidenceNodes.item(i), true));
 		}
 		
 		for (int i=0;i < parentChildNodes.getLength();i++) {
-			root.appendChild(ret.adoptNode(parentChildNodes.item(i)));
+			root.appendChild(ret.importNode(parentChildNodes.item(i), true));
 		}
 		
 		NodeList messageSpecificNodes = XmlUtils.xPathNodeListSearch(containerDocument, messageSpecificNodeXPath);
 		
 		for (int i=0;i < messageSpecificNodes.getLength();i++) {
-			root.appendChild(ret.adoptNode(messageSpecificNodes.item(i)));
+			root.appendChild(ret.importNode(messageSpecificNodes.item(i), true));
+		}
+		
+		if (messageSpecificNodes.getLength() == 0) {
+			availabilityCodeElement.setTextContent("NOT FOUND");
 		}
 		
 		namespaceContext.populateRootNamespaceDeclarations(ret.getDocumentElement());

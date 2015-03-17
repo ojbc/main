@@ -43,13 +43,13 @@
       <nc30:PersonName>
          <nc30:PersonGivenName>Abel</nc30:PersonGivenName>
          <nc30:PersonMiddleName>M</nc30:PersonMiddleName>
-         <nc30:PersonSurName>Curl</nc30:PersonSurName>
+         <nc30:PersonSurName>Hurly</nc30:PersonSurName>
          <jxdm50:PersonNameCategoryCode>provided</jxdm50:PersonNameCategoryCode>
       </nc30:PersonName>
       <nc30:PersonName>
          <nc30:PersonGivenName>Davis</nc30:PersonGivenName>
          <nc30:PersonMiddleName>M</nc30:PersonMiddleName>
-         <nc30:PersonSurName>Curl</nc30:PersonSurName>
+         <nc30:PersonSurName>Hurly</nc30:PersonSurName>
          <jxdm50:PersonNameCategoryCode>alias</jxdm50:PersonNameCategoryCode>
       </nc30:PersonName>
       <nc30:PersonOtherIdentification>
@@ -73,7 +73,7 @@
       <nc30:PersonName>
          <nc30:PersonGivenName>Steven</nc30:PersonGivenName>
          <nc30:PersonMiddleName>C</nc30:PersonMiddleName>
-         <nc30:PersonSurName>Curl</nc30:PersonSurName>
+         <nc30:PersonSurName>Hurly</nc30:PersonSurName>
          <jxdm50:PersonNameCategoryCode>provided</jxdm50:PersonNameCategoryCode>
       </nc30:PersonName>
       <nc30:PersonOtherIdentification>
@@ -469,7 +469,7 @@
          </jh-ext:RelatedJuvenileHistoryRecords>
       </jh-case-plan:CasePlanAugmentation>
    </jh-case-plan:CasePlan>
-   <cyfs:JuvenilePlacement>
+   <jh-placement:JuvenilePlacement>
       <nc30:ActivityDateRange>
          <nc30:StartDate>
             <nc30:Date>2013-07-01</nc30:Date>
@@ -502,8 +502,8 @@
             </jh-ext:RelatedJuvenileHistoryRecord>
          </jh-ext:RelatedJuvenileHistoryRecords>
       </jh-placement:JuvenilePlacementAugmentation>
-   </cyfs:JuvenilePlacement>
-   <cyfs:JuvenilePlacement>
+   </jh-placement:JuvenilePlacement>
+   <jh-placement:JuvenilePlacement>
       <nc30:ActivityDateRange>
          <nc30:StartDate>
             <nc30:Date>2013-12-19</nc30:Date>
@@ -540,7 +540,7 @@
             </jh-ext:RelatedJuvenileHistoryRecord>
          </jh-ext:RelatedJuvenileHistoryRecords>
       </jh-placement:JuvenilePlacementAugmentation>
-   </cyfs:JuvenilePlacement>
+   </jh-placement:JuvenilePlacement>
    <cyfs:JuvenileIntakeAssessment>
       <nc30:ActivityDate>
          <nc30:Date>2014-03-25</nc30:Date>

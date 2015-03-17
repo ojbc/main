@@ -1322,7 +1322,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
         Element ssnElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "nc:PersonSSNIdentification");
         Element idElement = XmlUtils.appendElement(ssnElement, OjbcNamespaceContext.NS_NC, "nc:IdentificationID");
-        idElement.setTextContent("569-02-8457");
+        idElement.setTextContent("130-52-4238");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
         XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
@@ -1463,7 +1463,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Element augElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
         Element sidElement = XmlUtils.appendElement(augElement, OjbcNamespaceContext.NS_JXDM_41, "j:PersonStateFingerprintIdentification");
         Element idElement = XmlUtils.appendElement(sidElement, OjbcNamespaceContext.NS_NC, "nc:IdentificationID");
-        idElement.setTextContent("A4731891");
+        idElement.setTextContent("A3203477");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
         XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
@@ -1471,6 +1471,9 @@ public class SearchTest extends AbstractStaticMockTest {
         //XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
+        Document personSearchResults = staticMockQuery.searchDocuments(personSearchRequestMessage);
+        XmlUtils.printNode(personSearchResults);
+        XmlUtils.printNode(matches.get(0).getDocument());
     }
 
     @Test

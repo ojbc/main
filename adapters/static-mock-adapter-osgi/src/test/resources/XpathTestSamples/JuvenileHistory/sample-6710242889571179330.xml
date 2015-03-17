@@ -18,7 +18,7 @@
                                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <jh-ext:JuvenileInformationAvailabilityMetadata s30:id="metadata">
       <nc30:LastUpdatedDate>
-         <nc30:Date>2015-03-14</nc30:Date>
+         <nc30:Date>2015-03-16</nc30:Date>
       </nc30:LastUpdatedDate>
       <jh-ext:JuvenileInformationOwnerOrganization>
          <nc30:OrganizationBranchName>Juvenile Division</nc30:OrganizationBranchName>
@@ -27,99 +27,76 @@
                <nc30:LocationStreet>
                   <nc30:StreetFullText>123 Any Street</nc30:StreetFullText>
                </nc30:LocationStreet>
-               <nc30:LocationCityName>San Diego</nc30:LocationCityName>
-               <nc30:LocationStateFIPS5-2AlphaCode>CA</nc30:LocationStateFIPS5-2AlphaCode>
-               <nc30:LocationPostalCode>43101</nc30:LocationPostalCode>
+               <nc30:LocationCityName>Colorado Springs</nc30:LocationCityName>
+               <nc30:LocationStateFIPS5-2AlphaCode>CO</nc30:LocationStateFIPS5-2AlphaCode>
+               <nc30:LocationPostalCode>43104</nc30:LocationPostalCode>
             </nc30:Address>
          </nc30:OrganizationLocation>
-         <nc30:OrganizationName>San Diego County Circuit Court</nc30:OrganizationName>
+         <nc30:OrganizationName>Yuma County Circuit Court</nc30:OrganizationName>
       </jh-ext:JuvenileInformationOwnerOrganization>
       <jh-ext:JuvenileInformationRecordID>
-         <nc30:IdentificationID>P2005</nc30:IdentificationID>
+         <nc30:IdentificationID>P2001</nc30:IdentificationID>
          <nc30:IdentificationSourceText>CMS</nc30:IdentificationSourceText>
       </jh-ext:JuvenileInformationRecordID>
    </jh-ext:JuvenileInformationAvailabilityMetadata>
    <nc30:Person s30:id="child" s30:metadata="metadata">
       <nc30:PersonName>
-         <nc30:PersonGivenName>Michele</nc30:PersonGivenName>
-         <nc30:PersonMiddleName>J</nc30:PersonMiddleName>
-         <nc30:PersonSurName>Chinn</nc30:PersonSurName>
+         <nc30:PersonGivenName>Claude</nc30:PersonGivenName>
+         <nc30:PersonMiddleName>B</nc30:PersonMiddleName>
+         <nc30:PersonSurName>Vesey</nc30:PersonSurName>
          <jxdm50:PersonNameCategoryCode>provided</jxdm50:PersonNameCategoryCode>
       </nc30:PersonName>
       <nc30:PersonOtherIdentification>
-         <nc30:IdentificationID>P2005</nc30:IdentificationID>
+         <nc30:IdentificationID>P2001</nc30:IdentificationID>
          <nc30:IdentificationSourceText>CMS</nc30:IdentificationSourceText>
       </nc30:PersonOtherIdentification>
    </nc30:Person>
    <nc30:Person s30:id="mother" s30:metadata="metadata">
       <nc30:PersonName>
-         <nc30:PersonGivenName>Margaret</nc30:PersonGivenName>
+         <nc30:PersonGivenName>Rebecca</nc30:PersonGivenName>
          <nc30:PersonMiddleName>S</nc30:PersonMiddleName>
-         <nc30:PersonSurName>Chinn</nc30:PersonSurName>
+         <nc30:PersonSurName>Skaggs</nc30:PersonSurName>
          <jxdm50:PersonNameCategoryCode>provided</jxdm50:PersonNameCategoryCode>
       </nc30:PersonName>
       <nc30:PersonOtherIdentification>
-         <nc30:IdentificationID>P3239</nc30:IdentificationID>
+         <nc30:IdentificationID>P452</nc30:IdentificationID>
          <nc30:IdentificationSourceText>CMS</nc30:IdentificationSourceText>
       </nc30:PersonOtherIdentification>
    </nc30:Person>
    <jh-container:AdditionalChildInformation>
       <nc30:PersonBirthDate>
-         <nc30:Date>1998-04-01</nc30:Date>
+         <nc30:Date>2001-07-30</nc30:Date>
       </nc30:PersonBirthDate>
       <nc30:PersonSSNIdentification>
-         <nc30:IdentificationID>569-02-8457</nc30:IdentificationID>
+         <nc30:IdentificationID>652-09-4677</nc30:IdentificationID>
       </nc30:PersonSSNIdentification>
-      <jxdm50:PersonStateFingerprintIdentification>
-         <nc30:IdentificationID>A4731891</nc30:IdentificationID>
-      </jxdm50:PersonStateFingerprintIdentification>
       <nc30:PersonHeightMeasure>
-         <nc30:MeasurePointValue>47</nc30:MeasurePointValue>
+         <nc30:MeasurePointValue>50</nc30:MeasurePointValue>
          <nc30:LengthUnitCode>INH</nc30:LengthUnitCode>
       </nc30:PersonHeightMeasure>
       <nc30:PersonWeightMeasure>
-         <nc30:MeasurePointValue>66</nc30:MeasurePointValue>
+         <nc30:MeasurePointValue>88</nc30:MeasurePointValue>
          <nc30:WeightUnitCode>LBR</nc30:WeightUnitCode>
       </nc30:PersonWeightMeasure>
-      <nc30:PersonSexCode>F</nc30:PersonSexCode>
+      <nc30:PersonSexCode>M</nc30:PersonSexCode>
    </jh-container:AdditionalChildInformation>
    <nc30:Location s30:id="Residence-K" s30:metadata="metadata">
       <nc30:Address>
          <nc30:LocationStreet>
-            <nc30:StreetFullText>4748 32nd Ave.</nc30:StreetFullText>
+            <nc30:StreetFullText>4742 Martin Ave.</nc30:StreetFullText>
          </nc30:LocationStreet>
-         <nc30:LocationCityName>Twin Bridges</nc30:LocationCityName>
-         <nc30:LocationStateFIPS5-2AlphaCode>CA</nc30:LocationStateFIPS5-2AlphaCode>
+         <nc30:LocationCityName>Mack</nc30:LocationCityName>
+         <nc30:LocationStateFIPS5-2AlphaCode>CO</nc30:LocationStateFIPS5-2AlphaCode>
          <nc30:LocationPostalCode>12345</nc30:LocationPostalCode>
       </nc30:Address>
    </nc30:Location>
    <nc30:Location s30:id="FacilityLocation-0" s30:metadata="metadata">
       <nc30:Address>
          <nc30:LocationStreet>
-            <nc30:StreetFullText>3059 First Rd.</nc30:StreetFullText>
+            <nc30:StreetFullText>2043 Martin Ave.</nc30:StreetFullText>
          </nc30:LocationStreet>
-         <nc30:LocationCityName>Artesia</nc30:LocationCityName>
-         <nc30:LocationStateFIPS5-2AlphaCode>CA</nc30:LocationStateFIPS5-2AlphaCode>
-         <nc30:LocationPostalCode>12345</nc30:LocationPostalCode>
-      </nc30:Address>
-   </nc30:Location>
-   <nc30:Location s30:id="FacilityLocation-1" s30:metadata="metadata">
-      <nc30:Address>
-         <nc30:LocationStreet>
-            <nc30:StreetFullText>635 Center St.</nc30:StreetFullText>
-         </nc30:LocationStreet>
-         <nc30:LocationCityName>Hoopa</nc30:LocationCityName>
-         <nc30:LocationStateFIPS5-2AlphaCode>CA</nc30:LocationStateFIPS5-2AlphaCode>
-         <nc30:LocationPostalCode>12345</nc30:LocationPostalCode>
-      </nc30:Address>
-   </nc30:Location>
-   <nc30:Location s30:id="FacilityLocation-2" s30:metadata="metadata">
-      <nc30:Address>
-         <nc30:LocationStreet>
-            <nc30:StreetFullText>338 Center Ave.</nc30:StreetFullText>
-         </nc30:LocationStreet>
-         <nc30:LocationCityName>Modesto</nc30:LocationCityName>
-         <nc30:LocationStateFIPS5-2AlphaCode>CA</nc30:LocationStateFIPS5-2AlphaCode>
+         <nc30:LocationCityName>Golden</nc30:LocationCityName>
+         <nc30:LocationStateFIPS5-2AlphaCode>CO</nc30:LocationStateFIPS5-2AlphaCode>
          <nc30:LocationPostalCode>12345</nc30:LocationPostalCode>
       </nc30:Address>
    </nc30:Location>
@@ -137,7 +114,77 @@
    </cyfs:ParentChildAssociation>
    <nc30:Referral s30:id="Referral-0" s30:metadata="metadata">
       <nc30:ActivityDate>
-         <nc30:Date>2013-12-22</nc30:Date>
+         <nc30:Date>2015-02-13</nc30:Date>
+      </nc30:ActivityDate>
+      <nc30:ReferralIssuer>
+         <nc30:EntityOrganization>
+            <jh-referral-codes:ReferralIssuerCategoryCode>Prosecutor</jh-referral-codes:ReferralIssuerCategoryCode>
+            <nc30:OrganizationLocation>
+               <nc30:Address>
+                  <nc30:LocationStreet>
+                     <nc30:StreetFullText>3135 Martin Ave.</nc30:StreetFullText>
+                  </nc30:LocationStreet>
+                  <nc30:LocationCityName>Bellvue</nc30:LocationCityName>
+                  <nc30:LocationStateFIPS5-2AlphaCode>CO</nc30:LocationStateFIPS5-2AlphaCode>
+                  <nc30:LocationPostalCode>12345</nc30:LocationPostalCode>
+               </nc30:Address>
+            </nc30:OrganizationLocation>
+            <nc30:OrganizationName>Yuma County Prosecutor</nc30:OrganizationName>
+         </nc30:EntityOrganization>
+      </nc30:ReferralIssuer>
+      <nc30:ReferralPerson s30:ref="child" xsi:nil="true"/>
+      <jh-referral:ReferralAugmentation>
+         <jh-referral-codes:ReferralCategoryCode>Community Referral</jh-referral-codes:ReferralCategoryCode>
+         <jh-ext:JuvenileInformationRecordID>
+            <nc30:IdentificationID>Referral-0</nc30:IdentificationID>
+            <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory</nc30:IdentificationSourceText>
+         </jh-ext:JuvenileInformationRecordID>
+         <jh-ext:RelatedJuvenileHistoryRecords>
+            <jh-ext:RelatedJuvenileHistoryRecord>
+               <jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+               <jh-ext:JuvenileInformationRecordID>
+                  <nc30:IdentificationID>Intake-1</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
+               </jh-ext:JuvenileInformationRecordID>
+            </jh-ext:RelatedJuvenileHistoryRecord>
+            <jh-ext:RelatedJuvenileHistoryRecord>
+               <jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+               <jh-ext:JuvenileInformationRecordID>
+                  <nc30:IdentificationID>Intake-0</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
+               </jh-ext:JuvenileInformationRecordID>
+            </jh-ext:RelatedJuvenileHistoryRecord>
+            <jh-ext:RelatedJuvenileHistoryRecord>
+               <jh-ext:JuvenileHistoryCategoryCode>JuvenileCasePlanHistory</jh-ext:JuvenileHistoryCategoryCode>
+               <jh-ext:JuvenileInformationRecordID>
+                  <nc30:IdentificationID/>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory</nc30:IdentificationSourceText>
+               </jh-ext:JuvenileInformationRecordID>
+            </jh-ext:RelatedJuvenileHistoryRecord>
+            <jh-ext:RelatedJuvenileHistoryRecord>
+               <jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
+               <jh-ext:JuvenileInformationRecordID>
+                  <nc30:IdentificationID>Offense-0</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
+               </jh-ext:JuvenileInformationRecordID>
+            </jh-ext:RelatedJuvenileHistoryRecord>
+            <jh-ext:RelatedJuvenileHistoryRecord>
+               <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
+               <jh-ext:JuvenileInformationRecordID>
+                  <nc30:IdentificationID>Placement-0</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
+               </jh-ext:JuvenileInformationRecordID>
+            </jh-ext:RelatedJuvenileHistoryRecord>
+            <jh-ext:RelatedJuvenileHistoryRecord>
+               <jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
+               <jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+            </jh-ext:RelatedJuvenileHistoryRecord>
+         </jh-ext:RelatedJuvenileHistoryRecords>
+      </jh-referral:ReferralAugmentation>
+   </nc30:Referral>
+   <nc30:Referral s30:id="Referral-1" s30:metadata="metadata">
+      <nc30:ActivityDate>
+         <nc30:Date>2013-12-26</nc30:Date>
       </nc30:ActivityDate>
       <nc30:ReferralIssuer>
          <nc30:EntityOrganization>
@@ -145,43 +192,50 @@
             <nc30:OrganizationLocation>
                <nc30:Address>
                   <nc30:LocationStreet>
-                     <nc30:StreetFullText>2929 Elm St.</nc30:StreetFullText>
+                     <nc30:StreetFullText>2021 First Ave.</nc30:StreetFullText>
                   </nc30:LocationStreet>
-                  <nc30:LocationCityName>Surfside</nc30:LocationCityName>
-                  <nc30:LocationStateFIPS5-2AlphaCode>CA</nc30:LocationStateFIPS5-2AlphaCode>
+                  <nc30:LocationCityName>Campo</nc30:LocationCityName>
+                  <nc30:LocationStateFIPS5-2AlphaCode>CO</nc30:LocationStateFIPS5-2AlphaCode>
                   <nc30:LocationPostalCode>12345</nc30:LocationPostalCode>
                </nc30:Address>
             </nc30:OrganizationLocation>
-            <nc30:OrganizationName>San Diego County Social Services</nc30:OrganizationName>
+            <nc30:OrganizationName>Yuma County Social Services</nc30:OrganizationName>
          </nc30:EntityOrganization>
       </nc30:ReferralIssuer>
       <nc30:ReferralPerson s30:ref="child" xsi:nil="true"/>
       <jh-referral:ReferralAugmentation>
-         <jh-referral-codes:ReferralCategoryCode>Complaint</jh-referral-codes:ReferralCategoryCode>
+         <jh-referral-codes:ReferralCategoryCode>Petition</jh-referral-codes:ReferralCategoryCode>
          <jh-ext:JuvenileInformationRecordID>
-            <nc30:IdentificationID>Referral-0</nc30:IdentificationID>
+            <nc30:IdentificationID>Referral-1</nc30:IdentificationID>
             <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory</nc30:IdentificationSourceText>
          </jh-ext:JuvenileInformationRecordID>
          <jh-ext:RelatedJuvenileHistoryRecords>
             <jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
+               <jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
                <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Placement-2</nc30:IdentificationID>
-                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
+                  <nc30:IdentificationID>Intake-1</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
+               </jh-ext:JuvenileInformationRecordID>
+            </jh-ext:RelatedJuvenileHistoryRecord>
+            <jh-ext:RelatedJuvenileHistoryRecord>
+               <jh-ext:JuvenileHistoryCategoryCode>JuvenileCasePlanHistory</jh-ext:JuvenileHistoryCategoryCode>
+               <jh-ext:JuvenileInformationRecordID>
+                  <nc30:IdentificationID/>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory</nc30:IdentificationSourceText>
+               </jh-ext:JuvenileInformationRecordID>
+            </jh-ext:RelatedJuvenileHistoryRecord>
+            <jh-ext:RelatedJuvenileHistoryRecord>
+               <jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+               <jh-ext:JuvenileInformationRecordID>
+                  <nc30:IdentificationID>Intake-0</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
                </jh-ext:JuvenileInformationRecordID>
             </jh-ext:RelatedJuvenileHistoryRecord>
             <jh-ext:RelatedJuvenileHistoryRecord>
                <jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
                <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Hearing-0</nc30:IdentificationID>
+                  <nc30:IdentificationID>Hearing-2</nc30:IdentificationID>
                   <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
-               </jh-ext:JuvenileInformationRecordID>
-            </jh-ext:RelatedJuvenileHistoryRecord>
-            <jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
-               <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Offense-1</nc30:IdentificationID>
-                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
                </jh-ext:JuvenileInformationRecordID>
             </jh-ext:RelatedJuvenileHistoryRecord>
          </jh-ext:RelatedJuvenileHistoryRecords>
@@ -189,7 +243,7 @@
    </nc30:Referral>
    <jxdm50:OffenseChargeAssociation>
       <jxdm50:Offense s30:id="Offense-0">
-         <jh-offense-codes:OffensePACCCode>750.316-A</jh-offense-codes:OffensePACCCode>
+         <jh-offense-codes:OffensePACCCode>290.673</jh-offense-codes:OffensePACCCode>
          <jh-offense:OffenseAugmentation>
             <jh-ext:JuvenileInformationRecordID>
                <nc30:IdentificationID>Offense-0</nc30:IdentificationID>
@@ -197,31 +251,17 @@
             </jh-ext:JuvenileInformationRecordID>
             <jh-ext:RelatedJuvenileHistoryRecords>
                <jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
+                  <jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
                   <jh-ext:JuvenileInformationRecordID>
-                     <nc30:IdentificationID>Placement-1</nc30:IdentificationID>
-                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
+                     <nc30:IdentificationID>Hearing-0</nc30:IdentificationID>
+                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
                   </jh-ext:JuvenileInformationRecordID>
                </jh-ext:RelatedJuvenileHistoryRecord>
                <jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
+                  <jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
                   <jh-ext:JuvenileInformationRecordID>
-                     <nc30:IdentificationID>Placement-2</nc30:IdentificationID>
-                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
-                  </jh-ext:JuvenileInformationRecordID>
-               </jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
-                  <jh-ext:JuvenileInformationRecordID>
-                     <nc30:IdentificationID>Placement-0</nc30:IdentificationID>
-                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
-                  </jh-ext:JuvenileInformationRecordID>
-               </jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:JuvenileHistoryCategoryCode>JuvenileCasePlanHistory</jh-ext:JuvenileHistoryCategoryCode>
-                  <jh-ext:JuvenileInformationRecordID>
-                     <nc30:IdentificationID/>
-                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory</nc30:IdentificationSourceText>
+                     <nc30:IdentificationID>Intake-1</nc30:IdentificationID>
+                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
                   </jh-ext:JuvenileInformationRecordID>
                </jh-ext:RelatedJuvenileHistoryRecord>
                <jh-ext:RelatedJuvenileHistoryRecord>
@@ -237,26 +277,26 @@
       <jxdm50:Charge>
          <jxdm50:ChargeDisposition>
             <nc30:DispositionDate>
-               <nc30:Date>2012-08-27</nc30:Date>
+               <nc30:Date>2011-11-22</nc30:Date>
             </nc30:DispositionDate>
          </jxdm50:ChargeDisposition>
          <jxdm50:ChargeFilingDate>
-            <nc30:Date>2012-04-06</nc30:Date>
+            <nc30:Date>2011-09-14</nc30:Date>
          </jxdm50:ChargeFilingDate>
          <jxdm50:ChargeSubject s30:ref="child" xsi:nil="true"/>
          <jxdm50:ChargeVerdict>
             <jxdm50:VerdictDispositionDate>
-               <nc30:Date>2012-09-08</nc30:Date>
+               <nc30:Date>2011-12-01</nc30:Date>
             </jxdm50:VerdictDispositionDate>
             <jh-offense:VerdictAugmentation>
-               <jh-offense-codes:ChargeVerdictCode>Not responsible</jh-offense-codes:ChargeVerdictCode>
+               <jh-offense-codes:ChargeVerdictCode>Dismissed</jh-offense-codes:ChargeVerdictCode>
             </jh-offense:VerdictAugmentation>
          </jxdm50:ChargeVerdict>
       </jxdm50:Charge>
    </jxdm50:OffenseChargeAssociation>
    <jxdm50:OffenseChargeAssociation>
       <jxdm50:Offense s30:id="Offense-1">
-         <jh-offense-codes:OffensePACCCode>400.6073</jh-offense-codes:OffensePACCCode>
+         <jh-offense-codes:OffensePACCCode>169.255</jh-offense-codes:OffensePACCCode>
          <jh-offense:OffenseAugmentation>
             <jh-ext:JuvenileInformationRecordID>
                <nc30:IdentificationID>Offense-1</nc30:IdentificationID>
@@ -271,24 +311,10 @@
                   </jh-ext:JuvenileInformationRecordID>
                </jh-ext:RelatedJuvenileHistoryRecord>
                <jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
+                  <jh-ext:JuvenileHistoryCategoryCode>JuvenileReferralHistory</jh-ext:JuvenileHistoryCategoryCode>
                   <jh-ext:JuvenileInformationRecordID>
-                     <nc30:IdentificationID>Hearing-1</nc30:IdentificationID>
-                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
-                  </jh-ext:JuvenileInformationRecordID>
-               </jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
-                  <jh-ext:JuvenileInformationRecordID>
-                     <nc30:IdentificationID>Hearing-0</nc30:IdentificationID>
-                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
-                  </jh-ext:JuvenileInformationRecordID>
-               </jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
-                  <jh-ext:JuvenileInformationRecordID>
-                     <nc30:IdentificationID>Placement-1</nc30:IdentificationID>
-                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
+                     <nc30:IdentificationID>Referral-0</nc30:IdentificationID>
+                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory</nc30:IdentificationSourceText>
                   </jh-ext:JuvenileInformationRecordID>
                </jh-ext:RelatedJuvenileHistoryRecord>
                <jh-ext:RelatedJuvenileHistoryRecord>
@@ -299,10 +325,10 @@
                   </jh-ext:JuvenileInformationRecordID>
                </jh-ext:RelatedJuvenileHistoryRecord>
                <jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
+                  <jh-ext:JuvenileHistoryCategoryCode>JuvenileReferralHistory</jh-ext:JuvenileHistoryCategoryCode>
                   <jh-ext:JuvenileInformationRecordID>
-                     <nc30:IdentificationID>Placement-2</nc30:IdentificationID>
-                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
+                     <nc30:IdentificationID>Referral-1</nc30:IdentificationID>
+                     <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory</nc30:IdentificationSourceText>
                   </jh-ext:JuvenileInformationRecordID>
                </jh-ext:RelatedJuvenileHistoryRecord>
             </jh-ext:RelatedJuvenileHistoryRecords>
@@ -311,27 +337,19 @@
       <jxdm50:Charge>
          <jxdm50:ChargeDisposition>
             <nc30:DispositionDate>
-               <nc30:Date>2014-01-19</nc30:Date>
+               <nc30:Date>2014-05-15</nc30:Date>
             </nc30:DispositionDate>
          </jxdm50:ChargeDisposition>
          <jxdm50:ChargeFilingDate>
-            <nc30:Date>2013-12-08</nc30:Date>
+            <nc30:Date>2014-01-02</nc30:Date>
          </jxdm50:ChargeFilingDate>
-         <jxdm50:ChargeSanction>
-            <jxdm50:SanctionSetDate>
-               <nc30:Date>2014-02-18</nc30:Date>
-            </jxdm50:SanctionSetDate>
-            <jh-offense:SanctionAugmentation>
-               <jh-offense-codes:DispositionSanctionCode>State or public treatment/residential facility</jh-offense-codes:DispositionSanctionCode>
-            </jh-offense:SanctionAugmentation>
-         </jxdm50:ChargeSanction>
          <jxdm50:ChargeSubject s30:ref="child" xsi:nil="true"/>
          <jxdm50:ChargeVerdict>
             <jxdm50:VerdictDispositionDate>
-               <nc30:Date>2014-01-19</nc30:Date>
+               <nc30:Date>2014-05-27</nc30:Date>
             </jxdm50:VerdictDispositionDate>
             <jh-offense:VerdictAugmentation>
-               <jh-offense-codes:ChargeVerdictCode>Responsible</jh-offense-codes:ChargeVerdictCode>
+               <jh-offense-codes:ChargeVerdictCode>Dismissed</jh-offense-codes:ChargeVerdictCode>
             </jh-offense:VerdictAugmentation>
          </jxdm50:ChargeVerdict>
       </jxdm50:Charge>
@@ -346,7 +364,7 @@
    </jxdm50:OffenseLocationAssociation>
    <jh-case-plan:CasePlan>
       <jh-case-plan:AssessmentIndicator>true</jh-case-plan:AssessmentIndicator>
-      <jh-case-plan:CasePlanIndicator>false</jh-case-plan:CasePlanIndicator>
+      <jh-case-plan:CasePlanIndicator>true</jh-case-plan:CasePlanIndicator>
       <jh-case-plan:CasePlanAugmentation>
          <jh-ext:JuvenileInformationRecordID>
             <nc30:IdentificationID/>
@@ -354,58 +372,27 @@
          </jh-ext:JuvenileInformationRecordID>
       </jh-case-plan:CasePlanAugmentation>
    </jh-case-plan:CasePlan>
-   <jh-placement:JuvenilePlacement>
+   <cyfs:JuvenilePlacement>
       <nc30:ActivityDateRange>
          <nc30:StartDate>
-            <nc30:Date>2014-04-12</nc30:Date>
+            <nc30:Date>2012-05-26</nc30:Date>
          </nc30:StartDate>
          <nc30:EndDate>
-            <nc30:Date>2014-05-09</nc30:Date>
+            <nc30:Date>2012-06-26</nc30:Date>
          </nc30:EndDate>
       </nc30:ActivityDateRange>
-      <jh-placement-codes:PlacementCategoryCode>Group Home</jh-placement-codes:PlacementCategoryCode>
+      <jh-placement-codes:PlacementCategoryCode>Stepfather</jh-placement-codes:PlacementCategoryCode>
       <jh-placement:JuvenilePlacementAugmentation>
          <cyfs:JuvenilePlacementFacilityAssociation>
             <cyfs:PlacedJuvenile s30:ref="child" xsi:nil="true"/>
             <cyfs:PlacementFacility>
-               <nc30:FacilityName>Facility Name: Group Home</nc30:FacilityName>
+               <nc30:FacilityName>Facility Name: Stepfather</nc30:FacilityName>
                <jh-placement-codes:FacilitySecurityCode>Non-secure</jh-placement-codes:FacilitySecurityCode>
                <nc30:FacilityLocation s30:ref="FacilityLocation-0" xsi:nil="true"/>
             </cyfs:PlacementFacility>
          </cyfs:JuvenilePlacementFacilityAssociation>
          <jh-ext:JuvenileInformationRecordID>
             <nc30:IdentificationID>Placement-0</nc30:IdentificationID>
-            <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
-         </jh-ext:JuvenileInformationRecordID>
-         <jh-ext:RelatedJuvenileHistoryRecords>
-            <jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:JuvenileHistoryCategoryCode>JuvenileReferralHistory</jh-ext:JuvenileHistoryCategoryCode>
-               <jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
-            </jh-ext:RelatedJuvenileHistoryRecord>
-         </jh-ext:RelatedJuvenileHistoryRecords>
-      </jh-placement:JuvenilePlacementAugmentation>
-   </jh-placement:JuvenilePlacement>
-   <jh-placement:JuvenilePlacement>
-      <nc30:ActivityDateRange>
-         <nc30:StartDate>
-            <nc30:Date>2009-11-07</nc30:Date>
-         </nc30:StartDate>
-         <nc30:EndDate>
-            <nc30:Date>2010-03-24</nc30:Date>
-         </nc30:EndDate>
-      </nc30:ActivityDateRange>
-      <jh-placement-codes:PlacementCategoryCode>Foster Home</jh-placement-codes:PlacementCategoryCode>
-      <jh-placement:JuvenilePlacementAugmentation>
-         <cyfs:JuvenilePlacementFacilityAssociation>
-            <cyfs:PlacedJuvenile s30:ref="child" xsi:nil="true"/>
-            <cyfs:PlacementFacility>
-               <nc30:FacilityName>Facility Name: Foster Home</nc30:FacilityName>
-               <jh-placement-codes:FacilitySecurityCode>Non-secure</jh-placement-codes:FacilitySecurityCode>
-               <nc30:FacilityLocation s30:ref="FacilityLocation-1" xsi:nil="true"/>
-            </cyfs:PlacementFacility>
-         </cyfs:JuvenilePlacementFacilityAssociation>
-         <jh-ext:JuvenileInformationRecordID>
-            <nc30:IdentificationID>Placement-1</nc30:IdentificationID>
             <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
          </jh-ext:JuvenileInformationRecordID>
          <jh-ext:RelatedJuvenileHistoryRecords>
@@ -417,67 +404,22 @@
                </jh-ext:JuvenileInformationRecordID>
             </jh-ext:RelatedJuvenileHistoryRecord>
             <jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
-               <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Offense-1</nc30:IdentificationID>
-                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
-               </jh-ext:JuvenileInformationRecordID>
-            </jh-ext:RelatedJuvenileHistoryRecord>
-            <jh-ext:RelatedJuvenileHistoryRecord>
                <jh-ext:JuvenileHistoryCategoryCode>JuvenileReferralHistory</jh-ext:JuvenileHistoryCategoryCode>
                <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Referral-0</nc30:IdentificationID>
+                  <nc30:IdentificationID>Referral-1</nc30:IdentificationID>
                   <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory</nc30:IdentificationSourceText>
                </jh-ext:JuvenileInformationRecordID>
             </jh-ext:RelatedJuvenileHistoryRecord>
             <jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
-               <jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
-            </jh-ext:RelatedJuvenileHistoryRecord>
-         </jh-ext:RelatedJuvenileHistoryRecords>
-      </jh-placement:JuvenilePlacementAugmentation>
-   </jh-placement:JuvenilePlacement>
-   <jh-placement:JuvenilePlacement>
-      <nc30:ActivityDateRange>
-         <nc30:StartDate>
-            <nc30:Date>2013-07-12</nc30:Date>
-         </nc30:StartDate>
-         <nc30:EndDate>
-            <nc30:Date>2013-07-22</nc30:Date>
-         </nc30:EndDate>
-      </nc30:ActivityDateRange>
-      <jh-placement-codes:PlacementCategoryCode>Residential</jh-placement-codes:PlacementCategoryCode>
-      <jh-placement:JuvenilePlacementAugmentation>
-         <cyfs:JuvenilePlacementFacilityAssociation>
-            <cyfs:PlacedJuvenile s30:ref="child" xsi:nil="true"/>
-            <cyfs:PlacementFacility>
-               <nc30:FacilityName>Facility Name: Residential</nc30:FacilityName>
-               <jh-placement-codes:FacilitySecurityCode>Non-secure</jh-placement-codes:FacilitySecurityCode>
-               <nc30:FacilityLocation s30:ref="FacilityLocation-2" xsi:nil="true"/>
-            </cyfs:PlacementFacility>
-         </cyfs:JuvenilePlacementFacilityAssociation>
-         <jh-ext:JuvenileInformationRecordID>
-            <nc30:IdentificationID>Placement-2</nc30:IdentificationID>
-            <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
-         </jh-ext:JuvenileInformationRecordID>
-         <jh-ext:RelatedJuvenileHistoryRecords>
-            <jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:JuvenileHistoryCategoryCode>JuvenileCasePlanHistory</jh-ext:JuvenileHistoryCategoryCode>
-               <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID/>
-                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory</nc30:IdentificationSourceText>
-               </jh-ext:JuvenileInformationRecordID>
-            </jh-ext:RelatedJuvenileHistoryRecord>
-            <jh-ext:RelatedJuvenileHistoryRecord>
                <jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
                <jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
             </jh-ext:RelatedJuvenileHistoryRecord>
          </jh-ext:RelatedJuvenileHistoryRecords>
       </jh-placement:JuvenilePlacementAugmentation>
-   </jh-placement:JuvenilePlacement>
+   </cyfs:JuvenilePlacement>
    <cyfs:JuvenileIntakeAssessment>
       <nc30:ActivityDate>
-         <nc30:Date>2015-01-29</nc30:Date>
+         <nc30:Date>2014-04-15</nc30:Date>
       </nc30:ActivityDate>
       <cyfs:AssessmentRecommendation>
          <cyfs:AssessmentRecommendedCourseOfAction>
@@ -488,7 +430,7 @@
       </cyfs:AssessmentRecommendation>
       <cyfs:Juvenile s30:ref="child" xsi:nil="true"/>
       <jh-intake:JuvenileAssessmentAugmentation>
-         <jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>Screening</jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>
+         <jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>Interview</jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>
          <jh-ext:JuvenileInformationRecordID>
             <nc30:IdentificationID>Intake-0</nc30:IdentificationID>
             <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
@@ -497,36 +439,8 @@
             <jh-ext:RelatedJuvenileHistoryRecord>
                <jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
                <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Hearing-1</nc30:IdentificationID>
+                  <nc30:IdentificationID>Hearing-2</nc30:IdentificationID>
                   <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
-               </jh-ext:JuvenileInformationRecordID>
-            </jh-ext:RelatedJuvenileHistoryRecord>
-            <jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
-               <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Hearing-0</nc30:IdentificationID>
-                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
-               </jh-ext:JuvenileInformationRecordID>
-            </jh-ext:RelatedJuvenileHistoryRecord>
-            <jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
-               <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Placement-2</nc30:IdentificationID>
-                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
-               </jh-ext:JuvenileInformationRecordID>
-            </jh-ext:RelatedJuvenileHistoryRecord>
-            <jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
-               <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Placement-1</nc30:IdentificationID>
-                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
-               </jh-ext:JuvenileInformationRecordID>
-            </jh-ext:RelatedJuvenileHistoryRecord>
-            <jh-ext:RelatedJuvenileHistoryRecord>
-               <jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
-               <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Offense-1</nc30:IdentificationID>
-                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
                </jh-ext:JuvenileInformationRecordID>
             </jh-ext:RelatedJuvenileHistoryRecord>
             <jh-ext:RelatedJuvenileHistoryRecord>
@@ -536,7 +450,34 @@
                   <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory</nc30:IdentificationSourceText>
                </jh-ext:JuvenileInformationRecordID>
             </jh-ext:RelatedJuvenileHistoryRecord>
+            <jh-ext:RelatedJuvenileHistoryRecord>
+               <jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
+               <jh-ext:JuvenileInformationRecordID>
+                  <nc30:IdentificationID>Offense-1</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
+               </jh-ext:JuvenileInformationRecordID>
+            </jh-ext:RelatedJuvenileHistoryRecord>
          </jh-ext:RelatedJuvenileHistoryRecords>
+      </jh-intake:JuvenileAssessmentAugmentation>
+   </cyfs:JuvenileIntakeAssessment>
+   <cyfs:JuvenileIntakeAssessment>
+      <nc30:ActivityDate>
+         <nc30:Date>2015-01-09</nc30:Date>
+      </nc30:ActivityDate>
+      <cyfs:AssessmentRecommendation>
+         <cyfs:AssessmentRecommendedCourseOfAction>
+            <jh-intake:AssessmentRecommendedCourseOfActionAugmentation>
+               <jh-intake-codes:AssessmentRecommendedCourseOfActionCode>Court diversion</jh-intake-codes:AssessmentRecommendedCourseOfActionCode>
+            </jh-intake:AssessmentRecommendedCourseOfActionAugmentation>
+         </cyfs:AssessmentRecommendedCourseOfAction>
+      </cyfs:AssessmentRecommendation>
+      <cyfs:Juvenile s30:ref="child" xsi:nil="true"/>
+      <jh-intake:JuvenileAssessmentAugmentation>
+         <jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>Other</jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>
+         <jh-ext:JuvenileInformationRecordID>
+            <nc30:IdentificationID>Intake-1</nc30:IdentificationID>
+            <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
+         </jh-ext:JuvenileInformationRecordID>
       </jh-intake:JuvenileAssessmentAugmentation>
    </cyfs:JuvenileIntakeAssessment>
    <cyfs:CourtCase>
@@ -544,36 +485,15 @@
          <jxdm50:CaseDefendantParty s30:ref="child" xsi:nil="true"/>
          <jxdm50:CaseHearing>
             <nc30:ActivityDate>
-               <nc30:Date>2014-05-08</nc30:Date>
+               <nc30:Date>2014-06-06</nc30:Date>
             </nc30:ActivityDate>
             <jh-hearing:CourtEventAugmentation>
                <jh-hearing:ContemptOfCourtIndicator>false</jh-hearing:ContemptOfCourtIndicator>
-               <jh-hearing-codes:HearingCategoryCode>Designation Sentencing</jh-hearing-codes:HearingCategoryCode>
-               <jh-hearing-codes:HearingDispositionCode>Finding the juvenile violated probation</jh-hearing-codes:HearingDispositionCode>
+               <jh-hearing-codes:HearingCategoryCode>Designation Hearing</jh-hearing-codes:HearingCategoryCode>
+               <jh-hearing-codes:HearingDispositionCode>The proceedings on the charges are suspended pending restoration efforts</jh-hearing-codes:HearingDispositionCode>
                <jh-hearing:ProbationViolationIndicator>true</jh-hearing:ProbationViolationIndicator>
                <jh-ext:JuvenileInformationRecordID>
                   <nc30:IdentificationID>Hearing-0</nc30:IdentificationID>
-                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
-               </jh-ext:JuvenileInformationRecordID>
-               <jh-ext:RelatedJuvenileHistoryRecords>
-                  <jh-ext:RelatedJuvenileHistoryRecord>
-                     <jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
-                     <jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
-                  </jh-ext:RelatedJuvenileHistoryRecord>
-               </jh-ext:RelatedJuvenileHistoryRecords>
-            </jh-hearing:CourtEventAugmentation>
-         </jxdm50:CaseHearing>
-         <jxdm50:CaseHearing>
-            <nc30:ActivityDate>
-               <nc30:Date>2014-07-18</nc30:Date>
-            </nc30:ActivityDate>
-            <jh-hearing:CourtEventAugmentation>
-               <jh-hearing:ContemptOfCourtIndicator>false</jh-hearing:ContemptOfCourtIndicator>
-               <jh-hearing-codes:HearingCategoryCode>Phase II Waiver Hearing</jh-hearing-codes:HearingCategoryCode>
-               <jh-hearing-codes:HearingDispositionCode>Sentencing factors listed</jh-hearing-codes:HearingDispositionCode>
-               <jh-hearing:ProbationViolationIndicator>true</jh-hearing:ProbationViolationIndicator>
-               <jh-ext:JuvenileInformationRecordID>
-                  <nc30:IdentificationID>Hearing-1</nc30:IdentificationID>
                   <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
                </jh-ext:JuvenileInformationRecordID>
                <jh-ext:RelatedJuvenileHistoryRecords>
@@ -585,9 +505,37 @@
                      </jh-ext:JuvenileInformationRecordID>
                   </jh-ext:RelatedJuvenileHistoryRecord>
                   <jh-ext:RelatedJuvenileHistoryRecord>
+                     <jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
+                     <jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+                  </jh-ext:RelatedJuvenileHistoryRecord>
+               </jh-ext:RelatedJuvenileHistoryRecords>
+            </jh-hearing:CourtEventAugmentation>
+         </jxdm50:CaseHearing>
+         <jxdm50:CaseHearing>
+            <nc30:ActivityDate>
+               <nc30:Date>2015-03-12</nc30:Date>
+            </nc30:ActivityDate>
+            <jh-hearing:CourtEventAugmentation>
+               <jh-hearing:ContemptOfCourtIndicator>true</jh-hearing:ContemptOfCourtIndicator>
+               <jh-hearing-codes:HearingCategoryCode>Preliminary hearing</jh-hearing-codes:HearingCategoryCode>
+               <jh-hearing-codes:HearingDispositionCode>Title IV-E language</jh-hearing-codes:HearingDispositionCode>
+               <jh-hearing:ProbationViolationIndicator>false</jh-hearing:ProbationViolationIndicator>
+               <jh-ext:JuvenileInformationRecordID>
+                  <nc30:IdentificationID>Hearing-1</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
+               </jh-ext:JuvenileInformationRecordID>
+               <jh-ext:RelatedJuvenileHistoryRecords>
+                  <jh-ext:RelatedJuvenileHistoryRecord>
+                     <jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+                     <jh-ext:JuvenileInformationRecordID>
+                        <nc30:IdentificationID>Intake-0</nc30:IdentificationID>
+                        <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
+                     </jh-ext:JuvenileInformationRecordID>
+                  </jh-ext:RelatedJuvenileHistoryRecord>
+                  <jh-ext:RelatedJuvenileHistoryRecord>
                      <jh-ext:JuvenileHistoryCategoryCode>JuvenileReferralHistory</jh-ext:JuvenileHistoryCategoryCode>
                      <jh-ext:JuvenileInformationRecordID>
-                        <nc30:IdentificationID>Referral-0</nc30:IdentificationID>
+                        <nc30:IdentificationID>Referral-1</nc30:IdentificationID>
                         <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory</nc30:IdentificationSourceText>
                      </jh-ext:JuvenileInformationRecordID>
                   </jh-ext:RelatedJuvenileHistoryRecord>
@@ -598,32 +546,28 @@
                         <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
                      </jh-ext:JuvenileInformationRecordID>
                   </jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:RelatedJuvenileHistoryRecord>
-                     <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
-                     <jh-ext:JuvenileInformationRecordID>
-                        <nc30:IdentificationID>Placement-1</nc30:IdentificationID>
-                        <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
-                     </jh-ext:JuvenileInformationRecordID>
-                  </jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:RelatedJuvenileHistoryRecord>
-                     <jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
-                     <jh-ext:JuvenileInformationRecordID>
-                        <nc30:IdentificationID>Intake-0</nc30:IdentificationID>
-                        <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeHistory</nc30:IdentificationSourceText>
-                     </jh-ext:JuvenileInformationRecordID>
-                  </jh-ext:RelatedJuvenileHistoryRecord>
+               </jh-ext:RelatedJuvenileHistoryRecords>
+            </jh-hearing:CourtEventAugmentation>
+         </jxdm50:CaseHearing>
+         <jxdm50:CaseHearing>
+            <nc30:ActivityDate>
+               <nc30:Date>2014-02-28</nc30:Date>
+            </nc30:ActivityDate>
+            <jh-hearing:CourtEventAugmentation>
+               <jh-hearing:ContemptOfCourtIndicator>false</jh-hearing:ContemptOfCourtIndicator>
+               <jh-hearing-codes:HearingCategoryCode>Dispositional Review</jh-hearing-codes:HearingCategoryCode>
+               <jh-hearing-codes:HearingDispositionCode>Next hearing scheduled</jh-hearing-codes:HearingDispositionCode>
+               <jh-hearing:ProbationViolationIndicator>false</jh-hearing:ProbationViolationIndicator>
+               <jh-ext:JuvenileInformationRecordID>
+                  <nc30:IdentificationID>Hearing-2</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</nc30:IdentificationSourceText>
+               </jh-ext:JuvenileInformationRecordID>
+               <jh-ext:RelatedJuvenileHistoryRecords>
                   <jh-ext:RelatedJuvenileHistoryRecord>
                      <jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
                      <jh-ext:JuvenileInformationRecordID>
                         <nc30:IdentificationID>Offense-1</nc30:IdentificationID>
                         <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</nc30:IdentificationSourceText>
-                     </jh-ext:JuvenileInformationRecordID>
-                  </jh-ext:RelatedJuvenileHistoryRecord>
-                  <jh-ext:RelatedJuvenileHistoryRecord>
-                     <jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
-                     <jh-ext:JuvenileInformationRecordID>
-                        <nc30:IdentificationID>Placement-2</nc30:IdentificationID>
-                        <nc30:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</nc30:IdentificationSourceText>
                      </jh-ext:JuvenileInformationRecordID>
                   </jh-ext:RelatedJuvenileHistoryRecord>
                </jh-ext:RelatedJuvenileHistoryRecords>

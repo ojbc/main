@@ -145,7 +145,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_FIREARM_REGISTRATION_QUERY_REQUEST_EXT = "http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0";
     public static final String NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC = "firearm-reg-req-doc";
     public static final String NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT = "firearm-reg-req-ext";
-
+    
     public static final String NS_PREFIX_FIREARM_DOC = "firearm-doc";
     public static final String NS_PREFIX_FIREARM_EXT = "firearm-ext";
 
@@ -378,6 +378,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_JUVENILE_HISTORY_HEARING_CODES = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0";
 	public static final String NS_PREFIX_JUVENILE_HISTORY_HEARING_CODES = "jh-hearing-codes";
 	
+    public static final String NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC = "jh-req-doc";
+    public static final String NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0";
+
 	public static final String NS_CYFS = "http://release.niem.gov/niem/domains/cyfs/3.0/";
 	public static final String NS_PREFIX_CYFS = "cyfs";
 
@@ -399,6 +402,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
         prefixToUriMap = new HashMap<String, String>();
         uriToPrefixMap = new HashMap<String, String>();
 
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC, NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC, NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC);
         prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_CONTAINER, NS_JUVENILE_HISTORY_CONTAINER);
         uriToPrefixMap.put(NS_JUVENILE_HISTORY_CONTAINER, NS_PREFIX_JUVENILE_HISTORY_CONTAINER);
         prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES, NS_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES);
