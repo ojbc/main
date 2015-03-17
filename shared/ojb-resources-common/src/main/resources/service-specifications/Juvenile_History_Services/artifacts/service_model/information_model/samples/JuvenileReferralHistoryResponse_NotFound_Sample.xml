@@ -8,7 +8,7 @@
 		</cext:JuvenileInformationRecordID>
 	</cext:JuvenileHistoryQueryCriteria>
 	<ext:JuvenileReferralHistory>
-		<cext:JuvenileInformationAvailabilityCode>FOUND</cext:JuvenileInformationAvailabilityCode>
+		<cext:JuvenileInformationAvailabilityCode>NOT FOUND</cext:JuvenileInformationAvailabilityCode>
 		<cext:JuvenileInformationAvailabilityMetadata structures:id="metadata1">
 			<LastUpdatedDate>
 				<Date>1957-08-13</Date>
