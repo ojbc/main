@@ -1,12 +1,12 @@
 package org.search.ojb.staticmock;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 
 import org.junit.Test;
@@ -40,6 +40,45 @@ public class QueryTest extends AbstractStaticMockTest {
     public void testFirearmRegistrationPersonQuery() throws Exception {
         doPersonTestQuery("sample-9006054698886898174.xml", StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID, "firearm-doc:PersonFirearmRegistrationQueryResults");
     }
+    
+    @Test
+    public void testJuvenileHistoryQueries() throws Exception {
+    	Document queryRequestMessage = buildPersonQueryRequestMessage(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID, "sample-108040379083497483.xml");
+    	XmlUtils.printNode(queryRequestMessage);
+    	assertJuvenileHistoryComponentMessage(queryRequestMessage, "JuvenileReferralHistory", "jh-referral-doc:JuvenileReferralHistoryResponse", "nc30:Referral");
+    	assertJuvenileHistoryComponentMessage(queryRequestMessage, "JuvenileIntakeHistory", "jh-intake-doc:JuvenileIntakeHistoryResponse", "cyfs:JuvenileIntakeAssessment");
+    	assertJuvenileHistoryComponentMessage(queryRequestMessage, "JuvenilePlacementHistory", "jh-placement-doc:JuvenilePlacementHistoryResponse", "cyfs:JuvenilePlacement");
+    	assertJuvenileHistoryComponentMessage(queryRequestMessage, "JuvenileOffenseHistory", "jh-offense-doc:JuvenileOffenseHistoryResponse", "jxdm50:OffenseChargeAssociation");
+    	assertJuvenileHistoryComponentMessage(queryRequestMessage, "JuvenileHearingHistory", "jh-hearing-doc:JuvenileHearingHistoryResponse", "cyfs:CourtCase/jxdm50:CaseAugmentation/jxdm50:CaseHearing");
+    	assertJuvenileHistoryComponentMessage(queryRequestMessage, "JuvenileCasePlanHistory", "jh-case-plan-doc:JuvenileCasePlanHistoryResponse", "jh-case-plan:CasePlan");
+    }
+    
+    @Test
+    public void testJuvenileHistoryQueriesObjectNotFound() throws Exception {
+    	Document queryRequestMessage = buildPersonQueryRequestMessage(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID, "sample-108040379083497483-NoPlacement.xml");
+    	//XmlUtils.printNode(queryRequestMessage);
+    	List<IdentifiableDocumentWrapper> resultingDocuments = staticMockQuery.queryDocuments(queryRequestMessage, "JuvenilePlacementHistory");
+        assertEquals(1, resultingDocuments.size());
+        IdentifiableDocumentWrapper doc = resultingDocuments.get(0);
+        assertNotNull(doc);
+        Document document = doc.getDocument();
+        //XmlUtils.printNode(document);
+        assertEquals("NOT FOUND", XmlUtils.xPathNodeSearch(document, "/jh-placement-doc:JuvenilePlacementHistoryResponse/jh-placement:JuvenilePlacementHistory/jh-ext:JuvenileInformationAvailabilityCode").getTextContent());
+        assertEquals(0, XmlUtils.xPathNodeListSearch(document, "/jh-placement-doc:JuvenilePlacementHistoryResponse/jh-placement:JuvenilePlacementHistory/cyfs:JuvenilePlacement").getLength());
+    }
+
+	public void assertJuvenileHistoryComponentMessage(Document queryRequestMessage, String componentTypeCode, String rootElementName, String componentElementName) throws Exception {
+		List<IdentifiableDocumentWrapper> resultingDocuments = staticMockQuery.queryDocuments(queryRequestMessage, componentTypeCode);
+        assertEquals(1, resultingDocuments.size());
+        IdentifiableDocumentWrapper doc = resultingDocuments.get(0);
+        assertNotNull(doc);
+        Document document = doc.getDocument();
+        //XmlUtils.printNode(document);
+        Element root = document.getDocumentElement();
+        assertEquals(rootElementName, root.getNodeName());
+        assertEquals("FOUND", XmlUtils.xPathNodeSearch(document, "//jh-ext:JuvenileInformationAvailabilityCode").getTextContent());
+        assertTrue(XmlUtils.xPathNodeListSearch(document, "//" + componentElementName).getLength() > 0);
+	}
     
     private Document doFirearmTestQuery(String identifier, String systemId, String rootElementName) throws ParserConfigurationException, Exception {
         Document queryRequestMessage = buildFirearmQueryRequestMessage(systemId, identifier);

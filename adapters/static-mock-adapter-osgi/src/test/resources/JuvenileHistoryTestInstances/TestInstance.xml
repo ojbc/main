@@ -38,7 +38,7 @@
 			<nc30:IdentificationSourceText>Court</nc30:IdentificationSourceText>
 		</jh-ext:JuvenileInformationRecordID>
 	</jh-ext:JuvenileInformationAvailabilityMetadata>
-	<nc30:Person s30:id="Child1" s30:metadata="metadata">
+	<nc30:Person s30:id="child" s30:metadata="metadata">
 		<nc30:PersonName>
 			<nc30:PersonGivenName>John</nc30:PersonGivenName>
 			<nc30:PersonMiddleName>Q</nc30:PersonMiddleName>
@@ -110,7 +110,7 @@
 		</nc30:Address>
 	</nc30:Location>
 	<nc30:PersonResidenceAssociation s30:metadata="metadata">
-		<nc30:Person s30:ref="Child1" xsi:nil="true" />
+		<nc30:Person s30:ref="child" xsi:nil="true" />
 		<nc30:Location s30:ref="Location1" xsi:nil="true" />
 	</nc30:PersonResidenceAssociation>
 	<nc30:PersonResidenceAssociation s30:metadata="metadata">
@@ -118,7 +118,7 @@
 		<nc30:Location s30:ref="Location2" xsi:nil="true" />
 	</nc30:PersonResidenceAssociation>
 	<cyfs:ParentChildAssociation s30:metadata="metadata">
-		<cyfs:Child s30:ref="Child1" xsi:nil="true" />
+		<cyfs:Child s30:ref="child" xsi:nil="true" />
 		<cyfs:Parent s30:ref="Parent1" xsi:nil="true" />
 	</cyfs:ParentChildAssociation>
 	<nc30:Referral s30:id="Referral1" s30:metadata="metadata">
@@ -139,7 +139,7 @@
 				<nc30:OrganizationName>Lansing Prosecuting Attorney</nc30:OrganizationName>
 			</nc30:EntityOrganization>
 		</nc30:ReferralIssuer>
-		<nc30:ReferralPerson s30:ref="Child1" xsi:nil="true" />
+		<nc30:ReferralPerson s30:ref="child" xsi:nil="true" />
 		<jh-referral:ReferralAugmentation>
 			<jh-referral-codes:ReferralCategoryCode>Complaint</jh-referral-codes:ReferralCategoryCode>
 			<jh-ext:JuvenileInformationRecordID>
@@ -172,7 +172,7 @@
 				<nc30:OrganizationName>Lansing Prosecuting Attorney</nc30:OrganizationName>
 			</nc30:EntityOrganization>
 		</nc30:ReferralIssuer>
-		<nc30:ReferralPerson s30:ref="Child1" xsi:nil="true" />
+		<nc30:ReferralPerson s30:ref="child" xsi:nil="true" />
 		<jh-referral:ReferralAugmentation>
 			<jh-referral-codes:ReferralCategoryCode>Petition</jh-referral-codes:ReferralCategoryCode>
 			<jh-ext:JuvenileInformationRecordID>
@@ -221,7 +221,7 @@
 					<jh-offense-codes:DispositionSanctionCode>Boot Camp</jh-offense-codes:DispositionSanctionCode>
 				</jh-offense:SanctionAugmentation>
 			</jxdm50:ChargeSanction>
-			<jxdm50:ChargeSubject s30:ref="Child1" xsi:nil="true" />
+			<jxdm50:ChargeSubject s30:ref="child" xsi:nil="true" />
 			<jxdm50:ChargeVerdict>
 				<jxdm50:VerdictDispositionDate>
 					<nc30:Date>1957-08-13</nc30:Date>
@@ -266,7 +266,7 @@
 					<jh-offense-codes:DispositionSanctionCode>Electronic tether</jh-offense-codes:DispositionSanctionCode>
 				</jh-offense:SanctionAugmentation>
 			</jxdm50:ChargeSanction>
-			<jxdm50:ChargeSubject s30:ref="Child1" xsi:nil="true" />
+			<jxdm50:ChargeSubject s30:ref="child" xsi:nil="true" />
 			<jxdm50:ChargeVerdict>
 				<jxdm50:VerdictDispositionDate>
 					<nc30:Date>1957-08-13</nc30:Date>
@@ -297,7 +297,7 @@
 		<jh-placement-codes:PlacementCategoryCode>Group Home</jh-placement-codes:PlacementCategoryCode>
 		<jh-placement:JuvenilePlacementAugmentation>
 			<cyfs:JuvenilePlacementFacilityAssociation>
-				<cyfs:PlacedJuvenile s30:ref="Child1" xsi:nil="true" />
+				<cyfs:PlacedJuvenile s30:ref="child" xsi:nil="true" />
 				<cyfs:PlacementFacility>
 					<nc30:FacilityName>Parents</nc30:FacilityName>
 					<jh-placement-codes:FacilitySecurityCode>Non-secure</jh-placement-codes:FacilitySecurityCode>
@@ -335,7 +335,7 @@
 				</jh-intake:AssessmentRecommendedCourseOfActionAugmentation>
 			</cyfs:AssessmentRecommendedCourseOfAction>
 		</cyfs:AssessmentRecommendation>
-		<cyfs:Juvenile s30:ref="Child1" xsi:nil="true" />
+		<cyfs:Juvenile s30:ref="child" xsi:nil="true" />
 		<jh-intake:JuvenileAssessmentAugmentation>
 			<jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>Assessment</jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>
 			<jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>Interview</jh-intake-codes:JuvenileIntakeAssessmentCategoryCode>
@@ -361,7 +361,7 @@
 	<cyfs:CourtCase>
 		<nc30:ActivityDate />
 		<jxdm50:CaseAugmentation>
-			<jxdm50:CaseDefendantParty s30:ref="Child1" xsi:nil="true" />
+			<jxdm50:CaseDefendantParty s30:ref="child" xsi:nil="true" />
 			<jxdm50:CaseHearing s30:id="Hearing1">
 				<nc30:ActivityDate>
 					<nc30:Date>1957-08-13</nc30:Date>

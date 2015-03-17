@@ -179,7 +179,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 		for (Placement placement : history.placements) {
 
-			Element placementElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_PLACEMENT_EXT, "JuvenilePlacement");
+			Element placementElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_CYFS, "JuvenilePlacement");
 			Element dateRangeElement = XmlUtils.appendElement(placementElement, OjbcNamespaceContext.NS_NC_30, "ActivityDateRange");
 			Element e = XmlUtils.appendElement(dateRangeElement, OjbcNamespaceContext.NS_NC_30, "StartDate");
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "Date").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(placement.startDate));
