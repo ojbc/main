@@ -11,14 +11,13 @@ import org.ojbc.person.search.SearchFieldMetadata;
 public class PersonSearchRequest implements Serializable{
 
     private static final long serialVersionUID = 4875534327596344809L;
-    //Name
-	private String personGivenName;
-	private SearchFieldMetadata personGivenNameMetaData;
-	private String personMiddleName;
-	private String personSurName;
-	private SearchFieldMetadata personSurNameMetaData;
-
-	//Demographics
+    private PersonName personName = new PersonName();
+    private PersonName alias = new PersonName();
+    private PersonName parentName = new PersonName(); 
+    private Address address = new Address();
+    
+    private String placement; 
+    //Demographics
 	private DateTime personDateOfBirth;
 	private DateTime personDateOfBirthRangeStart;
 	private DateTime personDateOfBirthRangeEnd;
@@ -61,22 +60,22 @@ public class PersonSearchRequest implements Serializable{
 		this.personEyeColor = personEyeColor;
 	}
 	public String getPersonGivenName() {
-		return personGivenName;
+		return personName.getGivenName();
 	}
 	public void setPersonGivenName(String personGivenName) {
-		this.personGivenName = personGivenName;
+		this.personName.setGivenName(personGivenName) ;
 	}
 	public String getPersonMiddleName() {
-		return personMiddleName;
+		return personName.getMiddleName();
 	}
 	public void setPersonMiddleName(String personMiddleName) {
-		this.personMiddleName = personMiddleName;
+		this.personName.setMiddleName(personMiddleName);
 	}
 	public String getPersonSurName() {
-		return personSurName;
+		return personName.getSurName();
 	}
 	public void setPersonSurName(String personSurName) {
-		this.personSurName = personSurName;
+		this.personName.setSurName(personSurName);
 	}
 	public String getPersonSexCode() {
 		return personSexCode;
@@ -115,16 +114,16 @@ public class PersonSearchRequest implements Serializable{
 		this.personSID = personSID;
 	}
 	public SearchFieldMetadata getPersonGivenNameMetaData() {
-		return personGivenNameMetaData;
+		return personName.getGivenNameMetaData();
 	}
 	public void setPersonGivenNameMetaData(SearchFieldMetadata personGivenNameMetaData) {
-		this.personGivenNameMetaData = personGivenNameMetaData;
+		this.personName.setGivenNameMetaData( personGivenNameMetaData );
 	}
 	public SearchFieldMetadata getPersonSurNameMetaData() {
-		return personSurNameMetaData;
+		return personName.getSurNameMetaData();
 	}
 	public void setPersonSurNameMetaData(SearchFieldMetadata personSurNameMetaData) {
-		this.personSurNameMetaData = personSurNameMetaData;
+		this.personName.setSurNameMetaData( personSurNameMetaData );
 	}
 	public String getPersonDriversLicenseIssuer() {
 		return personDriversLicenseIssuer;
@@ -233,4 +232,28 @@ public class PersonSearchRequest implements Serializable{
 	public void setOnBehalfOf(String onBehalfOf) {
 		this.onBehalfOf = onBehalfOf;
 	}
+    public PersonName getAlias() {
+        return alias;
+    }
+    public void setAlias(PersonName alias) {
+        this.alias = alias;
+    }
+    public PersonName getParentName() {
+        return parentName;
+    }
+    public void setParentName(PersonName parentName) {
+        this.parentName = parentName;
+    }
+    public Address getAddress() {
+        return address;
+    }
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+    public String getPlacement() {
+        return placement;
+    }
+    public void setPlacement(String placement) {
+        this.placement = placement;
+    }
 }
