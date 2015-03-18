@@ -4,7 +4,6 @@
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/AccessControlResultsMetadata/1.0" schemaLocation="access-control-results-metadata.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/AccessControlDecisionContexts/PolicyBasedAccessControlDecisionContext/1.0" schemaLocation="AccessControlDescisionContexts/PolicyBasedAccessControlDecisionContext.xsd"/>
 	<xsd:complexType name="AccessControlResponseType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for an access control policy decision</xsd:documentation>
@@ -70,7 +69,7 @@
 			<xsd:documentation>A description of the access decision.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AccessDecisionResourceURI" type="niem-xs:anyURI">
+	<xsd:element name="AccessDecisionResourceURI" type="niem-xs:string">
 		<xsd:annotation>
 			<xsd:documentation>A resource to which an access decision has been rendered.</xsd:documentation>
 		</xsd:annotation>
