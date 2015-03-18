@@ -70,6 +70,9 @@ public class TestStaticMockAdapter {
 
     @EndpointInject(uri = "mock:personQueryResultsHandlerWarrantsServiceEndpoint")
     private MockEndpoint warrantQueryResultsMock;
+    
+    @EndpointInject(uri = "mock:juvenileIntakeHistoryResultsServiceEndpoint")
+    private MockEndpoint juvenileIntakeQueryResultsMock;
 
     @EndpointInject(uri = "mock:personQueryIncidentReportResultsServiceEndpoint")
     private MockEndpoint incidentReportQueryResultsMock;
@@ -155,6 +158,20 @@ public class TestStaticMockAdapter {
 
     @DirtiesContext
     @Test
+    public void testJuvenileIntakeQuery() throws Exception {
+        RequestParameter p = new RequestParameter();
+        p.endpoint = juvenileIntakeQueryResultsMock;
+        p.routeId = "juvenileIntakeHistoryRequestServiceEndpointRoute";
+        p.resultsHandlerEndpointName = "juvenileIntakeHistoryResultsServiceEndpoint";
+        p.requestEndpointName = "juvenileIntakeHistoryRequestServiceEndpoint";
+        p.requestMessage = buildJuvenileIntakeQueryRequest();
+        p.resultObjectXPath = "/";
+        p.expectedResultCount = 1;
+        submitExchange(p);
+    }
+
+    @DirtiesContext
+    @Test
     public void testIncidentSearch() throws Exception {
         RequestParameter p = new RequestParameter();
         p.endpoint = incidentSearchResultsMock;
@@ -205,6 +222,20 @@ public class TestStaticMockAdapter {
         p.resultsHandlerEndpointName = "personSearchResultsHandlerServiceEndpoint";
         p.requestEndpointName = "personSearchRequestServiceEndpoint";
         p.requestMessage = buildCriminalHistoryPersonSearchMessage();
+        p.resultObjectXPath = "//psres:Person";
+        p.expectedResultCount = 1;
+        submitExchange(p);
+    }
+
+    @DirtiesContext
+    @Test
+    public void testJuvenileHistoryPersonSearch() throws Exception {
+        RequestParameter p = new RequestParameter();
+        p.endpoint = personSearchResultsMock;
+        p.routeId = "personSearchRequestService";
+        p.resultsHandlerEndpointName = "personSearchResultsHandlerServiceEndpoint";
+        p.requestEndpointName = "personSearchRequestServiceEndpoint";
+        p.requestMessage = buildJuvenileHistoryPersonSearchMessage();
         p.resultObjectXPath = "//psres:Person";
         p.expectedResultCount = 1;
         submitExchange(p);
@@ -267,6 +298,19 @@ public class TestStaticMockAdapter {
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonSurName");
         lastNameElement.setTextContent("Ivey");
+        Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
+        personNameElement.removeChild(firstNameElement);
+        Element middleNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonMiddleName");
+        personNameElement.removeChild(middleNameElement);
+        return personSearchRequestMessage;
+    }
+
+    private Document buildJuvenileHistoryPersonSearchMessage() throws Exception {
+        Document personSearchRequestMessage = buildPersonSearchRequestMessagePersonNameOnly(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
+        Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
+        Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonSurName");
+        lastNameElement.setTextContent("Mosley");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
         Element middleNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonMiddleName");
@@ -340,7 +384,22 @@ public class TestStaticMockAdapter {
         Document ret = buildPersonQueryRequest(StaticMockQuery.WARRANT_MOCK_ADAPTER_QUERY_SYSTEM_ID, "sample-951708553359338252.xml");
         return ret;
     }
-
+    
+    private Document buildJuvenileIntakeQueryRequest() throws Exception {
+        Document ret = createDocument();
+        Element root = ret.createElementNS(OjbcNamespaceContext.NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC, "JuvenileHistoryQuery");
+		ret.appendChild(root);
+		root.setPrefix(OjbcNamespaceContext.NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC);
+		Element e = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryQueryCriteria");
+		Element id = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+		e = XmlUtils.appendElement(id, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		e.setTextContent("sample-1147519288796085535.xml");
+		e = XmlUtils.appendElement(id, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText");
+		e.setTextContent(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID);
+		XmlUtils.OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);
+        return ret;
+    }
+    
     private Document buildPersonQueryRequest(final String system, final String identifier) throws Exception {
         Document ret = createDocument();
         Element root = ret.createElementNS(OjbcNamespaceContext.NS_PERSON_QUERY_REQUEST, "PersonRecordRequest");
