@@ -10,8 +10,6 @@
 	<url>http://www.ojbc.org</url>
 
 	<properties>
-		<ojb-ads-utilities-version>1.0.3</ojb-ads-utilities-version>
-
 		<spring.version>3.0.7.RELEASE</spring.version>
 		<log4j.version>1.2.16</log4j.version>
 		<commons.lang.version>2.4</commons.lang.version>
