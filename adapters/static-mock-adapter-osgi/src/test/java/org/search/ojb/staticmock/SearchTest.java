@@ -29,6 +29,7 @@ public class SearchTest extends AbstractStaticMockTest {
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Warrant", staticMockQuery.getWarrantDocumentCount());
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Incident", staticMockQuery.getIncidentDocumentCount());
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/FirearmRegistration", staticMockQuery.getFirearmRegistrationDocumentCount());
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenileHistory", staticMockQuery.getJuvenileHistoryDocumentCount());
     }
 
     @Test
@@ -201,7 +202,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Element incidentNumberElement = (Element) XmlUtils.xPathNodeSearch(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityIdentification/nc:IdentificationID");
         incidentNumberElement.setTextContent("AccessDenied");
         Document searchResults = staticMockQuery.incidentSearchDocuments(incidentSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
-        XmlUtils.printNode(searchResults);
+        //XmlUtils.printNode(searchResults);
         assertTrue(XmlUtils.nodeExists(searchResults, "/isres-doc:IncidentSearchResults/srm:SearchResultsMetadata/iad:InformationAccessDenial"));
     }
 
@@ -1276,6 +1277,249 @@ public class SearchTest extends AbstractStaticMockTest {
         assertEquals("434-14-4059", ((Element) XmlUtils.xPathNodeSearch(firearmResult, "psres:Person/nc:PersonSSNIdentification/nc:IdentificationID")).getTextContent());
         assertEquals("204.2", ((Element) XmlUtils.xPathNodeSearch(firearmResult, "psres:Person/nc:PersonWeightMeasure/nc:MeasurePointValue")).getTextContent());
 
+    }
+
+    @Test
+    public void testJuvenileHistoryPersonSearchLastNameOnly() throws Exception {
+        Document personSearchRequestMessage = buildBasePersonSearchRequestMessagePersonNameOnly(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
+        Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
+        Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonSurName");
+        lastNameElement.setTextContent("Curl");
+        Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
+        personNameElement.removeChild(firstNameElement);
+        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+                personSearchRequestMessage);
+        List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+    }
+
+    @Test
+    public void testJuvenileHistoryPersonSearchByAlias() throws Exception {
+        Document personSearchRequestMessage = buildBasePersonSearchRequestMessagePersonNameOnly(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
+        Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
+        Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonSurName");
+        lastNameElement.setTextContent("Curl");
+        Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
+        personNameElement.removeChild(firstNameElement);
+        Element alternateNameElement = personSearchRequestMessage.createElementNS(OjbcNamespaceContext.NS_NC, "nc:PersonAlternateName");
+        personElement.insertBefore(alternateNameElement, personNameElement);
+        Element aliasFirstNameElement = XmlUtils.appendElement(alternateNameElement, OjbcNamespaceContext.NS_NC, "PersonGivenName");
+        aliasFirstNameElement.setTextContent("Davis");
+        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+                personSearchRequestMessage);
+        List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+        aliasFirstNameElement.setTextContent("NotAValidAlias");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(0, matches.size());
+    }
+
+    @Test
+    public void testJuvenileHistorySearchSSN() throws Exception {
+        Document personSearchRequestMessage = buildBasePersonSearchRequestMessagePersonNameOnly(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
+        Element ssnElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "nc:PersonSSNIdentification");
+        Element idElement = XmlUtils.appendElement(ssnElement, OjbcNamespaceContext.NS_NC, "nc:IdentificationID");
+        idElement.setTextContent("130-52-4238");
+        Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
+        personElement.removeChild(personNameElement);
+        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+                personSearchRequestMessage);
+        List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+    }
+    
+    @Test
+    public void testJuvenileHistorySearchByParents() throws Exception {
+        Document personSearchRequestMessage = buildJuvenilePersonSearchRequestMessage(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        Element requestElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest");
+        Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
+        NodeList children = personElement.getChildNodes();
+        int childCount = children.getLength();
+        for (int i = childCount - 1; i >= 0; i--) {
+            Node child = children.item(i);
+            if (!("PersonName".equals(child.getLocalName()))) {
+                personElement.removeChild(child);
+            }
+        }
+        Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
+        personNameElement.removeChild(XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName"));
+        Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonSurName");
+        lastNameElement.setTextContent("Curl");
+        requestElement.removeChild(XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/nc:Location"));
+        requestElement.removeChild(XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/cyfs21:Placement"));
+        Element parent = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Parent");
+        parent.removeChild(XmlUtils.xPathNodeSearch(parent, "nc:PersonBirthDate"));
+        Element parentNameElement = (Element) XmlUtils.xPathNodeSearch(parent, "nc:PersonName");
+        parentNameElement.removeChild(XmlUtils.xPathNodeSearch(parentNameElement, "nc:PersonGivenName"));
+        Element parentLastNameElement = (Element) XmlUtils.xPathNodeSearch(parentNameElement, "nc:PersonSurName");
+        parentLastNameElement.setTextContent("Curl");
+        //XmlUtils.printNode(personSearchRequestMessage);
+        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+                personSearchRequestMessage);
+        List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+        parentLastNameElement.setTextContent("Mills");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+        parentLastNameElement.setTextContent("NotAValidLastName");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(0, matches.size());
+   }
+    
+    @Test
+    public void testJuvenileHistorySearchByPlacement() throws Exception {
+        Document personSearchRequestMessage = buildJuvenilePersonSearchRequestMessage(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        Element requestElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest");
+        Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
+        NodeList children = personElement.getChildNodes();
+        int childCount = children.getLength();
+        for (int i = childCount - 1; i >= 0; i--) {
+            Node child = children.item(i);
+            if (!("PersonName".equals(child.getLocalName()))) {
+                personElement.removeChild(child);
+            }
+        }
+        Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
+        personNameElement.removeChild(XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName"));
+        Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonSurName");
+        lastNameElement.setTextContent("Curl");
+        requestElement.removeChild(XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Parent"));
+        requestElement.removeChild(XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/nc:Location"));
+        Element placementElement = (Element) XmlUtils.xPathNodeSearch(requestElement, "cyfs21:Placement/jh-placement-search-codes:PlacementCategoryCode");
+        placementElement.setTextContent("Relative/Fictive Kin");
+        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+                personSearchRequestMessage);
+        //XmlUtils.printNode(personSearchRequestMessage);
+        List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+        placementElement.setTextContent("Father");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+        placementElement.setTextContent("Mother");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(0, matches.size());
+    }
+
+    @Test
+    public void testJuvenileHistorySearchByAddress() throws Exception {
+        Document personSearchRequestMessage = buildJuvenilePersonSearchRequestMessage(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        Element requestElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest");
+        Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
+        NodeList children = personElement.getChildNodes();
+        int childCount = children.getLength();
+        for (int i = childCount - 1; i >= 0; i--) {
+            Node child = children.item(i);
+            if (!("PersonName".equals(child.getLocalName()))) {
+                personElement.removeChild(child);
+            }
+        }
+        Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
+        personNameElement.removeChild(XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName"));
+        Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonSurName");
+        lastNameElement.setTextContent("Curl");
+        requestElement.removeChild(XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Parent"));
+        requestElement.removeChild(XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/cyfs21:Placement"));
+        Element addressElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/nc:Location/nc:LocationAddress/nc:StructuredAddress");
+        Element streetElement = (Element) XmlUtils.xPathNodeSearch(addressElement, "nc:LocationStreet/nc:StreetFullText");
+        streetElement.setTextContent("3785 Elm Ave.");
+        Element cityElement = (Element) XmlUtils.xPathNodeSearch(addressElement, "nc:LocationCityName");
+        cityElement.setTextContent("Madison");
+        Element stateElement = (Element) XmlUtils.xPathNodeSearch(addressElement, "nc:LocationStateFIPS5-2AlphaCode");
+        stateElement.setTextContent("NY");
+        Element zipElement = (Element) XmlUtils.xPathNodeSearch(addressElement, "nc:LocationPostalCode");
+        zipElement.setTextContent("12345");
+        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+                personSearchRequestMessage);
+        //XmlUtils.printNode(personSearchRequestMessage);
+        List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+        streetElement.setTextContent("3784 Elm Ave.");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(0, matches.size());
+        streetElement.setTextContent("3785 Elm Ave.");
+        cityElement.setTextContent("NotTheRightCity");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(0, matches.size());
+        cityElement.setTextContent("Madison");
+        stateElement.setTextContent("TN");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(0, matches.size());
+        stateElement.setTextContent("NY");
+        zipElement.setTextContent("54321");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(0, matches.size());
+        zipElement.setTextContent("12345");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+  }
+
+    @Test
+    public void testJuvenileHistorySearchSID() throws Exception {
+        Document personSearchRequestMessage = buildBasePersonSearchRequestMessagePersonNameOnly(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
+        Element augElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
+        Element sidElement = XmlUtils.appendElement(augElement, OjbcNamespaceContext.NS_JXDM_41, "j:PersonStateFingerprintIdentification");
+        Element idElement = XmlUtils.appendElement(sidElement, OjbcNamespaceContext.NS_NC, "nc:IdentificationID");
+        idElement.setTextContent("A3203477");
+        Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
+        personElement.removeChild(personNameElement);
+        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+                personSearchRequestMessage);
+        //XmlUtils.printNode(personSearchRequestMessage);
+        List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+        Document personSearchResults = staticMockQuery.searchDocuments(personSearchRequestMessage);
+    }
+
+    @Test
+    public void testJuvenileHistorySearchLastNameAndDateOfBirth() throws Exception {
+        Document personSearchRequestMessage = buildBasePersonSearchRequestMessagePersonNameOnly(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
+        Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
+        Element dateOfBirthElement = XmlUtils.insertElementBefore(personElement, personNameElement, OjbcNamespaceContext.NS_NC, "nc:PersonBirthDate");
+        Element d = XmlUtils.appendElement(dateOfBirthElement, OjbcNamespaceContext.NS_NC, "Date");
+        d.setTextContent("2002-03-02");
+        Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonSurName");
+        lastNameElement.setTextContent("Curl");
+        Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
+        personNameElement.removeChild(firstNameElement);
+        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+                personSearchRequestMessage);
+        List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+        personElement.removeChild(dateOfBirthElement);
+        Element dobRangeElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "PersonBirthDateRange");
+        Element dateElement = XmlUtils.appendElement(dobRangeElement, OjbcNamespaceContext.NS_NC, "StartDate");
+        dateElement = XmlUtils.appendElement(dateElement, OjbcNamespaceContext.NS_NC, "Date");
+        dateElement.setTextContent("2002-03-01");
+        dateElement = XmlUtils.appendElement(dobRangeElement, OjbcNamespaceContext.NS_NC, "EndDate");
+        dateElement = XmlUtils.appendElement(dateElement, OjbcNamespaceContext.NS_NC, "Date");
+        dateElement.setTextContent("2002-03-03");
+        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+                personSearchRequestMessage);
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+    }
+
+    @Test
+    public void testJuvenileHistoryPersonSearchLastNameFirstName() throws Exception {
+        Document personSearchRequestMessage = buildBasePersonSearchRequestMessagePersonNameOnly(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
+        Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
+        Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonSurName");
+        lastNameElement.setTextContent("Curl");
+        Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
+        firstNameElement.setTextContent("Abel");
+        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+                personSearchRequestMessage);
+        List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(1, matches.size());
+        firstNameElement.setTextContent("NotThePersonsName");
+        matches = submitDocumentPersonSearch(personSearchRequestMessage);
+        assertEquals(0, matches.size());
     }
 
     private List<IdentifiableDocumentWrapper> submitDocumentPersonSearch(Document personSearchRequestMessage) throws Exception {

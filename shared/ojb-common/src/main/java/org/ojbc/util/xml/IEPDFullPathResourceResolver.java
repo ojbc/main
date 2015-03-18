@@ -51,7 +51,9 @@ public class IEPDFullPathResourceResolver implements LSResourceResolver{
 			
 			for(String iEndOfPath : possibleSysIdPathList){		
 							    
-			    URL testUrl = getClass().getClassLoader().getResource(iBeginningOfPath + "/" + iEndOfPath);
+			    String urlString = iBeginningOfPath + "/" + iEndOfPath;
+			    urlString = urlString.replace("//", "/");
+				URL testUrl = getClass().getClassLoader().getResource(urlString);
 			    			    								
 				InputStream resourceInStream = null;
 				
@@ -89,6 +91,7 @@ public class IEPDFullPathResourceResolver implements LSResourceResolver{
 		
 		// would not arrive here if a path was found
 		throw new RuntimeException("Did not resolve resource: \n "
+				+ "type=" + type + ", namespaceURI=" + namespaceURI + ",publicId=" + publicId + ",systemId=" + systemId + ",baseURI=" + baseURI + "\n"
 				+ "PATHS FAILED: \n" 
 				+ failPathsReadable + "\n"
 				+ "PATHS FOUND: \n"
