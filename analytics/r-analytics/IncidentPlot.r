@@ -7,8 +7,8 @@ library(dplyr)
 library(RMySQL)
 library(ggmap)
 
-state_shp <- readOGR("/Users/scott/Documents/R-expt/Shapefiles/tl_2014_us_state", "tl_2014_us_state")
-county_shp = readOGR("/Users/scott/Documents/R-expt/Shapefiles/tl_2014_us_county/", "tl_2014_us_county")
+state_shp <- readOGR("/opt/data//Shapefiles/tl_2014_us_state", "tl_2014_us_state")
+county_shp = readOGR("/opt/data/Shapefiles/tl_2014_us_county/", "tl_2014_us_county")
 
 state_df <- state_shp@data
 stateFips <- as.character(filter(state_df, STUSPS==STATE)$STATEFP)
@@ -32,7 +32,7 @@ map <- ggplot() +
 
 map
 
-city <- get_map("Augusta, Maine", zoom=12, source = "osm")
+city <- get_map("Augusta, Maine", zoom=12, source = "google")
 map <- ggmap(city) + 
   geom_point(data=Incident, aes(x = IncidentLocationLongitude, y=IncidentLocationLatitude, colour=IncidentTypeDescription), size=4)
 map

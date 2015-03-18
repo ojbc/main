@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.0/" schemaLocation="./Subset/niem/domains/intelligence/3.0/intelligence.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="http://www.w3.org/2004/08/xop/include"/>
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="http://www.w3.org/2005/05/xmlmime"/>
 	<xsd:complexType name="PersonIdentificationRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a set of details associated with a person identification request.</xsd:documentation>
@@ -41,7 +43,11 @@
 			<xsd:documentation>A data type for a document containing identification information.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:BinaryType"/>
+			<xsd:extension base="nc:BinaryType">
+				<xsd:sequence>
+					<xsd:element ref="xop:Include"/>
+				</xsd:sequence>
+			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="LinkedSystemType">
@@ -71,7 +77,7 @@
 			<xsd:documentation>An identification results document.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocumentBinary" type="niem-xs:base64Binary" substitutionGroup="nc:BinaryObject" xmime:expectedContentTypes="image/jpeg, image/png">
+	<xsd:element name="DocumentBinary" type="xmime:base64Binary" substitutionGroup="nc:BinaryObject">
 		<xsd:annotation>
 			<xsd:documentation>A binary representation of an identification document.</xsd:documentation>
 		</xsd:annotation>

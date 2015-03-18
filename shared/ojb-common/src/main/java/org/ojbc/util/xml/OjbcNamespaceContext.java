@@ -145,7 +145,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_FIREARM_REGISTRATION_QUERY_REQUEST_EXT = "http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0";
     public static final String NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC = "firearm-reg-req-doc";
     public static final String NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT = "firearm-reg-req-ext";
-
+    
     public static final String NS_PREFIX_FIREARM_DOC = "firearm-doc";
     public static final String NS_PREFIX_FIREARM_EXT = "firearm-ext";
 
@@ -333,6 +333,61 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     
     public static final String NS_ACKNOWLEGEMENT_RECORDING_RESULT_METADATA = "http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponseMetadata/1.0";
     public static final String NS_PREFIX_ACKNOWLEGEMENT_RECORDING_RESULT_METADATA = "arr-srm";
+    
+    public static final String NS_JUVENILE_HISTORY_CONTAINER = "http://ojbc.org/staticmock/JuvenileHistoryContainer/1.0";
+    public static final String NS_PREFIX_JUVENILE_HISTORY_CONTAINER = "jh-container";
+    
+	public static final String NS_JUVENILE_HISTORY_CASE_PLAN = "http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0";
+	public static final String NS_JUVENILE_HISTORY_HEARING = "http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHearingHistoryResponse/1.0";
+	public static final String NS_JUVENILE_HISTORY_INTAKE = "http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0";
+	public static final String NS_JUVENILE_HISTORY_OFFENSE = "http://ojbc.org/IEPD/Exchange/JuvenileOffenseHistoryResponse/1.0";
+	public static final String NS_JUVENILE_HISTORY_PLACEMENT = "http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0";
+	public static final String NS_JUVENILE_HISTORY_REFERRAL = "http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0";
+	
+	public static final String NS_PREFIX_JUVENILE_HISTORY_CASE_PLAN = "jh-case-plan-doc";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_HEARING = "jh-hearing-doc";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_INTAKE = "jh-intake-doc";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_OFFENSE = "jh-offense-doc";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_PLACEMENT = "jh-placement-doc";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_REFERRAL = "jh-referral-doc";
+
+	public static final String NS_JUVENILE_HISTORY_CASE_PLAN_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0";
+	public static final String NS_JUVENILE_HISTORY_HEARING_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0";
+	public static final String NS_JUVENILE_HISTORY_INTAKE_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0";
+	public static final String NS_JUVENILE_HISTORY_OFFENSE_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/1.0";
+	public static final String NS_JUVENILE_HISTORY_PLACEMENT_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0";
+	public static final String NS_JUVENILE_HISTORY_REFERRAL_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0";
+	public static final String NS_JUVENILE_HISTORY_EXT = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0";
+	
+	public static final String NS_PREFIX_JUVENILE_HISTORY_CASE_PLAN_EXT = "jh-case-plan";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_HEARING_EXT = "jh-hearing";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_INTAKE_EXT = "jh-intake";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_OFFENSE_EXT = "jh-offense";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_EXT = "jh-placement";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_REFERRAL_EXT = "jh-referral";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_EXT = "jh-ext";
+	
+	public static final String NS_JUVENILE_HISTORY_REFERRAL_CODES = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_REFERRAL_CODES = "jh-referral-codes";
+	public static final String NS_JUVENILE_HISTORY_OFFENSE_CODES = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileOffenseHistoryExtension/michigan/codes/1.0";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_OFFENSE_CODES = "jh-offense-codes";
+	public static final String NS_JUVENILE_HISTORY_PLACEMENT_CODES = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_CODES = "jh-placement-codes";
+	public static final String NS_JUVENILE_HISTORY_INTAKE_CODES = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/michigan/codes/1.0";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_INTAKE_CODES = "jh-intake-codes";
+	public static final String NS_JUVENILE_HISTORY_HEARING_CODES = "http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_HEARING_CODES = "jh-hearing-codes";
+	
+    public static final String NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC = "jh-req-doc";
+    public static final String NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0";
+
+	public static final String NS_CYFS = "http://release.niem.gov/niem/domains/cyfs/3.0/";
+	public static final String NS_PREFIX_CYFS = "cyfs";
+
+	public static final String NS_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES = "http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0";
+	public static final String NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES = "jh-placement-search-codes";
+	public static final String NS_CYFS_21 = "http://niem.gov/niem/domains/cyfs/2.1/1";
+	public static final String NS_PREFIX_CYFS_21 = "cyfs21";
 
     public static final String NS_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE = "http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0";
     public static final String NS_PREFIX_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE = "crimhistory-update-exch";
@@ -347,6 +402,56 @@ public final class OjbcNamespaceContext implements NamespaceContext {
         prefixToUriMap = new HashMap<String, String>();
         uriToPrefixMap = new HashMap<String, String>();
 
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC, NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC, NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_CONTAINER, NS_JUVENILE_HISTORY_CONTAINER);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_CONTAINER, NS_PREFIX_JUVENILE_HISTORY_CONTAINER);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES, NS_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES, NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_SEARCH_CODES);
+        prefixToUriMap.put(NS_PREFIX_CYFS_21, NS_CYFS_21);
+        uriToPrefixMap.put(NS_CYFS_21, NS_PREFIX_CYFS_21);
+        
+        prefixToUriMap.put(NS_PREFIX_CYFS, NS_CYFS);
+        uriToPrefixMap.put(NS_CYFS, NS_PREFIX_CYFS);
+
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_REFERRAL_CODES, NS_JUVENILE_HISTORY_REFERRAL_CODES);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_REFERRAL_CODES, NS_PREFIX_JUVENILE_HISTORY_REFERRAL_CODES);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_OFFENSE_CODES, NS_JUVENILE_HISTORY_OFFENSE_CODES);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_OFFENSE_CODES, NS_PREFIX_JUVENILE_HISTORY_OFFENSE_CODES);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_CODES, NS_JUVENILE_HISTORY_PLACEMENT_CODES);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_PLACEMENT_CODES, NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_CODES);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_INTAKE_CODES, NS_JUVENILE_HISTORY_INTAKE_CODES);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_INTAKE_CODES, NS_PREFIX_JUVENILE_HISTORY_INTAKE_CODES);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_HEARING_CODES, NS_JUVENILE_HISTORY_HEARING_CODES);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_HEARING_CODES, NS_PREFIX_JUVENILE_HISTORY_HEARING_CODES);
+        
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_CASE_PLAN, NS_JUVENILE_HISTORY_CASE_PLAN);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_CASE_PLAN, NS_PREFIX_JUVENILE_HISTORY_CASE_PLAN);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_HEARING, NS_JUVENILE_HISTORY_HEARING);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_HEARING, NS_PREFIX_JUVENILE_HISTORY_HEARING);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_INTAKE, NS_JUVENILE_HISTORY_INTAKE);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_INTAKE, NS_PREFIX_JUVENILE_HISTORY_INTAKE);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_OFFENSE, NS_JUVENILE_HISTORY_OFFENSE);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_OFFENSE, NS_PREFIX_JUVENILE_HISTORY_OFFENSE);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_PLACEMENT, NS_JUVENILE_HISTORY_PLACEMENT);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_PLACEMENT, NS_PREFIX_JUVENILE_HISTORY_PLACEMENT);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_REFERRAL, NS_JUVENILE_HISTORY_REFERRAL);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_REFERRAL, NS_PREFIX_JUVENILE_HISTORY_REFERRAL);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_CASE_PLAN_EXT, NS_JUVENILE_HISTORY_CASE_PLAN_EXT);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_CASE_PLAN_EXT, NS_PREFIX_JUVENILE_HISTORY_CASE_PLAN_EXT);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_HEARING_EXT, NS_JUVENILE_HISTORY_HEARING_EXT);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_HEARING_EXT, NS_PREFIX_JUVENILE_HISTORY_HEARING_EXT);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_INTAKE_EXT, NS_JUVENILE_HISTORY_INTAKE_EXT);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_INTAKE_EXT, NS_PREFIX_JUVENILE_HISTORY_INTAKE_EXT);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_OFFENSE_EXT, NS_JUVENILE_HISTORY_OFFENSE_EXT);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_OFFENSE_EXT, NS_PREFIX_JUVENILE_HISTORY_OFFENSE_EXT);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_EXT, NS_JUVENILE_HISTORY_PLACEMENT_EXT);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_PLACEMENT_EXT, NS_PREFIX_JUVENILE_HISTORY_PLACEMENT_EXT);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_REFERRAL_EXT, NS_JUVENILE_HISTORY_REFERRAL_EXT);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_REFERRAL_EXT, NS_PREFIX_JUVENILE_HISTORY_REFERRAL_EXT);
+        prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_EXT, NS_JUVENILE_HISTORY_EXT);
+        uriToPrefixMap.put(NS_JUVENILE_HISTORY_EXT, NS_PREFIX_JUVENILE_HISTORY_EXT);
+        
         prefixToUriMap.put(NS_SOAP_PREFIX, NS_SOAP);
         uriToPrefixMap.put(NS_SOAP, NS_SOAP_PREFIX);
         prefixToUriMap.put(NS_PREFIX_JXDM_40, NS_JXDM_40);
