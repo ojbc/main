@@ -13,8 +13,8 @@
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" schemaLocation="member-extensions/hawaii/hawaii-statewide-firearm-codes.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0" schemaLocation="member-extensions/demostate/demostate-firearm-codes.xsd"/>
+<!-- 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" schemaLocation="member-extensions/hawaii/hawaii-statewide-firearm-codes.xsd"/> -->
+<!-- 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0" schemaLocation="member-extensions/demostate/demostate-firearm-codes.xsd"/> -->
 	<xsd:complexType name="FirearmSearchResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with a Firearm.</xsd:documentation>
