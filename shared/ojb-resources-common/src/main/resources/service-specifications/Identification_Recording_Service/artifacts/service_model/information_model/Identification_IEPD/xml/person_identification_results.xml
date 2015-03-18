@@ -37,7 +37,7 @@
 	</ext:IdentificationApplicantOrganization>
 	<ext:IdentificationResultsDocument structures:id="Doc_01">
 		<ext:DocumentBinary xmime:contentType="text/plain"/>
-				<xop:Include href="'cid:http://ojbc.org/identification/results/example"/>
+				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
 	</ext:IdentificationResultsDocument>
 	<ext:LinkedSystems>
 		<intel:SystemIdentification>
