@@ -12,5 +12,6 @@
     <module>ojb-osgi-test-common</module>
     <module>ojb-osgi-common-tests</module>
     <module>ojb-resources-common</module>
+    <module>ojb-ui-common</module>
   </modules>
 </project>
