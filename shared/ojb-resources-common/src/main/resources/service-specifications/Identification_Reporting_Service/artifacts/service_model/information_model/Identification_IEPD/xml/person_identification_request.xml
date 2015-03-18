@@ -32,7 +32,7 @@
 	</ext:IdentificationApplicantOrganization>
 	<ext:IdentificationRequestDocument structures:id="Doc_01">
 		<ext:DocumentBinary xmime:contentType="text/plain"/>
-				<xop:Include href="'cid:http://ojbc.org/identification/request/example"/>
+				<xop:Include href="cid:http://ojbc.org/identification/request/example"/>
 	</ext:IdentificationRequestDocument>
 	<nc:PersonDocumentAssociation>
 		<nc:Person structures:ref="Subject01"/>
