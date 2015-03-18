@@ -49,8 +49,8 @@ public class StaticMockQuery {
 	public static final String FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms";
 	public static final String FIREARM_MOCK_ADAPTER_FIREARM_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest";
 	public static final String JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory";
-	public static final String JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service---JuvenileHistory";
-	
+	public static final String JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory";
+
 	public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByPerson";
 	public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByFirearm";;
 
