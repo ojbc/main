@@ -5,7 +5,7 @@
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-camel-common</artifactId>
 	<version>1.0.0</version>
-	<name>ojb-camel-common</name>
+	<name>OJB :: ojb-camel-common :: shared</name>
 	<packaging>bundle</packaging>
 
 	<url>http://www.ojbc.org</url>

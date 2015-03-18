@@ -10,6 +10,7 @@
   <modules>
  	  <module>static-mock-adapter-osgi</module>
      <module>static-mock-adapter</module>
+     <module>n-dex-submission-service-mock-adapter</module>
   </modules>
 
 </project>
