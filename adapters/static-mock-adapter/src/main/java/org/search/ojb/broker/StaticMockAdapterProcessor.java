@@ -1,6 +1,7 @@
 package org.search.ojb.broker;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.search.ojb.staticmock.StaticMockQuery;
@@ -15,7 +16,7 @@ public class StaticMockAdapterProcessor {
     {
         log.debug("Enter method - Call Response Handler for service");
         Document requestDocument = exchange.getIn().getBody(Document.class);
-        Document response = staticMockQuery.searchDocuments(requestDocument);
+        Document response = staticMockQuery.searchDocuments(requestDocument, exchange.getProperty(getClass().getName() + ".context"));
         exchange.getIn().setBody(response);
     }
     
@@ -23,7 +24,7 @@ public class StaticMockAdapterProcessor {
     {
         log.debug("Enter method - Call Response Handler for service");
         Document requestDocument = exchange.getIn().getBody(Document.class);
-        Document response = staticMockQuery.queryDocuments(requestDocument).get(0).getDocument();
+        Document response = staticMockQuery.queryDocuments(requestDocument, exchange.getProperty(getClass().getName() + ".context")).get(0).getDocument();
         exchange.getIn().setBody(response);
     }
 

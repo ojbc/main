@@ -483,7 +483,11 @@
 				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
 
 			<camel:log message="Calling static mock adapter" />
-
+			
+			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+				<constant>JuvenileCasePlanHistory</constant>
+			</camel:setProperty>
+			
 			<camel:to
 				uri="bean:staticMockAdapterProcessor?method=query" />
 
@@ -521,6 +525,10 @@
 
 			<camel:log message="Calling static mock adapter" />
 
+			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+				<constant>JuvenileHearingHistory</constant>
+			</camel:setProperty>
+			
 			<camel:to
 				uri="bean:staticMockAdapterProcessor?method=query" />
 
@@ -558,6 +566,10 @@
 
 			<camel:log message="Calling static mock adapter" />
 
+			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+				<constant>JuvenileIntakeHistory</constant>
+			</camel:setProperty>
+			
 			<camel:to
 				uri="bean:staticMockAdapterProcessor?method=query" />
 
@@ -595,6 +607,10 @@
 
 			<camel:log message="Calling static mock adapter" />
 
+			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+				<constant>JuvenileOffenseHistory</constant>
+			</camel:setProperty>
+			
 			<camel:to
 				uri="bean:staticMockAdapterProcessor?method=query" />
 
@@ -632,6 +648,10 @@
 
 			<camel:log message="Calling static mock adapter" />
 
+			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+				<constant>JuvenilePlacementHistory</constant>
+			</camel:setProperty>
+			
 			<camel:to
 				uri="bean:staticMockAdapterProcessor?method=query" />
 
@@ -669,6 +689,10 @@
 
 			<camel:log message="Calling static mock adapter" />
 
+			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+				<constant>JuvenileReferralHistory</constant>
+			</camel:setProperty>
+			
 			<camel:to
 				uri="bean:staticMockAdapterProcessor?method=query" />
 
