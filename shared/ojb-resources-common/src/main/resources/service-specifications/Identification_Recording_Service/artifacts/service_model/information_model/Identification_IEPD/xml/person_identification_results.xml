@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pidresults:PersonIdentificationResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0 ../xsd/person_identification_results_schema.xsd" xmlns:pidresults="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<pidresults:PersonIdentificationResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0 ../xsd/person_identification_results_schema.xsd" xmlns:pidresults="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentIdentification>
-		<nc:IdentificationID>D5673124</nc:IdentificationID>
+		<nc:IdentificationID>D56124</nc:IdentificationID>
 	</nc:DocumentIdentification>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
@@ -36,7 +36,8 @@
 		</j:OrganizationAugmentation>
 	</ext:IdentificationApplicantOrganization>
 	<ext:IdentificationResultsDocument structures:id="Doc_01">
-		<ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</ext:DocumentBinary>
+		<ext:DocumentBinary xmime:contentType="text/plain"/>
+				<xop:Include href="'cid:http://ojbc.org/identification/results/example"/>
 	</ext:IdentificationResultsDocument>
 	<ext:LinkedSystems>
 		<intel:SystemIdentification>
