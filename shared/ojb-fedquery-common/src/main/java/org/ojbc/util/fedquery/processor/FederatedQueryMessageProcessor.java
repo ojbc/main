@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
-import org.ojbc.util.model.query.FederatedQueryProfile;
+import org.ojbc.util.fedquery.FederatedQueryProfile;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

@@ -104,31 +104,62 @@
 		<!-- Federated Search Request Handlers-->
 		<camel:route id="juvenileCasePlanHistoryRequestFederatedServiceRoute">
 			<camel:from uri="juvenileCasePlanHistoryRequestFederatedServiceEndpoint" />
+
+            <camel:setHeader headerName="historyType">
+                  <constant>CasePlan</constant>
+            </camel:setHeader>
+                     			
 			<camel:to uri="direct:federatedServiceEndpoint" />
 		</camel:route>	
 
 		<camel:route id="juvenileHearingHistoryRequestFederatedServiceRoute">
 			<camel:from uri="juvenileHearingHistoryRequestFederatedServiceEndpoint" />
+
+            <camel:setHeader headerName="historyType">
+                  <constant>Hearing</constant>
+            </camel:setHeader>
+                     			
+			
 			<camel:to uri="direct:federatedServiceEndpoint" />
 		</camel:route>	
 
 		<camel:route id="juvenileIntakeHistoryRequestFederatedServiceRoute">
 			<camel:from uri="juvenileIntakeHistoryRequestFederatedServiceEndpoint" />
+
+            <camel:setHeader headerName="historyType">
+                  <constant>Intake</constant>
+            </camel:setHeader>
+			
 			<camel:to uri="direct:federatedServiceEndpoint" />
 		</camel:route>	
 
 		<camel:route id="juvenileOffenseHistoryRequestFederatedServiceRoute">
 			<camel:from uri="juvenileOffenseHistoryRequestFederatedServiceEndpoint" />
+
+            <camel:setHeader headerName="historyType">
+                  <constant>Offense</constant>
+            </camel:setHeader>
+                     			
 			<camel:to uri="direct:federatedServiceEndpoint" />
 		</camel:route>	
 
 		<camel:route id="juvenilePlacementHistoryRequestFederatedServiceRoute">
 			<camel:from uri="juvenilePlacementHistoryRequestFederatedServiceEndpoint" />
+
+            <camel:setHeader headerName="historyType">
+                  <constant>Placement</constant>
+            </camel:setHeader>
+                     			
 			<camel:to uri="direct:federatedServiceEndpoint" />
 		</camel:route>	
 
 		<camel:route id="juvenileReferralHistoryRequestFederatedServiceRoute">
 			<camel:from uri="juvenileReferralHistoryRequestFederatedServiceEndpoint" />
+
+            <camel:setHeader headerName="historyType">
+                  <constant>Referral</constant>
+            </camel:setHeader>
+                     			
 			<camel:to uri="direct:federatedServiceEndpoint" />
 		</camel:route>	
 

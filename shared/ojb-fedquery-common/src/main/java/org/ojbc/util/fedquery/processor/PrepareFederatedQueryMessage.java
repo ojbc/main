@@ -7,7 +7,6 @@ import java.util.Set;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.component.cxf.CxfPayload;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,7 +26,7 @@ import org.w3c.dom.NodeList;
  *  
  *  It also preserves the WS Addressing message ID and replyTo values.
  *  
- *  Prior to calling the adapter, it will updated the source sytems node to include the adapter that is being called.
+ *  Prior to calling the adapter, it will updated the source systems node to include the adapter that is being called.
  * 
  * @author Yogesh Chawla
  *
@@ -36,39 +35,40 @@ public class PrepareFederatedQueryMessage  implements Processor{
 
 	private static final Log log = LogFactory.getLog( PrepareFederatedQueryMessage.class );
 	
-	private URIToAdapterAddressProcessor uriToAdapterAddressProcessor;
-
-	private Map<String, String> federatedQueryEndpointMap;
+	private ExchangeDestinationLookupStrategy exchangeDestinationLookupStrategy;
 	
-	@SuppressWarnings("rawtypes")
 	public void process(Exchange exchange) throws Exception {
 		
 		//Get System Name from the split exchange
 		Element systemNameElement = (Element)exchange.getIn().getBody();
 		String systemName = systemNameElement.getTextContent();    			
 		log.debug("System name in prepare ref for Splitter: " + systemName);
-
-		//Set Header to call web service using recipient list in camel route
-		String endpointName = federatedQueryEndpointMap.get(systemName);
-		exchange.getIn().setHeader("webServiceEndpointToCall", endpointName);
+		
+		//Provide the system name that we are calling as a convenience to ExchangeDestinationLookupStrategy
+		exchange.getIn().setHeader("systemNameURI", systemName);
 		
 		//Remove system names from message
-		
 		//Retrieve original request message that is a Camel Header
 		Document requestMessage = (Document)exchange.getIn().getHeader("requestMessageBody");
 		
     	//Set body to request message with only source system name of adapter being called.
     	Document requestMessageWithSystemNameForAdapter = removeSystemNamesNotIntendedForAdapter(requestMessage, systemName);
     	exchange.getIn().setBody(requestMessageWithSystemNameForAdapter);
-
+    	
+		//Set Header to call web service using recipient list in camel route
+		String endpointName = exchangeDestinationLookupStrategy.getCXFEndpointName(exchange);
+		exchange.getIn().setHeader("webServiceEndpointToCall", endpointName);
+		
     	//Set the Destination Override URL map entry so we can set the adapter address
-    	if (uriToAdapterAddressProcessor != null)
+    	String cxfEndpointAddress = exchangeDestinationLookupStrategy.getCXFEndpointAddress(exchange);
+    	
+    	if (StringUtils.isNotBlank(cxfEndpointAddress))
     	{	
-	    	exchange.getIn().setHeader("adapterURI", systemName);
-	    	uriToAdapterAddressProcessor.overrideCXFAddress(exchange);
+    		log.debug("Setting CXF endpoint address to: " + cxfEndpointAddress);
+    		exchange.getIn().setHeader(Exchange.DESTINATION_OVERRIDE_URL,cxfEndpointAddress);
     	}	
     	
-		//Get message ID
+    	//Get message ID
     	Map<String, Object> requestContext = prepareWSAddressingParamters(exchange);
     	log.debug("Federated Query ID: " + exchange.getIn().getHeader("federatedQueryRequestGUID"));
     	
@@ -137,23 +137,15 @@ public class PrepareFederatedQueryMessage  implements Processor{
     	 return clonedRequestDocument;
 	}
 
-	public URIToAdapterAddressProcessor getUriToAdapterAddressProcessor() {
-		return uriToAdapterAddressProcessor;
+	public ExchangeDestinationLookupStrategy getExchangeDestinationLookupStrategy() {
+		return exchangeDestinationLookupStrategy;
 	}
 
-	public void setUriToAdapterAddressProcessor(
-			URIToAdapterAddressProcessor uriToAdapterAddressProcessor) {
-		this.uriToAdapterAddressProcessor = uriToAdapterAddressProcessor;
+	public void setExchangeDestinationLookupStrategy(
+			ExchangeDestinationLookupStrategy exchangeDestinationLookupStrategy) {
+		this.exchangeDestinationLookupStrategy = exchangeDestinationLookupStrategy;
 	}
 
-	public Map<String, String> getFederatedQueryEndpointMap() {
-		return federatedQueryEndpointMap;
-	}
-
-	public void setFederatedQueryEndpointMap(
-			Map<String, String> federatedQueryEndpointMap) {
-		this.federatedQueryEndpointMap = federatedQueryEndpointMap;
-	}
 
 
 }
