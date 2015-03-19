@@ -22,8 +22,7 @@ import org.w3c.dom.NodeList;
 public final class OjbcNamespaceContext implements NamespaceContext {
 
     @SuppressWarnings("unused")
-    private static final Log log = LogFactory
-            .getLog(OjbcNamespaceContext.class);
+    private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 
     public static final String NS_DISPOSITION_EXCHANGE = "http://ojbc.org/IEPD/Exchange/DispositionReport/1.0";
     public static final String NS_DISPOSITION_EXCHANGE_PREFIX = "disp_exc";
@@ -878,8 +877,14 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public void populateRootNamespaceDeclarations(Element e) {
         Set<String> namespaceURIs = collectNamespaceURIs(e);
         for (String uri : namespaceURIs) {
-            e.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"
-                    + getPrefix(uri), uri);
+            String prefix = getPrefix(uri);
+            if (prefix == null) {
+            	if (!"http://www.w3.org/2000/xmlns/".equals(uri)) {
+            		log.warn("Namespace URI " + uri + " not found in OjbcNamespaceContext");
+            	}
+            } else {
+            	e.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:" + prefix, uri);
+            }
         }
     }
 
