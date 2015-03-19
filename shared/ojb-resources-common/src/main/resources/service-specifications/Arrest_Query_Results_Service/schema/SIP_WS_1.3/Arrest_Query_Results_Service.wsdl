@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:aqresults="http://ojbc.org/IEPD/Exchange/ArrestQueryResults/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/ArrestQueryResultsService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://ojbc.org/Services/WSDL/ArrestQueryResultsService/1.0">
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:aqresults="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/ArrestQueryResultsService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://ojbc.org/Services/WSDL/ArrestQueryResultsService/1.0">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestQueryResults/1.0" schemaLocation="../../artifacts/service_model/information_model/Arrest_Report_IEPD/xsd/arrest_query_results_schema.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" schemaLocation="../../artifacts/service_model/information_model/Arrest_Report_IEPD/xsd/exchange_schema/Arrest_Report.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="ArrestQueryResults">
-		<wsdl:part name="ArrestQueryResults" element="aqresults:ArrestQueryResults"/>
+		<wsdl:part name="ArrestQueryResults" element="aqresults:ArrestReport"/>
 	</wsdl:message>
 	<wsdl:portType name="Arrest-Query-Results-Service">
 		<wsdl:operation name="SubmitArrestQueryResults">
