@@ -500,7 +500,7 @@
 				<constant>SubmitJuvenileCasePlanHistoryResponse</constant>
 			</camel:setHeader>
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/CasePlanResults/1.0</constant>
 			</camel:setHeader>
 
 			<camel:to uri="juvenileCasePlanHistoryResultsServiceEndpoint" />
@@ -541,7 +541,7 @@
 				<constant>SubmitJuvenileHearingHistoryResponse</constant>
 			</camel:setHeader>
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/HearingResults/1.0</constant>
 			</camel:setHeader>
 
 			<camel:to uri="juvenileHearingHistoryResultsServiceEndpoint" />
@@ -582,7 +582,7 @@
 				<constant>SubmitJuvenileIntakeHistoryResponse</constant>
 			</camel:setHeader>
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/IntakeResults/1.0</constant>
 			</camel:setHeader>
 
 			<camel:to uri="juvenileIntakeHistoryResultsServiceEndpoint" />
@@ -623,7 +623,7 @@
 				<constant>SubmitJuvenileOffenseHistoryResponse</constant>
 			</camel:setHeader>
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/OffenseResults/1.0</constant>
 			</camel:setHeader>
 
 			<camel:to uri="juvenileOffenseHistoryResultsServiceEndpoint" />
@@ -664,7 +664,7 @@
 				<constant>SubmitJuvenilePlacementHistoryResponse</constant>
 			</camel:setHeader>
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/PlacementResults/1.0</constant>
 			</camel:setHeader>
 
 			<camel:to uri="juvenilePlacementHistoryResultsServiceEndpoint" />
@@ -705,7 +705,7 @@
 				<constant>SubmitJuvenileReferralHistoryResponse</constant>
 			</camel:setHeader>
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/ReferralResults/1.0</constant>
 			</camel:setHeader>
 
 			<camel:to uri="juvenileReferralHistoryResultsServiceEndpoint" />
