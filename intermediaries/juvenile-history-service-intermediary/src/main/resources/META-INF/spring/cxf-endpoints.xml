@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- Configures the Camel Context-->
-<!-- These are common endpoints which are used by all member implementations -->
+<!-- Configures the CXF endpoints-->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -77,6 +76,7 @@
 	<!-- Juvenile Case Plan History Results Service, hosted by Portal -->
 	<cxf:cxfEndpoint id="juvenileCasePlanHistoryResultsPortalService"
 		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		address="${juvenileHistoryServices.presentCasePlanHistoryResultsServiceEndpoint}"
 		serviceName="ojbc:JuvenileCasePlanHistoryResultsService"
 		endpointName="ojbc:JuvenileCasePlanHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
@@ -143,6 +143,7 @@
 	<!-- Juvenile Hearing History Results Service, hosted by Portal -->
 	<cxf:cxfEndpoint id="juvenileHearingHistoryResultsPortalService"
 		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		address="${juvenileHistoryServices.presentHearingHistoryResultsServiceEndpoint}"
 		serviceName="ojbc:JuvenileHearingHistoryResultsService"
 		endpointName="ojbc:JuvenileHearingHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
@@ -209,6 +210,7 @@
 	<!-- Juvenile Intake History Results Service, hosted by Portal -->
 	<cxf:cxfEndpoint id="juvenileIntakeHistoryResultsPortalService"
 		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		address="${juvenileHistoryServices.presentIntakeHistoryResultsServiceEndpoint}"
 		serviceName="ojbc:JuvenileIntakeHistoryResultsService"
 		endpointName="ojbc:JuvenileIntakeHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
@@ -276,6 +278,7 @@
 	<!-- Juvenile Offense History Results Service, hosted by Portal -->
 	<cxf:cxfEndpoint id="juvenileOffenseHistoryResultsPortalService"
 		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		address="${juvenileHistoryServices.presentOffenseHistoryResultsServiceEndpoint}"
 		serviceName="ojbc:JuvenileOffenseHistoryResultsService"
 		endpointName="ojbc:JuvenileOffenseHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
@@ -342,6 +345,7 @@
 	<!-- Juvenile Placement History Results Service, hosted by Portal -->
 	<cxf:cxfEndpoint id="juvenilePlacementHistoryResultsPortalService"
 		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		address="${juvenileHistoryServices.presentPlacementHistoryResultsServiceEndpoint}"
 		serviceName="ojbc:JuvenilePlacementHistoryResultsService"
 		endpointName="ojbc:JuvenilePlacementHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
@@ -408,6 +412,7 @@
 	<!-- Juvenile Referral History Results Service, hosted by Portal -->
 	<cxf:cxfEndpoint id="juvenileReferralHistoryResultsPortalService"
 		wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		address="${juvenileHistoryServices.presentReferralHistoryResultsServiceEndpoint}"
 		serviceName="ojbc:JuvenileReferralHistoryResultsService"
 		endpointName="ojbc:JuvenileReferralHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">

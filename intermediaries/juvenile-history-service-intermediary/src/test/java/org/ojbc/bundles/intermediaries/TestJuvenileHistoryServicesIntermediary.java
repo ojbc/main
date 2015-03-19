@@ -285,7 +285,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         casePlanAdapterRequestEndpoint.expectedBodiesReceived(expectedBody);
 		casePlanAdapterRequestEndpoint.expectedMessageCount(1);
 
-    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/CasePlanHistoryResultsHandlerService", "SubmitJuvenileCasePlanHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0", true);
+    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/JuvenileQuery/CasePlanHistoryResultsService", "SubmitJuvenileCasePlanHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0", true);
         
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(requestBody);
@@ -307,7 +307,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         .readFileToString(new File(
                 "src/test/resources/xml/casePlan/JuvenileCasePlanHistoryResponse_Sample.xml"));
         
-        Exchange responseFromAdapterExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/CasePlanHistoryResultsHandlerService", "SubmitJuvenileCasePlanHistoryResponse", "http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0", false);
+        Exchange responseFromAdapterExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/JuvenileQuery/CasePlanHistoryResultsService", "SubmitJuvenileCasePlanHistoryResponse", "http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0", false);
         
         //The federated query required a CXF exchange to properly test response route
         CxfPayload<SoapHeader> responsePayload = createCXFPayload(responseFromAdapter);
@@ -351,7 +351,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         hearingAdapterRequestEndpoint.expectedBodiesReceived(expectedBody);
 		hearingAdapterRequestEndpoint.expectedMessageCount(1);
 
-    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/HearingHistoryResultsHandlerService", "SubmitJuvenileHearingHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/HearingRequest/1.0", true);
+    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/JuvenileQuery/HearingHistoryResultsService", "SubmitJuvenileHearingHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/HearingRequest/1.0", true);
         
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(requestBody);
@@ -379,7 +379,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         intakeAdapterRequestEndpoint.expectedBodiesReceived(expectedBody);
 		intakeAdapterRequestEndpoint.expectedMessageCount(1);
 
-    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/IntakeHistoryResultsHandlerService", "SubmitJuvenileIntakeHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/IntakeRequest/1.0", true);
+    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/JuvenileQuery/IntakeHistoryResultsService", "SubmitJuvenileIntakeHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/IntakeRequest/1.0", true);
         
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(requestBody);
@@ -407,7 +407,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         offenseAdapterRequestEndpoint.expectedBodiesReceived(expectedBody);
 		offenseAdapterRequestEndpoint.expectedMessageCount(1);
 
-    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/OffenseHistoryResultsHandlerService", "SubmitJuvenileOffenseHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/OffenseRequest/1.0", true);
+    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/JuvenileQuery/OffenseHistoryResultsService", "SubmitJuvenileOffenseHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/OffenseRequest/1.0", true);
         
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(requestBody);
@@ -435,7 +435,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         placementAdapterRequestEndpoint.expectedBodiesReceived(expectedBody);
 		placementAdapterRequestEndpoint.expectedMessageCount(1);
 
-    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/PlacementHistoryResultsHandlerService", "SubmitJuvenilePlacementHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/PlacementRequest/1.0", true);
+    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/JuvenileQuery/PlacementHistoryResultsService", "SubmitJuvenilePlacementHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/PlacementRequest/1.0", true);
         
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(requestBody);
@@ -463,7 +463,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         referralAdapterRequestEndpoint.expectedBodiesReceived(expectedBody);
 		referralAdapterRequestEndpoint.expectedMessageCount(1);
 
-    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/ReferralHistoryResultsHandlerService", "SubmitJuvenileReferralHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/ReferralRequest/1.0", true);
+    	Exchange senderExchange = setUpSenderExchange("123456789", "https://localhost:18311/OJB/WebApp/JuvenileQuery/ReferralHistoryResultsService", "SubmitJuvenileReferralHistoryQuery", "http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/ReferralRequest/1.0", true);
         
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(requestBody);

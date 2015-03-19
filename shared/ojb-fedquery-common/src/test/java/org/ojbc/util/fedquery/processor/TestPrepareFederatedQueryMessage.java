@@ -58,6 +58,8 @@ public class TestPrepareFederatedQueryMessage {
 	    //Set up the prepare federated query bean
 	    PrepareFederatedQueryMessage prepareFederatedQueryMessage = new PrepareFederatedQueryMessage();
 	    
+	    RecordSourceExchangeDestinationLookupStrategy recordSourceExchangeDestinationLookupStrategy = new RecordSourceExchangeDestinationLookupStrategy();
+	    
 	    //Set up Federated Query Endpoint map
 	    Map<String, String> federatedQueryEndpointMap = new HashMap<String, String>();
 	    
@@ -65,8 +67,8 @@ public class TestPrepareFederatedQueryMessage {
 	    federatedQueryEndpointMap.put("{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants", "personSearchRequestServiceAdapterEndpoint");
 	    federatedQueryEndpointMap.put("{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS","personSearchRequestServiceAdapterEndpoint");
 	    federatedQueryEndpointMap.put("{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms","personSearchRequestServiceAdapterEndpoint");
-
-	    prepareFederatedQueryMessage.setFederatedQueryEndpointMap(federatedQueryEndpointMap);
+	    
+	    recordSourceExchangeDestinationLookupStrategy.setFederatedQueryEndpointMap(federatedQueryEndpointMap);
 	    
 	    //Set up adapterURItoAddressMap and processor
 	    Map<String, String> adapterURItoAddressMap = new HashMap<String, String>();
@@ -76,10 +78,9 @@ public class TestPrepareFederatedQueryMessage {
 	    adapterURItoAddressMap.put("{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS","http://rmsAdapter");
 	    adapterURItoAddressMap.put("{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms","http://firearmsAdapter");
 	    
-	    URIToAdapterAddressProcessor uriToAdapterAddressProcessor = new URIToAdapterAddressProcessor();
-	    uriToAdapterAddressProcessor.setAdapterURItoAddressMap(adapterURItoAddressMap);
+	    recordSourceExchangeDestinationLookupStrategy.setAdapterURItoAddressMap(adapterURItoAddressMap);
 	    
-		prepareFederatedQueryMessage.setUriToAdapterAddressProcessor(uriToAdapterAddressProcessor);
+	    prepareFederatedQueryMessage.setExchangeDestinationLookupStrategy(recordSourceExchangeDestinationLookupStrategy);
 	    
 	    //Test prepare federated query processor - exchange properties
 		prepareFederatedQueryMessage.process(exchange);

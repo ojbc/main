@@ -4,15 +4,15 @@
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-fedquery-common</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.1</version>
-	<name>ojb-fedquery-common</name>
+	<version>1.0.2</version>
+	<name>OJB :: ojb-fedquery-common :: Shared</name>
 
 	<url>http://www.ojbc.org</url>
 
 	<properties>
 		<junit-version>4.10</junit-version>
 		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
-		<ojb-common-version>2.0.0</ojb-common-version>
+		<ojb-common-version>[2.0.1,)</ojb-common-version>
 		<xmlunit.version>1.5</xmlunit.version>
 	</properties>
 
@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-common</artifactId>
-			<version>2.0.0</version>
+			<version>${ojb-common-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -59,6 +59,10 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<import-package>
+							!org.junit.*,
+							!org.custommonkey
+						</import-package>
 						<Export-Package>org.ojbc.util.fedquery.*</Export-Package>
 					</instructions>
 				</configuration>

@@ -45,33 +45,23 @@
 		</constructor-arg>
 	</bean>	
 	
-	<bean id="federatedQueryURIToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="federatedQueryURIToEndpointMap" />
+	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
-			<util:map map-class="java.util.HashMap">
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanRequest" value="juvenileCasePlanHistoryRequestAdapterServiceEndpoint" />
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingRequest" value="juvenileHearingHistoryRequestAdapterServiceEndpoint" />
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeRequest" value="juvenileIntakeHistoryRequestAdapterServiceEndpoint" />
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseRequest" value="juvenileOffenseHistoryRequestAdapterServiceEndpoint" />
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementRequest" value="juvenilePlacementHistoryRequestAdapterServiceEndpoint" />
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralRequest" value="juvenileReferralHistoryRequestAdapterServiceEndpoint" />
-			</util:map>	
-		</constructor-arg>
-	</bean>
+			<bean class="org.ojbc.intermediaries.juvenilehistory.ServiceContextExchangeDestinationLookupStrategy">
+				<property name="historyTypeToAddressMap">
+					<util:map>
+						<entry key="CasePlan" value="${juvenileHistoryServices.casePlanHistoryRequestService.adapter.endpoint}" />
+						<entry key="Hearing" value="${juvenileHistoryServices.hearingHistoryRequestService.adapter.endpoint}" />
+						<entry key="Intake" value="${juvenileHistoryServices.intakeHistoryRequestService.adapter.endpoint}" />
+						<entry key="Offense" value="${juvenileHistoryServices.offenseHistoryRequestService.adapter.endpoint}" />
+						<entry key="Placement" value="${juvenileHistoryServices.placementHistoryRequestService.adapter.endpoint}" />
+						<entry key="Referral" value="${juvenileHistoryServices.referralHistoryRequestService.adapter.endpoint}" />
+					</util:map>
+				</property>
 
-	<bean id="adapterURItoAddressMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="adapterURItoAddressMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map>
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanRequest" value="${juvenileHistoryServices.casePlanHistoryRequestService.adapter.endpoint}" />
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingRequest" value="${juvenileHistoryServices.hearingHistoryRequestService.adapter.endpoint}" />
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}IntakeRequest" value="${juvenileHistoryServices.intakeHistoryRequestService.adapter.endpoint}" />
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseRequest" value="${juvenileHistoryServices.offenseHistoryRequestService.adapter.endpoint}" />
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementRequest" value="${juvenileHistoryServices.placementHistoryRequestService.adapter.endpoint}" />
-				<entry key="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralRequest" value="${juvenileHistoryServices.referralHistoryRequestService.adapter.endpoint}" />
-			</util:map>
+		  	</bean>
 		</constructor-arg>
 	</bean>		
 	

@@ -63,11 +63,7 @@
 				<camel:xpath>/jhq:JuvenileHistoryQuery/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText</camel:xpath>
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
-			
-			<camel:setHeader headerName="adapterURI">
-				<camel:xpath resultType="java.lang.String">/jhq:JuvenileHistoryQuery/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText</camel:xpath>
-			</camel:setHeader>
-									
+												
 			<!-- Add the reply to address to the map using the federated query guid as the key -->
 			<camel:to 
 				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
@@ -214,8 +210,7 @@
 	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
 
 	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
-		<property name="uriToAdapterAddressProcessor" ref="uriToAdapterAddressProcessor"/>
-		<property name="federatedQueryEndpointMap" ref="federatedQueryURIToEndpointMap"/>
+		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>
 	</bean>
 
    	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
@@ -237,9 +232,5 @@
 	</bean>
 	 
 	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
-	
-	<bean id="uriToAdapterAddressProcessor" class="org.ojbc.util.fedquery.processor.URIToAdapterAddressProcessor">
-		<property name="adapterURItoAddressMap" ref="adapterURItoAddressMap"/>
-	</bean>
 	
 </beans>

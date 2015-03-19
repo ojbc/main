@@ -8,7 +8,7 @@ import org.apache.camel.component.cxf.CxfPayload;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
-import org.ojbc.util.model.query.FederatedQueryProfile;
+import org.ojbc.util.fedquery.FederatedQueryProfile;
 import org.w3c.dom.Element;
 
 public class FederatedQueryResponseHandlerAggregator {
