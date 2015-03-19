@@ -1,4 +1,4 @@
-package org.ojbc.util.model.query;
+package org.ojbc.util.fedquery;
 
 public class FederatedQueryProfile {
 
