@@ -3,6 +3,16 @@ package org.ojbc.util.ndex.util;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * N-DEx submissions require a unique sequence number in the web service payload.
+ * The number needs to be between 0 and 9999 and will be left-padded with zeros.
+ * 
+ * This class will help generate that unique sequence number for N-DEx submissions.
+ * 
+ * @author yogeshchawla
+ *
+ */
+
 public class UniqueIDGenerator {
 
 	/**
