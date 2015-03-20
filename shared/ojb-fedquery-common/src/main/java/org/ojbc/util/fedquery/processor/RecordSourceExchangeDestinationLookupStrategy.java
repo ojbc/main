@@ -24,7 +24,7 @@ public class RecordSourceExchangeDestinationLookupStrategy implements ExchangeDe
 	private static final Log log = LogFactory.getLog( RecordSourceExchangeDestinationLookupStrategy.class );
 	
 	private Map <String, String> adapterURItoAddressMap = new HashMap<String, String>();
-	private Map<String, String> federatedQueryEndpointMap= new HashMap<String, String>();;
+	private Map<String, String> federatedQueryEndpointMap = new HashMap<String, String>();
 	
 	@Override
 	public String getCXFEndpointName(Exchange exchange) {
