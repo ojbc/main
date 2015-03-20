@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:arrest-exch="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../NIEM_2.0/structures/2.0/structures.xsd"/>
 	<xsd:import namespace="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" schemaLocation="../lexs/publish-discover/3.1/publish-discover.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="../extension_schema/search-results-metadata.xsd"/>
-	<xsd:element name="ArrestReport" type="tns:ArrestReportType">
+	<xsd:element name="ArrestReport" type="arrest-exch:ArrestReportType">
 		<xsd:annotation>
 			<xsd:documentation>A comprehensive collection of information about an arrest.</xsd:documentation>
 		</xsd:annotation>

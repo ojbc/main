@@ -3,7 +3,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
+	xmlns:arrest-exch="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
 	xmlns:aru="http://ojbc.org/IEPD/Exchange/ArrestReportUpdate/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
@@ -17,7 +17,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="ArrestReport">
-		<wsdl:part name="ArrestReport" element="ar:ArrestReport" />
+		<wsdl:part name="ArrestReport" element="arrest-exch:ArrestReport" />
 	</wsdl:message>
 	<wsdl:message name="ArrestReportUpdate">
 		<wsdl:part name="ArrestReportUpdate" element="aru:ArrestReportUpdate" />
