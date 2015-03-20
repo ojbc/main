@@ -212,8 +212,7 @@
 	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
 
 	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
-		<property name="uriToAdapterAddressProcessor" ref="uriToAdapterAddressProcessor"/>
-		<property name="federatedQueryEndpointMap" ref="federatedQueryURIToEndpointMap"/>
+		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>
 	</bean>
 	
     <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
@@ -227,9 +226,5 @@
 	</bean>
 
 	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
-	
-	<bean id="uriToAdapterAddressProcessor" class="org.ojbc.util.fedquery.processor.URIToAdapterAddressProcessor">
-		<property name="adapterURItoAddressMap" ref="adapterURItoAddressMap"/>
-	</bean>
-	
+		
 </beans>
