@@ -27,9 +27,9 @@
 	<jodatime-version>1.6.2</jodatime-version>
 	<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
-	<ojb-fedquery-common-version>1.0.1</ojb-fedquery-common-version>
+	<ojb-fedquery-common-version>[1.0.2,)</ojb-fedquery-common-version>
 	<ojb-camel-common>1.0.0</ojb-camel-common>
-	<ojb-common-version>2.0.0</ojb-common-version>
+	<ojb-common-version>[2.0.1,)</ojb-common-version>
 	<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 	<osgi-core-version>1.4.0</osgi-core-version>
 	<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>	
@@ -99,6 +99,12 @@
            <artifactId>cxf-rt-ws-security</artifactId>
            <version>${cxf-version}</version>
        </dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
 
 	 	<dependency>
 		    <groupId>commons-lang</groupId>
