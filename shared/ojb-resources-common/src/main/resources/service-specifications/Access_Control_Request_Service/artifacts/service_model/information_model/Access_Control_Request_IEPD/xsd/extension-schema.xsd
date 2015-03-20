@@ -2,7 +2,7 @@
 <xs:schema 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	targetNamespace="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0" 
-	xmlns:ext="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0" 
+	xmlns:ibacr-ext="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0" 
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
@@ -37,7 +37,7 @@
 		<xs:complexContent>
 			<xs:extension base="nc30:IdentityType">
 				<xs:sequence>
-					<xs:element ref="ext:FederatedQueryUserIndicator" minOccurs="0"/>
+					<xs:element ref="ibacr-ext:FederatedQueryUserIndicator" minOccurs="0"/>
 					<xs:element ref="nc30:ContactInformationAssociation" minOccurs="0"/>
 					<xs:element ref="nc30:PersonEmploymentAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -49,14 +49,14 @@
 		<xs:complexContent>
 			<xs:extension base="nc30:IdentityType">
 				<xs:sequence>
-					<xs:element ref="ext:PersonIdentity" />
-					<xs:element ref="ext:RequestedResourceRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="ibacr-ext:PersonIdentity" />
+					<xs:element ref="ibacr-ext:RequestedResourceRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 			
-	<xs:element name="PersonIdentity" type="ext:IdentityType"/>
+	<xs:element name="PersonIdentity" type="ibacr-ext:IdentityType"/>
 	
 	<xs:element name="RequestedResourceRepresentation" abstract="true">
 		<xs:annotation>
@@ -64,13 +64,13 @@
 		</xs:annotation>
 	</xs:element>
 	
-	<xs:element name="RequestedResourceURI" type="nc30:TextType" substitutionGroup="ext:RequestedResourceRepresentation">
+	<xs:element name="RequestedResourceURI" type="nc30:TextType" substitutionGroup="ibacr-ext:RequestedResourceRepresentation">
 		<xs:annotation>
 			<xs:documentation>A URI assigned to a resource for which access is being requested.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	
-	<xs:element name="RequestedResourceFullyQualifiedServiceOperationNameText" type="nc30:TextType" substitutionGroup="ext:RequestedResourceRepresentation">
+	<xs:element name="RequestedResourceFullyQualifiedServiceOperationNameText" type="nc30:TextType" substitutionGroup="ibacr-ext:RequestedResourceRepresentation">
 		<xs:annotation>
 			<xs:documentation>A fully qualified name of a service operation for which access is being requested.</xs:documentation>
 		</xs:annotation>
