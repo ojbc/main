@@ -9,6 +9,14 @@
 	<version>1.0.0</version>
 	<name>OJB :: Bundle_A_Test :: Connector</name>
 
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
+
     <properties>
         <spring.version>3.0.7.RELEASE</spring.version>
         <camel.version>2.10.7</camel.version>
@@ -17,13 +25,13 @@
     </properties>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-osgi-common</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.ojbc.bundles.prototypes.shared</groupId>
 			<artifactId>Bundle_Integration_Test_Common</artifactId>
@@ -44,7 +52,7 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-		
+
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/resources</directory>
@@ -54,8 +62,8 @@
 				</includes>
 			</resource>
 		</resources>
-		
-		
+
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

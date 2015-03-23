@@ -10,6 +10,13 @@
 	<name>OJB :: Subscription_Notification_Service_Intermediary_Common :: Intermediary</name>
 	<url>http://www.ojbc.org</url>
 
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
 
 	<properties>
 		<jodatime-version>1.6.2</jodatime-version>
@@ -40,7 +47,7 @@
 			<artifactId>velocity</artifactId>
 			<version>${velocity-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -150,7 +157,7 @@
 			<version>${httpcomponents.version}</version>
 			<scope>test</scope>
 		</dependency>
-		 
+
 		<dependency>
 			<groupId>org.subethamail</groupId>
 			<artifactId>subethasmtp</artifactId>
