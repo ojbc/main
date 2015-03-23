@@ -7,7 +7,7 @@
 	<packaging>bundle</packaging>
 	<version>1.0.0</version>
 
-	<name>OJB :: Subscription_Notification_Service_Intermediary_Common :: Intermediary</name>
+	<name>OJB :: subscription-notification-service-intermediary-common :: intermediary</name>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
@@ -24,7 +24,6 @@
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 		<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[2.0.0,)</ojb-common-version>
-		<ojbc-niem-dom-utilities-version>1.0.2</ojbc-niem-dom-utilities-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<slf4j-version>1.6.4</slf4j-version>
 		<log4j-version>1.2.16</log4j-version>
@@ -82,12 +81,6 @@
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-resources-common</artifactId>
 			<version>${ojb-resources-common-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>OJB_NIEM_DOM_Utilities</artifactId>
-			<version>${ojbc-niem-dom-utilities-version}</version>
 		</dependency>
 
 		<dependency>
