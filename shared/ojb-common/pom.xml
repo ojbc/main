@@ -6,8 +6,15 @@
 	<version>2.0.1</version>
 	<name>OJB :: ojb-common :: Shared</name>
 	<packaging>bundle</packaging>
-
 	<url>http://www.ojbc.org</url>
+
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
 
 	<properties>
 		<spring.version>3.0.7.RELEASE</spring.version>

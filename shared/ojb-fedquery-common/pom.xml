@@ -6,8 +6,15 @@
 	<packaging>bundle</packaging>
 	<version>1.0.2</version>
 	<name>OJB :: ojb-fedquery-common :: Shared</name>
-
 	<url>http://www.ojbc.org</url>
+
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
 
 	<properties>
 		<junit-version>4.10</junit-version>
@@ -22,7 +29,7 @@
 			<artifactId>xmlunit</artifactId>
 			<version>${xmlunit.version}</version>
 			<scope>test</scope>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-camel-common</artifactId>

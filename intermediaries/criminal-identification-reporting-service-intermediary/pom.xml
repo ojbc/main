@@ -9,9 +9,16 @@
 	<artifactId>criminal-identification-reporting-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
 	<version>1.0.0</version>
-
 	<name>OJB :: criminal-identification-reporting-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
+
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
 
 	<properties>
 		<camel-version>2.10.7</camel-version>
@@ -27,7 +34,7 @@
 	</properties>
 
 	<dependencies>
-		
+
 		<!-- Camel Libs -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -75,7 +82,7 @@
 			<artifactId>ojb-camel-common</artifactId>
 			<version>${ojb-camel-common-version}</version>
 		</dependency>
-		
+
 		<!-- TEST dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -83,13 +90,13 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>Saxon-HE</artifactId>
 			<version>${saxonHe.version}</version>
 		</dependency>
-				
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -102,14 +109,14 @@
 			<artifactId>camel-test</artifactId>
 			<version>${camel-version}</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 	    <dependency>
 	        <groupId>org.apache.camel</groupId>
 	        <artifactId>camel-test-spring</artifactId>
 	        <version>${camel-version}</version>
 			<scope>test</scope>
-	    </dependency>	
-	    		
+	    </dependency>
+
 		<!-- logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -150,7 +157,7 @@
 			<includes>
 				<include>*</include>
 			</includes>
-		</resource>		
+		</resource>
 	</resources>
 
 		<plugins>
@@ -182,7 +189,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<DynamicImport-Package>*</DynamicImport-Package>	      
+						<DynamicImport-Package>*</DynamicImport-Package>
 						<Import-Package>
 							META-INF.cxf,
 							META-INF.cxf.osgi,
@@ -198,8 +205,8 @@
 
 		</plugins>
 	</build>
-	
-	
+
+
 	<reporting>
 		<plugins>
 			<plugin>

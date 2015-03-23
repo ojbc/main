@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.prototypes.tests</groupId>
 	<artifactId>Bundle_Integration_Test</artifactId>
 	<version>1.0.0</version>
+
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
 
 	<properties>
 		<pax-exam.version>3.6.0</pax-exam.version>
@@ -70,9 +78,9 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-		
+
 		<!-- Bundles under test -->
-		
+
 		<dependency>
 			<groupId>org.ojbc.bundles.prototypes</groupId>
 			<artifactId>Bundle_A_Test</artifactId>
@@ -95,15 +103,15 @@
 		</dependency>
 
 	<!-- The following dependencies can be used to download the karaf deps to your local maven repo so that Pax Exam will work offline. -->
-	
-<!-- 
+
+<!--
 <dependency><groupId>org.ops4j.pax.exam</groupId><artifactId>pax-exam-features</artifactId><version>3.6.0</version><type>xml</type><classifier>features</classifier></dependency>
 <dependency><groupId>org.apache.karaf.assemblies.features</groupId><artifactId>enterprise</artifactId><version>2.2.11</version><type>xml</type><classifier>features</classifier></dependency>
 <dependency><groupId>org.apache.karaf.assemblies.features</groupId><artifactId>standard</artifactId><version>2.2.11</version><type>xml</type><classifier>features</classifier></dependency>
 <dependency><groupId>org.apache.cxf.karaf</groupId><artifactId>apache-cxf</artifactId><version>2.6.9</version><type>xml</type><classifier>features</classifier></dependency>
 <dependency><groupId>org.jclouds.karaf</groupId><artifactId>jclouds-karaf</artifactId><version>1.4.0</version><type>xml</type><classifier>features</classifier></dependency>
-	
-	
+
+
 <dependency><groupId>org.apache.karaf.shell</groupId><artifactId>org.apache.karaf.shell.config</artifactId><version>2.2.11</version></dependency>
 <dependency><groupId>org.apache.mina</groupId><artifactId>mina-core</artifactId><version>2.0.5</version></dependency>
 <dependency><groupId>org.apache.sshd</groupId><artifactId>sshd-core</artifactId><version>0.8.0</version></dependency>

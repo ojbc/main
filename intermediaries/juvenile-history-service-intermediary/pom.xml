@@ -8,9 +8,16 @@
   <artifactId>juvenile-history-service-intermediary</artifactId>
   <packaging>bundle</packaging>
   <version>1.0.0</version>
-
   <name>OJB :: juvenile-history-service-intermediary :: intermediary</name>
   <url>http://www.search.org</url>
+
+  <parent>
+    <groupId>org.ojb.bundles.shared</groupId>
+    <artifactId>ojb-main-parent</artifactId>
+    <version>1.0.0</version>
+    <!-- force resolution in mvn repository, not default relative path -->
+    <relativePath/>
+  </parent>
 
   <properties>
 	<camel-version>2.10.3</camel-version>

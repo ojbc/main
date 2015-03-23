@@ -1,12 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-osgi-test-common</artifactId>
 	<version>1.0.0</version>
 	<name>OJB :: ojb-osgi-test-common :: Shared</name>
 	<packaging>bundle</packaging>
-	
+
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
+
 	<properties>
 		<pax-exam.version>3.6.0</pax-exam.version>
 		<pax-url.version>2.0.0</pax-url.version>
@@ -68,7 +76,7 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-			
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -100,9 +108,9 @@
 					<instructions>
 						<DynamicImport-Package>*</DynamicImport-Package>
 					</instructions>
-				</configuration>					
+				</configuration>
 			</plugin>
-		
+
 		</plugins>
 	</build>
 
