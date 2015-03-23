@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.ojbc.person.search.SearchFieldMetadata;
+import org.ojbc.web.SearchFieldMetadata;
 
 
 public class PersonSearchRequest implements Serializable{
