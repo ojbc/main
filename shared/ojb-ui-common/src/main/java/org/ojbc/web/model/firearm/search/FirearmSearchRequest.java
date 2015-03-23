@@ -3,7 +3,7 @@ package org.ojbc.web.model.firearm.search;
 import java.io.Serializable;
 import java.util.List;
 
-import org.ojbc.firearm.search.SearchFieldMetadata;
+import org.ojbc.web.SearchFieldMetadata;
 
 public class FirearmSearchRequest implements Serializable{
     private static final long serialVersionUID = -766530557462573052L;
