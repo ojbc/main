@@ -6,23 +6,32 @@
   <version>1.0.0</version>
   <packaging>pom</packaging>
 
-  <build>
-    <plugins>
-      <plugin>
-          <groupId>com.mycila</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>2.9</version>
-          <configuration>
-              <header>src/main/resources/ojb-license.txt</header>
-              <aggregate>true</aggregate>
-              <includes>
-                <include>**/*.java</include>
-                <include>**/*.xml</include>
-                <include>**/*.xslt</include>
-              </includes>
-          </configuration>
-      </plugin>
-    </plugins>
-  </build>
+	<build>
+
+		<plugins>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<!--
+            Set path to licnese file when running goal:
+            mvn license:check -Dlicense.header=[localPath]/ojb-license.txt
+            <header>ojb-license.txt</header>
+          -->
+					<aggregate>true</aggregate>
+					<includes>
+						<include>**/*.java</include>
+						<include>**/*.xml</include>
+						<include>**/*.xslt</include>
+						<include>**/*.xsd</include>
+            <!--
+						<include>**/*.txt</include>
+            -->
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
