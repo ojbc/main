@@ -7,15 +7,13 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.dao.Subscription;
-import org.ojbc.util.NIEMXMLUtils;
-import org.ojbc.util.xml.OjbcNamespaceContext;
-import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -99,11 +97,25 @@ public class SubscriptionSearchQueryProcessor {
 
         Element subscriptionElement = XmlUtils.appendElement(subscriptionSearchResultElement, extensionSchema, "Subscription");
 
-        Element subscriptionDateRange = NIEMXMLUtils.createNC20DateOnlyRangeElementWithParent(doc, "ActivityDateRange", subscriptionSearchResponse.getStartDate(),
-                subscriptionSearchResponse.getEndDate());
-        subscriptionDateRange.setPrefix(OjbcNamespaceContext.NS_PREFIX_NC);
-        subscriptionElement.appendChild(subscriptionDateRange);
-
+        if (subscriptionSearchResponse.getStartDate() != null || subscriptionSearchResponse.getEndDate() != null)
+        {	
+	        Element activityDateRangeElement = XmlUtils.appendElement(subscriptionElement, OjbcNamespaceContext.NS_NC, "ActivityDateRange");
+	        
+	        if (subscriptionSearchResponse.getStartDate() != null)
+	        {	
+		        Element startDateParentElement = XmlUtils.appendElement(activityDateRangeElement, OjbcNamespaceContext.NS_NC, "StartDate");
+		        Element startDateElement = XmlUtils.appendElement(startDateParentElement, OjbcNamespaceContext.NS_NC, "Date");
+		        startDateElement.setTextContent(subscriptionSearchResponse.getStartDate().toString("yyyy-MM-dd"));
+	        }    
+	
+	        if (subscriptionSearchResponse.getEndDate() != null)
+	        {	
+		        Element endDateParentElement = XmlUtils.appendElement(activityDateRangeElement, OjbcNamespaceContext.NS_NC, "EndDate");
+		        Element endDateElement = XmlUtils.appendElement(endDateParentElement, OjbcNamespaceContext.NS_NC, "Date");
+		        endDateElement.setTextContent(subscriptionSearchResponse.getEndDate().toString("yyyy-MM-dd"));
+	        }    
+        }    
+        
         Element subscriptionSubjectElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionSubject");
 
         Element roleOfPersonReferenceElement = XmlUtils.appendElement(subscriptionSubjectElement, OjbcNamespaceContext.NS_NC, "RoleOfPersonReference");
