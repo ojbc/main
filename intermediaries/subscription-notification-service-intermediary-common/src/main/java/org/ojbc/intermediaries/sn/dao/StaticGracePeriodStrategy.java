@@ -5,7 +5,7 @@ import org.joda.time.Interval;
 
 /**
  * A strategy that sets the grace period with a start date of the validation due date (as determined by a passed-in ValidationDueDateStrategy) or subscription end date, and an end date some 
- * static number of days beyond that.  A grace period "start" date would be the day after a subscription end date or the day after a validation due date Ð 
+ * static number of days beyond that.  A grace period "start" date would be the day after a subscription end date or the day after a validation due date  
  * whichever of these dates come first.
  */
 public class StaticGracePeriodStrategy implements GracePeriodStrategy {
