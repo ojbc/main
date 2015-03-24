@@ -10,6 +10,6 @@ public class OJBCWebServiceURIs {
 	public static final String INCIDENT_REPORT = "{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest";
 	public static final String PERSON_TO_INCIDENT ="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest";
 	public static final String VEHICLE_TO_INCIDENT = "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest";
-	public static final String JUVENILE_HISTORY = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service---JuvenileHistory";
+	public static final String JUVENILE_HISTORY = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory";
 	
 }
