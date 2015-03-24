@@ -2,4 +2,8 @@
 /.settings
 /.classpath
 /.project
+<<<<<<< HEAD
 /.DS_Store
+=======
+/bin
+>>>>>>> ab0d0dae534107b188868e73e3004752519c1611
