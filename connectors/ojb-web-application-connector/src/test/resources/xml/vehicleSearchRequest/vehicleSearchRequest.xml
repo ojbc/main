@@ -1,0 +1,23 @@
+<VehicleSearchRequest xmlns="http://ojbc.org/IEPD/Exchange/VehicleSearchRequest/1.0">
+    <Vehicle xmlns="http://ojbc.org/IEPD/Extensions/VehicleSearchRequest/1.0">
+        <VehicleColorPrimaryCode xmlns="http://niem.gov/niem/niem-core/2.0">color</VehicleColorPrimaryCode>
+        <ItemModelName xmlns="http://niem.gov/niem/niem-core/2.0">model</ItemModelName>
+        <ConveyanceRegistrationPlateIdentification xmlns="http://niem.gov/niem/niem-core/2.0">
+            <IdentificationID>plateNumber</IdentificationID>
+        </ConveyanceRegistrationPlateIdentification>
+        <VehicleIdentification xmlns="http://niem.gov/niem/niem-core/2.0">
+            <IdentificationID>vin</IdentificationID>
+        </VehicleIdentification>
+        <VehicleYearRange>
+            <StartDate xmlns="http://niem.gov/niem/niem-core/2.0">
+                <Year>1999</Year>
+            </StartDate>
+            <EndDate xmlns="http://niem.gov/niem/niem-core/2.0">
+                <Year>2002</Year>
+            </EndDate>
+        </VehicleYearRange>
+        <VehicleMakeCode>make</VehicleMakeCode>
+    </Vehicle>
+    <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/VehicleSearchRequest/1.0">src1</SourceSystemNameText>
+    <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/VehicleSearchRequest/1.0">src2</SourceSystemNameText>
+</VehicleSearchRequest>

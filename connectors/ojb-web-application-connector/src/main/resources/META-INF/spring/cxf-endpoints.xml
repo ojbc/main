@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This context file has the CXF supporting beans but the actual CXF endpoints are in the profile specific files -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"     
+       xmlns:util="http://www.springframework.org/schema/util"  
+       xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       ">
+       
+       <!-- We only need to set up response handler endpoints as the request messages are sent through a custom processor that uses the producer template -->
+       <!-- Ideally the camel and CXF response endpoints would be in the profile context files -->
+       <!-- However, camel does not support this -->
+       <!-- http://camel.465427.n5.nabble.com/Camel-route-autostartup-no-endpoint-found-td5764230.html#a5764231 -->
+       
+       	<!-- Warrants Endpoint -->
+		<camel:endpoint id="personQueryResultsHandlerWarrantsServiceEndpoint"
+			uri="cxf:bean:personQueryResultsHandlerWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+       
+       	<!-- Criminal History Endpoint -->
+	    <camel:endpoint id="personQueryResultsHandlerCriminalHistoryServiceEndpoint"
+			uri="cxf:bean:personQueryResultsHandlerCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+	    <!-- Vehicle Search Results Endpoint -->
+		<camel:endpoint id="vehicleSearchResultsHandlerServiceEndpoint"
+			uri="cxf:bean:vehicleSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+		<!-- Firearm Reg Query Results Endpoint -->
+		<camel:endpoint id="firearmRegistrationQueryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:firearmRegistrationQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+       
+		<!-- Firearm Search Results Endpoint -->
+		<camel:endpoint id="firearmSearchResultsHandlerServiceEndpoint"
+			uri="cxf:bean:firearmSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+	
+	    <!-- Incident Report Endpoint -->
+		<camel:endpoint id="incidentReportResultsHandlerServiceEndpoint"
+			uri="cxf:bean:incidentReportResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+	    <!-- Incident Search Results Endpoint (used for Incident Searches) -->
+		<camel:endpoint id="incidentSearchResultsHandlerServiceEndpoint"
+			uri="cxf:bean:incidentSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+		<!-- Person Search Endpoint -->
+		<camel:endpoint id="personMergeSearchResultsHandlerServiceEndpoint"
+			uri="cxf:bean:personSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />       
+
+	    <!-- Incident Search Endpoint (used for Person to Incident Searches) -->
+		<camel:endpoint id="personVehicleToIncidentSearchResultsHandlerServiceEndpoint"
+			uri="cxf:bean:personVehicleToIncidentSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+       
+		<!-- Policy Acknowledgement Recording Endpoint (used for policy Acknowledgement Recording) -->
+		<camel:endpoint id="policyAcknowledgementRecordingResponseServiceEndpoint" uri="cxf:bean:policyAcknowledgementRecordingResponseService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false"/>
+       
+       	<!-- Subscription Search Results Endpoint -->
+		<camel:endpoint id="subscriptionSearchResultsHandlerServiceEndpoint"
+			uri="cxf:bean:subscriptionSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+		<!-- Subscription Query Results Endpoint -->
+		<camel:endpoint id="subscriptionQueryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:subscriptionQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+		
+		<!-- Notification Endpoint (used for subscriptions) -->
+		<camel:endpoint id="notificationBrokerServiceSecureEndpoint" uri="cxf:bean:notificationBrokerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false"/>
+	
+		<!-- Subscription Manager Endpoint (used for unsubscriptions) -->
+		<camel:endpoint id="subscriptionManagerServiceSecureEndpoint" uri="cxf:bean:subscriptionManagerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false"/>
+       
+		<!-- Identity Based Access Control (used for Identity Based Access Control) -->
+		<camel:endpoint id="accessControlResponseServiceEndpoint" uri="cxf:bean:accessControlResponseService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false"/>                        
+
+		<!--  Juvenile Query Case Plan -->
+		<camel:endpoint id="juvenileCasePlanHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenileCasePlanHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+		<!--  Juvenile Query Hearing -->
+		<camel:endpoint id="juvenileHearingHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenileHearingHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+			
+		<!--  Juvenile Query Intake -->
+		<camel:endpoint id="juvenileIntakeHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenileIntakeHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+			
+		<!--  Juvenile Query Offense -->
+		<camel:endpoint id="juvenileOffenseHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenileOffenseHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+		<!--  Juvenile Query Placement -->
+		<camel:endpoint id="juvenilePlacementHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenilePlacementHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+		<!--  Juvenile Query Referral -->
+		<camel:endpoint id="juvenileReferralHistoryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:juvenileReferralHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+	
+		<!-- Juvenile Case Plan History Results Service, hosted by Portal -->
+		<cxf:cxfEndpoint id="juvenileCasePlanHistoryResultsHandlerService"
+			address="${webapplication.casePlanHistoryResultsService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+			serviceName="ojbc:JuvenileCasePlanHistoryResultsService"
+			endpointName="ojbc:JuvenileCasePlanHistoryResultsSOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+			<cxf:features>
+				<policy:policies>
+					<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+						<wsam:Addressing>
+							<wsp:Policy />
+						</wsam:Addressing>
+					</wsp:Policy>
+				</policy:policies>
+			</cxf:features>
+		</cxf:cxfEndpoint>      
+	   	    
+		<!-- Juvenile Hearing History Results Service, hosted by Portal -->
+		<cxf:cxfEndpoint id="juvenileHearingHistoryResultsHandlerService"
+			address="${webapplication.hearingHistoryResultsService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+			serviceName="ojbc:JuvenileHearingHistoryResultsService"
+			endpointName="ojbc:JuvenileHearingHistoryResultsSOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+			<cxf:features>
+				<policy:policies>
+					<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+						<wsam:Addressing>
+							<wsp:Policy />
+						</wsam:Addressing>
+					</wsp:Policy>
+				</policy:policies>
+			</cxf:features>
+		</cxf:cxfEndpoint>    
+	
+		<!-- Juvenile Intake History Results Service, hosted by Portal -->
+		<cxf:cxfEndpoint id="juvenileIntakeHistoryResultsHandlerService"
+			address="${webapplication.intakeHistoryResultsService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+			serviceName="ojbc:JuvenileIntakeHistoryResultsService"
+			endpointName="ojbc:JuvenileIntakeHistoryResultsSOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+			<cxf:features>
+				<policy:policies>
+					<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+						<wsam:Addressing>
+							<wsp:Policy />
+						</wsam:Addressing>
+					</wsp:Policy>
+				</policy:policies>
+			</cxf:features>
+		</cxf:cxfEndpoint>       
+	   	   
+		<!-- Juvenile Offense History Results Service, hosted by Portal -->
+		<cxf:cxfEndpoint id="juvenileOffenseHistoryResultsHandlerService"
+			address="${webapplication.offenseHistoryResultsService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+			serviceName="ojbc:JuvenileOffenseHistoryResultsService"
+			endpointName="ojbc:JuvenileOffenseHistoryResultsSOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+			<cxf:features>
+				<policy:policies>
+					<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+						<wsam:Addressing>
+							<wsp:Policy />
+						</wsam:Addressing>
+					</wsp:Policy>
+				</policy:policies>
+			</cxf:features>
+		</cxf:cxfEndpoint>      
+				 
+		<!-- Juvenile Placement History Results Service, hosted by Portal -->
+		<cxf:cxfEndpoint id="juvenilePlacementHistoryResultsHandlerService"
+			address="${webapplication.placementHistoryResultsService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+			serviceName="ojbc:JuvenilePlacementHistoryResultsService"
+			endpointName="ojbc:JuvenilePlacementHistoryResultsSOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+			<cxf:features>
+				<policy:policies>
+					<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+						<wsam:Addressing>
+							<wsp:Policy />
+						</wsam:Addressing>
+					</wsp:Policy>
+				</policy:policies>
+			</cxf:features>
+		</cxf:cxfEndpoint>      
+
+		<!-- Juvenile Referral History Results Service, hosted by Portal -->
+		<cxf:cxfEndpoint id="juvenileReferralHistoryResultsHandlerService"
+			address="${webapplication.referralHistoryResultsService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+			serviceName="ojbc:JuvenileReferralHistoryResultsService"
+			endpointName="ojbc:JuvenileReferralHistoryResultsSOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
+			<cxf:features>
+				<policy:policies>
+					<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+						<wsam:Addressing>
+							<wsp:Policy />
+						</wsam:Addressing>
+					</wsp:Policy>
+				</policy:policies>
+			</cxf:features>
+		</cxf:cxfEndpoint>    	
+	   
+	    <!-- 
+	    	Access Control Response Service 
+	    --> 
+	    <cxf:cxfEndpoint 
+	        id="accessControlResponseService"
+			address="${webapplication.accessControl.accessControlResponseEndpoint}"
+	        wsdlURL="classpath:service-specifications/Access_Control_Response_Service/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
+	        serviceName="ojbc:Access-Control-Response-ServiceService"
+	        endpointName="ojbc:Access-Control-Response-Secure-Service"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0"
+	        >
+	        <cxf:features>
+	            <policy:policies>
+	                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	                    <wsam:Addressing>
+	                        <wsp:Policy/>
+	                    </wsam:Addressing>
+	                </wsp:Policy>
+	            </policy:policies>
+	        </cxf:features>
+	    </cxf:cxfEndpoint>
+		
+       
+       
+		<!-- OJB Notification Broker Secure Service -->
+	    <cxf:cxfEndpoint 
+	        id="notificationBrokerServiceSecure"
+	        address="${webapplication.subscription.notificationBrokerSecureEndpoint}" 
+			wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSNotification.wsdl"
+			serviceName="ojbc:SecureNotificationBrokerServiceService" 
+			endpointName="ojbc:SecureNotificationBrokerService"
+			xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+	    </cxf:cxfEndpoint>
+	
+		<!-- OJB Subscription Manager Secure Service -->
+	    <cxf:cxfEndpoint 
+	        id="subscriptionManagerServiceSecure"
+	        address="${webapplication.subscription.subscriptionManagerSecureEndpoint}" 
+			wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSubscriptionManager.wsdl"
+			serviceName="ojbc:SecureSubscriptionManagerServiceService" 
+			endpointName="ojbc:SecureSubscriptionManager"
+			xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+	    </cxf:cxfEndpoint>
+		
+	    <!-- 
+	    	Subscription Query Results handler Service 
+	    --> 
+	    <cxf:cxfEndpoint 
+	        id="subscriptionQueryResultsHandlerService"
+			address="${webapplication.subscriptionQuery.subscriptionQueryResultsEndpoint}"
+	        wsdlURL="classpath:service-specifications/Subscription_Query_Results_Service/schema/SIP_WS_1.2/Subscription_Query_Results_Service.wsdl"
+			serviceName="ojbc:Subscription_Query_Results_Service_Service" 
+			endpointName="ojbc:Subscription_Query_Results_Secure_Service"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0">
+	        <cxf:features>
+	            <policy:policies>
+	                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	                    <wsam:Addressing>
+	                        <wsp:Policy/>
+	                    </wsam:Addressing>
+	                </wsp:Policy>
+	            </policy:policies>
+	        </cxf:features>
+	    </cxf:cxfEndpoint>
+		
+	    <!-- 
+	    	Subscription Search Results handler Service 
+	    --> 
+	    <cxf:cxfEndpoint 
+	        id="subscriptionSearchResultsHandlerService"
+			address="${webapplication.subscriptionSearch.subscriptionSearchResultsEndpoint}"
+	        wsdlURL="classpath:service-specifications/Subscription_Search_Results_Service/schema/SIP_WS_1.2/Subscription_Search_Results_Service.wsdl"
+	        serviceName="ojbc:Subscription_Search_Results_Service_Service"
+	        endpointName="ojbc:Subscription_Search_Results_Secure_Service"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionSearchResultsService/1.0"
+	        >
+	        <cxf:features>
+	            <policy:policies>
+	                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	                    <wsam:Addressing>
+	                        <wsp:Policy/>
+	                    </wsam:Addressing>
+	                </wsp:Policy>
+	            </policy:policies>
+	        </cxf:features>
+	    </cxf:cxfEndpoint>
+       
+       
+		<!-- Policy Acknowledgement Recording Request Service  -->
+		<cxf:cxfEndpoint id="policyAcknowledgementRecordingResponseService"
+			address="${webapplication.accessControl.policyAcknowledgementRecordingResponseEndpoint}"
+			wsdlURL="classpath:service-specifications/Policy_Acknowledgement_Recording_Response_Service/schemas/SIP_WS_1.3/Policy_Acknowledgement_Recording_Response_Service.wsdl"
+			serviceName="ojbc:Policy-Acknowledgement-Recording-Response-ServiceService" endpointName="ojbc:Policy-Acknowledgement-Recording-Response-Secure-Service"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/PolicyAcknowledgementRecordingResponseService/1.0">
+	        <cxf:features>
+	            <policy:policies>
+	                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	                    <wsam:Addressing>
+	                        <wsp:Policy/>
+	                    </wsam:Addressing>
+	                </wsp:Policy>
+	            </policy:policies>
+	        </cxf:features>
+		</cxf:cxfEndpoint>       
+       
+		<!-- Person/Vehicle to Incident Search Results Service, hosted by Web Application -->
+		<cxf:cxfEndpoint id="personVehicleToIncidentSearchResultsHandlerService"
+			address="${webapplication.personSearch.personVehicleToIncidentSearchRequestResultsEndpoint}"
+			wsdlURL="classpath:service-specifications/Incident_Search_Results_Service/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
+			serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
+			 <cxf:features> 
+	 			<policy:policies> 
+	 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+	 					<wsam:Addressing> 
+	 						<wsp:Policy /> 
+	 					</wsam:Addressing> 
+	 				</wsp:Policy> 
+	 			</policy:policies> 
+	 		</cxf:features>	 
+		</cxf:cxfEndpoint>
+       
+		<!-- Present Person Merge Notification Service Results -->
+		<cxf:cxfEndpoint id="personSearchResultsHandlerService"
+			address="${webapplication.personSearch.personSearchResultsEndpoint}"
+			wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+			serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
+			xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
+			<cxf:features>
+				<policy:policies>
+					<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+						<wsam:Addressing>
+							<wsp:Policy />
+						</wsam:Addressing>
+					</wsp:Policy>
+				</policy:policies>
+			</cxf:features>
+		</cxf:cxfEndpoint>
+       
+		<!-- Incident Merge Notification Service Results Handler Service-->
+		<cxf:cxfEndpoint id="incidentSearchResultsHandlerService"
+			address="${webapplication.personSearch.incidentSearchRequestResultsEndpoint}"
+			wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+			serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
+			xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
+			<cxf:features>
+				<policy:policies>
+					<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+						<wsam:Addressing>
+							<wsp:Policy />
+						</wsam:Addressing>
+					</wsp:Policy>
+				</policy:policies>
+			</cxf:features>
+		</cxf:cxfEndpoint>
+			
+	
+		<!-- Incident Report Results Handler, hosted by Web Application -->
+		<cxf:cxfEndpoint id="incidentReportResultsHandlerService"
+			address="${webapplication.personQuery.incidentReportRequestResultsEndpoint}"
+			wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+			serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+			 <cxf:features> 
+	 			<policy:policies> 
+	 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+	 					<wsam:Addressing> 
+	 						<wsp:Policy /> 
+	 					</wsam:Addressing> 
+	 				</wsp:Policy> 
+	 			</policy:policies> 
+	 		</cxf:features>	 
+		</cxf:cxfEndpoint>
+	
+	
+		<!-- Firearm Search Results Handler, hosted by Web Application -->
+		<cxf:cxfEndpoint id="firearmSearchResultsHandlerService"
+			address="${webapplication.firearmSearch.firearmSearchResultsEndpoint}"
+			wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+			serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
+			xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
+			<cxf:features>
+				<policy:policies>
+					<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+						<wsam:Addressing>
+							<wsp:Policy />
+						</wsam:Addressing>
+					</wsp:Policy>
+				</policy:policies>
+			</cxf:features>  
+		</cxf:cxfEndpoint>
+
+		
+		<!-- Firearm Registration Query Results Handler, hosted by Web Application -->
+		<cxf:cxfEndpoint id="firearmRegistrationQueryResultsHandlerService"
+			address="${webapplication.firearmQuery.firearmQueryRequestResultsEndpoint}"
+			wsdlURL="classpath:service-specifications/Firearm_Registration_Query_Results_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Results_Service.wsdl"
+			serviceName="ojbc:Firearm_Registration_Query_Results_Service_Service" endpointName="ojbc:Firearm_Registration_Query_Results_Secure_Service"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0">
+			 <cxf:features> 
+	 			<policy:policies> 
+	 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+	 					<wsam:Addressing> 
+	 						<wsp:Policy /> 
+	 					</wsam:Addressing> 
+	 				</wsp:Policy> 
+	 			</policy:policies> 
+	 		</cxf:features>	 
+		</cxf:cxfEndpoint>
+
+       
+		
+		<!-- Vehicle Search Results Handler, hosted by Web Application -->
+		<cxf:cxfEndpoint id="vehicleSearchResultsHandlerService"
+			address="${webapplication.vehicleSearch.vehicleSearchResultsEndpoint}"
+			wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+			serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
+			xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
+			<cxf:features>
+				<policy:policies>
+					<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+						<wsam:Addressing>
+							<wsp:Policy />
+						</wsam:Addressing>
+					</wsp:Policy>
+				</policy:policies>
+			</cxf:features> 
+		</cxf:cxfEndpoint>	
+		  
+	    <!-- Criminal History handler, hosted by Web Application --> 
+	    <cxf:cxfEndpoint 
+	        id="personQueryResultsHandlerCriminalHistoryService"
+	        address="${webapplication.personQuery.personQueryResultsHandlerCriminalHistoryEndpoint}"
+	        wsdlURL="classpath:service-specifications/Person_Query_Results_Handler_Service_-_Criminal_History/schema/SIP_WS_1.2/Person_Query_Results_Handler_Service_-_Criminal_History.wsdl"
+	        serviceName="ojbc:Person-Query-Results-Handler-Service---Criminal-HistoryService"
+			endpointName="ojbc:Person-Query-Results-Handler-Service---Criminal-History"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0"
+	    >
+	     <cxf:features>
+	      <policy:policies>
+	        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	          <wsam:Addressing>
+	            <wsp:Policy/>
+	          </wsam:Addressing>
+	        </wsp:Policy>
+	       </policy:policies>
+	    </cxf:features>    
+	   </cxf:cxfEndpoint>         
+
+	    <!-- Warrants handler, hosted by Web Application --> 
+	    <cxf:cxfEndpoint 
+	        id="personQueryResultsHandlerWarrantsService"
+	        address="${webapplication.personQuery.personQueryResultsHandlerWarrantsEndpoint}"
+	        wsdlURL="classpath:service-specifications/Person_Query_Results_Handler_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Results_Handler_Service_-_Warrants.wsdl"
+	        serviceName="ojbc:Person-Query-Results-Handler-Service---WarrantsService"
+			endpointName="ojbc:Person-Query-Results-Handler-Service---Warrants"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Warrants/1.0"
+	    >
+	     <cxf:features>
+	      <policy:policies>
+	        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	          <wsam:Addressing>
+	            <wsp:Policy/>
+	          </wsam:Addressing>
+	        </wsp:Policy>
+	       </policy:policies>
+	    </cxf:features>
+	   </cxf:cxfEndpoint>      
+       
+       	
+	<util:properties id="portalKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${webapplication.connector.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${webapplication.connector.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${webapplication.connector.keystoreLocation}</prop>
+	</util:properties>	
+	
+	
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${webapplication.connector.keystoreCertificateAlias}" value="${webapplication.connector.keyPassword}"/>
+            </map>
+        </property>
+	</bean>
+	
+	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>
+
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${webapplication.connector.truststorePassword}"
+					file="${webapplication.connector.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>
+	
+   	<!-- Used for SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection -->
+	<httpj:engine-factory id="ClientAuthHttpsSettings"
+		bus="cxf">
+		<httpj:engine port="${webapplication.webServices.portNumber}">
+			<httpj:tlsServerParameters>
+				<sec:keyManagers keyPassword="${webapplication.connector.keyPassword}">
+					<sec:keyStore type="jks" password="${webapplication.connector.keystorePassword}" file="${webapplication.connector.keystoreLocation}" />
+				</sec:keyManagers>
+				<sec:cipherSuitesFilter>
+					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				</sec:cipherSuitesFilter>
+				<sec:clientAuthentication want="false"
+					required="false" />
+			</httpj:tlsServerParameters>
+		</httpj:engine>
+	</httpj:engine-factory> 	
+
+</beans>

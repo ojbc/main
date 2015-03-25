@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures profile specific beans-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"     
+       xmlns:util="http://www.springframework.org/schema/util"  
+       xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       "
+		profile="juvenile-query"       
+       >
+       
+		<!-- Juvenile Case Plan History Request Service, hosted by Broker -->
+		<cxf:cxfEndpoint id="juvenileCasePlanHistoryRequestService"
+			address="${webapplication.casePlanHistoryRequestService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			serviceName="ojbc:JuvenileCasePlanHistoryRequestService"
+			endpointName="ojbc:JuvenileCasePlanHistoryRequest_Secure_SOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+		</cxf:cxfEndpoint>
+
+		<!-- Juvenile Hearing History Request Service, hosted by broker -->
+		<cxf:cxfEndpoint id="juvenileHearingHistoryRequestService"
+			address="${webapplication.hearingHistoryRequestService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			serviceName="ojbc:JuvenileHearingHistoryRequestService"
+			endpointName="ojbc:JuvenileHearingHistoryRequest_Secure_SOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+		</cxf:cxfEndpoint>
+	
+	   
+		<!-- Juvenile Intake History Request Service, hosted by broker -->
+		<cxf:cxfEndpoint id="juvenileIntakeHistoryRequestService"
+			address="${webapplication.intakeHistoryRequestService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			serviceName="ojbc:JuvenileIntakeHistoryRequestService"
+			endpointName="ojbc:JuvenileIntakeHistoryRequest_Secure_SOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+		</cxf:cxfEndpoint>
+		
+		<!-- Juvenile Offense History Request Service, hosted by broker -->
+		<cxf:cxfEndpoint id="juvenileOffenseHistoryRequestService"
+			address="${webapplication.offenseHistoryRequestService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			serviceName="ojbc:JuvenileOffenseHistoryRequestService"
+			endpointName="ojbc:JuvenileOffenseHistoryRequest_Secure_SOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+		</cxf:cxfEndpoint>
+	
+		<!-- Juvenile Placement History Request Service, hosted by broker -->
+		<cxf:cxfEndpoint id="juvenilePlacementHistoryRequestService"
+			address="${webapplication.placementHistoryRequestService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			serviceName="ojbc:JuvenilePlacementHistoryRequestService"
+			endpointName="ojbc:JuvenilePlacementHistoryRequest_Secure_SOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+		</cxf:cxfEndpoint>
+	
+				
+		<!-- Juvenile Referral History Request Service, hosted by broker -->
+		<cxf:cxfEndpoint id="juvenileReferralHistoryRequestService"
+			address="${webapplication.referralHistoryRequestService.endpoint}"
+			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			serviceName="ojbc:JuvenileReferralHistoryRequestService"
+			endpointName="ojbc:JuvenileReferralHistoryRequest_Secure_SOAPPort"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+		</cxf:cxfEndpoint>
+	
+	    <!-- Juvenile Query History Request Beans -->
+	    <!-- Juvenile Case Plan Beans -->
+	   <bean id="juvenileCasePlanHistoryRequestProcessor" class="org.ojbc.processor.person.query.JuvenileQueryRequestProcessor">
+	   		<property name="replyToAddress"><value>${webapplication.casePlanHistoryRequestReplyToEndpoint.endpoint}</value></property>
+	   		<property name="juvenileQueryMessageProcessor" ref="juvenileQueryCasePlanHistoryMessageProcessor"/>
+	   		<property name="requestResponseMap" ref="juvenileQueryCasePlanHistoryRequestResponseMap"/>
+	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   </bean>
+	  
+		<bean id="juvenileQueryCasePlanHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitJuvenileCasePlanHistoryQuery</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0</value></property>
+			<property name="destinationEndpoint"><value>juvenileCasePlanHistoryRequestService</value></property>
+		</bean>
+
+	    <!-- Juvenile Hearing Beans -->
+	   <bean id="juvenileHearingHistoryRequestProcessor" class="org.ojbc.processor.person.query.JuvenileQueryRequestProcessor">
+	   		<property name="replyToAddress"><value>${webapplication.hearingHistoryRequestReplyToEndpoint.endpoint}</value></property>
+	   		<property name="juvenileQueryMessageProcessor" ref="juvenileQueryHearingHistoryMessageProcessor"/>
+	   		<property name="requestResponseMap" ref="juvenileQueryHearingHistoryRequestResponseMap"/>
+	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   </bean>
+	  
+		<bean id="juvenileQueryHearingHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitJuvenileHearingHistoryQuery</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/HearingRequest/1.0</value></property>
+			<property name="destinationEndpoint"><value>juvenileHearingHistoryRequestService</value></property>
+		</bean>
+
+	    <!-- Juvenile Intake Beans -->
+	   <bean id="juvenileIntakeHistoryRequestProcessor" class="org.ojbc.processor.person.query.JuvenileQueryRequestProcessor">
+	   		<property name="replyToAddress"><value>${webapplication.intakeHistoryRequestReplyToEndpoint.endpoint}</value></property>
+	   		<property name="juvenileQueryMessageProcessor" ref="juvenileQueryIntakeHistoryMessageProcessor"/>
+	   		<property name="requestResponseMap" ref="juvenileQueryIntakeHistoryRequestResponseMap"/>
+	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   </bean>
+	  
+		<bean id="juvenileQueryIntakeHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitJuvenileIntakeHistoryQuery</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/IntakeRequest/1.0</value></property>
+			<property name="destinationEndpoint"><value>juvenileIntakeHistoryRequestService</value></property>
+		</bean>
+
+	    <!-- Juvenile Offense Beans -->
+	   <bean id="juvenileOffenseHistoryRequestProcessor" class="org.ojbc.processor.person.query.JuvenileQueryRequestProcessor">
+	   		<property name="replyToAddress"><value>${webapplication.offenseHistoryRequestReplyToEndpoint.endpoint}</value></property>
+	   		<property name="juvenileQueryMessageProcessor" ref="juvenileQueryOffenseHistoryMessageProcessor"/>
+	   		<property name="requestResponseMap" ref="juvenileQueryOffenseHistoryRequestResponseMap"/>
+	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   </bean>
+	  
+		<bean id="juvenileQueryOffenseHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitJuvenileOffenseHistoryQuery</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/OffenseRequest/1.0</value></property>
+			<property name="destinationEndpoint"><value>juvenileOffenseHistoryRequestService</value></property>
+		</bean>
+
+	    <!-- Juvenile Placement Beans -->
+	   <bean id="juvenilePlacementHistoryRequestProcessor" class="org.ojbc.processor.person.query.JuvenileQueryRequestProcessor">
+	   		<property name="replyToAddress"><value>${webapplication.placementHistoryRequestReplyToEndpoint.endpoint}</value></property>
+	   		<property name="juvenileQueryMessageProcessor" ref="juvenileQueryPlacementHistoryMessageProcessor"/>
+	   		<property name="requestResponseMap" ref="juvenileQueryPlacementHistoryRequestResponseMap"/>
+	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   </bean>
+	  
+		<bean id="juvenileQueryPlacementHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitJuvenilePlacementHistoryQuery</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/PlacementRequest/1.0</value></property>
+			<property name="destinationEndpoint"><value>juvenilePlacementHistoryRequestService</value></property>
+		</bean>
+
+	    <!-- Juvenile Referral Beans -->
+	   <bean id="juvenileReferralHistoryRequestProcessor" class="org.ojbc.processor.person.query.JuvenileQueryRequestProcessor">
+	   		<property name="replyToAddress"><value>${webapplication.referralHistoryRequestReplyToEndpoint.endpoint}</value></property>
+	   		<property name="juvenileQueryMessageProcessor" ref="juvenileQueryReferralHistoryMessageProcessor"/>
+	   		<property name="requestResponseMap" ref="juvenileQueryReferralHistoryRequestResponseMap"/>
+	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   </bean>
+	  
+		<bean id="juvenileQueryReferralHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitJuvenileReferralHistoryQuery</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/ReferralRequest/1.0</value></property>
+			<property name="destinationEndpoint"><value>juvenileReferralHistoryRequestService</value></property>
+		</bean>
+
+					
+		<!-- Juvenile Query History Request Response Maps -->			
+		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryCasePlanHistoryRequestResponseMap"/>
+		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryHearingHistoryRequestResponseMap"/>
+		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryIntakeHistoryRequestResponseMap"/>
+		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryOffenseHistoryRequestResponseMap"/>
+		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryPlacementHistoryRequestResponseMap"/>
+		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryReferralHistoryRequestResponseMap"/>
+
+</beans>

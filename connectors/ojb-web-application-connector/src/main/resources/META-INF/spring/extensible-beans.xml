@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- Configures beans intended to be overriden -->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"  
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       "    
+       >
+	<!-- Component scan the web.impl package that contains the Detail Query Dispatcher -->
+	<!-- and they query packages containing the detail query implementations -->
+	<!-- This allows the application to optionally wire the detail query beans in this use case where a profile is not active -->
+	<context:annotation-config />
+    <context:component-scan base-package="org.ojbc.web.impl, org.ojbc.processor.person.query" />
+	
+	<!-- The detail query dispatcher only injects beans that are needed by the implementer -->
+	<bean id="detailQueryDispatcher" class="org.ojbc.web.impl.DetailQueryDispatcher"/>	
+       
+	<!-- To override or add beans, add beans to a beans/web-connector-extension-beans.xml in the ojb-web-external-resource project -->
+	<!-- To override a bean, use the same bean ID as in the provided context -->
+	<!-- To activate the beans, you must specify the extension-beans profile -->
+	
+	<beans profile="ojb-web-connector-extension-beans">
+		<import resource="classpath:ojbc-web-application-connector-extension-beans.xml"/>
+	</beans>
+</beans>

@@ -1,0 +1,262 @@
+package org.ojbc.web.util;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.commons.lang.StringUtils;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.model.subscription.add.SubscriptionAddRequest;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+
+
+public class SubscriptionDocumentBuilder {				
+
+	private static final String SYSTEM_NAME = "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB";
+	
+	private static final String CONSUMER_REF_ADDRESS = "http://www.ojbc.org/OJB/SubscribeNotify";
+	
+	private static final String TOPIC_EXPRESSION_DIALECT = "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete";	
+	
+	private static final OjbcNamespaceContext OJBC_NAMESPACE_CONTEXT = new OjbcNamespaceContext();
+	
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
+	private SubscriptionAddRequest subAddRequest;
+		
+	
+	public Document buildSubscribeDoc(SubscriptionAddRequest pSubAddRequest) throws ParserConfigurationException{
+		
+		subAddRequest = pSubAddRequest;	
+        
+        Document subMsgDoc = createBlankDoc();        
+        Element rootSubscribeElement = getRootSubscribeElement(subMsgDoc); 
+
+		buildConsumerRefElement(rootSubscribeElement);
+		
+		buildFilterElement(rootSubscribeElement);
+						
+		XmlUtils.appendElement(rootSubscribeElement, OjbcNamespaceContext.NS_B2, "SubscriptionPolicy");
+				
+		buildSubscriptionMessageNode(rootSubscribeElement);
+		
+		return subMsgDoc;
+	}
+	
+	
+	private void buildEmailElements(Element parentNode, List<String> emailList){
+		
+		for(String iEmail : emailList){			
+			if(StringUtils.isNotBlank(iEmail)){
+				Element emailElement = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "ContactEmailID");
+				emailElement.setTextContent(iEmail);						
+			}				
+		}		
+	}
+	
+	private void buildDateRangeNode(Element parentNode){
+						
+		Element dateRangeNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "DateRange");
+		
+		Element startDateNode = XmlUtils.appendElement(dateRangeNode, OjbcNamespaceContext.NS_NC, "StartDate");		
+		Element startDateValNode = XmlUtils.appendElement(startDateNode, OjbcNamespaceContext.NS_NC, "Date");
+				
+		Date subStartDate = subAddRequest.getSubscriptionStartDate();							
+		if(subStartDate != null){
+			String sSubStartDate = sdf.format(subStartDate);
+			startDateValNode.setTextContent(sSubStartDate);			
+		}		
+		
+		Element endDateNode = XmlUtils.appendElement(dateRangeNode, OjbcNamespaceContext.NS_NC, "EndDate");		
+		Element endDateValNode = XmlUtils.appendElement(endDateNode, OjbcNamespaceContext.NS_NC, "Date");
+		
+		Date subEndDate = subAddRequest.getSubscriptionEndDate();					
+		if(subEndDate != null){
+			String sSubEndDate = sdf.format(subEndDate);	
+			endDateValNode.setTextContent(sSubEndDate);			
+		}				
+	}
+	
+	
+	private void buildSubQualIdNode(Element parentNode){
+		
+		Element subQualIdNode =  XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionQualifierIdentification");
+		
+		Element idNode = XmlUtils.appendElement(subQualIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
+				
+		idNode.setTextContent( getFederatedQueryId());
+	}
+	
+
+	
+	private void buildSubscriptionMessageNode(Element parentNode){
+		
+		Element subMsgNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXCHANGE, "SubscriptionMessage");
+		
+		buildSubjectElement(subMsgNode);	
+		
+		buildEmailElements(subMsgNode, subAddRequest.getEmailList());
+		
+		Element sysNameNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SystemName");				
+		sysNameNode.setTextContent(SYSTEM_NAME); 
+		
+		buildSubQualIdNode(subMsgNode);
+		
+		buildDateRangeNode(subMsgNode);		
+		
+		buildSubscriptionIdNode(subMsgNode);
+	}
+		
+	private void buildSubscriptionIdNode(Element subMsgNode) {
+
+		Element subIdNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "smext:SubscriptionIdentification");
+		
+		String systemId = subAddRequest.getSystemId();
+		
+		if(StringUtils.isNotBlank(systemId)){
+			Element subIdValNode = XmlUtils.appendElement(subIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
+			subIdValNode.setTextContent(systemId);			
+		}
+				
+		Element idSrcTxtNode = XmlUtils.appendElement(subIdNode, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
+		idSrcTxtNode.setTextContent("Subscriptions");		
+	}
+
+
+	private void buildSubjectElement(Element parentNode){
+		
+		Element subjectNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "Subject");		
+
+		buildDobNode(subjectNode);
+		
+		buildPersonNameNode(subjectNode);
+		
+		buildPesonAugmentationElement(subjectNode);				
+	}
+	
+	
+	private void buildDobNode(Element subjectNode) {
+
+		Date dob = subAddRequest.getDateOfBirth();
+		
+		if(dob != null){
+			Element personBirthDateNode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "PersonBirthDate");	
+			
+			Element dateNode = XmlUtils.appendElement(personBirthDateNode, OjbcNamespaceContext.NS_NC, "Date");
+			
+			String sDob = sdf.format(dob);
+			dateNode.setTextContent(sDob);
+		}		
+	}
+
+
+	private void buildPesonAugmentationElement(Element parentNode){
+		
+		String sid = subAddRequest.getStateId();
+		
+		if(StringUtils.isNotBlank(sid)){
+			
+			Element personAugNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
+			
+			Element sidNode = XmlUtils.appendElement(personAugNode, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
+			
+			Element idNode = XmlUtils.appendElement(sidNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
+			idNode.setTextContent(sid);			
+		}		
+	}
+	
+	private void buildPersonNameNode(Element parentNode){
+		
+		Element personNameNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "PersonName");		
+				
+		String sFirstName = subAddRequest.getFirstName();
+		if(StringUtils.isNotBlank(sFirstName)){
+			Element firstNameNode = XmlUtils.appendElement(personNameNode, OjbcNamespaceContext.NS_NC, "PersonGivenName");
+			firstNameNode.setTextContent(sFirstName);
+		}
+		
+		String sLastName = subAddRequest.getLastName();
+		if(StringUtils.isNotBlank(sLastName)){
+			Element lastNameNode = XmlUtils.appendElement(personNameNode, OjbcNamespaceContext.NS_NC, "PersonSurName");
+			lastNameNode.setTextContent(sLastName);
+		}
+				
+		String fullName = subAddRequest.getFullName();
+		if(StringUtils.isNotBlank(fullName)){
+			Element fullNameNode = XmlUtils.appendElement(personNameNode, OjbcNamespaceContext.NS_NC, "PersonFullName");
+			fullNameNode.setTextContent(fullName);
+		}		
+	}
+
+	
+	
+	private void buildFilterElement(Element parentElement){
+		
+		Element filterElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_B2, "Filter");
+						
+		String subscriptionType = subAddRequest.getSubscriptionType();
+		
+		if(StringUtils.isNotBlank(subscriptionType)){			
+			Element topicExpNode = XmlUtils.appendElement(filterElement, OjbcNamespaceContext.NS_B2, "TopicExpression");		
+			XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);			
+			topicExpNode.setTextContent(subscriptionType);			
+		}		
+	}
+	
+
+	private Element buildConsumerRefElement(Element parentElement){
+		
+		Element consumerRefElement = XmlUtils.appendElement(parentElement, 
+				OjbcNamespaceContext.NS_B2, "ConsumerReference");
+		
+		Element addrNode =  XmlUtils.appendElement(consumerRefElement, OjbcNamespaceContext.NS_ADD, "Address");
+		addrNode.setTextContent(CONSUMER_REF_ADDRESS);		
+		consumerRefElement.appendChild(addrNode);
+		
+		Element refParamsNode = XmlUtils.appendElement(consumerRefElement, OjbcNamespaceContext.NS_ADD, "ReferenceParameters");
+		consumerRefElement.appendChild(refParamsNode);
+		
+		Element metaDataNode = XmlUtils.appendElement(consumerRefElement, OjbcNamespaceContext.NS_ADD, "Metadata");
+		consumerRefElement.appendChild(metaDataNode);
+				
+		return consumerRefElement;
+	}
+	
+	
+	private Element getRootSubscribeElement(Document responseDoc){
+		
+		 Element root = responseDoc.createElementNS(OjbcNamespaceContext.NS_B2, "Subscribe");
+	        
+	        responseDoc.appendChild(root);
+	        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);
+	        
+	        OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);	
+	        
+	        return root;
+	}
+	
+	private Document createBlankDoc() throws ParserConfigurationException{
+	
+        DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
+        docBuilderFact.setNamespaceAware(true);
+        DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
+        
+        return docBuilder.newDocument();
+	}
+
+	
+	public static String getFederatedQueryId() {
+		return UUID.randomUUID().toString();
+	}
+
+}
+
+
