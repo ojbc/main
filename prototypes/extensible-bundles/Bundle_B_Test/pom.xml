@@ -10,6 +10,14 @@
 	<version>1.0.0</version>
 	<name>OJB :: Bundle_B_Test :: Connector</name>
 
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
+
 	<properties>
 		<spring.version>3.0.7.RELEASE</spring.version>
 		<camel.version>2.10.7</camel.version>

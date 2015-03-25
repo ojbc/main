@@ -3,14 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.ojbc.bundles.shared</groupId>
-  <artifactId>extensible-bundles-parent</artifactId>
+  <artifactId>extensible-bundles-aggregate</artifactId>
   <version>0.0.1</version>
   <packaging>pom</packaging>
 
   <modules>
  	<module>Util_Bundle</module>
   <module>Bundle_Integration_Test_Common</module>
-  <module>Bundle_Integration_Test</module> 	 	  
+  <module>Bundle_Integration_Test</module>
  	<module>Bundle_A_Test</module>
  	<module>Bundle_B_Test</module>
  	<module>Bundle_C_Test</module>

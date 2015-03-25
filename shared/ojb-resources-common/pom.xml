@@ -8,6 +8,14 @@
 	<name>OJB :: ojb-resources-common :: shared</name>
 	<packaging>bundle</packaging>
 
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
+
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<resources>
