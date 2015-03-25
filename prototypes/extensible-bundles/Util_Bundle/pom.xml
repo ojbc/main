@@ -9,6 +9,14 @@
 	<version>1.0.0</version>
 	<url>http://www.ojbc.org</url>
 
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
+
 	<properties>
 		<camel.version>2.10.7</camel.version>
 		<commons-logging-version>1.1.1</commons-logging-version>
@@ -19,7 +27,7 @@
 	</properties>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
@@ -30,7 +38,7 @@
 			<artifactId>spring-core</artifactId>
 			<version>${spring-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
@@ -77,5 +85,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>

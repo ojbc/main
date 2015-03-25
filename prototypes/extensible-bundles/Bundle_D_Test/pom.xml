@@ -9,6 +9,14 @@
 	<version>1.0.0</version>
 	<name>OJB :: Bundle_D_Test :: Connector</name>
 
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
+
     <properties>
         <spring.version>3.0.7.RELEASE</spring.version>
         <commons-logging.version>1.1.1</commons-logging.version>
@@ -39,7 +47,7 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-		
+
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/resources</directory>
@@ -52,8 +60,8 @@
 				<directory>${basedir}/src/main/java</directory>
 			</resource>
 		</resources>
-		
-		
+
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

@@ -2,7 +2,7 @@ package org.ojbc.web.model.person.search;
 
 import java.io.Serializable;
 
-import org.ojbc.person.search.SearchFieldMetadata;
+import org.ojbc.web.SearchFieldMetadata;
 
 public class PersonName implements Serializable {
     private static final long serialVersionUID = 8438903157636288887L;

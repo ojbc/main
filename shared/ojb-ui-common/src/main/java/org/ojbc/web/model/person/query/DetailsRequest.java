@@ -8,6 +8,7 @@ public class DetailsRequest implements Serializable{
     private static final long serialVersionUID = -8308338659183972879L;
     private String identificationID;
 	private String identificationSourceText;
+	private String queryType;
 
 	//Logging
 	private String purpose;
@@ -65,6 +66,12 @@ public class DetailsRequest implements Serializable{
 	}
 	public void setOnBehalfOf(String onBehalfOf) {
 		this.onBehalfOf = onBehalfOf;
+	}
+	public String getQueryType() {
+		return queryType;
+	}
+	public void setQueryType(String queryType) {
+		this.queryType = queryType;
 	}
 	
 }

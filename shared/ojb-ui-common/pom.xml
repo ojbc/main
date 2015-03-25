@@ -3,11 +3,18 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-ui-common</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.2</version>
 	<name>ojb-ui-common</name>
 	<packaging>jar</packaging>
-
 	<url>http://www.ojbc.org</url>
+
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
 
 	<properties>
 		<junit.version>3.8.1</junit.version>

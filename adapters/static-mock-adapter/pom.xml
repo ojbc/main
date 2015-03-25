@@ -4,14 +4,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>static-mock-adapter</artifactId>
 	<packaging>bundle</packaging>
 	<version>1.0.5</version>
-
 	<name>OJB :: static-mock-adapter :: adapter</name>
 	<url>http://www.search.org</url>
+
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
 
 	<properties>
 		<camel-version>2.10.3</camel-version>
@@ -30,7 +36,7 @@
 		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
-		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>				
+		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
 		<ojb-common-version>[2.0.1,)</ojb-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<static-mock-adapter-version>[1.0.11,)</static-mock-adapter-version>
@@ -111,13 +117,13 @@
 			<version>${apache-commons-io-version}</version>
 		</dependency>
 		<!-- OJB Shared Bundles -->
-		
+
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-camel-common</artifactId>
-			<version>${ojb-camel-common-version}</version>		
-		</dependency>		
-		
+			<version>${ojb-camel-common-version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-common</artifactId>
@@ -190,13 +196,13 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring-version}</version>
 		</dependency>
-		
+
 	</dependencies>
 
 

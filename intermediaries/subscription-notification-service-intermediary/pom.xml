@@ -10,6 +10,14 @@
 	<version>1.0.0</version>
 	<name>OJB :: Subscription_Notification_Service_Intermediary :: intermediary</name>
 
+	<parent>
+	  <groupId>org.ojb.bundles.shared</groupId>
+	  <artifactId>ojb-main-parent</artifactId>
+	  <version>1.0.0</version>
+	  <!-- force resolution in mvn repository, not default relative path -->
+	  <relativePath/>
+	</parent>
+
 	<properties>
 		<spring.version>3.0.7.RELEASE</spring.version>
 		<commons-logging.version>1.1.1</commons-logging.version>
@@ -131,9 +139,9 @@
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-osgi-common</artifactId>
-			<version>${ojb-osgi-common-version}</version> 
+			<version>${ojb-osgi-common-version}</version>
 		</dependency>
-		
+
 		<!-- Test Dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
