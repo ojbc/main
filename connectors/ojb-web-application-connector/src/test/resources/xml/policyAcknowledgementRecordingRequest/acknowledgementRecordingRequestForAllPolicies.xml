@@ -1,0 +1,6 @@
+<arreq-exchange:AcknowledgementRecordingRequestForAllPolicies xmlns:arreq-exchange="http://ojbc.org/IEPD/Exchange/AcknowledgementRecordingRequestForAllPolicies/1.0" xmlns:arreq-ext="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingRequestExtension/1.0" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" >
+    <nc30:DocumentCreationDate>
+        <nc30:Date>2015-01-10</nc30:Date>
+    </nc30:DocumentCreationDate>
+    <arreq-ext:PolicyAcknowledgementIndicator>true</arreq-ext:PolicyAcknowledgementIndicator>
+</arreq-exchange:AcknowledgementRecordingRequestForAllPolicies>

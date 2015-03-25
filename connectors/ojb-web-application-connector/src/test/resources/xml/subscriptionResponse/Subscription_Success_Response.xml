@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:SubscribeResponse xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:wsa="http://www.w3.org/2005/08/addressing" 
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+	xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:sm="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/Subscription_Response/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0"
+	xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
+	<b:SubscriptionReference>
+		<wsa:Address>http://www.ojbc.org/SubcribeNotify/</wsa:Address>
+		<b:CurrentTime>2014-06-23T12:00:00</b:CurrentTime>
+	</b:SubscriptionReference>
+	<exchange:SubscriptionResponseMessage>
+		<ext:SubscriptionCreatedIndicator>true</ext:SubscriptionCreatedIndicator>
+	</exchange:SubscriptionResponseMessage>
+</b:SubscribeResponse>

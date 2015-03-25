@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       ">
+
+	<!-- The config file is located in the ojb-web-external-resource project -->
+	<!-- This file is also under src/test/resources so unit tests can run -->
+	<ctx:property-placeholder location="classpath:config/ojbc-web-application-connector.cfg"/>
+
+</beans>

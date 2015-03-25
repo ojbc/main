@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures profile specific beans-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"     
+       xmlns:util="http://www.springframework.org/schema/util"  
+       xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       "
+		profile="subscriptions"       
+       >
+       
+		<!-- OJB Notification Broker Secure Service -->
+	    <cxf:cxfEndpoint 
+	        id="notificationBrokerServiceSecure"
+	        address="${webapplication.subscription.notificationBrokerSecureEndpoint}" 
+			wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSNotification.wsdl"
+			serviceName="ojbc:SecureNotificationBrokerServiceService" 
+			endpointName="ojbc:SecureNotificationBrokerService"
+			xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+	    </cxf:cxfEndpoint>
+	
+		<!-- OJB Subscription Manager Secure Service -->
+	    <cxf:cxfEndpoint 
+	        id="subscriptionManagerServiceSecure"
+	        address="${webapplication.subscription.subscriptionManagerSecureEndpoint}" 
+			wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSubscriptionManager.wsdl"
+			serviceName="ojbc:SecureSubscriptionManagerServiceService" 
+			endpointName="ojbc:SecureSubscriptionManager"
+			xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+	    </cxf:cxfEndpoint>
+		
+		
+	    <!-- 
+	    	Subscription Query Request Service 
+	    -->
+	    <cxf:cxfEndpoint 
+	        id="subscriptionQueryRequestService"
+	        address="${webapplication.subscriptionQuery.subscriptionQueryRequestEndpoint}"
+			wsdlURL="classpath:service-specifications/Subscription_Query_Request_Service/schema/SIP_WS_1.2/Subscription_Query_Request_Service.wsdl"
+			serviceName="ojbc:Subscription_Query_Request_Service_Service" 
+			endpointName="ojbc:Subscription_Query_Request_Secure_Service"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionQueryRequestService/1.0">
+			<cxf:properties>
+				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+			</cxf:properties>
+	    </cxf:cxfEndpoint>
+	    
+	    <!-- 
+	    	Subscription Search Request Service 
+	    -->
+	    <cxf:cxfEndpoint 
+	        id="subscriptionSearchRequestService"
+	        address="${webapplication.subscriptionSearch.subscriptionSearchRequestEndpoint}"
+			wsdlURL="classpath:service-specifications/Subscription_Search_Request_Service/schema/SIP_WS_1.2/Subscription_Search_Request_Service.wsdl"
+			serviceName="ojbc:Subscription_Search_Request_Service_Service" 
+			endpointName="ojbc:Subscription_Search_Request_Secure_Service"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0">
+				<cxf:properties>
+					<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+					<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+					<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
+					<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
+				</cxf:properties>
+	    </cxf:cxfEndpoint>
+
+		<!-- Subscription Search Request and Response Endpoints -->
+	    <bean id="subscriptionSearchRequestProcessor" class="org.ojbc.processor.subscription.search.SubscriptionSearchRequestProcessor">
+	   		<property name="replyToAddress"><value>${webapplication.subscriptionSearch.subscriptionSearchReplyToEndpoint}</value></property>
+	   		<property name="subscriptionSearchMessageProcessor" ref="subscriptionSearchMessageProcessor"/>
+	   		<property name="requestResponseMap" ref="subscriptionSearchRequestResponseMap"/>
+	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	    </bean>
+	    
+	   
+		<bean id="subscriptionSearchMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitSubscriptionSearchRequest</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0</value></property>
+			<property name="destinationEndpoint"><value>subscriptionSearchRequestService</value></property>
+		</bean>
+	
+		<!-- Subscription Query Request and Response Endpoints -->
+	    <bean id="subscriptionQueryRequestProcessor" class="org.ojbc.processor.subscription.query.SubscriptionQueryRequestProcessor">
+	   		<property name="replyToAddress"><value>${webapplication.subscriptionQuery.subscriptionQueryReplyToEndpoint}</value></property>
+	   		<property name="subscriptionQueryMessageProcessor" ref="subscriptionQueryMessageProcessor"/>
+	   		<property name="requestResponseMap" ref="subscriptionQueryRequestResponseMap"/>
+	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	    </bean>
+	  
+		<bean id="subscriptionQueryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitSubscriptionQueryRequest</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/SubscriptionQueryRequestService/1.0</value></property>
+			<property name="destinationEndpoint"><value>subscriptionQueryRequestService</value></property>
+		</bean>
+		
+	    <!-- Subscription Request Endpoints -->
+	   <bean id="subscriptionRequestProcessor" class="org.ojbc.processor.subscription.subscribe.SubscriptionRequestProcessor">
+	   		<property name="subscriptionMessageProcessor" ref="subscriptionMessageProcessor"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   </bean>
+	  
+		<bean id="subscriptionMessageProcessor" class="org.ojbc.processor.FaultableSynchronousMessageProcessor" >
+			<property name="operationName"><value>Subscribe</value></property>
+			<property name="operationNamespace"><value>http://docs.oasis-open.org/wsn/brw-2</value></property>
+			<property name="destinationEndpoint"><value>notificationBrokerServiceSecure</value></property>
+		</bean>
+	
+	
+		<!-- Subscription Validation Endpoints -->
+		<bean id="subscriptionValidationRequestProcessor" class="org.ojbc.processor.subscription.validation.SubscriptionValidationRequestProcessor">
+	   		<property name="validateSubscriptionMessageProcessor" ref="validationMessageProcessor"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>	
+		</bean>
+	
+		<bean id="validationMessageProcessor" class="org.ojbc.processor.FaultableSynchronousMessageProcessor" >
+			<property name="operationName"><value>Validate</value></property>
+			<property name="operationNamespace"><value>http://docs.oasis-open.org/wsn/bw-2</value></property>
+			<property name="destinationEndpoint"><value>subscriptionManagerServiceSecure</value></property>
+		</bean>
+	
+	
+	    <!-- Unsubscription Request Endpoints -->
+	   <bean id="unsubscriptionRequestProcessor" class="org.ojbc.processor.subscription.unsubscribe.UnsubscriptionRequestProcessor">
+	   		<property name="unsubscriptionMessageProcessor" ref="unsubscriptionMessageProcessor"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   </bean>
+	  
+		<bean id="unsubscriptionMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>Unsubscribe</value></property>
+			<property name="operationNamespace"><value>http://docs.oasis-open.org/wsn/bw-2</value></property>
+			<property name="destinationEndpoint"><value>subscriptionManagerServiceSecure</value></property>
+			<property name="callServiceSynchronous"><value>true</value></property>
+		</bean>
+		
+		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="subscriptionSearchRequestResponseMap"/>
+		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="subscriptionQueryRequestResponseMap"/>
+
+
+</beans>

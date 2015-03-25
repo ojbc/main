@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- Configures profile specific beans-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"     
+       xmlns:util="http://www.springframework.org/schema/util"  
+       xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       "
+		profile="person-vehicle-to-incident-search"       
+       >
+		
+	  	<!-- Person to Incident Search Request and Response Endpoints -->
+	   <bean id="personVehicleToIncidentSearchRequestProcessor" class="org.ojbc.processor.person.query.PersonVehicleToIncidentSearchRequestProcessor">
+	   		<property name="replyToAddress"><value>${webapplication.personSearch.incidentSearchRequestReplyToEndpoint}</value></property>
+	   		<property name="personToIncidentMessageProcessor" ref="personToIncidentMessageProcessor"/>
+	   		<property name="vehicleToIncidentMessageProcessor" ref="vehicleToIncidentMessageProcessor"/>
+	   		<property name="requestResponseMap" ref="personVehicleToIncidentRequestResponseMap"/>
+	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   </bean>
+	  
+		<bean id="personToIncidentMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitIncidentPersonSearchRequest</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0</value></property>
+			<property name="destinationEndpoint"><value>incidentSearchRequestService</value></property>
+		</bean>
+	
+		<bean id="vehicleToIncidentMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitIncidentVehicleSearchRequest</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0</value></property>
+			<property name="destinationEndpoint"><value>incidentSearchRequestService</value></property>
+		</bean>		
+		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="personVehicleToIncidentRequestResponseMap"/>
+
+</beans>
