@@ -1,6 +1,12 @@
 package org.ojbc.web.impl;
 
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.processor.person.query.CriminalHistoryRequestProcessor;
 import org.ojbc.processor.person.query.FirearmRegistrationQueryRequestProcessor;
 import org.ojbc.processor.person.query.IncidentReportRequestProcessor;
@@ -22,13 +28,13 @@ import org.w3c.dom.Element;
  * This allows the Connector to start up without throwing dependency
  * exceptions if a profile is not specified.
  * 
- * 
- * @author yogeshchawla
  *
  */
 
 public class DetailQueryDispatcher implements DetailsQueryInterface{
 
+	private static final Log log = LogFactory.getLog( DetailQueryDispatcher.class );
+	
 	@Autowired(required=false)
 	private WarrantsRequestProcessor warrantsRequestProcessor;
 
@@ -62,14 +68,32 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	@Autowired(required=false)
 	private JuvenileQueryRequestProcessor juvenileIntakeHistoryRequestProcessor;
 	
+	@Resource(name = "searchURIToQueryURIMap")
+	private Map<String, String> searchURIToQueryURIMap;	
 	
 	public String invokeRequest(DetailsRequest request, String federatedQueryID, Element samlToken) throws Exception {
 
+		log.debug("Invoking detail request in Conenctor");
+		
 		if (StringUtils.isEmpty(federatedQueryID)) {
 			throw new IllegalStateException("Federated Query ID not set");
 		}
 
 		String requestIdSrcTxt = request.getIdentificationSourceText().trim();
+
+		log.info("Identification Source text in request: " + requestIdSrcTxt);
+		
+		//Check the map to see if there is a mapping of search URI to query URI
+		if (searchURIToQueryURIMap != null)
+		{
+			if (searchURIToQueryURIMap.containsKey(requestIdSrcTxt))
+			{
+				request.setIdentificationSourceText(searchURIToQueryURIMap.get(requestIdSrcTxt));
+				requestIdSrcTxt = searchURIToQueryURIMap.get(requestIdSrcTxt);
+				log.info("Translating Identification Source text to: " + searchURIToQueryURIMap.get(requestIdSrcTxt));
+			}	
+		}	
+
 		
 		if (OJBCWebServiceURIs.CRIMINAL_HISTORY.equals(requestIdSrcTxt)) {
 			return criminalHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
@@ -99,7 +123,7 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			
 			if (request.getQueryType() == null){
 				throw new RuntimeException("Query type required for Juvenile queries");
-			}
+			}	
 			else if (request.getQueryType().equalsIgnoreCase("CasePlan")){
 				return juvenileCasePlanHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			}
@@ -111,10 +135,10 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			}
 			else if (request.getQueryType().equalsIgnoreCase("Offense")){
 				return juvenileOffenseHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
-			}
+			}  
 			else if (request.getQueryType().equalsIgnoreCase("Placement")){
 				return juvenilePlacementHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
-			}
+			}  
 			else if (request.getQueryType().equalsIgnoreCase("Referral")){
 				return juvenileReferralHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			}	
@@ -221,6 +245,14 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	public void setJuvenileIntakeHistoryRequestProcessor(
 			JuvenileQueryRequestProcessor juvenileIntakeHistoryRequestProcessor) {
 		this.juvenileIntakeHistoryRequestProcessor = juvenileIntakeHistoryRequestProcessor;
+	}
+
+	public Map<String, String> getSearchURIToQueryURIMap() {
+		return searchURIToQueryURIMap;
+	}
+
+	public void setSearchURIToQueryURIMap(Map<String, String> searchURIToQueryURIMap) {
+		this.searchURIToQueryURIMap = searchURIToQueryURIMap;
 	}
 
 }
