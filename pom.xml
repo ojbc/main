@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ojb.bundles</groupId>
   <artifactId>ojb-main-aggregate</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
   <modules>
     <module>shared</module>
@@ -13,7 +13,6 @@
     <module>prototypes/extensible-bundles</module>
     <!--
     <module>analytics</module>
-
   -->
   </modules>
 </project>

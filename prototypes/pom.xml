@@ -3,24 +3,18 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.ojbc.bundles.shared</groupId>
-  <artifactId>extensible-bundles-aggregate</artifactId>
+  <artifactId>prototypes-aggregate</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
 
   <parent>
-    <groupId>org.ojbc.bundles.shared</groupId>
-    <artifactId>prototypes-aggregate</artifactId>
+    <groupId>org.ojb.bundles</groupId>
+    <artifactId>ojb-main-aggregate</artifactId>
     <version>1.0.0</version>
   </parent>
 
   <modules>
- 	<module>Util_Bundle</module>
-  <module>Bundle_Integration_Test_Common</module>
-  <module>Bundle_Integration_Test</module>
- 	<module>Bundle_A_Test</module>
- 	<module>Bundle_B_Test</module>
- 	<module>Bundle_C_Test</module>
- 	<module>Bundle_D_Test</module>
+ 	<module>extensible-bundles</module>
   </modules>
 
 </project>
