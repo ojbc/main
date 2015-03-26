@@ -23,6 +23,28 @@
 	<!-- The detail query dispatcher only injects beans that are needed by the implementer -->
 	<bean id="detailQueryDispatcher" class="org.ojbc.web.impl.DetailQueryDispatcher"/>	
        
+    <util:map id="searchURIToQueryURIMap">
+    	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.WARRANTS" />
+		</entry>
+    	<entry key ="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.CRIMINAL_HISTORY" />
+		</entry>
+    	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON" />
+		</entry>
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"/>
+		
+		<!-- Update the Vehicle results to return actual URIs -->
+		<entry key="Law Enforcement RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"/>
+		
+		<entry key="http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_FIREARM" />
+		</entry>
+		
+    </util:map>   
+        
+       
 	<!-- To override or add beans, add beans to a beans/web-connector-extension-beans.xml in the ojb-web-external-resource project -->
 	<!-- To override a bean, use the same bean ID as in the provided context -->
 	<!-- To activate the beans, you must specify the extension-beans profile -->
