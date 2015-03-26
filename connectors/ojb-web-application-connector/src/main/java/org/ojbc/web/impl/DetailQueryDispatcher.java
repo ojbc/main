@@ -97,37 +97,25 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			
 		} else if (OJBCWebServiceURIs.JUVENILE_HISTORY.equals(requestIdSrcTxt)) {
 			
-			if (request.getQueryType() == null)
-			{
+			if (request.getQueryType() == null){
 				throw new RuntimeException("Query type required for Juvenile queries");
-			}	
-			
-			if (request.getQueryType().equals("CasePlan"))
-			{
+			}
+			else if (request.getQueryType().equalsIgnoreCase("CasePlan")){
 				return juvenileCasePlanHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			}
-			
-			if (request.getQueryType().equals("Hearing"))
-			{
+			else if (request.getQueryType().equalsIgnoreCase("Hearing")){
 				return juvenileHearingHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			}  
-			
-			if (request.getQueryType().equals("Intake"))
-			{
+			else if (request.getQueryType().equalsIgnoreCase("Intake")){
 				return juvenileIntakeHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			}
-			
-			if (request.getQueryType().equals("Offense"))
-			{
+			else if (request.getQueryType().equalsIgnoreCase("Offense")){
 				return juvenileOffenseHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
-			}  
-			
-			if (request.getQueryType().equals("Placement"))
-			{
+			}
+			else if (request.getQueryType().equalsIgnoreCase("Placement")){
 				return juvenilePlacementHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
-			}  
-			if (request.getQueryType().equals("Referral"))
-			{
+			}
+			else if (request.getQueryType().equalsIgnoreCase("Referral")){
 				return juvenileReferralHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			}	
 		}		
