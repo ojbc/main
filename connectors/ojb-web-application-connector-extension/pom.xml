@@ -9,26 +9,31 @@
 	<name>OJB :: ojb-web-application-connector-extension :: connectors</name>
     <url>http://www.search.org</url>
 
+	<parent>
+		<groupId>org.ojb.bundles</groupId>
+		<artifactId>ojb-connectors-aggregate</artifactId>
+		<version>1.0.0</version>
+	</parent>
 
 	<properties>
 		<slf4j-version>1.6.4</slf4j-version>
 		<log4j-version>1.2.16</log4j-version>
-		<ojb-ui-common-version>[1.0.2,)</ojb-ui-common-version>		
-		
+		<ojb-ui-common-version>[1.0.2,)</ojb-ui-common-version>
+
 		<!-- Plugin versions -->
 		<surefire.version>2.7.2</surefire.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	</properties>
 
 	<dependencies>
-		
+
 		<!-- OJB Shared Bundles -->
 		<dependency>
 			  <groupId>org.ojbc.bundles.shared</groupId>
 			  <artifactId>ojb-ui-common</artifactId>
 			  <version>${ojb-ui-common-version}</version>
-		</dependency> 	
-	    
+		</dependency>
+
 		<!-- logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -49,12 +54,12 @@
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.1.1</version>
-		</dependency>		
-	</dependencies>		
-	
+		</dependency>
+	</dependencies>
+
 	<build>
 		<defaultGoal>install</defaultGoal>
-	
+
 		  <plugins>
 		    <plugin>
 		      <groupId>org.apache.maven.plugins</groupId>
@@ -66,5 +71,5 @@
 		      </configuration>
 		    </plugin>
 		 </plugins>
-	</build>		 	
+	</build>
 </project>

@@ -12,11 +12,9 @@
 	<url>http://www.search.org</url>
 
 	<parent>
-	  <groupId>org.ojb.bundles.shared</groupId>
-	  <artifactId>ojb-main-parent</artifactId>
+		<groupId>org.ojbc.bundles.shared</groupId>
+	  <artifactId>ojb-adapters-aggregate</artifactId>
 	  <version>1.0.0</version>
-	  <!-- force resolution in mvn repository, not default relative path -->
-	  <relativePath/>
 	</parent>
 
 	<properties>

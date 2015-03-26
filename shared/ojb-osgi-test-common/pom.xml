@@ -8,11 +8,9 @@
 	<packaging>bundle</packaging>
 
 	<parent>
-	  <groupId>org.ojb.bundles.shared</groupId>
-	  <artifactId>ojb-main-parent</artifactId>
+		<groupId>org.ojb.bundles</groupId>
+	  <artifactId>ojb-shared-aggregate</artifactId>
 	  <version>1.0.0</version>
-	  <!-- force resolution in mvn repository, not default relative path -->
-	  <relativePath/>
 	</parent>
 
 	<properties>

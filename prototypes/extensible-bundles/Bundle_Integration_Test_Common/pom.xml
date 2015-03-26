@@ -7,11 +7,9 @@
 	<name>OJB :: Bundle_Integration_Test_Common :: Connector</name>
 
 	<parent>
-	  <groupId>org.ojb.bundles.shared</groupId>
-	  <artifactId>ojb-main-parent</artifactId>
+		<groupId>org.ojbc.bundles.shared</groupId>
+	  <artifactId>extensible-bundles-aggregate</artifactId>
 	  <version>1.0.0</version>
-	  <!-- force resolution in mvn repository, not default relative path -->
-	  <relativePath/>
 	</parent>
 
 	<properties>
