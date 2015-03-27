@@ -33,6 +33,7 @@ import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.w3c.dom.Element;
 
 /**
@@ -67,21 +68,27 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	private FirearmRegistrationQueryRequestProcessor firearmRegistrationQueryRequestProcessor;
 	
 	@Autowired(required=false)
+	@Qualifier("juvenileCasePlanHistoryRequestProcessor")
 	private JuvenileQueryRequestProcessor juvenileCasePlanHistoryRequestProcessor;
 
 	@Autowired(required=false)
+	@Qualifier("juvenileOffenseHistoryRequestProcessor")
 	private JuvenileQueryRequestProcessor juvenileOffenseHistoryRequestProcessor;
 
 	@Autowired(required=false)
+	@Qualifier("juvenilePlacementHistoryRequestProcessor")
 	private JuvenileQueryRequestProcessor juvenilePlacementHistoryRequestProcessor;
 
 	@Autowired(required=false)
+	@Qualifier("juvenileReferralHistoryRequestProcessor")
 	private JuvenileQueryRequestProcessor juvenileReferralHistoryRequestProcessor;
 
 	@Autowired(required=false)
+	@Qualifier("juvenileHearingHistoryRequestProcessor")
 	private JuvenileQueryRequestProcessor juvenileHearingHistoryRequestProcessor;
 	
 	@Autowired(required=false)
+	@Qualifier("juvenileIntakeHistoryRequestProcessor")
 	private JuvenileQueryRequestProcessor juvenileIntakeHistoryRequestProcessor;
 	
 	@Resource(name = "searchURIToQueryURIMap")
