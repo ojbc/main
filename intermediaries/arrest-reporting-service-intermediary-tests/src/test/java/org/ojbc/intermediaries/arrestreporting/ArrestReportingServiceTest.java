@@ -33,6 +33,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.osgi.test.AbstractPaxExamIntegrationTest;
 import org.ops4j.pax.exam.Configuration;
@@ -54,8 +55,6 @@ import org.springframework.osgi.context.event.OsgiBundleApplicationContextListen
  * Integration test for subscription-notification bundles using Pax Exam.
  * 
  */
-//TODO enable tests when passing
-@Ignore
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
 public class ArrestReportingServiceTest extends AbstractPaxExamIntegrationTest {
@@ -108,7 +107,7 @@ public class ArrestReportingServiceTest extends AbstractPaxExamIntegrationTest {
 				// OJB bundles here
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-common").version("1.0.0").start(),
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-test-common").version("1.0.0").start(),
-				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-common").version("2.0.0").start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-common").version("2.0.2").start(),
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-camel-common").version("1.0.0").start(),
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-resources-common").version("1.0.0").start(),
 				
@@ -127,15 +126,13 @@ public class ArrestReportingServiceTest extends AbstractPaxExamIntegrationTest {
 	public void tearDown() throws Exception {
 	}
 
-	//TODO enable tests when passing
-	@Ignore
+	@Test
 	public void testSetup() throws Exception {
 		assertNotNull(mainBundleContext);
 		System.err.println(executeCommand("osgi:list -t 1", 20000L, false));
 	}
 	
-	//TODO enable tests when passing
-	@Ignore
+	@Test
 	public void testQueryBundleStartup() throws Exception {
 
 		CxfEndpoint arrestReportingServiceEndpoint = mainBundleContext.getBean("arrestReportingServiceEndpoint", CxfEndpoint.class);
