@@ -31,5 +31,7 @@
 
   <modules>
     <module>incident-reporting-service-connector</module>
+    <module>ojb-web-application-connector-extension</module>
+    <module>ojb-web-application-connector</module>
   </modules>
 </project>
