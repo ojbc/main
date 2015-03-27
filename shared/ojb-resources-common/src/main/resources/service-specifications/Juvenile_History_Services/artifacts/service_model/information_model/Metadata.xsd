@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Global Infrastructure/Standards Working Group (GISWG) 
-		Service Specification Package (SSP) Metadata Schema for the Global Reference Architecture (GRA)
+<!--
 
-		Copyright (c) 2011 by the Global Infrastructure/Standards Working Group (GISWG). All Rights Reserved.
-		=================================================================================================
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
 
-		Notes:
-		=====
-		1. Most all elements are defined globally and use named types. Exceptions are those elements that are collections.
-		2. Root element is ServiceMetadata
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
 
-		Revision History
-		============
-		20081009 : Initial creation. Iveta Topalova (GISWG Services Inplementation Committee (SIC))
-		20090428 : Revision to incorporate new metadata elements. Chandra Jonelagadda & Iveta Topalova (GISWG SIC)
-		20090618 : Reconciliation and revision to align with metadata requirements. Iveta Topalova (GISWG SIC) & Joseph Mierwa (IJIS-Technical Advisory Committee)
-		20091115 : Revision taking metrics and better organizing and defining the contents. Joseph Mierwa (IJIS-Technical Advisory Committee)
-		20091117 : Review and preparation for release. Iveta Topalova (GISWG SIC)
-    20110718 : 1.0.0 Release modifications. Iveta Topalova (GISWG SIC)
-    20110718 : 1.0.0 Final Review. James Dyche (GISWG SIC), Iveta Topalova (GISWG SIC)
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gra="http://it.ojp.gov/gsp/services/1.0.0" targetNamespace="http://it.ojp.gov/gsp/services/1.0.0" elementFormDefault="qualified">
 	<xs:complexType name="AgreementType">
