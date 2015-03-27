@@ -36,27 +36,23 @@ public class MessageProcessor {
 	 * @throws Exception
 	 */
 	
-	public void processRequestPayload(Exchange exchange) throws Exception
-	{
+	public void processRequestPayload(Exchange exchange) throws Exception{
 		HashMap<String, String> wsAddressingHeadersMap = OJBUtils.returnWSAddressingHeadersFromCamelSoapHeaders(exchange);
 		
 		String requestID = wsAddressingHeadersMap.get("MessageID");	
 		
 		String replyTo = wsAddressingHeadersMap.get("ReplyTo");
 
-		if (StringUtils.isNotBlank(replyTo))
-		{
+		if (StringUtils.isNotBlank(replyTo)){
 			exchange.getIn().setHeader("WSAddressingReplyTo", replyTo);
 		}	
 		
-		if (StringUtils.isNotBlank(requestID))
-		{
+		if (StringUtils.isNotBlank(requestID)){
 			String platformSafeFileName = requestID.replace(":", "");
 			exchange.getIn().setHeader("federatedQueryRequestGUID", requestID);
 			exchange.getIn().setHeader("platformSafeFileName", platformSafeFileName);
 		}
-		else
-		{
+		else{
 			throw new Exception("Unable to find unique ID in Soap Header.  Was the message ID set in the Soap WS Addressing header?");
 		}	
 
