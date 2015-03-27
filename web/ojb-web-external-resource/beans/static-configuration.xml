@@ -86,6 +86,8 @@
 			value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms" />
 		<entry key="Law Enforcement RMS"
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" />
+		<entry key="Juvenile"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" />
 	</util:map>
 
 	<util:map id="systemsToQuery_people_disabled" map-class="java.util.LinkedHashMap">
