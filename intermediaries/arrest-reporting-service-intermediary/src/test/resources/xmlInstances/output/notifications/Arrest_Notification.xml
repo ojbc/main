@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
 <b:Notify xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
           xmlns:s="http://niem.gov/niem/structures/2.0"
           xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
@@ -34,10 +52,10 @@
                      <nc:OrganizationName>Local Police Department</nc:OrganizationName>
                   </j:ArrestAgency>
                   <j:ArrestOfficial>
-                     <nc:RoleOfPersonReference s:ref="d1e253"/>
+                     <nc:RoleOfPersonReference s:ref="d1e254"/>
                   </j:ArrestOfficial>
                   <j:ArrestSubject>
-                     <nc:RoleOfPersonReference s:ref="d1e128"/>
+                     <nc:RoleOfPersonReference s:ref="d1e129"/>
                   </j:ArrestSubject>
                </j:Arrest>
                <j:Incident>
@@ -62,7 +80,7 @@
                   </nc:IncidentLocation>
                   <j:IncidentAugmentation>
                      <j:IncidentReportingOfficial>
-                        <nc:RoleOfPersonReference s:ref="d1e253"/>
+                        <nc:RoleOfPersonReference s:ref="d1e254"/>
                         <j:EnforcementOfficialUnit>
                            <nc:OrganizationName>Local Police Department</nc:OrganizationName>
                            <nc:OrganizationPrimaryContactInformation>
@@ -77,7 +95,7 @@
                   </j:IncidentAugmentation>
                   <j:IncidentAugmentation>
                      <j:IncidentReportingOfficial>
-                        <nc:RoleOfPersonReference s:ref="d1e266"/>
+                        <nc:RoleOfPersonReference s:ref="d1e267"/>
                         <j:EnforcementOfficialUnit>
                            <nc:OrganizationName>Local Police Department</nc:OrganizationName>
                            <nc:OrganizationPrimaryContactInformation>
@@ -104,10 +122,10 @@
             </notificationExt:NotifyingArrest>
             <nc:ActivityInvolvedPersonAssociation>
                <nc:ActivityReference s:ref="A001"/>
-               <nc:PersonReference s:ref="d1e128"/>
+               <nc:PersonReference s:ref="d1e129"/>
                <nc:PersonActivityInvolvementText>Arrest Subject</nc:PersonActivityInvolvementText>
             </nc:ActivityInvolvedPersonAssociation>
-            <j:Person s:id="d1e128">
+            <j:Person s:id="d1e129">
                <nc:PersonAlternateName>
                   <nc:PersonGivenName>Mark</nc:PersonGivenName>
                   <nc:PersonSurName>Smitty</nc:PersonSurName>
@@ -125,12 +143,12 @@
                   <nc:PersonFullName>Smith, Mark</nc:PersonFullName>
                </nc:PersonName>
             </j:Person>
-            <j:Person s:id="d1e253">
+            <j:Person s:id="d1e254">
                <nc:PersonName>
                   <nc:PersonFullName>Officer 1 full name</nc:PersonFullName>
                </nc:PersonName>
             </j:Person>
-            <j:Person s:id="d1e266">
+            <j:Person s:id="d1e267">
                <nc:PersonName>
                   <nc:PersonFullName>Officer 2 full name</nc:PersonFullName>
                </nc:PersonName>
@@ -153,7 +171,7 @@
                </nc:ContactTelephoneNumber>
             </nc:ContactInformation>
             <nc:PersonContactInformationAssociation>
-               <nc:PersonReference s:ref="d1e128"/>
+               <nc:PersonReference s:ref="d1e129"/>
                <nc:ContactInformationReference s:ref="CI001"/>
             </nc:PersonContactInformationAssociation>
          </notification:NotificationMessage>
