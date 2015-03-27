@@ -170,7 +170,7 @@
 			<camel:log message="Entering Juvenile Case Plan Results Handler Service."/>
 
 			<camel:setHeader headerName="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenileCasePlanHistoryQuery</constant>
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory</constant>
 			</camel:setHeader>
 			
 			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
@@ -180,7 +180,7 @@
 			<camel:from uri="juvenileHearingHistoryResultsHandlerServiceEndpoint" />
 			<camel:log message="Entering Juvenile Hearing Results Handler Service."/>
 			<camel:setHeader headerName="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenileHearingHistoryQuery</constant>
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory</constant>
 			</camel:setHeader>
 			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
 		</camel:route>	
@@ -189,7 +189,7 @@
 			<camel:from uri="juvenileIntakeHistoryResultsHandlerServiceEndpoint" />
 			<camel:log message="Entering Juvenile Intake Results Handler Service."/>
 			<camel:setHeader headerName="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenileIntakeHistoryQuery</constant>
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory</constant>
 			</camel:setHeader>
 			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
 		</camel:route>	
@@ -199,7 +199,7 @@
 			
 			<camel:log message="Entering Juvenile Offense Results Handler Service."/>
 			<camel:setHeader headerName="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenileOffenseHistoryQuery</constant>
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory</constant>
 			</camel:setHeader>
 			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
 		</camel:route>	
@@ -208,7 +208,7 @@
 			<camel:from uri="juvenilePlacementHistoryResultsHandlerServiceEndpoint" />
 			<camel:log message="Entering Juvenile Placement Results Handler Service."/>
 			<camel:setHeader headerName="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenilePlacementHistoryQuery</constant>
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory</constant>
 			</camel:setHeader>
 			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
 		</camel:route>	
@@ -217,7 +217,7 @@
 			<camel:from uri="juvenileReferralHistoryResultsHandlerServiceEndpoint" />
 			<camel:log message="Entering Juvenile Referral Results Handler Service."/>
 			<camel:setHeader headerName="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0}SubmitJuvenileReferralHistoryQuery</constant>
+				<constant>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory</constant>
 			</camel:setHeader>
 			<camel:to uri="direct:resultsHandlerServiceEndpoint" />
 		</camel:route>	
