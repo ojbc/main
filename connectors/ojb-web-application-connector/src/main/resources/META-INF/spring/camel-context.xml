@@ -24,7 +24,7 @@
 	    <!--Person Merge Notification Search Response Listener -->
 	    <camel:route id="personMergeSearchResultsHandlerRoute" autoStartup="false">
 	    	<from uri="personMergeSearchResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Person Merge Search Results: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Person Merge Search Results: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
 			<camel:to uri="bean:personSearchMessageProcessor?method=processRequestPayload" />
@@ -38,7 +38,7 @@
 	    <!-- Criminal History Response Listener -->
 	    <camel:route id="personQueryResultsHandlerCriminalHistoryServiceRoute" autoStartup="false">
 	    	<from uri="personQueryResultsHandlerCriminalHistoryServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Criminal History: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Criminal History: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:warrantsMessageProcessor?method=processRequestPayload" />
@@ -51,7 +51,7 @@
 	    <!-- Warrants Response Listener -->
 	    <camel:route id="personQueryResultsHandlerWarrantsServiceRoute" autoStartup="false">
 	    	<from uri="personQueryResultsHandlerWarrantsServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Warrants: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Warrants: ${body}" loggingLevel="DEBUG"/>
 	    	
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:warrantsMessageProcessor?method=processRequestPayload" />
@@ -63,7 +63,7 @@
 	    <!-- Incident Report Response Listener -->
 	    <camel:route id="incidentReportResultsHandlerServiceRoute" autoStartup="false">
 	    	<from uri="incidentReportResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Incident Report ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Incident Report ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:incidentReportRequestMessageProcessor?method=processRequestPayload" />
@@ -76,7 +76,7 @@
 	    <camel:route id="personVehicleToIncidentSearchResultsHandlerRoute" autoStartup="false">
 	    	<from uri="personVehicleToIncidentSearchResultsHandlerServiceEndpoint"/>
 	    		    	
-	    	<camel:log message="Recieved response message - Incident Search ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Incident Search ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 	    	<!-- We can use any message processor to process the payload, it is generic method -->
@@ -89,7 +89,7 @@
 	    <!--Incident Merge Notification Search Response Listener -->
 	    <camel:route id="incidentSearchResultsHandlerRoute" autoStartup="false">
 	    	<from uri="incidentSearchResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Incident Merge Search Results: ${body}" loggingLevel="INFO"/>
+	    	<camel:log message="Received response message - Incident Merge Search Results: ${body}" loggingLevel="INFO"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. -->
 			<camel:to uri="bean:incidentSearchMessageProcessor?method=processRequestPayload" />
@@ -102,7 +102,7 @@
 	    <!--Incident Merge Notification Search Response Listener -->
 	    <camel:route id="vehicleSearchResultsHandlerRoute" autoStartup="false">
 	    	<from uri="vehicleSearchResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Vehicle Merge Search Results: ${body}" loggingLevel="INFO"/>
+	    	<camel:log message="Received response message - Vehicle Merge Search Results: ${body}" loggingLevel="INFO"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. -->
 			<camel:to uri="bean:vehicleSearchMessageProcessor?method=processRequestPayload" />
@@ -115,7 +115,7 @@
 	    <!--Firearm Merge Notification Search Response Listener -->
 	    <camel:route id="firearmSearchResultsHandlerRoute" autoStartup="false">
 	    	<from uri="firearmSearchResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Firearm Merge Search Results: ${body}" loggingLevel="INFO"/>
+	    	<camel:log message="Received response message - Firearm Merge Search Results: ${body}" loggingLevel="INFO"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. -->
 			<camel:to uri="bean:firearmSearchMessageProcessor?method=processRequestPayload" />
@@ -128,7 +128,7 @@
 	    <!--Firearm Registration Query Response Listener -->
 	    <camel:route id="firearmRegistrationQueryResultsHandlerRoute" autoStartup="false">
 	    	<from uri="firearmRegistrationQueryResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Firearm Reg Query Results: ${body}" loggingLevel="INFO"/>
+	    	<camel:log message="Received response message - Firearm Reg Query Results: ${body}" loggingLevel="INFO"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. -->
 			<camel:to uri="bean:firearmRegistrationQueryMessageProcessor?method=processRequestPayload" />
@@ -141,7 +141,7 @@
 	    <!-- Subscription Search Response Listener -->
 	    <camel:route id="subscriptionSearchResultsHandlerRoute" autoStartup="false">
 	    	<from uri="subscriptionSearchResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Subscription Search: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Subscription Search: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:subscriptionSearchMessageProcessor?method=processRequestPayload" />
@@ -154,7 +154,7 @@
 	    <!-- Subscription Query Response Listener -->
 	    <camel:route id="subscriptionQueryResultsHandlerRoute" autoStartup="false">
 	    	<from uri="subscriptionQueryResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Subscription Query: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Subscription Query: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:subscriptionQueryMessageProcessor?method=processRequestPayload" />
@@ -167,7 +167,7 @@
 	    <!--Policy Based Access Control Response Listener -->
 	    <camel:route id="identityBasedAccessControlResultsHandlerRoute" autoStartup="false">
 	    	<from uri="accessControlResponseServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Identity Based Access Control result: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Identity Based Access Control result: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
 			<camel:to uri="bean:identityBasedAccessControlMessageProcessor?method=processRequestPayload" />
@@ -180,7 +180,7 @@
 	    <!--Policy Acknowledgement Recording Response Listener -->
 	    <camel:route id="policyAcknowledgementRecordingResultsHandlerRoute" autoStartup="false">
 	    	<from uri="policyAcknowledgementRecordingResponseServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Policy Acknowledgement Recording Response: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Policy Acknowledgement Recording Response: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
 			<camel:to uri="bean:policyAcknowledgingMessageProcessor?method=processRequestPayload" />
@@ -194,7 +194,7 @@
 	    <camel:route id="juvenileCasePlanHistoryResultsHandlerRoute" autoStartup="false">
 	    	<from uri="juvenileCasePlanHistoryResultsHandlerServiceEndpoint"/>
 	    	
-	    	<camel:log message="Recieved response message - Juvenile Case Plan Response:${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Juvenile Case Plan Response:${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
 			<camel:to uri="bean:juvenileQueryCasePlanHistoryMessageProcessor?method=processRequestPayload" />
@@ -206,7 +206,7 @@
 	    <!--Juvenile Hearing Listener -->
 	    <camel:route id="juvenileHearingHistoryResultsHandlerRoute" autoStartup="false">
 	    	<from uri="juvenileHearingHistoryResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Juvenile Hearing Response: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Juvenile Hearing Response: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
 			<camel:to uri="bean:juvenileQueryHearingHistoryMessageProcessor?method=processRequestPayload" />
@@ -219,7 +219,7 @@
 	    <!--Juvenile Intake Listener -->
 	    <camel:route id="juvenileIntakeHistoryResultsHandlerRoute" autoStartup="false">
 	    	<from uri="juvenileIntakeHistoryResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Juvenile Intake Response: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Juvenile Intake Response: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
 			<camel:to uri="bean:juvenileQueryIntakeHistoryMessageProcessor?method=processRequestPayload" />
@@ -232,7 +232,7 @@
 	    <!--Juvenile Offense Listener -->
 	    <camel:route id="juvenileOffenseHistoryResultsHandlerRoute" autoStartup="false">
 	    	<from uri="juvenileOffenseHistoryResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Juvenile Offense Response: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Juvenile Offense Response: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
 			<camel:to uri="bean:juvenileQueryOffenseHistoryMessageProcessor?method=processRequestPayload" />
@@ -245,7 +245,7 @@
 	    <!--Juvenile Placement Listener -->
 	    <camel:route id="juvenilePlacementHistoryResultsHandlerRoute" autoStartup="false">
 	    	<from uri="juvenilePlacementHistoryResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Juvenile Placement Response: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Juvenile Placement Response: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
 			<camel:to uri="bean:juvenileQueryPlacementHistoryMessageProcessor?method=processRequestPayload" />
@@ -258,7 +258,7 @@
 	    <!--Juvenile Referral Listener -->
 	    <camel:route id="juvenileReferralHistoryResultsHandlerRoute" autoStartup="false">
 	    	<from uri="juvenileReferralHistoryResultsHandlerServiceEndpoint"/>
-	    	<camel:log message="Recieved response message - Juvenile Referral Response: ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Juvenile Referral Response: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
 			<camel:to uri="bean:juvenileQueryReferralHistoryMessageProcessor?method=processRequestPayload" />
