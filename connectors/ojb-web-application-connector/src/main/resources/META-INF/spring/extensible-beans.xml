@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
 
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
 
 <!-- Configures beans intended to be overriden -->
 
@@ -22,6 +39,47 @@
 	
 	<!-- The detail query dispatcher only injects beans that are needed by the implementer -->
 	<bean id="detailQueryDispatcher" class="org.ojbc.web.impl.DetailQueryDispatcher"/>	
+       
+    <util:map id="searchURIToQueryURIMap">
+    	<!-- PERSON SEARCH DETAIL QUERIES -->
+    	<!-- Person Warrants -->
+    	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.WARRANTS" />
+		</entry>
+		
+		<!-- Person Criminal History -->
+    	<entry key ="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.CRIMINAL_HISTORY" />
+		</entry>
+		
+		<!-- Person Firearms -->
+    	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON" />
+		</entry>
+		
+		<!-- Person to Incident list, not supported by static mock adapter --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"/>
+		
+		
+		<!-- Incident List (person) to Incident Detail -->		
+		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"/>
+		
+		<!-- INCIDENT SEARCH DETAIL QUERIES -->
+		<!-- Incident Search to Incident Detail -->		
+		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"/>
+		
+		<!-- FIREARMS SEARCH DETAIL QUERIES -->
+		<!-- Firearms Search to Firearms Detail -->
+		<entry key="http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_FIREARM" />
+		</entry>
+
+		<!-- VEHICLE SEARCH DETAIL QUERIES -->
+		<!-- Vehicle Search to Incident list, not supported by static mock adapter-->
+		<entry key="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"/>
+		
+    </util:map>   
+        
        
 	<!-- To override or add beans, add beans to a beans/web-connector-extension-beans.xml in the ojb-web-external-resource project -->
 	<!-- To override a bean, use the same bean ID as in the provided context -->

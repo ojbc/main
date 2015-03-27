@@ -17,7 +17,6 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
-       
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
@@ -71,9 +70,6 @@
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 
-			<!-- Log pertinent request data -->
-			<camel:to uri="bean:federatedQueryAuditLogger?method=auditSearchParameters"/>
-
 			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
 			<!-- Change this XPath to match what you need -->
 			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
@@ -106,7 +102,7 @@
 			<camel:to 
 				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
 									
-			<!-- Call method to populate federated query map and create federatedQueryRecipientListHeader (comma seperated camel endpoint list)-->
+			<!-- Call method to populate federated query map -->
 			<camel:to
 				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
 				
@@ -116,7 +112,7 @@
 
 			</camel:setHeader>
 			
-			<!-- This wiretap will start the message timer. There were anamolies with having it as part of the Recipient List -->
+			<!-- This wiretap will start the message timer. -->
 			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
 
 			<camel:log message="Timer started"/>
@@ -185,7 +181,7 @@
 					<header>federatedQueryNumberOfEndpointsRequested</header>
 				</completionSize>
 				<log
-					message="completed by ${property.CamelAggregatedCompletedBy}, completion size ${property.CamelAggregatedSize}, aggregation key ${property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: ${bean:searchIntermediaryFederatedQueryTimeout.trim}"></log>
+					message="completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{firearmQuery.registration.firearmQueryIntermediaryFederatedQueryTimeout}}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
@@ -220,10 +216,7 @@
 			
 			        <camel:filter>
 						<camel:simple>${in.header.operationName} == 'SubmitPersonFirearmRegistrationQueryResults'</camel:simple>
-			        
-						<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
-						<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-		
+			        		
 						<camel:setHeader headerName="operationName">
 							<constant>SubmitPersonFirearmRegistrationQueryResults</constant>
 						</camel:setHeader>
@@ -232,10 +225,7 @@
 		
 			        <camel:filter>
 						<camel:simple>${in.header.operationName} == 'SubmitFirearmRegistrationQueryResults'</camel:simple>
-			        
-						<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
-						<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-		
+			        		
 						<camel:setHeader headerName="operationName">
 							<constant>SubmitFirearmRegistrationQueryResults</constant>
 						</camel:setHeader>
@@ -295,7 +285,7 @@
 			<ref bean="federatedQueryManager" />
 		</property>
 	</bean>
-	
+
 	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
 		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	</bean>
@@ -304,10 +294,6 @@
 		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
 	</bean>
 	
-	<bean id="federatedQueryAuditLogger" class="org.ojbc.util.camel.processor.audit.FederatedQueryAuditLogger">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	 
 	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
 	
 </beans>

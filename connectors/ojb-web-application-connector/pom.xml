@@ -1,3 +1,21 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -9,6 +27,11 @@
 	<name>OJB :: ojb-web-application-connector :: connectors</name>
     <url>http://www.search.org</url>
 
+	<parent>
+		<groupId>org.ojb.bundles</groupId>
+		<artifactId>ojb-connectors-aggregate</artifactId>
+		<version>1.0.0</version>
+	</parent>
 
 	<properties>
 		<camel-version>2.13.4</camel-version>
@@ -16,12 +39,12 @@
 		<log4j-version>1.2.16</log4j-version>
 		<cxf-version>2.7.14</cxf-version>
 		<servlet-api-version>2.5</servlet-api-version>
-		<bouncycastle-version>140</bouncycastle-version>	
+		<bouncycastle-version>140</bouncycastle-version>
 		<ojb-fedquery-common-version>[1.0.2,)</ojb-fedquery-common-version>
 		<ojb-camel-common>[1.0.0,)</ojb-camel-common>
 		<ojb-common-version>[2.0.2,)</ojb-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
-		<ojb-ui-common-version>[1.0.2,)</ojb-ui-common-version>		
+		<ojb-ui-common-version>[1.0.2,)</ojb-ui-common-version>
 		<ojb-web-application-connector-extension-version>[1.0.0,)</ojb-web-application-connector-extension-version>
 		<commons-lang-version>2.4</commons-lang-version>
 		<spring-version>3.2.13.RELEASE</spring-version>
@@ -31,7 +54,7 @@
 		<mockito.version>1.9.0</mockito.version>
 		<nij-er-resources-version>1.0.2</nij-er-resources-version>
 		<xml-apis-version>2.0.2</xml-apis-version>
-		
+
 		<!-- Plugin versions -->
 		<surefire.version>2.7.2</surefire.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
@@ -99,7 +122,7 @@
 			<artifactId>bcprov-jdk16</artifactId>
 			<version>${bouncycastle-version}</version>
 		</dependency>
-       
+
         <dependency>
            <groupId>org.apache.cxf</groupId>
            <artifactId>cxf-rt-ws-security</artifactId>
@@ -115,8 +138,8 @@
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>${jodatime-version}</version>
-		</dependency>		
-		
+		</dependency>
+
 		<!-- OJB Shared Bundles -->
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
@@ -127,55 +150,55 @@
 	      <groupId>org.ojbc.bundles.shared</groupId>
 	      <artifactId>ojb-common</artifactId>
 	      <version>${ojb-common-version}</version>
-	      
-	      <!-- Exclude older saxon from ojb connector classpath.  Saxon is a 
-	      		dependency in utility classes. We don't want it included transitively on  
-	      		the ojb connector classpath, so we need to exclude it.  When saxon is on the 
-	      		classpath, it gets used by the JVM during certain non explicit TransformerFactory 
+
+	      <!-- Exclude older saxon from ojb connector classpath.  Saxon is a
+	      		dependency in utility classes. We don't want it included transitively on
+	      		the ojb connector classpath, so we need to exclude it.  When saxon is on the
+	      		classpath, it gets used by the JVM during certain non explicit TransformerFactory
 	      		calls.  When this is unintended, there is unexpected behavior.
-	      -->	     
+	      -->
 	      <exclusions>
 				<exclusion>
 					<groupId>net.sf.saxon</groupId>
 					<artifactId>saxon</artifactId>
 				</exclusion>
-				
-				<exclusion>	
+
+				<exclusion>
 					<groupId>net.sf.saxon</groupId>
 					<artifactId>saxon-dom</artifactId>
-				</exclusion>								
-			</exclusions>		      
+				</exclusion>
+			</exclusions>
 	    </dependency>
-	    
+
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
 	      <artifactId>ojb-camel-common</artifactId>
 	      <version>${ojb-camel-common}</version>
 	    </dependency>
-	
+
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
 	      <artifactId>ojb-resources-common</artifactId>
 	      <version>${ojb-resources-common-version}</version>
 	    </dependency>
-	    
+
 		<dependency>
 			  <groupId>org.ojbc.bundles.shared</groupId>
 			  <artifactId>ojb-ui-common</artifactId>
 			  <version>${ojb-ui-common-version}</version>
-		</dependency> 	
+		</dependency>
 
 		<dependency>
 			  <groupId>org.ojbc.bundles.connectors</groupId>
 			  <artifactId>ojb-web-application-connector-extension</artifactId>
 			  <version>${ojb-web-application-connector-extension-version}</version>
-		</dependency> 	
-	    
+		</dependency>
+
 		<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis</artifactId>
 			<version>${xml-apis-version}</version>
-		</dependency>	
+		</dependency>
 		<!-- for testing -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -200,13 +223,13 @@
 			<artifactId>commons-io</artifactId>
 			<version>${apache-commons-io-version}</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
 			<version>${xmlunit-version}</version>
 			<scope>test</scope>
-		</dependency>			
+		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
@@ -236,11 +259,11 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j-version}</version>
 		</dependency>
-	</dependencies>		
-	
+	</dependencies>
+
 	<build>
 		<defaultGoal>install</defaultGoal>
-		
+
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/resources</directory>
@@ -254,8 +277,8 @@
 			<resource>
 				<directory>${basedir}/src/main/java</directory>
 			</resource>
-		</resources>	
-	
+		</resources>
+
 	  <plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -263,7 +286,7 @@
 			<version>${surefire.version}</version>
 			<configuration>
 			  <argLine>-Xmx1024m</argLine>
-			</configuration>			
+			</configuration>
 			<executions>
 				<execution>
 					<id>default-test</id>
@@ -281,7 +304,7 @@
 				</execution>
 			</executions>
 		</plugin>
-	  
+
 	    <plugin>
 	      <groupId>org.apache.maven.plugins</groupId>
 	      <artifactId>maven-compiler-plugin</artifactId>
