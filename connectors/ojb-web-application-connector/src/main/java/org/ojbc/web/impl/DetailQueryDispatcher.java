@@ -156,7 +156,7 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			else if (request.getQueryType().equalsIgnoreCase("Intake")){
 				return juvenileIntakeHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			}
-			else if (request.getQueryType().equalsIgnoreCase("Offense")){
+			else if (request.getQueryType().equalsIgnoreCase("Person")||request.getQueryType().equalsIgnoreCase("Offense") ){
 				return juvenileOffenseHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			}  
 			else if (request.getQueryType().equalsIgnoreCase("Placement")){
