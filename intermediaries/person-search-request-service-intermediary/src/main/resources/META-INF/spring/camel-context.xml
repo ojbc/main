@@ -20,12 +20,12 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
-	
+
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Person_Search_Request_Service_Intermediary">
-	
+
 		<!-- Search Request and Response Federated Endpoints -->
 		<endpoint id="searchRequestFederatedServiceEndpoint"
 			uri="cxf:bean:personSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
@@ -49,7 +49,7 @@
 		<!-- Federated Search Request Handler-->
 		<camel:route>
 			<camel:from uri="searchRequestFederatedServiceEndpoint" />
-						
+
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:federatedQuery.personSearch.dbAuditLog} == 'true'</camel:simple>
@@ -120,7 +120,7 @@
 				</camel:recipientList>
 				
 			</camel:split>
-			
+
 		</camel:route>
 
 		<camel:route>
@@ -161,7 +161,8 @@
 		<camel:route>
 			<camel:from
 				uri="searchResultsFederatedServiceEndpoint" />
-			
+			<camel:log message="Entering Search Results Handler"/>
+
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:federatedQuery.personSearch.dbAuditLog} == 'true'</camel:simple>
@@ -177,7 +178,6 @@
 				</camel:when>
 			</camel:choice>
 						
-			<camel:log message="Entering Search Results Handler"/>
 			<camel:setHeader headerName="searchProfile">
 				<camel:xpath resultType="java.lang.String">//extResults:SourceSystemNameText/text()</camel:xpath>
 			</camel:setHeader>
@@ -242,7 +242,7 @@
 			
 			<!-- This wiretap will start the Entity Resolution message timer. -->
 			<camel:wireTap uri="direct:aggregateEntityResolutionQuery"/>
-			
+
 			<!-- This header is set to point the ER Request XSLT to the attribute parameters file to include in the request to the ER service -->
 			<camel:setHeader headerName="erAttributeParametersFilePath">
 				<camel:constant>{{federatedQuery.personSearch.entityResolutionURI}}</camel:constant>
@@ -332,7 +332,7 @@
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 					
 					<camel:log message="About to send entity merge message to ${in.headers.recipientListReplyToEndpoint}" />			
-					
+
 					<camel:log message="Reply to portal: ${body}" loggingLevel="DEBUG"/>
 								
 					<camel:recipientList>
