@@ -4,10 +4,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cxf="http://camel.apache.org/schema/cxf"
 	   xmlns:policy="http://cxf.apache.org/policy"
-	   xmlns:wsp="http://www.w3.org/2006/07/ws-policy" 
+	   xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
        xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
        xmlns:sec="http://cxf.apache.org/configuration/security"
-       xmlns:util="http://www.springframework.org/schema/util"        
+       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:http="http://cxf.apache.org/transports/http/configuration"
        xsi:schemaLocation="
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
@@ -119,9 +119,8 @@
 	<bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">
 	    <!--  Set relayHeaders to false to drop all SOAP headers -->
     	<property name="relayHeaders" value="false"/>
-   
 	</bean>
-	
+
 	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
