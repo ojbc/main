@@ -1,0 +1,19 @@
+<er-ext:AttributeParameters xmlns:er-ext="http://nij.gov/IEPD/Extensions/EntityResolutionExtensions/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+	<!-- Vehicle VIN -->
+	<er-ext:AttributeParameter>
+		<er-ext:AttributeXPath>ext:VehicleSearchResult/ext:Vehicle/nc:VehicleIdentification/nc:IdentificationID</er-ext:AttributeXPath>
+		<er-ext:AttributeThresholdValue>1.0</er-ext:AttributeThresholdValue>
+		<er-ext:AttributeIsDeterminativeIndicator>true</er-ext:AttributeIsDeterminativeIndicator>
+		<er-ext:AttributeMatchAlgorithmSimmetricsURICode>urn:org:search:ers:algorithms:ss.wcohen.com.Jaro</er-ext:AttributeMatchAlgorithmSimmetricsURICode>
+	</er-ext:AttributeParameter>
+	<!-- Vehicle License Plate -->
+	<er-ext:AttributeParameter>
+		<er-ext:AttributeXPath>ext:VehicleSearchResul/ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID</er-ext:AttributeXPath>
+		<er-ext:AttributeThresholdValue>1.0</er-ext:AttributeThresholdValue>
+		<er-ext:AttributeIsDeterminativeIndicator>true</er-ext:AttributeIsDeterminativeIndicator>
+		<er-ext:AttributeMatchAlgorithmSimmetricsURICode>urn:org:search:ers:algorithms:ss.wcohen.com.Jaro</er-ext:AttributeMatchAlgorithmSimmetricsURICode>
+	</er-ext:AttributeParameter>
+
+</er-ext:AttributeParameters>
