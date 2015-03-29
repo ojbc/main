@@ -47,7 +47,6 @@
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 	
-
 	<!-- Person Search Results Handler Service, hosted by OJB  -->
 	<cxf:cxfEndpoint id="personSearchResultsFederatedService"
 		address="${federatedQuery.personSearch.personSearchResultsEndpoint}"
@@ -99,7 +98,7 @@
 			</policy:policies>
 		</cxf:features>
 	</cxf:cxfEndpoint>
-	
+
 	<!-- Present Merge Notification Service Results -->
 	<cxf:cxfEndpoint id="presentMergeNotificationServiceResults"
 		address="${federatedQuery.personSearch.presentMergeNotificationResultsEndpoint}"
@@ -116,7 +115,6 @@
 			</policy:policies>
 		</cxf:features>
 	</cxf:cxfEndpoint>
-	
 	
 	<bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">
 	    <!--  Set relayHeaders to false to drop all SOAP headers -->
