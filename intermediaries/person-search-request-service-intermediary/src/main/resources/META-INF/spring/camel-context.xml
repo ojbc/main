@@ -23,7 +23,7 @@
 
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
-	
+
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Person_Search_Request_Service_Intermediary">
 
 		<!-- Search Request and Response Federated Endpoints -->
@@ -177,7 +177,7 @@
 					</camel:doTry>
 				</camel:when>
 			</camel:choice>
-						
+
 			<camel:setHeader headerName="searchProfile">
 				<camel:xpath resultType="java.lang.String">//extResults:SourceSystemNameText/text()</camel:xpath>
 			</camel:setHeader>
@@ -270,9 +270,9 @@
 		<!-- Entity Resolution Response listener -->
 		<camel:route id="EntityResolutionResponseEndpoint">
 			<camel:from uri="mergeNotificationServiceEndpoint"/>
-			
+
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			
+	
 			<log message="Person Search Intermediary Recieved merged message with message ID: ${in.headers.federatedQueryRequestGUID}" loggingLevel="INFO"/>
 			<log message="Full message is (in DEBUG mode): ${body}" loggingLevel="DEBUG" />
 			
@@ -361,7 +361,7 @@
 		class="org.ojbc.util.fedquery.entityResolution.EntityResolutionResponseHandlerAggregator"/>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
+
 	<bean id="mergeNotificationErrorProcessor" class="org.ojbc.util.fedquery.error.MergeNotificationErrorProcessor" />
 
 	<bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
