@@ -13,7 +13,7 @@
 	<url>http://www.search.org</url>
 
 	<parent>
-		<groupId>org.ojb.bundles</groupId>
+		<groupId>org.ojbc.build</groupId>
 	  <artifactId>ojb-intermediaries-aggregate</artifactId>
 	  <version>1.0.0</version>
 	</parent>

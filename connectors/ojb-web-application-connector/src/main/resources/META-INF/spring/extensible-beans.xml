@@ -73,7 +73,7 @@
 		
 		<!-- FIREARMS SEARCH DETAIL QUERIES -->
 		<!-- Firearms Search to Firearms Detail -->
-		<entry key="http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest">
+		<entry key="{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest">
 			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_FIREARM" />
 		</entry>
 

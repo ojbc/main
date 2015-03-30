@@ -1,0 +1,182 @@
+<OJBAggregateResponseWrapper>
+<firearm-search-resp-doc:FirearmSearchResults xmlns:firearm-search-resp-doc="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0">
+   <firearm-search-resp-ext:FirearmSearchResult s:id="FSR0"  
+                                              xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0"
+                                              xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0"
+                                              xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+                                              xmlns:isr-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
+                                              xmlns:usps-states="http://niem.gov/niem/usps_states/2.0"
+                                              xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
+                                              xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                              xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0"
+                                              xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+                                              xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+                                              xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+                                              xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+                                              xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+                                              xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+                                              xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+                                              xmlns:firearm-search-req-doc="http://ojbc.org/IEPD/Exchange/FirearmSearchRequest/1.0"
+                                              xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+                                              xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
+                                              xmlns:niem-xs="http://niem.gov/niem/proxy/xsd/2.0"
+                                              xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+                                              xmlns:firearm-reg-req-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryRequest/1.0"
+                                              xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0"
+                                              xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0"
+                                              xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+                                              xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+                                              xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0"
+                                              xmlns:iqr="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
+                                              xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+                                              xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+                                              xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
+                                              xmlns:firearm-reg-req-ext="http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0"
+                                              xmlns:screening="http://niem.gov/niem/domains/screening/2.0"
+                                              xmlns:s="http://niem.gov/niem/structures/2.0"
+                                              xmlns:firearm-search-resp-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
+                                              xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                              xmlns:firearm-search-req-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
+                                              xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
+                                              xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
+                                              xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+                                              xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0"
+                                              xmlns:firearms-codes-demostate="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0"
+                                              xmlns:iqr-doc="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0"
+                                              xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+                                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                              xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
+      <nc:Person s:id="REGISTRANT0">
+         <nc:PersonName>
+            <nc:PersonGivenName>Sam</nc:PersonGivenName>
+            <nc:PersonMiddleName>J</nc:PersonMiddleName>
+            <nc:PersonSurName>Smith</nc:PersonSurName>
+         </nc:PersonName>
+      </nc:Person>
+      <firearm-search-resp-ext:Firearm s:id="FIREARM0">
+         <nc:ItemSerialIdentification>
+            <nc:IdentificationID>111</nc:IdentificationID>
+         </nc:ItemSerialIdentification>
+         <nc:ItemModelName>PF9</nc:ItemModelName>
+         <nc:FirearmCategoryCode>P</nc:FirearmCategoryCode>
+         <nc:FirearmCategoryDescriptionCode>A</nc:FirearmCategoryDescriptionCode>
+         <nc:FirearmCaliberText>9</nc:FirearmCaliberText>
+         <firearm-search-resp-ext:FirearmMakeText>AN01</firearm-search-resp-ext:FirearmMakeText>
+         <firearm-search-resp-ext:FirearmStatus>
+            <firearm-search-resp-ext:FirearmStatusText>MauiPropStatusTxt</firearm-search-resp-ext:FirearmStatusText>
+         </firearm-search-resp-ext:FirearmStatus>
+      </firearm-search-resp-ext:Firearm>
+      <firearm-search-resp-ext:ItemRegistration s:id="REGISTRATION0">
+         <nc:RegistrationIdentification>
+            <nc:IdentificationID>111</nc:IdentificationID>
+         </nc:RegistrationIdentification>
+         <nc:RegistrationEffectiveDate>
+            <nc:Date>1940-03-10</nc:Date>
+         </nc:RegistrationEffectiveDate>
+         <firearm-search-resp-ext:RegistrationStatus>
+            <firearms-hi:FirearmRegistrationStatusCode>I</firearms-hi:FirearmRegistrationStatusCode>
+         </firearm-search-resp-ext:RegistrationStatus>
+         <firearm-search-resp-ext:RegistrationNotesText>Extended Magazine</firearm-search-resp-ext:RegistrationNotesText>
+      </firearm-search-resp-ext:ItemRegistration>
+      <nc:PropertyRegistrationAssociation>
+         <nc:ItemRegistrationReference s:ref="REGISTRATION0"/>
+         <nc:ItemReference s:ref="FIREARM0"/>
+         <nc:ItemRegistrationHolderReference s:ref="REGISTRANT0"/>
+      </nc:PropertyRegistrationAssociation>
+      <firearm-search-resp-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest-Maui</firearm-search-resp-ext:SourceSystemNameText>
+      <intel:SystemIdentifier>
+         <nc:IdentificationID>123456</nc:IdentificationID>
+         <intel:SystemName>Maui County</intel:SystemName>
+      </intel:SystemIdentifier>
+   </firearm-search-resp-ext:FirearmSearchResult>
+   <firearm-search-resp-ext:FirearmSearchResult s:id="FSR1"  xmlns:firearm-search-resp-doc="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
+                                              xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0"
+                                              xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0"
+                                              xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+                                              xmlns:isr-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
+                                              xmlns:usps-states="http://niem.gov/niem/usps_states/2.0"
+                                              xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
+                                              xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                              xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0"
+                                              xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+                                              xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+                                              xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+                                              xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+                                              xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+                                              xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+                                              xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+                                              xmlns:firearm-search-req-doc="http://ojbc.org/IEPD/Exchange/FirearmSearchRequest/1.0"
+                                              xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+                                              xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
+                                              xmlns:niem-xs="http://niem.gov/niem/proxy/xsd/2.0"
+                                              xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+                                              xmlns:firearm-reg-req-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryRequest/1.0"
+                                              xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0"
+                                              xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0"
+                                              xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+                                              xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+                                              xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0"
+                                              xmlns:iqr="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
+                                              xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+                                              xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+                                              xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
+                                              xmlns:firearm-reg-req-ext="http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0"
+                                              xmlns:screening="http://niem.gov/niem/domains/screening/2.0"
+                                              xmlns:s="http://niem.gov/niem/structures/2.0"
+                                              xmlns:firearm-search-resp-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
+                                              xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                              xmlns:firearm-search-req-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
+                                              xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
+                                              xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
+                                              xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+                                              xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0"
+                                              xmlns:firearms-codes-demostate="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0"
+                                              xmlns:iqr-doc="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0"
+                                              xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+                                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                              xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
+      <nc:Person s:id="REGISTRANT1">
+         <nc:PersonName>
+            <nc:PersonGivenName>Sam</nc:PersonGivenName>
+            <nc:PersonMiddleName>J</nc:PersonMiddleName>
+            <nc:PersonSurName>Smith</nc:PersonSurName>
+         </nc:PersonName>
+      </nc:Person>
+      <firearm-search-resp-ext:Firearm s:id="FIREARM1">
+         <nc:ItemSerialIdentification>
+            <nc:IdentificationID>222</nc:IdentificationID>
+         </nc:ItemSerialIdentification>
+         <nc:ItemModelName>PF9</nc:ItemModelName>
+         <nc:FirearmCategoryCode>P</nc:FirearmCategoryCode>
+         <nc:FirearmCategoryDescriptionCode>A</nc:FirearmCategoryDescriptionCode>
+         <nc:FirearmCaliberText>9</nc:FirearmCaliberText>
+         <firearm-search-resp-ext:FirearmMakeText>AN01</firearm-search-resp-ext:FirearmMakeText>
+         <firearm-search-resp-ext:FirearmStatus>
+            <firearm-search-resp-ext:FirearmStatusText>MauiPropStatusTxt</firearm-search-resp-ext:FirearmStatusText>
+         </firearm-search-resp-ext:FirearmStatus>
+      </firearm-search-resp-ext:Firearm>
+      <firearm-search-resp-ext:ItemRegistration s:id="REGISTRATION1">
+         <nc:RegistrationIdentification>
+            <nc:IdentificationID>222</nc:IdentificationID>
+         </nc:RegistrationIdentification>
+         <nc:RegistrationEffectiveDate>
+            <nc:Date>1940-03-10</nc:Date>
+         </nc:RegistrationEffectiveDate>
+         <firearm-search-resp-ext:RegistrationStatus>
+            <firearms-hi:FirearmRegistrationStatusCode>I</firearms-hi:FirearmRegistrationStatusCode>
+         </firearm-search-resp-ext:RegistrationStatus>
+         <firearm-search-resp-ext:RegistrationNotesText>Extended Magazine</firearm-search-resp-ext:RegistrationNotesText>
+      </firearm-search-resp-ext:ItemRegistration>
+      <nc:PropertyRegistrationAssociation>
+         <nc:ItemRegistrationReference s:ref="REGISTRATION1"/>
+         <nc:ItemReference s:ref="FIREARM1"/>
+         <nc:ItemRegistrationHolderReference s:ref="REGISTRANT1"/>
+      </nc:PropertyRegistrationAssociation>
+      <firearm-search-resp-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest-Maui</firearm-search-resp-ext:SourceSystemNameText>
+      <intel:SystemIdentifier>
+         <nc:IdentificationID>123456</nc:IdentificationID>
+         <intel:SystemName>Maui County</intel:SystemName>
+      </intel:SystemIdentifier>
+   </firearm-search-resp-ext:FirearmSearchResult>
+</firearm-search-resp-doc:FirearmSearchResults>
+</OJBAggregateResponseWrapper>

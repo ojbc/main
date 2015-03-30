@@ -20,12 +20,12 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
-	
+
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
-	
+
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Person_Search_Request_Service_Intermediary">
-	
+
 		<!-- Search Request and Response Federated Endpoints -->
 		<endpoint id="searchRequestFederatedServiceEndpoint"
 			uri="cxf:bean:personSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
@@ -49,7 +49,7 @@
 		<!-- Federated Search Request Handler-->
 		<camel:route>
 			<camel:from uri="searchRequestFederatedServiceEndpoint" />
-						
+
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:federatedQuery.personSearch.dbAuditLog} == 'true'</camel:simple>
@@ -120,7 +120,7 @@
 				</camel:recipientList>
 				
 			</camel:split>
-			
+
 		</camel:route>
 
 		<camel:route>
@@ -161,7 +161,8 @@
 		<camel:route>
 			<camel:from
 				uri="searchResultsFederatedServiceEndpoint" />
-			
+			<camel:log message="Entering Search Results Handler"/>
+
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:federatedQuery.personSearch.dbAuditLog} == 'true'</camel:simple>
@@ -176,8 +177,7 @@
 					</camel:doTry>
 				</camel:when>
 			</camel:choice>
-						
-			<camel:log message="Entering Search Results Handler"/>
+
 			<camel:setHeader headerName="searchProfile">
 				<camel:xpath resultType="java.lang.String">//extResults:SourceSystemNameText/text()</camel:xpath>
 			</camel:setHeader>
@@ -242,7 +242,7 @@
 			
 			<!-- This wiretap will start the Entity Resolution message timer. -->
 			<camel:wireTap uri="direct:aggregateEntityResolutionQuery"/>
-			
+
 			<!-- This header is set to point the ER Request XSLT to the attribute parameters file to include in the request to the ER service -->
 			<camel:setHeader headerName="erAttributeParametersFilePath">
 				<camel:constant>{{federatedQuery.personSearch.entityResolutionURI}}</camel:constant>
@@ -270,12 +270,12 @@
 		<!-- Entity Resolution Response listener -->
 		<camel:route id="EntityResolutionResponseEndpoint">
 			<camel:from uri="mergeNotificationServiceEndpoint"/>
-			
+
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			
+
 			<log message="Person Search Intermediary Recieved merged message with message ID: ${in.headers.federatedQueryRequestGUID}" loggingLevel="INFO"/>
 			<log message="Full message is (in DEBUG mode): ${body}" loggingLevel="DEBUG" />
-			
+
 			<camel:to uri="direct:aggregateEntityResolutionQuery"/>						
 
 		</camel:route>
@@ -332,7 +332,7 @@
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 					
 					<camel:log message="About to send entity merge message to ${in.headers.recipientListReplyToEndpoint}" />			
-					
+
 					<camel:log message="Reply to portal: ${body}" loggingLevel="DEBUG"/>
 								
 					<camel:recipientList>
@@ -361,7 +361,7 @@
 		class="org.ojbc.util.fedquery.entityResolution.EntityResolutionResponseHandlerAggregator"/>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
+
 	<bean id="mergeNotificationErrorProcessor" class="org.ojbc.util.fedquery.error.MergeNotificationErrorProcessor" />
 
 	<bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
@@ -383,11 +383,11 @@
 	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
 		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	</bean>
-		
+
 	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
 		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>	
 	</bean>
-	
+
 	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
 		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
 	</bean>

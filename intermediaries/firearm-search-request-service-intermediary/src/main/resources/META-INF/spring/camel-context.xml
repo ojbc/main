@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<!-- Configures the Camel Context-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
+	xmlns:extResults="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:fsr="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Firearm_Search_Request_Service_Intermediary">
+
+		<!-- Search Request and Response Federated Endpoints -->
+		<endpoint id="searchRequestFederatedServiceEndpoint"
+			uri="cxf:bean:firearmSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
+
+		<!-- State Specific endpoints -->	
+		<camel:endpoint id="firearmSearchRequestServiceAdapterEndpoint"
+			uri="cxf:bean:firearmSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
+
+		<endpoint id="searchResultsFederatedServiceEndpoint"
+			uri="cxf:bean:firearmSearchResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
+
+ 		<endpoint id="entityResolutionRequestServiceEndpoint"
+			uri="cxf:bean:entityResolutionRequestService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
+
+ 		<endpoint id="mergeNotificationServiceEndpoint"
+			uri="cxf:bean:mergeNotificationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
+
+		<camel:endpoint id="presentMergeNotificationServiceResultsEndpoint"
+			uri="cxf:bean:presentMergeNotificationServiceResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
+
+		<!-- Federated Search Request Handler-->
+		<camel:route id="searchRequestFederatedServiceEndpointRoute">
+			<camel:from uri="searchRequestFederatedServiceEndpoint" />
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:federatedQuery.firearmSearch.dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+
+			<camel:choice>
+				<camel:when>
+					<camel:method bean="accessControlProcessor" method="authorize" />
+					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}"/>
+				</camel:otherwise>
+			</camel:choice>
+
+			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
+
+			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
+			<!-- Change this XPath to match what you need -->
+			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+				<camel:xpath>//ext:SourceSystemNameText</camel:xpath>
+			</camel:setHeader>
+			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
+			
+			<!-- Since all endpoints share the same operation and namespace, it is here -->
+			<!-- However, this should be configurable and not baked into the route, being researched... -->
+			<camel:setHeader headerName="operationName"><constant>SubmitFirearmSearchRequest</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0</constant></camel:setHeader>
+									
+			<!-- Call method to populate federated query map -->
+			<camel:to
+				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
+
+			<!-- Add the reply to address to the map using the federated query guid as the key -->
+			<camel:to 
+				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
+
+			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
+			<camel:setHeader headerName="requestMessageBody">
+				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
+			</camel:setHeader>
+
+			<!-- This wiretap will start the message timer. -->
+			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
+
+			<camel:log message="Timer started"/>
+
+			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
+				<camel:xpath>//ext:SourceSystemNameText</camel:xpath>
+				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+				
+				<camel:recipientList>
+					<camel:header>webServiceEndpointToCall</camel:header>
+				</camel:recipientList>
+				
+			</camel:split>
+
+		</camel:route>
+
+		<camel:route>
+			<from uri="direct:startFederatedQueryTimer"/>
+			<setBody>
+				<constant>START_QUERY_TIMER</constant>
+			</setBody>
+			<camel:to uri="direct:aggregateFederatedQuery" />		
+		</camel:route>
+
+		<camel:route>
+			<from uri="direct:aggregateFederatedQuery" />
+			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
+			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+				<correlationExpression>
+					<camel:header>federatedQueryRequestGUID</camel:header>
+				</correlationExpression>
+				<completionTimeout>
+					<camel:simple>${properties:federatedQuery.firearmSearch.firearmSearchIntermediaryFederatedQueryTimeout}</camel:simple>
+				</completionTimeout>
+				<completionSize>
+					<header>federatedQueryNumberOfEndpointsRequested</header>
+				</completionSize>
+				<log
+					message="completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}. Timeout for aggregations set at: {{federatedQuery.firearmSearch.firearmSearchIntermediaryFederatedQueryTimeout}}"></log>
+				<to
+					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
+
+				<log message="This is the completed aggregated body: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:to uri="direct:processFederatedResponse"/>
+
+			</aggregate>
+		</camel:route>
+
+		<!-- Place all response web services routes here.  There can be multiple services here. -->
+		<!-- Search Results Handler Route -->
+		<camel:route>
+			<camel:from
+				uri="searchResultsFederatedServiceEndpoint" />
+			<camel:log message="Entering Search Results Handler"/>
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:federatedQuery.firearmSearch.dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+
+			<camel:setHeader headerName="searchProfile">
+				<camel:xpath resultType="java.lang.String">//extResults:SourceSystemNameText/text()</camel:xpath>
+			</camel:setHeader>
+			
+			<camel:log message="System name returned: ${in.headers.searchProfile}"/>
+			
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			<camel:log message="Calling Aggregator" />
+			<camel:to uri="direct:aggregateFederatedQuery" />
+		</camel:route>
+
+		<!-- Process aggregated federated responses here, call entity resolution after transforming payload if necessary-->
+		<camel:route id="processFederatedResponseRoute">
+			<camel:from uri="direct:processFederatedResponse"/>
+			
+			<camel:setHeader headerName="searchResponseNodeCount">
+				<xpath resultType="java.lang.String">count(//extResults:FirearmSearchResult)</xpath>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="errorResponseNodeCount">
+				<xpath resultType="java.lang.String">count(//srm:SearchResultsMetadata)</xpath>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="firearmSearchContainerNodeCount">
+				<xpath resultType="java.lang.String">count(//fsr:FirearmSearchResults)</xpath>
+			</camel:setHeader>
+
+			<camel:setHeader headerName="firearmsSearchMaxRecords">
+				<camel:simple>${properties:federatedQuery.firearmSearch.firearmSearchIntermediaryMaxRecords}</camel:simple>
+			</camel:setHeader>
+
+			<log message="Error nodes: ${in.headers.errorResponseNodeCount}, Search Nodes: ${in.headers.searchResponseNodeCount}"/>
+			
+			<!-- In this case, we have exceeded the number of records allowed by the intermediary, create error and return -->
+			<camel:filter>
+				<camel:simple>${in.header.searchResponseNodeCount} > ${in.headers.firearmsSearchMaxRecords}</camel:simple>
+				<camel:log message="The search results count (${in.header.searchResponseNodeCount}) is greater than the max records allowed (${in.headers.firearmsSearchMaxRecords})"/>
+				<to uri="bean:mergeNotificationMaxRecordProcessor?method=returnMergeNotificationErrorMessageTooManyRecords"/>	
+				<camel:to uri="direct:sendMergeMessageResponse"/>
+				<camel:stop/>
+			</camel:filter>
+			
+			
+			<!-- In this case, we have errors but no search results, there is no need to call ER -->
+			<camel:filter>
+				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
+				<camel:log message="No search results returned, however, response contains error results"/>
+				<to uri="xslt:xslt/SearchResultsErrorToMergeNotificationMessage.xsl"/>	
+				<camel:to uri="direct:sendMergeMessageResponse"/>
+				<camel:stop/>
+			</camel:filter>
+
+			<!-- In this case, we have no errors and no search results, not even a container, create an error message and return -->
+			<camel:filter>
+				<camel:simple>${in.header.firearmSearchContainerNodeCount} == 0</camel:simple>
+				<camel:log message="No search results or error results, not even a container, the adapter timed or had an issue"/>
+				<to uri="bean:mergeNotificationErrorProcessor?method=returnMergeNotificationErrorMessage"/>	
+				<camel:to uri="direct:sendMergeMessageResponse"/>
+				<camel:stop/>
+			</camel:filter>
+			
+			<!-- This wiretap will start the Entity Resolution message timer. -->
+			<camel:wireTap uri="direct:aggregateEntityResolutionQuery"/>
+
+			<!-- This header is set to point the ER Request XSLT to the attribute parameters file to include in the request to the ER service -->
+			<camel:setHeader headerName="erAttributeParametersFilePath">
+				<camel:constant>{{federatedQuery.firearmSearch.entityResolutionURI}}</camel:constant>
+			</camel:setHeader>
+
+			<!-- This header is set the ER record threshold that is set in the Person Search to ER XSLT below -->
+			<camel:setHeader headerName="entityResolutionRecordThreshold">
+				<camel:simple>{{entityResolution.recordThreshold}}</camel:simple>
+			</camel:setHeader>
+			
+			<to uri="xslt:xslt/FirearmSearchResultsToEntityResolutionRequest.xsl"/>	
+			<log message="This is the entity resolution request: ${body}"  loggingLevel="DEBUG"/>	
+			
+			<!-- We set a WS Addressing Reply to so the ER service knows where to reply -->
+			<camel:setHeader headerName="WSAddressingReplyTo"><camel:simple>{{federatedQuery.mergeNotificationServiceEndpoint}}</camel:simple></camel:setHeader>
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+			
+			<camel:setHeader headerName="operationName"><constant>Submit-Entity-Merge</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://nij.gov/Services/WSDL/EntityResolutionService/1.0</constant></camel:setHeader>
+						
+			<to uri="entityResolutionRequestServiceEndpoint"/>
+		</camel:route>
+
+		<!-- Entity Resolution Response listener -->
+		<camel:route id="EntityResolutionResponseEndpoint">
+			<camel:from uri="mergeNotificationServiceEndpoint"/>
+
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+
+			<log message="Firearm Search Intermediary Recieved merged message with message ID: ${in.headers.federatedQueryRequestGUID}" loggingLevel="INFO"/>
+			<log message="Full message is (in DEBUG mode): ${body}" loggingLevel="DEBUG" />
+
+			<camel:to uri="direct:aggregateEntityResolutionQuery"/>						
+
+		</camel:route>
+
+		<camel:route>
+			<from uri="direct:aggregateEntityResolutionQuery" />
+				<log message="In ER aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
+				<aggregate groupExchanges="true" eagerCheckCompletion="true">
+					<correlationExpression>
+						<camel:header>federatedQueryRequestGUID</camel:header>
+					</correlationExpression>
+					<completionTimeout>
+						<camel:simple>${properties:federatedQuery.firearmSearch.firearmSearchIntermediaryFederatedQueryTimeout}</camel:simple>
+					</completionTimeout>
+					<!-- Completion size is two because we are calling one endpoint (plus the message to start the timer) -->
+					<completionSize>
+						<constant>2</constant>
+					</completionSize>
+					<log
+						message="Entity Resolution completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.   Timeout for aggregation set at: {{federatedQuery.firearmSearch.firearmSearchIntermediaryFederatedQueryTimeout}}"></log>
+
+					<camel:filter>
+							<!-- This indicates that the ER service timed out or had an error condition -->
+							<camel:simple>${property.CamelAggregatedSize} == 1 and ${property.CamelAggregatedCompletedBy} == 'timeout'</camel:simple>
+							
+							<camel:log message="The Entity Resolution service is down or timed out."/>
+					</camel:filter>
+							
+					<!-- Aggregate the ER response and splice in any errors.  This also handles the error condition from ER above. -->
+					<to
+						uri="bean:entityResolutionResponseAggregator?method=aggregateMergedMessageWithErrorResponses" />
+
+					<log message="This is the completed aggregated body: ${body}" loggingLevel="DEBUG"/>
+					
+					<to uri="direct:sendMergeMessageResponse" />
+				</aggregate>
+		</camel:route>	
+					
+		<camel:route>
+			<from uri="direct:sendMergeMessageResponse" />					
+			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
+
+			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
+			
+			<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
+				
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
+			
+					<camel:setHeader headerName="operationName"><constant>Notify-of-Merged-Records</constant></camel:setHeader>	
+					<camel:setHeader headerName="operationNamespace"><constant>http://nij.gov/Services/WSDL/MergeNotificationService/1.0</constant></camel:setHeader>
+					
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+					
+					<camel:log message="About to send entity merge message to ${in.headers.recipientListReplyToEndpoint}" />			
+
+					<camel:log message="Reply to portal: ${body}" loggingLevel="DEBUG"/>
+								
+					<camel:recipientList>
+						<camel:header>recipientListReplyToEndpoint</camel:header>
+					</camel:recipientList>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
+				</camel:otherwise>		
+			</camel:choice>	
+		</camel:route>
+
+	</camel:camelContext>
+
+	<!-- Spring Beans -->
+	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
+
+	<bean id="federatedQueryResponseAggregator"
+		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+	</bean>
+
+	<bean id="entityResolutionResponseAggregator"
+		class="org.ojbc.util.fedquery.entityResolution.EntityResolutionResponseHandlerAggregator"/>
+
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
+	<bean id="mergeNotificationErrorProcessor" class="org.ojbc.util.fedquery.error.MergeNotificationErrorProcessor" />
+
+	<bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+	</bean>
+
+	<bean id="mergeNotificationMaxRecordProcessor" class="org.ojbc.processor.error.MergeNotificationMaxRecordProcessor" >
+		<property name="federatedQueryEndpointMap" ref="federatedQueryEndpointMap"/>
+	</bean>
+
+	<!-- Used to retrieve and persist SAML tokens -->
+	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>
+	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
+	
+	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>
+
+	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
+		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>	
+	</bean>
+
+	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
+		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
+	</bean>
+	
+	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
+
+	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
+		<property name ="endpointReplyToMap" ref="endpointReplyToMap"/>
+	</bean>	
+	
+</beans>

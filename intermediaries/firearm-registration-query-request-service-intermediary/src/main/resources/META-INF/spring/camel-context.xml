@@ -209,36 +209,42 @@
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple>
-					 
-					<camel:log message="This is the operation Name ${in.header.operationName}" loggingLevel="DEBUG"/>
-					
-					<camel:convertBodyTo type="java.lang.String"/>
-			
-			        <camel:filter>
-						<camel:simple>${in.header.operationName} == 'SubmitPersonFirearmRegistrationQueryResults'</camel:simple>
-			        		
+
+					<!-- Create new exchange using Camel header as the WS Addressing Message 
+						ID -->
+					<camel:to
+						uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+		
+					<camel:setHeader headerName="firearmQueryResultByPerson">
+						<xpath resultType="java.lang.String">count(//firearms-exchange:PersonFirearmRegistrationQueryResults)</xpath>
+					</camel:setHeader>
+		
+					<camel:setHeader headerName="firearmQueryResultByFirearm">
+						<xpath resultType="java.lang.String">count(//firearms-exchange:FirearmRegistrationQueryResults)</xpath>
+					</camel:setHeader>
+		
+					<camel:filter>
+						<camel:simple>${in.header.firearmQueryResultByPerson} == 1 and ${in.header.firearmQueryResultByFirearm} == 0</camel:simple>
+						<camel:log message="Use operation name for Firearm Query Result by Person" />
+		
 						<camel:setHeader headerName="operationName">
 							<constant>SubmitPersonFirearmRegistrationQueryResults</constant>
 						</camel:setHeader>
-			        
-			        </camel:filter>
+					</camel:filter>
 		
-			        <camel:filter>
-						<camel:simple>${in.header.operationName} == 'SubmitFirearmRegistrationQueryResults'</camel:simple>
-			        		
+					<camel:filter>
+						<camel:simple>${in.header.firearmQueryResultByPerson} == 0 and ${in.header.firearmQueryResultByFirearm} == 1</camel:simple>
+						<camel:log message="Use operation name for Firearm Query Result by Firearm" />
+		
 						<camel:setHeader headerName="operationName">
 							<constant>SubmitFirearmRegistrationQueryResults</constant>
 						</camel:setHeader>
-			        
-			        </camel:filter>
-			        
-			        <camel:setHeader headerName="operationNamespace">
+					</camel:filter>
+		
+					<camel:setHeader headerName="operationNamespace">
 						<constant>http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0</constant>
-			        </camel:setHeader>
-					
-					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
-					
-					<camel:log message="About to send warrants query response message to ${in.headers.recipientListReplyToEndpoint}" />			
+					</camel:setHeader>					 
+
 								
 					<camel:recipientList>
 						<camel:header>recipientListReplyToEndpoint</camel:header>
