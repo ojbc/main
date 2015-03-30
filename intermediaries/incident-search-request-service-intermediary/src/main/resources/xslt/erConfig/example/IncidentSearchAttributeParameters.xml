@@ -1,0 +1,15 @@
+<er-ext:AttributeParameters xmlns:er-ext="http://nij.gov/IEPD/Extensions/EntityResolutionExtensions/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+	<!-- Incident Date -->
+	<er-ext:AttributeParameter>
+		<er-ext:AttributeXPath>ext:IncidentSearchResult/ext:Incident/nc:ActivityDate/nc:DateTime</er-ext:AttributeXPath>
+		<er-ext:AttributeThresholdValue>0.0</er-ext:AttributeThresholdValue>
+		<er-ext:AttributeIsDeterminativeIndicator>false</er-ext:AttributeIsDeterminativeIndicator>
+		<er-ext:AttributeMatchAlgorithmSimmetricsURICode>urn:org:search:ers:algorithms:ss.wcohen.com.Jaro</er-ext:AttributeMatchAlgorithmSimmetricsURICode>
+		<er-ext:AttributeSortSpecification>
+			<er-ext:AttributeSortOrderRank>1</er-ext:AttributeSortOrderRank>
+			<er-ext:AttributeSortOrder>descending</er-ext:AttributeSortOrder>
+		</er-ext:AttributeSortSpecification>
+	</er-ext:AttributeParameter>
+</er-ext:AttributeParameters>
