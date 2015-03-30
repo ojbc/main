@@ -1,0 +1,37 @@
+<exchange:FirearmSearchRequest xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmSearchRequest/1.0"
+                               xmlns:s="http://niem.gov/niem/structures/2.0"
+                               xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                               xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
+                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmSearchRequest/1.0 ../xsd/exchange_schema.xsd">
+	  <ext:Firearm s:id="FIREARM">
+		    <nc:ItemSerialIdentification>
+			      <nc:IdentificationID s:metadata="SM001">123476576</nc:IdentificationID>
+		    </nc:ItemSerialIdentification>
+		    <nc:ItemMakeName>Make</nc:ItemMakeName>
+		    <nc:ItemModelName>Model</nc:ItemModelName>
+		    <ext:FirearmTypeCode>Disguised Gun</ext:FirearmTypeCode>
+	  </ext:Firearm>
+	  <ext:ItemRegistration s:id="REGISTRATION">
+		    <nc:RegistrationIdentification>
+			      <nc:IdentificationID>Registration Number</nc:IdentificationID>
+		    </nc:RegistrationIdentification>
+		    <nc:LocationCountyName>County</nc:LocationCountyName>
+		    <ext:CurrentRegistrationIndicator>true</ext:CurrentRegistrationIndicator>
+	  </ext:ItemRegistration>
+	  <nc:PropertyRegistrationAssociation>
+		    <nc:ItemRegistrationReference s:ref="REGISTRATION"/>
+		    <nc:ItemReference s:ref="FIREARM"/>
+	  </nc:PropertyRegistrationAssociation>
+	  <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest</ext:SourceSystemNameText>
+	  <ext:SearchMetadata s:id="SM001">
+		    <ext:SearchQualifierCode>complete</ext:SearchQualifierCode>
+	  </ext:SearchMetadata>
+	  <ext:SearchMetadata s:id="SM002">
+		    <ext:SearchQualifierCode>partial</ext:SearchQualifierCode>
+	  </ext:SearchMetadata>
+	  <ext:SearchMetadata s:id="SM003">
+		    <ext:SearchRequestOnBehalfOfText>John Doe</ext:SearchRequestOnBehalfOfText>
+		    <ext:SearchPurposeText>Criminal Justice</ext:SearchPurposeText>
+	  </ext:SearchMetadata>
+</exchange:FirearmSearchRequest>
