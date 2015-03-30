@@ -32,7 +32,7 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/extensible-beans.xml",		
 		"classpath:META-INF/spring/local-osgi-context.xml",
 		"classpath:META-INF/spring/properties-context.xml"}) 
-public class TestPersonQueryServiceWarrants {
+public class TestPersonQueryServiceFirearms {
 
     @Test
     public void testApplicationStartup()
