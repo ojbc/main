@@ -177,16 +177,16 @@ public class CamelContextTest {
 		assertNotNull(messageNode);
 
 		//Get the first exchange (the only one) to the logger
-		//This is what would be sent to the member specific route
-		Exchange exMemberSpecific = loggingEndpoint.getExchanges().get(0);
+		//This is what would be sent to the derived bundle
+		Exchange derivedBundleExchange = loggingEndpoint.getExchanges().get(0);
 
-		Document returnDocumentMemberSpecific = exMemberSpecific.getIn().getBody(Document.class);
+		Document returnDocumentDerivedBundle = derivedBundleExchange.getIn().getBody(Document.class);
 
 		//Make sure the root node here is the message to the orignal exchange
-		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentMemberSpecific, "/arrest-exch:ArrestReport");
+		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentDerivedBundle, "/arrest-exch:ArrestReport");
 		assertNotNull(rootNode);
 
-		//XmlUtils.printNode(returnDocumentMemberSpecific);
+		//XmlUtils.printNode(returnDocumentDerivedBundle);
 
 		
 	}
