@@ -280,6 +280,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_INCIDENT_VEHICLE_SEARCH_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/IncidentVehicleSearchRequest/1.0";
 	public static final String NS_PREFIX_INCIDENT_VEHICLE_SEARCH_REQUEST_EXT = "ivsr";
 
+	public static final String NS_VEHICLE_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/VehicleSearchRequest/1.0";
+	public static final String NS_PREFIX_VEHICLE_SEARCH_REQUEST_DOC = "vsr-doc";
+	public static final String NS_VEHICLE_SEARCH_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/VehicleSearchRequest/1.0";
+	public static final String NS_PREFIX_VEHICLE_SEARCH_REQUEST_EXT = "vsr";
+
 	public static final String NS_INCIDENT_SEARCH_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0";
 	public static final String NS_PREFIX_INCIDENT_SEARCH_RESULTS_EXT = "isres";
 	public static final String NS_INCIDENT_SEARCH_RESULTS_DOC = "http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0";
@@ -552,6 +557,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_INCIDENT_SEARCH_REQUEST_EXT, NS_PREFIX_INCIDENT_SEARCH_REQUEST_EXT);
 		prefixToUriMap.put(NS_PREFIX_INCIDENT_VEHICLE_SEARCH_REQUEST_EXT, NS_INCIDENT_VEHICLE_SEARCH_REQUEST_EXT);
 		uriToPrefixMap.put(NS_INCIDENT_VEHICLE_SEARCH_REQUEST_EXT, NS_PREFIX_INCIDENT_VEHICLE_SEARCH_REQUEST_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_VEHICLE_SEARCH_REQUEST_DOC, NS_VEHICLE_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_VEHICLE_SEARCH_REQUEST_DOC, NS_PREFIX_VEHICLE_SEARCH_REQUEST_DOC);
+		prefixToUriMap.put(NS_PREFIX_VEHICLE_SEARCH_REQUEST_EXT, NS_VEHICLE_SEARCH_REQUEST_EXT);
+		uriToPrefixMap.put(NS_VEHICLE_SEARCH_REQUEST_EXT, NS_PREFIX_VEHICLE_SEARCH_REQUEST_EXT);
 
 		prefixToUriMap.put(NS_PREFIX_INCIDENT_SEARCH_RESULTS_EXT, NS_INCIDENT_SEARCH_RESULTS_EXT);
 		uriToPrefixMap.put(NS_INCIDENT_SEARCH_RESULTS_EXT, NS_PREFIX_INCIDENT_SEARCH_RESULTS_EXT);

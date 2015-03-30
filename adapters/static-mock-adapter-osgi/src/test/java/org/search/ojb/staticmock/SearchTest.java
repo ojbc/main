@@ -145,6 +145,60 @@ public class SearchTest extends AbstractStaticMockTest {
     	assertNotNull(searchResults);
     	assertNotNull(XmlUtils.xPathNodeSearch(searchResults, "/isres-doc:IncidentVehicleSearchResults/isres:IncidentVehicleSearchResult"));
     }
+    
+    @Test
+    public void testVehicleSearchByVin() throws Exception {
+    	Document searchRequest = buildBaseVehicleSearchRequest();
+    	Element vehicleNode = (Element) XmlUtils.xPathNodeSearch(searchRequest, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle");
+    	NodeList children = XmlUtils.xPathNodeListSearch(vehicleNode, "*");
+    	Node idElement = null;
+    	for (int i=0;i < children.getLength();i++) {
+    		Node child = children.item(i);
+    		if (!"VehicleIdentification".equals(child.getLocalName())) {
+    			vehicleNode.removeChild(child);
+    		} else {
+    			idElement = XmlUtils.xPathNodeSearch(child, "nc:IdentificationID");
+    		}
+    	}
+		idElement.setTextContent("V125646899264104931");
+    	//XmlUtils.printNode(searchRequest);
+    	List<IdentifiableDocumentWrapper> matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(matches);
+    	assertEquals(1, matches.size());
+    	Document match = matches.get(0).getDocument();
+    	assertNotNull(XmlUtils.xPathNodeSearch(match, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle[nc:VehicleIdentification/nc:IdentificationID='V125646899264104931']"));
+		idElement.setTextContent("not-valid");
+		matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(matches);
+    	assertEquals(0, matches.size());
+    }
+
+    @Test
+    public void testVehicleSearchByPlate() throws Exception {
+    	Document searchRequest = buildBaseVehicleSearchRequest();
+    	Element vehicleNode = (Element) XmlUtils.xPathNodeSearch(searchRequest, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle");
+    	NodeList children = XmlUtils.xPathNodeListSearch(vehicleNode, "*");
+    	Node idElement = null;
+    	for (int i=0;i < children.getLength();i++) {
+    		Node child = children.item(i);
+    		if (!"ConveyanceRegistrationPlateIdentification".equals(child.getLocalName())) {
+    			vehicleNode.removeChild(child);
+    		} else {
+    			idElement = XmlUtils.xPathNodeSearch(child, "nc:IdentificationID");
+    		}
+    	}
+		idElement.setTextContent("856K31");
+    	//XmlUtils.printNode(searchRequest);
+    	List<IdentifiableDocumentWrapper> matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(matches);
+    	assertEquals(1, matches.size());
+    	Document match = matches.get(0).getDocument();
+    	assertNotNull(XmlUtils.xPathNodeSearch(match, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle[nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID='856K31']"));
+		idElement.setTextContent("not-valid");
+		matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(matches);
+    	assertEquals(0, matches.size());
+    }
 
 	@Test
     public void testIncidentPersonSearch() throws Exception {
@@ -352,6 +406,17 @@ public class SearchTest extends AbstractStaticMockTest {
         registrationNumberNode.setTextContent("doesnt exist");
         matches = submitDocumentFirearmSearch(firearmSearchRequestMessage);
         assertEquals(0, matches.size());
+
+    }
+    
+    @Test
+    public void testVehicleSearchXPathBuild() throws Exception {
+    	Document searchRequest = buildBaseVehicleSearchRequest();
+    	String xPath = StaticMockQuery.buildIncidentSearchXPathFromVehicleSearchMessage(searchRequest);
+    	//log.info(xPath);
+    	assertEquals("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage" + 
+    			"[lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleIdentification/nc:IdentificationID='1234567890ABCDEFGH' and " +
+    			"lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID='ABC123']", xPath);
 
     }
     
