@@ -83,6 +83,13 @@ public abstract class AbstractStaticMockTest {
 		return ret;
 	}
 
+	protected Document buildBaseVehicleSearchRequest() throws Exception {
+		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+		Resource r = resolver.getResource("TestRequestMessages/BaseVehicleSearchRequest.xml");
+		Document ret = documentBuilder.parse(r.getInputStream());
+		return ret;
+	}
+
 	protected Element removeElement(Document d, String xPath) throws Exception {
 		Node n = XmlUtils.xPathNodeSearch(d, xPath);
 		Node parent = n.getParentNode();
