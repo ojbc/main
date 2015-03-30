@@ -12,7 +12,7 @@
   <url>http://www.search.org</url>
 
   <parent>
-    <groupId>org.ojb.bundles</groupId>
+    <groupId>org.ojbc.build</groupId>
     <artifactId>ojb-intermediaries-aggregate</artifactId>
     <version>1.0.0</version>
   </parent>
@@ -122,17 +122,17 @@
 			<artifactId>joda-time</artifactId>
 			<version>${jodatime-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
 			<version>${saxon-version}</version>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon-dom</artifactId>
 			<version>${saxon-version}</version>
-		</dependency>	
+		</dependency>
 
 		<!-- OJB Shared Bundles -->
 	    <dependency>

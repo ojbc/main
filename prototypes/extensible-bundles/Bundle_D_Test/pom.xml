@@ -28,7 +28,7 @@
 	<name>OJB :: Bundle_D_Test :: Connector</name>
 
 	<parent>
-		<groupId>org.ojbc.bundles.shared</groupId>
+		<groupId>org.ojbc.build</groupId>
 	  <artifactId>extensible-bundles-aggregate</artifactId>
 	  <version>1.0.0</version>
 	</parent>
