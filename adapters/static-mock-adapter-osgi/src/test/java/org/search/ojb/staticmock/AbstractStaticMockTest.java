@@ -16,6 +16,8 @@
  */
 package org.search.ojb.staticmock;
 
+import java.io.IOException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -31,6 +33,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public abstract class AbstractStaticMockTest {
 
@@ -68,6 +71,15 @@ public abstract class AbstractStaticMockTest {
 		Document ret = documentBuilder.parse(r.getInputStream());
 		Element idElement = (Element) XmlUtils.xPathNodeSearch(ret, "/isr-doc:IncidentPersonSearchRequest/nc:Person/nc:PersonOtherIdentification/nc:IdentificationID");
 		idElement.setTextContent(String.valueOf(i));
+		return ret;
+	}
+
+	protected Document buildBaseIncidentVehicleSearchRequest(String vin) throws Exception {
+		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+		Resource r = resolver.getResource("TestRequestMessages/BaseIncidentVehicleSearchRequest.xml");
+		Document ret = documentBuilder.parse(r.getInputStream());
+		Element vinElement = (Element) XmlUtils.xPathNodeSearch(ret, "/isr-doc:IncidentVehicleSearchRequest/ivsr:Vehicle/ivsr:VehicleSystemIdentification/nc:IdentificationID");
+		vinElement.setTextContent(vin);
 		return ret;
 	}
 
