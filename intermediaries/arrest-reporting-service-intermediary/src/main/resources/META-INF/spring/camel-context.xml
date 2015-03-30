@@ -48,7 +48,7 @@
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 
-			<!-- Multicast to the core services and member specific routes so each route gets original message -->
+			<!-- Multicast to the core services and derived bundle specific routes so each route gets original message -->
 			<camel:multicast>
 				<camel:pipeline>
 					<camel:filter>
@@ -62,27 +62,27 @@
 				</camel:pipeline>	
 				
 				<camel:pipeline>
-					<camel:to uri="direct:memberSpecificRoutes"/>
+					<camel:to uri="direct:derivedRoutes"/>
 				</camel:pipeline>
 					
 			</camel:multicast>
 			
 		</camel:route>
 		
-		<camel:route id="memberSpecificRoutes">
+		<camel:route id="derivedRoutes">
 
-			<camel:from uri="direct:memberSpecificRoutes"/>
+			<camel:from uri="direct:derivedRoutes"/>
 		
-			<!-- Set up member specific endpoints -->
-			<camel:setHeader headerName="routingSlipJurisdiction"><simple>{{arrestReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
+			<!-- Set up derived endpoints -->
+			<camel:setHeader headerName="routingSlipDerivedRoutes"><simple>{{arrestReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
 
 			<camel:filter>
-				<camel:simple>${in.headers.routingSlipJurisdiction} != ''</camel:simple>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
 				
-				<camel:log message="About to call member specific routes using this routing slip: ${in.headers.routingSlipJurisdiction}"/>
+				<camel:log message="About to call derived routes using this routing slip: ${in.headers.routingSlipDerivedRoutes}"/>
 				
 				<camel:recipientList>
-					<camel:header>routingSlipJurisdiction</camel:header>
+					<camel:header>routingSlipDerivedRoutes</camel:header>
 				</camel:recipientList>
 			</camel:filter>			
 		

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OJBAggregateResponseWrapper>
+	<exchange:FirearmSearchResults
+		xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
+		xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+		xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
+		xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+		xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0">
+		<srm:SearchResultsMetadata>
+			<srer:SearchRequestError>
+				<srer:ErrorText>Timeout</srer:ErrorText>
+				<intel:SystemName>CJIS</intel:SystemName>
+			</srer:SearchRequestError>
+		</srm:SearchResultsMetadata>
+	</exchange:FirearmSearchResults>
+</OJBAggregateResponseWrapper>

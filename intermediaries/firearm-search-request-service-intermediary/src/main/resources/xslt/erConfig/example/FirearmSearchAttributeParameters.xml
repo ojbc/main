@@ -1,0 +1,35 @@
+<er-ext:AttributeParameters xmlns:er-ext="http://nij.gov/IEPD/Extensions/EntityResolutionExtensions/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
+	xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+	<!-- Firearm Serial Number -->
+	<er-ext:AttributeParameter>
+		<er-ext:AttributeXPath>ext:FirearmSearchResult/ext:Firearm/nc:ItemSerialIdentification/nc:IdentificationID</er-ext:AttributeXPath>
+		<er-ext:AttributeThresholdValue>1.0</er-ext:AttributeThresholdValue>
+		<er-ext:AttributeIsDeterminativeIndicator>true</er-ext:AttributeIsDeterminativeIndicator>
+		<er-ext:AttributeMatchAlgorithmSimmetricsURICode>urn:org:search:ers:algorithms:ss.wcohen.com.Jaro</er-ext:AttributeMatchAlgorithmSimmetricsURICode>
+	</er-ext:AttributeParameter>
+	<!-- Firearm Make -->
+	<er-ext:AttributeParameter>
+		<er-ext:AttributeXPath>ext:FirearmSearchResult/ext:Firearm/nc:ItemMakeName</er-ext:AttributeXPath>
+		<er-ext:AttributeThresholdValue>1.0</er-ext:AttributeThresholdValue>
+		<er-ext:AttributeIsDeterminativeIndicator>false</er-ext:AttributeIsDeterminativeIndicator>
+		<er-ext:AttributeMatchAlgorithmSimmetricsURICode>urn:org:search:ers:algorithms:ss.wcohen.com.Jaro</er-ext:AttributeMatchAlgorithmSimmetricsURICode>
+		<er-ext:AttributeSortSpecification>
+			<er-ext:AttributeSortOrderRank>1</er-ext:AttributeSortOrderRank>
+			<er-ext:AttributeSortOrder>ascending</er-ext:AttributeSortOrder>
+		</er-ext:AttributeSortSpecification>
+	</er-ext:AttributeParameter>
+	<!-- Firearm Model -->
+	<er-ext:AttributeParameter>
+		<er-ext:AttributeXPath>ext:FirearmSearchResult/ext:Firearm/nc:ItemModelName</er-ext:AttributeXPath>
+		<er-ext:AttributeThresholdValue>1.0</er-ext:AttributeThresholdValue>
+		<er-ext:AttributeIsDeterminativeIndicator>false</er-ext:AttributeIsDeterminativeIndicator>
+		<er-ext:AttributeMatchAlgorithmSimmetricsURICode>urn:org:search:ers:algorithms:ss.wcohen.com.Jaro</er-ext:AttributeMatchAlgorithmSimmetricsURICode>
+		<er-ext:AttributeSortSpecification>
+			<er-ext:AttributeSortOrderRank>2</er-ext:AttributeSortOrderRank>
+			<er-ext:AttributeSortOrder>ascending</er-ext:AttributeSortOrder>
+		</er-ext:AttributeSortSpecification>
+	</er-ext:AttributeParameter>
+</er-ext:AttributeParameters>

@@ -129,11 +129,17 @@
 
 	<util:map id="leftMenuLinks">
 		<entry key="homeLink" value="#" />
-		<entry key="stateGovLink" value="http://portal.ehawaii.gov/" />
+		<entry key="stateGovLink" value="http://local.gov/" />
 		<entry key="queryLink" value="#" />
 		<entry key="subscriptionsLink" value="#" />
+		
+		<!-- Use this entry if you are using the provided help templates from ojb-web-external-resource -->
 		<entry key="helpLink" value="#" />
-		<entry key="privacyPolicyLink" value="http://hijis.hawaii.gov/privacy-policies/" />
+		
+		<!-- Use this entry is you are providing an external help link -->
+		<!--  <entry key="helpLinkExternal" value="https://local.gov/linkToHelpPages" /> -->	
+		
+		<entry key="privacyPolicyLink" value="http://local.gov/privacy-policies/" />
 		<entry key="faqLink" value="#" />
 		<entry key="suggestionFormLink" value="#" />
 	</util:map>
@@ -143,12 +149,12 @@
 		<entry key="validationDueWarningDays" value="30" />
 	</util:map>
 
+	<!-- These left bar links are provided on the home page and can link to whatever the implementer desires -->
 	<util:map id="leftBarLinks">
-		<entry key="HIJIS" value="http://hijis.hawaii.gov" />
-		<entry key="CJIS" value="https://www.cjisportal.com/HI/cjisaudit/index.pl" />
-		<entry key="eBW" value="https://judiciary.ehawaii.gov/warrants/index.html" />
+		<entry key="Link1" value="http://local.gov/link1" />
+		<entry key="Link2" value="http://local.gov/link2" />
 	</util:map>
-
+	
 	<!-- People-related maps -->
 
 	<util:map id="races" map-class="java.util.LinkedHashMap">
