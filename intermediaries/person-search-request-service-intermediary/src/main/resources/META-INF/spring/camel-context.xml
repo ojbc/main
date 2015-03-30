@@ -272,10 +272,10 @@
 			<camel:from uri="mergeNotificationServiceEndpoint"/>
 
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-	
+
 			<log message="Person Search Intermediary Recieved merged message with message ID: ${in.headers.federatedQueryRequestGUID}" loggingLevel="INFO"/>
 			<log message="Full message is (in DEBUG mode): ${body}" loggingLevel="DEBUG" />
-			
+
 			<camel:to uri="direct:aggregateEntityResolutionQuery"/>						
 
 		</camel:route>
@@ -383,11 +383,11 @@
 	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
 		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	</bean>
-		
+
 	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
 		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>	
 	</bean>
-	
+
 	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
 		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
 	</bean>
