@@ -496,6 +496,83 @@
 		<entry key="Juvenile History" value="juvenile-history-detail.xsl" />
 		<entry key="Juvenile Court Case Management System" value="juvenile-history-detail.xsl" />
 	</util:map>
+	<util:map id="placements" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Placement" />
+		<entry key="Father" value="Father" />
+		<entry key="Foster Home" value="Foster Home" />
+		<entry key="Group Home" value="Group Home" />
+		<entry key="Jail" value="Jail" />
+		<entry key="Juvenile Detention Facility" value="Juvenile Detention Facility" />
+		<entry key="Mother" value="Mother" />
+		<entry key="Relative/Fictive Kin" value="Relative/Fictive Kin" />
+		<entry key="Residential" value="Residential" />
+		<entry key="Stepfather" value="Stepfather" />
+		<entry key="Stepmother" value="Stepmother" />
+	</util:map>
+	
+	<util:map id="states" map-class="java.util.LinkedHashMap">
+		<entry key="" value="State" />
+		<entry key="AK" value="Alaska" />
+		<entry key="AL" value="Alabama" />
+		<entry key="AR" value="Arkansas" />
+		<entry key="AS" value="American Samoa" />
+		<entry key="AZ" value="Arizona" />
+		<entry key="CA" value="California" />
+		<entry key="CO" value="Colorado" />
+		<entry key="CT" value="Connecticut" />
+		<entry key="DC" value="District of Columbia" />
+		<entry key="DE" value="Delaware" />
+		<entry key="FL" value="Florida" />
+		<entry key="FM" value="Federated States of Micronesia" />
+		<entry key="GA" value="Georgia" />
+		<entry key="GU" value="Guam" />
+		<entry key="HI" value="Hawaii" />
+		<entry key="IA" value="Iowa" />
+		<entry key="ID" value="Idaho" />
+		<entry key="IL" value="Illinois" />
+		<entry key="IN" value="Indiana" />
+		<entry key="KS" value="Kansas" />
+		<entry key="KY" value="Kentucky" />
+		<entry key="LA" value="Louisiana" />
+		<entry key="MA" value="Massachusetts" />
+		<entry key="MD" value="Maryland" />
+		<entry key="ME" value="Maine" />
+		<entry key="MH" value="Marshall Islands" />
+		<entry key="MI" value="Michigan" />
+		<entry key="MN" value="Marshall Islands" />
+		<entry key="MH" value="Minnesota" />
+		<entry key="MO" value="Missouri" />
+		<entry key="MP" value="Northern Mariana Islands" />
+		<entry key="MS" value="Mississippi" />
+		<entry key="MT" value="Montana" />
+		<entry key="NC" value="North Carolina" />
+		<entry key="ND" value="North Dakota" />
+		<entry key="NE" value="Nebraska" />
+		<entry key="NH" value="New Hampshire" />
+		<entry key="NJ" value="New Jersey" />
+		<entry key="NV" value="Nevada" />
+		<entry key="NY" value="New York" />
+		<entry key="OH" value="Ohio" />
+		<entry key="OK" value="Oklahoma" />
+		<entry key="OR" value="Oregon" />
+		<entry key="PA" value="Pennsylvania" />
+		<entry key="PR" value="Puerto Rico" />
+		<entry key="PW" value="Palau" />
+		<entry key="RI" value="Rhode Island" />
+		<entry key="SC" value="South Carolina" />
+		<entry key="SD" value="South Dakota" />
+		<entry key="TN" value="Tennessee" />
+		<entry key="TX" value="Texas" />
+		<entry key="UM" value="U.S. Minor Outlying Islands" />
+		<entry key="UT" value="Utah" />
+		<entry key="VA" value="Virginia" />
+		<entry key="VI" value="Virgin Islands of the U.S." />
+		<entry key="VT" value="Vermont" />
+		<entry key="WA" value="Washington" />
+		<entry key="WI" value="Wisconsin" />
+		<entry key="WV" value="West Virginia" />
+		<entry key="WY" value="Wyoming" />
+	</util:map>
 
 	<!-- This map is used to allow conditional includes into the Velocity templates 
 		based upon state-specific needs. For example, if the value is non-empty for 
