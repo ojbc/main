@@ -137,8 +137,16 @@ public class SearchTest extends AbstractStaticMockTest {
         assertEquals(new Integer(150), psp.getWeight());
         assertEquals(new Integer(54), psp.getHeight());
     }
-
+    
     @Test
+    public void testSearchDocumentsIncidentVehicle() throws Exception {
+    	Document searchRequest = buildBaseIncidentVehicleSearchRequest("V125646899264104931");
+    	Document searchResults = staticMockQuery.searchDocuments(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(searchResults);
+    	assertNotNull(XmlUtils.xPathNodeSearch(searchResults, "/isres-doc:IncidentVehicleSearchResults/isres:IncidentVehicleSearchResult"));
+    }
+
+	@Test
     public void testIncidentPersonSearch() throws Exception {
         Document incidentPersonSearchRequestMessage = buildIncidentPersonSearchRequestMessage(8);
         XmlUtils.validateInstance("service-specifications/Incident_Search_Request_Service/artifacts/service_model/information_model/Incident_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
@@ -351,7 +359,7 @@ public class SearchTest extends AbstractStaticMockTest {
     public void testIncidentSearchXPathBuild() throws Exception {
         Document incidentSearchRequestMessage = buildBaseIncidentSearchRequestMessage();
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityDateRange");
-        String xPath = StaticMockQuery.buildIncidentSearchXPathFromMessage(incidentSearchRequestMessage);
+        String xPath = StaticMockQuery.buildIncidentSearchXPathFromIncidentSearchMessage(incidentSearchRequestMessage);
         assertEquals("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage[" +
                 "lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityIdentification/nc:IdentificationID='12345' " + 
                 "and lexs:Digest/lexsdigest:EntityLocation/nc:Location[nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName='Burlington' " + 
@@ -360,14 +368,14 @@ public class SearchTest extends AbstractStaticMockTest {
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/nc:Location");
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/jxdm41:ActivityLocationAssociation");
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/isr:IncidentCategoryCode");
-        xPath = StaticMockQuery.buildIncidentSearchXPathFromMessage(incidentSearchRequestMessage);
+        xPath = StaticMockQuery.buildIncidentSearchXPathFromIncidentSearchMessage(incidentSearchRequestMessage);
         assertEquals("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage[" +
                 "lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityIdentification/nc:IdentificationID='12345']", xPath);
         incidentSearchRequestMessage = buildBaseIncidentSearchRequestMessage();
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityIdentification");
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityDateRange");
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/isr:IncidentCategoryCode");
-        xPath = StaticMockQuery.buildIncidentSearchXPathFromMessage(incidentSearchRequestMessage);
+        xPath = StaticMockQuery.buildIncidentSearchXPathFromIncidentSearchMessage(incidentSearchRequestMessage);
         assertEquals("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage[" +
                 "lexs:Digest/lexsdigest:EntityLocation/nc:Location[nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName='Burlington' " + 
                 "and @s:id=/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:Associations/lexsdigest:IncidentLocationAssociation/nc:LocationReference/@s:ref]]", xPath);
