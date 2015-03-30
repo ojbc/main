@@ -30,7 +30,7 @@
 	<url>http://www.search.org</url>
 
 	<parent>
-		<groupId>org.ojbc.bundles.shared</groupId>
+		<groupId>org.ojbc.build</groupId>
 	  <artifactId>ojb-adapters-aggregate</artifactId>
 	  <version>1.0.0</version>
 	</parent>

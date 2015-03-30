@@ -28,7 +28,7 @@
 	<url>http://www.ojbc.org</url>
 
 	<parent>
-		<groupId>org.ojb.bundles</groupId>
+		<groupId>org.ojbc.build</groupId>
 	  <artifactId>ojb-shared-aggregate</artifactId>
 	  <version>1.0.0</version>
 	</parent>

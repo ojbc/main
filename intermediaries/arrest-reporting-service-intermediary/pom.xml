@@ -30,7 +30,7 @@
   <url>http://www.search.org</url>
 
   <parent>
-    <groupId>org.ojb.bundles</groupId>
+    <groupId>org.ojbc.build</groupId>
     <artifactId>ojb-intermediaries-aggregate</artifactId>
     <version>1.0.0</version>
   </parent>
@@ -209,14 +209,7 @@
 			</includes>
 		</resource>
 		<resource>
-			<directory>${basedir}/src/main/java</directory>
-		</resource>
-		<resource>
 			<directory>${basedir}/src/main/config/dev</directory>
-			<filtering>true</filtering>
-			<includes>
-				<include>*</include>
-			</includes>
 		</resource>
 	</resources>
     <plugins>
