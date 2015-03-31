@@ -17,7 +17,6 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<!-- edited with XMLSpy v2007 (http://www.altova.com) by Jim Douglas (SEARCH) -->
 <lexspd:doPublish xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xsi:schemaLocation="http://usdoj.gov/leisp/lexs/publishdiscover/3.1 ../xsd/lexs/publish-discover/3.1/publish-discover.xsd">
 	<lexs:PublishMessageContainer>
 		<lexs:PublishMessage>

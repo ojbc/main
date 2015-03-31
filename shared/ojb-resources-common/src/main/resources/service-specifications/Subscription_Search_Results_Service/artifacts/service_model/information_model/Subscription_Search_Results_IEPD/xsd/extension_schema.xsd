@@ -20,7 +20,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0"
+	xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
@@ -47,17 +47,17 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionSearchResult" minOccurs="0"
+					<xsd:element ref="ssr-ext:SubscriptionSearchResult" minOccurs="0"
 						maxOccurs="unbounded" />
-					<xsd:element ref="ext:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ssr-ext:Person" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SubscribedEntityContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ssr-ext:SubscribedEntityContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="SubscriptionSearchResult" type="ext:SubscriptionSearchResultType">
+	<xsd:element name="SubscriptionSearchResult" type="ssr-ext:SubscriptionSearchResultType">
 		<xsd:annotation>
 			<xsd:documentation>An individual subscription.
 			</xsd:documentation>
@@ -71,11 +71,11 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:Subscription"/>
-					<xsd:element ref="ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="ssr-ext:Subscription"/>
+					<xsd:element ref="ssr-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
-					<xsd:element ref="ext:SubscriptionQualifierIdentification" minOccurs="0"/>
-					<xsd:element ref="ext:SearchResultCategoryText" minOccurs="0"/>
+					<xsd:element ref="ssr-ext:SubscriptionQualifierIdentification" minOccurs="0"/>
+					<xsd:element ref="ssr-ext:SearchResultCategoryText" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -87,29 +87,29 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionSubjectRepresentation"/>
+					<xsd:element ref="ssr-ext:SubscriptionSubjectRepresentation"/>
 					<xsd:element ref="wsn-br:Topic"/>
-					<xsd:element ref="ext:SubscribedEntity" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SubscriptionOriginator" minOccurs="0"/>
-					<xsd:element ref="ext:SubscriptionValidation" minOccurs="0"/>
-					<xsd:element ref="ext:SubscriptionGracePeriod" minOccurs="0"/>
+					<xsd:element ref="ssr-ext:SubscribedEntity" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ssr-ext:SubscriptionOriginator" minOccurs="0"/>
+					<xsd:element ref="ssr-ext:SubscriptionValidation" minOccurs="0"/>
+					<xsd:element ref="ssr-ext:SubscriptionGracePeriod" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Subscription" type="ext:SubscriptionType">
+	<xsd:element name="Subscription" type="ssr-ext:SubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>
 				A subscription.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscriptionValidation" type="ext:SubscriptionValidationType">
+	<xsd:element name="SubscriptionValidation" type="ssr-ext:SubscriptionValidationType">
 		<xsd:annotation>
 			<xsd:documentation>The details about validation requirements for a subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscriptionGracePeriod" type="ext:SubscriptionGracePeriodType">
+	<xsd:element name="SubscriptionGracePeriod" type="ssr-ext:SubscriptionGracePeriodType">
 		<xsd:annotation>
 			<xsd:documentation>The details about the grace period of a subscription.</xsd:documentation>
 		</xsd:annotation>
@@ -121,8 +121,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionValidationDueDate" minOccurs="0"/>
-					<xsd:element ref="ext:SubscriptionValidatedDate" minOccurs="0"/>
+					<xsd:element ref="ssr-ext:SubscriptionValidationDueDate" minOccurs="0"/>
+					<xsd:element ref="ssr-ext:SubscriptionValidatedDate" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -144,7 +144,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionGracePeriodDateRange"/>
+					<xsd:element ref="ssr-ext:SubscriptionGracePeriodDateRange"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -171,7 +171,7 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Person" type="ext:PersonType">
+	<xsd:element name="Person" type="ssr-ext:PersonType">
 		<xsd:annotation>
 			<xsd:documentation>
 				A human being.
@@ -179,7 +179,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionSubjectRepresentation" abstract="true"/>
-	<xsd:element name="SubscriptionSubject" type="j:SubjectType" substitutionGroup="ext:SubscriptionSubjectRepresentation">
+	<xsd:element name="SubscriptionSubject" type="j:SubjectType" substitutionGroup="ssr-ext:SubscriptionSubjectRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>The person focus in a subscription, i.e. the person to be monitored for activities.</xsd:documentation>
 		</xsd:annotation>
@@ -196,7 +196,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscribedEntity" type="ext:SubscribedEntityType">
+	<xsd:element name="SubscribedEntity" type="ssr-ext:SubscribedEntityType">
 		<xsd:annotation>
 			<xsd:documentation>An entity in a subscription that wishes to be notified.</xsd:documentation>
 		</xsd:annotation>
@@ -221,7 +221,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionOriginatorIdentification"/>
+					<xsd:element ref="ssr-ext:SubscriptionOriginatorIdentification"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -243,7 +243,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscribedEntityReference"/>
+					<xsd:element ref="ssr-ext:SubscribedEntityReference"/>
 					<xsd:element ref="nc:ContactInformationReference"/>
 				</xsd:sequence>
 			</xsd:extension>

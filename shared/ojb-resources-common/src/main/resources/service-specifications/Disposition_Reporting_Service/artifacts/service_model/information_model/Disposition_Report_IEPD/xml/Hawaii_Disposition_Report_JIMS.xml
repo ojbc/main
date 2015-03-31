@@ -17,14 +17,23 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd" xmlns:exchange="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:hi_codes_jims="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<disp_exc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0 ../xsd/impl/hawaii/jims_disposition_codes.xsd"
+xmlns:disp_exc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+xmlns:disp_ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+xmlns:hi_codes_jims="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0"
+xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
+xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/"
+xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<cyfs:SubmittedDateTime>
 		<nc:DateTime>2014-10-12T09:30:47.0Z</nc:DateTime>
 	</cyfs:SubmittedDateTime>
 	<!-- Update this with URI -->
-	<ext:DispositionReportOriginatingSystem>
+	<disp_ext:DispositionReportOriginatingSystem>
 		<nc:SystemName>{http://ojbc.org/hawaii/judicial/1.0}JIMS</nc:SystemName>
-	</ext:DispositionReportOriginatingSystem>
+	</disp_ext:DispositionReportOriginatingSystem>
 	<nc:Case structures:id="CASE_01">
 		<j:CaseAugmentation>
 			<j:CaseCharge structures:id="CHARGE_01">
@@ -33,9 +42,9 @@
 					<nc:DispositionDate>
 						<nc:Date>2013-11-12</nc:Date>
 					</nc:DispositionDate>
-					<ext:ChargeDispositionAugmentation>
+					<disp_ext:ChargeDispositionAugmentation>
 						<hi_codes_jims:DispositionCode>DWO</hi_codes_jims:DispositionCode>
-					</ext:ChargeDispositionAugmentation>
+					</disp_ext:ChargeDispositionAugmentation>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>ID764767</nc:IdentificationID>
@@ -46,15 +55,15 @@
 					<nc:IdentificationCategoryText>Registered Offender ID</nc:IdentificationCategoryText>
 				</j:ChargeIdentification>
 				<j:ChargeSequenceID>4</j:ChargeSequenceID>
-				<ext:ChargeAugmentation>
-					<ext:InitialCharge>
+				<disp_ext:ChargeAugmentation>
+					<disp_ext:InitialCharge>
 						<j:ChargePlea>
 							<nc:ActivityDate>
 								<nc:Date>2001-12-17</nc:Date>
 							</nc:ActivityDate>
-							<ext:PleaAugmentation>
+							<disp_ext:PleaAugmentation>
 								<hi_codes_jims:PleaCode>A</hi_codes_jims:PleaCode>
-							</ext:PleaAugmentation>
+							</disp_ext:PleaAugmentation>
 						</j:ChargePlea>
 						<j:ChargeSeverityLevel>
 							<j:SeverityLevelDescriptionText>MED</j:SeverityLevelDescriptionText>
@@ -64,18 +73,18 @@
 								<nc:IdentificationID>ID</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 						</j:ChargeStatute>
-						<ext:ChargeAugmentation>
+						<disp_ext:ChargeAugmentation>
 							<hi_codes_jims:ChargeModifierCode>HRS 231-34</hi_codes_jims:ChargeModifierCode>
-						</ext:ChargeAugmentation>
-					</ext:InitialCharge>
-					<ext:FinalCharge>
+						</disp_ext:ChargeAugmentation>
+					</disp_ext:InitialCharge>
+					<disp_ext:FinalCharge>
 						<j:ChargePlea>
 							<nc:ActivityDate>
 								<nc:Date>2001-12-17</nc:Date>
 							</nc:ActivityDate>
-							<ext:PleaAugmentation>
+							<disp_ext:PleaAugmentation>
 								<hi_codes_jims:PleaCode>A</hi_codes_jims:PleaCode>
-							</ext:PleaAugmentation>
+							</disp_ext:PleaAugmentation>
 						</j:ChargePlea>
 						<j:ChargeSeverityLevel>
 							<j:SeverityLevelDescriptionText>MED</j:SeverityLevelDescriptionText>
@@ -85,19 +94,19 @@
 								<nc:IdentificationID>ID</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 						</j:ChargeStatute>
-						<ext:ChargeAugmentation>
+						<disp_ext:ChargeAugmentation>
 							<hi_codes_jims:ChargeModifierCode>HRS 231-34</hi_codes_jims:ChargeModifierCode>
-						</ext:ChargeAugmentation>
-					</ext:FinalCharge>
-					<ext:ChargeFee>
+						</disp_ext:ChargeAugmentation>
+					</disp_ext:FinalCharge>
+					<disp_ext:ChargeFee>
 						<nc:ObligationDueAmount>
 							<nc:Amount>500.00</nc:Amount>
 						</nc:ObligationDueAmount>
-					</ext:ChargeFee>
+					</disp_ext:ChargeFee>
 					<scr:ChargeDate>
 						<nc:Date>2013-11-05</nc:Date>
 					</scr:ChargeDate>
-				</ext:ChargeAugmentation>
+				</disp_ext:ChargeAugmentation>
 			</j:CaseCharge>
 			<j:CaseCourt>
 				<nc:OrganizationLocation>
@@ -105,23 +114,23 @@
 						<nc:LocationCountyName>Court County Name</nc:LocationCountyName>
 					</nc:Address>
 				</nc:OrganizationLocation>
-				<ext:CourtAugmentation>
+				<disp_ext:CourtAugmentation>
 					<hi_codes_jims:CourtCode>2D</hi_codes_jims:CourtCode>
 					<hi_codes_jims:CourtLocationCode>WA</hi_codes_jims:CourtLocationCode>
-				</ext:CourtAugmentation>
+				</disp_ext:CourtAugmentation>
 			</j:CaseCourt>
 			<j:CaseCourtEvent>
 				<nc:ActivityDate>
 					<nc:Date>2014-12-17</nc:Date>
 				</nc:ActivityDate>
-				<ext:CourtEventAugmentation>
+				<disp_ext:CourtEventAugmentation>
 					<hi_codes_jims:CourtEventCode>AP</hi_codes_jims:CourtEventCode>
-				</ext:CourtEventAugmentation>
+				</disp_ext:CourtEventAugmentation>
 			</j:CaseCourtEvent>
 			<j:CaseDefenseAttorney>
-				<ext:CaseOfficialAugmentation>
+				<disp_ext:CaseOfficialAugmentation>
 					<hi_codes_jims:AttorneyIDCode>A1002</hi_codes_jims:AttorneyIDCode>
-				</ext:CaseOfficialAugmentation>
+				</disp_ext:CaseOfficialAugmentation>
 			</j:CaseDefenseAttorney>
 			<j:CaseJudge>
 				<nc:RoleOfPerson>
@@ -136,13 +145,13 @@
 				</j:CaseOfficialCaseIdentification>
 			</j:CaseOfficial>
 		</j:CaseAugmentation>
-		<ext:CaseAugmentation>
-			<ext:CaseFee>
+		<disp_ext:CaseAugmentation>
+			<disp_ext:CaseFee>
 				<nc:Amount>500.00</nc:Amount>
-			</ext:CaseFee>
-			<ext:CasePenalSummonsIndicator>false</ext:CasePenalSummonsIndicator>
+			</disp_ext:CaseFee>
+			<disp_ext:CasePenalSummonsIndicator>false</disp_ext:CasePenalSummonsIndicator>
 			<hi_codes_jims:CaseDocketCode>*AM-A</hi_codes_jims:CaseDocketCode>
-		</ext:CaseAugmentation>
+		</disp_ext:CaseAugmentation>
 	</nc:Case>
 	<nc:Person structures:id="PARTY_01">
 		<nc:PersonBirthDate>
@@ -182,9 +191,9 @@
 			<j:SentenceTerm>
 				<j:TermDuration>P1Y2M3D</j:TermDuration>
 			</j:SentenceTerm>
-			<ext:SentenceAugmentation>
+			<disp_ext:SentenceAugmentation>
 				<hi_codes_jims:SentenceCode>*CV</hi_codes_jims:SentenceCode>
-			</ext:SentenceAugmentation>
+			</disp_ext:SentenceAugmentation>
 		</j:ChargeSentence>
 	</j:Charge>
 	<nc:Identity structures:id="IDENTITY_01">
@@ -214,4 +223,4 @@
 		<nc:Identity structures:ref="IDENTITY_01"/>
 		<nc:Identity structures:ref="IDENTITY_02"/>
 	</nc:PersonAliasIdentityAssociation>
-</exchange:DispositionReport>
+</disp_exc:DispositionReport>

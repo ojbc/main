@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<xsd:schema 
+	xmlns:jh-referral-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0"
+	xmlns:jh-referral="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
+	xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../../../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../../../Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../../Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" schemaLocation="../../../JuvenileHistoryCommonExtension.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0" schemaLocation="../../JuvenileReferralHistoryExtension.xsd"/>
+	<xsd:annotation>
+		<xsd:appinfo>
+			<appinfo:ConformantIndicator>true</appinfo:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:complexType name="JuvenileReferralHistoryType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the referral history of a juvenile.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="jh-ext:JuvenileHistoryType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Referral" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:simpleType name="ReferralIssuerCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a person or agency that submits a referral to the Court.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Police"/>
+			<xsd:enumeration value="Prosecutor"/>
+			<xsd:enumeration value="School"/>
+			<xsd:enumeration value="Court/Probation"/>
+			<xsd:enumeration value="Social Services"/>
+			<xsd:enumeration value="Other"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ReferralIssuerCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a person or agency that submits a referral to the Court.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="jh-referral-codes:ReferralIssuerCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="ReferralCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of juvenile referral.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Complaint">
+				<xsd:annotation>
+					<xsd:documentation>A written accusation filed in circuit court charging a juvenile with the commission of an offense, and that is not a petition or citation.  Or, a brief statement of the allegations and basis for any request for court-ordered apprehension or a written request for action from a law enforcement officer to the court submitted to circuit court alleging that a juvenile committed an offense.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Citation or Appearance Ticket">
+				<xsd:annotation>
+					<xsd:documentation>A document used to initiate a juvenile delinquency proceeding for violations of the Michigan Vehicle Code or for those offenses, if committed by an adult, would be appropriate for use as an appearance ticket.  A citation shall be treated by the court as if it were a petition, except that it may not serve as a basis for pretrial detention (MCR 3.931C).</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Petition">
+				<xsd:annotation>
+					<xsd:documentation>An application made in writing to a court.  In juvenile delinquency proceedings before the family division of the circuit court, a petition is a complaint or other written allegation that a juvenile has committed an offense.  Any request for court action against a juvenile must be by written petition (except some violations of the Michigan Vehicle code, which may come into court on a citation).</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Community Referral">
+				<xsd:annotation>
+					<xsd:documentation>An informal written or verbal request for assistance that is not a petition, citation or a complaint  that results in the court providing a service.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ReferralCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of juvenile referral.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="jh-referral-codes:ReferralCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+
+	<xsd:element name="ReferralIssuerCategoryCode" type="jh-referral-codes:ReferralIssuerCategoryCodeType" substitutionGroup="nc:OrganizationCategory">
+		<xsd:annotation>
+			<xsd:documentation>A person or agency that submits a referral to the Court.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ReferralCategoryCode" type="jh-referral-codes:ReferralCategoryCodeType" substitutionGroup="jh-referral:ReferralCategoryRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A type of juvenile referral.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

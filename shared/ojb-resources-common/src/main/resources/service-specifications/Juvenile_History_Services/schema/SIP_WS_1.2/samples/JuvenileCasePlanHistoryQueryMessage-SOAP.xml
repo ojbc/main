@@ -65,18 +65,18 @@
 		<wsa:Action>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0/SubmitJuvenileCasePlanHistoryQuery</wsa:Action>
 	</SOAP-ENV:Header>
 	<SOAP-ENV:Body>
-		<doc:JuvenileHistoryQuery 
+		<jh-req-doc:JuvenileHistoryQuery 
 			xmlns="http://release.niem.gov/niem/niem-core/3.0/" 
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-			xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0"
-			xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
-			xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0 ../../schemas/information/Query/JuvenileHistoryQuery.xsd">
-			<cext:JuvenileHistoryQueryCriteria>
-				<cext:JuvenileInformationRecordID>
+			xmlns:jh-req-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0"
+			xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+			xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0 ../../../artifacts/service_model/information_model/Juvenile_History_IEPD/Query/JuvenileHistoryQuery.xsd">
+			<jh-ext:JuvenileHistoryQueryCriteria>
+				<jh-ext:JuvenileInformationRecordID>
 					<IdentificationID>100</IdentificationID>
 					<IdentificationSourceText>Court</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-			</cext:JuvenileHistoryQueryCriteria>
-		</doc:JuvenileHistoryQuery>
+				</jh-ext:JuvenileInformationRecordID>
+			</jh-ext:JuvenileHistoryQueryCriteria>
+		</jh-req-doc:JuvenileHistoryQuery>
 	</SOAP-ENV:Body>
 </SOAP-ENV:Envelope>

@@ -17,14 +17,14 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<p:SubscriptionSearchResults 
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" 
+<ssr:SubscriptionSearchResults 
+	xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" 
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
-	xmlns:p="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0" 
+	xmlns:ssr="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0" 
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
@@ -45,4 +45,4 @@
  		
  	</srm:SearchResultsMetadata>
 	
-</p:SubscriptionSearchResults>
+</ssr:SubscriptionSearchResults>

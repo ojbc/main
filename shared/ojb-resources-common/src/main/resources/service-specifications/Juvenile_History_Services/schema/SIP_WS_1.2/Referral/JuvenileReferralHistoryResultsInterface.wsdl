@@ -8,7 +8,7 @@
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
 	xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" 
-	xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0"
+	xmlns:jh-referral-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0"
 	xmlns:res="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/ReferralResults/1.0" 
 	targetNamespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/ReferralResults/1.0">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
@@ -19,7 +19,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="JuvenileReferralHistoryResponseMessage">
-		<wsdl:part name="JuvenileReferralHistoryResponseMessage" element="doc:JuvenileReferralHistoryResponse"/>
+		<wsdl:part name="JuvenileReferralHistoryResponseMessage" element="jh-referral-doc:JuvenileReferralHistoryResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="JuvenileReferralHistoryResultsInterface">
 		<wsdl:operation name="SubmitJuvenileReferralHistoryResponse">

@@ -17,17 +17,17 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<b:Notify xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+<b-2:Notify xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
 	xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:tns="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
-	xmlns:tns1="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-exch="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
-	xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0"
+	xmlns:me-chrg-codes="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
-	<b:NotificationMessage>
-		<b:SubscriptionReference>
+	<b-2:NotificationMessage>
+		<b-2:SubscriptionReference>
 			<add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
 			<!--Optional: -->
 			<add:ReferenceParameters>
@@ -38,13 +38,13 @@
 				<!--You may enter ANY elements at this point -->
 			</add:Metadata>
 			<!--You may enter ANY elements at this point -->
-		</b:SubscriptionReference>
+		</b-2:SubscriptionReference>
 		<!--Optional: -->
-		<b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
+		<b-2:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
 			topics:person/criminalHistoryCycleTrackingIdentifierAssignment
-		</b:Topic>
+		</b-2:Topic>
 		<!--Optional: -->
-		<b:ProducerReference>
+		<b-2:ProducerReference>
 			<add:Address>http://www.hawaii.gov/arrestNotificationProducer</add:Address>
 			<!--Optional: -->
 			<add:ReferenceParameters>
@@ -55,12 +55,12 @@
 				<!--You may enter ANY elements at this point -->
 			</add:Metadata>
 			<!--You may enter ANY elements at this point -->
-		</b:ProducerReference>
-		<b:Message>
-			<tns:NotificationMessage>
-				<tns1:NotifyingCriminalHistoryUpdate
+		</b-2:ProducerReference>
+		<b-2:Message>
+			<notfm-exch:NotificationMessage>
+				<notfm-ext:NotifyingCriminalHistoryUpdate
 					s:id="A001">
-					<tns1:NotifyingActivityReportingSystemNameText>SystemName</tns1:NotifyingActivityReportingSystemNameText>
+					<notfm-ext:NotifyingActivityReportingSystemNameText>SystemName</notfm-ext:NotifyingActivityReportingSystemNameText>
 					<chu:CycleTrackingIdentifierAssignment>
 						<nc:ActivityDate>
 							<nc:Date>2014-11-11</nc:Date>
@@ -82,7 +82,7 @@
 							<chu:ChargeEnhancingFactor>
 								<j:ChargeEnhancingFactorDescriptionText>modifier description
 								</j:ChargeEnhancingFactorDescriptionText>
-								<me:ChargeEnhancingFactorCode>S</me:ChargeEnhancingFactorCode>
+								<me-chrg-codes:ChargeEnhancingFactorCode>S</me-chrg-codes:ChargeEnhancingFactorCode>
 							</chu:ChargeEnhancingFactor>
 							<j:ChargeStatute>
 								<j:StatuteCodeIdentification>
@@ -95,7 +95,7 @@
 							</j:ChargeTrackingIdentification>
 						</j:Charge>
 					</chu:CycleTrackingIdentifierAssignment>
-				</tns1:NotifyingCriminalHistoryUpdate>
+				</notfm-ext:NotifyingCriminalHistoryUpdate>
 				<nc:ActivityInvolvedPersonAssociation>
 					<nc:ActivityReference s:ref="A001" />
 					<nc:PersonReference s:ref="P001" />
@@ -132,7 +132,7 @@
 						</j:OrganizationORIIdentification>
 					</j:OrganizationAugmentation>
 				</j:Organization>
-			</tns:NotificationMessage>
-		</b:Message>
-	</b:NotificationMessage>
-</b:Notify>
+			</notfm-exch:NotificationMessage>
+		</b-2:Message>
+	</b-2:NotificationMessage>
+</b-2:Notify>

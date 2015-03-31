@@ -24,15 +24,13 @@
            xmlns:nc="http://niem.gov/niem/niem-core/2.0"
            xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
            xmlns:s="http://niem.gov/niem/structures/2.0"
-           xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
-           xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
            xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
            xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
            xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
            xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
            xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
            xmlns:arrest-exch="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
-           xmlns:oar="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0"
+           xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
    		xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0 ../xsd/exchange_schema/Arrest_Report.xsd">
          <lexspd:doPublish>
@@ -590,12 +588,12 @@
 							                    <lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
 							                    <lexs:CommunityVersion>1.0</lexs:CommunityVersion>
                         </lexs:StructuredPayloadMetadata>
-                        <oar:ArrestReport>
-                           <oar:Offense>
-                              <oar:OffenseCodeText>Driving Under Influence</oar:OffenseCodeText>
+                        <ojbc:ArrestReport>
+                           <ojbc:Offense>
+                              <ojbc:OffenseCodeText>Driving Under Influence</ojbc:OffenseCodeText>
                               <lexslib:SameAsDigestReference lexslib:ref="Offense214518"/>
-                           </oar:Offense>
-                        </oar:ArrestReport>
+                           </ojbc:Offense>
+                        </ojbc:ArrestReport>
                      </lexs:StructuredPayload>
                   </lexs:DataItemPackage>
                </lexs:PublishMessage>

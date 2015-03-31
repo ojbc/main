@@ -19,7 +19,7 @@
 -->
 
 <xsd:schema 
-	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0" 
+	xmlns:jh-intake="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0" 
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -27,8 +27,8 @@
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
 	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
-	xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/michigan/codes/1.0"
+	xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	xmlns:jh-intake-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/michigan/codes/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0">
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
@@ -36,7 +36,6 @@
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" schemaLocation="../JuvenileHistoryCommonExtension.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/michigan/codes/1.0" schemaLocation="member-extensions/michigan/codes.xsd"/>
 	<xsd:annotation>
 		<xsd:appinfo>
 			<appinfo:ConformantIndicator>true</appinfo:ConformantIndicator>
@@ -49,7 +48,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:AssessmentRecommendedCourseOfActionRepresentation" minOccurs="1" maxOccurs="unbounded"/>
+					<xsd:element ref="jh-intake:AssessmentRecommendedCourseOfActionRepresentation" minOccurs="1" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -62,9 +61,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:JuvenileIntakeAssessmentCategoryRepresentation" minOccurs="1" maxOccurs="unbounded"/>
-					<xsd:element ref="cext:JuvenileInformationRecordID" minOccurs="1" maxOccurs="1"/>
-					<xsd:element ref="cext:RelatedJuvenileHistoryRecords" minOccurs="0"/>
+					<xsd:element ref="jh-intake:JuvenileIntakeAssessmentCategoryRepresentation" minOccurs="1" maxOccurs="unbounded"/>
+					<xsd:element ref="jh-ext:JuvenileInformationRecordID" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="jh-ext:RelatedJuvenileHistoryRecords" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -75,14 +74,14 @@
 			<xsd:documentation>A data type for the intake history of a juvenile.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="cext:JuvenileHistoryType">
+			<xsd:extension base="jh-ext:JuvenileHistoryType">
 				<xsd:sequence>
 					<xsd:element ref="cyfs:JuvenileIntakeAssessment" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="AssessmentRecommendedCourseOfActionAugmentation" type="ext:AssessmentRecommendedCourseOfActionAugmentationType" substitutionGroup="cyfs:AssessmentRecommendedCourseOfActionAugmentationPoint">
+	<xsd:element name="AssessmentRecommendedCourseOfActionAugmentation" type="jh-intake:AssessmentRecommendedCourseOfActionAugmentationType" substitutionGroup="cyfs:AssessmentRecommendedCourseOfActionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Local extensions for processes used by Juvenile Court to determine whether to handle a referral formally or informally.</xsd:documentation>
 		</xsd:annotation>
@@ -92,7 +91,7 @@
 			<xsd:documentation> An abstract placeholder for the results and recommendations of Juvenile Court intake processes.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="JuvenileAssessmentAugmentation" type="ext:JuvenileAssessmentAugmentationType" substitutionGroup="cyfs:JuvenileAssessmentAugmentationPoint">
+	<xsd:element name="JuvenileAssessmentAugmentation" type="jh-intake:JuvenileAssessmentAugmentationType" substitutionGroup="cyfs:JuvenileAssessmentAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Local extensions for processes used by Juvenile Court to determine whether to handle a referral formally or informally.</xsd:documentation>
 		</xsd:annotation>
@@ -102,7 +101,7 @@
 			<xsd:documentation>An abstract placeholder for a type of processes used by Juvenile Court to determine whether to handle a referral formally or informally.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="JuvenileIntakeHistory" type="ext:JuvenileIntakeHistoryType">
+	<xsd:element name="JuvenileIntakeHistory" type="jh-intake:JuvenileIntakeHistoryType">
 		<xsd:annotation>
 			<xsd:documentation>The history of intakes of a juvenile.</xsd:documentation>
 		</xsd:annotation>

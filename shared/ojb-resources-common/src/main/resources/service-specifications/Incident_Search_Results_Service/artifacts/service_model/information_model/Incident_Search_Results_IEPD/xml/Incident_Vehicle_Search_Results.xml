@@ -17,28 +17,28 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:IncidentVehicleSearchResults
-	xmlns:demostate-codes="http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
+<isres-doc:IncidentVehicleSearchResults
+	xmlns:incident-location-codes-demostate="http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0"
+	xmlns:isres-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
+	xmlns:isres="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0 ../xsd/member-extensions/demostate/LocationCodes.xsd">
-	<ext:IncidentVehicleSearchResult>
-		<ext:Incident s:id="I001">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0 ../xsd/impl/demostate/LocationCodes.xsd">
+	<isres:IncidentVehicleSearchResult>
+		<isres:Incident s:id="I001">
 			<nc:ActivityIdentification>
 				<nc:IdentificationID>12345</nc:IdentificationID>
 			</nc:ActivityIdentification>
 			<nc:ActivityDate>
 				<nc:DateTime>2012-04-01T12:00:00</nc:DateTime>
 			</nc:ActivityDate>
-			<ext:IncidentCategoryCode>Law</ext:IncidentCategoryCode>
-		</ext:Incident>
+			<isres:IncidentCategoryCode>Law</isres:IncidentCategoryCode>
+		</isres:Incident>
 		<nc:Location s:id="L001">
 			<nc:LocationAddress>
-				<ext:StructuredAddress>
+				<isres:StructuredAddress>
 					<nc:LocationStreet>
 						<nc:StreetFullText>101 Main Street</nc:StreetFullText>
 						<nc:StreetNumberText>101</nc:StreetNumberText>
@@ -48,8 +48,8 @@
 					<nc:LocationStateUSPostalServiceCode>VT
 					</nc:LocationStateUSPostalServiceCode>
 					<nc:LocationPostalCode>00000</nc:LocationPostalCode>
-					<demostate-codes:LocationCityTownCode>Brattleboro</demostate-codes:LocationCityTownCode>
-				</ext:StructuredAddress>
+					<incident-location-codes-demostate:LocationCityTownCode>Brattleboro</incident-location-codes-demostate:LocationCityTownCode>
+				</isres:StructuredAddress>
 			</nc:LocationAddress>
 		</nc:Location>
 		<nc:Organization s:id="O001">
@@ -63,11 +63,11 @@
 			<nc:ActivityReference s:ref="I001" />
 			<nc:LocationReference s:ref="L001" />
 		</j:ActivityLocationAssociation>
-		<ext:SourceSystemNameText>System 1</ext:SourceSystemNameText>
+		<isres:SourceSystemNameText>System 1</isres:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>0903</nc:IdentificationID>
 			<intel:SystemName>System 1</intel:SystemName>
 		</intel:SystemIdentifier>
-		<ext:IncidentInvolvedVehicleInvolvementDescriptionText>Vehicle Crashed</ext:IncidentInvolvedVehicleInvolvementDescriptionText>
-	</ext:IncidentVehicleSearchResult>
-</exchange:IncidentVehicleSearchResults>
+		<isres:IncidentInvolvedVehicleInvolvementDescriptionText>Vehicle Crashed</isres:IncidentInvolvedVehicleInvolvementDescriptionText>
+	</isres:IncidentVehicleSearchResult>
+</isres-doc:IncidentVehicleSearchResults>

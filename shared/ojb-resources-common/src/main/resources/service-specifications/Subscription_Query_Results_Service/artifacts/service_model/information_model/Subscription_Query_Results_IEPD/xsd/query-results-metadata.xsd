@@ -22,7 +22,7 @@
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" 
-	xmlns:qre="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" 
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" 
 	xmlns:tns="http://www.example.org/search-result-metadata" targetNamespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" schemaLocation="access-denial.xsd"/>
@@ -32,7 +32,7 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="iad:InformationAccessDenial" minOccurs="0"/>
-					<xsd:element ref="qre:QueryRequestError" minOccurs="0"/>
+					<xsd:element ref="qrer:QueryRequestError" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

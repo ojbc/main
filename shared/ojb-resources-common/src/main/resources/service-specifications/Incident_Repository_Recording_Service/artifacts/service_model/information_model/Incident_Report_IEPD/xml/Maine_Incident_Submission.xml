@@ -23,7 +23,7 @@
 	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
 	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
@@ -235,7 +235,7 @@
 									</j:PersonStateFingerprintIdentification>
 								</j:PersonAugmentation>
 							</lexsdigest:Person>
-							<j:IncidentSubject s:id="IS1">
+							<j:IncidentSubject s:id="IS11">
 								<nc:RoleOfPersonReference s:ref="DEFENDANT1" />
 							</j:IncidentSubject>
 						</lexsdigest:EntityPerson>
@@ -456,6 +456,14 @@
 								<nc:ActivityReference s:ref="INCIDENT1" />
 								<nc:LocationReference s:ref="LOCATION1" />
 							</lexsdigest:IncidentLocationAssociation>
+							<lexsdigest:IncidentOffenseAssociation>
+								<nc:ActivityReference s:ref="INCIDENT1"/>
+								<nc:ActivityReference s:ref="Offense1"/>
+							</lexsdigest:IncidentOffenseAssociation>
+							<lexsdigest:IncidentOffenseAssociation>
+								<nc:ActivityReference s:ref="INCIDENT1"/>
+								<nc:ActivityReference s:ref="Offense2"/>
+							</lexsdigest:IncidentOffenseAssociation>
 							<lexsdigest:IncidentSubjectPersonAssociation>
 								<nc:ActivityReference s:ref="INCIDENT1" />
 								<nc:PersonReference s:ref="DEFENDANT1" />
@@ -524,10 +532,7 @@
 							</lexs:CommunityDescription>
 							<lexs:CommunityVersion>2.1</lexs:CommunityVersion>
 						</lexs:StructuredPayloadMetadata>
-						<ndexia:IncidentReport
-							xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
-							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0"
-							xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+						<ndexia:IncidentReport>
 							<ndexia:Incident>
 								<!-- Incident status code is required -->
 								<ndexia:ActivityStatus>
@@ -713,14 +718,14 @@
 								</ext:OfficerInCharge>
 							</ext:Incident>
 							<ext:DriverLicenseLocationAssociation>
-								<nc:LocationReference s:ref="IS01" />
-								<nc:DriverLicenseReference s:ref="IS01" />
+								<nc:LocationReference s:ref="IS1" />
+								<nc:DriverLicenseReference s:ref="IS1" />
 							</ext:DriverLicenseLocationAssociation>
 							<ext:ChargeLocationAssociation>
-								<j:ChargeReference s:ref="IS01" />
-								<nc:LocationReference s:ref="IS01" />
+								<j:ChargeReference s:ref="IS1" />
+								<nc:LocationReference s:ref="IS1" />
 							</ext:ChargeLocationAssociation>
-							<ext:IncidentSubject s:id="IS01">
+							<ext:IncidentSubject s:id="IS1">
 								<lexslib:SameAsDigestReference
 									lexslib:ref="DEFENDANT1" />
 								<ext:SubjectBloodAlcoholContentNumber>0.80

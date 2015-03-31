@@ -4,7 +4,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:Q1="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" 
+	xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" 
 	xmlns:tns="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0" 
 	targetNamespace="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0"
 	xmlns:policy="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
@@ -16,7 +16,7 @@
         </xsd:schema>
     </wsdl:types>
     <wsdl:message name="Criminal-History">
-        <wsdl:part name="Criminal-History" element="Q1:CriminalHistory"/>
+        <wsdl:part name="Criminal-History" element="ch-doc:CriminalHistory"/>
     </wsdl:message>
     <wsdl:portType name="Person-Query-Results-Handler-Service---Criminal-History">
         <wsdl:operation name="Report-Person-Query-Results---Criminal-History">

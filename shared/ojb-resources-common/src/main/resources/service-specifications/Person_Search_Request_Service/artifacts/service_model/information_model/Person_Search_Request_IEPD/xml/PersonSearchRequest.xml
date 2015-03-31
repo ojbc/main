@@ -17,16 +17,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exc:PersonSearchRequest
-	xmlns:exc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
+<psr-doc:PersonSearchRequest
+	xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
+	xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1" 
-	xmlns:micodes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0 ../xsd/exchange_schema.xsd" s:metadata="SM003">
-	<ext:Person s:id="P001">
+	xmlns:jh-placement-search-codes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0 ../xsd/impl/michigan/michigan-codes.xsd" s:metadata="SM003">
+	<psr:Person s:id="P001">
 		<nc:PersonAgeMeasure>
 			<nc:MeasureRangeValue>
 				<nc:RangeMinimumValue>38</nc:RangeMinimumValue>
@@ -69,14 +69,14 @@
 -->			<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
 		</nc:PersonWeightMeasure>
 		
-		<ext:PersonBirthDateRange>
+		<psr:PersonBirthDateRange>
 			<nc:StartDate>
 				<nc:Date>1970-01-01</nc:Date>
 			</nc:StartDate>
 			<nc:EndDate>
 				<nc:Date>1970-01-05</nc:Date>
 			</nc:EndDate>
-		</ext:PersonBirthDateRange>
+		</psr:PersonBirthDateRange>
 		<j:PersonAugmentation>
 			<nc:DriverLicense>
 				<nc:DriverLicenseIdentification>
@@ -91,8 +91,8 @@
 				<nc:IdentificationID>12345</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
-	</ext:Person>
-	<ext:Parent s:id="PAR001">
+	</psr:Person>
+	<psr:Parent s:id="PAR001">
 		<nc:PersonBirthDate>
 			<nc:Date>1957-09-13</nc:Date>
 		</nc:PersonBirthDate>
@@ -100,9 +100,9 @@
 			<nc:PersonGivenName>Walter</nc:PersonGivenName>
 			<nc:PersonSurName>White</nc:PersonSurName>
 		</nc:PersonName>
-	</ext:Parent>
+	</psr:Parent>
 	<cyfs:Placement>
-		<micodes:PlacementCategoryCode>Foster Home</micodes:PlacementCategoryCode>
+		<jh-placement-search-codes:PlacementCategoryCode>Foster Home</jh-placement-search-codes:PlacementCategoryCode>
 	</cyfs:Placement>
 	<nc:Location s:id="LOC01">
 		<nc:LocationAddress>
@@ -123,20 +123,20 @@
 		<nc:PersonReference s:ref="P001"/>
 		<nc:LocationReference s:ref="LOC01"/>
 	</nc:ResidenceAssociation>
-	<ext:ParentChildAssociation>
-		<ext:ParentReference s:ref="PAR001"/>
-		<ext:ChildReference s:ref="P001"/>
-	</ext:ParentChildAssociation>
-	<ext:SourceSystemNameText>VIBRS RMS</ext:SourceSystemNameText>
-	<ext:SourceSystemNameText>Burlington PD</ext:SourceSystemNameText>
-	<ext:SearchMetadata s:id="SM001">
-		<ext:SearchQualifierCode>exact</ext:SearchQualifierCode>
-	</ext:SearchMetadata>
-	<ext:SearchMetadata s:id="SM002">
-		<ext:SearchQualifierCode>startsWith</ext:SearchQualifierCode>
-	</ext:SearchMetadata>
-	<ext:SearchMetadata s:id="SM003">
-		<ext:SearchRequestOnBehalfOfText>John Doe</ext:SearchRequestOnBehalfOfText>
-		<ext:SearchPurposeText>Criminal Justice</ext:SearchPurposeText>
-	</ext:SearchMetadata>
-</exc:PersonSearchRequest>
+	<psr:ParentChildAssociation>
+		<psr:ParentReference s:ref="PAR001"/>
+		<psr:ChildReference s:ref="P001"/>
+	</psr:ParentChildAssociation>
+	<psr:SourceSystemNameText>VIBRS RMS</psr:SourceSystemNameText>
+	<psr:SourceSystemNameText>Burlington PD</psr:SourceSystemNameText>
+	<psr:SearchMetadata s:id="SM001">
+		<psr:SearchQualifierCode>exact</psr:SearchQualifierCode>
+	</psr:SearchMetadata>
+	<psr:SearchMetadata s:id="SM002">
+		<psr:SearchQualifierCode>startsWith</psr:SearchQualifierCode>
+	</psr:SearchMetadata>
+	<psr:SearchMetadata s:id="SM003">
+		<psr:SearchRequestOnBehalfOfText>John Doe</psr:SearchRequestOnBehalfOfText>
+		<psr:SearchPurposeText>Criminal Justice</psr:SearchPurposeText>
+	</psr:SearchMetadata>
+</psr-doc:PersonSearchRequest>

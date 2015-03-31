@@ -20,35 +20,17 @@
 <!-- Document : $Id: lexs.xsd 1974 2009-01-21 23:09:54Z ys34 $ LEXS version 
 	: 3.1.4 Namespace : xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" Description 
 	: LEXS Messages Format Schema -->
-<xsd:schema
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
-	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexscodes="http://usdoj.gov/leisp/lexs/codes/3.1"
-	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://usdoj.gov/leisp/lexs/3.1"
-	elementFormDefault="qualified" attributeFormDefault="unqualified"
-	version="3.1.4">
-	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
-		schemaLocation="../../../NIEM_2.0/appinfo/2.0/appinfo.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
-		schemaLocation="../../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0"
-		schemaLocation="../../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
-		schemaLocation="../../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
-		schemaLocation="../../../NIEM_2.0/structures/2.0/structures.xsd" />
-	<xsd:import namespace="http://usdoj.gov/leisp/lexs/digest/3.1"
-		schemaLocation="../../digest/3.1/digest.xsd" />
-	<xsd:import namespace="http://usdoj.gov/leisp/lexs/codes/3.1"
-		schemaLocation="../../codes/3.1/codes.xsd" />
-	<xsd:import namespace="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
- 		schemaLocation="../../../ndexia/ndexia/2.1/ndexia.xsd" />
-	<xsd:import
-		namespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
-		schemaLocation="../../../Structured_Payloads/OJBC/Incident_Report_Structured_Payload.xsd" />
+<xsd:schema xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/IncidentReportStructuredPayload/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexscodes="http://usdoj.gov/leisp/lexs/codes/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://usdoj.gov/leisp/lexs/3.1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.1.4">
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../NIEM_2.0/appinfo/2.0/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../NIEM_2.0/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../NIEM_2.0/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://usdoj.gov/leisp/lexs/digest/3.1" schemaLocation="../../digest/3.1/digest.xsd"/>
+	<xsd:import namespace="http://usdoj.gov/leisp/lexs/codes/3.1" schemaLocation="../../codes/3.1/codes.xsd"/>
+	<xsd:import namespace="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" schemaLocation="../../../ndexia/ndexia/2.1/ndexia.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" schemaLocation="../../../Structured_Payloads/OJBC/Incident_Report_Structured_Payload.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/IncidentReportStructuredPayload/1.0" schemaLocation="../../../Structured_Payloads/Hawaii/Incident_Report_Structured_Payload.xsd"/>
 	<xsd:annotation>
 		<xsd:documentation>LEXS Message Format Schema</xsd:documentation>
 	</xsd:annotation>
@@ -60,15 +42,14 @@
 				advisory elements to provide additional details about the error or
 				warning.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:AdvisoryCategory" />
-					<xsd:element ref="lexs:AdvisoryText" minOccurs="0" />
+					<xsd:element ref="lexs:AdvisoryCategory"/>
+					<xsd:element ref="lexs:AdvisoryText" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -79,13 +60,12 @@
 				Identifier. For more information on Uniform Resource Identifier
 				please see RFC3986.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="xsd:anyURI">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
@@ -95,18 +75,17 @@
 				the Attachment and uniquely identifies the attachment.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:AttachmentURI" />
-					<xsd:element ref="lexs:AttachmentViewableIndicator" />
-					<xsd:element ref="nc:BinaryDescriptionText" />
-					<xsd:element ref="nc:BinarySizeValue" minOccurs="0" />
-					<xsd:element ref="nc:BinaryCategoryText" minOccurs="0" />
+					<xsd:element ref="lexs:AttachmentURI"/>
+					<xsd:element ref="lexs:AttachmentViewableIndicator"/>
+					<xsd:element ref="nc:BinaryDescriptionText"/>
+					<xsd:element ref="nc:BinarySizeValue" minOccurs="0"/>
+					<xsd:element ref="nc:BinaryCategoryText" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -122,13 +101,13 @@
 				single request. All attachments are uniquely identified by
 				Attachment URI.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="RequestMessageType" />
+				<i:Base i:name="RequestMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:RequestMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:AttachmentURI" maxOccurs="unbounded" />
+					<xsd:element ref="lexs:AttachmentURI" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -140,14 +119,13 @@
 				to a getAttachmentRequest(), and may include multiple attachments.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="ResponseMessageType" />
+				<i:Base i:name="ResponseMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:ResponseMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:Attachment" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:Attachment" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -160,18 +138,16 @@
 				attachment in binary format using NIEM nc:Binary.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:AttachmentURI" />
-					<xsd:element ref="nc:Binary" />
-					<xsd:element ref="lexs:DataOwnerMetadata" minOccurs="0" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:AttachmentURI"/>
+					<xsd:element ref="nc:Binary"/>
+					<xsd:element ref="lexs:DataOwnerMetadata" minOccurs="0"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -182,15 +158,14 @@
 				Message. Message is returned by a service provider in response to a
 				getAvailabilityRequest().</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="ResponseMessageType" />
+				<i:Base i:name="ResponseMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:ResponseMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:ServiceAvailableIndicator" />
-					<xsd:element ref="lexs:AdditionalInformation"
-						minOccurs="0" />
+					<xsd:element ref="lexs:ServiceAvailableIndicator"/>
+					<xsd:element ref="lexs:AdditionalInformation" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -203,13 +178,13 @@
 				provider level, and some only apply to structured or unstructured
 				searches.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="ResponseMessageType" />
+				<i:Base i:name="ResponseMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:ResponseMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:Capabilities" />
+					<xsd:element ref="lexs:Capabilities"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -219,21 +194,18 @@
 			<xsd:documentation>A structure that describes details about
 				Capabilities of the Service Provider.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataItemCategory" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:PagingIndicator" />
-					<xsd:element ref="lexs:MaxHitsReturned" />
-					<xsd:element ref="lexs:StructuredSearch" minOccurs="0" />
-					<xsd:element ref="lexs:TextSearch" minOccurs="0" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:DataItemCategory" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:PagingIndicator"/>
+					<xsd:element ref="lexs:MaxHitsReturned"/>
+					<xsd:element ref="lexs:StructuredSearch" minOccurs="0"/>
+					<xsd:element ref="lexs:TextSearch" minOccurs="0"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -245,12 +217,12 @@
 				community pedigree order. Digest is assigned pedigree 0, community
 				recieve pedigree 1, and etc.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="AnyURIType" />
+				<i:Base i:name="AnyURIType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="lexs:AnyURIType">
-				<xsd:attribute ref="lexs:pedigreeNumber" use="required" />
+				<xsd:attribute ref="lexs:pedigreeNumber" use="required"/>
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
@@ -260,22 +232,19 @@
 				Information for a data owner, system, or a data item.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="nc:PersonGivenName" minOccurs="0" />
-					<xsd:element ref="nc:PersonMiddleName" minOccurs="0" />
-					<xsd:element ref="nc:PersonSurName" />
-					<xsd:element ref="nc:PersonFullName" minOccurs="0" />
-					<xsd:element ref="nc:ContactMeans" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="nc:OrganizationName" minOccurs="0" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonGivenName" minOccurs="0"/>
+					<xsd:element ref="nc:PersonMiddleName" minOccurs="0"/>
+					<xsd:element ref="nc:PersonSurName"/>
+					<xsd:element ref="nc:PersonFullName" minOccurs="0"/>
+					<xsd:element ref="nc:ContactMeans" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:OrganizationName" minOccurs="0"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -294,9 +263,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataItemCategoryText" />
-					<xsd:element ref="lexs:DataItemCategoryDescription"
-						minOccurs="0" />
+					<xsd:element ref="lexs:DataItemCategoryText"/>
+					<xsd:element ref="lexs:DataItemCategoryDescription" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -308,15 +276,14 @@
 				of a doPublish request, and in a DataItemResponseMessage as part of
 				a getDataItemResponse.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="PackageAbstractType" />
+				<i:Base i:name="PackageAbstractType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:PackageAbstractType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:RenderingInstructions"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="lexs:Narrative" minOccurs="0" />
+					<xsd:element ref="lexs:RenderingInstructions" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:Narrative" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -328,14 +295,14 @@
 				message. Requested Data Item is specified by DataItemID.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="RequestMessageType" />
+				<i:Base i:name="RequestMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:RequestMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataItemID" />
-					<xsd:element ref="lexs:StructuredPayloadsRequestedAbstract" />
+					<xsd:element ref="lexs:DataItemID"/>
+					<xsd:element ref="lexs:StructuredPayloadsRequestedAbstract"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -347,15 +314,14 @@
 				include information that was not in the doSearchResponse.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="ResponseMessageType" />
+				<i:Base i:name="ResponseMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:ResponseMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataSubmitterMetadata"
-						minOccurs="0" />
-					<xsd:element ref="lexs:DataItemPackage" minOccurs="0" />
+					<xsd:element ref="lexs:DataSubmitterMetadata" minOccurs="0"/>
+					<xsd:element ref="lexs:DataItemPackage" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -369,9 +335,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:AgencyIDAbstract" />
-					<xsd:element ref="nc:OrganizationName" />
-					<xsd:element ref="lexs:SystemID" />
+					<xsd:element ref="lexs:AgencyIDAbstract"/>
+					<xsd:element ref="nc:OrganizationName"/>
+					<xsd:element ref="lexs:SystemID"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -384,13 +350,11 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataOwnerMetadata" />
-					<xsd:element ref="lexs:StructuredSearchIndicator" />
-					<xsd:element ref="lexs:TextSearchIndicator" />
-					<xsd:element ref="lexs:DataItemCategory" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:DataOwnerMetadata"/>
+					<xsd:element ref="lexs:StructuredSearchIndicator"/>
+					<xsd:element ref="lexs:TextSearchIndicator"/>
+					<xsd:element ref="lexs:DataItemCategory" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -403,10 +367,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataOwnerIdentifier" />
-					<xsd:element ref="lexs:DataOwnerContact" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:DataOwnerIdentifier"/>
+					<xsd:element ref="lexs:DataOwnerContact"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -421,7 +384,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="lexs:ResponseMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataOwnerInformation" maxOccurs="unbounded" />
+					<xsd:element ref="lexs:DataOwnerInformation" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -433,14 +396,13 @@
 				element with a single value where allowed by schema.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexsdigest:Entity" />
+					<xsd:element ref="lexsdigest:Entity"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -457,15 +419,14 @@
 				a single element, there must be multiple DigestQueryStatement
 				blocks.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DigestQueryField" />
-					<xsd:element ref="lexs:QueryMatch" />
+					<xsd:element ref="lexs:DigestQueryField"/>
+					<xsd:element ref="lexs:QueryMatch"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -479,15 +440,14 @@
 				element "Associations" and follow strict sequence.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexsdigest:Entity" maxOccurs="unbounded" />
-					<xsd:element ref="lexsdigest:Associations" minOccurs="0" />
+					<xsd:element ref="lexsdigest:Entity" maxOccurs="unbounded"/>
+					<xsd:element ref="lexsdigest:Associations" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -499,15 +459,14 @@
 				and dissemination criteria value used within the domain.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DisseminationCriteriaDomainText" />
-					<xsd:element ref="lexs:DisseminationCriteriaText" />
+					<xsd:element ref="lexs:DisseminationCriteriaDomainText"/>
+					<xsd:element ref="lexs:DisseminationCriteriaText"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -520,17 +479,16 @@
 				hierarchical data xsd:any structure should be used.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:AttributeName" minOccurs="0" />
-					<xsd:element ref="lexs:AttributeValue" minOccurs="0" />
-					<xsd:element ref="lexs:Domain" />
-					<xsd:any processContents="lax" minOccurs="0" />
+					<xsd:element ref="lexs:AttributeName" minOccurs="0"/>
+					<xsd:element ref="lexs:AttributeValue" minOccurs="0"/>
+					<xsd:element ref="lexs:Domain"/>
+					<xsd:any processContents="lax" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -540,13 +498,13 @@
 			<xsd:documentation>A structure that describes non-normative Domain
 				Request Message.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="SRMessageType" />
+				<i:Base i:name="SRMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:SRMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DomainAttribute" maxOccurs="unbounded" />
+					<xsd:element ref="lexs:DomainAttribute" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -556,13 +514,13 @@
 			<xsd:documentation>A structure that describes non-normative Domain
 				Response Message.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="ResponseMessageType" />
+				<i:Base i:name="ResponseMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:ResponseMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DomainAttribute" maxOccurs="unbounded" />
+					<xsd:element ref="lexs:DomainAttribute" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -572,17 +530,16 @@
 			<xsd:documentation>A structure that holds basic metadata about any
 				message.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Metadata" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Metadata"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:LEXSVersion" />
-					<xsd:element ref="lexs:MessageDateTime" />
-					<xsd:element ref="lexs:MessageSequenceNumber" />
-					<xsd:element ref="lexs:DataSensitivity" minOccurs="0" />
+					<xsd:element ref="lexs:LEXSVersion"/>
+					<xsd:element ref="lexs:MessageDateTime"/>
+					<xsd:element ref="lexs:MessageSequenceNumber"/>
+					<xsd:element ref="lexs:DataSensitivity" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -599,15 +556,14 @@
 				the number of search terms in that structured payload section.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:CommunityURI" />
-					<xsd:element ref="lexs:NumberOfTerms" />
+					<xsd:element ref="lexs:CommunityURI"/>
+					<xsd:element ref="lexs:NumberOfTerms"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -623,20 +579,17 @@
 				Digest element is mandatory everywhere except SearchResultPackage.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:PackageMetadata" />
+					<xsd:element ref="lexs:PackageMetadata"/>
 					<!-- BusinessRule: Digest is not optional everywhere except SearchResultPackage -->
-					<xsd:element ref="lexs:Digest" minOccurs="0" />
-					<xsd:element ref="lexs:StructuredPayload" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:AttachmentLink" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:Digest" minOccurs="0"/>
+					<xsd:element ref="lexs:StructuredPayload" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:AttachmentLink" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -646,30 +599,24 @@
 			<xsd:documentation>A structure that describes Metadata about LEXS
 				Package</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Metadata" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Metadata"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataItemID" />
-					<xsd:element ref="lexs:DataItemCompleteIndicator"
-						minOccurs="0" />
-					<xsd:element ref="lexs:DataItemContact" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:DataItemDate" minOccurs="0" />
-					<xsd:element ref="lexs:DataItemLEXSVersion" minOccurs="0" />
-					<xsd:element ref="lexs:DataItemReferenceID" />
-					<xsd:element ref="lexs:DataItemPublishInstruction"
-						minOccurs="0" />
-					<xsd:element ref="lexs:DataItemStatus" />
-					<xsd:element ref="lexs:DataOwnerMetadata" />
-					<xsd:element ref="lexs:DisseminationCriteriaAbstract" />
-					<xsd:element ref="lexs:DataItemCategory" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:DataItemID"/>
+					<xsd:element ref="lexs:DataItemCompleteIndicator" minOccurs="0"/>
+					<xsd:element ref="lexs:DataItemContact" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:DataItemDate" minOccurs="0"/>
+					<xsd:element ref="lexs:DataItemLEXSVersion" minOccurs="0"/>
+					<xsd:element ref="lexs:DataItemReferenceID"/>
+					<xsd:element ref="lexs:DataItemPublishInstruction" minOccurs="0"/>
+					<xsd:element ref="lexs:DataItemStatus"/>
+					<xsd:element ref="lexs:DataOwnerMetadata"/>
+					<xsd:element ref="lexs:DisseminationCriteriaAbstract"/>
+					<xsd:element ref="lexs:DataItemCategory" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -679,14 +626,13 @@
 			<xsd:documentation>A structure describes metadata for LEXS Publish
 				Mesage.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="MessageMetadataAbstractType" />
+				<i:Base i:name="MessageMetadataAbstractType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:MessageMetadataAbstractType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -698,7 +644,7 @@
 				and requires at least one message to publish.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element ref="lexs:PublishMessage" maxOccurs="unbounded" />
+			<xsd:element ref="lexs:PublishMessage" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="PublishMessageType">
@@ -707,10 +653,9 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element ref="lexs:PDMessageMetadata" />
-			<xsd:element ref="lexs:DataSubmitterMetadata" />
-			<xsd:element ref="lexs:PublishMessageItemAbstract"
-				maxOccurs="unbounded" />
+			<xsd:element ref="lexs:PDMessageMetadata"/>
+			<xsd:element ref="lexs:DataSubmitterMetadata"/>
+			<xsd:element ref="lexs:PublishMessageItemAbstract" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="RenderingInstructionsType">
@@ -718,18 +663,16 @@
 			<xsd:documentation>A structure that describes rendering instructions
 				for LEXS Data Item Package.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:RenderingMethod" />
-					<xsd:element ref="lexs:RenderingReference" />
-					<xsd:element ref="lexs:RenderingParameter" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:RenderingDescription" minOccurs="0" />
+					<xsd:element ref="lexs:RenderingMethod"/>
+					<xsd:element ref="lexs:RenderingReference"/>
+					<xsd:element ref="lexs:RenderingParameter" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:RenderingDescription" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -739,15 +682,14 @@
 			<xsd:documentation>A structure that describes rendering parameters
 				for XSLT</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:RenderingParameterName" />
-					<xsd:element ref="lexs:RenderingParameterValue" />
+					<xsd:element ref="lexs:RenderingParameterName"/>
+					<xsd:element ref="lexs:RenderingParameterValue"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -757,13 +699,13 @@
 			<xsd:documentation>A structure that describes base type for any
 				Request Message.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="SRMessageType" />
+				<i:Base i:name="SRMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:SRMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:UserAssertion" />
+					<xsd:element ref="lexs:UserAssertion"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -773,13 +715,13 @@
 			<xsd:documentation>A structure that describes base type for any
 				Response Message.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="SRMessageType" />
+				<i:Base i:name="SRMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:SRMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:ResponseMetadata" />
+					<xsd:element ref="lexs:ResponseMetadata"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -789,17 +731,15 @@
 			<xsd:documentation>A structure that describes response metadata. This
 				structure is included in all results.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Metadata" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Metadata"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:ResultCode" />
-					<xsd:element ref="lexs:Advisory" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:InResponseToMessageSequenceNumber" />
+					<xsd:element ref="lexs:ResultCode"/>
+					<xsd:element ref="lexs:Advisory" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:InResponseToMessageSequenceNumber"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -810,15 +750,14 @@
 				and an indicator as to whether the supplied role types should be
 				included or excluded from the response.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:RoleInclusiveIndicator" />
-					<xsd:element ref="lexs:RoleType" maxOccurs="unbounded" />
+					<xsd:element ref="lexs:RoleInclusiveIndicator"/>
+					<xsd:element ref="lexs:RoleType" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -828,13 +767,13 @@
 			<xsd:documentation>A structure describes base type for Search Request
 				Message.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="RequestMessageType" />
+				<i:Base i:name="RequestMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:RequestMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:SearchRequestMetadata" />
+					<xsd:element ref="lexs:SearchRequestMetadata"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -846,30 +785,24 @@
 				doStructuredSearch request and in TextSearchRequestMessage in a
 				doTextSearch request.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Metadata" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Metadata"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:RequestedData" maxOccurs="unbounded" />
-					<xsd:element ref="lexs:DataOwnerIdentifier" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:MaxItemMatches" />
-					<xsd:element ref="lexs:MatchBeginAfter" minOccurs="0" />
-					<xsd:element ref="lexs:MatchEndBefore" minOccurs="0" />
-					<xsd:element ref="lexs:ServiceProviderSearchID"
-						minOccurs="0" />
-					<xsd:element ref="lexs:DataItemCategoryText" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:SortOrder" minOccurs="0" />
-					<xsd:element ref="lexs:TimeoutDuration" minOccurs="0" />
-					<xsd:element ref="lexs:NumberOfStructuredPayloadTerms"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="lexs:StructuredPayloadsRequestedAbstract" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:RequestedData" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:DataOwnerIdentifier" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:MaxItemMatches"/>
+					<xsd:element ref="lexs:MatchBeginAfter" minOccurs="0"/>
+					<xsd:element ref="lexs:MatchEndBefore" minOccurs="0"/>
+					<xsd:element ref="lexs:ServiceProviderSearchID" minOccurs="0"/>
+					<xsd:element ref="lexs:DataItemCategoryText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:SortOrder" minOccurs="0"/>
+					<xsd:element ref="lexs:TimeoutDuration" minOccurs="0"/>
+					<xsd:element ref="lexs:NumberOfStructuredPayloadTerms" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:StructuredPayloadsRequestedAbstract"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -880,15 +813,14 @@
 				format and contains "hits" from either a structured or text search.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="ResponseMessageType" />
+				<i:Base i:name="ResponseMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:ResponseMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:SearchResponseMetadata" />
-					<xsd:element ref="lexs:SearchResultPackage" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:SearchResponseMetadata"/>
+					<xsd:element ref="lexs:SearchResultPackage" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -898,23 +830,20 @@
 			<xsd:documentation>A structure that describes metadata about search
 				response.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="MetadataType" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="MetadataType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:StructuredQueryMatchScore"
-						minOccurs="0" />
-					<xsd:element ref="lexs:MaxItemMatchesRequested" />
-					<xsd:element ref="lexs:NumberItemMatches" />
-					<xsd:element ref="lexs:ServerLimitIndicator" />
-					<xsd:element ref="lexs:MatchBeginPoint" minOccurs="0" />
-					<xsd:element ref="lexs:MatchEndPoint" minOccurs="0" />
-					<xsd:element ref="lexs:ServiceProviderSearchID"
-						minOccurs="0" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" />
+					<xsd:element ref="lexs:StructuredQueryMatchScore" minOccurs="0"/>
+					<xsd:element ref="lexs:MaxItemMatchesRequested"/>
+					<xsd:element ref="lexs:NumberItemMatches"/>
+					<xsd:element ref="lexs:ServerLimitIndicator"/>
+					<xsd:element ref="lexs:MatchBeginPoint" minOccurs="0"/>
+					<xsd:element ref="lexs:MatchEndPoint" minOccurs="0"/>
+					<xsd:element ref="lexs:ServiceProviderSearchID" minOccurs="0"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -926,15 +855,14 @@
 				part of a SearchResponseMessage or getDataItemResponseMessage.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="PackageAbstractType" />
+				<i:Base i:name="PackageAbstractType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:PackageAbstractType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataSubmitterMetadata"
-						minOccurs="0" />
-					<xsd:element ref="lexs:Snippet" minOccurs="0" />
+					<xsd:element ref="lexs:DataSubmitterMetadata" minOccurs="0"/>
+					<xsd:element ref="lexs:Snippet" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -944,17 +872,15 @@
 			<xsd:documentation>A structure that describes metadata about
 				Search/Retrieve message.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="MessageMetadataAbstractType" />
+				<i:Base i:name="MessageMetadataAbstractType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:MessageMetadataAbstractType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:MessageOriginMetadata" />
-					<xsd:element ref="lexs:MessageDestinationIdentifier"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:MessageOriginMetadata"/>
+					<xsd:element ref="lexs:MessageDestinationIdentifier" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -965,11 +891,11 @@
 				SearchRetrieve message. Encapsulates SearchRetrieveMessageMetadata
 				element describing the message.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="SRMessageMetadata" />
+				<i:Base i:name="SRMessageMetadata"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element ref="lexs:SRMessageMetadata" />
+			<xsd:element ref="lexs:SRMessageMetadata"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="StructuredPayloadMetadataType">
@@ -977,18 +903,16 @@
 			<xsd:documentation>A structure that describes metadata about a
 				structured payload</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Metadata" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Metadata"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:CommunityURI" />
-					<xsd:element ref="lexs:CommunityDescription" minOccurs="0" />
-					<xsd:element ref="lexs:CommunityVersion" />
-					<xsd:element ref="lexs:CommunityPedigreeURI" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:CommunityURI"/>
+					<xsd:element ref="lexs:CommunityDescription" minOccurs="0"/>
+					<xsd:element ref="lexs:CommunityVersion"/>
+					<xsd:element ref="lexs:CommunityPedigreeURI" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1000,14 +924,13 @@
 				Structured Payload object, where the object includes a single
 				element with a single value.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:any processContents="skip" />
+					<xsd:any processContents="skip"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1023,16 +946,15 @@
 				element, there must be multiple StructuredPayloadQueryStatement
 				blocks.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:StructuredPayloadMetadata" />
-					<xsd:element ref="lexs:StructuredPayloadQueryField" />
-					<xsd:element ref="lexs:QueryMatch" />
+					<xsd:element ref="lexs:StructuredPayloadMetadata"/>
+					<xsd:element ref="lexs:StructuredPayloadQueryField"/>
+					<xsd:element ref="lexs:QueryMatch"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1042,15 +964,13 @@
 			<xsd:documentation>A structure that describes container for Requested
 				Structured Payloads.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:StructuredPayloadMetadata"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:StructuredPayloadMetadata" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1063,17 +983,17 @@
 				sub-community, such as bomb and arson incidents. Builds on the
 				contents of the digest.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:StructuredPayloadMetadata" />
+					<xsd:element ref="lexs:StructuredPayloadMetadata"/>
 					<!-- <xsd:any processContents="skip"/> -->
-					<xsd:element ref="ndexia:IncidentReport" minOccurs="0" />
-					<xsd:element ref="ext:IncidentReport" minOccurs="0" />
+					<xsd:element ref="ndexia:IncidentReport" minOccurs="0"/>
+					<xsd:element ref="ext:IncidentReport" minOccurs="0"/>
+					<xsd:element ref="hi:IncidentReport" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1084,7 +1004,7 @@
 				less than 100 and bigger than 0.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:nonNegativeInteger">
-			<xsd:maxInclusive value="100" />
+			<xsd:maxInclusive value="100"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="StructuredQueryType">
@@ -1093,18 +1013,15 @@
 				stated using the LEXS Digest and Structured Payload entities by
 				supplying field values for selected elements.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DigestQueryStatement" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="lexs:StructuredPayloadQueryStatement"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="lexs:RoleList" minOccurs="0" />
+					<xsd:element ref="lexs:DigestQueryStatement" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:StructuredPayloadQueryStatement" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexs:RoleList" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1117,7 +1034,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="lexs:SearchRequestMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:StructuredQuery" maxOccurs="unbounded" />
+					<xsd:element ref="lexs:StructuredQuery" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1127,18 +1044,17 @@
 			<xsd:documentation>A structure that describes structured seach
 				capabilities for a service provider.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:MultipleValueIndicator" />
-					<xsd:element ref="lexs:WildcardIndicator" />
-					<xsd:element ref="lexs:FuzzySearchIndicator" />
-					<xsd:element ref="lexs:DateRangeIndicator" />
-					<xsd:element ref="lexs:NumericRangeIndicator" />
+					<xsd:element ref="lexs:MultipleValueIndicator"/>
+					<xsd:element ref="lexs:WildcardIndicator"/>
+					<xsd:element ref="lexs:FuzzySearchIndicator"/>
+					<xsd:element ref="lexs:DateRangeIndicator"/>
+					<xsd:element ref="lexs:NumericRangeIndicator"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1149,16 +1065,15 @@
 				organization and a system where date originated, was submitted from,
 				or is being sent.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:AgencyIDAbstract" minOccurs="0" />
-					<xsd:element ref="nc:OrganizationName" />
-					<xsd:element ref="lexs:SystemID" />
+					<xsd:element ref="lexs:AgencyIDAbstract" minOccurs="0"/>
+					<xsd:element ref="nc:OrganizationName"/>
+					<xsd:element ref="lexs:SystemID"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1169,17 +1084,15 @@
 				organization and a system where date originated, was submitted from,
 				or is being sent.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Metadata" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Metadata"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:SystemIdentifier" />
-					<xsd:element ref="lexs:SystemContact" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:SystemIdentifier"/>
+					<xsd:element ref="lexs:SystemContact"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1189,13 +1102,13 @@
 			<xsd:documentation>A structure that describes format for text search
 				request message.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:name="SearchRequestMessageType" />
+				<i:Base i:name="SearchRequestMessageType"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="lexs:SearchRequestMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:TextQuery" />
+					<xsd:element ref="lexs:TextQuery"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1205,16 +1118,15 @@
 			<xsd:documentation>A structure that describes text seach capability
 				for a service provider.</xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:ExactPhraseIndicator" />
-					<xsd:element ref="lexs:LogicalOperatorIndicator" />
-					<xsd:element ref="lexs:WildcardIndicator" />
+					<xsd:element ref="lexs:ExactPhraseIndicator"/>
+					<xsd:element ref="lexs:LogicalOperatorIndicator"/>
+					<xsd:element ref="lexs:WildcardIndicator"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1227,28 +1139,24 @@
 				applications, such as getCapabilities, getDataOwners, and
 				getAvailability do not include a UserAssertion. </xsd:documentation>
 			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0"
-					i:name="Object" />
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:UserID" />
-					<xsd:element ref="nc:PersonGivenName" minOccurs="0" />
-					<xsd:element ref="nc:PersonSurName" minOccurs="0" />
-					<xsd:element ref="nc:ContactMeans" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="nc:OrganizationName" />
-					<xsd:element ref="lexs:AgencyIDAbstract" minOccurs="0" />
-					<xsd:element ref="lexs:DomainAttribute" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="lexs:UserID"/>
+					<xsd:element ref="nc:PersonGivenName" minOccurs="0"/>
+					<xsd:element ref="nc:PersonSurName" minOccurs="0"/>
+					<xsd:element ref="nc:ContactMeans" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:OrganizationName"/>
+					<xsd:element ref="lexs:AgencyIDAbstract" minOccurs="0"/>
+					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="AdditionalInformation" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="AdditionalInformation" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Additional Information about the availablity of a
 				service provider. Element is populated by the service provider and
@@ -1258,23 +1166,20 @@
 				back up at a particular time.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Advisory" type="lexs:AdvisoryType"
-		nillable="false">
+	<xsd:element name="Advisory" type="lexs:AdvisoryType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Container for the advisory details.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AdvisoryCategory" type="lexscodes:AdvisoryCategoryCodeType"
-		nillable="false">
+	<xsd:element name="AdvisoryCategory" type="lexscodes:AdvisoryCategoryCodeType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Provides a machine-interpretable error/warning
 				message from an enumerated code list that can be used
 				programmatically. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AdvisoryText" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="AdvisoryText" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Free form text describing the warning or error.
 				Since this text may be provided to end-users, service providers
@@ -1288,79 +1193,68 @@
 				ORI code.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Attachment" type="lexs:AttachmentType"
-		substitutionGroup="lexs:PublishMessageItemAbstract" nillable="false">
+	<xsd:element name="Attachment" type="lexs:AttachmentType" substitutionGroup="lexs:PublishMessageItemAbstract" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>LEXS Attachment. Contains binary for the
 				attachment and describes details about attachment. Attachment is
 				uniquely identified by an AttachmentURI.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AttachmentLink" type="lexs:AttachmentLinkType"
-		nillable="false">
+	<xsd:element name="AttachmentLink" type="lexs:AttachmentLinkType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Link between an object, such as a Person, and an
 				attachment.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AttachmentRequestMessage" type="lexs:AttachmentRequestMessageType"
-		nillable="false">
+	<xsd:element name="AttachmentRequestMessage" type="lexs:AttachmentRequestMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Message that requests a LEXS Attachment. Multiple
 				attachment may be requested in a single message.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AttachmentResponseMessage" type="lexs:AttachmentResponseMessageType"
-		nillable="false">
+	<xsd:element name="AttachmentResponseMessage" type="lexs:AttachmentResponseMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Message returned by a service provider in response
 				to a getAttachmentRequest(), and may include multiple attachments.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AttachmentURI" type="lexs:AnyURIType"
-		nillable="false">
+	<xsd:element name="AttachmentURI" type="lexs:AnyURIType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>LEXS attachement is uniquely identified by
 				AttachmentURI within given service provider.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AttachmentViewableIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="AttachmentViewableIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether attachment can be
 				displayed (true, such as for a mug shot) or not (false, such as for
 				a stylesheet used for rendering).</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AttributeName" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="AttributeName" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Domain Attribute Name</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AttributeValue" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="AttributeValue" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Domain Attribute Value</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AvailabilityResponseMessage" type="lexs:AvailabilityResponseMessageType"
-		nillable="false">
+	<xsd:element name="AvailabilityResponseMessage" type="lexs:AvailabilityResponseMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Message is returned by a service provider in
 				response to a getAvailabilityRequest() and shows the status of the
 				service provider.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Capabilities" type="lexs:CapabilitiesType"
-		nillable="false">
+	<xsd:element name="Capabilities" type="lexs:CapabilitiesType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Service Provider Capabilities.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CapabilitiesResponseMessage" type="lexs:CapabilitiesResponseMessageType"
-		nillable="false">
+	<xsd:element name="CapabilitiesResponseMessage" type="lexs:CapabilitiesResponseMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Message is returned by a service provider in
 				response to a getCapabilitiesRequest(). Some capabilities apply at
@@ -1368,36 +1262,31 @@
 				unstructured searches.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CommunityDescription" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="CommunityDescription" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Description of the community that originated a
 				particular structured payload.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CommunityPedigreeURI" type="lexs:CommunityPedigreeURIType"
-		nillable="false">
+	<xsd:element name="CommunityPedigreeURI" type="lexs:CommunityPedigreeURIType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Structured palyload pedigree for the community,
 				uniquely identified by CommunityPedigreeURI</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CommunityURI" type="lexs:AnyURIType"
-		nillable="false">
+	<xsd:element name="CommunityURI" type="lexs:AnyURIType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Structured palyload community URI. Each community
 				is uniquely identified by CommunityURI</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CommunityVersion" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="CommunityVersion" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Structured palyload community version.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemCategory" type="lexs:DataItemCategoryType"
-		nillable="false">
+	<xsd:element name="DataItemCategory" type="lexs:DataItemCategoryType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Provides information about the type of event or
 				data type. This may be used by service providers to indicate what
@@ -1409,16 +1298,14 @@
 				purposes.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemCategoryDescription" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="DataItemCategoryDescription" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Provides a description which can be used to better
 				explain the meaning of the DataItemCategoryText element value, and
 				could be multiple sentences.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemCategoryText" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="DataItemCategoryText" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Indicates the type of event or data type. This
 				should be a user-friendly and reasonably intuitive string that can
@@ -1426,8 +1313,7 @@
 				parameter in SearchRequestMetadata.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemCompleteIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="DataItemCompleteIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether the package
 				includes all available information (true) or whether more is
@@ -1437,30 +1323,26 @@
 				completeness for this data item.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemContact" type="lexs:DataContactType"
-		nillable="true">
+	<xsd:element name="DataItemContact" type="lexs:DataContactType" nillable="true">
 		<xsd:annotation>
 			<xsd:documentation>Contact information for the data item. Includes a
 				person and organization to contact and their phone number and email
 				address.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemDate" type="niem-xsd:date"
-		nillable="true">
+	<xsd:element name="DataItemDate" type="niem-xsd:date" nillable="true">
 		<xsd:annotation>
 			<xsd:documentation>Date the Data Item was produced/generated.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemID" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="DataItemID" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Unique identifier for the data item. DataItemID is
 				unique for a given service provider.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemLEXSVersion" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="DataItemLEXSVersion" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Specifies LEXS version used within the data item,
 				for example 3.1.4. This version could differ from LEXSVersion used
@@ -1468,8 +1350,7 @@
 				is 3.1.4, however DataItemLEXSVersion is 3.1.3.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemPackage" type="lexs:DataItemPackageType"
-		substitutionGroup="lexs:PublishMessageItemAbstract" nillable="false">
+	<xsd:element name="DataItemPackage" type="lexs:DataItemPackageType" substitutionGroup="lexs:PublishMessageItemAbstract" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Packaging for a single Data Item. DataItemPackage
 				is contained in a PublishMessage as part of a doPublish request, and
@@ -1477,15 +1358,13 @@
 				response.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemPublishInstruction"
-		type="lexscodes:DataItemPublishInstructionCodeType" nillable="true">
+	<xsd:element name="DataItemPublishInstruction" type="lexscodes:DataItemPublishInstructionCodeType" nillable="true">
 		<xsd:annotation>
 			<xsd:documentation>Data Item Publish instruction that indicates
 				whether to insert or delete data item.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemReferenceID" type="niem-xsd:string"
-		nillable="true">
+	<xsd:element name="DataItemReferenceID" type="niem-xsd:string" nillable="true">
 		<xsd:annotation>
 			<xsd:documentation>A human readable unique identifier that is
 				meaningful to the owning system. May be the same as the Data Item
@@ -1494,16 +1373,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemRequestMessage" type="lexs:DataItemRequestMessageType"
-		nillable="false">
+	<xsd:element name="DataItemRequestMessage" type="lexs:DataItemRequestMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Request message for a single Data Item. Only a
 				single data item may be requested in each message.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemResponseMessage" type="lexs:DataItemResponseMessageType"
-		nillable="false">
+	<xsd:element name="DataItemResponseMessage" type="lexs:DataItemResponseMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Data item response mesage returned in response to
 				getDataItemRequest message. Message always contains only a single
@@ -1511,22 +1388,19 @@
 				doSearchResponse.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataItemStatus" type="niem-xsd:string"
-		nillable="true">
+	<xsd:element name="DataItemStatus" type="niem-xsd:string" nillable="true">
 		<xsd:annotation>
 			<xsd:documentation>Free text field that shows the status of the data
 				item such as Valid/Invalid, etc.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataOwnerContact" type="lexs:DataContactType"
-		nillable="false">
+	<xsd:element name="DataOwnerContact" type="lexs:DataContactType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Contact information for a data owner.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataOwnerIdentifier" type="lexs:DataOwnerIdentifierType"
-		nillable="false">
+	<xsd:element name="DataOwnerIdentifier" type="lexs:DataOwnerIdentifierType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Identifier that uniquely identifies an
 				organization and a system in an organization that owns data. This
@@ -1535,29 +1409,25 @@
 				DataOwnersResponseMessage.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataOwnerInformation" type="lexs:DataOwnerInformationType"
-		nillable="false">
+	<xsd:element name="DataOwnerInformation" type="lexs:DataOwnerInformationType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Detailed information about data owner.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataOwnerMetadata" type="lexs:DataOwnerMetadataType"
-		nillable="false">
+	<xsd:element name="DataOwnerMetadata" type="lexs:DataOwnerMetadataType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Describes and uniquely uniquely identifies an
 				organization that owns the data.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataOwnersResponseMessage" type="lexs:DataOwnersResponseMessageType"
-		nillable="false">
+	<xsd:element name="DataOwnersResponseMessage" type="lexs:DataOwnersResponseMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Message returned by a service provider in response
 				to a getDataOwnersRequest</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataSensitivity" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="DataSensitivity" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>"Information security classification level (e.g.,
 				SBU = Sensitive but Unclassified)". Note that this is different from
@@ -1565,15 +1435,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DataSubmitterMetadata" type="lexs:SystemMetadataType"
-		nillable="false">
+	<xsd:element name="DataSubmitterMetadata" type="lexs:SystemMetadataType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Describes and uniquely uniqely identifies system
 				that submitted data.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DateRangeIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="DateRangeIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether service provider
 				supports search by date range (true), or not (false).
@@ -1586,16 +1454,14 @@
 				Associations.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DigestQueryField" type="lexs:DigestQueryFieldType"
-		nillable="false">
+	<xsd:element name="DigestQueryField" type="lexs:DigestQueryFieldType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Single digest query field that wraps a single LEXS
 				Entity, where the Entity includes a single element with a single
 				value.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DigestQueryStatement" type="lexs:DigestQueryStatementType"
-		nillable="false">
+	<xsd:element name="DigestQueryStatement" type="lexs:DigestQueryStatementType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Query statement against LEXS Digest.
 			</xsd:documentation>
@@ -1607,8 +1473,7 @@
 				code or text.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DisseminationCriteria" type="lexscodes:DisseminationCriteriaCodeType"
-		substitutionGroup="lexs:DisseminationCriteriaAbstract" nillable="false">
+	<xsd:element name="DisseminationCriteria" type="lexscodes:DisseminationCriteriaCodeType" substitutionGroup="lexs:DisseminationCriteriaAbstract" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Data Dissemination Criteria. Information is
 				provided by the data owner to indicate who is allowed to see the
@@ -1620,16 +1485,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DisseminationCriteriaDomainText" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="DisseminationCriteriaDomainText" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Data Dissemination Criteria Domain. Information is
 				provided by the data owner to indicate domain that defines data
 				dissemination criteria.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DisseminationCriteriaText" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="DisseminationCriteriaText" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Data Dissemination Criteria. Information is
 				provided by the data owner to indicate who is allowed to see the
@@ -1641,8 +1504,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DisseminationCriteriaValue" type="lexs:DisseminationCriteriaValueType"
-		substitutionGroup="lexs:DisseminationCriteriaAbstract" nillable="false">
+	<xsd:element name="DisseminationCriteriaValue" type="lexs:DisseminationCriteriaValueType" substitutionGroup="lexs:DisseminationCriteriaAbstract" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Data Dissemination Criteria Structure. Information
 				is provided by the data owner to indicate who is allowed to see the
@@ -1663,8 +1525,7 @@
 			<xsd:documentation>Specifies domain name.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DomainAttribute" type="lexs:DomainAttributeType"
-		nillable="false">
+	<xsd:element name="DomainAttribute" type="lexs:DomainAttributeType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Placeholder for various domain attributes. For
 				Value/Pair attributes use lexs:AttributeName and lexs:AttributeValue
@@ -1672,8 +1533,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DomainRequestMessage" type="lexs:DomainRequestMessageType"
-		nillable="false">
+	<xsd:element name="DomainRequestMessage" type="lexs:DomainRequestMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>This request message includes an identifier for
 				this request, LEXS version being used by the requestor, and the
@@ -1682,8 +1542,7 @@
 				exchanges between systems.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DomainResponseMessage" type="lexs:DomainResponseMessageType"
-		nillable="false">
+	<xsd:element name="DomainResponseMessage" type="lexs:DomainResponseMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Message is returned by a service provider in
 				response to a getDomainRequest(). This message is non-normative and
@@ -1691,52 +1550,45 @@
 				between systems.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ExactPhraseIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="ExactPhraseIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether the service
 				provider supports exact phrases in text searches.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FuzzySearchIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="FuzzySearchIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether the service
 				provider supports some form of fuzzy search, such as soundex or
 				metaphone.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InResponseToMessageSequenceNumber" type="niem-xsd:nonNegativeInteger"
-		nillable="false">
+	<xsd:element name="InResponseToMessageSequenceNumber" type="niem-xsd:nonNegativeInteger" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Uniquely identifies the request message that
 				resulted in this response.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="LEXSVersion" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="LEXSVersion" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Specifies LEXS version used within the document,
 				for example 3.1.4</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="LogicalOperatorIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="LogicalOperatorIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Specifies whether logical operators are supported
 				by the service provider in text searches.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MatchBeginAfter" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="MatchBeginAfter" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Indicates to the service provider where the next
 				set of hits should start.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MatchBeginPoint" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="MatchBeginPoint" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Value is used by a service provider on a
 				next/previous query to determine what set of data to return. Value
@@ -1744,8 +1596,7 @@
 				possible for point data format.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MatchEndBefore" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="MatchEndBefore" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Value is used by a service provider on a
 				next/previous query to determine what set of data to return. Value
@@ -1753,8 +1604,7 @@
 				possible for point data format.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MatchEndPoint" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="MatchEndPoint" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Value is used by a service provider on a
 				next/previous query to determine what set of data to return. Value
@@ -1762,15 +1612,13 @@
 				possible for point data format.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MaxHitsReturned" type="niem-xsd:nonNegativeInteger"
-		nillable="false">
+	<xsd:element name="MaxHitsReturned" type="niem-xsd:nonNegativeInteger" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Maximum number of hits that the service provider
 				can return in a response.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MaxItemMatches" type="niem-xsd:nonNegativeInteger"
-		nillable="false">
+	<xsd:element name="MaxItemMatches" type="niem-xsd:nonNegativeInteger" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>The maximum number of hits the user (or
 				application acting on behalf of the user) wants back in a response.
@@ -1779,37 +1627,32 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MaxItemMatchesRequested" type="niem-xsd:nonNegativeInteger"
-		nillable="false">
+	<xsd:element name="MaxItemMatchesRequested" type="niem-xsd:nonNegativeInteger" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>The maximum number of hits the user (or
 				application acting on behalf of the user) wants back in a response.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MessageDateTime" type="niem-xsd:dateTime"
-		nillable="false">
+	<xsd:element name="MessageDateTime" type="niem-xsd:dateTime" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Date and time the message was created.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MessageDestinationIdentifier" type="lexs:SystemIdentifierType"
-		nillable="false">
+	<xsd:element name="MessageDestinationIdentifier" type="lexs:SystemIdentifierType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Specifies the organization and system that an SR
 				message is being sent.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MessageOriginMetadata" type="lexs:SystemMetadataType"
-		nillable="false">
+	<xsd:element name="MessageOriginMetadata" type="lexs:SystemMetadataType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Specifies the organization and system where a
 				message was originated.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MessageSequenceNumber" type="niem-xsd:nonNegativeInteger"
-		nillable="false">
+	<xsd:element name="MessageSequenceNumber" type="niem-xsd:nonNegativeInteger" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Message Sequence Number uniquely identifies a
 				message from a specific application or service provider. Used for
@@ -1817,23 +1660,20 @@
 				results to the originating request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MultipleValueIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="MultipleValueIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether this service
 				provider allows for multiple values in individual elements in a
 				structured search.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Narrative" type="niem-xsd:string"
-		nillable="true">
+	<xsd:element name="Narrative" type="niem-xsd:string" nillable="true">
 		<xsd:annotation>
 			<xsd:documentation>Unstructured (text) content for the package.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="NumberItemMatches" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="NumberItemMatches" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Number of matches found, as opposed to returned,
 				by the service provider. Text field that can contain a number or an
@@ -1841,8 +1681,7 @@
 				as 100+.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="NumberOfStructuredPayloadTerms" type="lexs:NumberOfStructuredPayloadTermsType"
-		nillable="false">
+	<xsd:element name="NumberOfStructuredPayloadTerms" type="lexs:NumberOfStructuredPayloadTermsType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Number of search terms used in a query for a given
 				structured payload. Structures provides a count of search terms in
@@ -1854,15 +1693,13 @@
 				structured payload section.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="NumberOfTerms" type="niem-xsd:nonNegativeInteger"
-		nillable="false">
+	<xsd:element name="NumberOfTerms" type="niem-xsd:nonNegativeInteger" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>The number of search terms in the structured
 				payload.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="NumericRangeIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="NumericRangeIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether the service
 				provider supports queries on ranges for numeric elements, such as a
@@ -1874,51 +1711,44 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ORI" type="niem-xsd:string"
-		substitutionGroup="lexs:AgencyIDAbstract" nillable="false">
+	<xsd:element name="ORI" type="niem-xsd:string" substitutionGroup="lexs:AgencyIDAbstract" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>The unique NCIC Originating Agency Identifier
 				Number that has been assigned to each agency.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="OriginatingAgencyID" type="niem-xsd:string"
-		substitutionGroup="lexs:AgencyIDAbstract" nillable="false">
+	<xsd:element name="OriginatingAgencyID" type="niem-xsd:string" substitutionGroup="lexs:AgencyIDAbstract" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>An identifer for an agency that does not use an
 				NCIC ORI.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PackageMetadata" type="lexs:PackageMetadataType"
-		nillable="false">
+	<xsd:element name="PackageMetadata" type="lexs:PackageMetadataType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Metadata about LEXS Package</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PagingIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="PagingIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether the service
 				provider supports requests for additional hits from a search.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PDMessageMetadata" type="lexs:PDMessageMetadataType"
-		nillable="false">
+	<xsd:element name="PDMessageMetadata" type="lexs:PDMessageMetadataType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Metadata for LEXS Publish Mesage
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PublishMessage" type="lexs:PublishMessageType"
-		nillable="false">
+	<xsd:element name="PublishMessage" type="lexs:PublishMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Publish Mesage. Encapsulates
 				PublishDiscoverMessageMetadata element describing the message and a
 				message from a given Service Provider.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PublishMessageContainer" type="lexs:PublishMessageContainerType"
-		nillable="false">
+	<xsd:element name="PublishMessageContainer" type="lexs:PublishMessageContainerType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>LEXS Publish Message Container</xsd:documentation>
 		</xsd:annotation>
@@ -1929,68 +1759,58 @@
 				Package</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="QueryMatch" type="lexscodes:QueryMatchCodeType"
-		nillable="false">
+	<xsd:element name="QueryMatch" type="lexscodes:QueryMatchCodeType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Match code for query field</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RenderingDescription" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="RenderingDescription" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Description of the rendered document.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RenderingInstructions" type="lexs:RenderingInstructionsType"
-		nillable="false">
+	<xsd:element name="RenderingInstructions" type="lexs:RenderingInstructionsType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>LEXS Package Rendering Instructions
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RenderingMethod" type="lexscodes:RenderingMethodCodeType"
-		nillable="false">
+	<xsd:element name="RenderingMethod" type="lexscodes:RenderingMethodCodeType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Rendering Method Code such as XHTMLStyleSheet,
 				PDFStyleSheet, RenderedBinary, etc.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RenderingParameter" type="lexs:RenderingParameterType"
-		nillable="false">
+	<xsd:element name="RenderingParameter" type="lexs:RenderingParameterType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Rendering parameters for XSLT.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RenderingParameterName" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="RenderingParameterName" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>XSLT rendering parameter name.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RenderingParameterValue" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="RenderingParameterValue" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>XSLT rendering parameter value.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RenderingReference" type="s:ReferenceType"
-		nillable="false">
+	<xsd:element name="RenderingReference" type="s:ReferenceType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Reference to the XSLT attachment link. Note this
 				is not direct reference to the attachment itself, but rather to the
 				AttachmentLink located within DataItemPackage.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RequestedData" type="lexscodes:DataCategoryCodeType"
-		nillable="false">
+	<xsd:element name="RequestedData" type="lexscodes:DataCategoryCodeType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Requested Data Code value</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ResponseMetadata" type="lexs:ResponseMetadataType"
-		nillable="false">
+	<xsd:element name="ResponseMetadata" type="lexs:ResponseMetadataType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Metadata for the response message indicates
 				whether the request resulted in an error or warning or
@@ -2001,14 +1821,12 @@
 				all results.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ResultCode" type="lexscodes:ResultCodeType"
-		nillable="false">
+	<xsd:element name="ResultCode" type="lexscodes:ResultCodeType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Response status code value</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RoleInclusiveIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="RoleInclusiveIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Indicates whether included list of roles (see
 				RoleList element for details) should be included in (true) or
@@ -2016,23 +1834,20 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RoleList" type="lexs:RoleListType"
-		nillable="false">
+	<xsd:element name="RoleList" type="lexs:RoleListType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Lists requested role types and indicates whether
 				the supplied role types should be included or excluded from the
 				response.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RoleType" type="lexscodes:RoleTypeCodeType"
-		nillable="false">
+	<xsd:element name="RoleType" type="lexscodes:RoleTypeCodeType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Valid role types defined in LEXS.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SearchRequestMetadata" type="lexs:SearchRequestMetadataType"
-		nillable="false">
+	<xsd:element name="SearchRequestMetadata" type="lexs:SearchRequestMetadataType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Metadata about search request. This metadata is
 				used in StructuredSearchRequestMessage in a doStructuredSearch
@@ -2040,21 +1855,18 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SearchResponseMessage" type="lexs:SearchResponseMessageType"
-		nillable="false">
+	<xsd:element name="SearchResponseMessage" type="lexs:SearchResponseMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Search Response Message returned in response to
 				structured or text search.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SearchResponseMetadata" type="lexs:SearchResponseMetadataType"
-		nillable="false">
+	<xsd:element name="SearchResponseMetadata" type="lexs:SearchResponseMetadataType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Search response metadata</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SearchResultPackage" type="lexs:SearchResultPackageType"
-		nillable="false">
+	<xsd:element name="SearchResultPackage" type="lexs:SearchResultPackageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Contains information about the data owner that
 				provided the data, a digest, and possibly one or more structured
@@ -2064,8 +1876,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ServerLimitIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="ServerLimitIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether the number of hits
 				was restricted due to a service provider limit. True means the
@@ -2073,8 +1884,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ServiceAvailableIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="ServiceAvailableIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether service provider is
 				available. True if the service is available, false if there are
@@ -2085,8 +1895,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ServiceProviderRequestMessage" type="lexs:SRMessageType"
-		nillable="false">
+	<xsd:element name="ServiceProviderRequestMessage" type="lexs:SRMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>This request message includes an identifier for
 				this request, LEXS version being used by the requestor, and the
@@ -2095,8 +1904,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ServiceProviderSearchID" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="ServiceProviderSearchID" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Search ID value that is meaningful to the service
 				provider for returning additional hits. This allows the service
@@ -2107,16 +1915,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Snippet" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="Snippet" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Summary information that represents the context of
 				this data item in the responding system. Conceptually similar to the
 				results returned from a Google search.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SortOrder" type="lexscodes:SortOrderCodeType"
-		nillable="false">
+	<xsd:element name="SortOrder" type="lexscodes:SortOrderCodeType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>This indicates to the service provider what set of
 				hits, most recent or most relevant, should be returned if there are
@@ -2124,50 +1930,42 @@
 				system determines what is most relevant.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SRMessageMetadata" type="lexs:SRMessageMetadataType"
-		nillable="false">
+	<xsd:element name="SRMessageMetadata" type="lexs:SRMessageMetadataType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Metadata about Search/Retrieve message.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredPayload" type="lexs:StructuredPayloadType"
-		nillable="false">
+	<xsd:element name="StructuredPayload" type="lexs:StructuredPayloadType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>LEXS Structured Payload</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredPayloadMetadata" type="lexs:StructuredPayloadMetadataType"
-		nillable="false">
+	<xsd:element name="StructuredPayloadMetadata" type="lexs:StructuredPayloadMetadataType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Metadata about structured payload
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredPayloadQueryField" type="lexs:StructuredPayloadQueryFieldType"
-		nillable="false">
+	<xsd:element name="StructuredPayloadQueryField" type="lexs:StructuredPayloadQueryFieldType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Structured payload query field</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredPayloadQueryStatement"
-		type="lexs:StructuredPayloadQueryStatementType" nillable="false">
+	<xsd:element name="StructuredPayloadQueryStatement" type="lexs:StructuredPayloadQueryStatementType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Structured payload query statement
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredPayloadsRequestedAbstract"
-		abstract="true">
+	<xsd:element name="StructuredPayloadsRequestedAbstract" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>Abstract element that serves as a placeholder for
 				either structured payload requested code or for list of structured
 				payloads.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredPayloadsRequestedCode"
-		type="lexscodes:StructuredPayloadsRequestedCodeType"
-		substitutionGroup="lexs:StructuredPayloadsRequestedAbstract" nillable="false">
+	<xsd:element name="StructuredPayloadsRequestedCode" type="lexscodes:StructuredPayloadsRequestedCodeType" substitutionGroup="lexs:StructuredPayloadsRequestedAbstract" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Structured Payloads Requested Code Value can have
 				the values "All" or "None". "All" indicates that the requesting
@@ -2176,9 +1974,7 @@
 				system does not want any structured payloads.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredPayloadsRequestedList"
-		type="lexs:StructuredPayloadsRequestedListType" substitutionGroup="lexs:StructuredPayloadsRequestedAbstract"
-		nillable="false">
+	<xsd:element name="StructuredPayloadsRequestedList" type="lexs:StructuredPayloadsRequestedListType" substitutionGroup="lexs:StructuredPayloadsRequestedAbstract" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>List of requested structured payloads. If this
 				list element is provided instead of the code element, it means that
@@ -2187,16 +1983,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredQuery" type="lexs:StructuredQueryType"
-		nillable="false">
+	<xsd:element name="StructuredQuery" type="lexs:StructuredQueryType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>LEXS Structured query, stated using the LEXS
 				Digest and Structured Payload entities by supplying field values for
 				selected elements.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredQueryMatchScore"
-		type="lexs:StructuredQueryMatchScoreSimpleType" nillable="false">
+	<xsd:element name="StructuredQueryMatchScore" type="lexs:StructuredQueryMatchScoreSimpleType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Structured query match score is a positive integer
 				between 0 and 100 representing a hit percentage. Service providers
@@ -2211,53 +2005,46 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredSearch" type="lexs:StructuredSearchType"
-		nillable="false">
+	<xsd:element name="StructuredSearch" type="lexs:StructuredSearchType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Service provider structured seach capabilities
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredSearchRequestMessage" type="lexs:StructuredSearchRequestMessageType"
-		nillable="false">
+	<xsd:element name="StructuredSearchRequestMessage" type="lexs:StructuredSearchRequestMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Structured Search Request Message
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredSearchIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="StructuredSearchIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether the data owner
 				includes structured data and can be searched using
 				doStructureSearchRequest.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SystemContact" type="lexs:DataContactType"
-		nillable="false">
+	<xsd:element name="SystemContact" type="lexs:DataContactType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Contact information for the system owner. Includes
 				a person and organization to contact and their phone number and
 				email address.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SystemID" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="SystemID" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A value that uniqely identifies the system within
 				the service provider.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SystemIdentifier" type="lexs:SystemIdentifierType"
-		nillable="false">
+	<xsd:element name="SystemIdentifier" type="lexs:SystemIdentifierType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Element that uniquely identifies an organization
 				and a system where date originated, was submitted from, or is being
 				sent.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TextQuery" type="niem-xsd:string"
-		nillable="false">
+	<xsd:element name="TextQuery" type="niem-xsd:string" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>LEXS Text query for querying unstructured data.
 				Search utilizes wildcards and matching all terms, any terms, or
@@ -2265,29 +2052,25 @@
 				in the query string.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TextSearch" type="lexs:TextSearchType"
-		nillable="false">
+	<xsd:element name="TextSearch" type="lexs:TextSearchType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Service provider text seach capabilities
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TextSearchIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="TextSearchIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether the data owner
 				includes unstructured data and can be searched using
 				doTextSearchRequest.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TextSearchRequestMessage" type="lexs:TextSearchRequestMessageType"
-		nillable="false">
+	<xsd:element name="TextSearchRequestMessage" type="lexs:TextSearchRequestMessageType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Text Search Request Message</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TimeoutDuration" type="niem-xsd:duration"
-		nillable="false">
+	<xsd:element name="TimeoutDuration" type="niem-xsd:duration" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Specifies the time in seconds within which the
 				requesting system would like to receive a response. This element
@@ -2304,8 +2087,7 @@
 				before the period expires.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="UserAssertion" type="lexs:UserAssertionType"
-		nillable="false">
+	<xsd:element name="UserAssertion" type="lexs:UserAssertionType" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>Information about the user submitting any search
 				or get.</xsd:documentation>
@@ -2317,8 +2099,7 @@
 				system.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="WildcardIndicator" type="niem-xsd:boolean"
-		nillable="false">
+	<xsd:element name="WildcardIndicator" type="niem-xsd:boolean" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A flag which indicates whether the service
 				provider allows wildcard character(s) in structured searches.
