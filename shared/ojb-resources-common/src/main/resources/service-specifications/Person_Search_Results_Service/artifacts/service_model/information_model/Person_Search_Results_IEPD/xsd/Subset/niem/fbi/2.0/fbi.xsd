@@ -69,21 +69,6 @@
           <xsd:documentation>MULTICOLORED</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
-      <xsd:enumeration value="MAR">
-        <xsd:annotation>
-          <xsd:documentation>MAROON</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="PNK">
-        <xsd:annotation>
-          <xsd:documentation>PINK</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="XXX">
-        <xsd:annotation>
-          <xsd:documentation>UNKNOWN</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:complexType name="EYECodeType">
@@ -203,11 +188,6 @@
       <xsd:enumeration value="WHI">
         <xsd:annotation>
           <xsd:documentation>White</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="XXX">
-        <xsd:annotation>
-          <xsd:documentation>UNKNOWN OR COMPLETELY BALD</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

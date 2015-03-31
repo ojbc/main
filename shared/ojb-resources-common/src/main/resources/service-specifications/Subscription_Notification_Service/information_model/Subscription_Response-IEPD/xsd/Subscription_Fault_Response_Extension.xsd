@@ -19,7 +19,7 @@
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	targetNamespace="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" 
-	xmlns:ext="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" 
+	xmlns:subfltrsp-ext="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
@@ -35,11 +35,11 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:InvalidEmailAddressList" minOccurs="0"/>
-					<xsd:element ref="ext:AccessDenial" minOccurs="0"/>
-					<xsd:element ref="ext:InvalidSecurityToken" minOccurs="0"/>
-					<xsd:element ref="ext:SubscriptionRequestError" minOccurs="0"/>
-					<xsd:element ref="ext:SubscriptionIdentification" minOccurs="0"/>
+					<xsd:element ref="subfltrsp-ext:InvalidEmailAddressList" minOccurs="0"/>
+					<xsd:element ref="subfltrsp-ext:AccessDenial" minOccurs="0"/>
+					<xsd:element ref="subfltrsp-ext:InvalidSecurityToken" minOccurs="0"/>
+					<xsd:element ref="subfltrsp-ext:SubscriptionRequestError" minOccurs="0"/>
+					<xsd:element ref="subfltrsp-ext:SubscriptionIdentification" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -49,10 +49,10 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:AccessDenial" minOccurs="0"/>
-					<xsd:element ref="ext:InvalidSecurityToken" minOccurs="0"/>
-					<xsd:element ref="ext:SubscriptionIdentification" minOccurs="0"/>
-					<xsd:element ref="ext:InvalidSubscriptionIdentifierIndicator" minOccurs="0"/>
+					<xsd:element ref="subfltrsp-ext:AccessDenial" minOccurs="0"/>
+					<xsd:element ref="subfltrsp-ext:InvalidSecurityToken" minOccurs="0"/>
+					<xsd:element ref="subfltrsp-ext:SubscriptionIdentification" minOccurs="0"/>
+					<xsd:element ref="subfltrsp-ext:InvalidSubscriptionIdentifierIndicator" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -85,8 +85,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:InvalidSecurityTokenIndicator"/>
-					<xsd:element ref="ext:InvalidSecurityTokenDescriptionText" minOccurs="0"/>					
+					<xsd:element ref="subfltrsp-ext:InvalidSecurityTokenIndicator"/>
+					<xsd:element ref="subfltrsp-ext:InvalidSecurityTokenDescriptionText" minOccurs="0"/>					
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -100,9 +100,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:AccessDenialIndicator" />
-					<xsd:element ref="ext:AccessDenyingSystemNameText" minOccurs="0"/>
-					<xsd:element ref="ext:AccessDenialReasonText" minOccurs="0" />
+					<xsd:element ref="subfltrsp-ext:AccessDenialIndicator" />
+					<xsd:element ref="subfltrsp-ext:AccessDenyingSystemNameText" minOccurs="0"/>
+					<xsd:element ref="subfltrsp-ext:AccessDenialReasonText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -111,13 +111,13 @@
   	<xsd:complexContent>
   		<xsd:extension base="s:ComplexObjectType">
   			<xsd:sequence>	
-  				<xsd:element ref="ext:SubscriptionTopicNotSpecifiedIndicator" minOccurs="0"/>
-  				<xsd:element ref="ext:SubscriptionSubjectFingerprintIdentificationNotSpecifiedIndicator" minOccurs="0"/>
-  				<xsd:element ref="ext:SubscriptionSubjectNameNotSpecifiedIndicator" minOccurs="0"/>
-  				<xsd:element ref="ext:SubscriptionStartDateNotSpecifiedIndicator" minOccurs="0"/>
-  				<xsd:element ref="ext:SubscriptionEmailAddressNotSpecifiedIndicator" minOccurs="0"/>
-  				<xsd:element ref="ext:SubscriptionEndDateBeforeStartDateIndicator" minOccurs="0"/>
-  				<xsd:element ref="ext:ErrorText" minOccurs="0"/>
+  				<xsd:element ref="subfltrsp-ext:SubscriptionTopicNotSpecifiedIndicator" minOccurs="0"/>
+  				<xsd:element ref="subfltrsp-ext:SubscriptionSubjectFingerprintIdentificationNotSpecifiedIndicator" minOccurs="0"/>
+  				<xsd:element ref="subfltrsp-ext:SubscriptionSubjectNameNotSpecifiedIndicator" minOccurs="0"/>
+  				<xsd:element ref="subfltrsp-ext:SubscriptionStartDateNotSpecifiedIndicator" minOccurs="0"/>
+  				<xsd:element ref="subfltrsp-ext:SubscriptionEmailAddressNotSpecifiedIndicator" minOccurs="0"/>
+  				<xsd:element ref="subfltrsp-ext:SubscriptionEndDateBeforeStartDateIndicator" minOccurs="0"/>
+  				<xsd:element ref="subfltrsp-ext:ErrorText" minOccurs="0"/>
   				<xsd:element ref="intel:SystemName" minOccurs="0"/>
   			</xsd:sequence>
   		</xsd:extension>
@@ -155,17 +155,17 @@
 		</xsd:annotation>
 	</xsd:element>
 	
-	<xsd:element name="SubscriptionRequestError" type="ext:SubscriptionRequestErrorType">
+	<xsd:element name="SubscriptionRequestError" type="subfltrsp-ext:SubscriptionRequestErrorType">
 		<xsd:annotation>
 			<xsd:documentation>An error with the subscription request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InvalidEmailAddressList" type="ext:InvalidEmailAddressListType">
+	<xsd:element name="InvalidEmailAddressList" type="subfltrsp-ext:InvalidEmailAddressListType">
 		<xsd:annotation>
 			<xsd:documentation>A list of e-mail addresses that were provided with the subscription request message that are not allowed to be on a subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AccessDenial" type="ext:AccessDenialType">
+	<xsd:element name="AccessDenial" type="subfltrsp-ext:AccessDenialType">
 		<xsd:annotation>
 			<xsd:documentation>Information about the scenario where a user requesting to create a subscription has been denied the access to do so.</xsd:documentation>
 		</xsd:annotation>
@@ -191,7 +191,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	
-	<xsd:element name="InvalidSecurityToken" type="ext:InvalidSecurityTokenType">
+	<xsd:element name="InvalidSecurityToken" type="subfltrsp-ext:InvalidSecurityTokenType">
 		<xsd:annotation>
 			<xsd:documentation>Information about a user's invalid or non-existent security token. </xsd:documentation>
 		</xsd:annotation>

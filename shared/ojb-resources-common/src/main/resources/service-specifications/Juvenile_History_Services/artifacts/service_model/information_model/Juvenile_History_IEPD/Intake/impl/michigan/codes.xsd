@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<xsd:schema 
+	xmlns:jh-intake-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/michigan/codes/1.0"
+	xmlns:jh-intake="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
+	xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/michigan/codes/1.0">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../../../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../../../Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../../Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" schemaLocation="../../../JuvenileHistoryCommonExtension.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0" schemaLocation="../../JuvenileIntakeHistoryExtension.xsd"/>
+	<xsd:annotation>
+		<xsd:appinfo>
+			<appinfo:ConformantIndicator>true</appinfo:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+
+	<xsd:simpleType name="AssessmentRecommendedCourseOfActionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the results and recommendations of Juvenile Court intake processes.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Court diversion">
+				<xsd:annotation>
+					<xsd:documentation>A decision or program to divert offenders from official processing to a less formal, less adversarial, and more community based setting. Diversion includes releasing the minor into the custody of his or her parent, guardian, or custodian and the Juvenile Court proceeding is discontinued, or the minor and the minor’s parent, guardian, or custodian agree to work with a person or public or private organization or agency that will assist the minor and minor’s family in resolving the problem that initiated the action.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Consent calendar">
+				<xsd:annotation>
+					<xsd:documentation>A proceeding where parties consent to the informal supervision of the court.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Formal calendar">
+				<xsd:annotation>
+					<xsd:documentation>Formal judicial proceedings to adjudicate and dispose of delinquency matters..</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Transfer">
+				<xsd:annotation>
+					<xsd:documentation>The court may transfer a case when a minor is brought before the court in a county other than that in which the minor resides.  The court may transfer the case to the court in the county of residence.  NOTE:  Designation and waiver cases cannot be transferred; cases cannot be transferred in or out of state for adjudication or trial.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="AssessmentRecommendedCourseOfActionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the results and recommendations of Juvenile Court intake processes.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="jh-intake-codes:AssessmentRecommendedCourseOfActionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="JuvenileIntakeAssessmentCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of processes used by Juvenile Court to determine whether to handle a referral formally or informally.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Screening">
+				<xsd:annotation>
+					<xsd:documentation>Evaluation and investigation to assess suitability for role and purpose/further action.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Assessment">
+				<xsd:annotation>
+					<xsd:documentation>An examination, more comprehensive than a screening, performed on newly admitted juvenile. Assessment may include a review of relevant screening instruments, behavior observations, record review, and oral interview as well as other examination protocols and instruments.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Interview">
+				<xsd:annotation>
+					<xsd:documentation>Initial interview (e.g., with parent/child).</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Other">
+				<xsd:annotation>
+					<xsd:documentation>Other Information gathering.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="JuvenileIntakeAssessmentCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of processes used by Juvenile Court to determine whether to handle a referral formally or informally.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="jh-intake-codes:JuvenileIntakeAssessmentCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+
+	<xsd:element name="AssessmentRecommendedCourseOfActionCode" type="jh-intake-codes:AssessmentRecommendedCourseOfActionCodeType" substitutionGroup="jh-intake:AssessmentRecommendedCourseOfActionRepresentation">
+		<xsd:annotation>
+			<xsd:documentation> The results and recommendations of Juvenile Court intake processes.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="JuvenileIntakeAssessmentCategoryCode" type="jh-intake-codes:JuvenileIntakeAssessmentCategoryCodeType" substitutionGroup="jh-intake:JuvenileIntakeAssessmentCategoryRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A type of processes used by Juvenile Court to determine whether to handle a referral formally or informally.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+</xsd:schema>

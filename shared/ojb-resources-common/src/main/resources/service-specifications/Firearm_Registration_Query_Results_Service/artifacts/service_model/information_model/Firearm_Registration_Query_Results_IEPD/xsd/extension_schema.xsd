@@ -21,12 +21,12 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" 
+	xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" 
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-	xmlns:qre="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" 
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:FirearmTypeCodes="http://ojbc.org/IEPD/Extensions/FirearmTypeCodes/1.0" 
-	xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
+	xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" 
 	targetNamespace="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd"/>
@@ -34,10 +34,8 @@
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/FirearmTypeCodes/1.0" schemaLocation="firearm_type_codes.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" schemaLocation="query-results-metadata.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" schemaLocation="member-extensions/hawaii/hawaii-statewide-firearm-codes.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0" schemaLocation="member-extensions/demostate/demostate-firearm-codes.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" schemaLocation="query-request-error-reporting.xsd"/>
-	<xsd:element name="FirearmRegistrationQueryResults" type="ext:FirearmRegistrationQueryResultsType">
+	<xsd:element name="FirearmRegistrationQueryResults" type="firearm-ext:FirearmRegistrationQueryResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A set of details that can be used to search for a Firearm Registration.</xsd:documentation>
 		</xsd:annotation>
@@ -50,9 +48,9 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="nc:Person" minOccurs="0"/>
-					<xsd:element ref="ext:Firearm" minOccurs="0"/>
-					<xsd:element ref="ext:FirearmRegistrant" minOccurs="0"/>
-					<xsd:element ref="ext:ItemRegistration" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:Firearm" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:FirearmRegistrant" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:ItemRegistration" minOccurs="0"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PropertyRegistrationAssociation" minOccurs="0"/>
@@ -73,9 +71,9 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="nc:Person" minOccurs="0"/>
-					<xsd:element ref="ext:Firearm" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:FirearmRegistrant" minOccurs="0"/>
-					<xsd:element ref="ext:ItemRegistration" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="firearm-ext:Firearm" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="firearm-ext:FirearmRegistrant" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:ItemRegistration" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PropertyRegistrationAssociation" minOccurs="0" maxOccurs="unbounded"/>
@@ -92,11 +90,11 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:FirearmType">
 				<xsd:sequence>
-					<xsd:element ref="ext:FirearmMakeRepresentation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:FirearmReceivedDate" minOccurs="0"/>
-					<xsd:element ref="ext:FirearmImporter" minOccurs="0"/>
-					<xsd:element ref="ext:FirearmAcquisition" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:FirearmStatus" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:FirearmMakeRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="firearm-ext:FirearmReceivedDate" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:FirearmImporter" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:FirearmAcquisition" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="firearm-ext:FirearmStatus" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -105,12 +103,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:StatusType">
 				<xsd:sequence>
-					<xsd:element ref="ext:FirearmStatusRepresentation" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:FirearmStatusRepresentation" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="FirearmStatus" type="ext:FirearmStatusType">
+	<xsd:element name="FirearmStatus" type="firearm-ext:FirearmStatusType">
 		<xsd:annotation>
 			<xsd:documentation>The state or disposition of a firearm.</xsd:documentation>
 		</xsd:annotation>
@@ -120,20 +118,20 @@
 			<xsd:documentation>A head element for ways to represent the status of a firearm.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Firearm" type="ext:FirearmType">
+	<xsd:element name="Firearm" type="firearm-ext:FirearmType">
 		<xsd:annotation>
 			<xsd:documentation>
 				Firearm.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FirearmAcquisition" type="ext:FirearmAcquisitionType"/>
+	<xsd:element name="FirearmAcquisition" type="firearm-ext:FirearmAcquisitionType"/>
 	<xsd:complexType name="FirearmAcquisitionType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:FirearmAcquisitionSourceDescriptionText" minOccurs="0"/>
-					<xsd:element ref="ext:FirearmAcquisitionLocationAddress" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:FirearmAcquisitionSourceDescriptionText" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:FirearmAcquisitionLocationAddress" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -164,17 +162,17 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ItemRegistrationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:AgeAtRegistration" minOccurs="0"/>
-					<xsd:element ref="ext:RegistrationFingerprintDate" minOccurs="0"/>
-					<xsd:element ref="ext:PermitNumber" minOccurs="0"/>
-					<xsd:element ref="ext:PermitDate" minOccurs="0"/>
-					<xsd:element ref="ext:RegistrationStatus" minOccurs="0"/>
-					<xsd:element ref="ext:RegistrationNotesText" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:AgeAtRegistration" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:RegistrationFingerprintDate" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:PermitNumber" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:PermitDate" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:RegistrationStatus" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:RegistrationNotesText" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-		<xsd:element name="RegistrationStatus" type="ext:RegistrationStatusType">
+		<xsd:element name="RegistrationStatus" type="firearm-ext:RegistrationStatusType">
 		<xsd:annotation>
 			<xsd:documentation>The state or disposition of a registration.</xsd:documentation>
 		</xsd:annotation>
@@ -183,7 +181,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:StatusType">
 				<xsd:sequence>
-					<xsd:element ref="ext:FirearmRegistrationStatusRepresentation" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:FirearmRegistrationStatusRepresentation" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -193,7 +191,7 @@
 			<xsd:documentation>A head element for ways to represent the status of a firearm registration.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ItemRegistration" type="ext:ItemRegistrationType">
+	<xsd:element name="ItemRegistration" type="firearm-ext:ItemRegistrationType">
 		<xsd:annotation>
 			<xsd:documentation>
 				Item Registration.
@@ -251,14 +249,14 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:FirearmRegistrantCommentsText" minOccurs="0"/>
-					<xsd:element ref="ext:FirearmRegistrantLawEnforcementOfficersSafetyActIndicator" minOccurs="0"/> 
+					<xsd:element ref="firearm-ext:FirearmRegistrantCommentsText" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:FirearmRegistrantLawEnforcementOfficersSafetyActIndicator" minOccurs="0"/> 
 					<xsd:element ref="nc:RoleOfPersonReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="FirearmRegistrant" type="ext:FirearmRegistrantType">
+	<xsd:element name="FirearmRegistrant" type="firearm-ext:FirearmRegistrantType">
 		<xsd:annotation>
 			<xsd:documentation>A person to whom a firearm is registered.</xsd:documentation>
 		</xsd:annotation>
@@ -278,19 +276,19 @@
 			<xsd:documentation>A placeholder for the make of a firearm. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FirearmMakeText" type="nc:TextType" substitutionGroup="ext:FirearmMakeRepresentation">
+	<xsd:element name="FirearmMakeText" type="nc:TextType" substitutionGroup="firearm-ext:FirearmMakeRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A text representation of a make of a firearm. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FirearmStatusText" type="nc:TextType" substitutionGroup="ext:FirearmStatusRepresentation">
+	<xsd:element name="FirearmStatusText" type="nc:TextType" substitutionGroup="firearm-ext:FirearmStatusRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>
 				Status of the firearm (stolen, lost, etc).
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FirearmRegistrationStatusText" type="nc:TextType" substitutionGroup="ext:FirearmRegistrationStatusRepresentation">
+	<xsd:element name="FirearmRegistrationStatusText" type="nc:TextType" substitutionGroup="firearm-ext:FirearmRegistrationStatusRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>The status of a firearm registration.</xsd:documentation>
 		</xsd:annotation>

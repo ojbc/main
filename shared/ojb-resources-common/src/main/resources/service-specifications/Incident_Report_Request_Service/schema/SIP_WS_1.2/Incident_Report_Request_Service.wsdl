@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0"
+	xmlns:iqr-doc="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0"
 	name="Incident_Report_Request_Service" targetNamespace="http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
 	<wsdl:import
@@ -16,7 +16,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Incident-Identifer-Incident-Report-Request">
-		<wsdl:part element="exchange:IncidentIdentifierIncidentReportRequest"
+		<wsdl:part element="iqr-doc:IncidentIdentifierIncidentReportRequest"
 			name="Incident-Identifer-Incident-Report-Request" />
 	</wsdl:message>
 	<wsdl:portType name="Incident_Report_Request_Service">

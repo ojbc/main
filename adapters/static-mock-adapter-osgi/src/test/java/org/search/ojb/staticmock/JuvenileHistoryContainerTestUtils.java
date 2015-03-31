@@ -26,12 +26,24 @@ public class JuvenileHistoryContainerTestUtils {
 
 	static void validateInstance(Document d, String historyComponentFolderName, String historyComponentSchemaPath) throws Exception {
 		List<String> paths = new ArrayList<String>();
-		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/" + historyComponentFolderName);
 		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Subset");
 		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Subset/niem");
 		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/");
+		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Referral");
+		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Placement");
+		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Intake");
+		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Hearing");
+		paths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Offense");
+		
+		List<String> additionalPaths = new ArrayList<String>();
+		additionalPaths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Referral/impl/michigan/codes.xsd");
+		additionalPaths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Placement/impl/michigan/codes.xsd");
+		additionalPaths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Intake/impl/michigan/codes.xsd");
+		additionalPaths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Hearing/impl/michigan/codes.xsd");
+		additionalPaths.add("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Offense/impl/michigan/codes.xsd");
+		
 		XmlUtils.validateInstanceWithAbsoluteClasspaths("service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/" + historyComponentSchemaPath,
-				paths, d);
+				paths, additionalPaths, d);
 	}
 
 	public static void validateReferralHistoryDocument(Document d) throws Exception {

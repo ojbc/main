@@ -18,13 +18,13 @@
 
 -->
 <xsd:schema 
-	xmlns:Q1="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" 
+	xmlns:hawaii-ext="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" 
 	xmlns:i="http://niem.gov/niem/appinfo/2.0" 
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:tns="http://ojbc.org/IEPD/Extensions/Notification/1.0" 
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0" 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
 	xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1"
@@ -33,7 +33,7 @@
   <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../Subset/niem/structures/2.0/structures.xsd"/>
   <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
   <xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd"/>
-  <xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" schemaLocation="member_extensions/hawaii/HawaiiExtensions.xsd"/>
+  <xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" schemaLocation="impl/hawaii/HawaiiExtensions.xsd"/>
   <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd"/>
   <xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0" schemaLocation="CriminalHistoryUpdate.xsd"/>
   <xsd:import namespace="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" schemaLocation="FBI_NDEx_Codes.xsd"/>
@@ -42,20 +42,20 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element maxOccurs="1" minOccurs="0" ref="tns:NotifyingActivityExtensions"/>
-          <xsd:element ref="tns:NotifyingActivityReportingSystemNameText" minOccurs="0"/>
-          <xsd:element ref="tns:NotifyingActivityReportingSystemURI" minOccurs="0"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="notfm-ext:NotifyingActivityExtensions"/>
+          <xsd:element ref="notfm-ext:NotifyingActivityReportingSystemNameText" minOccurs="0"/>
+          <xsd:element ref="notfm-ext:NotifyingActivityReportingSystemURI" minOccurs="0"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-  <xsd:element abstract="false" name="NotifyingActivityExtensions" nillable="false" type="tns:NotifyingActivityExtensionsType"/>
+  <xsd:element abstract="false" name="NotifyingActivityExtensions" nillable="false" type="notfm-ext:NotifyingActivityExtensionsType"/>
   <xsd:complexType abstract="false" mixed="false" name="NotifyingActivityExtensionsType">
     <xsd:annotation/>
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:AttorneyGeneralCaseDetails"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="hawaii-ext:AttorneyGeneralCaseDetails"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -63,7 +63,7 @@
   <xsd:complexType abstract="false" mixed="false" name="NotifyingArrestType">
     <xsd:annotation/>
     <xsd:complexContent>
-      <xsd:extension base="tns:NotifyingActivityType">
+      <xsd:extension base="notfm-ext:NotifyingActivityType">
         <xsd:sequence>
           <xsd:element maxOccurs="1" minOccurs="1" ref="j:Arrest"/>
           <xsd:element maxOccurs="1" minOccurs="0" ref="j:Incident"/>
@@ -75,7 +75,7 @@
   <xsd:complexType abstract="false" mixed="false" name="NotifyingIncidentType">
     <xsd:annotation/>
     <xsd:complexContent>
-      <xsd:extension base="tns:NotifyingActivityType">
+      <xsd:extension base="notfm-ext:NotifyingActivityType">
         <xsd:sequence>
           <xsd:element maxOccurs="1" minOccurs="1" ref="j:Incident"/>
           <xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
@@ -87,19 +87,19 @@
   <xsd:complexType abstract="false" mixed="false" name="NotifyingCriminalHistoryUpdateType">
     <xsd:annotation/>
     <xsd:complexContent>
-      <xsd:extension base="tns:NotifyingActivityType">
+      <xsd:extension base="notfm-ext:NotifyingActivityType">
         <xsd:sequence>
           <xsd:element ref="chu:CycleTrackingIdentifierAssignment"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-  <xsd:element abstract="false" name="NotifyingCriminalHistoryUpdate" nillable="false" substitutionGroup="tns:NotifyingActivity" type="tns:NotifyingCriminalHistoryUpdateType">
+  <xsd:element abstract="false" name="NotifyingCriminalHistoryUpdate" nillable="false" substitutionGroup="notfm-ext:NotifyingActivity" type="notfm-ext:NotifyingCriminalHistoryUpdateType">
     <xsd:annotation>
       <xsd:documentation>An incident that results in notification.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element abstract="false" name="NotifyingIncident" nillable="false" substitutionGroup="tns:NotifyingActivity" type="tns:NotifyingIncidentType">
+  <xsd:element abstract="false" name="NotifyingIncident" nillable="false" substitutionGroup="notfm-ext:NotifyingActivity" type="notfm-ext:NotifyingIncidentType">
     <xsd:annotation>
       <xsd:documentation>An incident that results in notification.</xsd:documentation>
     </xsd:annotation>
@@ -109,7 +109,7 @@
       <xsd:documentation>A data concept for a An activity that results in notification.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element abstract="false" name="NotifyingArrest" nillable="false" substitutionGroup="tns:NotifyingActivity" type="tns:NotifyingArrestType">
+  <xsd:element abstract="false" name="NotifyingArrest" nillable="false" substitutionGroup="notfm-ext:NotifyingActivity" type="notfm-ext:NotifyingArrestType">
     <xsd:annotation>
       <xsd:documentation>An arrest that results in notification</xsd:documentation>
     </xsd:annotation>

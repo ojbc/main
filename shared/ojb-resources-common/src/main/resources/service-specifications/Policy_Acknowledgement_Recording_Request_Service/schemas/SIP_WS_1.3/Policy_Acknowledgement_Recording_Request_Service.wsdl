@@ -3,7 +3,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:par="http://ojbc.org/IEPD/Exchange/AcknowledgementRecordingRequestForAllPolicies/1.0"
+	xmlns:arreq-exchange="http://ojbc.org/IEPD/Exchange/AcknowledgementRecordingRequestForAllPolicies/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/PolicyAcknowledgementRecordingRequestService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
@@ -15,7 +15,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="AcknowledgementRecordingRequestForAllPolicies">
-		<wsdl:part name="AcknowledgementRecordingRequestForAllPolicies" element="par:AcknowledgementRecordingRequestForAllPolicies" />
+		<wsdl:part name="AcknowledgementRecordingRequestForAllPolicies" element="arreq-exchange:AcknowledgementRecordingRequestForAllPolicies" />
 	</wsdl:message>
 	<wsdl:portType name="Policy-Acknowledgement-Recording-Request-Service">
 		<wsdl:operation name="RequestAcknowledgementRecordingForAllPolicies">

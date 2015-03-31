@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.XMLConstants;
@@ -45,6 +46,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
+
+import net.sf.saxon.sort.UppercaseFirstComparer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -309,12 +312,36 @@ public class XmlUtils {
      */
     public static final Document validateInstance(String iepdRootPath, String niemSchemaContainerFolderName, String rootSchemaFileName, Document d) throws Exception {
     	
-        return validateInstance(iepdRootPath, rootSchemaFileName, d, new IEPDResourceResolver(niemSchemaContainerFolderName, iepdRootPath));
+    	return validateInstance(iepdRootPath, niemSchemaContainerFolderName, rootSchemaFileName, new ArrayList<String>(), d);
     }
     
+    /**
+     * Validates a document against an IEPD, using the default IEPD resource resolver. See expanded method below for more detail.
+     * 
+     * @param niemSchemaContainerFolderName
+     *            the name of the folder that contains all of the SSGT-generated schemas. Typically "NIEM_x.y" or "niem".
+     * @param rootSchemaFileName
+     *            the name of the document/exchange schema
+     * @param additionalSchemaRelativePaths
+     *            additional schema paths, within iepdRootPath
+     * @param d
+     *            the document to validate
+     * @return the document that was validated
+     * @throws Exception
+     *             if the document is not valid
+     */
+    public static final Document validateInstance(String iepdRootPath, String niemSchemaContainerFolderName, String rootSchemaFileName, List<String> additionalSchemaRelativePaths, Document d) throws Exception {
+    	
+        return validateInstance(iepdRootPath, rootSchemaFileName, additionalSchemaRelativePaths, d, new IEPDResourceResolver(niemSchemaContainerFolderName, iepdRootPath));
+    }
     
     public static final Document validateInstanceWithAbsoluteClasspaths(String rootNodeXsdFilePath, 
     		List<String> supportingXsdDirPathList, Document xmlDoc) throws Exception {
+    	return validateInstanceWithAbsoluteClasspaths(rootNodeXsdFilePath, supportingXsdDirPathList, new ArrayList<String>(), xmlDoc);
+    }
+    
+    public static final Document validateInstanceWithAbsoluteClasspaths(String rootNodeXsdFilePath, 
+    		List<String> supportingXsdDirPathList, List<String> additionalSchemaRelativePaths, Document xmlDoc) throws Exception {
     	    	    	    	
     	List<String> resourcePathList = new ArrayList<String>();
     	resourcePathList.add(rootNodeXsdFilePath);
@@ -322,19 +349,34 @@ public class XmlUtils {
     	    	    	
     	IEPDFullPathResourceResolver fullPathResolver = new IEPDFullPathResourceResolver(resourcePathList);
     	
-        return validateInstance(rootNodeXsdFilePath, xmlDoc, fullPathResolver);
+        return validateInstance(rootNodeXsdFilePath, xmlDoc, fullPathResolver, additionalSchemaRelativePaths);
     }
     
-    
-
     public static Document validateInstance(String rootXsdPath, Document docXmlToValidate, 
     		IEPDFullPathResourceResolver fullPathResolver) throws Exception {
+    	return validateInstance(rootXsdPath, docXmlToValidate, fullPathResolver, new ArrayList<String>());
+    }
 
+    public static Document validateInstance(String rootXsdPath, Document docXmlToValidate, 
+    		IEPDFullPathResourceResolver fullPathResolver, List<String> additionalSchemaRelativePaths) throws Exception {
+    	
+    	//List<Source> schemaPaths = new ArrayList<Source>();
+    	//schemaPaths.add(new StreamSource(XmlUtils.class.getClassLoader().getResourceAsStream(rootXsdPath)));
+
+    	List<String> schemaPaths = new ArrayList<String>();
+    	schemaPaths.add(rootXsdPath);
+    	schemaPaths.addAll(additionalSchemaRelativePaths);
+    	
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        schemaFactory.setResourceResolver(fullPathResolver);    	        
+        schemaFactory.setResourceResolver(fullPathResolver);
         
-        Schema schema = schemaFactory.newSchema(new StreamSource(
-        		XmlUtils.class.getClassLoader().getResourceAsStream(rootXsdPath)));
+        Source[] sources = new Source[schemaPaths.size()];
+        int i=0;
+        for (String path : schemaPaths) {
+        	sources[i++] = new StreamSource(XmlUtils.class.getClassLoader().getResourceAsStream(path));
+        }
+        
+        Schema schema = schemaFactory.newSchema(sources);
         
         Validator v = schema.newValidator();
         
@@ -354,7 +396,6 @@ public class XmlUtils {
         return docXmlToValidate;    	    	
 	}
 
-    
     /**
      * Convenience method doesn't require a null parm for the niem dir string
      */
@@ -364,13 +405,51 @@ public class XmlUtils {
     	return validateInstance(iepdRootPath, null, rootSchemaFileName, d, iepdResourceResolver);    	
     }
     
+    /**
+     * Convenience method doesn't require a null parm for the niem dir string
+     */
+    public static final Document validateInstance(String iepdRootPath, String rootSchemaFileName, List<String> additionalSchemaRelativePaths, Document d, LSResourceResolver iepdResourceResolver)
+            throws Exception {
+    	
+    	if (!iepdRootPath.endsWith("/")) {
+            iepdRootPath = iepdRootPath + "/";
+        }
+        String fullRootSchemaPath = iepdRootPath + rootSchemaFileName;
+        //LOG.info(fullRootSchemaPath);
+        
+        List<String> schemaPaths = new ArrayList<String>();
+    	schemaPaths.add(fullRootSchemaPath);
+    	schemaPaths.addAll(additionalSchemaRelativePaths);
+        
+        validateInstance(d, iepdResourceResolver, schemaPaths);
+    	
+    	return d;  	
+    }
+    
+    private static final Document validateInstance(String iepdRootPath, String Never_Used_TODO_Remove, 
+    		String rootSchemaFileName, Document d, LSResourceResolver iepdResourceResolver)
+            throws Exception {
+    	
+    	// TODO: If this method is no longer used, then inline it (to get rid of the Never_Used_TODO_Remove parameter)
+
+        if (!iepdRootPath.endsWith("/")) {
+            iepdRootPath = iepdRootPath + "/";
+        }
+        String fullRootSchemaPath = iepdRootPath + rootSchemaFileName;
+        //LOG.info(fullRootSchemaPath);
+        
+        List<String> schemaPaths = new ArrayList<String>();
+    	schemaPaths.add(fullRootSchemaPath);
+        
+        validateInstance(d, iepdResourceResolver, schemaPaths);
+        return d;
+    }
+
 	/**
      * Validate a document against an IEPD. Note that this does not require the xsi namespace location attributes to be set in the instance.
      * 
-     * @param iepdRootPath
-     *            the root path to the IEPD (this should be the folder that contains the root (document/exchange) schema). Typically it is called "xsd" in the default IEPD structure. The path must
-     *            start at the folder that is in the classpath. For OJBC, typically this will start with "service-specifications" since that's the name of the containing folder in the OJB_Resources
-     *            project.
+     * @param schemaPaths
+     *            the paths to all schemas necessary to validate the instance; this is the equivalent of specifying these schemas in an xsi:schemaLocation attribute in the instance
      *                       
      * @param Never_Used_TODO_Remove 
      * 
@@ -385,18 +464,15 @@ public class XmlUtils {
      * @throws Exception
      *             if the document is not valid
      */
-    public static final Document validateInstance(String iepdRootPath, String Never_Used_TODO_Remove, 
-    		String rootSchemaFileName, Document d, LSResourceResolver iepdResourceResolver)
-            throws Exception {
-
-        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+	public static void validateInstance(Document d, LSResourceResolver iepdResourceResolver, List<String> schemaPaths) throws SAXException, Exception {
+		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         schemaFactory.setResourceResolver(iepdResourceResolver);
-        if (!iepdRootPath.endsWith("/")) {
-            iepdRootPath = iepdRootPath + "/";
+        Source[] sources = new Source[schemaPaths.size()];
+        int i=0;
+        for (String path : schemaPaths) {
+        	sources[i++] = new StreamSource(XmlUtils.class.getClassLoader().getResourceAsStream(path));
         }
-        String fullRootSchemaPath = iepdRootPath + rootSchemaFileName;
-        //LOG.info(fullRootSchemaPath);
-        Schema schema = schemaFactory.newSchema(new StreamSource(XmlUtils.class.getClassLoader().getResourceAsStream(fullRootSchemaPath)));
+        Schema schema = schemaFactory.newSchema(sources);
         Validator v = schema.newValidator();
         try {
             v.validate(new DOMSource(d));
@@ -410,8 +486,7 @@ public class XmlUtils {
             }
             throw e;
         }
-        return d;
-    }
+	}
 
     /**
      * This method will validate a non-niem xml instance.

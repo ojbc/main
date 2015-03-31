@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:srm="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponseMetadata/1.0" xmlns:arrer="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingRequestErrorReporting/1.0" xmlns:tns="http://www.example.org/search-result-metadata" targetNamespace="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponseMetadata/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:arr-srm="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponseMetadata/1.0" xmlns:arrer="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingRequestErrorReporting/1.0" xmlns:tns="http://www.example.org/search-result-metadata" targetNamespace="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponseMetadata/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingRequestErrorReporting/1.0" schemaLocation="acknowledgement-recording-request-error-reporting.xsd"/>
 	<xsd:complexType name="AcknowledgementRecordingResponseMetadataType">
@@ -29,5 +29,5 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="AcknowledgementRecordingResponseMetadata" type="srm:AcknowledgementRecordingResponseMetadataType"/>
+	<xsd:element name="AcknowledgementRecordingResponseMetadata" type="arr-srm:AcknowledgementRecordingResponseMetadataType"/>
 </xsd:schema>

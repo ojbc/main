@@ -8,7 +8,7 @@
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
 	xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" 
-	xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0"  
+	xmlns:jh-intake-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0"  
 	xmlns:res="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/IntakeResults/1.0" 
 	targetNamespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/IntakeResults/1.0">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
@@ -19,7 +19,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="JuvenileIntakeHistoryResponseMessage">
-		<wsdl:part name="JuvenileIntakeHistoryResponseMessage" element="doc:JuvenileIntakeHistoryResponse"/>
+		<wsdl:part name="JuvenileIntakeHistoryResponseMessage" element="jh-intake-doc:JuvenileIntakeHistoryResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="JuvenileIntakeHistoryResultsInterface">
 		<wsdl:operation name="SubmitJuvenileIntakeHistoryResponse">

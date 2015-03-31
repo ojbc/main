@@ -17,14 +17,14 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ext="http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" targetNamespace="http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:firearm-reg-req-ext="http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" targetNamespace="http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="./Subset/niem/niem-core/2.0/niem-core.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./Subset/niem/structures/2.0/structures.xsd"/>
 	<xsd:complexType name="FirearmRegistrationRequestType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:FirearmRegistrationIdentification"/>
+					<xsd:element ref="firearm-reg-req-ext:FirearmRegistrationIdentification"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -33,7 +33,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:PersonFirearmRegistrationIdentification"/>
+					<xsd:element ref="firearm-reg-req-ext:PersonFirearmRegistrationIdentification"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

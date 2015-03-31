@@ -17,11 +17,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:FirearmTypeCodes="http://ojbc.org/IEPD/Extensions/FirearmTypeCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:s="http://niem.gov/niem/structures/2.0"
+xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+xmlns:firearm-search-req-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
+xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+xmlns:FirearmTypeCodes="http://ojbc.org/IEPD/Extensions/FirearmTypeCodes/1.0"
+targetNamespace="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0" schemaLocation="member-extensions/demostate/demostate-firearm-codes.xsd"/>
-	<xsd:element name="FirearmSearchRequest" type="ext:FirearmSearchRequestType">
+	<xsd:element name="FirearmSearchRequest" type="firearm-search-req-ext:FirearmSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A set of details that can be used to search for a Firearm Registration.</xsd:documentation>
 		</xsd:annotation>
@@ -34,11 +39,11 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:Firearm" minOccurs="0" maxOccurs="1"/>
-					<xsd:element ref="ext:ItemRegistration" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="firearm-search-req-ext:Firearm" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="firearm-search-req-ext:ItemRegistration" minOccurs="0" maxOccurs="1"/>
 					<xsd:element ref="nc:PropertyRegistrationAssociation" minOccurs="0" maxOccurs="1"/>
-					<xsd:element ref="ext:SourceSystemNameText" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SearchMetadata" maxOccurs="unbounded"/>
+					<xsd:element ref="firearm-search-req-ext:SourceSystemNameText" maxOccurs="unbounded"/>
+					<xsd:element ref="firearm-search-req-ext:SearchMetadata" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -47,12 +52,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:FirearmType">
 				<xsd:sequence>
-					<xsd:element ref="ext:FirearmMakeRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="firearm-search-req-ext:FirearmMakeRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Firearm" type="ext:FirearmType">
+	<xsd:element name="Firearm" type="firearm-search-req-ext:FirearmType">
 		<xsd:annotation>
 			<xsd:documentation>
 				A Firearm.
@@ -63,12 +68,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ItemRegistrationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CurrentRegistrationIndicator" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="firearm-search-req-ext:CurrentRegistrationIndicator" minOccurs="0" maxOccurs="1"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="ItemRegistration" type="ext:ItemRegistrationType">
+	<xsd:element name="ItemRegistration" type="firearm-search-req-ext:ItemRegistrationType">
 		<xsd:annotation>
 			<xsd:documentation>
 				A Item Registration.
@@ -82,12 +87,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SearchMetadata" type="ext:SearchMetadataType">
+	<xsd:element name="SearchMetadata" type="firearm-search-req-ext:SearchMetadataType">
 		<xsd:annotation>
 			<xsd:documentation>Information that further qualifies the search.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SearchQualifierCode" type="ext:SearchQualifierCodeType">
+	<xsd:element name="SearchQualifierCode" type="firearm-search-req-ext:SearchQualifierCodeType">
 		<xsd:annotation>
 			<xsd:documentation>Details about how to interpret the content of an element for the purpose of searching.</xsd:documentation>
 		</xsd:annotation>
@@ -99,10 +104,10 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:MetadataType">
 				<xsd:choice>
-					<xsd:element ref="ext:SearchQualifierCode" minOccurs="0"/>
+					<xsd:element ref="firearm-search-req-ext:SearchQualifierCode" minOccurs="0"/>
 					<xsd:sequence>
-						<xsd:element ref="ext:SearchRequestOnBehalfOfText" minOccurs="0"/>
-						<xsd:element ref="ext:SearchPurposeText" minOccurs="0"/>
+						<xsd:element ref="firearm-search-req-ext:SearchRequestOnBehalfOfText" minOccurs="0"/>
+						<xsd:element ref="firearm-search-req-ext:SearchPurposeText" minOccurs="0"/>
 					</xsd:sequence>
 				</xsd:choice>
 			</xsd:extension>
@@ -120,7 +125,7 @@
 	</xsd:element>
 	<xsd:complexType name="SearchQualifierCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="ext:SearchQualifierCodeSimpleType">
+			<xsd:extension base="firearm-search-req-ext:SearchQualifierCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -150,7 +155,7 @@
 			<xsd:documentation>A placeholder for the make of a firearm. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FirearmMakeText" type="nc:TextType" substitutionGroup="ext:FirearmMakeRepresentation">
+	<xsd:element name="FirearmMakeText" type="nc:TextType" substitutionGroup="firearm-search-req-ext:FirearmMakeRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A text representation of a make of a firearm. </xsd:documentation>
 		</xsd:annotation>
