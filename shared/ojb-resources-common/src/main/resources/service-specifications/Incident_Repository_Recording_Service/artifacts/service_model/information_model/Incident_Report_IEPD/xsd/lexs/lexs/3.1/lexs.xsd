@@ -20,7 +20,7 @@
 <!-- Document : $Id: lexs.xsd 1974 2009-01-21 23:09:54Z ys34 $ LEXS version 
 	: 3.1.4 Namespace : xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" Description 
 	: LEXS Messages Format Schema -->
-<xsd:schema xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/IncidentReportStructuredPayload/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexscodes="http://usdoj.gov/leisp/lexs/codes/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://usdoj.gov/leisp/lexs/3.1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.1.4">
+<xsd:schema xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/IncidentReportStructuredPayload/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexscodes="http://usdoj.gov/leisp/lexs/codes/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://usdoj.gov/leisp/lexs/3.1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.1.4">
 	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../NIEM_2.0/appinfo/2.0/appinfo.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../NIEM_2.0/niem-core/2.0/niem-core.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd"/>
@@ -992,7 +992,7 @@
 					<xsd:element ref="lexs:StructuredPayloadMetadata"/>
 					<!-- <xsd:any processContents="skip"/> -->
 					<xsd:element ref="ndexia:IncidentReport" minOccurs="0"/>
-					<xsd:element ref="ext:IncidentReport" minOccurs="0"/>
+					<xsd:element ref="inc-ext:IncidentReport" minOccurs="0"/>
 					<xsd:element ref="hi:IncidentReport" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>

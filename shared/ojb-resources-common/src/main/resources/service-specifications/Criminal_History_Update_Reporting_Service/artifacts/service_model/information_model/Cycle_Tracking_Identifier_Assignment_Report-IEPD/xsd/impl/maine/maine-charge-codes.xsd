@@ -22,13 +22,13 @@
 	targetNamespace="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" 
 	xmlns:me-chrg-codes="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" 
 	xmlns:s="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:crimhistory-update-ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
 	elementFormDefault="qualified">
 	
 	<xsd:import schemaLocation="../../niem/structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
 	<xsd:import schemaLocation="../../extension-schema.xsd" namespace="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"/>
 
-	<xsd:element name="ChargeEnhancingFactorCode" type="me-chrg-codes:ChargeEnhancingFactorCodeType" substitutionGroup="ext:ChargeEnhancingFactorCodeRepresentation">
+	<xsd:element name="ChargeEnhancingFactorCode" type="me-chrg-codes:ChargeEnhancingFactorCodeType" substitutionGroup="crimhistory-update-ext:ChargeEnhancingFactorCodeRepresentation">
 		<xsd:annotation>
 			 <xsd:documentation>A code for a factor that modifies the charge, specific to the state of Maine.</xsd:documentation>
 		</xsd:annotation>
