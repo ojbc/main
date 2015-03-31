@@ -18,7 +18,7 @@
 
 -->
 <p:SubscriptionQueryResults 
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
+	xmlns:sqr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
@@ -31,8 +31,8 @@
 	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0 ../xsd/exchange_schema.xsd ">
-  <ext:SubscriptionQueryResult>
-    <ext:Subscription>
+  <sqr-ext:SubscriptionQueryResult>
+    <sqr-ext:Subscription>
     	<nc:ActivityDateRange>
     		<nc:StartDate>
     			<nc:Date>2014-03-12</nc:Date>
@@ -41,42 +41,42 @@
     			<nc:Date>2016-03-12</nc:Date>
     		</nc:EndDate>
     	</nc:ActivityDateRange>
-      <ext:SubscriptionSubject>
+      <sqr-ext:SubscriptionSubject>
       	<nc:RoleOfPersonReference s:ref="P001"/>
-      </ext:SubscriptionSubject>
+      </sqr-ext:SubscriptionSubject>
       <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
-      <ext:SubscribedEntity s:id="SE001"/>
-      <ext:SubscriptionOriginator>
-      	<ext:SubscriptionOriginatorIdentification>
+      <sqr-ext:SubscribedEntity s:id="SE001"/>
+      <sqr-ext:SubscriptionOriginator>
+      	<sqr-ext:SubscriptionOriginatorIdentification>
       		<nc:IdentificationID>HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
-      	</ext:SubscriptionOriginatorIdentification>
-      </ext:SubscriptionOriginator>
-      <ext:SubscriptionValidation>
-      	<ext:SubscriptionValidationDueDate>
+      	</sqr-ext:SubscriptionOriginatorIdentification>
+      </sqr-ext:SubscriptionOriginator>
+      <sqr-ext:SubscriptionValidation>
+      	<sqr-ext:SubscriptionValidationDueDate>
       		<nc:Date>2015-03-12</nc:Date>
-      	</ext:SubscriptionValidationDueDate>
-      	<ext:SubscriptionValidatedDate>
+      	</sqr-ext:SubscriptionValidationDueDate>
+      	<sqr-ext:SubscriptionValidatedDate>
       		<nc:Date>2014-03-12</nc:Date>
-      	</ext:SubscriptionValidatedDate>
-      </ext:SubscriptionValidation>
-      <ext:SubscriptionGracePeriod>
-      	<ext:SubscriptionGracePeriodDateRange>
+      	</sqr-ext:SubscriptionValidatedDate>
+      </sqr-ext:SubscriptionValidation>
+      <sqr-ext:SubscriptionGracePeriod>
+      	<sqr-ext:SubscriptionGracePeriodDateRange>
       		<nc:StartDate>
       			<nc:Date>2014-09-13</nc:Date>
       		</nc:StartDate>
       		<nc:EndDate>
       			<nc:Date>2014-10-13</nc:Date>
       		</nc:EndDate>
-      	</ext:SubscriptionGracePeriodDateRange>
-      </ext:SubscriptionGracePeriod>
-    </ext:Subscription>
-    <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ext:SourceSystemNameText>
+      	</sqr-ext:SubscriptionGracePeriodDateRange>
+      </sqr-ext:SubscriptionGracePeriod>
+    </sqr-ext:Subscription>
+    <sqr-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</sqr-ext:SourceSystemNameText>
 	<intel:SystemIdentifier>
 		<nc:IdentificationID>19ec7fb5-4e29-4657-a86d-1a9711330e10,A109918642-HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
 		<intel:SystemName>Subscriptions</intel:SystemName>
 	</intel:SystemIdentifier>
-  </ext:SubscriptionQueryResult>
-  <ext:Person s:id="P001">
+  </sqr-ext:SubscriptionQueryResult>
+  <sqr-ext:Person s:id="P001">
   	<nc:PersonBirthDate>
   		<nc:Date>1975-01-12</nc:Date>
   	</nc:PersonBirthDate>
@@ -89,12 +89,12 @@
   			<nc:IdentificationID>A1099109188</nc:IdentificationID>
   		</j:PersonStateFingerprintIdentification>
   	</j:PersonAugmentation>
-  </ext:Person>
+  </sqr-ext:Person>
   <nc:ContactInformation s:id="CI001">
   	<nc:ContactEmailID>probation_officer@gov.gov</nc:ContactEmailID>
   </nc:ContactInformation>
-  <ext:SubscribedEntityContactInformationAssociation>
-  	<ext:SubscribedEntityReference s:ref="SE001" />
+  <sqr-ext:SubscribedEntityContactInformationAssociation>
+  	<sqr-ext:SubscribedEntityReference s:ref="SE001" />
   	<nc:ContactInformationReference s:ref="CI001" />
-  </ext:SubscribedEntityContactInformationAssociation>
+  </sqr-ext:SubscribedEntityContactInformationAssociation>
 </p:SubscriptionQueryResults>

@@ -17,12 +17,12 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:SubscriptionValidationResponseMessage 
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0" 
-	xmlns:ext="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0" 
+<subvresp-exch:SubscriptionValidationResponseMessage 
+	xmlns:subvresp-exch="http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0" 
+	xmlns:subresp-ext="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0 ../xsd/Subscription_Validation_Response.xsd ">
-  <ext:SubscriptionValidatedIndicator>true</ext:SubscriptionValidatedIndicator>
-</exchange:SubscriptionValidationResponseMessage>
+  <subresp-ext:SubscriptionValidatedIndicator>true</subresp-ext:SubscriptionValidatedIndicator>
+</subvresp-exch:SubscriptionValidationResponseMessage>

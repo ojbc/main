@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/VehicleSearchRequest/1.0"
+	xmlns:vsr-doc="http://ojbc.org/IEPD/Exchange/VehicleSearchRequest/1.0"
 	name="Vehicle_Search_Request_Service" targetNamespace="http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
@@ -17,7 +17,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Vehicle-Search-Request">
-		<wsdl:part element="exchange:VehicleSearchRequest" name="Vehicle-Search-Request" />
+		<wsdl:part element="vsr-doc:VehicleSearchRequest" name="Vehicle-Search-Request" />
 	</wsdl:message>
 	<wsdl:portType name="Vehicle_Search_Request_Service">
 		<wsdl:operation name="SubmitVehicleSearchRequest">
