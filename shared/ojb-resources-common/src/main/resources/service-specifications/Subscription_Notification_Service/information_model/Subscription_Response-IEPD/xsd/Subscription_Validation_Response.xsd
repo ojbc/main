@@ -19,7 +19,7 @@
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	targetNamespace="http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0" 
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0" 
+	xmlns:subvresp-exch="http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0" 
 	xmlns:subresp-ext="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0" 
 	elementFormDefault="qualified">
 	

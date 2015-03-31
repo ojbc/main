@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:FirearmSearchResults
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
+<firearm-search-resp-doc:FirearmSearchResults
+	xmlns:firearm-search-resp-doc="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
+	xmlns:firearm-search-resp-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
 	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
@@ -41,4 +41,4 @@
 		</srer:SearchRequestError>
 		
 	</srm:SearchResultsMetadata>
-</exchange:FirearmSearchResults>
+</firearm-search-resp-doc:FirearmSearchResults>

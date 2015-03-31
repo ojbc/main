@@ -416,6 +416,60 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_ARREST_REPORTING_SERVICE = "http://ojbc.org/IEPD/Exchange/ArrestReport/1.0";
 	public static final String NS_PREFIX_ARREST_REPORTING_SERVICE = "arrest-exch";
+	
+	//
+	
+    public static final String NS_ARU = "http://ojbc.org/IEPD/Exchange/ArrestReportUpdate/1.0";
+    public static final String NS_PREFIX_ARU = "aru";
+    
+    public static final String NS_AR_EXT = "http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0";
+    public static final String NS_PREFIX_AR_EXT = "ar-ext";
+   
+    public static final String NS_INCIDENT_PERSON_SEARCH_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/IncidentPersonSearchRequest/1.0";
+    public static final String NS_PREFIX_INCIDENT_PERSON_SEARCH_REQUEST_EXT = "ipsr";
+    
+    public static final String NS_PAROLE_CASE_OFFICER_CHANGE = "http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0";
+    public static final String NS_PREFIX_PAROLE_CASE_OFFICER_CHANGE = "prlcoc";
+    
+    public static final String NS_PROBATION_CASE_OFFICER_CHANGE = "http://ojbc.org/IEPD/Exchange/ProbationCaseOfficerChange/1.0’";
+    public static final String NS_PREFIX_PROBATION_CASE_OFFICER_CHANGE = "pcoc";
+    
+    public static final String NS_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH = "http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0";
+    public static final String NS_PREFIX_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH = "subvresp-exch";
+    
+    public static final String NS_SUBSCRIPTION_SEARCH_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0";
+    public static final String NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT = "ssreq-ext";
+    
+    public static final String NS_VEHICLE_SEARCH_REQUEST = "http://ojbc.org/IEPD/Exchange/VehicleSearchRequest/1.0";
+    public static final String NS_PREFIX_VEHICLE_SEARCH_REQUEST = "vsreq";
+   
+    public static final String NS_VERMONT_DISPOSITION_CODES = "http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0";
+    public static final String NS_PREFIX_VERMONT_DISPOSITION_CODES = "vt_disp_codes";
+    
+    public static final String NS_HAWAII_JIMS_DISPOSITION_CODES = "http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0";
+    public static final String NS_PREFIX_HAWAII_JIMS_DISPOSITION_CODES = "hi_jims_disp_codes";
+    
+    public static final String NS_HAWAII_HAJIS_DISPOSITION_CODES = "http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0";
+    public static final String NS_PREFIX_HAWAII_HAJIS_DISPOSITION_CODES = "hi_hajis_disp_codes";
+	
+	//
+    
+    public static final String NS_AR_HAWAII_EXT = "http://ojbc.org/IEPD/Extensions/Hawaii/IncidentReportStructuredPayload/1.0";
+    public static final String NS_PREFIX_AR_HAWAII_EXT = "ar-hi-ext";
+    
+	public static final String NS_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE_EXT = "http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE_EXT = "crimhistory-update-ext";
+	
+	public static final String NS_HAWAII_BOOKING_REPORT_EXT = "http://hijis.hawaii.gov/BookingReportExtension/1.0";
+	public static final String NS_PREFIX_HAWAII_BOOKING_REPORT_EXT = "hi-br-ext";
+	
+	public static final String NS_CRIMINAL_RECORD = "http://ojbc.org/IEPD/CriminalRecord/1.0";
+	public static final String NS_PREFIX_CRIMINAL_RECORD = "cr";
+	
+	public static final String NS_CRIMINAL_RECORD_EXT = "http://ojbc.org/IEPD/Extensions/CriminalRecordExtension/1.0";
+	public static final String NS_PREFIX_CRIMINAL_RECORD_EXT = "cr-ext";
+	
+	
 
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -779,7 +833,59 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_ARREST_REPORTING_SERVICE, NS_ARREST_REPORTING_SERVICE);
 		uriToPrefixMap.put(NS_ARREST_REPORTING_SERVICE, NS_PREFIX_ARREST_REPORTING_SERVICE);
+		
+	    //
+	    
+		prefixToUriMap.put(NS_PREFIX_ARU, NS_ARU);
+	    uriToPrefixMap.put(NS_ARU, NS_PREFIX_ARU);
+	    
+		prefixToUriMap.put(NS_PREFIX_AR_EXT, NS_AR_EXT);
+	    uriToPrefixMap.put(NS_AR_EXT, NS_PREFIX_AR_EXT);
+	    
+		prefixToUriMap.put(NS_PREFIX_INCIDENT_PERSON_SEARCH_REQUEST_EXT, NS_INCIDENT_PERSON_SEARCH_REQUEST_EXT);
+	    uriToPrefixMap.put(NS_INCIDENT_PERSON_SEARCH_REQUEST_EXT, NS_PREFIX_INCIDENT_PERSON_SEARCH_REQUEST_EXT);
+	    
+		prefixToUriMap.put(NS_PREFIX_PAROLE_CASE_OFFICER_CHANGE, NS_PAROLE_CASE_OFFICER_CHANGE);
+	    uriToPrefixMap.put(NS_PAROLE_CASE_OFFICER_CHANGE, NS_PREFIX_PAROLE_CASE_OFFICER_CHANGE);
+	    
+		prefixToUriMap.put(NS_PREFIX_PROBATION_CASE_OFFICER_CHANGE, NS_PROBATION_CASE_OFFICER_CHANGE);
+	    uriToPrefixMap.put(NS_PROBATION_CASE_OFFICER_CHANGE, NS_PREFIX_PROBATION_CASE_OFFICER_CHANGE);
+	    
+		prefixToUriMap.put(NS_PREFIX_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH, NS_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH);
+	    uriToPrefixMap.put(NS_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH, NS_PREFIX_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH);
+	    
+		prefixToUriMap.put(NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT, NS_SUBSCRIPTION_SEARCH_REQUEST_EXT);
+	    uriToPrefixMap.put(NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT);
+	    
+		prefixToUriMap.put(NS_PREFIX_VEHICLE_SEARCH_REQUEST, NS_VEHICLE_SEARCH_REQUEST);
+	    uriToPrefixMap.put(NS_VEHICLE_SEARCH_REQUEST, NS_PREFIX_VEHICLE_SEARCH_REQUEST);
+	    
+		prefixToUriMap.put(NS_PREFIX_VERMONT_DISPOSITION_CODES, NS_VERMONT_DISPOSITION_CODES);
+	    uriToPrefixMap.put(NS_VERMONT_DISPOSITION_CODES, NS_PREFIX_VERMONT_DISPOSITION_CODES);
+	    
+		prefixToUriMap.put(NS_PREFIX_HAWAII_JIMS_DISPOSITION_CODES, NS_HAWAII_JIMS_DISPOSITION_CODES);
+	    uriToPrefixMap.put(NS_HAWAII_JIMS_DISPOSITION_CODES, NS_PREFIX_HAWAII_JIMS_DISPOSITION_CODES);
+	    
+		prefixToUriMap.put(NS_PREFIX_HAWAII_HAJIS_DISPOSITION_CODES, NS_HAWAII_HAJIS_DISPOSITION_CODES);
+	    uriToPrefixMap.put(NS_HAWAII_HAJIS_DISPOSITION_CODES, NS_PREFIX_HAWAII_HAJIS_DISPOSITION_CODES);
+	    
+	    //
+	    
+		prefixToUriMap.put(NS_PREFIX_AR_HAWAII_EXT, NS_AR_HAWAII_EXT);
+	    uriToPrefixMap.put(NS_AR_HAWAII_EXT, NS_PREFIX_AR_HAWAII_EXT);
+	    
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE_EXT, NS_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE_EXT);
+	    uriToPrefixMap.put(NS_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE_EXT, NS_PREFIX_CRIMINAL_HISTORY_UPDATE_REPORTING_SERVICE_EXT);
 
+		prefixToUriMap.put(NS_PREFIX_HAWAII_BOOKING_REPORT_EXT, NS_HAWAII_BOOKING_REPORT_EXT);
+	    uriToPrefixMap.put(NS_HAWAII_BOOKING_REPORT_EXT, NS_PREFIX_HAWAII_BOOKING_REPORT_EXT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_CRIMINAL_RECORD, NS_CRIMINAL_RECORD);
+	    uriToPrefixMap.put(NS_CRIMINAL_RECORD, NS_PREFIX_CRIMINAL_RECORD);
+	    
+	    prefixToUriMap.put(NS_PREFIX_CRIMINAL_RECORD_EXT, NS_CRIMINAL_RECORD_EXT);
+	    uriToPrefixMap.put(NS_CRIMINAL_RECORD_EXT, NS_PREFIX_CRIMINAL_RECORD_EXT);
+	    
 	}
 
 	@Override

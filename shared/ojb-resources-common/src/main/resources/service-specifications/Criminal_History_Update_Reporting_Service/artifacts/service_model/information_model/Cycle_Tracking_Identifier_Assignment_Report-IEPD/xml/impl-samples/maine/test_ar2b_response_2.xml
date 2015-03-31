@@ -16,18 +16,18 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exc:CycleTrackingIdentifierAssignmentReport
-	xmlns:exc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
+<crimhistory-update-exch:CycleTrackingIdentifierAssignmentReport
+	xmlns:crimhistory-update-exch="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:crimhistory-update-ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:s="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0 ../../../xsd/exchange-schema.xsd">
-	<ext:CycleTrackingIdentifierAssignment>
-		<ext:CycleTrackingIdentification>
+	<crimhistory-update-ext:CycleTrackingIdentifierAssignment>
+		<crimhistory-update-ext:CycleTrackingIdentification>
 			<nc:IdentificationID>888888F</nc:IdentificationID>
-		</ext:CycleTrackingIdentification>
+		</crimhistory-update-ext:CycleTrackingIdentification>
 		<j:OriginatorOrganization s:ref="ORG_ME0101800"></j:OriginatorOrganization>
 		<nc:Case>
 			<j:ActivityAugmentation>
@@ -116,7 +116,7 @@
 			<j:Offense s:ref="OFF_2001-08-18"></j:Offense>
 			<j:Charge s:ref="CHRG_004"></j:Charge>
 		</j:OffenseChargeAssociation>
-	</ext:CycleTrackingIdentifierAssignment>
+	</crimhistory-update-ext:CycleTrackingIdentifierAssignment>
 	<nc:Organization s:id="ORG_ME0101800">
 		<nc:OrganizationName>UNIVERSITY OF MAINE PD ORONO</nc:OrganizationName>
 		<j:OrganizationAugmentation>
@@ -134,4 +134,4 @@
 			<nc:PersonSurName>BURNS</nc:PersonSurName>
 		</nc:PersonName>
 	</nc:Person>
-</exc:CycleTrackingIdentifierAssignmentReport>
+</crimhistory-update-exch:CycleTrackingIdentifierAssignmentReport>

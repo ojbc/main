@@ -23,7 +23,7 @@
 	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
 	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" 
+	xmlns:ar-ext="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.0"

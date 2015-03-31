@@ -17,25 +17,25 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:SubscriptionValidationFaultResponseMessage
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0"
+<subfltrsp-exch:SubscriptionValidationFaultResponseMessage
+	xmlns:subfltrsp-exch="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0"
+	xmlns:subfltrsp-ext="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0 ../xsd/Subscription_Fault_Response.xsd ">
-	<ext:AccessDenial>
-		<ext:AccessDenialIndicator>true</ext:AccessDenialIndicator>
-		<ext:AccessDenyingSystemNameText>ext:AccessDenyingSystemNameText</ext:AccessDenyingSystemNameText>
-		<ext:AccessDenialReasonText>ext:AccessDenialReasonText</ext:AccessDenialReasonText>
-	</ext:AccessDenial>
-	<ext:InvalidSecurityToken>
-		<ext:InvalidSecurityTokenIndicator>true</ext:InvalidSecurityTokenIndicator>
-		<ext:InvalidSecurityTokenDescriptionText>Token is missing required information: Federation Identifier.</ext:InvalidSecurityTokenDescriptionText>
-	</ext:InvalidSecurityToken>
-	<ext:SubscriptionIdentification>
+	<subfltrsp-ext:AccessDenial>
+		<subfltrsp-ext:AccessDenialIndicator>true</subfltrsp-ext:AccessDenialIndicator>
+		<subfltrsp-ext:AccessDenyingSystemNameText>subfltrsp-ext:AccessDenyingSystemNameText</subfltrsp-ext:AccessDenyingSystemNameText>
+		<subfltrsp-ext:AccessDenialReasonText>subfltrsp-ext:AccessDenialReasonText</subfltrsp-ext:AccessDenialReasonText>
+	</subfltrsp-ext:AccessDenial>
+	<subfltrsp-ext:InvalidSecurityToken>
+		<subfltrsp-ext:InvalidSecurityTokenIndicator>true</subfltrsp-ext:InvalidSecurityTokenIndicator>
+		<subfltrsp-ext:InvalidSecurityTokenDescriptionText>Token is missing required information: Federation Identifier.</subfltrsp-ext:InvalidSecurityTokenDescriptionText>
+	</subfltrsp-ext:InvalidSecurityToken>
+	<subfltrsp-ext:SubscriptionIdentification>
 		<nc:IdentificationID>98764</nc:IdentificationID>
 		<nc:IdentificationSourceText>Subscriptions</nc:IdentificationSourceText>
-	</ext:SubscriptionIdentification>
-	<ext:InvalidSubscriptionIdentifierIndicator>true</ext:InvalidSubscriptionIdentifierIndicator>
-</exchange:SubscriptionValidationFaultResponseMessage>
+	</subfltrsp-ext:SubscriptionIdentification>
+	<subfltrsp-ext:InvalidSubscriptionIdentifierIndicator>true</subfltrsp-ext:InvalidSubscriptionIdentifierIndicator>
+</subfltrsp-exch:SubscriptionValidationFaultResponseMessage>
