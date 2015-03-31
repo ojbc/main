@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +36,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -145,6 +149,32 @@ public class XmlUtils {
         printNode(n, System.out);
     }
 
+    
+    /**
+     * Original intent was to represent root node as a string without 
+     * any xml comments at the top 
+     */
+    public static String getRootNodeAsString(String fileClasspath) throws Exception{
+    	
+        File file = new File(fileClasspath);    	
+    	Document doc = XmlUtils.parseFileToDocument(file);    	
+    	Element rootElement = doc.getDocumentElement();    	
+    	String sRoot = XmlUtils.getStringFromNode(rootElement);
+    	
+    	return sRoot;
+    }
+    
+    public static String getStringFromNode(Node node) throws Exception{
+    	
+    	StringWriter writer = new StringWriter();
+    	Transformer transformer = TransformerFactory.newInstance().newTransformer();
+    	transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+    	transformer.transform(new DOMSource(node), new StreamResult(writer));
+    	String xml = writer.toString();
+    	
+    	return xml;
+    }
+    
     /**
      * Print the specified XML DOM node to the specified output stream
      * 
