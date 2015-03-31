@@ -1,0 +1,3 @@
+		#foreach( $entry in $systemsToQuery.keySet())
+			<p id="checkbox-$entry"><input  type="checkbox" value="$systemsToQuery.get($entry)" checked="checked" ><span class="fieldText" >$entry</span></p>
+		#end

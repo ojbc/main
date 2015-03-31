@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exc:EntityMergeResultMessage
+	xmlns:ext="http://nij.gov/IEPD/Extensions/EntityMergeResultMessageExtensions/1.0"
+	xmlns:exc="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+ 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xsi:schemaLocation="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0 ../xsd/EntityMergeResultMessage.xsd">
+	<exc:EntityContainer>
+		<ext:Entity s:id="ISR001">
+			<ext1:IncidentSearchResult xmlns:s="http://niem.gov/niem/structures/2.0"
+                                xmlns:ext1="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
+                                xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+                                xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+				<ext1:Incident s:id="I001">
+					<nc:ActivityIdentification>
+						<nc:IdentificationID>12345</nc:IdentificationID>
+					</nc:ActivityIdentification>
+					<nc:ActivityDate>
+						<nc:DateTime>2012-04-01T12:00:00</nc:DateTime>
+					</nc:ActivityDate>
+					<ext1:IncidentCategoryCode>Law</ext1:IncidentCategoryCode>
+				</ext1:Incident>
+				<nc:Location s:id="L001">
+					<nc:LocationAddress>
+						<ext1:StructuredAddress>
+							<nc:LocationStreet>
+								<nc:StreetNumberText>101</nc:StreetNumberText>
+								<nc:StreetName>Main Street</nc:StreetName>
+							</nc:LocationStreet>
+							<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+							<nc:LocationCityName>Burlington</nc:LocationCityName>
+							<nc:LocationStateUSPostalServiceCode>VT
+							</nc:LocationStateUSPostalServiceCode>
+							<nc:LocationPostalCode>00000</nc:LocationPostalCode>
+							<ext1:LocationCityTownCode>Burlington</ext1:LocationCityTownCode>
+						</ext1:StructuredAddress>
+					</nc:LocationAddress>
+				</nc:Location>
+				<nc:Organization s:id="O001">
+					<nc:OrganizationName>PD 1</nc:OrganizationName>
+				</nc:Organization>
+				<nc:ActivityReportingOrganizationAssociation>
+					<nc:ActivityReference s:ref="I001" />
+					<nc:OrganizationReference s:ref="O001" />
+				</nc:ActivityReportingOrganizationAssociation>
+				<j:ActivityLocationAssociation>
+					<nc:ActivityReference s:ref="I001" />
+					<nc:LocationReference s:ref="L001" />
+				</j:ActivityLocationAssociation>
+				<ext1:SourceSystemNameText>Law Enforcement RMS</ext1:SourceSystemNameText>
+				<intel:SystemIdentifier>
+					<nc:IdentificationID>0903889888</nc:IdentificationID>
+					<intel:SystemName>Law Enforcement RMS</intel:SystemName>
+				</intel:SystemIdentifier>
+			</ext1:IncidentSearchResult>
+		</ext:Entity>
+		<ext:Entity s:id="ISR002">
+			<ext1:IncidentSearchResult xmlns:s="http://niem.gov/niem/structures/2.0"
+                                xmlns:ext1="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
+                                xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+                                xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+				<ext1:Incident s:id="I002">
+					<nc:ActivityIdentification>
+						<nc:IdentificationID>12345</nc:IdentificationID>
+					</nc:ActivityIdentification>
+					<nc:ActivityDate>
+						<nc:DateTime>2012-04-01T12:00:00</nc:DateTime>
+					</nc:ActivityDate>
+					<ext1:IncidentCategoryCode>Law</ext1:IncidentCategoryCode>
+				</ext1:Incident>
+				<nc:Location s:id="L002">
+					<nc:LocationAddress>
+						<ext1:StructuredAddress>
+							<nc:LocationStreet>
+								<nc:StreetNumberText>101</nc:StreetNumberText>
+								<nc:StreetName>Main Street</nc:StreetName>
+							</nc:LocationStreet>
+							<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+							<nc:LocationStateUSPostalServiceCode>VT
+							</nc:LocationStateUSPostalServiceCode>
+							<nc:LocationPostalCode>00000</nc:LocationPostalCode>
+							<ext1:LocationCityTownCode>Burlington</ext1:LocationCityTownCode>
+						</ext1:StructuredAddress>
+					</nc:LocationAddress>
+				</nc:Location>
+				<nc:Organization s:id="O002">
+					<nc:OrganizationName>PD 2</nc:OrganizationName>
+				</nc:Organization>
+				<nc:ActivityReportingOrganizationAssociation>
+					<nc:ActivityReference s:ref="I002" />
+					<nc:OrganizationReference s:ref="O002" />
+				</nc:ActivityReportingOrganizationAssociation>
+				<j:ActivityLocationAssociation>
+					<nc:ActivityReference s:ref="I002" />
+					<nc:LocationReference s:ref="L002" />
+				</j:ActivityLocationAssociation>
+				<ext1:SourceSystemNameText>Law Enforcement RMS</ext1:SourceSystemNameText>
+				<intel:SystemIdentifier>
+					<nc:IdentificationID>09038</nc:IdentificationID>
+					<intel:SystemName>Law Enforcement RMS</intel:SystemName>
+				</intel:SystemIdentifier>
+			</ext1:IncidentSearchResult>
+		</ext:Entity>
+	</exc:EntityContainer>
+	<exc:MergedRecords>
+		<ext:MergedRecord>
+			<ext:OriginalRecordReference s:ref="ISR001" />
+			<ext:OriginalRecordReference s:ref="ISR002" />
+			<ext:MergeQuality>
+				<ext:StringDistanceStatistics>
+					<ext:AttributeXPath></ext:AttributeXPath>
+					<ext:StringDistanceMeanInRecord>0.0</ext:StringDistanceMeanInRecord>
+					<ext:StringDistanceAverageInRecord>0.0</ext:StringDistanceAverageInRecord>
+					<ext:StringDistanceStandardDeviationInRecord>0.0</ext:StringDistanceStandardDeviationInRecord>
+				</ext:StringDistanceStatistics>
+			</ext:MergeQuality>
+		</ext:MergedRecord>
+	</exc:MergedRecords>
+	<exc:SearchResultsMetadataCollection>
+		<srm:SearchResultsMetadata>
+			<srer:SearchErrors>
+				<intel:SystemName>Law Enforcement RMS</intel:SystemName>
+				<srer:SearchResultsExceedThresholdError>
+					<srer:SearchResultsRecordCount>75660</srer:SearchResultsRecordCount>
+				</srer:SearchResultsExceedThresholdError>
+			</srer:SearchErrors>
+		</srm:SearchResultsMetadata>
+	</exc:SearchResultsMetadataCollection>
+</exc:EntityMergeResultMessage>

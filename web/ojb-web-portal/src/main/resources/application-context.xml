@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<context:property-placeholder
+		location="classpath:main/ojb-web-portal.cfg, classpath:config/ojb_web_external_resource.cfg"
+		ignore-unresolvable="true" />
+
+	<!--When running not as standalone, beans are read from OJB web connector -->
+	<beans profile="!standalone">
+		<import resource="classpath:/META-INF/spring/spring-beans-ojb-web-application-connector-context.xml" />
+	</beans>
+
+	<beans>
+		<context:component-scan base-package="org.ojbc.web">
+			<context:exclude-filter type="annotation"
+				expression="org.springframework.stereotype.Controller" />
+		</context:component-scan>
+	</beans>
+</beans>                      

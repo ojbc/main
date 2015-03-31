@@ -1,0 +1,57 @@
+<div id="subscriptionsLeftBarDiv">
+
+	<script type="text/javascript">
+	
+		$(function(){
+		 							         								
+			$('#subResultsFilterButton').click(function() {	
+																		
+				var formData = $('#filterSubscriptionForm').serialize();
+								             	
+		  		$.post("#springUrl('/subscriptions/filter')",  	
+		  			formData,	  		
+		  			function(data) {		  			
+    					$('#portalContent').html(data);	        									         					        				      
+					}
+				).fail(ojbc.displayFailMessage);				
+			});
+			
+			
+			$('#subResultsFilterClearButton').click (function() {	
+
+				var formData = 'subscriptionStatus=All';
+								             	
+		  		$.post("#springUrl('/subscriptions/filter')",  	
+		  			formData,	  		
+		  			function(data) {		  			
+    					$('#portalContent').html(data);	        									         					        				      
+					}
+				).fail(ojbc.displayFailMessage);
+			});
+								         		         		        
+		});
+	            
+	</script>   
+    
+        
+  #set($showSubFilter=$subscriptionFilterProperties['displaySubscriptionFilter'])		    
+  
+  #if($showSubFilter=="true")
+  		
+	<form id="filterSubscriptionForm">
+			  	  
+		<p class="headerText">SUBSCRIPTIONS FILTER</p>
+		<p class="instructionalText"> Enter Filter Criteria Here:</p>			
+
+		<div>
+			#springFormSingleSelect("subscriptionFilterCommand.subscriptionStatus" $subscriptionFilterValueToLabelMap "")
+		</div>					
+		 	    	        
+	</form>
+	
+	<input type="button" id="subResultsFilterButton" style="margin:4px" class="blueButton" value="FILTER RESULTS"></input>
+	<input type="button" id="subResultsFilterClearButton" style="margin:4px" class="blueButton" value="CLEAR"></input>
+  
+  #end 		    
+		      
+</div>

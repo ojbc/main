@@ -1,0 +1,100 @@
+ <script type="text/javascript">
+	  $(function() {
+	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+          $.ajaxSetup({ cache: false });
+    	  
+    	  $('#searchForm').validate({
+              rules: {
+              }
+          });
+    
+    	    $( "#searchTabs" ).tabs({ active: 0});
+    	    
+    	    $( ".datePicker" ).datepicker({
+    	       showOn: "both",
+    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+    	       buttonImageOnly: true,
+    	       shortYearCutoff: "+10",
+    	       dateFormat: 'mm/dd/yy',
+      	       onClose: function(dateText, inst) {
+          		$(this).datepicker('option', 'dateFormat', 'mm/dd/yy');      
+    	       }
+    	    });
+    	    
+    		$('#juvenileSearchSubmitButton').click (
+    			function(){
+                    var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+                
+		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+				        $('#portalContent').html(data);
+				        }).fail(ojbc.displayFailMessage)
+    		  	}
+    		)
+
+    	   $("a[href='\\#juvenileSearchTab']").click (
+                function(){
+                   $("#search-tab-title").html("ADVANCED SEARCH: PERSON");
+                }
+            )
+            
+			$('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
+			$('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
+			
+            #if( $personSearchCommand.advanceSearch.sourceSystems )
+	   			$('#sourceSystemsCheckBoxes input').prop("checked", false); 
+		        
+		        #foreach($selectedSourceSystem in $personSearchCommand.advanceSearch.sourceSystems)
+		        	$("#sourceSystemsCheckBoxes input[value='$selectedSourceSystem']").prop('checked',true);
+		        #end
+	        #else
+	        	$('#sourceSystemsCheckBoxes input').prop("checked", true); 
+			#end
+                        
+            $('#juvenileSearchClearButton').click (function(event){
+                  
+                  ojbc.clearSearchPurposeFields();
+                  ojbc.clearSearchResultsFilterFields();
+                  $.get("#springUrl('/people/searchForm?resetForm=true&activeSearchTab=juvenileSearchTab')", function(data) {
+                    $('#portalContent').html(data);
+                    
+                    
+                  }).fail(ojbc.displayFailMessage)
+              });
+
+			//This allows the input fields on the search form to submit form with enter key
+			$('#juvenileSearchTab input').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#juvenileSearchSubmitButton').click();
+			    }
+			});
+
+			//This allows the select fields on the search form to submit form with enter key			
+			$('#juvenileSearchTab select').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#juvenileSearchSubmitButton').click();
+			    }
+			});			
+
+    	    $('#demogFilterInfo').hide();    	       	    
+	    	$('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
+	    	$('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");    		
+			$('#sourceSystemsCheckBoxes > p > span').addClass("fieldText");     				
+       				    	    
+	  });
+  </script>
+
+<div id="sourceSystems" style="display: none;">
+	#parse('common/_systemsToQuery.vm')
+</div>
+<div id="sourceSystemsDisabled" style="display: none;">
+	#parse('common/_systemsToQuery_disabled.vm')
+</div>
+<div id="searchTabs" class="contentBox">
+    <div id="search-tab-title">PERSON SEARCH</div>
+    <ul>
+        <li><a href="#juvenileSearchTab">ADVANCED SEARCH</a></li>
+    </ul>
+	#parse('people/_juvenileSearchTab.vm')
+  
+  
+</div>
