@@ -280,6 +280,7 @@
                         <lexsdigest:EntityVehicle>
                             <nc:Vehicle s:id="vehicle1">
                                 <nc:ItemColorDescriptionText>Grey</nc:ItemColorDescriptionText>
+                                <nc:VehicleColorPrimaryCode>GRY</nc:VehicleColorPrimaryCode>
                                 <nc:ItemModelYearDate>2003</nc:ItemModelYearDate>
                                 <nc:ConveyanceRegistrationPlateIdentification>
                                     <nc:IdentificationID>9KS083</nc:IdentificationID>

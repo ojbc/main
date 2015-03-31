@@ -1,0 +1,437 @@
+<ir:IncidentReport xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+                   xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0"
+                   xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+                   xmlns:s="http://niem.gov/niem/structures/2.0"
+                   xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                   xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+                   xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+                   xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+                   xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+                   xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd">
+   <lexspd:doPublish>
+      <lexs:PublishMessageContainer>
+         <lexs:PublishMessage>
+            <lexs:PDMessageMetadata>
+               <lexs:LEXSVersion>3.1.4</lexs:LEXSVersion>
+               <lexs:MessageDateTime>2015-03-31T16:35:24.792-07:00</lexs:MessageDateTime>
+               <lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
+               <lexs:DataSensitivity>SBU</lexs:DataSensitivity>
+            </lexs:PDMessageMetadata>
+            <lexs:DataSubmitterMetadata>
+               <lexs:SystemIdentifier>
+                  <lexs:ORI>VT16560</lexs:ORI>
+                  <nc:OrganizationName>Random LEA</nc:OrganizationName>
+                  <lexs:SystemID>RMS</lexs:SystemID>
+               </lexs:SystemIdentifier>
+               <lexs:SystemContact>
+                  <nc:PersonGivenName>Jesus</nc:PersonGivenName>
+                  <nc:PersonSurName>Rhinehart</nc:PersonSurName>
+                  <nc:PersonFullName>Jesus E. Rhinehart</nc:PersonFullName>
+                  <nc:ContactTelephoneNumber>
+                     <nc:NANPTelephoneNumber>
+                        <nc:TelephoneAreaCodeID>802</nc:TelephoneAreaCodeID>
+                        <nc:TelephoneExchangeID>499</nc:TelephoneExchangeID>
+                        <nc:TelephoneLineID>8765</nc:TelephoneLineID>
+                     </nc:NANPTelephoneNumber>
+                  </nc:ContactTelephoneNumber>
+                  <nc:OrganizationName>Random LEA</nc:OrganizationName>
+               </lexs:SystemContact>
+            </lexs:DataSubmitterMetadata>
+            <lexs:DataItemPackage>
+               <lexs:PackageMetadata>
+                  <lexs:DataItemID>I0782720305</lexs:DataItemID>
+                  <lexs:DataItemContact>
+                     <nc:PersonGivenName>Jesus</nc:PersonGivenName>
+                     <nc:PersonSurName>Rhinehart</nc:PersonSurName>
+                     <nc:PersonFullName>Jesus E. Rhinehart</nc:PersonFullName>
+                     <nc:ContactTelephoneNumber>
+                        <nc:NANPTelephoneNumber>
+                           <nc:TelephoneAreaCodeID>802</nc:TelephoneAreaCodeID>
+                           <nc:TelephoneExchangeID>499</nc:TelephoneExchangeID>
+                           <nc:TelephoneLineID>8765</nc:TelephoneLineID>
+                        </nc:NANPTelephoneNumber>
+                     </nc:ContactTelephoneNumber>
+                  </lexs:DataItemContact>
+                  <lexs:DataItemReferenceID>I0782720305</lexs:DataItemReferenceID>
+                  <lexs:DataItemPublishInstruction>Insert</lexs:DataItemPublishInstruction>
+                  <lexs:DataItemStatus>Closed</lexs:DataItemStatus>
+                  <lexs:DataOwnerMetadata>
+                     <lexs:DataOwnerIdentifier>
+                        <lexs:ORI>VT16560</lexs:ORI>
+                        <nc:OrganizationName>Random LEA</nc:OrganizationName>
+                        <lexs:SystemID>RMS</lexs:SystemID>
+                     </lexs:DataOwnerIdentifier>
+                     <lexs:DataOwnerContact>
+                        <nc:PersonGivenName>Jim</nc:PersonGivenName>
+                        <nc:PersonSurName>Smith</nc:PersonSurName>
+                        <nc:PersonFullName>Jim M. Smith</nc:PersonFullName>
+                        <nc:ContactTelephoneNumber>
+                           <nc:NANPTelephoneNumber>
+                              <nc:TelephoneAreaCodeID>802</nc:TelephoneAreaCodeID>
+                              <nc:TelephoneExchangeID>822</nc:TelephoneExchangeID>
+                              <nc:TelephoneLineID>3209</nc:TelephoneLineID>
+                           </nc:NANPTelephoneNumber>
+                        </nc:ContactTelephoneNumber>
+                     </lexs:DataOwnerContact>
+                  </lexs:DataOwnerMetadata>
+                  <lexs:DisseminationCriteriaValue>
+                     <lexs:DisseminationCriteriaDomainText>N-DEx</lexs:DisseminationCriteriaDomainText>
+                     <lexs:DisseminationCriteriaText>Green</lexs:DisseminationCriteriaText>
+                  </lexs:DisseminationCriteriaValue>
+                  <lexs:DataItemCategory>
+                     <lexs:DataItemCategoryText>Incident Report</lexs:DataItemCategoryText>
+                  </lexs:DataItemCategory>
+               </lexs:PackageMetadata>
+               <lexs:Digest>
+                  <lexsdigest:EntityActivity>
+                     <nc:Activity s:id="I0782720305">
+                        <nc:ActivityIdentification>
+                           <nc:IdentificationID>I0782720305</nc:IdentificationID>
+                        </nc:ActivityIdentification>
+                        <nc:ActivityCategoryText>Incident</nc:ActivityCategoryText>
+                        <nc:ActivityDateRange>
+                           <nc:StartDate>
+                              <nc:DateTime>2010-07-15T16:35:23-07:00</nc:DateTime>
+                           </nc:StartDate>
+                           <nc:EndDate>
+                              <nc:DateTime>2010-07-15T19:16:58-07:00</nc:DateTime>
+                           </nc:EndDate>
+                        </nc:ActivityDateRange>
+                        <nc:ActivityDescriptionText>Domestic disturbance</nc:ActivityDescriptionText>
+                     </nc:Activity>
+                  </lexsdigest:EntityActivity>
+                  <lexsdigest:EntityActivity>
+                     <nc:Activity s:id="I0782720305-O1">
+                        <nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+                        <nc:ActivityDescriptionText>Domestic disturbance</nc:ActivityDescriptionText>
+                     </nc:Activity>
+                  </lexsdigest:EntityActivity>
+                  <lexsdigest:EntityPerson>
+                     <lexsdigest:Metadata>
+                        <nc:SourceIDText>I0782720305</nc:SourceIDText>
+                     </lexsdigest:Metadata>
+                     <lexsdigest:Person s:id="P-32c4de42-2beb-4d17-97bc-e9f2ee652d8b">
+                        <nc:PersonAgeMeasure>
+                           <nc:MeasurePointValue>55</nc:MeasurePointValue>
+                        </nc:PersonAgeMeasure>
+                        <nc:PersonBirthDate>
+                           <nc:Date>1960-01-16</nc:Date>
+                        </nc:PersonBirthDate>
+                        <nc:PersonName>
+                           <nc:PersonGivenName>Helene</nc:PersonGivenName>
+                           <nc:PersonSurName>Crawford</nc:PersonSurName>
+                        </nc:PersonName>
+                        <nc:PersonRaceText>U</nc:PersonRaceText>
+                        <nc:PersonSexCode>F</nc:PersonSexCode>
+                     </lexsdigest:Person>
+                     <jxdm40:Victim>
+                        <nc:RoleOfPersonReference s:ref="P-32c4de42-2beb-4d17-97bc-e9f2ee652d8b"/>
+                     </jxdm40:Victim>
+                  </lexsdigest:EntityPerson>
+                  <lexsdigest:EntityPerson>
+                     <lexsdigest:Metadata>
+                        <nc:SourceIDText>I0782720305</nc:SourceIDText>
+                     </lexsdigest:Metadata>
+                     <lexsdigest:Person s:id="P-3636ea91-b072-4d68-a190-8f03383fc689">
+                        <nc:PersonAgeMeasure>
+                           <nc:MeasurePointValue>66</nc:MeasurePointValue>
+                        </nc:PersonAgeMeasure>
+                        <nc:PersonBirthDate>
+                           <nc:Date>1948-04-24</nc:Date>
+                        </nc:PersonBirthDate>
+                        <nc:PersonName>
+                           <nc:PersonGivenName>Brian</nc:PersonGivenName>
+                           <nc:PersonSurName>Williams</nc:PersonSurName>
+                        </nc:PersonName>
+                        <nc:PersonRaceText>U</nc:PersonRaceText>
+                        <nc:PersonSexCode>M</nc:PersonSexCode>
+                     </lexsdigest:Person>
+                     <jxdm40:Suspect>
+                        <nc:RoleOfPersonReference s:ref="P-3636ea91-b072-4d68-a190-8f03383fc689"/>
+                     </jxdm40:Suspect>
+                  </lexsdigest:EntityPerson>
+                  <lexsdigest:EntityPerson>
+                     <lexsdigest:Person s:id="P-41c60deb-5adb-4b37-827a-444a5fbd466e">
+                        <nc:PersonName>
+                           <nc:PersonFullName>Virginia J. Samuel</nc:PersonFullName>
+                        </nc:PersonName>
+                     </lexsdigest:Person>
+                     <jxdm40:EnforcementOfficial>
+                        <nc:RoleOfPersonReference s:ref="P-41c60deb-5adb-4b37-827a-444a5fbd466e"/>
+                        <jxdm40:EnforcementOfficialBadgeIdentification>
+                           <nc:IdentificationID>B89814</nc:IdentificationID>
+                        </jxdm40:EnforcementOfficialBadgeIdentification>
+                        <jxdm40:EnforcementOfficialUnit>
+                           <jxdm40:EnforcementUnitBeatIdentification>
+                              <nc:IdentificationID>Patrol Sector 6</nc:IdentificationID>
+                           </jxdm40:EnforcementUnitBeatIdentification>
+                        </jxdm40:EnforcementOfficialUnit>
+                     </jxdm40:EnforcementOfficial>
+                  </lexsdigest:EntityPerson>
+                  <lexsdigest:EntityPerson>
+                     <lexsdigest:Person s:id="P-2f5407ff-e99e-4c88-8dce-44018c2c1d7e">
+                        <nc:PersonAgeMeasure>
+                           <nc:MeasurePointValue>62</nc:MeasurePointValue>
+                           <nc:TimeUnitCode>ANN</nc:TimeUnitCode>
+                        </nc:PersonAgeMeasure>
+                        <nc:PersonAlternateName>
+                           <nc:PersonGivenName>Herman A</nc:PersonGivenName>
+                           <nc:PersonSurName>Patterson</nc:PersonSurName>
+                        </nc:PersonAlternateName>
+                        <nc:PersonBirthDate>
+                           <nc:Date>1952-09-20</nc:Date>
+                        </nc:PersonBirthDate>
+                        <nc:PersonEyeColorText>Brown</nc:PersonEyeColorText>
+                        <nc:PersonHairColorText>Brown</nc:PersonHairColorText>
+                        <nc:PersonHeightMeasure>
+                           <nc:MeasurePointValue>73</nc:MeasurePointValue>
+                           <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+                        </nc:PersonHeightMeasure>
+                        <nc:PersonName>
+                           <nc:PersonGivenName>Herman</nc:PersonGivenName>
+                           <nc:PersonSurName>Patterson</nc:PersonSurName>
+                        </nc:PersonName>
+                        <nc:PersonOtherIdentification>
+                           <nc:IdentificationID>7473</nc:IdentificationID>
+                           <nc:IdentificationSourceText>org.search.ojb.samplegen.IncidentSampleGenerator</nc:IdentificationSourceText>
+                        </nc:PersonOtherIdentification>
+                        <nc:PersonRaceText>U</nc:PersonRaceText>
+                        <nc:PersonSexCode>M</nc:PersonSexCode>
+                        <nc:PersonSSNIdentification>
+                           <nc:IdentificationID>405-59-0232</nc:IdentificationID>
+                           <nc:IdentificationSourceText>SSA</nc:IdentificationSourceText>
+                        </nc:PersonSSNIdentification>
+                        <nc:PersonWeightMeasure>
+                           <nc:MeasurePointValue>181.7</nc:MeasurePointValue>
+                           <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+                        </nc:PersonWeightMeasure>
+                        <jxdm40:PersonAugmentation>
+                           <nc:DriverLicense>
+                              <nc:DriverLicenseIdentification>
+                                 <nc:IdentificationID>KY6198783</nc:IdentificationID>
+                                 <jxdm40:IdentificationJurisdictionNCICLISCode>KY</jxdm40:IdentificationJurisdictionNCICLISCode>
+                              </nc:DriverLicenseIdentification>
+                           </nc:DriverLicense>
+                           <jxdm40:PersonFBIIdentification>
+                              <nc:IdentificationID>174239NR4</nc:IdentificationID>
+                           </jxdm40:PersonFBIIdentification>
+                           <jxdm40:PersonStateFingerprintIdentification>
+                              <nc:IdentificationID>A9881316</nc:IdentificationID>
+                              <jxdm40:IdentificationJurisdictionNCICLISCode>KY</jxdm40:IdentificationJurisdictionNCICLISCode>
+                           </jxdm40:PersonStateFingerprintIdentification>
+                        </jxdm40:PersonAugmentation>
+                     </lexsdigest:Person>
+                     <jxdm40:IncidentSubject>
+                        <nc:RoleOfPersonReference s:ref="P-2f5407ff-e99e-4c88-8dce-44018c2c1d7e"/>
+                     </jxdm40:IncidentSubject>
+                  </lexsdigest:EntityPerson>
+                  <lexsdigest:EntityOrganization>
+                     <nc:Organization s:id="I0782720305-Org1">
+                        <nc:OrganizationCategoryText>Criminal Justice</nc:OrganizationCategoryText>
+                        <nc:OrganizationName>Elizabethtown PD</nc:OrganizationName>
+                     </nc:Organization>
+                  </lexsdigest:EntityOrganization>
+                  <lexsdigest:EntityTelephoneNumber>
+                     <lexsdigest:TelephoneNumber s:id="phone1">
+                        <nc:FullTelephoneNumber>
+                           <nc:TelephoneNumberFullID>270-932-9456</nc:TelephoneNumberFullID>
+                        </nc:FullTelephoneNumber>
+                     </lexsdigest:TelephoneNumber>
+                  </lexsdigest:EntityTelephoneNumber>
+                  <lexsdigest:EntityLocation>
+                     <nc:Location s:id="subject-residence">
+                        <nc:LocationAddress>
+                           <nc:StructuredAddress>
+                              <nc:LocationStreet>
+                                 <nc:StreetNumberText>2847</nc:StreetNumberText>
+                                 <nc:StreetName>Shady Pines Drive</nc:StreetName>
+                              </nc:LocationStreet>
+                              <nc:LocationCityName>Greensburg</nc:LocationCityName>
+                              <nc:LocationStateUSPostalServiceCode>KY</nc:LocationStateUSPostalServiceCode>
+                              <nc:LocationPostalCode>42743</nc:LocationPostalCode>
+                           </nc:StructuredAddress>
+                        </nc:LocationAddress>
+                     </nc:Location>
+                  </lexsdigest:EntityLocation>
+                  <lexsdigest:EntityLocation>
+                     <nc:Location s:id="incident-location">
+                        <nc:LocationAddress>
+                           <nc:StructuredAddress>
+                              <nc:LocationStreet>
+                                 <nc:StreetNumberText>4432</nc:StreetNumberText>
+                                 <nc:StreetName>Shady Pines Drive</nc:StreetName>
+                              </nc:LocationStreet>
+                              <nc:LocationCityName>Elizabethtown</nc:LocationCityName>
+                              <nc:LocationStateUSPostalServiceCode>KY</nc:LocationStateUSPostalServiceCode>
+                              <nc:LocationPostalCode>42701</nc:LocationPostalCode>
+                           </nc:StructuredAddress>
+                        </nc:LocationAddress>
+                     </nc:Location>
+                  </lexsdigest:EntityLocation>
+                  <lexsdigest:EntityVehicle>
+                     <nc:Vehicle s:id="vehicle1">
+                        <nc:ItemColorDescriptionText>Grey</nc:ItemColorDescriptionText>
+                        <nc:VehicleColorPrimaryCode>GRY</nc:VehicleColorPrimaryCode>
+                        <nc:ItemModelYearDate>1985</nc:ItemModelYearDate>
+                        <nc:ConveyanceRegistrationPlateIdentification>
+                           <nc:IdentificationID>B2E318</nc:IdentificationID>
+                        </nc:ConveyanceRegistrationPlateIdentification>
+                        <nc:VehicleIdentification>
+                           <nc:IdentificationID>V767227793477099330</nc:IdentificationID>
+                        </nc:VehicleIdentification>
+                        <nc:VehicleMakeCode>YANK</nc:VehicleMakeCode>
+                        <nc:VehicleModelCode>26S</nc:VehicleModelCode>
+                     </nc:Vehicle>
+                  </lexsdigest:EntityVehicle>
+                  <lexsdigest:EntityTangibleItem>
+                     <nc:TangibleItem s:id="item1">
+                        <nc:ItemDescriptionText>Crowbar</nc:ItemDescriptionText>
+                        <nc:ItemSerialIdentification>
+                           <nc:IdentificationID>90066565</nc:IdentificationID>
+                        </nc:ItemSerialIdentification>
+                        <nc:ItemCategoryText>Tool</nc:ItemCategoryText>
+                        <nc:ItemMakeName>Unknown</nc:ItemMakeName>
+                        <nc:ItemModelName>Unknown</nc:ItemModelName>
+                     </nc:TangibleItem>
+                  </lexsdigest:EntityTangibleItem>
+                  <lexsdigest:Associations>
+                     <jxdm40:ActivityEnforcementOfficialAssociation>
+                        <nc:ActivityReference s:ref="I0782720305"/>
+                        <nc:PersonReference s:ref="P-41c60deb-5adb-4b37-827a-444a5fbd466e"/>
+                     </jxdm40:ActivityEnforcementOfficialAssociation>
+                     <lexsdigest:EntityTelephoneNumberAssociation>
+                        <nc:PersonReference s:ref="P-2f5407ff-e99e-4c88-8dce-44018c2c1d7e"/>
+                        <lexsdigest:TelephoneNumberReference s:ref="phone1"/>
+                        <lexsdigest:TelephoneNumberPrimaryIndicator>true</lexsdigest:TelephoneNumberPrimaryIndicator>
+                        <lexsdigest:TelephoneNumberWorkIndicator>true</lexsdigest:TelephoneNumberWorkIndicator>
+                     </lexsdigest:EntityTelephoneNumberAssociation>
+                     <lexsdigest:IncidentLocationAssociation>
+                        <nc:ActivityReference s:ref="I0782720305"/>
+                        <nc:LocationReference s:ref="incident-location"/>
+                     </lexsdigest:IncidentLocationAssociation>
+                     <lexsdigest:IncidentOffenseAssociation>
+                        <nc:ActivityReference s:ref="I0782720305"/>
+                        <nc:ActivityReference s:ref="I0782720305-O1"/>
+                     </lexsdigest:IncidentOffenseAssociation>
+                     <lexsdigest:IncidentSubjectPersonAssociation>
+                        <nc:ActivityReference s:ref="I0782720305"/>
+                        <nc:PersonReference s:ref="P-2f5407ff-e99e-4c88-8dce-44018c2c1d7e"/>
+                     </lexsdigest:IncidentSubjectPersonAssociation>
+                     <lexsdigest:IncidentVictimPersonAssociation>
+                        <nc:ActivityReference s:ref="I0782720305"/>
+                        <nc:PersonReference s:ref="P-32c4de42-2beb-4d17-97bc-e9f2ee652d8b"/>
+                     </lexsdigest:IncidentVictimPersonAssociation>
+                     <lexsdigest:OffenseLocationAssociation>
+                        <nc:ActivityReference s:ref="I0782720305-O1"/>
+                        <nc:LocationReference s:ref="incident-location"/>
+                     </lexsdigest:OffenseLocationAssociation>
+                     <lexsdigest:OffenseWeaponAssociation>
+                        <nc:ActivityReference s:ref="I0782720305-O1"/>
+                        <nc:ItemReference s:ref="item1"/>
+                     </lexsdigest:OffenseWeaponAssociation>
+                     <lexsdigest:PersonContactAssociation>
+                        <nc:PersonReference s:ref="P-2f5407ff-e99e-4c88-8dce-44018c2c1d7e"/>
+                        <lexsdigest:ContactPersonTelephoneNumberReference s:ref="phone1"/>
+                     </lexsdigest:PersonContactAssociation>
+                     <nc:ActivityReportingOrganizationAssociation>
+                        <nc:ActivityReference s:ref="I0782720305"/>
+                        <nc:OrganizationReference s:ref="I0782720305-Org1"/>
+                     </nc:ActivityReportingOrganizationAssociation>
+                     <nc:PersonAssignedUnitAssociation>
+                        <nc:PersonReference s:ref="P-41c60deb-5adb-4b37-827a-444a5fbd466e"/>
+                        <nc:OrganizationReference s:ref="I0782720305-Org1"/>
+                     </nc:PersonAssignedUnitAssociation>
+                     <nc:ResidenceAssociation>
+                        <nc:PersonReference s:ref="P-2f5407ff-e99e-4c88-8dce-44018c2c1d7e"/>
+                        <nc:LocationReference s:ref="subject-residence"/>
+                     </nc:ResidenceAssociation>
+                  </lexsdigest:Associations>
+               </lexs:Digest>
+               <lexs:StructuredPayload s:id="ndex-sp">
+                  <lexs:StructuredPayloadMetadata>
+                     <lexs:CommunityURI>http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1</lexs:CommunityURI>
+                     <lexs:CommunityDescription>N-DEx IncidentArrest</lexs:CommunityDescription>
+                     <lexs:CommunityVersion>2.1</lexs:CommunityVersion>
+                  </lexs:StructuredPayloadMetadata>
+                  <ndexia:IncidentReport>
+                     <ndexia:Incident>
+                        <ndexia:ActivityStatus>
+                           <ndexia:ActivityStatusAugmentation>
+                              <ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+                           </ndexia:ActivityStatusAugmentation>
+                        </ndexia:ActivityStatus>
+                        <ndexia:IncidentAugmentation>
+                           <lexslib:SameAsDigestReference lexslib:ref="I0782720305"/>
+                           <ndexia:IncidentCaseNumberText>CASE85581556</ndexia:IncidentCaseNumberText>
+                        </ndexia:IncidentAugmentation>
+                     </ndexia:Incident>
+                     <ndexia:Offense>
+                        <ndexia:ActivityAugmentation>
+                           <lexslib:SameAsDigestReference lexslib:ref="I0782720305-O1"/>
+                        </ndexia:ActivityAugmentation>
+                        <jxdm40:IncidentStructuresEnteredQuantity>1.0</jxdm40:IncidentStructuresEnteredQuantity>
+                        <ndexia:CriminalActivityCategoryText>crime type</ndexia:CriminalActivityCategoryText>
+                        <ndexia:OffenseEntryPoint>
+                           <ndexia:PassagePointAugmentation>
+                              <ndexia:MethodOfAccessText>window</ndexia:MethodOfAccessText>
+                           </ndexia:PassagePointAugmentation>
+                        </ndexia:OffenseEntryPoint>
+                        <ndexia:OffenseText>Domestic disturbance</ndexia:OffenseText>
+                     </ndexia:Offense>
+                     <ndexia:Location>
+                        <nc:LocationAddress>
+                           <nc:StructuredAddress>
+                              <nc:LocationCountyName>Union</nc:LocationCountyName>
+                           </nc:StructuredAddress>
+                        </nc:LocationAddress>
+                        <ndexia:LocationAugmentation>
+                           <lexslib:SameAsDigestReference lexslib:ref="incident-location"/>
+                        </ndexia:LocationAugmentation>
+                     </ndexia:Location>
+                     <ndexia:Person>
+                        <ndexia:PersonPhysicalFeature>
+                           <nc:PhysicalFeatureCategoryText>tattoo</nc:PhysicalFeatureCategoryText>
+                        </ndexia:PersonPhysicalFeature>
+                        <ndexia:PersonAugmentation>
+                           <lexslib:SameAsDigestReference lexslib:ref="P-2f5407ff-e99e-4c88-8dce-44018c2c1d7e"/>
+                        </ndexia:PersonAugmentation>
+                     </ndexia:Person>
+                     <ndexia:Vehicle>
+                        <ndexia:VehicleAugmentation>
+                           <lexslib:SameAsDigestReference lexslib:ref="vehicle1"/>
+                           <ndexia:VehicleStyleCategoryCode>Automobile</ndexia:VehicleStyleCategoryCode>
+                        </ndexia:VehicleAugmentation>
+                     </ndexia:Vehicle>
+                     <ndexia:TangibleItem>
+                        <ndexia:TangibleItemAugmentation>
+                           <lexslib:SameAsDigestReference lexslib:ref="item1"/>
+                           <ndexia:ItemQuantityStatusValue>
+                              <nc:ItemQuantity>1</nc:ItemQuantity>
+                              <ndexia:ItemValue>
+                                 <nc:ItemValueAmount>50</nc:ItemValueAmount>
+                              </ndexia:ItemValue>
+                           </ndexia:ItemQuantityStatusValue>
+                        </ndexia:TangibleItemAugmentation>
+                     </ndexia:TangibleItem>
+                  </ndexia:IncidentReport>
+               </lexs:StructuredPayload>
+               <lexs:StructuredPayload s:id="ojbc-sp">
+                  <lexs:StructuredPayloadMetadata>
+                     <lexs:CommunityURI>http://www.ojbc.org</lexs:CommunityURI>
+                     <lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
+                     <lexs:CommunityVersion>1.0</lexs:CommunityVersion>
+                  </lexs:StructuredPayloadMetadata>
+                  <inc-ext:IncidentReport>
+                     <inc-ext:Incident>
+                        <inc-ext:IncidentCategoryCode>Warning</inc-ext:IncidentCategoryCode>
+                        <lexslib:SameAsDigestReference lexslib:ref="I0782720305"/>
+                     </inc-ext:Incident>
+                  </inc-ext:IncidentReport>
+               </lexs:StructuredPayload>
+            </lexs:DataItemPackage>
+         </lexs:PublishMessage>
+      </lexs:PublishMessageContainer>
+   </lexspd:doPublish>
+</ir:IncidentReport>

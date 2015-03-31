@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
 /**
@@ -44,7 +45,7 @@ public class TestIncidentSampleGenerator extends AbstractSampleGeneratorTestCase
     public void testBasic() throws Exception {
         List<Document> samples = sampleGenerator.generateSample(INSTANCE_COUNT, new DateTime(), "VT");
         assertEquals(INSTANCE_COUNT, samples.size());
-        //XmlUtils.printNode(samples.get(0));
+        XmlUtils.printNode(samples.get(0));
         // unfortunately, due to complexity of N-DEx IEPD, we are unable to validate instances against it via Java code
         // You can uncomment the above line, print the document to the console, paste it into a file, and validate that way...
     }
