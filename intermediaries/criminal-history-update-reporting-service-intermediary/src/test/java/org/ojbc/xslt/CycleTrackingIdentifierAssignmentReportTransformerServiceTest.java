@@ -79,9 +79,8 @@ public class CycleTrackingIdentifierAssignmentReportTransformerServiceTest {
 
 	@Test
 	public void cycleTrackingIdentifierAssignmentReportToNotificationTransform() throws Exception{
-		
-		String xml = FileUtils.readFileToString(new File( 
-				"src/test/resources/xmlInstances/cycleTrackingIdentifierAssignmentReport/Cycle-Tracking-Identifier-Assignment-Report.xml"));
+				
+		String xml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/cycleTrackingIdentifierAssignmentReport/Cycle-Tracking-Identifier-Assignment-Report.xml");
 		
 		String xslt = FileUtils.readFileToString(new File(
 				"src/main/resources/xslt/cycleTrackingIdentifierAssignmentReportToNotifications.xsl"));
@@ -92,6 +91,7 @@ public class CycleTrackingIdentifierAssignmentReportTransformerServiceTest {
 		transformAndValidate(xslt, xml,"output/notifications/notification.xml", paramsMap);
 	}
 	
+	//TODO FIXME - use XmlUnit instead of manual dom assertions
 	@Test
 	public void testCycleIdToNotifyTransform() throws Exception{
 				
@@ -189,8 +189,8 @@ public class CycleTrackingIdentifierAssignmentReportTransformerServiceTest {
 	
 	@SuppressWarnings("unchecked")
 	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedXMLPath, Map<String,Object> paramsMap) throws Exception {
-		
-		String expectedXml = FileUtils.readFileToString(new File("src/test/resources/xmlInstances/"+expectedXMLPath));
+						
+		String expectedXml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/"+expectedXMLPath);
 		
 		String convertedResult = xsltTransformerService.transform(createSource(inputXmlPath), createSource(xslPath), paramsMap);
 		
