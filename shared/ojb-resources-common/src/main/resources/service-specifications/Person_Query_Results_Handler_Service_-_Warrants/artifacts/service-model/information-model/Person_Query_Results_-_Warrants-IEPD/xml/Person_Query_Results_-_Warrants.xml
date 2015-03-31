@@ -56,7 +56,7 @@
 			<nc:PersonRaceCode>B</nc:PersonRaceCode>
 			<nc:PersonSexCode>M</nc:PersonSexCode>
 			<nc:PersonSSNIdentification>
-				<nc:IdentificationID>111-22-3333</nc:IdentificationID>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
 				<nc:IdentificationSourceText>SSA</nc:IdentificationSourceText>
 			</nc:PersonSSNIdentification>
 			<nc:PersonWeightMeasure>

@@ -69,7 +69,7 @@
 				<rap:PersonSexText>Female</rap:PersonSexText>
 				<rap:PersonSkinToneText>Albino</rap:PersonSkinToneText>
 				<nc:PersonSSNIdentification>
-					<nc:IdentificationID>String</nc:IdentificationID>
+					<nc:IdentificationID>123456789</nc:IdentificationID>
 				</nc:PersonSSNIdentification>
 				<nc:PersonWeightMeasure>
 					<nc:MeasureText>String</nc:MeasureText>
