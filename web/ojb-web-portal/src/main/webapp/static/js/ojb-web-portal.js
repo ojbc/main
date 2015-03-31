@@ -109,13 +109,6 @@ ojbc = {
 	    return false;
 	},
 		
-	initializeAllInputWithDefaultValue : function (){
-		ojbc.initializeInputWithDefaultValue('#simpleSearch','Search term(s)');
-		   
-//		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.personDateOfBirthRangeStart','(mm/dd/yyyy)');
-//		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.personDateOfBirthRangeEnd','(mm/dd/yyyy)');
-	},
-	
 	clearAllDefaultValues_incident : function () {
 		ojbc.clearDefaultValue('#advanceSearch\\.incidentNumber','Incident #');
 		ojbc.clearDefaultValue('#advanceSearch\\.incidentNature','Nature');

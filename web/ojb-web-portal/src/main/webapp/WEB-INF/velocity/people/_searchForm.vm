@@ -72,7 +72,7 @@
 
     		$('#juvenileSearchSubmitButton').click (
     			function(){
-                    var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+                    var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
                 
 		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
 				        $('#portalContent').html(data);
@@ -81,7 +81,7 @@
     		);
     		
     		$('#simpleSearchSubmitButton').click (function(){
-                var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+                var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
                 
 		  		$.post("#springUrl('/people/simpleSearch')",formData,function(data) {
 				      $('#portalContent').html(data);
@@ -144,9 +144,10 @@
                   }).fail(ojbc.displayFailMessage)
               });
               
-            $("#simpleSearch").keyup(function(event){
+            $("#simpleSearchTab input").keyup(function(event){
+            	console.log(event.keyCode);
     			if(event.keyCode == 13){
-        			$("#simpleSearchSubmitButton").click();
+			        $('#simpleSearchSubmitButton').click();
     			}
 			});
 			
@@ -177,9 +178,6 @@
 			    }
 			});			
 
-
-    	    ojbc.initializeAllInputWithDefaultValue();
-    	    
     	    $('#demogFilterInfo').hide();    	       	    
 	    	$('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
 	    	$('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");    		
@@ -207,7 +205,7 @@
 			<input type="hidden" name="${status.expression}" value="SIMPLE" /><br>
 	        <p> Enter search criteria below </p>
 	            <div>   
-	                #springFormInput("personSearchCommand.simpleSearch" "") <br/>
+	                #springFormInput("personSearchCommand.simpleSearch" "placeholder='Search Term(s)'") <br/>
 	                #springShowErrors( "<br/>" "error" )
 	             </div>
 	            
