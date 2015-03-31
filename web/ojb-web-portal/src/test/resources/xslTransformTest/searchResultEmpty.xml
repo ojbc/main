@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exc:EntityMergeResultMessage
+	xmlns:ext="http://nij.gov/IEPD/Extensions/EntityMergeResultMessageExtensions/1.0"
+	xmlns:exc="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xsi:schemaLocation="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0 ../xsd/EntityMergeResultMessage.xsd">
+	<exc:EntityContainer>
+
+	</exc:EntityContainer>
+	<exc:MergedRecords>
+
+	</exc:MergedRecords>
+</exc:EntityMergeResultMessage>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ssr:SubscriptionSearchResults xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" xmlns:ssr="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"><ssr-ext:SubscriptionSearchResult xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
+		<ssr-ext:Subscription>
+			<nc:ActivityDateRange>
+				<nc:StartDate>
+					<nc:Date>2003-01-01</nc:Date>
+				</nc:StartDate>
+			</nc:ActivityDateRange>
+			<ssr-ext:SubscriptionSubject>
+				<nc:RoleOfPersonReference s:ref="P0"/>
+			</ssr-ext:SubscriptionSubject>
+			<wsn-br:Topic xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/incident</wsn-br:Topic>
+			<ssr-ext:SubscribedEntity s:id="SE0"/>
+			<ssr-ext:SubscriptionOriginator>
+				<ssr-ext:SubscriptionOriginatorIdentification>
+					<nc:IdentificationID>IDP:USER:admin
+					</nc:IdentificationID>
+				</ssr-ext:SubscriptionOriginatorIdentification>
+			</ssr-ext:SubscriptionOriginator>
+			<ssr-ext:SubscriptionValidation>
+				<ssr-ext:SubscriptionValidatedDate>
+					<nc:Date>2003-02-01</nc:Date>
+				</ssr-ext:SubscriptionValidatedDate>
+			</ssr-ext:SubscriptionValidation>
+			<ssr-ext:SubscriptionGracePeriod>
+				<ssr-ext:SubscriptionGracePeriodDateRange>
+					<nc:StartDate>
+						<nc:Date>2003-10-01</nc:Date>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:Date>2003-12-31</nc:Date>
+					</nc:EndDate>
+				</ssr-ext:SubscriptionGracePeriodDateRange>
+			</ssr-ext:SubscriptionGracePeriod>
+		</ssr-ext:Subscription>
+		<ssr-ext:SourceSystemNameText>{http://something}someURI
+		</ssr-ext:SourceSystemNameText>
+		<intel:SystemIdentifier xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+			<nc:IdentificationID>62721</nc:IdentificationID>
+			<intel:SystemName>Subscriptions</intel:SystemName>
+		</intel:SystemIdentifier>
+	</ssr-ext:SubscriptionSearchResult><ssr-ext:Person xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" s:id="P0">
+		<nc:PersonBirthDate>
+			<nc:Date>1980-06-16</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonFullName>First Last</nc:PersonFullName>
+			<nc:PersonGivenName>First</nc:PersonGivenName>
+			<nc:PersonSurName>Last</nc:PersonSurName>
+		</nc:PersonName>
+	</ssr-ext:Person><nc:ContactInformation s:id="SE0CE1">
+		<nc:ContactEmailID>email4@email.com</nc:ContactEmailID>
+	</nc:ContactInformation><nc:ContactInformation s:id="SE0CE2">
+		<nc:ContactEmailID>email5@email.com</nc:ContactEmailID>
+	</nc:ContactInformation><ssr-ext:SubscribedEntityContactInformationAssociation xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
+		<ssr-ext:SubscribedEntityReference s:ref="SE0"/>
+		<nc:ContactInformationReference s:ref="SE0CE1"/>
+	</ssr-ext:SubscribedEntityContactInformationAssociation><ssr-ext:SubscribedEntityContactInformationAssociation xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
+		<ssr-ext:SubscribedEntityReference s:ref="SE0"/>
+		<nc:ContactInformationReference s:ref="SE0CE2"/>
+	</ssr-ext:SubscribedEntityContactInformationAssociation>
+</ssr:SubscriptionSearchResults>

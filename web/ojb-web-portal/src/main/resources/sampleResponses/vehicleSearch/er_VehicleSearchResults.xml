@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exc:EntityMergeResultMessage 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:s="http://niem.gov/niem/structures/2.0"
+ xmlns:exc="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0"
+ xmlns:ext="http://nij.gov/IEPD/Extensions/EntityMergeResultMessageExtensions/1.0">
+	<exc:EntityContainer>
+		<ext:Entity s:id="VSR001">
+		    <veh-ext:VehicleSearchResult 
+		        xmlns:veh-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+		        xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+		        xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+		        <veh-ext:Vehicle>
+		            <nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
+		            <nc:ItemModelName>Titan</nc:ItemModelName>
+		            <nc:ItemModelYearDate>2008</nc:ItemModelYearDate>
+		            <nc:ConveyanceRegistrationPlateIdentification>
+		                <nc:IdentificationID>ABC123</nc:IdentificationID>
+		            </nc:ConveyanceRegistrationPlateIdentification>
+		            <nc:VehicleIdentification>
+		                <nc:IdentificationID>1234567890ABCDEFGH</nc:IdentificationID>
+		            </nc:VehicleIdentification>
+		            <veh-ext:VehicleMakeCode>Nissan</veh-ext:VehicleMakeCode>
+		        </veh-ext:Vehicle>
+		        <veh-ext:SourceSystemNameText>Law Enforcement RMS</veh-ext:SourceSystemNameText>
+		        <intel:SystemIdentifier>
+		            <nc:IdentificationID>1234</nc:IdentificationID>
+		            <intel:SystemName>Law Enforcement RMS</intel:SystemName>
+		        </intel:SystemIdentifier>
+		    </veh-ext:VehicleSearchResult>		    
+		</ext:Entity>
+	    <ext:Entity s:id="VSR002">
+	        <veh-ext:VehicleSearchResult 
+	            xmlns:veh-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+	            xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	            xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+	            <veh-ext:Vehicle>
+	                <nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
+	                <nc:ItemModelName>Titan</nc:ItemModelName>
+	                <nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
+	                <nc:ConveyanceRegistrationPlateIdentification>
+	                    <nc:IdentificationID>CDF123</nc:IdentificationID>
+	                </nc:ConveyanceRegistrationPlateIdentification>
+	                <nc:VehicleIdentification>
+	                    <nc:IdentificationID>1234567890ABCDEFGH</nc:IdentificationID>
+	                </nc:VehicleIdentification>
+	                <veh-ext:VehicleMakeCode>Nissan</veh-ext:VehicleMakeCode>
+	            </veh-ext:Vehicle>
+	            <veh-ext:SourceSystemNameText>Law Enforcement RMS</veh-ext:SourceSystemNameText>
+	            <intel:SystemIdentifier>
+	                <nc:IdentificationID>1234</nc:IdentificationID>
+	                <intel:SystemName>Law Enforcement RMS</intel:SystemName>
+	            </intel:SystemIdentifier>
+	        </veh-ext:VehicleSearchResult>		    
+	    </ext:Entity>	    
+	</exc:EntityContainer>
+	<exc:MergedRecords>
+		<ext:MergedRecord>
+			<ext:OriginalRecordReference s:ref="VSR001" />
+			<ext:MergeQuality>
+				<ext:StringDistanceStatistics>
+					<ext:AttributeXPath></ext:AttributeXPath>
+					<ext:StringDistanceMeanInRecord>0.0</ext:StringDistanceMeanInRecord>
+					<ext:StringDistanceAverageInRecord>0.0</ext:StringDistanceAverageInRecord>
+					<ext:StringDistanceStandardDeviationInRecord>0.0</ext:StringDistanceStandardDeviationInRecord>
+				</ext:StringDistanceStatistics>
+			</ext:MergeQuality>
+		</ext:MergedRecord>
+	    <ext:MergedRecord>
+	        <ext:OriginalRecordReference s:ref="VSR002" />
+	        <ext:MergeQuality>
+	            <ext:StringDistanceStatistics>
+	                <ext:AttributeXPath></ext:AttributeXPath>
+	                <ext:StringDistanceMeanInRecord>0.0</ext:StringDistanceMeanInRecord>
+	                <ext:StringDistanceAverageInRecord>0.0</ext:StringDistanceAverageInRecord>
+	                <ext:StringDistanceStandardDeviationInRecord>0.0</ext:StringDistanceStandardDeviationInRecord>
+	            </ext:StringDistanceStatistics>
+	        </ext:MergeQuality>
+	    </ext:MergedRecord>
+	</exc:MergedRecords>
+</exc:EntityMergeResultMessage>

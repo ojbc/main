@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<bean id="driverLicenseExtractor" class="org.ojbc.web.portal.controllers.simpleSearchExtractors.DriverLicenseExtractor">
+		<property name="driversLicenseRegex" value="([a-zA-Z]{2})-(.+)|([Hh][0-9]{8})"/>	
+		<property name="defaultStateOfIssue" value="HI"/>
+	</bean>
+	
+	<bean id="simpleSearchParser" class="org.ojbc.web.portal.controllers.helpers.SimpleSearchParser">
+		<property name="driverLicenseExtractor" ref="driverLicenseExtractor"/>
+	</bean>
+	
+	<bean id="searchTermsTokenizer" class="org.ojbc.web.portal.services.SearchTermsTokenizer"/>
+	
+	
+	<bean id="currentUneditableStartDateStrategy" class="org.ojbc.web.model.subscription.add.CurrentUneditableStartDateStrategy" />
+	
+	<bean id="currentEditableStartDateStrategy" class="org.ojbc.web.model.subscription.add.CurrentEditableStartDateStrategy" />
+		
+	<bean id="blankEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.BlankEditableEndDateStrategy" />	
+	
+	<bean id="uneditableStartDateStrategy" class="org.ojbc.web.model.subscription.edit.UneditableStartDateStrategy" />
+	
+	
+	
+	<util:map id="subscriptionEndDateStrategyMap">	
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="blankEditableEndDateStrategy"/>		
+		<entry key="{http://ojbc.org/wsn/topics}:person/incident" value-ref="blankEditableEndDateStrategy"/>		
+	</util:map>
+	
+	<util:map id="subscriptionStartDateStrategyMap">	
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="currentUneditableStartDateStrategy"/>		
+		<entry key="{http://ojbc.org/wsn/topics}:person/incident" value-ref="currentEditableStartDateStrategy"/>		
+	</util:map>	
+	
+	
+	
+			
+	<util:map id="editSubscriptionStartDateStrategyMap">	
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="uneditableStartDateStrategy"/>	
+		<entry key="{http://ojbc.org/wsn/topics}:person/incident" value-ref="uneditableStartDateStrategy"/>		
+	</util:map>		
+	
+	
+	
+	<util:map id="searchProfilesEnabled" map-class="java.util.LinkedHashMap">
+		<!-- Valid values are 'enabled', 'disabled' and 'hidden' -->
+		<!-- 'enabled': clicking tab shows search form -->
+		<!-- 'disabled': clicking tab shows "Coming Soon" page  -->
+		<!-- 'hidden': tab not visible  -->
+		<entry key="people" value="enabled" />
+		<entry key="incident" value="hidden" />
+		<entry key="vehicle" value="hidden" />
+		<entry key="firearm" value="enabled" />
+	</util:map>
+	
+	<util:map id="searchPurposes">
+		<entry key="" value="Purpose"/>
+		<entry key="Administrative File Maintenance (A)" value="Administrative File Maintenance (A)"/>
+		<entry key="Criminal Justice (C)" value="Criminal Justice (C)"/>
+		<entry key="Domestic Violence and Stalking (D)" value="Domestic Violence and Stalking (D)"/>
+		<entry key="Weapons-Related Background Checks (F)" value="Weapons-Related Background Checks (F)"/>
+		<entry key="Housing (H)" value="Housing (H)"/>
+		<entry key="Interstate-Approved Noncriminal Justice (I)" value="Interstate-Approved Noncriminal Justice (I)"/>
+		<entry key="Criminal Justice Employment (J)" value="Criminal Justice Employment (J)"/>
+		<entry key="National Security (S)" value="National Security (S)"/>
+		<entry key="Exigent Procedures (X)" value="Exigent Procedures (X)"/>
+	</util:map>
+	
+	<util:map id="systemsToQuery_people" map-class="java.util.LinkedHashMap">
+		<entry key="Criminal History" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History" />
+		<entry key="Warrants" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants" />
+		<entry key="Firearms Registrations - Maui" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---FirearmsMaui" />
+	</util:map>
+	
+	<util:map id="systemsToQuery_people_disabled" map-class="java.util.LinkedHashMap">
+	</util:map>
+	
+	<util:map id="systemsToQuery_vehicles" map-class="java.util.LinkedHashMap">
+	</util:map>
+	
+	<util:map id="systemsToQuery_vehicles_disabled" map-class="java.util.LinkedHashMap">
+	</util:map>
+	
+	<util:map id="systemsToQuery_incidents" map-class="java.util.LinkedHashMap">
+	</util:map>
+	
+	<util:map id="systemsToQuery_incidents_disabled" map-class="java.util.LinkedHashMap">
+	</util:map>
+	
+	<util:map id="systemsToQuery_firearms" map-class="java.util.LinkedHashMap">
+		<entry key="Firearms Registrations - Maui" value="{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest-Maui" />
+	</util:map>
+	
+	<util:map id="systemsToQuery_firearms_disabled" map-class="java.util.LinkedHashMap">
+	</util:map>
+		
+	<util:map id="leftMenuLinks">
+		<entry key="homeLink" value="#" />
+		<entry key="stateGovLink" value="http://portal.ehawaii.gov/" />
+		<entry key="queryLink" value="#" />
+		<entry key="subscriptionsLink" value="#" />
+		<entry key="helpLink" value="#" />
+		<entry key="privacyPolicyLink" value="http://hijis.hawaii.gov/privacy-policies/" />		
+		<entry key="faqLink" value="#" />		
+		<entry key="suggestionFormLink" value="#" />		
+	</util:map>
+
+	<util:map id="leftBarLinks">
+	  <entry key="HIJIS" value="http://hijis.hawaii.gov" />
+	  <entry key="CJIS" value="https://www.cjisportal.com/HI/cjisaudit/index.pl" />
+	  <entry key="eBW" value="https://judiciary.ehawaii.gov/warrants/index.html" />
+	</util:map>
+	
+	<util:map id="subscriptionFilterProperties">
+		<entry key="displaySubscriptionFilter" value="true"/>
+		<entry key="validationDueWarningDays" value="30"/>
+	</util:map>	
+	
+	<!-- People-related maps -->
+
+	<util:map id="races" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Race" />
+		<entry key="I" value="American Indian or Alaskan Native" />
+		<entry key="A" value="Asian or Pacific Islander" />
+		<entry key="B" value="Black" />
+		<entry key="W" value="White" />
+		<entry key="U" value="Unknown" />
+	</util:map>
+
+	<util:map id="genders" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Gender" />
+		<entry key="M" value="Male" />
+		<entry key="F" value="Female" />
+		<entry key="U" value="Unknown - For Unidentified Only" />
+	</util:map>
+	
+	<util:map id="eyeColors" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Eye Color" />
+		<entry key="BLK" value="Black" />
+		<entry key="BLU" value="Blue" />
+		<entry key="BRO" value="Brown" />
+		<entry key="GRY" value="Gray" />
+		<entry key="GRN" value="Green" />
+		<entry key="HAZ" value="Hazel" />
+		<entry key="MAR" value="Maroon" />
+		<entry key="MUL" value="Multicolored" />
+		<entry key="PNK" value="Pink" />
+		<entry key="XXX" value="Unknown" />
+	</util:map>
+	
+	<util:map id="hairColors" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Hair Color" />
+		<entry key="BLK" value="Black" />
+		<entry key="BLN" value="Blond or Strawberry" />
+		<entry key="BLU" value="Blue" />
+		<entry key="BRO" value="Brown" />
+		<entry key="GRY" value="Gray or Partially Gray" />
+		<entry key="GRN" value="Green" />
+		<entry key="ONG" value="Orange" />
+		<entry key="PNK" value="Pink" />
+		<entry key="PLE" value="Purple" />
+		<entry key="RED" value="Red or Auburn" />
+		<entry key="SDY" value="Sandy" />
+		<entry key="XXX" value="Unknown or Bald" />		
+		<entry key="WHI" value="White" />
+	</util:map>
+	
+	<!-- Incidents-related maps -->
+	<util:map id="cityTowns" map-class="java.util.LinkedHashMap">
+		<entry key="" value="City/Town" />
+		<entry key="Honolulu" value="Honolulu" />
+		<entry key="Kona" value="Kona" />
+		<entry key="Lahaina" value="Lahaina" />
+	</util:map> 
+	
+	<util:map id="incidentTypes" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Type" />
+		<entry key="Type1" value="Type1 (needs definition)" />
+		<entry key="Type2" value="Type2 (needs definition)" />
+	</util:map> 
+	
+	<!-- Vehicles-related maps -->
+	<util:map id="makes" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Make" />
+		<entry key="Chevrolet" value="Chevrolet" />
+		<entry key="Ford" value="Ford" />
+		<entry key="Toyota" value="Toyota" />
+		<entry key="Volkswagen" value="Volkswagen" />
+	</util:map> 
+	
+	<util:map id="colors" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Color" />
+		<entry key="Black" value="Black" />
+		<entry key="Blue" value="Blue" />
+		<entry key="Gold" value="Gold" />
+		<entry key="Red" value="Red" />
+		<entry key="White" value="White" />
+	</util:map> 
+	
+	<!-- Firearms-related maps -->
+	<util:map id="firearmTypes" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Firearm Type" />
+		<entry key="F" value="Ammunition" />
+		<entry key="H" value="Bomb" />
+		<entry key="A" value="Cannon" />
+		<entry key="D" value="Disguised Gun" />
+		<entry key="E" value="Electric Shock Gun" />
+		<entry key="G" value="Grenade" />
+		<entry key="M" value="Machine Gun" />
+		<entry key="I" value="Mine" />
+		<entry key="J" value="Missile" />
+		<entry key="O" value="Mortar" />
+		<entry key="P" value="Pistol" />
+		<entry key="R" value="Rifle" />
+		<entry key="C" value="Rifle-Shotgun Combination" />
+		<entry key="K" value="Rocket" />
+		<entry key="S" value="Shotgun" />
+		<entry key="Q" value="Shotgun Pistol" />
+		<entry key="V" value="Silencer (muffler or sound moderator)" />
+		<entry key="B" value="Submachine gun or machine pistol" />
+		<entry key="Z" value="All others (must fill in MIS field)" />
+	</util:map> 
+	
+	<!-- This map is used to map the search details ('DETAILS' link) to the xsl that will transfrom the data to html.  Format is System Name to file name in the src/main/resources/xsl directory -->
+    <util:map id="searchDetailToXsl" >
+        <entry key="Warrants" value="warrants.xsl" />
+        <entry key="Criminal History" value="criminalhistory.xsl" />
+        <entry key="Firearm Reg." value="firearm-details.xsl" />
+        <entry key="Maui County" value="firearm-details.xsl" />
+    </util:map>
+    
+    <!-- This map is used to allow conditional includes into the Velocity templates based upon state-specific needs.
+    For example, if the value is non-empty for 'preBodyClose', the filename it specifies (relative to "stateSpecific" directory)
+    will be sourced in before the </body> tag.  -->
+    <util:map id="stateSpecificIncludes">
+    	<entry key="preBodyClose" value="tracker/HIJIS_Tracker.js" />
+    </util:map>
+    
+    <!-- This map will decide which base template is used as the 'home' page 
+    landingPage
+    query
+    -->
+    <util:map id="stateSpecificHomePage">
+      <entry key="thisHomePage" value="landingPage" />
+    </util:map>
+
+	<!-- for the add subscription modal  -->
+	<util:map id="subscriptionTypeValueToLabelMap" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Subscription Type"/>
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value="Arrest"/>
+	</util:map>   
+	
+	<!-- for the filter subscription form -->
+	<util:map id="subscriptionFilterValueToLabelMap" map-class="java.util.LinkedHashMap">
+		<entry key="Active" value="Active"/>
+		<entry key="Inactive" value="Inactive"/>
+		<entry key="Expiring" value="Expiring"/>
+	</util:map> 	
+	
+	<util:map id="subscribedPersonNameValueToLabelMap" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Name"/>
+	</util:map>     
+
+</beans>                      
+
+
+
+

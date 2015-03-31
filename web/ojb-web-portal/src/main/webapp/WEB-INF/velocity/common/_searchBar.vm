@@ -1,0 +1,52 @@
+<script type="text/javascript">
+        $(function(){
+        	var reStyleButtonsBasedOnSelection = function() {
+        			// Make the selected search button blue, and the others gray
+        			
+        	        $(this).siblings().addClass('grayButton').removeClass('blueButton');
+        	        $(this).siblings().find('div').removeClass('activeSearchLink');
+    				$(this).removeClass('grayButton').addClass('blueButton');
+    				$(this).find('div').addClass('activeSearchLink');
+        	};
+        	
+        	$('#searchBar a').click (reStyleButtonsBasedOnSelection);
+        	
+        	$('#peopleSearchLink').click (function() { 
+		    		return ojbc.populatePortalContentFromUrl("#springUrl('/people/searchForm')")
+		    	}
+    		 )
+    		 
+    		$('#incidentSearchLink').click (function() {
+    				return ojbc.populatePortalContentFromUrl("#springUrl('/incidents/searchForm')");
+    			}
+    		 )
+    		 
+        	$('#vehicleSearchLink').click (function() {
+    				return ojbc.populatePortalContentFromUrl("#springUrl('/vehicles/searchForm')");
+    			}
+    		 )
+    		 
+    		$('#firearmSearchLink').click (function() {
+    				return ojbc.populatePortalContentFromUrl("#springUrl('/firearms/searchForm')");
+    			}
+    		 )
+    		     		 
+    		$('#peopleSearchLinkDisabled, #incidentSearchLinkDisabled, #vehicleSearchLinkDisabled, #firearmSearchLinkDisabled').click (function() {
+    				return ojbc.populatePortalContentFromUrl("#springUrl('/static/html/comingSoon.html')");
+    			}
+    		 )
+        })
+        
+
+</script>
+
+<div id="searchBar" >
+	<div style="float:right" id="loggedInUserInfo">
+		<img src="#springUrl('/static/images/Search Bar/icon-user.png')" alt="User Icon"/> Welcome, $!currentUserName
+	</div>
+	<div style="float: left" id="searchBarButtonDiv">
+		<!-- do not add spaces between <a> tags -->
+		<!-- <a id="peopleSearchLink" class="blueButton" href="#"><div class="activeSearchLink"></div>PERSON SEARCH</a><a id="incidentSearchLink" class="grayButton" href="#"><div></div>INCIDENT SEARCH</a><a id="vehicleSearchLink" class="grayButton" href="#"><div></div>VEHICLE SEARCH</a><a id="firearmSearchLink" class="grayButton" href="#"><div></div>FIREARM SEARCH</a>-->
+		$searchLinksHtml
+	</div>
+</div>

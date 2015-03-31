@@ -1,0 +1,48 @@
+		<p class="headerText" style="margin-top:5px">DEMOGRAPHICS</p>
+		<form id="filterForm"  class=filterFormClass>
+	        <table cellpadding="0" cellspacing="0" style="height:100%" class="fieldText" >
+	            <tr>
+	            	<td id=demogErrors>
+		            	#springBind("personFilterCommand.filterAgeRangeStart")
+			  		    #springShowErrors( "<br />" "error" )
+		            	#springBind("personFilterCommand.filterHeightInFeet")
+			  		    #springShowErrors( "<br />" "error" )	
+			  		    #springBind("personFilterCommand.filterWeight")
+			  		    #springShowErrors( "<br />" "error" )
+		  		    </td>
+		  		</tr>	          
+	          <tr >
+	         	<td>
+		        	<span>Age Range:
+		  		     #springFormInput("personFilterCommand.filterAgeRangeStart" "") to #springFormInput("personFilterCommand.filterAgeRangeEnd" "")<span>
+	            </td>	
+	          </tr>        
+	          <tr>
+	         	<td>
+	         		#springFormSingleSelect("personFilterCommand.filterPersonRaceCode" $races "" )             
+	            </td>	
+	          </tr>
+	           <tr>
+	         	<td>
+	         		#springFormSingleSelect("personFilterCommand.filterPersonEyeColor" $eyeColors "" )             
+	            </td>	
+	          </tr>
+	          <tr>
+	         	<td>
+	         		#springFormSingleSelect("personFilterCommand.filterPersonHairColor" $hairColors "" )             
+	            </td>	
+	          </tr>  
+	          <tr>
+				<td>
+		        	<span>Height: #springFormInput("personFilterCommand.filterHeightInFeet" "")' #springFormInput("personFilterCommand.filterHeightInInches" "")" +/-#springFormInput("personFilterCommand.filterHeightTolerance" "")"</span> 
+	      		</td>
+	      	</tr> 
+	      	<tr>
+				<td>
+		        	<span>Weight: #springFormInput("personFilterCommand.filterWeight" "")+/-#springFormInput("personFilterCommand.filterWeightTolerance" "")</span>
+	      		</td>
+	      	</tr>   
+	        </table>
+        </form>
+		<input type="button" id="filterSearchResults" class="blueButton" value="FILTER RESULTS" >  </input>
+		<input type="button" id="filterClear" class="blueButton" value="CLEAR" >  </input> 

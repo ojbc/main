@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exc:EntityMergeResultMessage 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:s="http://niem.gov/niem/structures/2.0"
+ xmlns:exc="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0"
+ xmlns:ext="http://nij.gov/IEPD/Extensions/EntityMergeResultMessageExtensions/1.0"
+ xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+ xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+ xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
+ xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
+ xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+  >
+	<exc:EntityContainer >
+		<ext:Entity s:id="FSR003">
+	    	<ext1:FirearmSearchResult s:id="FSR3" 
+	    		xmlns:ext1="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0" 
+	    		xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+				<nc:Person s:id="REGISTRANT-3">
+					<nc:PersonName>
+						<nc:PersonFullName>Kelly Smith</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:Person>
+				<ext1:Firearm s:id="FIREARM-3">
+					<nc:ItemSerialIdentification>
+						<nc:IdentificationID>9291044</nc:IdentificationID>
+					</nc:ItemSerialIdentification>
+					<nc:ItemModelName>Gold Hunter</nc:ItemModelName>
+					<nc:FirearmCategoryCode>F</nc:FirearmCategoryCode>
+					<nc:FirearmCategoryDescriptionCode>A</nc:FirearmCategoryDescriptionCode>
+					<hi:FirearmCaliberCode>9mm</hi:FirearmCaliberCode>
+					<hi:FirearmMakeCode>AS03</hi:FirearmMakeCode>
+				</ext1:Firearm>
+				<ext1:ItemRegistration s:id="REGISTRATION-3">
+					<nc:RegistrationIdentification>
+						<nc:IdentificationID>1234567</nc:IdentificationID>
+					</nc:RegistrationIdentification>
+					<nc:LocationCountyName>Williams</nc:LocationCountyName>
+					<nc:RegistrationEffectiveDate>
+						<nc:Date>2011-09-07</nc:Date>
+					</nc:RegistrationEffectiveDate>
+					<ext1:RegistrationStatus>
+						<hi:FirearmRegistrationStatusCode>A</hi:FirearmRegistrationStatusCode>
+					</ext1:RegistrationStatus>
+				</ext1:ItemRegistration>
+				<nc:PropertyRegistrationAssociation>
+					<nc:ItemRegistrationReference s:ref="REGISTRATION-3"/>
+					<nc:ItemReference s:ref="FIREARM-3"/>
+					<nc:ItemRegistrationHolderReference s:ref="REGISTRANT-3"/>
+				</nc:PropertyRegistrationAssociation>
+				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest</ext1:SourceSystemNameText>
+				<intel:SystemIdentifier>
+					<nc:IdentificationID>123456</nc:IdentificationID>
+					<intel:SystemName>Statewide Firearm Registry</intel:SystemName>
+				</intel:SystemIdentifier>					
+			</ext1:FirearmSearchResult>
+		</ext:Entity>
+		<ext:Entity s:id="FSR001">
+	    	<ext1:FirearmSearchResult s:id="FSR1" 
+	    		xmlns:ext1="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0" 
+	    		xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+				<nc:Person s:id="REGISTRANT-1">
+					<nc:PersonName>
+						<nc:PersonFullName>Joe Smith</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:Person>
+				<ext1:Firearm s:id="FIREARM-1">
+					<nc:ItemSerialIdentification>
+						<nc:IdentificationID>9291044</nc:IdentificationID>
+					</nc:ItemSerialIdentification>
+					<nc:ItemModelName>Gold Hunter</nc:ItemModelName>
+					<nc:FirearmCategoryCode>F</nc:FirearmCategoryCode>
+					<nc:FirearmCategoryDescriptionCode>A</nc:FirearmCategoryDescriptionCode>
+					<hi:FirearmCaliberCode>9</hi:FirearmCaliberCode>
+					<hi:FirearmMakeCode>AS03</hi:FirearmMakeCode>
+				</ext1:Firearm>
+				<ext1:ItemRegistration s:id="REGISTRATION-1">
+					<nc:RegistrationIdentification>
+						<nc:IdentificationID>123456</nc:IdentificationID>
+					</nc:RegistrationIdentification>
+					<nc:LocationCountyName>Williams</nc:LocationCountyName>
+					<nc:RegistrationEffectiveDate>
+						<nc:Date>2011-09-07</nc:Date>
+					</nc:RegistrationEffectiveDate>
+					<ext1:RegistrationStatus>
+						<hi:FirearmRegistrationStatusCode>A</hi:FirearmRegistrationStatusCode>
+					</ext1:RegistrationStatus>
+				</ext1:ItemRegistration>
+				<nc:PropertyRegistrationAssociation>
+					<nc:ItemRegistrationReference s:ref="REGISTRATION-1"/>
+					<nc:ItemReference s:ref="FIREARM-1"/>
+					<nc:ItemRegistrationHolderReference s:ref="REGISTRANT-1"/>
+				</nc:PropertyRegistrationAssociation>
+				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest</ext1:SourceSystemNameText>
+				<intel:SystemIdentifier>
+					<nc:IdentificationID>654321</nc:IdentificationID>
+					<intel:SystemName>Statewide Firearm Registry</intel:SystemName>
+				</intel:SystemIdentifier>					
+			</ext1:FirearmSearchResult>
+		</ext:Entity>
+	    <ext:Entity s:id="FSR002">
+        	<ext1:FirearmSearchResult s:id="FSR2"  
+	    		xmlns:ext1="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0" 
+	    		xmlns:nc="http://niem.gov/niem/niem-core/2.0">>
+				<nc:Person s:id="REGISTRANT-3">
+					<nc:PersonName>
+						<nc:PersonFullName>Joe Battle</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:Person>
+				<ext1:Firearm s:id="FIREARM-3">
+					<nc:ItemSerialIdentification>
+						<nc:IdentificationID>1234567</nc:IdentificationID>
+					</nc:ItemSerialIdentification>
+					<nc:ItemModelName>870 Express Magnum</nc:ItemModelName>
+					<nc:FirearmCategoryCode>F</nc:FirearmCategoryCode>
+					<nc:FirearmCategoryDescriptionCode>A</nc:FirearmCategoryDescriptionCode>
+					<nc:FirearmGaugeText>.410</nc:FirearmGaugeText>
+					<hi:FirearmMakeCode>AS03</hi:FirearmMakeCode>
+				</ext1:Firearm>
+				<ext1:ItemRegistration s:id="REGISTRATION-3">
+					<nc:RegistrationIdentification>
+						<nc:IdentificationID>123456</nc:IdentificationID>
+					</nc:RegistrationIdentification>
+					<nc:LocationCountyName>Williams</nc:LocationCountyName>
+					<nc:RegistrationEffectiveDate>
+						<nc:Date>2008-09-07</nc:Date>
+					</nc:RegistrationEffectiveDate>
+					<ext1:RegistrationStatus>
+						<hi:FirearmRegistrationStatusCode>A</hi:FirearmRegistrationStatusCode>
+					</ext1:RegistrationStatus>
+				</ext1:ItemRegistration>
+				<nc:PropertyRegistrationAssociation>
+					<nc:ItemRegistrationReference s:ref="REGISTRATION-3"/>
+					<nc:ItemReference s:ref="FIREARM-3"/>
+					<nc:ItemRegistrationHolderReference s:ref="REGISTRANT-3"/>
+				</nc:PropertyRegistrationAssociation>
+				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest</ext1:SourceSystemNameText>
+				<intel:SystemIdentifier>
+					<nc:IdentificationID>123456</nc:IdentificationID>
+					<intel:SystemName>Statewide Firearm Registry</intel:SystemName>
+				</intel:SystemIdentifier>					
+			</ext1:FirearmSearchResult>
+	    </ext:Entity>	    
+	</exc:EntityContainer>
+	<exc:MergedRecords>
+		<ext:MergedRecord>
+	        <ext:OriginalRecordReference s:ref="FSR002" />
+	        <ext:MergeQuality>
+	            <ext:StringDistanceStatistics>
+	                <ext:AttributeXPath></ext:AttributeXPath>
+	                <ext:StringDistanceMeanInRecord>0.0</ext:StringDistanceMeanInRecord>
+	                <ext:StringDistanceAverageInRecord>0.0</ext:StringDistanceAverageInRecord>
+	                <ext:StringDistanceStandardDeviationInRecord>0.0</ext:StringDistanceStandardDeviationInRecord>
+	            </ext:StringDistanceStatistics>
+	        </ext:MergeQuality>
+	    </ext:MergedRecord>
+		<ext:MergedRecord>
+			<ext:OriginalRecordReference s:ref="FSR003" />
+			<ext:OriginalRecordReference s:ref="FSR001" />
+			<ext:MergeQuality>
+				<ext:StringDistanceStatistics>
+					<ext:AttributeXPath></ext:AttributeXPath>
+					<ext:StringDistanceMeanInRecord>0.0</ext:StringDistanceMeanInRecord>
+					<ext:StringDistanceAverageInRecord>0.0</ext:StringDistanceAverageInRecord>
+					<ext:StringDistanceStandardDeviationInRecord>0.0</ext:StringDistanceStandardDeviationInRecord>
+				</ext:StringDistanceStatistics>
+			</ext:MergeQuality>
+		</ext:MergedRecord>
+	</exc:MergedRecords>
+</exc:EntityMergeResultMessage>

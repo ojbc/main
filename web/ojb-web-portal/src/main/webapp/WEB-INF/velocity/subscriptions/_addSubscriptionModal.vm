@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+ <script type="text/javascript">
+	  $(function() {	    	  
+    		        
+    	   //refresh when page displayed in case there's a default sub type value set already        
+    	   refreshDisplayFromSubType();
+    		    		
+    		$('#addSubModalSaveLink').click(
+    			function(){
+    			
+				  	var subTypeEl = document.getElementById('subscriptionAddRequest.subscriptionType');
+				  	var subTypeElVal = subTypeEl.options[subTypeEl.selectedIndex].text;
+					
+					if(subTypeElVal == 'Arrest'){						
+					
+						saveArrestSubscritption();																						
+					
+					}else if(subTypeElVal == 'Incident'){
+							
+						saveIncidentSubscription();				  						
+					}else{
+						alert('Subscription type must be specified');
+					}    			    			    											    				    						  				  					
+    			}
+    		)
+    		
+    		$('#addSubModalCancelLink').click(
+    			function(){
+    				$("#addSubscriptionDialog").dialog('close');
+    			}
+    		)
+	  });	
+	  
+	  	  
+	  function saveArrestSubscritption(){	  
+			    				    				
+		var personNameEl = document.getElementById('personNameSelect');
+		var personNameVal = personNameEl.options[personNameEl.selectedIndex].value;
+		
+		var formData = $('#subscriptionForm').serialize() + "&subscriptionAddRequest.fullName=" + personNameVal;    				
+		
+  		$.get("#springUrl('/subscriptions/saveSubscription')", 
+  			formData,
+  			function(data){		
+  					  		  	
+  				var errorString = '';			
+  				
+  				if(data != null && data != ''){
+					$.each(JSON.parse(data), function( index, value ) {												
+						errorString += '\n ' + value;																											
+					});
+					alert(errorString);				  							  				
+  				}else{
+					refreshAfterSaveSubscription();
+				}														  						  						  				  			
+  			},
+  			"text"
+  		).fail(ojbc.displayFailMessage);				  				  									  	  
+	  }
+	  
+	  
+	  function saveIncidentSubscription(){
+	  
+	  	var firstName = document.getElementById('subscriptionAddRequest.firstName').value;	  		  	
+	  	var lastName = document.getElementById('subscriptionAddRequest.lastName').value;
+	  	// note we don't have a full name field, so just concatinate first & last with a space
+	  	var fullName = firstName + ' ' + lastName;
+	  		  
+		var formData = $('#subscriptionForm').serialize() + "&subscriptionAddRequest.fullName=" + fullName;    		
+					
+  		$.get("#springUrl('/subscriptions/saveSubscription')", 
+  			formData,
+  			function(data){		
+  					  		  	
+  				var errorString = '';			
+  				
+  				if(data != null && data != ''){
+					$.each(JSON.parse(data), function( index, value ) {												
+						errorString += '\n ' + value;																											
+					});
+					alert(errorString);				  							  				
+  				}else{
+					refreshAfterSaveSubscription();
+				}														  						  						  				  			
+  			},
+  			"text"
+  		).fail(ojbc.displayFailMessage);		  
+	  }
+	  
+	  
+	  function refreshAfterSaveSubscription(){
+	  
+  		$("#addSubscriptionDialog").dialog('close');
+  		
+  		// redisplay subscription results having the new subscription 
+		$.post("#springUrl('/subscriptions/subscriptionResults')", 
+			function(data) {										
+		      $('#portalContent').html(data);					      
+			}
+		).fail(ojbc.displayFailMessage);	  
+	  }
+	  
+	  
+	  function refreshDisplayFromSubType(){	  
+
+		//TODO use jquery or spring to get selection - to be cleaner
+	  	var subTypeEl = document.getElementById('subscriptionAddRequest.subscriptionType');
+	  	var subTypeElVal = subTypeEl.options[subTypeEl.selectedIndex].text;
+		
+		if(subTypeElVal == 'Arrest'){						
+			
+	  		$.get("#springUrl('/subscriptions/arrestForm')", 
+	  			function(data){		  			
+	  				$('#subModalDynamicContents').html(data);			  						  				  				
+	  			}
+	  		).fail(ojbc.displayFailMessage);				
+															
+		}else if(subTypeElVal == 'Incident'){		
+						
+	  		$.get("#springUrl('/subscriptions/incidentForm')", 
+	  			function(data){		  			
+	  				$('#subModalDynamicContents').html(data);			  						  				  				
+	  			}
+	  		).fail(ojbc.displayFailMessage);
+	  						
+		}else{
+			$('#subModalDynamicContents').html('');
+		} 		
+	  }
+
+</script>
+
+
+<div style="width:230px;height:400px;" id="modalIframeSpinner"></div>
+
+<!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
+<div style="width:230px;height:400px;" id="subFormDiv">
+	<form id="subscriptionForm">  	  
+		<div>
+			#springFormSingleSelect("subscriptionAddCommand.subscriptionAddRequest.subscriptionType" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")		
+		</div>			
+		
+		<div id="subModalDynamicContents"/>	 	    	        
+	</form>
+</div>
+  
+<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
+ 	<div id="subModalButtonDiv">
+        <a  id="addSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
+        <a  id="addSubModalSaveLink" class="blueButton" href="#">SAVE</a>
+    </div>            
+</div>	  
+

@@ -1,0 +1,143 @@
+ <script type="text/javascript">
+	  $(function() {
+	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+          $.ajaxSetup({ cache: false });
+    	  
+    	  $('#searchForm').validate({
+                rules: {
+                 
+                }
+            });
+    
+            $( "#searchTabs" ).tabs({ active: 0});
+    	    
+    	    $( ".datePicker" ).datepicker({
+    	       showOn: "both",
+    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+    	       buttonImageOnly: true,
+    	       shortYearCutoff: "+10",
+    	       dateFormat: 'mm/dd/yy',
+      	       onClose: function(dateText, inst) {
+          		$(this).datepicker('option', 'dateFormat', 'mm/dd/yy');      
+    	       }
+    	    });
+    	    
+    		$('#advanceSearchSubmitButton').click (
+    			function(){
+                    var isValidate=$("#searchForm").valid();
+                    if(!isValidate){
+                        alert("There are errors in your inputs, please correct them and try again");
+                    }else {
+                        ojbc.clearAllDefaultValues_vehicle();
+                        var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
+                    
+    		  	       	$.post("#springUrl('/vehicles/advanceSearch')",formData,function(data) {
+    				        $('#portalContent').html(data);
+    				        }).fail(ojbc.displayFailMessage)
+				    }
+    		  	}
+    		)
+    		
+			$('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
+			$('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
+			
+			$('#sourceSystemsCheckBoxes input').each (function(){
+	        	this.checked = true
+	            }
+	        );
+	        
+	        #foreach($selectedSourceSystem in $vehicleSearchCommand.advanceSearch.sourceSystems)
+	            $("#sourceSystemsCheckBoxes input[value='$selectedSourceSystem']").prop('checked',true);
+	        #end
+	        
+            $('#advanceSearchClearButton').click (function(event){
+                  
+                  ojbc.clearSearchPurposeFields();
+                  $.get("#springUrl('/vehicles/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
+                    $('#portalContent').html(data);
+                    
+                    
+                  }).fail(ojbc.displayFailMessage)
+              });
+
+			//This allows the input fields on the search form to submit form with enter key
+			$('#advancedSearchTab input').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#advanceSearchSubmitButton').click();
+			    }
+			});
+
+			//This allows the select fields on the search form to submit form with enter key			
+			$('#advancedSearchTab select').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#advanceSearchSubmitButton').click();
+			    }
+			});	
+
+    	    ojbc.initializeAllInputWithDefaultValue_vehicle();
+    	    
+    	    $('#demogFilterInfo').hide();
+    		$('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
+    		$('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");    		
+			$('#sourceSystemsCheckBoxes > p > span').addClass("fieldText");     				
+   				
+       				    	    
+	  });
+  </script>
+  
+<div id="sourceSystems" style="display: none;">
+	#parse('common/_systemsToQuery.vm')
+</div>
+<div id="sourceSystemsDisabled" style="display: none;">
+	#parse('common/_systemsToQuery_disabled.vm')
+</div>
+<div id="searchTabs" class="contentBox">
+    <div id="search-tab-title">ADVANCED SEARCH: VEHICLE</div>
+    <ul>
+        <li><a href="#advancedSearchTab">ADVANCED SEARCH</a></li>
+    </ul>
+    <form id='searchForm' >
+     <div id="advancedSearchTab">
+            #if($errors.hasGlobalErrors())
+                #foreach( $globalError in $errors.globalErrors )
+                    <div class="error"> $globalError.defaultMessage </div>
+                #end
+            #end
+     
+    	  		<table>
+    	  			<tr>
+    	  				<td> <!-- COLUMN 1 -->
+    				        <div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleMake" $makes "" ) </div>
+    				        
+    				        <div>#springFormInput("vehicleSearchCommand.advanceSearch.vehicleModel" "") </div>
+    				        
+    				        <div class="labelText" >
+    				        	Year Range: 
+    				        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeStart" "")
+    				        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeEnd" "")
+    				        		## #springBind("vehicleSearchCommand.advanceSearch.incidentDateRangeStart")
+                                 #springShowErrors( "<br/>" "error" )
+    				        </div>
+    		        	</td>
+    		  			<td> <!-- COLUMN 2 -->
+    		  				<div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleColor" $colors "" ) </div>
+        			  		<div>
+        			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehiclePlateNumber" "")<br/> 
+        			  		    #springShowErrors( "<br/>" "error" )
+        			  		</div>
+        			  		<div>
+        			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehicleVIN" "")<br/> 
+        			  		    #springShowErrors( "<br/>" "error" )
+        			  		</div>        			  		
+    					</td>
+    	        	<tr>
+    	        </table>
+    	        <div class="searchCancelSection" >
+    	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
+    	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
+    	        </div>
+        </div>
+    </form>
+  
+  
+</div>
