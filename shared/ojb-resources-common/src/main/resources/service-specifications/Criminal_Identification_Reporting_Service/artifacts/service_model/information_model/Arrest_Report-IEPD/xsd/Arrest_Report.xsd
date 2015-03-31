@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:Q1="http://hijis.hawaii.gov/BookingReportExtension/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://hijis.hawaii.gov/ArrestReport/1.0">
+<xsd:schema xmlns:hi-br-ext="http://hijis.hawaii.gov/BookingReportExtension/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://hijis.hawaii.gov/ArrestReport/1.0">
   <xsd:import namespace="http://hijis.hawaii.gov/BookingReportExtension/1.0" schemaLocation="BookingReportExtension.xsd"/>
-  <xsd:element name="CJISDocument" type="Q1:CJISDocumentType"/>
+  <xsd:element name="CJISDocument" type="hi-br-ext:CJISDocumentType"/>
 </xsd:schema>

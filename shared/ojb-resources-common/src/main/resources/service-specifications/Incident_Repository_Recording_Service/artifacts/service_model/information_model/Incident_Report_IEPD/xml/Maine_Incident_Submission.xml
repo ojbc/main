@@ -649,17 +649,17 @@
 							<lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
 							<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
 						</lexs:StructuredPayloadMetadata>
-						<ext:IncidentReport xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+						<inc-ext:IncidentReport xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
 							xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
 							xmlns:s="http://niem.gov/niem/structures/2.0"
-							xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+							xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
 							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-							<ext:IncidentReportableToDistrictAttorneyIndicator>true
-							</ext:IncidentReportableToDistrictAttorneyIndicator>
-							<ext:FormRevisionDate>2010-12-12T01:01:01
-							</ext:FormRevisionDate>
-							<ext:Incident>
-								<ext:Charge>
+							<inc-ext:IncidentReportableToDistrictAttorneyIndicator>true
+							</inc-ext:IncidentReportableToDistrictAttorneyIndicator>
+							<inc-ext:FormRevisionDate>2010-12-12T01:01:01
+							</inc-ext:FormRevisionDate>
+							<inc-ext:Incident>
+								<inc-ext:Charge>
 									<j:ChargeIdentification>
 										<nc:IdentificationID>Sequence Number</nc:IdentificationID>
 									</j:ChargeIdentification>
@@ -669,8 +669,8 @@
 									</j:ChargeSequenceID>
 									<lexslib:SameAsDigestReference
 										lexslib:ref="Offense1" />
-								</ext:Charge>
-								<ext:Charge s:id="CHARGE01">
+								</inc-ext:Charge>
+								<inc-ext:Charge s:id="CHARGE01">
 									<j:ChargeIdentification>
 										<nc:IdentificationID>Sequence Number</nc:IdentificationID>
 									</j:ChargeIdentification>
@@ -680,22 +680,22 @@
 									</j:ChargeSequenceID>
 									<lexslib:SameAsDigestReference
 										lexslib:ref="Offense2" />
-								</ext:Charge>
-								<ext:PropertyEvidence>
+								</inc-ext:Charge>
+								<inc-ext:PropertyEvidence>
 									<nc:ItemStatus>
 										<nc:StatusDescriptionText>Evidence Status
 										</nc:StatusDescriptionText>
 									</nc:ItemStatus>
 									<lexslib:SameAsDigestReference
 										lexslib:ref="ITEM1" />
-								</ext:PropertyEvidence>
-								<ext:IncidentCase>
+								</inc-ext:PropertyEvidence>
+								<inc-ext:IncidentCase>
 									<nc:ActivityIdentification>
 										<nc:IdentificationID>1234</nc:IdentificationID>
 									</nc:ActivityIdentification>
 									<nc:ActivityCategoryText>Case Category
 									</nc:ActivityCategoryText>
-									<ext:DispositionWaiver>
+									<inc-ext:DispositionWaiver>
 										<nc:DispositionDate>
 											<nc:Date>2010-12-12</nc:Date>
 										</nc:DispositionDate>
@@ -707,64 +707,64 @@
 												</nc:ObligationCompleteIndicator>
 											</j:SanctionSetObligation>
 										</j:ChargeDispositionSanction>
-									</ext:DispositionWaiver>
-								</ext:IncidentCase>
-								<ext:OfficerInCharge>
-									<ext:OfficerSignatureImage>
+									</inc-ext:DispositionWaiver>
+								</inc-ext:IncidentCase>
+								<inc-ext:OfficerInCharge>
+									<inc-ext:OfficerSignatureImage>
 										<nc:BinaryBase64Object>SGFuayA=</nc:BinaryBase64Object>
-									</ext:OfficerSignatureImage>
+									</inc-ext:OfficerSignatureImage>
 									<lexslib:SameAsDigestReference
 										lexslib:ref="OFF1" />
-								</ext:OfficerInCharge>
-							</ext:Incident>
-							<ext:DriverLicenseLocationAssociation>
+								</inc-ext:OfficerInCharge>
+							</inc-ext:Incident>
+							<inc-ext:DriverLicenseLocationAssociation>
 								<nc:LocationReference s:ref="IS1" />
 								<nc:DriverLicenseReference s:ref="IS1" />
-							</ext:DriverLicenseLocationAssociation>
-							<ext:ChargeLocationAssociation>
+							</inc-ext:DriverLicenseLocationAssociation>
+							<inc-ext:ChargeLocationAssociation>
 								<j:ChargeReference s:ref="IS1" />
 								<nc:LocationReference s:ref="IS1" />
-							</ext:ChargeLocationAssociation>
-							<ext:IncidentSubject s:id="IS1">
+							</inc-ext:ChargeLocationAssociation>
+							<inc-ext:IncidentSubject s:id="IS1">
 								<lexslib:SameAsDigestReference
 									lexslib:ref="DEFENDANT1" />
-								<ext:SubjectBloodAlcoholContentNumber>0.80
-								</ext:SubjectBloodAlcoholContentNumber>
-								<ext:SubjectIsOfInterestIndicator>true
-								</ext:SubjectIsOfInterestIndicator>
-								<ext:SubjectStatusDescriptionText>In Custody
-								</ext:SubjectStatusDescriptionText>
-								<ext:SubjectViolatedProbationIndicator>false
-								</ext:SubjectViolatedProbationIndicator>
-								<ext:SubjectActiveArrestWarrantIndicator>true
-								</ext:SubjectActiveArrestWarrantIndicator>
+								<inc-ext:SubjectBloodAlcoholContentNumber>0.80
+								</inc-ext:SubjectBloodAlcoholContentNumber>
+								<inc-ext:SubjectIsOfInterestIndicator>true
+								</inc-ext:SubjectIsOfInterestIndicator>
+								<inc-ext:SubjectStatusDescriptionText>In Custody
+								</inc-ext:SubjectStatusDescriptionText>
+								<inc-ext:SubjectViolatedProbationIndicator>false
+								</inc-ext:SubjectViolatedProbationIndicator>
+								<inc-ext:SubjectActiveArrestWarrantIndicator>true
+								</inc-ext:SubjectActiveArrestWarrantIndicator>
 								<j:Citation>
 									<nc:ActivityIdentification>
 										<nc:IdentificationID>12345</nc:IdentificationID>
 									</nc:ActivityIdentification>
 								</j:Citation>
-							</ext:IncidentSubject>
-							<ext:Location>
+							</inc-ext:IncidentSubject>
+							<inc-ext:Location>
 								<nc:LocationMapLocation>
 									<nc:MapCoordinateFullText>Geocode</nc:MapCoordinateFullText>
 								</nc:LocationMapLocation>
 								<lexslib:SameAsDigestReference
 									lexslib:ref="LOCATION1" />
-							</ext:Location>
-							<ext:Arrest>
+							</inc-ext:Location>
+							<inc-ext:Arrest>
 								<j:ArrestArraignmentDate>
 									<nc:Date>2011-10-01</nc:Date>
 								</j:ArrestArraignmentDate>
 								<lexslib:SameAsDigestReference
 									lexslib:ref="Arrest1" />
-							</ext:Arrest>
-							<ext:Victim>
-								<ext:VictimNarrativeText>Narrative of Victim
-								</ext:VictimNarrativeText>
+							</inc-ext:Arrest>
+							<inc-ext:Victim>
+								<inc-ext:VictimNarrativeText>Narrative of Victim
+								</inc-ext:VictimNarrativeText>
 								<lexslib:SameAsDigestReference
 									lexslib:ref="VP1" />
-							</ext:Victim>
-						</ext:IncidentReport>
+							</inc-ext:Victim>
+						</inc-ext:IncidentReport>
 					</lexs:StructuredPayload>
 				</lexs:DataItemPackage>
 			</lexs:PublishMessage>

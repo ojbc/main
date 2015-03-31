@@ -643,9 +643,9 @@
 						<lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
 						<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
 					</lexs:StructuredPayloadMetadata>
-					<ext:IncidentReport xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:it="http://niem.gov/niem/domains/internationalTrade/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-						<ext:Offense s:id="Offense1">
-							<ext:OffenseViolatedStatute>
+					<inc-ext:IncidentReport xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:it="http://niem.gov/niem/domains/internationalTrade/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<inc-ext:Offense s:id="Offense1">
+							<inc-ext:OffenseViolatedStatute>
 								<j:StatuteCodeIdentification>
 									<nc:IdentificationID>String</nc:IdentificationID>
 									<nc:IdentificationJurisdictionText/>
@@ -656,25 +656,25 @@
 								</j:StatuteCodeSectionIdentification>
 								<j:StatuteDescriptionText>ROBBERY; FIRST DEGREE</j:StatuteDescriptionText>
 								<j:StatuteLevelText>FELONY</j:StatuteLevelText>
-							</ext:OffenseViolatedStatute>
+							</inc-ext:OffenseViolatedStatute>
 							<lexslib:SameAsDigestReference lexslib:ref="Offense_1"/>
-						</ext:Offense>
-						<ext:Location>
+						</inc-ext:Offense>
+						<inc-ext:Location>
 							<nc:LocationMapLocation>
 								<nc:MapHorizontalCoordinateText>911527.672814</nc:MapHorizontalCoordinateText>
 								<nc:MapVerticalCoordinateText>2183249.704147</nc:MapVerticalCoordinateText>
 							</nc:LocationMapLocation>
 							<lexslib:SameAsDigestReference lexslib:ref="Res_Loc_1"/>
-						</ext:Location>
-						<ext:Location s:id="LOC_1">
+						</inc-ext:Location>
+						<inc-ext:Location s:id="LOC_1">
 							<nc:LocationDescriptionText>SHOPPING MALL</nc:LocationDescriptionText>
 							<nc:LocationMapLocation>
 								<nc:MapHorizontalCoordinateText>911527.672814</nc:MapHorizontalCoordinateText>
 								<nc:MapVerticalCoordinateText>2183249.704147</nc:MapVerticalCoordinateText>
 							</nc:LocationMapLocation>
 							<lexslib:SameAsDigestReference lexslib:ref="Arrest_Loc_1"/>
-						</ext:Location>
-						<ext:Arrest>
+						</inc-ext:Location>
+						<inc-ext:Arrest>
 							<nc:ActivityStatus>
 								<nc:StatusText>STATUS CODE</nc:StatusText>
 								<nc:StatusDate/>
@@ -757,7 +757,7 @@
 								<j:SubjectArmedIndicator>true</j:SubjectArmedIndicator>
 							</j:ArrestSubject>
 							<lexslib:SameAsDigestReference lexslib:ref="Arrest_1"/>
-						</ext:Arrest>
+						</inc-ext:Arrest>
 						<nc:Document>
 							<nc:DocumentApplicationName>AgencyProgramName</nc:DocumentApplicationName>
 							<nc:DocumentCategoryName>ARREST</nc:DocumentCategoryName>
@@ -774,9 +774,9 @@
 								<nc:EntityPersonReference/>
 							</nc:DocumentSubmitter>
 						</nc:Document>
-						<ext:RecordCategoryText/>
-						<ext:DocumentRequestorDescriptionText>String</ext:DocumentRequestorDescriptionText>
-						<ext:Person>
+						<inc-ext:RecordCategoryText/>
+						<inc-ext:DocumentRequestorDescriptionText>String</inc-ext:DocumentRequestorDescriptionText>
+						<inc-ext:Person>
 							<nc:PersonComplexionText>String</nc:PersonComplexionText>
 							<nc:PersonDeathDate/>
 							<nc:PersonDescriptionText>JUVENILE</nc:PersonDescriptionText>
@@ -785,72 +785,72 @@
 							<nc:PersonMaritalStatusText/>
 							<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 							<lexslib:SameAsDigestReference lexslib:ref="Subject_P1"/>
-						</ext:Person>
-						<ext:Person>
+						</inc-ext:Person>
+						<inc-ext:Person>
 							<nc:PersonDescriptionText>OFFICER</nc:PersonDescriptionText>
 							<lexslib:SameAsDigestReference lexslib:ref="Officer_P1"/>
-						</ext:Person>
-						<ext:Person>
+						</inc-ext:Person>
+						<inc-ext:Person>
 							<nc:PersonDescriptionText>OFFICER</nc:PersonDescriptionText>
 							<lexslib:SameAsDigestReference lexslib:ref="Officer_P2"/>
-						</ext:Person>
-						<ext:Person>
+						</inc-ext:Person>
+						<inc-ext:Person>
 							<nc:PersonDescriptionText>OFFICER</nc:PersonDescriptionText>
 							<lexslib:SameAsDigestReference lexslib:ref="Officer_P3"/>
-						</ext:Person>
-						<ext:Person>
+						</inc-ext:Person>
+						<inc-ext:Person>
 							<nc:PersonComplexionText>FRECKLED</nc:PersonComplexionText>
 							<nc:PersonDescriptionText>FATHER</nc:PersonDescriptionText>
 							<lexslib:SameAsDigestReference lexslib:ref="Associated_P1"/>
-						</ext:Person>
-						<ext:ContactInformation>
+						</inc-ext:Person>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText/>
 							<lexslib:SameAsDigestReference lexslib:ref="Res_Email_1"/>
-						</ext:ContactInformation>
-						<ext:ContactInformation>
+						</inc-ext:ContactInformation>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText/>
 							<lexslib:SameAsDigestReference lexslib:ref="Subject_Email_1"/>
-						</ext:ContactInformation>
-						<ext:ContactInformation>
+						</inc-ext:ContactInformation>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText>ADMINISTRATIVE OFFICES</nc:ContactEntityDescriptionText>
 							<lexslib:SameAsDigestReference lexslib:ref="Arrest_Loc_Email_1"/>
-						</ext:ContactInformation>
-						<ext:ContactInformation>
+						</inc-ext:ContactInformation>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText/>
 							<lexslib:SameAsDigestReference lexslib:ref="Officer_Email_1"/>
-						</ext:ContactInformation>
-						<ext:ContactInformation>
+						</inc-ext:ContactInformation>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText/>
 							<lexslib:SameAsDigestReference lexslib:ref="Associated_Email_1"/>
-						</ext:ContactInformation>
-						<ext:ContactInformation>
+						</inc-ext:ContactInformation>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText/>
 							<lexslib:SameAsDigestReference lexslib:ref="Res_Tel_1"/>
-						</ext:ContactInformation>
-						<ext:ContactInformation>
+						</inc-ext:ContactInformation>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText/>
 							<lexslib:SameAsDigestReference lexslib:ref="Subject_Tel_1"/>
-						</ext:ContactInformation>
-						<ext:ContactInformation>
+						</inc-ext:ContactInformation>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText>ADMINISTRATIVE OFFICES</nc:ContactEntityDescriptionText>
 							<lexslib:SameAsDigestReference lexslib:ref="Arrest_Loc_Tel_1"/>
-						</ext:ContactInformation>
-						<ext:ContactInformation>
+						</inc-ext:ContactInformation>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText/>
 							<lexslib:SameAsDigestReference lexslib:ref="Officer_Tel_1"/>
-						</ext:ContactInformation>
-						<ext:ContactInformation>
+						</inc-ext:ContactInformation>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText/>
 							<lexslib:SameAsDigestReference lexslib:ref="Associated_Tel_1"/>
-						</ext:ContactInformation>
-						<ext:ContactInformation>
+						</inc-ext:ContactInformation>
+						<inc-ext:ContactInformation>
 							<nc:ContactEntityDescriptionText>ADMINISTRATIVE OFFICES</nc:ContactEntityDescriptionText>
 							<lexslib:SameAsDigestReference lexslib:ref="Website_1"/>
-						</ext:ContactInformation>
-						<ext:Booking>
+						</inc-ext:ContactInformation>
+						<inc-ext:Booking>
 							<lexslib:SameAsDigestReference lexslib:ref="Booking_1"/>
-						</ext:Booking>
-						<ext:Warrant>
+						</inc-ext:Booking>
+						<inc-ext:Warrant>
 							<j:CourtOrderIssuingCourt>
 								<nc:OrganizationAbbreviationText>FC</nc:OrganizationAbbreviationText>
 								<nc:OrganizationName>
@@ -866,7 +866,7 @@
 								<nc:RoleOfPersonReference s:ref="Officer_P3"/>
 							</j:CourtOrderServiceOfficialEnforcement>
 							<lexslib:SameAsDigestReference lexslib:ref="Warrant_1"/>
-						</ext:Warrant>
+						</inc-ext:Warrant>
 						<nc:LocationContactInformationAssociation>
 							<nc:LocationReference s:ref="Res_Loc_1"/>
 							<nc:ContactInformationReference s:ref="Res_Tel_1"/>
@@ -879,7 +879,7 @@
 							<nc:ActivityReference s:ref="Booking_1"/>
 							<j:ArrestReference s:ref="Arrest_1"/>
 						</j:ActivityArrestAssociation>
-					</ext:IncidentReport>
+					</inc-ext:IncidentReport>
 				</lexs:StructuredPayload>
 				<!-- HAWAII ARREST STRUCTURED PAYLOAD -->
 				<lexs:StructuredPayload>
@@ -889,22 +889,22 @@
 						<lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
 						<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
 					</lexs:StructuredPayloadMetadata>
-					<hi:IncidentReport xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:it="http://niem.gov/niem/domains/internationalTrade/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/IncidentReportStructuredPayload/1.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-						<hi:GreenboxIdentifiers>
-							<hi:GreenboxPCNIdentification>
+					<ar-hi-ext:IncidentReport xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:it="http://niem.gov/niem/domains/internationalTrade/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ar-hi-ext="http://ojbc.org/IEPD/Extensions/Hawaii/IncidentReportStructuredPayload/1.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<ar-hi-ext:GreenboxIdentifiers>
+							<ar-hi-ext:GreenboxPCNIdentification>
 								<nc:IdentificationID/>
-							</hi:GreenboxPCNIdentification>
-							<hi:GreenboxProcessControCode/>
-							<hi:GreenboxOBTSActionCode/>
-							<hi:GreenboxReadOnlyIndicator>true</hi:GreenboxReadOnlyIndicator>
-							<hi:GreenboxRecordTypeIndicator>false</hi:GreenboxRecordTypeIndicator>
-							<hi:GreenboxOBTSControlCode/>
-						</hi:GreenboxIdentifiers>
-						<hi:Arrest>
-							<hi:AttorneyGeneralCaseIndicator>true</hi:AttorneyGeneralCaseIndicator>
+							</ar-hi-ext:GreenboxPCNIdentification>
+							<ar-hi-ext:GreenboxProcessControCode/>
+							<ar-hi-ext:GreenboxOBTSActionCode/>
+							<ar-hi-ext:GreenboxReadOnlyIndicator>true</ar-hi-ext:GreenboxReadOnlyIndicator>
+							<ar-hi-ext:GreenboxRecordTypeIndicator>false</ar-hi-ext:GreenboxRecordTypeIndicator>
+							<ar-hi-ext:GreenboxOBTSControlCode/>
+						</ar-hi-ext:GreenboxIdentifiers>
+						<ar-hi-ext:Arrest>
+							<ar-hi-ext:AttorneyGeneralCaseIndicator>true</ar-hi-ext:AttorneyGeneralCaseIndicator>
 							<lexslib:SameAsDigestReference lexslib:ref="Arrest_1"/>
-						</hi:Arrest>
-					</hi:IncidentReport>
+						</ar-hi-ext:Arrest>
+					</ar-hi-ext:IncidentReport>
 				</lexs:StructuredPayload>
 			</lexs:DataItemPackage>
 		</lexs:PublishMessage>

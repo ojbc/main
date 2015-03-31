@@ -21,7 +21,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	targetNamespace="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0" 
-	xmlns:ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:crimhistory-update-ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:me-chrg-codes="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0"
@@ -39,7 +39,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CycleTrackingIdentifierAssignment"/>
+					<xsd:element ref="crimhistory-update-ext:CycleTrackingIdentifierAssignment"/>
 					<xsd:element ref="nc:Organization" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Person"/>
 				</xsd:sequence>
@@ -54,7 +54,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CycleTrackingIdentification"/>
+					<xsd:element ref="crimhistory-update-ext:CycleTrackingIdentification"/>
 					<xsd:element ref="j:OriginatorOrganization"/>
 					<xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0"/>
 					<xsd:element ref="nc:Case" minOccurs="0"/>
@@ -69,7 +69,7 @@
 	</xsd:complexType>
 	
 	
-	<xsd:element name="CycleTrackingIdentifierAssignment" type="ext:CycleTrackingIdentifierAssignmentType">
+	<xsd:element name="CycleTrackingIdentifierAssignment" type="crimhistory-update-ext:CycleTrackingIdentifierAssignmentType">
 		<xsd:annotation>
 			<xsd:documentation>An assignment of a tracking identifier.</xsd:documentation>
 		</xsd:annotation>
