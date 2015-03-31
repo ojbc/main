@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+ <script type="text/javascript">
+	  $(function() {	    	  
+    		
+    		$('#idLookupLink').click(
+    			function(){
+    				alert('Coming Soon');
+    			}
+    		)
+    		    	  		    			
+    	    $(".datePicker").datepicker({
+    	       showOn: "both",
+    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+    	       buttonImageOnly: true
+    	    });	
+    	    
+    		// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
+    		// displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
+    		// allows being disabled but that prevents the html field value from being sent to the server when the form 
+    		// is serialized	    	   		    			
+    	    $(".disabledDatePicker").datepicker({
+    	       showOn: "both",
+    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
+    	       buttonImageOnly: true,
+    	       beforeShow: function(i) {  return false; } 
+    	    });    	    
+    	        	    
+	  });	
+
+</script>
+
+
+<div>
+	#springFormInput("subscriptionEditCommand.subscriptionEditRequest.firstName" "placeholder='First Name' readonly='readonly'")
+</div>
+
+<div>
+	#springFormInput("subscriptionEditCommand.subscriptionEditRequest.lastName" "placeholder='Last Name' readonly='readonly'")
+</div>
+
+
+<table style="white-space:nowrap;">
+	<tr>
+		<td style="text-align:right;vertical-align:middle;">
+			<label for="subscriptionAddRequest.dateOfBirth">DOB:</label>
+		</td>
+		<td>
+			#springFormInput("subscriptionEditCommand.subscriptionEditRequest.dateOfBirth" "style='width:110px' class='disabledDatePicker' placeholder='DOB' readonly='readonly'")   
+		</td>
+	</tr>
+
+	<tr>
+		<td style="text-align:right;vertical-align:middle;">
+			<label for="subscriptionAddRequest.subscriptionStartDate">Start Date:</label>
+		</td>
+		<td>		
+			#if(${isStartDateEditable})
+				#springFormInput("subscriptionEditCommand.subscriptionEditRequest.subscriptionStartDate" "style='width:110px' class='datePicker' placeholder='From'")
+			#else
+				#springFormInput("subscriptionEditCommand.subscriptionEditRequest.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly'")
+			#end					
+		</td>
+	</tr>
+	
+	<tr>
+		<td style="text-align:right;vertical-align:middle;">
+			<label for="subscriptionAddRequest.subscriptionEndDate">End Date:</label>
+		</td>
+		<td>
+			#springFormInput("subscriptionEditCommand.subscriptionEditRequest.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
+		</td>
+	</tr>			
+</table>
+
+
+<div>
+	#springFormInput("subscriptionEditCommand.subscriptionEditRequest.emailList[0]" "placeholder='Email Address 1'")
+</div>
+
+<div>
+	#springFormInput("subscriptionEditCommand.subscriptionEditRequest.emailList[1]" "placeholder='Email Address 2'")
+</div>
+
+<div>
+	#springFormInput("subscriptionEditCommand.subscriptionEditRequest.emailList[2]" "placeholder='Email Address 3'")
+</div>
+
+
+		        

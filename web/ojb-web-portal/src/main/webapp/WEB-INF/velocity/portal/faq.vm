@@ -1,0 +1,9 @@
+<div id="landingPageContent" >
+       <p><b>FREQUENTLY ASKED QUESTIONS</b></p>
+       #parse("faq/_faq.vm")
+       <br/>
+       <br/>
+       <br/>
+       <hr/>
+       #parse("_disclaimer.vm")
+</div>

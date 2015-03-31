@@ -1,0 +1,11 @@
+<div id="landingPageContent" >
+     <ol>
+       <p><b>HELP DOCUMENTATION</b></p>
+       #parse("help/_helpTableOfContents.vm")
+     </ol>
+	<br/>
+    	<br/>
+    	<br/>
+    	<hr/>
+	#parse("_disclaimer.vm")
+</div>

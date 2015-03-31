@@ -1,0 +1,81 @@
+#parse("common/_header.vm")
+<script>
+	$(function(){
+	   
+		$("#demogFilterInfo").hide();
+		
+	 	$(document).ajaxStart(function(){
+	 	     		
+	 		if( $("#addSubscriptionDialog").dialog("isOpen") === true){
+	 		
+				$("#modalIframeSpinner").show();
+	
+	 		}
+	 		else{
+	     		var loadingDiv =  $("#loadingAjaxPane");
+	     		var portalContentDiv = $("#portalContent");
+				
+	     		loadingDiv.height(portalContentDiv.height());
+	     		loadingDiv.width(portalContentDiv.width());
+	     		
+	          	$("#loadingAjaxPane").show();          	
+	 		}     		     	
+	      }).ajaxStop(function() {
+	    	  $("#loadingAjaxPane").hide();                
+	      	  $("#modalIframeSpinner").hide();
+	      });
+	      
+		#if( $sensitiveInfoAlert )      
+		    $("#dialog-warning").dialog({
+		      modal: true,
+		      width: 500,
+	          closeOnEscape: false,
+		      buttons: {
+		        Ok: function() {
+	        		$.post("#springUrl('/portal/negateSenstiveInfoAlert')", function() {
+					})
+					
+					$( this ).dialog( "close" );
+		        }
+		      },
+		      open: function (e, ui) {
+	        	$(".ui-dialog-titlebar-close").hide();
+	    	  }
+		    });
+	    #end
+	});
+
+	#foreach($entry in $stateSpecificHomePage.entrySet())
+	 	#set($homePage="$entry.getValue()")
+	#end
+	  
+	#if($homePage=="landingPage")
+		$("#searchBarButtonDiv").hide();
+		$.get("#springUrl('/portal/landingPage')", function(data) {
+			$('#portalContent').html(data);
+		}).fail(function(data) {$('#portalContent').html(data); });
+	#elseif($homePage=="query")
+		$.get("#springUrl('/people/searchForm')", function(data) {
+			$('#portalContent').html(data);
+		}).fail(function(data) {$('#portalContent').html(data); });
+	#else
+	    $homePage
+	#end
+	
+</script>
+<div>
+	<div id="loadingAjaxPane" ></div>
+	<div id="portalContent"></div>
+</div>
+
+#if( $sensitiveInfoAlert )
+	<div class="hidden">
+		<div id="dialog-warning" title="WARNING!">
+			<p id="dialog-warning-p">  
+				<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 0 0;"></span>
+				$sensitiveInfoAlertMessage
+			</p>
+		</div>
+	</div>
+#end
+#parse("common/_footer.vm")
