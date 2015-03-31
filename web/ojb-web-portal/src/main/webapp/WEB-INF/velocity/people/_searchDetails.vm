@@ -1,7 +1,5 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/js/jquery-ui/css/search-theme/jquery-ui-base.css')">
-        <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-ui/css/search-theme/jquery-ui-1.10.0.custom.min.css')" />
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
         

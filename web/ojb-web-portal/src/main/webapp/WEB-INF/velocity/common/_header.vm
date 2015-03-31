@@ -6,8 +6,6 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
 <html>
     <head>
-<!--        <link rel="stylesheet" type="text/css" href="#springUrl('/static/js/jquery-ui/css/search-theme/jquery-ui-base.css')">
-        <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-ui/css/search-theme/jquery-ui-1.10.0.custom.min.css')" />-->
         <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-datatable/css/jquery.dataTables.css')" />
 		<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.css">
