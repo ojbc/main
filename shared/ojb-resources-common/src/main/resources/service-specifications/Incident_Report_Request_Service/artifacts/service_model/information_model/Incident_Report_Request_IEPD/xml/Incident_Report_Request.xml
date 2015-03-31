@@ -17,17 +17,17 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:IncidentIdentifierIncidentReportRequest 
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0" 
-	xmlns:extension="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0" 
+<iqr-doc:IncidentIdentifierIncidentReportRequest 
+	xmlns:iqr-doc="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0" 
+	xmlns:iqr="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0 ../xsd/exchange_schema.xsd ">
-  <extension:Incident>
+  <iqr:Incident>
     <nc:ActivityIdentification>
     	<nc:IdentificationID>ABCD12345</nc:IdentificationID>
     </nc:ActivityIdentification>
-    <extension:IncidentCategoryCode>Law</extension:IncidentCategoryCode>
- </extension:Incident>
-  <extension:SourceSystemNameText>System2</extension:SourceSystemNameText>
-</exchange:IncidentIdentifierIncidentReportRequest>
+    <iqr:IncidentCategoryCode>Law</iqr:IncidentCategoryCode>
+ </iqr:Incident>
+  <iqr:SourceSystemNameText>System2</iqr:SourceSystemNameText>
+</iqr-doc:IncidentIdentifierIncidentReportRequest>

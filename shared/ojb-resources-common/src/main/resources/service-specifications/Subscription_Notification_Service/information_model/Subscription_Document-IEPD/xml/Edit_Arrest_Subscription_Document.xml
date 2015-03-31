@@ -17,14 +17,14 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<sm:SubscriptionMessage 
+<submsg-exch:SubscriptionMessage 
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-	xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
-	xmlns:sm="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:submsg-exch="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
-	<smext:Subject>
+	<submsg-ext:Subject>
 		<nc20:PersonName>
 			<nc20:PersonGivenName>John</nc20:PersonGivenName>
 			<nc20:PersonSurName>Doe</nc20:PersonSurName>
@@ -35,14 +35,14 @@
 				<nc20:IdentificationID>A398118900</nc20:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
-	</smext:Subject>
+	</submsg-ext:Subject>
 	<nc20:ContactEmailID>testimap@locahost</nc20:ContactEmailID>
 	<nc20:ContactEmailID>email@local.gov</nc20:ContactEmailID>
 	<!-- We need to figure out the formal name for the portal -->
-	<smext:SystemName>portal</smext:SystemName>
-	<smext:SubscriptionQualifierIdentification>
+	<submsg-ext:SystemName>portal</submsg-ext:SystemName>
+	<submsg-ext:SubscriptionQualifierIdentification>
 		<nc20:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7</nc20:IdentificationID>
-	</smext:SubscriptionQualifierIdentification>
+	</submsg-ext:SubscriptionQualifierIdentification>
 	<nc20:DateRange>
 		<nc20:StartDate>
 			<nc20:Date>2014-06-20</nc20:Date>
@@ -51,8 +51,8 @@
 			<nc20:Date>2015-06-20</nc20:Date>
 		</nc20:EndDate>
 	</nc20:DateRange>
-	<smext:SubscriptionIdentification>
+	<submsg-ext:SubscriptionIdentification>
 		<nc20:IdentificationID>60109</nc20:IdentificationID>
 		<nc20:IdentificationSourceText>Subscriptions</nc20:IdentificationSourceText>
-	</smext:SubscriptionIdentification>
-</sm:SubscriptionMessage>
+	</submsg-ext:SubscriptionIdentification>
+</submsg-exch:SubscriptionMessage>

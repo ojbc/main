@@ -8,7 +8,7 @@
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
 	xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" 
-	xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0"
+	xmlns:jh-placement-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0"
 	xmlns:res="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/PlacementResults/1.0" 
 	targetNamespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/PlacementResults/1.0">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
@@ -18,7 +18,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="JuvenilePlacementHistoryResponseMessage">
-		<wsdl:part name="JuvenilePlacementHistoryResponseMessage" element="doc:JuvenilePlacementHistoryResponse"/>
+		<wsdl:part name="JuvenilePlacementHistoryResponseMessage" element="jh-placement-doc:JuvenilePlacementHistoryResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="JuvenilePlacementHistoryResultsInterface">
 		<wsdl:operation name="SubmitJuvenilePlacementHistoryResponse">

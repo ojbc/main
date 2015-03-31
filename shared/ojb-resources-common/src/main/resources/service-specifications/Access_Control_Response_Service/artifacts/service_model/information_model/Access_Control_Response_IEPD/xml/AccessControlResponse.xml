@@ -21,12 +21,12 @@
 xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0 ../xsd/exchange_schema.xsd" 
 xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 xmlns:exchange="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" 
-xmlns:ext="http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0" 
-xmlns:p="http://ojbc.org/IEPD/Extensions/AccessControlDecisionContexts/PolicyBasedAccessControlDecisionContext/1.0" 
+xmlns:ac-ext="http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0" 
+xmlns:ac-p="http://ojbc.org/IEPD/Extensions/AccessControlDecisionContexts/PolicyBasedAccessControlDecisionContext/1.0" 
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<ext:AccessControlDecision structures:id="DECISION_01">
-		<ext:AccessDeniedIndicator>true</ext:AccessDeniedIndicator>
-		<ext:AccessDecisionDescriptionText>Access Denied</ext:AccessDecisionDescriptionText>
-		<ext:AccessDecisionResourceURI>http://www.resource01.com</ext:AccessDecisionResourceURI>
-	</ext:AccessControlDecision>
+	<ac-ext:AccessControlDecision structures:id="DECISION_01">
+		<ac-ext:AccessDeniedIndicator>true</ac-ext:AccessDeniedIndicator>
+		<ac-ext:AccessDecisionDescriptionText>Access Denied</ac-ext:AccessDecisionDescriptionText>
+		<ac-ext:AccessDecisionResourceURI>http://www.resource01.com</ac-ext:AccessDecisionResourceURI>
+	</ac-ext:AccessControlDecision>
 </exchange:AccessControlResponse>

@@ -55,7 +55,7 @@
 		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
 		<ojb-common-version>[2.0.1,)</ojb-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
-		<static-mock-adapter-version>[1.0.11,)</static-mock-adapter-version>
+		<static-mock-adapter-version>[1.0.12,)</static-mock-adapter-version>
 
 	</properties>
 

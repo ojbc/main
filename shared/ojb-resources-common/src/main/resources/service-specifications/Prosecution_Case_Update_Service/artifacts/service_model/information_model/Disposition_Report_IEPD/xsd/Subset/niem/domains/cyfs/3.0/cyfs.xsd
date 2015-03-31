@@ -29,6 +29,11 @@
       <xs:documentation>An upcoming court occurrence.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PreTrialSupervision" type="nc:SupervisionType">
+    <xs:annotation>
+      <xs:documentation>A set of pre-trial information for an individual.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="SubmittedDateTime" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date and time the document  was submitted.</xs:documentation>

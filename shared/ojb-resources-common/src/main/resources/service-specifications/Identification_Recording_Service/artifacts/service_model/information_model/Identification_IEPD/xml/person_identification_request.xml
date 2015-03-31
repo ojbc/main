@@ -48,10 +48,10 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ext:IdentificationApplicantOrganization>
-	<ext:IdentificationRequestDocument structures:id="Doc_01">
+	<ext:FingerprintBasedIdentificationRequestDocument structures:id="Doc_01">
 		<ext:DocumentBinary xmime:contentType="text/plain"/>
-				<xop:Include href="'cid:http://ojbc.org/identification/request/example"/>
-	</ext:IdentificationRequestDocument>
+				<xop:Include href="cid:http://ojbc.org/identification/request/example"/>
+	</ext:FingerprintBasedIdentificationRequestDocument>
 	<nc:PersonDocumentAssociation>
 		<nc:Person structures:ref="Subject01"/>
 		<nc:Document structures:ref="Doc_01"/>

@@ -26,16 +26,11 @@
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
-	xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0">
-	
+	xmlns:s="http://niem.gov/niem/structures/2.0">
   <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../Subset/niem/structures/2.0/structures.xsd"/>
   <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
   <xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd"/>
-  <xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" schemaLocation="member_extensions/hawaii/HawaiiExtensions.xsd"/>
   <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd"/>
-  <xsd:import namespace="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0" schemaLocation="member_extensions/maine/maine-charge-codes.xsd"/>
-	
 	<xsd:complexType name="CycleTrackingIdentifierAssignmentType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for an assignment of a tracking identifier.</xsd:documentation>
