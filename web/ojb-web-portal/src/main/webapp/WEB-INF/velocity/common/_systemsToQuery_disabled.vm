@@ -1,0 +1,3 @@
+		#foreach( $entry in $systemsToQuery_disabled.keySet())
+			<p id="checkbox-$entry"><input  type="checkbox" value="$systemsToQuery_disabled.get($entry)" disabled><span class="lightgrayX" >$entry</span></p>
+		#end

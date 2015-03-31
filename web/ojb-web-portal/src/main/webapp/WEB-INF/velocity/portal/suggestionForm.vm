@@ -1,0 +1,120 @@
+<div id="landingPageContent">
+<h1>Suggestions/Report a Problem Form</h1>
+<form action="suggestionConfirmation.vm" method="post" name="reportForm" enctype="multipart/form-data" onsubmit="return validateFields();">
+
+	<table border ="0">
+		<tr>
+			<td>
+				The area that my Suggestion/Problem best relates to:
+			</td>
+			<td>
+				#parse("_hawaiiApplications.vm")
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				The urgency of my issue is:
+			</td>
+			<td colspan="2">
+				<select id="importance" name="importance">
+					<option value="Critical">Critical</option>
+					<option value="Normal">Normal</option>
+					<option value="Cosmetic">Low/Cosmetic</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				Suggestion/Problem Explanation:
+			</td>
+			<td colspan="2">
+				<p>
+					1. Please include step-by-step process of how you arrived at this issue</br>
+					2. Expected functionality (what you expected but did not get)</br>
+					3. Please attach any pertinent screenshots</br>
+				</p>
+				<textarea rows="10" cols="50" maxlength="1000" name="message">
+1.
+
+
+2.
+				</textarea>
+				</br></br>
+				<input type="Button" name="Attach" value="Attach a File"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				User Name:
+			</td>
+			<td colspan="2">
+				<input type="text" size="50" maxlength="50" name="name" id="name">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				User Agency:
+			</td>
+			<td colspan="2">
+				<input type="text" size="50" maxlength="50" name="userAgency" id="userAgency">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				User Email Address:
+			</td>
+			<td colspan="2">
+				<input type="text" size="50" maxlength="50" name="email" id="email">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				User Phone Number:
+			</td>
+			<td colspan="2">
+				<input type="text" size="50" maxlength="50" name="userPhone" id="userPhone">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<!-- Disabling submit until we get email functionality in place
+				<input type="submit" name="Submit" value="Email administrator"/>
+				-->
+				<button type="button">Submit</button>
+			<td>
+			<td>
+				&nbsp;
+			</td>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+
+	</br></br>
+	
+	<table hidden>
+		<tr>
+			<td>
+				Hidden values:
+			</td>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				SAML:
+			</td>
+			<td>
+				Pull SAML from session on "submit"?
+			</td>
+		</tr>
+	</table>
+		
+</form>
+</div>

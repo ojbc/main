@@ -1,0 +1,6 @@
+<div id="landingPageContent">
+    #parse("customHelp/_introduction.vm")
+
+    <hr/>
+    #parse("_disclaimer.vm")
+</div>

@@ -39,6 +39,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/h2-mock-database-context-auditlog.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"
 		})
 @DirtiesContext
 public class TestDatabaseLoad {
@@ -53,7 +54,10 @@ public class TestDatabaseLoad {
 	
     @Resource  
     private DataSource policyAcknowledgementDataSource;  
-	
+
+    @Resource  
+    private DataSource incidentReportingStateCacheDataSource;  
+
 	@Test
 	public void testAuditlog() throws Exception {
 		
@@ -81,6 +85,15 @@ public class TestDatabaseLoad {
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("id"));
 		assertEquals("http://ojbc.org/policies/privacy/hawaii/ManualSubscriptionPolicy",rs.getString("policy_uri"));
+		
+	}
+
+	@Test
+	public void testIncidentReportingStateCache() throws Exception {
+		
+		Connection conn = incidentReportingStateCacheDataSource.getConnection();
+		ResultSet rs = conn.createStatement().executeQuery("select * from Person_Involvement_State");
+		assertFalse(rs.next());
 		
 	}
 

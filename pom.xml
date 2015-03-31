@@ -27,7 +27,7 @@
         <version>2.9</version>
         <configuration>
           <!--
-            <header>shared/ojb-common/src/main/config/ojb-license.txt</header>
+            <header>shared/ojb-common/src/main/config/build/ojb-license.txt</header>
 
             can also set license with -D
                mvn license:check -Dlicense.header=./ojb-license.txt
