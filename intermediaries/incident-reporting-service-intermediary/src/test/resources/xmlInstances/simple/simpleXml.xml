@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cars>
+	<car>
+		<maker>Tella</maker>
+		<model>Model T</model>
+	</car>
+	<car>
+		<maker>Mini</maker>
+		<model>Copper</model>
+	</car>
+</cars>
