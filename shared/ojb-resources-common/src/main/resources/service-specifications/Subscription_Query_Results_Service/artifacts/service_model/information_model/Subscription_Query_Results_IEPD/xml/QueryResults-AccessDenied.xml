@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:SubscriptionQueryResults
+<sqr:SubscriptionQueryResults
     xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0 ../xsd/exchange_schema.xsd"
-    xmlns:exchange="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
+    xmlns:sqr="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
     xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
     xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -30,4 +30,4 @@
             <iad:InformationAccessDenialReasonText>String</iad:InformationAccessDenialReasonText>
         </iad:InformationAccessDenial>
     </qrm:QueryResultsMetadata>
-</exchange:SubscriptionQueryResults>
+</sqr:SubscriptionQueryResults>
