@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<bean id="driverLicenseExtractor"
+		class="org.ojbc.web.portal.controllers.simpleSearchExtractors.DriverLicenseExtractor">
+		<property name="driversLicenseRegex" value="([a-zA-Z]{2}-)(.+)|([Ww][Aa][0-9]{7})" />
+		<property name="defaultStateOfIssue" value="WA" />
+	</bean>
+
+	<bean id="simpleSearchParser"
+		class="org.ojbc.web.portal.controllers.helpers.SimpleSearchParser">
+		<property name="driverLicenseExtractor" ref="driverLicenseExtractor" />
+	</bean>
+
+	<bean id="searchTermsTokenizer" class="org.ojbc.web.portal.services.SearchTermsTokenizer" />
+
+	<bean id="currentUneditableStartDateStrategy"
+		class="org.ojbc.web.model.subscription.add.CurrentUneditableStartDateStrategy" />
+
+	<bean id="currentEditableStartDateStrategy"
+		class="org.ojbc.web.model.subscription.add.CurrentEditableStartDateStrategy" />
+
+	<bean id="blankEditableEndDateStrategy"
+		class="org.ojbc.web.model.subscription.add.BlankEditableEndDateStrategy" />
+
+	<bean id="uneditableStartDateStrategy"
+		class="org.ojbc.web.model.subscription.edit.UneditableStartDateStrategy" />
+
+
+	<util:map id="subscriptionStartDateStrategyMap">
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
+			value-ref="currentUneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="currentEditableStartDateStrategy" />
+	</util:map>
+
+	<util:map id="subscriptionEndDateStrategyMap">
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
+			value-ref="blankEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="blankEditableEndDateStrategy" />
+	</util:map>
+
+
+	<util:map id="editSubscriptionStartDateStrategyMap">
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
+			value-ref="uneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="uneditableStartDateStrategy" />
+	</util:map>
+
+
+	<util:map id="searchProfilesEnabled" map-class="java.util.LinkedHashMap">
+		<!-- Valid values are 'enabled', 'disabled' and 'hidden' -->
+		<!-- 'enabled': clicking tab shows search form -->
+		<!-- 'disabled': clicking tab shows "Coming Soon" page -->
+		<!-- 'hidden': tab not visible -->
+		<entry key="people" value="enabled" />
+		<entry key="incident" value="enabled" />
+		<entry key="vehicle" value="enabled" />
+		<entry key="firearm" value="enabled" />
+	</util:map>
+
+	<util:map id="searchPurposes">
+		<entry key="" value="Purpose" />
+		<entry key="Administrative File Maintenance (A)" value="Administrative File Maintenance (A)" />
+		<entry key="Criminal Justice (C)" value="Criminal Justice (C)" />
+		<entry key="Domestic Violence and Stalking (D)" value="Domestic Violence and Stalking (D)" />
+		<entry key="Weapons-Related Background Checks (F)" value="Weapons-Related Background Checks (F)" />
+		<entry key="Housing (H)" value="Housing (H)" />
+		<entry key="Interstate-Approved Noncriminal Justice (I)" value="Interstate-Approved Noncriminal Justice (I)" />
+		<entry key="Criminal Justice Employment (J)" value="Criminal Justice Employment (J)" />
+		<entry key="National Security (S)" value="National Security (S)" />
+		<entry key="Exigent Procedures (X)" value="Exigent Procedures (X)" />
+	</util:map>
+
+	<util:map id="systemsToQuery_people" map-class="java.util.LinkedHashMap">
+		<entry key="Criminal History"
+			value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History" />
+		<entry key="Warrants"
+			value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants" />
+		<entry key="Firearms"
+			value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms" />
+		<entry key="Law Enforcement RMS"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" />
+	</util:map>
+
+	<util:map id="systemsToQuery_people_disabled" map-class="java.util.LinkedHashMap">
+		<entry key="Disabled System"
+			value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Disabled-System" />
+		<entry key="Disabled System2"
+			value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Disabled-System2" />
+	</util:map>
+
+	<util:map id="systemsToQuery_vehicles" map-class="java.util.LinkedHashMap">
+		<entry key="Law Enforcement RMS"
+			value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" />
+	</util:map>
+
+	<util:map id="systemsToQuery_vehicles_disabled" map-class="java.util.LinkedHashMap">
+		<!-- <entry key="Disabled System" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}VehicleDisabled" 
+			/> -->
+	</util:map>
+
+	<util:map id="systemsToQuery_incidents" map-class="java.util.LinkedHashMap">
+		<entry key="Law Enforcement RMS"
+			value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" />
+	</util:map>
+
+	<util:map id="systemsToQuery_incidents_disabled" map-class="java.util.LinkedHashMap">
+		<entry key="Disabled RMS"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}IncidentDisabled" />
+	</util:map>
+
+	<util:map id="systemsToQuery_firearms" map-class="java.util.LinkedHashMap">
+		<entry key="Firearms"
+			value="{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest" />
+	</util:map>
+
+	<util:map id="systemsToQuery_firearms_disabled" map-class="java.util.LinkedHashMap">
+		<entry key="Disabled Firearms"
+			value="{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}FirearmsDisabled" />
+	</util:map>
+
+	<util:map id="leftMenuLinks">
+		<entry key="homeLink" value="#" />
+		<entry key="stateGovLink" value="http://local.gov/" />
+		<entry key="queryLink" value="#" />
+		<entry key="subscriptionsLink" value="#" />
+		<entry key="helpLink" value="#" />
+		<entry key="privacyPolicyLink" value="http://local.gov/privacy-policies/" />
+		<entry key="faqLink" value="#" />
+		<entry key="suggestionFormLink" value="#" />
+	</util:map>
+
+	<util:map id="subscriptionFilterProperties">
+		<entry key="displaySubscriptionFilter" value="true" />
+		<entry key="validationDueWarningDays" value="30" />
+	</util:map>
+
+	<util:map id="leftBarLinks"/>
+
+	<!-- People-related maps -->
+
+	<util:map id="races" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Race" />
+		<entry key="I" value="American Indian or Alaskan Native" />
+		<entry key="A" value="Asian or Pacific Islander" />
+		<entry key="B" value="Black" />
+		<entry key="W" value="White" />
+		<entry key="U" value="Unknown" />
+	</util:map>
+
+	<util:map id="genders" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Gender" />
+		<entry key="M" value="Male" />
+		<entry key="F" value="Female" />
+		<entry key="U" value="Unknown - For Unidentified Only" />
+	</util:map>
+
+	<util:map id="eyeColors" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Eye Color" />
+		<entry key="BLK" value="Black" />
+		<entry key="BLU" value="Blue" />
+		<entry key="BRO" value="Brown" />
+		<entry key="GRY" value="Gray" />
+		<entry key="GRN" value="Green" />
+		<entry key="HAZ" value="Hazel" />
+		<entry key="MAR" value="Maroon" />
+		<entry key="MUL" value="Multicolored" />
+		<entry key="PNK" value="Pink" />
+		<entry key="XXX" value="Unknown" />
+	</util:map>
+
+	<util:map id="hairColors" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Hair Color" />
+		<entry key="BLK" value="Black" />
+		<entry key="BLN" value="Blond or Strawberry" />
+		<entry key="BLU" value="Blue" />
+		<entry key="BRO" value="Brown" />
+		<entry key="GRY" value="Gray or Partially Gray" />
+		<entry key="GRN" value="Green" />
+		<entry key="ONG" value="Orange" />
+		<entry key="PNK" value="Pink" />
+		<entry key="PLE" value="Purple" />
+		<entry key="RED" value="Red or Auburn" />
+		<entry key="SDY" value="Sandy" />
+		<entry key="XXX" value="Unknown or Bald" />
+		<entry key="WHI" value="White" />
+	</util:map>
+
+	<!-- Incidents-related maps -->
+	<util:map id="cityTowns" map-class="java.util.LinkedHashMap">
+		<entry key="" value="City/Town" />
+		<entry key="Alamogordo" value="Alamogordo" />
+		<entry key="Albuquerque" value="Albuquerque" />
+		<entry key="Alexandria" value="Alexandria" />
+		<entry key="Anchorage" value="Anchorage" />
+		<entry key="Appleton" value="Appleton" />
+		<entry key="Atlanta" value="Atlanta" />
+		<entry key="Augusta" value="Augusta" />
+		<entry key="Baker City" value="Baker City" />
+		<entry key="Baltimore" value="Baltimore" />
+		<entry key="Baton Rouge" value="Baton Rouge" />
+		<entry key="Bee Spring" value="Bee Spring" />
+		<entry key="Beltsville" value="Beltsville" />
+		<entry key="Billings" value="Billings" />
+		<entry key="Bloomfield Township" value="Bloomfield Township" />
+		<entry key="Boise" value="Boise" />
+		<entry key="Boston" value="Boston" />
+		<entry key="Brattleboro" value="Brattleboro" />
+		<entry key="Brookfield" value="Brookfield" />
+		<entry key="Camden" value="Camden" />
+		<entry key="Casper" value="Casper" />
+		<entry key="Cedar Rapids" value="Cedar Rapids" />
+		<entry key="Center Barnstead" value="Center Barnstead" />
+		<entry key="Charleston" value="Charleston" />
+		<entry key="Charlotte" value="Charlotte" />
+		<entry key="Chenega Bay" value="Chenega Bay" />
+		<entry key="Chicago" value="Chicago" />
+		<entry key="Chuathbaluk" value="Chuathbaluk" />
+		<entry key="Cincinnati" value="Cincinnati" />
+		<entry key="Clinton" value="Clinton" />
+		<entry key="Colorado Springs" value="Colorado Springs" />
+		<entry key="Columbia" value="Columbia" />
+		<entry key="Cranston" value="Cranston" />
+		<entry key="Cumming" value="Cumming" />
+		<entry key="Dalton City" value="Dalton City" />
+		<entry key="Decatur" value="Decatur" />
+		<entry key="Dunlap" value="Dunlap" />
+		<entry key="Durham" value="Durham" />
+		<entry key="Eagleville" value="Eagleville" />
+		<entry key="Elkin" value="Elkin" />
+		<entry key="Ellijay" value="Ellijay" />
+		<entry key="Eugene" value="Eugene" />
+		<entry key="Fairfield" value="Fairfield" />
+		<entry key="Fordyce" value="Fordyce" />
+		<entry key="Gilbert" value="Gilbert" />
+		<entry key="Grant" value="Grant" />
+		<entry key="Greenville" value="Greenville" />
+		<entry key="Gulfport" value="Gulfport" />
+		<entry key="Gypsum" value="Gypsum" />
+		<entry key="Hastings" value="Hastings" />
+		<entry key="Honolulu" value="Honolulu" />
+		<entry key="Idaho Falls" value="Idaho Falls" />
+		<entry key="Indianapolis" value="Indianapolis" />
+		<entry key="Joliet" value="Joliet" />
+		<entry key="Jonesboro" value="Jonesboro" />
+		<entry key="Juneau" value="Juneau" />
+		<entry key="Kentwood" value="Kentwood" />
+		<entry key="Kilmichael" value="Kilmichael" />
+		<entry key="La Vernia" value="La Vernia" />
+		<entry key="Lafayette" value="Lafayette" />
+		<entry key="Lansing" value="Lansing" />
+		<entry key="Las Vegas" value="Las Vegas" />
+		<entry key="Lexington" value="Lexington" />
+		<entry key="Lidgerwood" value="Lidgerwood" />
+		<entry key="Lincoln" value="Lincoln" />
+		<entry key="Linesville" value="Linesville" />
+		<entry key="Manchester" value="Manchester" />
+		<entry key="Maple" value="Maple" />
+		<entry key="Marmon" value="Marmon" />
+		<entry key="Martinsville" value="Martinsville" />
+		<entry key="Maryland Heights" value="Maryland Heights" />
+		<entry key="Mcminnville" value="Mcminnville" />
+		<entry key="Meadville" value="Meadville" />
+		<entry key="Milwaukee" value="Milwaukee" />
+		<entry key="Mishawaka" value="Mishawaka" />
+		<entry key="Montgomery" value="Montgomery" />
+		<entry key="Morrill" value="Morrill" />
+		<entry key="Murray" value="Murray" />
+		<entry key="Nashua" value="Nashua" />
+		<entry key="Nashville" value="Nashville" />
+		<entry key="New Orleans" value="New Orleans" />
+		<entry key="Newark" value="Newark" />
+		<entry key="Norristown" value="Norristown" />
+		<entry key="North Las Vegas" value="North Las Vegas" />
+		<entry key="Northampton" value="Northampton" />
+		<entry key="Norton" value="Norton" />
+		<entry key="Odessa" value="Odessa" />
+		<entry key="Ogden" value="Ogden" />
+		<entry key="Orlando" value="Orlando" />
+		<entry key="Overland Park" value="Overland Park" />
+		<entry key="Parkersburg" value="Parkersburg" />
+		<entry key="Phoenix" value="Phoenix" />
+		<entry key="Pickens" value="Pickens" />
+		<entry key="Plankinton" value="Plankinton" />
+		<entry key="Pompano Beach" value="Pompano Beach" />
+		<entry key="Portland" value="Portland" />
+		<entry key="Potomac" value="Potomac" />
+		<entry key="Providence" value="Providence" />
+		<entry key="Red Bank" value="Red Bank" />
+		<entry key="Reno" value="Reno" />
+		<entry key="Richmond" value="Richmond" />
+		<entry key="Riverton" value="Riverton" />
+		<entry key="Roseville" value="Roseville" />
+		<entry key="Saint Paul" value="Saint Paul" />
+		<entry key="Salina" value="Salina" />
+		<entry key="San Jose" value="San Jose" />
+		<entry key="San Ysidro" value="San Ysidro" />
+		<entry key="Savage" value="Savage" />
+		<entry key="Savannah" value="Savannah" />
+		<entry key="Schenectady" value="Schenectady" />
+		<entry key="Scottsdale" value="Scottsdale" />
+		<entry key="Seattle" value="Seattle" />
+		<entry key="Shreveport" value="Shreveport" />
+		<entry key="Shubuta" value="Shubuta" />
+		<entry key="South Burlington" value="South Burlington" />
+		<entry key="Stamford" value="Stamford" />
+		<entry key="Sumner" value="Sumner" />
+		<entry key="Tampa" value="Tampa" />
+		<entry key="Terre Haute" value="Terre Haute" />
+		<entry key="Toledo" value="Toledo" />
+		<entry key="Traverse City" value="Traverse City" />
+		<entry key="Tucson" value="Tucson" />
+		<entry key="Tulsa" value="Tulsa" />
+		<entry key="Tyronza" value="Tyronza" />
+		<entry key="Utica" value="Utica" />
+		<entry key="Waipahu" value="Waipahu" />
+		<entry key="Waldenburg" value="Waldenburg" />
+		<entry key="Washington" value="Washington" />
+		<entry key="Wichita" value="Wichita" />
+		<entry key="Wilson" value="Wilson" />
+	</util:map>
+
+	<util:map id="incidentTypes" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Type" />
+		<entry key="Law" value="Law" />
+		<entry key="Traffic" value="Traffic" />
+		<entry key="Citation" value="Citation" />
+		<entry key="Field Interview" value="Field_Interview" />
+	</util:map>
+
+	<!-- Vehicles-related maps -->
+	<util:map id="makes" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Make" />
+		<entry key="Acura" value="Acura" />
+		<entry key="Alfa Romeo" value="Alfa Romeo" />
+		<entry key="AM General Corp." value="AM General Corp." />
+		<entry key="American Motors" value="American Motors" />
+		<entry key="Audi" value="Audi" />
+		<entry key="Aurora" value="Aurora" />
+		<entry key="Austin" value="Austin" />
+		<entry key="BMW" value="BMW" />
+		<entry key="Boston Whaler, Inc" value="Boston Whaler, Inc" />
+		<entry key="Buick" value="Buick" />
+		<entry key="Cadillac" value="Cadillac" />
+		<entry key="Chevrolet" value="Chevrolet" />
+		<entry key="Chrysler" value="Chrysler" />
+		<entry key="Cooper" value="Cooper" />
+		<entry key="Daewoo" value="Daewoo" />
+		<entry key="Daihatsu" value="Daihatsu" />
+		<entry key="Datsun" value="Datsun" />
+		<entry key="Dodge" value="Dodge" />
+		<entry key="Eagle" value="Eagle" />
+		<entry key="Fiat" value="Fiat" />
+		<entry key="Ford" value="Ford" />
+		<entry key="Four Winns, Inc" value="Four Winns, Inc" />
+		<entry key="General Motors" value="General Motors" />
+		<entry key="Geo" value="Geo" />
+		<entry key="GMC" value="GMC" />
+		<entry key="Honda" value="Honda" />
+		<entry key="Horch Limousine" value="Horch Limousine" />
+		<entry key="Hyundai" value="Hyundai" />
+		<entry key="Infiniti" value="Infiniti" />
+		<entry key="International Harvester" value="International Harvester" />
+		<entry key="Isuzu" value="Isuzu" />
+		<entry key="Jaguar" value="Jaguar" />
+		<entry key="Jeep" value="Jeep" />
+		<entry key="Kenworth" value="Kenworth" />
+		<entry key="Kia Motors Corp." value="Kia Motors Corp." />
+		<entry key="Land Rover" value="Land Rover" />
+		<entry key="Lexus" value="Lexus" />
+		<entry key="Lincoln-Continental" value="Lincoln-Continental" />
+		<entry key="Maserati" value="Maserati" />
+		<entry key="Mastercraft Boat Co" value="Mastercraft Boat Co" />
+		<entry key="Mazda" value="Mazda" />
+		<entry key="Mercedes-Benz" value="Mercedes-Benz" />
+		<entry key="Mercury" value="Mercury" />
+		<entry key="Merkur" value="Merkur" />
+		<entry key="MG" value="MG" />
+		<entry key="Mitsubishi" value="Mitsubishi" />
+		<entry key="Nissan" value="Nissan" />
+		<entry key="Oldsmobile" value="Oldsmobile" />
+		<entry key="Opel" value="Opel" />
+		<entry key="Packard" value="Packard" />
+		<entry key="Peugeot" value="Peugeot" />
+		<entry key="Plymouth" value="Plymouth" />
+		<entry key="Pontiac" value="Pontiac" />
+		<entry key="Porsche" value="Porsche" />
+		<entry key="Puch" value="Puch" />
+		<entry key="Regal Marine Ind, Inc" value="Regal Marine Ind, Inc" />
+		<entry key="Rover" value="Rover" />
+		<entry key="Saab" value="Saab" />
+		<entry key="Saturn" value="Saturn" />
+		<entry key="Saturn Corporation" value="Saturn Corporation" />
+		<entry key="Sea Ray Boats, Inc" value="Sea Ray Boats, Inc" />
+		<entry key="Sterling" value="Sterling" />
+		<entry key="Subaru" value="Subaru" />
+		<entry key="Suzuki" value="Suzuki" />
+		<entry key="Thomas &amp; Co" value="Thomas &amp; Co" />
+		<entry key="Tomos" value="Tomos" />
+		<entry key="Tornado" value="Tornado" />
+		<entry key="Toyota" value="Toyota" />
+		<entry key="Triumph" value="Triumph" />
+		<entry key="Volkswagon" value="Volkswagon" />
+		<entry key="Volvo" value="Volvo" />
+		<entry key="Wellcraft Marine" value="Wellcraft Marine" />
+	</util:map>
+
+	<util:map id="colors" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Color" />
+		<entry key="AME" value="AMETHYST" />
+		<entry key="BGE" value="BEIGE" />
+		<entry key="BLK" value="BLACK" />
+		<entry key="BLU" value="BLUE" />
+		<entry key="BRO" value="BROWN" />
+		<entry key="BRZ" value="BRONZE" />
+		<entry key="CAM" value="CAMOUFLAGE" />
+		<entry key="COM" value="CHROME, STAINLESS STEEL" />
+		<entry key="CPR" value="COPPER" />
+		<entry key="CRM" value="CREAM, IVORY" />
+		<entry key="DBL" value="BLUE, DARK" />
+		<entry key="DGR" value="GREEN, DARK" />
+		<entry key="GLD" value="GOLD" />
+		<entry key="GRN" value="GREEN" />
+		<entry key="GRY" value="GRAY" />
+		<entry key="LAV" value="LAVENDER (PURPLE)" />
+		<entry key="LBL" value="BLUE, LIGHT" />
+		<entry key="LGR" value="GREEN, LIGHT" />
+		<entry key="MAR" value="MAROON, BURGUNDY (PURPLE)" />
+		<entry key="MUL/COL" value="MULTICOLORED" />
+		<entry key="MVE" value="MAUVE" />
+		<entry key="ONG" value="ORANGE" />
+		<entry key="PLE" value="PURPLE" />
+		<entry key="PNK" value="PINK" />
+		<entry key="RED" value="RED" />
+		<entry key="SIL" value="SILVER" />
+		<entry key="TAN" value="TAN" />
+		<entry key="TEA" value="TEAL" />
+		<entry key="TPE" value="TAUPE" />
+		<entry key="TRQ" value="TURQUOISE (BLUE)" />
+		<entry key="WHI" value="WHITE" />
+		<entry key="YEL" value="YELLOW" />
+	</util:map>
+
+	<!-- Firearms-related maps -->
+	<util:map id="firearmTypes" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Firearm Type" />
+		<entry key="F" value="Ammunition" />
+		<entry key="H" value="Bomb" />
+		<entry key="A" value="Cannon" />
+		<entry key="D" value="Disguised Gun" />
+		<entry key="E" value="Electric Shock Gun" />
+		<entry key="G" value="Grenade" />
+		<entry key="M" value="Machine Gun" />
+		<entry key="I" value="Mine" />
+		<entry key="J" value="Missile" />
+		<entry key="O" value="Mortar" />
+		<entry key="P" value="Pistol" />
+		<entry key="R" value="Rifle" />
+		<entry key="C" value="Rifle-Shotgun Combination" />
+		<entry key="K" value="Rocket" />
+		<entry key="S" value="Shotgun" />
+		<entry key="Q" value="Shotgun Pistol" />
+		<entry key="V" value="Silencer (muffler or sound moderator)" />
+		<entry key="B" value="Submachine gun or machine pistol" />
+		<entry key="Z" value="All others (must fill in MIS field)" />
+	</util:map>
+
+	<!-- This map is used to map the search details ('DETAILS' link) to the 
+		xsl that will transfrom the data to html. Format is System Name to file name 
+		in the src/main/resources/xsl directory -->
+	<util:map id="searchDetailToXsl">
+		<entry key="Statewide Warrant System" value="warrants.xsl" />
+		<entry key="Warrants" value="warrants.xsl" />
+		<entry key="Criminal History" value="criminalhistory.xsl" />
+		<entry key="Demo RMS" value="person-to-incidents.xsl" />
+		<entry key="Law Enforcement RMS" value="person-to-incidents.xsl" />
+		<entry key="Valcour RMS" value="person-to-incidents.xsl" />
+		<entry key="Law Enforcement RMS_vehicle" value="vehicle-to-incidents.xsl" />
+		<entry key="Valcour RMS_vehicle" value="vehicle-to-incidents.xsl" />
+		<entry key="Incident System" value="incident-details.xsl" />
+		<entry key="Statewide Firearm Registry" value="firearm-details.xsl" />
+		<entry key="Firearm Reg." value="firearm-details.xsl" />
+		<entry key="SubscriptionResults" value="subscriptionSearchResult.xsl" />
+	</util:map>
+
+	<!-- This map is used to allow conditional includes into the Velocity templates 
+		based upon state-specific needs. For example, if the value is non-empty for 
+		'preBodyClose', the filename it specifies (relative to "stateSpecific" directory) 
+		will be sourced in before the </body> tag. -->
+	<util:map id="stateSpecificIncludes">
+		<entry key="preBodyClose" value="" />
+	</util:map>
+
+	<!-- This map will decide which base template is used as the 'home' page 
+		landingPage query -->
+	<util:map id="stateSpecificHomePage">
+		<entry key="thisHomePage" value="query" />
+	</util:map>
+
+	<!-- for the add subscription modal -->
+	<util:map id="subscriptionTypeValueToLabelMap" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Subscription Type" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value="Arrest" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/incident" value="Incident" />
+	</util:map>
+
+
+	<!-- for the filter subscription form -->
+	<util:map id="subscriptionFilterValueToLabelMap" map-class="java.util.LinkedHashMap">
+		<entry key="Active" value="Active" />
+		<entry key="Inactive" value="Inactive" />
+		<entry key="Expiring" value="Expiring" />
+	</util:map>
+
+</beans>                      
+

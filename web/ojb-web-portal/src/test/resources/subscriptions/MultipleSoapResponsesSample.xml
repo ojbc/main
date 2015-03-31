@@ -1,0 +1,154 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+	<soap:Header>
+		<Action xmlns="http://www.w3.org/2005/08/addressing"
+			xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+			wsu:Id="Id-2054873144">http://docs.oasis-open.org/wsn/brw-2/NotificationBroker/Subscribe/Fault/SoapFault
+		</Action>
+		<MessageID xmlns="http://www.w3.org/2005/08/addressing"
+			xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+			wsu:Id="Id-1966679103">urn:uuid:499a196b-5d7d-48e1-b75f-379f49f449ed</MessageID>
+		<To xmlns="http://www.w3.org/2005/08/addressing"
+			xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+			wsu:Id="Id-1491485441">http://www.w3.org/2005/08/addressing/anonymous</To>
+		<RelatesTo xmlns="http://www.w3.org/2005/08/addressing">729af440-a393-4301-b0f1-1f7aad639ce8
+		</RelatesTo>
+		<wsse:Security
+			xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+			xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+			soap:mustUnderstand="1">
+			<wsu:Timestamp wsu:Id="TS-87">
+				<wsu:Created>2014-07-29T19:07:44.548Z</wsu:Created>
+				<wsu:Expires>2014-07-29T19:12:44.548Z</wsu:Expires>
+			</wsu:Timestamp>
+			<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+				Id="SIG-88">
+				<ds:SignedInfo>
+					<ds:CanonicalizationMethod
+						Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+						<ec:InclusiveNamespaces xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"
+							PrefixList="soap" />
+					</ds:CanonicalizationMethod>
+					<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+					<ds:Reference URI="#TS-87">
+						<ds:Transforms>
+							<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+								<ec:InclusiveNamespaces
+									xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#" PrefixList="wsse soap" />
+							</ds:Transform>
+						</ds:Transforms>
+						<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+						<ds:DigestValue>X9lPYXT3WBx/WX4xR0tdtdm4LMdCpS0IimfaKCEpOMY=
+						</ds:DigestValue>
+					</ds:Reference>
+					<ds:Reference URI="#Id-231102631">
+						<ds:Transforms>
+							<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+								<ec:InclusiveNamespaces
+									xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#" PrefixList="" />
+							</ds:Transform>
+						</ds:Transforms>
+						<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+						<ds:DigestValue>mMNflUynPhircmKBPyQi/rwwanjsVpja+ZOK5XdpeLU=
+						</ds:DigestValue>
+					</ds:Reference>
+					<ds:Reference URI="#Id-1491485441">
+						<ds:Transforms>
+							<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+								<ec:InclusiveNamespaces
+									xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#" PrefixList="soap" />
+							</ds:Transform>
+						</ds:Transforms>
+						<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+						<ds:DigestValue>59mI534TgKe6TvrGy1Dfm236Y7Isy7l7W0vLAnwmVk0=
+						</ds:DigestValue>
+					</ds:Reference>
+					<ds:Reference URI="#Id-1966679103">
+						<ds:Transforms>
+							<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+								<ec:InclusiveNamespaces
+									xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#" PrefixList="soap" />
+							</ds:Transform>
+						</ds:Transforms>
+						<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+						<ds:DigestValue>/AIanWH4GvBA3daapN9C64Rn2RhUAHN1YkMl6KIhNOE=
+						</ds:DigestValue>
+					</ds:Reference>
+					<ds:Reference URI="#Id-2054873144">
+						<ds:Transforms>
+							<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+								<ec:InclusiveNamespaces
+									xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#" PrefixList="soap" />
+							</ds:Transform>
+						</ds:Transforms>
+						<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+						<ds:DigestValue>0vtivri4vW+cGFCWH6G7xFeN988bNtTE658BZ2LOPZ8=
+						</ds:DigestValue>
+					</ds:Reference>
+				</ds:SignedInfo>
+				<ds:SignatureValue>Nx0xIn3u72XR05b62pTlavVHpLolWuXhnlPMUFxATdIh2s/To39d2qEfnp6V09C0hbccypnJ/C90ZuRl4ozfBdebvGnHBcRDFpTP/BDUzIMPQYdj1uQfO1y/TYzCk/ucOB7Y8QjhC3D0DNpbCtVyDkBiPRnkYtEzj14va5Q/bjJuQncSxE9tYkZ+nxdZleZyYY8pBevFGc9u5wrtOBPSLxms/BV7z/DclGZtbz63yrGxIZajiZxlijOiT3lHHAdhykpFQ0odvWjcBGovG749QmvoyqavDsClb9RjZqb7cNg2e2jf8CQdivwLj1EIDb1P6LfG9uFHcGEcwRe2Bzj11A==
+				</ds:SignatureValue>
+				<ds:KeyInfo Id="KI-84977F38C864904FB01406660864548151">
+					<wsse:SecurityTokenReference
+						wsu:Id="STR-84977F38C864904FB01406660864548152">
+						<ds:X509Data>
+							<ds:X509IssuerSerial>
+								<ds:X509IssuerName>CN=hijis-intermediary,OU=OJBC,O=SEARCH,L=Sacramento,ST=California,C=US
+								</ds:X509IssuerName>
+								<ds:X509SerialNumber>12690367016057586085</ds:X509SerialNumber>
+							</ds:X509IssuerSerial>
+						</ds:X509Data>
+					</wsse:SecurityTokenReference>
+				</ds:KeyInfo>
+			</ds:Signature>
+		</wsse:Security>
+	</soap:Header>
+	<soap:Body
+		xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+		wsu:Id="Id-231102631">
+		<soap:Fault>
+			<faultcode>soap:Server</faultcode>
+			<faultstring>unable to process request</faultstring>
+			<detail>			
+				<b:SubscribeCreationFailedFault
+					xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing"
+					xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:bf2="http://docs.oasis-open.org/wsrf/bf-2"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+					xmlns:fault_exchange="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0"
+					xmlns:fault_ext="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0"
+					xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+					xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+					xmlns:s="http://niem.gov/niem/structures/2.0" xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
+					<fault_exchange:SubscriptionFaultResponseMessage>
+						
+						<fault_ext:AccessDenial>
+							<fault_ext:AccessDenialIndicator>true
+							</fault_ext:AccessDenialIndicator>
+							<fault_ext:AccessDenyingSystemNameText>CJIS HI
+							</fault_ext:AccessDenyingSystemNameText>
+							<fault_ext:AccessDenialReasonText>The user is not privileged to create subscriptions</fault_ext:AccessDenialReasonText>
+						</fault_ext:AccessDenial>
+						
+						<fault_ext:InvalidEmailAddressList>
+							<nc20:EmailRecipientAddressID>chris@gmail.com
+							</nc20:EmailRecipientAddressID>
+						</fault_ext:InvalidEmailAddressList>						
+						
+						<fault_ext:InvalidSecurityToken>
+							<fault_ext:InvalidSecurityTokenIndicator>true
+							</fault_ext:InvalidSecurityTokenIndicator>
+							<fault_ext:InvalidSecurityTokenDescriptionText>Token is missing required information: Federation Identifier.
+							</fault_ext:InvalidSecurityTokenDescriptionText>
+						</fault_ext:InvalidSecurityToken>						
+						
+						<fault_ext:SubscriptionRequestError>
+							<fault_ext:ErrorText>subscription doesn't contain a start date</fault_ext:ErrorText>
+							<intel:SystemName>Subscription Notification</intel:SystemName>
+						</fault_ext:SubscriptionRequestError>						
+						
+					</fault_exchange:SubscriptionFaultResponseMessage>
+					<bf2:Timestamp>2014-06-23T12:00:00</bf2:Timestamp>
+				</b:SubscribeCreationFailedFault>
+			</detail>
+		</soap:Fault>
+	</soap:Body>
+</soap:Envelope>

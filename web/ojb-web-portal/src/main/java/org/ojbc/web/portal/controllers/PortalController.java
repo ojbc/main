@@ -1,0 +1,498 @@
+package org.ojbc.web.portal.controllers;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.namespace.NamespaceContext;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
+import org.joda.time.Minutes;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+import org.ojbc.web.SearchProfile;
+import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
+import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
+import org.ojbc.web.portal.controllers.helpers.UserSession;
+import org.ojbc.web.portal.services.SamlService;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.w3c.dom.Element;
+
+@Controller
+@RequestMapping("/portal/*")
+@SessionAttributes({"sensitiveInfoAlert"})
+public class PortalController implements ApplicationContextAware {
+
+	static final String DEFAULT_USER_TIME_ONLINE = "0:00";
+	static final String DEFAULT_USER_LOGON_MESSAGE = "Not Logged In";
+	
+	public static final String HOME_LINK_ID = "homeLink";
+	public static final String  STATE_LINK_ID = "stateGovLink";
+    public static final String QUERY_LINK_ID = "queryLink";
+	public static final String  SUBSCRIPTIONS_LINK_ID = "subscriptionsLink";
+	public static final String  HELP_LINK_ID = "helpLink";
+	public static final String  HELP_LINK_EXTERNAL_ID = "helpLinkExternal";
+    public static final String  PRIVACY_LINK_ID = "privacyPolicyLink";
+    public static final String  FAQ_LINK_ID = "faqLink";
+    public static final String  SUGGESTIONFORM_LINK_ID = "suggestionFormLink";
+		
+	public static final String HOME_LINK_TITLE = "Home";
+	public static final String STATE_LINK_TITLE = "State.gov";
+    public static final String QUERY_LINK_TITLE = "Query";
+	public static final String SUBSCRIPTION_LINK_TITLE = "Subscriptions";
+	public static final String HELP_LINK_TITLE = "Help";
+	public static final String PRIVACY_LINK_TITLE = "Privacy Policies";
+	public static final String FAQ_LINK_TITLE = "Frequently Asked Questions";
+	public static final String SUGGESTIONFORM_LINK_TITLE = "Suggestions/ Report a Problem";
+	
+	private static final Log log = LogFactory.getLog(PortalController.class);
+
+	private XPath xPath;
+	
+	private ApplicationContext applicationContext;
+	
+	@Value("${memberContext}")
+	String stateContext;
+	
+	@Value("${sensitiveInfoAlert:false}")
+	Boolean sensitiveInfoAlert;
+	
+	@Value("${sensitiveInfoAlertMessage:You are about to view sensitive information. Please press OK to proceed.}")
+	String sensitiveInfoAlertMessage;
+	
+	@Resource
+	Map<String, String> systemsToQuery_people;
+	
+	@Resource
+	Map<String, String> races;
+
+	@Resource
+	Map<String, String> eyeColors;
+
+	@Resource
+	Map<String, String> hairColors;
+	
+	@Resource
+	Map<String, String> searchProfilesEnabled;
+	
+	@Resource
+	Map<String, String> searchPurposes;
+	
+	@Resource
+	Map<String, String> stateSpecificIncludes;
+	
+	@Resource
+	Map<String, String> leftMenuLinks;
+	
+	Map<String, String> leftMenuLinkTitles;
+
+    @Resource
+	Map<String, String> leftBarLinks;
+
+	Map<String, String> leftBarTitles;
+
+    @Resource
+    Map<String, String> stateSpecificHomePage;
+    
+    @Resource
+    Map<String, String> subscriptionFilterProperties;
+    
+	@Resource
+	Map<String, String> subscriptionFilterValueToLabelMap;
+
+	@Resource
+	UserSession userSession;
+	
+	@Resource
+	SamlService samlService;
+	
+	private Map<String, Boolean> visibleProfileStateMap;
+	
+
+	public PortalController() {
+		XPathFactory xPathFactory = XPathFactory.newInstance();
+		xPath = xPathFactory.newXPath();
+		xPath.setNamespaceContext(new Saml2NamespaceContext());
+		
+		// This map is used to translate those possible values for "searchProfilesEnabled" map entries
+		// that represent visible states ("enabled", "disabled") into booleans indicating whether they are actually enabled
+		visibleProfileStateMap = new HashMap<String, Boolean>();
+		visibleProfileStateMap.put("enabled", true);
+		visibleProfileStateMap.put("disabled", false);
+	}
+
+        @RequestMapping("landingPage")
+        public String landingPage(){
+	    return "portal/landingPage";
+	}
+
+        @RequestMapping("helpPage")
+        public String helpPage(){
+	    return "portal/helpPage";
+	}
+
+        @RequestMapping("faq")
+        public String faq(){
+	    return "portal/faq";
+	}
+
+        @RequestMapping("suggestionForm")
+        public String suggestionForm(){
+	    return "portal/suggestionForm";
+	}
+	
+        @RequestMapping("index")
+        public void index(HttpServletRequest request, Map<String, Object> model){
+
+		// To pull something from the header you want something like this
+		// String header = request.getHeader("currentUserName");
+
+		UserLogonInfo userLogonInfo = new UserLogonInfo();
+
+		try {
+			Element assertionElement = samlService.getSamlAssertion(request);
+						
+			userLogonInfo = getUserLogonInfo(assertionElement);			
+			//note this will only have a value in production
+			userSession.setUserLogonInfo(userLogonInfo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.put("personFilterCommand", new PersonFilterCommand());
+		model.put("currentUserName", userLogonInfo.userNameString);
+		model.put("timeOnline", userLogonInfo.timeOnlineString);
+		model.put("searchLinksHtml", getSearchLinksHtml());
+		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));				
+	}
+
+    @RequestMapping("landingLeftBar")
+    public String landingLeftBar(){
+    	return "common/_landingLeftBar";
+    }
+
+    @RequestMapping(value="subscriptionsLeftBar", method=RequestMethod.POST)
+    public String subscriptionsLeftBar(HttpServletRequest request, 
+    		@ModelAttribute("subscriptionFilterCommand") SubscriptionFilterCommand subscriptionFilterCommand, 
+    		Map<String, Object> model){   
+    	
+    	return "common/_subscriptionsLeftBar";
+    }
+    
+    @RequestMapping(value="leftBar", method=RequestMethod.POST)
+       public String leftBar(HttpServletRequest request, @ModelAttribute("personFilterCommand") PersonFilterCommand personFilterCommand, 
+			Map<String, Object> model){
+	    return "common/_leftBar";
+	}
+    
+    @RequestMapping(value="negateSenstiveInfoAlert", method=RequestMethod.POST)
+    public @ResponseBody String negateSenstiveInfoAlert( Map<String, Object> model ){
+        model.put("sensitiveInfoAlert", false); 
+        return "success";
+    }
+
+	private String getStateSpecificInclude(String includeKey) {
+		String includeFileName = stateSpecificIncludes.get(includeKey);
+		if (StringUtils.isNotBlank(includeFileName)) {
+			org.springframework.core.io.Resource preBodyClose = applicationContext.getResource("classpath:" + includeFileName);
+			try {
+				InputStream inputStream = preBodyClose.getInputStream();
+				return IOUtils.toString(inputStream);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return "";
+	}
+
+	private List<SearchProfile> getActiveSearchProfiles() {
+		List<SearchProfile> visibleProfiles = new ArrayList<SearchProfile>();
+		
+		addProfileToReturnListIfVisible(visibleProfiles, "people", "PERSON SEARCH");
+		addProfileToReturnListIfVisible(visibleProfiles, "incident", "INCIDENT SEARCH");
+		addProfileToReturnListIfVisible(visibleProfiles, "vehicle", "VEHICLE SEARCH");
+		addProfileToReturnListIfVisible(visibleProfiles, "firearm", "FIREARM SEARCH");
+		
+		return visibleProfiles;
+	}
+
+	private void addProfileToReturnListIfVisible(List<SearchProfile> enabledProfiles, String profileId, String displayName) {
+		Boolean enabled = visibleProfileStateMap.get(searchProfilesEnabled.get(profileId));
+		if (enabled != null) {
+			enabledProfiles.add(new SearchProfile(profileId, displayName, enabled));
+		}
+	}
+	
+	String getSearchLinksHtml() {
+		StringBuilder links = new StringBuilder();
+		int cnt = 0;
+
+		for(SearchProfile profile : getActiveSearchProfiles()) {
+			links.append("<a id=\"").append(getLinkId(profile)).append("\" href=\"#\"");
+			String buttonClass = (cnt > 0) ? "grayButton" : "blueButton";
+			links.append(" class=\"" + buttonClass + "\"");
+			String style = calcLinkButtonStyleBasedOnPosition(cnt, getActiveSearchProfiles().size());
+			links.append(" style=\""  + style + "\"");
+			links.append(">");
+			links.append("<div ");
+			if (cnt == 0) {
+				links.append(" class=\"activeSearchLink\"");
+			}
+			links.append("></div>");
+			links.append(profile.getDisplayName());
+			links.append("</a>");
+			
+			cnt++;
+		}
+		
+		return links.toString();
+	}
+	
+	private String getLinkId(SearchProfile profile) {
+		return profile.getId() + "SearchLink" + (profile.isEnabled() ? "" : "Disabled");
+	}
+
+	private String calcLinkButtonStyleBasedOnPosition(int cnt, int size) {
+		
+		if (size > 1) {
+			if (cnt == 0) {
+				// leftmost button
+				return "border-bottom-right-radius: 0px; border-top-right-radius: 0px;";
+			} else if (cnt > 0 && cnt < (size-1)) {
+				// middle buttons
+				return "border-radius: 0px 0px 0px 0px;";
+			} else if (cnt == (size - 1)) {
+				// rightmost button
+				return "border-bottom-left-radius: 0px; border-top-left-radius: 0px;";
+			}
+		} 
+
+		return "";
+	}
+
+	UserLogonInfo getUserLogonInfo(Element assertionElement) {
+				
+		UserLogonInfo userLogonInfo = new UserLogonInfo();
+		
+		if(assertionElement == null){
+			log.warn("assertionElement was null, returning empty UserLogonInfo");
+			return userLogonInfo;
+		}
+
+		try {
+			
+			debugPrintAssertion(assertionElement);
+
+			String instantString = (String) xPath.evaluate("/saml2:Assertion/saml2:AuthnStatement/@AuthnInstant", assertionElement, XPathConstants.STRING);
+			DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+			DateTime authnInstant = fmt.parseDateTime(instantString);
+			int minutesOnline = Minutes.minutesBetween(authnInstant, new DateTime()).getMinutes();
+			int hoursOnline = (int) minutesOnline / 60;
+			minutesOnline = minutesOnline % 60;
+			userLogonInfo.timeOnlineString = String.valueOf(hoursOnline) + ":" + (minutesOnline < 10 ? "0" : "") + String.valueOf(minutesOnline);
+
+			String userLastName = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:SurName']/saml2:AttributeValue/text()", assertionElement,
+					XPathConstants.STRING);
+			String userFirstName = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:GivenName']/saml2:AttributeValue/text()", assertionElement,
+					XPathConstants.STRING);
+			String userAgency = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmployerName']/saml2:AttributeValue/text()", assertionElement,
+					XPathConstants.STRING);
+			
+			String sEmail = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()", assertionElement,
+					XPathConstants.STRING);
+
+			userLogonInfo.userNameString = (userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName) + " / " + (userAgency == null ? "" : userAgency);
+			userLogonInfo.emailAddress = sEmail;			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userLogonInfo;
+	}
+
+	@ModelAttribute("stateContext")
+	public String getStateContext() {
+		return stateContext;
+	}
+
+	@ModelAttribute("sensitiveInfoAlert")
+	public Boolean getSensitiveInfoAlert() {
+	    return sensitiveInfoAlert;
+	}
+	
+    @ModelAttribute("sensitiveInfoAlertMessage")
+    public String getSensitiveInfoAlertMessage() {
+        return sensitiveInfoAlertMessage;
+    }
+    
+	@ModelAttribute("systemsToQuery")
+	public Map<String, String> getSystemsToQuery() {
+		return systemsToQuery_people;
+	}
+	
+	@ModelAttribute("races")
+	public Map<String, String> getRaces() {
+		return races;
+	}
+	
+	@ModelAttribute("eyeColors")
+	public Map<String, String> getEyeColors() {
+		return eyeColors;
+	}	
+	
+	@ModelAttribute("hairColors")
+	public Map<String, String> getHairColors() {
+		return hairColors;
+	}
+
+	@ModelAttribute("searchPurposes")
+	public Map<String, String> getSearchPurposes() {
+		return searchPurposes;
+	}
+
+    @ModelAttribute("stateSpecificHomePage")
+    public Map<String, String> getStateSpecificHomePage() {
+    	return stateSpecificHomePage;
+    }
+    
+    @ModelAttribute("subscriptionFilterProperties")
+    public Map<String, String> getSubscriptionFilterProperties(){
+    	return subscriptionFilterProperties;
+    }            
+
+	@ModelAttribute("leftMenuLinks")
+	public Map<String, String> getLeftMenuLinks() {
+		return leftMenuLinks;
+	}
+
+    @ModelAttribute("leftBarLinks")
+    public Map<String, String> getLeftBarLinks()  {
+        return leftBarLinks;
+    }
+
+    @ModelAttribute("leftBarTitles")
+    public Map<String, String> getLeftBarTitles()  {
+        return leftBarTitles;
+    }
+	
+	@ModelAttribute("leftMenuLinkTitles")
+	public Map<String, String> getLeftMenuLinkTitles() {
+		
+		if(leftMenuLinkTitles == null){			
+			leftMenuLinkTitles = new HashMap<String, String>();
+			leftMenuLinkTitles.put(HOME_LINK_ID, HOME_LINK_TITLE);
+			leftMenuLinkTitles.put(STATE_LINK_ID, STATE_LINK_TITLE);
+			leftMenuLinkTitles.put(QUERY_LINK_ID, QUERY_LINK_TITLE);
+			leftMenuLinkTitles.put(SUBSCRIPTIONS_LINK_ID, SUBSCRIPTION_LINK_TITLE);
+			leftMenuLinkTitles.put(HELP_LINK_ID, HELP_LINK_TITLE);
+			leftMenuLinkTitles.put(HELP_LINK_EXTERNAL_ID, HELP_LINK_TITLE);
+			leftMenuLinkTitles.put(PRIVACY_LINK_ID, PRIVACY_LINK_TITLE);
+			leftMenuLinkTitles.put(FAQ_LINK_ID, FAQ_LINK_TITLE);
+			leftMenuLinkTitles.put(SUGGESTIONFORM_LINK_ID, SUGGESTIONFORM_LINK_TITLE);
+		}		
+		return leftMenuLinkTitles;
+	}
+	
+	@ModelAttribute("subscriptionFilterValueToLabelMap")
+	public Map<String, String> getSubscriptionFilterValueToLabelMap(){
+		return subscriptionFilterValueToLabelMap;
+	}
+
+	private void debugPrintAssertion(Element assertionElement) throws Exception{
+		
+		if(assertionElement == null){
+			log.info("assertionElement was null, skipping debug output");
+			return;
+		}
+		
+		Transformer transformer = TransformerFactory.newInstance().newTransformer();
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		StreamResult result = new StreamResult(new StringWriter());
+		DOMSource source = new DOMSource(assertionElement);
+		transformer.transform(source, result);
+		String xmlString = result.getWriter().toString();
+		log.info(xmlString);
+	}
+	
+	public static final class UserLogonInfo implements Serializable{
+		
+		private static final long serialVersionUID = 1L;
+		
+		public String userNameString;
+		public String timeOnlineString;
+		public String emailAddress;
+
+		private UserLogonInfo() {
+			userNameString = DEFAULT_USER_LOGON_MESSAGE;
+			timeOnlineString = DEFAULT_USER_TIME_ONLINE;
+		}
+	}
+
+	private static final class Saml2NamespaceContext implements NamespaceContext {
+
+		private Map<String, String> prefixToURIMap = new HashMap<String, String>();
+		private Map<String, String> uriToPrefixMap = new HashMap<String, String>();
+
+		public Saml2NamespaceContext() {
+			prefixToURIMap.put("saml2", "urn:oasis:names:tc:SAML:2.0:assertion");
+			uriToPrefixMap.put("urn:oasis:names:tc:SAML:2.0:assertion", "saml2");
+		}
+
+		@Override
+		public String getNamespaceURI(String prefix) {
+			return prefixToURIMap.get(prefix);
+		}
+
+		@Override
+		public String getPrefix(String namespaceURI) {
+			return uriToPrefixMap.get(namespaceURI);
+		}
+
+		@Override
+		public Iterator<String> getPrefixes(String namespaceURI) {
+			ArrayList<String> prefixes = new ArrayList<String>();
+			String prefix = uriToPrefixMap.get(namespaceURI);
+			prefixes.add(prefix);
+			return prefixes.iterator();
+		}
+
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		
+		this.applicationContext = applicationContext;
+	}
+	
+}

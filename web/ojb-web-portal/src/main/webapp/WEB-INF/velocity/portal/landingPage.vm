@@ -1,0 +1,28 @@
+
+<div id="landingPageContent" >
+<table>
+    <tr>
+      #parse("_welcome.vm")
+    </tr>
+    <tr>
+      #parse("landingPage/_announcements.vm")
+    </tr>
+    <tr>
+      &nbsp;
+    </tr>
+    <tr>
+      #parse("_serviceButtons.vm")
+    </tr>
+    <tr>
+      <td colspan = 4>
+	<br/><br/>
+	<i>Using this website through a mobile device may cause some display issues.</i>
+      </td>
+    </tr>
+</table>
+	<br/>
+    	<br/>
+    	<br/>
+    	<hr/>
+	#parse("_disclaimer.vm")
+</div>
