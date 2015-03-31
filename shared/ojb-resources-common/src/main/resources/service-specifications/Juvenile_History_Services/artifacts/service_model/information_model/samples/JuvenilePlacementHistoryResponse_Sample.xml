@@ -17,31 +17,31 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<doc:JuvenilePlacementHistoryResponse 
+<jh-placement-doc:JuvenilePlacementHistoryResponse 
 	xmlns="http://release.niem.gov/niem/niem-core/3.0/" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
-	xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0" 
-	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0" 
-	xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0" 
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0 ../Juvenile_History_IEPD/Placement/JuvenilePlacementHistoryResponse.xsd">
-	<cext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</cext:JuvenileHistoryCategoryCode>
-	<cext:JuvenileHistoryQueryCriteria>
-		<cext:JuvenileInformationRecordID>
+	xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	xmlns:jh-placement-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0" 
+	xmlns:jh-placement="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0" 
+	xmlns:jh-placement-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenilePlacementHistoryResponse/1.0 ../Juvenile_History_IEPD/Placement/JuvenilePlacementHistoryResponse.xsd http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0 ../Juvenile_History_IEPD/Placement/impl/michigan/codes.xsd">
+	<jh-ext:JuvenileHistoryCategoryCode>JuvenilePlacementHistory</jh-ext:JuvenileHistoryCategoryCode>
+	<jh-ext:JuvenileHistoryQueryCriteria>
+		<jh-ext:JuvenileInformationRecordID>
 			<IdentificationID>100</IdentificationID>
 			<IdentificationSourceText>Court</IdentificationSourceText>
-		</cext:JuvenileInformationRecordID>
-	</cext:JuvenileHistoryQueryCriteria>
-	<ext:JuvenilePlacementHistory>
-		<cext:JuvenileInformationAvailabilityCode>FOUND</cext:JuvenileInformationAvailabilityCode>
-		<cext:JuvenileInformationAvailabilityMetadata>
+		</jh-ext:JuvenileInformationRecordID>
+	</jh-ext:JuvenileHistoryQueryCriteria>
+	<jh-placement:JuvenilePlacementHistory>
+		<jh-ext:JuvenileInformationAvailabilityCode>FOUND</jh-ext:JuvenileInformationAvailabilityCode>
+		<jh-ext:JuvenileInformationAvailabilityMetadata>
 			<LastUpdatedDate>
 				<Date>1957-08-13</Date>
 			</LastUpdatedDate>
-			<cext:JuvenileInformationOwnerOrganization>
+			<jh-ext:JuvenileInformationOwnerOrganization>
 				<OrganizationBranchName>2nd District</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
@@ -59,12 +59,12 @@
 					</Address>
 				</OrganizationLocation>
 				<OrganizationName>Court</OrganizationName>
-			</cext:JuvenileInformationOwnerOrganization>
-			<cext:JuvenileInformationRecordID>
+			</jh-ext:JuvenileInformationOwnerOrganization>
+			<jh-ext:JuvenileInformationRecordID>
 				<IdentificationID>100</IdentificationID>
 				<IdentificationSourceText>Court</IdentificationSourceText>
-			</cext:JuvenileInformationRecordID>
-		</cext:JuvenileInformationAvailabilityMetadata>
+			</jh-ext:JuvenileInformationRecordID>
+		</jh-ext:JuvenileInformationAvailabilityMetadata>
 		<Person structures:id="Child1">
 			<PersonName>
 				<PersonGivenName>John</PersonGivenName>
@@ -139,34 +139,34 @@
 					<Date>1957-08-13</Date>
 				</EndDate>
 			</ActivityDateRange>
-			<codes:PlacementCategoryCode>Group Home</codes:PlacementCategoryCode>
-			<ext:JuvenilePlacementAugmentation>
+			<jh-placement-codes:PlacementCategoryCode>Group Home</jh-placement-codes:PlacementCategoryCode>
+			<jh-placement:JuvenilePlacementAugmentation>
 				<cyfs:JuvenilePlacementFacilityAssociation>
 					<cyfs:PlacedJuvenile structures:ref="Child1" xsi:nil="true"/>
 					<cyfs:PlacementFacility>
 						<FacilityName>Parents</FacilityName>
-						<codes:FacilitySecurityCode>Non-secure</codes:FacilitySecurityCode>
+						<jh-placement-codes:FacilitySecurityCode>Non-secure</jh-placement-codes:FacilitySecurityCode>
 						<FacilityLocation structures:ref="Location2" xsi:nil="true"/>
 					</cyfs:PlacementFacility>
 				</cyfs:JuvenilePlacementFacilityAssociation>
-				<cext:JuvenileInformationRecordID>
+				<jh-ext:JuvenileInformationRecordID>
 					<IdentificationID>Placement1</IdentificationID>
 					<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}PlacementHistory</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-				<cext:RelatedJuvenileHistoryRecords>
-						<cext:RelatedJuvenileHistoryRecord>
-							<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
-							<cext:JuvenileInformationRecordID>
+				</jh-ext:JuvenileInformationRecordID>
+				<jh-ext:RelatedJuvenileHistoryRecords>
+						<jh-ext:RelatedJuvenileHistoryRecord>
+							<jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
+							<jh-ext:JuvenileInformationRecordID>
 								<IdentificationID>Hearing1</IdentificationID>
 								<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</IdentificationSourceText>
-							</cext:JuvenileInformationRecordID>
-						</cext:RelatedJuvenileHistoryRecord>
-						<cext:RelatedJuvenileHistoryRecord>
-							<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
-							<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
-						</cext:RelatedJuvenileHistoryRecord>
-					</cext:RelatedJuvenileHistoryRecords>
-			</ext:JuvenilePlacementAugmentation>
+							</jh-ext:JuvenileInformationRecordID>
+						</jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:RelatedJuvenileHistoryRecord>
+							<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+							<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+						</jh-ext:RelatedJuvenileHistoryRecord>
+					</jh-ext:RelatedJuvenileHistoryRecords>
+			</jh-placement:JuvenilePlacementAugmentation>
 		</cyfs:JuvenilePlacement>
-	</ext:JuvenilePlacementHistory>
-</doc:JuvenilePlacementHistoryResponse>
+	</jh-placement:JuvenilePlacementHistory>
+</jh-placement-doc:JuvenilePlacementHistoryResponse>

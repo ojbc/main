@@ -18,6 +18,7 @@ package org.search.ojb.staticmock;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,7 +35,11 @@ public class QueryTest extends AbstractStaticMockTest {
     @Test
     public void testFirearmQuery() throws Exception {
         Document responseDocument = doFirearmTestQuery("sample-9006054698886898174.xml:F1", StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID, "firearm-doc:FirearmRegistrationQueryResults");
-        XmlUtils.validateInstance("service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
+        List<String> schemaPaths = new ArrayList<String>();
+        String iepdRootPath = "service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
+        schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
+        XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, responseDocument);
+        //XmlUtils.validateInstance("service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
     }
 
     @Test

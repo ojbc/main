@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0" xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" targetNamespace="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0" version="1">
+<xsd:schema xmlns:jh-intake-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0" xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:jh-intake="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileIntakeHistoryExtension/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" targetNamespace="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileIntakeHistoryResponse/1.0" version="1">
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
@@ -31,14 +31,14 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="cext:JuvenileHistoryCategoryCode"/>
-					<xsd:element ref="cext:JuvenileHistoryQueryCriteria"/>
-					<xsd:element ref="ext:JuvenileIntakeHistory"/>
+					<xsd:element ref="jh-ext:JuvenileHistoryCategoryCode"/>
+					<xsd:element ref="jh-ext:JuvenileHistoryQueryCriteria"/>
+					<xsd:element ref="jh-intake:JuvenileIntakeHistory"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="JuvenileIntakeHistoryResponse" type="doc:JuvenileIntakeHistoryResponseType">
+	<xsd:element name="JuvenileIntakeHistoryResponse" type="jh-intake-doc:JuvenileIntakeHistoryResponseType">
 		<xsd:annotation>
 			<xsd:documentation>A response to a query for the intake history related to a juvenile.</xsd:documentation>
 		</xsd:annotation>

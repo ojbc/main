@@ -20,8 +20,8 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
 	elementFormDefault="qualified"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
-	xmlns:incext="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+	xmlns:isr-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
+	xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
 	xmlns:perext="http://ojbc.org/IEPD/Extensions/IncidentPersonSearchRequest/1.0"
 	xmlns:vehext="http://ojbc.org/IEPD/Extensions/IncidentVehicleSearchRequest/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0">
@@ -38,7 +38,7 @@
 		namespace="http://ojbc.org/IEPD/Extensions/IncidentVehicleSearchRequest/1.0"
 		schemaLocation="vehicle_extension_schema.xsd" />
 
-	<xsd:element name="IncidentSearchRequest" type="incext:IncidentSearchRequestType">
+	<xsd:element name="IncidentSearchRequest" type="isr:IncidentSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request for a list of incidents based on incident criteria</xsd:documentation>
 		</xsd:annotation>

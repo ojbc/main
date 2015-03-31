@@ -17,22 +17,22 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<p:SubscriptionSearchResults 
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" 
+<ssr:SubscriptionSearchResults 
+	xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" 
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
-	xmlns:p="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0" 
+	xmlns:ssr="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0" 
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
 	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0 ../xsd/exchange_schema.xsd ">
-  <ext:SubscriptionSearchResult>
-    <ext:Subscription>
+  <ssr-ext:SubscriptionSearchResult>
+    <ssr-ext:Subscription>
     	<nc:ActivityDateRange>
     		<nc:StartDate>
     			<nc:Date>2014-03-12</nc:Date>
@@ -41,43 +41,43 @@
     			<nc:Date>2016-03-12</nc:Date>
     		</nc:EndDate>
     	</nc:ActivityDateRange>
-      <ext:SubscriptionSubject>
+      <ssr-ext:SubscriptionSubject>
       	<nc:RoleOfPersonReference s:ref="P001"/>
-      </ext:SubscriptionSubject>
+      </ssr-ext:SubscriptionSubject>
       <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
-      <ext:SubscribedEntity s:id="SE001"/>
-      <ext:SubscriptionOriginator>
-      	<ext:SubscriptionOriginatorIdentification>
+      <ssr-ext:SubscribedEntity s:id="SE001"/>
+      <ssr-ext:SubscriptionOriginator>
+      	<ssr-ext:SubscriptionOriginatorIdentification>
       		<nc:IdentificationID>HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
-      	</ext:SubscriptionOriginatorIdentification>
-      </ext:SubscriptionOriginator>
-      <ext:SubscriptionValidation>
-      	<ext:SubscriptionValidationDueDate>
+      	</ssr-ext:SubscriptionOriginatorIdentification>
+      </ssr-ext:SubscriptionOriginator>
+      <ssr-ext:SubscriptionValidation>
+      	<ssr-ext:SubscriptionValidationDueDate>
       		<nc:Date>2015-03-12</nc:Date>
-      	</ext:SubscriptionValidationDueDate>
-      	<ext:SubscriptionValidatedDate>
+      	</ssr-ext:SubscriptionValidationDueDate>
+      	<ssr-ext:SubscriptionValidatedDate>
       		<nc:Date>2014-03-12</nc:Date>
-      	</ext:SubscriptionValidatedDate>
-      </ext:SubscriptionValidation>
-      <ext:SubscriptionGracePeriod>
-      	<ext:SubscriptionGracePeriodDateRange>
+      	</ssr-ext:SubscriptionValidatedDate>
+      </ssr-ext:SubscriptionValidation>
+      <ssr-ext:SubscriptionGracePeriod>
+      	<ssr-ext:SubscriptionGracePeriodDateRange>
       		<nc:StartDate>
       			<nc:Date>2014-09-13</nc:Date>
       		</nc:StartDate>
       		<nc:EndDate>
       			<nc:Date>2014-10-13</nc:Date>
       		</nc:EndDate>
-      	</ext:SubscriptionGracePeriodDateRange>
-      </ext:SubscriptionGracePeriod>
-    </ext:Subscription>
-    <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ext:SourceSystemNameText>
+      	</ssr-ext:SubscriptionGracePeriodDateRange>
+      </ssr-ext:SubscriptionGracePeriod>
+    </ssr-ext:Subscription>
+    <ssr-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ssr-ext:SourceSystemNameText>
 	<intel:SystemIdentifier>
 		<nc:IdentificationID>19ec7fb5-4e29-4657-a86d-1a9711330e10,A109918642-HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
 		<intel:SystemName>Subscriptions</intel:SystemName>
 	</intel:SystemIdentifier>
-  </ext:SubscriptionSearchResult>
-  <ext:SubscriptionSearchResult>
-    <ext:Subscription>
+  </ssr-ext:SubscriptionSearchResult>
+  <ssr-ext:SubscriptionSearchResult>
+    <ssr-ext:Subscription>
     	<nc:ActivityDateRange>
     		<nc:StartDate>
     			<nc:Date>2014-03-12</nc:Date>
@@ -86,25 +86,25 @@
     			<nc:Date>2018-01-12</nc:Date>
     		</nc:EndDate>
     	</nc:ActivityDateRange>
-      <ext:SubscriptionSubject>
+      <ssr-ext:SubscriptionSubject>
       	<nc:RoleOfPersonReference s:ref="P003"/>
-      </ext:SubscriptionSubject>
+      </ssr-ext:SubscriptionSubject>
       <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
-      <ext:SubscribedEntity s:id="SE004"/>
-      <ext:SubscriptionOriginator>
-      	<ext:SubscriptionOriginatorIdentification>
+      <ssr-ext:SubscribedEntity s:id="SE004"/>
+      <ssr-ext:SubscriptionOriginator>
+      	<ssr-ext:SubscriptionOriginatorIdentification>
       		<nc:IdentificationID>HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
-      	</ext:SubscriptionOriginatorIdentification>
-      </ext:SubscriptionOriginator>
-    </ext:Subscription>
-    <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ext:SourceSystemNameText>
+      	</ssr-ext:SubscriptionOriginatorIdentification>
+      </ssr-ext:SubscriptionOriginator>
+    </ssr-ext:Subscription>
+    <ssr-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ssr-ext:SourceSystemNameText>
 	<intel:SystemIdentifier>
 		<nc:IdentificationID>93a892b4-777a-4a7b-bcb1-cf80177a38fb,A109918642-HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
 		<intel:SystemName>Subscriptions</intel:SystemName>
 	</intel:SystemIdentifier>
-  </ext:SubscriptionSearchResult>
-  <ext:SubscriptionSearchResult>
-    <ext:Subscription>
+  </ssr-ext:SubscriptionSearchResult>
+  <ssr-ext:SubscriptionSearchResult>
+    <ssr-ext:Subscription>
     	<nc:ActivityDateRange>
     		<nc:StartDate>
     			<nc:Date>2014-03-12</nc:Date>
@@ -113,26 +113,26 @@
     			<nc:Date>2016-03-12</nc:Date>
     		</nc:EndDate>
     	</nc:ActivityDateRange>
-      <ext:SubscriptionSubject>
+      <ssr-ext:SubscriptionSubject>
       	<nc:RoleOfPersonReference s:ref="P002"/>
-      </ext:SubscriptionSubject>
+      </ssr-ext:SubscriptionSubject>
       <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/incident</wsn-br:Topic>
-      <ext:SubscribedEntity s:id="SE002"/>
-      <ext:SubscribedEntity s:id="SE003"/>
-      <ext:SubscriptionOriginator>
-      	<ext:SubscriptionOriginatorIdentification>
+      <ssr-ext:SubscribedEntity s:id="SE002"/>
+      <ssr-ext:SubscribedEntity s:id="SE003"/>
+      <ssr-ext:SubscriptionOriginator>
+      	<ssr-ext:SubscriptionOriginatorIdentification>
       		<nc:IdentificationID>HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
-      	</ext:SubscriptionOriginatorIdentification>
-      </ext:SubscriptionOriginator>
-    </ext:Subscription>
-    <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ext:SourceSystemNameText>
+      	</ssr-ext:SubscriptionOriginatorIdentification>
+      </ssr-ext:SubscriptionOriginator>
+    </ssr-ext:Subscription>
+    <ssr-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ssr-ext:SourceSystemNameText>
 	<intel:SystemIdentifier>
 		<nc:IdentificationID>e25ac1f6-44fe-484d-9bc5-031cbeff99aa,Michael,Scott,1972-03-01,HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
 		<intel:SystemName>Subscriptions</intel:SystemName>
 	</intel:SystemIdentifier>
-  </ext:SubscriptionSearchResult>
+  </ssr-ext:SubscriptionSearchResult>
 
-  <ext:Person s:id="P002">
+  <ssr-ext:Person s:id="P002">
   	<nc:PersonBirthDate>
   		<nc:Date>1972-03-01</nc:Date>
   	</nc:PersonBirthDate>
@@ -140,8 +140,8 @@
   		<nc:PersonGivenName>Michael</nc:PersonGivenName>
   		<nc:PersonSurName>Scott</nc:PersonSurName>
   	</nc:PersonName>
-  </ext:Person>
-  <ext:Person s:id="P001">
+  </ssr-ext:Person>
+  <ssr-ext:Person s:id="P001">
   	<nc:PersonName>
   		<nc:PersonGivenName>Dwight</nc:PersonGivenName>
   		<nc:PersonSurName>Schrute</nc:PersonSurName>
@@ -151,8 +151,8 @@
   			<nc:IdentificationID>A1099109188</nc:IdentificationID>
   		</j:PersonStateFingerprintIdentification>
   	</j:PersonAugmentation>
-  </ext:Person>
-  <ext:Person s:id="P003">
+  </ssr-ext:Person>
+  <ssr-ext:Person s:id="P003">
   	<nc:PersonBirthDate>
   		<nc:Date>1982-03-11</nc:Date>
   	</nc:PersonBirthDate>
@@ -160,7 +160,7 @@
   		<nc:PersonGivenName>Xavier</nc:PersonGivenName>
   		<nc:PersonSurName>Andrews</nc:PersonSurName>
   	</nc:PersonName>
-  </ext:Person>
+  </ssr-ext:Person>
   <nc:ContactInformation s:id="CI001">
   	<nc:ContactEmailID>probation_officer@gov.gov</nc:ContactEmailID>
   </nc:ContactInformation>
@@ -173,20 +173,20 @@
     <nc:ContactInformation s:id="CI004">
   	<nc:ContactEmailID>officer@gov.gov</nc:ContactEmailID>
   </nc:ContactInformation>
-  <ext:SubscribedEntityContactInformationAssociation>
-  	<ext:SubscribedEntityReference s:ref="SE001" />
+  <ssr-ext:SubscribedEntityContactInformationAssociation>
+  	<ssr-ext:SubscribedEntityReference s:ref="SE001" />
   	<nc:ContactInformationReference s:ref="CI001" />
-  </ext:SubscribedEntityContactInformationAssociation>
-  <ext:SubscribedEntityContactInformationAssociation>
-  	<ext:SubscribedEntityReference s:ref="SE002" />
+  </ssr-ext:SubscribedEntityContactInformationAssociation>
+  <ssr-ext:SubscribedEntityContactInformationAssociation>
+  	<ssr-ext:SubscribedEntityReference s:ref="SE002" />
   	<nc:ContactInformationReference s:ref="CI002" />
-  </ext:SubscribedEntityContactInformationAssociation>
-  <ext:SubscribedEntityContactInformationAssociation>
-  	<ext:SubscribedEntityReference s:ref="SE003" />
+  </ssr-ext:SubscribedEntityContactInformationAssociation>
+  <ssr-ext:SubscribedEntityContactInformationAssociation>
+  	<ssr-ext:SubscribedEntityReference s:ref="SE003" />
   	<nc:ContactInformationReference s:ref="CI003" />
-  </ext:SubscribedEntityContactInformationAssociation>
-   <ext:SubscribedEntityContactInformationAssociation>
-  	<ext:SubscribedEntityReference s:ref="SE004" />
+  </ssr-ext:SubscribedEntityContactInformationAssociation>
+   <ssr-ext:SubscribedEntityContactInformationAssociation>
+  	<ssr-ext:SubscribedEntityReference s:ref="SE004" />
   	<nc:ContactInformationReference s:ref="CI004" />
-  </ext:SubscribedEntityContactInformationAssociation>
-</p:SubscriptionSearchResults>
+  </ssr-ext:SubscribedEntityContactInformationAssociation>
+</ssr:SubscriptionSearchResults>

@@ -17,21 +17,21 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<doc:JuvenileReferralHistoryResponse xmlns="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0" xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0" xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0 ../Juvenile_History_IEPD/Referral/JuvenileReferralHistoryResponse.xsd">
-	<cext:JuvenileHistoryCategoryCode>JuvenileReferralHistory</cext:JuvenileHistoryCategoryCode>
-	<cext:JuvenileHistoryQueryCriteria>
-		<cext:JuvenileInformationRecordID>
+<jh-referral-doc:JuvenileReferralHistoryResponse xmlns="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:jh-referral-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0" xmlns:jh-referral="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0" xmlns:jh-referral-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0 ../Juvenile_History_IEPD/Referral/JuvenileReferralHistoryResponse.xsd http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0 ../Juvenile_History_IEPD/Referral/impl/michigan/codes.xsd">
+	<jh-ext:JuvenileHistoryCategoryCode>JuvenileReferralHistory</jh-ext:JuvenileHistoryCategoryCode>
+	<jh-ext:JuvenileHistoryQueryCriteria>
+		<jh-ext:JuvenileInformationRecordID>
 			<IdentificationID>100</IdentificationID>
 			<IdentificationSourceText>Court</IdentificationSourceText>
-		</cext:JuvenileInformationRecordID>
-	</cext:JuvenileHistoryQueryCriteria>
-	<ext:JuvenileReferralHistory>
-		<cext:JuvenileInformationAvailabilityCode>FOUND</cext:JuvenileInformationAvailabilityCode>
-		<cext:JuvenileInformationAvailabilityMetadata structures:id="metadata1">
+		</jh-ext:JuvenileInformationRecordID>
+	</jh-ext:JuvenileHistoryQueryCriteria>
+	<jh-referral:JuvenileReferralHistory>
+		<jh-ext:JuvenileInformationAvailabilityCode>FOUND</jh-ext:JuvenileInformationAvailabilityCode>
+		<jh-ext:JuvenileInformationAvailabilityMetadata structures:id="metadata1">
 			<LastUpdatedDate>
 				<Date>1957-08-13</Date>
 			</LastUpdatedDate>
-			<cext:JuvenileInformationOwnerOrganization>
+			<jh-ext:JuvenileInformationOwnerOrganization>
 				<OrganizationBranchName>2nd District</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
@@ -49,12 +49,12 @@
 					</Address>
 				</OrganizationLocation>
 				<OrganizationName>Court</OrganizationName>
-			</cext:JuvenileInformationOwnerOrganization>
-			<cext:JuvenileInformationRecordID>
+			</jh-ext:JuvenileInformationOwnerOrganization>
+			<jh-ext:JuvenileInformationRecordID>
 				<IdentificationID>100</IdentificationID>
 				<IdentificationSourceText>Court</IdentificationSourceText>
-			</cext:JuvenileInformationRecordID>
-		</cext:JuvenileInformationAvailabilityMetadata>
+			</jh-ext:JuvenileInformationRecordID>
+		</jh-ext:JuvenileInformationAvailabilityMetadata>
 		<Person structures:id="Child1" structures:metadata="metadata1">
 			<PersonName>
 				<PersonGivenName>John</PersonGivenName>
@@ -126,7 +126,7 @@
 			</ActivityDate>
 			<ReferralIssuer>
 				<EntityOrganization>
-					<codes:ReferralIssuerCategoryCode>Prosecutor</codes:ReferralIssuerCategoryCode>
+					<jh-referral-codes:ReferralIssuerCategoryCode>Prosecutor</jh-referral-codes:ReferralIssuerCategoryCode>
 					<OrganizationLocation>
 						<Address>
 							<LocationStreet/>
@@ -139,26 +139,26 @@
 				</EntityOrganization>
 			</ReferralIssuer>
 			<ReferralPerson structures:ref="Child1" xsi:nil="true"/>
-			<ext:ReferralAugmentation>
-				<codes:ReferralCategoryCode>Complaint</codes:ReferralCategoryCode>
-				<cext:JuvenileInformationRecordID>
+			<jh-referral:ReferralAugmentation>
+				<jh-referral-codes:ReferralCategoryCode>Complaint</jh-referral-codes:ReferralCategoryCode>
+				<jh-ext:JuvenileInformationRecordID>
 					<IdentificationID>Referral1</IdentificationID>
 					<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-				<cext:RelatedJuvenileHistoryRecords>
-					<cext:RelatedJuvenileHistoryRecord>
-						<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
-						<cext:JuvenileInformationRecordID>
+				</jh-ext:JuvenileInformationRecordID>
+				<jh-ext:RelatedJuvenileHistoryRecords>
+					<jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
+						<jh-ext:JuvenileInformationRecordID>
 							<IdentificationID>Hearing1</IdentificationID>
 							<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</IdentificationSourceText>
-						</cext:JuvenileInformationRecordID>
-					</cext:RelatedJuvenileHistoryRecord>
-					<cext:RelatedJuvenileHistoryRecord>
-						<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
-						<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
-					</cext:RelatedJuvenileHistoryRecord>
-				</cext:RelatedJuvenileHistoryRecords>
-			</ext:ReferralAugmentation>
+						</jh-ext:JuvenileInformationRecordID>
+					</jh-ext:RelatedJuvenileHistoryRecord>
+					<jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+						<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+					</jh-ext:RelatedJuvenileHistoryRecord>
+				</jh-ext:RelatedJuvenileHistoryRecords>
+			</jh-referral:ReferralAugmentation>
 		</Referral>
 		<Referral structures:id="Referral2" structures:metadata="metadata1">
 			<ActivityDate>
@@ -166,7 +166,7 @@
 			</ActivityDate>
 			<ReferralIssuer>
 				<EntityOrganization>
-					<codes:ReferralIssuerCategoryCode>Prosecutor</codes:ReferralIssuerCategoryCode>
+					<jh-referral-codes:ReferralIssuerCategoryCode>Prosecutor</jh-referral-codes:ReferralIssuerCategoryCode>
 					<OrganizationLocation>
 						<Address>
 							<LocationStreet/>
@@ -179,19 +179,19 @@
 				</EntityOrganization>
 			</ReferralIssuer>
 			<ReferralPerson structures:ref="Child1" xsi:nil="true"/>
-			<ext:ReferralAugmentation>
-				<codes:ReferralCategoryCode>Petition</codes:ReferralCategoryCode>
-				<cext:JuvenileInformationRecordID>
+			<jh-referral:ReferralAugmentation>
+				<jh-referral-codes:ReferralCategoryCode>Petition</jh-referral-codes:ReferralCategoryCode>
+				<jh-ext:JuvenileInformationRecordID>
 					<IdentificationID>Referral2</IdentificationID>
 					<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}ReferralHistory</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-				<cext:RelatedJuvenileHistoryRecords>
-					<cext:RelatedJuvenileHistoryRecord>
-						<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
-						<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
-					</cext:RelatedJuvenileHistoryRecord>
-				</cext:RelatedJuvenileHistoryRecords>
-			</ext:ReferralAugmentation>
+				</jh-ext:JuvenileInformationRecordID>
+				<jh-ext:RelatedJuvenileHistoryRecords>
+					<jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+						<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+					</jh-ext:RelatedJuvenileHistoryRecord>
+				</jh-ext:RelatedJuvenileHistoryRecords>
+			</jh-referral:ReferralAugmentation>
 		</Referral>
-	</ext:JuvenileReferralHistory>
-</doc:JuvenileReferralHistoryResponse>
+	</jh-referral:JuvenileReferralHistory>
+</jh-referral-doc:JuvenileReferralHistoryResponse>

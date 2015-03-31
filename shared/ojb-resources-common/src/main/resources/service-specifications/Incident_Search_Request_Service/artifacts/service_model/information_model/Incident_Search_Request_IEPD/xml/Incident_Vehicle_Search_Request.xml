@@ -17,11 +17,11 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:IncidentVehicleSearchRequest
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
+<isr-doc:IncidentVehicleSearchRequest
+	xmlns:isr-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:extVehicle="http://ojbc.org/IEPD/Extensions/IncidentVehicleSearchRequest/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0 ../xsd/exchange_schema.xsd" s:metadata="SM003">
 	<extVehicle:Vehicle>
@@ -29,9 +29,9 @@
 			<nc:IdentificationID>123456</nc:IdentificationID>
 		</extVehicle:VehicleSystemIdentification>
 	</extVehicle:Vehicle>
-	<ext:SourceSystemNameText>System2</ext:SourceSystemNameText>
-	<ext:SearchMetadata s:id="SM003">
-		<ext:SearchRequestOnBehalfOfText>John Doe</ext:SearchRequestOnBehalfOfText>
-		<ext:SearchPurposeText>Criminal Justice</ext:SearchPurposeText>
-	</ext:SearchMetadata>
-</exchange:IncidentVehicleSearchRequest>
+	<isr:SourceSystemNameText>System2</isr:SourceSystemNameText>
+	<isr:SearchMetadata s:id="SM003">
+		<isr:SearchRequestOnBehalfOfText>John Doe</isr:SearchRequestOnBehalfOfText>
+		<isr:SearchPurposeText>Criminal Justice</isr:SearchPurposeText>
+	</isr:SearchMetadata>
+</isr-doc:IncidentVehicleSearchRequest>

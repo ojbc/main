@@ -20,7 +20,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
 	elementFormDefault="qualified"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
+	xmlns:isres="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
@@ -48,7 +48,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:IncidentSearchResult" minOccurs="0"
+					<xsd:element ref="isres:IncidentSearchResult" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
@@ -64,7 +64,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:IncidentPersonSearchResult"
+					<xsd:element ref="isres:IncidentPersonSearchResult"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
@@ -80,28 +80,28 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:IncidentVehicleSearchResult"
+					<xsd:element ref="isres:IncidentVehicleSearchResult"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="IncidentSearchResult" type="ext:IncidentSearchResultType">
+	<xsd:element name="IncidentSearchResult" type="isres:IncidentSearchResultType">
 		<xsd:annotation>
 			<xsd:documentation>A set of details about an
 				incident.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentPersonSearchResult" type="ext:IncidentPersonSearchResultType">
+	<xsd:element name="IncidentPersonSearchResult" type="isres:IncidentPersonSearchResultType">
 		<xsd:annotation>
 			<xsd:documentation>A set of details about an
 				incident related to a
 				specific person of interest..</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentVehicleSearchResult" type="ext:IncidentVehicleSearchResultType">
+	<xsd:element name="IncidentVehicleSearchResult" type="isres:IncidentVehicleSearchResultType">
 		<xsd:annotation>
 			<xsd:documentation>A set of details about an
 				incident related to a
@@ -117,14 +117,14 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:Incident" />
+					<xsd:element ref="isres:Incident" />
 					<xsd:element ref="nc:Location" minOccurs="0" />
 					<xsd:element ref="nc:Organization" minOccurs="0" />
 					<xsd:element ref="nc:ActivityReportingOrganizationAssociation"
 						minOccurs="0" />
 					<xsd:element ref="j:ActivityLocationAssociation"
 						minOccurs="0" />
-					<xsd:element ref="ext:SourceSystemNameText" minOccurs="0"
+					<xsd:element ref="isres:SourceSystemNameText" minOccurs="0"
 						maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
 				</xsd:sequence>
@@ -138,9 +138,9 @@
 				</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="ext:IncidentSearchResultType">
+			<xsd:extension base="isres:IncidentSearchResultType">
 				<xsd:sequence>
-					<xsd:element ref="ext:IncidentInvolvedPersonInvolvementDescriptionText" minOccurs="0"/>
+					<xsd:element ref="isres:IncidentInvolvedPersonInvolvementDescriptionText" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -152,10 +152,10 @@
 				</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="ext:IncidentSearchResultType">
+			<xsd:extension base="isres:IncidentSearchResultType">
 				<xsd:sequence>
 					<xsd:element
-						ref="ext:IncidentInvolvedVehicleInvolvementDescriptionText" minOccurs="0"/>
+						ref="isres:IncidentInvolvedVehicleInvolvementDescriptionText" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -165,7 +165,7 @@
 			<xsd:documentation>A generic/abstract element for a city or town.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StructuredAddress" type="ext:StructuredAddressType"
+	<xsd:element name="StructuredAddress" type="isres:StructuredAddressType"
 		substitutionGroup="nc:AddressRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A geophysical location.</xsd:documentation>
@@ -179,7 +179,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:StructuredAddressType">
 				<xsd:sequence>
-					<xsd:element ref="ext:LocationCityTown" minOccurs="0" />
+					<xsd:element ref="isres:LocationCityTown" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -193,7 +193,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:IncidentType">
 				<xsd:sequence>
-					<xsd:element ref="ext:IncidentCategoryCode" minOccurs="0" />
+					<xsd:element ref="isres:IncidentCategoryCode" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -212,7 +212,7 @@
 				incident.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Incident" type="ext:IncidentType">
+	<xsd:element name="Incident" type="isres:IncidentType">
 		<xsd:annotation>
 			<xsd:documentation>An occurrence or an event that may require a
 				response.</xsd:documentation>
@@ -224,7 +224,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentCategoryCode" type="ext:IncidentCategoryCodeType">
+	<xsd:element name="IncidentCategoryCode" type="isres:IncidentCategoryCodeType">
 		<xsd:annotation>
 			<xsd:documentation>The kind of incident.</xsd:documentation>
 		</xsd:annotation>
@@ -235,7 +235,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:simpleContent>
-			<xsd:extension base="ext:IncidentCategoryCodeSimpleType">
+			<xsd:extension base="isres:IncidentCategoryCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>

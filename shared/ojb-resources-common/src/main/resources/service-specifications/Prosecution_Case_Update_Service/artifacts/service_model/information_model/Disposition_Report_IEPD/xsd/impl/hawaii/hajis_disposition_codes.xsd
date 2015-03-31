@@ -1,0 +1,1138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:i="http://release.niem.gov/niem/appinfo/3.0/"
+xmlns:hi_codes_hajis="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0"
+xmlns:disp_ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+targetNamespace="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>HAJIS Codes for Hawaii Dispositions</xsd:documentation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://release.niem.gov/niem/appinfo/3.0/" schemaLocation="../../Subset/niem/appinfo/3.0/appinfo.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" schemaLocation="../../extension_schema.xsd"/>
+	<xsd:simpleType name="ChargeSeverityCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Charge Severity Code Set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="VL">
+				<xsd:annotation>
+					<xsd:documentation>violation</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PM">
+				<xsd:annotation>
+					<xsd:documentation>Petty misdemeanor</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MD">
+				<xsd:annotation>
+					<xsd:documentation>misdemeanor</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FC">
+				<xsd:annotation>
+					<xsd:documentation>Felony C</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FB">
+				<xsd:annotation>
+					<xsd:documentation>Felony B</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FA">
+				<xsd:annotation>
+					<xsd:documentation>Felon A</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="F">
+				<xsd:annotation>
+					<xsd:documentation>Felony</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ChargeSeverityCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Charge Severity Code Set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:ChargeSeverityCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="CounselCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Counsel Category code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="CA">
+				<xsd:annotation>
+					<xsd:documentation>COURT APPOINTED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LA">
+				<xsd:annotation>
+					<xsd:documentation>LEGAL AID</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OT">
+				<xsd:annotation>
+					<xsd:documentation>OTHER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PD">
+				<xsd:annotation>
+					<xsd:documentation>PUBLIC DEFENDER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PS">
+				<xsd:annotation>
+					<xsd:documentation>PRO SE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PV">
+				<xsd:annotation>
+					<xsd:documentation>PRIVATE ATTORNEY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UN">
+				<xsd:annotation>
+					<xsd:documentation>UNKNOWN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="CounselCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Counsel Category code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:CounselCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="CourtEventCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Court Event Category code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="AAP">
+				<xsd:annotation>
+					<xsd:documentation>ARRAIGNMENT &amp; PLEA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ACQ">
+				<xsd:annotation>
+					<xsd:documentation>MOTION FOR JUDGEMENT OF ACQUITTAL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CLC">
+				<xsd:annotation>
+					<xsd:documentation>CALENDAR CALL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CNF">
+				<xsd:annotation>
+					<xsd:documentation>CHAMBERS CONFER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COP">
+				<xsd:annotation>
+					<xsd:documentation>CHANGE OF PLEA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DAG">
+				<xsd:annotation>
+					<xsd:documentation>DAG PLEA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DNC">
+				<xsd:annotation>
+					<xsd:documentation>DANC PLEA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DSM">
+				<xsd:annotation>
+					<xsd:documentation>MOTION TO DISMISS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HRG">
+				<xsd:annotation>
+					<xsd:documentation>HEARING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JRT">
+				<xsd:annotation>
+					<xsd:documentation>JURY TRIAL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JWT">
+				<xsd:annotation>
+					<xsd:documentation>JURY WAIVED TRIAL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MOT">
+				<xsd:annotation>
+					<xsd:documentation>MOTIONS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NPQ">
+				<xsd:annotation>
+					<xsd:documentation>MOTION TO NOLLE PROS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PTC">
+				<xsd:annotation>
+					<xsd:documentation>PRE-TRIAL CONF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RBW">
+				<xsd:annotation>
+					<xsd:documentation>RTN BENCH WARN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RES">
+				<xsd:annotation>
+					<xsd:documentation>RESENTENCING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SEN">
+				<xsd:annotation>
+					<xsd:documentation>SENTENCING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="STC">
+				<xsd:annotation>
+					<xsd:documentation>STATUS CONF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="CourtEventCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Court Event Category code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:CourtEventCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="DeferredDispCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Deferred Disposition code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="CDS">
+				<xsd:annotation>
+					<xsd:documentation>CONDITIONAL DISCHARGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DFP">
+				<xsd:annotation>
+					<xsd:documentation>DEFERRED PROSECUTION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DNC">
+				<xsd:annotation>
+					<xsd:documentation>DEFERRED ACCEPT - NC PLEA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DAG">
+				<xsd:annotation>
+					<xsd:documentation>DAG PLEA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DRG">
+				<xsd:annotation>
+					<xsd:documentation>DRUG COURT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DeferredDispCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Deferred Disposition code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:DeferredDispCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="DispCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Disposition Category code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ARR">
+				<xsd:annotation>
+					<xsd:documentation>Arrest</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CRT">
+				<xsd:annotation>
+					<xsd:documentation>Court</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PROS">
+				<xsd:annotation>
+					<xsd:documentation>Prosecution</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SCT">
+				<xsd:annotation>
+					<xsd:documentation>Appeal</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SENT">
+				<xsd:annotation>
+					<xsd:documentation>Sentencing</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DispCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Disposition Category code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:DispCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="DispositionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Disposition code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="">
+				<xsd:annotation>
+					<xsd:documentation>EMPTY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ACQ">
+				<xsd:annotation>
+					<xsd:documentation>ACQUITTED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AFJ">
+				<xsd:annotation>
+					<xsd:documentation>ABSENT FROM JURISDICTION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AQC">
+				<xsd:annotation>
+					<xsd:documentation>ACQUIT-INSANITY;CONDL REL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AQI">
+				<xsd:annotation>
+					<xsd:documentation>ACQUIT - INSANITY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BFF">
+				<xsd:annotation>
+					<xsd:documentation>BAIL FORFEITURE - FINAL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BFI">
+				<xsd:annotation>
+					<xsd:documentation>BAIL FORFEITURE - PENDING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BLF">
+				<xsd:annotation>
+					<xsd:documentation>BAIL FORFEITURE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BRS">
+				<xsd:annotation>
+					<xsd:documentation>BAIL RESET FOR DRUG COURT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BWI">
+				<xsd:annotation>
+					<xsd:documentation>BENCH WARRANT ISSUED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CDS">
+				<xsd:annotation>
+					<xsd:documentation>CONDITIONAL DISCHARGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CGJ">
+				<xsd:annotation>
+					<xsd:documentation>TAKEN TO GRAND JURY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CLP">
+				<xsd:annotation>
+					<xsd:documentation>COMM IN LIEU OF PROS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CMM">
+				<xsd:annotation>
+					<xsd:documentation>COMMITTED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COC">
+				<xsd:annotation>
+					<xsd:documentation>CONTEMPT OF CRT WRITE-OFF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CON">
+				<xsd:annotation>
+					<xsd:documentation>CONTINUED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CRM">
+				<xsd:annotation>
+					<xsd:documentation>COND'L RELEASE - MENTAL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CVH">
+				<xsd:annotation>
+					<xsd:documentation>CHANGE OF VENUE TO HAWAII</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CVK">
+				<xsd:annotation>
+					<xsd:documentation>CHANGE OF VENUE TO KAUAI</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CVM">
+				<xsd:annotation>
+					<xsd:documentation>CHANGE OF VENUE TO MAUI</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CVO">
+				<xsd:annotation>
+					<xsd:documentation>CHANGE OF VENUE TO OAHU</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CWD">
+				<xsd:annotation>
+					<xsd:documentation>DAG/DNC CLOSED W/O DSM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DAG">
+				<xsd:annotation>
+					<xsd:documentation>DAG PLEA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DCH">
+				<xsd:annotation>
+					<xsd:documentation>DISCHARGED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DEF">
+				<xsd:annotation>
+					<xsd:documentation>DEFERRED CALENDAR</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DFP">
+				<xsd:annotation>
+					<xsd:documentation>DEFERRED PROSECUTION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DNC">
+				<xsd:annotation>
+					<xsd:documentation>DEFERRED ACCEPT - NC PLEA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DNP">
+				<xsd:annotation>
+					<xsd:documentation>DSM/NPQ WITHOUT PREJUDICE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DRG">
+				<xsd:annotation>
+					<xsd:documentation>DRUG COURT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DSM">
+				<xsd:annotation>
+					<xsd:documentation>DISMISSED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EXT">
+				<xsd:annotation>
+					<xsd:documentation>EXTRADITION CHARGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GLT">
+				<xsd:annotation>
+					<xsd:documentation>GUILTY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GRV">
+				<xsd:annotation>
+					<xsd:documentation>REVERSED/VACATED/REMANDED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ISC">
+				<xsd:annotation>
+					<xsd:documentation>INTAKE SERVICE CENTER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JMC">
+				<xsd:annotation>
+					<xsd:documentation>JOINT MOTION TO CONTINUE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MIS">
+				<xsd:annotation>
+					<xsd:documentation>MISTRIAL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MOO">
+				<xsd:annotation>
+					<xsd:documentation>MOOT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NBL">
+				<xsd:annotation>
+					<xsd:documentation>NO BAIL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NDF">
+				<xsd:annotation>
+					<xsd:documentation>INACTIVE; NO DSM FILED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NGT">
+				<xsd:annotation>
+					<xsd:documentation>NOT GUILTY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NOA">
+				<xsd:annotation>
+					<xsd:documentation>NO ACTION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NPQ">
+				<xsd:annotation>
+					<xsd:documentation>NOLLE PROSEQUI</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NSA">
+				<xsd:annotation>
+					<xsd:documentation>NO SHOW APPEARANCE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NSI">
+				<xsd:annotation>
+					<xsd:documentation>NO SENTENCE IMPOSED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ORF">
+				<xsd:annotation>
+					<xsd:documentation>ORDER OF FORFEITURE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PHS">
+				<xsd:annotation>
+					<xsd:documentation>PRELIMINARY HEARING SET</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PHW">
+				<xsd:annotation>
+					<xsd:documentation>PRELIM WAIVED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PLC">
+				<xsd:annotation>
+					<xsd:documentation>PAROLE CONTINUED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PLR">
+				<xsd:annotation>
+					<xsd:documentation>PAROLE REVOKED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PRD">
+				<xsd:annotation>
+					<xsd:documentation>PROB REV;DISMISSED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PRS">
+				<xsd:annotation>
+					<xsd:documentation>PROB REV;RE-SENTENCED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PSI">
+				<xsd:annotation>
+					<xsd:documentation>PENAL SUMMONS ISSUED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RCC">
+				<xsd:annotation>
+					<xsd:documentation>COMMITTED TO CIRCUIT CT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RDA">
+				<xsd:annotation>
+					<xsd:documentation>REVERSED DUE TO APPEAL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RDC">
+				<xsd:annotation>
+					<xsd:documentation>REMANDED TO DIST CT TRIAL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RES">
+				<xsd:annotation>
+					<xsd:documentation>RE-SENTENCED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RFC">
+				<xsd:annotation>
+					<xsd:documentation>COMMITTED TO FAMILY COURT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RTA">
+				<xsd:annotation>
+					<xsd:documentation>RELEASED TO APPEAR</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SBL">
+				<xsd:annotation>
+					<xsd:documentation>BAIL SET</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SEN">
+				<xsd:annotation>
+					<xsd:documentation>SENTENCED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="STR">
+				<xsd:annotation>
+					<xsd:documentation>STRICKEN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TAD">
+				<xsd:annotation>
+					<xsd:documentation>TRANSFER TO ANOTHER COURT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UNX">
+				<xsd:annotation>
+					<xsd:documentation>DISPO UNAVAILABLE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZAF">
+				<xsd:annotation>
+					<xsd:documentation>AFFIRMED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZAR">
+				<xsd:annotation>
+					<xsd:documentation>AFFIRMED/REVERSED IN PART</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZIN">
+				<xsd:annotation>
+					<xsd:documentation>APPEAL PENDING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZMA">
+				<xsd:annotation>
+					<xsd:documentation>MODIFIED &amp; AFFIRMED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZMD">
+				<xsd:annotation>
+					<xsd:documentation>APPEAL DSM/WITHDRAWN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZOT">
+				<xsd:annotation>
+					<xsd:documentation>OTHER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZRN">
+				<xsd:annotation>
+					<xsd:documentation>REVERSED/REMAND NEW TRIAL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZRR">
+				<xsd:annotation>
+					<xsd:documentation>REVERSED/REMAND W INSTRCT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZRV">
+				<xsd:annotation>
+					<xsd:documentation>REVERSED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZVN">
+				<xsd:annotation>
+					<xsd:documentation>VACATED/REMAND NEW TRIAL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ZVR">
+				<xsd:annotation>
+					<xsd:documentation>VACATED/REMAND W INSTRCT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DispositionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Disposition code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:DispositionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="PleaCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Plea code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="C">
+				<xsd:annotation>
+					<xsd:documentation>NOLO CONTENDERE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="G">
+				<xsd:annotation>
+					<xsd:documentation>GUILTY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="I">
+				<xsd:annotation>
+					<xsd:documentation>NOT GUILTY - INSANITY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="N">
+				<xsd:annotation>
+					<xsd:documentation>NOT GUILTY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="O">
+				<xsd:annotation>
+					<xsd:documentation>OTHER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="U">
+				<xsd:annotation>
+					<xsd:documentation>UNKNOWN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PleaCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Plea code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:PleaCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SentenceCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Sentence Category code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="BWF">
+				<xsd:annotation>
+					<xsd:documentation>BW FEE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CIF">
+				<xsd:annotation>
+					<xsd:documentation>CRIM INJ COMP FEE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COMM">
+				<xsd:annotation>
+					<xsd:documentation>COMMUNITY SERVICE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CONF">
+				<xsd:annotation>
+					<xsd:documentation>CONFINEMENT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CREDIT">
+				<xsd:annotation>
+					<xsd:documentation>CREDIT FOR TIME SERVED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CTC">
+				<xsd:annotation>
+					<xsd:documentation>COURT COST</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DLIC">
+				<xsd:annotation>
+					<xsd:documentation>DRIVER'S LICENSE SUSPENDED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DON">
+				<xsd:annotation>
+					<xsd:documentation>DONATION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DRG">
+				<xsd:annotation>
+					<xsd:documentation>DRUG COURT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FINE">
+				<xsd:annotation>
+					<xsd:documentation>FINE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FSUS">
+				<xsd:annotation>
+					<xsd:documentation>FINE SUSPENDED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MAND">
+				<xsd:annotation>
+					<xsd:documentation>MANDATORY MINIMUM SENTENCE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OTHR">
+				<xsd:annotation>
+					<xsd:documentation>AN UNKNOWN TYPE OF SENTENCE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PFA">
+				<xsd:annotation>
+					<xsd:documentation>PROBATION FEE ASSESSMENT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PROB">
+				<xsd:annotation>
+					<xsd:documentation>PROBATION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="REST">
+				<xsd:annotation>
+					<xsd:documentation>RESTITUTION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SCS">
+				<xsd:annotation>
+					<xsd:documentation>SUSPENDED COMMUNITY SERVICE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SGF">
+				<xsd:annotation>
+					<xsd:documentation>STATE GENERAL FUND</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SUSP">
+				<xsd:annotation>
+					<xsd:documentation>SUSPENDED SENTENCE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TSUS">
+				<xsd:annotation>
+					<xsd:documentation>CONFINEMENT TIME SUSPENDED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WCF">
+				<xsd:annotation>
+					<xsd:documentation>CRIM INJ COMP FEE WAIVED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WCT">
+				<xsd:annotation>
+					<xsd:documentation>COURT COST WAIVED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WPF">
+				<xsd:annotation>
+					<xsd:documentation>PROBATION FEE WAIVED</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="SentenceCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Sentence Category code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:SentenceCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SentenceMethodCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Sentence Method code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="CR">
+				<xsd:annotation>
+					<xsd:documentation>CONCURRENT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CS">
+				<xsd:annotation>
+					<xsd:documentation>CONSECUTIVE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="IN">
+				<xsd:annotation>
+					<xsd:documentation>INTERMITTENT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="SentenceMethodCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Sentence Method code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:SentenceMethodCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SentenceUnitCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Sentence Unit Code Set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="$">
+				<xsd:annotation>
+					<xsd:documentation>DOLLAR(S)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="D">
+				<xsd:annotation>
+					<xsd:documentation>DAY(S)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="H">
+				<xsd:annotation>
+					<xsd:documentation>HOUR(S)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="L">
+				<xsd:annotation>
+					<xsd:documentation>LIFETIME</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="M">
+				<xsd:annotation>
+					<xsd:documentation>MONTH(S)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="W">
+				<xsd:annotation>
+					<xsd:documentation>WEEKEND(S)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Y">
+				<xsd:annotation>
+					<xsd:documentation>YEAR(S)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="SentenceUnitCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Sentence Unit Code Set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:SentenceUnitCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="TrialCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Trial Categoty code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="JRT">
+				<xsd:annotation>
+					<xsd:documentation>JURY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NJT">
+				<xsd:annotation>
+					<xsd:documentation>NON-JURY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PTH">
+				<xsd:annotation>
+					<xsd:documentation>PRE-TRIAL HEARING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OTH">
+				<xsd:annotation>
+					<xsd:documentation>OTHER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TrialCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Trial Categoty code set</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="hi_codes_hajis:TrialCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="ChargeSeverityCode" type="hi_codes_hajis:ChargeSeverityCodeType" substitutionGroup="disp_ext:Charge">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a charge severity.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CounselCategoryCode" type="hi_codes_hajis:CounselCategoryCodeType" substitutionGroup="disp_ext:CaseOfficial">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a category of a defense attorney.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtEventCategoryCode" type="hi_codes_hajis:CourtEventCategoryCodeType" substitutionGroup="disp_ext:CourtEvent">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a court event.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionCategoryCode" type="hi_codes_hajis:DispCategoryCodeType" substitutionGroup="disp_ext:Disposition">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a disposition category.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionCode" type="hi_codes_hajis:DispositionCodeType" substitutionGroup="disp_ext:Disposition">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a disposition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PleaCode" type="hi_codes_hajis:PleaCodeType" substitutionGroup="disp_ext:Plea">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a plea.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceCategoryCode" type="hi_codes_hajis:SentenceCategoryCodeType" substitutionGroup="disp_ext:Sentence">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a category of a sentence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceConditionCategoryCode" type="hi_codes_hajis:SentenceCategoryCodeType" substitutionGroup="disp_ext:SentenceConditionLiteral">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a category of a sentence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceMethodCode" type="hi_codes_hajis:SentenceMethodCodeType" substitutionGroup="disp_ext:Sentence">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a sentence method.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceUnitCode" type="hi_codes_hajis:SentenceUnitCodeType" substitutionGroup="disp_ext:Sentence">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a unit for a sentence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TrialCategoryCode" type="hi_codes_hajis:TrialCategoryCodeType" substitutionGroup="disp_ext:CourtEvent">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a trial category.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

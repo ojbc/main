@@ -17,10 +17,10 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:IncidentPersonSearchResults
+<isres-doc:IncidentPersonSearchResults
 	xmlns:codes="http://ojbc.org/IEPD/Extensions/VermontLocationCodes/1.0"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
+	xmlns:isres-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
+	xmlns:isres="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:usps="http://niem.gov/niem/usps_states/2.0"
@@ -34,4 +34,4 @@
 			<intel:SystemName>VIBRS</intel:SystemName>
 		</srer:SearchRequestError>
 	</srm:SearchResultsMetadata>
-</exchange:IncidentPersonSearchResults>
+</isres-doc:IncidentPersonSearchResults>

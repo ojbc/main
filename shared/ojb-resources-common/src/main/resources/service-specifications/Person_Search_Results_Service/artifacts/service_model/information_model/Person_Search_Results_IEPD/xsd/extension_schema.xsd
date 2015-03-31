@@ -19,8 +19,9 @@
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
@@ -35,7 +36,7 @@
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/domains/cyfs/2.1/1" schemaLocation="Subset/niem/domains/cyfs/2.1/1/cyfs.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchResultsCodes/1.0" schemaLocation="member-extensions/michigan/michigan-codes.xsd"/>
+	<!--xsd:import namespace="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchResultsCodes/1.0" schemaLocation="impl/michigan/michigan-codes.xsd"/-->
 	<xsd:complexType name="PersonSearchResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a set of details returned about
@@ -45,14 +46,14 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:PersonSearchResult" minOccurs="0"
+					<xsd:element ref="psres:PersonSearchResult" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="PersonSearchResult" type="ext:PersonSearchResultType">
+	<xsd:element name="PersonSearchResult" type="psres:PersonSearchResultType">
 		<xsd:annotation>
 			<xsd:documentation>A summary of person information.
 			</xsd:documentation>
@@ -66,26 +67,26 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:Person" />
-					<xsd:element ref="ext:Parent" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="psres:Person" />
+					<xsd:element ref="psres:Parent" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="cyfs:Placement" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ResidenceAssociation" minOccurs="0"
 						maxOccurs="unbounded" />
-					<xsd:element ref="ext:ParentChildAssociation" minOccurs="0" maxOccurs="unbounded"/>	
+					<xsd:element ref="psres:ParentChildAssociation" minOccurs="0" maxOccurs="unbounded"/>	
 					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SourceSystemNameText" minOccurs="0"
+					<xsd:element ref="psres:SourceSystemNameText" minOccurs="0"
 						maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
-					<xsd:element ref="ext:SearchResultCategoryText" minOccurs="0"/>
-					<xsd:element ref="ext:InformationOwningOrganization" minOccurs="0"/>
+					<xsd:element ref="psres:SearchResultCategoryText" minOccurs="0"/>
+					<xsd:element ref="psres:InformationOwningOrganization" minOccurs="0"/>
 					<xsd:element ref="nc:Metadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-		<xsd:element name="Parent" type="ext:PersonType">
+		<xsd:element name="Parent" type="psres:PersonType">
 		<xsd:annotation>
 			<xsd:documentation>A father or mother of a person.</xsd:documentation>
 			<xsd:documentation>This is based on an element with the same name in NIEM 3.0 CYFS domain.</xsd:documentation>
@@ -103,7 +104,7 @@
 			<xsd:documentation>A father or mother of a person.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ParentChildAssociation" type="ext:ParentChildAssociationType">
+	<xsd:element name="ParentChildAssociation" type="psres:ParentChildAssociationType">
 		<xsd:annotation>
 			<xsd:documentation>An association between a child and a person who is in a parent role toward that child.</xsd:documentation>
 			<xsd:documentation>This is based on an element with the same name in NIEM 3.0 CYFS domain.</xsd:documentation>
@@ -117,8 +118,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:ParentReference" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ChildReference" maxOccurs="unbounded"/>
+					<xsd:element ref="psres:ParentReference" maxOccurs="unbounded"/>
+					<xsd:element ref="psres:ChildReference" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -142,7 +143,7 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Person" type="ext:PersonType">
+	<xsd:element name="Person" type="psres:PersonType">
 		<xsd:annotation>
 			<xsd:documentation>
 				A human being.

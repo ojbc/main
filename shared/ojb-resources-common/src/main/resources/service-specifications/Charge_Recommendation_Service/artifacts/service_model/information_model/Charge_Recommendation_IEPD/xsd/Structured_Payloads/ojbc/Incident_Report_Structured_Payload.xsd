@@ -17,7 +17,6 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<!-- edited with XMLSpy v2007 (http://www.altova.com) by Jim Douglas (SEARCH) -->
 <xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:it="http://niem.gov/niem/domains/internationalTrade/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd"/>

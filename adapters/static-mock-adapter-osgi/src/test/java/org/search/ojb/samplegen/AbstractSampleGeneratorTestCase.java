@@ -16,6 +16,7 @@
  */
 package org.search.ojb.samplegen;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,6 +74,14 @@ public abstract class AbstractSampleGeneratorTestCase extends TestCase {
      * @return the path to the IEPD
      */
     protected abstract String getIEPDRootPath();
+    
+    /**
+     * Subclasses override to add additional schemas to the validator path.  Returns an empty list by default.
+     * @return the list of paths
+     */
+    protected List<String> getAdditionalSchemaRelativePaths() {
+    	return new ArrayList<String>();
+    }
 
     /**
      * Subclasses implement to provide the name of the exchange schema file
@@ -82,7 +91,7 @@ public abstract class AbstractSampleGeneratorTestCase extends TestCase {
 
     protected final void validateDocumentList(List<Document> documentList) throws Exception {
         for (Document d : documentList) {
-            XmlUtils.validateInstance(getIEPDRootPath(), getSchemaRootFolderName(), getRootSchemaFileName(), d);
+            XmlUtils.validateInstance(getIEPDRootPath(), getSchemaRootFolderName(), getRootSchemaFileName(), getAdditionalSchemaRelativePaths(), d);
         }
     }
 

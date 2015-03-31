@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:PersonSearchResults
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+<psres-doc:PersonSearchResults
+	xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
+	xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -32,4 +32,4 @@
 			<intel:SystemName>Maui Firearms</intel:SystemName>
 		</srer:SearchRequestError>
 	</srm:SearchResultsMetadata>
-</exchange:PersonSearchResults>
+</psres-doc:PersonSearchResults>

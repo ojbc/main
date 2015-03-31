@@ -17,17 +17,17 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<tns:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+<notfm-exch:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:tns="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
-	xmlns:tns1="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:notfm-exch="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd ">
-	<tns1:NotifyingIncident s:id="I001">
-		<tns1:NotifyingActivityReportingSystemNameText>Spillman RMS</tns1:NotifyingActivityReportingSystemNameText>
-		<tns1:NotifyingActivityReportingSystemURI>SystemURIHere</tns1:NotifyingActivityReportingSystemURI>
+	<notfm-ext:NotifyingIncident s:id="I001">
+		<notfm-ext:NotifyingActivityReportingSystemNameText>Spillman RMS</notfm-ext:NotifyingActivityReportingSystemNameText>
+		<notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere</notfm-ext:NotifyingActivityReportingSystemURI>
 		<j:Incident>
 			<nc:ActivityIdentification>
 				<nc:IdentificationID>123457</nc:IdentificationID>
@@ -54,15 +54,15 @@
 		</j:Incident>
 		<j:Offense>
 			<nc:ActivityDescriptionText>Driving Under The Influence, First Offense 23 VSA 1201 90D</nc:ActivityDescriptionText>
-			<tns1:OffenseFBINDEXCode>Driving Under Influence</tns1:OffenseFBINDEXCode>
+			<notfm-ext:OffenseFBINDEXCode>Driving Under Influence</notfm-ext:OffenseFBINDEXCode>
 			<j:OffenseCategoryText>DUI</j:OffenseCategoryText>
 		</j:Offense>
 		<j:Offense s:id="Offense214519">
            <nc:ActivityDescriptionText>Robbery</nc:ActivityDescriptionText>
-           <tns1:OffenseFBINDEXCode>Robbery</tns1:OffenseFBINDEXCode>
+           <notfm-ext:OffenseFBINDEXCode>Robbery</notfm-ext:OffenseFBINDEXCode>
            <j:OffenseCategoryText>ROB</j:OffenseCategoryText>
         </j:Offense>
-	</tns1:NotifyingIncident>
+	</notfm-ext:NotifyingIncident>
 	<nc:ActivityInvolvedPersonAssociation>
 		<nc:ActivityReference s:ref="I001" />
 		<nc:PersonReference s:ref="P001" />
@@ -83,4 +83,4 @@
 			<nc:PersonSurName>Wiggum</nc:PersonSurName>
 		</nc:PersonName>
 	</j:Person>
-</tns:NotificationMessage>
+</notfm-exch:NotificationMessage>

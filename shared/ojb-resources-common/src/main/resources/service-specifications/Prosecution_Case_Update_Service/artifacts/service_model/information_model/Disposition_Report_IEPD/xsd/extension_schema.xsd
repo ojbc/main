@@ -17,16 +17,13 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:me_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" xmlns:hi_codes_jims="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" xmlns:hi_codes_hajis="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:vt_codes="http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0" xmlns:me_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" xmlns:hi_codes_jims="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" xmlns:hi_codes_hajis="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0" xmlns:disp_ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="./Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/screening/3.0/" schemaLocation="./Subset/niem/domains/screening/3.0/screening.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" schemaLocation="./member-extensions/maine/disposition_codes.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" schemaLocation="./member-extensions/hawaii/jims_disposition_codes.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0" schemaLocation="./member-extensions/hawaii/hajis_disposition_codes.xsd"/>
 	<xsd:complexType name="DispositionReportType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with Juvenile Justice.</xsd:documentation>
@@ -35,12 +32,15 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="cyfs:SubmittedDateTime" minOccurs="0"/>
+					<xsd:element ref="disp_ext:DispositionReportOriginatingSystem" minOccurs="0"/>
 					<xsd:element ref="j:Subject" minOccurs="0"/>
 					<xsd:element ref="nc:Case" minOccurs="0"/>
-					<xsd:element ref="ext:DeferredCase" minOccurs="0"/>
-					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:DeferredCase" minOccurs="0"/>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Incident" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:CourtCharge" minOccurs="0"/>
 					<xsd:element ref="j:ProsecutionCharge" minOccurs="0"/>
@@ -52,6 +52,7 @@
 					<xsd:element ref="j:OffenseArrestAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:PersonChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -63,15 +64,20 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CaseDefendantCount" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CaseFee" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CasePenalSummonsIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CaseDocket" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CaseTrialCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CaseActivityCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CaseInActivityCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CaseInActivityDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CaseInitiationCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseDefendantCount" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseFee" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CasePenalSummonsIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseDocket" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseTrialCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseActivityCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseInActivityCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseInActivityDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseInitiationCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:FiscalYear" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PretrialReleaseStatus" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PresentenceInvestigation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:OriginalChargeAmendedIndicator" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -83,9 +89,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CalendarLocationIdentification" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:Court" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CourtLocation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CalendarLocationIdentification" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:Court" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CourtLocation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -97,8 +103,11 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CourtEvent" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CourtEvent" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="cyfs:NextCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CourtTrialIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ChargeCountFiled" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:FailedToAppearIndicator" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -110,7 +119,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:Plea" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:Plea" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -123,7 +132,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:Arrest" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:Arrest" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ArrestYear" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -135,9 +145,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SentenceConditionLiteral" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:SentenceConditionLiteral" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ObligationExemption" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:NoContactPerson" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:NoContactPerson" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -149,9 +159,14 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SentenceTimeCategory" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SentenceSuspendedTimeRemainder" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SentenceJuvenileAgeTo" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:SentenceTimeCategory" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:SentenceSuspendedTimeRemainder" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:TermMaximumTotalDays" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:TermMaximumTotalYears" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:TermMinimumTotalDays" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:TermMinimumTotalYears" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:TermTotalDays" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:SentenceJuvenileAgeTo" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -163,12 +178,28 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
+					<xsd:element ref="disp_ext:NextEventDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:Sentence" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SentenceOriginCategory" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SentenceServedCategory" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:Sentence" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:SentenceOriginCategory" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:SentenceServedCategory" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:SentenceTerm" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SentenceRestitution" minOccurs="0" maxOccurs="0"/>
+					<xsd:element ref="disp_ext:SentenceRestitution" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:SentenceDiversionIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:SentenceDiversionDate" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="OffenseAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about an offense.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="disp_ext:InitialOffense" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:FinalOffense" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -180,17 +211,21 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:InitialCharge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:FinalCharge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ChargeModifier" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ChargeFee" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:InitialCharge" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:FinalCharge" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ChargeModifier" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ChargeFee" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="scr:ChargeDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ChargePardonDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ChargeUniversalTrackingNumber" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ArrestTrackingNumber" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ChargeOriginCategory" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ChargeOffenseDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:Charge" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ChargePardonDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ChargeUniversalTrackingNumber" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ArrestTrackingNumber" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ChargeOriginCategory" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ChargeOffenseDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:Charge" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ChargeNumericalRank" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:SexRegistryChargeIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Bail" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ProbationViolationIndicator" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -202,13 +237,16 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
+					<xsd:element ref="disp_ext:NextEventDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:DAGDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CountDispositionDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:AppearanceDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:AppearanceCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:Disposition" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:Sentence" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:DAGDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CountDispositionDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:AppearanceDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:AppearanceCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:Disposition" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:Sentence" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:DispositionYear" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:DispositionDuration" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -220,9 +258,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CaseOfficialPartyCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CaseOfficialCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CaseOfficial" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseOfficialPartyCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseOfficialCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:CaseOfficial" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -234,7 +272,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:ActivityCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp_ext:ActivityCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -244,37 +282,37 @@
 			<xsd:documentation>A deferred disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CaseAugmentation" type="ext:CaseAugmentationType" substitutionGroup="nc:CaseAugmentationPoint">
+	<xsd:element name="CaseAugmentation" type="disp_ext:CaseAugmentationType" substitutionGroup="nc:CaseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a case.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ConditionAugmentation" type="ext:ConditionAugmentationType" substitutionGroup="nc:ConditionAugmentationPoint">
+	<xsd:element name="ConditionAugmentation" type="disp_ext:ConditionAugmentationType" substitutionGroup="nc:ConditionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TermAugmentation" type="ext:TermAugmentationType" substitutionGroup="j:TermAugmentationPoint">
+	<xsd:element name="TermAugmentation" type="disp_ext:TermAugmentationType" substitutionGroup="j:TermAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a term.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceAugmentation" type="ext:SentenceAugmentationType" substitutionGroup="j:SentenceAugmentationPoint">
+	<xsd:element name="SentenceAugmentation" type="disp_ext:SentenceAugmentationType" substitutionGroup="j:SentenceAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a sentence.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CaseOfficialAugmentation" type="ext:CaseOfficialAugmentationType" substitutionGroup="j:CaseOfficialAugmentationPoint">
+	<xsd:element name="CaseOfficialAugmentation" type="disp_ext:CaseOfficialAugmentationType" substitutionGroup="j:CaseOfficialAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a case official.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ActivityAugmentation" type="ext:ActivityAugmentationType" substitutionGroup="nc:ActivityAugmentationPoint">
+	<xsd:element name="ActivityAugmentation" type="disp_ext:ActivityAugmentationType" substitutionGroup="nc:ActivityAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about an activity.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceTermAugmentation" type="ext:TermAugmentationType" substitutionGroup="j:TermAugmentationPoint">
+	<xsd:element name="SentenceTermAugmentation" type="disp_ext:TermAugmentationType" substitutionGroup="j:TermAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a sentence term.</xsd:documentation>
 		</xsd:annotation>
@@ -284,9 +322,19 @@
 			<xsd:documentation>An initial charge.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="InitialOffense" type="j:OffenseType">
+		<xsd:annotation>
+			<xsd:documentation>An initial offense.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="FinalCharge" type="j:ChargeType">
 		<xsd:annotation>
 			<xsd:documentation>A final charge.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FinalOffense" type="j:OffenseType">
+		<xsd:annotation>
+			<xsd:documentation>A final offense.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ChargeFee" type="nc:ObligationType">
@@ -304,6 +352,21 @@
 			<xsd:documentation>The number of defendants associated with a case.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeNumericalRank" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>The numerical ranking of a charge.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseChargeCountQuantity" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>The number of charge counts associated with a case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeCountFiled" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>The number of charges filed for arraignment.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="CaseFee" type="nc:AmountType">
 		<xsd:annotation>
 			<xsd:documentation>A fee associated with a case.</xsd:documentation>
@@ -314,32 +377,87 @@
 			<xsd:documentation>True if a case has a penal summons, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtAugmentation" type="ext:CourtAugmentationType" substitutionGroup="j:CourtAugmentationPoint">
+	<xsd:element name="ProbationViolationIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if charge is a probation violation, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FailedToAppearIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a defendant did not appear, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OriginalChargeAmendedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a the original charge was amended, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceDiversionIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if sentence is referred to diversion, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TermMaximumTotalDays" type="niem-xs:decimal">
+		<xsd:annotation>
+			<xsd:documentation>The total number of days of a maximum term.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TermMinimumTotalDays" type="niem-xs:decimal">
+		<xsd:annotation>
+			<xsd:documentation>The total number of days of a minimum term.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TermMaximumTotalYears" type="niem-xs:decimal">
+		<xsd:annotation>
+			<xsd:documentation>The total number of years of a maximum term.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TermMinimumTotalYears" type="niem-xs:decimal">
+		<xsd:annotation>
+			<xsd:documentation>The total number of years of a minimum term.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TermTotalDays" type="niem-xs:decimal">
+		<xsd:annotation>
+			<xsd:documentation>The total number of days of a sentence term.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtAugmentation" type="disp_ext:CourtAugmentationType" substitutionGroup="j:CourtAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a court.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtEventAugmentation" type="ext:CourtEventAugmentationType" substitutionGroup="j:CourtEventAugmentationPoint">
+	<xsd:element name="PresentenceInvestigationIndicator" type="niem-xs:boolean" substitutionGroup="j:PresentenceInvestigationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a defendant did not appear, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtEventAugmentation" type="disp_ext:CourtEventAugmentationType" substitutionGroup="j:CourtEventAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a court event.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PleaAugmentation" type="ext:PleaAugmentationType" substitutionGroup="j:PleaAugmentationPoint">
+	<xsd:element name="PleaAugmentation" type="disp_ext:PleaAugmentationType" substitutionGroup="j:PleaAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a plea.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestAugmentation" type="ext:ArrestAugmentationType" substitutionGroup="j:ArrestAugmentationPoint">
+	<xsd:element name="ArrestAugmentation" type="disp_ext:ArrestAugmentationType" substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a plea.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeDispositionAugmentation" type="ext:ChargeDispositionAugmentationType" substitutionGroup="j:ChargeDispositionAugmentationPoint">
+	<xsd:element name="ChargeDispositionAugmentation" type="disp_ext:ChargeDispositionAugmentationType" substitutionGroup="j:ChargeDispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a charge disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeAugmentation" type="ext:ChargeAugmentationType" substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="OffenseAugmentation" type="disp_ext:OffenseAugmentationType" substitutionGroup="j:OffenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about an offense.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeAugmentation" type="disp_ext:ChargeAugmentationType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a charge.</xsd:documentation>
 		</xsd:annotation>
@@ -402,6 +520,11 @@
 	<xsd:element name="CaseInActivityDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>A case inactivity date.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceDiversionDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>A sentence diversion date.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CaseInitiationCategoryCodeText" type="nc:TextType">
@@ -469,6 +592,26 @@
 			<xsd:documentation>A generic/abstract element for an arrest.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ArrestYear" type="niem-xs:gYear">
+		<xsd:annotation>
+			<xsd:documentation>The year in which an arrest occured.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionYear" type="niem-xs:gYear">
+		<xsd:annotation>
+			<xsd:documentation>The year in which a disposition was rendered.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionDuration" type="niem-xs:duration">
+		<xsd:annotation>
+			<xsd:documentation>The duration from arraignment to disposition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FiscalYear" type="niem-xs:gYear">
+		<xsd:annotation>
+			<xsd:documentation>The fiscal year.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="Charge" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A generic/abstract element for a Charge.</xsd:documentation>
@@ -504,12 +647,22 @@
 			<xsd:documentation>A date of an offense associated with a charge.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceRestitution" type="nc:DisciplinaryActionType" substitutionGroup="j:SentenceAugmentationPoint">
+	<xsd:element name="CourtTrialIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a trial occurred, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SexRegistryChargeIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if charge is a sex registry charge, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceRestitution" type="nc:DisciplinaryActionType">
 		<xsd:annotation>
 			<xsd:documentation>Restitution associated with a sentence.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeModifierText" type="nc:TextType" substitutionGroup="ext:ChargeModifier">
+	<xsd:element name="ChargeModifierText" type="nc:TextType" substitutionGroup="disp_ext:ChargeModifier">
 		<xsd:annotation>
 			<xsd:documentation>Further qualification of a charge.</xsd:documentation>
 		</xsd:annotation>
@@ -529,9 +682,39 @@
 			<xsd:documentation>Pardon date.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="FineSuspendedIndicator" type="niem-xs:boolean" substitutionGroup="nc:AmountAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a fine was suspended, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ObligationRequiredIndicator" type="niem-xs:boolean" substitutionGroup="nc:ObligationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an obligation is required, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="ObligationUnitText" type="nc:TextType" substitutionGroup="nc:ObligationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A unit of measure associated with an obligation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugOffenseDescriptionText" type="nc:TextType" substitutionGroup="j:OffenseDesignation">
+		<xsd:annotation>
+			<xsd:documentation>A description of a drug offense.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DocumentOtherIdentification" type="nc:IdentificationType" substitutionGroup="nc:DocumentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An identification assigned to a document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NextEventDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date associated with the next event.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionReportOriginatingSystem" type="nc:SystemIdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>The system that created the disposition report.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

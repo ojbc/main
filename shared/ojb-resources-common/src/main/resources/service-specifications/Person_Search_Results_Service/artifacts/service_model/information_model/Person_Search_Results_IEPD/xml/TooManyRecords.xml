@@ -17,8 +17,8 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:PersonSearchResults
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
+<psres-doc:PersonSearchResults
+	xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
 	xmlns:domains="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
@@ -32,4 +32,4 @@
 			</srer:SearchResultsExceedThresholdError>
 		</srer:SearchErrors>
 	</srm:SearchResultsMetadata>
-</exchange:PersonSearchResults>
+</psres-doc:PersonSearchResults>

@@ -38,9 +38,9 @@
     <xsd:complexContent>
       <xsd:extension base="s:AugmentationType">
         <xsd:sequence>
-          <xsd:element ref="nc:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DriverLicense" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
