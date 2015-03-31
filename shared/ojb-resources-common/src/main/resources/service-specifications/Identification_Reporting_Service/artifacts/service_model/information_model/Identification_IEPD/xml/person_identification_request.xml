@@ -30,7 +30,7 @@
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
-				<nc:IdentificationID>SSN</nc:IdentificationID>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
 			<ext:PersonTrackingIdentidication>
 				<nc:IdentificationID>OTN</nc:IdentificationID>

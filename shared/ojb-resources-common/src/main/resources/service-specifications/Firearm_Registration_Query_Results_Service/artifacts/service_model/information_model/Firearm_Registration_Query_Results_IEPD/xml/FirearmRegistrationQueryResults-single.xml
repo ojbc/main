@@ -57,7 +57,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<nc:PersonRaceCode>B</nc:PersonRaceCode>
 		<nc:PersonSexCode>F</nc:PersonSexCode>
 		<nc:PersonSSNIdentification>
-			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
 		<nc:PersonStateIdentification>
 			<nc:IdentificationID>67890-</nc:IdentificationID>

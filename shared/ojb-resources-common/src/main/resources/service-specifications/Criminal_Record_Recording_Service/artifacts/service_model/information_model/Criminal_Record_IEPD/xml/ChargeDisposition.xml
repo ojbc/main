@@ -43,7 +43,7 @@
 				<nc:PersonFullName>String</nc:PersonFullName>
 			</nc:PersonName>
 			<nc:PersonSSNIdentification>
-				<nc:IdentificationID>ID</nc:IdentificationID>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
 		</rap:RapSheetPerson>
 		<!-- Location Ident here-->
