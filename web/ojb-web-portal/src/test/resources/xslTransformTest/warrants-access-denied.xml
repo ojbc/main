@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<warrants:Warrants 
+	xmlns:warrants-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0" 
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
+	xmlns:warrants="http://ojbc.org/IEPD/Exchange/Warrants/1.0" 
+	xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/Warrants/1.0 ../xsd/Person_Query_Results_-_Warrants.xsd ">
+		<warrants-ext:eBWResults>
+			<qrm:QueryResultsMetadata>
+				<iad:InformationAccessDenial>
+					<iad:InformationAccessDenialIndicator>true</iad:InformationAccessDenialIndicator>
+					<iad:InformationAccessDenyingSystemNameText>Warrants</iad:InformationAccessDenyingSystemNameText>
+					<iad:InformationAccessDenialReasonText>User does not meet requirements to access warrants.</iad:InformationAccessDenialReasonText>
+				</iad:InformationAccessDenial>
+			</qrm:QueryResultsMetadata>
+		</warrants-ext:eBWResults>
+</warrants:Warrants>

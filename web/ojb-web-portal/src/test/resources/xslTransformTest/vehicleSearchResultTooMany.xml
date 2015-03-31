@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exc:EntityMergeResultMessage 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:s="http://niem.gov/niem/structures/2.0"
+ xmlns:exc="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0"
+ xmlns:ext="http://nij.gov/IEPD/Extensions/EntityMergeResultMessageExtensions/1.0" 
+ xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+ xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+ xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+ xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
+	<exc:EntityContainer>
+		<ext:Entity s:id="VSR001">
+		    <veh-ext:VehicleSearchResult 
+		        xmlns:veh-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+		        xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+		        xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+		        <veh-ext:Vehicle>
+		        	<nc:ItemCategoryText>Passenger Vehicle</nc:ItemCategoryText>
+		            <nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
+		            <nc:ItemModelName>Titan</nc:ItemModelName>
+		            <nc:ItemModelYearDate>2008</nc:ItemModelYearDate>
+		            <nc:ConveyanceRegistrationPlateIdentification>
+		                <nc:IdentificationID>ABC123</nc:IdentificationID>
+		                <nc:IdentificationExpirationDate>
+               				<nc:Date>2014-07-06</nc:Date>
+           				 </nc:IdentificationExpirationDate>
+		                <j:IdentificationJurisdictionUSPostalServiceCode>VT</j:IdentificationJurisdictionUSPostalServiceCode>
+		            </nc:ConveyanceRegistrationPlateIdentification>
+		            <nc:VehicleDoorQuantity>4</nc:VehicleDoorQuantity>
+		            <nc:VehicleIdentification>
+		                <nc:IdentificationID>1234567890ABCDEFGH</nc:IdentificationID>
+		            </nc:VehicleIdentification>
+		            <nc:ConveyanceRegistration>
+				<nc:ConveyanceRegistrationPlateCategoryCode>CI</nc:ConveyanceRegistrationPlateCategoryCode>
+				<nc:ConveyanceRegistrationPlateCategoryText>City-Owned or Municipal Vehicle</nc:ConveyanceRegistrationPlateCategoryText>
+			</nc:ConveyanceRegistration>
+		            <veh-ext:VehicleMakeCode>Nissan</veh-ext:VehicleMakeCode>
+		        </veh-ext:Vehicle>
+		        <veh-ext:SourceSystemNameText>Law Enforcement RMS</veh-ext:SourceSystemNameText>
+		        <intel:SystemIdentifier>
+		            <nc:IdentificationID>1234</nc:IdentificationID>
+		            <intel:SystemName>Law Enforcement RMS</intel:SystemName>
+		        </intel:SystemIdentifier>
+		    </veh-ext:VehicleSearchResult>		    
+		</ext:Entity>
+	    <ext:Entity s:id="VSR002">
+	        <veh-ext:VehicleSearchResult 
+	            xmlns:veh-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+	            xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	            xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+	            <veh-ext:Vehicle>
+	            	<nc:ItemCategoryText>Passenger Vehicle</nc:ItemCategoryText>
+	                <nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
+	                <nc:ItemModelName>Titan</nc:ItemModelName>
+	                <nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
+	                <nc:ConveyanceRegistrationPlateIdentification>
+	                    <nc:IdentificationID>CDF123</nc:IdentificationID>
+	                     <nc:IdentificationExpirationDate>
+               				<nc:Date>2014-07-06</nc:Date>
+           				 </nc:IdentificationExpirationDate>
+	                    <j:IdentificationJurisdictionUSPostalServiceCode>VT</j:IdentificationJurisdictionUSPostalServiceCode>
+	                </nc:ConveyanceRegistrationPlateIdentification>
+	                <nc:VehicleDoorQuantity>4</nc:VehicleDoorQuantity>
+	                <nc:VehicleIdentification>
+	                    <nc:IdentificationID>1234567890ABCDEFGH</nc:IdentificationID>
+	                </nc:VehicleIdentification>
+	                <nc:ConveyanceRegistration>
+				<nc:ConveyanceRegistrationPlateCategoryText>City-Owned or Municipal Vehicle</nc:ConveyanceRegistrationPlateCategoryText>
+			</nc:ConveyanceRegistration>
+	                <veh-ext:VehicleMakeCode>Nissan</veh-ext:VehicleMakeCode>
+	            </veh-ext:Vehicle>
+	            <veh-ext:SourceSystemNameText>Law Enforcement RMS</veh-ext:SourceSystemNameText>
+	            <intel:SystemIdentifier>
+	                <nc:IdentificationID>1234</nc:IdentificationID>
+	                <intel:SystemName>Law Enforcement RMS</intel:SystemName>
+	            </intel:SystemIdentifier>
+	        </veh-ext:VehicleSearchResult>		    
+	    </ext:Entity>	    
+	</exc:EntityContainer>
+	<exc:MergedRecords>
+		<ext:MergedRecord>
+			<ext:OriginalRecordReference s:ref="VSR001" />
+			<ext:MergeQuality>
+				<ext:StringDistanceStatistics>
+					<ext:AttributeXPath></ext:AttributeXPath>
+					<ext:StringDistanceMeanInRecord>0.0</ext:StringDistanceMeanInRecord>
+					<ext:StringDistanceAverageInRecord>0.0</ext:StringDistanceAverageInRecord>
+					<ext:StringDistanceStandardDeviationInRecord>0.0</ext:StringDistanceStandardDeviationInRecord>
+				</ext:StringDistanceStatistics>
+			</ext:MergeQuality>
+		</ext:MergedRecord>
+	    <ext:MergedRecord>
+	        <ext:OriginalRecordReference s:ref="VSR002" />
+	        <ext:MergeQuality>
+	            <ext:StringDistanceStatistics>
+	                <ext:AttributeXPath></ext:AttributeXPath>
+	                <ext:StringDistanceMeanInRecord>0.0</ext:StringDistanceMeanInRecord>
+	                <ext:StringDistanceAverageInRecord>0.0</ext:StringDistanceAverageInRecord>
+	                <ext:StringDistanceStandardDeviationInRecord>0.0</ext:StringDistanceStandardDeviationInRecord>
+	            </ext:StringDistanceStatistics>
+	        </ext:MergeQuality>
+	    </ext:MergedRecord>
+	</exc:MergedRecords>	
+	<exc:SearchResultsMetadataCollection>
+		<srm:SearchResultsMetadata>
+			<srer:SearchErrors>
+				<intel:SystemName>Law Enforcement RMS</intel:SystemName>
+				<srer:SearchResultsExceedThresholdError>
+					<srer:SearchResultsRecordCount>75660</srer:SearchResultsRecordCount>
+				</srer:SearchResultsExceedThresholdError>
+			</srer:SearchErrors>
+		</srm:SearchResultsMetadata>
+	</exc:SearchResultsMetadataCollection>
+</exc:EntityMergeResultMessage>

@@ -1,0 +1,12 @@
+<ir:IncidentReport xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+    xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+    xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+    xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0">
+    <srm:SearchResultsMetadata>
+        <srer:SearchRequestError>
+            <srer:ErrorText>The System did not respond with an Incident
+                Report.</srer:ErrorText>
+            <intel:SystemName>Law Enforcement RMS</intel:SystemName>
+        </srer:SearchRequestError>
+    </srm:SearchResultsMetadata>
+</ir:IncidentReport>

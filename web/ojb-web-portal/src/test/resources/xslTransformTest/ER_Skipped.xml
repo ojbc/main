@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exc:EntityMergeResultMessage 
+	xmlns:ext="http://nij.gov/IEPD/Extensions/EntityMergeResultMessageExtensions/1.0" 
+	xmlns:exc="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0 ../xsd/EntityMergeResultMessage.xsd">
+  <exc:EntityContainer>
+    <ext:Entity>
+    	<TestEntity/>
+    </ext:Entity>
+  </exc:EntityContainer>
+  <exc:MergedRecords>
+    <ext:MergedRecord>
+      <ext:OriginalRecordReference/>
+      <ext:MergeQuality>
+        <ext:StringDistanceStatistics>
+          <ext:AttributeXPath></ext:AttributeXPath>
+          <ext:StringDistanceMeanInRecord>0.0</ext:StringDistanceMeanInRecord>
+          <ext:StringDistanceAverageInRecord>0.0</ext:StringDistanceAverageInRecord>
+          <ext:StringDistanceStandardDeviationInRecord>0.0</ext:StringDistanceStandardDeviationInRecord>
+        </ext:StringDistanceStatistics>
+      </ext:MergeQuality>
+    </ext:MergedRecord>
+  </exc:MergedRecords>
+  <exc:RecordLimitExceededIndicator>true</exc:RecordLimitExceededIndicator>
+</exc:EntityMergeResultMessage>

@@ -1,0 +1,166 @@
+package org.ojbc.web.portal.controllers.helpers;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
+
+import java.util.Arrays;
+
+import javax.annotation.Resource;
+
+import org.ojbc.web.model.person.search.PersonSearchRequest;
+import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.validation.BindingResult;
+
+// Tests based on Simple Search Requirements Doc
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({"classpath:/static-configuration-demostate.xml"})
+public class SimpleSearchParserPerSearchDocumentTest {
+
+    @Resource
+	SimpleSearchParser unit;
+	private BindingResult errors;
+	private PersonSearchCommand personSearchCommand;
+
+	@Before
+	public void setup() {
+		errors = mock(BindingResult.class);
+		personSearchCommand = new PersonSearchCommand();
+		personSearchCommand.getAdvanceSearch().setSourceSystems(Arrays.asList("sys1"));
+	}
+
+	@Test
+	public void searchForLastName() {
+		personSearchCommand.setSimpleSearch("Chow");
+		PersonSearchRequest expectedPersonSearchRequest = unit
+		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Chow"));
+	}
+
+	@Test
+	public void searchForFirstNameAndLastName() {
+		personSearchCommand.setSimpleSearch("Norm Chow");
+		PersonSearchRequest expectedPersonSearchRequest = unit
+		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("Norm"));
+		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Chow"));
+		verifyZeroInteractions(errors);
+	}
+
+	@Test
+	public void searchForFirstNameAndLastNameTwo() {
+		personSearchCommand.setSimpleSearch("Van Halen");
+		PersonSearchRequest expectedPersonSearchRequest = unit
+		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("Van"));
+		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Halen"));
+		verifyZeroInteractions(errors);
+	}
+
+	@Test
+	public void searchForFirstNameAndLastNameWithQuotes() {
+		personSearchCommand.setSimpleSearch("Eddie \"Van Halen\"");
+		PersonSearchRequest expectedPersonSearchRequest = unit
+		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("Eddie"));
+		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Van Halen"));
+		verifyZeroInteractions(errors);
+	}
+
+	@Test
+	public void searchForFirstNameAndLastNameWithNoQuotes() {
+		personSearchCommand.setSimpleSearch("Eddie Van Halen");
+		PersonSearchRequest expectedPersonSearchRequest = unit
+				.validateAndParseSimpleSearch(personSearchCommand, errors);
+		
+		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("Eddie"));
+		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Van Halen"));
+		verifyZeroInteractions(errors);
+	}
+
+	@Test
+	public void searchForFirstNameAndLastNameAndDOB() {
+		personSearchCommand.setSimpleSearch("Norm Chow 05/03/1946 ");
+		PersonSearchRequest expectedPersonSearchRequest = unit
+		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("Norm"));
+		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Chow"));
+		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getMonthOfYear(), is(5));
+		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getDayOfMonth(), is(3));
+		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getYear(), is(1946));
+		verifyZeroInteractions(errors);
+	}
+
+	@Test
+	public void searchForDOBOnlyResultsInError() {
+		personSearchCommand.setSimpleSearch("05/03/1946");
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		verify(errors).rejectValue("simpleSearch", "missingRequiredInput",
+		        "Search must have either a last name or an identifier (SSN, SID, DL, or FBI Number)");
+	}
+
+	@Test
+	public void searchForSSN() {
+		personSearchCommand.setSimpleSearch("123-45-6789");
+		PersonSearchRequest expectedPersonSearchRequest = unit
+		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		assertThat(expectedPersonSearchRequest.getPersonSocialSecurityNumber(), is("123-45-6789"));
+		verifyZeroInteractions(errors);
+	}
+
+	@Test
+	public void searchForSID() {
+		personSearchCommand.setSimpleSearch("A123456");
+		PersonSearchRequest expectedPersonSearchRequest = unit
+		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		assertThat(expectedPersonSearchRequest.getPersonSID(), is("A123456"));
+		verifyZeroInteractions(errors);
+	}
+
+	@Test
+	public void searchForSIDAndSSN() {
+		personSearchCommand.setSimpleSearch("A123456 123-45-6788");
+		PersonSearchRequest expectedPersonSearchRequest = unit
+		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		assertThat(expectedPersonSearchRequest.getPersonSocialSecurityNumber(), is("123-45-6788"));
+		assertThat(expectedPersonSearchRequest.getPersonSID(), is("A123456"));
+		verifyZeroInteractions(errors);
+	}
+
+	@Test
+	public void searchForLastNameAndSSN() {
+		personSearchCommand.setSimpleSearch("Chow 123-45-6789");
+		PersonSearchRequest expectedPersonSearchRequest = unit
+		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Chow"));
+		assertThat(expectedPersonSearchRequest.getPersonSocialSecurityNumber(), is("123-45-6789"));
+		verifyZeroInteractions(errors);
+	}
+
+	@Test
+	public void searchInvalidTerm() {
+		personSearchCommand.setSimpleSearch("123-45");
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+
+		verify(errors).rejectValue("simpleSearch", "invalidTokens", "Unable to parse the following terms: [123-45]");
+	}
+
+}

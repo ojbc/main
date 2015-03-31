@@ -1,0 +1,423 @@
+package org.ojbc.web.portal.services;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import org.apache.commons.codec.CharEncoding;
+import org.apache.commons.io.IOUtils;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.XMLUnit;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.core.io.ClassPathResource;
+import org.xml.sax.SAXException;
+
+public class XslTemplateTest {
+
+    SearchResultConverter searchResultConverter;
+    
+    private Logger logger = Logger.getLogger(XslTemplateTest.class.getName());
+
+    @Before
+    public void setup() {
+    	
+    	XMLUnit.setIgnoreWhitespace(true);
+    	XMLUnit.setIgnoreAttributeOrder(true);
+    	XMLUnit.setIgnoreComments(true);
+    	
+        searchResultConverter = new SearchResultConverter();
+        searchResultConverter.xsltTransformerService = new XsltTransformerService();
+    }    
+
+    @Test
+    public void searchResultEmpty() throws Exception {
+        // an empty result document should be the same whether for vehicle, person or incident search
+        validatePersonSearchTransformation("xsl/personSearchResult.xsl", "searchResultEmpty.xml", "searchResultEmpty.html");
+    }
+
+    @Test
+    public void chMultipleSentences() throws Exception {
+        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory_multiple_sentence_charge.xml", "criminalHistory_multiple_sentence_charge.html");
+    }
+
+    @Test
+    public void chNoCourtCharge() throws Exception {
+        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory_no_court_charge.xml", "criminalHistory_no_court_charge.html");
+    }
+
+    @Test
+    public void reOrderedFirearmSearchResult() throws Exception {
+        validatePersonSearchTransformation("xsl/firearmSearchResult.xsl", "reOrderedFirearmSearchResult.xml", "reOrderedFirearmSearchResult.html");
+    }
+
+    @Test
+    public void personSearchResult() throws Exception {
+        validatePersonSearchTransformation("xsl/personSearchResult.xsl", "searchResult.xml", "searchResult.html");
+    }
+
+    @Test
+    public void reOrderedPersonSearchResult() throws Exception {
+        validatePersonSearchTransformation("xsl/personSearchResult.xsl", "reOrderedSearchResult.xml", "searchResult.html");
+    }
+
+    @Test
+    public void reOrderedExpandedPersonSearchResult() throws Exception {
+        validatePersonSearchTransformation("xsl/personSearchResult.xsl", "reOrderedSearchResult_with_5_entities.xml", "expandedSearchResults.html");
+    }
+
+    @Test
+    public void personSearchResultTooMany() throws Exception {
+        validatePersonSearchTransformation("xsl/personSearchResult.xsl", "searchResultTooMany.xml", "searchResultTooMany.html");
+    }
+
+    @Test
+    public void warrantSearchDetail() throws Exception {
+        validatePersonSearchTransformation("xsl/warrants.xsl", "warrants.xml", "warrants.html");
+    }
+    
+    @Test
+    public void warrantAccessDenied() throws Exception {
+        validatePersonSearchTransformation("xsl/warrants.xsl", "warrants-access-denied.xml", "warrants-access-denied.html");
+    }
+
+    @Test
+    public void criminalHistorySearchDetail() throws Exception {
+        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory.xml", "criminalHistory.html");
+    }
+
+    @Test
+    public void incidentPersonSearchDetail() throws Exception {
+        validatePersonSearchTransformation("xsl/person-to-incidents.xsl", "personToIncident.xml", "personToIncident.html");
+    }
+
+    @Test
+    public void incidentPersonSearchDetailNoRecords() throws Exception {
+        validatePersonSearchTransformation("xsl/person-to-incidents.xsl", "personToIncidentNoRecords.xml", "personToIncidentNoRecords.html");
+    }
+
+    @Test
+    public void incidentDetails() throws Exception {
+        validatePersonSearchTransformation("xsl/incident-details.xsl", "incidents.xml", "incidents.html");
+    }
+
+    @Test
+    public void incidentDetailsError() throws Exception {
+        validatePersonSearchTransformation("xsl/incident-details.xsl", "incidentsError.xml", "incidentsError.html");
+    }
+
+    @Test
+    public void vehicleSearchResult() throws Exception {
+        validatePersonSearchTransformation("xsl/vehicleSearchResult.xsl", "vehicleSearchResult.xml", "vehicleSearchResult.html");
+    }
+
+    @Test
+    public void reOrderedVehicleSearchResult() throws Exception {
+        validatePersonSearchTransformation("xsl/vehicleSearchResult.xsl", "reOrderedVehicleSearchResult.xml", "vehicleSearchResult.html");
+    }
+
+    @Test
+    public void firearmDetails() throws Exception {
+        validatePersonSearchTransformation("xsl/firearm-details.xsl", "firearmDetails.xml", "firearmDetails.html");
+        validatePersonSearchTransformation("xsl/firearm-details.xsl", "firearmDetails-demostate.xml", "firearmDetails-demostate.html");
+    }
+
+    @Test
+    public void firearmDetailsText() throws Exception {
+        validatePersonSearchTransformation("xsl/firearm-details.xsl", "firearmDetails_text.xml", "firearmDetails_text.html");
+    }
+
+    @Test
+    public void personFirearmDetails() throws Exception {
+        validatePersonSearchTransformation("xsl/firearm-details.xsl", "personFirearmDetails.xml", "personFirearmDetails.html");
+        validatePersonSearchTransformation("xsl/firearm-details.xsl", "personFirearmDetails-demostate.xml", "personFirearmDetails-demostate.html");
+    }
+
+    @Test
+    public void firearmDetailsWithName() throws Exception {
+        validatePersonSearchTransformation("xsl/firearm-details.xsl", "firearmDetails-with-name-broken-out.xml", "personFirearmDetails.html");
+    }
+
+    @Test
+    public void firearmSearchResult() throws Exception {
+        validatePersonSearchTransformation("xsl/firearmSearchResult.xsl", "firearmSearchResult.xml", "firearmSearchResult.html");
+        validatePersonSearchTransformation("xsl/firearmSearchResult.xsl", "firearmSearchResult-demostate.xml", "firearmSearchResult-demostate.html");
+    }
+
+    @Test
+    public void firearmSearchResultText() throws Exception {
+        validatePersonSearchTransformation("xsl/firearmSearchResult.xsl", "firearmSearchResult_text.xml", "firearmSearchResult_text.html");
+    }
+
+    @Test
+    public void firearmSearchResultTooMany() throws Exception {
+        validatePersonSearchTransformation("xsl/firearmSearchResult.xsl", "firearmSearchResultTooMany.xml", "firearmSearchResultTooMany.html");
+    }
+
+    @Test
+    public void vehicleSearchResultTooMany() throws Exception {
+        validatePersonSearchTransformation("xsl/vehicleSearchResult.xsl", "vehicleSearchResultTooMany.xml", "vehicleSearchResultTooMany.html");
+    }
+
+    @Test
+    public void incidentVehicleSearchDetail() throws Exception {
+        validatePersonSearchTransformation("xsl/vehicle-to-incidents.xsl", "vehicleToIncident.xml", "vehicleToIncident.html");
+    }
+
+    @Test
+    public void incidentVehicleSearchDetailNoRecords() throws Exception {
+        validatePersonSearchTransformation("xsl/vehicle-to-incidents.xsl", "vehicleToIncidentNoRecords.xml", "vehicleToIncidentNoRecords.html");
+    }
+
+    @Test
+    public void incidentSearchResult() throws Exception {
+        validatePersonSearchTransformation("xsl/incidentSearchResult.xsl", "incidentSearchResult.xml", "incidentSearchResult.html");
+    }
+
+    @Test
+    public void reOrderedIncidentSearchResult() throws Exception {
+        validatePersonSearchTransformation("xsl/incidentSearchResult.xsl", "reOrderedIncidentSearchResult.xml", "reOrderedIncidentSearchResult.html");
+    }
+
+    @Test
+    public void incidentSearchResultTooMany() throws Exception {
+        validatePersonSearchTransformation("xsl/incidentSearchResult.xsl", "incidentSearchResultTooMany.xml", "incidentSearchResultTooMany.html");
+    }
+
+    @Test
+    public void personSearchResultEntityResSkipped() throws Exception {
+        validatePersonSearchTransformation("xsl/personSearchResult.xsl", "searchResultEntityResSkipped.xml", "searchResultEntityResSkipped.html");
+    }
+
+    @Test
+    public void skipER_Incident() throws Exception {
+        validatePersonSearchTransformation("xsl/incidentSearchResult.xsl", "ER_Skipped.xml", "ER_Skipped_Incident.html");
+    }
+    
+    @Test
+    public void skipER_Person() throws Exception {
+        validatePersonSearchTransformation("xsl/personSearchResult.xsl", "ER_Skipped.xml", "ER_Skipped_Person.html");
+    }
+
+    @Test
+    public void skipER_Vehicle() throws Exception {
+        validatePersonSearchTransformation("xsl/vehicleSearchResult.xsl", "ER_Skipped.xml", "ER_Skipped_Vehicle.html");
+    }
+
+    @Test
+    public void skipER_Firearm() throws Exception {
+        validatePersonSearchTransformation("xsl/firearmSearchResult.xsl", "ER_Skipped.xml", "ER_Skipped_Firearms.html");
+    }
+
+    @Test
+    public void peopleFilter() throws Exception {
+        validatePeopleFilterTransformation("xsl/personFilter.xsl", "personFilterInput.xml", "filterResult.xml");
+    }
+    
+    @Test
+    public void peopleFilterCleanupMerged() throws Exception {
+        validatePeopleFilterTransformation("xsl/personFilterCleanupMerged.xsl", "personFilterCleanupMergedInput.xml", "filterCleanupMergedResult.xml");
+    }
+    
+    @Test
+    public void subscriptionSearchResult() throws Exception {
+        validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "subscriptionSearchResult.xml", "subscriptionSearchResult.html");
+    }
+    
+    @Test
+    public void subscriptionSearchResultPastRedDates() throws Exception {
+        validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "subscriptionSearchResult_PastRedDates.xml", "subscriptionSearchResult_PastRedDates.html");
+    }    
+    
+               
+    @Test
+    public void subscriptionFilterActiveSubscriptions() throws Exception{
+    	
+        Map<String, Object> paramsMap = new HashMap<String, Object>(3);        
+        paramsMap.put("filterSubscriptionStatus", "Active");
+                
+        Calendar cal = Calendar.getInstance();
+        cal.set(2003, 2, 1);
+        Date activeDate = cal.getTime();
+        
+        paramsMap.put("currentDateTime", activeDate);
+                
+    	validateSubscriptionsFilterTransformation("xsl/subscriptionFilter.xsl", "subscriptionFilterInput.xml", "subscriptionFilterActiveResult.xml", paramsMap);    	
+    }
+        
+    @Test
+    public void subscriptionFilterInactiveSubscriptions() throws Exception{
+    	
+        Map<String, Object> paramsMap = new HashMap<String, Object>(3);        
+        paramsMap.put("filterSubscriptionStatus", "Inactive");
+                
+        Calendar cal = Calendar.getInstance();
+        cal.set(2001, 11, 1);
+        Date inactiveDate = cal.getTime();
+        
+        paramsMap.put("currentDateTime", inactiveDate);
+                
+    	validateSubscriptionsFilterTransformation("xsl/subscriptionFilter.xsl", "subscriptionFilterInput.xml", "subscriptionFilterInactiveResult.xml", paramsMap);    	
+    }
+       
+    @Test
+    public void subscriptionFilterExpiringSubscriptions() throws Exception{
+    	
+        Map<String, Object> paramsMap = new HashMap<String, Object>(3);        
+        paramsMap.put("filterSubscriptionStatus", "Expiring");
+                
+        Calendar cal = Calendar.getInstance();
+        cal.set(2001, 9, 20);//9=October
+        Date expiringDate = cal.getTime();
+        
+        paramsMap.put("currentDateTime", expiringDate);
+        paramsMap.put("validationDueWarningDays", 60);
+                
+    	validateSubscriptionsFilterTransformation("xsl/subscriptionFilter.xsl", "subscriptionFilterInput.xml", "subscriptionGracePeriodFilterResult.xml", paramsMap);    	
+    }           
+
+    @Test
+    public void subscriptionSearchResultAccessDenied() throws Exception {
+        validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "SubscriptionSearchResults_AccessDenial.xml", "SubscriptionSearchResults_AccessDenial.html");
+    }
+
+    @Test
+    public void subscriptionSearchResultError() throws Exception {
+        validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "SubscriptionSearchResults_Error.xml", "SubscriptionSearchResults_Error.html");
+    }
+
+    @Test
+    public void subscriptionSearchResultNoResults() throws Exception {
+        validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "SubscriptionSearchResults_NoResults.xml", "SubscriptionSearchResults_NoResults.html");
+    }
+
+    @Test
+    public void subscriptionSearchResultTooManyResults() throws Exception {
+        validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "SubscriptionSearchResults_TooManyResults.xml", "SubscriptionSearchResults_TooManyResults.html");
+    }
+    
+    @Test
+    public void subscriptionSearchResultFullName() throws Exception {
+        validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "subscriptionSearchResult_FullName.xml", "subscriptionSearchResult.html");
+    }
+
+
+    private void validatePeopleFilterTransformation(String xslPath, String inputXmlPath, String expectedXmlPath) 
+    		throws IOException, SAXException {
+    	
+        ClassPathResource xsl = new ClassPathResource(xslPath);
+        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + inputXmlPath).getInputStream());        
+        String expectedXml = IOUtils.toString(new ClassPathResource("xslTransformTest/" + expectedXmlPath).getInputStream());                        
+
+        searchResultConverter.searchResultXsl = xsl;
+        String convertedResult = searchResultConverter.convertPersonSearchResult(xmlInput, getFilterParams());
+
+        Diff xmlUnitDiff = new Diff(expectedXml, convertedResult);
+        
+        Assert.assertTrue(xmlUnitDiff.identical());
+    }
+    
+    
+    private void validateSubscriptionsFilterTransformation(String xslPath, String inputXmlPath, String expectedXmlPath, 
+    		Map<String, Object> paramsMap) throws IOException, SAXException {
+    	
+        ClassPathResource xsl = new ClassPathResource(xslPath);
+        
+        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + inputXmlPath).getInputStream());
+        
+        String expectedXml = IOUtils.toString(new ClassPathResource("xslTransformTest/" + expectedXmlPath).getInputStream());                    
+
+        searchResultConverter.subscriptionSearchResultXsl = xsl;        
+                
+        String convertedResult = searchResultConverter.convertSubscriptionSearchResult(xmlInput, paramsMap);
+        
+        logger.info("Converted Result:\n" + convertedResult);
+        
+        Diff xmlUnitDiff = new Diff(expectedXml, convertedResult);
+                
+        Assert.assertTrue(xmlUnitDiff.identical());
+    }    
+    
+
+    private void validatePersonSearchTransformation(String xslPath, String inputXmlPath, String expectedHtmlPath) throws IOException {
+        
+    	ClassPathResource xsl = new ClassPathResource(xslPath);
+        
+        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + inputXmlPath).getInputStream());
+        
+        List<String> expectedHtml = IOUtils.readLines(new ClassPathResource("xslTransformTest/" + expectedHtmlPath).getInputStream(), CharEncoding.UTF_8);
+
+        searchResultConverter.searchResultXsl = xsl;
+        
+        String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getPersonSearchParams());
+        
+        logger.info("Converted Result:\n" + convertResult);
+        
+        assertLinesEquals(expectedHtml, convertResult);
+    }
+
+    public Map<String, Object> getFilterParams() {
+
+        Map<String, Object> filterParamsMap = new HashMap<String, Object>();
+        
+        filterParamsMap.put("filterAgeRangeStart", 0);
+        filterParamsMap.put("filterAgeRangeEnd", 0);
+        filterParamsMap.put("filterPersonRaceCode", "");
+        filterParamsMap.put("filterPersonEyeColor", "");
+        filterParamsMap.put("filterPersonHairColor", "");
+        filterParamsMap.put("filterHeightInInches", 0);
+        filterParamsMap.put("filterHeightInFeet", 0);
+        filterParamsMap.put("filterHeightTolerance", 0);
+        filterParamsMap.put("filterWeight", 0);
+        filterParamsMap.put("filterWeightTolerance", 0);
+        filterParamsMap.put("filterDOBStart", "");
+        filterParamsMap.put("filterDOBEnd", "");
+        
+        return filterParamsMap;
+    }
+
+    private Map<String, Object> getPersonSearchParams() {
+    	
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("start", 0);
+        params.put("rows", 10);
+        params.put("hrefBase", "pagination");
+        params.put("stateContext", "demostate");
+        params.put("messageIfNoResults", "You do not have any subscriptions.");
+        return params;
+    }
+
+	private void assertLinesEquals(List<String> expectedHtml,
+			String convertedResult) {
+		
+		String[] split = convertedResult.split("\n");
+
+		assertThat("Lines are not equal", split.length, is(expectedHtml.size()));
+
+		try {
+			
+			for (int i = 0; i < split.length; i++) {
+				
+				assertThat("Line " + (i + 1) + " didn't match",
+						split[i].trim(), is(expectedHtml.get(i).trim()));
+			}
+			
+		} catch (AssertionError e) {
+
+			logger.info("------------------Converted Result: ----------------------------\n");
+			logger.info(convertedResult);
+			logger.info("\n----------------------------------------------");
+
+			throw e;
+		}
+	}
+
+}

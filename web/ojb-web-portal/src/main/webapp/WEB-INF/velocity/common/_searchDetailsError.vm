@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
+    </head>
+    <body>
+    	<table class="detailsTable">
+    		<tr>
+				<td class="detailsTitle">UNABLE TO VIEW DETAILS</td>
+ 			</tr>
+ 			<tr>
+        		<td><span class="error">A server-side error occurred. Please close this dialog and try again. If problem persists, contact your IT department.</span></td>
+ 			</tr>
+ 		</table>
+    </body>
+</html>

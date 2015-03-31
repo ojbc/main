@@ -1,0 +1,6 @@
+<div id="landingPageContent">
+    #parse("customHelp/_search_Firearm.vm")
+
+    <hr/>
+    #parse("_disclaimer.vm")
+</div>
