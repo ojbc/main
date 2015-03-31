@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
+	xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
 	name="Person_Search_Request_Service" targetNamespace="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
 	<wsdl:import
@@ -19,7 +19,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Person-Search-Request">
-		<wsdl:part element="exchange:PersonSearchRequest" name="Person-Search-Request" />
+		<wsdl:part element="psr-doc:PersonSearchRequest" name="Person-Search-Request" />
 	</wsdl:message>
 	<wsdl:portType name="Person_Search_Request_Service">
 		<wsdl:operation name="SubmitPersonSearchRequest">

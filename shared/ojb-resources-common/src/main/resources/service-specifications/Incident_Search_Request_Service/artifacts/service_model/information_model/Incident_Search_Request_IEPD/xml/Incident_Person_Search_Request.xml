@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:IncidentPersonSearchRequest
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+<isr-doc:IncidentPersonSearchRequest
+	xmlns:isr-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
+	xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:inc="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
@@ -31,8 +31,8 @@
 		</nc:PersonOtherIdentification>
 	</nc:Person>
 	<inc:SourceSystemNameText>System1</inc:SourceSystemNameText>
-	<ext:SearchMetadata s:id="SM003">
-		<ext:SearchRequestOnBehalfOfText>John Doe</ext:SearchRequestOnBehalfOfText>
-		<ext:SearchPurposeText>Criminal Justice</ext:SearchPurposeText>
-	</ext:SearchMetadata>
-</exchange:IncidentPersonSearchRequest>
+	<isr:SearchMetadata s:id="SM003">
+		<isr:SearchRequestOnBehalfOfText>John Doe</isr:SearchRequestOnBehalfOfText>
+		<isr:SearchPurposeText>Criminal Justice</isr:SearchPurposeText>
+	</isr:SearchMetadata>
+</isr-doc:IncidentPersonSearchRequest>

@@ -17,13 +17,13 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<um:UnsubscriptionMessage 
+<unsubmsg-exch:UnsubscriptionMessage 
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-	xmlns:um="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
-	xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0 ../xsd/Unsubscription_Document.xsd">
-	<smext:Subject>
+	<submsg-ext:Subject>
 		<nc20:PersonBirthDate>
 			<nc20:Date>1980-01-01</nc20:Date>
 		</nc20:PersonBirthDate>
@@ -32,9 +32,9 @@
 			<nc20:PersonSurName>Doe</nc20:PersonSurName>
 			<nc20:PersonFullName>John Doe</nc20:PersonFullName>
 		</nc20:PersonName>
-	</smext:Subject>
+	</submsg-ext:Subject>
 	<nc20:ContactEmailID>testimap@locahost</nc20:ContactEmailID>
-	<smext:SystemName>{http://hijis.hawaii.gov/ParoleCase/1.0}HawaiiParolingAuthority</smext:SystemName>
+	<submsg-ext:SystemName>{http://hijis.hawaii.gov/ParoleCase/1.0}HawaiiParolingAuthority</submsg-ext:SystemName>
 	
 	<!-- Deprecating nc20:Case -->
 	<nc20:Case>
@@ -42,7 +42,7 @@
 			<nc20:IdentificationID>302593</nc20:IdentificationID>
 		</nc20:ActivityIdentification>
 	</nc20:Case>
-	<smext:SubscriptionQualifierIdentification>
+	<submsg-ext:SubscriptionQualifierIdentification>
 		<nc20:IdentificationID>302593</nc20:IdentificationID>
-	</smext:SubscriptionQualifierIdentification>
-</um:UnsubscriptionMessage>
+	</submsg-ext:SubscriptionQualifierIdentification>
+</unsubmsg-exch:UnsubscriptionMessage>

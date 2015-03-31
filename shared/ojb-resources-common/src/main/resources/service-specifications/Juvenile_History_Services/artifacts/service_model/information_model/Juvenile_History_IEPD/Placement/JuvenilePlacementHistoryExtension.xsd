@@ -19,7 +19,7 @@
 -->
 
 <xsd:schema 
-	xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0" 
+	xmlns:jh-placement="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0" 
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -27,8 +27,8 @@
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
 	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-	xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
-	xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenilePlacementHistoryExtension/michigan/codes/1.0" 
+	xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	xmlns:jh-placement-codes="http://ojbc.org/IEPD/Extension/juvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0" 
 	targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/1.0">
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
@@ -36,7 +36,6 @@
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" schemaLocation="../JuvenileHistoryCommonExtension.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenilePlacementHistoryExtension/michigan/codes/1.0" schemaLocation="member-extensions/michigan/codes.xsd"/>
 
 	<xsd:annotation>
 		<xsd:appinfo>
@@ -52,8 +51,8 @@
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="cyfs:JuvenilePlacementFacilityAssociation" minOccurs="1" maxOccurs="1"/>
-					<xsd:element ref="cext:JuvenileInformationRecordID" minOccurs="1" maxOccurs="1"/>
-					<xsd:element ref="cext:RelatedJuvenileHistoryRecords" minOccurs="0"/>
+					<xsd:element ref="jh-ext:JuvenileInformationRecordID" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="jh-ext:RelatedJuvenileHistoryRecords" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -63,7 +62,7 @@
 			<xsd:documentation>A data type for the placement history of a juvenile.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="cext:JuvenileHistoryType">
+			<xsd:extension base="jh-ext:JuvenileHistoryType">
 				<xsd:sequence>
 					<xsd:element ref="cyfs:JuvenilePlacement" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
@@ -71,12 +70,12 @@
 		</xsd:complexContent>
 	</xsd:complexType>	
 
-	<xsd:element name="JuvenilePlacementAugmentation" type="ext:JuvenilePlacementAugmentationType" substitutionGroup="cyfs:JuvenilePlacementAugmentationPoint">
+	<xsd:element name="JuvenilePlacementAugmentation" type="jh-placement:JuvenilePlacementAugmentationType" substitutionGroup="cyfs:JuvenilePlacementAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Local extensions related to a juvenile placement</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="JuvenilePlacementHistory" type="ext:JuvenilePlacementHistoryType">
+	<xsd:element name="JuvenilePlacementHistory" type="jh-placement:JuvenilePlacementHistoryType">
 		<xsd:annotation>
 			<xsd:documentation>The placement history of a juvenile.</xsd:documentation>
 		</xsd:annotation>

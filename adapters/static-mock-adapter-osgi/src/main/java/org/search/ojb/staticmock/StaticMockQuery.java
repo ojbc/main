@@ -59,6 +59,7 @@ public class StaticMockQuery {
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History";
 	public static final String WARRANT_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants";
 	public static final String INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS";
+	public static final String INCIDENT_MOCK_ADAPTER_VEHICLE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS";
 	public static final String INCIDENT_MOCK_ADAPTER_INCIDENT_PERSON_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS";
 	public static final String INCIDENT_MOCK_ADAPTER_INCIDENT_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS";
 	public static final String INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS";
@@ -291,8 +292,24 @@ public class StaticMockQuery {
 			return firearmSearchDocuments(searchRequestMessage);
 		} else if (OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentSearchRequest".equals(rootLocalName)) {
 			return incidentSearchDocuments(searchRequestMessage, baseDate);
+		} else if (OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentVehicleSearchRequest".equals(rootLocalName)) {
+			return incidentVehicleSearchDocuments(searchRequestMessage, baseDate);
 		}
 		throw new IllegalArgumentException("Invalid message: {" + rootNamespaceURI + "}" + rootLocalName);
+	}
+
+	Document incidentVehicleSearchDocuments(Document incidentSearchRequestMessage, DateTime baseDate) throws Exception {
+
+		Document errorReturn = getIncidentSearchStaticErrorResponse(incidentSearchRequestMessage);
+
+		if (errorReturn != null) {
+			return errorReturn;
+		}
+
+		List<IdentifiableDocumentWrapper> instanceWrappers = incidentVehicleSearchDocumentsAsList(incidentSearchRequestMessage, baseDate);
+		Document ret = buildIncidentSearchResultsMessage(instanceWrappers, "IncidentVehicleSearchResults", "IncidentVehicleSearchResult", INCIDENT_MOCK_ADAPTER_INCIDENT_SEARCH_SYSTEM_ID);
+		return ret;
+
 	}
 
 	Document incidentSearchDocuments(Document incidentSearchRequestMessage, DateTime baseDate) throws Exception {
@@ -312,6 +329,125 @@ public class StaticMockQuery {
 	private static final boolean isMissing(String s) {
 		return s == null || s.trim().length() == 0;
 	}
+	
+	List<IdentifiableDocumentWrapper> incidentVehicleSearchDocumentsAsList(Document incidentVehicleSearchRequestMessage, DateTime baseDate) throws Exception {
+
+		Element rootElement = incidentVehicleSearchRequestMessage.getDocumentElement();
+		String rootNamespaceURI = rootElement.getNamespaceURI();
+		String rootLocalName = rootElement.getLocalName();
+		if (!(OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentVehicleSearchRequest".equals(rootLocalName))) {
+			throw new IllegalArgumentException("Invalid message, must have {" + OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC + "}IncidentVehicleSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
+		}
+
+		NodeList systemElements = XmlUtils.xPathNodeListSearch(rootElement, "isr:SourceSystemNameText");
+		int systemElementCount;
+		if (systemElements == null || (systemElementCount = systemElements.getLength()) == 0) {
+			throw new IllegalArgumentException("Invalid query request message:  must specify at least one system to query.");
+		}
+
+		Element vehicleIdElement = (Element) XmlUtils.xPathNodeSearch(incidentVehicleSearchRequestMessage, "/isr-doc:IncidentVehicleSearchRequest/ivsr:Vehicle/ivsr:VehicleSystemIdentification/nc:IdentificationID");
+
+		List<IdentifiableDocumentWrapper> ret = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		if (vehicleIdElement != null) {
+
+			String id = vehicleIdElement.getTextContent();
+
+			for (int i = 0; i < systemElementCount; i++) {
+				for (IdentifiableDocumentWrapper dw : incidentDataSource.getDocuments()) {
+
+					Document d = dw.getDocument();
+					Element documentVehicleIdElement = (Element) XmlUtils
+							.xPathNodeSearch(d,
+									"/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleIdentification/nc:IdentificationID");
+					String documentPersonId = documentVehicleIdElement.getTextContent();
+					if (id.equals(documentPersonId)) {
+						ret.add(dw);
+					}
+				}
+			}
+
+		}
+
+		return ret;
+
+	}
+	
+	List<IdentifiableDocumentWrapper> vehicleSearchDocumentsAsList(Document vehicleSearchRequestMessage, DateTime baseDate) throws Exception {
+		
+		Element rootElement = vehicleSearchRequestMessage.getDocumentElement();
+		String rootNamespaceURI = rootElement.getNamespaceURI();
+		String rootLocalName = rootElement.getLocalName();
+		if (!(OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "VehicleSearchRequest".equals(rootLocalName))) {
+			throw new IllegalArgumentException("Invalid message, must have {" + OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_DOC + "}VehicleSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
+		}
+
+		NodeList systemElements = XmlUtils.xPathNodeListSearch(rootElement, "vsr:SourceSystemNameText");
+		if (systemElements == null || systemElements.getLength() != 1) {
+			throw new IllegalArgumentException("Invalid query request message:  must specify exactly one system to query.");
+		}
+		Node systemElementNode = systemElements.item(0);
+		String systemId = systemElementNode.getTextContent();
+		if (!INCIDENT_MOCK_ADAPTER_VEHICLE_SEARCH_SYSTEM_ID.equals(systemId)) {
+			throw new IllegalArgumentException("Vehicle searches only allowed against static mock incident store.  Illegal system: " + systemId);
+		}
+		
+		List<IdentifiableDocumentWrapper> ret = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		String searchXPath = buildIncidentSearchXPathFromVehicleSearchMessage(vehicleSearchRequestMessage);
+
+		String modelYearLowerString = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/vsr:VehicleYearRange/nc:StartDate/nc:Year");
+		String modelYearUpperString = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/vsr:VehicleYearRange/nc:EndDate/nc:Year");
+		
+		if (searchXPath == null && isMissing(modelYearLowerString) && isMissing(modelYearUpperString)) {
+			return ret;
+		}
+		
+		for (IdentifiableDocumentWrapper dw : incidentDataSource.getDocuments()) {
+
+			Document d = dw.getDocument();
+			LOG.debug("Searching document " + dw.getId());
+
+			boolean match = (searchXPath == null || XmlUtils.xPathNodeSearch(d, searchXPath) != null);
+			LOG.debug("Match=" + match + " based on xpath eval");
+
+			if (match && (!(isMissing(modelYearLowerString) && isMissing(modelYearUpperString)))) {
+				
+				Integer modelYearLower = Integer.parseInt(modelYearLowerString);
+				Integer modelYearUpper = Integer.parseInt(modelYearUpperString);
+				
+				String incidentVehicleModelYearString = XmlUtils.xPathStringSearch(d, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:ItemModelYearDate");
+				Integer incidentVehicleModelYear = null;
+				
+				try {
+					incidentVehicleModelYear = Integer.parseInt(incidentVehicleModelYearString);
+				} catch (NumberFormatException nfe) {
+					nfe.printStackTrace();
+					LOG.warn("Unparsable vehicle model year: " + incidentVehicleModelYearString);
+				}
+				
+				if (incidentVehicleModelYear == null) {
+					match = false;
+				} else {
+					if (modelYearLower != null) {
+						match = match && incidentVehicleModelYear >= modelYearLower;
+					}
+					if (modelYearUpper != null) {
+						match = match && incidentVehicleModelYear <= modelYearUpper;
+					}
+				}
+				
+			}
+			
+			if (match) {
+				ret.add(dw);
+			}
+			
+		}
+
+		return ret;
+		
+	}
 
 	List<IdentifiableDocumentWrapper> incidentSearchDocumentsAsList(Document incidentSearchRequestMessage, DateTime baseDate) throws Exception {
 
@@ -329,7 +465,7 @@ public class StaticMockQuery {
 
 		List<IdentifiableDocumentWrapper> ret = new ArrayList<IdentifiableDocumentWrapper>();
 
-		String searchXPath = buildIncidentSearchXPathFromMessage(incidentSearchRequestMessage);
+		String searchXPath = buildIncidentSearchXPathFromIncidentSearchMessage(incidentSearchRequestMessage);
 
 		String dateLowerString = XmlUtils.xPathStringSearch(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
 		String dateUpperString = XmlUtils.xPathStringSearch(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityDateRange/nc:EndDate/nc:DateTime");
@@ -745,7 +881,7 @@ public class StaticMockQuery {
 
 	}
 
-	static String buildIncidentSearchXPathFromMessage(Document incidentSearchRequestMessage) throws Exception {
+	static String buildIncidentSearchXPathFromIncidentSearchMessage(Document incidentSearchRequestMessage) throws Exception {
 
 		String incidentNumber = XmlUtils.xPathStringSearch(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityIdentification/nc:IdentificationID");
 		String incidentCategory = XmlUtils.xPathStringSearch(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/isr:IncidentCategoryCode");
@@ -764,6 +900,40 @@ public class StaticMockQuery {
 
 		if (incidentCategory != null && incidentCategory.trim().length() > 0) {
 			conditions.add("lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Incident[inc-ext:IncidentCategoryCode='" + incidentCategory + "']");
+		}
+
+		if (conditions.isEmpty()) {
+			return null;
+		}
+
+		StringBuffer xPath = new StringBuffer();
+		xPath.append("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage[");
+
+		for (String condition : conditions) {
+			xPath.append(condition).append(" and ");
+		}
+		xPath.setLength(xPath.length() - 5);
+
+		xPath.append("]");
+
+		return xPath.toString();
+	}
+
+	static String buildIncidentSearchXPathFromVehicleSearchMessage(Document vehicleSearchRequestMessage) throws Exception {
+
+		String vin = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:VehicleIdentification/nc:IdentificationID");
+		//String color = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:VehicleColorPrimaryCode");
+		//String model = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:ItemModelName");
+		String plate = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID");
+		//String make = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/vsr:VehicleMakeCode");
+
+		List<String> conditions = new ArrayList<String>();
+
+		if (vin != null && vin.trim().length() > 0) {
+			conditions.add("lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleIdentification/nc:IdentificationID='" + vin + "'");
+		}
+		if (plate != null && plate.trim().length() > 0) {
+			conditions.add("lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID='" + plate + "'");
 		}
 
 		if (conditions.isEmpty()) {

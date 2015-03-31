@@ -17,11 +17,11 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ojbc.org/IEPD/Exchange/ArrestReportUpdate/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/ArrestReportUpdate/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:aru="http://ojbc.org/IEPD/Exchange/ArrestReportUpdate/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/ArrestReportUpdate/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../NIEM_2.0/structures/2.0/structures.xsd"/>
 	<xsd:import namespace="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" schemaLocation="../lexs/publish-discover/3.1/publish-discover.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="../extension_schema/search-results-metadata.xsd"/>
-	<xsd:element name="ArrestReportUpdate" type="tns:ArrestReportUpdateType">
+	<xsd:element name="ArrestReportUpdate" type="aru:ArrestReportUpdateType">
 		<xsd:annotation>
 			<xsd:documentation>An update to a comprehensive collection of information about an arrest.</xsd:documentation>
 		</xsd:annotation>

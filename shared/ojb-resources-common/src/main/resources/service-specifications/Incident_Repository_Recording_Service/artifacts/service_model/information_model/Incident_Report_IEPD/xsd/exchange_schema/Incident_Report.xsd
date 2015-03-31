@@ -20,14 +20,14 @@
 <xsd:schema 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	targetNamespace="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" 
-	xmlns:tns="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" 
+	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" 
 	xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../NIEM_2.0/structures/2.0/structures.xsd" />
 	<xsd:import namespace="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" schemaLocation="../lexs/publish-discover/3.1/publish-discover.xsd"/>
-	
-	<xsd:element name="IncidentReport" type="tns:IncidentReportType">
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="../extension_schema/search-results-metadata.xsd"/>
+	<xsd:element name="IncidentReport" type="ir:IncidentReportType">
 		<xsd:annotation>
 			<xsd:documentation>A comprehensive collection of information about an occurrence or event that may require or has required a response.</xsd:documentation>
 		</xsd:annotation>
@@ -40,7 +40,8 @@
 			</xsd:annotation>
 		<xsd:extension base="s:ComplexObjectType">
 			<xsd:sequence>
-				<xsd:element ref="lexspd:doPublish"/>
+				<xsd:element ref="lexspd:doPublish" minOccurs="0"/>
+				<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 			</xsd:sequence>
 		</xsd:extension>
 		</xsd:complexContent>

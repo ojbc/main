@@ -17,7 +17,6 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Kate Silhol (Nlets) -->
 <!-- 4/30/2012	Kate Silhol/Nlets	Corrected cardinality for juvenile elements and arrest charge -->
 <xsd:schema xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:scr="http://niem.gov/niem/domains/screening/2.1" xmlns:rap-code="http://nlets.org/niem2/rapsheet/1.0/codes" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:fs="http://niem.gov/niem/domains/familyServices/2.1" targetNamespace="http://nlets.org/niem2/rapsheet/1.0" version="1">
 	<xsd:annotation>

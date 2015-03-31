@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
+	xmlns:isres-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
 	name="Incident_Search_Results_Service" targetNamespace="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
 	<wsdl:import
@@ -15,14 +15,14 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Incident-Search-Results">
-		<wsdl:part element="exchange:IncidentSearchResults" name="Incident-Search-Results" />
+		<wsdl:part element="isres-doc:IncidentSearchResults" name="Incident-Search-Results" />
 	</wsdl:message>
 	<wsdl:message name="Incident-Person-Search-Results">
-		<wsdl:part element="exchange:IncidentPersonSearchResults"
+		<wsdl:part element="isres-doc:IncidentPersonSearchResults"
 			name="Incident-Person-Search-Results" />
 	</wsdl:message>
 	<wsdl:message name="Incident-Vehicle-Search-Results">
-		<wsdl:part element="exchange:IncidentVehicleSearchResults"
+		<wsdl:part element="isres-doc:IncidentVehicleSearchResults"
 			name="Incident-Vehicle-Search-Results" />
 	</wsdl:message>
 	<wsdl:portType name="Incident_Search_Results_Service">

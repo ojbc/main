@@ -24,6 +24,7 @@
   xmlns:ndex="http://release.niem.gov/niem/codes/fbi_ndex/3.0/"
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/">
   <w:Element w:name="cyfs:NextCourtEvent" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="cyfs:PreTrialSupervision" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="cyfs:SubmittedDateTime" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityArrestAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityCaseAssociation" w:isReference="false" w:nillable="true"/>
@@ -33,6 +34,7 @@
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestCharge" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestSubjectAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Bail" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CaseCharge" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CaseCourtEvent" w:isReference="false" w:nillable="true"/>
@@ -44,26 +46,35 @@
   <w:Element w:name="j:ChargeSentence" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:ChargeTrackingIdentification"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Conviction" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Court" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:CourtAppearance" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CourtCharge" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:DispositionCategoryCodeText"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:DiversionProgram" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Judge" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Offense" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:OffenseArrestAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:OffenseCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OffenseChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:OffenseDispositionAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:OrganizationAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OrganizationORIIdentification"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonChargeAssociation" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PresentenceInvestigation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:PretrialInvestigation" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PretrialReleaseStatus" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ProsecutionCharge" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:RegisteredOffender" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:RegisteredOffenderIdentification"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:SanctionSuspendedObligation"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:SentenceDeferredTerm" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:SentenceGroupingText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:SentenceTerm" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Subject" w:isReference="false" w:nillable="true"/>
@@ -83,12 +94,21 @@
   <w:Element w:name="nc:IdentificationCategoryText"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Identity" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:Incident" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Location" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationCountyName" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:MeasureIntegerValue" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:MeasurePoint" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:MeasureUnitText" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:MeasureValueText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ObligationDueAmount" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ObligationDueDuration" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonAliasIdentityAssociation"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonResidenceAssociation"
+    w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:YearDate" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="scr:ChargeAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="scr:ChargeDate" w:isReference="false" w:nillable="false"/>
   <w:Type w:name="j:ActivityArrestAssociationType" w:isRequested="false">
@@ -122,10 +142,16 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:ArrestType" w:isRequested="true">
+    <w:ElementInType w:name="j:ArrestAgency" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ArrestCharge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ArrestAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:BailType" w:isRequested="false">
+    <w:ElementInType w:name="j:BailSetAmount" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CaseAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:CaseCharge" w:isReference="false"
@@ -136,6 +162,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseDefenseAttorney"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CaseHearing" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseJudge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseOfficial" w:isReference="false"
@@ -160,6 +188,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:ChargeType" w:isRequested="true">
+    <w:ElementInType w:name="j:ChargeCategoryDescriptionText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeCountQuantity"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeDescriptionText"
@@ -189,7 +219,19 @@
     <w:ElementInType w:name="j:ChargeAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:ConvictionType" w:isRequested="false">
+    <w:ElementInType w:name="j:ConvictionOffense" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:CourtAppearanceType" w:isRequested="false">
+    <w:ElementInType w:name="j:CourtAppearanceDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CourtAppearanceAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:CourtEventType" w:isRequested="true">
+    <w:ElementInType w:name="j:CourtEventAppearance"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtEventAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -224,10 +266,25 @@
     <w:ElementInType w:name="nc:Disposition" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:OffenseType" w:isRequested="true"/>
+  <w:Type w:name="j:OffenseType" w:isRequested="true">
+    <w:ElementInType w:name="j:OffenseDesignation" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OffenseCategory" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OffenseViolatedStatute"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OffenseLevel" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OffenseAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:OrganizationAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:OrganizationIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="j:PersonAgeMeasure" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:PersonChargeAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Person" w:isReference="false"
@@ -237,6 +294,17 @@
   </w:Type>
   <w:Type w:name="j:PleaType" w:isRequested="false">
     <w:ElementInType w:name="j:PleaAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:PresentenceInvestigationType" w:isRequested="false">
+    <w:ElementInType
+      w:name="j:PresentenceInvestigationAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:PretrialInvestigationType" w:isRequested="false">
+    <w:ElementInType w:name="j:PretrialReleaseStatus"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:PretrialInvestigationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:RegisteredOffenderType" w:isRequested="true">
@@ -250,6 +318,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SentenceCondition" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:SentenceDeferredTerm"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SentenceGroupingText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SentenceIssuerEntity"
@@ -270,6 +340,8 @@
   <w:Type w:name="j:StatuteType" w:isRequested="false">
     <w:ElementInType w:name="j:StatuteCodeIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:StatuteCodeSectionIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:StatuteOffenseIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -284,6 +356,10 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:TermLifeIndicator" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:TermMaximumDuration"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:TermMinimumDuration"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:TermAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -314,10 +390,14 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationCounty" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocationPostalCode"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:AmountType" w:isRequested="false">
     <w:ElementInType w:name="nc:Amount" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:AmountAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:CaseType" w:isRequested="true">
     <w:ElementInType w:name="nc:CaseDocketID" w:isReference="false"
@@ -385,11 +465,25 @@
     <w:ElementInType w:name="nc:IdentityPersonRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:IncidentType" w:isRequested="true">
+    <w:ElementInType w:name="nc:IncidentAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:LocationType" w:isRequested="false">
     <w:ElementInType w:name="nc:LocationAddressAbstract"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocationDescriptionText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocationName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:MeasureType" w:isRequested="false">
+    <w:ElementInType w:name="nc:MeasureValue" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:MeasureUnit" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ObligationExemptionType" w:isRequested="false">
     <w:ElementInType w:name="nc:FinancialObligationExemptionAmount"
@@ -401,6 +495,10 @@
     <w:ElementInType w:name="nc:ObligationDueDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ObligationExemption"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ObligationExemptionIndicator"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ObligationCategoryText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ObligationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -419,6 +517,12 @@
     <w:ElementInType w:name="nc:Identity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:PersonLocationAssociationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:Person" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Location" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:PersonNameType" w:isRequested="false">
     <w:ElementInType w:name="nc:PersonGivenName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -432,16 +536,40 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonType" w:isRequested="false">
+    <w:ElementInType w:name="nc:PersonAgeMeasure" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonBirthLocation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonRace" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonResident" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonSSNIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonStateIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:ProgramType" w:isRequested="false">
+    <w:ElementInType w:name="nc:ProgramAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:StatusType" w:isRequested="false">
+    <w:ElementInType w:name="nc:StatusAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:SystemIdentificationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:SystemName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:SystemIdentificationAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="ndex:ChargeCategoryCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="COMPLAINT"/>

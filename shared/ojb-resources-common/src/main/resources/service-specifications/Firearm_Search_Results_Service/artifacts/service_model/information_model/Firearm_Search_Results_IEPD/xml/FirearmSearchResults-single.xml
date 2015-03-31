@@ -18,9 +18,19 @@
 
 -->
 
-<exchange:FirearmSearchResults 
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0 ../xsd/impl/hawaii/hawaii-statewide-firearm-codes.xsd" xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<ext:FirearmSearchResult>
+<firearm-search-resp-doc:FirearmSearchResults 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0 ../xsd/impl/hawaii/hawaii-statewide-firearm-codes.xsd"
+	xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:firearm-search-resp-doc="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
+	xmlns:firearm-search-resp-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<firearm-search-resp-ext:FirearmSearchResult>
 		<nc:Person s:id="REGISTRANT">
 			<nc:PersonName>
 				<nc:PersonGivenName>Joe</nc:PersonGivenName>
@@ -28,48 +38,45 @@
 				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
 		</nc:Person>
-		<ext:Firearm s:id="FIREARM">
+		<firearm-search-resp-ext:Firearm s:id="FIREARM">
 			<nc:ItemSerialIdentification>
 				<nc:IdentificationID>436809</nc:IdentificationID>
 			</nc:ItemSerialIdentification>
 			<nc:ItemModelName>Model</nc:ItemModelName>
 			<nc:FirearmCategoryCode>K</nc:FirearmCategoryCode>
 			<nc:FirearmCategoryDescriptionCode>A</nc:FirearmCategoryDescriptionCode>
-			<hi:FirearmCaliberCode>4</hi:FirearmCaliberCode>
-			<nc:FirearmCaliberText>4 caliber</nc:FirearmCaliberText>
+			<firearms-hi:FirearmCaliberCode>17</firearms-hi:FirearmCaliberCode>
 			<nc:FirearmGaugeText>.410</nc:FirearmGaugeText>
-			<hi:FirearmMakeCode>AR12</hi:FirearmMakeCode>
-			<ext:FirearmMakeText>Arrowhead</ext:FirearmMakeText>
-			<ext:FirearmStatus>
+			<firearms-hi:FirearmMakeCode>AS02</firearms-hi:FirearmMakeCode>
+			<firearm-search-resp-ext:FirearmStatus>
 				<nc:StatusDate>
 					<nc:Date>2013-02-06</nc:Date>
 				</nc:StatusDate>
-				<hi:FirearmStatusCode>S</hi:FirearmStatusCode>
-<!-- 				<ext:FirearmStatusText>Status</ext:FirearmStatusText> -->
-			</ext:FirearmStatus>
-		</ext:Firearm>
-		<ext:ItemRegistration s:id="REGISTRATION">
+				<firearms-hi:FirearmStatusCode>S</firearms-hi:FirearmStatusCode>
+			</firearm-search-resp-ext:FirearmStatus>
+		</firearm-search-resp-ext:Firearm>
+		<firearm-search-resp-ext:ItemRegistration s:id="REGISTRATION">
 			<nc:RegistrationIdentification>
 				<nc:IdentificationID>123456</nc:IdentificationID>
 			</nc:RegistrationIdentification>
-			<nc:LocationCountyName>Williams</nc:LocationCountyName>
+			<!--nc:LocationCountyName>Williams</nc:LocationCountyName-->
 			<nc:RegistrationEffectiveDate>
 				<nc:Date>2008-09-07</nc:Date>
 			</nc:RegistrationEffectiveDate>
-			<ext:RegistrationStatus>
-				<hi:FirearmRegistrationStatusCode>A</hi:FirearmRegistrationStatusCode>
-			</ext:RegistrationStatus>
-			<ext:RegistrationNotesText>Notes</ext:RegistrationNotesText>
-		</ext:ItemRegistration>
+			<firearm-search-resp-ext:RegistrationStatus>
+				<firearms-hi:FirearmRegistrationStatusCode>A</firearms-hi:FirearmRegistrationStatusCode>
+			</firearm-search-resp-ext:RegistrationStatus>
+			<firearm-search-resp-ext:RegistrationNotesText>Notes</firearm-search-resp-ext:RegistrationNotesText>
+		</firearm-search-resp-ext:ItemRegistration>
 		<nc:PropertyRegistrationAssociation>
 			<nc:ItemRegistrationReference s:ref="REGISTRATION"/>
 			<nc:ItemReference s:ref="FIREARM"/>
 			<nc:ItemRegistrationHolderReference s:ref="REGISTRANT"/>
 		</nc:PropertyRegistrationAssociation>
-		<ext:SourceSystemNameText>Formal System Name Goes Here</ext:SourceSystemNameText>
+		<firearm-search-resp-ext:SourceSystemNameText>Formal System Name Goes Here</firearm-search-resp-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>123456</nc:IdentificationID>
 			<intel:SystemName>Maui Firearms</intel:SystemName>
 		</intel:SystemIdentifier>
-	</ext:FirearmSearchResult>
-</exchange:FirearmSearchResults>
+	</firearm-search-resp-ext:FirearmSearchResult>
+</firearm-search-resp-doc:FirearmSearchResults>

@@ -3,7 +3,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:dr="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+	xmlns:disp_exc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/DispositionReportingService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
@@ -15,7 +15,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="DispositionReport">
-		<wsdl:part name="DispositionReport" element="dr:DispositionReport" />
+		<wsdl:part name="DispositionReport" element="disp_exc:DispositionReport" />
 	</wsdl:message>
 	<wsdl:portType name="Disposition-Reporting-Service">
 		<wsdl:operation name="ReportDisposition">

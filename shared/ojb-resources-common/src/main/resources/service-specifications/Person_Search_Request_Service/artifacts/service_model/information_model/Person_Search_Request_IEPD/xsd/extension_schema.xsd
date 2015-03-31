@@ -21,11 +21,11 @@
 	targetNamespace="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
+	xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1" 
-	xmlns:micodes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0"
+	xmlns:jh-placement-search-codes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
 		schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
@@ -35,7 +35,6 @@
 		schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd"></xsd:import>
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/domains/cyfs/2.1/1" schemaLocation="Subset/niem/domains/cyfs/2.1/1/cyfs.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0" schemaLocation="member-extensions/michigan/michigan-codes.xsd"/>
 	<xsd:complexType name="PersonSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a message to submit a person-based
@@ -44,15 +43,15 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:Person" />
-					<xsd:element ref="ext:Parent" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="psr:Person" />
+					<xsd:element ref="psr:Parent" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="cyfs:Placement" minOccurs="0"/>
 					<xsd:element ref="nc:Location" minOccurs="0"/>
 					<xsd:element ref="nc:ResidenceAssociation" minOccurs="0"/>
-					<xsd:element ref="ext:ParentChildAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SourceSystemNameText" minOccurs="0"
+					<xsd:element ref="psr:ParentChildAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="psr:SourceSystemNameText" minOccurs="0"
 						maxOccurs="unbounded" />
-					<xsd:element ref="ext:SearchMetadata" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="psr:SearchMetadata" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -64,20 +63,20 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
-					<xsd:element ref="ext:PersonBirthDateRange" minOccurs="0"/>
+					<xsd:element ref="psr:PersonBirthDateRange" minOccurs="0"/>
 					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Person" type="ext:PersonType">
+	<xsd:element name="Person" type="psr:PersonType">
 		<xsd:annotation>
 			<xsd:documentation>
 				A human being.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Parent" type="ext:PersonType">
+	<xsd:element name="Parent" type="psr:PersonType">
 		<xsd:annotation>
 			<xsd:documentation>A father or mother of a person.</xsd:documentation>
 			<xsd:documentation>This is based on an element with the same name in NIEM 3.0 CYFS domain.</xsd:documentation>
@@ -88,7 +87,7 @@
 			<xsd:documentation>A father or mother of a person.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ParentChildAssociation" type="ext:ParentChildAssociationType">
+	<xsd:element name="ParentChildAssociation" type="psr:ParentChildAssociationType">
 		<xsd:annotation>
 			<xsd:documentation>An association between a child and a person who is in a parent role toward that child.</xsd:documentation>
 			<xsd:documentation>This is based on an element with the same name in NIEM 3.0 CYFS domain.</xsd:documentation>
@@ -102,8 +101,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:ParentReference" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ChildReference" maxOccurs="unbounded"/>
+					<xsd:element ref="psr:ParentReference" maxOccurs="unbounded"/>
+					<xsd:element ref="psr:ChildReference" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -127,12 +126,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SearchMetadata" type="ext:SearchMetadataType">
+	<xsd:element name="SearchMetadata" type="psr:SearchMetadataType">
 		<xsd:annotation>
 			<xsd:documentation>Information that further qualifies the search.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SearchQualifierCode" type="ext:SearchQualifierCodeType">
+	<xsd:element name="SearchQualifierCode" type="psr:SearchQualifierCodeType">
 		<xsd:annotation>
 			<xsd:documentation>Details about how to interpret the content of an element for the purpose of searching.</xsd:documentation>
 		</xsd:annotation>
@@ -144,10 +143,10 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:MetadataType">
 				<xsd:choice>
-					<xsd:element ref="ext:SearchQualifierCode" minOccurs="0"/>
+					<xsd:element ref="psr:SearchQualifierCode" minOccurs="0"/>
 					<xsd:sequence>
-						<xsd:element ref="ext:SearchRequestOnBehalfOfText" minOccurs="0"/>
-						<xsd:element ref="ext:SearchPurposeText" minOccurs="0"/>
+						<xsd:element ref="psr:SearchRequestOnBehalfOfText" minOccurs="0"/>
+						<xsd:element ref="psr:SearchPurposeText" minOccurs="0"/>
 					</xsd:sequence>
 				</xsd:choice>
 			</xsd:extension>
@@ -165,7 +164,7 @@
 	</xsd:element>
 	<xsd:complexType name="SearchQualifierCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="ext:SearchQualifierCodeSimpleType">
+			<xsd:extension base="psr:SearchQualifierCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>

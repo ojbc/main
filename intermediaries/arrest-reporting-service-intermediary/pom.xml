@@ -209,14 +209,7 @@
 			</includes>
 		</resource>
 		<resource>
-			<directory>${basedir}/src/main/java</directory>
-		</resource>
-		<resource>
 			<directory>${basedir}/src/main/config/dev</directory>
-			<filtering>true</filtering>
-			<includes>
-				<include>*</include>
-			</includes>
 		</resource>
 	</resources>
     <plugins>

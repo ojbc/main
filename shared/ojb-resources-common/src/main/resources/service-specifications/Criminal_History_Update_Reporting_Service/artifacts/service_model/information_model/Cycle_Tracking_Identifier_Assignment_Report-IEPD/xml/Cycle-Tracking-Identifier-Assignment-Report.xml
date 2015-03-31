@@ -17,14 +17,14 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exc:CycleTrackingIdentifierAssignmentReport
-	xmlns:exc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+<crimhistory-update-exch:CycleTrackingIdentifierAssignmentReport
+	xmlns:crimhistory-update-exch="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
 	xmlns:s="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" 
+	xmlns:me-chrg-codes="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0 ../xsd/exchange-schema.xsd">
 	<ext:CycleTrackingIdentifierAssignment>
@@ -48,7 +48,7 @@
 			<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
 			<j:ChargeEnhancingFactor>
 				<j:ChargeEnhancingFactorDescriptionText>modifier description</j:ChargeEnhancingFactorDescriptionText>
-				<me:ChargeEnhancingFactorCode>S</me:ChargeEnhancingFactorCode>
+				<me-chrg-codes:ChargeEnhancingFactorCode>S</me-chrg-codes:ChargeEnhancingFactorCode>
 			</j:ChargeEnhancingFactor>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
@@ -64,7 +64,7 @@
 			<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
 			<j:ChargeEnhancingFactor>
 				<j:ChargeEnhancingFactorDescriptionText>modifier description</j:ChargeEnhancingFactorDescriptionText>
-				<me:ChargeEnhancingFactorCode>A</me:ChargeEnhancingFactorCode>
+				<me-chrg-codes:ChargeEnhancingFactorCode>A</me-chrg-codes:ChargeEnhancingFactorCode>
 			</j:ChargeEnhancingFactor>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
@@ -124,4 +124,4 @@
 			<nc:PersonSurName>White</nc:PersonSurName>
 		</nc:PersonName>
 	</nc:Person>
-</exc:CycleTrackingIdentifierAssignmentReport>
+</crimhistory-update-exch:CycleTrackingIdentifierAssignmentReport>
