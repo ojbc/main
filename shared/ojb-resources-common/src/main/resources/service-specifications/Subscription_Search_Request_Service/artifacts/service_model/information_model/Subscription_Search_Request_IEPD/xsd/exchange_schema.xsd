@@ -19,9 +19,10 @@
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
+	xmlns:ssreq="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
+	xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
+	xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
 		schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
@@ -30,7 +31,7 @@
 		schemaLocation="extension_schema.xsd" />
 
 	<!-- Root data element for the SubscriptionSearch Request -->
-	<xsd:element name="SubscriptionSearchRequest" type="ext:SubscriptionSearchRequestType">
+	<xsd:element name="SubscriptionSearchRequest" type="ssreq-ext:SubscriptionSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A message to submit a subscription-based search.</xsd:documentation>
 		</xsd:annotation>

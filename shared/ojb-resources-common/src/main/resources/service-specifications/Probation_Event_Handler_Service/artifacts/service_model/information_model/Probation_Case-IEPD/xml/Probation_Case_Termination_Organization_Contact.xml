@@ -17,11 +17,11 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<p:ProbationCaseTermination xmlns:Q1="http://niem.gov/niem/unece_rec20-misc/2.0"
+<pct:ProbationCaseTermination xmlns:Q1="http://niem.gov/niem/unece_rec20-misc/2.0"
 	xmlns:Q11="http://niem.gov/niem/fbi/2.0" xmlns:Q12="http://niem.gov/niem/fips_5-2/2.0"
 	xmlns:Q13="http://niem.gov/niem/iso_639-3/2.0" xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0"
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
-	xmlns:p="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0"
+	xmlns:pct="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0"
 	xmlns:p1="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0 ../xsd/Probation_Case_Termination.xsd">
@@ -72,4 +72,4 @@
 	
 	<pcext:SystemName>SomeSystemURI</pcext:SystemName>
 	
-</p:ProbationCaseTermination>
+</pct:ProbationCaseTermination>

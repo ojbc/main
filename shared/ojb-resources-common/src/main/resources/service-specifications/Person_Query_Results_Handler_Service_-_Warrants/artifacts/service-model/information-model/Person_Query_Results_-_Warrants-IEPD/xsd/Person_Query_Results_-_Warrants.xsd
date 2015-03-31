@@ -18,9 +18,10 @@
 
 -->
 <xsd:schema 
-	xmlns:Q1="http://ojbc.org/IEPD/Extensions/Warrants/1.0" 
+	xmlns:Warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0" 
+	xmlns:Warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	targetNamespace="http://ojbc.org/IEPD/Exchange/Warrants/1.0">
   <xsd:import namespace="http://ojbc.org/IEPD/Extensions/Warrants/1.0" schemaLocation="WarrantExtensions.xsd"/>
-  <xsd:element name="Warrants" type="Q1:WarrantsType"/>
+  <xsd:element name="Warrants" type="Warrant-ext:WarrantsType"/>
 </xsd:schema>

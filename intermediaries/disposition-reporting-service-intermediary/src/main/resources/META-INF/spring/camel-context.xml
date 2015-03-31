@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<!-- ALL MESSAGE ROUTES -->
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
+		id="mainCamelContext">
+
+		<!-- Folder and Mail endpoints -->
+		<endpoint id="sentFolderEndpoint"
+			uri="file://${dispositionReportingService.fileRoot}/Sent?fileName=$simple{date:now:yyyy.MM.dd.HH.mm.ssSSS}-intermediaryTransaction.xml" />
+		<endpoint id="deadFolderEndpoint"
+			uri="file://${dispositionReportingService.fileRoot}/Dead?fileName=$simple{date:now:yyyy.MM.dd.HH.mm.ssSSS}-dead.xml" />
+		<endpoint id="mailEndpoint" uri="${mailEndpoint}" />
+		
+		<!-- Web service endpoints -->
+	    <endpoint id="dispositionReportingServiceIntermediaryEndpoint"
+				uri="cxf:bean:dispositionReportingServiceIntermediary?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${dispositionReportingService.cxfLogging}"/>
+	
+	    <endpoint id="dispositionReportingServiceAdapterEndpoint"
+				uri="cxf:bean:dispositionReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${dispositionReportingService.cxfLogging}"/>
+		
+
+		<!-- INTERMEDIARY TO ADAPTER ROUTE -->
+		<camel:route id="dispositionDeliveryRoute"
+			errorHandlerRef="chriDeadLetterErrorHandler">
+
+			<from ref="dispositionReportingServiceIntermediaryEndpoint" />
+
+			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:log message="\n\n Disposition Intermediary processing message...\n\n" />
+
+			<doTry>
+				<convertBodyTo type="java.lang.String" />
+
+				<!-- Multicast to the core services and derived bundle specific routes 
+					so each route gets original message -->
+				<camel:multicast>
+					<camel:pipeline>
+						<camel:filter>
+							<camel:simple>${properties:dispositionReportingService.callDispositionReportingService} == true</camel:simple>
+
+							<camel:to uri="direct:callDispositionReportingService" />
+
+						</camel:filter>
+					</camel:pipeline>
+
+					<camel:pipeline>
+						<camel:to uri="direct:derivedRoutes" />
+					</camel:pipeline>
+
+				</camel:multicast>
+
+				<to ref="sentFolderEndpoint" />
+
+				<doCatch>
+					<!-- SERVICE IS DOWN -->
+					<exception>java.net.SocketException</exception>
+					<exception>java.net.SocketTimeoutException</exception>
+					<exception>java.lang.RuntimeException</exception>
+					<log logName="org.ojbc.intermediaries.dispotionreporting"
+						loggingLevel="ERROR" message="Communication error in Intermediary!" />
+					<to
+						uri="log:org.ojbc.intermediaries.dispotionreporting?level=ERROR&amp;showAll=true" />
+					<to ref="deadFolderEndpoint" />
+					<transform>
+						<constant>Communication error!</constant>
+					</transform>
+
+					<!-- TODO: Research how this was originally done and support accordingly -->
+					<!-- <process ref="fileAttachmentProcessor" /> -->
+					<to ref="mailEndpoint" />
+				</doCatch>
+				<doFinally>
+					<log logName="org.ojbc.intermediaries.dispotionreporting"
+						loggingLevel="DEBUG" message="Intermediary Route complete." />
+				</doFinally>
+			</doTry>
+
+		</camel:route>
+
+		<camel:route id="derivedRoutes">
+
+			<camel:from uri="direct:derivedRoutes" />
+
+			<!-- Set up derived endpoints -->
+			<camel:setHeader headerName="routingSlipDerivedRoutes">
+				<simple>{{dispositionReportingService.camelEndpointsToCall}}</simple>
+			</camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
+
+				<camel:log
+					message="About to call derived routes using this routing slip: ${in.headers.routingSlipDerivedRoutes}" />
+
+				<camel:recipientList>
+					<camel:header>routingSlipDerivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>
+
+		</camel:route>
+
+
+		<camel:route id="callDispositionReportingServiceRoute"
+			errorHandlerRef="chriDeadLetterErrorHandler">
+			<camel:from uri="direct:callDispositionReportingService" />
+			<!-- Core functionality - call Disposition Reporting adapter -->
+			<camel:setHeader headerName="operationName">
+				<constant>ReportDisposition</constant>
+			</camel:setHeader>
+
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/DispositionReportingService/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="dispositionReportingServiceAdapterEndpoint" />
+
+		</camel:route>
+	</camel:camelContext>
+
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
+	<!-- FILE ATTACHMENT PROCESSOR -->
+	<bean id="fileAttachmentProcessor" class="org.ojbc.util.camel.processor.FileAttachmentProcessor" />
+	<bean id="fileAttachmentPropertyProcessor"
+		class="org.ojbc.util.camel.processor.FileAttachmentPropertyProcessor" />
+
+	<!-- ERROR HANDLING/DEAD-LETTER QUEUE -->
+	<bean id="chriDeadLetterErrorHandler" class="org.apache.camel.builder.DeadLetterChannelBuilder">
+		<property name="deadLetterUri" value="deadFolderEndpoint" />
+		<property name="redeliveryPolicy" ref="chriRedeliveryPolicyConfig" />
+	</bean>
+
+	<!-- RETRY POLICY -->
+	<bean id="chriRedeliveryPolicyConfig" class="org.apache.camel.processor.RedeliveryPolicy">
+		<property name="maximumRedeliveries" value="${maximumRedeliveries}" />
+		<property name="redeliveryDelay" value="${redeliveryDelay}" />
+	</bean>
+
+
+</beans>

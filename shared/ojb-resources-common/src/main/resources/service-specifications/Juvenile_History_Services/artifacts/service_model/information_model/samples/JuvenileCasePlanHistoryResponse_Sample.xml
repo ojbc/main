@@ -17,21 +17,21 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<doc:JuvenileCasePlanHistoryResponse xmlns="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0" xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0 ../Juvenile_History_IEPD/CasePlan/JuvenileCasePlanHistoryResponse.xsd">
-	<cext:JuvenileHistoryCategoryCode>JuvenileCasePlanHistory</cext:JuvenileHistoryCategoryCode>
-	<cext:JuvenileHistoryQueryCriteria>
-		<cext:JuvenileInformationRecordID>
+<jh-case-plan-doc:JuvenileCasePlanHistoryResponse xmlns="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:jh-case-plan-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0" xmlns:jh-case-plan="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0 ../Juvenile_History_IEPD/CasePlan/JuvenileCasePlanHistoryResponse.xsd">
+	<jh-ext:JuvenileHistoryCategoryCode>JuvenileCasePlanHistory</jh-ext:JuvenileHistoryCategoryCode>
+	<jh-ext:JuvenileHistoryQueryCriteria>
+		<jh-ext:JuvenileInformationRecordID>
 			<IdentificationID>100</IdentificationID>
 			<IdentificationSourceText>Court</IdentificationSourceText>
-		</cext:JuvenileInformationRecordID>
-	</cext:JuvenileHistoryQueryCriteria>
-	<ext:JuvenileCasePlanHistory>
-		<cext:JuvenileInformationAvailabilityCode>FOUND</cext:JuvenileInformationAvailabilityCode>
-		<cext:JuvenileInformationAvailabilityMetadata>
+		</jh-ext:JuvenileInformationRecordID>
+	</jh-ext:JuvenileHistoryQueryCriteria>
+	<jh-case-plan:JuvenileCasePlanHistory>
+		<jh-ext:JuvenileInformationAvailabilityCode>FOUND</jh-ext:JuvenileInformationAvailabilityCode>
+		<jh-ext:JuvenileInformationAvailabilityMetadata>
 			<LastUpdatedDate>
 				<Date>1957-08-13</Date>
 			</LastUpdatedDate>
-			<cext:JuvenileInformationOwnerOrganization>
+			<jh-ext:JuvenileInformationOwnerOrganization>
 				<OrganizationBranchName>2nd District</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
@@ -49,12 +49,12 @@
 					</Address>
 				</OrganizationLocation>
 				<OrganizationName>Court</OrganizationName>
-			</cext:JuvenileInformationOwnerOrganization>
-			<cext:JuvenileInformationRecordID>
+			</jh-ext:JuvenileInformationOwnerOrganization>
+			<jh-ext:JuvenileInformationRecordID>
 				<IdentificationID>OTC23456567</IdentificationID>
 				<IdentificationSourceText>Court Record</IdentificationSourceText>
-			</cext:JuvenileInformationRecordID>
-		</cext:JuvenileInformationAvailabilityMetadata>
+			</jh-ext:JuvenileInformationRecordID>
+		</jh-ext:JuvenileInformationAvailabilityMetadata>
 		<Person structures:id="Child1">
 			<PersonName>
 				<PersonGivenName>John</PersonGivenName>
@@ -119,44 +119,44 @@
 			<cyfs:Child structures:ref="Child1" xsi:nil="true"/>
 			<cyfs:Parent structures:ref="Parent1" xsi:nil="true"/>
 		</cyfs:ParentChildAssociation>
-		<ext:CasePlan>
-			<ext:AssessmentIndicator>true</ext:AssessmentIndicator>
-			<ext:CasePlanIndicator>true</ext:CasePlanIndicator>
-			<ext:CasePlanAugmentation>
-				<cext:JuvenileInformationRecordID>
+		<jh-case-plan:CasePlan>
+			<jh-case-plan:AssessmentIndicator>true</jh-case-plan:AssessmentIndicator>
+			<jh-case-plan:CasePlanIndicator>true</jh-case-plan:CasePlanIndicator>
+			<jh-case-plan:CasePlanAugmentation>
+				<jh-ext:JuvenileInformationRecordID>
 					<IdentificationID>CasePlan1</IdentificationID>
 					<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-				<cext:RelatedJuvenileHistoryRecords>
-						<cext:RelatedJuvenileHistoryRecord>
-							<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
-							<cext:JuvenileInformationRecordID>
+				</jh-ext:JuvenileInformationRecordID>
+				<jh-ext:RelatedJuvenileHistoryRecords>
+						<jh-ext:RelatedJuvenileHistoryRecord>
+							<jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
+							<jh-ext:JuvenileInformationRecordID>
 								<IdentificationID>Hearing1</IdentificationID>
 								<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</IdentificationSourceText>
-							</cext:JuvenileInformationRecordID>
-						</cext:RelatedJuvenileHistoryRecord>
-						<cext:RelatedJuvenileHistoryRecord>
-							<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
-							<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
-						</cext:RelatedJuvenileHistoryRecord>
-					</cext:RelatedJuvenileHistoryRecords>
-			</ext:CasePlanAugmentation>
-		</ext:CasePlan>
-		<ext:CasePlan>
-			<ext:AssessmentIndicator>false</ext:AssessmentIndicator>
-			<ext:CasePlanIndicator>true</ext:CasePlanIndicator>
-			<ext:CasePlanAugmentation>
-				<cext:JuvenileInformationRecordID>
+							</jh-ext:JuvenileInformationRecordID>
+						</jh-ext:RelatedJuvenileHistoryRecord>
+						<jh-ext:RelatedJuvenileHistoryRecord>
+							<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+							<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+						</jh-ext:RelatedJuvenileHistoryRecord>
+					</jh-ext:RelatedJuvenileHistoryRecords>
+			</jh-case-plan:CasePlanAugmentation>
+		</jh-case-plan:CasePlan>
+		<jh-case-plan:CasePlan>
+			<jh-case-plan:AssessmentIndicator>false</jh-case-plan:AssessmentIndicator>
+			<jh-case-plan:CasePlanIndicator>true</jh-case-plan:CasePlanIndicator>
+			<jh-case-plan:CasePlanAugmentation>
+				<jh-ext:JuvenileInformationRecordID>
 					<IdentificationID>CasePlan2</IdentificationID>
 					<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}CasePlanHistory</IdentificationSourceText>
-				</cext:JuvenileInformationRecordID>
-				<cext:RelatedJuvenileHistoryRecords>
-						<cext:RelatedJuvenileHistoryRecord>
-							<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
-							<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
-						</cext:RelatedJuvenileHistoryRecord>
-					</cext:RelatedJuvenileHistoryRecords>
-			</ext:CasePlanAugmentation>
-		</ext:CasePlan>
-	</ext:JuvenileCasePlanHistory>
-</doc:JuvenileCasePlanHistoryResponse>
+				</jh-ext:JuvenileInformationRecordID>
+				<jh-ext:RelatedJuvenileHistoryRecords>
+						<jh-ext:RelatedJuvenileHistoryRecord>
+							<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+							<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+						</jh-ext:RelatedJuvenileHistoryRecord>
+					</jh-ext:RelatedJuvenileHistoryRecords>
+			</jh-case-plan:CasePlanAugmentation>
+		</jh-case-plan:CasePlan>
+	</jh-case-plan:JuvenileCasePlanHistory>
+</jh-case-plan-doc:JuvenileCasePlanHistoryResponse>

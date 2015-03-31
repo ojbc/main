@@ -8,7 +8,7 @@
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
 	xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" 
-	xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0" 
+	xmlns:jh-case-plan-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0" 
 	xmlns:res="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/CasePlanResults/1.0" 
 	targetNamespace="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/CasePlanResults/1.0">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
@@ -19,7 +19,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="JuvenileCasePlanHistoryResponseMessage">
-		<wsdl:part name="JuvenileCasePlanHistoryResponseMessage" element="doc:JuvenileCasePlanHistoryResponse"/>
+		<wsdl:part name="JuvenileCasePlanHistoryResponseMessage" element="jh-case-plan-doc:JuvenileCasePlanHistoryResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="JuvenileCasePlanHistoryResultsInterface">
 		<wsdl:operation name="SubmitJuvenileCasePlanHistoryResponse">

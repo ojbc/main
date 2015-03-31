@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/SubscriptionSearchResultsService/1.0"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0"
+	xmlns:ssr="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0"
 	name="Subscription_Search_Results_Service" targetNamespace="http://ojbc.org/Services/WSDL/SubscriptionSearchResultsService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
@@ -17,7 +17,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Subscription-Search-Results">
-		<wsdl:part element="exchange:SubscriptionSearchResults" name="Subscription-Search-Results" />
+		<wsdl:part element="ssr:SubscriptionSearchResults" name="Subscription-Search-Results" />
 	</wsdl:message>
 	<wsdl:portType name="Subscription_Search_Results_Service">
 		<wsdl:operation name="ReportSubscriptionSearchResults">

@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.ojbc.util.xml.OjbcNamespaceContext;
@@ -137,8 +138,70 @@ public class SearchTest extends AbstractStaticMockTest {
         assertEquals(new Integer(150), psp.getWeight());
         assertEquals(new Integer(54), psp.getHeight());
     }
+    
+    @Test
+    public void testSearchDocumentsIncidentVehicle() throws Exception {
+    	Document searchRequest = buildBaseIncidentVehicleSearchRequest("V125646899264104931");
+    	Document searchResults = staticMockQuery.searchDocuments(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(searchResults);
+    	assertNotNull(XmlUtils.xPathNodeSearch(searchResults, "/isres-doc:IncidentVehicleSearchResults/isres:IncidentVehicleSearchResult"));
+    }
+    
+    @Test
+    public void testVehicleSearchByVin() throws Exception {
+    	Document searchRequest = buildBaseVehicleSearchRequest();
+    	Element vehicleNode = (Element) XmlUtils.xPathNodeSearch(searchRequest, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle");
+    	NodeList children = XmlUtils.xPathNodeListSearch(vehicleNode, "*");
+    	Node idElement = null;
+    	for (int i=0;i < children.getLength();i++) {
+    		Node child = children.item(i);
+    		if (!"VehicleIdentification".equals(child.getLocalName())) {
+    			vehicleNode.removeChild(child);
+    		} else {
+    			idElement = XmlUtils.xPathNodeSearch(child, "nc:IdentificationID");
+    		}
+    	}
+		idElement.setTextContent("V125646899264104931");
+    	//XmlUtils.printNode(searchRequest);
+    	List<IdentifiableDocumentWrapper> matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(matches);
+    	assertEquals(1, matches.size());
+    	Document match = matches.get(0).getDocument();
+    	assertNotNull(XmlUtils.xPathNodeSearch(match, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle[nc:VehicleIdentification/nc:IdentificationID='V125646899264104931']"));
+		idElement.setTextContent("not-valid");
+		matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(matches);
+    	assertEquals(0, matches.size());
+    }
 
     @Test
+    public void testVehicleSearchByPlate() throws Exception {
+    	Document searchRequest = buildBaseVehicleSearchRequest();
+    	Element vehicleNode = (Element) XmlUtils.xPathNodeSearch(searchRequest, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle");
+    	NodeList children = XmlUtils.xPathNodeListSearch(vehicleNode, "*");
+    	Node idElement = null;
+    	for (int i=0;i < children.getLength();i++) {
+    		Node child = children.item(i);
+    		if (!"ConveyanceRegistrationPlateIdentification".equals(child.getLocalName())) {
+    			vehicleNode.removeChild(child);
+    		} else {
+    			idElement = XmlUtils.xPathNodeSearch(child, "nc:IdentificationID");
+    		}
+    	}
+		idElement.setTextContent("856K31");
+    	//XmlUtils.printNode(searchRequest);
+    	List<IdentifiableDocumentWrapper> matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(matches);
+    	assertEquals(1, matches.size());
+    	Document match = matches.get(0).getDocument();
+    	assertNotNull(XmlUtils.xPathNodeSearch(match, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle[nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID='856K31']"));
+		idElement.setTextContent("not-valid");
+		matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(matches);
+    	assertEquals(0, matches.size());
+    }
+
+	@Test
     public void testIncidentPersonSearch() throws Exception {
         Document incidentPersonSearchRequestMessage = buildIncidentPersonSearchRequestMessage(8);
         XmlUtils.validateInstance("service-specifications/Incident_Search_Request_Service/artifacts/service_model/information_model/Incident_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
@@ -303,7 +366,10 @@ public class SearchTest extends AbstractStaticMockTest {
         Document responseDocument = matches.get(0).getDocument();
         // XmlUtils.printNode(responseDocument);
 
-        XmlUtils.validateInstance("service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
+        List<String> schemaPaths = new ArrayList<String>();
+        String iepdRootPath = "service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
+        schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
+        XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, responseDocument);
         assertEquals(1, matches.size());
         assertEquals(1, XmlUtils.xPathNodeListSearch(responseDocument, "/firearm-doc:FirearmRegistrationQueryResults").getLength());
         String serialNumber = XmlUtils.xPathStringSearch(firearmSearchRequestMessage,
@@ -330,7 +396,10 @@ public class SearchTest extends AbstractStaticMockTest {
 
         List<IdentifiableDocumentWrapper> matches = submitDocumentFirearmSearch(firearmSearchRequestMessage);
         Document responseDocument = matches.get(0).getDocument();
-        XmlUtils.validateInstance("service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
+        List<String> schemaPaths = new ArrayList<String>();
+        String iepdRootPath = "service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
+        schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
+        XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, responseDocument);
         assertEquals(1, matches.size());
         // XmlUtils.printNode(responseDocument);
         assertEquals(1, XmlUtils.xPathNodeListSearch(responseDocument, "/firearm-doc:FirearmRegistrationQueryResults").getLength());
@@ -348,10 +417,21 @@ public class SearchTest extends AbstractStaticMockTest {
     }
     
     @Test
+    public void testVehicleSearchXPathBuild() throws Exception {
+    	Document searchRequest = buildBaseVehicleSearchRequest();
+    	String xPath = StaticMockQuery.buildIncidentSearchXPathFromVehicleSearchMessage(searchRequest);
+    	//log.info(xPath);
+    	assertEquals("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage" + 
+    			"[lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleIdentification/nc:IdentificationID='1234567890ABCDEFGH' and " +
+    			"lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID='ABC123']", xPath);
+
+    }
+    
+    @Test
     public void testIncidentSearchXPathBuild() throws Exception {
         Document incidentSearchRequestMessage = buildBaseIncidentSearchRequestMessage();
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityDateRange");
-        String xPath = StaticMockQuery.buildIncidentSearchXPathFromMessage(incidentSearchRequestMessage);
+        String xPath = StaticMockQuery.buildIncidentSearchXPathFromIncidentSearchMessage(incidentSearchRequestMessage);
         assertEquals("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage[" +
                 "lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityIdentification/nc:IdentificationID='12345' " + 
                 "and lexs:Digest/lexsdigest:EntityLocation/nc:Location[nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName='Burlington' " + 
@@ -360,14 +440,14 @@ public class SearchTest extends AbstractStaticMockTest {
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/nc:Location");
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/jxdm41:ActivityLocationAssociation");
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/isr:IncidentCategoryCode");
-        xPath = StaticMockQuery.buildIncidentSearchXPathFromMessage(incidentSearchRequestMessage);
+        xPath = StaticMockQuery.buildIncidentSearchXPathFromIncidentSearchMessage(incidentSearchRequestMessage);
         assertEquals("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage[" +
                 "lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityIdentification/nc:IdentificationID='12345']", xPath);
         incidentSearchRequestMessage = buildBaseIncidentSearchRequestMessage();
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityIdentification");
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityDateRange");
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/isr:IncidentCategoryCode");
-        xPath = StaticMockQuery.buildIncidentSearchXPathFromMessage(incidentSearchRequestMessage);
+        xPath = StaticMockQuery.buildIncidentSearchXPathFromIncidentSearchMessage(incidentSearchRequestMessage);
         assertEquals("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage[" +
                 "lexs:Digest/lexsdigest:EntityLocation/nc:Location[nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName='Burlington' " + 
                 "and @s:id=/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:Associations/lexsdigest:IncidentLocationAssociation/nc:LocationReference/@s:ref]]", xPath);
@@ -475,7 +555,12 @@ public class SearchTest extends AbstractStaticMockTest {
 
         Document responseDocument = staticMockQuery.firearmSearchDocuments(firearmSearchRequestMessage);
         // XmlUtils.printNode(responseDocument);
-        XmlUtils.validateInstance("service-specifications/Firearm_Search_Results_Service/artifacts/service_model/information_model/Firearm_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
+
+        List<String> schemaPaths = new ArrayList<String>();
+        String iepdRootPath = "service-specifications/Firearm_Search_Results_Service/artifacts/service_model/information_model/Firearm_Search_Results_IEPD/xsd/";
+        schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
+        XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, responseDocument);
+
         NodeList results = XmlUtils.xPathNodeListSearch(responseDocument, "firearm-search-resp-doc:FirearmSearchResults/firearm-search-resp-ext:FirearmSearchResult");
         assertEquals(4, results.getLength());
 
@@ -1406,9 +1491,11 @@ public class SearchTest extends AbstractStaticMockTest {
         requestElement.removeChild(XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/nc:Location"));
         Element placementElement = (Element) XmlUtils.xPathNodeSearch(requestElement, "cyfs21:Placement/jh-placement-search-codes:PlacementCategoryCode");
         placementElement.setTextContent("Relative/Fictive Kin");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
-                personSearchRequestMessage);
+        List<String> schemaPaths = new ArrayList<String>();
+        String iepdRootPath = "service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd/";
+        schemaPaths.add(iepdRootPath + "impl/michigan/michigan-codes.xsd");
         //XmlUtils.printNode(personSearchRequestMessage);
+        XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
         placementElement.setTextContent("Father");
@@ -1539,14 +1626,18 @@ public class SearchTest extends AbstractStaticMockTest {
     }
 
     private List<IdentifiableDocumentWrapper> submitDocumentPersonSearch(Document personSearchRequestMessage) throws Exception {
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
-                personSearchRequestMessage);
+        List<String> schemaPaths = new ArrayList<String>();
+        String iepdRootPath = "service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd/";
+        schemaPaths.add(iepdRootPath + "impl/michigan/michigan-codes.xsd");
+        XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, personSearchRequestMessage);
         return staticMockQuery.personSearchDocumentsAsList(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
     }
 
     private List<IdentifiableDocumentWrapper> submitDocumentFirearmSearch(Document firearmSearchRequestMessage) throws Exception {
-        XmlUtils.validateInstance("service-specifications/Firearm_Search_Request_Service/artifacts/service_model/information_model/Firearm_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
-                firearmSearchRequestMessage);
+        List<String> schemaPaths = new ArrayList<String>();
+        String iepdRootPath = "service-specifications/Firearm_Search_Request_Service/artifacts/service_model/information_model/Firearm_Search_Request_IEPD/xsd/";
+        schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
+        XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, firearmSearchRequestMessage);
         return staticMockQuery.firearmSearchDocumentsAsList(firearmSearchRequestMessage);
     }
 

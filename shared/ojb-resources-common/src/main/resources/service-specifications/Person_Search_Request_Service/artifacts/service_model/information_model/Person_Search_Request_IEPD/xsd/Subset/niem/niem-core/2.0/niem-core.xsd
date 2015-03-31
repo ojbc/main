@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema targetNamespace="http://niem.gov/niem/niem-core/2.0" version="1" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:unece="http://niem.gov/niem/unece_rec20-misc/2.0" xmlns:fips_10-4="http://niem.gov/niem/fips_10-4/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:can="http://niem.gov/niem/post-canada/2.0" xmlns:fips_5-2="http://niem.gov/niem/fips_5-2/2.0" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+<xsd:schema targetNamespace="http://niem.gov/niem/niem-core/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:unece="http://niem.gov/niem/unece_rec20-misc/2.0" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:fips_10-4="http://niem.gov/niem/fips_10-4/2.0" xmlns:fips_5-2="http://niem.gov/niem/fips_5-2/2.0" xmlns:can="http://niem.gov/niem/post-canada/2.0">
   <xsd:annotation>
     <xsd:documentation>NIEM Core includes both Universal (U) and Common (C) components.  The identities for U and C components in Core are maintained with metadata.</xsd:documentation>
     <xsd:appinfo>
@@ -26,12 +26,12 @@
   </xsd:annotation>
   <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
   <xsd:import schemaLocation="../../fbi/2.0/fbi.xsd" namespace="http://niem.gov/niem/fbi/2.0"/>
-  <xsd:import schemaLocation="../../fips_10-4/2.0/fips_10-4.xsd" namespace="http://niem.gov/niem/fips_10-4/2.0"/>
-  <xsd:import schemaLocation="../../fips_5-2/2.0/fips_5-2.xsd" namespace="http://niem.gov/niem/fips_5-2/2.0"/>
-  <xsd:import schemaLocation="../../post-canada/2.0/post-canada.xsd" namespace="http://niem.gov/niem/post-canada/2.0"/>
   <xsd:import schemaLocation="../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
   <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
   <xsd:import schemaLocation="../../unece_rec20-misc/2.0/unece_rec20-misc.xsd" namespace="http://niem.gov/niem/unece_rec20-misc/2.0"/>
+  <xsd:import schemaLocation="../../fips_10-4/2.0/fips_10-4.xsd" namespace="http://niem.gov/niem/fips_10-4/2.0"/>
+  <xsd:import schemaLocation="../../fips_5-2/2.0/fips_5-2.xsd" namespace="http://niem.gov/niem/fips_5-2/2.0"/>
+  <xsd:import schemaLocation="../../post-canada/2.0/post-canada.xsd" namespace="http://niem.gov/niem/post-canada/2.0"/>
   <xsd:complexType name="ActivityType">
     <xsd:annotation>
       <xsd:documentation>A data type for a single or set of related actions, events, or process steps.
@@ -54,7 +54,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:AddressRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:AddressRepresentation" minOccurs="1" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -96,7 +96,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:DateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DateRepresentation" minOccurs="1" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -111,7 +111,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:DriverLicenseIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DriverLicenseIdentification" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -137,8 +137,8 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:IdentificationSourceText" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:IdentificationSourceText" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -168,7 +168,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:LocationAddress" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:LocationAddress" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -183,8 +183,8 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:RangeMinimumValue" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:RangeMaximumValue" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:RangeMinimumValue" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:RangeMaximumValue" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -199,7 +199,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:MeasureValue" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:MeasureValue" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -227,8 +227,8 @@
     <xsd:complexContent>
       <xsd:extension base="nc:AssociationType">
         <xsd:sequence>
-          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:LocationReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:LocationReference" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -254,9 +254,9 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonMiddleName" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonMiddleName" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -282,18 +282,18 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:PersonAgeMeasure" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonAgeMeasure" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonAlternateName" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonEyeColor" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonHairColor" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonEyeColor" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonHairColor" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonHeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonOtherIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonName" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonOtherIdentification" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonRace" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonSSNIdentification" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonStateIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonSex" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonSSNIdentification" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonStateIdentification" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonWeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
@@ -320,13 +320,13 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:StreetFullText" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:StreetNumberText" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:StreetPredirectionalText" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:StreetName" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:StreetCategoryText" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:StreetPostdirectionalText" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:StreetExtensionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:StreetFullText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:StreetNumberText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:StreetPredirectionalText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:StreetName" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:StreetCategoryText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:StreetPostdirectionalText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:StreetExtensionText" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -342,10 +342,10 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:AddressDeliveryPoint" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:LocationCityName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:LocationCityName" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:LocationState" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:LocationCountry" minOccurs="0" maxOccurs="1"/>
-          <xsd:element ref="nc:LocationPostalCode" minOccurs="0" maxOccurs="unbounded"/>
+           <xsd:element ref="nc:LocationCountry" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:LocationPostalCode" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -397,7 +397,7 @@
       <xsd:documentation>A representation of an address.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="AddressSecondaryUnitText" type="nc:TextType" substitutionGroup="nc:AddressDeliveryPoint" nillable="true">
+  <xsd:element name="AddressSecondaryUnitText" type="nc:TextType" substitutionGroup="nc:AddressDeliveryPoint">
     <xsd:annotation>
       <xsd:documentation>A particular unit within a larger unit or grouping at a location.</xsd:documentation>
       <xsd:appinfo>
@@ -461,7 +461,7 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="Location" type="nc:LocationType" nillable="true">
+  <xsd:element name="Location" type="nc:LocationType">
     <xsd:annotation>
       <xsd:documentation>Details about a physical location.</xsd:documentation>
     </xsd:annotation>
@@ -476,19 +476,6 @@
       <xsd:documentation>A name of a city or town.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="LocationCountry" abstract="true">
-    <xsd:annotation>
-      <xsd:documentation>A country, territory, dependency, or other such geopolitical subdivision of a location.</xsd:documentation>
-    </xsd:annotation>
-  </xsd:element>
-  <xsd:element name="LocationCountryFIPS10-4Code" type="fips_10-4:CountryCodeType" substitutionGroup="nc:LocationCountry" nillable="true">
-    <xsd:annotation>
-      <xsd:documentation>A country, territory, dependency, or other such geopolitical subdivision of a location.</xsd:documentation>
-      <xsd:appinfo>
-        <i:Base i:name="LocationCountry"/>
-      </xsd:appinfo>
-    </xsd:annotation>
-  </xsd:element>
   <xsd:element name="LocationPostalCode" type="niem-xsd:string" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An identifier of a post office-assigned zone for an address.</xsd:documentation>
@@ -499,31 +486,7 @@
       <xsd:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="LocationStateCanadianProvinceCode" type="can:CanadianProvinceCodeType" substitutionGroup="nc:LocationState" nillable="true">
-    <xsd:annotation>
-      <xsd:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xsd:documentation>
-      <xsd:appinfo>
-        <i:Base i:name="LocationState"/>
-      </xsd:appinfo>
-    </xsd:annotation>
-  </xsd:element>
-  <xsd:element name="LocationStateFIPS10-4InternationalCode" type="fips_10-4:InternationalStateCodeType" substitutionGroup="nc:LocationState">
-    <xsd:annotation>
-      <xsd:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xsd:documentation>
-      <xsd:appinfo>
-        <i:Base i:name="LocationState"/>
-      </xsd:appinfo>
-    </xsd:annotation>
-  </xsd:element>
-  <xsd:element name="LocationStateFIPS5-2AlphaCode" type="fips_5-2:USStateCodeType" substitutionGroup="nc:LocationState" nillable="true">
-    <xsd:annotation>
-      <xsd:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xsd:documentation>
-      <xsd:appinfo>
-        <i:Base i:name="LocationState"/>
-      </xsd:appinfo>
-    </xsd:annotation>
-  </xsd:element>
-  <xsd:element name="LocationStreet" type="nc:StreetType" substitutionGroup="nc:AddressDeliveryPoint" nillable="true">
+  <xsd:element name="LocationStreet" type="nc:StreetType" substitutionGroup="nc:AddressDeliveryPoint">
     <xsd:annotation>
       <xsd:documentation>A road, thoroughfare or highway.</xsd:documentation>
       <xsd:appinfo>
@@ -531,7 +494,7 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="MeasureRangeValue" type="nc:MeasureRangeValueType" substitutionGroup="nc:MeasureValue" nillable="true">
+  <xsd:element name="MeasureRangeValue" type="nc:MeasureRangeValueType" substitutionGroup="nc:MeasureValue">
     <xsd:annotation>
       <xsd:documentation>A measurement specified by a minimum and maximum value.</xsd:documentation>
       <xsd:appinfo>
@@ -539,7 +502,7 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="MeasureText" type="nc:TextType" substitutionGroup="nc:MeasureValue" nillable="true">
+  <xsd:element name="MeasureText" type="nc:TextType" substitutionGroup="nc:MeasureValue">
     <xsd:annotation>
       <xsd:documentation>A measurement value.</xsd:documentation>
       <xsd:appinfo>
@@ -695,7 +658,7 @@
       <xsd:documentation>A minimum value of a range.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="ResidenceAssociation" type="nc:PersonResidenceAssociationType" nillable="true">
+  <xsd:element name="ResidenceAssociation" type="nc:PersonResidenceAssociationType">
     <xsd:annotation>
       <xsd:documentation>An association between a person and a location where that person lives.</xsd:documentation>
     </xsd:annotation>
@@ -740,7 +703,7 @@
       <xsd:documentation>A direction that appears before a street name.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="StructuredAddress" type="nc:StructuredAddressType" substitutionGroup="nc:AddressRepresentation" nillable="true">
+  <xsd:element name="StructuredAddress" type="nc:StructuredAddressType" substitutionGroup="nc:AddressRepresentation">
     <xsd:annotation>
       <xsd:documentation>An address.</xsd:documentation>
       <xsd:appinfo>
@@ -751,6 +714,43 @@
   <xsd:element name="WeightUnitCode" type="unece:MassCodeType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A unit of measure of the weight value.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+   <xsd:element name="LocationCountry" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>A country, territory, dependency, or other such geopolitical subdivision of a location.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LocationCountryFIPS10-4Code" type="fips_10-4:CountryCodeType" substitutionGroup="nc:LocationCountry" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A country, territory, dependency, or other such geopolitical subdivision of a location.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="LocationCountry"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LocationStateCanadianProvinceCode" type="can:CanadianProvinceCodeType" substitutionGroup="nc:LocationState" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="LocationState"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LocationStateFIPS5-2AlphaCode" type="fips_5-2:USStateCodeType" substitutionGroup="nc:LocationState" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="LocationState"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LocationStateFIPS10-4InternationalCode" type="fips_10-4:InternationalStateCodeType" substitutionGroup="nc:LocationState">
+    <xsd:annotation>
+      <xsd:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="LocationState"/>
+      </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
 </xsd:schema>

@@ -34,7 +34,7 @@
 				<xsd:sequence>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="ext:IdentificationApplicantOrganization"/>
-					<xsd:element ref="ext:IdentificationRequestDocument" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ext:IdentificationRequestRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PersonDocumentAssociation" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -49,7 +49,7 @@
 				<xsd:sequence>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="ext:IdentificationApplicantOrganization"/>
-					<xsd:element ref="ext:IdentificationResultsDocument" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ext:IdentificationResultsRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ext:LinkedSystems" minOccurs="0"/>
 					<xsd:element ref="nc:PersonDocumentAssociation" minOccurs="0"/>
 				</xsd:sequence>
@@ -85,14 +85,29 @@
 			<xsd:documentation>An organization providing the application and to be informed of identification results.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IdentificationRequestDocument" type="ext:IdentificationDocumentType">
+	<xsd:element name="IdentificationRequestRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>An identification request document.</xsd:documentation>
+			<xsd:documentation>A placeholder for an identification request document.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IdentificationResultsDocument" type="ext:IdentificationDocumentType">
+	<xsd:element name="FingerprintBasedIdentificationRequestDocument" type="ext:IdentificationDocumentType" substitutionGroup="ext:IdentificationRequestRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>An identification results document.</xsd:documentation>
+			<xsd:documentation>A document used to request a person's identity based on fingerprints.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentificationResultsRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for an identification results document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FBIIdentityHistorySummaryDocument" type="ext:IdentificationDocumentType" substitutionGroup="ext:IdentificationResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document returned by the FBI that lists certain information taken from fingerprint submissions retained by the FBI in connection with arrests and, in some instances, employment, naturalization, or military service. Sometimes this is referred to as a federal rap sheet.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="StateCriminalHistoryRecordDocument" type="ext:IdentificationDocumentType" substitutionGroup="ext:IdentificationResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document returned by a State's criminal history system that contains the person's criminal history. Sometimes this is referred to as a state rap sheet.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DocumentBinary" type="xmime:base64Binary" substitutionGroup="nc:BinaryObject">

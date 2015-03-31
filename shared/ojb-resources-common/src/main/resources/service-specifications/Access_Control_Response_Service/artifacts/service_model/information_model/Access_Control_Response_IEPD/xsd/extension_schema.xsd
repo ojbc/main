@@ -23,10 +23,10 @@
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" 
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0" 
+	xmlns:ac-exchange="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" 
+	xmlns:ac-ext="http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/AccessControlResultsMetadata/1.0" 
-	xmlns:p="http://ojbc.org/IEPD/Extensions/AccessControlDecisionContexts/PolicyBasedAccessControlDecisionContext/1.0" 
+	xmlns:ac-p="http://ojbc.org/IEPD/Extensions/AccessControlDecisionContexts/PolicyBasedAccessControlDecisionContext/1.0" 
 	targetNamespace="http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
@@ -40,7 +40,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:AccessControlDecision" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ac-ext:AccessControlDecision" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="srm:AccessControlResultsMetadata" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -53,10 +53,10 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:AccessDeniedIndicator"/>
-					<xsd:element ref="ext:AccessDecisionDescriptionText" minOccurs="0"/>
-					<xsd:element ref="ext:AccessDecisionResourceURI" minOccurs="0"/>
-					<xsd:element ref="ext:AccessControlDecisionContext" minOccurs="0"/>
+					<xsd:element ref="ac-ext:AccessDeniedIndicator"/>
+					<xsd:element ref="ac-ext:AccessDecisionDescriptionText" minOccurs="0"/>
+					<xsd:element ref="ac-ext:AccessDecisionResourceURI" minOccurs="0"/>
+					<xsd:element ref="ac-ext:AccessControlDecisionContext" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -68,12 +68,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:AccessControlDecisionContextRepresentation"/>
+					<xsd:element ref="ac-ext:AccessControlDecisionContextRepresentation"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="AccessControlDecisionContext" type="ext:AccessControlDecisionContextType">
+	<xsd:element name="AccessControlDecisionContext" type="ac-ext:AccessControlDecisionContextType">
 		<xsd:annotation>
 			<xsd:documentation>Additional, extensible, detail that applies to the access control decision.</xsd:documentation>
 		</xsd:annotation>
@@ -83,7 +83,7 @@
 			<xsd:documentation>Specific detail that applies to the access control decision.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AccessControlDecision" type="ext:AccessControlDecisionType">
+	<xsd:element name="AccessControlDecision" type="ac-ext:AccessControlDecisionType">
 		<xsd:annotation>
 			<xsd:documentation>An access control decision.</xsd:documentation>
 		</xsd:annotation>

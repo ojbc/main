@@ -20,22 +20,22 @@
 <xsd:schema 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	targetNamespace="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" 
-	xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" 
+	xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" 
 	xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
+	xmlns:firearm-search-resp-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	elementFormDefault="qualified">
 	
 	<xsd:import schemaLocation="../../Subset/niem/structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
 	<xsd:import schemaLocation="../../extension_schema.xsd" namespace="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"/>
 	<xsd:import schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
-	<xsd:element name="FirearmRegistrationStatusCode" type="hi:FirearmRegistrationStatusCodeType" substitutionGroup="ext:FirearmRegistrationStatusRepresentation"/>
-	<xsd:element name="FirearmStatusCode" type="hi:FirearmStatusCodeType" substitutionGroup="ext:FirearmStatusRepresentation"/>
-	<xsd:element name="FirearmCaliberCode" type="hi:FirearmCaliberCodeType" substitutionGroup="nc:FirearmCaliber"/>
-	<xsd:element name="FirearmMakeCode" type="hi:FirearmMakeCodeType" substitutionGroup="ext:FirearmMakeRepresentation"/>
+	<xsd:element name="FirearmRegistrationStatusCode" type="firearms-hi:FirearmRegistrationStatusCodeType" substitutionGroup="firearm-search-resp-ext:FirearmRegistrationStatusRepresentation"/>
+	<xsd:element name="FirearmStatusCode" type="firearms-hi:FirearmStatusCodeType" substitutionGroup="firearm-search-resp-ext:FirearmStatusRepresentation"/>
+	<xsd:element name="FirearmCaliberCode" type="firearms-hi:FirearmCaliberCodeType" substitutionGroup="nc:FirearmCaliber"/>
+	<xsd:element name="FirearmMakeCode" type="firearms-hi:FirearmMakeCodeType" substitutionGroup="firearm-search-resp-ext:FirearmMakeRepresentation"/>
 	<xsd:complexType name="FirearmStatusCodeType">	
 		<xsd:simpleContent>
-			<xsd:extension base="hi:FirearmStatusCodeSimpleType">
+			<xsd:extension base="firearms-hi:FirearmStatusCodeSimpleType">
 				 <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -78,7 +78,7 @@
 	
 	<xsd:complexType name="FirearmRegistrationStatusCodeType">	
 		<xsd:simpleContent>
-			<xsd:extension base="hi:FirearmRegistrationStatusCodeSimpleType">
+			<xsd:extension base="firearms-hi:FirearmRegistrationStatusCodeSimpleType">
 				 <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -465,7 +465,7 @@
       <xsd:documentation>A description of the firearm caliber.</xsd:documentation>
     </xsd:annotation>
     <xsd:simpleContent>
-      <xsd:extension base="hi:FirearmCaliberCodeSimpleType">
+      <xsd:extension base="firearms-hi:FirearmCaliberCodeSimpleType">
         <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
       </xsd:extension>
     </xsd:simpleContent>
@@ -7697,7 +7697,7 @@
       <xsd:documentation>The make of a firearm.</xsd:documentation>
     </xsd:annotation>
     <xsd:simpleContent>
-      <xsd:extension base="hi:FirearmMakeCodeSimpleType">
+      <xsd:extension base="firearms-hi:FirearmMakeCodeSimpleType">
         <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
       </xsd:extension>
     </xsd:simpleContent>

@@ -20,8 +20,8 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
+	xmlns:sqr="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
+	xmlns:sqr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
 		schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
@@ -31,6 +31,6 @@
 
 	<!-- Root data element for the Subscription Query Results -->
 	
-	<xsd:element name="SubscriptionQueryResults" type="ext:SubscriptionQueryResultsType" />
+	<xsd:element name="SubscriptionQueryResults" type="sqr-ext:SubscriptionQueryResultsType" />
 
 </xsd:schema>

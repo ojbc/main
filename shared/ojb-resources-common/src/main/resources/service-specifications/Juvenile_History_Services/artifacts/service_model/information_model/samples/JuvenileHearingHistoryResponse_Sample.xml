@@ -17,21 +17,21 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<doc:JuvenileHearingHistoryResponse xmlns:codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0" xmlns="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHearingHistoryResponse/1.0" xmlns:cext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHearingHistoryResponse/1.0 ../Juvenile_History_IEPD/Hearing/JuvenileHearingHistoryResponse.xsd">
-	<cext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</cext:JuvenileHistoryCategoryCode>
-	<cext:JuvenileHistoryQueryCriteria>
-		<cext:JuvenileInformationRecordID>
+<jh-hearing-doc:JuvenileHearingHistoryResponse xmlns:jh-hearing-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0" xmlns="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:jh-hearing-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHearingHistoryResponse/1.0" xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:jh-hearing="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHearingHistoryResponse/1.0 ../Juvenile_History_IEPD/Hearing/JuvenileHearingHistoryResponse.xsd http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHearingHistoryExtension/michigan/codes/1.0 ../Juvenile_History_IEPD/Hearing/impl/michigan/codes.xsd">
+	<jh-ext:JuvenileHistoryCategoryCode>JuvenileHearingHistory</jh-ext:JuvenileHistoryCategoryCode>
+	<jh-ext:JuvenileHistoryQueryCriteria>
+		<jh-ext:JuvenileInformationRecordID>
 			<IdentificationID>100</IdentificationID>
 			<IdentificationSourceText>Court</IdentificationSourceText>
-		</cext:JuvenileInformationRecordID>
-	</cext:JuvenileHistoryQueryCriteria>
-	<ext:JuvenileHearingHistory>
-		<cext:JuvenileInformationAvailabilityCode>FOUND</cext:JuvenileInformationAvailabilityCode>
-		<cext:JuvenileInformationAvailabilityMetadata>
+		</jh-ext:JuvenileInformationRecordID>
+	</jh-ext:JuvenileHistoryQueryCriteria>
+	<jh-hearing:JuvenileHearingHistory>
+		<jh-ext:JuvenileInformationAvailabilityCode>FOUND</jh-ext:JuvenileInformationAvailabilityCode>
+		<jh-ext:JuvenileInformationAvailabilityMetadata>
 			<LastUpdatedDate>
 				<Date>1957-08-13</Date>
 			</LastUpdatedDate>
-			<cext:JuvenileInformationOwnerOrganization>
+			<jh-ext:JuvenileInformationOwnerOrganization>
 				<OrganizationBranchName>2nd District</OrganizationBranchName>
 				<OrganizationLocation>
 					<Address>
@@ -49,12 +49,12 @@
 					</Address>
 				</OrganizationLocation>
 				<OrganizationName>Court</OrganizationName>
-			</cext:JuvenileInformationOwnerOrganization>
-			<cext:JuvenileInformationRecordID>
+			</jh-ext:JuvenileInformationOwnerOrganization>
+			<jh-ext:JuvenileInformationRecordID>
 				<IdentificationID>OTC23456567</IdentificationID>
 				<IdentificationSourceText>Court Record</IdentificationSourceText>
-			</cext:JuvenileInformationRecordID>
-		</cext:JuvenileInformationAvailabilityMetadata>
+			</jh-ext:JuvenileInformationRecordID>
+		</jh-ext:JuvenileInformationAvailabilityMetadata>
 		<Person structures:id="Child1">
 			<PersonName>
 				<PersonGivenName>John</PersonGivenName>
@@ -130,47 +130,47 @@
 					<ActivityDate>
 						<Date>1957-08-13</Date>
 					</ActivityDate>
-					<ext:CourtEventAugmentation>
-						<ext:ContemptOfCourtIndicator>true</ext:ContemptOfCourtIndicator>
-						<codes:HearingCategoryCode>Designation Arraignment</codes:HearingCategoryCode>
-						<codes:HearingDispositionCode>Title IV-E language</codes:HearingDispositionCode>
-						<codes:HearingDispositionCode>Adjournment</codes:HearingDispositionCode>
-						<ext:ProbationViolationIndicator>false</ext:ProbationViolationIndicator>
-						<cext:JuvenileInformationRecordID>
+					<jh-hearing:CourtEventAugmentation>
+						<jh-hearing:ContemptOfCourtIndicator>true</jh-hearing:ContemptOfCourtIndicator>
+						<jh-hearing-codes:HearingCategoryCode>Designation Arraignment</jh-hearing-codes:HearingCategoryCode>
+						<jh-hearing-codes:HearingDispositionCode>Title IV-E language</jh-hearing-codes:HearingDispositionCode>
+						<jh-hearing-codes:HearingDispositionCode>Adjournment</jh-hearing-codes:HearingDispositionCode>
+						<jh-hearing:ProbationViolationIndicator>false</jh-hearing:ProbationViolationIndicator>
+						<jh-ext:JuvenileInformationRecordID>
 							<IdentificationID>Hearing1</IdentificationID>
 							<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</IdentificationSourceText>
-						</cext:JuvenileInformationRecordID>
-					</ext:CourtEventAugmentation>
+						</jh-ext:JuvenileInformationRecordID>
+					</jh-hearing:CourtEventAugmentation>
 				</j:CaseHearing>
 				<j:CaseHearing structures:id="Hearing2">
 					<ActivityDate>
 						<Date>1957-08-14</Date>
 					</ActivityDate>
-					<ext:CourtEventAugmentation>
-						<ext:ContemptOfCourtIndicator>false</ext:ContemptOfCourtIndicator>
-						<codes:HearingCategoryCode>Bench Trial</codes:HearingCategoryCode>
-						<codes:HearingDispositionCode>American Indian tribe or band notified</codes:HearingDispositionCode>
-						<ext:ProbationViolationIndicator>false</ext:ProbationViolationIndicator>
-						<cext:JuvenileInformationRecordID>
+					<jh-hearing:CourtEventAugmentation>
+						<jh-hearing:ContemptOfCourtIndicator>false</jh-hearing:ContemptOfCourtIndicator>
+						<jh-hearing-codes:HearingCategoryCode>Bench Trial</jh-hearing-codes:HearingCategoryCode>
+						<jh-hearing-codes:HearingDispositionCode>American Indian tribe or band notified</jh-hearing-codes:HearingDispositionCode>
+						<jh-hearing:ProbationViolationIndicator>false</jh-hearing:ProbationViolationIndicator>
+						<jh-ext:JuvenileInformationRecordID>
 							<IdentificationID>Hearing2</IdentificationID>
 							<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}HearingHistory</IdentificationSourceText>
-						</cext:JuvenileInformationRecordID>
-						<cext:RelatedJuvenileHistoryRecords>
-							<cext:RelatedJuvenileHistoryRecord>
-								<cext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</cext:JuvenileHistoryCategoryCode>
-								<cext:JuvenileInformationRecordID>
+						</jh-ext:JuvenileInformationRecordID>
+						<jh-ext:RelatedJuvenileHistoryRecords>
+							<jh-ext:RelatedJuvenileHistoryRecord>
+								<jh-ext:JuvenileHistoryCategoryCode>JuvenileOffenseHistory</jh-ext:JuvenileHistoryCategoryCode>
+								<jh-ext:JuvenileInformationRecordID>
 									<IdentificationID>Offense1</IdentificationID>
 									<IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}OffenseHistory</IdentificationSourceText>
-								</cext:JuvenileInformationRecordID>
-							</cext:RelatedJuvenileHistoryRecord>
-							<cext:RelatedJuvenileHistoryRecord>
-								<cext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</cext:JuvenileHistoryCategoryCode>
-								<cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</cext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
-							</cext:RelatedJuvenileHistoryRecord>
-						</cext:RelatedJuvenileHistoryRecords>
-					</ext:CourtEventAugmentation>
+								</jh-ext:JuvenileInformationRecordID>
+							</jh-ext:RelatedJuvenileHistoryRecord>
+							<jh-ext:RelatedJuvenileHistoryRecord>
+								<jh-ext:JuvenileHistoryCategoryCode>JuvenileIntakeHistory</jh-ext:JuvenileHistoryCategoryCode>
+								<jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>true</jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator>
+							</jh-ext:RelatedJuvenileHistoryRecord>
+						</jh-ext:RelatedJuvenileHistoryRecords>
+					</jh-hearing:CourtEventAugmentation>
 				</j:CaseHearing>
 			</j:CaseAugmentation>
 		</cyfs:CourtCase>
-	</ext:JuvenileHearingHistory>
-</doc:JuvenileHearingHistoryResponse>
+	</jh-hearing:JuvenileHearingHistory>
+</jh-hearing-doc:JuvenileHearingHistoryResponse>

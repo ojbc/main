@@ -20,7 +20,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
+	xmlns:sqr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
@@ -48,22 +48,22 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionQueryResult" minOccurs="0"/>
-					<xsd:element ref="ext:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="sqr-ext:SubscriptionQueryResult" minOccurs="0"/>
+					<xsd:element ref="sqr-ext:Person" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SubscribedEntityContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="sqr-ext:SubscribedEntityContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="qrm:QueryResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="SubscriptionQueryResult" type="ext:SubscriptonQueryResultType"/>
+	<xsd:element name="SubscriptionQueryResult" type="sqr-ext:SubscriptonQueryResultType"/>
 	<xsd:complexType name="SubscriptonQueryResultType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:Subscription"/>
-					<xsd:element ref="ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="sqr-ext:Subscription"/>
+					<xsd:element ref="sqr-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -76,17 +76,17 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionSubjectRepresentation"/>
+					<xsd:element ref="sqr-ext:SubscriptionSubjectRepresentation"/>
 					<xsd:element ref="wsn-br:Topic"/>
-					<xsd:element ref="ext:SubscribedEntity" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SubscriptionOriginator" minOccurs="0"/>
-					<xsd:element ref="ext:SubscriptionValidation" minOccurs="0"/>
-					<xsd:element ref="ext:SubscriptionGracePeriod" minOccurs="0"/>
+					<xsd:element ref="sqr-ext:SubscribedEntity" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="sqr-ext:SubscriptionOriginator" minOccurs="0"/>
+					<xsd:element ref="sqr-ext:SubscriptionValidation" minOccurs="0"/>
+					<xsd:element ref="sqr-ext:SubscriptionGracePeriod" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Subscription" type="ext:SubscriptionType">
+	<xsd:element name="Subscription" type="sqr-ext:SubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>
 				A subscription.
@@ -105,7 +105,7 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Person" type="ext:PersonType">
+	<xsd:element name="Person" type="sqr-ext:PersonType">
 		<xsd:annotation>
 			<xsd:documentation>
 				A human being.
@@ -113,7 +113,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionSubjectRepresentation" abstract="true"/>
-	<xsd:element name="SubscriptionSubject" type="j:SubjectType" substitutionGroup="ext:SubscriptionSubjectRepresentation">
+	<xsd:element name="SubscriptionSubject" type="j:SubjectType" substitutionGroup="sqr-ext:SubscriptionSubjectRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>The person focus in a subscription, i.e. the person to be monitored for activities.</xsd:documentation>
 		</xsd:annotation>
@@ -130,7 +130,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscribedEntity" type="ext:SubscribedEntityType">
+	<xsd:element name="SubscribedEntity" type="sqr-ext:SubscribedEntityType">
 		<xsd:annotation>
 			<xsd:documentation>An entity in a subscription that wishes to be notified.</xsd:documentation>
 		</xsd:annotation>
@@ -155,7 +155,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionOriginatorIdentification"/>
+					<xsd:element ref="sqr-ext:SubscriptionOriginatorIdentification"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -177,7 +177,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscribedEntityReference"/>
+					<xsd:element ref="sqr-ext:SubscribedEntityReference"/>
 					<xsd:element ref="nc:ContactInformationReference"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -188,12 +188,12 @@
 			<xsd:documentation>A relationship between a subscribed entity and contact information.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscriptionValidation" type="ext:SubscriptionValidationType">
+	<xsd:element name="SubscriptionValidation" type="sqr-ext:SubscriptionValidationType">
 		<xsd:annotation>
 			<xsd:documentation>The details about validation requirements for a subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscriptionGracePeriod" type="ext:SubscriptionGracePeriodType">
+	<xsd:element name="SubscriptionGracePeriod" type="sqr-ext:SubscriptionGracePeriodType">
 		<xsd:annotation>
 			<xsd:documentation>The details about the grace period of a subscription.</xsd:documentation>
 		</xsd:annotation>
@@ -205,8 +205,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionValidationDueDate" minOccurs="0"/>
-					<xsd:element ref="ext:SubscriptionValidatedDate" minOccurs="0"/>
+					<xsd:element ref="sqr-ext:SubscriptionValidationDueDate" minOccurs="0"/>
+					<xsd:element ref="sqr-ext:SubscriptionValidatedDate" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -228,7 +228,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionGracePeriodDateRange"/>
+					<xsd:element ref="sqr-ext:SubscriptionGracePeriodDateRange"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

@@ -16,6 +16,9 @@
  */
 package org.search.ojb.samplegen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class TestFirearmRegistrationSampleGenerator extends AbstractPersonSampleGeneratorTestCase {
     
@@ -37,6 +40,13 @@ public class TestFirearmRegistrationSampleGenerator extends AbstractPersonSample
     @Override
     protected String getRootSchemaFileName() {
         return "exchange_schema.xsd";
+    }
+    
+    @Override
+    protected List<String> getAdditionalSchemaRelativePaths() {
+        List<String> schemaPaths = new ArrayList<String>();
+        schemaPaths.add(getIEPDRootPath() + "impl/demostate/demostate-firearm-codes.xsd");
+    	return schemaPaths;
     }
 
 }

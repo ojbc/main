@@ -19,8 +19,8 @@
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
+	xmlns:iqr-doc="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0"
+	xmlns:iqr="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
 	elementFormDefault="qualified" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
@@ -30,7 +30,7 @@
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
 		schemaLocation="extension_schema.xsd" />
 
-	<xsd:element name="IncidentIdentifierIncidentReportRequest" type="ext:IncidentReportRequestType">
+	<xsd:element name="IncidentIdentifierIncidentReportRequest" type="iqr:IncidentReportRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request for a specific report recorded for an incident based on a unique incident identifier.</xsd:documentation>
 		</xsd:annotation>

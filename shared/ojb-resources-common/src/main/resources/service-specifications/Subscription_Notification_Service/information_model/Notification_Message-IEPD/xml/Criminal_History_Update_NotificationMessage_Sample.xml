@@ -17,16 +17,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<notification:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+<notfm-exch:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
-	xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-exch="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:me-chrg-codes="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd">
-		<notificationExt:NotifyingCriminalHistoryUpdate s:id="d1e1">
-			<notificationExt:NotifyingActivityReportingSystemNameText>SystemName</notificationExt:NotifyingActivityReportingSystemNameText>
-			<notificationExt:NotifyingActivityReportingSystemURI>SystemURIHere</notificationExt:NotifyingActivityReportingSystemURI>
+		<notfm-ext:NotifyingCriminalHistoryUpdate s:id="d1e1">
+			<notfm-ext:NotifyingActivityReportingSystemNameText>SystemName</notfm-ext:NotifyingActivityReportingSystemNameText>
+			<notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere</notfm-ext:NotifyingActivityReportingSystemURI>
 			<chu:CycleTrackingIdentifierAssignment>
 				<nc:ActivityDate>
 					<nc:DateTime>2014-11-11T12:00:00</nc:DateTime>
@@ -48,7 +48,7 @@
 					<chu:ChargeEnhancingFactor>
 						<j:ChargeEnhancingFactorDescriptionText>modifier description
 						</j:ChargeEnhancingFactorDescriptionText>
-						<me:ChargeEnhancingFactorCode>S</me:ChargeEnhancingFactorCode>
+						<me-chrg-codes:ChargeEnhancingFactorCode>S</me-chrg-codes:ChargeEnhancingFactorCode>
 					</chu:ChargeEnhancingFactor>
 					<j:ChargeStatute>
 						<j:StatuteCodeIdentification>
@@ -65,7 +65,7 @@
 					<chu:ChargeEnhancingFactor>
 						<j:ChargeEnhancingFactorDescriptionText>modifier description
 						</j:ChargeEnhancingFactorDescriptionText>
-						<me:ChargeEnhancingFactorCode>A</me:ChargeEnhancingFactorCode>
+						<me-chrg-codes:ChargeEnhancingFactorCode>A</me-chrg-codes:ChargeEnhancingFactorCode>
 					</chu:ChargeEnhancingFactor>
 					<j:ChargeStatute>
 						<j:StatuteCodeIdentification>
@@ -78,7 +78,7 @@
 					</j:ChargeTrackingIdentification>
 				</j:Charge>
 			</chu:CycleTrackingIdentifierAssignment>
-		</notificationExt:NotifyingCriminalHistoryUpdate>
+		</notfm-ext:NotifyingCriminalHistoryUpdate>
 		<nc:ActivityInvolvedPersonAssociation>
 			<nc:ActivityReference s:ref="d1e1" />
 			<nc:PersonReference s:ref="d1e162" />
@@ -110,4 +110,4 @@
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 		</j:Organization>
-	</notification:NotificationMessage>
+	</notfm-exch:NotificationMessage>

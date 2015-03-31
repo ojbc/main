@@ -18,7 +18,7 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	xmlns:ext="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0" 
+	xmlns:sqreq-ext="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	targetNamespace="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0" elementFormDefault="qualified">
@@ -28,7 +28,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SubscriptionIdentification"/>
+					<xsd:element ref="sqreq-ext:SubscriptionIdentification"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

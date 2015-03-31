@@ -21,7 +21,7 @@
 	xmlns="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentVehicleSearchRequest/1.0"
 	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentVehicleSearchRequest/1.0"
-	xmlns:inc="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+	xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
 	elementFormDefault="qualified" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
@@ -40,9 +40,9 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="ext:Vehicle" />
-					<xsd:element ref="inc:SourceSystemNameText" minOccurs="0"
+					<xsd:element ref="isr:SourceSystemNameText" minOccurs="0"
 						maxOccurs="unbounded" />
-						<xsd:element ref="inc:SearchMetadata" minOccurs="0"
+						<xsd:element ref="isr:SearchMetadata" minOccurs="0"
 						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
