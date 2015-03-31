@@ -922,10 +922,10 @@ public class StaticMockQuery {
 	static String buildIncidentSearchXPathFromVehicleSearchMessage(Document vehicleSearchRequestMessage) throws Exception {
 
 		String vin = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:VehicleIdentification/nc:IdentificationID");
-		//String color = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:VehicleColorPrimaryCode");
-		//String model = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:ItemModelName");
+		String color = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:VehicleColorPrimaryCode");
+		String model = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:ItemModelName");
 		String plate = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID");
-		//String make = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/vsr:VehicleMakeCode");
+		String make = XmlUtils.xPathStringSearch(vehicleSearchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/vsr:VehicleMakeCode");
 
 		List<String> conditions = new ArrayList<String>();
 
@@ -934,6 +934,15 @@ public class StaticMockQuery {
 		}
 		if (plate != null && plate.trim().length() > 0) {
 			conditions.add("lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID='" + plate + "'");
+		}
+		if (color != null && color.trim().length() > 0) {
+			conditions.add("lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleColorPrimaryCode='" + color + "'");
+		}
+		if (model != null && model.trim().length() > 0) {
+			conditions.add("lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleModelCode='" + model + "'");
+		}
+		if (make != null && make.trim().length() > 0) {
+			conditions.add("lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleMakeCode='" + make + "'");
 		}
 
 		if (conditions.isEmpty()) {

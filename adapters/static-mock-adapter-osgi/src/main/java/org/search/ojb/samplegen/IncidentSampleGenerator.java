@@ -230,6 +230,7 @@ public class IncidentSampleGenerator extends AbstractSampleGenerator {
         public String vin;
         public String plate;
         public String color;
+        public String colorCode;
 
         public Vehicle() {
             make = getRandomVehicleMakeCode();
@@ -252,6 +253,20 @@ public class IncidentSampleGenerator extends AbstractSampleGenerator {
             }
             plate = new String(plateChars);
             color = generateRandomCodeFromList("Black", "White", "Yellow", "Red", "Green", "Grey");
+            colorCode = null;
+            if ("Black".equals(color)) {
+            	colorCode = "BLK";
+            } else if ("White".equals(color)) {
+            	colorCode = "WHI";
+            } else if ("Yellow".equals(color)) {
+            	colorCode = "YEL";
+            } else if ("Red".equals(color)) {
+            	colorCode = "RED";
+            } else if ("Green".equals(color)) {
+            	colorCode = "GRN";
+            } else if ("Grey".equals(color)) {
+            	colorCode = "GRY";
+            }
         }
     }
 
@@ -464,6 +479,8 @@ public class IncidentSampleGenerator extends AbstractSampleGenerator {
         XmlUtils.addAttribute(vehicleElement, OjbcNamespaceContext.NS_STRUCTURES, "id", "vehicle1");
         Element e = appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ItemColorDescriptionText");
         e.setTextContent(vehicle.color);
+        e = appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleColorPrimaryCode");
+        e.setTextContent(vehicle.colorCode);
         e = appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ItemModelYearDate");
         e.setTextContent(String.valueOf(vehicle.year));
         e = appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateIdentification");

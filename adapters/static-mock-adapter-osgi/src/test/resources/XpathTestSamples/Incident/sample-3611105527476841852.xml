@@ -317,6 +317,7 @@
 						<lexsdigest:EntityVehicle>
 							<nc:Vehicle s:id="vehicle1">
 								<nc:ItemColorDescriptionText>Black</nc:ItemColorDescriptionText>
+								<nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
 								<nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
 								<nc:ConveyanceRegistrationPlateIdentification>
 									<nc:IdentificationID>U2H238</nc:IdentificationID>

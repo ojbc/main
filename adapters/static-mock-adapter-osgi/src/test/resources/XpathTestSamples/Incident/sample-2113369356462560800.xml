@@ -319,6 +319,7 @@
 						<lexsdigest:EntityVehicle>
 							<nc:Vehicle s:id="vehicle1">
 								<nc:ItemColorDescriptionText>Red</nc:ItemColorDescriptionText>
+								<nc:VehicleColorPrimaryCode>RED</nc:VehicleColorPrimaryCode>
 								<nc:ItemModelYearDate>1991</nc:ItemModelYearDate>
 								<nc:ConveyanceRegistrationPlateIdentification>
 									<nc:IdentificationID>856K31</nc:IdentificationID>

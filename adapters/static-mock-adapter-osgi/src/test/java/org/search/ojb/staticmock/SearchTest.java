@@ -175,6 +175,33 @@ public class SearchTest extends AbstractStaticMockTest {
     }
 
     @Test
+    public void testVehicleSearchByColor() throws Exception {
+    	Document searchRequest = buildBaseVehicleSearchRequest();
+    	Element vehicleNode = (Element) XmlUtils.xPathNodeSearch(searchRequest, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle");
+    	NodeList children = XmlUtils.xPathNodeListSearch(vehicleNode, "*");
+    	Node colorElement = null;
+    	for (int i=0;i < children.getLength();i++) {
+    		Node child = children.item(i);
+    		if (!"VehicleColorPrimaryCode".equals(child.getLocalName())) {
+    			vehicleNode.removeChild(child);
+    		} else {
+    			colorElement = child;
+    		}
+    	}
+		colorElement.setTextContent("GRY");
+    	//XmlUtils.printNode(searchRequest);
+    	List<IdentifiableDocumentWrapper> matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(matches);
+    	assertEquals(1, matches.size());
+    	Document match = matches.get(0).getDocument();
+    	assertNotNull(XmlUtils.xPathNodeSearch(match, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle[nc:VehicleColorPrimaryCode='GRY']"));
+		colorElement.setTextContent("not-valid");
+		matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(matches);
+    	assertEquals(0, matches.size());
+    }
+
+    @Test
     public void testVehicleSearchByPlate() throws Exception {
     	Document searchRequest = buildBaseVehicleSearchRequest();
     	Element vehicleNode = (Element) XmlUtils.xPathNodeSearch(searchRequest, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle");
@@ -421,9 +448,12 @@ public class SearchTest extends AbstractStaticMockTest {
     	Document searchRequest = buildBaseVehicleSearchRequest();
     	String xPath = StaticMockQuery.buildIncidentSearchXPathFromVehicleSearchMessage(searchRequest);
     	//log.info(xPath);
-    	assertEquals("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage" + 
+    	assertEquals("/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage" +
     			"[lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleIdentification/nc:IdentificationID='1234567890ABCDEFGH' and " +
-    			"lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID='ABC123']", xPath);
+    			"lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID='ABC123' and " +
+    			"lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleColorPrimaryCode='BLK' and " +
+    			"lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleModelCode='Titan' and " +
+    			"lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleMakeCode='Nissan']", xPath);
 
     }
     
