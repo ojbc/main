@@ -31,6 +31,7 @@ $(function() {
       });
    }
 
+   ojbc.maskInputs(); 
 });
 
 ojbc = {
@@ -56,6 +57,21 @@ ojbc = {
 	              $(cssSelector).val(defaultValue);
 	          }
 	      });
+	},
+
+	maskInputs: function(){
+	   $( "#portalContent" ).on( "focus", ".mdate", function() {
+		   $( this ).mask("99/99/9999");
+	   });
+	   $( "#portalContent" ).on( "focus", ".ssn", function() {
+		   $(this).mask("999-99-9999");
+	   });
+	   $( "#portalContent" ).on( "focus", ".zipCode", function() {
+		   $(this).mask("99999?-9999");
+	   });
+	   $( "#portalContent" ).on( "focus", ".year", function() {
+		   $(this).mask("9999");
+	   });
 	},
 	
 	collectAllCheckBoxValues : function () {         
