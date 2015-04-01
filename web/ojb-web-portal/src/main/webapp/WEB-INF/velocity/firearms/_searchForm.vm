@@ -11,17 +11,6 @@
     
             $( "#searchTabs" ).tabs({ active: 0});
     	    
-    	    $( ".datePicker" ).datepicker({
-    	       showOn: "both",
-    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
-    	       buttonImageOnly: true,
-    	       shortYearCutoff: "+10",
-    	       dateFormat: 'mm/dd/yy',
-      	       onClose: function(dateText, inst) {
-          		$(this).datepicker('option', 'dateFormat', 'mm/dd/yy');      
-    	       }
-    	    });
-    	    
     		$('#advanceSearchSubmitButton').click (
     			function(){
                     var isValidate=$("#searchForm").valid();
