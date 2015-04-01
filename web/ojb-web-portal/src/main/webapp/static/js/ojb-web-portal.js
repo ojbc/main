@@ -143,22 +143,6 @@ ojbc = {
 		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.vehicleYearRangeEnd','To');
 	},
 	
-	clearAllDefaultValues_firearm : function () {
-		ojbc.clearDefaultValue('#advanceSearch\\.firearmSerialNumber','Serial Number');
-		ojbc.clearDefaultValue('#advanceSearch\\.firearmRegistrationNumber','Registration Number');
-		ojbc.clearDefaultValue('#advanceSearch\\.firearmMake','Make');
-		ojbc.clearDefaultValue('#advanceSearch\\.firearmModel','Model');
-		ojbc.clearDefaultValue('#advanceSearch\\.firearmCounty','County');
-	},
-	
-	initializeAllInputWithDefaultValue_firearm : function (){
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.firearmSerialNumber','Serial Number');
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.firearmRegistrationNumber','Registration Number');
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.firearmMake','Make');
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.firearmModel','Model');
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.firearmCounty','County');
-	},
-	
 	clearSearchPurposeFields : function() {
 		$('#purposeSelect').val('');
 		$('#onBehalfOf').val('');
