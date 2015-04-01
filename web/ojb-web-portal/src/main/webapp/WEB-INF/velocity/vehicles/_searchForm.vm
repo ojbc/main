@@ -28,7 +28,6 @@
                     if(!isValidate){
                         alert("There are errors in your inputs, please correct them and try again");
                     }else {
-                        ojbc.clearAllDefaultValues_vehicle();
                         var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
                     
     		  	       	$.post("#springUrl('/vehicles/advanceSearch')",formData,function(data) {
@@ -74,8 +73,6 @@
 			    }
 			});	
 
-    	    ojbc.initializeAllInputWithDefaultValue_vehicle();
-    	    
     	    $('#demogFilterInfo').hide();
     		$('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
     		$('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");    		
@@ -109,12 +106,12 @@
     	  				<td> <!-- COLUMN 1 -->
     				        <div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleMake" $makes "" ) </div>
     				        
-    				        <div>#springFormInput("vehicleSearchCommand.advanceSearch.vehicleModel" "") </div>
+    				        <div>#springFormInput("vehicleSearchCommand.advanceSearch.vehicleModel" "placeholder='Model'") </div>
     				        
     				        <div class="labelText" >
     				        	Year Range: 
-    				        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeStart" "")
-    				        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeEnd" "")
+    				        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeStart" "placeholder='From'")
+    				        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeEnd" "placeholder='To'")
     				        		## #springBind("vehicleSearchCommand.advanceSearch.incidentDateRangeStart")
                                  #springShowErrors( "<br/>" "error" )
     				        </div>
@@ -122,11 +119,11 @@
     		  			<td> <!-- COLUMN 2 -->
     		  				<div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleColor" $colors "" ) </div>
         			  		<div>
-        			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehiclePlateNumber" "")<br/> 
+        			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehiclePlateNumber" "placeholder='Plate #'")<br/> 
         			  		    #springShowErrors( "<br/>" "error" )
         			  		</div>
         			  		<div>
-        			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehicleVIN" "")<br/> 
+        			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehicleVIN" "placeholder='VIN'")<br/> 
         			  		    #springShowErrors( "<br/>" "error" )
         			  		</div>        			  		
     					</td>
