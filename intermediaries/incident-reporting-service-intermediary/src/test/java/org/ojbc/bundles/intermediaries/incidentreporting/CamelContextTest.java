@@ -180,7 +180,7 @@ public class CamelContextTest {
 		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
 		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
 
-	    //Read the incident report file from the file system, demostate has this submitter as an approved submitter
+	    //Read the incident report file from the file system, this example has an as an approved submitter
 	    File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 	    
