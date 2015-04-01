@@ -109,40 +109,6 @@ ojbc = {
 	    return false;
 	},
 		
-	clearAllDefaultValues_incident : function () {
-		ojbc.clearDefaultValue('#advanceSearch\\.incidentNumber','Incident #');
-		ojbc.clearDefaultValue('#advanceSearch\\.incidentNature','Nature');
-	    
-		ojbc.clearDefaultValue('#advanceSearch\\.incidentDateRangeStart','From');
-		ojbc.clearDefaultValue('#advanceSearch\\.incidentDateRangeEnd','To');
-	},
-	
-	initializeAllInputWithDefaultValue_incident : function (){
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.incidentNumber','Incident #');
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.incidentNature','Nature');
-
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.incidentDateRangeStart','From');
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.incidentDateRangeEnd','To');
-	},
-	
-	clearAllDefaultValues_vehicle : function () {
-		ojbc.clearDefaultValue('#advanceSearch\\.vehicleModel','Model');
-		ojbc.clearDefaultValue('#advanceSearch\\.vehiclePlateNumber','Plate #');
-		ojbc.clearDefaultValue('#advanceSearch\\.vehicleVIN','VIN');
-	    
-		ojbc.clearDefaultValue('#advanceSearch\\.vehicleYearRangeStart','From');
-		ojbc.clearDefaultValue('#advanceSearch\\.vehicleYearRangeEnd','To');
-	},
-	
-	initializeAllInputWithDefaultValue_vehicle : function (){
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.vehicleModel','Model');
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.vehiclePlateNumber','Plate #');
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.vehicleVIN','VIN');
-		
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.vehicleYearRangeStart','From');
-		ojbc.initializeInputWithDefaultValue('#advanceSearch\\.vehicleYearRangeEnd','To');
-	},
-	
 	clearSearchPurposeFields : function() {
 		$('#purposeSelect').val('');
 		$('#onBehalfOf').val('');
