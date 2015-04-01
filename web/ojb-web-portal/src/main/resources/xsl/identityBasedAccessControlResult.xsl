@@ -47,6 +47,7 @@
 				<xsl:attribute name="href">
 					<xsl:value-of select="ac-p:PolicyLocationURL"></xsl:value-of>
 				</xsl:attribute>
+				<xsl:attribute name="target"><xsl:text>_blank</xsl:text></xsl:attribute>
 				<xsl:value-of select="ac-p:PolicyURI"/>
 			</xsl:element>
 		</li>
