@@ -24,7 +24,7 @@
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
 	xmlns:s="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:me-chrg-codes="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" 
+	xmlns:me-chrg-codes-v1="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0 ../xsd/exchange-schema.xsd">
 	<crimhistory-update-ext:CycleTrackingIdentifierAssignment>
@@ -48,7 +48,7 @@
 			<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
 			<j:ChargeEnhancingFactor>
 				<j:ChargeEnhancingFactorDescriptionText>modifier description</j:ChargeEnhancingFactorDescriptionText>
-				<me-chrg-codes:ChargeEnhancingFactorCode>S</me-chrg-codes:ChargeEnhancingFactorCode>
+				<me-chrg-codes-v1:ChargeEnhancingFactorCode>S</me-chrg-codes-v1:ChargeEnhancingFactorCode>
 			</j:ChargeEnhancingFactor>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
@@ -64,7 +64,7 @@
 			<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
 			<j:ChargeEnhancingFactor>
 				<j:ChargeEnhancingFactorDescriptionText>modifier description</j:ChargeEnhancingFactorDescriptionText>
-				<me-chrg-codes:ChargeEnhancingFactorCode>A</me-chrg-codes:ChargeEnhancingFactorCode>
+				<me-chrg-codes-v1:ChargeEnhancingFactorCode>A</me-chrg-codes-v1:ChargeEnhancingFactorCode>
 			</j:ChargeEnhancingFactor>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
