@@ -12,6 +12,7 @@
 	xmlns:policy="http://cxf.apache.org/policy" 
 	xmlns:maine="http://www.maine.gov/dps/msp/MaineIncidentReportNDEx"
 	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
@@ -22,6 +23,7 @@
        http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
        ">
        
 	<!-- OJB Incident Reporting Service, hosted by this intermediary -->
@@ -49,6 +51,46 @@
 			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>              
+	
+	<!-- OJB Charge Referral Service, called by this intermediary -->
+	<cxf:cxfEndpoint id="ChargeReferralService"
+		address="${incidentReportingService.chargeReferralServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Charge_Recommendation_Service/schema/SIP_WS_1.2/Charge_Recommendation_Service.wsdl"
+	    serviceName="ojbc:Charge-Recommendation-ServiceService"
+	    endpointName="ojbc:Charge-Recommendation-Service"
+	    xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeRecommendationService/1.0">
+ 		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+	
+	<!-- Arrest Reporting Service, called by this intermediary -->
+	<cxf:cxfEndpoint id="arrestReportingService"
+		address="${incidentReportingService.arrestReportingServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Arrest_Reporting_Service/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
+		serviceName="ojbc:Arrest-Reporting-ServiceService" endpointName="ojbc:Arrest-Reporting-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
+		 <cxf:features> 
+ 			<policy:policies> 
+ 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+ 					<wsam:Addressing> 
+ 						<wsp:Policy /> 
+ 					</wsam:Addressing> 
+ 				</wsp:Policy> 
+ 			</policy:policies> 
+ 		</cxf:features>	 
+	</cxf:cxfEndpoint>		
+              
+	<!-- OJB Notification Broker Service, invoked by intermediary -->
+	<cxf:cxfEndpoint id="notificationBrokerService"
+		address="${incidentReportingService.notificationBrokerEndpoint}"
+		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		serviceName="ojb-nb:NotificationBrokerServiceService" endpointName="ojb-nb:NotificationBrokerService"
+		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+	</cxf:cxfEndpoint>
+              
               
 	<httpj:engine-factory bus="cxf">
 		<!-- you just need to specify the TLS Server configuration for the certain 
