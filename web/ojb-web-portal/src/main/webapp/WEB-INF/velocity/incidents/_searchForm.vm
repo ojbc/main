@@ -109,8 +109,8 @@
     				        
     				        <div class="labelText" >
     				        	Date Range: 
-    				        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='datePicker' placeholder='From'")
-    				        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd" "class='datePicker' placeholder='To'")
+    				        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='datePicker mdate' placeholder='From'")
+    				        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd" "class='datePicker mdate' placeholder='To'")
     				        		#springBind("incidentSearchCommand.advanceSearch.incidentDateRangeStart")
                                  #springShowErrors( "<br/>" "error" )
     				        </div>
