@@ -39,7 +39,10 @@ import org.w3c.dom.Element;
 @ContextConfiguration(locations = {
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml",		
-		"classpath:META-INF/spring/properties-context.xml"
+		"classpath:META-INF/spring/properties-context.xml",
+		"classpath:META-INF/spring/dao.xml",
+		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"		
 		})
 public class CamelContextTest {
 
@@ -57,7 +60,16 @@ public class CamelContextTest {
     @EndpointInject(uri = "mock:cxf:bean:N-DexSubmissionServiceFacade")
     protected MockEndpoint ndexServiceMock;
     
-	@Before
+    @EndpointInject(uri = "mock:cxf:bean:ChargeReferralService")
+    protected MockEndpoint chargeReferralServiceMock;
+
+    @EndpointInject(uri = "mock:cxf:bean:notificationBrokerService")
+    protected MockEndpoint notificationBrokerServiceMock;
+
+    @EndpointInject(uri = "mock:cxf:bean:arrestReportingService")
+    protected MockEndpoint arrestReportingBrokerServiceMock;
+
+    @Before
 	public void setUp() throws Exception {
 		
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
@@ -77,7 +89,34 @@ public class CamelContextTest {
     	    	mockEndpointsAndSkip("cxf:bean:N-DexSubmissionServiceFacade*");
     	    }              
     	});
-    	
+
+    	//We mock the Charge Referral web service endpoint and intercept any submissions
+    	context.getRouteDefinition("CallChargeReferralServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	mockEndpointsAndSkip("cxf:bean:ChargeReferralService*");
+    	    }              
+    	});
+
+    	//We mock the Notification Broker web service endpoint and intercept any submissions
+    	context.getRouteDefinition("callNotificationBrokerServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	mockEndpointsAndSkip("cxf:bean:notificationBrokerService*");
+    	    }              
+    	});
+
+    	//We mock the Arrest Reporting web service endpoint and intercept any submissions
+    	context.getRouteDefinition("callArrestReportingServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	mockEndpointsAndSkip("cxf:bean:arrestReportingService*");
+    	    }              
+    	});
+
 		context.start();		
 		
 	}
@@ -95,8 +134,13 @@ public class CamelContextTest {
 	public void testContextRoutes() throws Exception
 	{
 		
-    	//We should get one message
+    	//We should get one message for all endpoints
 		ndexServiceMock.expectedMessageCount(1);
+		chargeReferralServiceMock.expectedMessageCount(1);
+		arrestReportingBrokerServiceMock.expectedMessageCount(1);
+		
+		//Notification broker will get two exchanges due to the splitter in there
+		notificationBrokerServiceMock.expectedMessageCount(2);
 		
     	//Create a new exchange
     	Exchange senderExchange = new DefaultExchange(context);
@@ -143,10 +187,25 @@ public class CamelContextTest {
 
 		//Assert that the mock endpoint expectations are satisfied
 		ndexServiceMock.assertIsSatisfied();
+		chargeReferralServiceMock.assertIsSatisfied();
+		arrestReportingBrokerServiceMock.assertIsSatisfied();
+		notificationBrokerServiceMock.assertIsSatisfied();
 		
-    	//We should get one message
+		
+    	//We should get one message 
 		ndexServiceMock.reset();
+		chargeReferralServiceMock.reset();
+		arrestReportingBrokerServiceMock.reset();
+		notificationBrokerServiceMock.reset();
+
+		//Resend but ndex and charge referral will not get a message
 		ndexServiceMock.expectedMessageCount(0);
+		chargeReferralServiceMock.expectedMessageCount(0);
+		
+		//We don't set duplicate arrests or notifications so these get filtered
+		arrestReportingBrokerServiceMock.expectedMessageCount(0);
+		notificationBrokerServiceMock.expectedMessageCount(0);
+		
 
     	//Create a new exchange
     	Exchange senderExchangeNotSendToNDEx = new DefaultExchange(context);
@@ -179,6 +238,10 @@ public class CamelContextTest {
 		Thread.sleep(1000);
 		
 		ndexServiceMock.assertIsSatisfied();
+		chargeReferralServiceMock.assertIsSatisfied();
+		arrestReportingBrokerServiceMock.assertIsSatisfied();
+		notificationBrokerServiceMock.assertIsSatisfied();
+		
 
 	}
 	

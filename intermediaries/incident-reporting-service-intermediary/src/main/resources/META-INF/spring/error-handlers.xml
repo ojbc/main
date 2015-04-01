@@ -116,12 +116,12 @@
 
 	<!-- here we configure our DeadLetterChannel for incident report redelivery -->
 	<camel:errorHandler id="ndexDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirNDEx">
-	    <camel:redeliveryPolicy maximumRedeliveries="12" redeliveryDelay="300000" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
+	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
 	</camel:errorHandler>
 
 	<!-- here we configure our DeadLetterChannel for incident report redelivery -->
 	<camel:errorHandler id="chargeReferralDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirChargeReferral">
-	    <camel:redeliveryPolicy maximumRedeliveries="12" redeliveryDelay="300000" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
+	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
 	</camel:errorHandler>
 	
 	<!-- here we configure our DeadLetterChannel for the dead letter channel redelivery -->

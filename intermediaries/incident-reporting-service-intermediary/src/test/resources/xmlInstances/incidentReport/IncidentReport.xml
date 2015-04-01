@@ -516,6 +516,7 @@
 							<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
                         </lexs:StructuredPayloadMetadata>
                         <ext:IncidentReport>
+                         	<ext:IncidentReportableToDistrictAttorneyIndicator>true</ext:IncidentReportableToDistrictAttorneyIndicator>
                             <ext:Incident>
                                 <j:IncidentArrestMadeIndicator>#&lt;IncidentArrest:0x107ade6b8&gt;</j:IncidentArrestMadeIndicator>
                                 <ext:IncidentCrimeSolvedIndicator>true</ext:IncidentCrimeSolvedIndicator>
