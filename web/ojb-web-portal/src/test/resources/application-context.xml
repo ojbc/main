@@ -5,7 +5,7 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 	<context:property-placeholder
-		location="classpath:test/ojb-web-portal.cfg"
+		location="classpath:ojb-web-portal.cfg"
 		ignore-unresolvable="true" />
 
 	<!--When running as "brokered", beans are read from OJB web connector -->
