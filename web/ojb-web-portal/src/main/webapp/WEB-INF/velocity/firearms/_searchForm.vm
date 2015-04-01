@@ -51,6 +51,7 @@
 	        
             $('#advanceSearchClearButton').click (function(event){
                   
+                  ojbc.clearSearchPurposeFields();
                   $.get("#springUrl('/firearms/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
                     $('#portalContent').html(data);
                     
