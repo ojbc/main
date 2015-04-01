@@ -14,9 +14,6 @@
     <module>adapters</module>
     <module>prototypes</module>
     <module>web</module>
-    <!--
-    <module>analytics</module>
-  -->
   </modules>
 
   <build>
@@ -30,10 +27,16 @@
           <!--
             <header>shared/ojb-common/src/main/config/build/ojb-license.txt</header>
 
-            can also set license with -D
-               mvn license:check -Dlicense.header=./ojb-license.txt
+            Hoto add ojb license comment to top of all source files:
+
+              mvn license:check -Dlicense.header=shared/ojb-common/src/main/config/build/ojb-license.txt
+
+              http://code.mycila.com/license-maven-plugin/
            -->
           <aggregate>true</aggregate>
+          <excludes>
+            <exclude>analytics/**</exclude>
+          </excludes>
           <includes>
             <include>**/*.java</include>
             <include>**/*.xml</include>
