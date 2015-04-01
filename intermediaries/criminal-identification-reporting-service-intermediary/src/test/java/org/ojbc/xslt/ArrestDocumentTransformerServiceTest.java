@@ -16,24 +16,23 @@
  */
 package org.ojbc.xslt;
 
-//import static org.hamcrest.Matchers.is;
-//import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
+import org.custommonkey.xmlunit.DetailedDiff;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.Difference;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.core.io.ClassPathResource;
+import org.ojbc.util.xml.XmlUtils;
 import org.xml.sax.InputSource;
 
 public class ArrestDocumentTransformerServiceTest {
@@ -52,40 +51,50 @@ public class ArrestDocumentTransformerServiceTest {
 
 	@Test
 	public void arrestDocumentTransform() throws Exception{
-		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/arrestDocument/ArrestDocument.xml"));
+				
+		String xml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/arrestDocument/ArrestDocument.xml");
+				
 		String xslt = FileUtils.readFileToString(new File("src/main/resources/xslt/arrestDocumentToNotification.xsl"));
 
-		transformAndValidate(xslt, xml,"output/Notification.xml", null);
+		transformAndValidate(xslt, xml,"src/test/resources/xmlInstances/output/Notification.xml", null);
 	}
 
 	@Test
 	public void arrestDocumentMultipleChargesTransform() throws Exception{
-		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/arrestDocument/arrestMultipleCharges.xml"));
+		
+		String xml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/arrestDocument/arrestMultipleCharges.xml"); 
+												
 		String xslt = FileUtils.readFileToString(new File("src/main/resources/xslt/arrestDocumentToNotification.xsl"));
 
-		transformAndValidate(xslt, xml,"output/notificationMultipleCharges.xml", null);
-		
+		transformAndValidate(xslt, xml,"src/test/resources/xmlInstances/output/notificationMultipleCharges.xml", null);		
 	}
 
 	@Test
 	public void arrestDocumentBookingDateOnlyNoTime() throws Exception{
-		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/arrestDocument/ArrestDocumentBookingDateOnly.xml"));
+		
+		String xml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/arrestDocument/ArrestDocumentBookingDateOnly.xml"); 						
+		
 		String xslt = FileUtils.readFileToString(new File("src/main/resources/xslt/arrestDocumentToNotification.xsl"));
 
-		transformAndValidate(xslt, xml,"output/NotificationBookingDateOnly.xml", null);
-		
+		transformAndValidate(xslt, xml,"src/test/resources/xmlInstances/output/NotificationBookingDateOnly.xml", null);		
 	}
 
 
 	@SuppressWarnings("unchecked")
-	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedHtmlPath, Map<String,Object> params) throws IOException {
-		List<String> expectedXml = IOUtils.readLines(new ClassPathResource("xmlInstances/"+expectedHtmlPath).getInputStream(),
-		        org.apache.commons.lang.CharEncoding.UTF_8);
+	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedResultsFilePath, 
+			Map<String,Object> params) throws Exception {
+				
+		String sXmlRoot = XmlUtils.getRootNodeAsString(expectedResultsFilePath);
 		
-		String convertResult = unit.transform(createSource(inputXmlPath), createSource(xslPath),params);
+		String transformedXml = unit.transform(createSource(inputXmlPath), createSource(xslPath), params);		
 		
-		assertLinesEquals(expectedXml, convertResult);
-
+		Diff diff = new Diff(sXmlRoot, transformedXml);
+		
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+		
+		List<Difference> difList = detailedDiff.getAllDifferences();
+		
+		assertEquals(detailedDiff.toString(), 0, difList.size());		
 	}
 
 	private SAXSource createSource(String xml) {
@@ -94,21 +103,5 @@ public class ArrestDocumentTransformerServiceTest {
 		return new SAXSource(inputSource);
 	}
 	
-	private void assertLinesEquals(List<String> expectedHtml, String convertedResult) {
-		String[] split = convertedResult.split("\n");
-
-		try {
-			for (int i = 0; i < split.length; i++) {
-				//assertThat("Line " + (i + 1) + " didn't match", split[i].trim(), is(expectedHtml.get(i).trim()));				
-				assertEquals("Line " + (i + 1) + " didn't match",expectedHtml.get(i).trim(),split[i].trim());
-			}
-		} catch (AssertionError e) {
-
-			System.out.println("----------------------------------------------");
-			System.out.println(convertedResult);
-			System.out.println("----------------------------------------------");
-			throw e;
-		}
-	}
-	
 }
+
