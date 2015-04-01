@@ -31,12 +31,14 @@
 	<jodatime-version>1.6.2</jodatime-version>
 	<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
+	<commons-dbcp-version>1.2.2</commons-dbcp-version>
 	<ojb-fedquery-common-version>[1.0.2,)</ojb-fedquery-common-version>
 	<ojb-camel-common>1.0.0</ojb-camel-common>
 	<ojb-common-version>[2.0.1,)</ojb-common-version>
 	<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 	<osgi-core-version>1.4.0</osgi-core-version>
 	<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
+	<incident-reporting-service-intermediary-commmon-version>1.0.0</incident-reporting-service-intermediary-commmon-version>
 	<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
   </properties>
 
@@ -46,6 +48,12 @@
 			<artifactId>org.osgi.core</artifactId>
 			<version>${osgi-core-version}</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.intermediaries</groupId>
+			<artifactId>incident-reporting-service-intermediary-common</artifactId>
+			<version>${incident-reporting-service-intermediary-commmon-version}</version>
 		</dependency>
 
 		<!-- Camel libs -->
@@ -115,6 +123,11 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring-version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <version>${commons-dbcp-version}</version>
+		</dependency>  		
 
 	 	<dependency>
 		    <groupId>commons-lang</groupId>
