@@ -5,7 +5,7 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<context:property-placeholder
-		location="classpath:main/ojb-web-portal.cfg, classpath:config/ojb_web_external_resource.cfg"
+		location="classpath:ojb-web-portal.cfg, classpath:config/ojb_web_external_resource.cfg"
 		ignore-unresolvable="true" />
 
 	<!--When running not as standalone, beans are read from OJB web connector -->

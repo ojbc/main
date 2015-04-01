@@ -25,7 +25,6 @@
 		<commonsCodec.version>1.7</commonsCodec.version>
 		<commonsIo.version>2.4</commonsIo.version>
 		<ojb-web-application-connector-version>1.0.0</ojb-web-application-connector-version>
-		<ojb-config-version>1.0.0</ojb-config-version>
 		<velocity-tools-version>2.0</velocity-tools-version>
 		<ojb-ui-common-version>1.0.1</ojb-ui-common-version>
 		<json-version>20140107</json-version>
@@ -75,11 +74,6 @@
 			<groupId>org.ojbc.bundles.connectors</groupId>
 			<artifactId>ojb-web-application-connector</artifactId>
 			<version>${ojb-web-application-connector-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>OJB_Config</artifactId>
-			<version>${ojb-config-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>joda-time</groupId>
