@@ -1,11 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>org.ojbc.web</groupId>
 	<artifactId>ojb-web-portal</artifactId>
 	<name>ojb-web-portal</name>
 	<packaging>war</packaging>
 	<version>1.0.2</version>
+
+	<parent>
+		<groupId>org.ojbc.build</groupId>
+		<artifactId>ojb-web-aggregate</artifactId>
+		<version>1.0.0</version>
+	</parent>
 
 	<properties>
 		<server.port>8082</server.port>
@@ -326,7 +333,7 @@
 
 			<build>
 				<filters>
-					<!-- It should get maven-build-ojbc-member from the properties file 
+					<!-- It should get maven-build-ojbc-member from the properties file
 						below -->
 					<filter>../build-properties-project/maven-build.properties</filter>
 				</filters>
@@ -357,7 +364,7 @@
 
 			<build>
 				<filters>
-					<!-- It should get maven-build-ojbc-member from the properties file 
+					<!-- It should get maven-build-ojbc-member from the properties file
 						below -->
 					<filter>../build-properties-project/local-maven-build.properties</filter>
 				</filters>
@@ -379,7 +386,7 @@
 
 		<profile>
 			<id>run-functional-tests</id>
-			<!-- NOTE: Functional (Selenium) tests are out of date as of the time 
+			<!-- NOTE: Functional (Selenium) tests are out of date as of the time
 				of this writing (11/4/2013) -->
 			<activation>
 				<activeByDefault>false</activeByDefault>
