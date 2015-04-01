@@ -49,7 +49,7 @@
 			                <th>DATE</th>
 			                <th>LOCATION</th>
 			                <th>SYSTEM</th>
-			                <th class="buttonColumn"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+			                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
 			            </tr>
 		            </thead>
 		            <tbody>
@@ -128,7 +128,7 @@
                 </td>
                 <td><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
                 
-                <td class="buttonColumn">
+                <td class="hidden">
                     <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Incident</xsl:text></xsl:variable>
                     <a href="{concat('../incidents/incidentDetails?identificationID=','{',$incident/ext1:IncidentCategoryCode,'}',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=Incident System&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType)}" 

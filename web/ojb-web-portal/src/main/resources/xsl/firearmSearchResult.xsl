@@ -52,7 +52,7 @@
 			                <th>STATUS</th>
 			                <th>ACTION</th>
 			                <th>COUNTY</th>
-			                <th class="buttonColumn"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+			                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
 			            </tr>
 		            </thead>
 		            <tbody>
@@ -163,7 +163,7 @@
                 <td><xsl:value-of select="fa-ext:Firearm/nc:FirearmCategoryDescriptionCode" /></td>
                 <td><xsl:value-of select="fa-ext:ItemRegistration/nc:LocationCountyName" /></td>
                 
-                <td class="buttonColumn">
+                <td class="hidden">
                 
                 	<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(fa-ext:SourceSystemNameText)"/></xsl:variable>
                 	                    
