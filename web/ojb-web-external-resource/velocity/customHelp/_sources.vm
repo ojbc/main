@@ -18,11 +18,10 @@
 
 <img src="#springUrl('/static/images/helpImages/querySources.jpg')"/>
 <br/><br/>
-When performing queries, the user must first designate which source system(s) will be searched. These systems are provided by HIJIS participating agencies.
+When performing queries, the user must first designate which source system(s) will be searched. 
 <br/><br/>
 Each source system provides their own data set, allowing users to search with applicable parameters. The sub-topics will cover the basics of what is available on each system.
 <br/><br/>
-If the user is not authorized to access a system based on agency-defined access control rules, the system will be displayed in low-light and not selectable.
 <br/>
 <br/>
 <br/>

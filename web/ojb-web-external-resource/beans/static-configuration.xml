@@ -609,7 +609,8 @@
 	<!-- This map will decide which base template is used as the 'home' page 
 		landingPage query -->
 	<util:map id="stateSpecificHomePage">
-		<entry key="thisHomePage" value="query" />
+			<entry key="thisHomePage" value="landingPage" />
+<!-- 		<entry key="thisHomePage" value="query" /> -->
 	</util:map>
 
 	<!-- for the add subscription modal -->

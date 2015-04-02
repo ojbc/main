@@ -16,12 +16,13 @@
  *#
 <p><b>FIREARM SEARCH</b></p>
 
+<i>***THIS IS AN EXAMPLE OF WHAT A HELP PAGE COULD LOOK LIKE***</i>
+<br/>
+<br/>
 <img src="#springUrl('/static/images/helpImages/firearmsQueryExample.jpg')"/>
 
 <h2>Firearm Search Parameters</h2>
 
-<h3>VALID IDENTIFIERS</h3> (PARAMETERS THAT CAN BE USED BY THEMSELVES) WILL BE UPPER CASE
-<h3>Non-valid identifiers</h3> (Parameters that are used in addition to 1 or more valid identifiers) will be in proper case.
 <br/><br/>
 <h3>SERIAL NUMBER</h3>
 This is the Factory-specific Serial Number, and as such, there is no specific format that this parameter follows.

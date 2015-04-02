@@ -16,7 +16,7 @@
  *#
 <p><b>SIMPLE SEARCH TUTORIAL</b></p>
 
-<img width = "100%" src="#springUrl('/static/images/helpImages/simpleSearchExample.jpg')"/>
+<!-- <img width = "100%" src="#springUrl('/static/images/helpImages/simpleSearchExample.jpg')"/> -->
 <p>
 By default, the 'Simple Search' screen will start with the source systems available for the query selected. The user must uncheck any systems that will not be a part of the search.
 </p>
@@ -46,7 +46,7 @@ Once the source system(s) are set, the user must type the search parameter(s) in
 			<p>
 			Driver's License number<br/>
 			The format for this parameter is Hnnnnnnnn<br/>
-			<i>*This parameter is currently only valid for the Warrants source system, using this parameter to search the Criminal History source system will cause the "too many records" error.  Additionally, only Hawaii State Driver's License numbers are valid in a simple search.  To search for out of state licenses, use the Advanced Search option.</i>
+			<i>*This parameter is currently only valid for the Warrants source system, using this parameter to search the Criminal History source system will cause the "too many records" error.</i>
 			</p>
 		</li>
 		<li>

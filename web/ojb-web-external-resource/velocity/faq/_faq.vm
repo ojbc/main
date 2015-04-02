@@ -16,7 +16,7 @@
  *#
 <div><hr /></div>
 
-<p>The FAQ is a dynamic resource for HIJIS portal users intended to assist with answering and troubleshooting common questions and issues.  In order to minimize the amount of trouble tickets created, users should first check this page.</p> 
+<p>This is an example of a FAQ page.  Implementers have full control over the content and layout of the FAQ page.  Below are just some examples of questions and answers.</p> 
 
 <p><a name="top"></a></p>
 
@@ -31,7 +31,7 @@
 
 <p><a name="welcome"></a><b>I've logged in with my username and password.  Why can't I see the portal welcome page?</b></p>
 
-<p>A1:	Bookmarking the login page may prevent you from accessing the portal.  If this scenario applies to you, restart your browser and navigate to http://hijis.ehawaii.gov.</p> 
+<p>A1:	Bookmarking the login page may prevent you from accessing the portal.  If this scenario applies to you, restart your browser and navigate back to the portal.</p> 
 
 <p>A2:	Your organization populates and sends a set of "attributes" containing non-sensitive information about you to the portal.  These attributes will determine if you can access the portal and which portal capabilities will be available to you.  Contact your IT administrator to ensure that these attributes have been populated correctly.</p>
 

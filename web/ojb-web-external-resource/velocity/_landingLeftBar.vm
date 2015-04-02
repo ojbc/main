@@ -17,13 +17,10 @@
 <div id = "filterColumn">
      <ul>
 	<li>
-		<a id = "HIJIS Link" class = "sourceSystemLink" href = "http://hijis.hawaii.gov" target="_blank">HIJIS Website</a>
+		<a id = "OJBC Link" class = "sourceSystemLink" href = "http//ojbc.org" target="_blank">OJBC Website</a>
 	</li>
 	<li>
-		<a id = "HIJIS Link" class = "sourceSystemLink" href = "https://www.cjisportal.com/HI/cjisaudit/index.pl" target="_blank">CJIS Hawaii</a>
-	</li>
-	<li>
-		<a id = "HIJIS Link" class = "sourceSystemLink" href = "https://judiciary.ehawaii.gov/warrants/index.html" target="_blank">eBW</a>
+		<a id = "OJBC Link" class = "sourceSystemLink" href = "https://github.com/ojbc/" target="_blank">OJBC on Github</a>
 	</li>
      </ul>
 </div>
