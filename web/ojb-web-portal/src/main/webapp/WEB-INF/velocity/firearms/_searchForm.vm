@@ -18,6 +18,7 @@
 	  $(function() {
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
+		  ojbc.handlePlaceholders(); 
     	  
     	  $('#searchForm').validate({
                 rules: {
