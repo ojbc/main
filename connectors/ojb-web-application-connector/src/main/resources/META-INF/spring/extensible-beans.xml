@@ -80,7 +80,6 @@
 		<!-- VEHICLE SEARCH DETAIL QUERIES -->
 		<!-- Vehicle Search to Incident list, not supported by static mock adapter-->
 		<entry key="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"/>
-		
     </util:map>   
         
        
