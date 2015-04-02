@@ -47,7 +47,7 @@
 
             Hoto add ojb license comment to top of all source files:
 
-              mvn license:check -Dlicense.header=shared/ojb-common/src/main/config/build/ojb-license.txt
+              mvn license:format -Dlicense.header=shared/ojb-common/src/main/config/build/ojb-license.txt
 
               http://code.mycila.com/license-maven-plugin/
            -->
@@ -60,9 +60,11 @@
             <include>**/*.xml</include>
             <include>**/*.xslt</include>
             <include>**/*.xsd</include>
+            <include>ojb-resources-common/**/*.wsdl</include>
           </includes>
           <mapping>
             <java>SLASHSTAR_STYLE</java>
+            <wsdl>XML_STYLE</wsdl>
           </mapping>
         </configuration>
       </plugin>
