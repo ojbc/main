@@ -1082,6 +1082,8 @@ public class StaticMockQuery {
 			XmlUtils.appendElement(expDate, OjbcNamespaceContext.NS_NC, "Date").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationExpirationDate/nc:Date"));
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_41, "IdentificationJurisdictionUSPostalServiceCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/jxdm40:IdentificationJurisdictionUSPostalServiceCode"));
 			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleDoorQuantity").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleDoorQuantity"));
+			e = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleIdentification");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleIdentification/nc:IdentificationID"));
 			e = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ConveyanceRegistration");
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateCategoryCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode"));
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateCategoryText").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText"));
