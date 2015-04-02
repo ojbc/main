@@ -64,10 +64,10 @@
             <include>**/*.xsl</include>
             <include>**/*.xslt</include>
             <include>**/*.vm</include>
-            <!-- <include>**/*.html</include>-->
+            <include>**/*.html</include>
             <include>**/*.js</include>
 
-            <!-- TODO? html, js, txt, cfg, properties -->
+            <!-- TODO? txt, cfg, properties -->
           </includes>
           <mapping>
             <java>SLASHSTAR_STYLE</java>
