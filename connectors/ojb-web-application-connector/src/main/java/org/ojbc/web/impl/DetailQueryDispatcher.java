@@ -113,7 +113,7 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			{
 				request.setIdentificationSourceText(searchURIToQueryURIMap.get(requestIdSrcTxt));
 				requestIdSrcTxt = searchURIToQueryURIMap.get(requestIdSrcTxt);
-				log.info("Translating Identification Source text to: " + searchURIToQueryURIMap.get(requestIdSrcTxt));
+				log.info("Translating Identification Source text to: " + requestIdSrcTxt);
 			}	
 		}	
 
