@@ -40,21 +40,6 @@
   })
 </script>
 
-<td class = "button" width = "40%">
-    <h1>
-	<a id="performQueryButton" class="largeButton" href="#" >Perform a Query</a>
-    </h1>
-    Authorized users can perform a search against multiple systems simultaneously and receive consolidated results here.
-</td>
-<td width = "15%">
-    &nbsp;
-</td>
-<td class = "button" width = "40%">
-    <h1>
-	<a id="manageSubscriptionsButton" class="largeButton" href="#">Manage My Subscriptions</a>
-    </h1>
-    Authorized users can add, delete, or modify their subscriptions here.
-</td>
 <td width = "15%">
     &nbsp;
 </td>

@@ -14,16 +14,15 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  *#
-<p><b>SUBSCRIPTION MANAGEMENT</b></p>
+<p><b>SUBSCRIPTIONS</b></p>
 
-<img src="#springUrl('/static/images/helpImages/subManIcon.jpg')"/>
+
 <br></br>
 The Subscription Management service enables users to subscribe to <b>events</b> and receive <b>notifications</b> when those events occur.  
 <br></br>
-<img width = "100%" src="#springUrl('/static/images/helpImages/subManMain.jpg')"/>
 <h3>Creating a Subscription</h3>
 <p>
-To create a subscription, from the <b>Subscription Management</b> screen, select the <b>Add Subscription</b> button.
+To create a subscription, from the Subscription screen, select the <b>Add Subscription</b> button.
 </p>  
 <h3>Editing a Subscription</h3>
 <p>

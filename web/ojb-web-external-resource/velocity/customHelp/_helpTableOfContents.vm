@@ -102,6 +102,8 @@
 				return false;
 			} 
     		 )
+    		 
+ 
  
         	$('#help_Sources').click (function() {         	        	
        	                        $('#searchBarButtonDiv').css("display", "none");
@@ -275,8 +277,5 @@
 	</ul>
 	<li><a id="help_simpleSearch" class="helpLink" href="#">Simple Search Tutorial</a></li>
 	<li><a id="help_howSearchWorks" class="helpLink" href="#">Record Grouping (Entity Resolution)</a></li>
-	<li><a id="help_subManual" class="helpLink" href="#">Subscription Management</a></li>
-	<ul>
-	  <li><a id="help_subManual_Arrest" class="helpLink" href="#">Arrest Subscriptions</a></li>
-	</ul>
+	<li><a id="help_subManual" class="helpLink" href="#">Subscriptions</a></li>
 	<li><a id="help_howAuthWorks" class="helpLink" href="#">User Authentication</a></li>
