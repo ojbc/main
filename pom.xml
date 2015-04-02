@@ -62,6 +62,7 @@
             <include>**/*.xsd</include>
             <include>**/*.wsdl</include>
             <include>**/*.xslt</include>
+            <include>**/*.vm</include>
           </includes>
           <mapping>
             <java>SLASHSTAR_STYLE</java>
