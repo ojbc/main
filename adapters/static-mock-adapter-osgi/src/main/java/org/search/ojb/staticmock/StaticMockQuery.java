@@ -1083,7 +1083,8 @@ public class StaticMockQuery {
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_41, "IdentificationJurisdictionUSPostalServiceCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/jxdm40:IdentificationJurisdictionUSPostalServiceCode"));
 			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleDoorQuantity").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleDoorQuantity"));
 			e = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleIdentification");
-			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleIdentification/nc:IdentificationID"));
+			String vin = XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleIdentification/nc:IdentificationID");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(vin);
 			e = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ConveyanceRegistration");
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateCategoryCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode"));
 			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateCategoryText").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText"));
@@ -1093,7 +1094,7 @@ public class StaticMockQuery {
 			Element sourceSystem = XmlUtils.appendElement(vehicleSearchResultElement, OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS, "SourceSystemNameText");
 			sourceSystem.setTextContent(INCIDENT_MOCK_ADAPTER_VEHICLE_SEARCH_SYSTEM_ID);
 			Element sourceSystemIdentifierParentElement = XmlUtils.appendElement(vehicleSearchResultElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
-			XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(instanceWrapper.getId());
+			XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(vin);
 			XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_INTEL, "SystemName").setTextContent("Demo RMS");
 
 			index++;

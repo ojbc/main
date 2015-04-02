@@ -23,7 +23,7 @@
 
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>static-mock-adapter-osgi</artifactId>
-	<version>1.0.13</version>
+	<version>1.0.14</version>
 	<packaging>bundle</packaging>
 	<name>OJB :: static-mock-adapter-osgi :: adapter</name>
 	<url>http://www.search.org</url>
