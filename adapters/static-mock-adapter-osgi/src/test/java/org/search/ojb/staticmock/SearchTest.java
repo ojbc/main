@@ -164,8 +164,8 @@ public class SearchTest extends AbstractStaticMockTest {
 		idElement.setTextContent("V125646899264104931");
     	Document searchResults = staticMockQuery.searchDocuments(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
     	assertNotNull(searchResults);
-    	//assertNotNull(XmlUtils.xPathNodeSearch(searchResults, "/isres-doc:IncidentVehicleSearchResults/isres:IncidentVehicleSearchResult"));
-    	XmlUtils.printNode(searchResults);
+    	assertNotNull(XmlUtils.xPathNodeSearch(searchResults, "/vsres-exch:VehicleSearchResults/vsres:VehicleSearchResult[vsres:Vehicle/nc:VehicleIdentification/nc:IdentificationID='V125646899264104931']"));
+    	//XmlUtils.printNode(searchResults);
         XmlUtils.validateInstance("service-specifications/Vehicle_Search_Results_Service/artifacts/service_model/information_model/Vehicle_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
     }
     

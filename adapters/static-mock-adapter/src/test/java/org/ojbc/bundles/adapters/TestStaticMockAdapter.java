@@ -78,6 +78,9 @@ public class TestStaticMockAdapter {
     @EndpointInject(uri = "mock:firearmSearchResultsServiceEndpoint")
     private MockEndpoint firearmSearchResultsMock;
 
+    @EndpointInject(uri = "mock:vehicleSearchResultsServiceEndpoint")
+    private MockEndpoint vehicleSearchResultsMock;
+
     @EndpointInject(uri = "mock:incidentSearchResultsServiceEndpoint")
     private MockEndpoint incidentSearchResultsMock;
 
@@ -217,6 +220,22 @@ public class TestStaticMockAdapter {
 
     @DirtiesContext
     @Test
+    public void testVehicleSearch() throws Exception {
+    	
+        RequestParameter p = new RequestParameter();
+        p.endpoint = vehicleSearchResultsMock;
+        p.routeId = "vehicleSearchRequestService";
+        p.resultsHandlerEndpointName = "vehicleSearchResultsServiceEndpoint";
+        p.requestEndpointName = "vehicleSearchRequestServiceEndpoint";
+        p.requestMessage = buildVehicleSearchMessage();
+        p.resultObjectXPath = "/vsres-exch:VehicleSearchResults/vsres:VehicleSearchResult[vsres:Vehicle/nc:VehicleIdentification/nc:IdentificationID='V643037248486712933']";
+        p.expectedResultCount = 1;
+        submitExchange(p);
+        
+    }
+
+    @DirtiesContext
+    @Test
     public void testFirearmsPersonSearch() throws Exception {
         RequestParameter p = new RequestParameter();
         p.endpoint = personSearchResultsMock;
@@ -258,7 +277,7 @@ public class TestStaticMockAdapter {
     }
 
     @SuppressWarnings("deprecation")
-    private void submitExchange(final RequestParameter p) throws Exception, InterruptedException {
+    private Document submitExchange(final RequestParameter p) throws Exception, InterruptedException {
 
         context.getRouteDefinition(p.routeId).adviceWith(context, new AdviceWithRouteBuilder() {
             @Override
@@ -306,6 +325,7 @@ public class TestStaticMockAdapter {
         }
         //XmlUtils.printNode(actualResponse);
         assertEquals(p.expectedResultCount, XmlUtils.xPathNodeListSearch(actualResponse, p.resultObjectXPath).getLength());
+        return actualResponse;
     }
 
     private Document buildCriminalHistoryPersonSearchMessage() throws Exception {
@@ -379,6 +399,12 @@ public class TestStaticMockAdapter {
         return firearmSearchRequestMessage;
     }
 
+    private Document buildVehicleSearchMessage() throws Exception {
+        File inputFile = new File("src/test/resources/xml/BaseVehicleSearchRequest.xml");
+        Document srm = documentBuilder.parse(new FileInputStream(inputFile));
+        return srm;
+    }
+
     private Document buildIncidentSearchMessage() throws Exception {
         File inputFile = new File("src/test/resources/xml/BaseIncidentSearchRequest.xml");
         Document incidentSearchRequestMessage = documentBuilder.parse(new FileInputStream(inputFile));
@@ -387,7 +413,7 @@ public class TestStaticMockAdapter {
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/nc:Location");
         removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/jxdm41:ActivityLocationAssociation");
         Element incidentNumberElement = (Element) XmlUtils.xPathNodeSearch(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityIdentification/nc:IdentificationID");
-        incidentNumberElement.setTextContent("I0851137766");
+        incidentNumberElement.setTextContent("I8796338296");
         return incidentSearchRequestMessage;
     }
     
@@ -432,7 +458,7 @@ public class TestStaticMockAdapter {
     }
     
     private Document buildIncidentReportQueryRequest() throws Exception {
-        return buildPersonQueryRequest(StaticMockQuery.INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID, "sample-9125591193000624496.xml");
+        return buildPersonQueryRequest(StaticMockQuery.INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID, "sample-4510266831318767293-matthews.xml");
     }
     
     private Document buildFirearmReportQueryRequest() throws Exception {

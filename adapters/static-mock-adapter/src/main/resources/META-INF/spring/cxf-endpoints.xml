@@ -103,6 +103,42 @@
 		</cxf:features>
 	</cxf:cxfEndpoint>
 
+	<!-- Vehicle Search Request Service -->
+
+	<cxf:cxfEndpoint id="VehicleSearchRequestService"
+		address="${genericMockAdapter.vehicleSearchRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Vehicle_Search_Request_Service/schema/SIP_WS_1.2/Vehicle_Search_Request_Service.wsdl"
+		serviceName="ojbc:Vehicle_Search_Request_Service_Service"
+		endpointName="ojbc:Vehicle_Search_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Vehicle Search Results handler Service -->
+
+	<cxf:cxfEndpoint id="VehicleSearchResultsService"
+		address="${genericMockAdapter.vehicleSearchResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Vehicle_Search_Results_Service/schema/SIP_WS_1.2/Vehicle_Search_Results_Service.wsdl"
+		serviceName="ojbc:Vehicle_Search_Results_Service_Service"
+		endpointName="ojbc:Vehicle_Search_Results_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/VehicleSearchResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
 	<!-- Incident Search Request Service -->
 
 	<cxf:cxfEndpoint id="IncidentSearchRequestService"

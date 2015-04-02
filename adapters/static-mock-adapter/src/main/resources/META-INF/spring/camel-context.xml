@@ -62,6 +62,15 @@
 		<endpoint id="firearmSearchAdapterDir"
 			uri="file:///${genericMockAdapter.firearmSearchRequest.mockFileEndpoint}" />
 
+		<endpoint id="vehicleSearchRequestServiceEndpoint"
+			uri="cxf:bean:VehicleSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.vehicleSearchRequestMockCxflogging}" />
+
+		<endpoint id="vehicleSearchResultsServiceEndpoint"
+			uri="cxf:bean:VehicleSearchResultsService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${genericMockAdapter.vehicleSearchRequestMockCxflogging}" />
+
+		<endpoint id="vehicleSearchAdapterDir"
+			uri="file:///${genericMockAdapter.vehicleSearchRequest.mockFileEndpoint}" />
+
 		<endpoint id="incidentSearchRequestServiceEndpoint"
 			uri="cxf:bean:IncidentSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.incidentSearchRequestMockCxflogging}" />
 
@@ -225,6 +234,43 @@
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
 			<camel:to uri="firearmSearchResultsServiceEndpoint" />
+		</camel:route>
+
+		<!-- Vehicle Search Handler -->
+
+		<camel:route id="vehicleSearchRequestService">
+			<camel:from uri="vehicleSearchRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+						
+			<camel:log message="Inside Vehicle Search Request Mock Adapter Route" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID} and OJB State Context: ${in.headers.ojbStateContext}" />
+
+			<camel:log message="Calling static mock adapter" />
+
+			<camel:to
+				uri="bean:staticMockAdapterProcessor?method=search" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitVehicleSearchResults</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/VehicleSearchResultsService/1.0</constant>
+			</camel:setHeader>
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message 
+				ID -->
+			<camel:to
+				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:to uri="vehicleSearchResultsServiceEndpoint" />
 		</camel:route>
 
 		<!-- Incident Search Handler -->
