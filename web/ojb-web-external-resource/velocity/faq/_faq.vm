@@ -1,6 +1,22 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ *#
 <div><hr /></div>
 
-<p>The FAQ is a dynamic resource for HIJIS portal users intended to assist with answering and troubleshooting common questions and issues.  In order to minimize the amount of trouble tickets created, users should first check this page.</p> 
+<p>This is an example of a FAQ page.  Implementers have full control over the content and layout of the FAQ page.  Below are just some examples of questions and answers.</p> 
 
 <p><a name="top"></a></p>
 
@@ -15,7 +31,7 @@
 
 <p><a name="welcome"></a><b>I've logged in with my username and password.  Why can't I see the portal welcome page?</b></p>
 
-<p>A1:	Bookmarking the login page may prevent you from accessing the portal.  If this scenario applies to you, restart your browser and navigate to http://hijis.ehawaii.gov.</p> 
+<p>A1:	Bookmarking the login page may prevent you from accessing the portal.  If this scenario applies to you, restart your browser and navigate back to the portal.</p> 
 
 <p>A2:	Your organization populates and sends a set of "attributes" containing non-sensitive information about you to the portal.  These attributes will determine if you can access the portal and which portal capabilities will be available to you.  Contact your IT administrator to ensure that these attributes have been populated correctly.</p>
 

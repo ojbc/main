@@ -1,3 +1,19 @@
+/*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ */
 jQuery(function() {
    jQuery.support.placeholder = false;
    test = document.createElement('input');
@@ -10,27 +26,7 @@ $(function() {
 	      cache: false
 	});
 	
-   /*
-    * Deal with the browsers that does not support placeholder. 
-    */	
-   if(!$.support.placeholder) { 
-      var active = document.activeElement;
-      $(':text').focus(function () {
-         if ( $(this).attr('placeholder') && $(this).val() == $(this).attr('placeholder')) {
-            $(this).val('').removeClass('hasPlaceholder');
-         }
-      }).blur(function () {
-         if ($(this).attr('placeholder') && ($(this).val() == '' || $(this).val() == $(this).attr('placeholder'))) {
-            $(this).val($(this).attr('placeholder')).addClass('hasPlaceholder');
-         }
-      });
-      $(':text').blur();
-      $(active).focus();
-      $('form:eq(0)').submit(function () {
-         $(':text.hasPlaceholder').val('');
-      });
-   }
-
+   ojbc.handlePlaceholders(); 
    ojbc.maskInputs(); 
 });
 
@@ -72,6 +68,29 @@ ojbc = {
 	   $( "#portalContent" ).on( "focus", ".year", function() {
 		   $(this).mask("9999");
 	   });
+	},
+	
+   /**
+    * Deal with the browsers that does not support placeholder. 
+    */	
+	handlePlaceholders: function(){
+	   if(!$.support.placeholder) { 
+	      var active = document.activeElement;
+	      $(':text').focus(function () {
+	         if ( $(this).attr('placeholder') && $(this).val() == $(this).attr('placeholder')) {
+	            $(this).val('').removeClass('hasPlaceholder');
+	         }
+	      }).blur(function () {
+	         if ($(this).attr('placeholder') && ($(this).val() == '' || $(this).val() == $(this).attr('placeholder'))) {
+	            $(this).val($(this).attr('placeholder')).addClass('hasPlaceholder');
+	         }
+	      });
+	      $(':text').blur();
+	      $(active).focus();
+	      $('form:eq(0)').submit(function () {
+	         $(':text.hasPlaceholder').val('');
+	      });
+	   }
 	},
 	
 	collectAllCheckBoxValues : function () {         

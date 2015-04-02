@@ -1,12 +1,27 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ *#
 <p><b>DATA SOURCES AVAILABLE</b></p>
 
 <img src="#springUrl('/static/images/helpImages/querySources.jpg')"/>
 <br/><br/>
-When performing queries, the user must first designate which source system(s) will be searched. These systems are provided by HIJIS participating agencies.
+When performing queries, the user must first designate which source system(s) will be searched. 
 <br/><br/>
 Each source system provides their own data set, allowing users to search with applicable parameters. The sub-topics will cover the basics of what is available on each system.
 <br/><br/>
-If the user is not authorized to access a system based on agency-defined access control rules, the system will be displayed in low-light and not selectable.
 <br/>
 <br/>
 <br/>
