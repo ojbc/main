@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
 
 <!-- Configures the Camel Context -->
 
@@ -6,6 +24,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
+	xmlns:irsp="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+    xmlns:b="http://docs.oasis-open.org/wsn/b-2" 
+    xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+    xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
+    xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -19,13 +42,26 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
 		<camel:routeContextRef ref="errorHandlerRoutes"/>		
 
-		<!-- CXF endpoint is inline to support testing -->	
-		<camel:endpoint id="IncidentReportingServiceEndpoint"
+		<!-- some CXF endpoints are inline to support testing -->	
+		<camel:endpoint id="incidentReportingServiceEndpoint"
 			uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+
+		<camel:endpoint id="ndexSubmissionServiceEndpoint"
+			uri="cxf:bean:N-DexSubmissionServiceFacade?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+
+		<camel:endpoint id="chargeReferralServiceEndpoint"
+				uri="cxf:bean:ChargeReferralService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+			
+	    <camel:endpoint id="notificationBrokerServiceEndpoint" 
+	    	uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}"/>                
+	
+		<camel:endpoint id="arrestReportingServiceEndpoint" 
+			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}"/>
+			
 			
 		<!-- Incident Reporting Service Handler -->
 		<camel:route id="IncidentReportingServiceHandlerRoute">
-			<camel:from uri="IncidentReportingServiceEndpoint" />
+			<camel:from uri="incidentReportingServiceEndpoint" />
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 
@@ -35,9 +71,18 @@
 				<camel:xpath resultType="java.lang.String">//lexs:DataOwnerMetadata/lexs:DataOwnerIdentifier/lexs:ORI</camel:xpath>
 			</camel:setHeader>
 			
+			<camel:setHeader headerName="arrestSubjects">
+				<xpath resultType="java.lang.String">count(//lexsdigest:ArrestSubjectAssociation)</xpath>
+			</camel:setHeader>
+			
 			<!-- This function will set the header 'callNDExSubmissionService' -->
 			<camel:to
 				uri="bean:incidentReportProcessor?method=confirmNdexAuthorizedOri"/>
+
+			<!-- This function will set the header 'callChargeReferralService' -->
+			<camel:to
+				uri="bean:incidentReportProcessor?method=confirmChargeReferralAuthorizedOri"/>
+
 
 				<!-- Multicast to the core services and derived bundle specific routes 
 					so each route gets original message -->
@@ -47,6 +92,30 @@
 							<camel:simple>${in.header.callNDExSubmissionService} == 'true'</camel:simple>
 
 							<camel:to uri="direct:callNDExService" />
+
+						</camel:filter>
+					</camel:pipeline>
+					<camel:pipeline>
+						<camel:filter>
+							<camel:simple>${in.header.callChargeReferralService} == 'true'</camel:simple>
+
+							<camel:to uri="direct:callChargeReferralService" />
+
+						</camel:filter>
+					</camel:pipeline>
+					<camel:pipeline>
+						<camel:filter>
+							<camel:simple>${bean:callNotificationBrokerService.trim} == 'true'</camel:simple>
+
+							<camel:to uri="direct:callNotificationBrokerService" />
+
+						</camel:filter>
+					</camel:pipeline>
+					<camel:pipeline>
+						<camel:filter>
+							<camel:simple>${bean:callArrestReportingService.trim} == 'true'</camel:simple>
+
+							<camel:to uri="direct:callArrestReportingService" />
 
 						</camel:filter>
 					</camel:pipeline>
@@ -77,10 +146,118 @@
 			</camel:setHeader>				
 			
 			<camel:to
-				uri="cxf:bean:N-DexSubmissionServiceFacade?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+				uri="ndexSubmissionServiceEndpoint" />
 			<log message="Called NDEx service" />
 		</camel:route>
 		
+        <camel:route id="CallChargeReferralServiceRoute" errorHandlerRef="chargeReferralDeadLetterErrorHandler">
+            <from uri="direct:callChargeReferralService"/>
+            <log message="In call charge referral route" />
+            
+            <camel:filter>
+				<camel:xpath>//irsp:IncidentReportableToDistrictAttorneyIndicator='true'</camel:xpath>
+				<log message="Incident reportable to D.A. (check later for authorization)" />
+				
+				<camel:filter>
+					<camel:simple>${in.header.callChargeReferralService} == 'true'</camel:simple>
+					<log message="ORI authorized to submit to D.A." />
+					
+					<setBody><xpath resultType="org.w3c.dom.Document">//lexspd:doPublish</xpath></setBody>
+					
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+					
+					<camel:setHeader headerName="operationName"><constant>SubmitChargeRecommendation</constant></camel:setHeader>	
+					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeRecommendationService/1.0</constant></camel:setHeader>
+				
+					<to uri="chargeReferralServiceEndpoint" />
+					<log message="Called Charge Referral Service" />
+					
+				</camel:filter>
+				
+			</camel:filter>
+            
+        </camel:route>
+        
+        <camel:route id="callNotificationBrokerServiceRoute">
+        	
+        	<camel:from uri="direct:callNotificationBrokerService"/>
+        
+			<camel:log message="Processing Incident Report Notifications"/>
+						
+			<camel:to uri="xslt:xslt/incidentReportToNotifications.xsl"/>								
+											
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+							
+			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+	        
+	        <camel:split streaming="true">
+				<tokenize token="wrapper" xml="true" inheritNamespaceTagName="notifications" includeTokens="false"/>
+	
+				<camel:setBody>
+					<camel:xpath>/wrapper/b:Notify</camel:xpath>
+				</camel:setBody>
+	
+				<camel:choice>
+					<camel:when>
+						<camel:method bean="incidentReportPersonInvolvementProcessor" method="hasThisPersonInvolvmentBeenProcessedBefore" />
+						<camel:log message="Person Involvement processed in previous invocation, stopping exchange"/>
+					</camel:when>
+					<camel:otherwise>
+														
+						<camel:log message="This is the notification message: ${body}" loggingLevel="DEBUG"/>
+						
+			            <camel:throttle timePeriodMillis="1000">
+			            	<constant>1</constant>
+			            	<to uri="notificationBrokerServiceEndpoint"/>
+			        	</camel:throttle>  
+					</camel:otherwise>
+				</camel:choice>
+			</camel:split>
+        </camel:route>		
+        		
+        <camel:route id="callArrestReportingServiceRoute">
+        	
+        	<camel:from uri="direct:callArrestReportingService"/>
+        
+			<camel:filter>
+				<camel:simple>${in.header.arrestSubjects} > 0</camel:simple>
+				
+				<camel:log message="Processing Arrests to send to Arrest Intermediary"/>
+				
+				<camel:to uri="xslt:xslt/incidentReportToArrestReport.xsl"/>
+				
+				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+				
+				<camel:setHeader headerName="operationName"><constant>ReportArrest</constant></camel:setHeader>	
+				<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>
+          
+          			<camel:split streaming="true">
+					<tokenize token="wrapper" xml="true" inheritNamespaceTagName="arrestReports" includeTokens="false"/>
+
+					<camel:setBody>
+						<camel:xpath>/wrapper/ar:ArrestReport</camel:xpath>
+					</camel:setBody>
+
+					<camel:choice>
+						<camel:when>
+							<camel:method bean="arrestReportProcessor" method="hasThisPersonArrestBeenProcessedBefore" />
+							<camel:log message="Person Arrest Involvement processed in previous invocation, stopping exchange"/>
+						</camel:when>
+						<camel:otherwise>
+															
+							<camel:log message="This is the arrest message: ${body}" loggingLevel="DEBUG"/>
+							
+				            <camel:throttle timePeriodMillis="1000">
+				            	<constant>1</constant>
+				            	<to uri="arrestReportingServiceEndpoint"/>
+				        	</camel:throttle>  
+						</camel:otherwise>
+					</camel:choice>
+				</camel:split>
+			</camel:filter>
+        </camel:route>		        		
+        		
 		<camel:route id="derivedRoutes">
 
 			<camel:from uri="direct:derivedRoutes" />
@@ -122,6 +299,15 @@
     <bean id="endpointsToCall" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${incidentReportingService.camelEndpointsToCall}" />
     </bean>	
+
+    <bean id="callNotificationBrokerService" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="${incidentReportingService.callNotificationBrokerService}" />
+    </bean>	
+	
+    <bean id="callArrestReportingService" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="${incidentReportingService.callArrestReportingService}" />
+    </bean>	
+	
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	

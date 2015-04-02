@@ -17,7 +17,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+xmlns:xop="http://www.w3.org/2004/08/xop/include"
+xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/"
+xmlns:ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>

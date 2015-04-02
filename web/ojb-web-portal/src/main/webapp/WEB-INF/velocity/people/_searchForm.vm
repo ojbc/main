@@ -237,8 +237,8 @@
     				        
     				        <div class="labelText" >
     				        	DOB From: 
-    				        		#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='datePicker'")<br>
-    				        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='datePicker'")
+    				        		#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='datePicker mdate'")<br>
+    				        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='datePicker mdate'")
     				        		#springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")
                                  #springShowErrors( "<br/>" "error" )
     				        </div>
@@ -269,7 +269,7 @@
         			  		  </div>
         			  		  <div>#springFormInput("personSearchCommand.advanceSearch.personFBINumber" "placeholder='FBI #'") </div>
         			  		  <div>
-        			  		     #springFormInput("personSearchCommand.advanceSearch.personSocialSecurityNumber" "placeholder='SSN (XXX-XX-XXXX)'")<br/> 
+        			  		     #springFormInput("personSearchCommand.advanceSearch.personSocialSecurityNumber" "placeholder='SSN (XXX-XX-XXXX)' class='ssn'")<br/> 
         			  		     #springShowErrors( "<br/>" "error" )
         			  		  </div>
         			  		  <div>#springFormInput("personSearchCommand.advanceSearch.personDriversLicenseNumber" "placeholder='DL/ID #'") </div>

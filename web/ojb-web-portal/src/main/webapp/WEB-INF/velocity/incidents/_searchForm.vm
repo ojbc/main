@@ -2,6 +2,7 @@
 	  $(function() {
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
+		  ojbc.handlePlaceholders(); 
     	  
     	  $('#searchForm').validate({
                 rules: {
@@ -28,7 +29,6 @@
                     if(!isValidate){
                         alert("There are errors in your inputs, please correct them and try again");
                     }else {
-                        ojbc.clearAllDefaultValues_incident();
                         var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                     
     		  	       	$.post("#springUrl('/incidents/advanceSearch')",formData,function(data) {
@@ -75,8 +75,6 @@
 			});	              
               
               
-    	    ojbc.initializeAllInputWithDefaultValue_incident();
-    	    
     	    $('#demogFilterInfo').hide();
 	      	$('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
 		  	$('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");    		
@@ -108,12 +106,12 @@
     	  			<tr>
     	  				<td>
     				        <div>#springFormSingleSelect("incidentSearchCommand.advanceSearch.incidentCityTown" $cityTowns "" ) </div>
-    				        <div>#springFormInput("incidentSearchCommand.advanceSearch.incidentNumber" "") </div>
+    				        <div>#springFormInput("incidentSearchCommand.advanceSearch.incidentNumber" "placeholder='Incident #'") </div>
     				        
     				        <div class="labelText" >
     				        	Date Range: 
-    				        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='datePicker'")
-    				        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd" "class='datePicker'")
+    				        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='datePicker mdate' placeholder='From'")
+    				        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd" "class='datePicker mdate' placeholder='To'")
     				        		#springBind("incidentSearchCommand.advanceSearch.incidentDateRangeStart")
                                  #springShowErrors( "<br/>" "error" )
     				        </div>
