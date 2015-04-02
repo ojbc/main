@@ -190,7 +190,12 @@ public class SearchTest extends AbstractStaticMockTest {
     	assertEquals(1, matches.size());
     	Document match = matches.get(0).getDocument();
     	assertNotNull(XmlUtils.xPathNodeSearch(match, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle[nc:VehicleIdentification/nc:IdentificationID='V125646899264104931']"));
-		idElement.setTextContent("not-valid");
+		
+    	Document vehicleSearchResults = staticMockQuery.searchDocuments(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	//XmlUtils.printNode(vehicleSearchResults);
+    	assertNotNull(XmlUtils.xPathNodeSearch(vehicleSearchResults, "/vsres-exch:VehicleSearchResults/vsres:VehicleSearchResult[intel:SystemIdentifier/nc:IdentificationID='V125646899264104931']"));
+    	
+    	idElement.setTextContent("not-valid");
 		matches = staticMockQuery.vehicleSearchDocumentsAsList(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
     	assertNotNull(matches);
     	assertEquals(0, matches.size());
@@ -396,6 +401,9 @@ public class SearchTest extends AbstractStaticMockTest {
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
+        Document personSearchResults = staticMockQuery.searchDocuments(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+        //XmlUtils.printNode(personSearchResults);
+        assertNotNull(XmlUtils.xPathNodeSearch(personSearchResults, "/psres-doc:PersonSearchResults/psres:PersonSearchResult/psres:Person[nc:PersonName/nc:PersonSurName='Ivey']"));
     }
 
     @Test
