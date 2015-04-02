@@ -148,6 +148,28 @@ public class SearchTest extends AbstractStaticMockTest {
     }
     
     @Test
+    public void testSearchDocumentsVehicle() throws Exception {
+    	Document searchRequest = buildBaseVehicleSearchRequest();
+    	Element vehicleNode = (Element) XmlUtils.xPathNodeSearch(searchRequest, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle");
+    	NodeList children = XmlUtils.xPathNodeListSearch(vehicleNode, "*");
+    	Node idElement = null;
+    	for (int i=0;i < children.getLength();i++) {
+    		Node child = children.item(i);
+    		if (!"VehicleIdentification".equals(child.getLocalName())) {
+    			vehicleNode.removeChild(child);
+    		} else {
+    			idElement = XmlUtils.xPathNodeSearch(child, "nc:IdentificationID");
+    		}
+    	}
+		idElement.setTextContent("V125646899264104931");
+    	Document searchResults = staticMockQuery.searchDocuments(searchRequest, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+    	assertNotNull(searchResults);
+    	//assertNotNull(XmlUtils.xPathNodeSearch(searchResults, "/isres-doc:IncidentVehicleSearchResults/isres:IncidentVehicleSearchResult"));
+    	XmlUtils.printNode(searchResults);
+        XmlUtils.validateInstance("service-specifications/Vehicle_Search_Results_Service/artifacts/service_model/information_model/Vehicle_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
+    }
+    
+    @Test
     public void testVehicleSearchByVin() throws Exception {
     	Document searchRequest = buildBaseVehicleSearchRequest();
     	Element vehicleNode = (Element) XmlUtils.xPathNodeSearch(searchRequest, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle");

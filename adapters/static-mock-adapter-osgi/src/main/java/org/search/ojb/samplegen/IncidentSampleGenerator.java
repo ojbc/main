@@ -202,7 +202,7 @@ public class IncidentSampleGenerator extends AbstractSampleGenerator {
             {
                 suspect = getRandomIdentity(stateParam);
             }
-            vehicle = new Vehicle();
+            vehicle = new Vehicle(subject, baseDate);
             object = getRandomObject();
             offense = (String) generateRandomValueFromList("Domestic disturbance", "General mayhem", "Suspected assault", "Suspicious Activity");
             startDate = generateUniformRandomDateBetween(baseDate.minusYears(5), baseDate.minusMonths(1));
@@ -229,10 +229,15 @@ public class IncidentSampleGenerator extends AbstractSampleGenerator {
         public int year;
         public String vin;
         public String plate;
+        public DateTime plateExpiration;
+        public String plateState;
         public String color;
         public String colorCode;
+        public int doors;
+        public String plateTypeCode;
+        public String plateTypeText;
 
-        public Vehicle() {
+        public Vehicle(PersonElementWrapper subject, DateTime baseDate) {
             make = getRandomVehicleMakeCode();
             model = getRandomVehicleModelCode();
             year = randomGenerator.nextInt(1970, 2012);
@@ -252,6 +257,18 @@ public class IncidentSampleGenerator extends AbstractSampleGenerator {
                 }
             }
             plate = new String(plateChars);
+            plateExpiration = baseDate.plusMonths(randomGenerator.nextInt(1, 15));
+            plateExpiration = plateExpiration.plusDays(randomGenerator.nextInt(-15, 15));
+            plateState = subject.state;
+            doors = 4;
+            if (coinFlip(.2)) {
+            	doors = 2;
+            }
+            if (coinFlip(.01)) {
+            	doors = 5;
+            }
+            plateTypeCode = "PC";
+            plateTypeText = "Regular Passenger Automobile Plates";
             color = generateRandomCodeFromList("Black", "White", "Yellow", "Red", "Green", "Grey");
             colorCode = null;
             if ("Black".equals(color)) {
@@ -484,11 +501,16 @@ public class IncidentSampleGenerator extends AbstractSampleGenerator {
         e = appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ItemModelYearDate");
         e.setTextContent(String.valueOf(vehicle.year));
         e = appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateIdentification");
-        e = appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
-        e.setTextContent(vehicle.plate);
+        appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(vehicle.plate);
+        appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationExpirationDate").setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(vehicle.plateExpiration));
+        appendElement(e, OjbcNamespaceContext.NS_JXDM_40, "IdentificationJurisdictionUSPostalServiceCode").setTextContent(vehicle.plateState);
+        appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleDoorQuantity").setTextContent(String.valueOf(vehicle.doors));
         e = appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleIdentification");
         e = appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
         e.setTextContent(vehicle.vin);
+        e = appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ConveyanceRegistration");
+        appendElement(e, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateCategoryCode").setTextContent(vehicle.plateTypeCode);
+        appendElement(e, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateCategoryText").setTextContent(vehicle.plateTypeText);
         e = appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleMakeCode");
         e.setTextContent(vehicle.make);
         e = appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleModelCode");

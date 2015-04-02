@@ -321,10 +321,19 @@
 								<nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
 								<nc:ConveyanceRegistrationPlateIdentification>
 									<nc:IdentificationID>U2H238</nc:IdentificationID>
+									<nc:IdentificationExpirationDate>
+										<nc:Date>2016-01-02</nc:Date>
+									</nc:IdentificationExpirationDate>
+									<jxdm40:IdentificationJurisdictionUSPostalServiceCode>VT</jxdm40:IdentificationJurisdictionUSPostalServiceCode>
 								</nc:ConveyanceRegistrationPlateIdentification>
+								<nc:VehicleDoorQuantity>4</nc:VehicleDoorQuantity>
 								<nc:VehicleIdentification>
 									<nc:IdentificationID>V331553445065333669</nc:IdentificationID>
 								</nc:VehicleIdentification>
+								<nc:ConveyanceRegistration>
+									<nc:ConveyanceRegistrationPlateCategoryCode>CI</nc:ConveyanceRegistrationPlateCategoryCode>
+									<nc:ConveyanceRegistrationPlateCategoryText>City-Owned or Municipal Vehicle</nc:ConveyanceRegistrationPlateCategoryText>
+								</nc:ConveyanceRegistration>
 								<nc:VehicleMakeCode>TRAL</nc:VehicleMakeCode>
 								<nc:VehicleModelCode>RC</nc:VehicleModelCode>
 							</nc:Vehicle>

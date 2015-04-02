@@ -294,6 +294,8 @@ public class StaticMockQuery {
 			return incidentSearchDocuments(searchRequestMessage, baseDate);
 		} else if (OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentVehicleSearchRequest".equals(rootLocalName)) {
 			return incidentVehicleSearchDocuments(searchRequestMessage, baseDate);
+		} else if (OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "VehicleSearchRequest".equals(rootLocalName)) {
+			return vehicleSearchDocuments(searchRequestMessage, baseDate);
 		}
 		throw new IllegalArgumentException("Invalid message: {" + rootNamespaceURI + "}" + rootLocalName);
 	}
@@ -1040,6 +1042,76 @@ public class StaticMockQuery {
 		searchXPath.append("]");
 		return searchXPath.toString();
 
+	}
+	
+	Document vehicleSearchDocuments(Document searchRequestMessage, DateTime baseDate) throws Exception {
+		
+		Document errorReturn = getVehicleSearchAccessDeniedDocument(searchRequestMessage);
+
+		if (errorReturn != null) {
+			return errorReturn;
+		}
+
+		Document ret = createNewDocument();
+
+		List<IdentifiableDocumentWrapper> searchResultsList = vehicleSearchDocumentsAsList(searchRequestMessage, baseDate);
+		
+		Element root = ret.createElementNS(OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS_EXCHANGE, "VehicleSearchResults");
+		ret.appendChild(root);
+		String prefix = XmlUtils.OJBC_NAMESPACE_CONTEXT.getPrefix(OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS_EXCHANGE);
+		root.setPrefix(prefix);
+
+		int index = 1;
+		
+		for (IdentifiableDocumentWrapper instanceWrapper : searchResultsList) {
+
+			Document instance = instanceWrapper.getDocument();
+			
+			Element incidentVehicle = (Element) XmlUtils.xPathNodeSearch(instance, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle");
+			
+			Element vehicleSearchResultElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS, "VehicleSearchResult");
+			Element vehicleElement = XmlUtils.appendElement(vehicleSearchResultElement, OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS, "Vehicle");
+			
+			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ItemCategoryText").setTextContent("Passenger Vehicle");
+			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleColorPrimaryCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleColorPrimaryCode"));
+			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ItemModelName").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleModelCode"));
+			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ItemModelYearDate").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ItemModelYearDate"));
+			Element e = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateIdentification");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID"));
+			Element expDate = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationExpirationDate");
+			XmlUtils.appendElement(expDate, OjbcNamespaceContext.NS_NC, "Date").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationExpirationDate/nc:Date"));
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_41, "IdentificationJurisdictionUSPostalServiceCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/jxdm40:IdentificationJurisdictionUSPostalServiceCode"));
+			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleDoorQuantity").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleDoorQuantity"));
+			e = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ConveyanceRegistration");
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateCategoryCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode"));
+			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateCategoryText").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText"));
+			
+			// we cannot populate vehicle make because of a mismatch of codes
+			
+			Element sourceSystem = XmlUtils.appendElement(vehicleSearchResultElement, OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS, "SourceSystemNameText");
+			sourceSystem.setTextContent(INCIDENT_MOCK_ADAPTER_VEHICLE_SEARCH_SYSTEM_ID);
+			Element sourceSystemIdentifierParentElement = XmlUtils.appendElement(vehicleSearchResultElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
+			XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(instanceWrapper.getId());
+			XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_INTEL, "SystemName").setTextContent("Demo RMS");
+
+			index++;
+
+		}
+
+		XmlUtils.OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);
+		
+		return ret;
+		
+	}
+
+	private Document getVehicleSearchAccessDeniedDocument(Document searchRequestMessage) throws Exception {
+		String vin = XmlUtils.xPathStringSearch(searchRequestMessage, "/vsr-doc:VehicleSearchRequest/vsr:Vehicle/nc:VehicleIdentification/nc:IdentificationID");
+		Document ret = null;
+		ErrorResourceRetriever errorResourceRetriever = new ErrorResourceRetriever();
+		if ("AccessDenied".equals(vin)) {
+			ret = errorResourceRetriever.getVehicleSearchAccessDeniedDocument();
+		}
+		return ret;
 	}
 
 	Document firearmSearchDocuments(Document firearmSearchRequestMessage) throws Exception {

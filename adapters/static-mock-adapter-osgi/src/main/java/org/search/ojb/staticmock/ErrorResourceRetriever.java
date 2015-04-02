@@ -56,6 +56,11 @@ class ErrorResourceRetriever {
         return getDocument("static-error-instances/ErrorReported-PersonSearchResults.xml");
     }
 
+    public Document getVehicleSearchAccessDeniedDocument() throws Exception {
+        LOG.info("Returning vehicle search error reported results");
+        return getDocument("static-error-instances/AccessDenied-VehicleSearchResults.xml");
+    }
+
     private Document getDocument(String filename) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
