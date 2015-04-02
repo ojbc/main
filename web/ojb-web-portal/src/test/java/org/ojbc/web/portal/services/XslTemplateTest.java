@@ -370,7 +370,10 @@ public class XslTemplateTest {
         String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + inputXmlPath).getInputStream());
         
         List<String> expectedHtml = IOUtils.readLines(new ClassPathResource("xslTransformTest/" + expectedHtmlPath).getInputStream(), CharEncoding.UTF_8);
-
+                
+		// remove ojb license comment(19 lines) in memory, so it's not used in assertion
+		expectedHtml.subList(0, 18).clear();
+               
         searchResultConverter.searchResultXsl = xsl;
         
         String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getPersonSearchParams());

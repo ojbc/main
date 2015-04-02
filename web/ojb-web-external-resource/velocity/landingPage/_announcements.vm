@@ -1,41 +1,36 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ *#
 <tr>
   <td colspan ="3">
     <b>Announcements</b>
   </td>
 </tr>
-<tr>	
-  <td nowrap>- 08/05/14</td>	
-  <td colspan = "2">Emergency restart of the portal today at 5:00pm HST. This outage will last 15 minutes</td>
-</tr>
 <tr>
-  <td nowrap>- 08/05/14</td>	
-  <td colspan = "2">Criminal history data back online.</td>
+  <td colspan = "3">- This is a very important announcement!</td>
 </tr>
-<tr>
-  <td nowrap>- 08/05/14</td>	
-  <td colspan = "2">Neighbor island users may experience longer than usual delays while accessing the portal due to network degradation. Currently no estimated time to resolve this issue. Subsequent updates will be posted here.</td>
-</tr>
-<tr>
-  <td>&nbsp;</td>
-</tr>
-
 <tr>
   <td colspan = "3">
     <b>Scheduled Maintenance</b>
   </td>
 </tr>
 <tr>
-  <td nowrap>- 10/01/14, 2:00pm - 4:00pm HST</td>
-  <td colspan = "2">The portal will be down to apply Oracle quarterly security patches.</td>
+  <td colspan = "3">We plan to take down the portal for maintenance next year.</td>
 </tr>
-<tr>
-  <td nowrap>- 01/01/15, 2:00pm - 4:00pm HST</td>
-  <td colspan = "2">The portal will be down to apply Oracle quarterly security patches.</td>
-</tr>
-<tr>
-  <td>- Every 1st Thursday of the month,<br/>&nbsp;11:30pm - 11:45pm HST</td>
-  <td colspan = "2">The portal will be down for monthly restart.</td>
-</tr>
+
 <tr>
   <td>&nbsp;</td>
 </tr>
@@ -46,11 +41,9 @@
   </td>
 <tr>
 <tr>
-  <td colspan = "3">- Maui County firearms registrations searchable through the query service</td>
+  <td colspan = "3">In the future we plan to...</td>
 </tr>
-<tr>
-  <td colspan = "3">- Subscription management service and arrest subscriptions.</td>
-</tr>
+
 <tr>
   <td>&nbsp;</td>
 </tr>

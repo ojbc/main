@@ -1,22 +1,29 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ *#
 <p><b>INTRODUCTION AND OVERVIEW</b></p>
 
-This is the Help documentation for the Hawaii Integrated Justice Information Sharing (HIJIS) Portal. You can navigate the topics using the sidebar navigation.
+This is the Help documentation for the Open Justice Broker Consortium Portal. 
 
-Currently, the applications hosted on the HIJIS Portal are:
+<br/>
 
-<ul>
-	<li>
-		HIJIS Query: Allows the user to query the participating agencies' systems using a variety of parameters. This enables the user to see an overview of a subject's history and status in one place, rather than having to login to each individual agency's system and perform the same search multiple times.
-	</li>
-	<br/>
-	<li>
-		Subscription Management: Users are able to subscribe to event(s), and be notified via email whenever the event occurs. This application will give authorized users an avenue to track arrests in near real-time.
-	</li>
-</ul>
+Implementers have flexibility in specify the content of the help pages.  You can navigate the links in the sidebar to get a sense of possibilities.
 
-Through federated identity and Single Sign-On (SSO), HIJIS offers a secure way for agencies to both share and provide data. Each participating agency is subject to adhering to strict privacy policy guidelines, as well as managing their own Identity Provider (IdP) to ensure that their employees only have access to data as allowed by statute or policy.
-</br></br>
-As more agencies participate in HIJIS, the value of the HIJIS Portal and its applications will increase. If you notice any issues that are not covered in the Help documentation or the FAQ, please feel free to submit a ticket via our Suggestions/Report a Problem form.
+
+
 <br/>
 <br/>
 <br/>
