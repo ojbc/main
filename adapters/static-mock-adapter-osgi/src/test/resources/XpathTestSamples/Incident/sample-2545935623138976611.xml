@@ -323,10 +323,19 @@
 								<nc:ItemModelYearDate>1996</nc:ItemModelYearDate>
 								<nc:ConveyanceRegistrationPlateIdentification>
 									<nc:IdentificationID>7106VG</nc:IdentificationID>
+									<nc:IdentificationExpirationDate>
+										<nc:Date>2016-01-02</nc:Date>
+									</nc:IdentificationExpirationDate>
+									<jxdm40:IdentificationJurisdictionUSPostalServiceCode>VT</jxdm40:IdentificationJurisdictionUSPostalServiceCode>
 								</nc:ConveyanceRegistrationPlateIdentification>
+								<nc:VehicleDoorQuantity>4</nc:VehicleDoorQuantity>
 								<nc:VehicleIdentification>
 									<nc:IdentificationID>V293951681127201584</nc:IdentificationID>
 								</nc:VehicleIdentification>
+								<nc:ConveyanceRegistration>
+									<nc:ConveyanceRegistrationPlateCategoryCode>CI</nc:ConveyanceRegistrationPlateCategoryCode>
+									<nc:ConveyanceRegistrationPlateCategoryText>City-Owned or Municipal Vehicle</nc:ConveyanceRegistrationPlateCategoryText>
+								</nc:ConveyanceRegistration>
 								<nc:VehicleMakeCode>TESI</nc:VehicleMakeCode>
 								<nc:VehicleModelCode>FRF</nc:VehicleModelCode>
 							</nc:Vehicle>

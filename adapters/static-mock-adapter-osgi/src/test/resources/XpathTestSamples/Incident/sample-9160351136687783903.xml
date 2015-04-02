@@ -284,10 +284,19 @@
                                 <nc:ItemModelYearDate>2003</nc:ItemModelYearDate>
                                 <nc:ConveyanceRegistrationPlateIdentification>
                                     <nc:IdentificationID>9KS083</nc:IdentificationID>
-                                </nc:ConveyanceRegistrationPlateIdentification>
+									<nc:IdentificationExpirationDate>
+										<nc:Date>2016-01-02</nc:Date>
+									</nc:IdentificationExpirationDate>
+									<jxdm40:IdentificationJurisdictionUSPostalServiceCode>VT</jxdm40:IdentificationJurisdictionUSPostalServiceCode>
+								</nc:ConveyanceRegistrationPlateIdentification>
+								<nc:VehicleDoorQuantity>4</nc:VehicleDoorQuantity>
                                 <nc:VehicleIdentification>
                                     <nc:IdentificationID>V654114767657727617</nc:IdentificationID>
                                 </nc:VehicleIdentification>
+								<nc:ConveyanceRegistration>
+									<nc:ConveyanceRegistrationPlateCategoryCode>CI</nc:ConveyanceRegistrationPlateCategoryCode>
+									<nc:ConveyanceRegistrationPlateCategoryText>City-Owned or Municipal Vehicle</nc:ConveyanceRegistrationPlateCategoryText>
+								</nc:ConveyanceRegistration>
                                 <nc:VehicleMakeCode>FIST</nc:VehicleMakeCode>
                                 <nc:VehicleModelCode>TRV</nc:VehicleModelCode>
                             </nc:Vehicle>

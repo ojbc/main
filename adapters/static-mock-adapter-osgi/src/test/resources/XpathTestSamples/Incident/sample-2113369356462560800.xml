@@ -323,10 +323,19 @@
 								<nc:ItemModelYearDate>1991</nc:ItemModelYearDate>
 								<nc:ConveyanceRegistrationPlateIdentification>
 									<nc:IdentificationID>856K31</nc:IdentificationID>
+									<nc:IdentificationExpirationDate>
+										<nc:Date>2016-01-02</nc:Date>
+									</nc:IdentificationExpirationDate>
+									<jxdm40:IdentificationJurisdictionUSPostalServiceCode>VT</jxdm40:IdentificationJurisdictionUSPostalServiceCode>
 								</nc:ConveyanceRegistrationPlateIdentification>
+								<nc:VehicleDoorQuantity>4</nc:VehicleDoorQuantity>
 								<nc:VehicleIdentification>
 									<nc:IdentificationID>V125646899264104931</nc:IdentificationID>
 								</nc:VehicleIdentification>
+								<nc:ConveyanceRegistration>
+									<nc:ConveyanceRegistrationPlateCategoryCode>CI</nc:ConveyanceRegistrationPlateCategoryCode>
+									<nc:ConveyanceRegistrationPlateCategoryText>City-Owned or Municipal Vehicle</nc:ConveyanceRegistrationPlateCategoryText>
+								</nc:ConveyanceRegistration>
 								<nc:VehicleMakeCode>PICW</nc:VehicleMakeCode>
 								<nc:VehicleModelCode>NIT</nc:VehicleModelCode>
 							</nc:Vehicle>
