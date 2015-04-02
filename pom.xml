@@ -60,11 +60,13 @@
             <include>**/*.xml</include>
             <include>**/*.xslt</include>
             <include>**/*.xsd</include>
-            <include>ojb-resources-common/**/*.wsdl</include>
+            <include>**/*.wsdl</include>
+            <include>**/*.xslt</include>
           </includes>
           <mapping>
             <java>SLASHSTAR_STYLE</java>
             <wsdl>XML_STYLE</wsdl>
+            <xslt>XML_STYLE</xslt>
           </mapping>
         </configuration>
       </plugin>
