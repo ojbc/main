@@ -10,27 +10,7 @@ $(function() {
 	      cache: false
 	});
 	
-   /*
-    * Deal with the browsers that does not support placeholder. 
-    */	
-   if(!$.support.placeholder) { 
-      var active = document.activeElement;
-      $(':text').focus(function () {
-         if ( $(this).attr('placeholder') && $(this).val() == $(this).attr('placeholder')) {
-            $(this).val('').removeClass('hasPlaceholder');
-         }
-      }).blur(function () {
-         if ($(this).attr('placeholder') && ($(this).val() == '' || $(this).val() == $(this).attr('placeholder'))) {
-            $(this).val($(this).attr('placeholder')).addClass('hasPlaceholder');
-         }
-      });
-      $(':text').blur();
-      $(active).focus();
-      $('form:eq(0)').submit(function () {
-         $(':text.hasPlaceholder').val('');
-      });
-   }
-
+   ojbc.handlePlaceholders(); 
    ojbc.maskInputs(); 
 });
 
@@ -72,6 +52,29 @@ ojbc = {
 	   $( "#portalContent" ).on( "focus", ".year", function() {
 		   $(this).mask("9999");
 	   });
+	},
+	
+   /**
+    * Deal with the browsers that does not support placeholder. 
+    */	
+	handlePlaceholders: function(){
+	   if(!$.support.placeholder) { 
+	      var active = document.activeElement;
+	      $(':text').focus(function () {
+	         if ( $(this).attr('placeholder') && $(this).val() == $(this).attr('placeholder')) {
+	            $(this).val('').removeClass('hasPlaceholder');
+	         }
+	      }).blur(function () {
+	         if ($(this).attr('placeholder') && ($(this).val() == '' || $(this).val() == $(this).attr('placeholder'))) {
+	            $(this).val($(this).attr('placeholder')).addClass('hasPlaceholder');
+	         }
+	      });
+	      $(':text').blur();
+	      $(active).focus();
+	      $('form:eq(0)').submit(function () {
+	         $(':text.hasPlaceholder').val('');
+	      });
+	   }
 	},
 	
 	collectAllCheckBoxValues : function () {         
