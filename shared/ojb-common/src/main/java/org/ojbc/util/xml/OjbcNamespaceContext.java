@@ -49,6 +49,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_MAINE_DISPOSITION_CODES = "http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0";
 	public static final String NS_MAINE_DISPOSITION_CODES_PREFIX = "me_disp_codes";
 
+	public static final String NS_MAINE_CHARGE_CODES_V1 = "http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0";
+	public static final String NS_MAINE_CHARGE_CODES_PREFIX_V1 = "me-chrg-codes-v1";
+	
 	public static final String NS_MAINE_CHARGE_CODES = "http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0";
 	public static final String NS_MAINE_CHARGE_CODES_PREFIX = "me-chrg-codes";
 
@@ -431,7 +434,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PAROLE_CASE_OFFICER_CHANGE = "http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0";
     public static final String NS_PREFIX_PAROLE_CASE_OFFICER_CHANGE = "prlcoc";
     
-    public static final String NS_PROBATION_CASE_OFFICER_CHANGE = "http://ojbc.org/IEPD/Exchange/ProbationCaseOfficerChange/1.0’";
+    public static final String NS_PROBATION_CASE_OFFICER_CHANGE = "http://ojbc.org/IEPD/Exchange/ProbationCaseOfficerChange/1.0";
     public static final String NS_PREFIX_PROBATION_CASE_OFFICER_CHANGE = "pcoc";
     
     public static final String NS_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH = "http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0";

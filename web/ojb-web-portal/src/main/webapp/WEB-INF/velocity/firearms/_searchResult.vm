@@ -14,12 +14,16 @@
 			} ]
   		});
 	  
+		$("#searchResultsTable").on('dblclick', 'tbody tr', function(){
+			$(this).find("a.viewDetails").click();
+		}); 
+		
 		$('#returnToSearchSubmitButton').click (function(){
 	  		$.get("#springUrl('/firearms/searchForm')",function(data) {
 			      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage)
 		  	}
-		)
+		);
 		
 		$('#newSearchSubmitButton').click (function(){
 			ojbc.clearSearchPurposeFields();

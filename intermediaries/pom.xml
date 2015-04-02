@@ -1,3 +1,21 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ojbc.build</groupId>
@@ -16,15 +34,21 @@
     <module>arrest-reporting-service-intermediary-tests</module>
     <module>criminal-history-update-reporting-service-intermediary</module>
     <module>criminal-identification-reporting-service-intermediary</module>
+    <module>disposition-reporting-service-intermediary</module>
     <module>firearm-registration-query-request-service-intermediary</module>
+    <module>firearm-search-request-service-intermediary</module>
     <module>incident-report-request-service-intermediary</module>
+    <module>incident-reporting-service-intermediary-common</module>
+    <module>incident-reporting-service-intermediary</module>
+    <module>incident-search-request-service-intermediary</module>
     <module>juvenile-history-service-intermediary</module>
-    <module>person-search-request-service-intermediary</module>
     <module>parole-event-handler-service-intermediary</module>
     <module>person-query-service-criminal-history-intermediary</module>
     <module>person-query-service-warrants-intermediary</module>
+    <module>person-search-request-service-intermediary</module>
     <module>probation-event-handler-service-intermediary</module>
     <module>subscription-notification-service-intermediary-common</module>
     <module>subscription-notification-service-intermediary</module>
+    <module>vehicle-search-request-service-intermediary</module>
   </modules>
 </project>
