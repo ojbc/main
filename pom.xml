@@ -61,8 +61,10 @@
             <include>**/*.xslt</include>
             <include>**/*.xsd</include>
             <include>**/*.wsdl</include>
+            <include>**/*.xsl</include>
             <include>**/*.xslt</include>
             <include>**/*.vm</include>
+            <!-- TODO? html, js, txt, cfg, properties -->
           </includes>
           <mapping>
             <java>SLASHSTAR_STYLE</java>
