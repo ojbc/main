@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.EndpointInject;
@@ -103,10 +104,11 @@ public class TestAccessControlRequestService {
                 "src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestCurrent.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        String expectedBody = FileUtils
-                .readFileToString(new File(
+        @SuppressWarnings("unchecked")
+        List<String> expectedBody = FileUtils.readLines(new File(
                         "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForCurrentUser.xml"));
-        resultEndpoint.expectedBodiesReceived(expectedBody);
+        // The first 18 lines of the file contain license info. 
+        resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
 
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
 
@@ -138,11 +140,11 @@ public class TestAccessControlRequestService {
                 "src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestNonCurrent.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        String expectedBody = FileUtils
-                .readFileToString(new File(
+        @SuppressWarnings("unchecked")
+        List<String> expectedBody = FileUtils.readLines(new File(
                         "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForNonCurrentUser.xml"));
         
-        resultEndpoint.expectedBodiesReceived(expectedBody);
+        resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
  
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
         template.sendBodyAndHeaders("direct:accessControlRequest", requestBody, headers);
@@ -156,10 +158,10 @@ public class TestAccessControlRequestService {
         File inputFile = new File(
                 "src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestEmpty.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
-        String expectedBody = FileUtils
-                .readFileToString(new File(
+        @SuppressWarnings("unchecked")
+        List<String> expectedBody = FileUtils.readLines(new File(
                         "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForEmptyFedID.xml"));
-        resultEndpoint.expectedBodiesReceived(expectedBody);
+        resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
 
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
         template.sendBodyAndHeaders("direct:accessControlRequest", requestBody, headers);
@@ -174,9 +176,10 @@ public class TestAccessControlRequestService {
                 "src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestNewUser.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        String expectedBody = FileUtils.readFileToString(new File(
+        @SuppressWarnings("unchecked")
+        List<String> expectedBody = FileUtils.readLines(new File(
                 "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForNewUser.xml"));
-        resultEndpoint.expectedBodiesReceived(expectedBody);
+        resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
         
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
         template.sendBodyAndHeaders("direct:accessControlRequest", requestBody, headers);
@@ -192,9 +195,10 @@ public class TestAccessControlRequestService {
                 "src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestResourceNotAvailable.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
         
-        String expectedBody = FileUtils.readFileToString(new File(
+        @SuppressWarnings("unchecked")
+        List<String> expectedBody = FileUtils.readLines(new File(
                 "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForResoureNotAvailableError.xml"));
-        resultEndpoint.expectedBodiesReceived(expectedBody);
+        resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
 
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
         template.sendBodyAndHeaders("direct:accessControlRequest", requestBody,headers);

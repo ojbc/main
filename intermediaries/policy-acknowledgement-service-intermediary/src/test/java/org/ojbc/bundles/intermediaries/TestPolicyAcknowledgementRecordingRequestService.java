@@ -117,9 +117,10 @@ public class TestPolicyAcknowledgementRecordingRequestService {
                 "src/test/resources/xml/acknowlegePolicies/AcknowledgementRecordingRequestForAllPolicies.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        String expectedBody = FileUtils.readFileToString(new File(
+        @SuppressWarnings("unchecked")
+        List<String> expectedBody = FileUtils.readLines(new File(
                 "src/test/resources/xml/acknowlegePolicies/AcknowledgementRecordingRequestWithNoSAMLResponse.xml"));
-        resultEndpoint.expectedBodiesReceived(expectedBody);
+        resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
         
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
         
@@ -155,9 +156,10 @@ public class TestPolicyAcknowledgementRecordingRequestService {
 
         org.apache.cxf.message.Message message = createSamlAssertionMessageWithAttributes(customAttributes);
 
-        String expectedBody = FileUtils.readFileToString(new File(
+        @SuppressWarnings("unchecked")
+        List<String> expectedBody = FileUtils.readLines(new File(
                 "src/test/resources/xml/acknowlegePolicies/AcknowledgementRecordingRequestWithEmptyFedIDResponse.xml"));
-        resultEndpoint.expectedBodiesReceived(expectedBody);
+        resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
         
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
         headers.put(CxfConstants.CAMEL_CXF_MESSAGE, message);
@@ -186,9 +188,10 @@ public class TestPolicyAcknowledgementRecordingRequestService {
         assertTrue(outStandingPoliciesForOwen.get(0).getId() == 1); 
         assertTrue(outStandingPoliciesForOwen.get(1).getId() == 3); 
 
-        String expectedBody = FileUtils.readFileToString(new File(
+        @SuppressWarnings("unchecked")
+        List<String> expectedBody = FileUtils.readLines(new File(
                 "src/test/resources/xml/acknowlegePolicies/AcknowledgementRecordingRequestForAllPoliciesResponse.xml"));
-        resultEndpoint.expectedBodiesReceived(expectedBody);
+        resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
         
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
         headers.put(CxfConstants.CAMEL_CXF_MESSAGE, message);
@@ -221,10 +224,10 @@ public class TestPolicyAcknowledgementRecordingRequestService {
         assertTrue(outStandingPoliciesForOwen.get(0).getId() == 1); 
         assertTrue(outStandingPoliciesForOwen.get(1).getId() == 3); 
 
-        String expectedBody = FileUtils
-                .readFileToString(new File(
+        @SuppressWarnings("unchecked")
+        List<String> expectedBody = FileUtils.readLines(new File(
                         "src/test/resources/xml/acknowlegePolicies/AcknowledgementRecordingRequestWithFalseIndicatorResponse.xml"));
-        resultEndpoint.expectedBodiesReceived(expectedBody);
+        resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
  
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
         headers.put(CxfConstants.CAMEL_CXF_MESSAGE, message);
