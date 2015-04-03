@@ -548,7 +548,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 			
-			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenileCasePlanHistory</constant>
 			</camel:setProperty>
 			
@@ -589,7 +589,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 
-			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenileHearingHistory</constant>
 			</camel:setProperty>
 			
@@ -630,7 +630,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 
-			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenileIntakeHistory</constant>
 			</camel:setProperty>
 			
@@ -671,7 +671,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 
-			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenileOffenseHistory</constant>
 			</camel:setProperty>
 			
@@ -712,7 +712,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 
-			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenilePlacementHistory</constant>
 			</camel:setProperty>
 			
@@ -753,7 +753,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 
-			<camel:setProperty propertyName="org.search.ojb.broker.StaticMockAdapterProcessor.context">
+			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenileReferralHistory</constant>
 			</camel:setProperty>
 			
@@ -799,11 +799,11 @@
 
 	<!-- Spring Beans -->
 
-	<bean id="staticMockAdapterProcessor" class="org.search.ojb.broker.StaticMockAdapterProcessor">
+	<bean id="staticMockAdapterProcessor" class="org.ojbc.bundles.adapters.StaticMockAdapterProcessor">
 		<property name="staticMockQuery" ref="staticMockQuery" />
 	</bean>
 
-	<bean id="staticMockQuery" class="org.search.ojb.staticmock.StaticMockQuery" />
+	<bean id="staticMockQuery" class="org.ojbc.bundles.adapters.staticmock.StaticMockQuery" />
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 		
