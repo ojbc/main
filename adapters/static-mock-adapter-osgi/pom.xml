@@ -23,10 +23,10 @@
 
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>static-mock-adapter-osgi</artifactId>
-	<version>1.0.14</version>
+	<version>1.0.15</version>
 	<packaging>bundle</packaging>
 	<name>OJB :: static-mock-adapter-osgi :: adapter</name>
-	<url>http://www.search.org</url>
+	<url>http://www.ojbc.org</url>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
@@ -126,7 +126,7 @@
 				<configuration>
 					<programs>
 						<program>
-							<mainClass>org.search.ojb.samplegen.AbstractSampleGenerator</mainClass>
+							<mainClass>org.ojbc.bundles.adapters.staticmock.samplegen.AbstractSampleGenerator</mainClass>
 							<name>AbstractSampleGenerator</name>
 						</program>
 					</programs>
@@ -154,8 +154,8 @@
 						<import-package>
 							!org.junit.*
 						</import-package>
-						<Bundle-Activator>org.search.ojb.staticmock.Activator</Bundle-Activator>
-						<Export-Package>org.search.ojb.staticmock</Export-Package>
+						<Bundle-Activator>org.ojbc.bundles.adapters.staticmock.Activator</Bundle-Activator>
+						<Export-Package>org.ojbc.bundles.adapters.staticmock</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>
