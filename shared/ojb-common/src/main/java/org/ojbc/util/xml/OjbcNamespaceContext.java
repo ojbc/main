@@ -472,6 +472,29 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_CRIMINAL_RECORD_EXT = "http://ojbc.org/IEPD/Extensions/CriminalRecordExtension/1.0";
 	public static final String NS_PREFIX_CRIMINAL_RECORD_EXT = "cr-ext";
 	
+	public static final String NS_PERSON_IDENTIFICATION_REQUEST = "http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0";
+    public static final String NS_PREFIX_PERSON_IDENTIFICATION_REQUEST  = "pidreq";
+
+    public static final String NS_PERSON_IDENTIFICATION_RESULTS = "http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0";
+    public static final String NS_PREFIX_PERSON_IDENTIFICATION_RESULTS  = "pidresults";
+
+    public static final String NS_IDENTIFICATION_EXT = "http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0";
+    public static final String NS_PREFIX_IDENTIFICATION_EXT  = "ident-ext";
+
+    public static final String NS_ARREST_QUERY_REQUEST = "http://ojbc.org/IEPD/Exchange/ArrestQueryRequest/1.0";
+    public static final String NS_PREFIX_ARREST_QUERY_REQUEST  = "aqr";
+
+    public static final String NS_ARREST_QUERY_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/ArrestQueryRequestExtension/1.0";
+    public static final String NS_PREFIX_ARREST_QUERY_REQUEST_EXT  = "aqr-ext";
+
+    public static final String NS_XMIME = "http://www.w3.org/2005/05/xmlmime";
+    public static final String NS_PREFIX_XMIME  = "xmime";
+
+    public static final String NS_XOP = "http://www.w3.org/2004/08/xop/include";
+    public static final String NS_PREFIX_XOP  = "xop";
+    
+    public static final String NS_WSOMA = "http://www.w3.org/2007/08/soap12-mtom-policy";
+    public static final String NS_PREFIX_WSOMA  = "xop";
 	
 
 	private Map<String, String> prefixToUriMap;
@@ -888,6 +911,30 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    
 	    prefixToUriMap.put(NS_PREFIX_CRIMINAL_RECORD_EXT, NS_CRIMINAL_RECORD_EXT);
 	    uriToPrefixMap.put(NS_CRIMINAL_RECORD_EXT, NS_PREFIX_CRIMINAL_RECORD_EXT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_PERSON_IDENTIFICATION_REQUEST, NS_PERSON_IDENTIFICATION_REQUEST);
+	    uriToPrefixMap.put(NS_PERSON_IDENTIFICATION_REQUEST, NS_PREFIX_PERSON_IDENTIFICATION_REQUEST);
+	    
+	    prefixToUriMap.put(NS_PREFIX_PERSON_IDENTIFICATION_RESULTS, NS_PERSON_IDENTIFICATION_RESULTS);
+	    uriToPrefixMap.put(NS_PERSON_IDENTIFICATION_RESULTS, NS_PREFIX_PERSON_IDENTIFICATION_RESULTS);
+	    
+	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_EXT, NS_IDENTIFICATION_EXT);
+	    uriToPrefixMap.put(NS_IDENTIFICATION_EXT, NS_PREFIX_IDENTIFICATION_EXT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_ARREST_QUERY_REQUEST, NS_ARREST_QUERY_REQUEST);
+	    uriToPrefixMap.put(NS_ARREST_QUERY_REQUEST, NS_PREFIX_ARREST_QUERY_REQUEST);
+	    
+	    prefixToUriMap.put(NS_PREFIX_ARREST_QUERY_REQUEST_EXT, NS_ARREST_QUERY_REQUEST_EXT);
+	    uriToPrefixMap.put(NS_ARREST_QUERY_REQUEST_EXT, NS_PREFIX_ARREST_QUERY_REQUEST_EXT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_XMIME, NS_XMIME);
+	    uriToPrefixMap.put(NS_XMIME, NS_PREFIX_XMIME);
+	    
+	    prefixToUriMap.put(NS_PREFIX_XOP, NS_XOP);
+	    uriToPrefixMap.put(NS_XOP, NS_PREFIX_XOP);
+	    
+	    prefixToUriMap.put(NS_PREFIX_WSOMA, NS_WSOMA);
+	    uriToPrefixMap.put(NS_WSOMA, NS_PREFIX_WSOMA);
 	    
 	}
 
