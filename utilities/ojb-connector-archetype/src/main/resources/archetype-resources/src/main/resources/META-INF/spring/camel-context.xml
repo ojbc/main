@@ -1,0 +1,115 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<!-- 
+	Camel context configuration file.  The main purpose is to define the 
+	Camel routes. 
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+       
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="properties-context.xml" />
+	<import resource="cxf-endpoints.xml" />
+	
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+	
+		<!-- Connector reads an input file from a directory in the file system -->
+		<endpoint id="inputDirectory"
+			uri="file:///${symbol_dollar}{connectorFileDirectory}/input?idempotent=true&amp;moveFailed=${symbol_dollar}{connectorFileDirectory}/error&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${symbol_dollar}{connector.deleteInputFiles}" />
+		
+		
+		<!--  The main top level route for this connector bundle -->
+		<camel:route id="${artifactId}_Route">
+		
+			<!-- A file directory is used for processing incoming files -->
+			<camel:from uri="inputDirectory" />
+						
+			<camel:log message="Connector received input file: ${symbol_dollar}{file:name}" />
+										
+			<camel:log message="Connector Message Body: ${symbol_dollar}{body}" />			
+					
+			<!-- An xslt can be used directly from the camel route -->																		
+			<camel:to uri="xslt:xsl/ConnectorTransform.xsl"/>											
+					
+			<!-- A separate camel route can be run with the direct keyword -->														
+			<camel:to uri="direct:processMessage"/>	
+						
+			<!-- An intermediary is typically called in the OJB model -->	
+			<camel:to uri="direct:callIntermediary"/>
+	
+			<camel:log message="Connector after calling Intermediary" />
+			
+		</camel:route>
+				
+		
+		<!-- Implementer can edit route below to use desired bean for processing -->
+		<camel:route>
+		
+			<camel:from uri="direct:processMessage" />
+			
+			<!-- Calling a processor -->
+			<camel:to uri="bean:connectorProcessor?method=processMessage"/>
+									
+			<camel:log message="$Connector processed message body: ${symbol_escape}n ${symbol_dollar}{body}" />												
+		
+		</camel:route>
+				
+				
+		<!-- Implementer can edit route below for the desired intermediary to call -->				
+		<camel:route>
+		
+			<camel:from uri="direct:callIntermediary"/>			
+						
+			<!--  The operation name and namespace must be set in the exchange headers 
+					for the desired service operation to call 
+			-->
+			<camel:setHeader headerName="operationName">
+	            <constant>SubmitIdentityBasedAccessControlRequest</constant>
+	        </camel:setHeader>
+	        
+	        <camel:setHeader headerName="operationNamespace">
+	            <constant>http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0</constant>
+	        </camel:setHeader>			
+			
+			<!-- The message is sent to the intermediary endpoint -->
+			<camel:to uri="accessControlRequestServiceEndpoint" />					
+																
+		</camel:route>
+		
+	</camel:camelContext>
+			
+	<!-- A spring bean can be used to reference a processor for updating the 
+		echange or soap message body
+	 -->
+	<bean id="connectorProcessor" class="${package}.ConnectorFileProcessor" />	
+	
+</beans>
+

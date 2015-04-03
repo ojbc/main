@@ -32,5 +32,6 @@
 
   <modules>
     <module>h2-mock-database</module>
+    <module>ojb-connector-archetype</module>
   </modules>
 </project>

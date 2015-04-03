@@ -213,7 +213,7 @@
                         </nc:PersonName>
                         <nc:PersonOtherIdentification>
                            <nc:IdentificationID>2742</nc:IdentificationID>
-                           <nc:IdentificationSourceText>org.search.ojb.samplegen.IncidentSampleGenerator</nc:IdentificationSourceText>
+                           <nc:IdentificationSourceText>org.ojbc.bundles.adapters.staticmock.samplegen.IncidentSampleGenerator</nc:IdentificationSourceText>
                         </nc:PersonOtherIdentification>
                         <nc:PersonRaceText>U</nc:PersonRaceText>
                         <nc:PersonSexCode>M</nc:PersonSexCode>

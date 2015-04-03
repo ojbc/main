@@ -232,7 +232,7 @@
 								</nc:PersonName>
 								<nc:PersonOtherIdentification>
 									<nc:IdentificationID>8</nc:IdentificationID>
-									<nc:IdentificationSourceText>org.search.ojb.samplegen.IncidentSampleGenerator
+									<nc:IdentificationSourceText>org.ojbc.bundles.adapters.staticmock.samplegen.IncidentSampleGenerator
 									</nc:IdentificationSourceText>
 								</nc:PersonOtherIdentification>
 								<nc:PersonRaceText>A</nc:PersonRaceText>
