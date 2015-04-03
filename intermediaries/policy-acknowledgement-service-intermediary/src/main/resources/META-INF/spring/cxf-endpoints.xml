@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:policy="http://cxf.apache.org/policy"
+    xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+    xmlns:sec="http://cxf.apache.org/configuration/security"
+    xmlns:http="http://cxf.apache.org/transports/http/configuration"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+    http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+    http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+    http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+    http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+    http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
+
+
+    <!-- 
+    	Access Control Request Service 
+    -->
+    <cxf:cxfEndpoint 
+        id="accessControlRequestService"
+        address="${accessControl.accessControlRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Access_Control_Request_Service/schemas/SIP_WS_1.3/Access_Control_Request_Service.wsdl"
+		serviceName="ojbc:Access-Control-Request-ServiceService" 
+		endpointName="ojbc:Access-Control-Request-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="accessControlKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${accessControl.keystoreCertificateAlias}" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>
+    
+    
+    <!-- 
+    	Access Control Response Service 
+    --> 
+    <cxf:cxfEndpoint 
+        id="accessControlResponseService"
+		address="${accessControl.accessControlResponseEndpoint}"
+        wsdlURL="classpath:service-specifications/Access_Control_Response_Service/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
+        serviceName="ojbc:Access-Control-Response-ServiceService"
+        endpointName="ojbc:Access-Control-Response-Secure-Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0"
+        >
+        <cxf:features>
+            <policy:policies>
+                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+                    <wsam:Addressing>
+                        <wsp:Policy/>
+                    </wsam:Addressing>
+                </wsp:Policy>
+            </policy:policies>
+        </cxf:features>
+    </cxf:cxfEndpoint>
+
+	<!-- Policy Acknowledgement Recording Request Service  -->
+	<cxf:cxfEndpoint id="policyAcknowledgementRecordingRequestService"
+		address="${accessControl.policyAcknowledgementRecordingRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Policy_Acknowledgement_Recording_Request_Service/schemas/SIP_WS_1.3/Policy_Acknowledgement_Recording_Request_Service.wsdl"
+		serviceName="ojbc:Policy-Acknowledgement-Recording-Request-ServiceService" endpointName="ojbc:Policy-Acknowledgement-Recording-Request-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/PolicyAcknowledgementRecordingRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="accessControlKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${accessControl.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties> 
+	</cxf:cxfEndpoint>
+	
+	<!-- Policy Acknowledgement Recording Request Service  -->
+	<cxf:cxfEndpoint id="policyAcknowledgementRecordingResponseService"
+		address="${accessControl.policyAcknowledgementRecordingResponseEndpoint}"
+		wsdlURL="classpath:service-specifications/Policy_Acknowledgement_Recording_Response_Service/schemas/SIP_WS_1.3/Policy_Acknowledgement_Recording_Response_Service.wsdl"
+		serviceName="ojbc:Policy-Acknowledgement-Recording-Response-ServiceService" endpointName="ojbc:Policy-Acknowledgement-Recording-Response-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/PolicyAcknowledgementRecordingResponseService/1.0">
+        <cxf:features>
+            <policy:policies>
+                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+                    <wsam:Addressing>
+                        <wsp:Policy/>
+                    </wsam:Addressing>
+                </wsp:Policy>
+            </policy:policies>
+        </cxf:features>
+	</cxf:cxfEndpoint>
+
+	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+
+   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${accessControl.keystoreCertificateAlias}" value="${accessControl.keyPassword}"/>
+            </map>
+        </property>
+	</bean>
+
+	<util:properties id= "accessControlKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${accessControl.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${accessControl.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${accessControl.keystoreLocation}</prop>
+	</util:properties>	
+      
+      
+   	<!-- 
+   		Used for INBOUND SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection 
+   	-->
+
+	
+	
+	<!-- 
+		Used for OUTBOUND SSL/TLS Connection. No CCA, just SSL. Client side SSL connection 
+	-->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${accessControl.truststorePassword}"
+					file="${accessControl.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>
+    
+</beans>
+
+

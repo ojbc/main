@@ -1,0 +1,11 @@
+<exchange:AcknowledgementRecordingRequestForAllPolicies
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/AcknowledgementRecordingRequestForAllPolicies/1.0 ../xsd/AcknowledgementRecordingRequestForAllPolicies.xsd"
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/AcknowledgementRecordingRequestForAllPolicies/1.0"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingRequestExtension/1.0"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:DocumentCreationDate>
+		<nc:Date>1967-08-13</nc:Date>
+	</nc:DocumentCreationDate>
+	<ext:PolicyAcknowledgementIndicator>false</ext:PolicyAcknowledgementIndicator>
+</exchange:AcknowledgementRecordingRequestForAllPolicies>
