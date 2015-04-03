@@ -1,1 +1,19 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
 <ac-exchange:AccessControlResponse xmlns:ac-exchange="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" xmlns:acr-srm="http://ojbc.org/IEPD/Extensions/AccessControlResultsMetadata/1.0" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:acrer="http://ojbc.org/IEPD/Extensions/AccessControlRequestErrorReporting/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0 ../xsd/exchange_schema.xsd"><acr-srm:AccessControlResultsMetadata><acrer:AccessControlRequestError><acrer:ErrorText>The requested Resource {http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB is not available.</acrer:ErrorText><nc30:SystemName>Policy Acknowledgement Service Intermediary</nc30:SystemName></acrer:AccessControlRequestError></acr-srm:AccessControlResultsMetadata></ac-exchange:AccessControlResponse>
