@@ -35,19 +35,22 @@
   </modules>
 
   <dependencies>
-
   </dependencies>
 
   <build>
 
     <plugins>
+
+      <!-- Note, if updating license plugin config here, Ensure the second
+        duplicate declartion is updated also in ojb-build-common project
+        (Plugin declared twice to avoid cyclic dependency) -->
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <version>2.9</version>
 
+        <!-- Reference jar with license txt file on classpath -->
         <dependencies>
-          <!-- dependency containing license txt file -->
           <dependency>
             <groupId>org.ojbc.build</groupId>
             <artifactId>ojb-build-common</artifactId>
@@ -57,7 +60,7 @@
 
         <configuration>
             <!-- Reference license on plugin classpath -->
-           <header>ojb-license.txt</header>
+          <header>ojb-license.txt</header>
           <aggregate>true</aggregate>
           <excludes>
             <exclude>analytics/**</exclude>
