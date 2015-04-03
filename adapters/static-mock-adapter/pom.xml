@@ -25,9 +25,9 @@
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>static-mock-adapter</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.6</version>
+	<version>1.0.7</version>
 	<name>OJB :: static-mock-adapter :: adapter</name>
-	<url>http://www.search.org</url>
+	<url>http://www.ojbc.org</url>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
@@ -55,7 +55,7 @@
 		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
 		<ojb-common-version>[2.0.1,)</ojb-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
-		<static-mock-adapter-version>[1.0.14,)</static-mock-adapter-version>
+		<static-mock-adapter-version>[1.0.15,)</static-mock-adapter-version>
 
 	</properties>
 
@@ -268,7 +268,7 @@
 							META-INF.cxf.osgi,
 							org.springframework.beans.factory.config,
 							javax.xml.namespace,
-							org.search.ojb.staticmock.*,
+							org.ojbc.bundles.adapters.staticmock.*,
 							*
 			</Import-Package>
 						<Export-Package>
