@@ -34,6 +34,10 @@
     <module>web</module>
   </modules>
 
+  <dependencies>
+
+  </dependencies>
+
   <build>
 
     <plugins>
@@ -41,16 +45,19 @@
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <version>2.9</version>
+
+        <dependencies>
+          <!-- dependency containing license txt file -->
+          <dependency>
+            <groupId>org.ojbc.build</groupId>
+            <artifactId>ojb-build-common</artifactId>
+            <version>1.0.0</version>
+          </dependency>
+        </dependencies>
+
         <configuration>
-          <!--
-            <header>shared/ojb-common/src/main/config/build/ojb-license.txt</header>
-
-            Hoto add ojb license comment to top of all source files:
-
-              mvn license:format -Dlicense.header=shared/ojb-common/src/main/config/build/ojb-license.txt
-
-              http://code.mycila.com/license-maven-plugin/
-           -->
+            <!-- Reference license on plugin classpath -->
+           <header>ojb-license.txt</header>
           <aggregate>true</aggregate>
           <excludes>
             <exclude>analytics/**</exclude>
@@ -75,6 +82,7 @@
             <xslt>XML_STYLE</xslt>
           </mapping>
         </configuration>
+
       </plugin>
     </plugins>
   </build>
