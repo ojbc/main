@@ -45,7 +45,7 @@
 
         <configuration>
           <!-- Reference license on plugin classpath -->
-          <header>ojb-license.txt</header>
+          <header>src/main/resources/ojb-license.txt</header>
           <includes>
             <include>**/*.java</include>
             <include>**/*.xml</include>
