@@ -47,17 +47,11 @@
         <version>2.9</version>
 
         <dependencies>
-          <!-- dependency containing license txt file -->
-          <dependency>
-            <groupId>org.ojbc.build</groupId>
-            <artifactId>ojb-build-common</artifactId>
-            <version>1.0.0</version>
-          </dependency>
         </dependencies>
 
         <configuration>
             <!-- Reference license on plugin classpath -->
-           <header>ojb-license.txt</header>
+           <!-- <header>ojb-license.txt</header> -->
           <aggregate>true</aggregate>
           <excludes>
             <exclude>analytics/**</exclude>
