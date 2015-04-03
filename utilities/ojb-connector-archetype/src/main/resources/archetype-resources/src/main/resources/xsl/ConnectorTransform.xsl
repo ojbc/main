@@ -16,22 +16,14 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>org.ojbc.build</groupId>
-  <artifactId>ojb-utilities-aggregate</artifactId>
-  <version>1.0.0</version>
-  <packaging>pom</packaging>
-
-  <parent>
-    <groupId>org.ojbc.build</groupId>
-    <artifactId>ojb-main-aggregate</artifactId>
-    <version>1.0.0</version>
-  </parent>
-
-  <modules>
-    <module>h2-mock-database</module>
-    <module>ojb-connector-archetype</module>
-  </modules>
-</project>
+<!--
+	An identity xslt, to be used as an example when referenced by the 
+	Camel route
+ -->
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:template match="@*|node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </xsl:template>
+</xsl:stylesheet>

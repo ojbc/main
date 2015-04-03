@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -16,22 +17,13 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>org.ojbc.build</groupId>
-  <artifactId>ojb-utilities-aggregate</artifactId>
-  <version>1.0.0</version>
-  <packaging>pom</packaging>
-
-  <parent>
-    <groupId>org.ojbc.build</groupId>
-    <artifactId>ojb-main-aggregate</artifactId>
-    <version>1.0.0</version>
-  </parent>
-
-  <modules>
-    <module>h2-mock-database</module>
-    <module>ojb-connector-archetype</module>
-  </modules>
-</project>
+<cars>
+	<car>
+		<maker>Tella</maker>
+		<model>Model T</model>
+	</car>
+	<car>
+		<maker>Mini</maker>
+		<model>Copper</model>
+	</car>
+</cars>
