@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<pidresults:PersonIdentificationResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0 ../xsd/person_identification_results_schema.xsd" xmlns:pidresults="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<pidresults:PersonIdentificationResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0 ../xsd/person_identification_results_schema.xsd" xmlns:pidresults="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>D56124</nc:IdentificationID>
 	</nc:DocumentIdentification>
@@ -37,12 +37,12 @@
 					<nc:IdentificationID>B1234567</nc:IdentificationID>
 				</j:PersonFBIIdentification>
 			</j:PersonAugmentation>
-			<ext:PersonTrackingIdentidication>
+			<ident-ext:PersonTrackingIdentidication>
 				<nc:IdentificationID>12345</nc:IdentificationID>
-			</ext:PersonTrackingIdentidication>
+			</ident-ext:PersonTrackingIdentidication>
 		</nc:RoleOfPerson>
 	</j:Subject>
-	<ext:IdentificationApplicantOrganization>
+	<ident-ext:IdentificationApplicantOrganization>
 		<nc:OrganizationIdentification>
 			<nc:IdentificationID>ID23457</nc:IdentificationID>
 		</nc:OrganizationIdentification>
@@ -52,12 +52,12 @@
 				<nc:IdentificationID>68796860</nc:IdentificationID>
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
-	</ext:IdentificationApplicantOrganization>
-	<ext:FBIIdentityHistorySummaryDocument structures:id="Doc_01">
-		<ext:DocumentBinary xmime:contentType="text/plain"/>
+	</ident-ext:IdentificationApplicantOrganization>
+	<ident-ext:FBIIdentityHistorySummaryDocument structures:id="Doc_01">
+		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
-	</ext:FBIIdentityHistorySummaryDocument>
-	<ext:LinkedSystems>
+	</ident-ext:FBIIdentityHistorySummaryDocument>
+	<ident-ext:LinkedSystems>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>SYSTEM_ID_01</nc:IdentificationID>
 			<nc:SystemName>SYSTEM_NAME_01</nc:SystemName>
@@ -66,7 +66,7 @@
 			<nc:IdentificationID>SYSTEM_ID_02</nc:IdentificationID>
 			<nc:SystemName>SYSTEM_NAME_02</nc:SystemName>
 		</intel:SystemIdentification>
-	</ext:LinkedSystems>
+	</ident-ext:LinkedSystems>
 	<nc:PersonDocumentAssociation>
 		<nc:Person structures:ref="Subject01"/>
 		<nc:Document structures:ref="Doc_01"/>

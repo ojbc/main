@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:aqrequest="http://ojbc.org/IEPD/Exchange/ArrestQueryRequest/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/ArrestQueryRequestService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://ojbc.org/Services/WSDL/ArrestQueryRequestService/1.0">
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:aqr="http://ojbc.org/IEPD/Exchange/ArrestQueryRequest/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/ArrestQueryRequestService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://ojbc.org/Services/WSDL/ArrestQueryRequestService/1.0">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
@@ -25,7 +25,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="ArrestQueryRequest">
-		<wsdl:part name="ArrestQueryRequest" element="aqrequest:ArrestQueryRequest"/>
+		<wsdl:part name="ArrestQueryRequest" element="aqr:ArrestQueryRequest"/>
 	</wsdl:message>
 	<wsdl:portType name="Arrest-Query-Request-Service">
 		<wsdl:operation name="SubmitArrestQueryRequest">
