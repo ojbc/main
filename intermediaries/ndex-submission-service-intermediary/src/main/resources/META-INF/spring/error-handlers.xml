@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file defines endpoints and beans to handle failed delivery and email notification of the failures -->
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+    		
+	<camel:endpoint id="ndexSubmissionErrorDir"
+		uri="file:///${NDExSubmission.FileSubmissionRoot}/ndexSubmissionResponse/error/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
+
+	<camel:endpoint id="ndexSubmissionErrorDirAchive"
+		uri="file:///${NDExSubmission.FileSubmissionRoot}/ndexSubmissionResponse/error/archive" />
+
+	<camel:endpoint id="ndexSubmissionDeadLetterDir"
+		uri="file:///${NDExSubmission.FileSubmissionRoot}/deadletter/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
+
+	<camel:endpoint id="ndexSubmissionDeadLetterDirArchive"
+		uri="file:///${NDExSubmission.FileSubmissionRoot}/deadletter/archive" />
+	
+	<camel:endpoint id="deadLetterFatalError"
+		uri="file:///${NDExSubmission.FileSubmissionRoot}/deadLetterNDEx/dead" />
+	
+	<camel:endpoint id="deadLetterMail"
+		uri="${smtpServerURI}" />
+
+	<routeContext id="errorHandlerRoutes" xmlns="http://camel.apache.org/schema/spring">
+
+		<!-- Copy failed messages to archive directories for e-mail processing 
+			and storage -->
+		<camel:route>
+			<camel:from uri="ndexSubmissionErrorDir" />
+
+			<!-- Set updated file name -->
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>${date:now:yyyyMMdd}/${in.headers.CamelFileNameOnly}</camel:simple>
+			</camel:setHeader>
+			
+			<camel:to uri="ndexSubmissionErrorDirAchive" />
+			
+			<camel:convertBodyTo type="java.lang.String"/>
+			
+			<!-- Set Incident ID header -->
+			<camel:setHeader headerName="incidentID">
+				<camel:simple>${bean:NDExUtils?method=getIncidentIDFromFileName}</camel:simple> 
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="to">
+				<camel:simple>${bean:FailedNDExSubmissionMessageNotificationEmailAddress.trim}</camel:simple>
+			</camel:setHeader>
+			<camel:setHeader headerName="subject">
+				<camel:simple>${bean:FailedNDExSubmissionMessageNotificationEmailSubject.trim}</camel:simple>
+			</camel:setHeader>
+			
+			<camel:setBody>
+				<camel:simple>N-DEx message delivery failed for Incident ID: ${in.header.incidentID}.  N-DEx returned this message:\n\n ${body}</camel:simple>
+			</camel:setBody>
+			<camel:to uri="deadLetterMail" />
+			<log
+				message="E-mail about to be sent to ${bean:FailedNDExSubmissionMessageNotificationEmailAddress.trim} to notify of N-DEx submission failure with Incident ID of ${in.header.incidentID}." />
+			
+		</camel:route>
+
+		<camel:route>
+			<camel:from uri="ndexSubmissionDeadLetterDir" />
+				 
+			<!-- Set updated file name -->
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>${date:now:yyyyMMdd}/${in.headers.CamelFileNameOnly}</camel:simple>
+			</camel:setHeader>
+			
+			<camel:to uri="ndexSubmissionDeadLetterDirArchive" />
+			
+			<camel:convertBodyTo type="java.lang.String"/>
+
+			<!-- Set Incident ID header -->
+			<camel:setHeader headerName="incidentID">
+				<camel:simple>${bean:NDExUtils?method=getIncidentIDFromFileName}</camel:simple> 
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="to">
+				<camel:simple>${bean:FailedNDExSubmissionTransportNotificationEmailAddress.trim}</camel:simple>
+			</camel:setHeader>
+			<camel:setHeader headerName="subject">
+				<camel:simple>${bean:FailedNDExSubmissionTransportNotificationEmailSubject.trim}</camel:simple>
+			</camel:setHeader>
+			<camel:setBody>
+				<camel:simple>N-DEx message delivery failed for Incident ID: ${in.header.incidentID}. Check connection from N-DEx intermediary to FBI.</camel:simple>
+			</camel:setBody>
+			<camel:to uri="deadLetterMail" />
+			<camel:log
+				message="E-mail about to be sent to ${bean:FailedNDExSubmissionTransportNotificationEmailAddress.trim} to notify of connection or delivery failure." />
+			
+		</camel:route>
+	</routeContext>	
+
+	<bean id="FailedNDExSubmissionTransportNotificationEmailAddress" class="java.lang.String">
+		<constructor-arg>
+			<value>${NDExSubmission.emailNotificationRecipientTransportError}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="FailedNDExSubmissionTransportNotificationEmailSubject" class="java.lang.String">
+		<constructor-arg>
+			<value>${NDExSubmission.emailNotificationSubjectTransportError}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="FailedNDExSubmissionMessageNotificationEmailAddress" class="java.lang.String">
+		<constructor-arg>
+			<value>${NDExSubmission.emailNotificationRecipientMessageError}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="FailedNDExSubmissionMessageNotificationEmailSubject" class="java.lang.String">
+		<constructor-arg>
+			<value>${NDExSubmission.emailNotificationSubjectMessageError}</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- here we configure our DeadLetterChannel for incident report redelivery -->
+	<camel:errorHandler id="ndexDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="ndexSubmissionDeadLetterDir">
+	    <camel:redeliveryPolicy maximumRedeliveries="${NDExSubmission.maximumRedeliveries}" redeliveryDelay="${NDExSubmission.redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
+	</camel:errorHandler>
+
+	<!-- here we configure our DeadLetterChannel for the dead letter channel redelivery -->
+	<camel:errorHandler id="deadLetterChannelErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterFatalError">
+	    <camel:redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="0" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true" />
+	</camel:errorHandler>
+
+</beans>
