@@ -43,7 +43,7 @@
 	<httpj:engine-factory bus="cxf">
 		<!-- you just need to specify the TLS Server configuration for the certain 
 			port -->
-		<httpj:engine port="18053">
+		<httpj:engine port="${NDExSubmission.port}">
 			<httpj:tlsServerParameters>
 				<sec:keyManagers
 					keyPassword="${NDExSubmission.intermediaryKeyPassword}">
