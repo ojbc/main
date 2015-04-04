@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+	xmlns:ndex-response="java:com.raytheon.ndex.ai.webservice"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       ">
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	
+	<!-- Error handlers in case of submission errors -->
+	<import resource="error-handlers.xml" />
+	
+	
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="ndexSubmissionServiceMainCamelContext">
+		<camel:routeContextRef ref="errorHandlerRoutes"/>
+		
+		<endpoint id="ndexFileDropDir"
+			uri="file:///${NDExSubmission.FileSubmissionRoot}/input?idempotent=true&amp;moveFailed=${NDExSubmission.FileSubmissionRoot}/error&amp;move=processed/" />
+
+		<endpoint id="ndexSubmissionSuccessDir"
+			uri="file:///${NDExSubmission.FileSubmissionRoot}/ndexSubmissionResponse/success/" />
+
+		<endpoint id="ndexSubmissionErrorDir"
+			uri="file:///${NDExSubmission.FileSubmissionRoot}/ndexSubmissionResponse/error/" />
+
+		<endpoint id="ndexSubmissionTestDir"
+			uri="file:///${NDExSubmission.FileSubmissionRoot}/ndexSubmissionResponse/test/" />
+
+		<endpoint id="ndexSubmissionDeadLetterDir"
+			uri="file:///${NDExSubmission.FileSubmissionRoot}/deadletter/" />
+
+		<endpoint id="ndexWebserviceEndpoint"
+			uri="${NDExSubmission.N-DexActualServiceEndpoint}?httpClientConfigurerRef=OJBHttpClientConfigurer" />
+			
+		<endpoint id="ndexWebserviceFacadeEndpoint"
+			uri="cxf:bean:N-DexSubmissionServiceFacade?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${NDExSubmission.ndexSubmissionServiceIntermediaryCxflogging}" />
+			
+
+		<!-- N-DEx File Drop Handler -->
+		<camel:route>
+			<camel:from
+				uri="ndexFileDropDir" />
+			<camel:to uri="direct:processNDExSubmission"/>	
+		</camel:route>		
+
+		<!-- N-DEx Web Service Handler -->
+		<camel:route>
+			<camel:from
+				uri="ndexWebserviceFacadeEndpoint" />
+			<camel:to uri="direct:processNDExSubmission"/>	
+		</camel:route>		
+
+		<camel:route>
+			<camel:from uri="direct:processNDExSubmission"/>			
+			<camel:log message="Recieved N-DEx web service invocation" />
+
+			<!-- Here we remove all existing headers to get rid of WS-Security and HTTP headers that interfere with the exchange -->
+			<camel:removeHeaders pattern="*"/>
+
+			<!--  Agency ORI header is needed to create the 'file name' parameter -->
+			<camel:setHeader headerName="AgencyORI">
+				<camel:xpath>//lexs:DataItemPackage/lexs:PackageMetadata/lexs:DataOwnerMetadata/lexs:DataOwnerIdentifier/lexs:ORI/text()</camel:xpath>
+			</camel:setHeader>
+
+			<!--  Incident ID is used to correlate requests and responses -->
+			<camel:setHeader headerName="IncidentID">
+				<camel:xpath>//lexs:DataItemPackage/lexs:PackageMetadata/lexs:DataItemID/text()</camel:xpath>
+			</camel:setHeader>
+
+			<camel:log message="Agency ORI: ${in.headers.AgencyORI}"/>
+			<camel:log message="Incident ID: ${in.headers.IncidentID}"/>
+
+			<!-- Set the file name here based off incident ID so we have the Incident number in case of dead letter failure -->
+			<camel:setHeader headerName="CamelFileName"><camel:simple>INCIDENT_${in.headers.IncidentID}_DATE_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple></camel:setHeader>
+
+			<camel:setHeader headerName="CamelFileName">
+	            <method bean="NDExUtils" method="createNdexFormatFileName"/>
+			</camel:setHeader>
+
+			<!-- This function will set the header 'ndexTestORI' -->
+			<camel:to
+				uri="bean:ndexORIProcessor?method=confirmNdexTestOri"/>
+
+			<!-- If this is an N-DEx 'test' ORI, this processor prefixes with TEST_ so it doesn't go into production -->
+			<camel:filter>
+				<camel:simple>${in.header.ndexTestORI} == 'true'</camel:simple>
+				<camel:setHeader headerName="CamelFileName">
+		            <method bean="NDExUtils" method="createNDexTestFileName"/>
+				</camel:setHeader>
+			</camel:filter>
+				
+			<!-- TODO, we will need to make this dynamic and assign it by mapping an ORI to a system name -->	
+			<!-- The method 'createNDexMessage' uses this variable to create the N-DEx paylaod -->
+			<camel:setHeader headerName="submittingAgencyName">
+				<simple>$simple{NDExSubmission.submittingAgencyName}</simple>
+			</camel:setHeader>
+				
+			<camel:setBody>
+				<camel:xpath>//lexspd:doPublish</camel:xpath>
+			</camel:setBody>
+			
+			<camel:convertBodyTo type="java.lang.String"/>
+			
+			<camel:to
+				uri="bean:NDExUtils?method=createNDExMessage" />
+				
+			<!-- When attempting to connect with CXF, was receiving exception: Caused by: java.net.SocketTimeoutException: Read timed out -->
+			<!-- Tried to troubleshoot with N-DEx techs.  To get it working switching to posting Soap message over HTTPS with camel HTTP component -->
+			<!-- To do this, wrap message as soap message and send to HTTP endpoint. -->	
+			<camel:to uri="xslt:xslt/SOAPWrapper.xsl?transformerFactory=sFactory"/>	
+			
+			<camel:removeHeader headerName="AgencyORI"/>
+			<camel:removeHeader headerName="submittingAgencyName"/>
+
+<!-- 			<camel:setHeader headerName="operationName"><constant>submitNDExIEPD1_0</constant></camel:setHeader> -->
+<!-- 			<camel:setHeader headerName="operationNamespace"><constant>urn://com.raytheon.ndex.ai.webservice</constant></camel:setHeader> -->
+<!-- 			<camel:to uri="cxf:bean:N-DexActualServiceEndpoint?dataFormat=PAYLOAD&amp;synchronous=true;"/> -->
+
+			<camel:log message="About to invoke N-DEx web service"/>
+
+			<camel:filter>
+				<camel:simple>${in.header.ndexTestORI} == 'true'</camel:simple>
+				<camel:wireTap uri="ndexSubmissionTestDir"/>
+			</camel:filter>
+
+
+			<camel:to uri="direct:callNdexService"/>
+			
+			<camel:convertBodyTo type="java.lang.String"/>
+			
+			<camel:log message="This is the HTTP response code: ${in.headers.CamelHttpResponseCode}"/>
+			<camel:log message="This is the response: ${body}"/>
+			
+			<camel:setHeader headerName="fileLevelResultCode"><camel:xpath>//ndex-response:FileLevelResultCode/text()</camel:xpath></camel:setHeader>
+			<camel:setHeader headerName="filelevelMessage"><camel:xpath>//ndex-response:FileLevelResultMessage/text()</camel:xpath></camel:setHeader>
+
+			<camel:log message="File Level Result Code: ${in.headers.fileLevelResultCode}"/>
+			<camel:log message="File Level Message: ${in.headers.filelevelMessage}"/>
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.headers.fileLevelResultCode} == '0' and ${in.headers.filelevelMessage} == 'success'</camel:simple>
+					<camel:log message="Succesful N-DEx Submission, Incident ID: ${in.headers.IncidentID}"/>	
+					<!-- We have succesfully submitted so we want to put the file in a subfolder with today's date -->
+					<camel:setHeader headerName="CamelFileName"><camel:simple>${date:now:yyyyMMdd}/INCIDENT_${in.headers.IncidentID}_DATE_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple></camel:setHeader>
+					<camel:to uri="ndexSubmissionSuccessDir"/>
+				</camel:when>								
+				<camel:otherwise>
+					<camel:log message="N-DEx Submission error, Incident ID: ${in.headers.IncidentID}"/>
+					<camel:to uri="ndexSubmissionErrorDir"/>
+				</camel:otherwise>
+			</camel:choice>
+			
+		</camel:route>
+
+		<!-- Call N-DEx in a separate route so it has its own error handler -->		
+		<camel:route errorHandlerRef="ndexDeadLetterErrorHandler">
+			<camel:from uri="direct:callNdexService"/>
+			<camel:to uri="ndexWebserviceEndpoint"/>
+		</camel:route>
+		
+	</camel:camelContext>
+
+	<bean id="uniqueIDGeneratorBean" class="org.ojbc.util.ndex.util.UniqueIDGenerator"/>
+	
+	<bean id ="ndexORIProcessor" class="org.ojbc.processor.NdexORIProcessor">
+		<constructor-arg type="java.lang.String">
+			<value>${ndexTestORIs}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="NDExUtils" class="org.ojbc.util.camel.helper.NDexUtils">
+		<property name="uniqueIDGenerator" ref="uniqueIDGeneratorBean"/>
+	</bean>
+	
+	<!-- TODO, upgrade to use Camel HTTP4 for simpler configuration -->
+	<bean id="OJBHttpClientConfigurer" class="org.ojbc.ws.security.OJBHttpClientConfigurer">
+		<property name="keystoreLocation"><value>${NDExSubmission.ndexClientKeystoreLocation}</value></property>
+		<property name="keystorePassword"><value>${NDExSubmission.ndexClientKeystorePassword}</value></property>
+		<property name="truststoreLocation"><value>${NDExSubmission.ndexClientTruststoreLocation}</value></property>
+		<property name="truststorePassword"><value>${NDExSubmission.ndexTruststorePassword}</value></property>
+	</bean>
+	
+	<bean id="sFactory" class="net.sf.saxon.TransformerFactoryImpl" />
+
+</beans>

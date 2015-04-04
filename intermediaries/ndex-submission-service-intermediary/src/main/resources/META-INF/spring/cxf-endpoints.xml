@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the Camel Context for N-DEx Submission Service Intermediary-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xmlns:ctx="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
+       ">
+
+	<httpj:engine-factory bus="cxf">
+		<!-- you just need to specify the TLS Server configuration for the certain 
+			port -->
+		<httpj:engine port="${NDExSubmission.portNumber}">
+			<httpj:tlsServerParameters>
+				<sec:keyManagers
+					keyPassword="${NDExSubmission.intermediaryKeyPassword}">
+					<sec:keyStore type="JKS"
+						password="${NDExSubmission.intermediaryKeystorePassword}"
+						file="${NDExSubmission.intermediaryKeystoreLocation}" />
+				</sec:keyManagers>
+				<sec:cipherSuitesFilter>
+					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				</sec:cipherSuitesFilter>
+			</httpj:tlsServerParameters>
+		</httpj:engine>
+	</httpj:engine-factory>
+	
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${NDExSubmission.ndexSigningUserAlias}" value="${NDExSubmission.intermediaryKeyPassword}"/>
+            </map>
+        </property>
+	</bean>	
+	
+	<!-- Define a Properties object with the properties required by the org.apache.ws.security.components.crypto.Merlin 
+		WSS4j Crypto implementation. This crypto config is used for signature creation 
+		and validation. -->
+	<util:properties id="ndexKeystoreProperties">
+		<!-- Defines the implementation class. -->
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<!-- The type of the keystore pointed to by org.apache.ws.security.crypto.merlin.file. -->
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<!-- The password for the keystore file, in this case our signing truststore. -->
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${NDExSubmission.intermediaryKeystorePassword}
+		</prop>
+		<!-- The keystore file. -->
+		<prop key="org.apache.ws.security.crypto.merlin.file">${NDExSubmission.intermediaryKeystoreLocation}
+		</prop>
+	</util:properties>
+	
+	<!-- OJB NDEx Submission Service -->
+	<cxf:cxfEndpoint id="N-DexSubmissionServiceFacade"
+		address="${NDExSubmission.N-DexSubmissionServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+ 		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="ndexKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${NDExSubmission.ndexSigningUserAlias}" />
+		</cxf:properties> 
+		
+	</cxf:cxfEndpoint>
+	
+	<!-- Conduit for N-DEx submission -->
+	<!-- THE CXF ENDPOINT WAS NOT WORKING FOR N-DEX SUBMISSION DUE TO THE N-DEX WSDL, A SIMPLE HTTPS CONNECTION WAS USED INSTEAD -->
+<!-- 	<http:conduit -->
+<!-- 		name="{urn://com.raytheon.ndex.ai.webservice}AI_W_SourceDataIntegrationServicePort.http-conduit" > -->
+<!-- 		<http:tlsClientParameters disableCNCheck="true" > -->
+<!-- 			<sec:keyManagers keyPassword="${NDExSubmission.ndexClientKeypassword}"> -->
+<!-- 				<sec:keyStore type="JKS" -->
+<!-- 					password="${NDExSubmission.ndexClientKeystorePassword}" -->
+<!-- 					file="${NDExSubmission.ndexClientKeystoreLocation}" /> -->
+<!-- 			</sec:keyManagers> -->
+<!-- 			<sec:trustManagers> -->
+<!-- 				<sec:keyStore type="JKS" -->
+<!-- 					password="${NDExSubmission.ndexTruststorePassword}" -->
+<!-- 					file="${NDExSubmission.ndexClientTruststoreLocation}" /> -->
+<!-- 			</sec:trustManagers> -->
+<!-- 			<sec:cipherSuitesFilter> -->
+<!-- 				these filters ensure that a ciphersuite with export-suitable or 
+ 					null encryption is used, but exclude anonymous Diffie-Hellman key change  -->
+<!-- 					as this is vulnerable to man-in-the-middle attacks -->
+<!-- 				<sec:include>.*_EXPORT_.*</sec:include> -->
+<!-- 				<sec:include>.*_EXPORT1024_.*</sec:include> -->
+<!-- 				<sec:include>.*_WITH_DES_.*</sec:include> -->
+<!-- 				<sec:include>.*_WITH_NULL_.*</sec:include> -->
+<!-- 				<sec:exclude>.*_DH_anon_.*</sec:exclude> -->
+<!-- 			</sec:cipherSuitesFilter> -->
+<!-- 		</http:tlsClientParameters> -->
+<!-- 		<http:client AutoRedirect="true" Connection="Keep-Alive"/> -->
+<!-- 	</http:conduit> -->
+	
+		<!-- OJB NDEx Submission Service -->
+<!-- 	<cxf:cxfEndpoint id="N-DexActualServiceEndpoint" -->
+<!-- 		address="${NDExSubmission.N-DexActualServiceEndpoint}" -->
+<!-- 		wsdlURL="classpath:service-specifications/N-DEx-IncidentArrest-2.1.1/wsdl/AI_W_WebService.wsdl" -->
+<!-- 		serviceName="ndex:AI_W_SourceDataIntegrationService" endpointName="ndex:AI_W_SourceDataIntegrationServicePort" -->
+<!-- 		xmlns:ndex="urn://com.raytheon.ndex.ai.webservice"> -->
+<!-- 	</cxf:cxfEndpoint> -->
+		
+</beans>
