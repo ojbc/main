@@ -18,73 +18,15 @@
 
 -->
 <!-- Schema for the SOAP/1.1 envelope Portions © 2001 DevelopMentor. © 2001 W3C (Massachusetts Institute of Technology, Institut National de Recherche en Informatique et en Automatique, Keio University). All Rights Reserved. This document is governed by the W3C Software License [1] as described in the FAQ [2]. [1] http://www.w3.org/Consortium/Legal/copyright-software-19980720 [2] http://www.w3.org/Consortium/Legal/IPR-FAQ-20000620.html#DTD By obtaining, using and/or copying this work, you (the licensee) agree that you have read, understood, and will comply with the following terms and conditions: Permission to use, copy, modify, and distribute this software and its documentation, with or without modification, for any purpose and without fee or royalty is hereby granted, provided that you include the following on ALL copies of the software and documentation or portions thereof, including modifications, that you make: 1. The full text of this NOTICE in a location viewable to users of the redistributed or derivative work. 2. Any pre-existing intellectual property disclaimers, notices, or terms and conditions. If none exist, a short notice of the following form (hypertext is preferred, text is permitted) should be used within the body of any redistributed or derivative code: "Copyright © 2001 World Wide Web Consortium, (Massachusetts Institute of Technology, Institut National de Recherche en Informatique et en Automatique, Keio University). All Rights Reserved. http://www.w3.org/Consortium/Legal/" 3. Notice of any changes or modifications to the W3C files, including the date changes were made. (We recommend you provide URIs to the location from which the code is derived.) Original W3C files; http://www.w3.org/2001/06/soap-envelope Changes made: - reverted namespace to http://schemas.xmlsoap.org/soap/envelope/ - reverted mustUnderstand to only allow 0 and 1 as lexical values - made encodingStyle a global attribute 20020825 - removed default value from mustUnderstand attribute declaration THIS SOFTWARE AND DOCUMENTATION IS PROVIDED "AS IS," AND COPYRIGHT HOLDERS MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF THE SOFTWARE OR DOCUMENTATION WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS. COPYRIGHT HOLDERS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF ANY USE OF THE SOFTWARE OR DOCUMENTATION. The name and trademarks of copyright holders may NOT be used in advertising or publicity pertaining to the software without specific, written prior permission. Title to copyright in this software and any associated documentation will at all times remain with copyright holders. -->
-<xs:schema 
-	targetNamespace="http://schemas.xmlsoap.org/soap/envelope/" 
-	xmlns:tns="http://schemas.xmlsoap.org/soap/envelope/" 
-	xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<!-- Envelope, header and body -->
-	<xs:element type="tns:Envelope" name="Envelope"/>
-	<xs:complexType name="Envelope">
-		<xs:sequence>
-			<xs:element minOccurs="0" ref="tns:Header"/>
-			<xs:element minOccurs="1" ref="tns:Body"/>
-			<xs:any minOccurs="0" processContents="lax" maxOccurs="unbounded" namespace="##other"/>
-		</xs:sequence>
-		<xs:anyAttribute processContents="lax" namespace="##other"/>
-	</xs:complexType>
-	<xs:element type="tns:Header" name="Header"/>
-	<xs:complexType name="Header">
-		<xs:sequence>
-			<xs:any minOccurs="0" processContents="lax" maxOccurs="unbounded" namespace="##other"/>
-		</xs:sequence>
-		<xs:anyAttribute processContents="lax" namespace="##other"/>
-	</xs:complexType>
-	<xs:element type="tns:Body" name="Body"/>
-	<xs:complexType name="Body">
-		<xs:sequence>
-			<xs:any minOccurs="0" processContents="lax" maxOccurs="unbounded" namespace="##any"/>
-		</xs:sequence>
-		<xs:anyAttribute processContents="lax" namespace="##any">
-			<xs:annotation>
-				<xs:documentation> Prose in the spec does not specify that attributes are allowed on the Body element </xs:documentation>
-			</xs:annotation>
-		</xs:anyAttribute>
-	</xs:complexType>
-	<!-- Global Attributes. The following attributes are intended to be usable via qualified attribute names on any complex type referencing them. -->
-	<xs:attribute name="mustUnderstand">
-		<xs:simpleType>
-			<xs:restriction base="xs:boolean">
-				<xs:pattern value="0|1"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:attribute>
-	<xs:attribute type="xs:anyURI" name="actor"/>
-	<xs:simpleType name="encodingStyle">
-		<xs:annotation>
-			<xs:documentation> 'encodingStyle' indicates any canonicalization conventions followed in the contents of the containing element. For example, the value 'http://schemas.xmlsoap.org/soap/encoding/' indicates the pattern described in SOAP specification </xs:documentation>
-		</xs:annotation>
-		<xs:list itemType="xs:anyURI"/>
-	</xs:simpleType>
-	<xs:attribute type="tns:encodingStyle" name="encodingStyle"/>
-	<xs:attributeGroup name="encodingStyle">
-		<xs:attribute ref="tns:encodingStyle"/>
-	</xs:attributeGroup>
-	<xs:element type="tns:Fault" name="Fault"/>
-	<xs:complexType name="Fault" final="extension">
-		<xs:annotation>
-			<xs:documentation> Fault reporting structure </xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element type="xs:QName" name="faultcode"/>
-			<xs:element type="xs:string" name="faultstring"/>
-			<xs:element type="xs:anyURI" name="faultactor" minOccurs="0"/>
-			<xs:element type="tns:detail" name="detail" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="detail">
-		<xs:sequence>
-			<xs:any minOccurs="0" processContents="lax" maxOccurs="unbounded" namespace="##any"/>
-		</xs:sequence>
-		<xs:anyAttribute processContents="lax" namespace="##any"/>
-	</xs:complexType>
+<xs:schema xmlns:mbacr-doc="http://ojbc.org/IEPD/Exchange/MessageBasedAccessControlRequest/1.0"
+xmlns:acreq-ext="http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0"
+xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+targetNamespace="http://ojbc.org/IEPD/Exchange/MessageBasedAccessControlRequest/1.0">
+	<xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xs:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
+	<xs:import namespace="http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0" schemaLocation="extension-schema.xsd"/>
+	<xs:element name="MessageBasedAccessControlRequest" type="acreq-ext:MessageBasedAccessControlRequestType"/>
 </xs:schema>
