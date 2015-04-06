@@ -31,7 +31,7 @@
            xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
            xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
            xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
-           xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
+           xmlns:ar-doc="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
            xmlns:oar="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
    		xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0 ../xsd/exchange_schema/Arrest_Report.xsd">

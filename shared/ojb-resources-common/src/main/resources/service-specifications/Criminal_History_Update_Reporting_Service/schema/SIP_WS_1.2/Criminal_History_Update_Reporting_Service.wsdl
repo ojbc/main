@@ -21,7 +21,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:crimhistory-update-exch="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
@@ -33,7 +33,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="CycleTrackingIdentifierAssignmentReport">
-		<wsdl:part name="CycleTrackingIdentifierAssignmentReport" element="crimhistory-update-exch:CycleTrackingIdentifierAssignmentReport" />
+		<wsdl:part name="CycleTrackingIdentifierAssignmentReport" element="crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport" />
 	</wsdl:message>
 	<wsdl:portType name="Criminal-History-Update-Reporting-Service">
 		<wsdl:operation name="ReportCycleTrackingIdentifierAssignment">
