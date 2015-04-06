@@ -291,7 +291,6 @@
 				<configuration>
 					<instructions>
 						<Import-Package>
-							com.mysql.jdbc,
 							org.apache.commons.dbcp,
 							org.h2.jdbcx;resolution:=optional,
 							META-INF.cxf,
