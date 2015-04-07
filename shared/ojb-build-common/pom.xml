@@ -64,7 +64,14 @@
             <xslt>XML_STYLE</xslt>
           </mapping>
         </configuration>
-
+        <executions>
+            <!-- bind check goal to run on its default phase(validate) -->
+            <execution>
+                <goals>
+                    <goal>check</goal>
+                </goals>
+            </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

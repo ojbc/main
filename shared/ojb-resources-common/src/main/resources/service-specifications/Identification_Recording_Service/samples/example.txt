@@ -12,14 +12,14 @@ Content-ID: <identification_request_message@ojbc.org>
  xmlns:soap='http://www.w3.org/2003/05/soap-envelope'
  xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
  xmlns:xop="http://www.w3.org/2004/08/xop/include"
- xmlns:pidrequest="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
+ xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
  xmlns:ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
  xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <soap:Body>
-<pidrequest:PersonIdentificationRequest>
+<pidreq-doc:PersonIdentificationRequest>
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>D567214</nc:IdentificationID>
 	</nc:DocumentIdentification>
@@ -58,7 +58,7 @@ Content-ID: <identification_request_message@ojbc.org>
 		<nc:Person structures:ref="Subject01"/>
 		<nc:Document structures:ref="Doc_01"/>
 	</nc:PersonDocumentAssociation>
-</pidrequest:PersonIdentificationRequest>  
+</pidreq-doc:PersonIdentificationRequest>  
   </soap:Body>
 </soap:Envelope>
 

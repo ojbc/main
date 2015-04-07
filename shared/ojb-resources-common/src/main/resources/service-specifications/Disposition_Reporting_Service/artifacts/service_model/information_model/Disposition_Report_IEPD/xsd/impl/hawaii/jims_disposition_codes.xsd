@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:hi_codes_jims="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://release.niem.gov/niem/appinfo/3.0/" xmlns:disp_ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" version="1.0">
+<xsd:schema xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:hi_codes_jims="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://release.niem.gov/niem/appinfo/3.0/" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" version="1.0">
 	<xsd:annotation>
 		<xsd:documentation>HAJIS Codes for Hawaii Dispositions</xsd:documentation>
 		<xsd:appinfo>
@@ -55939,47 +55939,47 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="ChargeModifierCode" type="hi_codes_jims:ChargeModifierCodeType" substitutionGroup="disp_ext:ChargeModifier">
+	<xsd:element name="ChargeModifierCode" type="hi_codes_jims:ChargeModifierCodeType" substitutionGroup="disp-ext:ChargeModifier">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtCode" type="hi_codes_jims:CourtCodeType" substitutionGroup="disp_ext:Court">
+	<xsd:element name="CourtCode" type="hi_codes_jims:CourtCodeType" substitutionGroup="disp-ext:Court">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtEventCode" type="hi_codes_jims:CourtEventCodeType" substitutionGroup="disp_ext:CourtEvent">
+	<xsd:element name="CourtEventCode" type="hi_codes_jims:CourtEventCodeType" substitutionGroup="disp-ext:CourtEvent">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtLocationCode" type="hi_codes_jims:CourtLocationCodeType" substitutionGroup="disp_ext:CourtLocation">
+	<xsd:element name="CourtLocationCode" type="hi_codes_jims:CourtLocationCodeType" substitutionGroup="disp-ext:CourtLocation">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionCode" type="hi_codes_jims:DispositionCodeType" substitutionGroup="disp_ext:Disposition">
+	<xsd:element name="DispositionCode" type="hi_codes_jims:DispositionCodeType" substitutionGroup="disp-ext:Disposition">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CaseDocketCode" type="hi_codes_jims:CaseDocketCodeType" substitutionGroup="disp_ext:CaseDocket">
+	<xsd:element name="CaseDocketCode" type="hi_codes_jims:CaseDocketCodeType" substitutionGroup="disp-ext:CaseDocket">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PleaCode" type="hi_codes_jims:PleaCodeType" substitutionGroup="disp_ext:Plea">
+	<xsd:element name="PleaCode" type="hi_codes_jims:PleaCodeType" substitutionGroup="disp-ext:Plea">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceCode" type="hi_codes_jims:SentenceCodeType" substitutionGroup="disp_ext:Sentence">
+	<xsd:element name="SentenceCode" type="hi_codes_jims:SentenceCodeType" substitutionGroup="disp-ext:Sentence">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AttorneyIDCode" type="hi_codes_jims:AttorneyIDCodeType" substitutionGroup="disp_ext:CaseOfficial">
+	<xsd:element name="AttorneyIDCode" type="hi_codes_jims:AttorneyIDCodeType" substitutionGroup="disp-ext:CaseOfficial">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes an attorney ID.</xsd:documentation>
 		</xsd:annotation>

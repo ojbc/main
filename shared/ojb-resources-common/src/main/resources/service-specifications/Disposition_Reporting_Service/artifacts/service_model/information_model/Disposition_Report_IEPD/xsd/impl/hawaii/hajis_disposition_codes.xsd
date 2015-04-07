@@ -21,7 +21,7 @@
 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 xmlns:i="http://release.niem.gov/niem/appinfo/3.0/"
 xmlns:hi_codes_hajis="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0"
-xmlns:disp_ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
 targetNamespace="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0" version="1.0">
 	<xsd:annotation>
 		<xsd:documentation>HAJIS Codes for Hawaii Dispositions</xsd:documentation>
@@ -1080,57 +1080,57 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="ChargeSeverityCode" type="hi_codes_hajis:ChargeSeverityCodeType" substitutionGroup="disp_ext:Charge">
+	<xsd:element name="ChargeSeverityCode" type="hi_codes_hajis:ChargeSeverityCodeType" substitutionGroup="disp-ext:Charge">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a charge severity.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CounselCategoryCode" type="hi_codes_hajis:CounselCategoryCodeType" substitutionGroup="disp_ext:CaseOfficial">
+	<xsd:element name="CounselCategoryCode" type="hi_codes_hajis:CounselCategoryCodeType" substitutionGroup="disp-ext:CaseOfficial">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a category of a defense attorney.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtEventCategoryCode" type="hi_codes_hajis:CourtEventCategoryCodeType" substitutionGroup="disp_ext:CourtEvent">
+	<xsd:element name="CourtEventCategoryCode" type="hi_codes_hajis:CourtEventCategoryCodeType" substitutionGroup="disp-ext:CourtEvent">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a court event.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionCategoryCode" type="hi_codes_hajis:DispCategoryCodeType" substitutionGroup="disp_ext:Disposition">
+	<xsd:element name="DispositionCategoryCode" type="hi_codes_hajis:DispCategoryCodeType" substitutionGroup="disp-ext:Disposition">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a disposition category.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionCode" type="hi_codes_hajis:DispositionCodeType" substitutionGroup="disp_ext:Disposition">
+	<xsd:element name="DispositionCode" type="hi_codes_hajis:DispositionCodeType" substitutionGroup="disp-ext:Disposition">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PleaCode" type="hi_codes_hajis:PleaCodeType" substitutionGroup="disp_ext:Plea">
+	<xsd:element name="PleaCode" type="hi_codes_hajis:PleaCodeType" substitutionGroup="disp-ext:Plea">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a plea.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceCategoryCode" type="hi_codes_hajis:SentenceCategoryCodeType" substitutionGroup="disp_ext:Sentence">
+	<xsd:element name="SentenceCategoryCode" type="hi_codes_hajis:SentenceCategoryCodeType" substitutionGroup="disp-ext:Sentence">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a category of a sentence.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceConditionCategoryCode" type="hi_codes_hajis:SentenceCategoryCodeType" substitutionGroup="disp_ext:SentenceConditionLiteral">
+	<xsd:element name="SentenceConditionCategoryCode" type="hi_codes_hajis:SentenceCategoryCodeType" substitutionGroup="disp-ext:SentenceConditionLiteral">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a category of a sentence.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceMethodCode" type="hi_codes_hajis:SentenceMethodCodeType" substitutionGroup="disp_ext:Sentence">
+	<xsd:element name="SentenceMethodCode" type="hi_codes_hajis:SentenceMethodCodeType" substitutionGroup="disp-ext:Sentence">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence method.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceUnitCode" type="hi_codes_hajis:SentenceUnitCodeType" substitutionGroup="disp_ext:Sentence">
+	<xsd:element name="SentenceUnitCode" type="hi_codes_hajis:SentenceUnitCodeType" substitutionGroup="disp-ext:Sentence">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a unit for a sentence.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TrialCategoryCode" type="hi_codes_hajis:TrialCategoryCodeType" substitutionGroup="disp_ext:CourtEvent">
+	<xsd:element name="TrialCategoryCode" type="hi_codes_hajis:TrialCategoryCodeType" substitutionGroup="disp-ext:CourtEvent">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a trial category.</xsd:documentation>
 		</xsd:annotation>

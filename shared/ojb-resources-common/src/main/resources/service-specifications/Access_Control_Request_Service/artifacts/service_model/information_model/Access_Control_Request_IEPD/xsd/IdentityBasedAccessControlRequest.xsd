@@ -19,21 +19,17 @@
 -->
 <xs:schema 
 	targetNamespace="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0" 
-	xmlns:ibacr="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0"
+	xmlns:ibacr-doc="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0"
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:ibacr-ext="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:acreq-ext="http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0"
+	xmlns:j="http:/release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	
 	<xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xs:import namespace="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0" schemaLocation="extension-schema.xsd"/>
+	<xs:import namespace="http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0" schemaLocation="extension-schema.xsd"/>
 	<xs:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
-	
-	
-	<xs:element name="IdentityBasedAccessControlRequest" type="ibacr-ext:IdentityBasedAccessControlRequestType">
+	<xs:element name="IdentityBasedAccessControlRequest" type="acreq-ext:IdentityBasedAccessControlRequestType">
 		<xs:annotation>
 			<xs:documentation>A request for a specific person to access a specific resource.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	
 </xs:schema>
