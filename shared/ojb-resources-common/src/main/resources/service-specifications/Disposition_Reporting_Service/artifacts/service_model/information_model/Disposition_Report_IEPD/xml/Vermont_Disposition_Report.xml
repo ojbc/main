@@ -17,10 +17,10 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<disp_exc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0 ../xsd/impl/vermont/disposition_codes.xsd"
+<disp-doc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0 ../xsd/impl/vermont/disposition_codes.xsd"
 xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-xmlns:disp_exc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
-xmlns:disp_ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
 xmlns:vt_codes="http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0"
 xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
 xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
@@ -58,8 +58,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<nc:CaseDocketID>String</nc:CaseDocketID>
 		<j:CaseAugmentation>
 			<j:CaseCharge structures:id="CHARGE_01">
-				<disp_ext:ChargeAugmentation>
-					<disp_ext:InitialCharge>
+				<disp-ext:ChargeAugmentation>
+					<disp-ext:InitialCharge>
 						<j:ChargeCategoryDescriptionText>Charge Class</j:ChargeCategoryDescriptionText>
 						<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 						<j:ChargeDescriptionText>String</j:ChargeDescriptionText>
@@ -67,9 +67,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 							<nc:ActivityDate>
 								<nc:Date>2001-12-17</nc:Date>
 							</nc:ActivityDate>
-							<disp_ext:PleaAugmentation>
+							<disp-ext:PleaAugmentation>
 								<vt_codes:OriginalPleaCode>3</vt_codes:OriginalPleaCode>
-							</disp_ext:PleaAugmentation>
+							</disp-ext:PleaAugmentation>
 						</j:ChargePlea>
 						<j:ChargeStatute>
 							<j:StatuteCodeIdentification>
@@ -79,43 +79,43 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 								<nc:IdentificationID>476-689</nc:IdentificationID>
 							</j:StatuteCodeSectionIdentification>
 						</j:ChargeStatute>
-						<disp_ext:ChargeAugmentation>
-							<disp_ext:ChargeFee>
+						<disp-ext:ChargeAugmentation>
+							<disp-ext:ChargeFee>
 								<nc:ObligationDueAmount>
 									<nc:Amount>100.00</nc:Amount>
 									<vt_codes:FineGrpCode>14</vt_codes:FineGrpCode>
 								</nc:ObligationDueAmount>
-								<disp_ext:ObligationRequiredIndicator>true</disp_ext:ObligationRequiredIndicator>
-							</disp_ext:ChargeFee>
-							<disp_ext:ChargeNumericalRank>40</disp_ext:ChargeNumericalRank>
-							<disp_ext:SexRegistryChargeIndicator>true</disp_ext:SexRegistryChargeIndicator>
+								<disp-ext:ObligationRequiredIndicator>true</disp-ext:ObligationRequiredIndicator>
+							</disp-ext:ChargeFee>
+							<disp-ext:ChargeNumericalRank>40</disp-ext:ChargeNumericalRank>
+							<disp-ext:SexRegistryChargeIndicator>true</disp-ext:SexRegistryChargeIndicator>
 							<j:Bail>
 								<j:BailSetAmount>
 									<nc:Amount>0.0</nc:Amount>
 								</j:BailSetAmount>
 							</j:Bail>
-							<disp_ext:ProbationViolationIndicator>false</disp_ext:ProbationViolationIndicator>
-						</disp_ext:ChargeAugmentation>
-					</disp_ext:InitialCharge>
-					<disp_ext:FinalCharge>
+							<disp-ext:ProbationViolationIndicator>false</disp-ext:ProbationViolationIndicator>
+						</disp-ext:ChargeAugmentation>
+					</disp-ext:InitialCharge>
+					<disp-ext:FinalCharge>
 						<j:ChargeCategoryDescriptionText>Charge Class</j:ChargeCategoryDescriptionText>
 						<j:ChargeDescriptionText>String</j:ChargeDescriptionText>
 						<j:ChargeDisposition>
 							<nc:DispositionDate>
 								<nc:Date>2001-12-17</nc:Date>
 							</nc:DispositionDate>
-							<disp_ext:ChargeDispositionAugmentation>
+							<disp-ext:ChargeDispositionAugmentation>
 								<vt_codes:NonConvCatCode>6</vt_codes:NonConvCatCode>
 								<vt_codes:CourtDispCode>3</vt_codes:CourtDispCode>
 								<vt_codes:ProsDispCode>1</vt_codes:ProsDispCode>
-								<disp_ext:DispositionYear>1999</disp_ext:DispositionYear>
-								<disp_ext:DispositionDuration>P23D</disp_ext:DispositionDuration>
-							</disp_ext:ChargeDispositionAugmentation>
+								<disp-ext:DispositionYear>1999</disp-ext:DispositionYear>
+								<disp-ext:DispositionDuration>P23D</disp-ext:DispositionDuration>
+							</disp-ext:ChargeDispositionAugmentation>
 						</j:ChargeDisposition>
 						<j:ChargePlea>
-							<disp_ext:PleaAugmentation>
+							<disp-ext:PleaAugmentation>
 								<vt_codes:PleaChangeCode>1</vt_codes:PleaChangeCode>
-							</disp_ext:PleaAugmentation>
+							</disp-ext:PleaAugmentation>
 						</j:ChargePlea>
 						<j:ChargeSentence>
 							<nc:ActivityDate>
@@ -126,12 +126,12 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 									<nc:DisciplinaryActionFee>
 										<nc:ObligationDueAmount>
 											<nc:Amount>100.00</nc:Amount>
-											<disp_ext:FineSuspendedIndicator>true</disp_ext:FineSuspendedIndicator>
+											<disp-ext:FineSuspendedIndicator>true</disp-ext:FineSuspendedIndicator>
 										</nc:ObligationDueAmount>
 									</nc:DisciplinaryActionFee>
 									<nc:DisciplinaryActionRestitution>
 										<nc:ObligationCategoryText>String</nc:ObligationCategoryText>
-										<disp_ext:ObligationRequiredIndicator>true</disp_ext:ObligationRequiredIndicator>
+										<disp-ext:ObligationRequiredIndicator>true</disp-ext:ObligationRequiredIndicator>
 									</nc:DisciplinaryActionRestitution>
 								</nc:ConditionDisciplinaryAction>
 							</j:SentenceCondition>
@@ -142,22 +142,22 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 								<j:TermDuration>P1Y2M3D</j:TermDuration>
 								<j:TermMaximumDuration>P1Y2M3D</j:TermMaximumDuration>
 								<j:TermMinimumDuration>P1Y2M3D</j:TermMinimumDuration>
-								<disp_ext:SentenceTermAugmentation>
-									<disp_ext:TermMaximumTotalDays>56.1</disp_ext:TermMaximumTotalDays>
-									<disp_ext:TermMaximumTotalYears>4.12</disp_ext:TermMaximumTotalYears>
-									<disp_ext:TermMinimumTotalDays>6.1</disp_ext:TermMinimumTotalDays>
-									<disp_ext:TermMinimumTotalYears>2.1</disp_ext:TermMinimumTotalYears>
-									<disp_ext:TermTotalDays>545.6</disp_ext:TermTotalDays>
-								</disp_ext:SentenceTermAugmentation>
+								<disp-ext:SentenceTermAugmentation>
+									<disp-ext:TermMaximumTotalDays>56.1</disp-ext:TermMaximumTotalDays>
+									<disp-ext:TermMaximumTotalYears>4.12</disp-ext:TermMaximumTotalYears>
+									<disp-ext:TermMinimumTotalDays>6.1</disp-ext:TermMinimumTotalDays>
+									<disp-ext:TermMinimumTotalYears>2.1</disp-ext:TermMinimumTotalYears>
+									<disp-ext:TermTotalDays>545.6</disp-ext:TermTotalDays>
+								</disp-ext:SentenceTermAugmentation>
 							</j:SentenceTerm>
-							<disp_ext:SentenceAugmentation>
+							<disp-ext:SentenceAugmentation>
 								<vt_codes:SentenceCode>2</vt_codes:SentenceCode>
 								<vt_codes:SentCatCode>9</vt_codes:SentCatCode>
-								<disp_ext:SentenceDiversionIndicator>false</disp_ext:SentenceDiversionIndicator>
-								<disp_ext:SentenceDiversionDate>
+								<disp-ext:SentenceDiversionIndicator>false</disp-ext:SentenceDiversionIndicator>
+								<disp-ext:SentenceDiversionDate>
 									<nc:Date>2012-03-23</nc:Date>
-								</disp_ext:SentenceDiversionDate>
-							</disp_ext:SentenceAugmentation>
+								</disp-ext:SentenceDiversionDate>
+							</disp-ext:SentenceAugmentation>
 						</j:ChargeSentence>
 						<j:ChargeStatute>
 							<j:StatuteCodeIdentification>
@@ -167,12 +167,12 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 								<nc:IdentificationID>476-689</nc:IdentificationID>
 							</j:StatuteCodeSectionIdentification>
 						</j:ChargeStatute>
-						<disp_ext:ChargeAugmentation>
-							<disp_ext:ChargeNumericalRank>40</disp_ext:ChargeNumericalRank>
-							<disp_ext:SexRegistryChargeIndicator>true</disp_ext:SexRegistryChargeIndicator>
-						</disp_ext:ChargeAugmentation>
-					</disp_ext:FinalCharge>
-				</disp_ext:ChargeAugmentation>
+						<disp-ext:ChargeAugmentation>
+							<disp-ext:ChargeNumericalRank>40</disp-ext:ChargeNumericalRank>
+							<disp-ext:SexRegistryChargeIndicator>true</disp-ext:SexRegistryChargeIndicator>
+						</disp-ext:ChargeAugmentation>
+					</disp-ext:FinalCharge>
+				</disp-ext:ChargeAugmentation>
 			</j:CaseCharge>
 			<j:CaseCourt>
 				<nc:OrganizationLocation>
@@ -185,9 +185,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<nc:ActivityDate>
 					<nc:Date>2012-09-26</nc:Date>
 				</nc:ActivityDate>
-				<disp_ext:CourtEventAugmentation>
-					<disp_ext:FailedToAppearIndicator>false</disp_ext:FailedToAppearIndicator>
-				</disp_ext:CourtEventAugmentation>
+				<disp-ext:CourtEventAugmentation>
+					<disp-ext:FailedToAppearIndicator>false</disp-ext:FailedToAppearIndicator>
+				</disp-ext:CourtEventAugmentation>
 			</j:CaseCourtEvent>
 			<j:CaseDefenseAttorney>
 				<nc:RoleOfPerson>
@@ -195,9 +195,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						<nc:PersonFullName>String</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
-				<disp_ext:CaseOfficialAugmentation>
+				<disp-ext:CaseOfficialAugmentation>
 					<vt_codes:AttorneyCatCode>4</vt_codes:AttorneyCatCode>
-				</disp_ext:CaseOfficialAugmentation>
+				</disp-ext:CaseOfficialAugmentation>
 			</j:CaseDefenseAttorney>
 			<j:CaseHearing>
 				<nc:ActivityIdentification>
@@ -206,25 +206,25 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<nc:ActivityDate>
 					<nc:Date>2001-12-17</nc:Date>
 				</nc:ActivityDate>
-				<disp_ext:CourtEventAugmentation>
-					<disp_ext:ChargeCountFiled>2</disp_ext:ChargeCountFiled>
-				</disp_ext:CourtEventAugmentation>
+				<disp-ext:CourtEventAugmentation>
+					<disp-ext:ChargeCountFiled>2</disp-ext:ChargeCountFiled>
+				</disp-ext:CourtEventAugmentation>
 			</j:CaseHearing>
 			<j:CaseTrial>
-				<disp_ext:CourtEventAugmentation>
-					<disp_ext:CourtTrialIndicator>true</disp_ext:CourtTrialIndicator>
-				</disp_ext:CourtEventAugmentation>
+				<disp-ext:CourtEventAugmentation>
+					<disp-ext:CourtTrialIndicator>true</disp-ext:CourtTrialIndicator>
+				</disp-ext:CourtEventAugmentation>
 			</j:CaseTrial>
 		</j:CaseAugmentation>
-		<disp_ext:CaseAugmentation>
-			<disp_ext:FiscalYear>2004</disp_ext:FiscalYear>
-			<disp_ext:CaseChargeCountQuantity>6</disp_ext:CaseChargeCountQuantity>
+		<disp-ext:CaseAugmentation>
+			<disp-ext:FiscalYear>2004</disp-ext:FiscalYear>
+			<disp-ext:CaseChargeCountQuantity>6</disp-ext:CaseChargeCountQuantity>
 			<vt_codes:PTStatCode>4</vt_codes:PTStatCode>
 			<j:PresentenceInvestigation>
-				<disp_ext:PresentenceInvestigationIndicator>true</disp_ext:PresentenceInvestigationIndicator>
+				<disp-ext:PresentenceInvestigationIndicator>true</disp-ext:PresentenceInvestigationIndicator>
 			</j:PresentenceInvestigation>
-			<disp_ext:OriginalChargeAmendedIndicator>true</disp_ext:OriginalChargeAmendedIndicator>
-		</disp_ext:CaseAugmentation>
+			<disp-ext:OriginalChargeAmendedIndicator>true</disp-ext:OriginalChargeAmendedIndicator>
+		</disp-ext:CaseAugmentation>
 	</nc:Case>
 	<j:Arrest structures:id="ARREST_01">
 		<nc:ActivityDate>
@@ -240,18 +240,18 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 		</j:ArrestAgency>
-		<disp_ext:ArrestAugmentation>
-			<disp_ext:ArrestYear>2006</disp_ext:ArrestYear>
-		</disp_ext:ArrestAugmentation>
+		<disp-ext:ArrestAugmentation>
+			<disp-ext:ArrestYear>2006</disp-ext:ArrestYear>
+		</disp-ext:ArrestAugmentation>
 	</j:Arrest>
 	<j:Offense structures:id="OFFENSE_01">
 		<nc:ActivityDate>
 			<nc:Date>2001-12-17</nc:Date>
 		</nc:ActivityDate>
-		<disp_ext:OffenseAugmentation>
-			<disp_ext:InitialOffense>
+		<disp-ext:OffenseAugmentation>
+			<disp-ext:InitialOffense>
 				<vt_codes:OffenseCode>7</vt_codes:OffenseCode>
-				<disp_ext:DrugOffenseDescriptionText>String</disp_ext:DrugOffenseDescriptionText>
+				<disp-ext:DrugOffenseDescriptionText>String</disp-ext:DrugOffenseDescriptionText>
 				<j:OffenseCategoryText>Fel Offense Type</j:OffenseCategoryText>
 				<j:OffenseViolatedStatute>
 					<j:StatuteCodeIdentification>
@@ -259,10 +259,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					</j:StatuteCodeIdentification>
 				</j:OffenseViolatedStatute>
 				<vt_codes:OffLevelCode>1</vt_codes:OffLevelCode>
-			</disp_ext:InitialOffense>
-			<disp_ext:FinalOffense>
+			</disp-ext:InitialOffense>
+			<disp-ext:FinalOffense>
 				<vt_codes:OffenseCode>19</vt_codes:OffenseCode>
-				<disp_ext:DrugOffenseDescriptionText>String</disp_ext:DrugOffenseDescriptionText>
+				<disp-ext:DrugOffenseDescriptionText>String</disp-ext:DrugOffenseDescriptionText>
 				<vt_codes:OffenseCode>7</vt_codes:OffenseCode>
 				<j:OffenseCategoryText>String</j:OffenseCategoryText>
 				<j:OffenseViolatedStatute>
@@ -271,8 +271,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					</j:StatuteCodeIdentification>
 				</j:OffenseViolatedStatute>
 				<vt_codes:OffLevelCode>1</vt_codes:OffLevelCode>
-			</disp_ext:FinalOffense>
-		</disp_ext:OffenseAugmentation>
+			</disp-ext:FinalOffense>
+		</disp-ext:OffenseAugmentation>
 	</j:Offense>
 	<nc:Incident structures:id="INCIDENT_01">
 		<nc:ActivityIdentification>
@@ -300,4 +300,4 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<nc:Person structures:ref="DEFENDANT_01"/>
 		<nc:Location structures:ref="LOC_01"/>
 	</nc:PersonResidenceAssociation>
-</disp_exc:DispositionReport>
+</disp-doc:DispositionReport>

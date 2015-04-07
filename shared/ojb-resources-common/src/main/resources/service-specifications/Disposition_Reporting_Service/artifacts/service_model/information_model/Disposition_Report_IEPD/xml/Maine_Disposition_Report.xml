@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<disp_exc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0 ../xsd/impl/maine/disposition_codes.xsd"
-xmlns:disp_exc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
-xmlns:disp_ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+<disp-doc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0 ../xsd/impl/maine/disposition_codes.xsd"
+xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
 xmlns:me_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0"
 xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
 xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -59,9 +59,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<nc:DispositionDate>
 				<nc:Date>1967-08-13</nc:Date>
 			</nc:DispositionDate>
-			<disp_ext:ChargeDispositionAugmentation>
+			<disp-ext:ChargeDispositionAugmentation>
 				<nc:CaseDocketID>String</nc:CaseDocketID>
-			</disp_ext:ChargeDispositionAugmentation>
+			</disp-ext:ChargeDispositionAugmentation>
 		</j:ChargeDisposition>
 		<j:ChargeSentence>
 			<nc:ActivityDate>
@@ -76,9 +76,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						</nc:ObligationDueAmount>
 					</nc:DisciplinaryActionFee>
 				</nc:ConditionDisciplinaryAction>
-				<disp_ext:ConditionAugmentation>
+				<disp-ext:ConditionAugmentation>
 					<me_codes:SentenceConditionLiteralCode>ABIDE BY PRETRIAL SERVICE CONTRACT</me_codes:SentenceConditionLiteralCode>
-				</disp_ext:ConditionAugmentation>
+				</disp-ext:ConditionAugmentation>
 			</j:SentenceCondition>
 			<j:SentenceIssuerEntity>
 				<nc:EntityOrganization>
@@ -92,38 +92,38 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<j:SupervisionFineAmount>
 				<nc:Amount>100</nc:Amount>
 			</j:SupervisionFineAmount>
-			<disp_ext:SentenceAugmentation>
+			<disp-ext:SentenceAugmentation>
 				<nc:CaseDocketID>WATDCCR201101677</nc:CaseDocketID>
 				<me_codes:SentenceOriginCode>ORIGINAL</me_codes:SentenceOriginCode>
 				<j:SentenceTerm>
 					<j:TermDuration>P1Y2M3DT10H30M0S</j:TermDuration>
 					<j:TermLifeIndicator>false</j:TermLifeIndicator>
-					<disp_ext:SentenceTermAugmentation>
+					<disp-ext:SentenceTermAugmentation>
 						<me_codes:SentenceTermCategoryCode> ADMINISTRATIVE RELEASE CONTINUED</me_codes:SentenceTermCategoryCode>
 						<me_codes:SentenceServedCode>CONCURRENT</me_codes:SentenceServedCode>
-						<disp_ext:SentenceSuspendedTimeRemainder/>
-					</disp_ext:SentenceTermAugmentation>
+						<disp-ext:SentenceSuspendedTimeRemainder/>
+					</disp-ext:SentenceTermAugmentation>
 				</j:SentenceTerm>
-			</disp_ext:SentenceAugmentation>
-			<disp_ext:SentenceAugmentation>
+			</disp-ext:SentenceAugmentation>
+			<disp-ext:SentenceAugmentation>
 				<j:SentenceTerm>
 					<j:TermDuration>P1Y2M3DT10H30M0S</j:TermDuration>
 					<j:TermLifeIndicator>false</j:TermLifeIndicator>
-					<disp_ext:SentenceTermAugmentation>
+					<disp-ext:SentenceTermAugmentation>
 						<me_codes:SentenceTermCategoryCode> ADMINISTRATIVE RELEASE CONTINUED</me_codes:SentenceTermCategoryCode>
-						<disp_ext:SentenceSuspendedTimeRemainder/>
-					</disp_ext:SentenceTermAugmentation>
+						<disp-ext:SentenceSuspendedTimeRemainder/>
+					</disp-ext:SentenceTermAugmentation>
 				</j:SentenceTerm>
-			</disp_ext:SentenceAugmentation>
-			<disp_ext:SentenceAugmentation>
-				<disp_ext:SentenceRestitution>
+			</disp-ext:SentenceAugmentation>
+			<disp-ext:SentenceAugmentation>
+				<disp-ext:SentenceRestitution>
 					<nc:DisciplinaryActionRestitution>
 						<nc:ObligationDueAmount>
 							<nc:Amount>20.00</nc:Amount>
 						</nc:ObligationDueAmount>
 					</nc:DisciplinaryActionRestitution>
-				</disp_ext:SentenceRestitution>
-			</disp_ext:SentenceAugmentation>
+				</disp-ext:SentenceRestitution>
+			</disp-ext:SentenceAugmentation>
 		</j:ChargeSentence>
 		<j:ChargeSequenceID>String</j:ChargeSequenceID>
 		<j:ChargeStatute>
@@ -138,14 +138,14 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<nc:IdentificationID>001</nc:IdentificationID>
 		</j:ChargeTrackingIdentification>
 		<me_codes:ChargeClassCode>A</me_codes:ChargeClassCode>
-		<disp_ext:ChargeAugmentation>
-			<disp_ext:ChargeUniversalTrackingNumber>String</disp_ext:ChargeUniversalTrackingNumber>
-			<disp_ext:ArrestTrackingNumber>String</disp_ext:ArrestTrackingNumber>
+		<disp-ext:ChargeAugmentation>
+			<disp-ext:ChargeUniversalTrackingNumber>String</disp-ext:ChargeUniversalTrackingNumber>
+			<disp-ext:ArrestTrackingNumber>String</disp-ext:ArrestTrackingNumber>
 			<me_codes:ChargeOriginCategoryCode>ORIGINAL</me_codes:ChargeOriginCategoryCode>
-			<disp_ext:ChargeOffenseDate>
+			<disp-ext:ChargeOffenseDate>
 				<nc:Date>2011-06-23</nc:Date>
-			</disp_ext:ChargeOffenseDate>
-		</disp_ext:ChargeAugmentation>
+			</disp-ext:ChargeOffenseDate>
+		</disp-ext:ChargeAugmentation>
 	</j:Charge>
 	<j:CourtCharge>
 		<j:ChargeSequenceID>2</j:ChargeSequenceID>
@@ -154,4 +154,4 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<nc:Person structures:ref="Person_1"/>
 		<j:Charge structures:ref="Charge_1"/>
 	</j:PersonChargeAssociation>
-</disp_exc:DispositionReport>
+</disp-doc:DispositionReport>

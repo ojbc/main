@@ -21,29 +21,21 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:acr="http://schemas.xmlsoap.org/soap/envelope/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-	xmlns:ibacr="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0"
+	xmlns:ibacr-doc="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://schemas.xmlsoap.org/soap/envelope/" schemaLocation="../../artifacts/service_model/information_model/Access_Control_Request_IEPD/xsd/MessageBasedAccessControlRequest.xsd"/>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0" schemaLocation="../../artifacts/service_model/information_model/Access_Control_Request_IEPD/xsd/IdentityBasedAccessControlRequest.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
-	<wsdl:message name="MessageBasedAccessControlRequest">
-		<wsdl:part name="MessageBasedAccessControlRequest" element="acr:Envelope" />
-	</wsdl:message>
 	<wsdl:message name="IdentityBasedAccessControlRequest">
-		<wsdl:part name="IdentityBasedAccessControlRequest" element="ibacr:IdentityBasedAccessControlRequest" />
+		<wsdl:part name="IdentityBasedAccessControlRequest" element="ibacr-doc:IdentityBasedAccessControlRequest" />
 	</wsdl:message>
 	<wsdl:portType name="Access-Control-Request-Service">
-		<wsdl:operation name="SubmitMessageBasedAccessControlRequest">
-			<wsdl:input name="MessageBasedAccessControlRequest" message="tns:MessageBasedAccessControlRequest" />
-		</wsdl:operation>
 		<wsdl:operation name="SubmitIdentityBasedAccessControlRequest">
 			<wsdl:input name="IdentityBasedAccessControlRequest" message="tns:IdentityBasedAccessControlRequest" />
 		</wsdl:operation>
@@ -53,13 +45,6 @@
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
-		<wsdl:operation name="SubmitMessageBasedAccessControlRequest">
-			<soap:operation soapAction="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0/SubmitMessageBasedAccessControlRequest"
-				style="document" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
 		<wsdl:operation name="SubmitIdentityBasedAccessControlRequest">
 			<soap:operation soapAction="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0/SubmitIdentityBasedAccessControlRequest"
 				style="document" />
