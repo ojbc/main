@@ -1,0 +1,15 @@
+<Request xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" ReturnPolicyIdList="false" CombinedDecision="false"> 
+   <Attributes Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" >
+	<Attribute IncludeInResult="true" AttributeId="http://ojbc.org/policy/attributes/subjectIsCriminalJusticeUser">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">false</AttributeValue>
+	</Attribute>
+  </Attributes>
+  <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource">
+    <Attribute IncludeInResult="true" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">insert-criminal-history-service-identifier-here</AttributeValue>
+    </Attribute>
+    <Attribute IncludeInResult="true" AttributeId="http://ojbc.org/policy/demostate/attributes/recordPersonAge">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">30</AttributeValue>
+    </Attribute>
+  </Attributes>
+</Request>
