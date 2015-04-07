@@ -49,7 +49,6 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
                         "/saml2:Assertion/saml2:AttributeStatement[1]/"
                         + "saml2:Attribute[@Name='gfipm:2.0:user:FederationId']/saml2:AttributeValue");
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } 
 
@@ -89,7 +88,6 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
                         SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                         SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

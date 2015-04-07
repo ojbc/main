@@ -31,9 +31,7 @@ public class TestAbstractSampleGenerator extends TestCase {
 
         public SampleGenerator() throws ParserConfigurationException, IOException {
             super();
-            // TODO Auto-generated constructor stub
-        }
-        
+        }        
     }
     
     @Test
