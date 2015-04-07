@@ -26,7 +26,6 @@ import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.XMLConstants;
@@ -36,10 +35,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -51,10 +47,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
-import net.sf.saxon.sort.UppercaseFirstComparer;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -75,7 +67,6 @@ import org.xml.sax.SAXException;
 public class XmlUtils {
 
     public static final OjbcNamespaceContext OJBC_NAMESPACE_CONTEXT = new OjbcNamespaceContext();
-    private static final Log LOG = LogFactory.getLog(XmlUtils.class);
     
     public static final DateTime parseXmlDateTime(String dateTime) {
         if (dateTime == null || dateTime.trim().equals("")) {
@@ -390,9 +381,6 @@ public class XmlUtils {
     public static Document validateInstance(String rootXsdPath, Document docXmlToValidate, 
     		IEPDFullPathResourceResolver fullPathResolver, List<String> additionalSchemaRelativePaths) throws Exception {
     	
-    	//List<Source> schemaPaths = new ArrayList<Source>();
-    	//schemaPaths.add(new StreamSource(XmlUtils.class.getClassLoader().getResourceAsStream(rootXsdPath)));
-
     	List<String> schemaPaths = new ArrayList<String>();
     	schemaPaths.add(rootXsdPath);
     	schemaPaths.addAll(additionalSchemaRelativePaths);
@@ -427,25 +415,36 @@ public class XmlUtils {
 	}
 
     /**
-     * Convenience method doesn't require a null parm for the niem dir string
+     * Convenience method doesn't require a null param for the niem dir string
      */
-    public static final Document validateInstance(String iepdRootPath, String rootSchemaFileName, Document d, LSResourceResolver iepdResourceResolver)
+    public static final Document validateInstance(String iepdRootPath, String rootSchemaFileName, 
+    		Document doc, LSResourceResolver iepdResourceResolver)
             throws Exception {
     	
-    	return validateInstance(iepdRootPath, null, rootSchemaFileName, d, iepdResourceResolver);    	
+		if (!iepdRootPath.endsWith("/")) {
+			iepdRootPath = iepdRootPath + "/";
+		}
+		String fullRootSchemaPath = iepdRootPath + rootSchemaFileName;
+
+		List<String> schemaPaths = new ArrayList<String>();
+		schemaPaths.add(fullRootSchemaPath);
+
+		validateInstance(doc, iepdResourceResolver, schemaPaths);
+		
+		return doc;
     }
     
     /**
-     * Convenience method doesn't require a null parm for the niem dir string
+     * Convenience method doesn't require a null param for the niem dir string
      */
-    public static final Document validateInstance(String iepdRootPath, String rootSchemaFileName, List<String> additionalSchemaRelativePaths, Document d, LSResourceResolver iepdResourceResolver)
+    public static final Document validateInstance(String iepdRootPath, String rootSchemaFileName, 
+    		List<String> additionalSchemaRelativePaths, Document d, LSResourceResolver iepdResourceResolver)
             throws Exception {
     	
     	if (!iepdRootPath.endsWith("/")) {
             iepdRootPath = iepdRootPath + "/";
         }
         String fullRootSchemaPath = iepdRootPath + rootSchemaFileName;
-        //LOG.info(fullRootSchemaPath);
         
         List<String> schemaPaths = new ArrayList<String>();
     	schemaPaths.add(fullRootSchemaPath);
@@ -456,24 +455,6 @@ public class XmlUtils {
     	return d;  	
     }
     
-    private static final Document validateInstance(String iepdRootPath, String Never_Used_TODO_Remove, 
-    		String rootSchemaFileName, Document d, LSResourceResolver iepdResourceResolver)
-            throws Exception {
-    	
-    	// TODO: If this method is no longer used, then inline it (to get rid of the Never_Used_TODO_Remove parameter)
-
-        if (!iepdRootPath.endsWith("/")) {
-            iepdRootPath = iepdRootPath + "/";
-        }
-        String fullRootSchemaPath = iepdRootPath + rootSchemaFileName;
-        //LOG.info(fullRootSchemaPath);
-        
-        List<String> schemaPaths = new ArrayList<String>();
-    	schemaPaths.add(fullRootSchemaPath);
-        
-        validateInstance(d, iepdResourceResolver, schemaPaths);
-        return d;
-    }
 
 	/**
      * Validate a document against an IEPD. Note that this does not require the xsi namespace location attributes to be set in the instance.
@@ -591,6 +572,4 @@ public class XmlUtils {
     
     
 }
-
-
 
