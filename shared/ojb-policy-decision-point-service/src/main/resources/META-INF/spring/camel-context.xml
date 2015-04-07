@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:camel="http://camel.apache.org/schema/spring" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- needed cxf imports -->
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<camelContext xmlns="http://camel.apache.org/schema/spring"
+		xmlns:ibacr="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0"
+		xmlns:ext="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0"
+		xmlns:personsearch-ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
+		
+		id="pdpIntermediaryContext">
+
+		<!-- Access Control Request Endpoints -->
+		<endpoint id="accessControlRequestServiceEndpoint"
+			uri="cxf:bean:accessControlRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${pdp.cxflogging}" />
+
+		<endpoint id="accessControlResponseServiceEndpoint"
+			uri="cxf:bean:accessControlResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${pdp.cxflogging}" />
+
+		<!-- Access Control Request Policy Acknowledgement Endpoints -->
+		<camel:endpoint id="accessControlRequestServicePolicyAcknowledgementEndpoint"
+			uri="cxf:bean:accessControlRequestServicePolicyAcknowledgement?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${pdp.cxflogging}" />
+	
+		<camel:endpoint id="accessControlResponseServicePolicyAcknowledgementEndpoint"
+			uri="cxf:bean:accessControlResponseServicePolicyAcknowledgement?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${pdp.cxflogging}" />
+
+		<!-- Access Control Request flow -->
+		<route id="accessControlRequestRoute">
+			<from uri="accessControlRequestServiceEndpoint" />
+			<onException>
+				<exception>java.lang.Exception</exception>
+				<handled><constant>true</constant></handled>
+				<camel:log message="An exception was thrown: ${exception.stacktrace}"
+					loggingLevel="WARN" />
+				<camel:to
+					uri="bean:staticAccessControlXMLProcessor?method=buildAccessControlErrorResponse" />
+				<log message="${body}" loggingLevel="DEBUG"></log>
+				
+				<!-- TODO, figure out how to send errors upfront if we don't yet federated
+				<to uri="direct:accessControlResponse" />  -->
+			</onException>
+			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:pdp.dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="Will not log: ${properties:pdp.dbAuditLog}"/>
+				</camel:otherwise>
+			</camel:choice>
+			
+			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:filter>
+				<camel:simple>${in.headers.operationName} == 'SubmitIdentityBasedAccessControlRequest'</camel:simple>
+				<camel:log message="Submit Identity Based Access Control operation invoked"/>			
+			
+				<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
+				<!-- Change this XPath to match what you need -->
+				<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+					<camel:xpath>/ibacr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI</camel:xpath>
+				</camel:setHeader>
+				<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
+	
+				<camel:setHeader headerName="operationName">
+					<constant>SubmitIdentityBasedAccessControlRequest</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:simple>${in.headers.operationName} == 'SubmitMessageBasedAccessControlRequest'</camel:simple>
+				<camel:log message="Submit Message Based Access Control operation invoked"/>			
+			
+				<!-- Message based requests don't have a single Xpath to use to set the header federatedQueryEndpointsNodeList -->
+				<!-- We will set this header manually -->
+
+				<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+					<camel:xpath>//personsearch-ext:SourceSystemNameText</camel:xpath>
+				</camel:setHeader>
+
+				<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
+	
+				<camel:setHeader headerName="operationName">
+					<constant>SubmitMessageBasedAccessControlRequest</constant>
+				</camel:setHeader>
+			</camel:filter>
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0</constant>
+			</camel:setHeader>
+			<!-- Add the reply to address to the map using the federated query guid as the key -->
+			<camel:to 
+				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
+									
+			<!-- Call method to populate federated query map and create federatedQueryRecipientListHeader (comma separated camel endpoint list)-->
+			<camel:to
+				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
+			
+			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
+			<camel:setHeader headerName="requestMessageBody">
+				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
+			</camel:setHeader>
+			
+			<camel:filter>
+		       <camel:simple>${in.header.federatedQueryRecipientListHeader} not contains 'direct:'</camel:simple>
+				<!-- This wiretap will start the message timer only for web service invocations. There were anamolies with having it as part of the Recipient List -->
+				<camel:wireTap uri="direct:startFederatedQueryTimer"/>
+		   </camel:filter>
+
+			<camel:log message="Timer started"/>
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.headers.operationName} == 'SubmitIdentityBasedAccessControlRequest'</camel:simple>				
+					<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
+						<camel:xpath>/ibacr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI</camel:xpath>
+						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+						<camel:recipientList>
+							<camel:header>webServiceEndpointToCall</camel:header>
+						</camel:recipientList>
+					</camel:split>
+				</camel:when>
+				<camel:when>
+					<camel:simple>${in.headers.operationName} == 'SubmitMessageBasedAccessControlRequest'</camel:simple>				
+					<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
+						<camel:xpath>//personsearch-ext:SourceSystemNameText</camel:xpath>
+						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+						<camel:recipientList>
+							<camel:header>webServiceEndpointToCall</camel:header>
+						</camel:recipientList>
+					</camel:split>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="Wrong Operation Name: ${in.headers.operationName}" loggingLevel="ERROR" />
+				</camel:otherwise>
+			</camel:choice>
+			
+				
+	
+		</route>			
+
+		<route>
+			<from uri="direct:accessControlLocalRoute"/>
+
+			<camel:doTry>
+				
+				<camel:log message="In Access Control Request Handler, returning static response"/>
+				
+				<camel:choice>
+					<camel:when>
+						<camel:method bean="accessControlProcessor" method="authorize" />
+						
+						<!-- make appropriate message -->
+						<camel:log message="********\n********\n access control returned TRUE \n" />
+				        			        	        	        
+						<camel:to uri="bean:staticAccessControlXMLProcessor?method=returnStaticAccessAllowedResponse"/>
+				        
+					</camel:when>
+					<camel:otherwise>
+					
+						<camel:log message="********\n********\n access control returned FALSE \n" />
+						
+				        <camel:to uri="bean:staticAccessControlXMLProcessor?method=returnStaticAccessDeniedResponse"/>					
+						
+					</camel:otherwise>
+				</camel:choice>
+				
+				<camel:doCatch>
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
+				</camel:doCatch>
+			</camel:doTry>	
+			
+			<camel:log message="Here is the message from the intermediary access control processor: ${body}" loggingLevel="DEBUG"/>
+
+			<camel:to uri="direct:processFederatedResponse" />		
+		</route>
+
+				      
+		<route>
+			<from uri="direct:startFederatedQueryTimer"/>
+			<setBody>
+				<constant>START_QUERY_TIMER</constant>
+			</setBody>
+			<camel:to uri="direct:aggregateFederatedQuery" />		
+		</route>
+		
+		<!--  Access Control Results Handler Route -->
+		<camel:route>
+			<camel:from uri="accessControlResponseServiceEndpoint"/>
+			<onException>
+				<exception>java.lang.Exception</exception>
+				<handled><constant>true</constant></handled>
+				<camel:log message="An exception was thrown: ${exception.message}"
+					loggingLevel="WARN" />
+				<camel:to
+					uri="bean:staticAccessControlXMLProcessor?method=buildAccessControlErrorResponse" />
+				<log message="${body}" loggingLevel="DEBUG"></log>
+				
+				<!-- TODO, figure out how to send errors upfront if we don't yet federated
+				<to uri="direct:accessControlResponse" />  -->
+			</onException>
+			
+			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:pdp.dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+						
+			<camel:log message="Entering Access Control Results Handler"></camel:log>
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0}SubmitMessageBasedAccessControlRequest</constant>
+			</camel:setHeader>
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			<camel:log message="Calling Aggregator" />
+			<camel:to uri="direct:aggregateFederatedQuery" />
+		</camel:route>
+	
+	    <camel:route>
+	      <from uri="direct:aggregateFederatedQuery" />
+			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
+			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+				<correlationExpression>
+					<camel:header>federatedQueryRequestGUID</camel:header>
+				</correlationExpression>
+				<completionTimeout>
+					<camel:simple>{{pdp.federatedQueryTimeout}}</camel:simple>
+				</completionTimeout>
+				<completionSize>
+					<header>federatedQueryNumberOfEndpointsRequested</header>
+				</completionSize>
+				
+				<log
+					message="completed by ${property.CamelAggregatedCompletedBy}, completion size ${property.CamelAggregatedSize}, aggregation key ${property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: ${properties:pdp.federatedQueryTimeout}"></log>
+					
+				<!-- filter here for timeouts and set error message, otherwise aggregate actual response -->
+				<camel:choice>
+					<camel:when>
+						<camel:simple>${property.CamelAggregatedCompletedBy} == 'timeout'</camel:simple>
+						
+						<camel:setHeader headerName="federatedQueryRequestGUID">
+							<camel:simple>${property.CamelAggregatedCorrelationKey}</camel:simple>
+						</camel:setHeader>
+						
+						<camel:to
+							uri="bean:staticAccessControlXMLProcessor?method=buildAccessControlErrorResponse" />
+							
+						<log message="This is the body after error processor: ${body}" loggingLevel="INFO"/>
+					</camel:when>
+					<camel:otherwise>
+						<to
+							uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
+					
+						<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
+						<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
+					</camel:otherwise>
+				</camel:choice>
+					
+				<log message="This is the completed aggregated body: ${body}" loggingLevel="INFO"/>
+				
+				<camel:to uri="direct:processFederatedResponse"/>
+
+			</aggregate>
+	      
+	    </camel:route>
+	    
+	    <!-- Process aggregated federated responses here -->
+		<camel:route id="processFederatedResponseRoute">
+			<camel:from uri="direct:processFederatedResponse"/>
+
+			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
+
+			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
+			
+			<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
+				
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
+			
+					<camel:log message="This is the operation Name ${in.header.operationName}" loggingLevel="DEBUG"/>
+					
+					<camel:convertBodyTo type="java.lang.String"/>
+			        
+					<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
+					<camel:setHeader headerName="operationName">
+						<constant>SubmitAccessControlResponse</constant>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="operationNamespace">
+						<constant>http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0</constant>
+					</camel:setHeader>
+					
+					<camel:log message="About to send Access Control Response to ${in.headers.recipientListReplyToEndpoint}" />			
+								
+					<camel:recipientList>
+						<camel:header>recipientListReplyToEndpoint</camel:header>
+					</camel:recipientList>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
+				</camel:otherwise>		
+			</camel:choice>	
+
+		</camel:route>
+		
+	</camelContext>
+
+	<!-- Spring Beans -->
+	
+	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
+
+	<bean id="federatedQueryResponseAggregator"
+		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+	</bean>
+
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
+		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>
+	</bean>
+	
+   	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
+		<property name ="endpointReplyToMap" ref="wsAddressReplyToEndpointMap"/>
+	</bean>		
+	
+    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+	</bean>
+
+	
+	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
+		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
+	</bean>
+
+
+	<bean id="staticAccessControlXMLProcessor" class="org.ojbc.processor.accesscontrol.StaticAccessControlXMLProcessor"/>
+	
+    <bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />    
+
+</beans>
+
