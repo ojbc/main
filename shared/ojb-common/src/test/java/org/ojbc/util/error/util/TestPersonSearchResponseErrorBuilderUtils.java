@@ -33,7 +33,7 @@ public class TestPersonSearchResponseErrorBuilderUtils {
 		
 		Document doc = PersonSearchResponseErrorBuilderUtils.createPersonSearchAccessDenial(accessControlResponse, "Hawaii Warrants Adapter");
 		
-		XmlUtils.printNode(doc);		
+		//XmlUtils.printNode(doc);		
 
         // ensure the document we generated is valid by using the xsd to validate it
         XmlUtils.validateInstance("service-specifications/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", 
