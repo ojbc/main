@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ibacr:IdentityBasedAccessControlRequest xmlns:ibacr="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0" 
+<ibacr-doc:IdentityBasedAccessControlRequest xmlns:ibacr-doc="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0" 
 		xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" 
 		xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
 		xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
@@ -85,4 +85,4 @@
 	  </nc30:PersonEmploymentAssociation>
 	</acreq-ext:PersonIdentity>
 	<acreq-ext:RequestedResourceURI>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</acreq-ext:RequestedResourceURI>
-</ibacr:IdentityBasedAccessControlRequest>
+</ibacr-doc:IdentityBasedAccessControlRequest>
