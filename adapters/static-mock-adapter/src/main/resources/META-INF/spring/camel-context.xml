@@ -34,14 +34,9 @@
 	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
-	<import resource="properties-context.xml" />
-	<import resource="cxf-endpoints.xml" />
-	<import resource="dao.xml" />
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Static_Mock_Adapter">
 
-		<camel:propertyPlaceholder location="ref:springProperties" id="springPropertiesToLoad"/>
-	
 		<!-- Search endpoints -->
 
 		<endpoint id="personSearchRequestServiceEndpoint"
@@ -781,7 +776,7 @@
 		
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:genericMockAdapter.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
