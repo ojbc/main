@@ -23,7 +23,7 @@
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-	xmlns:ac-exchange="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" 
+	xmlns:ac-doc="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" 
 	xmlns:ac-ext="http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/AccessControlResultsMetadata/1.0" 
 	xmlns:ac-p="http://ojbc.org/IEPD/Extensions/AccessControlDecisionContexts/PolicyBasedAccessControlDecisionContext/1.0" 
