@@ -21,7 +21,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:ac-exchange="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" 
+	xmlns:ac-doc="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" 
 	xmlns:tns="http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0" 
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
@@ -33,7 +33,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="AccessControlResponse">
-		<wsdl:part name="AccessControlResponse" element="ac-exchange:AccessControlResponse"/>
+		<wsdl:part name="AccessControlResponse" element="ac-doc:AccessControlResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="Access-Control-Response-Service">
 		<wsdl:operation name="SubmitAccessControlResponse">

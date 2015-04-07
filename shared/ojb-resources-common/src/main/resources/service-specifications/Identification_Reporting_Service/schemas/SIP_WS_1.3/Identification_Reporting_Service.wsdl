@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pidreq="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0" xmlns:pidresults="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsoma="http://www.w3.org/2007/08/soap12-mtom-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0">
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pidreq="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0" xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsoma="http://www.w3.org/2007/08/soap12-mtom-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0">
 	<wsp:Policy wsu:Id="MTOMPolicy">
 		<wsoma:MTOM/>
 	</wsp:Policy>
@@ -34,7 +34,7 @@
 		<wsdl:part name="PersonIdentificationRequest" element="pidreq:PersonIdentificationRequest"/>
 	</wsdl:message>
 	<wsdl:message name="PersonIdentificationResults">
-		<wsdl:part name="PersonIdentificationResults" element="pidresults:PersonIdentificationResults"/>
+		<wsdl:part name="PersonIdentificationResults" element="pidres-doc:PersonIdentificationResults"/>
 	</wsdl:message>
 	<wsdl:portType name="Identification-Reporting-Service">
 		<wsdl:operation name="ReportPersonIdentificationRequest">

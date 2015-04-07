@@ -16,8 +16,8 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<crimhistory-update-exch:CycleTrackingIdentifierAssignmentReport
-	xmlns:crimhistory-update-exch="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+<crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport
+	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:crimhistory-update-ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:s="http://release.niem.gov/niem/structures/3.0/"
@@ -134,4 +134,4 @@
 			<nc:PersonSurName>BURNS</nc:PersonSurName>
 		</nc:PersonName>
 	</nc:Person>
-</crimhistory-update-exch:CycleTrackingIdentifierAssignmentReport>
+</crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport>

@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:disp_ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" version="1.0">
+<xsd:schema xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" version="1.0">
 	<xsd:annotation>
 		<xsd:documentation>Maine Disposition Report Codes</xsd:documentation>
 		<xsd:appinfo>
@@ -527,12 +527,12 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="ChargeOriginCategoryCode" type="me_disp_codes:ChargeOriginCategoryCodeType" substitutionGroup="disp_ext:ChargeOriginCategory">
+	<xsd:element name="ChargeOriginCategoryCode" type="me_disp_codes:ChargeOriginCategoryCodeType" substitutionGroup="disp-ext:ChargeOriginCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes whether the charge is an original or amended charge.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceConditionLiteralCode" type="me_disp_codes:SentenceConditionLiteralCodeType" substitutionGroup="disp_ext:SentenceConditionLiteral">
+	<xsd:element name="SentenceConditionLiteralCode" type="me_disp_codes:SentenceConditionLiteralCodeType" substitutionGroup="disp-ext:SentenceConditionLiteral">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
@@ -552,17 +552,17 @@
 			<xsd:documentation>A code that describes a charge enhancement.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceServedCode" type="me_disp_codes:SentenceServedCodeType" substitutionGroup="disp_ext:SentenceTimeCategory">
+	<xsd:element name="SentenceServedCode" type="me_disp_codes:SentenceServedCodeType" substitutionGroup="disp-ext:SentenceTimeCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceOriginCode" type="me_disp_codes:SentenceOriginCodeType" substitutionGroup="disp_ext:SentenceOriginCategory">
+	<xsd:element name="SentenceOriginCode" type="me_disp_codes:SentenceOriginCodeType" substitutionGroup="disp-ext:SentenceOriginCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes whether a sentence is 'original', 'corrected' or 'amended.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceTermCategoryCode" type="me_disp_codes:SentenceTermCategoryCodeType" substitutionGroup="disp_ext:SentenceTimeCategory">
+	<xsd:element name="SentenceTermCategoryCode" type="me_disp_codes:SentenceTermCategoryCodeType" substitutionGroup="disp-ext:SentenceTimeCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the type of time to be served.</xsd:documentation>
 		</xsd:annotation>
