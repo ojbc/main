@@ -25,6 +25,7 @@ import org.ojbc.intermediaries.sn.notification.Offense;
 import org.ojbc.util.xml.XmlUtils;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.junit.Test;
 
 public class NotificationBrokerUtilsTest {
@@ -81,4 +82,26 @@ public class NotificationBrokerUtilsTest {
 		assertEquals("Offense Description: Offense 3 Text<br/>", offenseStrings.get(2));
     	
     }
+    
+    @Test
+    public void testCalculateAgeFromDate() throws Exception
+    {
+    	assertEquals("",NotificationBrokerUtils.calculatePersonAgeFromDate(null));
+    	assertEquals("",NotificationBrokerUtils.calculatePersonAgeFromDate(""));
+    	
+    	LocalDate now = new LocalDate();
+    	
+    	assertEquals("0",NotificationBrokerUtils.calculatePersonAgeFromDate(now.toString("yyyy-MM-dd")));
+    	
+    	//Day of 30th Birthday
+    	assertEquals("30",NotificationBrokerUtils.calculatePersonAgeFromDate(now.minusYears(30).toString("yyyy-MM-dd")));
+    	
+    	//Day before 30th birthday
+    	assertEquals("29",NotificationBrokerUtils.calculatePersonAgeFromDate(now.minusYears(30).plusDays(1).toString("yyyy-MM-dd")));
+    	
+    	//Day after 30th birthday
+    	assertEquals("30",NotificationBrokerUtils.calculatePersonAgeFromDate(now.minusYears(30).minusDays(1).toString("yyyy-MM-dd")));
+    	
+    }
+    
 }

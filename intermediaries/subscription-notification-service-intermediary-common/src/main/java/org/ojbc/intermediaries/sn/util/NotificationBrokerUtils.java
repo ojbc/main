@@ -22,6 +22,9 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
+import org.joda.time.format.DateTimeFormat;
 import org.ojbc.intermediaries.sn.notification.Offense;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -146,4 +149,25 @@ public class NotificationBrokerUtils {
 		
 		return offenses;
 	}
+	
+	/**
+	 * This method assumes date in format 'yyyy-MM-dd'
+	 * 
+	 * @param dateAsString
+	 * @return
+	 * @throws Exception
+	 */
+	public static String calculatePersonAgeFromDate(String dateAsString) throws Exception{
+		
+		String personAge="";
+		
+		if (StringUtils.isNotBlank(dateAsString)) {
+	    	LocalDate personBirthDateLocalDate = DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime(dateAsString).toLocalDate();
+	    	LocalDate now = new LocalDate();
+	    	Years age = Years.yearsBetween(personBirthDateLocalDate, now);
+	    	personAge = String.valueOf(age.getYears());
+		}
+		
+		return personAge;
+	}	
 }
