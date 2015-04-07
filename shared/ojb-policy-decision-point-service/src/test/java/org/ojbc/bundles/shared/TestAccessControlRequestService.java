@@ -1,3 +1,19 @@
+/*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ */
 package org.ojbc.bundles.shared;
 
 import static org.apache.cxf.ws.addressing.JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES;
@@ -5,6 +21,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.EndpointInject;
@@ -25,7 +43,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.junit.Ignore;
 
 @UseAdviceWith
 // NOTE: this causes Camel contexts to not start up automatically
@@ -98,7 +115,6 @@ public class TestAccessControlRequestService {
 
     @Test
     @DirtiesContext
-    @Ignore
     public void testFederatedRequestToAdapter() throws Exception {
         // Read the access control request file from the file system
         File inputFile = new File(
@@ -108,7 +124,8 @@ public class TestAccessControlRequestService {
         String expectedBody = FileUtils
                 .readFileToString(new File(
                         "src/test/resources/xml/accessControl/IdentityBasedAccessControlRequest.xml"));
-        adapterRequestEndpoint.expectedBodiesReceivedInAnyOrder(expectedBody);
+        int index = expectedBody.indexOf("<ibacr:IdentityBasedAccessControlRequest"); 
+        adapterRequestEndpoint.expectedBodiesReceivedInAnyOrder(expectedBody.substring(index));
 
         Map<String, Object> headers = TestUtils.createHeaders();
 
@@ -133,9 +150,7 @@ public class TestAccessControlRequestService {
         
         assertEquals("123456789", messageId);
 
-        String expectedResponseBody = FileUtils.readFileToString(new File(
-                "src/test/resources/xml/accessControl/AccessControlResponseError.xml"));
-        
+        String expectedResponseBody = readSingleLineResponseWithoutLicense(new File("src/test/resources/xml/accessControl/AccessControlResponseError.xml"));
         adapterResponseEndpoint.expectedBodiesReceivedInAnyOrder(expectedResponseBody);
 
         Thread.sleep(7000);
@@ -144,15 +159,27 @@ public class TestAccessControlRequestService {
         adapterResponseEndpoint.assertIsSatisfied();
     }
 
+    /**
+     * Works if the response file is single line plus the license text. 
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    private String readSingleLineResponseWithoutLicense(File file) throws IOException {
+        @SuppressWarnings("unchecked")
+        List<String> stringList = FileUtils.readLines(file);
+        String expectedResponseBody=stringList.get(18);
+        return expectedResponseBody;
+    }
+
     @Test
-    @Ignore
     public void testAccessControlHandledDirectlyByIntermediaryIdentityBased() throws Exception {
         // Read the access control request file from the file system
         File inputFile = new File(
                 "src/test/resources/xml/accessControl/IdentityBasedAccessControlRequestSubscriptions.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        String expectedResponseBody = FileUtils.readFileToString(new File(
+        String expectedResponseBody = readSingleLineResponseWithoutLicense(new File(
         "src/test/resources/xml/accessControl/staticPermitResponse.xml"));
 
 		adapterResponseEndpoint.expectedBodiesReceived(expectedResponseBody);
@@ -182,7 +209,7 @@ public class TestAccessControlRequestService {
                 "src/test/resources/xml/accessControl/MessageBasedAccessControlRequest.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        String expectedResponseBody = FileUtils.readFileToString(new File(
+        String expectedResponseBody = readSingleLineResponseWithoutLicense(new File(
         "src/test/resources/xml/accessControl/staticPermitResponse.xml"));
 
 		adapterResponseEndpoint.expectedBodiesReceivedInAnyOrder(expectedResponseBody);
