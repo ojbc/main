@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ar:CJISDocument xsi:schemaLocation="http://hijis.hawaii.gov/ArrestReport/1.0 Arrest_Report.xsd" xmlns:ar="http://hijis.hawaii.gov/ArrestReport/1.0" xmlns:hi-br-ext="http://hijis.hawaii.gov/BookingReportExtension/1.0" xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ar:CJISDocument xsi:schemaLocation="http://hijis.hawaii.gov/ArrestReport/1.0 Arrest_Report.xsd" xmlns:ar-doc="http://hijis.hawaii.gov/ArrestReport/1.0" xmlns:hi-br-ext="http://hijis.hawaii.gov/BookingReportExtension/1.0" xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<hi-br-ext:AttorneyGeneralCaseIndicator>false</hi-br-ext:AttorneyGeneralCaseIndicator>
    <hi-br-ext:RecordCategoryText>OBTS/CCH Arrest Report</hi-br-ext:RecordCategoryText>
    <jxdm:Arrest>

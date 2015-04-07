@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:cr="http://ojbc.org/IEPD/CriminalRecord/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/CriminalRecordRecordingService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://ojbc.org/Services/WSDL/CriminalRecordRecordingService/1.0">
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:cr-doc="http://ojbc.org/IEPD/CriminalRecord/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/CriminalRecordRecordingService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://ojbc.org/Services/WSDL/CriminalRecordRecordingService/1.0">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
@@ -25,13 +25,13 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="ArrestRecord">
-		<wsdl:part name="ArrestRecord" element="cr:ArrestRecord"/>
+		<wsdl:part name="ArrestRecord" element="cr-doc:ArrestRecord"/>
 	</wsdl:message>
 	<wsdl:message name="ChargeRecord">
-		<wsdl:part name="ChargeRecord" element="cr:ChargeRecord"/>
+		<wsdl:part name="ChargeRecord" element="cr-doc:ChargeRecord"/>
 	</wsdl:message>
 	<wsdl:message name="ChargeDispositionRecord">
-		<wsdl:part name="ChargeDispositionRecord" element="cr:ChargeDispositionRecord"/>
+		<wsdl:part name="ChargeDispositionRecord" element="cr-doc:ChargeDispositionRecord"/>
 	</wsdl:message>
 	<wsdl:portType name="Criminal-Record-Recording-Service">
 		<wsdl:operation name="RecordArrest">

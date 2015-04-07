@@ -25,7 +25,7 @@
 	xmlns:tns="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-	xmlns:ibacr="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0"
+	xmlns:ibacr-doc="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
@@ -38,7 +38,7 @@
 		<wsdl:part name="MessageBasedAccessControlRequest" element="acr:Envelope" />
 	</wsdl:message>
 	<wsdl:message name="IdentityBasedAccessControlRequest">
-		<wsdl:part name="IdentityBasedAccessControlRequest" element="ibacr:IdentityBasedAccessControlRequest" />
+		<wsdl:part name="IdentityBasedAccessControlRequest" element="ibacr-doc:IdentityBasedAccessControlRequest" />
 	</wsdl:message>
 	<wsdl:portType name="Access-Control-Request-Service">
 		<wsdl:operation name="SubmitMessageBasedAccessControlRequest">

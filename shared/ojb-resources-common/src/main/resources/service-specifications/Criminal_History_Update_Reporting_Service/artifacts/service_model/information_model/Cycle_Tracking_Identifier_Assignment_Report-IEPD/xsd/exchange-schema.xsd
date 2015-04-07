@@ -20,7 +20,7 @@
 <xsd:schema 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	targetNamespace="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0" 
-	xmlns:crimhistory-update-exch="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:crimhistory-update-ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
 	elementFormDefault="qualified">
 	
