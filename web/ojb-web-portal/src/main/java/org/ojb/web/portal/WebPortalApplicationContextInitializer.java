@@ -52,7 +52,6 @@ public class WebPortalApplicationContextInitializer implements
 				props.load(applicationContext.getClassLoader().getResourceAsStream("ojb-web-portal.cfg"));
 				activeProfiles=props.getProperty("spring.activeProfiles");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				LOG.info("Unable to load spring profiles from ojb_web_portal.cfg");
 			}
 		}	

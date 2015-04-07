@@ -23,19 +23,16 @@ import java.util.Arrays;
 
 import javax.annotation.Resource;
 
-import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
-import org.ojbc.intermediaries.sn.topic.arrest.ArrestUnSubscriptionRequest;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.impl.DefaultMessage;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestUnSubscriptionRequest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -53,12 +50,10 @@ public class SubscriptionProcessorTest {
         private String topic;
         @Override
         public UnSubscriptionRequest makeUnSubscriptionRequestFromIncomingMessage(Message msg) throws Exception {
-            // TODO Auto-generated method stub
             return null;
         }
         @Override
         protected SubscriptionRequest makeSubscriptionRequestFromIncomingMessage(Message msg) throws Exception {
-            // TODO Auto-generated method stub
             return null;
         }
         @Override
@@ -69,8 +64,6 @@ public class SubscriptionProcessorTest {
             this.topic = topic;
         }
     }
-
-    private static final Log log = LogFactory.getLog(SubscriptionProcessorTest.class);
 
     @Resource
     private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
