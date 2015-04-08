@@ -29,7 +29,7 @@
 	<!--If running in eclipse, needed to add the OJB_Config jar into the deployment-assembly 
 		from the project preference -->
 	<context:property-placeholder
-		location="classpath:ojb-web-portal.cfg, classpath:config/ojb_web_external_resource.cfg"
+		location="classpath:config/ojb-web-portal.cfg, classpath:config/ojb_web_external_resource.cfg"
 		ignore-unresolvable="true"/>
 
 	<context:component-scan base-package="org.ojbc.web.portal.controllers"

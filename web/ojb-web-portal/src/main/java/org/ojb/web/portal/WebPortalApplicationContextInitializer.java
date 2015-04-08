@@ -49,7 +49,7 @@ public class WebPortalApplicationContextInitializer implements
 		{	
 			try {
 				props.clear();
-				props.load(applicationContext.getClassLoader().getResourceAsStream("ojb-web-portal.cfg"));
+				props.load(applicationContext.getClassLoader().getResourceAsStream("config/ojb-web-portal.cfg"));
 				activeProfiles=props.getProperty("spring.activeProfiles");
 			} catch (IOException e) {
 				LOG.info("Unable to load spring profiles from ojb_web_portal.cfg");
