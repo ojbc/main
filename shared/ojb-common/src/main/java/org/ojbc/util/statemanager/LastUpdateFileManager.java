@@ -122,7 +122,6 @@ public class LastUpdateFileManager implements LastUpdateManager {
     		ex.printStackTrace();
         }
     	catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	
