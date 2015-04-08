@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.ojbc.intermediaries.sn.notification.NotificationRequest.Alias;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
+import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
@@ -82,6 +83,7 @@ public class ArrestNotificationRequestTest {
 		assertThat(request.getPersonLastName(), is("Smith"));
 		assertThat(request.getPersonNameSuffix(), is(StringUtils.EMPTY));
 		assertThat(request.getPersonBirthDate(), is("1976-09-03"));
+		assertThat(request.getPersonAge(), is(NotificationBrokerUtils.calculatePersonAgeFromDate(request.getPersonBirthDate())));
 		assertThat(request.getNotifyingAgencyName(), is("Burlington Police Department"));
 		assertThat(request.getNotificationEventIdentifier(), is(StringUtils.EMPTY));
 		assertThat(request.getAttorneyGeneralIndicator(), is(StringUtils.EMPTY));
@@ -156,6 +158,7 @@ public class ArrestNotificationRequestTest {
 		assertThat(request.getPersonLastName(), is("Smith"));
 		assertThat(request.getPersonNameSuffix(), is(StringUtils.EMPTY));
 		assertThat(request.getPersonBirthDate(), is("1976-09-03"));
+		assertThat(request.getPersonAge(), is(NotificationBrokerUtils.calculatePersonAgeFromDate(request.getPersonBirthDate())));
 		assertThat(request.getNotifyingAgencyName(), is("Burlington Police Department"));
 		assertThat(request.getNotificationEventIdentifier(), is(StringUtils.EMPTY));
 		assertThat(request.getAttorneyGeneralIndicator(), is(StringUtils.EMPTY));

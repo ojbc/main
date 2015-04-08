@@ -26,7 +26,6 @@ public class PolicyAcknowledgementRecordingMockImpl implements PolicyBasedAcknow
     @Override
     public String invokePolicyAcknowledgementRecordingRequest(String federatedQueryID,
             Element samlToken) throws Exception {
-        // TODO Auto-generated method stub
         return null;
     }
 

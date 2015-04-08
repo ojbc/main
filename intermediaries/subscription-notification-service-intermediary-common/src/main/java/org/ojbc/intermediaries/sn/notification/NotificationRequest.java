@@ -20,14 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
-import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
+import org.joda.time.format.DateTimeFormat;
+import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -47,6 +49,8 @@ public abstract class NotificationRequest {
     protected String personLastName;
     protected String personNameSuffix;
     protected String personBirthDate;
+    protected String personAge;
+    
     protected String personActivityInvolvementText;
     
     protected List<String> personTelephoneNumbers = new ArrayList<String>();
@@ -121,6 +125,15 @@ public abstract class NotificationRequest {
             personBirthDate = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
                     + "']/nc:PersonBirthDate/nc:Date");
             
+            try
+            {
+            	personAge = NotificationBrokerUtils.calculatePersonAgeFromDate(personBirthDate);	
+            }
+            catch (Exception ex)
+            {
+            	log.error("Unable to calculate person age.");
+            }
+            	
             NodeList aliasNodes = XmlUtils.xPathNodeListSearch(document,
             		"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference + "']/nc:PersonAlternateName");
 
@@ -297,6 +310,10 @@ public abstract class NotificationRequest {
 
 	public List<String> getPersonTelephoneNumbers() {
 		return personTelephoneNumbers;
+	}
+
+	public String getPersonAge() {
+		return personAge;
 	}
 
 }

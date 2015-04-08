@@ -14,24 +14,25 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.adapters;
+package org.ojbc.pep;
 
-import org.apache.camel.test.junit4.CamelSpringTestSupport;
-import org.junit.Test;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.w3c.dom.Document;
 
-public class TestStaticMockAdapterContext extends CamelSpringTestSupport{
-
-    @Override
-    protected AbstractApplicationContext createApplicationContext() {
-        return new ClassPathXmlApplicationContext(new String[]{"META-INF/spring/camel-context.xml"});
+/**
+ * A wrapper of a XACML request
+ *
+ */
+public class XacmlRequest {
+    
+    private Document requestDocument;
+    
+    public XacmlRequest(Document requestDocument)
+    {
+        this.requestDocument = requestDocument;
     }
     
-    @Test
-    public void testApplicationStartup()
-    {
-        assertTrue(true);
-    }   
+    public Document getRequestDocument() {
+        return requestDocument;
+    }
 
 }

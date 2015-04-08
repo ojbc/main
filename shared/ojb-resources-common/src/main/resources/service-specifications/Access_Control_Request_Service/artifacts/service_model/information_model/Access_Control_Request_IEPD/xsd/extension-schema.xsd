@@ -24,13 +24,9 @@
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
 	elementFormDefault="qualified">
 	<xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xs:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
-	<xs:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
-	<xs:import namespace="http://schemas.xmlsoap.org/soap/envelope/" schemaLocation="http://schemas.xmlsoap.org/soap/envelope/"/>
 	<xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xs:complexType name="IdentityType">
 		<xs:complexContent>
@@ -53,16 +49,6 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-		<xs:complexType name="MessageBasedAccessControlRequestType">
-		<xs:complexContent>
-			<xs:extension base="structures:ObjectType">
-				<xs:sequence>
-					<xs:element ref="acreq-ext:RequestedResourceURI"/>
-					<xs:element ref="soap:Envelope"/>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>	
 	<xs:element name="PersonIdentity" type="acreq-ext:IdentityType"/>
 		<xs:element name="IdentityIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:IdentityAugmentationPoint">
 		<xs:annotation>

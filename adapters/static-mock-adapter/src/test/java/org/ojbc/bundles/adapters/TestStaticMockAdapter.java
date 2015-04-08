@@ -60,7 +60,10 @@ import org.w3c.dom.NodeList;
 // NOTE: this causes Camel contexts to not start up automatically
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-    "classpath:META-INF/spring/camel-context.xml"
+    "classpath:META-INF/spring/camel-context.xml",
+    "classpath:META-INF/spring/dao.xml",
+    "classpath:META-INF/spring/cxf-endpoints.xml",
+    "classpath:META-INF/spring/properties-context.xml"
 })
 public class TestStaticMockAdapter {
 

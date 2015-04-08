@@ -27,10 +27,16 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 
-	<ctx:property-placeholder location="classpath:static_mock_adapter.cfg" />
-	
-	<util:properties id="springProperties">
-		<prop key="dbAuditLog">${genericMockAdapter.dbAuditLog}</prop>
-	</util:properties>
+	<bean id="bridgePropertyPlaceholder"
+		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+		<property name="propertiesArray">
+			<array>
+				<!-- The .cfg file from the classpath will be consulted first, followed 
+					by the optional .cfg file under $SERVICEMIX_HOME/etc -->
+				<util:properties
+					location="classpath:static_mock_adapter.cfg" />
+			</array>
+		</property>
+	</bean>
 
 </beans>
