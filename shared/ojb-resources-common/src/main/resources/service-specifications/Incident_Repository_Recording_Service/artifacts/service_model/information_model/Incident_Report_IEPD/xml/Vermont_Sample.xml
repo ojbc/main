@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ir:IncidentReport xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+<ir-doc:IncidentReport xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
 	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
 	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -668,4 +668,4 @@
 			</lexs:PublishMessage>
 		</lexs:PublishMessageContainer>
 	</lexspd:doPublish>
-</ir:IncidentReport>
+</ir-doc:IncidentReport>

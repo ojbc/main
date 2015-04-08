@@ -24,7 +24,7 @@
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:notfm-exch="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" 
+	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" 
 	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0">
 	<b-2:NotificationMessage>
 		<b-2:SubscriptionReference>
@@ -56,7 +56,7 @@
                <!--You may enter ANY elements at this point-->
              </b-2:ProducerReference>
 		<b-2:Message>
-			<notfm-exch:NotificationMessage> 
+			<notfm-doc:NotificationMessage> 
 				<notfm-ext:NotifyingIncident s:id="I001">
 			    <j:Incident>
 			      <nc:ActivityDate>
@@ -101,7 +101,7 @@
 			  		<nc:PersonSurName>Wiggum</nc:PersonSurName>
 			  	</nc:PersonName>
 			  </j:Person>
-			</notfm-exch:NotificationMessage>
+			</notfm-doc:NotificationMessage>
 		</b-2:Message>
 	</b-2:NotificationMessage>
 </b-2:Notify>

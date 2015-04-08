@@ -21,7 +21,7 @@
 	xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
 	elementFormDefault="qualified" 
 	xmlns:isres-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
-	xmlns:isres="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
+	xmlns:isres-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
@@ -31,9 +31,9 @@
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
 		schemaLocation="extension_schema.xsd" />
 		<!-- Root element for incident results -->
-		<xsd:element name="IncidentSearchResults" type="isres:IncidentSearchResultsType"/>
+		<xsd:element name="IncidentSearchResults" type="isres-ext:IncidentSearchResultsType"/>
 		<!-- Root element for incident search results based on an incident person -->
-		<xsd:element name="IncidentPersonSearchResults" type="isres:IncidentPersonSearchResultsType"/>
+		<xsd:element name="IncidentPersonSearchResults" type="isres-ext:IncidentPersonSearchResultsType"/>
 		<!-- Root element for incident search results based on an incident vehicle -->
-		<xsd:element name="IncidentVehicleSearchResults" type="isres:IncidentVehicleSearchResultsType"/>
+		<xsd:element name="IncidentVehicleSearchResults" type="isres-ext:IncidentVehicleSearchResultsType"/>
 </xsd:schema>
