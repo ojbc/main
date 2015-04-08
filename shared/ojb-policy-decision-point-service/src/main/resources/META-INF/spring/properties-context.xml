@@ -38,7 +38,7 @@
 		<property name="propertiesArray">
 			<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 				<property name="targetObject">
-					<ref bean="org.ojbc.bundles.intermediaries.ojb-policy-decision-point-service-context" />
+					<ref bean="org.ojbc.bundles.shared.ojb-policy-decision-point-service-context" />
 				</property>
 				<property name="targetMethod">
 					<value>getPropertiesList</value>
