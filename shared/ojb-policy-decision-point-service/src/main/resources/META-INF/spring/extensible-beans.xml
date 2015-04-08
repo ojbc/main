@@ -30,7 +30,7 @@
 	
 	<bean id="wsAddressReplyToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="wsAddressReplyToEndpointMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.ojb-policy-decision-point-service-context" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.shared.ojb-policy-decision-point-service-context" />
 		<constructor-arg name="defaultObject">
 			<util:map map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.String">
 		        <entry key="${pdp.accessControlResponsePolicyAcknowledgementEndpoint}" value="accessControlResponseServicePolicyAcknowledgementEndpoint"/>
@@ -40,7 +40,7 @@
 	
 	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.ojb-policy-decision-point-service-context" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.shared.ojb-policy-decision-point-service-context" />
 		<constructor-arg name="defaultObject">
 			<bean class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
 				<property name="federatedQueryEndpointMap">
