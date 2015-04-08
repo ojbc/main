@@ -69,7 +69,6 @@ public class IdentityBasedAccessControlMockImpl implements IdentityBasedAccessCo
                         "/sampleResponses/identityBasedAccessControl/AccessControlResponseForEmptyFedID.xml"));
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         } 
