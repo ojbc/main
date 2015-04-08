@@ -19,7 +19,7 @@
 -->
 <isr-doc:IncidentPersonSearchRequest
 	xmlns:isr-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
-	xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+	xmlns:isr-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:inc="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
@@ -31,8 +31,8 @@
 		</nc:PersonOtherIdentification>
 	</nc:Person>
 	<inc:SourceSystemNameText>System1</inc:SourceSystemNameText>
-	<isr:SearchMetadata s:id="SM003">
-		<isr:SearchRequestOnBehalfOfText>John Doe</isr:SearchRequestOnBehalfOfText>
-		<isr:SearchPurposeText>Criminal Justice</isr:SearchPurposeText>
-	</isr:SearchMetadata>
+	<isr-ext:SearchMetadata s:id="SM003">
+		<isr-ext:SearchRequestOnBehalfOfText>John Doe</isr-ext:SearchRequestOnBehalfOfText>
+		<isr-ext:SearchPurposeText>Criminal Justice</isr-ext:SearchPurposeText>
+	</isr-ext:SearchMetadata>
 </isr-doc:IncidentPersonSearchRequest>

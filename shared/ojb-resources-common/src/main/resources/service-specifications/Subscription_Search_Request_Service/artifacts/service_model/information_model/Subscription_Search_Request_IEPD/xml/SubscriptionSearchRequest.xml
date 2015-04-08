@@ -17,8 +17,8 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ssreq:SubscriptionSearchRequest
-	xmlns:ssreq="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
+<ssreq-doc:SubscriptionSearchRequest
+	xmlns:ssreq-doc="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
 	xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0 ../xsd/exchange_schema.xsd "/>

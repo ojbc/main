@@ -20,7 +20,7 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:sqr="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
+	xmlns:sqr-doc="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
 	name="Subscription_Query_Results_Service" targetNamespace="http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
@@ -35,7 +35,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Subscription-Query-Results">
-		<wsdl:part element="sqr:SubscriptionQueryResults" name="Subscription-Query-Results" />
+		<wsdl:part element="sqr-doc:SubscriptionQueryResults" name="Subscription-Query-Results" />
 	</wsdl:message>
 	<wsdl:portType name="Subscription_Query_Results_Service">
 		<wsdl:operation name="ReportSubscriptionQueryResults">

@@ -19,7 +19,7 @@
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
-	xmlns:iqr="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
+	xmlns:iqr-ext="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
 	elementFormDefault="qualified" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
@@ -35,8 +35,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="iqr:Incident" />
-					<xsd:element ref="iqr:SourceSystemNameText" minOccurs="0"
+					<xsd:element ref="iqr-ext:Incident" />
+					<xsd:element ref="iqr-ext:SourceSystemNameText" minOccurs="0"
 						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -57,12 +57,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:IncidentType">
 				<xsd:sequence>
-					<xsd:element ref="iqr:IncidentCategoryCode" minOccurs="0" />
+					<xsd:element ref="iqr-ext:IncidentCategoryCode" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="IncidentCategoryCode" type="iqr:IncidentCategoryCodeType">
+	<xsd:element name="IncidentCategoryCode" type="iqr-ext:IncidentCategoryCodeType">
 		<xsd:annotation>
 			<xsd:documentation>The kind of incident.</xsd:documentation>
 		</xsd:annotation>
@@ -73,7 +73,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:simpleContent>
-			<xsd:extension base="iqr:IncidentCategoryCodeSimpleType">
+			<xsd:extension base="iqr-ext:IncidentCategoryCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -106,7 +106,7 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
-		<xsd:element name="Incident" type="iqr:IncidentType">
+		<xsd:element name="Incident" type="iqr-ext:IncidentType">
 		<xsd:annotation>
 			<xsd:documentation>An occurrence or an event that may require a
 				response.</xsd:documentation>
