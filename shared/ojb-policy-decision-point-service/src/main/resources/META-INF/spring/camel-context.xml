@@ -36,7 +36,7 @@
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 
 	<camelContext xmlns="http://camel.apache.org/schema/spring"
-		xmlns:ibacr="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0"
+		xmlns:acr="http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0"
 		xmlns:ext="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0"
 		xmlns:personsearch-ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
 		
@@ -100,7 +100,7 @@
 				<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
 				<!-- Change this XPath to match what you need -->
 				<camel:setHeader headerName="federatedQueryEndpointsNodeList">
-					<camel:xpath>/ibacr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI</camel:xpath>
+					<camel:xpath>/acr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI</camel:xpath>
 				</camel:setHeader>
 				<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 	
@@ -155,7 +155,7 @@
 				<camel:when>
 					<camel:simple>${in.headers.operationName} == 'SubmitIdentityBasedAccessControlRequest'</camel:simple>				
 					<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
-						<camel:xpath>/ibacr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI</camel:xpath>
+						<camel:xpath>/acr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI</camel:xpath>
 						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
 						<camel:recipientList>
 							<camel:header>webServiceEndpointToCall</camel:header>

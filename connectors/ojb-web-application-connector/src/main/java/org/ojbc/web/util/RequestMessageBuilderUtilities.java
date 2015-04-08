@@ -487,14 +487,14 @@ public class RequestMessageBuilderUtilities {
 
     public static Document createPolicyBasedAccessControlRequest(Element samlToken, String requestedResource) throws Exception {
         Document document = OJBCXMLUtils.createDocument();       
-        Element rootElement = document.createElementNS(OjbcNamespaceContext.NS_IDENTITY_BASED_ACCESS_CONTROL_REQUEST, 
-                OjbcNamespaceContext.NS_PREFIX_IDENTITY_BASED_ACCESS_CONTROL_REQUEST 
+        Element rootElement = document.createElementNS(OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST, 
+                OjbcNamespaceContext.NS_PREFIX_ACCESS_CONTROL_REQUEST 
                 +":IdentityBasedAccessControlRequest");
         document.appendChild(rootElement); 
-        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_IDENTITY_BASED_ACCESS_CONTROL_REQUEST, 
-                OjbcNamespaceContext.NS_IDENTITY_BASED_ACCESS_CONTROL_REQUEST);
-        rootElement.setAttribute("xmlns:"+ OjbcNamespaceContext.NS_PREFIX_IDENTITY_BASED_ACCESS_CONTROL_EXT, 
-                OjbcNamespaceContext.NS_IDENTITY_BASED_ACCESS_CONTROL_EXT);
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_ACCESS_CONTROL_REQUEST, 
+                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST);
+        rootElement.setAttribute("xmlns:"+ OjbcNamespaceContext.NS_PREFIX_ACCESS_CONTROL_REQUEST_EXT, 
+                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT);
         rootElement.setAttribute("xmlns:"+ OjbcNamespaceContext.NS_PREFIX_PROXY_XSD_30, 
                 OjbcNamespaceContext.NS_PROXY_XSD_30);
         rootElement.setAttribute("xmlns:"+ OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30, 
@@ -503,7 +503,7 @@ public class RequestMessageBuilderUtilities {
         rootElement.setAttribute("xmlns:"+ OjbcNamespaceContext.NS_PREFIX_JXDM_50, OjbcNamespaceContext.NS_JXDM_50);
         
         Element personIdentity = XmlUtils.appendElement(rootElement, 
-                OjbcNamespaceContext.NS_IDENTITY_BASED_ACCESS_CONTROL_EXT, "PersonIdentity"); 
+                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "PersonIdentity"); 
         
         Element identityPersonRepresentation = XmlUtils.appendElement(personIdentity, 
                 OjbcNamespaceContext.NS_NC_30, "IdentityPersonRepresentation"); 
@@ -526,7 +526,7 @@ public class RequestMessageBuilderUtilities {
         personSurName.setTextContent(userLastName);
         
         Element identityIdentification = XmlUtils.appendElement(personIdentity, 
-                OjbcNamespaceContext.NS_IDENTITY_BASED_ACCESS_CONTROL_EXT, "IdentityIdentification");
+                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "IdentityIdentification");
         Element identificationID = XmlUtils.appendElement(identityIdentification, 
                 OjbcNamespaceContext.NS_NC_30, "IdentificationID");
         String federationId = XmlUtils.xPathStringSearch(samlToken,
@@ -535,7 +535,7 @@ public class RequestMessageBuilderUtilities {
         identificationID.setTextContent(federationId);
         
         Element federatedQueryUserIndicator = XmlUtils.appendElement(personIdentity, 
-                OjbcNamespaceContext.NS_IDENTITY_BASED_ACCESS_CONTROL_EXT, "FederatedQueryUserIndicator");
+                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "FederatedQueryUserIndicator");
         String federatedQueryUserIndicatorValue = XmlUtils.xPathStringSearch(samlToken,
                 "/saml2:Assertion/saml2:AttributeStatement[1]/"
                 + "saml2:Attribute[@Name='gfipm:ext:user:FederatedQueryUserIndicator']/saml2:AttributeValue"); 
@@ -605,14 +605,14 @@ public class RequestMessageBuilderUtilities {
         oriIdentificationID.setTextContent(ori);
 
         Element criminalJusticeOrganizationIndicator = XmlUtils.appendElement(entityOrganization, 
-                OjbcNamespaceContext.NS_IDENTITY_BASED_ACCESS_CONTROL_EXT, "CriminalJusticeOrganizationIndicator"); 
+                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "CriminalJusticeOrganizationIndicator"); 
         String criminalJusticeOrganizationIndicatorValue = XmlUtils.xPathStringSearch(samlToken, 
                 "/saml2:Assertion/saml2:AttributeStatement[1]/"
                 + "saml2:Attribute[@Name='gfipm:ext:user:CriminalJusticeEmployerIndicator']/saml2:AttributeValue"); 
         criminalJusticeOrganizationIndicator.setTextContent(criminalJusticeOrganizationIndicatorValue);
 
         Element lawEnforcementOrganizationIndicator = XmlUtils.appendElement(entityOrganization, 
-                OjbcNamespaceContext.NS_IDENTITY_BASED_ACCESS_CONTROL_EXT, "LawEnforcementOrganizationIndicator"); 
+                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "LawEnforcementOrganizationIndicator"); 
         String lawEnforcementOrganizationIndicatorValue = XmlUtils.xPathStringSearch(samlToken, 
                 "/saml2:Assertion/saml2:AttributeStatement[1]/"
                         + "saml2:Attribute[@Name='gfipm:ext:user:LawEnforcementEmployerIndicator']/saml2:AttributeValue");
@@ -626,7 +626,7 @@ public class RequestMessageBuilderUtilities {
         employeePositionName.setTextContent(employeePositionNameValue);
         
         Element requestedResourceURI = XmlUtils.appendElement(rootElement, 
-                OjbcNamespaceContext.NS_IDENTITY_BASED_ACCESS_CONTROL_EXT, "RequestedResourceURI"); 
+                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "RequestedResourceURI"); 
         requestedResourceURI.setTextContent(requestedResource);
 
         log.debug("\nCreated Request:\n" + OJBUtils.getStringFromDocument(document));
