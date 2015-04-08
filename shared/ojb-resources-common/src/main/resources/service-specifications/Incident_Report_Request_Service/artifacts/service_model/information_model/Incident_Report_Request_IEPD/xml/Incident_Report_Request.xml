@@ -19,15 +19,15 @@
 -->
 <iqr-doc:IncidentIdentifierIncidentReportRequest 
 	xmlns:iqr-doc="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0" 
-	xmlns:iqr="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0" 
+	xmlns:iqr-ext="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0 ../xsd/exchange_schema.xsd ">
-  <iqr:Incident>
+  <iqr-ext:Incident>
     <nc:ActivityIdentification>
     	<nc:IdentificationID>ABCD12345</nc:IdentificationID>
     </nc:ActivityIdentification>
-    <iqr:IncidentCategoryCode>Law</iqr:IncidentCategoryCode>
- </iqr:Incident>
-  <iqr:SourceSystemNameText>System2</iqr:SourceSystemNameText>
+    <iqr-ext:IncidentCategoryCode>Law</iqr-ext:IncidentCategoryCode>
+ </iqr-ext:Incident>
+  <iqr-ext:SourceSystemNameText>System2</iqr-ext:SourceSystemNameText>
 </iqr-doc:IncidentIdentifierIncidentReportRequest>

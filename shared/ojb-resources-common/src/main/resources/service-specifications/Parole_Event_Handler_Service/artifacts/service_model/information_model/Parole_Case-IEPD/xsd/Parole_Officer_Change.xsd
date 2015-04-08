@@ -18,9 +18,10 @@
 
 -->
 <xsd:schema
- 	xmlns:prlcase="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0" 
+ 	xmlns:prlcase-ext="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0" 
+ 	xmlns:prlcoc-doc="http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0" 
  	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
  	targetNamespace="http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0">
   <xsd:import namespace="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0" schemaLocation="Parole_Case_Extensions.xsd"/>
-  <xsd:element name="ParoleCaseOfficerChange" type="prlcase:ParoleCaseMessageType"/>
+  <xsd:element name="ParoleCaseOfficerChange" type="prlcase-ext:ParoleCaseMessageType"/>
 </xsd:schema>

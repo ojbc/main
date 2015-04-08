@@ -352,7 +352,6 @@ public class XmlUtils {
      *             if the document is not valid
      */
     public static final Document validateInstance(String iepdRootPath, String niemSchemaContainerFolderName, String rootSchemaFileName, List<String> additionalSchemaRelativePaths, Document d) throws Exception {
-    	
         return validateInstance(iepdRootPath, rootSchemaFileName, additionalSchemaRelativePaths, d, new IEPDResourceResolver(niemSchemaContainerFolderName, iepdRootPath));
     }
     

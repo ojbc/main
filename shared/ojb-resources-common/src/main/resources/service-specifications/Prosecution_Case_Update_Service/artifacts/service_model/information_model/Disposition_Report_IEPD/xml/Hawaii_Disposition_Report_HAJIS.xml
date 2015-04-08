@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<disp_exc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0 ../xsd/impl/hawaii/hajis_disposition_codes.xsd"
-xmlns:disp_exc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
-xmlns:disp_ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+<disp-doc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0 ../xsd/impl/hawaii/hajis_disposition_codes.xsd"
+xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
 xmlns:hi_codes_hajis="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0"
 xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
 xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/"
@@ -32,9 +32,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<nc:IdentificationCategoryText>TRANSACTIONID</nc:IdentificationCategoryText>
 	</nc:DocumentIdentification>
 	<!-- Update this with URI -->
-	<disp_ext:DispositionReportOriginatingSystem>
+	<disp-ext:DispositionReportOriginatingSystem>
 		<nc:SystemName>{http://ojbc.org/hawaii/judicial/1.0}HAJIS</nc:SystemName>
-	</disp_ext:DispositionReportOriginatingSystem>
+	</disp-ext:DispositionReportOriginatingSystem>
 	<nc:Case structures:id="CASE_01">
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>ID</nc:IdentificationID>
@@ -55,24 +55,24 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<nc:DispositionDate>
 						<nc:Date>2013-11-05</nc:Date>
 					</nc:DispositionDate>
-					<disp_ext:ChargeDispositionAugmentation>
+					<disp-ext:ChargeDispositionAugmentation>
 						<hi_codes_hajis:DispositionCode>AQI</hi_codes_hajis:DispositionCode>
 						<hi_codes_hajis:DispositionCategoryCode>PROS</hi_codes_hajis:DispositionCategoryCode>
-					</disp_ext:ChargeDispositionAugmentation>
+					</disp-ext:ChargeDispositionAugmentation>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>ID764767</nc:IdentificationID>
 					<nc:IdentificationCategoryText>CHARGEOTN</nc:IdentificationCategoryText>
 				</j:ChargeIdentification>
 				<j:ChargePlea>
-					<disp_ext:PleaAugmentation>
+					<disp-ext:PleaAugmentation>
 						<hi_codes_hajis:PleaCode>C</hi_codes_hajis:PleaCode>
 						<j:ChargeStatute>
 							<j:StatuteCodeIdentification>
 								<nc:IdentificationID>String</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 						</j:ChargeStatute>
-					</disp_ext:PleaAugmentation>
+					</disp-ext:PleaAugmentation>
 				</j:ChargePlea>
 				<j:ChargeSentence>
 					<nc:ActivityDate>
@@ -80,10 +80,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					</nc:ActivityDate>
 					<j:SentenceCharge>
 						<j:ChargeDisposition>
-							<disp_ext:ChargeDispositionAugmentation>
+							<disp-ext:ChargeDispositionAugmentation>
 								<hi_codes_hajis:DispositionCode>BRS</hi_codes_hajis:DispositionCode>
 								<hi_codes_hajis:DispositionCategoryCode>SCT</hi_codes_hajis:DispositionCategoryCode>
-							</disp_ext:ChargeDispositionAugmentation>
+							</disp-ext:ChargeDispositionAugmentation>
 						</j:ChargeDisposition>
 					</j:SentenceCharge>
 					<j:SentenceCondition>
@@ -92,41 +92,41 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 								<nc:ObligationDueAmount>
 									<nc:Amount>100.00</nc:Amount>
 								</nc:ObligationDueAmount>
-								<disp_ext:ObligationUnitText>Dollars</disp_ext:ObligationUnitText>
+								<disp-ext:ObligationUnitText>Dollars</disp-ext:ObligationUnitText>
 							</nc:DisciplinaryActionFee>
 						</nc:ConditionDisciplinaryAction>
 					</j:SentenceCondition>
-					<disp_ext:SentenceAugmentation>
+					<disp-ext:SentenceAugmentation>
 						<hi_codes_hajis:SentenceCategoryCode>DON</hi_codes_hajis:SentenceCategoryCode>
-					</disp_ext:SentenceAugmentation>
+					</disp-ext:SentenceAugmentation>
 				</j:ChargeSentence>
 				<j:ChargeSequenceID>4</j:ChargeSequenceID>
-				<disp_ext:ChargeAugmentation>
-					<disp_ext:InitialCharge>
+				<disp-ext:ChargeAugmentation>
+					<disp-ext:InitialCharge>
 						<j:ChargeStatute>
 							<j:StatuteCodeIdentification>
 								<nc:IdentificationID>54-345-34565</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 						</j:ChargeStatute>
-						<disp_ext:ChargeAugmentation>
+						<disp-ext:ChargeAugmentation>
 							<hi_codes_hajis:ChargeSeverityCode>FB</hi_codes_hajis:ChargeSeverityCode>
-						</disp_ext:ChargeAugmentation>
-					</disp_ext:InitialCharge>
-					<disp_ext:FinalCharge>
+						</disp-ext:ChargeAugmentation>
+					</disp-ext:InitialCharge>
+					<disp-ext:FinalCharge>
 						<j:ChargeStatute>
 							<j:StatuteCodeIdentification>
 								<nc:IdentificationID>54-345-34565</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 						</j:ChargeStatute>
-						<disp_ext:ChargeAugmentation>
-							<disp_ext:ChargeModifierText/>
+						<disp-ext:ChargeAugmentation>
+							<disp-ext:ChargeModifierText/>
 							<hi_codes_hajis:ChargeSeverityCode>FB</hi_codes_hajis:ChargeSeverityCode>
-						</disp_ext:ChargeAugmentation>
-					</disp_ext:FinalCharge>
-					<disp_ext:ChargePardonDate>
+						</disp-ext:ChargeAugmentation>
+					</disp-ext:FinalCharge>
+					<disp-ext:ChargePardonDate>
 						<nc:Date>2013-11-05</nc:Date>
-					</disp_ext:ChargePardonDate>
-				</disp_ext:ChargeAugmentation>
+					</disp-ext:ChargePardonDate>
+				</disp-ext:ChargeAugmentation>
 			</j:CaseCharge>
 			<j:CaseCourt>
 				<nc:OrganizationIdentification>
@@ -139,9 +139,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				</nc:OrganizationLocation>
 			</j:CaseCourt>
 			<j:CaseCourtEvent>
-				<disp_ext:CourtEventAugmentation>
+				<disp-ext:CourtEventAugmentation>
 					<hi_codes_hajis:CourtEventCategoryCode>COP</hi_codes_hajis:CourtEventCategoryCode>
-				</disp_ext:CourtEventAugmentation>
+				</disp-ext:CourtEventAugmentation>
 			</j:CaseCourtEvent>
 			<j:CaseCourtEvent>
 				<nc:ActivityCategoryText>Disposition Next Date</nc:ActivityCategoryText>
@@ -150,9 +150,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				</nc:ActivityDate>
 			</j:CaseCourtEvent>
 			<j:CaseDefenseAttorney>
-				<disp_ext:CaseOfficialAugmentation>
+				<disp-ext:CaseOfficialAugmentation>
 					<hi_codes_hajis:CounselCategoryCode>PD</hi_codes_hajis:CounselCategoryCode>
-				</disp_ext:CaseOfficialAugmentation>
+				</disp-ext:CaseOfficialAugmentation>
 			</j:CaseDefenseAttorney>
 			<j:CaseJudge>
 				<nc:RoleOfPerson>
@@ -173,13 +173,13 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<nc:ActivityDate>
 					<nc:Date>2014-12-17</nc:Date>
 				</nc:ActivityDate>
-				<disp_ext:CourtEventAugmentation>
+				<disp-ext:CourtEventAugmentation>
 					<hi_codes_hajis:TrialCategoryCode>OTH</hi_codes_hajis:TrialCategoryCode>
-				</disp_ext:CourtEventAugmentation>
+				</disp-ext:CourtEventAugmentation>
 			</j:CaseTrial>
 		</j:CaseAugmentation>
 	</nc:Case>
-	<disp_ext:DeferredCase structures:id="DEFERRED_CASE_01">
+	<disp-ext:DeferredCase structures:id="DEFERRED_CASE_01">
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>ID678656</nc:IdentificationID>
 			<nc:IdentificationCategoryText>Disposition Deferred Case Number</nc:IdentificationCategoryText>
@@ -194,9 +194,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<nc:DispositionDate>
 						<nc:Date>2014-12-17</nc:Date>
 					</nc:DispositionDate>
-					<disp_ext:ChargeDispositionAugmentation>
+					<disp-ext:ChargeDispositionAugmentation>
 						<hi_codes_hajis:DispositionCode>JMC</hi_codes_hajis:DispositionCode>
-					</disp_ext:ChargeDispositionAugmentation>
+					</disp-ext:ChargeDispositionAugmentation>
 				</j:ChargeDisposition>
 				<j:ChargeSentence>
 					<nc:ActivityDate>
@@ -204,15 +204,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					</nc:ActivityDate>
 					<j:SentenceCharge>
 						<j:ChargeDisposition>
-							<disp_ext:ChargeDispositionAugmentation>
+							<disp-ext:ChargeDispositionAugmentation>
 								<hi_codes_hajis:DispositionCode>BRS</hi_codes_hajis:DispositionCode>
-							</disp_ext:ChargeDispositionAugmentation>
+							</disp-ext:ChargeDispositionAugmentation>
 						</j:ChargeDisposition>
 					</j:SentenceCharge>
 				</j:ChargeSentence>
 			</j:CaseCharge>
 			<j:CaseCourtEvent>
-				<disp_ext:CourtEventAugmentation>
+				<disp-ext:CourtEventAugmentation>
 					<cyfs:NextCourtEvent>
 						<nc:ActivityCategoryText>Deferred Return Date</nc:ActivityCategoryText>
 						<nc:ActivityDate>
@@ -225,10 +225,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 							<nc:Date>2014-12-17</nc:Date>
 						</nc:ActivityDate>
 					</cyfs:NextCourtEvent>
-				</disp_ext:CourtEventAugmentation>
+				</disp-ext:CourtEventAugmentation>
 			</j:CaseCourtEvent>
 		</j:CaseAugmentation>
-	</disp_ext:DeferredCase>
+	</disp-ext:DeferredCase>
 	<j:Arrest structures:id="ARREST_01">
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>98-1488</nc:IdentificationID>
@@ -245,9 +245,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<nc:IdentificationID>54-345-34565</nc:IdentificationID>
 				</j:StatuteCodeIdentification>
 			</j:ChargeStatute>
-			<disp_ext:ChargeAugmentation>
+			<disp-ext:ChargeAugmentation>
 				<hi_codes_hajis:ChargeSeverityCode>FB</hi_codes_hajis:ChargeSeverityCode>
-			</disp_ext:ChargeAugmentation>
+			</disp-ext:ChargeAugmentation>
 		</j:ArrestCharge>
 	</j:Arrest>
 	<nc:Person structures:id="PARTY_01">
@@ -275,4 +275,4 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<nc:Activity structures:ref="DEFERRED_CASE_01"/>
 		<j:Arrest structures:ref="ARREST_01"/>
 	</j:ActivityArrestAssociation>
-</disp_exc:DispositionReport>
+</disp-doc:DispositionReport>

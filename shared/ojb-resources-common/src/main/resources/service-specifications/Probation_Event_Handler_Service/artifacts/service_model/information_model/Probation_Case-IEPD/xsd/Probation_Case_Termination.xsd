@@ -18,10 +18,10 @@
 
 -->
 <xsd:schema 
-	xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0" 
-	xmlns:pct="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0"
+	xmlns:pc-ext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0" 
+	xmlns:pct-doc="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	targetNamespace="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0">
   <xsd:import namespace="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0" schemaLocation="Probation_Case_Extensions.xsd"/>
-  <xsd:element name="ProbationCaseTermination" type="pcext:ProbationCaseMessageType"/>
+  <xsd:element name="ProbationCaseTermination" type="pc-ext:ProbationCaseMessageType"/>
 </xsd:schema>

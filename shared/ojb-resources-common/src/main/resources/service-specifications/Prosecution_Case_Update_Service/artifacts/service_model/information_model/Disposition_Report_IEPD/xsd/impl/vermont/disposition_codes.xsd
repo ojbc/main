@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:vt_codes="http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:disp_ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0" version="1.0">
+<xsd:schema xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:vt_codes="http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0" version="1.0">
 	<xsd:annotation>
 		<xsd:documentation>Codes for Vermont Dispositions</xsd:documentation>
 		<xsd:appinfo>
@@ -1357,7 +1357,7 @@
 			<xsd:documentation>A code that describes an age grouping by range.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AttorneyCatCode" type="vt_codes:AttorneyCatCodeType" substitutionGroup="disp_ext:CaseOfficial">
+	<xsd:element name="AttorneyCatCode" type="vt_codes:AttorneyCatCodeType" substitutionGroup="disp-ext:CaseOfficial">
 		<xsd:annotation>
 			<xsd:documentation>A code for a category for a defense attorney.</xsd:documentation>
 		</xsd:annotation>
@@ -1367,7 +1367,7 @@
 			<xsd:documentation>A code for the County of a court.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtDispCode" type="vt_codes:CourtDispCodeType" substitutionGroup="disp_ext:Disposition">
+	<xsd:element name="CourtDispCode" type="vt_codes:CourtDispCodeType" substitutionGroup="disp-ext:Disposition">
 		<xsd:annotation>
 			<xsd:documentation>A code for a court disposition.</xsd:documentation>
 		</xsd:annotation>
@@ -1377,7 +1377,7 @@
 			<xsd:documentation>A code for a range of fines.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="NonConvCatCode" type="vt_codes:NonConvCatCodeType" substitutionGroup="disp_ext:Disposition">
+	<xsd:element name="NonConvCatCode" type="vt_codes:NonConvCatCodeType" substitutionGroup="disp-ext:Disposition">
 		<xsd:annotation>
 			<xsd:documentation>A code for a non-conviction category.</xsd:documentation>
 		</xsd:annotation>
@@ -1392,7 +1392,7 @@
 			<xsd:documentation>A code for an offense.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="OriginalPleaCode" type="vt_codes:OriginalPleaCodeType" substitutionGroup="disp_ext:Plea">
+	<xsd:element name="OriginalPleaCode" type="vt_codes:OriginalPleaCodeType" substitutionGroup="disp-ext:Plea">
 		<xsd:annotation>
 			<xsd:documentation>A code for an original plea.</xsd:documentation>
 		</xsd:annotation>
@@ -1402,12 +1402,12 @@
 			<xsd:documentation>A code for a pre-trial status.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PleaChangeCode" type="vt_codes:PleaChangeCodeType" substitutionGroup="disp_ext:Plea">
+	<xsd:element name="PleaChangeCode" type="vt_codes:PleaChangeCodeType" substitutionGroup="disp-ext:Plea">
 		<xsd:annotation>
 			<xsd:documentation>A code for a change plea..</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ProsDispCode" type="vt_codes:ProsDispCodeType" substitutionGroup="disp_ext:Disposition">
+	<xsd:element name="ProsDispCode" type="vt_codes:ProsDispCodeType" substitutionGroup="disp-ext:Disposition">
 		<xsd:annotation>
 			<xsd:documentation>A code for a prosecution disposition.</xsd:documentation>
 		</xsd:annotation>
@@ -1417,12 +1417,12 @@
 			<xsd:documentation>A code for race.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentCatCode" type="vt_codes:SentCatCodeType" substitutionGroup="disp_ext:Sentence">
+	<xsd:element name="SentCatCode" type="vt_codes:SentCatCodeType" substitutionGroup="disp-ext:Sentence">
 		<xsd:annotation>
 			<xsd:documentation>A code for a sentence category.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceCode" type="vt_codes:SentenceCodeType" substitutionGroup="disp_ext:Sentence">
+	<xsd:element name="SentenceCode" type="vt_codes:SentenceCodeType" substitutionGroup="disp-ext:Sentence">
 		<xsd:annotation>
 			<xsd:documentation>A code for a sentence.</xsd:documentation>
 		</xsd:annotation>

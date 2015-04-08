@@ -19,13 +19,13 @@
 -->
 <isr-doc:IncidentSearchRequest
 	xmlns:isr-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
-	xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+	xmlns:isr-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
 	xmlns:incident-location-codes-demostate="http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0"
 	xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0 ../xsd/impl/demostate/LocationCodes.xsd">
-	<isr:Incident s:id="I001">
+	<isr-ext:Incident s:id="I001">
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>12345</nc:IdentificationID>
 		</nc:ActivityIdentification>
@@ -37,11 +37,11 @@
 				<nc:DateTime>2012-04-01T12:00:00</nc:DateTime>
 			</nc:EndDate>
 		</nc:ActivityDateRange>
-		<isr:IncidentCategoryCode>Law</isr:IncidentCategoryCode>
-	</isr:Incident>
+		<isr-ext:IncidentCategoryCode>Law</isr-ext:IncidentCategoryCode>
+	</isr-ext:Incident>
 	<nc:Location s:id="L001">
 		<nc:LocationAddress>
-			<isr:StructuredAddress>
+			<isr-ext:StructuredAddress>
 				<nc:LocationStreet>
 					<nc:StreetNumberText>101</nc:StreetNumberText>
 					<nc:StreetName>Main Street</nc:StreetName>
@@ -51,16 +51,16 @@
 					</nc:LocationStateUSPostalServiceCode>
 				<nc:LocationPostalCode>00000</nc:LocationPostalCode>
 				<incident-location-codes-demostate:LocationCityTownCode>Bloomfield Township</incident-location-codes-demostate:LocationCityTownCode>
-			</isr:StructuredAddress>
+			</isr-ext:StructuredAddress>
 		</nc:LocationAddress>
 	</nc:Location>
 	<jxdm41:ActivityLocationAssociation>
 		<nc:ActivityReference s:ref="I001" />
 		<nc:LocationReference s:ref="L001" />
 	</jxdm41:ActivityLocationAssociation>
-	<isr:SourceSystemNameText>{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS</isr:SourceSystemNameText>
-	<isr:SearchMetadata s:id="SM003">
-		<isr:SearchRequestOnBehalfOfText>John Doe</isr:SearchRequestOnBehalfOfText>
-		<isr:SearchPurposeText>Criminal Justice</isr:SearchPurposeText>
-	</isr:SearchMetadata>
+	<isr-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS</isr-ext:SourceSystemNameText>
+	<isr-ext:SearchMetadata s:id="SM003">
+		<isr-ext:SearchRequestOnBehalfOfText>John Doe</isr-ext:SearchRequestOnBehalfOfText>
+		<isr-ext:SearchPurposeText>Criminal Justice</isr-ext:SearchPurposeText>
+	</isr-ext:SearchMetadata>
 </isr-doc:IncidentSearchRequest>
