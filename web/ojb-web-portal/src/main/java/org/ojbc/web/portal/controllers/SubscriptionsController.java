@@ -111,8 +111,8 @@ public class SubscriptionsController {
 	
 	private Logger logger = Logger.getLogger(SubscriptionsController.class.getName());
 	
-	@Value("${memberContext}")
-	String stateContext;
+	@Value("${validateSubscriptionButton:false}")
+	String validateSubscriptionButton;
 	
 	@Resource
 	Map<String, SubscriptionStartDateStrategy> subscriptionStartDateStrategyMap;
@@ -1285,7 +1285,7 @@ public class SubscriptionsController {
 		params.put("hrefBase", PAGINATE_URL);
 		params.put("purpose", purpose);
 		params.put("onBehalfOf", onBehalfOf);
-		params.put("stateContext", stateContext);
+		params.put("validateSubscriptionButton", validateSubscriptionButton);
 		return params;
 	}
 	
