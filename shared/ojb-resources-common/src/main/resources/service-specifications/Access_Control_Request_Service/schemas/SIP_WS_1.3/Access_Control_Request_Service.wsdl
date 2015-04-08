@@ -24,16 +24,16 @@
 	xmlns:tns="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-	xmlns:ibacr-doc="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0"
+	xmlns:acr-doc="http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0" schemaLocation="../../artifacts/service_model/information_model/Access_Control_Request_IEPD/xsd/IdentityBasedAccessControlRequest.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0" schemaLocation="../../artifacts/service_model/information_model/Access_Control_Request_IEPD/xsd/exchange-schema.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="IdentityBasedAccessControlRequest">
-		<wsdl:part name="IdentityBasedAccessControlRequest" element="ibacr-doc:IdentityBasedAccessControlRequest" />
+		<wsdl:part name="IdentityBasedAccessControlRequest" element="acr-doc:IdentityBasedAccessControlRequest" />
 	</wsdl:message>
 	<wsdl:portType name="Access-Control-Request-Service">
 		<wsdl:operation name="SubmitIdentityBasedAccessControlRequest">
