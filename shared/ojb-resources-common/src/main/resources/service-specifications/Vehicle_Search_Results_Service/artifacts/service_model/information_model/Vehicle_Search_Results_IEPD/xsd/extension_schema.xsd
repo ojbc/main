@@ -20,7 +20,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:vsres="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+	xmlns:vsres-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" elementFormDefault="qualified"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:vehicleCodes="http://ojbc.org/IEPD/Extensions/VehicleCodes/1.0"
@@ -37,7 +37,7 @@
 		schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
-	<xsd:element name="VehicleSearchResults" type="vsres:VehicleSearchResultsType">
+	<xsd:element name="VehicleSearchResults" type="vsres-ext:VehicleSearchResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A set of details representing returned results
 				based on vehicle criteria.</xsd:documentation>
@@ -51,7 +51,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="vsres:VehicleSearchResult" minOccurs="0"
+					<xsd:element ref="vsres-ext:VehicleSearchResult" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
@@ -66,14 +66,14 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="vsres:Vehicle" />
-					<xsd:element ref="vsres:SourceSystemNameText" minOccurs="0"/>
+					<xsd:element ref="vsres-ext:Vehicle" />
+					<xsd:element ref="vsres-ext:SourceSystemNameText" minOccurs="0"/>
 				<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="VehicleSearchResult" type="vsres:VehicleSearchResultType">
+	<xsd:element name="VehicleSearchResult" type="vsres-ext:VehicleSearchResultType">
 		<xsd:annotation>
 			<xsd:documentation>A single returned record about a vehicle.
 			</xsd:documentation>
@@ -84,12 +84,12 @@
 			<xsd:extension base="nc:VehicleType">
 				<xsd:sequence>
 					<xsd:element ref="nc:ConveyanceRegistration" minOccurs="0"/>
-					<xsd:element ref="vsres:VehicleMakeCode" minOccurs="0" />
+					<xsd:element ref="vsres-ext:VehicleMakeCode" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Vehicle" type="vsres:VehicleType">
+	<xsd:element name="Vehicle" type="vsres-ext:VehicleType">
 		<xsd:annotation>
 			<xsd:documentation>
 				A vehicle.

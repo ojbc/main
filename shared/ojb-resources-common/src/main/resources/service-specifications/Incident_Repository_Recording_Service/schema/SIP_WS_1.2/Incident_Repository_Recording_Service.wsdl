@@ -22,8 +22,8 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:Q1="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
 	xmlns:tns="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0"
-	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
-	xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"
+	xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+	xmlns:iru-doc="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
@@ -34,10 +34,10 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="NewIncident">
-		<wsdl:part name="NewIncident" element="ir:IncidentReport" />
+		<wsdl:part name="NewIncident" element="ir-doc:IncidentReport" />
 	</wsdl:message>
 	<wsdl:message name="UpdatedIncident">
-		<wsdl:part name="UpdatedIncident" element="iru:IncidentReportUpdate" />
+		<wsdl:part name="UpdatedIncident" element="iru-doc:IncidentReportUpdate" />
 	</wsdl:message>
 	<wsdl:portType name="Incident-Repository-Service">
 		<wsdl:operation name="RecordNewIncident">

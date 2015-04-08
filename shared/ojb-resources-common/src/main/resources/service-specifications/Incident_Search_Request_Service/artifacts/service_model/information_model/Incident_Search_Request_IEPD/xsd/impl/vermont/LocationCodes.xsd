@@ -19,7 +19,7 @@
 -->
 <xsd:schema targetNamespace="http://ojbc.org/IEPD/Extensions/VermontLocationCodes/1.0"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:codes="http://ojbc.org/IEPD/Extensions/VermontLocationCodes/1.0"
-	xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+	xmlns:isr-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
 	xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:s="http://niem.gov/niem/structures/2.0">
 	<xsd:annotation>
 		<xsd:documentation>Vermont Location City Codes Codes</xsd:documentation>
@@ -1303,7 +1303,7 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="LocationCityTownCode" type="codes:LocationCityCodeType" substitutionGroup="isr:LocationCityTown">
+	<xsd:element name="LocationCityTownCode" type="codes:LocationCityCodeType" substitutionGroup="isr-ext:LocationCityTown">
 		<xsd:annotation>
 			<xsd:documentation>A code for a city or town in Vermont.</xsd:documentation>
 		</xsd:annotation>

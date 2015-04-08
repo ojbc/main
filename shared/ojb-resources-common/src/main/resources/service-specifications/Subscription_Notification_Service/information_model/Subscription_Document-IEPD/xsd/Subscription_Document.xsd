@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:submsg-exch="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0">
+<xsd:schema xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0">
   <xsd:import namespace="http://ojbc.org/IEPD/Extensions/Subscription/1.0" schemaLocation="SubscriptionExtensions.xsd"/>
   <xsd:element name="SubscriptionMessage" type="submsg-ext:SubscriptionType"/>
 </xsd:schema>

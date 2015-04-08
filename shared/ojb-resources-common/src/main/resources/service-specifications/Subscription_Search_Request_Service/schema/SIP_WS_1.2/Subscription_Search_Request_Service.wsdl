@@ -20,7 +20,7 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:ssreq="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
+	xmlns:ssreq-doc="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
 	name="Subscription_Search_Request_Service" targetNamespace="http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
 	<wsdl:import
@@ -34,7 +34,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Subscription-Search-Request">
-		<wsdl:part element="ssreq:SubscriptionSearchRequest" name="Subscription-Search-Request" />
+		<wsdl:part element="ssreq-doc:SubscriptionSearchRequest" name="Subscription-Search-Request" />
 	</wsdl:message>
 	<wsdl:portType name="Subscription_Search_Request_Service">
 		<wsdl:operation name="SubmitSubscriptionSearchRequest">

@@ -31,7 +31,7 @@
                xmlns:pct="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0"
                xmlns:ssr="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0"
                xmlns:emrm-exc="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0"
-               xmlns:submsg-exch="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+               xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
                xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
                xmlns:niem-xs="http://niem.gov/niem/proxy/xsd/2.0"
                xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
@@ -88,7 +88,7 @@
       <b-2:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b-2:TopicExpression>
    </b-2:Filter>
    <b-2:SubscriptionPolicy/>
-   <submsg-exch:SubscriptionMessage>
+   <submsg-doc:SubscriptionMessage>
       <submsg-ext:Subject>
          <nc:PersonName>
             <nc:PersonGivenName>Marie-laure</nc:PersonGivenName>
@@ -115,5 +115,5 @@
             <nc:Date>2015-04-08</nc:Date>
          </nc:EndDate>
       </nc:DateRange>
-   </submsg-exch:SubscriptionMessage>
+   </submsg-doc:SubscriptionMessage>
 </b-2:Subscribe>
