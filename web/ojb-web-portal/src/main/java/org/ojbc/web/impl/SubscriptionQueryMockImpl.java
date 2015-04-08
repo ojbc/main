@@ -38,7 +38,6 @@ public class SubscriptionQueryMockImpl implements SubscriptionQueryInterface{
     @Override
     public String invokeRequest(DetailsRequest subscriptionQueryRequest, String federatedQueryID,
             Element samlToken) throws Exception {
-        // TODO Auto-generated method stub
         return null;
     }
 
