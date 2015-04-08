@@ -320,11 +320,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_TOPICS = "http://ojbc.org/wsn/topics";
 	public static final String NS_PREFIX_TOPICS = "topics";
 
-	public static final String NS_IDENTITY_BASED_ACCESS_CONTROL_REQUEST = "http://ojbc.org/IEPD/Exchange/IdentityBasedAccessControlRequest/1.0";
-	public static final String NS_PREFIX_IDENTITY_BASED_ACCESS_CONTROL_REQUEST = "ibacr";
+	public static final String NS_ACCESS_CONTROL_REQUEST = "http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0";
+	public static final String NS_PREFIX_ACCESS_CONTROL_REQUEST = "acr";
 
-	public static final String NS_IDENTITY_BASED_ACCESS_CONTROL_EXT = "http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0";
-	public static final String NS_PREFIX_IDENTITY_BASED_ACCESS_CONTROL_EXT = "ibacr-ext";
+	public static final String NS_ACCESS_CONTROL_REQUEST_EXT = "http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0";
+	public static final String NS_PREFIX_ACCESS_CONTROL_REQUEST_EXT = "acr-ext";
 
 	public static final String NS_ACCESS_CONTROL_EXCHANGE = "http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0";
 	public static final String NS_PREFIX_ACCESS_CONTROL_EXCHANGE = "ac-exchange";
@@ -845,11 +845,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_ACKNOWLEGEMENT_RECORDING_RESULT_METADATA, NS_ACKNOWLEGEMENT_RECORDING_RESULT_METADATA);
 		uriToPrefixMap.put(NS_ACKNOWLEGEMENT_RECORDING_RESULT_METADATA, NS_PREFIX_ACKNOWLEGEMENT_RECORDING_RESULT_METADATA);
 
-		prefixToUriMap.put(NS_PREFIX_IDENTITY_BASED_ACCESS_CONTROL_EXT, NS_IDENTITY_BASED_ACCESS_CONTROL_EXT);
-		uriToPrefixMap.put(NS_IDENTITY_BASED_ACCESS_CONTROL_EXT, NS_PREFIX_IDENTITY_BASED_ACCESS_CONTROL_EXT);
+		prefixToUriMap.put(NS_PREFIX_ACCESS_CONTROL_REQUEST_EXT, NS_ACCESS_CONTROL_REQUEST_EXT);
+		uriToPrefixMap.put(NS_ACCESS_CONTROL_REQUEST_EXT, NS_PREFIX_ACCESS_CONTROL_REQUEST_EXT);
 
-		prefixToUriMap.put(NS_PREFIX_IDENTITY_BASED_ACCESS_CONTROL_REQUEST, NS_IDENTITY_BASED_ACCESS_CONTROL_REQUEST);
-		uriToPrefixMap.put(NS_IDENTITY_BASED_ACCESS_CONTROL_REQUEST, NS_PREFIX_IDENTITY_BASED_ACCESS_CONTROL_REQUEST);
+		prefixToUriMap.put(NS_PREFIX_ACCESS_CONTROL_REQUEST, NS_ACCESS_CONTROL_REQUEST);
+		uriToPrefixMap.put(NS_ACCESS_CONTROL_REQUEST, NS_PREFIX_ACCESS_CONTROL_REQUEST);
 
 		prefixToUriMap.put(NS_PREFIX_PROXY_XSD_30, NS_PROXY_XSD_30);
 		uriToPrefixMap.put(NS_PROXY_XSD_30, NS_PREFIX_PROXY_XSD_30);
