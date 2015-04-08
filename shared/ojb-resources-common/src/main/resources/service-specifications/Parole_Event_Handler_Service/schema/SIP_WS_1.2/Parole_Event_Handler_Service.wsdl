@@ -20,9 +20,9 @@
 <wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:prlci="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0"
-	xmlns:prlct="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0" 
-	xmlns:pcoc="http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0" 
+	xmlns:prlci-doc="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0"
+	xmlns:prlct-doc="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0" 
+	xmlns:prlcoc-doc="http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0" 
 	xmlns:tns="http://ojbc.org/Services/WSDL/Parole_Event_Handler_Service/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/Parole_Event_Handler_Service/1.0">
 	<wsdl:types>
@@ -40,13 +40,13 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Parole-Case-Initiation">
-		<wsdl:part name="Parole-Case-Initiation" element="prlci:ParoleCaseInitiation" />
+		<wsdl:part name="Parole-Case-Initiation" element="prlci-doc:ParoleCaseInitiation" />
 	</wsdl:message>
 	<wsdl:message name="Parole-Case-Termination">
-		<wsdl:part name="Parole-Case-Termination" element="prlct:ParoleCaseTermination" />
+		<wsdl:part name="Parole-Case-Termination" element="prlct-doc:ParoleCaseTermination" />
 	</wsdl:message>
 	<wsdl:message name="Parole-Officer-Change">
-		<wsdl:part name="Parole-Officer-Change" element="pcoc:ParoleCaseOfficerChange" />
+		<wsdl:part name="Parole-Officer-Change" element="prlcoc-doc:ParoleCaseOfficerChange" />
 	</wsdl:message>
 	<wsdl:portType name="Parole-Event-Handler-Service">
 		<wsdl:operation name="Report-Parole-Case-Initiation">

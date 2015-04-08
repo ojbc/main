@@ -19,14 +19,14 @@
 -->
 <psr-doc:PersonSearchRequest
 	xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
-	xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
+	xmlns:psr-ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1" 
 	xmlns:jh-placement-search-codes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0 ../xsd/impl/michigan/michigan-codes.xsd" s:metadata="SM003">
-	<psr:Person s:id="P001">
+	<psr-ext:Person s:id="P001">
 		<nc:PersonAgeMeasure>
 			<nc:MeasureRangeValue>
 				<nc:RangeMinimumValue>38</nc:RangeMinimumValue>
@@ -69,14 +69,14 @@
 -->			<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
 		</nc:PersonWeightMeasure>
 		
-		<psr:PersonBirthDateRange>
+		<psr-ext:PersonBirthDateRange>
 			<nc:StartDate>
 				<nc:Date>1970-01-01</nc:Date>
 			</nc:StartDate>
 			<nc:EndDate>
 				<nc:Date>1970-01-05</nc:Date>
 			</nc:EndDate>
-		</psr:PersonBirthDateRange>
+		</psr-ext:PersonBirthDateRange>
 		<j:PersonAugmentation>
 			<nc:DriverLicense>
 				<nc:DriverLicenseIdentification>
@@ -91,8 +91,8 @@
 				<nc:IdentificationID>12345</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
-	</psr:Person>
-	<psr:Parent s:id="PAR001">
+	</psr-ext:Person>
+	<psr-ext:Parent s:id="PAR001">
 		<nc:PersonBirthDate>
 			<nc:Date>1957-09-13</nc:Date>
 		</nc:PersonBirthDate>
@@ -100,7 +100,7 @@
 			<nc:PersonGivenName>Walter</nc:PersonGivenName>
 			<nc:PersonSurName>White</nc:PersonSurName>
 		</nc:PersonName>
-	</psr:Parent>
+	</psr-ext:Parent>
 	<cyfs:Placement>
 		<jh-placement-search-codes:PlacementCategoryCode>Foster Home</jh-placement-search-codes:PlacementCategoryCode>
 	</cyfs:Placement>
@@ -123,20 +123,20 @@
 		<nc:PersonReference s:ref="P001"/>
 		<nc:LocationReference s:ref="LOC01"/>
 	</nc:ResidenceAssociation>
-	<psr:ParentChildAssociation>
-		<psr:ParentReference s:ref="PAR001"/>
-		<psr:ChildReference s:ref="P001"/>
-	</psr:ParentChildAssociation>
-	<psr:SourceSystemNameText>VIBRS RMS</psr:SourceSystemNameText>
-	<psr:SourceSystemNameText>Burlington PD</psr:SourceSystemNameText>
-	<psr:SearchMetadata s:id="SM001">
-		<psr:SearchQualifierCode>exact</psr:SearchQualifierCode>
-	</psr:SearchMetadata>
-	<psr:SearchMetadata s:id="SM002">
-		<psr:SearchQualifierCode>startsWith</psr:SearchQualifierCode>
-	</psr:SearchMetadata>
-	<psr:SearchMetadata s:id="SM003">
-		<psr:SearchRequestOnBehalfOfText>John Doe</psr:SearchRequestOnBehalfOfText>
-		<psr:SearchPurposeText>Criminal Justice</psr:SearchPurposeText>
-	</psr:SearchMetadata>
+	<psr-ext:ParentChildAssociation>
+		<psr-ext:ParentReference s:ref="PAR001"/>
+		<psr-ext:ChildReference s:ref="P001"/>
+	</psr-ext:ParentChildAssociation>
+	<psr-ext:SourceSystemNameText>VIBRS RMS</psr-ext:SourceSystemNameText>
+	<psr-ext:SourceSystemNameText>Burlington PD</psr-ext:SourceSystemNameText>
+	<psr-ext:SearchMetadata s:id="SM001">
+		<psr-ext:SearchQualifierCode>exact</psr-ext:SearchQualifierCode>
+	</psr-ext:SearchMetadata>
+	<psr-ext:SearchMetadata s:id="SM002">
+		<psr-ext:SearchQualifierCode>startsWith</psr-ext:SearchQualifierCode>
+	</psr-ext:SearchMetadata>
+	<psr-ext:SearchMetadata s:id="SM003">
+		<psr-ext:SearchRequestOnBehalfOfText>John Doe</psr-ext:SearchRequestOnBehalfOfText>
+		<psr-ext:SearchPurposeText>Criminal Justice</psr-ext:SearchPurposeText>
+	</psr-ext:SearchMetadata>
 </psr-doc:PersonSearchRequest>

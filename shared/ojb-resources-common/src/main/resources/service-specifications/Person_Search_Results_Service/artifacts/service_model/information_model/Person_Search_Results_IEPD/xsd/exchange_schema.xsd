@@ -21,7 +21,7 @@
 	targetNamespace="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
-	xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:psres-ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
 		schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
@@ -32,6 +32,6 @@
 		schemaLocation="extension_schema.xsd" />
 
 	<!-- Root data element for the Person Search Request -->
-	<xsd:element name="PersonSearchResults" type="psres:PersonSearchResultsType" />
+	<xsd:element name="PersonSearchResults" type="psres-ext:PersonSearchResultsType" />
 
 </xsd:schema>

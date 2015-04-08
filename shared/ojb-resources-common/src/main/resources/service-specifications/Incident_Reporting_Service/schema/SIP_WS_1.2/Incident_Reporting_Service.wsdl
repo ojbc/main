@@ -21,8 +21,8 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
-	xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"
+	xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+	xmlns:iru-doc="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
@@ -35,10 +35,10 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="IncidentReport">
-		<wsdl:part name="IncidentReport" element="ir:IncidentReport" />
+		<wsdl:part name="IncidentReport" element="ir-doc:IncidentReport" />
 	</wsdl:message>
 	<wsdl:message name="IncidentReportUpdate">
-		<wsdl:part name="IncidentReportUpdate" element="iru:IncidentReportUpdate" />
+		<wsdl:part name="IncidentReportUpdate" element="iru-doc:IncidentReportUpdate" />
 	</wsdl:message>
 	<wsdl:portType name="Incident-Reporting-Service">
 		<wsdl:operation name="ReportIncident">

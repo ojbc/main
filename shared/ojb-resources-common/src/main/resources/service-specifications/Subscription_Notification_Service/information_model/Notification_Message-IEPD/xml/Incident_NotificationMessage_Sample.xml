@@ -17,11 +17,11 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<notfm-exch:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+<notfm-doc:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:notfm-exch="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
 	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd ">
@@ -83,4 +83,4 @@
 			<nc:PersonSurName>Wiggum</nc:PersonSurName>
 		</nc:PersonName>
 	</j:Person>
-</notfm-exch:NotificationMessage>
+</notfm-doc:NotificationMessage>
