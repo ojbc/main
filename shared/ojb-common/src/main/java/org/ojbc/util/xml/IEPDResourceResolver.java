@@ -49,6 +49,7 @@ public class IEPDResourceResolver implements LSResourceResolver {
         String fullPath = reformatResourcePath(systemId, baseURI);
 //        LOG.info("Resolving resource: type=" + type + ", namespaceURI=" + namespaceURI);
 //        LOG.info("systemId=" + systemId + ", publicId=" + publicId + ", baseURI=" + baseURI);
+//        LOG.info("schemaRootFolderName=" + schemaRootFolderName + ", iepdRootPath=" + iepdRootPath);
 //        LOG.info("fullPath=" + fullPath);
         InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(fullPath);
         return new LSInputImpl(publicId, systemId, resourceAsStream);
@@ -72,6 +73,9 @@ public class IEPDResourceResolver implements LSResourceResolver {
             iepdRootPath = iepdRootPath + "/";
         }
         String fullPath = iepdRootPath + doctoredSystemId;
+        if (fullPath.contains("/./")) {
+        	fullPath = fullPath.replaceAll("/\\./", "/");
+        }
         return fullPath;
     }
 
@@ -116,6 +120,7 @@ public class IEPDResourceResolver implements LSResourceResolver {
 
         @Override
         public String getStringData() {
+//        	LOG.debug("publicId=" + publicId + ", systemId=" + systemId);
             StringBuffer ret = new StringBuffer(1024 * 10);
             String line = null;
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));

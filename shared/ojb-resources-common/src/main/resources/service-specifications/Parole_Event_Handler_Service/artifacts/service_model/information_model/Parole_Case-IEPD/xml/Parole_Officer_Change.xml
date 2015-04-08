@@ -17,28 +17,28 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<p:ParoleCaseOfficerChange 
-	xmlns:prlcase="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0" 
+<prlcoc-doc:ParoleCaseOfficerChange 
+	xmlns:prlcase-ext="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0" 
 	xmlns:fbi="http://niem.gov/niem/fbi/2.0" 
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
-	xmlns:p="http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0" 
+	xmlns:prlcoc-doc="http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0" 
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0 ../xsd/Parole_Officer_Change.xsd ">
-  <prlcase:ParoleCase>
-    <prlcase:ParoleeIdentity>
+  <prlcase-ext:ParoleCase>
+    <prlcase-ext:ParoleeIdentity>
       <nc:IdentityPersonRepresentation>
         <nc:PersonName/>
       </nc:IdentityPersonRepresentation>
-    </prlcase:ParoleeIdentity>
-    <prlcase:ParoleHearing>
+    </prlcase-ext:ParoleeIdentity>
+    <prlcase-ext:ParoleHearing>
       <nc:ActivityDate>
         <nc:Date>2001-01-01</nc:Date>
       </nc:ActivityDate>
       <nc:ActivityDescriptionText>nc:ActivityDescriptionText</nc:ActivityDescriptionText>
-    </prlcase:ParoleHearing>
+    </prlcase-ext:ParoleHearing>
     <j:Supervision>
       <nc:SupervisionPerson>
         <nc:PersonName/>
@@ -60,6 +60,6 @@
       <nc:PersonReference/>
       <nc:ContactInformationReference/>
     </nc:PersonContactInformationAssociation>
-  </prlcase:ParoleCase>
-  <prlcase:SystemName>prlcase:SystemName</prlcase:SystemName>
-</p:ParoleCaseOfficerChange>
+  </prlcase-ext:ParoleCase>
+  <prlcase-ext:SystemName>prlcase-ext:SystemName</prlcase-ext:SystemName>
+</prlcoc-doc:ParoleCaseOfficerChange>

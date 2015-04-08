@@ -17,10 +17,10 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<sqr:SubscriptionQueryResults
+<sqr-doc:SubscriptionQueryResults
     xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0 ../xsd/exchange_schema.xsd"
     xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
-    xmlns:sqr="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
+    xmlns:sqr-doc="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
     xmlns:qre="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
     xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -32,4 +32,4 @@
             <intel:SystemName>String</intel:SystemName>
         </qre:QueryRequestError>
     </qrm:QueryResultsMetadata>
-</sqr:SubscriptionQueryResults>
+</sqr-doc:SubscriptionQueryResults>

@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<unsubmsg-exch:UnsubscriptionMessage 
+<unsubmsg-doc:UnsubscriptionMessage 
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-	xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+	xmlns:unsubmsg-doc="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
 	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0 ../xsd/Unsubscription_Document.xsd">
@@ -45,4 +45,4 @@
 	<submsg-ext:SubscriptionQualifierIdentification>
 		<nc20:IdentificationID>302593</nc20:IdentificationID>
 	</submsg-ext:SubscriptionQualifierIdentification>
-</unsubmsg-exch:UnsubscriptionMessage>
+</unsubmsg-doc:UnsubscriptionMessage>

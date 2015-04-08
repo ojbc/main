@@ -21,11 +21,11 @@
 <b-2:Unsubscribe 
 		xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
 		xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-		xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+		xmlns:unsubmsg-doc="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
 		xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
-	<unsubmsg-exch:UnsubscriptionMessage>
+	<unsubmsg-doc:UnsubscriptionMessage>
 		<submsg-ext:Subject>
 			<nc20:PersonBirthDate>
 				<nc20:Date>1980-01-01</nc20:Date>
@@ -41,6 +41,6 @@
 		<submsg-ext:SubscriptionQualifierIdentification>
 			<nc20:IdentificationID>302593</nc20:IdentificationID>
 		</submsg-ext:SubscriptionQualifierIdentification>
-	</unsubmsg-exch:UnsubscriptionMessage>
+	</unsubmsg-doc:UnsubscriptionMessage>
 	<b-2:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b-2:TopicExpression>
 </b-2:Unsubscribe>

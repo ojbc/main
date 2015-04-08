@@ -20,7 +20,7 @@
 <b-2:Notify xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
 	xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-exch="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
 	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
 	xmlns:me-chrg-codes="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0"
@@ -57,7 +57,7 @@
 			<!--You may enter ANY elements at this point -->
 		</b-2:ProducerReference>
 		<b-2:Message>
-			<notfm-exch:NotificationMessage>
+			<notfm-doc:NotificationMessage>
 				<notfm-ext:NotifyingCriminalHistoryUpdate
 					s:id="A001">
 					<notfm-ext:NotifyingActivityReportingSystemNameText>SystemName</notfm-ext:NotifyingActivityReportingSystemNameText>
@@ -132,7 +132,7 @@
 						</j:OrganizationORIIdentification>
 					</j:OrganizationAugmentation>
 				</j:Organization>
-			</notfm-exch:NotificationMessage>
+			</notfm-doc:NotificationMessage>
 		</b-2:Message>
 	</b-2:NotificationMessage>
 </b-2:Notify>

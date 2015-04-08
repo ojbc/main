@@ -43,20 +43,18 @@ public class ArrestReportProcessor {
 		String personLastName="";
 		String personDateOfBirth ="";
 		
-		//TODO: Update xpaths to remove //
-		
         String personReference = XmlUtils.xPathStringSearch(arrestDocument,
-        			"//lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:Associations/lexsdigest:ArrestSubjectAssociation/nc:PersonReference/@s:ref");
+        			"/arrest-exch:ArrestReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:Associations/lexsdigest:ArrestSubjectAssociation/nc:PersonReference/@s:ref");
         
 		if (StringUtils.isNotBlank(personReference)) {
-		    personFirstName = XmlUtils.xPathStringSearch(arrestDocument, "//lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityPerson/lexsdigest:Person[@s:id='" + personReference
+		    personFirstName = XmlUtils.xPathStringSearch(arrestDocument, "/arrest-exch:ArrestReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityPerson/lexsdigest:Person[@s:id='" + personReference
 		            + "']/nc:PersonName/nc:PersonGivenName");
 		    
-		    personLastName = XmlUtils.xPathStringSearch(arrestDocument, "//lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityPerson/lexsdigest:Person[@s:id='" + personReference
+		    personLastName = XmlUtils.xPathStringSearch(arrestDocument, "/arrest-exch:ArrestReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityPerson/lexsdigest:Person[@s:id='" + personReference
 		            + "']/nc:PersonName/nc:PersonSurName");
 
 		    personDateOfBirth = XmlUtils.xPathStringSearch(arrestDocument,
-	                "//lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityPerson/lexsdigest:Person[@s:id='" + personReference
+	                "/arrest-exch:ArrestReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityPerson/lexsdigest:Person[@s:id='" + personReference
 	                + "']/nc:PersonBirthDate/nc:Date");
 		} else {
 		    log.error("Unable to find person reference. Unable to XQuery for person name and will return false.");
@@ -71,8 +69,8 @@ public class ArrestReportProcessor {
 		
 		log.debug("Person Involvement Hash: " + personInvolvementHash);
 		
-		String incidentId=XmlUtils.xPathStringSearch(arrestDocument,"//lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:PackageMetadata/lexs:DataItemID");
-		String incidentOriginatingSystemUri=XmlUtils.xPathStringSearch(arrestDocument, "//lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataSubmitterMetadata/lexs:SystemIdentifier/lexs:SystemID");
+		String incidentId=XmlUtils.xPathStringSearch(arrestDocument,"/arrest-exch:ArrestReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:PackageMetadata/lexs:DataItemID");
+		String incidentOriginatingSystemUri=XmlUtils.xPathStringSearch(arrestDocument, "/arrest-exch:ArrestReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataSubmitterMetadata/lexs:SystemIdentifier/lexs:SystemID");
 		
 		XmlUtils.xPathStringSearch(arrestDocument,"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/notfm-ext:NotifyingActivityReportingSystemNameText");
 		
