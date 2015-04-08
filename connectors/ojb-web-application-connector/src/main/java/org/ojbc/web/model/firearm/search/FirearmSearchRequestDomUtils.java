@@ -19,18 +19,17 @@ package org.ojbc.web.model.firearm.search;
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.helper.NIEMXMLUtils;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.util.xml.namespaces.NIEMNamespaces;
-import org.ojbc.util.xml.namespaces.OJBNamespaces;
+//import org.ojbc.util.xml.namespaces.NIEMNamespaces;
 import org.ojbc.web.SearchFieldMetadata;
-import org.ojbc.web.util.OJBCWebApplicationNamespaceContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.ojbc.util.xml.OjbcNamespaceContext;
 
 public class FirearmSearchRequestDomUtils {
 	
 	public static Element createFirearmSearchRequestElement(Document doc) {	
 		
-		Element element = doc.createElementNS(OJBCWebApplicationNamespaceContext.FIREARM_SEARCH_REQUEST, "FirearmSearchRequest");
+		Element element = doc.createElementNS(OjbcNamespaceContext.NS_FIREARM_SEARCH_REQUEST_DOC, "FirearmSearchRequest");
 		return element;
 	}
 	
@@ -62,13 +61,13 @@ public class FirearmSearchRequestDomUtils {
 				
 		if (StringUtils.isNotBlank(fsr.getFirearmType())){
 			
-			Element catCodeNode = XmlUtils.appendElement(firearmElement, NIEMNamespaces.NC_20_NS, "FirearmCategoryCode");		
+			Element catCodeNode = XmlUtils.appendElement(firearmElement, OjbcNamespaceContext.NS_NC, "FirearmCategoryCode");		
 			catCodeNode.setTextContent(fsr.getFirearmType());
 		}	
 		
 		if (StringUtils.isNotBlank(fsr.getFirearmMake())){
 			
-			Element makeTxtNode = XmlUtils.appendElement(firearmElement, OJBNamespaces.FIREARM_SEARCH_REQUEST_EXT, "FirearmMakeText");
+			Element makeTxtNode = XmlUtils.appendElement(firearmElement, OjbcNamespaceContext.NS_FIREARM_SEARCH_REQUEST_EXT, "FirearmMakeText");
 			makeTxtNode.setTextContent(fsr.getFirearmMake());			
 		}
 			

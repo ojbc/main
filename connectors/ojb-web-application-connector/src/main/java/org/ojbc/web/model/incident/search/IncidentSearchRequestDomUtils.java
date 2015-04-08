@@ -19,15 +19,15 @@ package org.ojbc.web.model.incident.search;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.ojbc.util.helper.NIEMXMLUtils;
-import org.ojbc.web.util.OJBCWebApplicationNamespaceContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.ojbc.util.xml.OjbcNamespaceContext;
 
 public class IncidentSearchRequestDomUtils {
 
 	public static Element createIncidentSearchRequestElement(Document doc) {		
-		Element element = doc.createElementNS(OJBCWebApplicationNamespaceContext.INCIDENT_SEARCH_REQUEST, "IncidentSearchRequest");
+		Element element = doc.createElementNS(OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC, "IncidentSearchRequest");
 		return element;
 	}
 
@@ -81,7 +81,7 @@ public class IncidentSearchRequestDomUtils {
 		
 		
 		if (StringUtils.isNotBlank(isr.getIncidentType()))  {
-			Element categoryCode = doc.createElementNS(OJBCWebApplicationNamespaceContext.INCIDENT_SEARCH_REQUEST_EXT, "IncidentCategoryCode");
+			Element categoryCode = doc.createElementNS(OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_EXT, "IncidentCategoryCode");
 			categoryCode.setTextContent(isr.getIncidentType());
 			incidentElement.appendChild(categoryCode);
 		}
@@ -112,7 +112,7 @@ public class IncidentSearchRequestDomUtils {
 		Element locationElement = NIEMXMLUtils.createLocationElement(doc, "L001");
 		
 		if (StringUtils.isNotBlank(isr.getIncidentCityTown())) {
-			Element locationStructuredAddress = NIEMXMLUtils.createLocationStructuredAddressElement(doc, OJBCWebApplicationNamespaceContext.INCIDENT_SEARCH_REQUEST_EXT);
+			Element locationStructuredAddress = NIEMXMLUtils.createLocationStructuredAddressElement(doc, OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_EXT);
 		
 			Element locationCityTownCode = doc.createElementNS(cityTownCodelistNamespace, cityTownCodelistElementName);
 			locationCityTownCode.setTextContent(isr.getIncidentCityTown());

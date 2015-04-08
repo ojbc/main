@@ -46,8 +46,6 @@ import org.w3c.dom.Element;
 /**
  * This class contains methods to convert POJOs to XML request documents or to 
  * take a few string arguments and make an XML request document out of them.
- * 
- * @author yogeshchawla
  *
  */
 public class RequestMessageBuilderUtilities {
@@ -62,7 +60,7 @@ public class RequestMessageBuilderUtilities {
 	{
 		StringBuffer sb = new StringBuffer();
 		
-		sb.append("<pqr:PersonRecordRequest xmlns:pqr=\"" + OJBCWebApplicationNamespaceContext.PERSON_QUERY_REQUEST + "\" xmlns:nc20=\"" + OJBCWebApplicationNamespaceContext.NIEM_CORE_20 + "\">");
+		sb.append("<pqr:PersonRecordRequest xmlns:pqr=\"" + OjbcNamespaceContext.NS_PERSON_QUERY_REQUEST + "\" xmlns:nc20=\"" + OjbcNamespaceContext.NS_NC + "\">");
 		sb.append("    <pqr:PersonRecordRequestIdentification >");
 		sb.append("        <nc20:IdentificationID>" + detailsRequest.getIdentificationID() + "</nc20:IdentificationID>");
 		sb.append("        <nc20:IdentificationSourceText>" + detailsRequest.getIdentificationSourceText() + "</nc20:IdentificationSourceText>");
@@ -167,25 +165,25 @@ public class RequestMessageBuilderUtilities {
 		
 		for (String sourceSystemName : psr.getSourceSystems())
 		{
-			Element sourceSystemNameElement = NIEMXMLUtils.createSourceSystemElement(doc, OJBCWebApplicationNamespaceContext.PERSON_SEARCH_REQUEST_EXT, sourceSystemName);
+			Element sourceSystemNameElement = NIEMXMLUtils.createSourceSystemElement(doc, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, sourceSystemName);
 			personSearchRequestElement.appendChild(sourceSystemNameElement);
 		}	
 		
 		if (psr.getPersonSurNameMetaData() == SearchFieldMetadata.ExactMatch || psr.getPersonGivenNameMetaData() == SearchFieldMetadata.ExactMatch )
 		{
-			Element exactMatchMetaData = NIEMXMLUtils.createSearchMetaData(doc, OJBCWebApplicationNamespaceContext.PERSON_SEARCH_REQUEST_EXT, SearchFieldMetadata.ExactMatch);
+			Element exactMatchMetaData = NIEMXMLUtils.createSearchMetaData(doc, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, SearchFieldMetadata.ExactMatch);
 			personSearchRequestElement.appendChild(exactMatchMetaData);
 		}	
 
 		if (psr.getPersonSurNameMetaData() == SearchFieldMetadata.StartsWith || psr.getPersonGivenNameMetaData() == SearchFieldMetadata.StartsWith )
 		{
-			Element startsWithMetaData = NIEMXMLUtils.createSearchMetaData(doc, OJBCWebApplicationNamespaceContext.PERSON_SEARCH_REQUEST_EXT, SearchFieldMetadata.StartsWith);
+			Element startsWithMetaData = NIEMXMLUtils.createSearchMetaData(doc, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, SearchFieldMetadata.StartsWith);
 			personSearchRequestElement.appendChild(startsWithMetaData);
 		}	
 		
 		if (StringUtils.isNotBlank(psr.getOnBehalfOf()) || StringUtils.isNotBlank(psr.getPurpose()))
 		{
-			Element auditMetaData = NIEMXMLUtils.createSearchMetaDataPurposeOnBehalfOf(doc, OJBCWebApplicationNamespaceContext.PERSON_SEARCH_REQUEST_EXT, "OBO3", psr.getOnBehalfOf(), psr.getPurpose());
+			Element auditMetaData = NIEMXMLUtils.createSearchMetaDataPurposeOnBehalfOf(doc, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "OBO3", psr.getOnBehalfOf(), psr.getPurpose());
 			personSearchRequestElement.appendChild(auditMetaData);
 		}	
 
@@ -212,7 +210,7 @@ public class RequestMessageBuilderUtilities {
 
 		for (String sourceSystemName : vsr.getSourceSystems())
 		{
-			Element sourceSystemNameElement = NIEMXMLUtils.createSourceSystemElement(doc, OJBCWebApplicationNamespaceContext.VEHICLE_SEARCH_REQUEST_EXT, sourceSystemName);
+			Element sourceSystemNameElement = NIEMXMLUtils.createSourceSystemElement(doc, OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_EXT, sourceSystemName);
 			vehicleSearchRequestElement.appendChild(sourceSystemNameElement);
 		}	
 
@@ -243,13 +241,13 @@ public class RequestMessageBuilderUtilities {
 
 		for (String sourceSystemName : isr.getSourceSystems())
 		{
-			Element sourceSystemNameElement = NIEMXMLUtils.createSourceSystemElement(doc, OJBCWebApplicationNamespaceContext.INCIDENT_SEARCH_REQUEST_EXT, sourceSystemName);
+			Element sourceSystemNameElement = NIEMXMLUtils.createSourceSystemElement(doc, OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_EXT, sourceSystemName);
 			incidentSearchRequestElement.appendChild(sourceSystemNameElement);
 		}	
 		
 		if (StringUtils.isNotBlank(isr.getOnBehalfOf()) || StringUtils.isNotBlank(isr.getPurpose()))
 		{
-			Element auditMetaData = NIEMXMLUtils.createSearchMetaDataPurposeOnBehalfOf(doc, OJBCWebApplicationNamespaceContext.INCIDENT_SEARCH_REQUEST_EXT, "SM003", isr.getOnBehalfOf(), isr.getPurpose());
+			Element auditMetaData = NIEMXMLUtils.createSearchMetaDataPurposeOnBehalfOf(doc, OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_EXT, "SM003", isr.getOnBehalfOf(), isr.getPurpose());
 			incidentSearchRequestElement.appendChild(auditMetaData);
 		}	
 		
@@ -279,16 +277,16 @@ public class RequestMessageBuilderUtilities {
 
 		for (String sourceSystemName : fsr.getSourceSystems())
 		{
-			Element sourceSystemNameElement = NIEMXMLUtils.createSourceSystemElement(doc, OJBCWebApplicationNamespaceContext.FIREARM_SEARCH_REQUEST_EXT, sourceSystemName);
+			Element sourceSystemNameElement = NIEMXMLUtils.createSourceSystemElement(doc, OjbcNamespaceContext.NS_FIREARM_SEARCH_REQUEST_EXT, sourceSystemName);
 			firearmSearchRequestElement.appendChild(sourceSystemNameElement);
 		}	
 		
-		Element searchhMetaData = NIEMXMLUtils.createFirearmSearchMetaData(doc, OJBCWebApplicationNamespaceContext.FIREARM_SEARCH_REQUEST_EXT, fsr.getFirearmSerialNumberMetaData());
+		Element searchhMetaData = NIEMXMLUtils.createFirearmSearchMetaData(doc, OjbcNamespaceContext.NS_FIREARM_SEARCH_REQUEST_EXT, fsr.getFirearmSerialNumberMetaData());
 		firearmSearchRequestElement.appendChild(searchhMetaData);
 		
 		if (StringUtils.isNotBlank(fsr.getOnBehalfOf()) || StringUtils.isNotBlank(fsr.getPurpose()))
 		{
-			Element auditMetaData = NIEMXMLUtils.createSearchMetaDataPurposeOnBehalfOf(doc, OJBCWebApplicationNamespaceContext.FIREARM_SEARCH_REQUEST_EXT, "SM003", fsr.getOnBehalfOf(), fsr.getPurpose());
+			Element auditMetaData = NIEMXMLUtils.createSearchMetaDataPurposeOnBehalfOf(doc, OjbcNamespaceContext.NS_FIREARM_SEARCH_REQUEST_EXT, "SM003", fsr.getOnBehalfOf(), fsr.getPurpose());
 			firearmSearchRequestElement.appendChild(auditMetaData);
 		}	
 		
