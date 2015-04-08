@@ -28,7 +28,7 @@
 	<packaging>bundle</packaging>
 	<version>1.0.0</version>
 
-	<name>OJB :: ojb-policy-decision-point-service :: Shared</name>
+	<name>OJB :: ojb-policy-decision-point-service :: shared</name>
 	<url>http://www.ojbc.org</url>
 
 	<properties>
@@ -292,9 +292,9 @@
 							</Import-Package>
 						<Require-Bundle>
 							org.apache.cxf.bundle,
-							org.ojbc.bundles.shared.OJB_Resources,
-							org.ojbc.bundles.shared.OJB_Utilities,
-							org.ojbc.bundles.shared.OJB_Config
+							org.ojbc.bundles.shared.ojb-common,
+							org.ojbc.bundles.shared.ojb-camel-common,
+							org.ojbc.bundles.shared.ojb-resources-common,
 						</Require-Bundle>
 						<Bundle-Activator>org.apache.camel.impl.osgi.Activator</Bundle-Activator>
 						<Bundle-Name>${project.name} built for: ${maven-build-ojbc-member} | ${maven-build-ojbc-location} | ${maven-build-ojbc-environment}</Bundle-Name>
@@ -304,60 +304,6 @@
 
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>maven-build-properties-missing</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-				<file>
-					<missing>../build-properties-project/maven-build.properties</missing>
-				</file>
-			</activation>
-
-			<properties>
-				<maven-build-ojbc-member>demostate</maven-build-ojbc-member>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>maven-build-properties-exists</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-				<file>
-					<exists>../build-properties-project/maven-build.properties</exists>
-					<missing>../build-properties-project/local-maven-build.properties</missing>
-				</file>
-			</activation>
-
-			<build>
-				<filters>
-					<!-- It should get maven-build-ojbc-member from the properties file 
-						below -->
-					<filter>../build-properties-project/maven-build.properties</filter>
-				</filters>
-			</build>
-		</profile>
-
-		<profile>
-			<id>maven-local-build-properties-exists</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-				<file>
-					<exists>../build-properties-project/local-maven-build.properties</exists>
-				</file>
-			</activation>
-
-			<build>
-				<filters>
-					<!-- It should get maven-build-ojbc-member from the properties file 
-						below -->
-					<filter>../build-properties-project/local-maven-build.properties</filter>
-				</filters>
-			</build>
-		</profile>
-	</profiles>
-
 
     <repositories>
          <repository>
