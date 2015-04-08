@@ -409,7 +409,7 @@ public class XslTemplateTest {
         params.put("start", 0);
         params.put("rows", 10);
         params.put("hrefBase", "pagination");
-        params.put("stateContext", "demostate");
+        params.put("validateSubscriptionButton", "true");
         params.put("messageIfNoResults", "You do not have any subscriptions.");
         return params;
     }

@@ -33,7 +33,7 @@
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
 	<xsl:param name="hrefBase"/>
-	<xsl:param name="stateContext"/>	
+	<xsl:param name="validateSubscriptionButton"/>	
 	<xsl:param name="messageIfNoResults">You do not have any subscriptions.</xsl:param>
 	
 	<!-- TODO:Pass these in from the controller class -->
@@ -54,7 +54,7 @@
 				<xsl:call-template name="Subscriptions"/>
 				<!-- TODO FIXME see if alight right is deprecated, note maybe can't use float though b/c of firefox issue below with margin -->
 				<span id="subscriptionButtons">
-					<xsl:if test="$stateContext='demostate' or $stateContext='hawaii'">
+					<xsl:if test="$validateSubscriptionButton='true'">
 						<a id="validateLink" href="#" class="blueButton viewDetails" style="margin-right:6px">VALIDATE</a>
 					</xsl:if>
 					<a id="unsubscribeLink" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>UNSUBSCRIBE</a>
