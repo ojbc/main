@@ -20,8 +20,8 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:vsres-exch="http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0"
-	xmlns:vsres="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+	xmlns:vsres-doc="http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0"
+	xmlns:vsres-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
 		schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
@@ -32,6 +32,6 @@
 		schemaLocation="extension_schema.xsd" />
 
 	<!-- Root data element for the Vehicle Search Results -->
-	<xsd:element name="VehicleSearchResults" type="vsres:VehicleSearchResultsType" />
+	<xsd:element name="VehicleSearchResults" type="vsres-ext:VehicleSearchResultsType" />
 
 </xsd:schema>

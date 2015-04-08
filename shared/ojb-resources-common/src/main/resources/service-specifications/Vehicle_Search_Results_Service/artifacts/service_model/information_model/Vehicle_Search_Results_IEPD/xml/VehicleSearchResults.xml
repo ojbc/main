@@ -17,16 +17,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<vsres-exch:VehicleSearchResults
-	xmlns:vsres-exch="http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0"
-	xmlns:vsres="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+<vsres-doc:VehicleSearchResults
+	xmlns:vsres-doc="http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0"
+	xmlns:vsres-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
 	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0 ../xsd/exchange_schema.xsd ">
-	<vsres:VehicleSearchResult>
-		<vsres:Vehicle>
+	<vsres-ext:VehicleSearchResult>
+		<vsres-ext:Vehicle>
 			<nc:ItemCategoryText>Passenger Vehicle</nc:ItemCategoryText>
 			<nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
 			<nc:ItemModelName>Titan</nc:ItemModelName>
@@ -46,16 +46,16 @@
 				<nc:ConveyanceRegistrationPlateCategoryCode>CI</nc:ConveyanceRegistrationPlateCategoryCode>
 				<nc:ConveyanceRegistrationPlateCategoryText>City-Owned or Municipal Vehicle</nc:ConveyanceRegistrationPlateCategoryText>
 			</nc:ConveyanceRegistration>
-			<vsres:VehicleMakeCode>Nissan</vsres:VehicleMakeCode>
-		</vsres:Vehicle>
-		<vsres:SourceSystemNameText>System 1</vsres:SourceSystemNameText>
+			<vsres-ext:VehicleMakeCode>Nissan</vsres-ext:VehicleMakeCode>
+		</vsres-ext:Vehicle>
+		<vsres-ext:SourceSystemNameText>System 1</vsres-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>1234</nc:IdentificationID>
 			<intel:SystemName>System 1</intel:SystemName>
 		</intel:SystemIdentifier>
-	</vsres:VehicleSearchResult>
-	<vsres:VehicleSearchResult>
-		<vsres:Vehicle>
+	</vsres-ext:VehicleSearchResult>
+	<vsres-ext:VehicleSearchResult>
+		<vsres-ext:Vehicle>
 			<nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
 			<nc:ItemModelName>Titan</nc:ItemModelName>
 			<nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
@@ -73,12 +73,12 @@
 				<nc:ConveyanceRegistrationPlateCategoryCode>CI</nc:ConveyanceRegistrationPlateCategoryCode>
 				<nc:ConveyanceRegistrationPlateCategoryText>City-Owned or Municipal Vehicle</nc:ConveyanceRegistrationPlateCategoryText>
 			</nc:ConveyanceRegistration>
-			<vsres:VehicleMakeCode>Nissan</vsres:VehicleMakeCode>
-		</vsres:Vehicle>
-		<vsres:SourceSystemNameText>System 2</vsres:SourceSystemNameText>
+			<vsres-ext:VehicleMakeCode>Nissan</vsres-ext:VehicleMakeCode>
+		</vsres-ext:Vehicle>
+		<vsres-ext:SourceSystemNameText>System 2</vsres-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>1234</nc:IdentificationID>
 			<intel:SystemName>System 2</intel:SystemName>
 		</intel:SystemIdentifier>
-	</vsres:VehicleSearchResult>
-</vsres-exch:VehicleSearchResults>
+	</vsres-ext:VehicleSearchResult>
+</vsres-doc:VehicleSearchResults>
