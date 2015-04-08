@@ -63,7 +63,11 @@
           <header>ojb-license.txt</header>
           <aggregate>true</aggregate>
           <excludes>
-            <exclude>analytics/**</exclude>
+            <exclude>**/jquery-datatable/**</exclude>
+            <exclude>**/jquery-ui/**</exclude>
+            <exclude>**/jquery.maskinput.js</exclude>
+            <exclude>**/bin/**</exclude>
+            <!-- note including static/js/ojb-web-portal.js -->
           </excludes>
           <includes>
             <include>**/*.java</include>
