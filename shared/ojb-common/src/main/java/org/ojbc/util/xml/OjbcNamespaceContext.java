@@ -321,13 +321,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PREFIX_TOPICS = "topics";
 
 	public static final String NS_ACCESS_CONTROL_REQUEST = "http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0";
-	public static final String NS_PREFIX_ACCESS_CONTROL_REQUEST = "acr";
+	public static final String NS_PREFIX_ACCESS_CONTROL_REQUEST = "acr-doc";
 
-	public static final String NS_ACCESS_CONTROL_REQUEST_EXT = "http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0";
-	public static final String NS_PREFIX_ACCESS_CONTROL_REQUEST_EXT = "acr-ext";
+	public static final String NS_ACCESS_CONTROL_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0";
+	public static final String NS_PREFIX_ACCESS_CONTROL_REQUEST_EXT = "acreq-ext";
 
 	public static final String NS_ACCESS_CONTROL_EXCHANGE = "http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0";
-	public static final String NS_PREFIX_ACCESS_CONTROL_EXCHANGE = "ac-exchange";
+	public static final String NS_PREFIX_ACCESS_CONTROL_EXCHANGE = "ac-doc";
 
 	public static final String NS_ACCESS_CONTROL_EXT = "http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0";
 	public static final String NS_PREFIX_ACCESS_CONTROL_EXT = "ac-ext";
