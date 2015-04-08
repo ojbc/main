@@ -124,7 +124,7 @@ public class TestAccessControlRequestService {
         String expectedBody = FileUtils
                 .readFileToString(new File(
                         "src/test/resources/xml/accessControl/IdentityBasedAccessControlRequest.xml"));
-        int index = expectedBody.indexOf("<ibacr:IdentityBasedAccessControlRequest"); 
+        int index = expectedBody.indexOf("<acr:IdentityBasedAccessControlRequest"); 
         adapterRequestEndpoint.expectedBodiesReceivedInAnyOrder(expectedBody.substring(index));
 
         Map<String, Object> headers = TestUtils.createHeaders();
