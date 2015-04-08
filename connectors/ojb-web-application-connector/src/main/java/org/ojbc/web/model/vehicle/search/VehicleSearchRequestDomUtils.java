@@ -18,10 +18,9 @@ package org.ojbc.web.model.vehicle.search;
 
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.helper.NIEMXMLUtils;
-import org.ojbc.web.util.OJBCWebApplicationNamespaceContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
+import org.ojbc.util.xml.OjbcNamespaceContext;
 public class VehicleSearchRequestDomUtils {
 
 
@@ -48,7 +47,7 @@ public class VehicleSearchRequestDomUtils {
 	//</ext:Vehicle>
 	public static Element createVehicleElement(Document doc, VehicleSearchRequest vsr) {
 
-		Element vehicleElement = doc.createElementNS(OJBCWebApplicationNamespaceContext.VEHICLE_SEARCH_REQUEST_EXT, "Vehicle");
+		Element vehicleElement = doc.createElementNS(OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_EXT, "Vehicle");
 		
 		if (StringUtils.isNotBlank(vsr.getVehicleColor()))
 		{
@@ -77,20 +76,20 @@ public class VehicleSearchRequestDomUtils {
 		//If given a vehicle range, use start and end date to create range
 		if (vsr.getVehicleYearRangeStart() != null && vsr.getVehicleYearRangeEnd() !=null)
 		{
-			Element vehicleYearRange = NIEMXMLUtils.createYearRangeElementWithParent(doc, "VehicleYearRange", OJBCWebApplicationNamespaceContext.VEHICLE_SEARCH_REQUEST_EXT, vsr.getVehicleYearRangeStart(), vsr.getVehicleYearRangeEnd());
+			Element vehicleYearRange = NIEMXMLUtils.createYearRangeElementWithParent(doc, "VehicleYearRange", OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_EXT, vsr.getVehicleYearRangeStart(), vsr.getVehicleYearRangeEnd());
 			vehicleElement.appendChild(vehicleYearRange);
 		}		
 
 		//If given a vehicle start date, use start date to create range
 		if (vsr.getVehicleYearRangeStart() != null && vsr.getVehicleYearRangeEnd() ==null)
 		{
-			Element vehicleYearRange = NIEMXMLUtils.createYearRangeElementWithParent(doc, "VehicleYearRange", OJBCWebApplicationNamespaceContext.VEHICLE_SEARCH_REQUEST_EXT, vsr.getVehicleYearRangeStart(), vsr.getVehicleYearRangeStart());
+			Element vehicleYearRange = NIEMXMLUtils.createYearRangeElementWithParent(doc, "VehicleYearRange", OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_EXT, vsr.getVehicleYearRangeStart(), vsr.getVehicleYearRangeStart());
 			vehicleElement.appendChild(vehicleYearRange);
 		}		
 		
 		if (StringUtils.isNotBlank(vsr.getVehicleMake()))
 		{
-			Element vehicleMakeCodeElement = doc.createElementNS(OJBCWebApplicationNamespaceContext.VEHICLE_SEARCH_REQUEST_EXT, "VehicleMakeCode");
+			Element vehicleMakeCodeElement = doc.createElementNS(OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_EXT, "VehicleMakeCode");
 			vehicleMakeCodeElement.setTextContent(vsr.getVehicleMake());
 			vehicleElement.appendChild(vehicleMakeCodeElement);		
 		}		
@@ -100,7 +99,7 @@ public class VehicleSearchRequestDomUtils {
 	}	
 	
 	public static Element createVehicleSearchRequestElement(Document doc) {
-		Element element = doc.createElementNS(OJBCWebApplicationNamespaceContext.VEHICLE_SEARCH_REQUEST, "VehicleSearchRequest");
+		Element element = doc.createElementNS(OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST, "VehicleSearchRequest");
 		return element;
 	}
 	

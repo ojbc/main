@@ -18,15 +18,15 @@ package org.ojbc.web.model.person.search;
 
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.helper.NIEMXMLUtils;
-import org.ojbc.web.util.OJBCWebApplicationNamespaceContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.ojbc.util.xml.OjbcNamespaceContext;
 
 public class PersonSearchRequestDomUtils {
 
 	public static Element createPersonsElement(Document doc, PersonSearchRequest psr) {
 
-		Element personElement = doc.createElementNS(OJBCWebApplicationNamespaceContext.PERSON_SEARCH_REQUEST_EXT, "Person");
+		Element personElement = doc.createElementNS(OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "Person");
 		
 		//<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
 		if (StringUtils.isNotBlank(psr.getPersonEyeColor()))
@@ -130,7 +130,7 @@ public class PersonSearchRequestDomUtils {
 		//</ext:PersonBirthDateRange>
 		if (psr.getPersonDateOfBirthRangeEnd() != null && psr.getPersonDateOfBirthRangeStart() != null)
 		{
-			Element personDateRangeElement = doc.createElementNS(OJBCWebApplicationNamespaceContext.PERSON_SEARCH_REQUEST_EXT, "PersonBirthDateRange");
+			Element personDateRangeElement = doc.createElementNS(OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "PersonBirthDateRange");
 			personDateRangeElement = NIEMXMLUtils.createBirthDateRange(doc, personDateRangeElement, psr.getPersonDateOfBirthRangeStart(), psr.getPersonDateOfBirthRangeEnd());
 
 			personElement.appendChild(personDateRangeElement);
