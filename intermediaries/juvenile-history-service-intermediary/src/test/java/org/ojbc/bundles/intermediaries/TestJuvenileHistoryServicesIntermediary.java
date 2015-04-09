@@ -377,9 +377,9 @@ public class TestJuvenileHistoryServicesIntermediary {
     public void testIntakeHistory() throws Exception
     {
         // Read the access control request file from the file system       
-        String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/intake/JuvenileHistoryQuery_Sample.xml");                        
+        String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Intake/JuvenileHistoryQuery_Sample.xml");                        
 
-        String expectedBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/intake/JuvenileHistoryQuery_Sample.xml");        		        		                
+        String expectedBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Intake/JuvenileHistoryQuery_Sample.xml");        		        		                
         
         intakeAdapterRequestEndpoint.expectedBodiesReceived(expectedBody);
 		intakeAdapterRequestEndpoint.expectedMessageCount(1);
@@ -402,9 +402,9 @@ public class TestJuvenileHistoryServicesIntermediary {
     public void testOffenseHistory() throws Exception
     {
         // Read the access control request file from the file system        
-        String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/offense/JuvenileHistoryQuery_Sample.xml");
+        String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Offense/JuvenileHistoryQuery_Sample.xml");
         
-        String expectedBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/offense/JuvenileHistoryQuery_Sample.xml");
+        String expectedBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Offense/JuvenileHistoryQuery_Sample.xml");
                 
         offenseAdapterRequestEndpoint.expectedBodiesReceived(expectedBody);
 		offenseAdapterRequestEndpoint.expectedMessageCount(1);
@@ -427,9 +427,9 @@ public class TestJuvenileHistoryServicesIntermediary {
     public void testPlacementHistory() throws Exception
     {
         // Read the access control request file from the file system        
-        String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/placement/JuvenileHistoryQuery_Sample.xml");                
+        String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Placement/JuvenileHistoryQuery_Sample.xml");                
         
-        String expectedBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/placement/JuvenileHistoryQuery_Sample.xml");
+        String expectedBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Placement/JuvenileHistoryQuery_Sample.xml");
         
         placementAdapterRequestEndpoint.expectedBodiesReceived(expectedBody);
 		placementAdapterRequestEndpoint.expectedMessageCount(1);
@@ -452,9 +452,9 @@ public class TestJuvenileHistoryServicesIntermediary {
     public void testReferralHistory() throws Exception
     {
         // Read the access control request file from the file system        
-        String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/referral/JuvenileHistoryQuery_Sample.xml");
+        String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Referral/JuvenileHistoryQuery_Sample.xml");
                 
-        String expectedBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/referral/JuvenileHistoryQuery_Sample.xml");
+        String expectedBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Referral/JuvenileHistoryQuery_Sample.xml");
         
         referralAdapterRequestEndpoint.expectedBodiesReceived(expectedBody);
 		referralAdapterRequestEndpoint.expectedMessageCount(1);
