@@ -120,7 +120,7 @@
 				
 			<!-- The method 'createNDexMessage' uses this variable to create the N-DEx paylaod -->
 			<camel:setHeader headerName="submittingAgencyName">
-				<simple>$simple{NDExSubmission.submittingAgencyName}</simple>
+				<simple>${bean:NDExSubmission.submittingAgencyName.trim}</simple>
 			</camel:setHeader>
 				
 			<camel:setBody>
@@ -188,6 +188,12 @@
 		</camel:route>
 		
 	</camel:camelContext>
+
+	<!-- typically we would use the {{ }} camel construct to get the property -->
+	<!-- but this was causing an issue with an @ in a property.  This caused an attempted file resolution of a property -->
+    <bean id="NDExSubmission.submittingAgencyName" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="${NDExSubmission.submittingAgencyName}" />
+    </bean>	
 
 	<bean id="uniqueIDGeneratorBean" class="org.ojbc.util.ndex.util.UniqueIDGenerator"/>
 	
