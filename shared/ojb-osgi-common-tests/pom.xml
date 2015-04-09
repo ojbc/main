@@ -36,8 +36,8 @@
 		<karaf-version>2.2.11</karaf-version>
 		<slf4j-version>1.7.4</slf4j-version>
 		<camel.version>2.10.7</camel.version>
-		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
-		<ojb-osgi-test-common-version>1.0.0</ojb-osgi-test-common-version>
+		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
+		<ojb-osgi-test-common-version>[1.0.0,)</ojb-osgi-test-common-version>
 	</properties>
 
 	<dependencies>
