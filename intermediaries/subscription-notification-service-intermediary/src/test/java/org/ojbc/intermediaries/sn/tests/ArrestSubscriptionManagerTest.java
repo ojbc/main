@@ -97,7 +97,7 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 		response = invokeRequest("unSubscribeSoapRequest.xml", subscriptionManagerUrl);
 		assertThat(response, containsString("<wsnt:UnsubscribeResponse xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\"/>"));
 	    
-		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterUnsubscribe.xml");
+		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterUnSubscribe.xml");
 	}
 
 	@Test
