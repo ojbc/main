@@ -39,10 +39,10 @@
 		<camel.version>2.10.7</camel.version>
 		<spring.version>3.0.7.RELEASE</spring.version>
 		<spring-osgi-version>1.2.1</spring-osgi-version>
-		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
-		<ojb-osgi-test-common-version>1.0.0</ojb-osgi-test-common-version>
-		<ojb-camel-common>1.0.0</ojb-camel-common>
-		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
+		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
+		<ojb-osgi-test-common-version>[1.0.0,)</ojb-osgi-test-common-version>
+		<ojb-camel-common>[1.0.0,)</ojb-camel-common>
+		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<commons-io-version>2.4</commons-io-version>
 	</properties>
 
