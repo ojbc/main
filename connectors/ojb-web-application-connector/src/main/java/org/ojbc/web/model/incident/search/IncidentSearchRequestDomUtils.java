@@ -86,8 +86,6 @@ public class IncidentSearchRequestDomUtils {
 			incidentElement.appendChild(categoryCode);
 		}
 		
-		//TODO: map element for Incident Nature field
-
 		return incidentElement;
 	}
 
@@ -109,6 +107,8 @@ public class IncidentSearchRequestDomUtils {
 	public static Element createLocationElement(Document doc,
 			IncidentSearchRequest isr, String cityTownCodelistNamespace, String cityTownCodelistElementName) {
 		
+		//UI only provide for 'city/town' searches so that is the only mapping provided
+		
 		Element locationElement = NIEMXMLUtils.createLocationElement(doc, "L001");
 		
 		if (StringUtils.isNotBlank(isr.getIncidentCityTown())) {
@@ -126,8 +126,6 @@ public class IncidentSearchRequestDomUtils {
 			
 			locationElement.appendChild(locationStructuredAddress);
 		}
-		
-		//TODO: map additional address elements once they are added to POJO and Web app
 		
 		return locationElement;
 	}

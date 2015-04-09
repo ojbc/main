@@ -205,11 +205,6 @@ public class PeopleController {
 		//call a service to filter
 		String filteredResult = searchResultConverter.filterXml(filterInput, personFilterCommand);
 
-			// TODO add logging later
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println(filteredResult);
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		
 		//pass the filter results to our xml to html transform
 		String htmlResult = searchResultConverter.convertPersonSearchResult(filteredResult, getParams(getMostRecentSearchPurpose(), getMostRecentSearchOnBehalfOf()));
 		

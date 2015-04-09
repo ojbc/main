@@ -60,10 +60,11 @@ public class SubscriptionQueryResultsProcessorTest {
 		assertEquals("{http://ojbc.org/wsn/topics}:person/arrest", topic);				
 				
 		String sFullName = subQueryResults.getFullName();
-		assertEquals("Mary N Billiot", sFullName);
+		assertEquals("Test Name", sFullName);
 		
-		//TODO assert dob
-//		Date dDob = subQueryResults.getDateOfBirth();
+		Date dDob = subQueryResults.getDateOfBirth();
+    	Date birthDate = sdf.parse("1975-01-12");		
+		assertEquals(0,dDob.compareTo(birthDate));
 				
 		List<String> emailList = subQueryResults.getEmailList();				
 		boolean hasEmail1 = emailList.contains("officer@gmail.com");

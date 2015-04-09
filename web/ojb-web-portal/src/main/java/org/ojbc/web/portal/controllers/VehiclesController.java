@@ -83,12 +83,6 @@ public class VehiclesController {
 	@Resource
 	SamlService samlService;
 	
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		// TODO: decide if this is really needed here
-		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());
-	}
-
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
 	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        Map<String, Object> model) {

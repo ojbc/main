@@ -34,6 +34,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.FirearmSearchInterface;
+import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequest;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.portal.controllers.config.FirearmsControllerConfigInterface;
@@ -115,9 +116,9 @@ public class FirearmControllerTest {
 		assertThat(viewName, is("firearms/_searchForm"));
 
 		FirearmSearchCommand initialState = (FirearmSearchCommand) model.get("firearmSearchCommand");
-		// TODO: determine if we need search metadata testing for vehicle
-	//	assertThat(initialState.getAdvanceSearch().getPersonGivenNameMetaData(), is(SearchFieldMetadata.StartsWith));
-	//	assertThat(initialState.getAdvanceSearch().getPersonSurNameMetaData(), is(SearchFieldMetadata.StartsWith));
+
+		assertThat(initialState.getAdvanceSearch().getFirearmSerialNumberMetaData(), is(SearchFieldMetadata.ExactMatch));
+		assertNull(initialState.getAdvanceSearch().getFirearmCurrentRegOnly());
 	}
 
 	@Test
@@ -127,8 +128,9 @@ public class FirearmControllerTest {
 		assertThat(viewName, is("firearms/_searchForm"));
 
 		FirearmSearchCommand initialState = (FirearmSearchCommand) model.get("firearmSearchCommand");
-		//assertThat(initialState.getAdvanceSearch().getPersonGivenNameMetaData(), is(SearchFieldMetadata.StartsWith));
-		//assertThat(initialState.getAdvanceSearch().getPersonSurNameMetaData(), is(SearchFieldMetadata.StartsWith));
+		assertThat(initialState.getAdvanceSearch().getFirearmSerialNumberMetaData(), is(SearchFieldMetadata.ExactMatch));
+		assertNull(initialState.getAdvanceSearch().getFirearmCurrentRegOnly());
+
 		verify(userSession).setMostRecentFirearmSearch(Mockito.any(FirearmSearchCommand.class));
 	}
 

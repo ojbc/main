@@ -66,6 +66,7 @@ public class RequestMessageBuilderUtilities {
 		sb.append("        <nc20:IdentificationSourceText>" + detailsRequest.getIdentificationSourceText() + "</nc20:IdentificationSourceText>");
 		sb.append("    </pqr:PersonRecordRequestIdentification>");
 		
+		//TODO: See if on behalf of and purpose are required for person query
 		if (StringUtils.isNotBlank(detailsRequest.getOnBehalfOf()) || StringUtils.isNotBlank(detailsRequest.getPurpose()))
 		{
 			if (StringUtils.isNotBlank(detailsRequest.getOnBehalfOf()))

@@ -34,8 +34,6 @@ public class SubscriptionEditRequest implements Serializable{
 	private String fullName;
 	
 	//note f/l name only used for incident(not arrest)
-	// TODO - probably remove fullname and get arrest to use f/l Name,
-	// or create a new pojo for incident
 	private String firstName;	
 	private String lastName;	
 	
