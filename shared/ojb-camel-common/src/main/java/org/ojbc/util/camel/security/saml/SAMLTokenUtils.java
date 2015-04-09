@@ -332,7 +332,7 @@ public class SAMLTokenUtils {
 		sigProperties.put("org.apache.ws.security.crypto.merlin.keystore.type","jks");
 		sigProperties.put("org.apache.ws.security.crypto.merlin.keystore.alias","idp-key");
 		sigProperties.put("org.apache.ws.security.crypto.merlin.keystore.password","idp-keystore");
-		sigProperties.put("org.apache.ws.security.crypto.merlin.keystore.file", System.getProperty("user.home") + "/dev/certs/ads/idp/idp-keystore.jks");
+		sigProperties.put("org.apache.ws.security.crypto.merlin.keystore.file", "certs/idp-keystore.jks");
         
 		Crypto signatureCrypto = CryptoFactory.getInstance(sigProperties);
 		
