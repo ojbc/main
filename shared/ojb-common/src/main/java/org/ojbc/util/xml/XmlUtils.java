@@ -61,7 +61,14 @@ import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.SAXException;
 
 /**
- * XML Utility class. TODO: determine if this functionality is used elsewhere in the codebase and if so, maybe move to a more central location
+ * XML Utility class. 
+ * 
+ * This class provides assistance with Xpath searching, document creation and NIEM document validation.
+ * It works with the namespaces and prefixes provided by OjbcNamespaceContext. 
+ * 
+ * When creating DOM documents, this class should always be used first if possible.
+ * 
+ * The test class provides examples on how to properly use the methods provided.
  * 
  */
 public class XmlUtils {

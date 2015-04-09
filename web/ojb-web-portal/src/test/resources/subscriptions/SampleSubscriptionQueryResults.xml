@@ -111,8 +111,11 @@
       </intel:SystemIdentifier>
    </sqr-ext:SubscriptionQueryResult>
    <sqr-ext:Person s:id="P0">
+	<nc:PersonBirthDate>
+		<nc:Date>1975-01-12</nc:Date>
+	</nc:PersonBirthDate>
       <nc:PersonName>
-         <nc:PersonFullName>Mary N Billiot</nc:PersonFullName>
+         <nc:PersonFullName>Test Name</nc:PersonFullName>
       </nc:PersonName>
       <jxdm41:PersonAugmentation>
          <jxdm41:PersonStateFingerprintIdentification>

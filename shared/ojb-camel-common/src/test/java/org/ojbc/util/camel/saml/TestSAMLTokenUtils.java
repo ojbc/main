@@ -117,8 +117,7 @@ public class TestSAMLTokenUtils {
 			}	
 		}
 
-		//TODO: verify element using Xpaths
-		XMLUtils.printDOM(samlToken.getDOM());
+		//XMLUtils.printDOM(samlToken.getDOM());
 	}
 
 	@Test
@@ -225,8 +224,7 @@ public class TestSAMLTokenUtils {
 			}	
 		}
 
-		//TODO: verify element using Xpaths
-		XMLUtils.printDOM(samlToken.getDOM());
+		//XMLUtils.printDOM(samlToken.getDOM());
 	}
 
 }

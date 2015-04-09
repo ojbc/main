@@ -25,7 +25,10 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
+import org.w3c.dom.Document;
 
 public class DetailQueryRequestTest {
 
@@ -40,7 +43,7 @@ public class DetailQueryRequestTest {
 	}
 
 	@Test
-	public void testCriminalHistory()
+	public void testCriminalHistory() throws Exception
 	{
 		DetailsRequest chr = new DetailsRequest();
 		
@@ -52,14 +55,15 @@ public class DetailQueryRequestTest {
 		String criminalHistoryRequestPayload = RequestMessageBuilderUtilities.createPersonQueryRequest(chr);
 		
 		log.debug("Criminal History Request Payload: " + criminalHistoryRequestPayload);
-	
-		//TODO: also do assertion with XML Unit
-		assertEquals("<pqr:PersonRecordRequest xmlns:pqr=\"http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0\" xmlns:nc20=\"http://niem.gov/niem/niem-core/2.0\">    <pqr:PersonRecordRequestIdentification >        <nc20:IdentificationID>12345</nc20:IdentificationID>        <nc20:IdentificationSourceText>{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History</nc20:IdentificationSourceText>    </pqr:PersonRecordRequestIdentification></pqr:PersonRecordRequest>", criminalHistoryRequestPayload);
+			
+		Document criminalHistoryRequestPayloadDoc = OJBUtils.loadXMLFromString(criminalHistoryRequestPayload);
 		
+		assertEquals("12345",XmlUtils.xPathStringSearch(criminalHistoryRequestPayloadDoc, "/pqr:PersonRecordRequest/pqr:PersonRecordRequestIdentification/nc:IdentificationID"));
+		assertEquals("{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History",XmlUtils.xPathStringSearch(criminalHistoryRequestPayloadDoc, "/pqr:PersonRecordRequest/pqr:PersonRecordRequestIdentification/nc:IdentificationSourceText"));
 	}
 	
 	@Test
-	public void testWarrant()
+	public void testWarrant() throws Exception
 	{
 		DetailsRequest warrant = new DetailsRequest();
 		
@@ -69,60 +73,65 @@ public class DetailQueryRequestTest {
 		warrant.setOnBehalfOf("Criminal Justice");
 
 		
-		String criminalHistoryRequestPayload = RequestMessageBuilderUtilities.createPersonQueryRequest(warrant);
+		String warrantRequestPayload = RequestMessageBuilderUtilities.createPersonQueryRequest(warrant);
 		
-		log.debug("Warrant Request Payload: " + criminalHistoryRequestPayload);
-	
-		//TODO: also do assertion with XML Unit
-		assertEquals("<pqr:PersonRecordRequest xmlns:pqr=\"http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0\" xmlns:nc20=\"http://niem.gov/niem/niem-core/2.0\">    <pqr:PersonRecordRequestIdentification >        <nc20:IdentificationID>12345</nc20:IdentificationID>        <nc20:IdentificationSourceText>{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants</nc20:IdentificationSourceText>    </pqr:PersonRecordRequestIdentification></pqr:PersonRecordRequest>", criminalHistoryRequestPayload);
+		log.debug("Warrant Request Payload: " + warrantRequestPayload);
+			
+		Document warrantRequestPayloadDoc = OJBUtils.loadXMLFromString(warrantRequestPayload);
+		
+		assertEquals("12345",XmlUtils.xPathStringSearch(warrantRequestPayloadDoc, "/pqr:PersonRecordRequest/pqr:PersonRecordRequestIdentification/nc:IdentificationID"));
+		assertEquals("{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants",XmlUtils.xPathStringSearch(warrantRequestPayloadDoc, "/pqr:PersonRecordRequest/pqr:PersonRecordRequestIdentification/nc:IdentificationSourceText"));
 		
 	}
 	
 	@Test
-	public void testPersonToIncident()
+	public void testPersonToIncident() throws Exception
 	{
 		DetailsRequest personToIncident = new DetailsRequest();
 		
 		personToIncident.setIdentificationID("12345");
-		personToIncident.setIdentificationSourceText("{http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0}SubmitIncidentPersonSearchResults-DPS");
+		personToIncident.setIdentificationSourceText("{http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0}SubmitIncidentPersonSearchResults-RMS");
 		
 		String personToIncidentRequestPayload = RequestMessageBuilderUtilities.createPersonToIncidentQueryRequest(personToIncident.getIdentificationID(), personToIncident.getIdentificationSourceText());
 		
 		log.debug("Person To Incident Request Payload: " + personToIncidentRequestPayload);
 	
-		//TODO: also do assertion with XML Unit
-		assertEquals("<exchange:IncidentPersonSearchRequest	xmlns:exchange=\"http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0\"	xmlns:ext=\"http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0\"	xmlns:nc=\"http://niem.gov/niem/niem-core/2.0\">	<nc:Person>		<nc:PersonOtherIdentification>			<nc:IdentificationID>12345</nc:IdentificationID>		</nc:PersonOtherIdentification>	</nc:Person>	<ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0}SubmitIncidentPersonSearchResults-DPS</ext:SourceSystemNameText></exchange:IncidentPersonSearchRequest>", personToIncidentRequestPayload);
+		Document personToIncidentRequestPayloadDoc = OJBUtils.loadXMLFromString(personToIncidentRequestPayload);
 		
+		assertEquals("12345",XmlUtils.xPathStringSearch(personToIncidentRequestPayloadDoc, "/isr-doc:IncidentPersonSearchRequest/nc:Person/nc:PersonOtherIdentification/nc:IdentificationID"));
+		assertEquals("{http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0}SubmitIncidentPersonSearchResults-RMS",XmlUtils.xPathStringSearch(personToIncidentRequestPayloadDoc, "/isr-doc:IncidentPersonSearchRequest/isr:SourceSystemNameText"));
 	}
 
 	@Test
-	public void testVehicleToIncident()
+	public void testVehicleToIncident() throws Exception
 	{
 		DetailsRequest vehicleToIncident = new DetailsRequest();
 		
 		vehicleToIncident.setIdentificationID("12345");
-		vehicleToIncident.setIdentificationSourceText("{http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0}SubmitIncidentPersonSearchResults-DPS");
+		vehicleToIncident.setIdentificationSourceText("{http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0}SubmitIncidentPersonSearchResults-RMS");
 		
 		String vehicleToIncidentRequestPayload = RequestMessageBuilderUtilities.createVehicleToIncidentQueryRequest(vehicleToIncident.getIdentificationID(), vehicleToIncident.getIdentificationSourceText());
 		
 		log.debug("Vehicle To Incident Request Payload: " + vehicleToIncidentRequestPayload);
-	
-		//TODO: also do assertion with XML Unit
-		assertEquals("<exchange:IncidentVehicleSearchRequest	xmlns:exchange=\"http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0\"	xmlns:nc=\"http://niem.gov/niem/niem-core/2.0\"	xmlns:extVehicle=\"http://ojbc.org/IEPD/Extensions/IncidentVehicleSearchRequest/1.0\"	xmlns:ext=\"http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0\">		<extVehicle:Vehicle>			<extVehicle:VehicleSystemIdentification>				<nc:IdentificationID>12345</nc:IdentificationID>			</extVehicle:VehicleSystemIdentification>		</extVehicle:Vehicle>		<ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0}SubmitIncidentPersonSearchResults-DPS</ext:SourceSystemNameText></exchange:IncidentVehicleSearchRequest>", vehicleToIncidentRequestPayload);
+			
+		Document vehicleToIncidentRequestDoc = OJBUtils.loadXMLFromString(vehicleToIncidentRequestPayload);
 		
+		assertEquals("12345",XmlUtils.xPathStringSearch(vehicleToIncidentRequestDoc, "/isr-doc:IncidentVehicleSearchRequest/ivsr:Vehicle/ivsr:VehicleSystemIdentification/nc:IdentificationID"));
+		assertEquals("{http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0}SubmitIncidentPersonSearchResults-RMS",XmlUtils.xPathStringSearch(vehicleToIncidentRequestDoc, "/isr-doc:IncidentVehicleSearchRequest/isr:SourceSystemNameText"));
+
 	}
 	
 	@Test
-	public void testIncidentReportRequest()
+	public void testIncidentReportRequest() throws Exception
 	{
 		DetailsRequest incidentReportRequest = new DetailsRequest();
 		
 		incidentReportRequest.setIdentificationID("Law12345");
-		incidentReportRequest.setIdentificationSourceText("{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-DPS");
+		incidentReportRequest.setIdentificationSourceText("{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS");
 		
 		String incidentCategoryCode = "";
 		
-		if (incidentReportRequest.getIdentificationSourceText().equals("{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-DPS"))
+		if (incidentReportRequest.getIdentificationSourceText().equals("{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"))
 		{
 			if(incidentReportRequest.getIdentificationID().startsWith("Citation"))
 			{
@@ -145,11 +154,10 @@ public class DetailQueryRequestTest {
 		//POJO to XML Request
 		String incidentRequestPayload = RequestMessageBuilderUtilities.createIncidentReportRequest(StringUtils.substringAfter(incidentReportRequest.getIdentificationID(), incidentCategoryCode), incidentReportRequest.getIdentificationSourceText(), incidentCategoryCode);
 		
-		log.debug("Incident Report Request Payload: " + incidentRequestPayload);
-	
-		//TODO: also do assertion with XML Unit
-		assertEquals("<exchange:IncidentIdentifierIncidentReportRequest	xmlns:exchange=\"http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0\"	xmlns:extension=\"http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0\"	xmlns:nc=\"http://niem.gov/niem/niem-core/2.0\">	<extension:Incident>	    <nc:ActivityIdentification>	    	<nc:IdentificationID>12345</nc:IdentificationID>	    </nc:ActivityIdentification>	    <extension:IncidentCategoryCode>Law</extension:IncidentCategoryCode>	</extension:Incident> <extension:SourceSystemNameText>{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-DPS</extension:SourceSystemNameText></exchange:IncidentIdentifierIncidentReportRequest>", incidentRequestPayload);
+		Document incidentRequestPayloadDoc = OJBUtils.loadXMLFromString(incidentRequestPayload);
 		
+		assertEquals("12345",XmlUtils.xPathStringSearch(incidentRequestPayloadDoc, "/iqr-doc:IncidentIdentifierIncidentReportRequest/iqr:Incident/nc:ActivityIdentification/nc:IdentificationID"));
+		assertEquals("{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS",XmlUtils.xPathStringSearch(incidentRequestPayloadDoc, "/iqr-doc:IncidentIdentifierIncidentReportRequest/iqr:SourceSystemNameText"));
 	}
 
 }

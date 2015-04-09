@@ -29,11 +29,6 @@ public class SubscriptionQueryResultsProcessor {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
 	
-	
-	/**
-	 * TODO see if null checks should be added
-	 * TODO get fname, lname, dob
-	 */
 	public SubscriptionQueryResults parseSubscriptionQueryResults(Document subscriptionQueryResponseDoc) throws Exception{
 		
 		SubscriptionQueryResults subQueryResults = new SubscriptionQueryResults();

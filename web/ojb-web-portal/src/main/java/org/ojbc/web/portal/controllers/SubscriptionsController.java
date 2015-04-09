@@ -903,7 +903,6 @@ public class SubscriptionsController {
 										
 		List<String> alternateNameList = subscribedNames == null ? null : subscribedNames.getAlternateNamesList();
 		
-		//TODO see if List values are empty				
 		if(alternateNameList != null && !alternateNameList.isEmpty()){
 			allNamesList.addAll(subscribedNames.getAlternateNamesList());
 		}								
