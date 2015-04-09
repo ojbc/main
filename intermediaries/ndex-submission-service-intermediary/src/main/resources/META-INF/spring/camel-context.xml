@@ -118,7 +118,6 @@
 				</camel:setHeader>
 			</camel:filter>
 				
-			<!-- TODO, we will need to make this dynamic and assign it by mapping an ORI to a system name -->	
 			<!-- The method 'createNDexMessage' uses this variable to create the N-DEx paylaod -->
 			<camel:setHeader headerName="submittingAgencyName">
 				<simple>$simple{NDExSubmission.submittingAgencyName}</simple>
