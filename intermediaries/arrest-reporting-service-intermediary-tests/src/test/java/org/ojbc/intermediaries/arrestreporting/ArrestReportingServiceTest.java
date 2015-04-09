@@ -105,11 +105,11 @@ public class ArrestReportingServiceTest extends AbstractPaxExamIntegrationTest {
 				mavenBundle().groupId("org.springframework").artifactId("spring-jdbc").version("3.0.7.RELEASE").start(),
 				
 				// OJB bundles here
-				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-common").version("1.0.0").start(),
-				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-test-common").version("1.0.0").start(),
-				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-common").version("2.0.2").start(),
-				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-camel-common").version("1.0.0").start(),
-				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-resources-common").version("1.0.0").start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-common").start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-osgi-test-common").start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-common").start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-camel-common").start(),
+				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-resources-common").start(),
 				
 				// Base intermediary
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("arrest-reporting-service-intermediary").version("1.0.0").start(),
