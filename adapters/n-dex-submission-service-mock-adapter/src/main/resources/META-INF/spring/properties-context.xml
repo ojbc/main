@@ -23,16 +23,28 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
-	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
-
-	<osgix:cm-properties id="ojb-properties" persistent-id="n_dex_submission_service" />
-		
-	<ctx:property-placeholder properties-ref="ojb-properties" />
+       
+     <bean id="bridgePropertyPlaceholder"
+		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+		<property name="propertiesArray">
+			<array>
+				<!-- The .cfg file from the classpath will be consulted first, followed 
+					by the optional .cfg file under $SERVICEMIX_HOME/etc -->
+				<util:properties
+					location="classpath:n_dex_submission_service.cfg" />
+				<osgix:cm-properties id="osgiProperties"
+					persistent-id="n_dex_submission_service" />
+			</array>
+		</property>
+	</bean> 
 
 </beans>

@@ -40,7 +40,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@Ignore("Create keystore with the same keystore and key password to satisy AuthSSLProtocolSocketFactory requirements")
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 		"classpath:META-INF/spring/camel-context.xml",
