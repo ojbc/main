@@ -34,7 +34,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.validation.BindingResult;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:/static-configuration-demostate.xml"})
+@ContextConfiguration({"classpath:static-configuration-demostate.xml"})
 public class SimpleSearchParserTest {
 
 	@Resource

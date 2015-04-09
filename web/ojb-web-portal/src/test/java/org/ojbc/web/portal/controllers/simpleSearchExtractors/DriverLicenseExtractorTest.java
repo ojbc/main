@@ -35,7 +35,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:/static-configuration-demostate.xml"})
+@ContextConfiguration({"classpath:static-configuration-demostate.xml"})
 public class DriverLicenseExtractorTest {
 
 	@Resource

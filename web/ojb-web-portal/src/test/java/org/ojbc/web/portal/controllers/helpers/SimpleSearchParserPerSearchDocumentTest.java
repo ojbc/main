@@ -38,7 +38,7 @@ import org.springframework.validation.BindingResult;
 
 // Tests based on Simple Search Requirements Doc
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:/static-configuration-demostate.xml"})
+@ContextConfiguration({"classpath:static-configuration-demostate.xml"})
 public class SimpleSearchParserPerSearchDocumentTest {
 
     @Resource
