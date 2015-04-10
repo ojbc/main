@@ -19,7 +19,7 @@
 -->
 <xsl:stylesheet version="2.0" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:ac-exchange="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0"
+    xmlns:ac-doc="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0"
     xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
     xmlns:ac-ext="http://ojbc.org/IEPD/Extensions/AccessControlResponse/1.0"
     xmlns:ac-p="http://ojbc.org/IEPD/Extensions/AccessControlDecisionContexts/PolicyBasedAccessControlDecisionContext/1.0"
@@ -40,9 +40,9 @@
 	
 	<xsl:template match="/">
 		<xsl:apply-templates select=
-			"ac-exchange:AccessControlResponse/ac-ext:AccessControlDecision/ac-ext:AccessControlDecisionContext/ac-p:PolicyBasedAccessControlDecisionContext[normalize-space()]"/>
+			"ac-doc:AccessControlResponse/ac-ext:AccessControlDecision/ac-ext:AccessControlDecisionContext/ac-p:PolicyBasedAccessControlDecisionContext[normalize-space()]"/>
 		
-		<xsl:apply-templates select="ac-exchange:AccessControlResponse/acr-srm:AccessControlResultsMetadata/acrer:AccessControlRequestError[normalize-space()]"/>
+		<xsl:apply-templates select="ac-doc:AccessControlResponse/acr-srm:AccessControlResultsMetadata/acrer:AccessControlRequestError[normalize-space()]"/>
 		<xsl:apply-templates select="exc:EntityMergeResultMessage/exc:SearchResultsMetadataCollection/srm:SearchResultsMetadata/srer:SearchRequestError[normalize-space()]"/>
 	</xsl:template>
 

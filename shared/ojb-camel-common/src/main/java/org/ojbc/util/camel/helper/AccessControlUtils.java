@@ -31,8 +31,6 @@ import org.w3c.dom.Element;
  * This class will make Access Control XML documents based on the SSP.  Services providing these messages
  * can used the static methods to create valid and error responses.
  * 
- * @author yogeshchawla, haiqiwei
- *
  */
 public class AccessControlUtils {
 
@@ -109,12 +107,12 @@ public class AccessControlUtils {
     private static Element createAccessControlResponseRootElement(Document document) {
         Element rootElement = document.createElementNS(
                 OjbcNamespaceContext.NS_ACCESS_CONTROL_EXCHANGE,
-                "ac-exchange:AccessControlResponse");
+                "ac-doc:AccessControlResponse");
         rootElement
                 .setAttribute("xsi:schemaLocation",
                         "http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0 ../xsd/exchange_schema.xsd");
         rootElement.setAttribute("xmlns:s30", OjbcNamespaceContext.NS_STRUCTURES_30);
-        rootElement.setAttribute("xmlns:ac-exchange",
+        rootElement.setAttribute("xmlns:ac-doc",
                 OjbcNamespaceContext.NS_ACCESS_CONTROL_EXCHANGE);
         rootElement.setAttribute("xmlns:ac-ext", OjbcNamespaceContext.NS_ACCESS_CONTROL_EXT);
         rootElement.setAttribute("xmlns:ac-p", OjbcNamespaceContext.NS_POLICY_DECISION_CONTEXT);
@@ -125,9 +123,9 @@ public class AccessControlUtils {
     
     private static Element createAccessControlErrorResponseRootElement(Document document) {
         Element rootElement = document.createElementNS(
-                OjbcNamespaceContext.NS_ACCESS_CONTROL_EXCHANGE, "ac-exchange:AccessControlResponse");
+                OjbcNamespaceContext.NS_ACCESS_CONTROL_EXCHANGE, "ac-doc:AccessControlResponse");
         rootElement.setAttribute("xmlns:xsi", OjbcNamespaceContext.NS_XSI);
-        rootElement.setAttribute("xmlns:ac-exchange",
+        rootElement.setAttribute("xmlns:ac-doc",
                 OjbcNamespaceContext.NS_ACCESS_CONTROL_EXCHANGE);
         rootElement.setAttribute("xmlns:acrer",
                 OjbcNamespaceContext.NS_ACCESS_CONTROL_ERROR_REPORTING);
