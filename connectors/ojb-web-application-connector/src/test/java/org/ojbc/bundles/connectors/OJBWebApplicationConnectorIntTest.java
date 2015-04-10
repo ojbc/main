@@ -151,7 +151,6 @@ public class OJBWebApplicationConnectorIntTest{
 		
 		String response = juvenileCasePlanHistoryRequestProcessor.invokeRequest(jqr, federatedQueryID, samlToken);
 
-		//TODO: Improve assertions
 		Assert.assertTrue(StringUtils.contains(response, "FOUND"));
 		
 		//Intake
@@ -295,7 +294,7 @@ public class OJBWebApplicationConnectorIntTest{
     	//create and populate a person search request POJO
 		DetailsRequest incidentReportRequest = new DetailsRequest();
 		
-		incidentReportRequest.setIdentificationID("12345");
+		incidentReportRequest.setIdentificationID("{Citation}");
 		incidentReportRequest.setIdentificationSourceText("{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-DPS");
     	
 		String federatedQueryID = returnFederatedQueryGUID();
