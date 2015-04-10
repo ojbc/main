@@ -1,3 +1,19 @@
+/*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ */
 package org.ojbc.federatedquery.tests;
 
 import static org.junit.Assert.assertEquals;
@@ -73,6 +89,17 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 	@Inject
 	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.firearm-search-request-service-intermediary)", timeout = 60000)
 	private ApplicationContext firearmsSearchIntermediaryBundleContext;	
+
+	//Incident Search
+	@Inject
+	@Filter(value = "(org.springframework.osgi.bean.name=org.ojbc.bundles.intermediaries.incident-search-request-service-intermediary-context)", timeout = 60000)
+	private OjbcContext incidentSearchIntermediaryOjbcContext;
+
+	@Inject
+	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.incident-search-request-service-intermediary)", timeout = 60000)
+	private ApplicationContext incidentSearchIntermediaryBundleContext;	
+
+	
 	
 	//Person Query - Warrants
 	@Inject
@@ -162,11 +189,13 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("person-search-request-service-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("vehicle-search-request-service-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("firearm-search-request-service-intermediary").start(),
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("incident-search-request-service-intermediary").start(),
 				
 				// Query intermediaries
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("person-query-service-warrants-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("person-query-service-criminal-history-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("firearm-registration-query-request-service-intermediary").start()
+				
 		};
 	}
 
@@ -198,6 +227,8 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		assertNotNull(firearmsQueryIntermediaryBundleContext);
 		assertNotNull(firearmsSearchIntermediaryOjbcContext);
 		assertNotNull(firearmsSearchIntermediaryBundleContext);
+		assertNotNull(incidentSearchIntermediaryOjbcContext);
+		assertNotNull(incidentSearchIntermediaryBundleContext);
 		
 		System.err.println(executeCommand("osgi:list -t 1", 20000L, false));
 	}
@@ -225,6 +256,14 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 
 		assertNotNull(firearmsSearchRequestEndpoint);
 		log.info("Firearms Search Federated Endpoint: " + firearmsSearchRequestEndpointAddress);
+
+		//Incident Search
+		CxfEndpoint incidentSearchRequestEndpoint = incidentSearchIntermediaryBundleContext.getBean("searchRequestFederatedServiceEndpoint", CxfEndpoint.class);
+		String incidentSearchRequestEndpointAddress = incidentSearchRequestEndpoint.getAddress();
+
+		assertNotNull(incidentSearchRequestEndpoint);
+		log.info("Incident Search Federated Endpoint: " + incidentSearchRequestEndpointAddress);
+
 		
 		//Warrants Query
 		CxfEndpoint personQueryWarrantsEndpoint = warrantsQueryIntermediaryBundleContext.getBean("searchRequestFederatedServiceEndpoint", CxfEndpoint.class);
