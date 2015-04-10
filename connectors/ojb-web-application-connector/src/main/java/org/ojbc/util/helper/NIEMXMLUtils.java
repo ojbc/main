@@ -18,6 +18,8 @@ package org.ojbc.util.helper;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.namespaces.NIEMNamespaces;
 import org.ojbc.util.xml.namespaces.OJBNamespaces;
 import org.ojbc.web.SearchFieldMetadata;
@@ -48,9 +50,7 @@ public class NIEMXMLUtils {
 	{
 		Element dateWrapperElement = doc.createElementNS(NIEMNamespaces.NC_20_NS, wrapperElementName);
 		
-		Element datelement = doc.createElementNS(NIEMNamespaces.NC_20_NS, "Date");
-		//TODO: Integrate with OJB XmlUtils
-		datelement.setPrefix("nc");
+		Element datelement = XmlUtils.appendElement(dateWrapperElement, OjbcNamespaceContext.NS_NC, "Date");
 		datelement.setTextContent(dateTime.toString("yyyy-MM-dd"));
 		
 		dateWrapperElement.appendChild(datelement);
@@ -314,29 +314,24 @@ public class NIEMXMLUtils {
 	{
 		Element searchFieldMetadataElement = doc.createElementNS(searchFieldMetaDataNamespace, "SearchMetadata");
 		
-		if (searchFieldMetadata == SearchFieldMetadata.ExactMatch)
-		{	
-			searchFieldMetadataElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", "SM001");
-		}	
-
-		if (searchFieldMetadata == SearchFieldMetadata.StartsWith)
-		{	
-			searchFieldMetadataElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", "SM002");
-		}	
+		if (searchFieldMetadata != null) {
+		    switch(searchFieldMetadata) {
+		    case ExactMatch:
+		        searchFieldMetadataElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", "SM001");
+		        break; 
+		    case StartsWith:
+		        searchFieldMetadataElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", "SM002");
+		        break;
+            default:
+                break; 
+		    }
+		}
 
 		Element searchFieldQualifierCodeElement = doc.createElementNS(searchFieldMetaDataNamespace, "SearchQualifierCode");
 		
-		//TODO: We should remove the literals below and get the values from the ENUM
-		if (searchFieldMetadata == SearchFieldMetadata.ExactMatch)
-		{	
-			searchFieldQualifierCodeElement.setTextContent("exact");
+		if (searchFieldMetadata != null) {
+		    searchFieldQualifierCodeElement.setTextContent(searchFieldMetadata.getMetadata());
 		}
-
-		if (searchFieldMetadata == SearchFieldMetadata.StartsWith)
-		{	
-			searchFieldQualifierCodeElement.setTextContent("startsWith");
-		}
-
 		
 		searchFieldMetadataElement.appendChild(searchFieldQualifierCodeElement);
 		
@@ -509,9 +504,7 @@ public class NIEMXMLUtils {
 	public static Element createNC20DateOnlyRangeElementWithParent(Document doc, String parentElementName, 
 			DateTime dateStart, DateTime dateEnd) {
 		
-		//TODO: integrate with XmlUtils to get namespace prefixes
-		Element parentElement = doc.createElementNS(NIEMNamespaces.NC_20_NS, parentElementName);
-		parentElement.setPrefix("nc");
+		Element parentElement = doc.createElementNS(OjbcNamespaceContext.NS_NC, OjbcNamespaceContext.NS_PREFIX_NC + ":" + parentElementName);
 		
 		if (dateStart != null)
 		{	
