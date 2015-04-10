@@ -150,7 +150,6 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_ER_EXT = "http://nij.gov/IEPD/Extensions/EntityResolutionExtensions/1.0";
 	public static final String NS_PREFIX_ER_EXT = "er-ext";
 
-	// TODO rename these two constants to resemble firearm query results
 	public static final String NS_FIREARM_DOC = "http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0";
 	public static final String NS_FIREARM_EXT = "http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0";
 
