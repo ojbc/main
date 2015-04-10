@@ -29,9 +29,6 @@ import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.w3c.dom.Element;
 
-/**
- * @author Haiqi Wei
- */
 public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter {
     
     private SamlService samlService;
@@ -75,21 +72,25 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
             e.printStackTrace(); 
         }
         
-        // TODO The following if block is for the development. Will comment out later. 
         if (samlAssertion == null && isAllowQueriesWithoutSAMLToken()) {
-            try {
-                Map<String, String> customAttributes = new HashMap<String, String>();
-                customAttributes.put("gfipm:2.0:user:FederationId", "HIJIS:IDP:HCJDC:USER:haiqi");
+            samlAssertion = createDemoUserSamlAssertion(samlAssertion);
+        }
+        return samlAssertion;
+    }
+
+    private Element createDemoUserSamlAssertion(Element samlAssertion) {
+        try {
+            Map<String, String> customAttributes = new HashMap<String, String>();
+            customAttributes.put("gfipm:2.0:user:FederationId", "HIJIS:IDP:HCJDC:USER:demouser");
 //                customAttributes.put(SamlAttribute.FederationId.getAttibuteName(), "HIJIS:IDP:HCJDC:USER:demouser4");
-                customAttributes.put(SamlAttribute.EmployerORI.getAttibuteName(), "1234567890");
+            customAttributes.put(SamlAttribute.EmployerORI.getAttibuteName(), "1234567890");
 //                customAttributes.put("gfipm:2.0:user:EmployerORI", "H00000001");
-                
-                samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
-                        SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
-                        SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            
+            samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
+                    SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
+                    SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return samlAssertion;
     }
