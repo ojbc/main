@@ -124,9 +124,9 @@ public class PortalAuthenticationDetailsSource implements
         String accessDenied = "";
         try {
             accessDenied = XmlUtils.xPathStringSearch(responseDocument.getDocumentElement(), 
-                    "/ac-exchange:AccessControlResponse/ac-ext:AccessControlDecision/ac-ext:AccessDeniedIndicator");
+                    "/ac-doc:AccessControlResponse/ac-ext:AccessControlDecision/ac-ext:AccessDeniedIndicator");
         } catch (Exception e) {
-            log.error("Faild to run xpath /ac-exchange:AccessControlResponse/ac-ext:AccessControlDecision/ac-ext:AccessDeniedIndicator "
+            log.error("Faild to run xpath /ac-doc:AccessControlResponse/ac-ext:AccessControlDecision/ac-ext:AccessDeniedIndicator "
                     + "on " + accessControlResponseString, e); 
         }
         return accessDenied;
