@@ -103,8 +103,6 @@ public class PortalAccessControlTest {
 
     @Test
     @DirtiesContext
-    @Ignore
-    //TODO: fix me
     public void allowAccessToPortalAndSubscription() throws Exception {
         Map<String, String> customAttributes = new HashMap<String, String>();
         customAttributes.put("gfipm:2.0:user:FederationId", "HIJIS:IDP:HCJDC:USER:demouser");
@@ -123,8 +121,6 @@ public class PortalAccessControlTest {
     
     @Test
     @DirtiesContext
-    @Ignore
-    //TODO: fix me
     public void allowAccessToPortalButNoSubscription() throws Exception {
         Map<String, String> customAttributes = new HashMap<String, String>();
         customAttributes.put("gfipm:2.0:user:FederationId", "HIJIS:IDP:HCJDC:USER:demouser1");
