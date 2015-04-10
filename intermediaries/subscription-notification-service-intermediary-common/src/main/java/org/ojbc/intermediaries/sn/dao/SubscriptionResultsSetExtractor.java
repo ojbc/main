@@ -104,7 +104,6 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	
 	            	subscription.setPersonFullName(rs.getString("subjectName"));
 	            	
-	            	//TODO: This will need to be updated to the actual subscription identifier (or maybe the id is sufficient since it is the primary key)
 	            	subscription.setSubscriptionIdentifier(String.valueOf(id));
 	            	
 	            	if (validationExemptionFilter.requiresValidation(subscription)) {

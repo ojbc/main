@@ -114,16 +114,16 @@ public abstract class NotificationRequest {
                 "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref");
 
         if (StringUtils.isNotBlank(personReference)) {
-            personFirstName = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
-                    + "']/nc:PersonName/nc:PersonGivenName");
-            personMiddleName = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
-                    + "']/nc:PersonName/nc:PersonMiddleName");
-            personLastName = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
-                    + "']/nc:PersonName/nc:PersonSurName");
-            personNameSuffix = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
-                    + "']/nc:PersonName/nc:PersonNameSuffixText");
-            personBirthDate = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
-                    + "']/nc:PersonBirthDate/nc:Date");
+            personFirstName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
+                    + "']/nc:PersonName/nc:PersonGivenName"));
+            personMiddleName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
+                    + "']/nc:PersonName/nc:PersonMiddleName"));
+            personLastName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
+                    + "']/nc:PersonName/nc:PersonSurName"));
+            personNameSuffix = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
+                    + "']/nc:PersonName/nc:PersonNameSuffixText"));
+            personBirthDate = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + personReference
+                    + "']/nc:PersonBirthDate/nc:Date"));
             
             try
             {
@@ -145,8 +145,8 @@ public abstract class NotificationRequest {
 		
 		                Alias alias = new Alias();
 		
-		                alias.setPersonFirstName(XmlUtils.xPathStringSearch(aliasElement, "nc:PersonGivenName"));
-		                alias.setPersonLastName(XmlUtils.xPathStringSearch(aliasElement, "nc:PersonSurName"));
+		                alias.setPersonFirstName(StringUtils.strip(XmlUtils.xPathStringSearch(aliasElement, "nc:PersonGivenName")));
+		                alias.setPersonLastName(StringUtils.strip(XmlUtils.xPathStringSearch(aliasElement, "nc:PersonSurName")));
 		                
 		                aliases.add(alias);
 		
@@ -165,7 +165,7 @@ public abstract class NotificationRequest {
 		            	
 		            	if (StringUtils.isNotBlank(telephoneNumberNodes.item(i).getTextContent()))
 		            	{	
-		            		personTelephoneNumbers.add(telephoneNumberNodes.item(i).getTextContent());
+		            		personTelephoneNumbers.add(StringUtils.strip(telephoneNumberNodes.item(i).getTextContent()));
 		            	}	
 		            }
 		        }
@@ -187,20 +187,23 @@ public abstract class NotificationRequest {
                     
                     if (StringUtils.isNotEmpty(officerName))
                     {	
-                    	officerNames.add(officerName);
+                    	officerNames.add(StringUtils.strip(officerName));
                     }	
                 }
             }
 		}    
 
         notificationEventIdentifier = XmlUtils.xPathStringSearch(document, getNotificationEventIdentifierXpath());
+        notificationEventIdentifier = StringUtils.strip(notificationEventIdentifier);
 
         notifyingAgencyName = XmlUtils.xPathStringSearch(document, getNotifyingAgencyXpath());
         notifyingAgencyName = StringUtils.strip(notifyingAgencyName);
 
         notifyingAgencyPhoneNumber = XmlUtils.xPathStringSearch(document, getNotificationAgencyPhoneNumberXpath());
+        notifyingAgencyPhoneNumber = StringUtils.strip(notifyingAgencyPhoneNumber);
 
         notifyingSystemName = XmlUtils.xPathStringSearch(document, getNotifyingSystemNameXPath());
+        notifyingSystemName = StringUtils.strip(notifyingSystemName);
 
         // subjectIdentification intentionally omitted - should be populated in subclass
 
@@ -210,8 +213,6 @@ public abstract class NotificationRequest {
 
     }
 
-    // TODO FIXME Strip white space before/after xml element values before assigning them to
-    // pojo member variables
     public NotificationRequest(Message message) throws Exception {
         this(message.getBody(Document.class));
     }

@@ -319,9 +319,7 @@ public class SubscriptionSearchQueryDAO {
                 java.util.Date utilStartDate = formatter.parse(startDateString.trim());
                 startDate = new Date(utilStartDate.getTime());
             } catch (ParseException e) {
-                // TODO Auto-generated catch block, throw WSN error
-                e.printStackTrace();
-
+            	throw new RuntimeException(e);
             }
         } else {
             startDate = new Date(System.currentTimeMillis());
@@ -337,9 +335,7 @@ public class SubscriptionSearchQueryDAO {
                 java.util.Date utilEndDate = formatter.parse(endDateString.trim());
                 endDate = new Date(utilEndDate.getTime());
             } catch (ParseException e) {
-                // TODO Auto-generated catch block, throw WSN error
-                e.printStackTrace();
-
+            	throw new RuntimeException(e);
             }
         }
         
@@ -361,7 +357,6 @@ public class SubscriptionSearchQueryDAO {
 
             log.debug("Inserting row into subscription table");
 
-            // TODO: dynamically set 'Subscription Owner' field
             KeyHolder keyHolder = new GeneratedKeyHolder();
             this.jdbcTemplate.update(
                     buildPreparedInsertStatementCreator(
