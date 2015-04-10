@@ -1292,7 +1292,7 @@ public class StaticMockQuery {
 		}
 
 		String searchXPath = buildFirearmSearchXPathFromMessage(firearmSearchRequestMessage);
-		// LOG.info(searchXPath);
+		//LOG.info(searchXPath);
 
 		if (searchXPath == null) {
 			return ret;
@@ -1378,7 +1378,7 @@ public class StaticMockQuery {
 									"/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityPerson[jxdm40:IncidentSubject]/lexsdigest:Person/nc:PersonOtherIdentification/nc:IdentificationID");
 					return e.getTextContent();
 				} catch (Exception e) {
-					throw new RuntimeException(e); // TODO: fix
+					throw new RuntimeException(e);
 				}
 			}
 		};
@@ -1391,7 +1391,7 @@ public class StaticMockQuery {
 		xPaths.dlXPath = rootXPath + "/jxdm40:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID";
 		xPaths.dlJurisdictionXPath = rootXPath + "/jxdm40:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/jxdm40:IdentificationJurisdictionNCICLISCode";
 		xPaths.lastNameXPath = rootXPath + "/nc:PersonAlternateName/nc:PersonSurName";
-		xPaths.middleNameXPath = null; // we could support this, but the minimal instance andrew sent didn't have it. TODO: support
+		xPaths.middleNameXPath = null;
 		xPaths.firstNameXPath = rootXPath + "/nc:PersonName/nc:PersonGivenName";
 		xPaths.eyeColorXPath = rootXPath + "/nc:PersonEyeColorText";
 		xPaths.hairColorXPath = rootXPath + "/nc:PersonHairColorText";
@@ -1406,7 +1406,6 @@ public class StaticMockQuery {
 	}
 
 	private SearchValueXPaths getJuvenileHistoryXPaths() {
-		// TODO: need to add new xpaths for the new juvenile search params (alias, placement, parent names, etc.)
 		SearchValueXPaths xPaths = new SearchValueXPaths();
 		xPaths.ageXPath = null;
 		xPaths.birthdateXPath = "/jh-container:JuvenileHistoryContainer/jh-container:AdditionalChildInformation/nc30:PersonBirthDate/nc30:Date";
@@ -2182,7 +2181,6 @@ public class StaticMockQuery {
 		private String recordType;
 
 		public String getSystemIdentifier(IdentifiableDocumentWrapper documentWrapper) {
-			// TODO: refactor this to be an abstract class...this is only default for person-based searches because it was the first thing we did...
 			return documentWrapper.getId();
 		}
 	}
