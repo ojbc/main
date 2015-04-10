@@ -37,7 +37,6 @@ import org.w3c.dom.NodeList;
  */
 public final class OjbcNamespaceContext implements NamespaceContext {
 
-	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 
 	public static final String NS_DISPOSITION_EXCHANGE = "http://ojbc.org/IEPD/Exchange/DispositionReport/1.0";
