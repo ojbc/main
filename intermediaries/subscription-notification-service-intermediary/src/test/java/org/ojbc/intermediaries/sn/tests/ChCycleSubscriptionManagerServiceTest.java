@@ -89,7 +89,7 @@ public class ChCycleSubscriptionManagerServiceTest extends AbstractSubscriptionN
 		String response = callServiceViaHttp(subscriptionBody);
 		
 		//System.out.println(response);
-		assertThat(response, containsString("<wsnt:UnsubscribeResponse xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\"/>"));
+		assertThat(response, containsString(UNSUBSCRIBE_RESPONSE_ELEMENT_STRING));
 	    
 		// verify DB contents after msg send
         // Fetch database data after executing your code

@@ -24,7 +24,6 @@
 	<artifactId>subscription-notification-service-intermediary-common</artifactId>
 	<packaging>bundle</packaging>
 	<version>1.0.1</version>
-
 	<name>OJB :: subscription-notification-service-intermediary-common :: intermediary</name>
 	<url>http://www.ojbc.org</url>
 

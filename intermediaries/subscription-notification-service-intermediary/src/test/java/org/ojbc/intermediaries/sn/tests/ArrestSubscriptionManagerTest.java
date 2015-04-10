@@ -91,11 +91,11 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 	public void unsubscribe() throws Exception {
 		//Subscribe new record
 		String response = invokeRequest("subscribeSoapRequest.xml", notificationBrokerUrl);
-		assertThat(response, containsString("<wsnt:SubscriptionReference>"));
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
 		//Unsubscribe record and confirm with expected dataset
 		response = invokeRequest("unSubscribeSoapRequest.xml", subscriptionManagerUrl);
-		assertThat(response, containsString("<wsnt:UnsubscribeResponse xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\"/>"));
+		assertThat(response, containsString(UNSUBSCRIBE_RESPONSE_ELEMENT_STRING));
 	    
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterUnSubscribe.xml");
 	}

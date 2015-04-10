@@ -69,7 +69,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	public void subscribeArrest() throws Exception {
 		String response = invokeRequest("subscribeSoapRequest.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString("<wsnt:SubscriptionReference>"));
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
         
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSubscribe.xml");
 
@@ -101,7 +101,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		
 		String response = invokeRequest("subscribeSoapRequest.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString("<wsnt:SubscriptionReference>"));
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSubscribe.xml");
 	}
@@ -118,7 +118,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		
 		String response = invokeRequest("subscribeSoapRequest.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString("<wsnt:SubscriptionReference>"));
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSubscribe.xml");
 	}
@@ -128,7 +128,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		
 		String response = invokeRequest("subscribeSoapRequest_SIDexistsNewActivityID.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString("<wsnt:SubscriptionReference>"));
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSubscribe_SIDexistsNewActivityID.xml");
 	}
@@ -138,7 +138,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		
 		String response = invokeRequest("subscribeSoapRequest_ActivityIDexistsNewSID.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString("<wsnt:SubscriptionReference>"));
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSubscribe_ActivityIDexistsNewSID.xml");
 	}
@@ -148,7 +148,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	public void subscribeIncident() throws Exception {
 		String response = invokeRequest("subscribeSoapRequest-incident.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString("<wsnt:SubscriptionReference>"));
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
         
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSubscribeIncident.xml");
 	}
@@ -157,7 +157,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	public void notificationArrest() throws Exception {
 		String response = invokeRequest("subscribeSoapRequest.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString("<wsnt:SubscriptionReference>"));
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
 		List<WiserMessage> emails = notifyAndAssertBasics("notificationSoapRequest.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
 				"SID: A9999999", 3);
@@ -170,7 +170,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	public void notificationArrestWithMultipleChargesInEmailBody() throws Exception {
 		String response = invokeRequest("subscribeSoapRequest.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString("<wsnt:SubscriptionReference>"));
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
 		List<WiserMessage> emails = notifyAndAssertBasics("notificationSoapRequest_MultipleCharges.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
 				"SID: A9999999", 3);
@@ -292,10 +292,10 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		String response = "";
 		
 		response =invokeRequest("unSubscribeSoapRequest_CaseloadExplorer.xml", subscriptionManagerUrl);
-		assertThat(response, containsString("wsnt:UnsubscribeResponse"));
+		assertThat(response, containsString("b-2:UnsubscribeResponse"));
 		
 		response =invokeRequest("unSubscribeSoapRequest_HPA.xml", subscriptionManagerUrl);
-		assertThat(response, containsString("wsnt:UnsubscribeResponse"));
+		assertThat(response, containsString("b-2:UnsubscribeResponse"));
 		
         notifyAndAssertBasics("notificationSoapRequest_A5012703.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
                 null, 0);
@@ -309,7 +309,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 
         String response = invokeRequest("subscribeSoapRequest-incident.xml", notificationBrokerUrl);
         
-        assertThat(response, containsString("<wsnt:SubscriptionReference>"));   
+        assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));   
         
         String dateString = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         
