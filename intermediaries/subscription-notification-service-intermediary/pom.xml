@@ -19,14 +19,13 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>subscription-notification-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
-	<name>OJB :: Subscription_Notification_Service_Intermediary :: intermediary</name>
+	<version>1.0.1</version>
+	<name>OJB :: subscription-notification-service-intermediary :: intermediary</name>
+	<url>http://www.ojbc.org</url>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
@@ -47,7 +46,7 @@
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<xmlunit.version>1.5</xmlunit.version>
-		<intermediary-common-version>1.0.0</intermediary-common-version>
+		<intermediary-common-version>1.0.1</intermediary-common-version>
 		<wiser.version>3.1.7</wiser.version>
 		<dbunit.version>2.4.9</dbunit.version>
 		<h2-mock-database-version>1.0.1</h2-mock-database-version>
