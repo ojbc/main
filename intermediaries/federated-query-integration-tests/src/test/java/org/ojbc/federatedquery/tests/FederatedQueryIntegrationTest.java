@@ -98,8 +98,6 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 	@Inject
 	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.incident-search-request-service-intermediary)", timeout = 60000)
 	private ApplicationContext incidentSearchIntermediaryBundleContext;	
-
-	
 	
 	//Person Query - Warrants
 	@Inject
@@ -127,6 +125,15 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 	@Inject
 	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.firearm-registration-query-request-service-intermediary)", timeout = 60000)
 	private ApplicationContext firearmsQueryIntermediaryBundleContext;	
+	
+	//Juvenile History Query
+	@Inject
+	@Filter(value = "(org.springframework.osgi.bean.name=org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary-context)", timeout = 20000)
+	private OjbcContext juvenileQueryIntermediaryOjbcContext;
+
+	@Inject
+	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary)", timeout = 20000)
+	private ApplicationContext juvenileQueryIntermediaryBundleContext;	
 	
 	@Configuration
 	public Option[] config() {
@@ -159,11 +166,13 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 				mavenBundle().groupId("org.apache.httpcomponents").artifactId("httpcore-osgi").version("4.2.5").start(),
 				mavenBundle().groupId("org.apache.httpcomponents").artifactId("httpclient-osgi").version("4.2.5").start(),
 				mavenBundle().groupId("org.springframework").artifactId("spring-jdbc").version("3.0.7.RELEASE").start(),
-
+				mavenBundle().groupId("org.apache.commons").artifactId("commons-math3").version("3.2").start(),
+				
 				// _Common intermediary stuff
 
 				mavenBundle().groupId("org.apache.servicemix.bundles").artifactId("org.apache.servicemix.bundles.commons-collections").version("3.2.1_3").start(),
 				mavenBundle().groupId("org.apache.servicemix.bundles").artifactId("org.apache.servicemix.bundles.commons-lang").version("2.4_6").start(),
+				
 
 				// Camel Intermediary dependencies
 
@@ -194,8 +203,8 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 				// Query intermediaries
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("person-query-service-warrants-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("person-query-service-criminal-history-intermediary").start(),
-				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("firearm-registration-query-request-service-intermediary").start()
-				
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("firearm-registration-query-request-service-intermediary").start(),
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("juvenile-history-service-intermediary").start()
 		};
 	}
 
@@ -219,16 +228,20 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		assertNotNull(personSearchIntermediaryBundleContext);
 		assertNotNull(vehicleSearchIntermediaryOjbcContext);
 		assertNotNull(vehicleSearchIntermediaryBundleContext);
+		assertNotNull(firearmsSearchIntermediaryOjbcContext);
+		assertNotNull(firearmsSearchIntermediaryBundleContext);
+		assertNotNull(incidentSearchIntermediaryOjbcContext);
+		assertNotNull(incidentSearchIntermediaryBundleContext);
+
 		assertNotNull(warrantsQueryIntermediaryOjbcContext);
 		assertNotNull(warrantsQueryIntermediaryBundleContext);
 		assertNotNull(criminalHistoryQueryIntermediaryOjbcContext);
 		assertNotNull(criminalHistoryQueryIntermediaryBundleContext);
 		assertNotNull(firearmsQueryIntermediaryOjbcContext);
 		assertNotNull(firearmsQueryIntermediaryBundleContext);
-		assertNotNull(firearmsSearchIntermediaryOjbcContext);
-		assertNotNull(firearmsSearchIntermediaryBundleContext);
-		assertNotNull(incidentSearchIntermediaryOjbcContext);
-		assertNotNull(incidentSearchIntermediaryBundleContext);
+		assertNotNull(juvenileQueryIntermediaryOjbcContext);
+		assertNotNull(juvenileQueryIntermediaryBundleContext);
+
 		
 		System.err.println(executeCommand("osgi:list -t 1", 20000L, false));
 	}
@@ -290,7 +303,14 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		assertEquals("https://localhost:18604/OJB/FirearmRegistrationQueryRequestService", firearmRegistrationQueryRequestFederatedServiceEndpointAddress);
 		
 		log.info("Firearms Query Federated Endpoint: " + firearmRegistrationQueryRequestFederatedServiceEndpointAddress);
+	
+		CxfEndpoint juvenileCasePlanHistoryRequestFederatedService = juvenileQueryIntermediaryBundleContext.getBean("juvenileCasePlanHistoryRequestFederatedService", CxfEndpoint.class);
+		assertNotNull(juvenileCasePlanHistoryRequestFederatedService);
 		
+		String juvenileCasePlanHistoryRequestFederatedServiceAddress = juvenileCasePlanHistoryRequestFederatedService.getAddress();
+		assertEquals(juvenileCasePlanHistoryRequestFederatedServiceAddress,"https://0.0.0.0:18605/OJB/Intermediary/CasePlanHistoryRequestService");
+		
+		log.info("Juvenile Query Federated Endpoint: " + juvenileCasePlanHistoryRequestFederatedService);
 	}
 
 
