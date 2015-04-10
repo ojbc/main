@@ -18,25 +18,23 @@ package org.ojbc.bundles.adapters.staticmock;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
-import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
-import org.ojbc.util.xml.XmlUtils;
-
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class RoundTripTest extends AbstractStaticMockTest {
 
-    Map<String, String> personSearchSystemToQuerySystemMap;
+    private Map<String, String> personSearchSystemToQuerySystemMap;
     private DateTime baseDate;
 
     public RoundTripTest() {
@@ -56,13 +54,13 @@ public class RoundTripTest extends AbstractStaticMockTest {
     public void testFirearmSearchRoundTrip() throws Exception {
         Document firearmSearchRequestMessage = buildBaseFirearmSearchRequestMessage();
         removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:Firearm/nc:ItemSerialIdentification");
-        removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:Firearm/firearms-codes-demostate:FirearmMakeCode");
+        removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:Firearm/firearm-search-req-ext:FirearmMakeText");
         removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:Firearm/nc:FirearmCategoryCode");
         removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:ItemRegistration");
         removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/nc:PropertyRegistrationAssociation");
         Document searchResults = staticMockQuery.searchDocuments(firearmSearchRequestMessage, baseDate);
-        //XmlUtils.printNode(searchResults);
         NodeList resultsNodes = XmlUtils.xPathNodeListSearch(searchResults, "firearm-search-resp-doc:FirearmSearchResults/firearm-search-resp-ext:FirearmSearchResult");
+        assertEquals(3, resultsNodes.getLength());
         for (int i = 0; i < resultsNodes.getLength(); i++) {
             Node resultNode = resultsNodes.item(i);
             String searchSystemID = XmlUtils.xPathStringSearch(resultNode, "firearm-search-resp-ext:SourceSystemNameText");
@@ -72,7 +70,7 @@ public class RoundTripTest extends AbstractStaticMockTest {
             List<IdentifiableDocumentWrapper> queryResultList = staticMockQuery.queryDocuments(queryRequestMessage);assertEquals(1, queryResultList.size());
             IdentifiableDocumentWrapper doc = queryResultList.get(0);
             assertNotNull(doc);
-            // TODO: we could flesh this out more, but the important thing is to make sure we get some query result back
+            assertTrue(XmlUtils.nodeExists(doc.getDocument(), "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:Firearm"));
         }
     }
 
@@ -80,27 +78,49 @@ public class RoundTripTest extends AbstractStaticMockTest {
     public void testPersonSearchRoundTrip() throws Exception {
         Document personSearchRequestMessage = buildFullResultsPersonSearchRequest();
         Document searchResults = staticMockQuery.searchDocuments(personSearchRequestMessage, baseDate);
-        List<Document> queryRequests = buildPersonQueryRequestMessages(searchResults);
+        int expectedResultCount = 4;
+        assertEquals(expectedResultCount, XmlUtils.xPathNodeListSearch(searchResults, "/psres-doc:PersonSearchResults/psres:PersonSearchResult").getLength());
+        List<Document> queryRequests = buildQueryRequestMessages(searchResults);
+        assertEquals(expectedResultCount, queryRequests.size());
+        boolean incidentFound = false;
+        boolean firearmFound = false;
+        boolean warrantFound = false;
+        boolean chFound = false;
         for (Document queryRequest : queryRequests) {
             List<IdentifiableDocumentWrapper> queryResultList = staticMockQuery.queryDocuments(queryRequest);
             assertEquals(1, queryResultList.size());
-            IdentifiableDocumentWrapper doc = queryResultList.get(0);
+            IdentifiableDocumentWrapper docWrapper = queryResultList.get(0);
+            Document doc = docWrapper.getDocument();
             assertNotNull(doc);
-            // TODO: we could flesh this out more, but the important thing is to make sure we get some query result back
+            incidentFound |= XmlUtils.nodeExists(doc, "/ir:IncidentReport");
+            firearmFound |= XmlUtils.nodeExists(doc, "/firearm-doc:PersonFirearmRegistrationQueryResults");
+            warrantFound |= XmlUtils.nodeExists(doc, "/warrant:Warrants");
+            chFound |= XmlUtils.nodeExists(doc, "/ch-doc:CriminalHistory");
         }
+        assertTrue(incidentFound);
+        assertTrue(firearmFound);
+        assertTrue(warrantFound);
+        assertTrue(chFound);
     }
 
-    private List<Document> buildPersonQueryRequestMessages(Document searchResults) throws Exception {
-        NodeList resultsNodes = XmlUtils.xPathNodeListSearch(searchResults, "psres-doc:PersonSearchResults/psres:PersonSearchResult");
+    private List<Document> buildQueryRequestMessages(Document searchResults) throws Exception {
+    	Node rootNode = XmlUtils.xPathNodeSearch(searchResults, "/psres-doc:PersonSearchResults");
+    	String resultNodeXpath = "psres:PersonSearchResult";
+    	if (rootNode == null) {
+    		rootNode = XmlUtils.xPathNodeSearch(searchResults, "/isres-doc:IncidentPersonSearchResults");
+    		resultNodeXpath = "isres:IncidentPersonSearchResult";
+    	}
+        NodeList resultsNodes = XmlUtils.xPathNodeListSearch(rootNode, resultNodeXpath);
         List<Document> ret = new ArrayList<Document>();
         for (int i = 0; i < resultsNodes.getLength(); i++) {
             Node resultNode = resultsNodes.item(i);
-            String searchSystemID = XmlUtils.xPathStringSearch(resultNode, "psres:SourceSystemNameText");
+            String searchSystemID = XmlUtils.xPathStringSearch(resultNode, resultNodeXpath.split(":")[0] + ":SourceSystemNameText");
             String recordID = XmlUtils.xPathStringSearch(resultNode, "intel:SystemIdentifier/nc:IdentificationID");
             if (StaticMockQuery.INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(searchSystemID)) {
                 Document incidentPersonSearchRequestMessage = buildIncidentPersonSearchRequestMessage(new Integer(recordID));
                 Document incidentPersonSearchResults = staticMockQuery.searchDocuments(incidentPersonSearchRequestMessage, baseDate);
-                ret.addAll(buildPersonQueryRequestMessages(incidentPersonSearchResults));
+                List<Document> incidentPersonQueryRequestMessages = buildQueryRequestMessages(incidentPersonSearchResults);
+				ret.addAll(incidentPersonQueryRequestMessages);
             } else {
                 String querySystemID = personSearchSystemToQuerySystemMap.get(searchSystemID);
                 ret.add(buildPersonQueryRequestMessage(querySystemID, recordID));
