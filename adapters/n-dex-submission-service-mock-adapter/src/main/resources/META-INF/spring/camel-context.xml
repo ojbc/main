@@ -43,7 +43,7 @@
 	<import resource="cxf-endpoints.xml"/>
 	<import resource="properties-context.xml"/>
 	
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="n-dex-submission-service-mock-adapter">
 
 		<!-- N-DEx Web Service Handler -->
 		<camel:route>
