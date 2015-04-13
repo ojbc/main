@@ -20,35 +20,16 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 
 import org.apache.camel.Message;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
 public class ChCycleSubscriptionRequestTest {
 		
-	Map<String, String> namespaceUris;
-	
-	@Before	
-	public void setup() {
-		
-		namespaceUris = new HashMap<String, String>();
-		
-		namespaceUris.put("wsnb2", "http://docs.oasis-open.org/wsn/b-2");
-		namespaceUris.put("sm", "http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0");
-		namespaceUris.put("smext", "http://ojbc.org/IEPD/Extensions/Subscription/1.0");
-		namespaceUris.put("nc20", "http://niem.gov/niem/niem-core/2.0");
-	}
-
 	@Test
 	public void test() throws Exception {
 		
@@ -62,7 +43,6 @@ public class ChCycleSubscriptionRequestTest {
 		
 		assertThat(sub.getSubjectName(), is("Maggie Simpson"));
 		
-		//Assert size of set and only entry
 		assertThat(sub.getEmailAddresses().size(), is(1));
 		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
 		
@@ -74,15 +54,7 @@ public class ChCycleSubscriptionRequestTest {
 	}
 	
 	private Document getMessageBody() throws Exception {
-
-		File inputFile = new File("src/test/resources/xmlInstances/subscribeSoapRequest-chCycle.xml");
-
-		DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
-		docBuilderFact.setNamespaceAware(true);
-		DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
-		Document document = docBuilder.parse(inputFile);
-		
-		return document;	
+		return XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/subscribeSoapRequest-chCycle.xml"));	
 	}
 
 }

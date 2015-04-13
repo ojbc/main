@@ -232,15 +232,13 @@ public class ArrestNotificationRequest extends NotificationRequest {
 	
 	@Override
 	protected String getNotificationAgencyPhoneNumberXpath() {
-		// TODO Auto-generated method stub
-		// TODO Add this to IEPD if required in notification message
+		// Add this to IEPD if required in notification message
 		return "''";
 	}
 
 	@Override
 	protected String getNotifyingSystemNameXPath() {
-		// TODO Auto-generated method stub
-		// TODO Add this to IEPD if required in notification message
+		// Add this to IEPD if required in notification message
 		return  "''";
 	}
 

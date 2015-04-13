@@ -81,7 +81,7 @@ public class ChCycleNotificationRequestTest {
 		
 		rootNodeInNewDocument.appendChild(rootNodeInNewDocument.adoptNode(rootNode.cloneNode(true)));
 		
-		XmlUtils.printNode(rootNodeInNewDocument);
+		//XmlUtils.printNode(rootNodeInNewDocument);
 		
 		return rootNodeInNewDocument;	
 	}

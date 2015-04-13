@@ -16,12 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.testutil;
 
-import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,12 +33,9 @@ public class TestSubscriptionBuilderUtil {
 
 	@Test
 	public void createSubscribeResponse() throws Exception {
-		String subscriptionResponse = SubscriptionResponseBuilderUtil.createSubscribeResponse();
-		DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
-		docBuilderFact.setNamespaceAware(true);
-		DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
-		Document response = docBuilder.parse(new ByteArrayInputStream(subscriptionResponse.getBytes()));
-		validateAgainstWSNSpec(response);
+		Document subscriptionResponse = SubscriptionResponseBuilderUtil.createSubscribeResponse();
+		//XmlUtils.printNode(subscriptionResponse);
+		validateAgainstWSNSpec(subscriptionResponse);
 	}
 
 	private void validateAgainstWSNSpec(Document response) throws Exception {

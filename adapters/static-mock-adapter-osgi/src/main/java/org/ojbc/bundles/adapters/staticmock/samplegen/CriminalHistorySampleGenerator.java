@@ -622,7 +622,7 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
 
         Element bio = appendElement(bior, OjbcNamespaceContext.NS_NC, "Biometric");
         e = appendElement(bio, OjbcNamespaceContext.NS_NC, "BiometricValueText");
-        e.setTextContent("W W \\ \\ \\ ,W A / / /"); // TODO: Can/should we randomly generate this?
+        e.setTextContent("W W \\ \\ \\ ,W A / / /");
         e = appendElement(bio, OjbcNamespaceContext.NS_NC, "BiometricDescriptionText");
         e.setTextContent("Fingerprint Class");
 
