@@ -144,6 +144,15 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary)", timeout = 20000)
 	private ApplicationContext juvenileQueryIntermediaryBundleContext;	
 	
+	@Inject
+	@Filter(value = "(org.springframework.osgi.bean.name=org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context)", timeout = 20000)
+	private OjbcContext subscriptionNotificationContext;
+
+	@Inject
+	@Filter(value = "(org.springframework.context.service.name=subscription-notification-service-intermediary)", timeout = 20000)
+	private ApplicationContext subscriptionNotificationBundleContext;
+	
+	
 	@Configuration
 	public Option[] config() {
 
@@ -167,6 +176,7 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 				KarafDistributionOption.features(karafCamelFeature, "camel"),
 				KarafDistributionOption.features(karafCamelFeature, "camel-cxf"),
 				KarafDistributionOption.features(karafCamelFeature, "camel-saxon"),
+				KarafDistributionOption.features(karafCamelFeature, "camel-mail"),
 
 				mavenBundle().groupId("commons-codec").artifactId("commons-codec").version("1.6").start(),
 				mavenBundle().groupId("org.apache.servicemix.bundles").artifactId("org.apache.servicemix.bundles.commons-io").version("1.3.2_5").start(),
@@ -214,7 +224,14 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("person-query-service-criminal-history-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("firearm-registration-query-request-service-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("incident-report-request-service-intermediary").start(),
-				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("juvenile-history-service-intermediary").start()
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("juvenile-history-service-intermediary").start(),
+				
+				//Subscription Notification Intermediary
+				mavenBundle().groupId("org.apache.servicemix.bundles").artifactId("org.apache.servicemix.bundles.velocity").version("1.7_6").start(),
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary-common").start(),
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary").start(),
+				
+
 		};
 	}
 
@@ -253,6 +270,9 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		assertNotNull(incidentReportQueryIntermediaryBundleContext);		
 		assertNotNull(juvenileQueryIntermediaryOjbcContext);
 		assertNotNull(juvenileQueryIntermediaryBundleContext);
+		
+		assertNotNull(subscriptionNotificationContext);
+		assertNotNull(subscriptionNotificationBundleContext);
 
 		
 		System.err.println(executeCommand("osgi:list -t 1", 20000L, false));
@@ -333,6 +353,20 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		assertEquals(juvenileCasePlanHistoryRequestFederatedServiceAddress,"https://0.0.0.0:18605/OJB/Intermediary/CasePlanHistoryRequestService");
 		
 		log.info("Juvenile Query Federated Endpoint: " + juvenileCasePlanHistoryRequestFederatedService);
+		
+		//Subscription Notification
+		CxfEndpoint notificationBrokerServiceEndpoint = subscriptionNotificationBundleContext.getBean("notificationBrokerService", CxfEndpoint.class);
+		String notificationBrokerEndpointAddress = notificationBrokerServiceEndpoint.getAddress();
+		assertEquals(notificationBrokerEndpointAddress,"http://localhost:18040/OJB/SubscribeNotify");
+			
+		log.info("Notification Broker Endpoint: " + notificationBrokerEndpointAddress);
+		
+		CxfEndpoint subscriptionManagerServiceEndpoint = subscriptionNotificationBundleContext.getBean("subscriptionManagerService", CxfEndpoint.class);
+		String subscriptionManagerEndpointAddress = subscriptionManagerServiceEndpoint.getAddress();	
+		assertEquals(subscriptionManagerEndpointAddress,"http://localhost:18041/OJB/SubscriptionManager");
+		
+		
+		log.info("Subscription Management Endpoint: " + subscriptionManagerEndpointAddress);
 	}
 
 
