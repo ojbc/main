@@ -28,6 +28,7 @@ import org.apache.cxf.message.Message;
 import org.apache.ws.security.SAMLTokenPrincipal;
 import org.apache.ws.security.components.crypto.Crypto;
 import org.apache.ws.security.components.crypto.CryptoFactory;
+import org.apache.ws.security.components.crypto.Merlin;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.apache.ws.security.saml.ext.OpenSAMLBootstrap;
 import org.apache.ws.security.saml.ext.bean.AttributeBean;
@@ -51,6 +52,14 @@ import org.w3c.dom.Element;
 
 public class SAMLTokenUtils {
     private final static Log log = LogFactory.getLog(SAMLTokenUtils.class);
+    
+    static final String SECURITY_CRYPTO_PROVIDER_KEY = "org.apache.ws.security.crypto.provider";
+    static final String SECURITY_CRYPTO_PROVIDER_VALUE = "org.apache.ws.security.components.crypto.Merlin";
+    static final String MERLIN_KEYSTORE_TYPE_VALUE = "jks";
+    static final String MERLIN_KEYSTORE_FILE_VALUE = "certs/idp-keystore.jks";
+    static final String MERLIN_KEYSTORE_PASSWORD_VALUE = "idp-keystore";
+    static final String MERLIN_KEYSTORE_ALIAS_VALUE = "idp-key";
+    static final String KEY_PASSWORD_VALUE = "idp-key";
 	
 	/**
 	 * This method is used to create a static SAML assertion as an element.  It will contain hard coded data and is typically used for testing
@@ -325,20 +334,19 @@ public class SAMLTokenUtils {
 		//The SAMLTokenProvider shows how to do this
 		AssertionWrapper assertionWrapper = new AssertionWrapper(assertion);
 	
-		//TODO: Remove literal from code
 		Properties sigProperties = new Properties();
 		
-		sigProperties.put("org.apache.ws.security.crypto.provider","org.apache.ws.security.components.crypto.Merlin");
-		sigProperties.put("org.apache.ws.security.crypto.merlin.keystore.type","jks");
-		sigProperties.put("org.apache.ws.security.crypto.merlin.keystore.alias","idp-key");
-		sigProperties.put("org.apache.ws.security.crypto.merlin.keystore.password","idp-keystore");
-		sigProperties.put("org.apache.ws.security.crypto.merlin.keystore.file", "certs/idp-keystore.jks");
+		sigProperties.put(SECURITY_CRYPTO_PROVIDER_KEY, SECURITY_CRYPTO_PROVIDER_VALUE);
+		sigProperties.put(Merlin.KEYSTORE_TYPE, MERLIN_KEYSTORE_TYPE_VALUE);
+		sigProperties.put(Merlin.KEYSTORE_ALIAS, MERLIN_KEYSTORE_ALIAS_VALUE);
+		sigProperties.put(Merlin.KEYSTORE_PASSWORD, MERLIN_KEYSTORE_PASSWORD_VALUE );
+		sigProperties.put(Merlin.KEYSTORE_FILE, MERLIN_KEYSTORE_FILE_VALUE);
         
 		Crypto signatureCrypto = CryptoFactory.getInstance(sigProperties);
 		
-		String alias = sigProperties.getProperty("org.apache.ws.security.crypto.merlin.keystore.alias");
+		String alias = sigProperties.getProperty(Merlin.KEYSTORE_ALIAS);
 
-		String password = "idp-key";
+		String password = KEY_PASSWORD_VALUE;
 		
 		assertionWrapper.signAssertion(
 				alias, password, signatureCrypto, false, defaultCanonicalizationAlgorithm,
