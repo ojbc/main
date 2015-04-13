@@ -35,9 +35,6 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
 	
-	<import resource="cxf-endpoints.xml" />
-	<import resource="properties-context.xml"/>
-
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" >
 	
 		<endpoint id="inputDir"
