@@ -35,7 +35,7 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
 	
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" >
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="incident-reporting-service-connector">
 	
 		<endpoint id="inputDir"
 			uri="file:///${incidentChargeReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${incidentChargeReporting.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
