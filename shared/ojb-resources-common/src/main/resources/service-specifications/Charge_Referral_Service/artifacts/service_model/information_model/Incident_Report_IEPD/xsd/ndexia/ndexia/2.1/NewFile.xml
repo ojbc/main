@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<ndexia:IncidentReport xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1 ndexia.xsd">
+	<ndexia:Incident>
+		<ndexia:ActivityStatus>
+			<ndexia:ActivityStatusAugmentation>
+				<ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+			</ndexia:ActivityStatusAugmentation>
+		</ndexia:ActivityStatus>
+		<ndexia:IncidentAugmentation>
+			<lexslib:SameAsDigestReference
+				lexslib:ref="INCIDENT01" />
+				<ndexia:IncidentCaseNumberText>222A</ndexia:IncidentCaseNumberText>
+		</ndexia:IncidentAugmentation>
+	</ndexia:Incident>
+	<ndexia:Offense>
+		<ndexia:ActivityAugmentation>
+			<lexslib:SameAsDigestReference
+				lexslib:ref="OFFENSE01" />
+		</ndexia:ActivityAugmentation>
+		<j:IncidentStructuresEnteredQuantity>1.0</j:IncidentStructuresEnteredQuantity>
+		<ndexia:OffenseEntryPoint>
+			<ndexia:PassagePointAugmentation>
+				<ndexia:MethodOfAccessText>window</ndexia:MethodOfAccessText>
+			</ndexia:PassagePointAugmentation>
+		</ndexia:OffenseEntryPoint>
+		<ndexia:OffenseText>Offense Text</ndexia:OffenseText>
+	</ndexia:Offense>
+	<ndexia:Location>
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<nc:LocationCountyName>Chittenden County
+										</nc:LocationCountyName>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+		<ndexia:LocationAugmentation>
+			<lexslib:SameAsDigestReference
+				lexslib:ref="Location01" />
+		</ndexia:LocationAugmentation>
+	</ndexia:Location>
+	<ndexia:Person>
+		<ndexia:PersonPhysicalFeature>
+			<nc:PhysicalFeatureCategoryText>tattoo</nc:PhysicalFeatureCategoryText>
+		</ndexia:PersonPhysicalFeature>
+		<ndexia:PersonAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="SUBJECT01" />
+		</ndexia:PersonAugmentation>
+	</ndexia:Person>
+	<ndexia:Vehicle>
+		<ndexia:VehicleAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="VEHICLE01"/>
+			<ndexia:VehicleStyleCategoryCode>Automobile</ndexia:VehicleStyleCategoryCode>
+		</ndexia:VehicleAugmentation>
+	</ndexia:Vehicle>
+	<ndexia:TangibleItem>
+		<ndexia:TangibleItemAugmentation>
+			<lexslib:SameAsDigestReference lexslib:ref="TI001"/>
+			<ndexia:ItemQuantityStatusValue>
+				<nc:ItemQuantity>10</nc:ItemQuantity>
+				<ndexia:ItemValue>
+					<nc:ItemValueAmount>100</nc:ItemValueAmount>
+				</ndexia:ItemValue>
+			</ndexia:ItemQuantityStatusValue>
+		</ndexia:TangibleItemAugmentation>
+	</ndexia:TangibleItem>
+</ndexia:IncidentReport>

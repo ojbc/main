@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema targetNamespace="http://niem.gov/niem/domains/screening/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:scr="http://niem.gov/niem/domains/screening/2.0">
+  <xsd:annotation>
+    <xsd:documentation>The People Screening domain provides harmonized information sharing content within the Screening Portfolio of DHS.  The Screening namespace is initially being populated with person screening information for immigrant and non-immigrant person types who have been encountered and identified by the Screening Portfolio Components.  Screening expands on encounter-related NIEM elements currently included in the Immigration and Intelligence domains.</xsd:documentation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:import schemaLocation="../../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
+  <xsd:simpleType name="ReligionCategoryCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="BADDH">
+        <xsd:annotation>
+          <xsd:documentation>BADDHIST</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BAHAI">
+        <xsd:annotation>
+          <xsd:documentation>BAHAI</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CATHO">
+        <xsd:annotation>
+          <xsd:documentation>CHRISTIAN-CATHOLIC</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CHRIS">
+        <xsd:annotation>
+          <xsd:documentation>CHRISTIAN</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DRUZE">
+        <xsd:annotation>
+          <xsd:documentation>MOSLEM-DRUZE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="HINDU">
+        <xsd:annotation>
+          <xsd:documentation>HINDU</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="JAINS">
+        <xsd:annotation>
+          <xsd:documentation>JAINS</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="JEWIS">
+        <xsd:annotation>
+          <xsd:documentation>JEWISH</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MOSLE">
+        <xsd:annotation>
+          <xsd:documentation>MOSLEM</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ORTHO">
+        <xsd:annotation>
+          <xsd:documentation>CHRISTIAN-ORTHODOX</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="OTHER">
+        <xsd:annotation>
+          <xsd:documentation>OTHER</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PARSI">
+        <xsd:annotation>
+          <xsd:documentation>PARSI (ZOROASTRIAN)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PENTE">
+        <xsd:annotation>
+          <xsd:documentation>CHRISTIAN-PENTECOSTAL</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PROTE">
+        <xsd:annotation>
+          <xsd:documentation>CHRISTIAN-PROTESTANT</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SHIIT">
+        <xsd:annotation>
+          <xsd:documentation>MOSLEM-SHIITE</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SIKH">
+        <xsd:annotation>
+          <xsd:documentation>SIKH</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SUNNI">
+        <xsd:annotation>
+          <xsd:documentation>MOSLEM-SUNNI</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="UNKNO">
+        <xsd:annotation>
+          <xsd:documentation>UNKNOWN</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ZOROZ">
+        <xsd:annotation>
+          <xsd:documentation>ZOROASTRIAN</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="ReligionCategoryCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="scr:ReligionCategoryCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:element name="ReligionCategoryCode" type="scr:ReligionCategoryCodeType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A code that identifies a kind of religion.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="TreatAsAdultIndicator" type="niem-xsd:boolean" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An indicator specifying whether a juvenile individual should be treated as an adult in this specific ENFORCEMENT ENCOUNTER.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

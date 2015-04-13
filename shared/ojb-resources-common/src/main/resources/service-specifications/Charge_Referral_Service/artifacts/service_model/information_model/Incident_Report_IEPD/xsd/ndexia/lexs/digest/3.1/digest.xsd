@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<!--
+    Document: $Id:lexs-digest.xsd 85 2007-07-02 21:36:07Z Benjamin Shrom $
+    LEXS version  : 3.1.4
+    Namespace     : xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+    Description   : a library for lexs digest elements.
+-->
+<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://usdoj.gov/leisp/lexs/digest/3.1" version="3.1.4">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../../NIEM_2.0/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../../NIEM_2.0/appinfo/2.0/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../../NIEM_2.0/niem-core/2.0/niem-core.xsd"/>
+	<!-- ================================================================= -->
+	<!-- TYPE DEFINITIONS -->
+	<!-- ================================================================= -->
+	<xsd:complexType name="MetadataType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that provides additional information for NIEM Metadata.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="Metadata"/>
+				<i:AppliesTo i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+				<i:AppliesTo i:namespace="http://niem.gov/niem/structures/2.0" i:name="Association"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:MetadataType">
+				<xsd:sequence>
+					<xsd:element ref="lexsdigest:LogicalIDText" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- ================================================================= -->
+	<!-- ELEMENT DEFINITIONS -->
+	<!-- ================================================================= -->
+	<xsd:element name="ElectronicAddressMACNumber" type="nc:TextType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>A Media Access Control address (MAC address), Ethernet Hardware Address (EHA), hardware address, adapter address or physical address assigned to most network adapters or network interface cards (NICs) by the manufacturer for identification. If assigned by the manufacturer, a MAC address usually encodes the manufacturer's registered identification number.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LogicalIDText" type="nc:TextType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>Used to indicate that objects may be the same.  For example, if information for two people is reported by a single data owner as having the same LogicalIDText, then consumers understand that those two people are believed to be the same.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Metadata" type="lexsdigest:MetadataType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>Provides additional information about an object.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubjectPersonReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A reference to a subject person.</xsd:documentation>
+			<xsd:appinfo>
+				<i:ReferenceTarget i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="PersonType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubjectOrganizationReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A reference to a subject organization.</xsd:documentation>
+			<xsd:appinfo>
+				<i:ReferenceTarget i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="OrganizationType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VictimPersonReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A reference to victim person.</xsd:documentation>
+			<xsd:appinfo>
+				<i:ReferenceTarget i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="PersonType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
