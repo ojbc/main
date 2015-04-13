@@ -88,7 +88,7 @@ public class SubscriptionNotificationStaticValidationDateTest extends AbstractSu
         //Add/update a subscription, it will be valid for 365 days
 		String response = invokeRequest("subscribeSoapRequest.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString("<wsnt:SubscriptionReference>"));
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
 		List<WiserMessage> emails = notifyAndAssertBasics("notificationSoapRequest.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
 				"SID: A9999999", 3);

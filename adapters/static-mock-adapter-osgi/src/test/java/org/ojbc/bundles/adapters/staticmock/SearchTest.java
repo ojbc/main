@@ -882,7 +882,7 @@ public class SearchTest extends AbstractStaticMockTest {
         matches = staticMockQuery.incidentSearchDocumentsAsList(incidentSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
         assertEquals(0, matches.size());
         
-        // TODO: we could do with more date scenario checking.  However, since this is just a demo tool, I don't know that we need to go crazy here.  As demo scenarios identify issues, document them with tests here.
+        // As demo scenarios identify issues, document them with tests here.
         
     }
 

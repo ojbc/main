@@ -130,13 +130,10 @@ public abstract class SubscriptionProcessor {
 
     void processUnSubscriptionRequest(UnSubscriptionRequest request, Message outMessage, String subscriptionOwner) throws Exception {
 
-        String returnValue = "";
-
         // If this is not a valid arrest topic, throw a fault and exit
         if (!getTopic().equals(request.getTopic())) {
             outMessage.setHeader(org.apache.cxf.message.Message.RESPONSE_CODE, new Integer(500));
-            returnValue = FaultMessageBuilderUtil.createFault("ResourceUnknownFault", "http://docs.oasis-open.org/wsrf/bf-2");
-            outMessage.setBody(returnValue);
+            outMessage.setBody(FaultMessageBuilderUtil.createFault("ResourceUnknownFault", "http://docs.oasis-open.org/wsrf/bf-2"));
             return;
         }
 
@@ -159,10 +156,9 @@ public abstract class SubscriptionProcessor {
         }
 
         if (rowsUnsubscribed > 0) {
-            returnValue = SubscriptionResponseBuilderUtil.createUnsubscribeResponse();
+            outMessage.setBody(SubscriptionResponseBuilderUtil.createUnsubscribeResponse());
         }
 
-        outMessage.setBody(returnValue);
     }
 
     	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {

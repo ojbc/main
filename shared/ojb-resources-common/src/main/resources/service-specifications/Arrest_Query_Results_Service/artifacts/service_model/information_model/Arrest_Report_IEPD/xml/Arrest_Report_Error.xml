@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ar:ArrestReport xmlns:ar-doc="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
+<ar-doc:ArrestReport xmlns:ar-doc="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
 	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
 	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -34,4 +34,4 @@
 			<intel:SystemName>VIBRS</intel:SystemName>
 		</srer:SearchRequestError>
 	</srm:SearchResultsMetadata>
-</ar:ArrestReport>
+</ar-doc:ArrestReport>

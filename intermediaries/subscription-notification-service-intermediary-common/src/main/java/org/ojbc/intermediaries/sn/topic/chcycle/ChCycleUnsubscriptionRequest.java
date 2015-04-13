@@ -28,10 +28,7 @@ import org.apache.camel.Message;
 public class ChCycleUnsubscriptionRequest extends UnSubscriptionRequest {
 
 	public ChCycleUnsubscriptionRequest(Message message) throws Exception{
-		
 		super(message);
-		
-		//TODO confirm xpaths
 		String firstName = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
 		String lastName = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
 		String dateOfBirth = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
@@ -43,14 +40,11 @@ public class ChCycleUnsubscriptionRequest extends UnSubscriptionRequest {
 			String firstName, String lastName, String dateOfBirth) {
 		
 		super(topic, emailAddresses, systemName, subscriptionQualifier);
-		
 		buildSubjectIdMap(firstName, lastName, dateOfBirth);
 	}
 
 	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth) {
-		
 		subjectIdentifiers = new HashMap<String, String>();
-		
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);

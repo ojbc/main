@@ -25,7 +25,6 @@ import org.springframework.test.context.ContextConfiguration;
 @DirtiesContext
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/email-strategies.xml",
 		"classpath:META-INF/spring/email-formatters.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml",
 		"classpath:META-INF/spring/dao.xml",
@@ -38,5 +37,8 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
 }) 
 public abstract class AbstractSubscriptionNotificationTest {
+
+	protected static final String SUBSCRIPTION_REFERENCE_ELEMENT_STRING = "<b-2:SubscriptionReference>";
+	protected static final String UNSUBSCRIBE_RESPONSE_ELEMENT_STRING = "<b-2:UnsubscribeResponse xmlns:b-2=\"http://docs.oasis-open.org/wsn/b-2\"/>";
 	
 }
