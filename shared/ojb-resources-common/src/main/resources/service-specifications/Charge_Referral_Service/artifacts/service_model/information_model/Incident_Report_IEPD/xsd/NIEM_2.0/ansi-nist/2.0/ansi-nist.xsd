@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema targetNamespace="http://niem.gov/niem/ansi-nist/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+  <xsd:annotation>
+    <xsd:documentation>ANSI/NIST Fingerprint and Biometric standard.</xsd:documentation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
+  <xsd:import schemaLocation="../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:simpleType name="COLCodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="BLACK">
+        <xsd:annotation>
+          <xsd:documentation>Black</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BLUE">
+        <xsd:annotation>
+          <xsd:documentation>Blue</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BROWN">
+        <xsd:annotation>
+          <xsd:documentation>Brown</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="GRAY">
+        <xsd:annotation>
+          <xsd:documentation>Gray</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="GREEN">
+        <xsd:annotation>
+          <xsd:documentation>Green</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MULTI">
+        <xsd:annotation>
+          <xsd:documentation>Multi</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ORANGE">
+        <xsd:annotation>
+          <xsd:documentation>Orange</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="OUTLINE">
+        <xsd:annotation>
+          <xsd:documentation>Outline</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PURPLE">
+        <xsd:annotation>
+          <xsd:documentation>Purple</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="RED">
+        <xsd:annotation>
+          <xsd:documentation>Red</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="WHITE">
+        <xsd:annotation>
+          <xsd:documentation>White</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="YELLOW">
+        <xsd:annotation>
+          <xsd:documentation>Yellow</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="COLCodeType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ansi-nist:COLCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="FPCCodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="2">
+        <xsd:annotation>
+          <xsd:documentation> Right index</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="0">
+        <xsd:annotation>
+          <xsd:documentation>Unknown, or every finger 1-10</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="12">
+        <xsd:annotation>
+          <xsd:documentation> Plain left thumb</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="8">
+        <xsd:annotation>
+          <xsd:documentation> Left middle</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="5">
+        <xsd:annotation>
+          <xsd:documentation> Right little</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="255">
+        <xsd:annotation>
+          <xsd:documentation> Unused field value in record types 3-6</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="13">
+        <xsd:annotation>
+          <xsd:documentation> Plain right four</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="10">
+        <xsd:annotation>
+          <xsd:documentation> Left little</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="9">
+        <xsd:annotation>
+          <xsd:documentation> Left ring</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="1">
+        <xsd:annotation>
+          <xsd:documentation> Right thumb</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="3">
+        <xsd:annotation>
+          <xsd:documentation> Right middle</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="4">
+        <xsd:annotation>
+          <xsd:documentation> Right ring</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="6">
+        <xsd:annotation>
+          <xsd:documentation> Left thumb</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="11">
+        <xsd:annotation>
+          <xsd:documentation> Plain right thumb</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="14">
+        <xsd:annotation>
+          <xsd:documentation> Plain left four</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="15">
+        <xsd:annotation>
+          <xsd:documentation> Left and right thumbs</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="19">
+        <xsd:annotation>
+          <xsd:documentation> Complete friction ridge exemplars</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="7">
+        <xsd:annotation>
+          <xsd:documentation> Left index</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="FPCCodeType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ansi-nist:FPCCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="FingerprintType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:FingerPositionCode" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ImageCaptureType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:CaptureDeviceMakeText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:CaptureDeviceModelText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:CaptureDeviceSerialNumberText" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="NISTImageType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ImageType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ImageType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="PCCCodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="OTHER">
+        <xsd:annotation>
+          <xsd:documentation>Other Images</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SYMBOL">
+        <xsd:annotation>
+          <xsd:documentation>Insignias &amp;amp; Symbols</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PLANT">
+        <xsd:annotation>
+          <xsd:documentation>Plants</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FLAG">
+        <xsd:annotation>
+          <xsd:documentation>Flags</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="OBJECT">
+        <xsd:annotation>
+          <xsd:documentation>Objects</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ABSTRACT">
+        <xsd:annotation>
+          <xsd:documentation>Abstractions</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="HUMAN">
+        <xsd:annotation>
+          <xsd:documentation>Human Forms and Features</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ANIMAL">
+        <xsd:annotation>
+          <xsd:documentation>Animals and Animal Features</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="PCCCodeType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ansi-nist:PCCCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="PSCCodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="SHIRT">
+        <xsd:annotation>
+          <xsd:documentation>Shirt</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="HORSE">
+        <xsd:annotation>
+          <xsd:documentation>Horses (Donkeys, Mules, etc.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="NATION">
+        <xsd:annotation>
+          <xsd:documentation>National Symbols</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SNAKE">
+        <xsd:annotation>
+          <xsd:documentation>Snakes</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ABBODY">
+        <xsd:annotation>
+          <xsd:documentation>Abstract Body</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ABBPART">
+        <xsd:annotation>
+          <xsd:documentation>Abstract Body Parts</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ABFACE">
+        <xsd:annotation>
+          <xsd:documentation>Abstract Face</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ABSTRACT">
+        <xsd:annotation>
+          <xsd:documentation>Abstract Animals</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ANKLET">
+        <xsd:annotation>
+          <xsd:documentation>Anklet</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BIRD">
+        <xsd:annotation>
+          <xsd:documentation>Birds (Cardinal, Hawk, etc.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BLUEFL">
+        <xsd:annotation>
+          <xsd:documentation>Blue Flowers</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BODBND">
+        <xsd:annotation>
+          <xsd:documentation>Body Band</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BRACE">
+        <xsd:annotation>
+          <xsd:documentation>Bracelet</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BRIT">
+        <xsd:annotation>
+          <xsd:documentation>British Flag</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CAT">
+        <xsd:annotation>
+          <xsd:documentation>Cats &amp;amp; Cat Heads</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CONFED">
+        <xsd:annotation>
+          <xsd:documentation>Confederate Flag</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DOG">
+        <xsd:annotation>
+          <xsd:documentation>Dogs &amp;amp; Dog Heads</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DOMESTIC">
+        <xsd:annotation>
+          <xsd:documentation>Other Domestic Animals</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DRAGON">
+        <xsd:annotation>
+          <xsd:documentation>Dragons</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DRAW">
+        <xsd:annotation>
+          <xsd:documentation>Drawings of Flowers</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FBODY">
+        <xsd:annotation>
+          <xsd:documentation>Female Body</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FBPART">
+        <xsd:annotation>
+          <xsd:documentation>Female Body Parts</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FFACE">
+        <xsd:annotation>
+          <xsd:documentation>Female Face</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FIGURE">
+        <xsd:annotation>
+          <xsd:documentation>Figure(s)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FIRE">
+        <xsd:annotation>
+          <xsd:documentation>Fire</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FRATERNAL">
+        <xsd:annotation>
+          <xsd:documentation>Fraternal Symbols</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FREEFRM">
+        <xsd:annotation>
+          <xsd:documentation>Freeform Drawings</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="GANG">
+        <xsd:annotation>
+          <xsd:documentation>Gang Symbols</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="HEADBND">
+        <xsd:annotation>
+          <xsd:documentation>Head Band</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="INSECT">
+        <xsd:annotation>
+          <xsd:documentation>Spiders, Bugs, and Insects</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="LILY">
+        <xsd:annotation>
+          <xsd:documentation>Lily</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MABSTRACT">
+        <xsd:annotation>
+          <xsd:documentation>Miscellaneous Abstract</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MANIMAL">
+        <xsd:annotation>
+          <xsd:documentation>Miscellaneous Animal Forms</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MBODY">
+        <xsd:annotation>
+          <xsd:documentation>Male Body</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MBPART">
+        <xsd:annotation>
+          <xsd:documentation>Male Body Parts</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MFACE">
+        <xsd:annotation>
+          <xsd:documentation>Male Face</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MFLAG">
+        <xsd:annotation>
+          <xsd:documentation>Miscellaneous Flags</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MHUMAN">
+        <xsd:annotation>
+          <xsd:documentation>Miscellaneous Human Forms</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MILITARY">
+        <xsd:annotation>
+          <xsd:documentation>Military Symbols</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MISC">
+        <xsd:annotation>
+          <xsd:documentation>Miscellaneous Images</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MOBJECTS">
+        <xsd:annotation>
+          <xsd:documentation>Miscellaneous Objects</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MPLANT">
+        <xsd:annotation>
+          <xsd:documentation>Miscellaneous Plants, Flowers, Vegetables</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MSYMBOLS">
+        <xsd:annotation>
+          <xsd:documentation>Miscellaneous Symbols</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MYTH">
+        <xsd:annotation>
+          <xsd:documentation>Mythical (Unicorns, etc.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="NARCOTICS">
+        <xsd:annotation>
+          <xsd:documentation>Narcotics</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="NATURE">
+        <xsd:annotation>
+          <xsd:documentation>Water &amp;amp; Nature Scenes(Rivers, Sky, Trees, etc.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="NAZI">
+        <xsd:annotation>
+          <xsd:documentation>Nazi Flag</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="NECKLC">
+        <xsd:annotation>
+          <xsd:documentation>Necklace</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PARTS">
+        <xsd:annotation>
+          <xsd:documentation>Animal Parts</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PLANE">
+        <xsd:annotation>
+          <xsd:documentation>Airplanes</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="POLITIC">
+        <xsd:annotation>
+          <xsd:documentation>Political Symbols</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PROFESS">
+        <xsd:annotation>
+          <xsd:documentation>Professional Symbols</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="REDFL">
+        <xsd:annotation>
+          <xsd:documentation>Red Flowers</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ROLES">
+        <xsd:annotation>
+          <xsd:documentation>Roles (Knight, Witch, man, etc.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ROSE">
+        <xsd:annotation>
+          <xsd:documentation>Rose</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SKULL">
+        <xsd:annotation>
+          <xsd:documentation>Skulls</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SLEEVE">
+        <xsd:annotation>
+          <xsd:documentation>Sleeve</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SPORT">
+        <xsd:annotation>
+          <xsd:documentation>Sports Figures (Football Player, Skier, etc.) or Sporting Objects (Football, Ski, Hurdles, etc.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="STATE">
+        <xsd:annotation>
+          <xsd:documentation>State Flag</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="TRAIN">
+        <xsd:annotation>
+          <xsd:documentation>Trains</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="TULIP">
+        <xsd:annotation>
+          <xsd:documentation>Tulip</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="USA">
+        <xsd:annotation>
+          <xsd:documentation>American Flag</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="VEHICLE">
+        <xsd:annotation>
+          <xsd:documentation>Cars, Trucks, and Vehicles</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="VESSEL">
+        <xsd:annotation>
+          <xsd:documentation>Boats, Ships, &amp;amp; Other Vessels</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="VICIOUS">
+        <xsd:annotation>
+          <xsd:documentation>Vicious Animals (Lions, etc.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="WEAP">
+        <xsd:annotation>
+          <xsd:documentation>Weapons(Guns, Arrows, etc.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="WILD">
+        <xsd:annotation>
+          <xsd:documentation>Other Wild Animals</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="WORDING">
+        <xsd:annotation>
+          <xsd:documentation>Wording (Mom, Dad, Mary, ect.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="YELFL">
+        <xsd:annotation>
+          <xsd:documentation>Yellow Flowers</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="PSCCodeType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ansi-nist:PSCCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="PhysicalFeatureColorDetailType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:PhysicalFeaturePrimaryColorCode" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureSecondaryColorCode" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PhysicalFeatureDescriptionType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:PhysicalFeatureColorDetail" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureCategoryCode" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureClassCode" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureDescriptionText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureSubClassCode" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PhysicalFeatureImageType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="NISTImageType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="ansi-nist:NISTImageType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:PhysicalFeatureDescriptionDetail" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureSize" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PhysicalFeatureSizeType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="ansi-nist:PhysicalFeatureHeightMeasure" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="ansi-nist:PhysicalFeatureWidthMeasure" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="SMDCodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="CHEMICAL">
+        <xsd:annotation>
+          <xsd:documentation>Image created by the use of chemicals to burn the image into the skin.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CUT">
+        <xsd:annotation>
+          <xsd:documentation>Image caused by an incision of the skin.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="TATTOO">
+        <xsd:annotation>
+          <xsd:documentation>A common tattoo or indelible image resulting from the pricking of the skin with a coloring matter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="BRANDED">
+        <xsd:annotation>
+          <xsd:documentation>Image burned into the skin using a branding iron or other form of heat.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MARK">
+        <xsd:annotation>
+          <xsd:documentation>Pattern resulting from needle or "Track" marks.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SCAR">
+        <xsd:annotation>
+          <xsd:documentation>Healed scar tissue that was the result an accident or medical procedure.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="SMDCodeType">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ansi-nist:SMDCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:element name="ActivityAgencyNotificationIndicator" type="niem-xsd:boolean" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A flag which indicates the Investigative Agency is to be notified of any query response which includes this Criminal Justice Entry. </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CaptureDeviceMakeText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>The make of the image capture device.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CaptureDeviceModelText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>The model of the image capture device.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CaptureDeviceSerialNumberText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>The serial number of the image capture device.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="FingerPositionCode" type="ansi-nist:FPCCodeType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Set of possible finger position codes, most probable position first.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="FingerprintImagePosition" type="ansi-nist:FingerprintType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Set of possible finger position codes, most probable position first.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ImageCaptureDetail" type="ansi-nist:ImageCaptureType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Information regarding the captured (e.g., scanned) image.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureCategoryCode" type="ansi-nist:SMDCodeType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Indicates the source of the image as being a scar, a mark, or a tattoo.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureClassCode" type="ansi-nist:PCCCodeType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Indicates the human tattoo class of an SMT, OTHER if not tattoo.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureColorDetail" type="ansi-nist:PhysicalFeatureColorDetailType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureDescriptionDetail" type="ansi-nist:PhysicalFeatureDescriptionType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A complete description of scars, marks, or tattoos visible in a transmitted image</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureDescriptionText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Additional free text qualifiers describing the contents of the image.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureHeightMeasure" type="niem-xsd:nonNegativeInteger" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>The feature&amp;apos;s height in whole centimeters</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureImage" type="ansi-nist:PhysicalFeatureImageType" substitutionGroup="ansi-nist:RecordImage" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>DOCUMENTATION NOT PROVIDED</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="RecordImage"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeaturePrimaryColorCode" type="ansi-nist:COLCodeType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Primary Color of  a tattoo in an image.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureSecondaryColorCode" type="ansi-nist:COLCodeType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Secondary Color of  a tattoo in an image.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureSize" type="ansi-nist:PhysicalFeatureSizeType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>The dimensions of the scar, mark, or tattoo.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureSubClassCode" type="ansi-nist:PSCCodeType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Indicates the human tattoo subclass of an SMT, MISC if not tattoo.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PhysicalFeatureWidthMeasure" type="niem-xsd:nonNegativeInteger" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>The feature&amp;apos;s width in whole centimeters</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="RecordImage" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>Information regarding an Image being transmitted in an ITL Record Transaction</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>
