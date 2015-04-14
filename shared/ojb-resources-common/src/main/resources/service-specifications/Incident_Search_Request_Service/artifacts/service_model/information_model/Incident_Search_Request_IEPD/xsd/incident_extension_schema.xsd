@@ -31,7 +31,6 @@
 		schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
 
 	<xsd:complexType name="IncidentSearchRequestType">
-		<!-- TODO: Need to add Nature element -->
 		<xsd:annotation>
 			<xsd:documentation>A data type for a set of details that can be used
 				to search for an incident.</xsd:documentation>
