@@ -52,7 +52,6 @@
 		<xsl:choose>
 			<xsl:when test="($totalCount &gt; 0)">
 				<xsl:call-template name="Subscriptions"/>
-				<!-- TODO FIXME see if alight right is deprecated, note maybe can't use float though b/c of firefox issue below with margin -->
 				<span id="subscriptionButtons">
 					<xsl:if test="$validateSubscriptionButton='true'">
 						<a id="validateLink" href="#" class="blueButton viewDetails" style="margin-right:6px">VALIDATE</a>
