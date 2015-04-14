@@ -184,7 +184,7 @@
         
 			<camel:log message="Processing Incident Report Notifications"/>
 						
-			<camel:to uri="xslt:xslt/incidentReportToNotifications.xsl"/>								
+			<camel:to uri="xslt:xslt/incidentReportToNotifications.xsl?transformerFactory=sFactory"/>								
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
@@ -308,6 +308,7 @@
         <constructor-arg type="java.lang.String" value="${incidentReportingService.callArrestReportingService}" />
     </bean>	
 	
+	<bean id="sFactory" class="net.sf.saxon.TransformerFactoryImpl"/>
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<!--
+    Document: $Id: publish-discover.xsd 1867 2008-12-22 01:31:55Z ys34 $
+    LEXS version  : 3.1.4
+    Namespace     : xmlns:lexs="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+    Description   : LEXS Publish and Discover Message Format Schema
+-->
+<xsd:schema
+    targetNamespace="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+    version="3.1.4"
+    xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"    
+    xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified" 
+    attributeFormDefault="unqualified">
+    
+    <xsd:import
+        namespace="http://usdoj.gov/leisp/lexs/3.1"
+        schemaLocation="../../lexs/3.1/lexs.xsd"/>
+    
+    <xsd:annotation>
+        <xsd:documentation>LEXS Publish Discover Message Format Schema</xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:element name="doPublish" type="lexspd:DoPublishType">
+        <xsd:annotation>
+            <xsd:documentation>LEXS Submission Publish Method</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:complexType name="DoPublishType">
+        <xsd:annotation>
+            <xsd:documentation>LEXS Submission Publish Method</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="lexs:PublishMessageContainer"/>
+        </xsd:sequence>
+    </xsd:complexType>    
+    
+</xsd:schema>
