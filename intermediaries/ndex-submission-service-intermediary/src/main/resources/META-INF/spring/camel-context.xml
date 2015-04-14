@@ -40,7 +40,7 @@
 	<import resource="error-handlers.xml" />
 	
 	
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="ndexSubmissionServiceMainCamelContext">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="ndex-submission-service-intermediary">
 		<camel:routeContextRef ref="errorHandlerRoutes"/>
 		
 		<endpoint id="ndexFileDropDir"

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema targetNamespace="http://niem.gov/niem/unece_rec20-misc/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:unece="http://niem.gov/niem/unece_rec20-misc/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+  <xsd:annotation>
+    <xsd:documentation>Miscellaneous unit of measure codes from the United Nations Economic Commission for Europe Recommendation No. 20, Codes for Units of Measure used in International Trade.</xsd:documentation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:simpleType name="LengthCodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for units of measurements for a length value.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="4H">
+        <xsd:annotation>
+          <xsd:documentation>micrometre (micron)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="77">
+        <xsd:annotation>
+          <xsd:documentation>milli-inch</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="A11">
+        <xsd:annotation>
+          <xsd:documentation>angstrom</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="A12">
+        <xsd:annotation>
+          <xsd:documentation>astronomical unit</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="A45">
+        <xsd:annotation>
+          <xsd:documentation>decametre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="A71">
+        <xsd:annotation>
+          <xsd:documentation>femtometre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="AK">
+        <xsd:annotation>
+          <xsd:documentation>fathom</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="B57">
+        <xsd:annotation>
+          <xsd:documentation>light year</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="C45">
+        <xsd:annotation>
+          <xsd:documentation>nanometre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="C52">
+        <xsd:annotation>
+          <xsd:documentation>picometre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="C63">
+        <xsd:annotation>
+          <xsd:documentation>parsec</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CMT">
+        <xsd:annotation>
+          <xsd:documentation>centimetre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DMT">
+        <xsd:annotation>
+          <xsd:documentation>decimetre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FOT">
+        <xsd:annotation>
+          <xsd:documentation>foot</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="HMT">
+        <xsd:annotation>
+          <xsd:documentation>hectometre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="INH">
+        <xsd:annotation>
+          <xsd:documentation>inch</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="KMT">
+        <xsd:annotation>
+          <xsd:documentation>kilometre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="M7">
+        <xsd:annotation>
+          <xsd:documentation>micro-inch</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MMT">
+        <xsd:annotation>
+          <xsd:documentation>millimetre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MTR">
+        <xsd:annotation>
+          <xsd:documentation>metre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="NMI">
+        <xsd:annotation>
+          <xsd:documentation>nautical mile</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SMI">
+        <xsd:annotation>
+          <xsd:documentation>mile (statute mile)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="X1">
+        <xsd:annotation>
+          <xsd:documentation>chain</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="YRD">
+        <xsd:annotation>
+          <xsd:documentation>yard</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="LengthCodeType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for units of measurements for a length value.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="unece:LengthCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>

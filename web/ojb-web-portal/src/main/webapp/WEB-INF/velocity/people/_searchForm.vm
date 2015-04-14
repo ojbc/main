@@ -96,10 +96,9 @@
 				        }).fail(ojbc.displayFailMessage);
     		  	}
     		);
-    		
+    			
     		$('#simpleSearchSubmitButton').click (function(){
                 var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
-                
 		  		$.post("#springUrl('/people/simpleSearch')",formData,function(data) {
 				      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage);
@@ -161,11 +160,10 @@
                   }).fail(ojbc.displayFailMessage)
               });
               
-            $("#simpleSearchTab input").keyup(function(event){
-            	console.log(event.keyCode);
-    			if(event.keyCode == 13){
-			        $('#simpleSearchSubmitButton').click();
-    			}
+              
+            $("#simpleSearchForm").submit(function(event){
+            	event.preventDefault();
+		        $('#simpleSearchSubmitButton').click();
 			});
 			
 			//This allows the input fields on the search form to submit form with enter key
@@ -217,7 +215,7 @@
         <li><a href="#simpleSearchTab">SIMPLE SEARCH</a></li>
     </ul>
 	<div id="simpleSearchTab">
-	    <form id='simpleSearchForm' >
+	    <form id='simpleSearchForm'>
      		#springBind( "personSearchCommand.searchType" )
 			<input type="hidden" name="${status.expression}" value="SIMPLE" /><br>
 	        <p> Enter search criteria below </p>
