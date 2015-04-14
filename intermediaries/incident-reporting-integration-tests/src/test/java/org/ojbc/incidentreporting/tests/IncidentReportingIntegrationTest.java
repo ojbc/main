@@ -87,6 +87,10 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.ndex-submission-service-intermediary)", timeout = 40000)
 	private ApplicationContext ndexBundleContext;
 
+	@Inject
+    @Filter(value = "(org.springframework.context.service.name=subscription-notification-service-intermediary)", timeout = 20000)
+    private ApplicationContext notificationBrokerBundleContext;
+	
 	//Adapters
 	@Inject
 	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.adapters.n-dex-submission-service)", timeout = 40000)
@@ -115,6 +119,7 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 				logLevel(LogLevel.INFO),
 
 				KarafDistributionOption.replaceConfigurationFile("etc/org.ops4j.pax.url.mvn.cfg", new File("src/main/config/org.ops4j.pax.url.mvn.cfg")),
+				KarafDistributionOption.replaceConfigurationFile("etc/ojbc.context.services.cfg", new File("src/main/config/ojbc.context.services.cfg")),
 
 				// Camel dependencies
 				KarafDistributionOption.features(karafCamelFeature, "camel"),
@@ -139,6 +144,8 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 				mavenBundle().groupId("commons-pool").artifactId("commons-pool").version("1.6").start(),
 				mavenBundle().groupId("org.apache.servicemix.bundles").artifactId("org.apache.servicemix.bundles.commons-dbcp").version("1.2.2_7").start(),
 
+				//Required by S/N bundles
+				mavenBundle().groupId("org.apache.servicemix.bundles").artifactId("org.apache.servicemix.bundles.velocity").version("1.7_6").start(),
 				
 				mavenBundle().groupId("commons-pool").artifactId("commons-pool").version("1.6").start(),
 				mavenBundle().groupId("org.springframework").artifactId("spring-jdbc").version("3.0.7.RELEASE").start(),
@@ -150,12 +157,17 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-camel-common").start(),
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-resources-common").start(),
 				
+				//H2 Mock bundle
+				mavenBundle().groupId("org.ojbc.bundles.utilities").artifactId("h2-mock-database").start(),
+				
 				// intermediaries
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("ndex-submission-service-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("arrest-reporting-service-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("incident-reporting-service-intermediary-common").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("incident-reporting-service-intermediary").start(),
-				
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary-common").start(),
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary").start(),
+
 				//Connector
 				mavenBundle().groupId("org.ojbc.bundles.connectors").artifactId("incident-reporting-service-connector").start(),
 				
@@ -181,6 +193,7 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 		assertNotNull(incidentReportingConnectorBundleContext);
 		assertNotNull(ndexBundleContext);
 		assertNotNull(ndexMockAdapterBundleContext);
+		assertNotNull(notificationBrokerBundleContext);
 		
 		System.err.println(executeCommand("osgi:list -t 1", 20000L, false));
 	}
@@ -217,6 +230,20 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 		log.info("N-DEx Submission Service Endpoint: " + ndexSubmissionAddress);
 
 		assertEquals("https://localhost:18051/OJB/N-DexSubmissionService", ndexSubmissionAddress);
+	
+		//Subscription Notification
+		CxfEndpoint notificationBrokerServiceEndpoint = notificationBrokerBundleContext.getBean("notificationBrokerService", CxfEndpoint.class);
+		String notificationBrokerEndpointAddress = notificationBrokerServiceEndpoint.getAddress();
+		assertEquals(notificationBrokerEndpointAddress,"http://localhost:18040/OJB/SubscribeNotify");
+			
+		log.info("Notification Broker Endpoint: " + notificationBrokerEndpointAddress);
+		
+		CxfEndpoint subscriptionManagerServiceEndpoint = notificationBrokerBundleContext.getBean("subscriptionManagerService", CxfEndpoint.class);
+		String subscriptionManagerEndpointAddress = subscriptionManagerServiceEndpoint.getAddress();	
+		assertEquals(subscriptionManagerEndpointAddress,"http://localhost:18041/OJB/SubscriptionManager");
+		
+		
+		log.info("Subscription Management Endpoint: " + subscriptionManagerEndpointAddress);
 		
 	}
 	
