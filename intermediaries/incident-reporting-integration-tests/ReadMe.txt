@@ -1,0 +1,7 @@
+You must add a host entry like this for example in /etc/hosts (or windows comparable):
+
+127.0.0.1       demo-adapter 
+
+Otherwise the N-DEx submission client will say something like 'localhost' does not match the name in the certificate. It is hard to directly disable this CN / Host name checking.
+
+This is done to properly support N-DEx connections in production
