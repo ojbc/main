@@ -261,7 +261,7 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 		String inputDirectoryString = incidentReportingConnectorCamelContext.resolvePropertyPlaceholders("{{incidentChargeReporting.ConnectorFileDirectory}}") + "/input";
 		log.info("Connector input directory:"+ inputDirectoryString);
 
-		//Get adapter output directory, due to Camel bug, it is retrieved by endpoint
+		//Get intermediary output directory, due to Camel bug, it is retrieved by endpoint
 		Endpoint ndexSuccessEndpoint = ndexSubmissionServiceCamelContext.getEndpoint("ndexSubmissionSuccessDir");
 		assertNotNull(ndexSuccessEndpoint);
 		
