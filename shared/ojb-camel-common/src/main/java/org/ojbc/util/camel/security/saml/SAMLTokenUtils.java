@@ -56,7 +56,8 @@ public class SAMLTokenUtils {
     static final String SECURITY_CRYPTO_PROVIDER_KEY = "org.apache.ws.security.crypto.provider";
     static final String SECURITY_CRYPTO_PROVIDER_VALUE = "org.apache.ws.security.components.crypto.Merlin";
     static final String MERLIN_KEYSTORE_TYPE_VALUE = "jks";
-    static final String MERLIN_KEYSTORE_FILE_VALUE = "certs/idp-keystore.jks";
+    static final String USER_HOME=System.getProperty("user.home");
+    static final String MERLIN_KEYSTORE_FILE_VALUE = USER_HOME + "/ojb-certs/idp/idp-keystore.jks";
     static final String MERLIN_KEYSTORE_PASSWORD_VALUE = "idp-keystore";
     static final String MERLIN_KEYSTORE_ALIAS_VALUE = "idp-key";
     static final String KEY_PASSWORD_VALUE = "idp-key";
