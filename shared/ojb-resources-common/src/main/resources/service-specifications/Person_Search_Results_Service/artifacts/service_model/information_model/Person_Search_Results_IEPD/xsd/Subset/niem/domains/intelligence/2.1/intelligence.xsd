@@ -43,7 +43,7 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-  <xsd:element name="SystemIdentifier" type="intel:SystemIdentifierType">
+  <xsd:element name="SystemIdentifier" type="intel:SystemIdentifierType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A number or code assigned by a system to uniquely identify a person or object.</xsd:documentation>
     </xsd:annotation>

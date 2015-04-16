@@ -1379,7 +1379,6 @@
       </xsd:extension>
     </xsd:simpleContent>
   </xsd:complexType>
-  
   <xsd:simpleType name="InternationalStateCodeSimpleType">
     <xsd:annotation>
       <xsd:documentation>A data type for states.</xsd:documentation>
