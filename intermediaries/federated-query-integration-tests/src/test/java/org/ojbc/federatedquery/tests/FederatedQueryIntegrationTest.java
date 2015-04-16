@@ -159,6 +159,8 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		MavenArtifactUrlReference karafUrl = maven().groupId("org.apache.karaf").artifactId("apache-karaf").version(KARAF_VERSION).type("zip");
 
 		MavenUrlReference karafCamelFeature = maven().groupId("org.apache.camel.karaf").artifactId("apache-camel").version("2.10.7").classifier("features").type("xml");
+		MavenUrlReference karafPaxWebFeature = maven().groupId("org.ops4j.pax.web").artifactId("pax-web-features").version("2.1.0").classifier("features").type("xml");
+		MavenUrlReference karafStandardFeatures = maven().groupId("org.apache.karaf.assemblies.features").artifactId("standard").version("2.2.11").classifier("features").type("xml");
 
 		return new Option[] {
 				
@@ -171,12 +173,19 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 				logLevel(LogLevel.INFO),
 
 				KarafDistributionOption.replaceConfigurationFile("etc/org.ops4j.pax.url.mvn.cfg", new File("src/main/config/org.ops4j.pax.url.mvn.cfg")),
+				KarafDistributionOption.replaceConfigurationFile("etc/org.apache.cxf.osgi.cfg", new File("src/main/config/org.apache.cxf.osgi.cfg")),
+				KarafDistributionOption.replaceConfigurationFile("etc/org.ops4j.pax.web.cfg", new File("src/main/config/org.ops4j.pax.web.cfg")),
 				KarafDistributionOption.replaceConfigurationFile("etc/ojbc.context.services.cfg", replaceConfigurationFile()),
 				
 				KarafDistributionOption.features(karafCamelFeature, "camel"),
 				KarafDistributionOption.features(karafCamelFeature, "camel-cxf"),
 				KarafDistributionOption.features(karafCamelFeature, "camel-saxon"),
 				KarafDistributionOption.features(karafCamelFeature, "camel-mail"),
+				
+				//Jetty SSL / HTTP features
+				KarafDistributionOption.features(karafPaxWebFeature, "pax-jetty"),
+				KarafDistributionOption.features(karafStandardFeatures, "http"),
+				KarafDistributionOption.features(karafStandardFeatures, "jetty"),
 
 				mavenBundle().groupId("commons-codec").artifactId("commons-codec").version("1.6").start(),
 				mavenBundle().groupId("org.apache.servicemix.bundles").artifactId("org.apache.servicemix.bundles.commons-io").version("1.3.2_5").start(),
@@ -321,7 +330,7 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		//Criminal History Query
         CxfEndpoint personQueryCriminalHistoryEndpoint = criminalHistoryQueryIntermediaryBundleContext.getBean("searchRequestFederatedServiceEndpoint", CxfEndpoint.class);
         String personQueryCriminalHistoryEndpointAddress = personQueryCriminalHistoryEndpoint.getAddress();
-        assertEquals(personQueryCriminalHistoryEndpointAddress, "https://localhost:18601/OJB/PersonQueryService/CriminalHistory");
+        assertEquals(personQueryCriminalHistoryEndpointAddress, "/intermediary/PersonQueryServiceCriminalHistory");
 
         assertNotNull(personQueryCriminalHistoryEndpoint);
         
