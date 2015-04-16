@@ -149,26 +149,6 @@
 	</util:properties>	
       
       
-   	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
-	<httpj:engine-factory id="ClientAuthHttpsSettings"
-		bus="cxf">
-		<httpj:engine port="18603">
-			<httpj:tlsServerParameters>
-				<sec:keyManagers keyPassword="${federatedQuery.incidentReport.keyPassword}">
-					<sec:keyStore type="jks" password="${federatedQuery.incidentReport.keystorePassword}" file="${federatedQuery.incidentReport.keystoreLocation}" />
-				</sec:keyManagers>
-				<sec:cipherSuitesFilter>
-					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				</sec:cipherSuitesFilter>
-				<sec:clientAuthentication want="false"
-					required="false" />
-			</httpj:tlsServerParameters>
-		</httpj:engine>
-	</httpj:engine-factory>    
-	
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit
 		name="https://.*">
