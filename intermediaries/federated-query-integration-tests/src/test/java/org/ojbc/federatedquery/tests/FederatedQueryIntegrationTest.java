@@ -322,7 +322,7 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		//Warrants Query
 		CxfEndpoint personQueryWarrantsEndpoint = warrantsQueryIntermediaryBundleContext.getBean("searchRequestFederatedServiceEndpoint", CxfEndpoint.class);
 		String personQueryWarrantsEndpointAddress = personQueryWarrantsEndpoint.getAddress();
-
+		assertEquals(personQueryWarrantsEndpointAddress, "/intermediary/PersonQueryServiceWarrants");
 		assertNotNull(personQueryWarrantsEndpoint);
 		
 		log.info("Person Query Warrants Federated Endpoint: " + personQueryWarrantsEndpointAddress);
