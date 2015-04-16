@@ -348,7 +348,7 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		//Incident Report Query
 		CxfEndpoint incidentReportRequestFederatedServiceEndpoint = incidentReportQueryIntermediaryBundleContext.getBean("incidentReportRequestFederatedServiceEndpoint", CxfEndpoint.class);
 		String incidentReportRequestFederatedServiceEndpointAddress = incidentReportRequestFederatedServiceEndpoint.getAddress();
-		assertEquals("https://localhost:18603/OJB/PersonQueryService/IncidentReportRequest", incidentReportRequestFederatedServiceEndpointAddress);
+		assertEquals("/intermediary/IncidentReportRequestService", incidentReportRequestFederatedServiceEndpointAddress);
 
 		assertNotNull(incidentReportRequestFederatedServiceEndpoint);
 		
