@@ -341,7 +341,7 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		assertNotNull(firearmRegistrationQueryRequestFederatedServiceEndpoint);
 		
 		String firearmRegistrationQueryRequestFederatedServiceEndpointAddress = firearmRegistrationQueryRequestFederatedServiceEndpoint.getAddress();
-		assertEquals("https://localhost:18604/OJB/FirearmRegistrationQueryRequestService", firearmRegistrationQueryRequestFederatedServiceEndpointAddress);
+		assertEquals("/intermediary/FirearmRegistrationQueryRequestService", firearmRegistrationQueryRequestFederatedServiceEndpointAddress);
 		
 		log.info("Firearms Query Federated Endpoint: " + firearmRegistrationQueryRequestFederatedServiceEndpointAddress);
 	
