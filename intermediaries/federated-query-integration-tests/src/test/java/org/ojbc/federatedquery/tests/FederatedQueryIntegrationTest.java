@@ -309,7 +309,8 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		//Firearms Search
 		CxfEndpoint firearmsSearchRequestEndpoint = firearmsSearchIntermediaryBundleContext.getBean("searchRequestFederatedServiceEndpoint", CxfEndpoint.class);
 		String firearmsSearchRequestEndpointAddress = firearmsSearchRequestEndpoint.getAddress();
-
+		assertEquals(firearmsSearchRequestEndpointAddress, "/intermediary/FirearmSearchRequestService");
+		
 		assertNotNull(firearmsSearchRequestEndpoint);
 		log.info("Firearms Search Federated Endpoint: " + firearmsSearchRequestEndpointAddress);
 
