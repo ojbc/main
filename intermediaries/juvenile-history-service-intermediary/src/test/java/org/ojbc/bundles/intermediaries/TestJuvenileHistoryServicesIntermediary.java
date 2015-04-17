@@ -75,6 +75,7 @@ import org.xml.sax.SAXException;
         "classpath:META-INF/spring/federated-query-routes.xml", 
         "classpath:META-INF/spring/cxf-endpoints.xml",
         "classpath:META-INF/spring/extensible-beans.xml",       
+        "classpath:META-INF/spring/jetty-server.xml",       
         "classpath:META-INF/spring/local-osgi-context.xml",
         "classpath:META-INF/spring/properties-context.xml"}) 
 @DirtiesContext
