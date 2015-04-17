@@ -300,7 +300,8 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		//Vehicle Search
 		CxfEndpoint vehicleSearchRequestEndpoint = vehicleSearchIntermediaryBundleContext.getBean("searchRequestFederatedServiceEndpoint", CxfEndpoint.class);
 		String vehicleSearchRequestEndpointAddress = vehicleSearchRequestEndpoint.getAddress();
-
+		assertEquals(vehicleSearchRequestEndpointAddress, "/intermediary/VehicleSearchRequestService");
+		
 		assertNotNull(vehicleSearchRequestEndpoint);
 		log.info("Vehicle Search Federated Endpoint: " + vehicleSearchRequestEndpointAddress);
 
