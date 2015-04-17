@@ -40,7 +40,7 @@
 		xmlns:arrExt="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingRequestExtension/1.0"
 		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 		xmlns:acr="http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0"
-		xmlns:ext="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0"
+		xmlns:ext="http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0"
 		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 		id="policy-acknowledge-service-intermediary">
 

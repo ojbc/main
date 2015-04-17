@@ -37,7 +37,7 @@
 
 	<camelContext xmlns="http://camel.apache.org/schema/spring"
 		xmlns:acr="http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0"
-		xmlns:ext="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0"
+		xmlns:ext="http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0"
 		xmlns:personsearch-ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
 		
 		id="pdpIntermediaryContext">
