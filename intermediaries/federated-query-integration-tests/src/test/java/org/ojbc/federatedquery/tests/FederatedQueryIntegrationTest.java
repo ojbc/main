@@ -293,6 +293,7 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		//Person Search
 		CxfEndpoint personSearchRequestEndpoint = personSearchIntermediaryBundleContext.getBean("searchRequestFederatedServiceEndpoint", CxfEndpoint.class);
 		String personSearchRequestEndpointAddress = personSearchRequestEndpoint.getAddress();
+		assertEquals(personSearchRequestEndpointAddress, "/intermediary/PersonSearchRequestService");
 
 		assertNotNull(personSearchRequestEndpoint);
 		log.info("Person Search Federated Endpoint: " + personSearchRequestEndpointAddress);
@@ -300,7 +301,8 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		//Vehicle Search
 		CxfEndpoint vehicleSearchRequestEndpoint = vehicleSearchIntermediaryBundleContext.getBean("searchRequestFederatedServiceEndpoint", CxfEndpoint.class);
 		String vehicleSearchRequestEndpointAddress = vehicleSearchRequestEndpoint.getAddress();
-
+		assertEquals(vehicleSearchRequestEndpointAddress, "/intermediary/VehicleSearchRequestService");
+		
 		assertNotNull(vehicleSearchRequestEndpoint);
 		log.info("Vehicle Search Federated Endpoint: " + vehicleSearchRequestEndpointAddress);
 
