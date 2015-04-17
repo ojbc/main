@@ -21,7 +21,7 @@
 		xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
 		xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-		xmlns:ext="http://ojbc.org/IEPD/Extension/AccessControlRequest/1.0" 
+		xmlns:ext="http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0" 
 		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 		xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0 ../xsd/IdentityBasedAccessControlRequest.xsd ">
 	<ext:PersonIdentity>
