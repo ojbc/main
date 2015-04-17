@@ -206,30 +206,6 @@
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${subscriptionSearchQuery.keystoreLocation}</prop>
 	</util:properties>	
       
-      
-   	<!-- 
-   		Used for INBOUND SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection 
-   	-->
-	<httpj:engine-factory id="ClientAuthHttpsSettings"
-		bus="cxf">
-		<httpj:engine port="${publishSubscribe.securePortNumber}"> 
-			<httpj:tlsServerParameters>
-				<sec:keyManagers keyPassword="${subscriptionSearchQuery.keyPassword}">
-					<sec:keyStore type="jks" password="${subscriptionSearchQuery.keystorePassword}" file="${subscriptionSearchQuery.keystoreLocation}" />
-				</sec:keyManagers>
-				<sec:cipherSuitesFilter>
-					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				</sec:cipherSuitesFilter>
-				<sec:clientAuthentication want="false"
-					required="false" />
-			</httpj:tlsServerParameters>
-		</httpj:engine>
-	</httpj:engine-factory> 
-	
-	
 	<!-- 
 		Used for OUTBOUND SSL/TLS Connection. No CCA, just SSL. Client side SSL connection 
 	-->
