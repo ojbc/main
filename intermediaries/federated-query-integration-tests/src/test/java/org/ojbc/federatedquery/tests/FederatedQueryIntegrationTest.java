@@ -293,6 +293,7 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		//Person Search
 		CxfEndpoint personSearchRequestEndpoint = personSearchIntermediaryBundleContext.getBean("searchRequestFederatedServiceEndpoint", CxfEndpoint.class);
 		String personSearchRequestEndpointAddress = personSearchRequestEndpoint.getAddress();
+		assertEquals(personSearchRequestEndpointAddress, "/intermediary/PersonSearchRequestService");
 
 		assertNotNull(personSearchRequestEndpoint);
 		log.info("Person Search Federated Endpoint: " + personSearchRequestEndpointAddress);
