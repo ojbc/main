@@ -128,13 +128,6 @@
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${accessControl.keystoreLocation}</prop>
 	</util:properties>	
       
-      
-   	<!-- 
-   		Used for INBOUND SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection 
-   	-->
-
-	
-	
 	<!-- 
 		Used for OUTBOUND SSL/TLS Connection. No CCA, just SSL. Client side SSL connection 
 	-->
