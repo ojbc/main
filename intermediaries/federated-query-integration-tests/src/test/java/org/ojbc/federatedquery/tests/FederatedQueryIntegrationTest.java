@@ -317,6 +317,7 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		//Incident Search
 		CxfEndpoint incidentSearchRequestEndpoint = incidentSearchIntermediaryBundleContext.getBean("searchRequestFederatedServiceEndpoint", CxfEndpoint.class);
 		String incidentSearchRequestEndpointAddress = incidentSearchRequestEndpoint.getAddress();
+		assertEquals(incidentSearchRequestEndpointAddress, "/intermediary/IncidentSearchRequestService");
 
 		assertNotNull(incidentSearchRequestEndpoint);
 		log.info("Incident Search Federated Endpoint: " + incidentSearchRequestEndpointAddress);
