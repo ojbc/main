@@ -31,7 +31,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
@@ -63,10 +62,12 @@ import org.w3c.dom.NodeList;
     "classpath:META-INF/spring/camel-context.xml",
     "classpath:META-INF/spring/dao.xml",
     "classpath:META-INF/spring/cxf-endpoints.xml",
+    "classpath:META-INF/spring/jetty-server.xml",
     "classpath:META-INF/spring/properties-context.xml"
 })
 public class TestStaticMockAdapter {
 
+    @SuppressWarnings("unused")
     private static final Log log = LogFactory.getLog(TestStaticMockAdapter.class);
 
     @Resource
