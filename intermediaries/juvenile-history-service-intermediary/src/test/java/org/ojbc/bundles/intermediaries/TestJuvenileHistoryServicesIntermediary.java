@@ -310,7 +310,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         
         //Confirm that the request file get to the Adapter
         Exchange callAdapterExchnage = casePlanAdapterRequestEndpoint.getExchanges().get(0);
-        assertEquals("https://localhost:18102/OJB/Adapter/CasePlanHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
+        assertEquals("https://localhost:8443/OJB/adapter/CasePlanHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
         
         ///////////////////////////////////
         //////////////////////////////////
@@ -370,7 +370,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         hearingAdapterRequestEndpoint.assertIsSatisfied();
         
         Exchange callAdapterExchnage = hearingAdapterRequestEndpoint.getExchanges().get(0);
-        assertEquals("https://localhost:18102/OJB/Adapter/HearingHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
+        assertEquals("https://localhost:8443/OJB/adapter/HearingHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
      
     }
     
@@ -395,7 +395,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         intakeAdapterRequestEndpoint.assertIsSatisfied();
         
         Exchange callAdapterExchnage = intakeAdapterRequestEndpoint.getExchanges().get(0);
-        assertEquals("https://localhost:18102/OJB/Adapter/IntakeHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
+        assertEquals("https://localhost:8443/OJB/adapter/IntakeHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
         
     }
     
@@ -420,7 +420,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         offenseAdapterRequestEndpoint.assertIsSatisfied();
         
         Exchange callAdapterExchnage = offenseAdapterRequestEndpoint.getExchanges().get(0);
-        assertEquals("https://localhost:18102/OJB/Adapter/OffenseHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
+        assertEquals("https://localhost:8443/OJB/adapter/OffenseHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
         
     } 
     
@@ -445,7 +445,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         placementAdapterRequestEndpoint.assertIsSatisfied();
         
         Exchange callAdapterExchnage = placementAdapterRequestEndpoint.getExchanges().get(0);
-        assertEquals("https://localhost:18102/OJB/Adapter/PlacementHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
+        assertEquals("https://localhost:8443/OJB/adapter/PlacementHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
         
     } 
     
@@ -470,7 +470,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         referralAdapterRequestEndpoint.assertIsSatisfied();
         
         Exchange callAdapterExchnage = referralAdapterRequestEndpoint.getExchanges().get(0);
-        assertEquals("https://localhost:18102/OJB/Adapter/ReferralHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
+        assertEquals("https://localhost:8443/OJB/adapter/ReferralHistoryRequestService",callAdapterExchnage.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
         
     } 
         
