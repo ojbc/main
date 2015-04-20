@@ -81,11 +81,6 @@ public class DispositionReportingServiceTest extends AbstractPaxExamIntegrationT
     @Filter(value = "(org.springframework.context.service.name=connector-adapter-context-bundle)", timeout = 20000)
     private ApplicationContext connectorAndAdapterContext;
 
-	//Camel Contexts
-//	private CamelContext dispositionConnectorHajisCamelContext;
-//	private CamelContext dispositionConnectorJimsCamelContext;
-//	private CamelContext hawaiiCountyProsecutorCaseServiceCamelContext;
-
 	@Configuration
 	public Option[] config() {
 
