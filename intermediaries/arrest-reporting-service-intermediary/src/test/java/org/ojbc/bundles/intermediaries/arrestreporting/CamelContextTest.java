@@ -56,6 +56,7 @@ import org.w3c.dom.Node;
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/camel-context.xml", 
 		"classpath:META-INF/spring/cxf-endpoints.xml",
+		"classpath:META-INF/spring/jetty-server.xml",
 		"classpath:META-INF/spring/properties-context.xml"}) 
 public class CamelContextTest {
 

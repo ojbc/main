@@ -109,28 +109,6 @@
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
 	</cxf:cxfEndpoint>
               
-              
-	<httpj:engine-factory bus="cxf">
-		<!-- you just need to specify the TLS Server configuration for the certain 
-			port -->
-		<httpj:engine port="${incidentReportingService.portNumber}">
-			<httpj:tlsServerParameters>
-				<sec:keyManagers
-					keyPassword="${incidentReportingService.intermediaryKeyPassword}">
-					<sec:keyStore type="JKS"
-						password="${incidentReportingService.intermediaryKeystorePassword}"
-						file="${incidentReportingService.intermediaryKeystoreLocation}" />
-				</sec:keyManagers>
-				<sec:cipherSuitesFilter>
-					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				</sec:cipherSuitesFilter>
-			</httpj:tlsServerParameters>
-		</httpj:engine>
-	</httpj:engine-factory>
-
 	<!-- Conduit for http clients -->
 	<http:conduit
 		name="*.http-conduit">

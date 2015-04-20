@@ -85,7 +85,9 @@ public class ArrestReportingServiceTest extends AbstractPaxExamIntegrationTest {
 				logLevel(LogLevel.INFO),
 
 				KarafDistributionOption.replaceConfigurationFile("etc/org.ops4j.pax.url.mvn.cfg", new File("src/main/config/org.ops4j.pax.url.mvn.cfg")),
-
+				KarafDistributionOption.replaceConfigurationFile("etc/org.apache.cxf.osgi.cfg", new File("src/main/config/org.apache.cxf.osgi.cfg")),
+				KarafDistributionOption.replaceConfigurationFile("etc/org.ops4j.pax.web.cfg", new File("src/main/config/org.ops4j.pax.web.cfg")),
+				
 				// Camel Intermediary dependencies
 				KarafDistributionOption.features(karafCamelFeature, "camel"),
 				KarafDistributionOption.features(karafCamelFeature, "camel-cxf"),
@@ -142,7 +144,7 @@ public class ArrestReportingServiceTest extends AbstractPaxExamIntegrationTest {
 		
 		log.info("Arrest Reporting Service Endpoint: " + arrestServiceAddress);
 
-		assertEquals("https://localhost:18022/OJB/ArrestReportingService", arrestServiceAddress);
+		assertEquals("/intermediary/ArrestReportingService", arrestServiceAddress);
 	}
 
 	private static final class ContextListener implements OsgiBundleApplicationContextListener {

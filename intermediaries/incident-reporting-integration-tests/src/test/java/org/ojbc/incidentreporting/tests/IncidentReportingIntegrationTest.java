@@ -120,7 +120,9 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 
 				KarafDistributionOption.replaceConfigurationFile("etc/org.ops4j.pax.url.mvn.cfg", new File("src/main/config/org.ops4j.pax.url.mvn.cfg")),
 				KarafDistributionOption.replaceConfigurationFile("etc/ojbc.context.services.cfg", new File("src/main/config/ojbc.context.services.cfg")),
-
+				KarafDistributionOption.replaceConfigurationFile("etc/org.apache.cxf.osgi.cfg", new File("src/main/config/org.apache.cxf.osgi.cfg")),
+				KarafDistributionOption.replaceConfigurationFile("etc/org.ops4j.pax.web.cfg", new File("src/main/config/org.ops4j.pax.web.cfg")),
+				
 				// Camel dependencies
 				KarafDistributionOption.features(karafCamelFeature, "camel"),
 				KarafDistributionOption.features(karafCamelFeature, "camel-cxf"),
@@ -209,7 +211,7 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 		
 		log.info("Arrest Reporting Service Endpoint: " + arrestServiceAddress);
 
-		assertEquals("https://localhost:18022/OJB/ArrestReportingService", arrestServiceAddress);
+		assertEquals("/intermediary/ArrestReportingService", arrestServiceAddress);
 		
 		//Test startup of Incident Reporting Service by getting the web service endpoint
 		CxfEndpoint incidentReportingServiceEndpoint = incidentReportingBundleContext.getBean("incidentReportingServiceEndpoint", CxfEndpoint.class);
@@ -219,7 +221,7 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 		
 		log.info("Incident Reporting Service Endpoint: " + incidentServiceAddress);
 
-		assertEquals("https://localhost:18020/OJB/IncidentReportingService", incidentServiceAddress);
+		assertEquals("/intermediary/IncidentReportingService", incidentServiceAddress);
 
 		//Test startup of Ndex Submission Service by getting the web service endpoint
 		CxfEndpoint ndexSubmissionServiceEndpoint = ndexBundleContext.getBean("ndexWebserviceFacadeEndpoint", CxfEndpoint.class);
@@ -229,7 +231,7 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 		
 		log.info("N-DEx Submission Service Endpoint: " + ndexSubmissionAddress);
 
-		assertEquals("https://localhost:18051/OJB/N-DexSubmissionService", ndexSubmissionAddress);
+		assertEquals("/intermediary/N-DexSubmissionService", ndexSubmissionAddress);
 	
 		//Subscription Notification
 		CxfEndpoint notificationBrokerServiceEndpoint = notificationBrokerBundleContext.getBean("notificationBrokerService", CxfEndpoint.class);
