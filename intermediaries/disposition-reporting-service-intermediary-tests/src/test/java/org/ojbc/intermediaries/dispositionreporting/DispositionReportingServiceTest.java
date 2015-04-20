@@ -97,7 +97,7 @@ public class DispositionReportingServiceTest extends AbstractPaxExamIntegrationT
 
 				//Bump up RAM and PermGen to support SSPs
 				CoreOptions.vmOptions("-Xmx1G", "-XX:MaxPermSize=128M"),
-				KarafDistributionOption.debugConfiguration("8899", true),
+				//KarafDistributionOption.debugConfiguration("8899", true),
 
 				karafDistributionConfiguration().frameworkUrl(karafUrl).karafVersion(KARAF_VERSION).name("Apache Karaf").unpackDirectory(new File("target/exam")).useDeployFolder(false),
 
@@ -106,6 +106,8 @@ public class DispositionReportingServiceTest extends AbstractPaxExamIntegrationT
 				logLevel(LogLevel.INFO),
 
 				KarafDistributionOption.replaceConfigurationFile("etc/org.ops4j.pax.url.mvn.cfg", new File("src/main/config/org.ops4j.pax.url.mvn.cfg")),
+                KarafDistributionOption.replaceConfigurationFile("etc/org.apache.cxf.osgi.cfg", new File("src/main/config/org.apache.cxf.osgi.cfg")),
+                KarafDistributionOption.replaceConfigurationFile("etc/org.ops4j.pax.web.cfg", new File("src/main/config/org.ops4j.pax.web.cfg")),
 
 				// Camel dependencies
 				KarafDistributionOption.features(karafCamelFeature, "camel"),
@@ -183,7 +185,7 @@ public class DispositionReportingServiceTest extends AbstractPaxExamIntegrationT
 		
 		log.info("Disposition Reporting Service Endpoint: " + dispositionServiceAddress);
 
-		assertEquals("https://localhost:18200/OJB/DispositionReportingService", dispositionServiceAddress);
+		assertEquals("/intermediary/DispositionReportingService", dispositionServiceAddress);
 		
         //Test startup of Disposition Reporting Adapter Service by getting the web service endpoint
         CxfEndpoint dispositionReportingServiceAdpater = 
