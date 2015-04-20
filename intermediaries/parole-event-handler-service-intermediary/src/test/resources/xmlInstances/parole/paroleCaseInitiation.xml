@@ -17,7 +17,6 @@
 
 -->
 <p:ParoleCaseInitiation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0 ../../../../../../OJB_Resources_Vermont/src/main/resources/service-specifications/Parole_Event_Handler_Service/schema/information/Parole_Case-IEPD/xsd/Parole_Case_Initiation.xsd"
 	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:Q2="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"

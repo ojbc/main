@@ -25,8 +25,12 @@ import org.apache.camel.component.http.HttpClientConfigurer;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.contrib.ssl.AuthSSLProtocolSocketFactory;
 import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class OJBHttpClientConfigurer implements HttpClientConfigurer {
+	
+	private static final Log log = LogFactory.getLog(OJBHttpClientConfigurer.class);
 	
 	private String keystoreLocation;
 	
@@ -52,18 +56,9 @@ public class OJBHttpClientConfigurer implements HttpClientConfigurer {
 							new URL(
 									"file:" + truststoreLocation),
 							truststorePassword), 443);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (GeneralSecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			log.error("Unable to set up keystore and/or truststore for HTTPS connection");
 		}
-
-		
 		
 		Protocol.registerProtocol("https", authhttps);
 
