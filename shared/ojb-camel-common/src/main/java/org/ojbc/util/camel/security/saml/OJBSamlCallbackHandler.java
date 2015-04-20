@@ -39,8 +39,6 @@ import org.w3c.dom.Element;
  * 
  * @see http://cxf.547215.n5.nabble.com/WS-Security-Policy-with-Existing-SAML-Token-tc5720608.html
  * 
- * @author yogeshchawla
- *
  */
 public class OJBSamlCallbackHandler implements CallbackHandler{
 
@@ -76,7 +74,7 @@ public class OJBSamlCallbackHandler implements CallbackHandler{
 				callback.setAssertionElement(assertionElement);
 				
 				//Remove SAML token from map, it is only needed once
-				//TODO: We need code to determine how many endpoints to call and allow the SAML token to be retrieved that many times
+				//TODO: We need a way to determine how many endpoints to call and allow the SAML token to be retrieved that many times
 				//OJBSamlMap.removeToken(tokenID);
 
 			}
