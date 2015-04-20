@@ -327,8 +327,11 @@ public class TestStaticMockAdapter {
         } else {
             actualResponse = (Document) body;
         }
-        //XmlUtils.printNode(actualResponse);
+        XmlUtils.printNode(actualResponse);
         assertEquals(p.expectedResultCount, XmlUtils.xPathNodeListSearch(actualResponse, p.resultObjectXPath).getLength());
+        
+        context.stop();
+        
         return actualResponse;
     }
 
