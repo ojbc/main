@@ -19,8 +19,6 @@ package org.ojbc.bundles.intermediaries.ndex;
 import static org.junit.Assert.assertTrue;
 
 import javax.annotation.Resource;
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
@@ -30,21 +28,18 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.binding.soap.SoapHeader;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml",		
 		"classpath:META-INF/spring/properties-context.xml",
+		"classpath:META-INF/spring/jetty-server.xml",
 		"classpath:META-INF/spring/error-handlers.xml"
 		})
 public class NdexSubmissionServiceCamelContextTest {
@@ -79,23 +74,6 @@ public class NdexSubmissionServiceCamelContextTest {
 	@Test
 	public void contextStartup() {
 		assertTrue(true);
-	}
-
-	
-	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
-		Element messageId = doc.createElementNS(namespace, localName);
-		messageId.setTextContent(value);
-		SoapHeader soapHeader = new SoapHeader(new QName(namespace, localName), messageId);
-		return soapHeader;
-	}		
-	
-	public static Document createDocument() throws Exception{
-
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		dbf.setNamespaceAware(true);
-		Document doc = dbf.newDocumentBuilder().newDocument();
-
-		return doc;
 	}
 	
 }

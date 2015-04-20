@@ -56,6 +56,7 @@ import org.w3c.dom.Element;
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml",		
 		"classpath:META-INF/spring/properties-context.xml",
+		"classpath:META-INF/spring/jetty-server.xml",
 		"classpath:META-INF/spring/dao.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"		

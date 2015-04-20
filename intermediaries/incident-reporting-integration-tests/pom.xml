@@ -22,7 +22,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>incident-reporting-integration-tests</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
