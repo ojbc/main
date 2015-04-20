@@ -30,7 +30,7 @@
 		<property name="propertiesArray">
 			<array>
 				<util:properties>
-					<prop key="dispositionReporting.dispositionReportingServiceEndpoint">https://localhost:18200/OJB/DispositionReportingService</prop>
+					<prop key="dispositionReporting.dispositionReportingServiceEndpoint">https://localhost:8443/OJB/intermediary/DispositionReportingService</prop>
 					<prop key="dispositionReporting.ConnectorFileDirectory">/tmp/ojb/connector/dispositionReporting</prop>
 					<prop key="dispositionReporting.deleteInputFiles">false</prop>
 					<prop key="dispositionReporting.truststorePassword">demo-connector-truststore</prop>

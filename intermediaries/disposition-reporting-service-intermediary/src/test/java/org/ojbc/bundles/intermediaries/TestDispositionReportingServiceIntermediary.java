@@ -56,10 +56,12 @@ import org.w3c.dom.Node;
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/camel-context.xml", 
 		"classpath:META-INF/spring/cxf-endpoints.xml",
+		"classpath:META-INF/spring/jetty-server.xml",
 		"classpath:META-INF/spring/properties-context.xml"}) 
 public class TestDispositionReportingServiceIntermediary {
 	
-	private static final Log log = LogFactory.getLog( TestDispositionReportingServiceIntermediary.class );
+	@SuppressWarnings("unused")
+    private static final Log log = LogFactory.getLog( TestDispositionReportingServiceIntermediary.class );
 	
 	public static final String CXF_OPERATION_NAME = "ReportDisposition";
 	public static final String CXF_OPERATION_NAMESPACE = "http://ojbc.org/Services/WSDL/DispositionReportingService/1.0";
