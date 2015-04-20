@@ -314,7 +314,7 @@
 							org.ojbc.bundles.shared.ojb-resources-common,
 						</Require-Bundle>
 						<Bundle-Activator>org.apache.camel.impl.osgi.Activator</Bundle-Activator>
-						<Bundle-Name>${project.name} built for: ${maven-build-ojbc-member} | ${maven-build-ojbc-location} | ${maven-build-ojbc-environment}</Bundle-Name>
+						<Bundle-Name>${project.name}</Bundle-Name>
 					</instructions>
 				</configuration>
 			</plugin>
