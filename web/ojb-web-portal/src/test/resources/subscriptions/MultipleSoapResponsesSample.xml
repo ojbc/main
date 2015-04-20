@@ -110,7 +110,7 @@
 						wsu:Id="STR-84977F38C864904FB01406660864548152">
 						<ds:X509Data>
 							<ds:X509IssuerSerial>
-								<ds:X509IssuerName>CN=hijis-intermediary,OU=OJBC,O=SEARCH,L=Sacramento,ST=California,C=US
+								<ds:X509IssuerName>CN=demo-intermediary,OU=OJBC,O=SEARCH,L=Sacramento,ST=California,C=US
 								</ds:X509IssuerName>
 								<ds:X509SerialNumber>12690367016057586085</ds:X509SerialNumber>
 							</ds:X509IssuerSerial>
