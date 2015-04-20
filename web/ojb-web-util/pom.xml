@@ -27,6 +27,12 @@
 
     <name>ojb-web-util</name>
 
+    <parent>
+      <groupId>org.ojbc.build</groupId>
+      <artifactId>ojb-web-aggregate</artifactId>
+      <version>1.0.0</version>
+    </parent>
+
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
