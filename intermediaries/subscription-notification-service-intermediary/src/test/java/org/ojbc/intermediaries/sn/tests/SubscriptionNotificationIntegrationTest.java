@@ -105,12 +105,6 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSubscribe.xml");
 	}
-
-	@Test
-	@Ignore("We need to figure out how to test transaction code by throwing exception after 1 of the 3 inserts and confirm rollback.")
-	public void subscribeArrest_invalidTestTransaction() throws Exception {
-		//TODO: We need to figure out how to test transaction code by throwing exception after 1 of the 3 inserts and confirm rollback.
-	}
 	
 	@Test
 	public void subscribeArrest_alreadyExistsButInactive() throws Exception {
