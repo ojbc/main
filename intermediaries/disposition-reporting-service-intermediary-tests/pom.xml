@@ -22,7 +22,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
-	<artifactId>disposition-reporting-service-intermediary-hawaii-tests</artifactId>
+	<artifactId>disposition-reporting-service-intermediary-tests</artifactId>
 	<version>1.0.1</version>
 
 	<parent>
