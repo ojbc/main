@@ -17,7 +17,6 @@
 
 -->
 <ParoleCaseTermination xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0 ../../../../../../OJB_Resources_Vermont/src/main/resources/service-specifications/Parole_Event_Handler_Service/schema/information/Parole_Case-IEPD/xsd/Parole_Case_Termination.xsd"
  xmlns="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0">
 	<ParoleCase xmlns="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0">
 		<ParoleeIdentity xmlns:NS1="http://niem.gov/niem/structures/2.0"

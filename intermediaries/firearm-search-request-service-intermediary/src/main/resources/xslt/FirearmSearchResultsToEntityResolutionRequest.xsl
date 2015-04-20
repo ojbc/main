@@ -26,9 +26,7 @@
     xmlns:s="http://niem.gov/niem/structures/2.0"
     xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
     xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-    xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
     xmlns:firearm-search-resp-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
-    xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
     xmlns:firearm-search-resp-doc="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
     exclude-result-prefixes="xs"
     version="2.0">
