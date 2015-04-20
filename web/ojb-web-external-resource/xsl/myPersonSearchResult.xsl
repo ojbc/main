@@ -71,7 +71,7 @@
 		    				<th>DOB</th>
 		    				<th>TYPE</th>
 		    				<th>SYSTEM</th>
-		    				<th class="buttonColumn"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+		    				<th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
 		    			</tr>
 	    			</thead>
 	    			<tbody>
@@ -151,61 +151,24 @@
                 <td ><xsl:value-of select="$person/nc:PersonSexCode" /></td>
                 <td><xsl:value-of select="$person/nc:PersonRaceCode" /></td>
                 <td>
-                	<xsl:if test="$person/nc:PersonBirthDate/nc:Date[. != '']">
-	                    <xsl:call-template name="formatDate">
-							<xsl:with-param name="date" select="$person/nc:PersonBirthDate/nc:Date" />
-						</xsl:call-template>
-					</xsl:if>
-                    
+                	<xsl:apply-templates select="$person/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
                 </td>
                 <td ><xsl:value-of select="ext1:SearchResultCategoryText" /></td>
                 <td ><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
 
                 
-                <td class="buttonColumn">
-                    <xsl:variable name="systemSource">
-	                    <xsl:choose>
-							
-							<!-- Hawaii -->
-	                        <xsl:when test="normalize-space(ext1:SourceSystemNameText) = '{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants'">
-	                            <xsl:text>{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants</xsl:text>
-	                        </xsl:when>
-	                        <xsl:when test="normalize-space(ext1:SourceSystemNameText) = '{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History'">
-	                            <xsl:text>{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History</xsl:text>
-	                        </xsl:when>
-
-	                        <!-- Maui -->
-	                        <xsl:when test="normalize-space(ext1:SourceSystemNameText) = '{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---FirearmsMaui'">
-	                            <xsl:text>{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByPerson-Maui</xsl:text>
-	                        </xsl:when>
-
-							<!-- Vermont -->
-	                        <xsl:when test="normalize-space(ext1:SourceSystemNameText) = '{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-DPS'">
-	                            <xsl:text>{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-DPS</xsl:text>
-	                        </xsl:when>
-	                        <xsl:when test="normalize-space(ext1:SourceSystemNameText) = '{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Burlington'">
-	                            <xsl:text>{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-Burlington</xsl:text>
-	                        </xsl:when>
-							
-							<!-- Demostate -->
-	                        <xsl:when test="normalize-space(ext1:SourceSystemNameText) = '{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms'">
-	                            <xsl:text>{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByPerson</xsl:text>
-	                        </xsl:when>
-	                        
-	                        <xsl:when test="normalize-space(ext1:SourceSystemNameText) = '{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS'">
-	                            <xsl:text>{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS</xsl:text>
-	                        </xsl:when>
-	                        
-	                    </xsl:choose>
-                    </xsl:variable>
-                    <a href="{concat('../people/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf)}" 
+                <td class="hidden">
+                    <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
+                    <xsl:variable name="queryType"><xsl:text>Person</xsl:text></xsl:variable>
+                    <a href="{concat('../people/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType)}" 
                         class="blueButton viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('personalInformation-',$personId)}"
                         >DETAILS</a>
                     
                     
-                        <xsl:if test="starts-with($systemSource,'{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest')">
+                        <xsl:if test="starts-with($systemSource,'{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest') 
+                            and not(ends-with($systemSource, 'JuvenileHistory'))">
                             <div style="display:none" id="{concat('personalInformation-',$personId)}">
                                 <xsl:call-template name="personInformationDetail">
                                     <xsl:with-param name="personSearchResult" select="." />
@@ -230,8 +193,7 @@
                             <td><xsl:value-of select="concat($personSearchResult/ext1:Person/nc:PersonName/nc:PersonGivenName,' ', $personSearchResult/ext1:Person/nc:PersonName/nc:PersonMiddleName, ' ', $personSearchResult/ext1:Person/nc:PersonName/nc:PersonSurName)" /></td>
                             <td class="detailsLabel">DOB</td>
                             <td>
-                                <xsl:variable name="dateOfBirth" select="$personSearchResult/ext1:Person/nc:PersonBirthDate/nc:Date"/>
-                                <xsl:value-of select="concat(substring($dateOfBirth,6,2),'/',substring($dateOfBirth,9,2),'/',substring($dateOfBirth,3,2))"/>
+                            	<xsl:apply-templates select="$personSearchResult/ext1:Person/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"></xsl:apply-templates>
                             </td>
                         </tr>
                         <tr>

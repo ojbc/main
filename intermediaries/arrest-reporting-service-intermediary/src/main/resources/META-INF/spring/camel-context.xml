@@ -90,7 +90,7 @@
 		
 		<route id="callNotificationBrokerRoute">
             <from uri="direct:callNotificationBroker"/>
-            <log message="In state specific logic vermont" />
+            <log message="In notification broker route" />
 
 			<!-- Send to notification intermediary -->
 

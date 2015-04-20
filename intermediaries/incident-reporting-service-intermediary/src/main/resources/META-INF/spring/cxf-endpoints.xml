@@ -28,7 +28,6 @@
 	xmlns:http="http://cxf.apache.org/transports/http/configuration"
 	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
 	xmlns:policy="http://cxf.apache.org/policy" 
-	xmlns:maine="http://www.maine.gov/dps/msp/MaineIncidentReportNDEx"
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
 	xsi:schemaLocation="

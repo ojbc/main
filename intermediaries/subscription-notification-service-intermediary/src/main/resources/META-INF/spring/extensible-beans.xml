@@ -28,12 +28,6 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 
-	<!--
-	Will want to sub this for Vermont 
-	<bean id="notificationFilterStrategy" class="org.ojbc.intermediaries.sn.notification.filter.DuplicateNotificationFilterStrategy">
-		<property name="dataSource" ref="dataSource" />
-	</bean> -->
-	
 	<bean id="notificationFilterStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="notificationFilterStrategy" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
