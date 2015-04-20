@@ -32,7 +32,7 @@
 		<property name="propertiesArray">
 			<array>
 				<!-- The .cfg file from the classpath will be consulted first, followed 
-					by the optional .cfg file under $SERVICEMIX_HOME/etc -->
+					by the optional .cfg file under $KARAF_HOME/etc -->
 				<util:properties
 					location="classpath:static_mock_adapter.cfg" />
 			</array>

@@ -24,7 +24,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:cxf="http://camel.apache.org/schema/cxf" 
-	xmlns:maine="http://www.maine.gov/dps/msp/MaineIncidentReportNDEx"
 	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xsi:schemaLocation="
