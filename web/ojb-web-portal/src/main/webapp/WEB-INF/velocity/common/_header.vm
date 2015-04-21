@@ -35,7 +35,7 @@
         <script src="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.js"></script>
         <script src="#springUrl('/static/js/jquery.maskinput.js')"></script>
         <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
-        #if( $stateContext == 'demostate')
+        #if( $secondaryOptionsDisplay)
 			<script src="#springUrl('/static/js/secondaryOptionsDisplay.js')"></script>
 			<script src="#springUrl('/static/js/formValidation.js')"></script>
 		#end
