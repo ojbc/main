@@ -65,7 +65,6 @@ public class TestXmlUtils {
         // 2. Running it in a timezone that has a fractional hour offset (e.g., India, which is UTC+5:30)
         // 3. Running it at exactly the time of change to or from DST
         // If you run it at normal times of normal days in most timezones--including all timezones in the US--it should work fine.
-        // TODO: Make this test more robust
 
         assertDateValues(XmlUtils.parseXmlDateTime("2014-12-28T12:10:20"), 2014, 12, 28, 12, 10, 20, 0);
         assertDateValues(XmlUtils.parseXmlDateTime("2014-1-28T12:10:20"), 2014, 1, 28, 12, 10, 20, 0);
@@ -117,8 +116,6 @@ public class TestXmlUtils {
 
     @Test
     public void testParseXmlDate() {
-
-        // TODO: Make this test more robust
 
         assertNull(XmlUtils.parseXmlDate(null));
         assertNull(XmlUtils.parseXmlDate(""));

@@ -114,7 +114,7 @@ public class ArrestReportingServiceTest extends AbstractPaxExamIntegrationTest {
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-resources-common").start(),
 				
 				// Base intermediary
-				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("arrest-reporting-service-intermediary").version("1.0.0").start(),
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("arrest-reporting-service-intermediary").start(),
 
 		};
 	}
