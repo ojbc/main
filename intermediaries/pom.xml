@@ -32,7 +32,6 @@
   <modules>
     <module>arrest-reporting-service-intermediary</module>
     <module>criminal-history-update-reporting-service-intermediary</module>
-    <module>criminal-identification-reporting-service-intermediary</module>
     <module>disposition-reporting-service-intermediary</module>
     <module>firearm-registration-query-request-service-intermediary</module>
     <module>firearm-search-request-service-intermediary</module>
