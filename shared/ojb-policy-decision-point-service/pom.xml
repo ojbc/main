@@ -31,6 +31,12 @@
 	<name>OJB :: ojb-policy-decision-point-service :: shared</name>
 	<url>http://www.ojbc.org</url>
 
+	<parent>
+		<groupId>org.ojbc.build</groupId>
+	  <artifactId>ojb-shared-aggregate</artifactId>
+	  <version>1.0.0</version>
+	</parent>
+
 	<properties>
 		<camel-version>2.10.7</camel-version>
 		<slf4j-version>1.6.4</slf4j-version>
@@ -315,8 +321,8 @@
                       <enabled>true</enabled>
                       <updatePolicy>never</updatePolicy>
               </snapshots>
-         </repository>    
-    </repositories>	
+         </repository>
+    </repositories>
     <reporting>
 		<plugins>
 			<plugin>

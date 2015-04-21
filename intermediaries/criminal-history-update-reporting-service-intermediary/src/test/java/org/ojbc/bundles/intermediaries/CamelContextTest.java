@@ -192,16 +192,16 @@ public class CamelContextTest {
 		assertNotNull(messageNode);
 
 		//Get the first exchange (the only one) to the logger
-		//This is what would be sent to the member specific route
-		Exchange exMemberSpecific = loggingEndpoint.getExchanges().get(0);
+		//This is what would be sent to the implementation specific route
+		Exchange exImplementationSpecific = loggingEndpoint.getExchanges().get(0);
 
-		Document returnDocumentMemberSpecific = exMemberSpecific.getIn().getBody(Document.class);
+		Document returnDocumentImplementationSpecific = exImplementationSpecific.getIn().getBody(Document.class);
 
-		//Make sure the root node here is the message to the orignal exchange
-		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentMemberSpecific, "/crimhistory-update-exch:CycleTrackingIdentifierAssignmentReport");
+		//Make sure the root node here is the message to the original exchange
+		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentImplementationSpecific, "/crimhistory-update-exch:CycleTrackingIdentifierAssignmentReport");
 		assertNotNull(rootNode);
 
-		//XmlUtils.printNode(returnDocumentMemberSpecific);
+		//XmlUtils.printNode(returnDocumentImplementationSpecific);
     }
 
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {

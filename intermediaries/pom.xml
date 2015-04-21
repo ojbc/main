@@ -31,16 +31,12 @@
 
   <modules>
     <module>arrest-reporting-service-intermediary</module>
-    <module>arrest-reporting-service-intermediary-tests</module>
     <module>criminal-history-update-reporting-service-intermediary</module>
     <module>criminal-identification-reporting-service-intermediary</module>
     <module>disposition-reporting-service-intermediary</module>
-    <module>disposition-reporting-service-intermediary-tests</module>
-    <module>federated-query-integration-tests</module>
     <module>firearm-registration-query-request-service-intermediary</module>
     <module>firearm-search-request-service-intermediary</module>
     <module>incident-report-request-service-intermediary</module>
-    <module>incident-reporting-integration-tests</module>
     <module>incident-reporting-service-intermediary-common</module>
     <module>incident-reporting-service-intermediary</module>
     <module>incident-search-request-service-intermediary</module>
@@ -55,5 +51,9 @@
     <module>subscription-notification-service-intermediary-common</module>
     <module>subscription-notification-service-intermediary</module>
     <module>vehicle-search-request-service-intermediary</module>
+    <module>arrest-reporting-service-intermediary-tests</module>
+    <module>disposition-reporting-service-intermediary-tests</module>
+    <module>incident-reporting-integration-tests</module>
+    <module>federated-query-integration-tests</module>
   </modules>
 </project>
