@@ -19,7 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.camel.processor.MessageProcessor;
-import org.ojbc.util.camel.processor.SimpleMessageProcessor;
 import org.ojbc.util.camel.processor.SystemNameToTopicExpressionMapper;
 import org.ojbc.util.osgi.OjbcContext;
 import org.ojbc.util.osgi.test.AbstractPaxExamIntegrationTest;
@@ -63,10 +62,6 @@ public class SubscriptionNotificationIntegrationTest extends AbstractPaxExamInte
 	private OjbcContext probationEventHandlerContext;
 	
 	@Inject
-	@Filter(value = "(org.springframework.osgi.bean.name=org.ojbc.bundles.intermediaries.criminal-identification-reporting-service-intermediary-context)", timeout = 40000)
-	private OjbcContext criminalIdentificationReportingContext;
-	
-	@Inject
 	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.utilities.h2-mock-database)", timeout = 20000)
 	private ApplicationContext h2MockBundleApplicationContext;
 
@@ -81,10 +76,6 @@ public class SubscriptionNotificationIntegrationTest extends AbstractPaxExamInte
 	@Inject
 	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.probation-event-handler-service-intermediary)", timeout = 20000)
 	private ApplicationContext probationEventHandlerBundleContext;
-	
-	@Inject
-	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.criminal-identification-reporting-service-intermediary)", timeout = 20000)
-	private ApplicationContext criminalIdentificationReportingBundleContext;
 	
 	@Configuration
 	public Option[] config() {
@@ -146,7 +137,6 @@ public class SubscriptionNotificationIntegrationTest extends AbstractPaxExamInte
 
 				// Base intermediary
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary").start(),
-				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("criminal-identification-reporting-service-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("probation-event-handler-service-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("parole-event-handler-service-intermediary").start(),
 
@@ -165,12 +155,10 @@ public class SubscriptionNotificationIntegrationTest extends AbstractPaxExamInte
 		assertNotNull(ojbcContext);
 		assertNotNull(paroleEventHandlerContext);
 		assertNotNull(probationEventHandlerContext);
-		assertNotNull(criminalIdentificationReportingContext);
 		assertNotNull(h2MockBundleApplicationContext);
 		assertNotNull(mainBundleContext);
 		assertNotNull(paroleEventHandlerBundleContext);
 		assertNotNull(probationEventHandlerBundleContext);
-		assertNotNull(criminalIdentificationReportingBundleContext);
 		System.err.println(executeCommand("osgi:list -t 1", 20000L, false));
 	}
 	
@@ -210,20 +198,6 @@ public class SubscriptionNotificationIntegrationTest extends AbstractPaxExamInte
                 org.ojbc.util.camel.processor.SystemNameToTopicExpressionMapper.class);
         
         assertEquals(2, systemNameToTopicExpressionMapper.getSystemNameToTopicMap().size());
-
-        //Criminal Identification Reporting up. 
-        CxfEndpoint notificationBrokerServiceCalledByCIR = criminalIdentificationReportingBundleContext.getBean("notificationBrokerService", CxfEndpoint.class);
-        assertNotNull(notificationBrokerServiceCalledByCIR);
-        
-        String notificationBrokerServiceAddressCalledByCIR = notificationBrokerServiceCalledByCIR.getAddress();
-        assertEquals(notificationBrokerEndpointAddress, notificationBrokerServiceAddressCalledByCIR);
-        
-        
-        SimpleMessageProcessor messageProcessor = criminalIdentificationReportingBundleContext.getBean("messageProcessor", 
-                org.ojbc.util.camel.processor.SimpleMessageProcessor.class);
-        
-        assertNotNull(messageProcessor);
-        
 
 	}
 
