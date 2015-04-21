@@ -363,7 +363,7 @@ public class FederatedQueryIntegrationTest extends AbstractPaxExamIntegrationTes
 		assertNotNull(juvenileCasePlanHistoryRequestFederatedService);
 		
 		String juvenileCasePlanHistoryRequestFederatedServiceAddress = juvenileCasePlanHistoryRequestFederatedService.getAddress();
-		assertEquals(juvenileCasePlanHistoryRequestFederatedServiceAddress,"https://0.0.0.0:18605/OJB/Intermediary/CasePlanHistoryRequestService");
+		assertEquals(juvenileCasePlanHistoryRequestFederatedServiceAddress,"/intermediary/CasePlanHistoryRequestService");
 		
 		log.info("Juvenile Query Federated Endpoint: " + juvenileCasePlanHistoryRequestFederatedService);
 		
