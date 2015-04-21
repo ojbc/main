@@ -30,7 +30,7 @@ public class GlobalControllerAdvice {
     @Value("${themePath:/static/css/style.css}")
     String themePath;
     
-    @Value("${secondaryOptionsDisplay}")
+    @Value("${secondaryOptionsDisplay:false}")
     Boolean secondaryOptionsDisplay;
 
     @ModelAttribute
