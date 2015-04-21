@@ -22,7 +22,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>policy-acknowledgement-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
@@ -30,6 +30,12 @@
 
 	<name>OJB :: policy-acknowledgement-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
+
+	<parent>
+		<groupId>org.ojbc.build</groupId>
+		<artifactId>ojb-intermediaries-aggregate</artifactId>
+		<version>1.0.0</version>
+	</parent>
 
 	<properties>
 		<camel-version>2.10.7</camel-version>
@@ -220,7 +226,7 @@
 		</dependency>
 <!--The following two dependencies are useful to test mySQL configs locally -->
 <!--
- 
+
 <dependency>
 	<groupId>commons-dbcp</groupId>
 	<artifactId>commons-dbcp</artifactId>
