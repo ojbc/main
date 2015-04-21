@@ -42,8 +42,6 @@ import org.w3c.dom.Element;
 @Controller
 @SessionAttributes({"samlAssertion"})
 public class ErrorController {
-    @Value("${memberContext}")
-    String stateContext;
 
     @Value("${policy.url.username:}")
     String policyUrlUserName;
@@ -119,9 +117,4 @@ public class ErrorController {
         return "redirect:/portal/index";
     }
 	
-    @ModelAttribute("stateContext")
-    public String getStateContext() {
-        return stateContext;
-    }
-     
 }

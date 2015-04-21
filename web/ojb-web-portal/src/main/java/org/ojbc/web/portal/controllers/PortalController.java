@@ -96,9 +96,6 @@ public class PortalController implements ApplicationContextAware {
 	
 	private ApplicationContext applicationContext;
 	
-	@Value("${memberContext}")
-	String stateContext;
-	
 	@Value("${sensitiveInfoAlert:false}")
 	Boolean sensitiveInfoAlert;
 	
@@ -354,11 +351,6 @@ public class PortalController implements ApplicationContextAware {
 			e.printStackTrace();
 		}
 		return userLogonInfo;
-	}
-
-	@ModelAttribute("stateContext")
-	public String getStateContext() {
-		return stateContext;
 	}
 
 	@ModelAttribute("sensitiveInfoAlert")

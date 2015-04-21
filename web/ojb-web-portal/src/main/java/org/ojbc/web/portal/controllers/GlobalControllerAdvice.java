@@ -29,10 +29,14 @@ public class GlobalControllerAdvice {
 
     @Value("${themePath:/static/css/style.css}")
     String themePath;
+    
+    @Value("${secondaryOptionsDisplay}")
+    Boolean secondaryOptionsDisplay;
 
     @ModelAttribute
     public void setupModelAttributes(Model model) {
         model.addAttribute("bannerPath", bannerPath);
         model.addAttribute("themePath", themePath);
+        model.addAttribute("secondaryOptionsDisplay", secondaryOptionsDisplay);
     }
 }
