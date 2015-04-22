@@ -116,7 +116,6 @@ public class OjbAdaptersIntegrationTest extends AbstractPaxExamIntegrationTest {
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-camel-common").start(),
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-common").start(),				
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-resources-common").start(),
-				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-valcour-common").start(),				
 				mavenBundle().groupId("org.ojbc.bundles.utilities").artifactId("h2-mock-database").start(),
 				
 				mavenBundle().groupId("org.ojbc.bundles.adapters").artifactId("n-dex-submission-service").start(),
