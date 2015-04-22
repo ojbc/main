@@ -28,7 +28,11 @@ import static org.ops4j.pax.tinybundles.core.TinyBundles.bundle;
 import static org.ops4j.pax.tinybundles.core.TinyBundles.withBnd;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Collection;
 
 import javax.inject.Inject;
@@ -142,13 +146,23 @@ public class DispositionReportingServiceTest extends AbstractPaxExamIntegrationT
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("disposition-reporting-service-intermediary").start(),
 				
                 provision(bundle().
-                        add("META-INF/spring/camel-context.xml", getClass().getResource("/META-INF/spring/camel-context.xml")).
-                        add("META-INF/spring/cxf-endpoints.xml", getClass().getResource("/META-INF/spring/cxf-endpoints.xml")).
-                        add("META-INF/spring/properties-context.xml", getClass().getResource("/META-INF/spring/properties-context.xml")).
+                        add("META-INF/spring/camel-context.xml", getContextFile("src/main/resources/META-INF/spring/camel-context.xml")).
+                        add("META-INF/spring/cxf-endpoints.xml", getContextFile("src/main/resources/META-INF/spring/cxf-endpoints.xml")).
+                        add("META-INF/spring/properties-context.xml", getContextFile("src/main/resources/META-INF/spring/properties-context.xml")).
                         set(Constants.DYNAMICIMPORT_PACKAGE, "*").
                         set(Constants.BUNDLE_SYMBOLICNAME, "connector-adapter-context-bundle").
                         build(withBnd()))
 		};
+	}
+
+	private InputStream getContextFile(String fileName) {
+		InputStream in =null;
+		try {
+			in = new FileInputStream(new File(fileName));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}	
+		return in;
 	}
 
 	@Before
