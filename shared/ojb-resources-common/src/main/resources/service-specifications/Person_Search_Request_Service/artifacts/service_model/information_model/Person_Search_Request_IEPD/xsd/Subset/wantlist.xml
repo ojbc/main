@@ -5042,7 +5042,7 @@
   <w:Type w:name="nc:ActivityType" w:isRequested="true"/>
   <w:Type w:name="nc:AddressType" w:isRequested="false">
     <w:ElementInType w:name="nc:AddressRepresentation"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="nc:DateRangeType" w:isRequested="true">
     <w:ElementInType w:name="nc:StartDate" w:isReference="false"
@@ -5052,7 +5052,7 @@
   </w:Type>
   <w:Type w:name="nc:DateType" w:isRequested="true">
     <w:ElementInType w:name="nc:DateRepresentation"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="nc:DriverLicenseBaseType" w:isRequested="true">
     <w:ElementInType w:name="nc:DriverLicenseIdentification"
@@ -5071,7 +5071,7 @@
   </w:Type>
   <w:Type w:name="nc:LocationType" w:isRequested="false">
     <w:ElementInType w:name="nc:LocationAddress" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
+      w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="nc:MeasureRangeValueType" w:isRequested="false">
     <w:ElementInType w:name="nc:RangeMinimumValue" w:isReference="false"
@@ -5081,14 +5081,14 @@
   </w:Type>
   <w:Type w:name="nc:MeasureType" w:isRequested="false">
     <w:ElementInType w:name="nc:MeasureValue" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
+      w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="nc:MetadataType" w:isRequested="true"/>
   <w:Type w:name="nc:PersonLocationAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Person" w:isReference="true"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:Location" w:isReference="true"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
+      w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="nc:PersonNameTextType" w:isRequested="true"/>
   <w:Type w:name="nc:PersonNameType" w:isRequested="true">
@@ -5107,19 +5107,19 @@
     <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:PersonEyeColor" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
+      w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:PersonHairColor" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
+      w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:PersonHeightMeasure"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:PersonName" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
+      w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:PersonOtherIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonRace" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
+      w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:PersonSex" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
+      w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:PersonSSNIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:PersonStateIdentification"
