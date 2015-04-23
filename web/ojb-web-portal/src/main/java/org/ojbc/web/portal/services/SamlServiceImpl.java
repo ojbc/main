@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.portal.services;
 
+import static org.ojbc.web.security.SecurityContextUtils.getSamlToken;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -36,22 +38,22 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+
 @Service("samlService")
 public class SamlServiceImpl implements SamlService{
 	
 	private static final Log LOG = LogFactory.getLog(SamlServiceImpl.class);
 	
 	public Element getSamlAssertion(HttpServletRequest request) {
-		// Note: This method currently gets a new SAML assertion every time it is called. In the future we may want to cache the
-		// assertions and only get a new one if the cached one is expired.
-		Element assertion = null;
+		Element assertion = getSamlToken();
 		
-		try {
-			assertion = retrieveAssertionFromShibboleth(request);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+	    if (assertion == null) {
+    		try {
+    			assertion = retrieveAssertionFromShibboleth(request);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+	    }
 		return assertion;
 	}
 	
