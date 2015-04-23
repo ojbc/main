@@ -27,5 +27,6 @@ public class OJBCWebServiceURIs {
 	public static final String PERSON_TO_INCIDENT ="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest";
 	public static final String VEHICLE_TO_INCIDENT = "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest";
 	public static final String JUVENILE_HISTORY = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory";
+	public static final String JUVENILE_HISTORY_SEARCH = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory";
 	
 }

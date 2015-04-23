@@ -179,7 +179,8 @@ public class PeopleControllerTest {
 		return newPersonSearchRequest;
 	}
 
-	@Test
+	@SuppressWarnings("unchecked")
+    @Test
 	public void advanceSearchSuccess() throws Exception {
 		PersonSearchRequest advanceSearch = new PersonSearchRequest();
 		personSearchCommand.setAdvanceSearch(advanceSearch);
@@ -279,7 +280,8 @@ public class PeopleControllerTest {
 		
 	}
 
-	@Test
+	@SuppressWarnings("unchecked")
+    @Test
 	public void simpleSearchSuccess() throws Exception {
 		PersonSearchRequest personSearchRequest = new PersonSearchRequest();
 		when(simpleSearchParser.validateAndParseSimpleSearch(personSearchCommand, errors)).thenReturn(

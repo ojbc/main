@@ -58,7 +58,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @RequestMapping("/people/*")
-@SessionAttributes({"personSearchCommand"})
+@SessionAttributes({"personSearchCommand", "juvenileHistoryDetailResponses"})
 public class PeopleController {
 	public static final String PAGINATE_URL = "../people/paginate";
 
@@ -329,12 +329,37 @@ public class PeopleController {
 
 	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
 			throws Exception {
-		
-		String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), 
+		if (detailsRequest.isJuvenileDetailRequest() ) {
+		    String convertedContent = null; 
+		    PersonSearchDetailResponses juvenileHistoryDetailResponses = 
+		            (PersonSearchDetailResponses) model.get("juvenileHistoryDetailResponses"); 
+		    if (juvenileHistoryDetailResponses != null) {
+		        convertedContent = juvenileHistoryDetailResponses.getDetailResponse(detailsRequest); 
+		    }
+		    else {
+		        juvenileHistoryDetailResponses = new PersonSearchDetailResponses(detailsRequest); 
+		    }
+		    
+		    if (convertedContent == null) {
+		        convertedContent = getDetailResultViaWebService(systemName, detailsRequest); 
+		        juvenileHistoryDetailResponses.cacheDetailResponse(detailsRequest, convertedContent);
+		        model.put("juvenileHistoryDetailResponses", juvenileHistoryDetailResponses);
+		    }
+		    
+            model.put("searchContent", convertedContent); 
+		}
+		else {
+    		model.put("searchContent", getDetailResultViaWebService(systemName, detailsRequest));
+		}
+	}
+
+
+    private String getDetailResultViaWebService(String systemName, DetailsRequest detailsRequest) throws Exception {
+        String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), 
 		        (Element)getSamlToken());
 		String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName);
-		model.put("searchContent", convertedContent);
-	}
+        return convertedContent;
+    }
 
 	private Map<String, Object> getParams(String purpose, String onBehalfOf) {
 		Map<String, Object> params = new HashMap<String, Object>();
