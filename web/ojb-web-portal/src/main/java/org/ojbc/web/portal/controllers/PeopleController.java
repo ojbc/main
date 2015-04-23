@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import static org.ojbc.web.security.SecurityContextUtils.getSamlToken;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -41,7 +43,6 @@ import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.PersonFilterCommandValidator;
 import org.ojbc.web.portal.validators.PersonSearchCommandValidator;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,6 +54,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
+
 
 @Controller
 @RequestMapping("/people/*")
@@ -333,14 +335,6 @@ public class PeopleController {
 		String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName);
 		model.put("searchContent", convertedContent);
 	}
-
-    private Element getSamlToken() {
-        
-        if (SecurityContextHolder.getContext().getAuthentication() != null) {
-            return (Element) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-        }
-        return null;
-    }
 
 	private Map<String, Object> getParams(String purpose, String onBehalfOf) {
 		Map<String, Object> params = new HashMap<String, Object>();

@@ -163,28 +163,28 @@ public class PortalController implements ApplicationContextAware {
 		visibleProfileStateMap.put("disabled", false);
 	}
 
-        @RequestMapping("landingPage")
-        public String landingPage(){
+    @RequestMapping("landingPage")
+    public String landingPage(){
 	    return "portal/landingPage";
 	}
 
-        @RequestMapping("helpPage")
-        public String helpPage(){
+    @RequestMapping("helpPage")
+    public String helpPage(){
 	    return "portal/helpPage";
 	}
 
-        @RequestMapping("faq")
-        public String faq(){
+    @RequestMapping("faq")
+    public String faq(){
 	    return "portal/faq";
 	}
 
-        @RequestMapping("suggestionForm")
-        public String suggestionForm(){
+    @RequestMapping("suggestionForm")
+    public String suggestionForm(){
 	    return "portal/suggestionForm";
 	}
 	
-        @RequestMapping("index")
-        public void index(HttpServletRequest request, Map<String, Object> model){
+    @RequestMapping("index")
+    public void index(HttpServletRequest request, Map<String, Object> model){
 
 		// To pull something from the header you want something like this
 		// String header = request.getHeader("currentUserName");
