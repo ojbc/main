@@ -37,8 +37,8 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="intel:SystemName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="intel:SystemName" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>

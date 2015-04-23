@@ -1,5 +1,5 @@
 # OJBC main repo
-This is the main repository for the [Open Justice Broker Consortium (OJBC)](http://www.ojbc.org), which contains open source-licensed components.
+This is the source code repository for the [Open Justice Broker Consortium (OJBC)](http://www.ojbc.org).
 
 ## Mailing Lists
 

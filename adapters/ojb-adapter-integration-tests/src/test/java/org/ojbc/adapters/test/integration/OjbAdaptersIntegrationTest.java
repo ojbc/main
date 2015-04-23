@@ -74,7 +74,7 @@ public class OjbAdaptersIntegrationTest extends AbstractPaxExamIntegrationTest {
 
 		return new Option[] {
 				
-				CoreOptions.vmOptions("-Xmx3G", "-XX:MaxPermSize=128M"),
+				CoreOptions.vmOptions("-Xmx1G", "-XX:MaxPermSize=128M"),
 				
 				karafDistributionConfiguration().frameworkUrl(karafUrl).karafVersion(KARAF_VERSION).name("Apache Karaf").unpackDirectory(new File("target/exam")).useDeployFolder(false),
 
