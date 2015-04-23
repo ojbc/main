@@ -54,7 +54,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:AddressRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:AddressRepresentation" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -95,7 +95,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:DateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DateRepresentation" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -151,7 +151,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:IdentificationSourceText" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
@@ -182,7 +182,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:LocationAddress" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:LocationAddress" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -226,7 +226,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:MeasureValue" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:MeasureValue" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -291,8 +291,8 @@
     <xsd:complexContent>
       <xsd:extension base="nc:AssociationType">
         <xsd:sequence>
-          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:LocationReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:LocationReference" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -350,14 +350,14 @@
           <xsd:element ref="nc:PersonAgeMeasure" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonAlternateName" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="1"/>
-          <xsd:element ref="nc:PersonEthnicity" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonEyeColor" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonHairColor" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonEthnicity" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonEyeColor" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonHairColor" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonHeightMeasure" minOccurs="0" maxOccurs="1"/>
-          <xsd:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonName" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonPhysicalFeature" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonRace" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonSex" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonSSNIdentification" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonWeightMeasure" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
