@@ -23,6 +23,8 @@ import static org.mockito.Mockito.verify;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +39,8 @@ import org.springframework.validation.BindingResult;
 @ContextConfiguration({"classpath:static-configuration-demostate.xml"})
 public class SimpleSearchParserTest {
 
+	private static final Log log = LogFactory.getLog(SimpleSearchParserTest.class);
+	
 	@Resource
     SimpleSearchParser unit;
 	private BindingResult errors;
@@ -204,6 +208,9 @@ public class SimpleSearchParserTest {
 		personSearchCommand.setSimpleSearch("lastName WA1234567");
 		PersonSearchRequest expectedPersonSearchRequest = unit
 				.validateAndParseSimpleSearch(personSearchCommand, errors);
+		
+		log.info("Person Search Request: " + expectedPersonSearchRequest);
+		
 		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("lastName"));
 		assertThat(expectedPersonSearchRequest.getPersonDriversLicenseNumber(),is("WA1234567"));
 		assertThat(expectedPersonSearchRequest.getPersonDriversLicenseIssuer(),is("WA"));
