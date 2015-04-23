@@ -19,6 +19,8 @@ package org.ojbc.web.model.person.query;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
+import org.ojbc.web.OJBCWebServiceURIs;
+
 public class DetailsRequest implements Serializable{
 
     private static final long serialVersionUID = -8308338659183972879L;
@@ -89,5 +91,10 @@ public class DetailsRequest implements Serializable{
 	public void setQueryType(String queryType) {
 		this.queryType = queryType;
 	}
-	
+
+    public boolean isJuvenileDetailRequest() {
+        return OJBCWebServiceURIs.JUVENILE_HISTORY.equals(identificationSourceText) || 
+                OJBCWebServiceURIs.JUVENILE_HISTORY_SEARCH.equals(identificationSourceText);
+    }
+
 }
