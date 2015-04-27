@@ -84,20 +84,18 @@
 				<xsl:variable name="queryType"><xsl:value-of select="replace(., ' ','')"/></xsl:variable>
 				<xsl:variable name="isActiveTab" select="upper-case($responseType) eq $queryType"/>
 				<div class="buttonBarItem">
-					<xsl:element name="button">
+					<xsl:element name="a">
 						<xsl:attribute name="class">
 							<xsl:text>buttonBarButton full </xsl:text>
 							<xsl:if test="$isActiveTab">
 								<xsl:text>active</xsl:text>
 							</xsl:if>
 						</xsl:attribute>
-						<xsl:attribute name="onclick">
+						<xsl:attribute name="href">
 							<xsl:choose>
 								<xsl:when test="$isActiveTab">#</xsl:when>
 								<xsl:otherwise>
-									<xsl:text>location.href='</xsl:text>
 									<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id , '&amp;systemName=Juvenile History' , '&amp;identificationSourceText={http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory','&amp;queryType=',$queryType)"/>
-									<xsl:text>'</xsl:text>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:attribute>
@@ -124,8 +122,8 @@
 									heightStyle: "content",			
 									collapsible: true,
 									activate: function( event, ui ) { 
-									var modalIframe = $("#modalIframe", parent.document);
-									modalIframe.height(modalIframe.contents().find("body").height() + 16);
+										var modalIframe = $("#modalIframe", parent.document);
+										modalIframe.height(modalIframe.contents().find("body").height() + 16);
 									}
 								});
 						});
@@ -172,8 +170,10 @@
 					<td>
 						<xsl:apply-templates mode="firstNameFirst" select="nc:ReferralIssuer/nc:EntityPerson/nc:PersonName"></xsl:apply-templates>
 					</td>
-					<td class="detailsLabel"/>
-					<td/>
+					<td class="detailsLabel">Related Record</td>
+					<td>
+						<xsl:apply-templates select="child::referral-ext:ReferralAugmentation/cext:RelatedJuvenileHistoryRecords/cext:RelatedJuvenileHistoryRecord"/>
+					</td>
 					
 				</tr>
 			</table>
@@ -217,6 +217,12 @@
 					<td class="detailsLabel">Placement Type</td>
 					<td>
 						<xsl:value-of select="placement-codes:PlacementCategoryCode"></xsl:value-of>						
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Related Record</td>
+					<td colspan="3">
+						<xsl:apply-templates select="child::placement-ext:JuvenilePlacementAugmentation/cext:RelatedJuvenileHistoryRecords/cext:RelatedJuvenileHistoryRecord"/>
 					</td>
 				</tr>
 			</table>
@@ -274,13 +280,16 @@
 						<xsl:apply-templates select="nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/>						
 					</td>
 				</tr>
+				<tr>
+					<td class="detailsLabel">Related Record</td>
+					<td colspan="3">
+						<xsl:apply-templates select="child::intake-ext:JuvenileAssessmentAugmentation/cext:RelatedJuvenileHistoryRecords/cext:RelatedJuvenileHistoryRecord"/>
+					</td>
+				</tr>
 			</table>
 		</div>
 	</xsl:template>
 	<xsl:template match="offense-ext:JuvenileOffenseHistory" mode="details">
-		<div class="hint">
-			Related Record: 
-		</div>
 		<div id="detailList">
 			<xsl:apply-templates select="j:OffenseChargeAssociation"></xsl:apply-templates>
 		</div>
@@ -329,12 +338,29 @@
 						<xsl:variable name="locationId"><xsl:value-of select="following-sibling::j:OffenseLocationAssociation[j:Offense/@s:ref =$offenseId]/nc:Location/@s:ref"/></xsl:variable>
 						<xsl:apply-templates select="preceding-sibling::nc:Location[@s:id = $locationId]/nc:Address" mode="cityAndState"></xsl:apply-templates>
 					</td>
-					<td class="detailsLabel"/>
-					<td/>
+					<td class="detailsLabel">Related Record</td>
+					<td>
+						<xsl:apply-templates select="j:Offense/offense-ext:OffenseAugmentation/cext:RelatedJuvenileHistoryRecords/cext:RelatedJuvenileHistoryRecord"/>
+					</td>
 				</tr>
 			</table>
 		</div>
 	</xsl:template>
+	
+	<xsl:template match="cext:RelatedJuvenileHistoryRecord">
+		<xsl:if test="position() != 1"><br/></xsl:if>
+		<xsl:choose>
+			<xsl:when test="cext:RelatedJuvenileHistoryRecordNotSupportedIndicator">
+				<xsl:text>Linkage to </xsl:text>
+				<xsl:value-of select="cext:JuvenileHistoryCategoryCode"/>
+				<xsl:text> not supported</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
 	<xsl:template match="caseplan-ext:CasePlan">
 		<h3>CASE PLAN <xsl:value-of select="position()"/></h3>
 		<div>
@@ -344,6 +370,12 @@
 					<td><xsl:value-of select="caseplan-ext:CasePlanIndicator"></xsl:value-of></td>
 					<td class="detailsLabel">Assessement</td>
 					<td><xsl:value-of select="caseplan-ext:AssessmentIndicator"></xsl:value-of></td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Related Record</td>
+					<td colspan="3">
+						<xsl:apply-templates select="child::caseplan-ext:CasePlanAugmentation/cext:RelatedJuvenileHistoryRecords/cext:RelatedJuvenileHistoryRecord"></xsl:apply-templates>
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -390,6 +422,12 @@
 					<td class="detailsLabel">Hearing Outcome</td>
 					<td colspan="5">
 						<xsl:value-of select="string-join(hearing-ext:CourtEventAugmentation/hearing-codes:HearingDispositionCode, ', ')"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Related Record</td>
+					<td colspan="5">
+						<xsl:apply-templates select="child::hearing-ext:CourtEventAugmentation/cext:RelatedJuvenileHistoryRecords/cext:RelatedJuvenileHistoryRecord"></xsl:apply-templates>
 					</td>
 				</tr>
 			</table>
