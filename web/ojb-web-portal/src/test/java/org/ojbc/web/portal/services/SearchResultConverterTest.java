@@ -142,7 +142,7 @@ public class SearchResultConverterTest {
 		when(xsltTransformerService.transform(sourceXmlCaptor.capture(), sourceXslCaptor.capture(),paramsCaptor.capture())).thenReturn(
 				"some transformed content");
 		
-		unit.convertDetailSearchResult("some search content", "someSystemName");
+		unit.convertDetailSearchResult("some search content", "someSystemName", null);
 		
 		assertThat(getContentFromSAXSource(sourceXmlCaptor.getValue()), is("some search content"));
 		assertThat(getContentFromSAXSource(sourceXslCaptor.getValue()), is("someSystem xsl"));

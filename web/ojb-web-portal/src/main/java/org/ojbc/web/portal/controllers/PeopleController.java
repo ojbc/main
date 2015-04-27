@@ -329,36 +329,38 @@ public class PeopleController {
 
 	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
 			throws Exception {
+	    String searchContent = null; 
 		if (detailsRequest.isJuvenileDetailRequest() ) {
-		    String convertedContent = null; 
 		    PersonSearchDetailResponses juvenileHistoryDetailResponses = 
 		            (PersonSearchDetailResponses) model.get("juvenileHistoryDetailResponses"); 
 		    if (juvenileHistoryDetailResponses != null) {
-		        convertedContent = juvenileHistoryDetailResponses.getDetailResponse(detailsRequest); 
+		        searchContent = juvenileHistoryDetailResponses.getDetailResponse(detailsRequest); 
 		    }
 		    else {
 		        juvenileHistoryDetailResponses = new PersonSearchDetailResponses(detailsRequest); 
 		    }
 		    
-		    if (convertedContent == null) {
-		        convertedContent = getDetailResultViaWebService(systemName, detailsRequest); 
-		        juvenileHistoryDetailResponses.cacheDetailResponse(detailsRequest, convertedContent);
+		    if (searchContent == null) {
+		        searchContent = getDetailResultViaWebService(systemName, detailsRequest); 
+		        juvenileHistoryDetailResponses.cacheDetailResponse(detailsRequest, searchContent);
 		        model.put("juvenileHistoryDetailResponses", juvenileHistoryDetailResponses);
 		    }
 		    
-            model.put("searchContent", convertedContent); 
 		}
 		else {
-    		model.put("searchContent", getDetailResultViaWebService(systemName, detailsRequest));
+            searchContent = getDetailResultViaWebService(systemName, detailsRequest); 
 		}
+		
+	     String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName, detailsRequest.getActiveAccordionId());
+         model.put("searchContent", convertedContent); 
+
 	}
 
 
     private String getDetailResultViaWebService(String systemName, DetailsRequest detailsRequest) throws Exception {
         String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), 
 		        (Element)getSamlToken());
-		String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName);
-        return convertedContent;
+        return searchContent;
     }
 
 	private Map<String, Object> getParams(String purpose, String onBehalfOf) {

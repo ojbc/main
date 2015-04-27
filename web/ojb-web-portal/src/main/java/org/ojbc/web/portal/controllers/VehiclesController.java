@@ -187,7 +187,7 @@ public class VehiclesController {
 		Element samlAssertion = samlService.getSamlAssertion(request);
 		
 		String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), samlAssertion);
-		String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName);
+		String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName,null);
 		model.put("searchContent", convertedContent);
 	}
 

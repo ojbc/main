@@ -46,7 +46,7 @@ public class SubscriptionSearchMockImpl implements SubscriptionSearchInterface{
 		
 		String staticSubResults = WebUtils.returnStringFromFilePath(subResultsIs);				
 		
-		String subscriptionContent = searchResultConverter.convertDetailSearchResult(staticSubResults, "SubscriptionResults");			
+		String subscriptionContent = searchResultConverter.convertDetailSearchResult(staticSubResults, "SubscriptionResults", null);			
 
 		return subscriptionContent;
 	}

@@ -50,6 +50,7 @@
 	<xsl:param name="queryTypes">
 		<xsl:text>OFFENSE|REFERRAL|INTAKE|HEARING|CASE PLAN|PLACEMENT</xsl:text>
 	</xsl:param>
+	<xsl:param name="activeAccordionId">false</xsl:param>
 	<xsl:template match="/">
 		<span class="hint">
 			<xsl:text>Last Updated: </xsl:text>
@@ -115,19 +116,41 @@
 				<xsl:apply-templates select="referral-doc:JuvenileReferralHistoryResponse/referral-ext:JuvenileReferralHistory[cext:JuvenileInformationAvailabilityCode='FOUND']" mode="details"/>
 				
 				<xsl:if test="//cext:JuvenileInformationAvailabilityCode='FOUND'">
-					<script type="text/javascript" >
-						$(function () {
-								$("#detailList").accordion({
-									active:"false",
-									heightStyle: "content",			
-									collapsible: true,
-									activate: function( event, ui ) { 
-										var modalIframe = $("#modalIframe", parent.document);
-										modalIframe.height(modalIframe.contents().find("body").height() + 16);
-									}
+					<xsl:choose>
+						<xsl:when test="not($activeAccordionId)">
+							<script type="text/javascript" >
+								$(function () {
+									$("#detailList").accordion({
+										active:"false",
+										heightStyle: "content",			
+										collapsible: true,
+										activate: function( event, ui ) { 
+											var modalIframe = $("#modalIframe", parent.document);
+											modalIframe.height(modalIframe.contents().find("body").height() + 16);
+										}
+									});
 								});
-						});
-					</script>
+							</script>
+						</xsl:when>
+						<xsl:otherwise>
+							<script type="text/javascript" >
+								$(function () {
+									$("#detailList").accordion({
+										active:$("<xsl:value-of select="concat('h3#',$activeAccordionId)"/>")	,
+										heightStyle: "content",			
+										collapsible: true,
+										activate: function( event, ui ) { 
+											var modalIframe = $("#modalIframe", parent.document);
+											modalIframe.height(modalIframe.contents().find("body").height() + 16);
+										}
+									});
+									
+									$("<xsl:value-of select="concat('#',$activeAccordionId)"/>").click();
+								});
+							</script>
+						</xsl:otherwise>
+					</xsl:choose>
+					<xsl:if test="activeAccordionId"></xsl:if>
 				</xsl:if>
 			</td></tr>
 		</table>
@@ -142,7 +165,12 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="nc:Referral">
-		<h3>REFERRAL <xsl:value-of select="position()"/></h3>
+		<xsl:element name="h3">
+			<xsl:attribute name="id">
+				<xsl:value-of select="child::referral-ext:ReferralAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+			</xsl:attribute>
+			REFERRAL <xsl:value-of select="position()"/>
+		</xsl:element>
 		<div>
 			<table class="detailsTable">
 				<tr>
@@ -185,7 +213,12 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="cyfs:JuvenilePlacement">
-		<h3>PLACEMENT <xsl:value-of select="position()"/></h3>
+		<xsl:element name="h3">
+			<xsl:attribute name="id">
+				<xsl:value-of select="child::placement-ext:JuvenilePlacementAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+			</xsl:attribute>
+			PLACEMENT <xsl:value-of select="position()"/>
+		</xsl:element>
 		<div>
 			<table class="detailsTable">
 				<tr>
@@ -235,7 +268,12 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="cyfs:JuvenileIntakeAssessment">
-		<h3>INTAKE <xsl:value-of select="position()"/></h3>
+		<xsl:element name="h3">
+			<xsl:attribute name="id">
+				<xsl:value-of select="child::intake-ext:JuvenileAssessmentAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+			</xsl:attribute>
+			INTAKE <xsl:value-of select="position()"/>
+		</xsl:element>
 		<div>
 			<xsl:variable name="intakeTypes">
 				<xsl:value-of select="string-join(intake-ext:JuvenileAssessmentAugmentation/intake-codes:JuvenileIntakeAssessmentCategoryCode, ', ')"/>
@@ -300,7 +338,12 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="j:OffenseChargeAssociation">
-		<h3>OFFENSE <xsl:value-of select="position()"/></h3>
+		<xsl:element name="h3">
+			<xsl:attribute name="id">
+				<xsl:value-of select="child::j:Offense/offense-ext:OffenseAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+			</xsl:attribute>
+			OFFENSE <xsl:value-of select="position()"/>
+		</xsl:element>
 		<div>
 			<table class="detailsTable">
 				<tr>
@@ -360,13 +403,16 @@
 					<xsl:value-of select="preceding::cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationID"/>
 				</xsl:variable>
 				<xsl:variable name="queryType">
-					<xsl:value-of select="substring-before(substring-after(cext:JuvenileHistoryCategoryCode, 'Juvenile'),'History')"></xsl:value-of>
+					<xsl:value-of select="normalize-space(substring-before(substring-after(cext:JuvenileHistoryCategoryCode, 'Juvenile'),'History'))"></xsl:value-of>
+				</xsl:variable>
+				<xsl:variable name="relatedRecordId">
+					<xsl:value-of select="cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
 				</xsl:variable>
 				<xsl:element name="a">
 					<xsl:attribute name="href">
-						<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id , '&amp;systemName=Juvenile History' , '&amp;identificationSourceText={http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory','&amp;queryType=',$queryType)"/>
+						<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id,'&amp;systemName=Juvenile History' , '&amp;identificationSourceText={http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory','&amp;queryType=',$queryType,'&amp;activeAccordionId=',$relatedRecordId)"/>
 					</xsl:attribute>
-					<xsl:value-of select="cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+					<xsl:value-of select="$relatedRecordId"></xsl:value-of>
 				</xsl:element>
 				
 			</xsl:otherwise>
@@ -374,7 +420,12 @@
 	</xsl:template>
 	
 	<xsl:template match="caseplan-ext:CasePlan">
-		<h3>CASE PLAN <xsl:value-of select="position()"/></h3>
+		<xsl:element name="h3">
+			<xsl:attribute name="id">
+				<xsl:value-of select="child::caseplan-ext:CasePlanAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+			</xsl:attribute>
+			CASE PLAN <xsl:value-of select="position()"/>
+		</xsl:element>
 		<div>
 			<table class="detailsTable">
 				<tr>
@@ -398,7 +449,12 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="j:CaseHearing">
-		<h3>HEARING <xsl:value-of select="position()"/></h3>
+		<xsl:element name="h3">
+			<xsl:attribute name="id">
+				<xsl:value-of select="child::hearing-ext:CourtEventAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+			</xsl:attribute>
+			HEARING <xsl:value-of select="position()"/>
+		</xsl:element>
 		<div>
 			<table class="detailsTable">
 				<tr>

@@ -118,7 +118,7 @@ public abstract class AbstractBaseController {
 				Element samlAssertion = samlService.getSamlAssertion(request);
 				
 				String searchContent = getDetailsQueryInterface().invokeRequest(detailsRequest, getFederatedQueryId(), samlAssertion);
-				String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName);
+				String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName, null);
 				model.put("searchContent", convertedContent);
 	}
 

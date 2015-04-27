@@ -27,6 +27,7 @@ public class DetailsRequest implements Serializable{
     private String identificationID;
 	private String identificationSourceText;
 	private String queryType;
+	private String activeAccordionId; 
 
 	//Logging
 	private String purpose;
@@ -95,6 +96,12 @@ public class DetailsRequest implements Serializable{
     public boolean isJuvenileDetailRequest() {
         return OJBCWebServiceURIs.JUVENILE_HISTORY.equals(identificationSourceText) || 
                 OJBCWebServiceURIs.JUVENILE_HISTORY_SEARCH.equals(identificationSourceText);
+    }
+    public String getActiveAccordionId() {
+        return activeAccordionId;
+    }
+    public void setActiveAccordionId(String activeAccordionId) {
+        this.activeAccordionId = activeAccordionId;
     }
 
 }
