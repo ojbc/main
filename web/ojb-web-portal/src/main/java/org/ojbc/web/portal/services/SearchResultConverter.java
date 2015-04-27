@@ -25,6 +25,7 @@ import javax.annotation.Resource;
 import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.codec.CharEncoding;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.springframework.beans.BeansException;
@@ -90,8 +91,16 @@ public class SearchResultConverter implements ApplicationContextAware {
 		return convertXml(searchContent, firearmSearchResultXsl, params);
 	}
 
-	public String convertDetailSearchResult(String searchContent, String systemName) {
-		return convertXml(searchContent, getResource(systemName), null);
+	public String convertDetailSearchResult(String searchContent, String systemName, String activeAccordionId) {
+	    if (StringUtils.isNotBlank(activeAccordionId)) {
+	        Map<String, Object> params = new HashMap<String, Object>(); 
+	        params.put("activeAccordionId", activeAccordionId);
+	        return convertXml(searchContent, getResource(systemName), params);
+	    }
+	    else {
+	        return convertXml(searchContent, getResource(systemName), null);
+	    }
+		
     }
 	
 	public String convertSubscriptionSearchResult(String searchContent,  Map<String, Object> params) {

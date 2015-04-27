@@ -243,7 +243,7 @@ public class PeopleControllerTest {
 
 		when(detailsQueryInterface.invokeRequest(detailsRequest, federatedQueryId, null))
 		        .thenReturn("some details xml");
-		when(searchResultConverter.convertDetailSearchResult("some details xml", "mySystem")).thenReturn(
+		when(searchResultConverter.convertDetailSearchResult("some details xml", "mySystem",null)).thenReturn(
 		        "converted details xml");
 
 		String expectedView = unit.searchDetails(servletRequest, "mySystem", detailsRequest, model);
@@ -270,7 +270,7 @@ public class PeopleControllerTest {
 		
 		when(detailsQueryInterface.invokeRequest(detailsRequest, federatedQueryId, null))
 		.thenReturn("some details xml");
-		when(searchResultConverter.convertDetailSearchResult("some details xml", "mySystem")).thenReturn(
+		when(searchResultConverter.convertDetailSearchResult("some details xml", "mySystem", null)).thenReturn(
 				"converted details xml");
 		
 		String expectedView = unit.incidentDetails(servletRequest, "mySystem", detailsRequest, model);
