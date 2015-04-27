@@ -109,6 +109,8 @@ public class SubscriptionsController {
 	
 	public static final String PAGINATE_URL = "../subscriptions/paginate";
 	
+	private static DocumentBuilder docBuilder;
+	
 	private Logger logger = Logger.getLogger(SubscriptionsController.class.getName());
 	
 	@Value("${validateSubscriptionButton:false}")
@@ -155,7 +157,8 @@ public class SubscriptionsController {
 	
 	@Resource
 	SubscriptionsControllerConfigInterface subConfig;
-	
+		
+		
     @ModelAttribute("subscriptionFilterProperties")
     public Map<String, String> getSubscriptionFilterProperties(){
     	return subscriptionFilterProperties;
@@ -1554,12 +1557,12 @@ public class SubscriptionsController {
 	
 	static DocumentBuilder getDocBuilder() throws ParserConfigurationException{
 		
-		//TODO maybe make this a singleton member variable
-		DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
-		fact.setNamespaceAware(true);
-		DocumentBuilder docBuilder;
-		docBuilder = fact.newDocumentBuilder();
-		
+		if(docBuilder == null){
+			
+			DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+			fact.setNamespaceAware(true);
+			docBuilder = fact.newDocumentBuilder();			
+		}				
 		return docBuilder;
 	}	
 	
