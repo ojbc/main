@@ -77,7 +77,7 @@
 		</table>
 		<div class="buttonBar full">
 			<xsl:variable name="responseType">
-				<xsl:value-of select="substring-before(substring-after(/child::node()/cext:JuvenileHistoryCategoryCode, 'Juvenile'), 'History')"></xsl:value-of>
+				<xsl:value-of select="upper-case(substring-before(substring-after(/child::node()/cext:JuvenileHistoryCategoryCode, 'Juvenile'), 'History'))"></xsl:value-of>
 			</xsl:variable>
 			<xsl:variable name="id"><xsl:value-of select="child::node()/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationID"/></xsl:variable>
 			<xsl:for-each select="tokenize($queryTypes, '\|')">
@@ -356,7 +356,19 @@
 				<xsl:text> not supported</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+				<xsl:variable name="id">
+					<xsl:value-of select="preceding::cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationID"/>
+				</xsl:variable>
+				<xsl:variable name="queryType">
+					<xsl:value-of select="substring-before(substring-after(cext:JuvenileHistoryCategoryCode, 'Juvenile'),'History')"></xsl:value-of>
+				</xsl:variable>
+				<xsl:element name="a">
+					<xsl:attribute name="href">
+						<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id , '&amp;systemName=Juvenile History' , '&amp;identificationSourceText={http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory','&amp;queryType=',$queryType)"/>
+					</xsl:attribute>
+					<xsl:value-of select="cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+				</xsl:element>
+				
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
