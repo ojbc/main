@@ -52,6 +52,8 @@
 	</xsl:param>
 	<xsl:param name="activeAccordionId">false</xsl:param>
 	<xsl:template match="/">
+		<div style="width:100%;height:100%;display:none;" id="modalIframeSpinner"></div>
+		
 		<span class="hint">
 			<xsl:text>Last Updated: </xsl:text>
 			<xsl:variable name="lastUpdatedDate" 

@@ -24,6 +24,15 @@
         <script src="#springUrl('/static/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js')"></script>
         <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
     </head>
+ 	<script type="text/javascript">
+	  	$(function() {
+	  		console.log("working");
+	  		
+	       	$('#searchDetailsFrame').on('click', 'a', function(){    		
+	  			$("#modalIframeSpinner").show();
+  			});
+		});
+    </script>
     <body id="searchDetailsFrame">
         $searchContent
     </body>
