@@ -26,7 +26,6 @@
     </head>
  	<script type="text/javascript">
 	  	$(function() {
-	  		console.log("working");
 	  		
 	       	$('#searchDetailsFrame').on('click', 'a', function(){    		
 	  			$("#modalIframeSpinner").show();
