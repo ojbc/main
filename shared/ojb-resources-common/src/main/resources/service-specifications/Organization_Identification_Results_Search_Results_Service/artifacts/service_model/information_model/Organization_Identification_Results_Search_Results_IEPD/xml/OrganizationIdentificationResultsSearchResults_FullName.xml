@@ -44,6 +44,7 @@
 	  		<nc:IdentificationID>A1000999</nc:IdentificationID>
 	  	</oirsr-ext:IdentifiedPersonTrackingIdentification>
 	  </oirsr-ext:IdentifiedPerson>
+	  <oirsr-ext:IdentificationResultStatusCode>Subscribed</oirsr-ext:IdentificationResultStatusCode>
     <oirsr-ext:Subscription>
     	<nc:ActivityDateRange>
     		<nc:StartDate>
@@ -66,41 +67,24 @@
 		<intel:SystemName>RapbackDataStore</intel:SystemName>
 	</intel:SystemIdentifier>
 </oirsr-ext:OrganizationIdentificationResultsSearchResult>
-  <oirsr-ext:OrganizationIdentificationResultsSearchResult>
-  	 <oirsr-ext:IdentifiedPerson>
-	  	<nc:PersonBirthDate>
-	  		<nc:Date>1983-11-11</nc:Date>
-	  	</nc:PersonBirthDate>
-	  	<nc:PersonName>
-	  		<nc:PersonFullName>Jim Halpert</nc:PersonFullName>
-	  	</nc:PersonName>
-	  	<!-- This is sometimes called the OTN -->
-	  	<oirsr-ext:IdentifiedPersonTrackingIdentification>
-	  		<nc:IdentificationID>A1000999</nc:IdentificationID>
-	  	</oirsr-ext:IdentifiedPersonTrackingIdentification>
-	  </oirsr-ext:IdentifiedPerson>
-    <oirsr-ext:Subscription>
-    	<nc:ActivityDateRange>
-    		<nc:StartDate>
-    			<nc:Date>2015-01-12</nc:Date>
-    		</nc:StartDate>
-    		<nc:EndDate>
-    			<nc:Date>2017-01-12</nc:Date>
-    		</nc:EndDate>
-    	</nc:ActivityDateRange>
-      <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/civilArrest</wsn-br:Topic>
-      <oirsr-ext:SubscriptionValidation>
-      	<oirsr-ext:SubscriptionValidationDueDate>
-      		<nc:Date>2017-01-02</nc:Date>
-      	</oirsr-ext:SubscriptionValidationDueDate>
-      </oirsr-ext:SubscriptionValidation>
-    </oirsr-ext:Subscription>
-    <oirsr-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirsr-ext:SourceSystemNameText>
-	<intel:SystemIdentifier>
-		<nc:IdentificationID>9876543</nc:IdentificationID>
-		<intel:SystemName>RapbackDataStore</intel:SystemName>
-	</intel:SystemIdentifier>
-</oirsr-ext:OrganizationIdentificationResultsSearchResult>
- 
-
+	<oirsr-ext:OrganizationIdentificationResultsSearchResult>
+	  	 <oirsr-ext:IdentifiedPerson>
+		  	<nc:PersonBirthDate>
+		  		<nc:Date>1983-11-11</nc:Date>
+		  	</nc:PersonBirthDate>
+		  	<nc:PersonName>
+		  		<nc:PersonFullName>Jim Halpert</nc:PersonFullName>
+		  	</nc:PersonName>
+		  	<!-- This is sometimes called the OTN -->
+		  	<oirsr-ext:IdentifiedPersonTrackingIdentification>
+		  		<nc:IdentificationID>A1000999</nc:IdentificationID>
+		  	</oirsr-ext:IdentifiedPersonTrackingIdentification>
+		  </oirsr-ext:IdentifiedPerson>
+		  <oirsr-ext:IdentificationResultStatusCode>Available for Subscription</oirsr-ext:IdentificationResultStatusCode>
+	    <oirsr-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirsr-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>9876543</nc:IdentificationID>
+			<intel:SystemName>RapbackDataStore</intel:SystemName>
+		</intel:SystemIdentifier>
+	</oirsr-ext:OrganizationIdentificationResultsSearchResult>
 </oirsr:OrganizationIdentificationResultsSearchResults>
