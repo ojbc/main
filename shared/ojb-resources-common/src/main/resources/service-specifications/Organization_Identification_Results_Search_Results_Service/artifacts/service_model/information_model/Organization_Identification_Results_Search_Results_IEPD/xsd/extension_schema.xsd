@@ -63,6 +63,7 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="oirsr-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="oirsr-ext:IdentificationResultStatusRepresentation"/>
 					<xsd:element ref="oirsr-ext:Subscription" minOccurs="0"/>
 					<xsd:element ref="oirsr-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
@@ -236,4 +237,28 @@
 			<xsd:documentation>A relationship between a subscribed entity and contact information.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="IdentificationResultStatusRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A state of a specific identifixat</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentificationResultStatusCode" type="oirsr-ext:IdentificationResultStatusCodeType" substitutionGroup="oirsr-ext:IdentificationResultStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A state of a specific identifixat</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IdentificationResultStatusCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="oirsr-ext:IdentificationResultStatusCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="IdentificationResultStatusCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Archived"/>
+			<xsd:enumeration value="Available for Subscription"/>
+			<xsd:enumeration value="Subscribed"/>
+		</xsd:restriction>
+	</xsd:simpleType>
 </xsd:schema>
