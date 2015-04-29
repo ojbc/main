@@ -72,10 +72,10 @@
 	<!-- OJB Charge Referral Service, called by this intermediary -->
 	<cxf:cxfEndpoint id="ChargeReferralService"
 		address="${incidentReportingService.chargeReferralServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Charge_Recommendation_Service/schema/SIP_WS_1.2/Charge_Recommendation_Service.wsdl"
-	    serviceName="ojbc:Charge-Recommendation-ServiceService"
-	    endpointName="ojbc:Charge-Recommendation-Service"
-	    xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeRecommendationService/1.0">
+		wsdlURL="classpath:service-specifications/Charge_Referral_Service/schema/SIP_WS_1.2/Charge_Referral_Service.wsdl"
+	    serviceName="ojbc:Charge-Referral-ServiceService"
+	    endpointName="ojbc:Charge-Referral-Service"
+	    xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0">
  		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
