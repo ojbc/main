@@ -71,7 +71,7 @@
 				<camel:simple>${bean:FailedNDExSubmissionMessageNotificationEmailAddress.trim}</camel:simple>
 			</camel:setHeader>
 			<camel:setHeader headerName="subject">
-				<camel:simple>${bean:FailedNDExSubmissionMessageNotificationEmailSubject.trim}</camel:simple>
+				<camel:simple>{{NDExSubmission.emailNotificationSubjectTransportError}}}</camel:simple>
 			</camel:setHeader>
 			
 			<camel:setBody>
@@ -97,14 +97,14 @@
 
 			<!-- Set Incident ID header -->
 			<camel:setHeader headerName="incidentID">
-				<camel:simple>${bean:NDExUtils?method=getIncidentIDFromFileName}</camel:simple> 
+				<camel:simple>{{NDExSubmission.emailNotificationSubjectTransportError}}</camel:simple> 
 			</camel:setHeader>
 			
 			<camel:setHeader headerName="to">
-				<camel:simple>${bean:FailedNDExSubmissionTransportNotificationEmailAddress.trim}</camel:simple>
+				<camel:simple>{{NDExSubmission.emailNotificationRecipientTransportError}}</camel:simple>
 			</camel:setHeader>
 			<camel:setHeader headerName="subject">
-				<camel:simple>${bean:FailedNDExSubmissionTransportNotificationEmailSubject.trim}</camel:simple>
+				<camel:simple>{{NDExSubmission.emailNotificationSubjectMessageError}}</camel:simple>
 			</camel:setHeader>
 			<camel:setBody>
 				<camel:simple>N-DEx message delivery failed for Incident ID: ${in.header.incidentID}. Check connection from N-DEx intermediary to FBI.</camel:simple>
@@ -115,30 +115,6 @@
 			
 		</camel:route>
 	</routeContext>	
-
-	<bean id="FailedNDExSubmissionTransportNotificationEmailAddress" class="java.lang.String">
-		<constructor-arg>
-			<value>${NDExSubmission.emailNotificationRecipientTransportError}</value>
-		</constructor-arg>
-	</bean>
-
-	<bean id="FailedNDExSubmissionTransportNotificationEmailSubject" class="java.lang.String">
-		<constructor-arg>
-			<value>${NDExSubmission.emailNotificationSubjectTransportError}</value>
-		</constructor-arg>
-	</bean>
-
-	<bean id="FailedNDExSubmissionMessageNotificationEmailAddress" class="java.lang.String">
-		<constructor-arg>
-			<value>${NDExSubmission.emailNotificationRecipientMessageError}</value>
-		</constructor-arg>
-	</bean>
-
-	<bean id="FailedNDExSubmissionMessageNotificationEmailSubject" class="java.lang.String">
-		<constructor-arg>
-			<value>${NDExSubmission.emailNotificationSubjectMessageError}</value>
-		</constructor-arg>
-	</bean>
 
 	<!-- here we configure our DeadLetterChannel for incident report redelivery -->
 	<camel:errorHandler id="ndexDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="ndexSubmissionDeadLetterDir">
