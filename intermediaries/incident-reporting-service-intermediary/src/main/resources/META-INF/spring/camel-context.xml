@@ -162,12 +162,12 @@
 					<camel:simple>${in.header.callChargeReferralService} == 'true'</camel:simple>
 					<log message="ORI authorized to submit to D.A." />
 					
-					<setBody><xpath resultType="org.w3c.dom.Document">//lexspd:doPublish</xpath></setBody>
+					<camel:to uri="xslt:xslt/wrapChargeReferral.xslt"/>
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 					
-					<camel:setHeader headerName="operationName"><constant>SubmitChargeRecommendation</constant></camel:setHeader>	
-					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeRecommendationService/1.0</constant></camel:setHeader>
+					<camel:setHeader headerName="operationName"><constant>SubmitChargeReferral</constant></camel:setHeader>	
+					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeReferralService/1.0</constant></camel:setHeader>
 				
 					<to uri="chargeReferralServiceEndpoint" />
 					<log message="Called Charge Referral Service" />
