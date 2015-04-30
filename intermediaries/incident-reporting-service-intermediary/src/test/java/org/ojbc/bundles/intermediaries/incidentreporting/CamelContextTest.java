@@ -47,6 +47,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.incidentreporting.IncidentReportProcessor;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -208,6 +209,12 @@ public class CamelContextTest {
 		arrestReportingBrokerServiceMock.assertIsSatisfied();
 		notificationBrokerServiceMock.assertIsSatisfied();
 		
+		//Retrieve Charge Referral Message and assert that the proper root and child elements are set
+		Exchange chargeReferralExchange = chargeReferralServiceMock.getExchanges().get(0);
+		Document chargeReferralDocument = chargeReferralExchange.getIn().getBody(Document.class);
+		//XmlUtils.printNode(chargeReferralDocument);
+		assertNotNull(XmlUtils.xPathNodeSearch(chargeReferralDocument, "/cr-doc:ChargeReferral"));
+		assertNotNull(XmlUtils.xPathNodeSearch(chargeReferralDocument, "/cr-doc:ChargeReferral/lexspd:doPublish"));
 		
     	//We should get one message 
 		ndexServiceMock.reset();

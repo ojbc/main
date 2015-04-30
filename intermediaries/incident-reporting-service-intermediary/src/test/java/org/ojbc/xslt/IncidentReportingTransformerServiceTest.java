@@ -18,17 +18,13 @@ package org.ojbc.xslt;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -39,7 +35,6 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
@@ -49,7 +44,6 @@ import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 public class IncidentReportingTransformerServiceTest {
 
@@ -86,7 +80,32 @@ public class IncidentReportingTransformerServiceTest {
 		incidentDateTimeDoc = db.parse(new File("src/test/resources/xmlInstances/incidentReport/IncidentReport-Date-DateTime.xml"));
 		incidentDateRangeDateDoc = db.parse(new File("src/test/resources/xmlInstances/incidentReport/IncidentReport-DateRange-Date.xml"));
 		incidentDateDoc = db.parse(new File("src/test/resources/xmlInstances/incidentReport/IncidentReport-Date-Date.xml"));
-		xsltSource = new StreamSource(new File("src/main/resources/xslt/incidentReportToNotifications.xsl"));			
+		xsltSource = new StreamSource(new File("src/main/resources/xslt/incidentReportToNotifications.xsl"));
+	}
+	
+	@Test
+	public void testChargeReferralTransform() throws Exception{
+				
+		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport.xml");		
+		String inputXml = FileUtils.readFileToString(inputFile);
+		SAXSource inputSaxSource = createSource(inputXml);
+		
+		File expectedOutputFile = new File("src/test/resources/xmlInstances/output/chargeReferral/chargeReferralOutput.xml");
+		String expectedXml = FileUtils.readFileToString(expectedOutputFile);		
+		
+		File xsltFile = new File("src/main/resources/xslt/wrapChargeReferral.xslt");
+		StreamSource xsltSaxSource = new StreamSource(xsltFile);
+		
+		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
+		
+		System.out.println(actualTransformedResultXml);
+		
+		DetailedDiff detailedDiff = new DetailedDiff(XMLUnit.compareXML(expectedXml, actualTransformedResultXml));
+        
+		@SuppressWarnings("unchecked")	
+		List<Difference> differenceList = detailedDiff.getAllDifferences();
+        
+        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());				
 	}
 	
 	@Test
