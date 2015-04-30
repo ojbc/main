@@ -16,7 +16,8 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<IncidentReport xmlns="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0">
+<cr-doc:ChargeReferral xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+    xmlns:cr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0">
     <lexspd:doPublish xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
         xmlns:s="http://niem.gov/niem/structures/2.0"
         xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
@@ -24,10 +25,9 @@
         xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
         xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
-        xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
-        xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+        xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
         xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+        xmlns="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
         xsi:schemaLocation="http://usdoj.gov/leisp/lexs/publishdiscover/3.1">
         <lexs:PublishMessageContainer>
             <lexs:PublishMessage>
@@ -529,12 +529,12 @@
                     </lexs:StructuredPayload>
                     <lexs:StructuredPayload>
                         <lexs:StructuredPayloadMetadata>
-							<lexs:CommunityURI>http://www.ojbc.org</lexs:CommunityURI>
-							<lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
-							<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
+                            <lexs:CommunityURI>http://www.ojbc.org</lexs:CommunityURI>
+                            <lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
+                            <lexs:CommunityVersion>1.0</lexs:CommunityVersion>
                         </lexs:StructuredPayloadMetadata>
                         <ext:IncidentReport>
-                         	<ext:IncidentReportableToDistrictAttorneyIndicator>true</ext:IncidentReportableToDistrictAttorneyIndicator>
+                            <ext:IncidentReportableToDistrictAttorneyIndicator>true</ext:IncidentReportableToDistrictAttorneyIndicator>
                             <ext:Incident>
                                 <j:IncidentArrestMadeIndicator>false</j:IncidentArrestMadeIndicator>
                                 <ext:IncidentCrimeSolvedIndicator>true</ext:IncidentCrimeSolvedIndicator>
@@ -554,4 +554,4 @@
             </lexs:PublishMessage>
         </lexs:PublishMessageContainer>
     </lexspd:doPublish>
-</IncidentReport>
+</cr-doc:ChargeReferral>
