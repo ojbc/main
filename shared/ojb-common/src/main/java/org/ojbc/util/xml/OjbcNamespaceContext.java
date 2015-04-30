@@ -494,6 +494,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_WSOMA = "http://www.w3.org/2007/08/soap12-mtom-policy";
     public static final String NS_PREFIX_WSOMA  = "xop";
 	
+    public static final String NS_PREFIX_CHARGE_REFERRAL_DOC = "cr-doc";
+    public static final String NS_CHARGE_REFERRAL_DOC ="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0";
 
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -501,6 +503,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public OjbcNamespaceContext() {
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();
+
+		prefixToUriMap.put(NS_PREFIX_CHARGE_REFERRAL_DOC, NS_CHARGE_REFERRAL_DOC);
+		uriToPrefixMap.put(NS_CHARGE_REFERRAL_DOC, NS_PREFIX_CHARGE_REFERRAL_DOC);
 
 		prefixToUriMap.put(NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC, NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC);
 		uriToPrefixMap.put(NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC, NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC);
