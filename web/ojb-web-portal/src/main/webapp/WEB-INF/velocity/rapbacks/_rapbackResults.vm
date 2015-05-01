@@ -1,0 +1,263 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ *#
+<!DOCTYPE html>
+ <script type="text/javascript">
+ 
+	  $(function() {
+	  
+	  		$( document ).tooltip();
+	  		
+			$('#demogFilterInfo').on('click', '#filterClear', function(){    		
+				ojbc.clearSearchResultsFilterFields();
+				
+		  		$.get("#springUrl('/subscriptions/clearFilter')",function(data) {
+				      $('#portalContent').html(data);
+			    }).fail(ojbc.displayFailMessage);
+			
+	    	});  
+	    	  		
+	  		$("#searchResultsTable").dataTable({
+				"pagingType": "full_numbers",
+	  			"pageLength": 50,
+				"columnDefs": [{
+					targets: [ 6 ],
+				    searchable: false, 
+				    sortable: false
+				} ]
+	  		});
+	  		
+	  		$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
+	  		
+	  		function getIdToTopicMap(){
+	  		
+				var hasRowSelection = false;
+											
+				var idToTopicMap = {};
+												
+				for (var subIdKey in subscriptionCheckboxSelectionMap) {
+				    					    					    					    
+				    if(subscriptionCheckboxSelectionMap[subIdKey] == true){
+				    
+				    	hasRowSelection = true;
+				    
+				    	var subTopic = subscriptionCheckboxTopicMap[subIdKey];
+				    			
+				    	idToTopicMap[subIdKey] = subTopic;					    						    			    					  
+				    }					    				    						
+				}	
+				
+				if(hasRowSelection == false){
+					return false;
+				}
+														
+				return idToTopicMap;	  			  		
+	  		}
+	  		
+	  		
+			$('#validateLink').click (function() {
+																											
+				var idToTopicMap = getIdToTopicMap();
+				
+				if(idToTopicMap == false || idToTopicMap == null || idToTopicMap == undefined){
+					alert('No subscriptions selected');
+					return false;
+				}
+				    
+				var confirmValidate = confirm('Are you sure you want to validate?');				
+				
+				if(!confirmValidate){
+					return false;
+				}				    				    
+				    
+				var idToTopicJson = JSON.stringify(idToTopicMap);
+								    					
+				var urlRequest = '../subscriptions/validate?idToTopicJsonProps=' + idToTopicJson;
+				
+				//call spring controller and refresh the current page with the subscription search results returned				 
+				$.post(urlRequest, function(data) {										
+				      $('#portalContent').html(data);					      
+					}
+				).fail(ojbc.displayFailMessage);
+					
+				return false;
+				
+			  }    				
+    		 )	  
+	  
+	  
+	  
+			$('#unsubscribeLink').click (function() {
+															
+				var idToTopicMap = getIdToTopicMap();
+				
+				if(idToTopicMap == false || idToTopicMap == null || idToTopicMap == undefined){
+					alert('No subscriptions selected');
+					return false;
+				}
+										
+				var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
+				
+				if(confirmUnsubscribe == true){
+				
+					var unsubJsonString = JSON.stringify(idToTopicMap);
+										    					
+					var urlRequest = '../subscriptions/unsubscribe?idToTopicJsonProps='+unsubJsonString;
+					
+					//call the unsubscribe operation and refresh the current page with the 
+					// subscription search results returned				 
+					$.get(urlRequest, function(data) {										
+					      $('#portalContent').html(data);					      
+						}
+					).fail(ojbc.displayFailMessage);
+						
+					return false;
+															 																		 
+				}else{
+				  return false;
+				}
+				
+			  }    				
+    		 )
+    		 
+
+			$("input[id^='subscriptionCheckBox']").change(function(){
+			
+				var subCheckBoxVal = $(this).val();
+				
+				var subValJson = JSON.parse(subCheckBoxVal);		
+			
+			    if($(this).is(':checked')){
+			    			        															
+					subscriptionCheckboxSelectionMap[subValJson.id] = true;
+					
+					subscriptionCheckboxTopicMap[subValJson.id] = subValJson.topic;		 
+			        
+			    }else{			    
+			    	subscriptionCheckboxSelectionMap[subValJson.id] = false;
+			    				        			        
+			        subscriptionCheckboxTopicMap[subValJson.id] = null;			        			        
+			    }    			
+			});			
+				
+
+	  		// listener for click on any editSubscriptionLink button
+			$("a[id^='editSubscriptionLink']").click (
+				function(){  
+				
+					var editMvcUrl = this;
+					 	    		    			
+			  		$.get(editMvcUrl, 
+			  			function(data){			  			
+			  							  			
+			    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
+			    			 vSubDialog.dialog({                    
+					                position: {
+			                           my: "center",
+			                           at: "center",
+			                           of: window
+					                },
+					                modal:true,
+							        width:240,
+							        height:500,
+							        resizable:false,
+							        open:function(event,ui){
+							        	$('#editSubscriptionDialog').html(data);
+							        },
+							        close: function(event, ui){
+							        	$(this).dialog("close");
+							        	$('#editSubscriptionDialog').remove();
+							        }    	                                  
+			                    }); 			  						  				  				
+			  			}
+			  		).fail(ojbc.displayFailMessage);	
+			  		
+			  		//prevent default browser navigation to link<a> href url, because we're using the url 
+			  		// as a spring mvc call
+			  		return false;		  					  					  		                                                     
+    		 	}
+    		)   		 
+	  
+    	    
+     		$('#addSubLink').click (
+    			function(){    	    		
+    			
+    				// call the spring controller method we need by this GET URL request,
+    				// that method populates the mvc model map with objects needed that 
+    				// are used by the html in the modal velocity template file
+			  		$.get("#springUrl('/subscriptions/addSubscription')", 
+			  			function(data){			  			
+			  							  			
+			    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
+			    			 
+			    			 vSubDialog.dialog({                    
+					                position: {
+			                           my: "center",
+			                           at: "center",
+			                           of: window
+					                },
+					                modal:true,
+							        width:240,
+							        height:500,
+							        resizable:false,
+							        open:function(event,ui){							        							        	
+							        	$('#addSubscriptionDialog').html(data);
+							        	$('#modalIframeSpinner').hide();
+							        },
+							        close: function(event, ui){
+							        	$(this).dialog("close");
+							        	$('#addSubscriptionDialog').remove();
+							        }    	                                  
+			                    }); 			  						  				  				
+			  			}
+			  		).fail(ojbc.displayFailMessage);
+			  					  					  		                                                      
+    		  	}) 
+    		
+    		var searchBarIsHidden = $('#searchBar').is(':hidden');
+    		
+    		// hide the search bar so we can just show the subscriptions content	
+    		if(!searchBarIsHidden){
+    			// note can also use:  $('#id').hide();			
+    			$('#searchBarButtonDiv').css("display", "none");
+    		}	  
+    		    		    		    			   			
+   			return false;	 
+   			   	    
+	  });
+    
+</script>
+	
+	
+<div id="searchResultsContainer" class="contentBox">
+
+    <div id="searchResultsHeader"> 
+        <p id="search-results-title">MANAGE RAPBACKS</p>
+    </div>
+    
+    <div style="padding:10px">
+		#if($informationMessages && $informationMessages!='')
+			<span class="error">
+				$informationMessages
+			</span><br/>
+		#end
+		$searchContent								
+    </div>
+</div>
+
+
+
+
