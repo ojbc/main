@@ -39,7 +39,6 @@
 	<!-- Error handlers in case of submission errors -->
 	<import resource="error-handlers.xml" />
 	
-	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="ndex-submission-service-intermediary">
 		<camel:routeContextRef ref="errorHandlerRoutes"/>
 		
@@ -59,7 +58,7 @@
 			uri="file:///${NDExSubmission.FileSubmissionRoot}/deadletter/" />
 
 		<endpoint id="ndexWebserviceEndpoint"
-			uri="${NDExSubmission.N-DexActualServiceEndpoint}?httpClientConfigurerRef=OJBHttpClientConfigurer" />
+			uri="https4://${NDExSubmission.N-DexActualServiceEndpoint}" />
 			
 		<endpoint id="ndexWebserviceFacadeEndpoint"
 			uri="cxf:bean:N-DexSubmissionServiceFacade?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${NDExSubmission.ndexSubmissionServiceIntermediaryCxflogging}" />
@@ -120,7 +119,7 @@
 				
 			<!-- The method 'createNDexMessage' uses this variable to create the N-DEx paylaod -->
 			<camel:setHeader headerName="submittingAgencyName">
-				<simple>${bean:NDExSubmission.submittingAgencyName.trim}</simple>
+				<simple>{{NDExSubmission.submittingAgencyName}}</simple>
 			</camel:setHeader>
 				
 			<camel:setBody>
@@ -189,12 +188,6 @@
 		
 	</camel:camelContext>
 
-	<!-- typically we would use the {{ }} camel construct to get the property -->
-	<!-- but this was causing an issue with an @ in a property.  This caused an attempted file resolution of a property -->
-    <bean id="NDExSubmission.submittingAgencyName" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="${NDExSubmission.submittingAgencyName}" />
-    </bean>	
-
 	<bean id="uniqueIDGeneratorBean" class="org.ojbc.util.ndex.util.UniqueIDGenerator"/>
 	
 	<bean id ="ndexORIProcessor" class="org.ojbc.processor.NdexORIProcessor">
@@ -206,15 +199,26 @@
 	<bean id="NDExUtils" class="org.ojbc.util.camel.helper.NDexUtils">
 		<property name="uniqueIDGenerator" ref="uniqueIDGeneratorBean"/>
 	</bean>
+
+	<camel:sslContextParameters id="sslContextParameters">
+		<camel:trustManagers>
+			<camel:keyStore resource="{{NDExSubmission.ndexClientTruststoreLocation}}"
+				password="{{NDExSubmission.ndexTruststorePassword}}" />
+		</camel:trustManagers>
+
+		<camel:keyManagers keyPassword="{{NDExSubmission.ndexClientKeypassword}}">
+			<camel:keyStore resource="{{NDExSubmission.ndexClientKeystoreLocation}}"
+				password="{{NDExSubmission.ndexClientKeystorePassword}}" />
+		</camel:keyManagers>
+	</camel:sslContextParameters>
 	
-	<!-- TODO, upgrade to use Camel HTTP4 for simpler configuration -->
-	<bean id="OJBHttpClientConfigurer" class="org.ojbc.ws.security.OJBHttpClientConfigurer">
-		<property name="keystoreLocation"><value>${NDExSubmission.ndexClientKeystoreLocation}</value></property>
-		<property name="keystorePassword"><value>${NDExSubmission.ndexClientKeystorePassword}</value></property>
-		<property name="truststoreLocation"><value>${NDExSubmission.ndexClientTruststoreLocation}</value></property>
-		<property name="truststorePassword"><value>${NDExSubmission.ndexTruststorePassword}</value></property>
-	</bean>
-	
+    <bean id="https4" class="org.apache.camel.component.http4.HttpComponent">
+      <property name="sslContextParameters" ref="sslContextParameters"/>
+      <property name="x509HostnameVerifier">
+        <bean class="org.apache.http.conn.ssl.AllowAllHostnameVerifier"/>
+      </property>
+    </bean>	
+
 	<bean id="sFactory" class="net.sf.saxon.TransformerFactoryImpl" />
 
 </beans>
