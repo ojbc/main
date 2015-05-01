@@ -58,7 +58,7 @@
 <table style="white-space:nowrap;">
 	<tr>
 		<td style="text-align:right;vertical-align:middle;">
-			<label for="subscriptionAddRequest.dateOfBirth">DOB:</label>
+			<label>DOB:</label>
 		</td>
 		<td>
 			#springFormInput("subscriptionEditCommand.subscriptionEditRequest.dateOfBirth" "style='width:110px' class='disabledDatePicker' placeholder='DOB' readonly='readonly'")   
@@ -67,7 +67,7 @@
 
 	<tr>
 		<td style="text-align:right;vertical-align:middle;">
-			<label for="subscriptionAddRequest.subscriptionStartDate">Start Date:</label>
+			<label>Start Date:</label>
 		</td>
 		<td>		
 			#if(${isStartDateEditable})
@@ -80,7 +80,7 @@
 	
 	<tr>
 		<td style="text-align:right;vertical-align:middle;">
-			<label for="subscriptionAddRequest.subscriptionEndDate">End Date:</label>
+			<label>End Date:</label>
 		</td>
 		<td>
 			#springFormInput("subscriptionEditCommand.subscriptionEditRequest.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
