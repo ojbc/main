@@ -120,15 +120,13 @@
     		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
     		
 				$('#portalContent').html(data);	
-											
-				//TODO replace subscriptionsLeftBar with rapback's										
-				$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
+				$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
 					    	
 	    			$('#filterColumn').html(data);
 	    			$('#filterColumn').css('visibility', 'visible');
 	    			 
 	    		}).fail(ojbc.displayFailMessage);
-																      
+											
 			}).fail(ojbc.displayFailMessage);
 							    
 			return false;
