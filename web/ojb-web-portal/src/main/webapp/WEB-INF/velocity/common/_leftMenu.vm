@@ -115,6 +115,23 @@
 			return false;
 		})
     		 
+		$('#rapbackLink').click(function() {	  
+	  				  				  					  					    			    	
+    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+    		
+				$('#portalContent').html(data);	
+				$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
+					    	
+	    			$('#filterColumn').html(data);
+	    			$('#filterColumn').css('visibility', 'visible');
+	    			 
+	    		}).fail(ojbc.displayFailMessage);
+											
+			}).fail(ojbc.displayFailMessage);
+							    
+			return false;
+		});
+		
 		$('#faqLink').click (function() {	    		
 		    $('#searchBarButtonDiv').css("display", "none");
 		    $('#filterColumn').css('visibility', 'visible');
