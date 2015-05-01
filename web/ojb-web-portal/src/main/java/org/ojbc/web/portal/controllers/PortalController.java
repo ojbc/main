@@ -143,6 +143,9 @@ public class PortalController implements ApplicationContextAware {
     
 	@Resource
 	Map<String, String> subscriptionFilterValueToLabelMap;
+	
+	@Resource
+	Map<String, String> rapbackFilterOptionsMap;
 
 	@Resource
 	UserSession userSession;
@@ -222,6 +225,11 @@ public class PortalController implements ApplicationContextAware {
     		Map<String, Object> model){   
     	
     	return "common/_subscriptionsLeftBar";
+    }
+    
+    @RequestMapping(value="rapbackLeftBar", method=RequestMethod.POST)
+    public String rapbackLeftBar(Map<String, Object> model){   
+        return "common/_rapbackLeftBar";
     }
     
     @RequestMapping(value="leftBar", method=RequestMethod.POST)
@@ -437,6 +445,11 @@ public class PortalController implements ApplicationContextAware {
 	@ModelAttribute("subscriptionFilterValueToLabelMap")
 	public Map<String, String> getSubscriptionFilterValueToLabelMap(){
 		return subscriptionFilterValueToLabelMap;
+	}
+	
+	@ModelAttribute("rapbackFilterOptionsMap")
+	public Map<String, String> getRapbackFilterOptionsMap(){
+	    return rapbackFilterOptionsMap;
 	}
 
 	private void debugPrintAssertion(Element assertionElement) throws Exception{
