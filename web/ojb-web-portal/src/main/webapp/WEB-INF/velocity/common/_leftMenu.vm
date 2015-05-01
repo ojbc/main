@@ -115,6 +115,25 @@
 			return false;
 		})
     		 
+		$('#rapbackLink').click(function() {	  
+	  				  				  					  					    			    	
+    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+    		
+				$('#portalContent').html(data);	
+											
+				//TODO replace subscriptionsLeftBar with rapback's										
+				$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
+					    	
+	    			$('#filterColumn').html(data);
+	    			$('#filterColumn').css('visibility', 'visible');
+	    			 
+	    		}).fail(ojbc.displayFailMessage);
+																      
+			}).fail(ojbc.displayFailMessage);
+							    
+			return false;
+		});
+		
 		$('#faqLink').click (function() {	    		
 		    $('#searchBarButtonDiv').css("display", "none");
 		    $('#filterColumn').css('visibility', 'visible');
