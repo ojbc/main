@@ -144,7 +144,7 @@ public class PortalController implements ApplicationContextAware {
 	@Resource
 	Map<String, String> subscriptionFilterValueToLabelMap;
 	
-	@Resource
+	@Value("#{getObject('rapbackFilterOptionsMap')}")
 	Map<String, String> rapbackFilterOptionsMap;
 
 	@Resource
