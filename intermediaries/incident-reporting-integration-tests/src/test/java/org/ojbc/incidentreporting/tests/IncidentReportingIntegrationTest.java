@@ -129,6 +129,7 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 				KarafDistributionOption.features(karafCamelFeature, "camel-saxon"),
 				KarafDistributionOption.features(karafCamelFeature, "camel-mail"),
 				KarafDistributionOption.features(karafCamelFeature, "camel-http"),
+				KarafDistributionOption.features(karafCamelFeature, "camel-http4"),
 
 				// Common intermediary stuff
 				mavenBundle().groupId("commons-codec").artifactId("commons-codec").version("1.6").start(),
