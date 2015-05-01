@@ -97,7 +97,7 @@
 			<td>
 				<xsl:value-of select="oirsr-ext:IdentificationResultStatusCode"></xsl:value-of>
 			</td>
-			<td>
+			<td align="right" width="115px">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed']" mode="subscribed"/>
 				<a href="#" class="blueIcon" style="margin-right:3px" title="Notifications"><i class="fa fa-bell fa-lg"></i></a>
