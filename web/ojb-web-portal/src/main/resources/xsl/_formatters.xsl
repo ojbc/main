@@ -19,7 +19,8 @@
 -->
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all">
 
 	<xsl:template name="formatDate">
 		<xsl:param name="date" />
@@ -29,7 +30,7 @@
 	</xsl:template>
 	
 	<!-- Converts YYYY-MM-DD to MM/DD/YYYY -->
-	<xsl:template match="* | @*" mode="formatDateAsMMDDYYYY">
+	<xsl:template match="*|@*" mode="formatDateAsMMDDYYYY">
 		<xsl:value-of select="format-date(.,'[M01]/[D01]/[Y0001]')"/>
 	</xsl:template>
 	
@@ -223,18 +224,21 @@
        </xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="nc:PersonName" mode="primaryName">
+	<xsl:template match="nc:PersonName | nc20:PersonName" mode="primaryName">
 		<b>
-			<xsl:value-of select="concat(nc:PersonSurName, ', ',nc:PersonGivenName, ' ',nc:PersonMiddleName )" />
+			<xsl:value-of select="concat(*:PersonSurName, ', ',*:PersonGivenName)"/>
+			<xsl:if test="*:PersonMiddleName">
+				<xsl:value-of select="concat(' ',*:PersonMiddleName)"/>
+			</xsl:if>
 		</b>
 	</xsl:template>
-	<xsl:template match="nc:PersonName" mode="firstNameFirst">
+	<xsl:template match="nc:PersonName | nc20:PersonName" mode="firstNameFirst">
 		<xsl:choose>
-			<xsl:when test="nc:PersonGivenName or nc:PersonMiddleName or nc:PersonSurName">
-				<xsl:value-of select="nc:PersonGivenName"/><xsl:text> </xsl:text><xsl:value-of select="nc:PersonMiddleName"/><xsl:text> </xsl:text><xsl:value-of select="nc:PersonSurName"/>
+			<xsl:when test="*:PersonGivenName or *:PersonMiddleName or *:PersonSurName">
+				<xsl:value-of select="*:PersonGivenName"/><xsl:text> </xsl:text><xsl:value-of select="*:PersonMiddleName"/><xsl:text> </xsl:text><xsl:value-of select="*:PersonSurName"/>
 			</xsl:when>
-			<xsl:when test="nc:PersonFullName[normalize-space()]">
-				<xsl:value-of select="nc:PersonFullName" />
+			<xsl:when test="*:PersonFullName[normalize-space()]">
+				<xsl:value-of select="*:PersonFullName" />
 			</xsl:when>
 		</xsl:choose> 
 	</xsl:template>

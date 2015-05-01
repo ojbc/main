@@ -150,6 +150,7 @@
 		<entry key="stateGovLink" value="http://local.gov/" />
 		<entry key="queryLink" value="#" />
 		<entry key="subscriptionsLink" value="#" />
+		<entry key="rapbackLink" value="#" />
 		
 		<!-- Use this entry if you are using the provided help templates from ojb-web-external-resource -->
 		<entry key="helpLink" value="#" />
@@ -628,6 +629,14 @@
 		<entry key="Inactive" value="Inactive" />
 		<entry key="Expiring" value="Expiring" />
 	</util:map>
+
+	<!-- Options in rapback search result filter drop down-->
+	<util:map id="rapbackFilterOptionsMap" map-class="java.util.LinkedHashMap">
+		<entry key="Subscribed" value="Subscribed" />
+		<entry key="Available for Subscription" value="Available for Subscription" />
+		<entry key="Archived" value="Archived" />
+	</util:map>
+
 
 </beans>                      
 

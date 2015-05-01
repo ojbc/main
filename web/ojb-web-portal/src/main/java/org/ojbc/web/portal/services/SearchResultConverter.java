@@ -65,6 +65,9 @@ public class SearchResultConverter implements ApplicationContextAware {
 	@Value("classpath:xsl/subscriptionSearchResult.xsl")
 	org.springframework.core.io.Resource subscriptionSearchResultXsl;
 	
+	@Value("classpath:xsl/rapbackSearchResult.xsl")
+	org.springframework.core.io.Resource rapbackSearchResultXsl;
+	
     @Value("classpath:xsl/identityBasedAccessControlResult.xsl")
     org.springframework.core.io.Resource identityBasedAccessControlResultXsl;
     
@@ -91,6 +94,10 @@ public class SearchResultConverter implements ApplicationContextAware {
 		return convertXml(searchContent, firearmSearchResultXsl, params);
 	}
 
+    public String convertRapbackSearchResult(String searchContent, Map<String, Object> params) {
+        return convertXml(searchContent, rapbackSearchResultXsl, params);
+    }
+    
 	public String convertDetailSearchResult(String searchContent, String systemName, String activeAccordionId) {
 	    if (StringUtils.isNotBlank(activeAccordionId)) {
 	        Map<String, Object> params = new HashMap<String, Object>(); 

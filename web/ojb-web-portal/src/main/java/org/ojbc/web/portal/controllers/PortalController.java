@@ -75,6 +75,7 @@ public class PortalController implements ApplicationContextAware {
 	public static final String  STATE_LINK_ID = "stateGovLink";
     public static final String QUERY_LINK_ID = "queryLink";
 	public static final String  SUBSCRIPTIONS_LINK_ID = "subscriptionsLink";
+	public static final String  RAPBACK_LINK_ID = "rapbackLink";
 	public static final String  HELP_LINK_ID = "helpLink";
 	public static final String  HELP_LINK_EXTERNAL_ID = "helpLinkExternal";
     public static final String  PRIVACY_LINK_ID = "privacyPolicyLink";
@@ -85,6 +86,7 @@ public class PortalController implements ApplicationContextAware {
 	public static final String STATE_LINK_TITLE = "State.gov";
     public static final String QUERY_LINK_TITLE = "Query";
 	public static final String SUBSCRIPTION_LINK_TITLE = "Subscriptions";
+	public static final String RAPBACK_LINK_TITLE = "Rapbacks";
 	public static final String HELP_LINK_TITLE = "Help";
 	public static final String PRIVACY_LINK_TITLE = "Privacy Policies";
 	public static final String FAQ_LINK_TITLE = "Frequently Asked Questions";
@@ -141,6 +143,9 @@ public class PortalController implements ApplicationContextAware {
     
 	@Resource
 	Map<String, String> subscriptionFilterValueToLabelMap;
+	
+	@Value("#{getObject('rapbackFilterOptionsMap')}")
+	Map<String, String> rapbackFilterOptionsMap;
 
 	@Resource
 	UserSession userSession;
@@ -220,6 +225,11 @@ public class PortalController implements ApplicationContextAware {
     		Map<String, Object> model){   
     	
     	return "common/_subscriptionsLeftBar";
+    }
+    
+    @RequestMapping(value="rapbackLeftBar", method=RequestMethod.POST)
+    public String rapbackLeftBar(Map<String, Object> model){   
+        return "common/_rapbackLeftBar";
     }
     
     @RequestMapping(value="leftBar", method=RequestMethod.POST)
@@ -422,6 +432,7 @@ public class PortalController implements ApplicationContextAware {
 			leftMenuLinkTitles.put(STATE_LINK_ID, STATE_LINK_TITLE);
 			leftMenuLinkTitles.put(QUERY_LINK_ID, QUERY_LINK_TITLE);
 			leftMenuLinkTitles.put(SUBSCRIPTIONS_LINK_ID, SUBSCRIPTION_LINK_TITLE);
+			leftMenuLinkTitles.put(RAPBACK_LINK_ID, RAPBACK_LINK_TITLE);
 			leftMenuLinkTitles.put(HELP_LINK_ID, HELP_LINK_TITLE);
 			leftMenuLinkTitles.put(HELP_LINK_EXTERNAL_ID, HELP_LINK_TITLE);
 			leftMenuLinkTitles.put(PRIVACY_LINK_ID, PRIVACY_LINK_TITLE);
@@ -434,6 +445,11 @@ public class PortalController implements ApplicationContextAware {
 	@ModelAttribute("subscriptionFilterValueToLabelMap")
 	public Map<String, String> getSubscriptionFilterValueToLabelMap(){
 		return subscriptionFilterValueToLabelMap;
+	}
+	
+	@ModelAttribute("rapbackFilterOptionsMap")
+	public Map<String, String> getRapbackFilterOptionsMap(){
+	    return rapbackFilterOptionsMap;
 	}
 
 	private void debugPrintAssertion(Element assertionElement) throws Exception{

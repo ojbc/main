@@ -1,4 +1,4 @@
-#*
+/*
  * Unless explicitly acquired and licensed from Licensor under another license, the contents of
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
  * versions as allowed by the RPL, and You may not copy or use this file in either source code
@@ -13,25 +13,25 @@
  * http://opensource.org/licenses/RPL-1.5
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
- *#
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
-        
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery-1.9.0.js')"></script>
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js')"></script>
-        <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
-    </head>
- 	<script type="text/javascript">
-	  	$(function() {
-	       	$('#searchDetailsFrame').on('click', 'a', function(){    		
-	  			$("#modalIframeSpinner").show();
-  			});
-		});
-    </script>
-    <body id="searchDetailsFrame">
-        $searchContent
-    </body>
-</html>
+ */
+package org.ojbc.web.portal.controllers.config;
+
+import javax.annotation.Resource;
+
+import org.ojbc.web.RapbackSearchInterface;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+
+@Configuration
+@Profile("standalone")
+public class RapbackConrollerConfigStandalone implements RapbackControllerConfigInterface{
+	
+	@Resource
+	RapbackSearchInterface rapbackSearchInterface;
+	
+    @Override
+    public RapbackSearchInterface getRapbackSearchBean() {
+        return rapbackSearchInterface;
+    }	
+
+}
