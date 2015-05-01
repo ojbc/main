@@ -97,11 +97,7 @@ import org.xml.sax.InputSource;
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/*")
 public class SubscriptionsController {
-	
-	//TODO read from config xml
-	private static final String CRIM_HIST_SEARCH_URL = 
-			"{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History";
-	
+		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
 	public static final String INCIDENT_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/incident";
 	
@@ -1395,12 +1391,14 @@ public class SubscriptionsController {
 	 */
 	private String getSystemIdFromPersonSID(HttpServletRequest request,
 			DetailsRequest detailsRequestWithSid) {
-		
+						
 		logger.info("person sid: " + detailsRequestWithSid.getIdentificationID());
 		
 		PersonSearchRequest personSearchRequest = new PersonSearchRequest();				
-		personSearchRequest.setPersonSID(detailsRequestWithSid.getIdentificationID());										
-		personSearchRequest.setSourceSystems(Arrays.asList(CRIM_HIST_SEARCH_URL));
+		personSearchRequest.setPersonSID(detailsRequestWithSid.getIdentificationID());	
+		
+		List<String> sourceSystemsList = Arrays.asList(OJBCWebServiceURIs.CRIMINAL_HISTORY_SEARCH);		
+		personSearchRequest.setSourceSystems(sourceSystemsList);
 		
 		Element samlAssertion = samlService.getSamlAssertion(request);	
 		
