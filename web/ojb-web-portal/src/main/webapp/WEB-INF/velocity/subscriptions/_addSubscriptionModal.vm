@@ -24,7 +24,7 @@
     		$('#addSubModalSaveLink').click(
     			function(){
     			
-				  	var subTypeEl = document.getElementById('subscriptionAddRequest.subscriptionType');
+				  	var subTypeEl = document.getElementById('subscriptionType');
 				  	var subTypeElVal = subTypeEl.options[subTypeEl.selectedIndex].text;
 					
 					if(subTypeElVal == 'Arrest'){						
@@ -53,7 +53,7 @@
 		var personNameEl = document.getElementById('personNameSelect');
 		var personNameVal = personNameEl.options[personNameEl.selectedIndex].value;
 		
-		var formData = $('#subscriptionForm').serialize() + "&subscriptionAddRequest.fullName=" + personNameVal;    				
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal;    				
 		
   		$.get("#springUrl('/subscriptions/saveSubscription')", 
   			formData,
@@ -77,12 +77,12 @@
 	  
 	  function saveIncidentSubscription(){
 	  
-	  	var firstName = document.getElementById('subscriptionAddRequest.firstName').value;	  		  	
-	  	var lastName = document.getElementById('subscriptionAddRequest.lastName').value;
+	  	var firstName = document.getElementById('firstName').value;	  		  	
+	  	var lastName = document.getElementById('lastName').value;
 	  	// note we don't have a full name field, so just concatinate first & last with a space
 	  	var fullName = firstName + ' ' + lastName;
 	  		  
-		var formData = $('#subscriptionForm').serialize() + "&subscriptionAddRequest.fullName=" + fullName;    		
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;    		
 					
   		$.get("#springUrl('/subscriptions/saveSubscription')", 
   			formData,
@@ -120,7 +120,7 @@
 	  function refreshDisplayFromSubType(){	  
 
 		//TODO use jquery or spring to get selection - to be cleaner
-	  	var subTypeEl = document.getElementById('subscriptionAddRequest.subscriptionType');
+	  	var subTypeEl = document.getElementById('subscriptionType');
 	  	var subTypeElVal = subTypeEl.options[subTypeEl.selectedIndex].text;
 		
 		if(subTypeElVal == 'Arrest'){						
@@ -153,7 +153,7 @@
 <div style="width:230px;height:400px;" id="subFormDiv">
 	<form id="subscriptionForm">  	  
 		<div>
-			#springFormSingleSelect("subscriptionAddCommand.subscriptionAddRequest.subscriptionType" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")		
+			#springFormSingleSelect("subscription.subscriptionType" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")		
 		</div>			
 		
 		<div id="subModalDynamicContents"/>	 	    	        

@@ -22,8 +22,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
-import org.ojbc.web.model.subscription.add.SubscriptionAddRequest;
-import org.ojbc.web.portal.controllers.dto.SubscriptionAddCommand;
+import org.ojbc.web.model.subscription.Subscription;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -32,17 +31,15 @@ public class ArrestSubscriptionAddValidator {
 	
 	private Logger logger = Logger.getLogger(ArrestSubscriptionAddValidator.class.getName());
 		
-	public void validate(SubscriptionAddCommand subAddCmd, BindingResult errors){
+	public void validate(Subscription subscription, BindingResult errors){
 						
-		logger.info("* * * inside validate()");
+		logger.info("* * * inside validate()");		
 		
-		SubscriptionAddRequest subAddReq = subAddCmd.getSubscriptionAddRequest();
-		
-		if(subAddReq == null){
+		if(subscription == null){
 			return;
 		}
 				
-		Map<String, String> fieldToErrorMap = getValidationErrorsList(subAddReq);
+		Map<String, String> fieldToErrorMap = getValidationErrorsList(subscription);
 		
 		if(fieldToErrorMap ==  null){
 			return;
@@ -58,51 +55,51 @@ public class ArrestSubscriptionAddValidator {
 	}
 	
 	
-	Map<String, String> getValidationErrorsList(SubscriptionAddRequest subAddReq){
+	Map<String, String> getValidationErrorsList(Subscription subscription){
 		
-		if(subAddReq == null){
+		if(subscription == null){
 			return null;
 		}
 		
 		Map<String, String> fieldToErrorMap = new HashMap<String, String>();		
 						
-		String topic = subAddReq.getSubscriptionType(); 		
+		String topic = subscription.getSubscriptionType(); 		
 		if(StringUtils.isBlank(topic)){			
-			fieldToErrorMap.put("subscriptionAddRequest.subscriptionType", "Subscription type must be specified");			
+			fieldToErrorMap.put("subscriptionType", "Subscription type must be specified");			
 		}
 				
-		String sid = subAddReq.getStateId();		
+		String sid = subscription.getStateId();		
 		if(StringUtils.isBlank(sid)){			
-			fieldToErrorMap.put("subscriptionAddRequest.stateId", "SID must be specified");
+			fieldToErrorMap.put("stateId", "SID must be specified");
 		}
 		
-		String name = subAddReq.getFullName();		
+		String name = subscription.getFullName();		
 		if(StringUtils.isBlank(name)){
-			fieldToErrorMap.put("subscriptionAddRequest.fullName", "Name must be specified");
+			fieldToErrorMap.put("fullName", "Name must be specified");
 		}
 		
-		Date subStartDate = subAddReq.getSubscriptionStartDate();
+		Date subStartDate = subscription.getSubscriptionStartDate();
 		if(subStartDate == null){
-			fieldToErrorMap.put("subscriptionAddRequest.subscriptionStartDate", "Start date must be specified");
+			fieldToErrorMap.put("subscriptionStartDate", "Start date must be specified");
 		}
 		
-		Date subEndDate = subAddReq.getSubscriptionEndDate();
+		Date subEndDate = subscription.getSubscriptionEndDate();
 		if(subEndDate != null && subStartDate != null){			
 			if(subEndDate.before(subStartDate)){
-				fieldToErrorMap.put("subscriptionAddRequest.subscriptionEndDate", "End date may not occur before start date");
+				fieldToErrorMap.put("subscriptionEndDate", "End date may not occur before start date");
 			}									
 		}
 				
 		boolean hasEmail = false;
 		
-		for(String iEmail : subAddReq.getEmailList()){
+		for(String iEmail : subscription.getEmailList()){
 			if(StringUtils.isNotBlank(iEmail)){
 				hasEmail = true;
 			}
 		}
 		
 		if(!hasEmail){
-			fieldToErrorMap.put("subscriptionAddRequest.emailList", "Email Address must be specified");
+			fieldToErrorMap.put("emailList", "Email Address must be specified");
 		}			
 		
 		return fieldToErrorMap;
