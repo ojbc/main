@@ -76,11 +76,28 @@ table tr td {
 	zoom: 1;
 }
 
-.blueButton:hover:enabled {
+.blueIcon {
+	background-image: url('../images/Backgrounds/bg-button-blue.jpg');
+	background-repeat: repeat-x;
+	background-color: # 477dae;
+	border: 1px solid #477dae;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px #dddddd;
+	color: #ffffff;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 4px 5px;
+	text-decoration: none;
+	text-transform: uppercase;
+	zoom: 1;
+}
+
+.blueButton:hover:enabled, .blueIcon:hover:enabled {
 	color: #777777;
 }
 
-.blueButton:disabled {
+.blueButton:disabled, .blueIcon:disabled {
 	background-image: url('../images/Backgrounds/bg-button-blue-d.jpg');
 }
 
@@ -212,13 +229,13 @@ a.grayButton:hover {
 	background: url('../images/Left Menu/icon-query-on.png');
 }
 
-#leftMenu #subscriptionsLink div {
+#leftMenu #subscriptionsLink div, #leftMenu #rapbackLink div {
 	width: 24px;
 	height: 24px;
 	background: url('../images/Left Menu/icon-subscriptions-off.png');	
 }
 
-#leftMenu #subscriptionsLink:hover div{
+#leftMenu #subscriptionsLink:hover div,#leftMenu #rapbackLink:hover div{
 	background: url('../images/Left Menu/icon-subscriptions-on.png');
 }
 
@@ -1280,4 +1297,9 @@ text-shadow: 0 1px #fff; */
 
 .detailList{
 	font-size:small; 
+}
+
+.ui-tooltip-content {
+    font-size:small;
+    font-family:Calibri;
 }
