@@ -14,19 +14,18 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.model.subscription.add;
+package org.ojbc.web.model.subscription;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+public class Subscription implements Serializable {
+		
+	private static final long serialVersionUID = 7990280609495398189L;
 
-public class SubscriptionAddRequest implements Serializable {
-					
-    private static final long serialVersionUID = 4793073362467448668L;
-
-    private String subscriptionType;
+	private String subscriptionType;
 	
 	private String stateId;	
 	
@@ -46,8 +45,8 @@ public class SubscriptionAddRequest implements Serializable {
 	
 	private List<String> emailList = new ArrayList<String>();
 
-	
-	
+	private String personNamesJsonArray;
+
 	public String getSubscriptionType() {
 		return subscriptionType;
 	}
@@ -86,6 +85,10 @@ public class SubscriptionAddRequest implements Serializable {
 
 	public List<String> getEmailList() {
 		return emailList;
+	}
+
+	public String getPersonNamesJsonArray() {
+		return personNamesJsonArray;
 	}
 
 	public void setSubscriptionType(String subscriptionType) {
@@ -128,17 +131,21 @@ public class SubscriptionAddRequest implements Serializable {
 		this.emailList = emailList;
 	}
 
+	public void setPersonNamesJsonArray(String personNamesJsonArray) {
+		this.personNamesJsonArray = personNamesJsonArray;
+	}
+
 	@Override
 	public String toString() {
-		return "SubscriptionAddRequest [subscriptionType=" + subscriptionType
+		return "Subscription [subscriptionType=" + subscriptionType
 				+ ", stateId=" + stateId + ", systemId=" + systemId
 				+ ", fullName=" + fullName + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
 				+ ", subscriptionStartDate=" + subscriptionStartDate
 				+ ", subscriptionEndDate=" + subscriptionEndDate
-				+ ", emailList=" + emailList + "]";
-	}
-
+				+ ", emailList=" + emailList + ", personNamesJsonArray="
+				+ personNamesJsonArray + "]";
+	}		
 	
 }
 

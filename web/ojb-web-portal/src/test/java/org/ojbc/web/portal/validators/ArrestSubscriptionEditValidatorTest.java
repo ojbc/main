@@ -129,7 +129,7 @@ public class ArrestSubscriptionEditValidatorTest {
 
 		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subEditReq);
 		
-		String endDateError = fieldToErrorMap.get("subscriptionAddRequest.subscriptionEndDate");
+		String endDateError = fieldToErrorMap.get("subscription.subscriptionEndDate");
 		boolean hasEndDateError = StringUtils.isNotBlank(endDateError);
 		assertEquals(false, hasEndDateError);						
 	}	

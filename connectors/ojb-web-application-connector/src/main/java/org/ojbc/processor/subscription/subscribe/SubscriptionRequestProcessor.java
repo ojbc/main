@@ -27,7 +27,7 @@ import org.ojbc.processor.FaultableSynchronousMessageProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.web.SubscriptionInterface;
-import org.ojbc.web.model.subscription.add.SubscriptionAddRequest;
+import org.ojbc.web.model.subscription.Subscription;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.opensaml.xml.signature.SignatureConstants;
@@ -50,7 +50,7 @@ public class SubscriptionRequestProcessor implements CamelContextAware, Subscrip
 	private boolean allowQueriesWithoutSAMLToken;
 	
 	@Override
-	public FaultableSoapResponse subscribe(SubscriptionAddRequest subAddRequest,
+	public FaultableSoapResponse subscribe(Subscription subscription,
 			String federatedQueryID,
 			Element samlToken) throws Exception {
 		
@@ -73,7 +73,7 @@ public class SubscriptionRequestProcessor implements CamelContextAware, Subscrip
 				throw new Exception("No SAML token provided. Unable to perform query.");
 			}	
 			
-			Document requestMessage = RequestMessageBuilderUtilities.createSubscriptionRequest(subAddRequest);						
+			Document requestMessage = RequestMessageBuilderUtilities.createSubscriptionRequest(subscription);						
 			
 			//Create exchange
 			Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);

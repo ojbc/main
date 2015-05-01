@@ -41,7 +41,7 @@ import org.ojbc.web.impl.DetailQueryDispatcher;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestTestUtils;
-import org.ojbc.web.model.subscription.add.SubscriptionAddRequest;
+import org.ojbc.web.model.subscription.Subscription;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -391,10 +391,10 @@ public class OJBWebApplicationConnectorIntTest{
 
 		String federatedQueryID = returnFederatedQueryGUID();
 		
-		SubscriptionAddRequest subAddReq = new SubscriptionAddRequest();
+		Subscription subscription = new Subscription();
 		
 		//Invoke the service
-		subscriptionRequestProcessor.subscribe(subAddReq, federatedQueryID, samlToken);    			
+		subscriptionRequestProcessor.subscribe(subscription, federatedQueryID, samlToken);    			
     }	
 
     @Test
