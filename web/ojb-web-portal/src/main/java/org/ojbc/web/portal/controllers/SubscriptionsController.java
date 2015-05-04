@@ -43,7 +43,7 @@ import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
-import org.ojbc.web.model.subscription.add.SubscriptionAddRequest;
+import org.ojbc.web.model.subscription.Subscription;
 import org.ojbc.web.model.subscription.add.SubscriptionEndDateStrategy;
 import org.ojbc.web.model.subscription.add.SubscriptionStartDateStrategy;
 import org.ojbc.web.model.subscription.edit.SubscriptionEditRequest;
@@ -58,7 +58,6 @@ import org.ojbc.web.model.subscription.response.common.SubscriptionResponseType;
 import org.ojbc.web.model.subscription.validation.SubscriptionValidationResponse;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
-import org.ojbc.web.portal.controllers.dto.SubscriptionAddCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionEditCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.DateTimeJavaUtilPropertyEditor;
@@ -289,9 +288,8 @@ public class SubscriptionsController {
 	@RequestMapping(value="addSubscription", method = RequestMethod.GET)
 	public String addSubscription(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
-				
-		SubscriptionAddCommand subscriptionAddCommand = new SubscriptionAddCommand();			
-		SubscriptionAddRequest subAddRequest = subscriptionAddCommand.getSubscriptionAddRequest();
+								
+		Subscription subscription = new Subscription();
 		
 		// if there is only one real subscription type option, make it selected
 		Map<String, String> subTypeMap =  getSubscriptionTypeValueToLabelMap();
@@ -302,12 +300,12 @@ public class SubscriptionsController {
 				// ignoring empty requires dropdown label "sub type" have a value of empty string
 				// so it will be ignored
 				if(StringUtils.isNotBlank(subType)){
-					subAddRequest.setSubscriptionType(subType);
+					subscription.setSubscriptionType(subType);
 				}
 			}						
 		}
-			
-		model.put("subscriptionAddCommand", subscriptionAddCommand);
+					
+		model.put("subscription", subscription);
 			
 		logger.info("inside addSubscription()");
 		
@@ -395,19 +393,17 @@ public class SubscriptionsController {
 		
 		logger.info("inside arrestForm()");		
 				
-		SubscriptionAddCommand subscriptionAddCommand = new SubscriptionAddCommand();
+		Subscription subscription = new Subscription();
 		
-		SubscriptionAddRequest subAddRequest = subscriptionAddCommand.getSubscriptionAddRequest();
-		
-		initDatesForAddArrestForm(subAddRequest, model);
+		initDatesForAddArrestForm(subscription, model);
 				
 		// pre-populate an email field on the form w/email from saml token
 		String sEmail = userSession.getUserLogonInfo().emailAddress;
 		if(StringUtils.isNotBlank(sEmail)){
-			subAddRequest.getEmailList().add(sEmail);
+			subscription.getEmailList().add(sEmail);
 		}		
-		
-		model.put("subscriptionAddCommand", subscriptionAddCommand);
+				
+		model.put("subscription", subscription);
 		 				
 		return "subscriptions/_arrestForm";
 	}
@@ -419,14 +415,14 @@ public class SubscriptionsController {
 	 * pre-populate the subscription start date as a convenience to the user
 	 * this will be displayed on the modal
 	 */
-	private void initDatesForAddArrestForm(SubscriptionAddRequest subAddRequest, Map<String, Object> model){
+	private void initDatesForAddArrestForm(Subscription subscription, Map<String, Object> model){
 				
 		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE);		
 		Date defaultSubStartDate = startDateStrategy.getDefaultValue();
 		
 		boolean isStartDateEditable = startDateStrategy.isEditable();
 				
-		subAddRequest.setSubscriptionStartDate(defaultSubStartDate);
+		subscription.setSubscriptionStartDate(defaultSubStartDate);
 		
 		model.put("isStartDateEditable", isStartDateEditable);
 		
@@ -438,7 +434,7 @@ public class SubscriptionsController {
 		
 		boolean isEndDateEditable = endDateStrategy.isEditable();
 		
-		subAddRequest.setSubscriptionEndDate(defaultSubEndDate);
+		subscription.setSubscriptionEndDate(defaultSubEndDate);
 		
 		model.put("isEndDateEditable", isEndDateEditable);		
 	}
@@ -471,28 +467,24 @@ public class SubscriptionsController {
 		
 		logger.info("inside incidentForm()");
 		
-		SubscriptionAddCommand subscriptionAddCommand = new SubscriptionAddCommand();
-		
-		SubscriptionAddRequest subAddRequest = subscriptionAddCommand.getSubscriptionAddRequest();
+		Subscription subscription = new Subscription();
 				
-		initDatesForAddIncidentForm(subAddRequest, model);
+		initDatesForAddIncidentForm(subscription, model);
 		
 		String sEmail = userSession.getUserLogonInfo().emailAddress;
 		
 		if(StringUtils.isNotBlank(sEmail)){
-			subAddRequest.getEmailList().add(sEmail);
+			subscription.getEmailList().add(sEmail);
 		}
 				
-		model.put("subscriptionAddCommand", subscriptionAddCommand);
-		
-
-		
+		model.put("subscription", subscription);
+				
 		return "subscriptions/_incidentForm";
 	}
 
 		
 	
-	private void initDatesForAddIncidentForm(SubscriptionAddRequest subAddRequest, Map<String, Object> model){
+	private void initDatesForAddIncidentForm(Subscription subscription, Map<String, Object> model){
 		
 		// START date
 		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);		
@@ -500,7 +492,7 @@ public class SubscriptionsController {
 		
 		boolean isStartDateEditable = startDateStrategy.isEditable();
 		
-		subAddRequest.setSubscriptionStartDate(defaultStartDate);
+		subscription.setSubscriptionStartDate(defaultStartDate);
 				
 		model.put("isStartDateEditable", isStartDateEditable);		
 		
@@ -511,24 +503,22 @@ public class SubscriptionsController {
 		
 		boolean isEndDateEditable = endDateStrategy.isEditable();
 		
-		subAddRequest.setSubscriptionEndDate(defaultEndDate);
+		subscription.setSubscriptionEndDate(defaultEndDate);
 
 		model.put("isEndDateEditable", isEndDateEditable);				
 	}
 	
-	private void validateSubscription(SubscriptionAddCommand subscriptionAddCommand, BindingResult errors){
+	private void validateSubscription(Subscription subscription, BindingResult errors){
+				
+		logger.info("subscription: \n" + subscription);
 		
-		SubscriptionAddRequest subAddReq = subscriptionAddCommand.getSubscriptionAddRequest();
-		
-		logger.info("subAddReqest: \n" + subAddReq);
-		
-		if(ARREST_TOPIC_SUB_TYPE.equals(subAddReq.getSubscriptionType())){
+		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 			
-			arrestSubscriptionAddValidator.validate(subscriptionAddCommand, errors);
+			arrestSubscriptionAddValidator.validate(subscription, errors);
 			
-		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subAddReq.getSubscriptionType())){
+		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 			
-			incidentSubscriptionAddValidator.validate(subscriptionAddCommand, errors);
+			incidentSubscriptionAddValidator.validate(subscription, errors);
 		}			
 	}
 	
@@ -539,13 +529,13 @@ public class SubscriptionsController {
 	 */
 	@RequestMapping(value="saveSubscription", method=RequestMethod.GET)
 	public  @ResponseBody String  saveSubscription(HttpServletRequest request,
-			@ModelAttribute("subscriptionAddCommand") SubscriptionAddCommand subscriptionAddCommand,
+			@ModelAttribute("subscription") Subscription subscription,
 			BindingResult errors,
 			Map<String, Object> model) {
 								
 		Element samlElement = samlService.getSamlAssertion(request);
 										
-		validateSubscription(subscriptionAddCommand, errors);										
+		validateSubscription(subscription, errors);										
 		
 		// retrieve any spring mvc validation errors from the controller
 		String sErrorsJsonArray = getBindingErrorsAsJsonArray(errors);
@@ -555,7 +545,7 @@ public class SubscriptionsController {
 		if(StringUtils.isBlank(sErrorsJsonArray)){		
 			
 			try {
-				sErrorsJsonArray = processSubscribeOperation(subscriptionAddCommand, samlElement);
+				sErrorsJsonArray = processSubscribeOperation(subscription, samlElement);
 				
 			} catch (Exception e) {
 
@@ -579,23 +569,17 @@ public class SubscriptionsController {
 	 * @throws Exception 
 	 * 		if no response received from subscribe operation
 	 */
-	private String processSubscribeOperation(SubscriptionAddCommand subscriptionAddCommand, Element samlElement) throws Exception{
-		
-		if(subscriptionAddCommand == null){
-			throw new Exception("SubscriptionAddCommand was null");
-		}
+	private String processSubscribeOperation(Subscription subscription, Element samlElement) throws Exception{
 				
-		SubscriptionAddRequest subAddReq = subscriptionAddCommand.getSubscriptionAddRequest();
-		
-		if(subAddReq == null){
-			throw new Exception("SubscriptionAddRequest was null");
+		if(subscription == null){
+			throw new Exception("subscription was null");
 		}
 				
 		logger.info("Calling subscribe operation...");
 		
 		SubscriptionInterface subscribeBean = subConfig.getSubscriptionSubscribeBean();
 		
-			FaultableSoapResponse faultableSoapResponse = subscribeBean.subscribe(subAddReq, 
+			FaultableSoapResponse faultableSoapResponse = subscribeBean.subscribe(subscription, 
 					getFederatedQueryId(), samlElement);
 				
 		logger.info("Subscribe operation returned faultableSoapResponse:  " + faultableSoapResponse);
@@ -1307,10 +1291,10 @@ public class SubscriptionsController {
 		if(StringUtils.isBlank(sErrorsJsonArray)){
 			
 			//TODO refactor subscriptions controller so this copying isn't needed
-			SubscriptionAddCommand subAddCmd = getSubAddCmdFromSubEditRequest(subEditRequest);
+			Subscription subscription = getSubAddCmdFromSubEditRequest(subEditRequest);
 					
 			// get potential errors from processing subscribe operation
-			sErrorsJsonArray = processSubscribeOperation(subAddCmd, samlElement);			
+			sErrorsJsonArray = processSubscribeOperation(subscription, samlElement);			
 		}
 		
 		logger.info("updateSubscription(...) returning: " + sErrorsJsonArray);
@@ -1338,27 +1322,26 @@ public class SubscriptionsController {
 	/**
 	 * TODO refactor subscriptions controller so this isn't needed
 	 */
-	private SubscriptionAddCommand getSubAddCmdFromSubEditRequest(SubscriptionEditRequest subEditRequest){
+	@Deprecated
+	private Subscription getSubAddCmdFromSubEditRequest(SubscriptionEditRequest subEditRequest){
 	
-		SubscriptionAddCommand subAddCmd = new SubscriptionAddCommand();
-		SubscriptionAddRequest subAddReq = new SubscriptionAddRequest();
-		subAddCmd.setSubscriptionAddRequest(subAddReq);
-				
-		subAddReq.setSubscriptionType(subEditRequest.getSubscriptionType());
-		subAddReq.setFirstName(subEditRequest.getFirstName());
-		subAddReq.setLastName(subEditRequest.getLastName());
-		subAddReq.setFullName(subEditRequest.getFullName());
-		subAddReq.setStateId(subEditRequest.getStateId());
-		subAddReq.setDateOfBirth(subEditRequest.getDateOfBirth());
-		subAddReq.setSubscriptionStartDate(subEditRequest.getSubscriptionStartDate());
-		subAddReq.setSubscriptionEndDate(subEditRequest.getSubscriptionEndDate());
-		subAddReq.setEmailList(subEditRequest.getEmailList());
+		Subscription subscription = new Subscription();
+						
+		subscription.setSubscriptionType(subEditRequest.getSubscriptionType());
+		subscription.setFirstName(subEditRequest.getFirstName());
+		subscription.setLastName(subEditRequest.getLastName());
+		subscription.setFullName(subEditRequest.getFullName());
+		subscription.setStateId(subEditRequest.getStateId());
+		subscription.setDateOfBirth(subEditRequest.getDateOfBirth());
+		subscription.setSubscriptionStartDate(subEditRequest.getSubscriptionStartDate());
+		subscription.setSubscriptionEndDate(subEditRequest.getSubscriptionEndDate());
+		subscription.setEmailList(subEditRequest.getEmailList());
 		
 		// note this system id is used by the broker intermediary to recognize that this is 
 		// an edit.  The system id is not set for the add operation
-		subAddReq.setSystemId(subEditRequest.getSystemId());
+		subscription.setSystemId(subEditRequest.getSystemId());
 		
-		return subAddCmd;
+		return subscription;
 	}
 	
 	private String getBindingErrorsAsJsonArray(BindingResult errors){
