@@ -28,7 +28,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.model.subscription.add.SubscriptionAddRequest;
+import org.ojbc.web.model.subscription.Subscription;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -46,12 +46,12 @@ public class SubscriptionDocumentBuilder {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
-	private SubscriptionAddRequest subAddRequest;
+	private Subscription subscription;
 		
 	
-	public Document buildSubscribeDoc(SubscriptionAddRequest pSubAddRequest) throws ParserConfigurationException{
+	public Document buildSubscribeDoc(Subscription pSubscription) throws ParserConfigurationException{
 		
-		subAddRequest = pSubAddRequest;	
+		subscription = pSubscription;	
         
         Document subMsgDoc = createBlankDoc();        
         Element rootSubscribeElement = getRootSubscribeElement(subMsgDoc); 
@@ -85,7 +85,7 @@ public class SubscriptionDocumentBuilder {
 		Element startDateNode = XmlUtils.appendElement(dateRangeNode, OjbcNamespaceContext.NS_NC, "StartDate");		
 		Element startDateValNode = XmlUtils.appendElement(startDateNode, OjbcNamespaceContext.NS_NC, "Date");
 				
-		Date subStartDate = subAddRequest.getSubscriptionStartDate();							
+		Date subStartDate = subscription.getSubscriptionStartDate();							
 		if(subStartDate != null){
 			String sSubStartDate = sdf.format(subStartDate);
 			startDateValNode.setTextContent(sSubStartDate);			
@@ -94,7 +94,7 @@ public class SubscriptionDocumentBuilder {
 		Element endDateNode = XmlUtils.appendElement(dateRangeNode, OjbcNamespaceContext.NS_NC, "EndDate");		
 		Element endDateValNode = XmlUtils.appendElement(endDateNode, OjbcNamespaceContext.NS_NC, "Date");
 		
-		Date subEndDate = subAddRequest.getSubscriptionEndDate();					
+		Date subEndDate = subscription.getSubscriptionEndDate();					
 		if(subEndDate != null){
 			String sSubEndDate = sdf.format(subEndDate);	
 			endDateValNode.setTextContent(sSubEndDate);			
@@ -119,7 +119,7 @@ public class SubscriptionDocumentBuilder {
 		
 		buildSubjectElement(subMsgNode);	
 		
-		buildEmailElements(subMsgNode, subAddRequest.getEmailList());
+		buildEmailElements(subMsgNode, subscription.getEmailList());
 		
 		Element sysNameNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SystemName");				
 		sysNameNode.setTextContent(SYSTEM_NAME); 
@@ -135,7 +135,7 @@ public class SubscriptionDocumentBuilder {
 
 		Element subIdNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "smext:SubscriptionIdentification");
 		
-		String systemId = subAddRequest.getSystemId();
+		String systemId = subscription.getSystemId();
 		
 		if(StringUtils.isNotBlank(systemId)){
 			Element subIdValNode = XmlUtils.appendElement(subIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
@@ -161,7 +161,7 @@ public class SubscriptionDocumentBuilder {
 	
 	private void buildDobNode(Element subjectNode) {
 
-		Date dob = subAddRequest.getDateOfBirth();
+		Date dob = subscription.getDateOfBirth();
 		
 		if(dob != null){
 			Element personBirthDateNode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "PersonBirthDate");	
@@ -176,7 +176,7 @@ public class SubscriptionDocumentBuilder {
 
 	private void buildPesonAugmentationElement(Element parentNode){
 		
-		String sid = subAddRequest.getStateId();
+		String sid = subscription.getStateId();
 		
 		if(StringUtils.isNotBlank(sid)){
 			
@@ -193,19 +193,19 @@ public class SubscriptionDocumentBuilder {
 		
 		Element personNameNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "PersonName");		
 				
-		String sFirstName = subAddRequest.getFirstName();
+		String sFirstName = subscription.getFirstName();
 		if(StringUtils.isNotBlank(sFirstName)){
 			Element firstNameNode = XmlUtils.appendElement(personNameNode, OjbcNamespaceContext.NS_NC, "PersonGivenName");
 			firstNameNode.setTextContent(sFirstName);
 		}
 		
-		String sLastName = subAddRequest.getLastName();
+		String sLastName = subscription.getLastName();
 		if(StringUtils.isNotBlank(sLastName)){
 			Element lastNameNode = XmlUtils.appendElement(personNameNode, OjbcNamespaceContext.NS_NC, "PersonSurName");
 			lastNameNode.setTextContent(sLastName);
 		}
 				
-		String fullName = subAddRequest.getFullName();
+		String fullName = subscription.getFullName();
 		if(StringUtils.isNotBlank(fullName)){
 			Element fullNameNode = XmlUtils.appendElement(personNameNode, OjbcNamespaceContext.NS_NC, "PersonFullName");
 			fullNameNode.setTextContent(fullName);
@@ -218,7 +218,7 @@ public class SubscriptionDocumentBuilder {
 		
 		Element filterElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_B2, "Filter");
 						
-		String subscriptionType = subAddRequest.getSubscriptionType();
+		String subscriptionType = subscription.getSubscriptionType();
 		
 		if(StringUtils.isNotBlank(subscriptionType)){			
 			Element topicExpNode = XmlUtils.appendElement(filterElement, OjbcNamespaceContext.NS_B2, "TopicExpression");		

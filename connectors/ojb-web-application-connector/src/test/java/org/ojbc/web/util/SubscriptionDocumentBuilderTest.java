@@ -27,7 +27,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.model.subscription.add.SubscriptionAddRequest;
+import org.ojbc.web.model.subscription.Subscription;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -139,36 +139,36 @@ public class SubscriptionDocumentBuilderTest {
 	private Document getSampleSubDoc() throws Exception{
 		
 		SubscriptionDocumentBuilder subMsgProcessor = new SubscriptionDocumentBuilder();
-		
-		SubscriptionAddRequest subAddRequest = new SubscriptionAddRequest();		
+					
+		Subscription subscription = new Subscription();
 				
 		List<String> emailList = Arrays.asList("sam@hipd.gov", "sally@hipd.gov");
-		subAddRequest.setEmailList(emailList);
+		subscription.setEmailList(emailList);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				
 		String sDob = "2000-12-25";
 		Date dDob = sdf.parse(sDob);
-		subAddRequest.setDateOfBirth(dDob);
+		subscription.setDateOfBirth(dDob);
 		
 		String sSubStarDate = "2014-04-08";
 		Date dSubStartDate = sdf.parse(sSubStarDate);		
-		subAddRequest.setSubscriptionStartDate(dSubStartDate);
+		subscription.setSubscriptionStartDate(dSubStartDate);
 		
 		String sSubEndDate = "2015-04-08";
 		Date dSubEndDate = sdf.parse(sSubEndDate);
-		subAddRequest.setSubscriptionEndDate(dSubEndDate);
+		subscription.setSubscriptionEndDate(dSubEndDate);
 		
-		subAddRequest.setSubscriptionType("topics:person/arrest");
+		subscription.setSubscriptionType("topics:person/arrest");
 		
-		subAddRequest.setFirstName("Marie-laure");
-		subAddRequest.setLastName("Guillaume");
-		subAddRequest.setFullName("Marie-laure Guillaume");
-		subAddRequest.setStateId("787200");
+		subscription.setFirstName("Marie-laure");
+		subscription.setLastName("Guillaume");
+		subscription.setFullName("Marie-laure Guillaume");
+		subscription.setStateId("787200");
 		
-		subAddRequest.setSystemId("777400");
+		subscription.setSystemId("777400");
 		
-		Document subMsgDoc = subMsgProcessor.buildSubscribeDoc(subAddRequest);		
+		Document subMsgDoc = subMsgProcessor.buildSubscribeDoc(subscription);		
 		
 		return subMsgDoc;		
 	}
