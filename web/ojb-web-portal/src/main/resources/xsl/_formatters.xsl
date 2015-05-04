@@ -226,10 +226,17 @@
 	
 	<xsl:template match="nc:PersonName | nc20:PersonName" mode="primaryName">
 		<b>
-			<xsl:value-of select="concat(*:PersonSurName, ', ',*:PersonGivenName)"/>
-			<xsl:if test="*:PersonMiddleName">
-				<xsl:value-of select="concat(' ',*:PersonMiddleName)"/>
-			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="*:PersonGivenName or *:PersonMiddleName or *:PersonSurName">
+					<xsl:value-of select="concat(*:PersonSurName, ', ',*:PersonGivenName)"/>
+					<xsl:if test="*:PersonMiddleName">
+						<xsl:value-of select="concat(' ',*:PersonMiddleName)"/>
+					</xsl:if>
+				</xsl:when>
+				<xsl:when test="*:PersonFullName[normalize-space()]">
+					<xsl:value-of select="*:PersonFullName" />
+				</xsl:when>
+			</xsl:choose>
 		</b>
 	</xsl:template>
 	<xsl:template match="nc:PersonName | nc20:PersonName" mode="firstNameFirst">
