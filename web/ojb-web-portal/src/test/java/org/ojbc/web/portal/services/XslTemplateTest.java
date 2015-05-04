@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.io.IOUtils;
 import org.custommonkey.xmlunit.Diff;
@@ -34,11 +36,28 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.ojbc.web.WebUtils;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.xml.sax.SAXException;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration({
+        "classpath:dispatcher-servlet.xml",
+        "classpath:application-context.xml",
+        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
+        })
+@ActiveProfiles("standalone")
+@DirtiesContext
 public class XslTemplateTest {
 
+    @Resource
     SearchResultConverter searchResultConverter;
     
     private Logger logger = Logger.getLogger(XslTemplateTest.class.getName());
@@ -49,9 +68,6 @@ public class XslTemplateTest {
     	XMLUnit.setIgnoreWhitespace(true);
     	XMLUnit.setIgnoreAttributeOrder(true);
     	XMLUnit.setIgnoreComments(true);
-    	
-        searchResultConverter = new SearchResultConverter();
-        searchResultConverter.xsltTransformerService = new XsltTransformerService();
     }    
 
     @Test
@@ -325,6 +341,19 @@ public class XslTemplateTest {
         validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "subscriptionSearchResult_FullName.xml", "subscriptionSearchResult.html");
     }
 
+    @Test
+    public void rapbackSearchResult() throws Exception {
+        validateRapbackSearchTransformation("OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchResult.html");
+    }
+    
+    @Test
+    public void rapbackErrorSearchResult() throws Exception {
+        validateRapbackSearchTransformation("AccessDenial_OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchAccessDenied.html");
+        validateRapbackSearchTransformation("Error_OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchRequestError.html");
+        validateRapbackSearchTransformation("NoResults_OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchNoRecord.html");
+        validateRapbackSearchTransformation("OrganizationIdentificationResultsSearchResults_FullName.xml", "rapbackSearchFullName.html");
+    }
+    
 
     private void validatePeopleFilterTransformation(String xslPath, String inputXmlPath, String expectedXmlPath) 
     		throws IOException, SAXException {
@@ -377,6 +406,24 @@ public class XslTemplateTest {
         searchResultConverter.searchResultXsl = xsl;
         
         String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getPersonSearchParams());
+        
+        logger.info("Converted Result:\n" + convertResult);
+        
+        assertLinesEquals(expectedHtml, convertResult);
+    }
+    
+    private void validateRapbackSearchTransformation(String inputXmlPath, String expectedHtmlPath) throws Exception {
+        
+        String xmlInput = WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+                "/service-specifications/Organization_Identification_Results_Search_Results_Service"
+                + "/artifacts/service_model/information_model/Organization_Identification_Results_Search_Results_IEPD/xml/" + inputXmlPath));
+        
+        List<String> expectedHtml = IOUtils.readLines(new ClassPathResource("xslTransformTest/" + expectedHtmlPath).getInputStream(), CharEncoding.UTF_8);
+        
+        // remove ojb license comment(19 lines) in memory, so it's not used in assertion
+        expectedHtml.subList(0, 18).clear();
+        
+        String convertResult = searchResultConverter.convertRapbackSearchResult(xmlInput);
         
         logger.info("Converted Result:\n" + convertResult);
         
