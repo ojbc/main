@@ -39,6 +39,9 @@
 		optTable = {
 			"pagingType": "full_numbers",
 			"pageLength": 50,
+			"language": {
+        		"emptyTable": "No rapback record available"
+   			 },
 			"columnDefs": [{
 				targets: [ 6 ],
 			    searchable: false, 
@@ -46,7 +49,7 @@
 			} ]
         };
 		
-		var oTable = $("#searchResultsTable").DataTable(oTable);
+		var oTable = $("#searchResultsTable").DataTable( optTable);
 		
 		$('#filterColumn').on("change", '#rapbacksFilter', function() {
         	oTable.draw();

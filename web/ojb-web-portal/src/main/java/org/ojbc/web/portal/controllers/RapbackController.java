@@ -16,7 +16,6 @@
  */
 package org.ojbc.web.portal.controllers;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -75,12 +74,9 @@ public class RapbackController {
 		logger.debug("Rapback search results raw xml:\n" + rawResults);
 		model.put("rapbackSearchResults", rawResults);
 		
-		Map<String,Object> paramsMap = new HashMap<String, Object>();
-		paramsMap.put("noRecordFoundMessage", "You do not have any rapbacks.");
-		
 		String transformedResults = ""; 
 		if (StringUtils.isNotBlank(rawResults)) {
-    		transformedResults = searchResultConverter.convertRapbackSearchResult(rawResults, paramsMap);
+    		transformedResults = searchResultConverter.convertRapbackSearchResult(rawResults);
     		
     		logger.debug("Rapback Results HTML:\n" + transformedResults);
 		}
