@@ -94,8 +94,8 @@ public class SearchResultConverter implements ApplicationContextAware {
 		return convertXml(searchContent, firearmSearchResultXsl, params);
 	}
 
-    public String convertRapbackSearchResult(String searchContent, Map<String, Object> params) {
-        return convertXml(searchContent, rapbackSearchResultXsl, params);
+    public String convertRapbackSearchResult(String searchContent) {
+        return convertXml(searchContent, rapbackSearchResultXsl, null);
     }
     
 	public String convertDetailSearchResult(String searchContent, String systemName, String activeAccordionId) {

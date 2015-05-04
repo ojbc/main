@@ -34,10 +34,8 @@
 
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
-	<xsl:param name="noRecordFoundMessage">No rapback record found.</xsl:param>
 	
 	<xsl:template match="/oirsr:OrganizationIdentificationResultsSearchResults">
-		<xsl:variable name="totalCount" select="count(child::oirsr-ext:OrganizationIdentificationResultsSearchResult)" />
 		<xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />
 		<xsl:variable name="requestErrors" select="srm:SearchResultsMetadata/srer:SearchRequestError" />
 		<xsl:variable name="tooManyResultsErrors" select="srm:SearchResultsMetadata/srer:SearchErrors/srer:SearchResultsExceedThresholdError" />
@@ -46,16 +44,9 @@
 		<xsl:apply-templates select="$requestErrors" />
 		<xsl:apply-templates select="$tooManyResultsErrors" />
 
-		<xsl:choose>
-			<xsl:when test="($totalCount &gt; 0)">
-				<xsl:call-template name="rapbacks"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:if test="(($totalCount = 0) and not($tooManyResultsErrors) and not($accessDenialReasons) and not($requestErrors))">
-					<xsl:value-of select="$noRecordFoundMessage" />  
-				</xsl:if>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:if test="(not($tooManyResultsErrors) and not($accessDenialReasons) and not($requestErrors))">
+			<xsl:call-template name="rapbacks"/>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="rapbacks">
