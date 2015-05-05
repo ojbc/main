@@ -16,8 +16,7 @@
  *#
 <script type="text/javascript">
 	  $(function() {	
-	  
-	      	      		    		    			  		    			
+	  	      	      		    		    			  		    			
     	    $(".datePicker").datepicker({
     	       showOn: "both",
     	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
@@ -40,7 +39,7 @@
 
 				
 <div>
-	<input id="stateIdInput" placeholder="SID Number" value="${subscriptionEditCommand.subscriptionEditRequest.stateId}" readonly/>
+	<input id="stateIdInput" placeholder="SID Number" value="${subscription.stateId}" readonly/>
 </div>
 
 <div>	
@@ -59,9 +58,9 @@
 		</td>
 		<td>
 			#if(${isStartDateEditable})
-				#springFormInput("subscriptionEditCommand.subscriptionEditRequest.subscriptionStartDate" "style='width:110px' class='datePicker' placeholder='From'")
+				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='datePicker' placeholder='From'")
 			#else
-				#springFormInput("subscriptionEditCommand.subscriptionEditRequest.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly'")
+				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly'")
 			#end			
 		</td>
 	</tr>
@@ -70,7 +69,7 @@
 			<label for="datepickerEnd">End Date:</label>
 		</td>
 		<td>
-			#springFormInput("subscriptionEditCommand.subscriptionEditRequest.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
+			#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
 		</td>
 	</tr>
 </table>
@@ -78,17 +77,17 @@
 
 <div>
 	<!-- fix object being mapped to from list to something else or use regular html instead of velocity spring macro -->
-	#springFormInput("subscriptionEditCommand.subscriptionEditRequest.emailList[0]" "placeholder='Email Address 1'")
-	#springBind("subscriptionEditCommand.subscriptionEditRequest.emailList[0]")
+	#springFormInput("subscription.emailList[0]" "placeholder='Email Address 1'")
+	#springBind("subscription.emailList[0]")
 </div>
 
 <div>
-	#springFormInput("subscriptionEditCommand.subscriptionEditRequest.emailList[1]" "placeholder='Email Address 2'")
-	#springBind("subscriptionEditCommand.subscriptionEditRequest.emailList[1]")
+	#springFormInput("subscription.emailList[1]" "placeholder='Email Address 2'")
+	#springBind("subscription.emailList[1]")
 </div>
 
 <div>
-	#springFormInput("subscriptionEditCommand.subscriptionEditRequest.emailList[2]" "placeholder='Email Address 3'")
-	#springBind("subscriptionEditCommand.subscriptionEditRequest.emailList[2]")
+	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
+	#springBind("subscription.emailList[2]")
 </div>
 	       	    	        

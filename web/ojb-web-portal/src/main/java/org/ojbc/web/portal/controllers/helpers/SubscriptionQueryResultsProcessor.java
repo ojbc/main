@@ -21,6 +21,7 @@ import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.model.subscription.Subscription;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -29,85 +30,78 @@ public class SubscriptionQueryResultsProcessor {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
 	
-	public SubscriptionQueryResults parseSubscriptionQueryResults(Document subscriptionQueryResponseDoc) throws Exception{
+	public Subscription parseSubscriptionQueryResults(Document subscriptionQueryResponseDoc) throws Exception{
 		
-		SubscriptionQueryResults subQueryResults = new SubscriptionQueryResults();
+		Subscription subscription = new Subscription();
 		
 		Node rootSubQueryResultsNode = XmlUtils.xPathNodeSearch(subscriptionQueryResponseDoc, "sqr:SubscriptionQueryResults");
 							
 		Node subQueryResultNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:SubscriptionQueryResult");
-		parseSubscriptionQueryResultNode(subQueryResultNode, subQueryResults);	
+		parseSubscriptionQueryResultNode(subQueryResultNode, subscription);	
 						
 		Node personNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:Person");
-		parsePersonNode(personNode, subQueryResults);
+		parsePersonNode(personNode, subscription);
 
-		parseContactInfoNode(rootSubQueryResultsNode, subQueryResults);
+		parseContactInfoNode(rootSubQueryResultsNode, subscription);
 		
-		return subQueryResults;
-	}	
-	
+		return subscription;
+	}		
 	
 	private void parseSubscriptionQueryResultNode(Node subQueryResultNode, 
-			SubscriptionQueryResults subQueryResults) throws Exception{
+			Subscription subscription) throws Exception{
 					
 		Node subscriptionNode = XmlUtils.xPathNodeSearch(subQueryResultNode, "sqr-ext:Subscription");
 		
 		Node dateRangeNode = XmlUtils.xPathNodeSearch(subscriptionNode, "nc:ActivityDateRange");		
-		parseDateNode(dateRangeNode, subQueryResults);				
+		parseDateNode(dateRangeNode, subscription);				
 				
 		String topic = XmlUtils.xPathStringSearch(subscriptionNode, "wsn-br:Topic");
-		subQueryResults.setSubscriptionType(topic.trim());
+		subscription.setSubscriptionType(topic.trim());
 		
 		String systemId = XmlUtils.xPathStringSearch(subQueryResultNode, "intel:SystemIdentifier/nc:IdentificationID");
-		subQueryResults.setSystemId(systemId);		
+		subscription.setSystemId(systemId);		
 	}	
 	
-	private void parseDateNode(Node dateRangeNode, SubscriptionQueryResults subQueryResults) throws Exception{				
+	private void parseDateNode(Node dateRangeNode, Subscription subscription) throws Exception{				
 
 		String sStartDate = XmlUtils.xPathStringSearch(dateRangeNode, "nc:StartDate/nc:Date");			
 		if(StringUtils.isNotEmpty(sStartDate)){
 			Date dStartDate = sdf.parse(sStartDate.trim());		
-			subQueryResults.setSubscriptionStartDate(dStartDate);			
+			subscription.setSubscriptionStartDate(dStartDate);			
 		}		
 		
 		String sEndDate = XmlUtils.xPathStringSearch(dateRangeNode, "nc:EndDate");		
 		if(StringUtils.isNotEmpty(sEndDate)){
 			Date dEndDate = sdf.parse(sEndDate.trim());
-			subQueryResults.setSubscriptionEndDate(dEndDate);			
+			subscription.setSubscriptionEndDate(dEndDate);			
 		}
 	}
 	
 	
-	private void parsePersonNode(Node personNode, SubscriptionQueryResults subQueryResults) throws Exception{
-		
-//		   <sqr-ext:Person s:id="P0">
-//		      <nc:PersonBirthDate>
-//		         <nc:Date>2014-05-15</nc:Date>
-//		      </nc:PersonBirthDate>
-//		      <nc:PersonName/
+	private void parsePersonNode(Node personNode, Subscription subscription) throws Exception{		
 		      
 		String sDob = XmlUtils.xPathStringSearch(personNode, "nc:PersonBirthDate/nc:Date");
 		if(StringUtils.isNotBlank(sDob)){
 			Date dDob = sdf.parse(sDob);
-			subQueryResults.setDateOfBirth(dDob);			
+			subscription.setDateOfBirth(dDob);			
 		}
 		      
 		String sFullName = XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonFullName");
-		subQueryResults.setFullName(sFullName.trim());
+		subscription.setFullName(sFullName.trim());
 		
 		String sFirstName = XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonGivenName");
-		subQueryResults.setFirstName(sFirstName);
+		subscription.setFirstName(sFirstName);
 		
 		String sLastName = XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonSurName");
-		subQueryResults.setLastName(sLastName);
+		subscription.setLastName(sLastName);
 				
 		String sid = XmlUtils.xPathStringSearch(personNode, 
 				"jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");		
-		subQueryResults.setStateId(sid.trim());		
+		subscription.setStateId(sid.trim());		
 	}
 	
 	
-	private void parseContactInfoNode(Node rootSubQueryResultsNode, SubscriptionQueryResults subQueryResults) throws Exception{
+	private void parseContactInfoNode(Node rootSubQueryResultsNode, Subscription subscription) throws Exception{
 		
 		NodeList contactInfoNodeList = XmlUtils.xPathNodeListSearch(rootSubQueryResultsNode, "nc:ContactInformation");
 		
@@ -117,7 +111,7 @@ public class SubscriptionQueryResultsProcessor {
 			String iEmail = XmlUtils.xPathStringSearch(iContactInfoNode, "nc:ContactEmailID");		
 			
 			if(StringUtils.isNotBlank(iEmail)){
-				subQueryResults.getEmailList().add(iEmail.trim());			
+				subscription.getEmailList().add(iEmail.trim());			
 			}							
 		}		
 	}

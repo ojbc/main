@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.ojbc.web.model.subscription.edit.SubscriptionEditRequest;
+import org.ojbc.web.model.subscription.Subscription;
 
 public class ArrestSubscriptionEditValidatorTest {
 	
@@ -33,56 +33,56 @@ public class ArrestSubscriptionEditValidatorTest {
 	@Test
 	public void testValidatorErrors(){
 						
-		SubscriptionEditRequest subEditRequest = new SubscriptionEditRequest();
+		Subscription subscription = new Subscription();
 									
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subEditRequest);	
+		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);	
 				
-		String subTypeError = fieldToErrorMap.get("subscriptionEditRequest.subscriptionType");		
+		String subTypeError = fieldToErrorMap.get("subscriptionType");		
 		assertEquals("Subscription type must be specified", subTypeError);
 				
-		String stateIdError = fieldToErrorMap.get("subscriptionEditRequest.stateId");
+		String stateIdError = fieldToErrorMap.get("stateId");
 		assertEquals("SID must be specified", stateIdError);
 		
-		String fullNameError =  fieldToErrorMap.get("subscriptionEditRequest.fullName");
+		String fullNameError =  fieldToErrorMap.get("fullName");
 		assertEquals("Name must be specified", fullNameError);
 		
-		String startDateError = fieldToErrorMap.get("subscriptionEditRequest.subscriptionStartDate");
+		String startDateError = fieldToErrorMap.get("subscriptionStartDate");
 		assertEquals("Start date must be specified", startDateError);		
 								
-		String emailListError = fieldToErrorMap.get("subscriptionEditRequest.emailList");
+		String emailListError = fieldToErrorMap.get("emailList");
 		assertEquals("Email Address must be specified", emailListError);				
 	}
 	
 	@Test
 	public void testValidatorSuccesses(){
 				
-		SubscriptionEditRequest subEditRequest = new SubscriptionEditRequest();
+		Subscription subscription = new Subscription();
 		
-		subEditRequest.setSubscriptionType("{http://ojbc.org/wsn/topics}:person/arrest");		
-		subEditRequest.setStateId("123");		
-		subEditRequest.setFullName("Homer Simpson");	
-		subEditRequest.setSubscriptionStartDate(new Date());
-		subEditRequest.getEmailList().add("hsimpson@gmail.com");
+		subscription.setSubscriptionType("{http://ojbc.org/wsn/topics}:person/arrest");		
+		subscription.setStateId("123");		
+		subscription.setFullName("Homer Simpson");	
+		subscription.setSubscriptionStartDate(new Date());
+		subscription.getEmailList().add("hsimpson@gmail.com");
 		
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subEditRequest);
+		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
 		
-		String subTypeError = fieldToErrorMap.get("subscriptionEditRequest.subscriptionType");		
+		String subTypeError = fieldToErrorMap.get("subscriptionType");		
 		boolean hasSubTypeError = StringUtils.isNotBlank(subTypeError);				
 		assertEquals(false, hasSubTypeError);
 		
-		String stateIdError = fieldToErrorMap.get("subscriptionEditRequest.stateId");
+		String stateIdError = fieldToErrorMap.get("stateId");
 		boolean hasStateIdError = StringUtils.isNotBlank(stateIdError);
 		assertEquals(false, hasStateIdError);
 		
-		String fullNameError =  fieldToErrorMap.get("subscriptionEditRequest.fullName");
+		String fullNameError =  fieldToErrorMap.get("fullName");
 		boolean hasFullNameError = StringUtils.isNotBlank(fullNameError);
 		assertEquals(false, hasFullNameError);
 		
-		String startDateError = fieldToErrorMap.get("subscriptionEditRequest.subscriptionStartDate");
+		String startDateError = fieldToErrorMap.get("subscriptionStartDate");
 		boolean hasStartDateError = StringUtils.isNotBlank(startDateError);
 		assertEquals(false, hasStartDateError);
 		
-		String emailListError = fieldToErrorMap.get("subscriptionEditRequest.emailList");
+		String emailListError = fieldToErrorMap.get("emailList");
 		boolean hasEmailError = StringUtils.isNotBlank(emailListError);
 		assertEquals(false, hasEmailError);
 	}
@@ -91,7 +91,7 @@ public class ArrestSubscriptionEditValidatorTest {
 	@Test
 	public void testInvalidDates(){
 		
-		SubscriptionEditRequest subEditRequest = new SubscriptionEditRequest();
+		Subscription subscription = new Subscription();
 		
 		Calendar startDateCal = Calendar.getInstance();
 		startDateCal.set(2014, 10, 21);
@@ -101,12 +101,12 @@ public class ArrestSubscriptionEditValidatorTest {
 		endDateCal.set(2014, 10, 20);
 		Date endDate = endDateCal.getTime();
 				
-		subEditRequest.setSubscriptionStartDate(startDate);		
-		subEditRequest.setSubscriptionEndDate(endDate);			
+		subscription.setSubscriptionStartDate(startDate);		
+		subscription.setSubscriptionEndDate(endDate);			
 
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subEditRequest);
+		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
 		
-		String endDateError = fieldToErrorMap.get("subscriptionEditRequest.subscriptionEndDate");
+		String endDateError = fieldToErrorMap.get("subscriptionEndDate");
 		assertEquals("End date may not occur before start date", endDateError);		
 	}
 	
@@ -114,7 +114,7 @@ public class ArrestSubscriptionEditValidatorTest {
 	@Test
 	public void testValidDates(){
 		
-		SubscriptionEditRequest subEditReq = new SubscriptionEditRequest();
+		Subscription subscription = new Subscription();
 		
 		Calendar startDateCal = Calendar.getInstance();
 		startDateCal.set(2014, 10, 21);
@@ -124,16 +124,15 @@ public class ArrestSubscriptionEditValidatorTest {
 		endDateCal.set(2014, 10, 22);
 		Date endDate = endDateCal.getTime();
 				
-		subEditReq.setSubscriptionStartDate(startDate);		
-		subEditReq.setSubscriptionEndDate(endDate);			
+		subscription.setSubscriptionStartDate(startDate);		
+		subscription.setSubscriptionEndDate(endDate);			
 
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subEditReq);
+		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
 		
-		String endDateError = fieldToErrorMap.get("subscription.subscriptionEndDate");
+		String endDateError = fieldToErrorMap.get("subscriptionEndDate");
 		boolean hasEndDateError = StringUtils.isNotBlank(endDateError);
 		assertEquals(false, hasEndDateError);						
 	}	
 
 }
-
 
