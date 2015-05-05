@@ -24,21 +24,22 @@
 				return;
 			}	  	  		
 	  	  		
-	  	  	if( '${subscriptionEditCommand.subscriptionEditRequest.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/arrest'){
+	  	  	if( '${subscription.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/arrest'){
 	  	  		populateNamesDropDown();
 	  	  	}	  	  		
 
     		$('#editSubModalSaveLink').click(
     			function(){
-    			    			       			    						
-					if('${subscriptionEditCommand.subscriptionEditRequest.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/arrest'){						
+    			    			    			       			    						
+					if('${subscription.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/arrest'){						
 					
 						saveArrestSubscription();																						
 					
-					}else if('${subscriptionEditCommand.subscriptionEditRequest.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/incident'){
-							
-						saveIncidentSubscription();				  						
-					}else{
+					}else if('${subscription.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/incident'){
+												
+						saveIncidentSubscription();				
+						  						
+					}else{					
 						alert('Subscription type must be specified');
 					} 			  				  					
     			}
@@ -57,17 +58,17 @@
 	  
 	function saveIncidentSubscription(){
 						  					  		
-		var subType = '${subscriptionEditCommand.subscriptionEditRequest.subscriptionType}';						  					  		
+		var subType = '${subscription.subscriptionType}';						  					  		
 		
-		var firstName = document.getElementById('subscriptionEditRequest.firstName').value;	  		  	
-	  	var lastName = document.getElementById('subscriptionEditRequest.lastName').value;
+		var firstName = document.getElementById('firstName').value;	  		  	
+	  	var lastName = document.getElementById('lastName').value;
 	  	
 	  	// note we don't have a full name field, so just concatenate first & last with a space
 	  	var fullName = firstName + ' ' + lastName;
 						  					  					  				 									
-		//TODO remove serialize()  b/c it's not doing anything (or get it working w/mvc)
-		var formData = $('#subscriptionForm').serialize() + "&subscriptionEditRequest.subscriptionType=" + subType + "&subscriptionEditRequest.systemId=" + '${subscriptionEditCommand.subscriptionEditRequest.systemId}' + "&subscriptionEditRequest.fullName=" + fullName;    				
-		    			    			    				
+		// serialize() generates get request string for <springforminput> html fields
+		var formData = $('#subscriptionForm').serialize() + "&subscriptionType=" + subType + "&systemId=" + '${subscription.systemId}' + "&fullName=" + fullName;  
+								    				    			    			    				
   		$.get("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
   			function(data){	
@@ -100,9 +101,9 @@
 			  					  				
 		var stateIdVal = document.getElementById('stateIdInput').value;	  		  				 							
 		
-		//TODO remove serialize()  b/c it's not doing anything (or get it working w/mvc)
-		var formData = $('#subscriptionForm').serialize() + "&subscriptionEditRequest.fullName=" + personNameVal + "&subscriptionEditRequest.subscriptionType=" + topicVal + "&subscriptionEditRequest.stateId=" + stateIdVal + "&subscriptionEditRequest.systemId=" + '${subscriptionEditCommand.subscriptionEditRequest.systemId}';    				
-		    				
+		// serialize() generates get request string for <springforminput> html fields 
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&subscriptionType=" + topicVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
+		    								    					    				
   		$.get("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
   			function(data){	
@@ -128,7 +129,7 @@
   					
 		var nameHtml = '<option value="">Name</option>';
 			
-		var jsonNamesData = '${subscriptionEditCommand.subscriptionEditRequest.personNamesJsonArray}';						
+		var jsonNamesData = '${subscription.personNamesJsonArray}';						
 			  		
 		//var indexToSelect = 0;	  		
 			  					  							  					  							  				
@@ -138,7 +139,7 @@
 				
 		    // TODO fullName should be renamed, it doesn't represent that but rather it's being used here 
 		    // to know which name was selected		
-			if(value == '${subscriptionEditCommand.subscriptionEditRequest.fullName}'){
+			if(value == '${subscription.fullName}'){
 				bSelectName = true;
 				//indexToSelect = index;							
 			}	
@@ -193,7 +194,7 @@
 <div style="width:230px;height:400px;" id="subFormDiv">
 	<form id="subscriptionForm">  	
 							
-		#if(${subscriptionEditCommand.subscriptionEditRequest.subscriptionType}  == '{http://ojbc.org/wsn/topics}:person/arrest')	
+		#if(${subscription.subscriptionType}  == '{http://ojbc.org/wsn/topics}:person/arrest')	
 		
 			<div>
 				<select disabled id="topicSelect">
@@ -203,7 +204,7 @@
 								
 			#parse("subscriptions/editSubscriptionDialog/_arrestForm.vm")	
 											
-		#elseif(${subscriptionEditCommand.subscriptionEditRequest.subscriptionType} == '{http://ojbc.org/wsn/topics}:person/incident')	
+		#elseif(${subscription.subscriptionType} == '{http://ojbc.org/wsn/topics}:person/incident')	
 		
 			<div>
 				<select disabled id="topicSelect">
