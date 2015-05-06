@@ -1169,38 +1169,6 @@ public class SubscriptionsController {
 		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());
 		binder.registerCustomEditor(Date.class, new DateTimeJavaUtilPropertyEditor());
 	}
-
-	/**
-	 * Not needed since jQuery dataTable is used to accomplish pagination. 
-	 * @param start
-	 * @param model
-	 * @return
-	 */
-	@Deprecated
-	@RequestMapping(value="paginate", method = RequestMethod.GET)
-	public String paginate(@RequestParam(value="start", defaultValue="0") int start, 
-			Map<String, Object> model){
-		
-		String mostRecentSearchResult = userSession.getMostRecentSubscriptionSearchResult();
-		
-		if(mostRecentSearchResult == null){
-			logger.info("* PAGINATE, mostRecentSearchResult was NULL, redirecting");			
-			return "redirect: searchForm";
-		}
-										
-		Map<String, Object> subSearchParamsMap = getParams(start, null, null);
-		
-		logger.info("* PAGINATE * Did Not Redirect ***** for content: \n" +
-				mostRecentSearchResult);
-		
-		String transformedResults = searchResultConverter
-				.convertSubscriptionSearchResult(mostRecentSearchResult, subSearchParamsMap);
-						
-		model.put("subscriptionsContent", transformedResults);	
-		model.put("informationMessages", "");
-		
-		return "subscriptions/_subscriptionResults";
-	}
 	
 	@ModelAttribute("subscriptionTypeValueToLabelMap")
 	public Map<String, String> getSubscriptionTypeValueToLabelMap() {
