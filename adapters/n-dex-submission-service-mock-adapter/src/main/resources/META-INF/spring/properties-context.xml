@@ -40,9 +40,9 @@
 				<!-- The .cfg file from the classpath will be consulted first, followed 
 					by the optional .cfg file under $KARAF_HOME/etc -->
 				<util:properties
-					location="classpath:n_dex_submission_service.cfg" />
+					location="classpath:n_dex_submission_service_mock_adapter.cfg" />
 				<osgix:cm-properties id="osgiProperties"
-					persistent-id="n_dex_submission_service" />
+					persistent-id="n_dex_submission_service_mock_adapter" />
 			</array>
 		</property>
 	</bean> 

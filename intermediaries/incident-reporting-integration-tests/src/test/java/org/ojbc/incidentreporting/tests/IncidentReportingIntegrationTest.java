@@ -93,7 +93,7 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 	
 	//Adapters
 	@Inject
-	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.adapters.n-dex-submission-service)", timeout = 40000)
+	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.adapters.n-dex-submission-service-mock-adapter)", timeout = 40000)
 	private ApplicationContext ndexMockAdapterBundleContext;
 
 	//Camel Contexts
@@ -175,7 +175,7 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 				mavenBundle().groupId("org.ojbc.bundles.connectors").artifactId("incident-reporting-service-connector").start(),
 				
 				//Adapters
-				mavenBundle().groupId("org.ojbc.bundles.adapters").artifactId("n-dex-submission-service").start(),
+				mavenBundle().groupId("org.ojbc.bundles.adapters").artifactId("n-dex-submission-service-mock-adapter").start(),
 		};
 	}
 
