@@ -24,9 +24,6 @@ import org.apache.camel.Exchange;
  * This class will read a map and set Camel headers accordingly.
  * The Camel Headers are used as parameters for XSLT calls.
  * 
- * 
- * @author yogeshchawla
- *
  */
 public class CycleIdToNotifXsltParamMapper {
 	
