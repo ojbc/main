@@ -22,18 +22,18 @@
     	   refreshDisplayFromSubType();
     		    		
     		$('#addSubModalSaveLink').click(
-    			function(){
-    			
-				  	var subTypeEl = document.getElementById('subscriptionType');
-				  	var subTypeElVal = subTypeEl.options[subTypeEl.selectedIndex].text;
-					
-					if(subTypeElVal == 'Arrest'){						
-					
-						saveArrestSubscritption();																						
-					
-					}else if(subTypeElVal == 'Incident'){
-							
-						saveIncidentSubscription();				  						
+    			function(){    			
+				  					  					  					  	
+				  	var subTypeTxt = $('#subscriptionType option:selected').text().trim();
+				  						
+					if(subTypeTxt == 'Arrest'){	
+															
+						saveArrestSubscritption();
+																																	
+					}else if(subTypeTxt == 'Incident'){
+												
+						saveIncidentSubscription();
+										  						
 					}else{
 						alert('Subscription type must be specified');
 					}    			    			    											    				    						  				  					
@@ -50,8 +50,7 @@
 	  	  
 	  function saveArrestSubscritption(){	  
 			    				    				
-		var personNameEl = document.getElementById('personNameSelect');
-		var personNameVal = personNameEl.options[personNameEl.selectedIndex].value;
+		var personNameVal = $('#personNameSelect').val();
 		
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal;    				
 		
@@ -76,10 +75,12 @@
 	  
 	  
 	  function saveIncidentSubscription(){
-	  
-	  	var firstName = document.getElementById('firstName').value;	  		  	
-	  	var lastName = document.getElementById('lastName').value;
-	  	// note we don't have a full name field, so just concatinate first & last with a space
+	  	  	  	
+	  	var firstName = $('#firstName').val();	  	
+	  	
+	  	var lastName = $('#lastName').val();
+	  	
+	  	// note we don't have a full name field, so just concatenate first & last with a space
 	  	var fullName = firstName + ' ' + lastName;
 	  		  
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;    		
@@ -118,12 +119,10 @@
 	  
 	  
 	  function refreshDisplayFromSubType(){	  
-
-		//TODO use jquery or spring to get selection - to be cleaner
-	  	var subTypeEl = document.getElementById('subscriptionType');
-	  	var subTypeElVal = subTypeEl.options[subTypeEl.selectedIndex].text;
-		
-		if(subTypeElVal == 'Arrest'){						
+	  	
+	  	var subTypeTxt = $("#subscriptionType option:selected").text().trim();
+	  			
+		if(subTypeTxt == 'Arrest'){						
 			
 	  		$.get("#springUrl('/subscriptions/arrestForm')", 
 	  			function(data){		  			
@@ -131,7 +130,7 @@
 	  			}
 	  		).fail(ojbc.displayFailMessage);				
 															
-		}else if(subTypeElVal == 'Incident'){		
+		}else if(subTypeTxt == 'Incident'){		
 						
 	  		$.get("#springUrl('/subscriptions/incidentForm')", 
 	  			function(data){		  			
