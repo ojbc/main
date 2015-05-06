@@ -30,7 +30,7 @@
 		<property name="propertiesArray">
 			<array>
 				<util:properties
-					location="classpath:n_dex_submission_service.cfg" />
+					location="classpath:n_dex_submission_service_mock_adapter.cfg" />
 			</array>
 		</property>
 	</bean>
