@@ -20,8 +20,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
-import org.ojbc.web.model.subscription.edit.SubscriptionEditRequest;
-import org.ojbc.web.portal.controllers.dto.SubscriptionEditCommand;
+import org.ojbc.web.model.subscription.Subscription;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -30,60 +29,56 @@ public class IncidentSubscriptionEditValidator {
 	
 	private Logger logger = Logger.getLogger(IncidentSubscriptionEditValidator.class.getName());
 	
-	public void validate(SubscriptionEditCommand subEditCmd,
+	public void validate(Subscription subscription,
 			BindingResult errors){
 				
 		logger.info("* * * inside validate()");
-		
-		SubscriptionEditRequest subEditRequest = subEditCmd.getSubscriptionEditRequest();
-				
-		String topic = subEditRequest.getSubscriptionType(); 		
+							
+		String topic = subscription.getSubscriptionType(); 		
 		if(StringUtils.isBlank(topic)){
-			errors.rejectValue("subscriptionEditRequest.subscriptionType", "Subscription type must be specified");
+			errors.rejectValue("subscriptionType", "Subscription type must be specified");
 		}
 				
-		String fName = subEditRequest.getFirstName();
+		String fName = subscription.getFirstName();
 		if(StringUtils.isBlank(fName)){
-			errors.rejectValue("subscriptionEditRequest.firstName", "First name must be specified");
+			errors.rejectValue("firstName", "First name must be specified");
 		}
 		
-		String lName = subEditRequest.getLastName();
+		String lName = subscription.getLastName();
 		if(StringUtils.isBlank(lName)){
-			errors.rejectValue("subscriptionEditRequest.lastName", "Last name must be specified");
+			errors.rejectValue("lastName", "Last name must be specified");
 		}
 		
-		Date dob = subEditRequest.getDateOfBirth();
+		Date dob = subscription.getDateOfBirth();
 		if(dob == null){
-			errors.rejectValue("subscriptionEditRequest.dateOfBirth", "DOB must be specified");
+			errors.rejectValue("dateOfBirth", "DOB must be specified");
 		}
 		
 		
-		Date subStartDate = subEditRequest.getSubscriptionStartDate();
+		Date subStartDate = subscription.getSubscriptionStartDate();
 		if(subStartDate == null){
-			errors.rejectValue("subscriptionEditRequest.subscriptionStartDate", "Start date must be specified");
+			errors.rejectValue("subscriptionStartDate", "Start date must be specified");
 		}
 		
-		Date subEndDate = subEditRequest.getSubscriptionEndDate();
+		Date subEndDate = subscription.getSubscriptionEndDate();
 		if(subEndDate != null && subStartDate != null){			
 			if(subEndDate.before(subStartDate)){
-				errors.rejectValue("subscriptionEditRequest.subscriptionEndDate", "End date may not occur before start date");
+				errors.rejectValue("subscriptionEndDate", "End date may not occur before start date");
 			}									
 		}
 				
 		boolean hasEmail = false;
 		
-		for(String iEmail : subEditRequest.getEmailList()){
+		for(String iEmail : subscription.getEmailList()){
 			if(StringUtils.isNotBlank(iEmail)){
 				hasEmail = true;
 			}
 		}
 		
 		if(!hasEmail){
-			errors.rejectValue("subscriptionEditRequest.emailList", "Email Address must be specified");
+			errors.rejectValue("emailList", "Email Address must be specified");
 		}		
 	}
 
 }
-
-
 

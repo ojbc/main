@@ -30,9 +30,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
+import org.ojbc.web.model.subscription.Subscription;
 import org.w3c.dom.Document;
-
-
 
 public class SubscriptionQueryResultsProcessorTest {
 	
@@ -40,40 +39,39 @@ public class SubscriptionQueryResultsProcessorTest {
 	public void testParsSubQueryResults() throws Exception{
 				
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		
+				
 		Document sampleSubQueryResultsDoc = getSampleSubQueryResultsDoc();		
 		
 		SubscriptionQueryResultsProcessor subQueryResultsProcessor = new SubscriptionQueryResultsProcessor();
 		
-		SubscriptionQueryResults subQueryResults = subQueryResultsProcessor.parseSubscriptionQueryResults(sampleSubQueryResultsDoc);
+		Subscription subscription = subQueryResultsProcessor.parseSubscriptionQueryResults(sampleSubQueryResultsDoc);
 				
-		Date dStartDate = subQueryResults.getSubscriptionStartDate();
+		Date dStartDate = subscription.getSubscriptionStartDate();
 		String sStartDate = sdf.format(dStartDate);
 		assertEquals("2014-04-01", sStartDate);
 				
-		Date dEndDate = subQueryResults.getSubscriptionEndDate();
+		Date dEndDate = subscription.getSubscriptionEndDate();
 		String sEndDate = sdf.format(dEndDate);
 		assertEquals("2014-05-01", sEndDate);
 				
-		String topic = subQueryResults.getSubscriptionType();
+		String topic = subscription.getSubscriptionType();
 		assertEquals("{http://ojbc.org/wsn/topics}:person/arrest", topic);				
 				
-		String sFullName = subQueryResults.getFullName();
+		String sFullName = subscription.getFullName();
 		assertEquals("Test Name", sFullName);
 		
-		Date dDob = subQueryResults.getDateOfBirth();
+		Date dDob = subscription.getDateOfBirth();
     	Date birthDate = sdf.parse("1975-01-12");		
 		assertEquals(0,dDob.compareTo(birthDate));
 				
-		List<String> emailList = subQueryResults.getEmailList();				
+		List<String> emailList = subscription.getEmailList();				
 		boolean hasEmail1 = emailList.contains("officer@gmail.com");
 		assertEquals(true, hasEmail1);
 				
-		String sStateId = subQueryResults.getStateId();
+		String sStateId = subscription.getStateId();
 		assertEquals("A2588583", sStateId);	
 		
-		String systemId = subQueryResults.getSystemId();
+		String systemId = subscription.getSystemId();
 		assertEquals("62726", systemId);
 	}
 	
@@ -98,5 +96,4 @@ public class SubscriptionQueryResultsProcessorTest {
 	}	
 
 }
-
 
