@@ -46,7 +46,6 @@ import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.subscription.Subscription;
 import org.ojbc.web.model.subscription.add.SubscriptionEndDateStrategy;
 import org.ojbc.web.model.subscription.add.SubscriptionStartDateStrategy;
-import org.ojbc.web.model.subscription.edit.SubscriptionEditRequest;
 import org.ojbc.web.model.subscription.response.SubscriptionAccessDenialResponse;
 import org.ojbc.web.model.subscription.response.SubscriptionInvalidEmailResponse;
 import org.ojbc.web.model.subscription.response.SubscriptionInvalidSecurityTokenResponse;
@@ -58,12 +57,10 @@ import org.ojbc.web.model.subscription.response.common.SubscriptionResponseType;
 import org.ojbc.web.model.subscription.validation.SubscriptionValidationResponse;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
-import org.ojbc.web.portal.controllers.dto.SubscriptionEditCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.DateTimeJavaUtilPropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.SubscribedPersonNames;
-import org.ojbc.web.portal.controllers.helpers.SubscriptionQueryResults;
 import org.ojbc.web.portal.controllers.helpers.SubscriptionQueryResultsProcessor;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
@@ -841,25 +838,29 @@ public class SubscriptionsController {
 						
 			Document subQueryResponseDoc = runSubscriptionQueryForEditModal(identificationID, request);
 			
-			SubscriptionQueryResults subQueryResults = parseSubscriptionQueryResults(subQueryResponseDoc);				
+			Subscription subscription = parseSubscriptionQueryResults(subQueryResponseDoc);				
 						
 			List<String> allNamesList = null;	
 			
-			if(ARREST_TOPIC_SUB_TYPE.equals(subQueryResults.getSubscriptionType())){
+			if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 				
-				 allNamesList = getNamesListForArrestEdit(request, subQueryResults, model);
+				 allNamesList = getNamesListForArrestEdit(request, subscription, model);
 				
 				 initDatesForEditArrestForm(model);
 				
-			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subQueryResults.getSubscriptionType())){
+			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 				
 				initDatesForEditIncidentForm(model);
 			}
-						
-			SubscriptionEditCommand subscriptionEditCommand = copySubResultsToSubEditCmd(subQueryResults, allNamesList);
-			logger.info("SubscriptionEditRequest: " + subscriptionEditCommand.getSubscriptionEditRequest());
+											
+			if(allNamesList != null && !allNamesList.isEmpty()){
+				JSONArray namesJsonArray = new JSONArray(allNamesList);		
+				subscription.setPersonNamesJsonArray(namesJsonArray.toString());			
+			}						
+			
+			logger.info("Subscription Edit Request: " + subscription);
 									
-			model.put("subscriptionEditCommand", subscriptionEditCommand);	
+			model.put("subscription", subscription);	
 											
 		}catch(Exception e){
 			
@@ -871,12 +872,12 @@ public class SubscriptionsController {
 	}
 	
 	
-	private List<String> getNamesListForArrestEdit(HttpServletRequest request, SubscriptionQueryResults subQueryResults, 
+	private List<String> getNamesListForArrestEdit(HttpServletRequest request, Subscription subscription, 
 			Map<String, Object> model) throws Exception{
 		
 		List<String> allNamesList = new ArrayList<String>();
 		
-		SubscribedPersonNames subscribedNames = lookupNames(request, subQueryResults);
+		SubscribedPersonNames subscribedNames = lookupNames(request, subscription);
 		
 		String originalName = subscribedNames == null ? null : subscribedNames.getOriginalName();
 										
@@ -902,19 +903,17 @@ public class SubscriptionsController {
 	
 	
 	
-	private SubscriptionQueryResults parseSubscriptionQueryResults(
+	private Subscription parseSubscriptionQueryResults(
 			Document subQueryResponseDoc) throws Exception {
 
 		SubscriptionQueryResultsProcessor subQueryResultProcessor = new SubscriptionQueryResultsProcessor();
 
-		SubscriptionQueryResults subQueryResults = null;
-
-		subQueryResults = subQueryResultProcessor
+		Subscription subscription = subQueryResultProcessor
 				.parseSubscriptionQueryResults(subQueryResponseDoc);
 
-		logger.info("SubscriptionQueryResults: \n" + subQueryResults.toString());
+		logger.info("Subscription Query Results: \n" + subscription.toString());
 
-		return subQueryResults;
+		return subscription;
 	}
 	
 	
@@ -1170,38 +1169,6 @@ public class SubscriptionsController {
 		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());
 		binder.registerCustomEditor(Date.class, new DateTimeJavaUtilPropertyEditor());
 	}
-
-	/**
-	 * Not needed since jQuery dataTable is used to accomplish pagination. 
-	 * @param start
-	 * @param model
-	 * @return
-	 */
-	@Deprecated
-	@RequestMapping(value="paginate", method = RequestMethod.GET)
-	public String paginate(@RequestParam(value="start", defaultValue="0") int start, 
-			Map<String, Object> model){
-		
-		String mostRecentSearchResult = userSession.getMostRecentSubscriptionSearchResult();
-		
-		if(mostRecentSearchResult == null){
-			logger.info("* PAGINATE, mostRecentSearchResult was NULL, redirecting");			
-			return "redirect: searchForm";
-		}
-										
-		Map<String, Object> subSearchParamsMap = getParams(start, null, null);
-		
-		logger.info("* PAGINATE * Did Not Redirect ***** for content: \n" +
-				mostRecentSearchResult);
-		
-		String transformedResults = searchResultConverter
-				.convertSubscriptionSearchResult(mostRecentSearchResult, subSearchParamsMap);
-						
-		model.put("subscriptionsContent", transformedResults);	
-		model.put("informationMessages", "");
-		
-		return "subscriptions/_subscriptionResults";
-	}
 	
 	@ModelAttribute("subscriptionTypeValueToLabelMap")
 	public Map<String, String> getSubscriptionTypeValueToLabelMap() {
@@ -1209,10 +1176,10 @@ public class SubscriptionsController {
 	}
 	
 
-	private SubscribedPersonNames lookupNames(HttpServletRequest request, SubscriptionQueryResults subQueryResults) throws Exception{
+	private SubscribedPersonNames lookupNames(HttpServletRequest request, Subscription subscription) throws Exception{
 						
 		DetailsRequest detailsRequestWithStateId = new DetailsRequest();
-		detailsRequestWithStateId.setIdentificationID(subQueryResults.getStateId());
+		detailsRequestWithStateId.setIdentificationID(subscription.getStateId());
 		
 		String crimHistSysIdFromPersonSid = getSystemIdFromPersonSID(request, detailsRequestWithStateId);
 		
@@ -1232,33 +1199,7 @@ public class SubscriptionsController {
 		
 		return rSubscribedPersonNames;
 	}
-	
-	
-	@Deprecated //TODO use 1 pojo for add/edits so you don't have to copy attributes
-	private SubscriptionEditCommand copySubResultsToSubEditCmd(SubscriptionQueryResults subQueryResults, 
-			List<String> namesList){
 		
-		SubscriptionEditCommand subscriptionEditCommand = new SubscriptionEditCommand();				
-		SubscriptionEditRequest subEditRequest = subscriptionEditCommand.getSubscriptionEditRequest();
-		
-		subEditRequest.setFirstName(subQueryResults.getFirstName());
-		subEditRequest.setLastName(subQueryResults.getLastName());
-		subEditRequest.setFullName(subQueryResults.getFullName());
-		subEditRequest.setSubscriptionType(subQueryResults.getSubscriptionType());
-		subEditRequest.setStateId(subQueryResults.getStateId());
-		subEditRequest.setDateOfBirth(subQueryResults.getDateOfBirth());
-		subEditRequest.setSubscriptionStartDate(subQueryResults.getSubscriptionStartDate());
-		subEditRequest.setSubscriptionEndDate(subQueryResults.getSubscriptionEndDate());	
-		subEditRequest.setEmailList(subQueryResults.getEmailList());
-		subEditRequest.setSystemId(subQueryResults.getSystemId());	
-		
-		if(namesList != null && !namesList.isEmpty()){
-			JSONArray namesJsonArray = new JSONArray(namesList);		
-			subEditRequest.setPersonNamesJsonArray(namesJsonArray.toString());			
-		}
-		
-		return subscriptionEditCommand;
-	}
 	
 	private Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1271,28 +1212,25 @@ public class SubscriptionsController {
 		return params;
 	}
 	
-	
+
+	// note system id is used by the broker intermediary to recognize that this is 
+	// an edit.  The system id is not set for the add operation
 	@RequestMapping(value="updateSubscription", method=RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public @ResponseBody String updateSubscription(HttpServletRequest request,
-			@ModelAttribute("subscriptionEditCommand") SubscriptionEditCommand subscriptionEditCommand,
+			@ModelAttribute("subscription") Subscription subscription,
 			BindingResult errors,
 			Map<String, Object> model) throws Exception{					
 		
-		Element samlElement = samlService.getSamlAssertion(request);
-		
-		SubscriptionEditRequest subEditRequest = subscriptionEditCommand.getSubscriptionEditRequest();
+		Element samlElement = samlService.getSamlAssertion(request);		
 						
 		// get potential spring mvc controller validation errors from validating UI values
-		validateSubscriptionUpdate(subscriptionEditCommand, errors);		
+		validateSubscriptionUpdate(subscription, errors);		
 						
 		String sErrorsJsonArray = getBindingErrorsAsJsonArray(errors);
 		
 		if(StringUtils.isBlank(sErrorsJsonArray)){
-			
-			//TODO refactor subscriptions controller so this copying isn't needed
-			Subscription subscription = getSubAddCmdFromSubEditRequest(subEditRequest);
-					
+											
 			// get potential errors from processing subscribe operation
 			sErrorsJsonArray = processSubscribeOperation(subscription, samlElement);			
 		}
@@ -1303,46 +1241,20 @@ public class SubscriptionsController {
 	}
 	
 	
-	private void validateSubscriptionUpdate(SubscriptionEditCommand subEditCmd, BindingResult errorsBindingResult){
-						
-		SubscriptionEditRequest subEditRequest = subEditCmd.getSubscriptionEditRequest();
+	private void validateSubscriptionUpdate(Subscription subscription, BindingResult errorsBindingResult){
+								
+		logger.info("sub Edit Request = \n" + subscription);
 		
-		logger.info("subEditRequest = \n" + subEditRequest);
-		
-		if(ARREST_TOPIC_SUB_TYPE.equals(subEditRequest.getSubscriptionType())){
+		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 			
-			arrestSubscriptionEditValidator.validate(subEditCmd, errorsBindingResult);
+			arrestSubscriptionEditValidator.validate(subscription, errorsBindingResult);
 			
-		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subEditRequest.getSubscriptionType())){
+		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 			
-			incidentSubscriptionEditValidator.validate(subEditCmd, errorsBindingResult);
+			incidentSubscriptionEditValidator.validate(subscription, errorsBindingResult);
 		}
 	}
 	
-	/**
-	 * TODO refactor subscriptions controller so this isn't needed
-	 */
-	@Deprecated
-	private Subscription getSubAddCmdFromSubEditRequest(SubscriptionEditRequest subEditRequest){
-	
-		Subscription subscription = new Subscription();
-						
-		subscription.setSubscriptionType(subEditRequest.getSubscriptionType());
-		subscription.setFirstName(subEditRequest.getFirstName());
-		subscription.setLastName(subEditRequest.getLastName());
-		subscription.setFullName(subEditRequest.getFullName());
-		subscription.setStateId(subEditRequest.getStateId());
-		subscription.setDateOfBirth(subEditRequest.getDateOfBirth());
-		subscription.setSubscriptionStartDate(subEditRequest.getSubscriptionStartDate());
-		subscription.setSubscriptionEndDate(subEditRequest.getSubscriptionEndDate());
-		subscription.setEmailList(subEditRequest.getEmailList());
-		
-		// note this system id is used by the broker intermediary to recognize that this is 
-		// an edit.  The system id is not set for the add operation
-		subscription.setSystemId(subEditRequest.getSystemId());
-		
-		return subscription;
-	}
 	
 	private String getBindingErrorsAsJsonArray(BindingResult errors){
 		
