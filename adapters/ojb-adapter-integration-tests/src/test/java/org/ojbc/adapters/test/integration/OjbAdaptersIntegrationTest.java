@@ -62,7 +62,7 @@ public class OjbAdaptersIntegrationTest extends AbstractPaxExamIntegrationTest {
 	private static final String KARAF_VERSION = "2.2.11";
 
 	@Inject
-	@Filter(value="(org.springframework.context.service.name=org.ojbc.bundles.adapters.n-dex-submission-service)", timeout = 60000)
+	@Filter(value="(org.springframework.context.service.name=org.ojbc.bundles.adapters.n-dex-submission-service-mock-adapter)", timeout = 60000)
 	private ApplicationContext ndexSubmissionServiceAdapterContext;			
 
 	@Configuration
@@ -118,7 +118,7 @@ public class OjbAdaptersIntegrationTest extends AbstractPaxExamIntegrationTest {
 				mavenBundle().groupId("org.ojbc.bundles.shared").artifactId("ojb-resources-common").start(),
 				mavenBundle().groupId("org.ojbc.bundles.utilities").artifactId("h2-mock-database").start(),
 				
-				mavenBundle().groupId("org.ojbc.bundles.adapters").artifactId("n-dex-submission-service").start(),
+				mavenBundle().groupId("org.ojbc.bundles.adapters").artifactId("n-dex-submission-service-mock-adapter").start(),
 		};
 	}
 
