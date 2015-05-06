@@ -21,8 +21,8 @@
 	targetNamespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:oirsr="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
-	xmlns:oirsr-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
+	xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
+	xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
@@ -32,6 +32,6 @@
 
 	<!-- Root data element for the Subscription Search Results -->
 	
-	<xsd:element name="OrganizationIdentificationResultsSearchResults" type="oirsr-ext:OrganizationIdentificationResultsSearchResultsType" />
+	<xsd:element name="OrganizationIdentificationResultsSearchResults" type="oirs-res-ext:OrganizationIdentificationResultsSearchResultsType" />
 
 </xsd:schema>
