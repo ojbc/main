@@ -153,7 +153,7 @@ public class SubscriptionsController {
     } 	
 
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
-	public String searchForm(HttpServletRequest request,	        
+	public String searchSubscriptions(HttpServletRequest request,	        
 	        Map<String, Object> model) {		
 								
 		Element samlElement = samlService.getSamlAssertion(request);
@@ -279,7 +279,7 @@ public class SubscriptionsController {
 	 * to create the subscription
 	 */
 	@RequestMapping(value="addSubscription", method = RequestMethod.GET)
-	public String addSubscription(HttpServletRequest request,
+	public String getAddSubscriptionModal(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 								
 		Subscription subscription = new Subscription();
@@ -313,7 +313,7 @@ public class SubscriptionsController {
 	 *  which is passed into the detail service
 	 */
 	@RequestMapping(value="personNames", method = RequestMethod.GET)
-	public @ResponseBody String personNames(HttpServletRequest request, 
+	public @ResponseBody String getPersonNames(HttpServletRequest request, 
 			@ModelAttribute("detailsRequest")DetailsRequest detailsRequest, 
 			Map<String, Object> model) {
 				
@@ -381,7 +381,7 @@ public class SubscriptionsController {
 	
 
 	@RequestMapping(value="arrestForm", method=RequestMethod.GET)
-	public String arrestForm(HttpServletRequest request,
+	public String getArrestForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
 		logger.info("inside arrestForm()");		
@@ -403,7 +403,7 @@ public class SubscriptionsController {
 	
 	
 	/**
-	 * note: modifies SubscriptionAddRequest input param
+	 * note: uses pass-by-reference to modify subscription parameter
 	 * 
 	 * pre-populate the subscription start date as a convenience to the user
 	 * this will be displayed on the modal
@@ -455,7 +455,7 @@ public class SubscriptionsController {
 	
 
 	@RequestMapping(value="incidentForm", method=RequestMethod.GET)
-	public String incidentForm(HttpServletRequest request,
+	public String getIncidentForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
 		logger.info("inside incidentForm()");
@@ -823,7 +823,7 @@ public class SubscriptionsController {
 	 * 		used to display appropriate form on the edit modal view
 	 */
 	@RequestMapping(value="editSubscription", method = RequestMethod.GET)
-	public String editSubscription(HttpServletRequest request,			
+	public String getSubscriptionEditModal(HttpServletRequest request,			
 			@RequestParam String identificationID,
 			@RequestParam String topic,
 			Map<String, Object> model) {
@@ -948,7 +948,8 @@ public class SubscriptionsController {
 	 * 		the subscription results page(refreshed after validate)
 	 */
 	@RequestMapping(value="validate", method = RequestMethod.POST)
-	public String  validate(HttpServletRequest request, @RequestParam String idToTopicJsonProps, 
+	public String  validate(HttpServletRequest request, 
+			@RequestParam String idToTopicJsonProps, 
 			Map<String, Object> model) {
 		
 		logger.info("Received idToTopicJsonProps: " + idToTopicJsonProps);
@@ -1010,8 +1011,7 @@ public class SubscriptionsController {
 		refreshSubscriptionsContent(request, model, operationResultMessage);						
 	}
 	
-	
-			
+				
 	boolean getValidIndicatorFromValidateResponse(FaultableSoapResponse faultableSoapResponse) throws Exception{
 
 		boolean isValidated = false;
@@ -1200,7 +1200,6 @@ public class SubscriptionsController {
 	private Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
 		
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("start", start);
 		params.put("purpose", purpose);
 		params.put("onBehalfOf", onBehalfOf);
 		params.put("validateSubscriptionButton", validateSubscriptionButton);
