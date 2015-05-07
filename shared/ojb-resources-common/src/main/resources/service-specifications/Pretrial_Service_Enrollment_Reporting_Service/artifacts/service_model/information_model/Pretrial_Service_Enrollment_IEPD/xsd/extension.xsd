@@ -1,0 +1,973 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
+xmlns:pse-ext="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0"
+targetNamespace="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="./Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
+	<xsd:complexType name="PretrialServiceEnrollmentReportType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a set of details associated with pretrial services enrollment.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Subject"/>
+					<xsd:element ref="pse-ext:PreTrialServicesEnrollment"/>
+					<xsd:element ref="nc:Incident"/>
+					<xsd:element ref="j:Offense"/>
+					<xsd:element ref="cyfs:ContactActivity" minOccurs="0"/>
+					<xsd:element ref="pse-ext:NeedsAssessment" minOccurs="0"/>
+					<xsd:element ref="pse-ext:GeneralAssessment" minOccurs="0"/>
+					<xsd:element ref="pse-ext:MMSAssessment" minOccurs="0"/>
+					<xsd:element ref="pse-ext:SASAAssessment" minOccurs="0"/>
+					<xsd:element ref="pse-ext:ORASAssessment" minOccurs="0"/>
+					<xsd:element ref="nc:Program" minOccurs="0"/>
+					<xsd:element ref="nc:ContactInformation" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0"/>
+					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0"/>
+					<xsd:element ref="cyfs:PersonCaseAssociation" minOccurs="0"/>
+					<xsd:element ref="cyfs:AssessmentCaseAssociation" minOccurs="0"/>
+					<xsd:element ref="j:ActivityProgramAssociation" minOccurs="0"/>
+					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0"/>
+					<xsd:element ref="j:OffenseIncidentAssociation" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PreTrialServicesEnrollmentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a set of details for enrollment in pretrial services.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:CaseType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Referral"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="NeedsAssessmentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a set of needs assessment questions.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssessmentType">
+				<xsd:sequence>
+					<xsd:element ref="pse-ext:HousingNeedsIndicator"/>
+					<xsd:element ref="pse-ext:InsuranceNeedsIndicator"/>
+					<xsd:element ref="pse-ext:MedicalNeedsIndicator"/>
+					<xsd:element ref="pse-ext:MentalHealthNeedsIndicator"/>
+					<xsd:element ref="pse-ext:SubstanceAbuseNeedsIndicator"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="GeneralAssessmentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a set of general assessment questions.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssessmentType">
+				<xsd:sequence>
+					<xsd:element ref="pse-ext:AbuseNeglectIndicator"/>
+					<xsd:element ref="pse-ext:CulturalBarrierIndicator"/>
+					<xsd:element ref="pse-ext:EthnicityBarrierIndicator"/>
+					<xsd:element ref="pse-ext:InterpersonalAnxietyIndicator"/>
+					<xsd:element ref="pse-ext:LackOfAdequateChildCareIndicator"/>
+					<xsd:element ref="pse-ext:LackOfAdequateTransportationIndicator"/>
+					<xsd:element ref="pse-ext:LanguageBarrierIndicator"/>
+					<xsd:element ref="pse-ext:LiteracyIssuesIndicator"/>
+					<xsd:element ref="pse-ext:LowIQIndicator"/>
+					<xsd:element ref="pse-ext:NoServicesDesiredIndicator"/>
+					<xsd:element ref="pse-ext:PhysicalDisabilityIndicator"/>
+					<xsd:element ref="pse-ext:UnstableHousingIndicator"/>
+					<xsd:element ref="pse-ext:OtherBarrierDescriptionText"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="MMSAssessmentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a mini mental health screening assessment.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssessmentType">
+				<xsd:sequence>
+					<xsd:element ref="pse-ext:MMSQuestion1"/>
+					<xsd:element ref="pse-ext:MMSQuestion2"/>
+					<xsd:element ref="pse-ext:MMSQuestion3"/>
+					<xsd:element ref="pse-ext:MMSQuestion4"/>
+					<xsd:element ref="pse-ext:MMSQuestion5"/>
+					<xsd:element ref="pse-ext:MMSQuestion6"/>
+					<xsd:element ref="pse-ext:MMSQuestion7"/>
+					<xsd:element ref="pse-ext:MMSQuestion8"/>
+					<xsd:element ref="pse-ext:MMSQuestion9"/>
+					<xsd:element ref="pse-ext:MMSQuestion10"/>
+					<xsd:element ref="pse-ext:MMSQuestion11"/>
+					<xsd:element ref="pse-ext:MMSQuestion12"/>
+					<xsd:element ref="pse-ext:MMSQuestion13"/>
+					<xsd:element ref="pse-ext:MMSQuestion14"/>
+					<xsd:element ref="pse-ext:MMSQuestion15"/>
+					<xsd:element ref="pse-ext:MMSQuestion16"/>
+					<xsd:element ref="pse-ext:MMSQuestion17"/>
+					<xsd:element ref="pse-ext:MMSQuestion18"/>
+					<xsd:element ref="pse-ext:MMSQuestion19"/>
+					<xsd:element ref="pse-ext:MMSQuestion20"/>
+					<xsd:element ref="pse-ext:MMSQuestion21"/>
+					<xsd:element ref="pse-ext:MMSQuestion22"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SASAAssessmentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a substance abuse screening assessment.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssessmentType">
+				<xsd:sequence>
+					<xsd:element ref="pse-ext:SASAQuestion1"/>
+					<xsd:element ref="pse-ext:SASAQuestion2"/>
+					<xsd:element ref="pse-ext:SASAQuestion3"/>
+					<xsd:element ref="pse-ext:SASAQuestion4"/>
+					<xsd:element ref="pse-ext:SASAQuestion5a"/>
+					<xsd:element ref="pse-ext:SASAQuestion5b"/>
+					<xsd:element ref="pse-ext:SASAQuestion5c"/>
+					<xsd:element ref="pse-ext:SASAQuestion5d"/>
+					<xsd:element ref="pse-ext:SASAQuestion5e"/>
+					<xsd:element ref="pse-ext:SASAQuestion5f"/>
+					<xsd:element ref="pse-ext:SASAQuestion5g"/>
+					<xsd:element ref="pse-ext:SASAQuestion5h"/>
+					<xsd:element ref="pse-ext:SASAQuestion6"/>
+					<xsd:element ref="pse-ext:SASAQuestion7"/>
+					<xsd:element ref="pse-ext:SASAQuestion8"/>
+					<xsd:element ref="pse-ext:SASAQuestion9"/>
+					<xsd:element ref="pse-ext:SASAQuestion10"/>
+					<xsd:element ref="pse-ext:SASAQuestion11"/>
+					<xsd:element ref="pse-ext:SASAQuestion12"/>
+					<xsd:element ref="pse-ext:SASAQuestion13"/>
+					<xsd:element ref="pse-ext:SASAQuestion14"/>
+					<xsd:element ref="pse-ext:SASAQuestion15"/>
+					<xsd:element ref="pse-ext:SASAQuestion16"/>
+					<xsd:element ref="pse-ext:AssessmentScoreNumeric"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ORASAssessmentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the Ohio risk assessment system - pretrial services screening.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssessmentType">
+				<xsd:sequence>
+					<xsd:element ref="pse-ext:ORASQuestion1"/>
+					<xsd:element ref="pse-ext:ORASQuestion2"/>
+					<xsd:element ref="pse-ext:ORASQuestion3"/>
+					<xsd:element ref="pse-ext:ORASQuestion4"/>
+					<xsd:element ref="pse-ext:ORASQuestion5"/>
+					<xsd:element ref="pse-ext:ORASQuestion6"/>
+					<xsd:element ref="pse-ext:ORASQuestion7"/>
+					<xsd:element ref="pse-ext:AssessmentScoreNumeric"/>
+					<xsd:element ref="pse-ext:Landlord" minOccurs="0"/>
+					<xsd:element ref="pse-ext:DefendantRentIndicator"/>
+					<xsd:element ref="pse-ext:HousingVerifiedIndicator"/>
+					<xsd:element ref="pse-ext:EmploymentVerifiedIndicator"/>
+					<xsd:element ref="pse-ext:FaiureToAppearVerifiedIndicator"/>
+					<xsd:element ref="pse-ext:CriminalHistoryVerifiedIndicator"/>
+					<xsd:element ref="pse-ext:JailVerifiedIndicator"/>
+					<xsd:element ref="pse-ext:SubstanceAbuseVerifiedIndicator"/>
+					<xsd:element ref="pse-ext:AgeAtFirstArrestVerifiedIndicator"/>
+					<xsd:element ref="pse-ext:HoursInSchool"/>
+					<xsd:element ref="pse-ext:PriorArrestsIndicator"/>
+					<xsd:element ref="pse-ext:JailVerifiedIndicator"/>
+					<xsd:element ref="pse-ext:FailureToAppearIndicator"/>
+					<xsd:element ref="pse-ext:PriorJailIndicator"/>
+					<xsd:element ref="pse-ext:PriorPrisonIndicator"/>
+					<xsd:element ref="pse-ext:CurrentEmploymentIndicator"/>
+					<xsd:element ref="pse-ext:AttendingSchoolIndicator"/>
+					<xsd:element ref="pse-ext:DrugProblemIndicator"/>
+					<xsd:element ref="pse-ext:DrugArrestIndicator"/>
+					<xsd:element ref="pse-ext:PhysicianDrugProblemIndicator"/>
+					<xsd:element ref="pse-ext:TotalNumberOfFTA"/>
+					<xsd:element ref="pse-ext:NumberOfTwoYearFTA"/>
+					<xsd:element ref="pse-ext:DrugProblemRating"/>
+					<xsd:element ref="pse-ext:PriorArrestDescriptionText"/>
+					<xsd:element ref="pse-ext:AgeAtFirstArrest"/>
+					<xsd:element ref="pse-ext:FTADisciplinaryActionText"/>
+					<xsd:element ref="pse-ext:NumberOfTimesInJail"/>
+					<xsd:element ref="pse-ext:NumberOfTimesInPrison"/>
+					<xsd:element ref="pse-ext:NotEmployedReasonText"/>
+					<xsd:element ref="pse-ext:DrugProblemExplanationText"/>
+					<xsd:element ref="pse-ext:DrugArrestDatesText"/>
+					<xsd:element ref="pse-ext:DrugArrestCategoryDescriptionText"/>
+					<xsd:element ref="cyfs:DrugUseFrequencyDescriptionText"/>
+					<xsd:element ref="cyfs:PreferredDrugName"/>
+					<xsd:element ref="pse-ext:DrugArrestExplanationText"/>
+					<xsd:element ref="pse-ext:LastDrugUseDate"/>
+					<xsd:element ref="pse-ext:DrugLifeImpactDescriptionText"/>
+					<xsd:element ref="pse-ext:DrugWorkImpactDescriptionText"/>
+					<xsd:element ref="pse-ext:DrugProblemFamilyDescriptionText"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="PreTrialServicesEnrollment" type="pse-ext:PreTrialServicesEnrollmentType">
+		<xsd:annotation>
+			<xsd:documentation>An description of the type of first offense</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirstOffenseCategoryText" type="nc:TextType" substitutionGroup="j:OffenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An description of the type of first offense</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SecondOffenseCategoryText" type="nc:TextType" substitutionGroup="j:OffenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An description of the type of second offense</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ThirdOffenseCategoryText" type="nc:TextType" substitutionGroup="j:OffenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An description of the type of third offense</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirstContact" type="cyfs:ContactActivityType" substitutionGroup="cyfs:ContactActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A contact with an person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SecondContact" type="cyfs:ContactActivityType" substitutionGroup="cyfs:ContactActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A contact with an person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SpokeToDefendantIndicator" type="niem-xs:boolean" substitutionGroup="cyfs:ContactActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the contacing official spoke to the defendant; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LeftMessageIndicator" type="niem-xs:boolean" substitutionGroup="cyfs:ContactActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the contacing official left a message; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentTextMessageIndicator" type="niem-xs:boolean" substitutionGroup="cyfs:ContactActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the contacing official left a message; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HIPPAAuthorizationIndicator" type="niem-xs:boolean" substitutionGroup="cyfs:ContactActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if defendant provided HIPPA authorization; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ConsentToReleaseIndicator" type="niem-xs:boolean" substitutionGroup="cyfs:ContactActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if defendant provided consent to release; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonIsAVeteranIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person is a military veteran; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonHasMinorChildrenIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person has minor children.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonTotalNumberMinorChildren" type="niem-xs:nonNegativeInteger" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Total number of minor children a person has.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ReferralSourceDescriptionText" type="nc:TextType" substitutionGroup="nc:ReferralAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person is a military veteran; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MultipleIncidentsClearedIndicator" type="niem-xs:boolean" substitutionGroup="cyfs:ContactActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if multiple incident cleared; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TotalNumberOfIncidentsCleared" type="niem-xs:nonNegativeInteger" substitutionGroup="cyfs:ContactActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if multiple incident cleared; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ContactTelephoneNumberValidIndicator" type="niem-xs:boolean" substitutionGroup="nc:TelephoneNumberAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the telephone number is valid; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ContactInformationSourceDescriptionText" type="nc:TextType" substitutionGroup="nc:ContactInformationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A description of where to contact information was obtained.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonCurrentEducationLevelText" type="nc:TextType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The current education level of a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HoursInSchool" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>The number of hours per week a person is in school</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NeedsAssessment" type="pse-ext:NeedsAssessmentType">
+		<xsd:annotation>
+			<xsd:documentation>Needs assessment of an person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSAssessment" type="pse-ext:MMSAssessmentType">
+		<xsd:annotation>
+			<xsd:documentation>Mental health assessment of an person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAAssessment" type="pse-ext:SASAAssessmentType">
+		<xsd:annotation>
+			<xsd:documentation>Substance abuse assessment of an person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ORASAssessment" type="pse-ext:ORASAssessmentType">
+		<xsd:annotation>
+			<xsd:documentation>The Ohio risk assessment system - pretrial services screening.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HousingNeedsIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if housing needs are required; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubstanceAbuseNeedsIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if substance abuse needs are required; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MentalHealthNeedsIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if mental health needs are required; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MedicalNeedsIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if medical needs are required; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InsuranceNeedsIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if insurance needs are required; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirstProgramReferral" type="nc:ReferralType" substitutionGroup="nc:ProgramAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The first referral a person is provided to a program or service.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SecondProgramReferral" type="nc:ReferralType" substitutionGroup="nc:ProgramAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The second referral a person is provided to a program or service.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ThirdProgramReferral" type="nc:ReferralType" substitutionGroup="nc:ProgramAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The third referral a person is provided to a program or service.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GeneralAssessment" type="pse-ext:GeneralAssessmentType">
+		<xsd:annotation>
+			<xsd:documentation>A broad assessment of an person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LowIQIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person has a low IQ; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PhysicalDisabilityIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person has a physical disability; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LiteracyIssuesIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person has literacy issues; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="UnstableHousingIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person has unstable housing; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NoServicesDesiredIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person has ne dessire for services; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LackOfAdequateTransportationIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person has inadequate transportation; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LackOfAdequateChildCareIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person has inadequate childcare; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LanguageBarrierIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if an person has difficulty communicating; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EthnicityBarrierIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if an person experiences ethnicity issues; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CulturalBarrierIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if an person experiences a cultural barrier; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AbuseNeglectIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if an person has suffered a history of abuse; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InterpersonalAnxietyIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if an person suffers an interpersonal anxiety disorder; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OtherBarrierDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of a social barrier of an person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ActivityLocation" type="nc:LocationType" substitutionGroup="nc:ActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A location of an activity.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InPersonAssessmentIndicator" type="niem-xs:boolean" substitutionGroup="nc:AssessmentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an assessment is in person; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AssessmentInformationVerifiedIndicator" type="niem-xs:boolean" substitutionGroup="nc:AssessmentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if assessment information is verified; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion1" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion2" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion3" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion4" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion5" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion6" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion7" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion8" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion9" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion10" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion11" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion12" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion13" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion14" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion15" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion16" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion17" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion18" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion19" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion20" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion21" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MMSQuestion22" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion1" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion2" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion3" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion4" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion5a" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion5b" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion5c" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion5d" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion5e" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion5f" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion5g" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion5h" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion6" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion7" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion8" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion9" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion10" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion11" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion12" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion13" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion14" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion15" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SASAQuestion16" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the answer to the question is yes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ORASQuestion1" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>ORAS.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ORASQuestion2" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>ORAS.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ORASQuestion3" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>ORAS.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ORASQuestion4" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>ORAS.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ORASQuestion5" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>ORAS.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ORASQuestion6" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>ORAS.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ORASQuestion7" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>ORAS.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AssessmentScoreNumeric" type="nc:NumericType">
+		<xsd:annotation>
+			<xsd:documentation>Substance abuse assessment numeric score.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FullTimeEmploymentDescriptionText" type="nc:TextType" substitutionGroup="nc:PersonEmploymentAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A description of full time employment.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EmploymentCategoryDescriptionText" type="nc:TextType" substitutionGroup="nc:PersonEmploymentAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The type of employment (e.g., full, seasonal, part time).</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Landlord" type="nc:PersonType">
+		<xsd:annotation>
+			<xsd:documentation>Landlord.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DefendantRentIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person pays rent; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HousingVerifiedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if housing has been verified; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EmploymentVerifiedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if employment has been verified; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FaiureToAppearVerifiedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if failure to appear has been verified; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryVerifiedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if criminal history has been verified; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AgeAtFirstArrestVerifiedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the age at first arrest has been verified; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JailVerifiedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if jail has been verified; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubstanceAbuseVerifiedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if substance abuse has been verified; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PriorArrestsIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if prior arrest has been verified; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FailureToAppearIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if failure to appear occurred; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PriorJailIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person had served previous jail time; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PriorPrisonIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person had served previous time; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CurrentEmploymentIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person is currently employed; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttendingSchoolIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person is attending school; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugProblemIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person has a drug problem; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugArrestIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person has had a drug arrest; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PhysicianDrugProblemIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if an person's physician substantiates a drug problem; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TotalNumberOfFTA" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>Total number of failure to appear.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NumberOfTwoYearFTA" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>Total number of failure to appear in the past two years.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugProblemRating" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>Drug problem on a rating of 1 to 5.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PriorArrestDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of prior arrests.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AgeAtFirstArrest" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>Age at first arrest.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FTADisciplinaryActionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A punishment for a failure to appear.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NumberOfTimesInJail" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>The number of times a person was in jail.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NumberOfTimesInPrison" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>The number of times a person was in prison.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NotEmployedReasonText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The reason a person is not employed.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugProblemExplanationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>An explanation provided regarding a drug problem.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugArrestDatesText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Dates provided for drug arrests.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugArrestCategoryDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the type of drugs associated with an arrest.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugArrestExplanationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>An explanation for a drug arrest.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LastDrugUseDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date of the last drug use.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugLifeImpactDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of how drugs are affecting life.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugWorkImpactDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of how drugs are affecting work.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugProblemFamilyDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of whether a family believes there is a drug problem.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ResidenceInhabitantsDescriptionText" type="nc:TextType" substitutionGroup="nc:PersonResidenceAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A description of the people living at a residence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LengthAtResidenceText" type="nc:TextType" substitutionGroup="nc:PersonResidenceAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The amount of time a person has been residing at a residence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PrimaryResidenceIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonResidenceAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the current residence is a primary residence; false otherwise..</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NotPrimaryResidenceExplanationText" type="nc:TextType" substitutionGroup="nc:PersonResidenceAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An explanation whu the current residence is not the primary residence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ResidenceOwnOrRentDescriptionText" type="nc:TextType" substitutionGroup="nc:PersonResidenceAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A description as to whether a person owns or rents a residence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MovedInLastSixMonthsDescriptionText" type="nc:TextType" substitutionGroup="nc:PersonResidenceAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A description as to whether a person has moved in the last six months.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
