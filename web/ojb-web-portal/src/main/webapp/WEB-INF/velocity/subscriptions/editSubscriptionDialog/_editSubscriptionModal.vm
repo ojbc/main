@@ -19,6 +19,7 @@
 	  $(function() {	
 	  	  		
 			if(!${initializationSucceeded}){
+			
 				$("#editSubscriptionDialog").dialog('close');
 				alert('Failed retrieving subscription for edit window');
 				return;
@@ -59,9 +60,10 @@
 	function saveIncidentSubscription(){
 						  					  		
 		var subType = '${subscription.subscriptionType}';						  					  		
-		
-		var firstName = document.getElementById('firstName').value;	  		  	
-	  	var lastName = document.getElementById('lastName').value;
+		 			
+		var firstName = $('#firstName').val();			  	
+	  	
+	  	var lastName = $('#lastName').val();
 	  	
 	  	// note we don't have a full name field, so just concatenate first & last with a space
 	  	var fullName = firstName + ' ' + lastName;
@@ -91,15 +93,12 @@
 	  
 	  
 	function saveArrestSubscription(){
-							   	    			    				    	
-	    //TODO reference elements w/jquery instead of regular js				    				
-		var personNameEl = document.getElementById('personNameSelect');
-		var personNameVal = personNameEl.options[personNameEl.selectedIndex].value;
-		
-		var topicSelectEl = document.getElementById('topicSelect');
-		var topicVal = topicSelectEl.options[topicSelectEl.selectedIndex].value;  
-			  					  				
-		var stateIdVal = document.getElementById('stateIdInput').value;	  		  				 							
+							   	    			    				    		
+		var personNameVal = $('#personNameSelect').val();
+		  		
+		var topicVal = $('#topicSelect').val();
+			  					  						
+		var  stateIdVal = $('#stateIdInput').val(); 		  				 							
 		
 		// serialize() generates get request string for <springforminput> html fields 
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&subscriptionType=" + topicVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
@@ -147,9 +146,9 @@
 			/* 
 				// TODO - investigate why these preferable options of setting the selection do not work:	
 				// ? maybe jquery has to be up in the $function () at the top		
-				//$('#personNameSelect').options[$('#personNameSelect').selectedIndex].value = '${subscriptionEditCommand.subscriptionEditRequest.fullName}';
+				//$('#personNameSelect').options[$('#personNameSelect').selectedIndex].value = '${subscription.fullName}';
 				//$('#personNameSelect').selectedIndex = '"' + indexToSelect + '"';				
-				//$('#personNameSelect').value = '${subscriptionEditCommand.subscriptionEditRequest.fullName}';					
+				//$('#personNameSelect').value = '${subscription.fullName}';					
 				// Since they weren't working - multiple if statements were used to build the option differently		
 			*/				
 								
