@@ -21,7 +21,6 @@
  	  
  	  var subscriptionCheckboxTopicMap = {};
  
- 
 	  $(function() {
 	  
 			$('#demogFilterInfo').on('click', '#filterClear', function(){    		
@@ -102,8 +101,7 @@
 			  }    				
     		 )	  
 	  
-	  
-	  
+	  		 
 			$('#unsubscribeLink').click (function() {
 															
 				var idToTopicMap = getIdToTopicMap();
@@ -265,7 +263,3 @@
 		$subscriptionsContent								
     </div>
 </div>
-
-
-
-

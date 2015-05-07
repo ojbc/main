@@ -55,8 +55,7 @@
     		
 	  });	
 	
-	
-	  
+		  
 	function saveIncidentSubscription(){
 						  					  		
 		var subType = '${subscription.subscriptionType}';						  					  		
