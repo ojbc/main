@@ -142,168 +142,22 @@ public class SAMLTokenUtils {
 		{	
 			List<AttributeBean> attributes = new ArrayList<AttributeBean>();
 			
-			AttributeBean surName = null;
-			AttributeBean userIndicator = null;
-			AttributeBean employerName = null;
-			AttributeBean positionName = null;
-			AttributeBean givenName = null;
-			AttributeBean commonName = null;
-			AttributeBean crimJusticeIndicator = null;
-			AttributeBean leIndicator = null;
-			AttributeBean federationId = null;
-			AttributeBean telephoneNumber = null;
-			AttributeBean subUnitName = null;
-			AttributeBean emailAddress = null;
-			AttributeBean employerOri = null;
-			AttributeBean identityProviderId = null;
-
-			if (customAttributes.containsKey(SamlAttribute.SurName.getAttibuteName()))
-			{	
-				surName = createAttributeBean(SamlAttribute.SurName.getAttibuteName(), 
-				        customAttributes.get(SamlAttribute.SurName.getAttibuteName()));
-			}
-			else
-			{
-				surName = createAttributeBean(SamlAttribute.SurName.getAttibuteName(), "owen");
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.FederatedQueryUserIndicator.getAttibuteName()))
-			{	
-				userIndicator = createAttributeBean(SamlAttribute.FederatedQueryUserIndicator.getAttibuteName(), 
-				        customAttributes.get(SamlAttribute.FederatedQueryUserIndicator.getAttibuteName()));
-			}
-			else
-			{
-				userIndicator = createAttributeBean(SamlAttribute.FederatedQueryUserIndicator.getAttibuteName(), "true");
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.EmployerName.getAttibuteName()))
-			{	
-				employerName = createAttributeBean(SamlAttribute.EmployerName.getAttibuteName(), 
-				        customAttributes.get(SamlAttribute.EmployerName.getAttibuteName()));
-			}
-			else
-			{
-				employerName = createAttributeBean(SamlAttribute.EmployerName.getAttibuteName(), "Department of Attorney General");
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.EmployeePositionName.getAttibuteName()))
-			{	
-				positionName = createAttributeBean(SamlAttribute.EmployeePositionName.getAttibuteName(), 
-				        customAttributes.get(SamlAttribute.EmployeePositionName.getAttibuteName()));
-			}
-			else
-			{
-				positionName = createAttributeBean(SamlAttribute.EmployeePositionName.getAttibuteName(), "Sergeant");
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.GivenName.getAttibuteName()))
-			{	
-				givenName = createAttributeBean(SamlAttribute.GivenName.getAttibuteName(), customAttributes.get(SamlAttribute.GivenName.getAttibuteName()));
-			}
-			else
-			{
-				givenName = createAttributeBean(SamlAttribute.GivenName.getAttibuteName(), "andrew");
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.CommonName.getAttibuteName()))
-			{	
-				commonName = createAttributeBean(SamlAttribute.CommonName.getAttibuteName(), customAttributes.get(SamlAttribute.CommonName.getAttibuteName()));
-			}
-			else
-			{
-				commonName = createAttributeBean(SamlAttribute.CommonName.getAttibuteName(), "Andrew Owen");
-			}	
-
-
-			if (customAttributes.containsKey(SamlAttribute.CriminalJusticeEmployerIndicator.getAttibuteName()))
-			{	
-				crimJusticeIndicator = createAttributeBean(SamlAttribute.CriminalJusticeEmployerIndicator.getAttibuteName(), customAttributes.get(SamlAttribute.CriminalJusticeEmployerIndicator.getAttibuteName()));
-			}
-			else
-			{
-				crimJusticeIndicator = createAttributeBean(SamlAttribute.CriminalJusticeEmployerIndicator.getAttibuteName(), "true");
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.LawEnforcementEmployerIndicator.getAttibuteName()))
-			{	
-				leIndicator = createAttributeBean(SamlAttribute.LawEnforcementEmployerIndicator.getAttibuteName(), customAttributes.get(SamlAttribute.LawEnforcementEmployerIndicator.getAttibuteName()));
-			}
-			else
-			{
-				leIndicator = createAttributeBean(SamlAttribute.LawEnforcementEmployerIndicator.getAttibuteName(), "true");
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.FederationId.getAttibuteName()))
-			{	
-				federationId = createAttributeBean(SamlAttribute.FederationId.getAttibuteName(), customAttributes.get(SamlAttribute.FederationId.getAttibuteName()));
-			}
-			else
-			{
-				federationId = createAttributeBean(SamlAttribute.FederationId.getAttibuteName(), federationID);
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.TelephoneNumber.getAttibuteName()))
-			{	
-				telephoneNumber = createAttributeBean(SamlAttribute.TelephoneNumber.getAttibuteName(), customAttributes.get(SamlAttribute.TelephoneNumber.getAttibuteName()));
-			}
-			else
-			{
-				telephoneNumber = createAttributeBean(SamlAttribute.TelephoneNumber.getAttibuteName(), "916-215-3933");
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.EmployerSubUnitName.getAttibuteName()))
-			{	
-				subUnitName = createAttributeBean(SamlAttribute.EmployerSubUnitName.getAttibuteName(), customAttributes.get(SamlAttribute.EmployerSubUnitName.getAttibuteName()));
-			}
-			else
-			{
-				subUnitName = createAttributeBean(SamlAttribute.EmployerSubUnitName.getAttibuteName(), employerID);
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.EmailAddressText.getAttibuteName()))
-			{	
-				emailAddress = createAttributeBean(SamlAttribute.EmailAddressText.getAttibuteName(), customAttributes.get(SamlAttribute.EmailAddressText.getAttibuteName()));
-			}
-			else
-			{
-				emailAddress = createAttributeBean(SamlAttribute.EmailAddressText.getAttibuteName(), "andrew@search.org");
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.EmployerORI.getAttibuteName()))
-			{	
-				employerOri = createAttributeBean(SamlAttribute.EmployerORI.getAttibuteName(), customAttributes.get(SamlAttribute.EmployerORI.getAttibuteName()));
-			}
-			else
-			{
-				employerOri = createAttributeBean(SamlAttribute.EmployerORI.getAttibuteName(), "002015Y");
-			}	
-
-			if (customAttributes.containsKey(SamlAttribute.IdentityProviderId.getAttibuteName()))
-			{	
-				identityProviderId = createAttributeBean(SamlAttribute.IdentityProviderId.getAttibuteName(), customAttributes.get(SamlAttribute.IdentityProviderId.getAttibuteName()));
-			}
-			else
-			{
-				identityProviderId = createAttributeBean(SamlAttribute.IdentityProviderId.getAttibuteName(), idpID);
-			}	
-			
-			attributes.add(surName);
-			attributes.add(userIndicator);
-			attributes.add(employerName);
-			attributes.add(positionName);
-			attributes.add(givenName);
-			attributes.add(commonName);
-			attributes.add(crimJusticeIndicator);
-			attributes.add(leIndicator);
-			attributes.add(federationId);
-			attributes.add(telephoneNumber);
-			attributes.add(subUnitName);
-			attributes.add(emailAddress);
-			attributes.add(employerOri);
-			attributes.add(identityProviderId);
-			
-			
+			addAttributeToList(customAttributes, "owen", SamlAttribute.SurName, attributes);	
+			addAttributeToList(customAttributes, "true", SamlAttribute.FederatedQueryUserIndicator,attributes);	
+			addAttributeToList(customAttributes, "Department of Attorney General", SamlAttribute.EmployerName,attributes);	
+			addAttributeToList(customAttributes, "Sergeant", SamlAttribute.EmployeePositionName,attributes);	
+			addAttributeToList(customAttributes, "andrew", SamlAttribute.GivenName,attributes);	
+			addAttributeToList(customAttributes, "Andrew Owen", SamlAttribute.CommonName,attributes);	
+			addAttributeToList(customAttributes, "true", SamlAttribute.CriminalJusticeEmployerIndicator,attributes);	
+			addAttributeToList(customAttributes, "true", SamlAttribute.LawEnforcementEmployerIndicator,attributes);	
+			addAttributeToList(customAttributes, federationID, SamlAttribute.FederationId,attributes);	
+			addAttributeToList(customAttributes, "916-215-3933", SamlAttribute.TelephoneNumber,attributes);	
+			addAttributeToList(customAttributes, employerID, SamlAttribute.EmployerSubUnitName,attributes);	
+			addAttributeToList(customAttributes, "andrew@search.org", SamlAttribute.EmailAddressText,attributes);	
+			addAttributeToList(customAttributes, "002015Y", SamlAttribute.EmployerORI,attributes);	
+			addAttributeToList(customAttributes, idpID, SamlAttribute.IdentityProviderId,attributes);	
+			addAttributeToList(customAttributes, "false", SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator,attributes);	
+			addAttributeToList(customAttributes, "false", SamlAttribute.SupervisoryRoleIndicator,attributes);	
 			
 			List<AttributeStatementBean> attributeStatementBeans = new ArrayList<AttributeStatementBean>();
 			
@@ -360,6 +214,29 @@ public class SAMLTokenUtils {
 		
 		return assertionWrapper.getSaml2();
 	}
+
+	/**
+	 * Create new AttributeBean instance based customeAttributes, defaultValue and samlAttribute, 
+	 * and add it to the the attributes List. 
+	 * @param customAttributes
+	 * @param defaultValue
+	 * @param samlAttribute
+	 * @param attributes
+	 */
+    private static void addAttributeToList(Map<String, String> customAttributes,
+            String defaultValue, SamlAttribute samlAttribute, List<AttributeBean> attributes) {
+        AttributeBean attributeBean = getNewAttributeBean(customAttributes, defaultValue, samlAttribute);  
+        attributes.add(attributeBean);
+    }
+
+    private static AttributeBean getNewAttributeBean(Map<String, String> customAttributes, String defaultValue, SamlAttribute samlAttribute) {
+        if (customAttributes.containsKey(samlAttribute.getAttibuteName())){	
+        	return createAttributeBean(samlAttribute.getAttibuteName(), customAttributes.get(samlAttribute.getAttibuteName()));
+        }
+        else{
+        	return createAttributeBean(samlAttribute.getAttibuteName(), defaultValue);
+        }
+    }
 
 	
 	private static AttributeBean createAttributeBean(String qualifiedName, String value) {
