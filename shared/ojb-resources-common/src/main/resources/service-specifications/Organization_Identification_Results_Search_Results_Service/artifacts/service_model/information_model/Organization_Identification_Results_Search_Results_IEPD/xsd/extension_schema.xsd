@@ -21,7 +21,7 @@
 	targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:oirsr-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
+	xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
@@ -43,13 +43,13 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="oirsr-ext:OrganizationIdentificationResultsSearchResult" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirs-res-ext:OrganizationIdentificationResultsSearchResult" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="OrganizationIdentificationResultsSearchResult" type="oirsr-ext:OrganizationIdentificationResultsSearchResultType">
+	<xsd:element name="OrganizationIdentificationResultsSearchResult" type="oirs-res-ext:OrganizationIdentificationResultsSearchResultType">
 		<xsd:annotation>
 			<xsd:documentation>An individual Organization Identification Result.
 			</xsd:documentation>
@@ -62,12 +62,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="oirsr-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="oirsr-ext:IdentificationResultStatusRepresentation"/>
-					<xsd:element ref="oirsr-ext:Subscription" minOccurs="0"/>
-					<xsd:element ref="oirsr-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="oirs-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="oirs-res-ext:IdentificationResultStatusRepresentation"/>
+					<xsd:element ref="oirs-res-ext:Subscription" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
-					<xsd:element ref="oirsr-ext:SearchResultCategoryText" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:SearchResultCategoryText" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -80,23 +80,23 @@
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
 					<xsd:element ref="wsn-br:Topic"/>
-					<xsd:element ref="oirsr-ext:SubscriptionValidation" minOccurs="0"/>
-					<xsd:element ref="oirsr-ext:SubscriptionGracePeriod" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:SubscriptionValidation" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:SubscriptionGracePeriod" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Subscription" type="oirsr-ext:SubscriptionType">
+	<xsd:element name="Subscription" type="oirs-res-ext:SubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>A subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscriptionValidation" type="oirsr-ext:SubscriptionValidationType">
+	<xsd:element name="SubscriptionValidation" type="oirs-res-ext:SubscriptionValidationType">
 		<xsd:annotation>
 			<xsd:documentation>The details about validation requirements for a subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscriptionGracePeriod" type="oirsr-ext:SubscriptionGracePeriodType">
+	<xsd:element name="SubscriptionGracePeriod" type="oirs-res-ext:SubscriptionGracePeriodType">
 		<xsd:annotation>
 			<xsd:documentation>The details about the grace period of a subscription.</xsd:documentation>
 		</xsd:annotation>
@@ -108,8 +108,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="oirsr-ext:SubscriptionValidationDueDate" minOccurs="0"/>
-					<xsd:element ref="oirsr-ext:SubscriptionValidatedDate" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:SubscriptionValidationDueDate" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:SubscriptionValidatedDate" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -131,7 +131,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="oirsr-ext:SubscriptionGracePeriodDateRange"/>
+					<xsd:element ref="oirs-res-ext:SubscriptionGracePeriodDateRange"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -154,13 +154,13 @@
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
 					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
-					<xsd:element ref="oirsr-ext:IdentifiedPersonTrackingIdentification"/>
+					<xsd:element ref="oirs-res-ext:IdentifiedPersonTrackingIdentification"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType"/>
-	<xsd:element name="IdentifiedPerson" type="oirsr-ext:IdentifiedPersonType">
+	<xsd:element name="IdentifiedPerson" type="oirs-res-ext:IdentifiedPersonType">
 		<xsd:annotation>
 			<xsd:documentation>
 				A human being.
@@ -179,7 +179,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscribedEntity" type="oirsr-ext:SubscribedEntityType">
+	<xsd:element name="SubscribedEntity" type="oirs-res-ext:SubscribedEntityType">
 		<xsd:annotation>
 			<xsd:documentation>An entity in a subscription that wishes to be notified.</xsd:documentation>
 		</xsd:annotation>
@@ -204,7 +204,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="oirsr-ext:SubscriptionOriginatorIdentification"/>
+					<xsd:element ref="oirs-res-ext:SubscriptionOriginatorIdentification"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -226,7 +226,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="oirsr-ext:SubscribedEntityReference"/>
+					<xsd:element ref="oirs-res-ext:SubscribedEntityReference"/>
 					<xsd:element ref="nc:ContactInformationReference"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -242,14 +242,14 @@
 			<xsd:documentation>A state of a specific identifixat</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IdentificationResultStatusCode" type="oirsr-ext:IdentificationResultStatusCodeType" substitutionGroup="oirsr-ext:IdentificationResultStatusRepresentation">
+	<xsd:element name="IdentificationResultStatusCode" type="oirs-res-ext:IdentificationResultStatusCodeType" substitutionGroup="oirs-res-ext:IdentificationResultStatusRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A state of a specific identifixat</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="IdentificationResultStatusCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="oirsr-ext:IdentificationResultStatusCodeSimpleType">
+			<xsd:extension base="oirs-res-ext:IdentificationResultStatusCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>
