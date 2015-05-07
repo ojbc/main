@@ -95,11 +95,7 @@ import org.xml.sax.InputSource;
 public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
-	public static final String INCIDENT_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/incident";
-	
-	public static final int ROWS_PER_PAGE = 20;
-	
-	public static final String PAGINATE_URL = "../subscriptions/paginate";
+	public static final String INCIDENT_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/incident";	
 	
 	private static DocumentBuilder docBuilder;
 	
@@ -1202,10 +1198,9 @@ public class SubscriptionsController {
 		
 	
 	private Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
+		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("start", start);
-		params.put("rows", ROWS_PER_PAGE);
-		params.put("hrefBase", PAGINATE_URL);
 		params.put("purpose", purpose);
 		params.put("onBehalfOf", onBehalfOf);
 		params.put("validateSubscriptionButton", validateSubscriptionButton);
