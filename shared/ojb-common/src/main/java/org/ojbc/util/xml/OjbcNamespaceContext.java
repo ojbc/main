@@ -496,6 +496,19 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
     public static final String NS_PREFIX_CHARGE_REFERRAL_DOC = "cr-doc";
     public static final String NS_CHARGE_REFERRAL_DOC ="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0";
+    
+    public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST = "oirs-req-doc";
+    public static final String NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0";
+    
+    public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT = "oirs-req-ext";
+    public static final String NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0";
+    
+    public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS = "oirs-res-doc";
+    public static final String NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0";
+    
+    public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT = "oirs-res-ext";
+    public static final String NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0";
+    
 
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -938,6 +951,21 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    
 	    prefixToUriMap.put(NS_PREFIX_WSOMA, NS_WSOMA);
 	    uriToPrefixMap.put(NS_WSOMA, NS_PREFIX_WSOMA);
+	    
+	    //
+	    
+	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST);
+	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST, NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST);
+	   
+	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT);
+	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
+	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
+	   
+	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+	    
 	    
 	}
 

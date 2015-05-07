@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<oirsr:OrganizationIdentificationResultsSearchResults
-	xmlns:oirsr="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
-	xmlns:oirsr-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
+<oirs-res-doc:OrganizationIdentificationResultsSearchResults
+	xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
+	xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
@@ -37,4 +37,4 @@
  			<intel:SystemName>Rapbacks</intel:SystemName>
  		</srer:SearchRequestError>
  	</srm:SearchResultsMetadata>
-</oirsr:OrganizationIdentificationResultsSearchResults>
+</oirs-res-doc:OrganizationIdentificationResultsSearchResults>
