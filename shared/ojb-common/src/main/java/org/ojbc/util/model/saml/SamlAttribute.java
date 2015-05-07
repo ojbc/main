@@ -30,7 +30,10 @@ public enum SamlAttribute{
     EmployerSubUnitName("gfipm:2.0:user:EmployerSubUnitName"), 
     EmailAddressText("gfipm:2.0:user:EmailAddressText"), 
     EmployerORI("gfipm:2.0:user:EmployerORI"),
-    IdentityProviderId("gfipm:2.0:user:IdentityProviderId"); 
+    IdentityProviderId("gfipm:2.0:user:IdentityProviderId"),
+    FirearmsRegistrationRecordsPersonnelIndicator("gfipm:ext:user:FirearmsRegistrationRecordsPersonnelIndicator"),
+    SupervisoryRoleIndicator("gfipm:ext:user:SupervisoryRoleIndicator"),
+    ; 
     
     private String attibuteName; 
     
