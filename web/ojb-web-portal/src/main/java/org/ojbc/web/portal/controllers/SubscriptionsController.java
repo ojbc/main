@@ -302,7 +302,7 @@ public class SubscriptionsController {
 			
 		logger.info("inside addSubscription()");
 		
-		return "subscriptions/_addSubscriptionModal";
+		return "subscriptions/addSubscriptionDialog/_addSubscriptionModal";
 	}
 
 	/**
@@ -398,7 +398,7 @@ public class SubscriptionsController {
 				
 		model.put("subscription", subscription);
 		 				
-		return "subscriptions/_arrestForm";
+		return "subscriptions/addSubscriptionDialog/_arrestForm";
 	}
 	
 	
@@ -472,7 +472,7 @@ public class SubscriptionsController {
 				
 		model.put("subscription", subscription);
 				
-		return "subscriptions/_incidentForm";
+		return "subscriptions/addSubscriptionDialog/_incidentForm";
 	}
 
 		
