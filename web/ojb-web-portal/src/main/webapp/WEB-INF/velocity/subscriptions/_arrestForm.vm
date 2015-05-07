@@ -20,10 +20,8 @@
     		$('#idLookupLink').click(
     			function(){    	
     			    			
-    				//TODO use jquery or spring to get selection - to be cleaner
-				  	var sidVal = document.getElementById('stateId').value;	
-				  					  	
-    					    						 
+				  	var sidVal = $('#stateId').val();	
+				  					  					  					  	    					    						 
 					var requestUrl = '../subscriptions/personNames?identificationID=' + sidVal;												    						 
     				    	
     				// calls a spring mvc method returning a json string w/format key,value

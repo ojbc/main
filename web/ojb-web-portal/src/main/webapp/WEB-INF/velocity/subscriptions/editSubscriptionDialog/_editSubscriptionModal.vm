@@ -19,6 +19,7 @@
 	  $(function() {	
 	  	  		
 			if(!${initializationSucceeded}){
+			
 				$("#editSubscriptionDialog").dialog('close');
 				alert('Failed retrieving subscription for edit window');
 				return;
@@ -59,9 +60,10 @@
 	function saveIncidentSubscription(){
 						  					  		
 		var subType = '${subscription.subscriptionType}';						  					  		
-		
-		var firstName = document.getElementById('firstName').value;	  		  	
-	  	var lastName = document.getElementById('lastName').value;
+		 			
+		var firstName = $('#firstName').val();			  	
+	  	
+	  	var lastName = $('#lastName').val();
 	  	
 	  	// note we don't have a full name field, so just concatenate first & last with a space
 	  	var fullName = firstName + ' ' + lastName;
@@ -91,15 +93,12 @@
 	  
 	  
 	function saveArrestSubscription(){
-							   	    			    				    	
-	    //TODO reference elements w/jquery instead of regular js				    				
-		var personNameEl = document.getElementById('personNameSelect');
-		var personNameVal = personNameEl.options[personNameEl.selectedIndex].value;
-		
-		var topicSelectEl = document.getElementById('topicSelect');
-		var topicVal = topicSelectEl.options[topicSelectEl.selectedIndex].value;  
-			  					  				
-		var stateIdVal = document.getElementById('stateIdInput').value;	  		  				 							
+							   	    			    				    		
+		var personNameVal = $('#personNameSelect').val();
+		  		
+		var topicVal = $('#topicSelect').val();
+			  					  						
+		var  stateIdVal = $('#stateIdInput').val(); 		  				 							
 		
 		// serialize() generates get request string for <springforminput> html fields 
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&subscriptionType=" + topicVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
@@ -130,55 +129,31 @@
 		var nameHtml = '<option value="">Name</option>';
 			
 		var jsonNamesData = '${subscription.personNamesJsonArray}';						
-			  		
-		//var indexToSelect = 0;	  		
-			  					  							  					  							  				
+			  		 					  					  							  					  							  			
 		$.each(JSON.parse(jsonNamesData), function( index, value ) {
-				
-			var bSelectName = false;	
-				
-		    // TODO fullName should be renamed, it doesn't represent that but rather it's being used here 
-		    // to know which name was selected		
-			if(value == '${subscription.fullName}'){
-				bSelectName = true;
-				//indexToSelect = index;							
-			}	
-
-			/* 
-				// TODO - investigate why these preferable options of setting the selection do not work:	
-				// ? maybe jquery has to be up in the $function () at the top		
-				//$('#personNameSelect').options[$('#personNameSelect').selectedIndex].value = '${subscriptionEditCommand.subscriptionEditRequest.fullName}';
-				//$('#personNameSelect').selectedIndex = '"' + indexToSelect + '"';				
-				//$('#personNameSelect').value = '${subscriptionEditCommand.subscriptionEditRequest.fullName}';					
-				// Since they weren't working - multiple if statements were used to build the option differently		
-			*/				
-								
+															
 			if(value == '${originalName}'){						
-				if(bSelectName == true){
-					nameHtml += '<option value="' + value + '" selected>' + value + '</option>';
-				}else{
-					nameHtml += '<option value="' + value + '">' + value + '</option>';
-				}							
+				nameHtml += '<option value="' + value + '">' + value + '</option>';							
 			}else{
-				// (A) for alternate name				
-				if(bSelectName == true){
-					nameHtml += '<option value="' + value + '" selected>' + value + ' (A) </option>';				
-				}else{									
-					nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';				
-				}
+				// (A) for alternate name											
+				nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';				
 			}																																													
 		});
 										  								  						
-		$('#personNameSelect').html(nameHtml);		
-
+		$('#personNameSelect').html(nameHtml);	
+		
+		// TODO fullName should be renamed, it doesn't represent that but rather it's being used here 
+		// to know which name was selected		
+		
+		$('#personNameSelect').val('${subscription.fullName}');			
 	}
 	
 		  
 	  function refreshAfterSaveSubscription(){
 	  
-  		$("#editSubscriptionDialog").dialog('close');
-  		
-  		// redisplay subscription results having the new subscription 
+		$("#editSubscriptionDialog").dialog('close');
+		
+		// redisplay subscription results having the new subscription 
 		$.post("#springUrl('/subscriptions/subscriptionResults')", 
 			function(data) {										
 		      $('#portalContent').html(data);					      

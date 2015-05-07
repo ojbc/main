@@ -22,9 +22,9 @@ import static junit.framework.Assert.assertNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.cxf.helpers.XMLUtils;
 import org.junit.Test;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.xml.signature.SignatureConstants;
@@ -39,7 +39,7 @@ public class TestSAMLTokenUtils {
 		
 		assertNotNull(samlToken);
 		
-		assertEquals(14, samlToken.getAttributeStatements().get(0).getAttributes().size());
+		assertEquals(16, samlToken.getAttributeStatements().get(0).getAttributes().size());
 		
 		for (Attribute attributes : samlToken.getAttributeStatements().get(0).getAttributes())
 		{
@@ -86,6 +86,16 @@ public class TestSAMLTokenUtils {
 				assertEquals("true", attributes.getAttributeValues().get(0).getDOM().getTextContent());
 			}	
 
+			if (attributes.getName().equals(SamlAttribute.SupervisoryRoleIndicator.getAttibuteName()))
+			{
+			    assertEquals("false", attributes.getAttributeValues().get(0).getDOM().getTextContent());
+			}	
+			
+			if (attributes.getName().equals(SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator.getAttibuteName()))
+			{
+			    assertEquals("false", attributes.getAttributeValues().get(0).getDOM().getTextContent());
+			}	
+			
 			if (attributes.getName().equals("gfipm:2.0:user:FederationId"))
 			{
 				assertEquals("HIJIS:IDP:HCJDC:USER:admin", attributes.getAttributeValues().get(0).getDOM().getTextContent());
@@ -134,6 +144,8 @@ public class TestSAMLTokenUtils {
         
         customAttributes.put("gfipm:ext:user:CriminalJusticeEmployerIndicator","false");
         customAttributes.put("gfipm:ext:user:LawEnforcementEmployerIndicator","false");
+        customAttributes.put(SamlAttribute.SupervisoryRoleIndicator.getAttibuteName(),"true");
+        customAttributes.put(SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator.getAttibuteName(),"true");
         customAttributes.put("gfipm:2.0:user:FederationId","FedID");
         customAttributes.put("gfipm:2.0:user:TelephoneNumber","999 999-9999");
         customAttributes.put("gfipm:2.0:user:EmployerSubUnitName","sub");
@@ -146,7 +158,7 @@ public class TestSAMLTokenUtils {
 		
 		assertNotNull(samlToken);
 		
-		assertEquals(14, samlToken.getAttributeStatements().get(0).getAttributes().size());
+		assertEquals(16, samlToken.getAttributeStatements().get(0).getAttributes().size());
 		
 		for (Attribute attributes : samlToken.getAttributeStatements().get(0).getAttributes())
 		{
@@ -193,6 +205,16 @@ public class TestSAMLTokenUtils {
 				assertEquals("false", attributes.getAttributeValues().get(0).getDOM().getTextContent());
 			}	
 
+			if (attributes.getName().equals(SamlAttribute.SupervisoryRoleIndicator.getAttibuteName()))
+			{
+			    assertEquals("true", attributes.getAttributeValues().get(0).getDOM().getTextContent());
+			}	
+			
+			if (attributes.getName().equals(SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator.getAttibuteName()))
+			{
+			    assertEquals("true", attributes.getAttributeValues().get(0).getDOM().getTextContent());
+			}	
+			
 			if (attributes.getName().equals("gfipm:2.0:user:FederationId"))
 			{
 				assertEquals("FedID", attributes.getAttributeValues().get(0).getDOM().getTextContent());
