@@ -141,9 +141,7 @@
 										  								  						
 		$('#personNameSelect').html(nameHtml);	
 		
-		// TODO fullName should be renamed, it doesn't represent that but rather it's being used here 
-		// to know which name was selected		
-		
+		//fullName represents user-selected name(possibly an alias)		
 		$('#personNameSelect').val('${subscription.fullName}');			
 	}
 	
