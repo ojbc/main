@@ -33,6 +33,10 @@
 					}else if(subTypeTxt == 'Incident'){
 												
 						saveIncidentSubscription();
+						
+					}else if(subTypeTxt == 'ATN Assignment'){
+					
+						saveChCycleSubscription();
 										  						
 					}else{
 						alert('Subscription type must be specified');
@@ -47,6 +51,37 @@
     		)
 	  });	
 	  
+	  
+	  function saveChCycleSubscription(){
+	  	  	  	
+	  	var firstName = $('#firstName').val();	  	
+	  	
+	  	var lastName = $('#lastName').val();
+	  	
+	  	// note we don't have a full name field, so just concatenate first & last with a space
+	  	var fullName = firstName + ' ' + lastName;
+	  		  
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;    		
+					
+  		$.get("#springUrl('/subscriptions/saveSubscription')", 
+  			formData,
+  			function(data){		
+  					  		  	
+  				var errorString = '';			
+  				
+  				if(data != null && data != ''){
+					$.each(JSON.parse(data), function( index, value ) {												
+						errorString += '\n ' + value;																											
+					});
+					alert(errorString);				  							  				
+  				}else{
+					refreshAfterSaveSubscription();
+				}														  						  						  				  			
+  			},
+  			"text"
+  		).fail(ojbc.displayFailMessage);		  
+	  }	  	  
+	  	  
 	  	  
 	  function saveArrestSubscritption(){	  
 			    				    				
@@ -137,6 +172,14 @@
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
 	  			}
 	  		).fail(ojbc.displayFailMessage);
+	  		
+	  	}else if(subTypeTxt == 'ATN Assignment'){
+	  	
+	  		$.get("#springUrl('/subscriptions/chCycleForm')", 
+	  			function(data){		  			
+	  				$('#subModalDynamicContents').html(data);			  						  				  				
+	  			}
+	  		).fail(ojbc.displayFailMessage);	  	
 	  						
 		}else{
 			$('#subModalDynamicContents').html('');

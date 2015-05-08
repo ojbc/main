@@ -95,7 +95,10 @@ import org.xml.sax.InputSource;
 public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
+	
 	public static final String INCIDENT_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/incident";	
+	
+	public static final String CHCYCLE_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment";
 	
 	private static DocumentBuilder docBuilder;
 	
@@ -443,6 +446,30 @@ public class SubscriptionsController {
 	}
 	
 	
+	private void initDatesForAddIncidentForm(Subscription subscription, Map<String, Object> model){
+		
+		// START date
+		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);		
+		Date defaultStartDate = startDateStrategy.getDefaultValue();
+		
+		boolean isStartDateEditable = startDateStrategy.isEditable();
+		
+		subscription.setSubscriptionStartDate(defaultStartDate);
+				
+		model.put("isStartDateEditable", isStartDateEditable);		
+		
+		
+		//END date		
+		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
+		Date defaultEndDate = endDateStrategy.getDefaultValue();
+		
+		boolean isEndDateEditable = endDateStrategy.isEditable();
+		
+		subscription.setSubscriptionEndDate(defaultEndDate);
+	
+		model.put("isEndDateEditable", isEndDateEditable);				
+	}
+
 	private void initDatesForEditIncidentForm(Map<String, Object> model){
 		
 		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
@@ -453,6 +480,39 @@ public class SubscriptionsController {
 	}
 	
 	
+
+	private void initDatesForAddChCycleForm(Subscription subscription, Map<String, Object> model){
+		
+		// START date
+		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);		
+		Date defaultStartDate = startDateStrategy.getDefaultValue();
+		
+		boolean isStartDateEditable = startDateStrategy.isEditable();
+		
+		subscription.setSubscriptionStartDate(defaultStartDate);
+				
+		model.put("isStartDateEditable", isStartDateEditable);		
+		
+		
+		//END date		
+		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);
+		Date defaultEndDate = endDateStrategy.getDefaultValue();
+		
+		boolean isEndDateEditable = endDateStrategy.isEditable();
+		
+		subscription.setSubscriptionEndDate(defaultEndDate);
+	
+		model.put("isEndDateEditable", isEndDateEditable);				
+	}
+	
+	private void initDatesForEditChCycleForm(Map<String, Object> model){
+		
+		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);
+		
+		boolean isStartDateEditable = editIncidentSubStartDateStrategy.isEditable();
+		
+		model.put("isStartDateEditable", isStartDateEditable);		
+	}
 
 	@RequestMapping(value="incidentForm", method=RequestMethod.GET)
 	public String getIncidentForm(HttpServletRequest request,
@@ -475,31 +535,26 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/_incidentForm";
 	}
 
+	@RequestMapping(value="chCycleForm", method=RequestMethod.GET)
+	public String getChCycleForm(HttpServletRequest request,
+			Map<String, Object> model) throws Exception{
 		
-	
-	private void initDatesForAddIncidentForm(Subscription subscription, Map<String, Object> model){
+		logger.info("inside getChCycleForm()");
 		
-		// START date
-		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);		
-		Date defaultStartDate = startDateStrategy.getDefaultValue();
-		
-		boolean isStartDateEditable = startDateStrategy.isEditable();
-		
-		subscription.setSubscriptionStartDate(defaultStartDate);
+		Subscription subscription = new Subscription();
 				
-		model.put("isStartDateEditable", isStartDateEditable);		
+		initDatesForAddChCycleForm(subscription, model);
 		
+		String sEmail = userSession.getUserLogonInfo().emailAddress;
 		
-		//END date		
-		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
-		Date defaultEndDate = endDateStrategy.getDefaultValue();
-		
-		boolean isEndDateEditable = endDateStrategy.isEditable();
-		
-		subscription.setSubscriptionEndDate(defaultEndDate);
-
-		model.put("isEndDateEditable", isEndDateEditable);				
-	}
+		if(StringUtils.isNotBlank(sEmail)){
+			subscription.getEmailList().add(sEmail);
+		}
+				
+		model.put("subscription", subscription);
+				
+		return "subscriptions/addSubscriptionDialog/_chCycleForm";
+	}		
 	
 	private void validateSubscription(Subscription subscription, BindingResult errors){
 				
@@ -847,6 +902,10 @@ public class SubscriptionsController {
 			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 				
 				initDatesForEditIncidentForm(model);
+			
+			}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+				
+				initDatesForEditChCycleForm(model);
 			}
 											
 			if(allNamesList != null && !allNamesList.isEmpty()){
