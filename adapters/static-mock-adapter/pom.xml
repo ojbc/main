@@ -235,7 +235,6 @@
 			</resource>
 			<resource>
 				<directory>${basedir}/src/main/config/dev</directory>
-				<filtering>true</filtering>
 				<includes>
 					<include>*</include>
 				</includes>
