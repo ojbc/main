@@ -187,7 +187,6 @@
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/resources</directory>
-				<filtering>true</filtering>
 				<includes>
 					<include>META-INF/spring/**</include>
 					<include>**/*.*</include>
