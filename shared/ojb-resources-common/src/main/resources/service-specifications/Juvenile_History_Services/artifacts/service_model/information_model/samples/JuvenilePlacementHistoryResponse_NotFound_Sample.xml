@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<jh-placement-codes:JuvenilePlacementHistoryResponse 
+<jh-placement-doc:JuvenilePlacementHistoryResponse 
 	xmlns="http://release.niem.gov/niem/niem-core/3.0/" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
@@ -131,4 +131,4 @@
 			<cyfs:Parent structures:ref="Parent1" xsi:nil="true"/>
 		</cyfs:ParentChildAssociation>
 	</jh-placement:JuvenilePlacementHistory>
-</jh-placement-codes:JuvenilePlacementHistoryResponse>
+</jh-placement-doc:JuvenilePlacementHistoryResponse>
