@@ -16,18 +16,21 @@
  */
 package org.ojbc.util.camel.processor.accesscontrol;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.apache.ws.security.SAMLTokenPrincipal;
 import org.ojbc.util.model.accesscontrol.AccessControlResponse;
-import org.ojbc.util.model.saml.SamlAttribute;
+import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.Attribute;
+import org.opensaml.saml2.core.AttributeStatement;
+import org.opensaml.xml.XMLObject;
 
 /**
  * In this strategy, we compare the ORI in the SAML token against a list of authorized ORIs.
@@ -43,48 +46,80 @@ public class AuthorizedORIAccessControlStrategy implements AccessControlStrategy
 	
 	List<String> authorizedORIs;
 	
-	public AuthorizedORIAccessControlStrategy(List<String> authorizedORIsProperty) {
-	    authorizedORIs = authorizedORIsProperty;
+	public AuthorizedORIAccessControlStrategy(String authorizedORIsProperty) {
+		
+		if (StringUtils.isNotBlank(authorizedORIsProperty))
+		{	
+			authorizedORIs = Arrays.asList(authorizedORIsProperty.split(","));
+		}
+		else
+		{
+			throw new IllegalStateException("Unable to initialize Access Control Strategy.  No ORI's specified in configuration");
+		}	
+
 	}
 
 	
 	@Override
-	public AccessControlResponse authorize(Exchange ex) {
+	public AccessControlResponse authorize(Exchange ex) throws Exception {
 
 		AccessControlResponse accessControlResponse = new AccessControlResponse();
 		String employerORI = "";
 		
-		if (authorizedORIs == null || authorizedORIs.size() == 0){
+		if (authorizedORIs == null)
+		{
 			accessControlResponse.setAuthorized(false);
 			accessControlResponse.setAccessControlResponseMessage("There are no authorized ORIs to query data.");
 			
 			return accessControlResponse;
 		}	
 		
-		try{
+		try
+		{
 			Message cxfMessage = ex.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			employerORI = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.EmployerORI);
-			
-            if (isAuthorized(employerORI, cxfMessage)){
+			SAMLTokenPrincipal token = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
+			Assertion assertion = token.getToken().getSaml2();
+	
+			if (assertion != null)
+			{
+				List<AttributeStatement> attributeStatements =assertion.getAttributeStatements();
+				
+				AttributeStatement attributeStatement = attributeStatements.get(0);
+				
+				List<Attribute> attributes  = attributeStatement.getAttributes();
+				
+				for (Attribute attribute : attributes)
+				{
+					String attributeName = attribute.getName();
+					
+					if (attributeName.equals("gfipm:2.0:user:EmployerORI"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug(attributeValueAsString);
+	
+						employerORI = attributeValueAsString;
+						
+						break;
+					}
+					
+				}	
+			}
+	
+			if (authorizedORIs.contains(employerORI))
+			{
 				accessControlResponse.setAuthorized(true);
-				accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + 
-				        " are authorized to run this query.");
+				accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + " are authorized to run this query.");
 	
 			}	
-			else{
+			else
+			{
 				accessControlResponse.setAuthorized(false);
-				
-				if (!authorizedORIs.contains(employerORI)) {
-				    accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + 
-				            " are NOT authorized to run this query.");
-				}else {
-				    accessControlResponse.setAccessControlResponseMessage("Only Supervisors or Firearms Registration "
-				            + "Records Personnels in the ORI: " + employerORI + 
-				            " are authorized to run this query.");
-				}
+				accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + " are NOT authorized to run this query.");
 				
 			}	
-		} catch (Exception exception){
+		} catch (Exception exception)
+		{
 			accessControlResponse.setAuthorized(false);
 			accessControlResponse.setAccessControlResponseMessage(exception.getMessage());
 		}
@@ -93,18 +128,6 @@ public class AuthorizedORIAccessControlStrategy implements AccessControlStrategy
 		return accessControlResponse;
 		
 	}
-
-
-    private boolean isAuthorized(String employerORI, Message cxfMessage) {
-        String firearmsRegistrationRecordsPersonnelIndicator = 
-                SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator);
-        String supervisoryRoleIndicator = 
-                SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.SupervisoryRoleIndicator);
-        log.debug("FirearmsRegistrationRecordsPersonnelIndicator" + StringUtils.trimToEmpty(firearmsRegistrationRecordsPersonnelIndicator));
-        log.debug("SupervisoryRoleIndicator" + StringUtils.trimToEmpty(supervisoryRoleIndicator));
-        
-        return authorizedORIs.contains(employerORI) && (BooleanUtils.toBoolean(supervisoryRoleIndicator) || BooleanUtils.toBoolean(firearmsRegistrationRecordsPersonnelIndicator));
-    }
 
 
 }
