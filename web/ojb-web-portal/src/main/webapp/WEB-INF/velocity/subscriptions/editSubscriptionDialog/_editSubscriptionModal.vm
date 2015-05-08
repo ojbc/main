@@ -38,8 +38,12 @@
 					
 					}else if('${subscription.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/incident'){
 												
-						saveIncidentSubscription();				
-						  						
+						saveIncidentSubscription();	
+						
+					}else if('${subscription.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'){
+						
+						saveChCycleSubscription();			
+						  				
 					}else{					
 						alert('Subscription type must be specified');
 					} 			  				  					
@@ -55,8 +59,42 @@
     		
 	  });	
 	
-	
-	  
+		  		  		  
+	function saveChCycleSubscription(){
+						  					  		
+		var subType = '${subscription.subscriptionType}';						  					  		
+		 			
+		var firstName = $('#firstName').val();			  	
+	  	
+	  	var lastName = $('#lastName').val();
+	  	
+	  	// note we don't have a full name field, so just concatenate first & last with a space
+	  	var fullName = firstName + ' ' + lastName;
+						  					  					  				 									
+		// serialize() generates get request string for springforminput html fields
+		var formData = $('#subscriptionForm').serialize() + "&subscriptionType=" + subType + "&systemId=" + '${subscription.systemId}' + "&fullName=" + fullName;  
+								    				    			    			    				
+  		$.get("#springUrl('/subscriptions/updateSubscription')", 
+  			formData,
+  			function(data){	
+  						  						  			
+  				var errorString = '';			
+  				
+  				if(data != null && data != ''){
+					$.each(JSON.parse(data), function( index, value ) {												
+						errorString += '\n ' + value;																											
+					});
+					alert(errorString);				  							  				
+  				}else{
+					refreshAfterSaveSubscription();
+				}
+						  				  				
+  			},
+  			"text"
+  		).fail(ojbc.displayFailMessage);		
+	}
+		  
+		  
 	function saveIncidentSubscription(){
 						  					  		
 		var subType = '${subscription.subscriptionType}';						  					  		
@@ -142,9 +180,7 @@
 										  								  						
 		$('#personNameSelect').html(nameHtml);	
 		
-		// TODO fullName should be renamed, it doesn't represent that but rather it's being used here 
-		// to know which name was selected		
-		
+		//fullName represents user-selected name(possibly an alias)		
 		$('#personNameSelect').val('${subscription.fullName}');			
 	}
 	
@@ -187,7 +223,17 @@
 				</select> 		
 			</div>
 						
-			#parse("subscriptions/editSubscriptionDialog/_incidentForm.vm")				
+			#parse("subscriptions/editSubscriptionDialog/_incidentForm.vm")	
+				
+		#elseif(${subscription.subscriptionType} == '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment')	
+		
+			<div>
+				<select disabled id="topicSelect">
+					<option selected="selected" value='{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'>ATN Assignment</option>
+				</select> 		
+			</div>
+						
+			#parse("subscriptions/editSubscriptionDialog/_chCycleForm.vm")					
 		#end
 					    	        
 	</form>

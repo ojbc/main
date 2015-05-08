@@ -14,15 +14,16 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  *#
-<script type="text/javascript">
-	  $(function() {	
-	  	      	      		    		    			  		    			
-    	    $(".datePicker").datepicker({
-    	       showOn: "both",
-    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
-    	       buttonImageOnly: true
-    	    });	
-    	    
+<!DOCTYPE html>
+ <script type="text/javascript">
+	  $(function() {	    	  
+    		
+    		$('#idLookupLink').click(
+    			function(){
+    				alert('Coming Soon');
+    			}
+    		)
+    		    	  		    			
     		// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
     		// displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
     		// allows being disabled but that prevents the html field value from being sent to the server when the form 
@@ -32,51 +33,67 @@
     	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
     	       buttonImageOnly: true,
     	       beforeShow: function(i) {  return false; } 
-    	    });     	    
-    	    	    	        	            	    		       			       				    	   
-	  });	  
+    	    });	
+    	        	        	   
+    	    $(".enabledDatePicker").datepicker({
+    	       showOn: "both",
+    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+    	       buttonImageOnly: true,
+    	    });	 
+	  });	
+
 </script>
 
-				
 <div>
-	<input id="stateIdInput" placeholder="SID Number" value="${subscription.stateId}" readonly/>
+	#springFormInput("subscription.firstName" "placeholder='First Name'")
 </div>
 
-<div>	
-	<!-- note since not linked with a spring pojo, this value will be appended to the url of the http request 
-	 	when the subscription is saved -->
-	<select id="personNameSelect">		
-		<option value="" selected>Name</option>			
-	</select> 
+<div>
+	#springFormInput("subscription.lastName" "placeholder='Last Name'")
 </div>
+
 
 
 <table style="white-space:nowrap;">
 	<tr>
 		<td style="text-align:right;vertical-align:middle;">
+			<label>DOB:</label>
+		</td>
+		<td>
+			#springFormInput("subscription.dateOfBirth" "style='width:110px' class='enabledDatePicker' placeholder='DOB'")
+		</td>
+	</tr>
+
+	<tr>
+		<td style="text-align:right;vertical-align:middle;">
 			<label>Start Date:</label>
 		</td>
 		<td>
-			#if(${isStartDateEditable})
-				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='datePicker' placeholder='From'")
+			#if( ${isStartDateEditable} )
+				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='enabledDatePicker' placeholder='From'")
 			#else
-				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly'")
-			#end			
+				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")
+			#end
 		</td>
 	</tr>
+	
 	<tr>
 		<td style="text-align:right;vertical-align:middle;">
 			<label>End Date:</label>
 		</td>
 		<td>
-			#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
+			#if( ${isEndDateEditable} )
+				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='enabledDatePicker' placeholder='No End Date'")
+			#else
+				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='disabledDatePicker' placeholder='No End Date' readonly='readonly' ")
+			#end							
 		</td>
-	</tr>
+	</tr>			
 </table>
 
 
+
 <div>
-	<!-- fix object being mapped to from list to something else or use regular html instead of velocity spring macro -->
 	#springFormInput("subscription.emailList[0]" "placeholder='Email Address 1'")
 </div>
 
@@ -87,4 +104,6 @@
 <div>
 	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
 </div>
-	       	    	        
+
+
+		        

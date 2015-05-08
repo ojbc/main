@@ -95,7 +95,10 @@ import org.xml.sax.InputSource;
 public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
+	
 	public static final String INCIDENT_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/incident";	
+	
+	public static final String CHCYCLE_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment";
 	
 	private static DocumentBuilder docBuilder;
 	
@@ -153,7 +156,7 @@ public class SubscriptionsController {
     } 	
 
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
-	public String searchForm(HttpServletRequest request,	        
+	public String searchSubscriptions(HttpServletRequest request,	        
 	        Map<String, Object> model) {		
 								
 		Element samlElement = samlService.getSamlAssertion(request);
@@ -279,7 +282,7 @@ public class SubscriptionsController {
 	 * to create the subscription
 	 */
 	@RequestMapping(value="addSubscription", method = RequestMethod.GET)
-	public String addSubscription(HttpServletRequest request,
+	public String getAddSubscriptionModal(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 								
 		Subscription subscription = new Subscription();
@@ -302,7 +305,7 @@ public class SubscriptionsController {
 			
 		logger.info("inside addSubscription()");
 		
-		return "subscriptions/_addSubscriptionModal";
+		return "subscriptions/addSubscriptionDialog/_addSubscriptionModal";
 	}
 
 	/**
@@ -313,7 +316,7 @@ public class SubscriptionsController {
 	 *  which is passed into the detail service
 	 */
 	@RequestMapping(value="personNames", method = RequestMethod.GET)
-	public @ResponseBody String personNames(HttpServletRequest request, 
+	public @ResponseBody String getPersonNames(HttpServletRequest request, 
 			@ModelAttribute("detailsRequest")DetailsRequest detailsRequest, 
 			Map<String, Object> model) {
 				
@@ -381,7 +384,7 @@ public class SubscriptionsController {
 	
 
 	@RequestMapping(value="arrestForm", method=RequestMethod.GET)
-	public String arrestForm(HttpServletRequest request,
+	public String getArrestForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
 		logger.info("inside arrestForm()");		
@@ -398,12 +401,12 @@ public class SubscriptionsController {
 				
 		model.put("subscription", subscription);
 		 				
-		return "subscriptions/_arrestForm";
+		return "subscriptions/addSubscriptionDialog/_arrestForm";
 	}
 	
 	
 	/**
-	 * note: modifies SubscriptionAddRequest input param
+	 * note: uses pass-by-reference to modify subscription parameter
 	 * 
 	 * pre-populate the subscription start date as a convenience to the user
 	 * this will be displayed on the modal
@@ -443,40 +446,6 @@ public class SubscriptionsController {
 	}
 	
 	
-	private void initDatesForEditIncidentForm(Map<String, Object> model){
-		
-		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
-		
-		boolean isStartDateEditable = editIncidentSubStartDateStrategy.isEditable();
-		
-		model.put("isStartDateEditable", isStartDateEditable);		
-	}
-	
-	
-
-	@RequestMapping(value="incidentForm", method=RequestMethod.GET)
-	public String incidentForm(HttpServletRequest request,
-			Map<String, Object> model) throws Exception{
-		
-		logger.info("inside incidentForm()");
-		
-		Subscription subscription = new Subscription();
-				
-		initDatesForAddIncidentForm(subscription, model);
-		
-		String sEmail = userSession.getUserLogonInfo().emailAddress;
-		
-		if(StringUtils.isNotBlank(sEmail)){
-			subscription.getEmailList().add(sEmail);
-		}
-				
-		model.put("subscription", subscription);
-				
-		return "subscriptions/_incidentForm";
-	}
-
-		
-	
 	private void initDatesForAddIncidentForm(Subscription subscription, Map<String, Object> model){
 		
 		// START date
@@ -497,9 +466,95 @@ public class SubscriptionsController {
 		boolean isEndDateEditable = endDateStrategy.isEditable();
 		
 		subscription.setSubscriptionEndDate(defaultEndDate);
-
+	
 		model.put("isEndDateEditable", isEndDateEditable);				
 	}
+
+	private void initDatesForEditIncidentForm(Map<String, Object> model){
+		
+		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
+		
+		boolean isStartDateEditable = editIncidentSubStartDateStrategy.isEditable();
+		
+		model.put("isStartDateEditable", isStartDateEditable);		
+	}
+	
+	
+
+	private void initDatesForAddChCycleForm(Subscription subscription, Map<String, Object> model){
+		
+		// START date
+		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);		
+		Date defaultStartDate = startDateStrategy.getDefaultValue();
+		
+		boolean isStartDateEditable = startDateStrategy.isEditable();
+		
+		subscription.setSubscriptionStartDate(defaultStartDate);
+				
+		model.put("isStartDateEditable", isStartDateEditable);		
+		
+		
+		//END date		
+		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);
+		Date defaultEndDate = endDateStrategy.getDefaultValue();
+		
+		boolean isEndDateEditable = endDateStrategy.isEditable();
+		
+		subscription.setSubscriptionEndDate(defaultEndDate);
+	
+		model.put("isEndDateEditable", isEndDateEditable);				
+	}
+	
+	private void initDatesForEditChCycleForm(Map<String, Object> model){
+		
+		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);
+		
+		boolean isStartDateEditable = editIncidentSubStartDateStrategy.isEditable();
+		
+		model.put("isStartDateEditable", isStartDateEditable);		
+	}
+
+	@RequestMapping(value="incidentForm", method=RequestMethod.GET)
+	public String getIncidentForm(HttpServletRequest request,
+			Map<String, Object> model) throws Exception{
+		
+		logger.info("inside incidentForm()");
+		
+		Subscription subscription = new Subscription();
+				
+		initDatesForAddIncidentForm(subscription, model);
+		
+		String sEmail = userSession.getUserLogonInfo().emailAddress;
+		
+		if(StringUtils.isNotBlank(sEmail)){
+			subscription.getEmailList().add(sEmail);
+		}
+				
+		model.put("subscription", subscription);
+				
+		return "subscriptions/addSubscriptionDialog/_incidentForm";
+	}
+
+	@RequestMapping(value="chCycleForm", method=RequestMethod.GET)
+	public String getChCycleForm(HttpServletRequest request,
+			Map<String, Object> model) throws Exception{
+		
+		logger.info("inside getChCycleForm()");
+		
+		Subscription subscription = new Subscription();
+				
+		initDatesForAddChCycleForm(subscription, model);
+		
+		String sEmail = userSession.getUserLogonInfo().emailAddress;
+		
+		if(StringUtils.isNotBlank(sEmail)){
+			subscription.getEmailList().add(sEmail);
+		}
+				
+		model.put("subscription", subscription);
+				
+		return "subscriptions/addSubscriptionDialog/_chCycleForm";
+	}		
 	
 	private void validateSubscription(Subscription subscription, BindingResult errors){
 				
@@ -823,7 +878,7 @@ public class SubscriptionsController {
 	 * 		used to display appropriate form on the edit modal view
 	 */
 	@RequestMapping(value="editSubscription", method = RequestMethod.GET)
-	public String editSubscription(HttpServletRequest request,			
+	public String getSubscriptionEditModal(HttpServletRequest request,			
 			@RequestParam String identificationID,
 			@RequestParam String topic,
 			Map<String, Object> model) {
@@ -847,6 +902,10 @@ public class SubscriptionsController {
 			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 				
 				initDatesForEditIncidentForm(model);
+			
+			}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+				
+				initDatesForEditChCycleForm(model);
 			}
 											
 			if(allNamesList != null && !allNamesList.isEmpty()){
@@ -948,7 +1007,8 @@ public class SubscriptionsController {
 	 * 		the subscription results page(refreshed after validate)
 	 */
 	@RequestMapping(value="validate", method = RequestMethod.POST)
-	public String  validate(HttpServletRequest request, @RequestParam String idToTopicJsonProps, 
+	public String  validate(HttpServletRequest request, 
+			@RequestParam String idToTopicJsonProps, 
 			Map<String, Object> model) {
 		
 		logger.info("Received idToTopicJsonProps: " + idToTopicJsonProps);
@@ -1010,8 +1070,7 @@ public class SubscriptionsController {
 		refreshSubscriptionsContent(request, model, operationResultMessage);						
 	}
 	
-	
-			
+				
 	boolean getValidIndicatorFromValidateResponse(FaultableSoapResponse faultableSoapResponse) throws Exception{
 
 		boolean isValidated = false;
@@ -1200,7 +1259,6 @@ public class SubscriptionsController {
 	private Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
 		
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("start", start);
 		params.put("purpose", purpose);
 		params.put("onBehalfOf", onBehalfOf);
 		params.put("validateSubscriptionButton", validateSubscriptionButton);
