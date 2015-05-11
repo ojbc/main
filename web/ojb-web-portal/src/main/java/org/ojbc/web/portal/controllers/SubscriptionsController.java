@@ -230,6 +230,8 @@ public class SubscriptionsController {
 		
 		logger.info("Using subscriptionFilterCommand: " + subscriptionFilterCommand);
 		
+		logger.info("\n * filterInput = \n" + filterInput);
+		
 		String sFilteredSubResults = searchResultConverter.filterXml(filterInput, subscriptionFilterCommand);
 		
 		//saving filtered results allows pagination to function:
@@ -257,7 +259,7 @@ public class SubscriptionsController {
 		return "subscriptions/_subscriptionResults";
 	}
 	
-    @RequestMapping(value="clearFilter", method = RequestMethod.GET)
+    @RequestMapping(value="clearFilter", method = RequestMethod.POST)
     public String clearFilter( Map<String, Object> model ) {
         
         //reset the mostRecentSearchResult. 
@@ -281,7 +283,7 @@ public class SubscriptionsController {
 	 * displayed for adding a subscription. Another method calls the service 
 	 * to create the subscription
 	 */
-	@RequestMapping(value="addSubscription", method = RequestMethod.GET)
+	@RequestMapping(value="addSubscription", method = RequestMethod.POST)
 	public String getAddSubscriptionModal(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 								
@@ -383,7 +385,7 @@ public class SubscriptionsController {
 	
 	
 
-	@RequestMapping(value="arrestForm", method=RequestMethod.GET)
+	@RequestMapping(value="arrestForm", method=RequestMethod.POST)
 	public String getArrestForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
@@ -514,7 +516,7 @@ public class SubscriptionsController {
 		model.put("isStartDateEditable", isStartDateEditable);		
 	}
 
-	@RequestMapping(value="incidentForm", method=RequestMethod.GET)
+	@RequestMapping(value="incidentForm", method=RequestMethod.POST)
 	public String getIncidentForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
@@ -535,7 +537,7 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/_incidentForm";
 	}
 
-	@RequestMapping(value="chCycleForm", method=RequestMethod.GET)
+	@RequestMapping(value="chCycleForm", method=RequestMethod.POST)
 	public String getChCycleForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		

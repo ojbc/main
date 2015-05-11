@@ -159,7 +159,7 @@
 	  			
 		if(subTypeTxt == 'Arrest'){						
 			
-	  		$.get("#springUrl('/subscriptions/arrestForm')", 
+	  		$.post("#springUrl('/subscriptions/arrestForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
 	  			}
@@ -167,7 +167,7 @@
 															
 		}else if(subTypeTxt == 'Incident'){		
 						
-	  		$.get("#springUrl('/subscriptions/incidentForm')", 
+	  		$.post("#springUrl('/subscriptions/incidentForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
 	  			}
@@ -175,7 +175,7 @@
 	  		
 	  	}else if(subTypeTxt == 'ATN Assignment'){
 	  	
-	  		$.get("#springUrl('/subscriptions/chCycleForm')", 
+	  		$.post("#springUrl('/subscriptions/chCycleForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
 	  			}
