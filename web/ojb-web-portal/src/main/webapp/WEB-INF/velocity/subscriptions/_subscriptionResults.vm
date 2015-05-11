@@ -26,7 +26,7 @@
 			$('#demogFilterInfo').on('click', '#filterClear', function(){    		
 				ojbc.clearSearchResultsFilterFields();
 				
-		  		$.get("#springUrl('/subscriptions/clearFilter')",function(data) {
+		  		$.post("#springUrl('/subscriptions/clearFilter')",function(data) {
 				      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage);
 			
@@ -200,7 +200,7 @@
     				// call the spring controller method we need by this GET URL request,
     				// that method populates the mvc model map with objects needed that 
     				// are used by the html in the modal velocity template file
-			  		$.get("#springUrl('/subscriptions/addSubscription')", 
+			  		$.post("#springUrl('/subscriptions/addSubscription')", 
 			  			function(data){			  			
 			  							  			
 			    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
