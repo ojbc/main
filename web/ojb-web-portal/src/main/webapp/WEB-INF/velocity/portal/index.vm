@@ -66,16 +66,34 @@
 	#end
 	  
 	#if($homePage=="landingPage")
+	
 		$("#searchBarButtonDiv").hide();
 		$.get("#springUrl('/portal/landingPage')", function(data) {
 			$('#portalContent').html(data);
 		}).fail(function(data) {$('#portalContent').html(data); });
+	
 	#elseif($homePage=="query")
+	
 		$.get("#springUrl('/people/searchForm')", function(data) {
 			$('#portalContent').html(data);
 		}).fail(function(data) {$('#portalContent').html(data); });
-	#else
-	    $homePage
+	
+	#elseif($homePage=="subscriptions")
+	
+		$("#searchBarButtonDiv").hide();
+	
+		$.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+		
+			$('#portalContent').html(data);	
+													
+			$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
+				    	
+    			$('#filterColumn').html(data);
+    			$('#filterColumn').css('visibility', 'visible');
+    			 
+    		}).fail(ojbc.displayFailMessage);
+															      
+		}).fail(ojbc.displayFailMessage);	
 	#end
 	
 </script>

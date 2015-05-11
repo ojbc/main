@@ -63,7 +63,11 @@
               	#parse("common/_landingLeftBar.vm")
 		      
 		      #elseif($homePage=="query")
-		         #parse("common/_leftBar.vm")		         
+		         #parse("common/_leftBar.vm")
+		         
+		      #elseif($homePage=="subscriptions")	
+		      		      
+		      	#* displayed elsewhere *#		      		      	      	      	 		      	 	      		      	    			         		         
 		      #end
 		      
 		    </div>
