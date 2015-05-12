@@ -311,6 +311,9 @@
 			</Import-Package>
 			<Export-Package>
 			</Export-Package>
+			<Require-Bundle>
+				org.ojbc.bundles.shared.ojb-camel-common
+			</Require-Bundle>
 	        <Bundle-Name>${pom.name}</Bundle-Name>
 	      </instructions>
 	    </configuration>
