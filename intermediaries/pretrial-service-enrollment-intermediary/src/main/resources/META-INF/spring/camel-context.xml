@@ -42,25 +42,27 @@
 			<from uri="pretrialEnrollmentRequestServiceEndpoint" />
 			
 			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+			<to uri="bean:messageProcessor?method=processRequestPayload" />
 			<log message="This is the message ${body}" loggingLevel="DEBUG"/>
 			<to uri="direct:callPretrialEnrollmentServiceRoute"/>
 		</route>
 		
-		<camel:route id="callPretrialEnrollmentServiceRoute"
+		<route id="callPretrialEnrollmentServiceRoute"
 			errorHandlerRef="chriDeadLetterErrorHandler">
-			<camel:from uri="direct:callDispositionReportingService" />
-			<!-- Core functionality - call Disposition Reporting adapter -->
-			<camel:setHeader headerName="operationName">
+			<from uri="direct:callDispositionReportingService" />
+			<!-- Core functionality - call adapter -->
+			<setHeader headerName="operationName">
 				<constant>PretrialServiceEnrollmentReport</constant>
-			</camel:setHeader>
+			</setHeader>
 
-			<camel:setHeader headerName="operationNamespace">
+			<setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/PretrialServiceEnrollmentReportingService/1.0</constant>
-			</camel:setHeader>
-
-			<camel:to uri="pretrialEnrollmentRequestServiceFileEndpoint" />
-		</camel:route>
+			</setHeader>
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+						
+			<to uri="pretrialEnrollmentRequestServiceFileEndpoint" />
+		</route>
 		
 	</camel:camelContext>
 	
