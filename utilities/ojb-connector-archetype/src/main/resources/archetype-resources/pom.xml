@@ -32,8 +32,10 @@
         <camel.version>2.10.4</camel.version>
         <cxf.version>2.6.8</cxf.version>
         <java.version>1.6</java.version>
-		<ojbc-utilities-version>[1.0.19,)</ojbc-utilities-version>
-		<ojbc-resources-version>2.0.0</ojbc-resources-version>
+		
+		<ojb-common-version>[2.0.0,)</ojb-common-version>
+		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
+		
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<xmlunit.version>1.5</xmlunit.version>
     </properties>
@@ -94,14 +96,14 @@
 		<!-- OJB Shared Bundles -->
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>OJB_Utilities</artifactId>
-			<version>${ojbc-utilities-version}</version>
+			<artifactId>ojb-common</artifactId>
+			<version>${ojb-common-version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>OJB_Resources</artifactId>
-			<version>${ojbc-resources-version}</version>
+			<artifactId>ojb-resources-common</artifactId>
+			<version>${ojb-resources-common-version}</version>
 		</dependency>
 		
 		<!-- Test Dependencies -->
@@ -150,7 +152,7 @@
 			
 			
 			<!-- Felix plugin configures aspects of the osgi bundle when it's 
-				deployed to Service Mix -->
+				deployed to an osgi container -->
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -167,8 +169,8 @@
 						</Import-Package>				
 						<Require-Bundle>
 							org.apache.cxf.bundle, 
-							org.ojbc.bundles.shared.OJB_Utilities, 
-							org.ojbc.bundles.shared.OJB_Resources
+							org.ojbc.bundles.shared.ojb-common, 
+							org.ojbc.bundles.shared.ojb-resources-common
 						</Require-Bundle>
 						<Bundle-Name>${pom.name}</Bundle-Name>
 					</instructions>

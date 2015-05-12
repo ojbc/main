@@ -71,7 +71,7 @@
     </cxf:cxfEndpoint>
     
         		      	
-	<bean id="passwordCallbackHandler" class="org.ojbc.ws.security.ClientCallbackMap">
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
                 <entry key="${symbol_dollar}{connector.keystoreCertificateAlias}" value="${symbol_dollar}{connector.keyPassword}"/>
