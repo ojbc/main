@@ -41,7 +41,7 @@
 	</xsl:template>
 	
 	<xsl:template match="ext:SubscriptionSearchResult" mode="copySSR">
-		<xsl:variable name="gracePeriodStartDate" as="xs:date" select="ext:Subscription/ext:SubscriptionGracePeriod/ext:SubscriptionGracePeriodDateRange/nc:StartDate/nc:Date"/>		
+		<xsl:variable name="gracePeriodStartDate" select="ext:Subscription/ext:SubscriptionGracePeriod/ext:SubscriptionGracePeriodDateRange/nc:StartDate/nc:Date"/>		
 		<xsl:variable name="subjectID" select="ext:Subscription/ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref"/>
 		<xsl:variable name="subscribedEntityID" select="ext:Subscription/ext:SubscribedEntity/@s:id"/>
 		<xsl:choose>

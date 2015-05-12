@@ -192,8 +192,9 @@
 				<version>${maven-bundle-plugin-version}</version>
 				<extensions>true</extensions>
 				<configuration><instructions>
+					<DynamicImport-Package>*</DynamicImport-Package>
 					<Import-Package>javax.xml.*,*</Import-Package>
-					<Export-Package>org.ojbc.*</Export-Package>
+					<Export-Package>org.ojbc.incidentReporting.*</Export-Package>
 				</instructions></configuration>
 			</plugin>
 
