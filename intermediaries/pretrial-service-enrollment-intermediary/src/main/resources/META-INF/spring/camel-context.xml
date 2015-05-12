@@ -50,7 +50,7 @@
 		<route id="callPretrialEnrollmentServiceRoute"
 			errorHandlerRef="chriDeadLetterErrorHandler">
 			<from uri="direct:callDispositionReportingService" />
-			<!-- Core functionality - call Disposition Reporting adapter -->
+			<!-- Core functionality - call adapter -->
 			<setHeader headerName="operationName">
 				<constant>PretrialServiceEnrollmentReport</constant>
 			</setHeader>
@@ -58,7 +58,9 @@
 			<setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/PretrialServiceEnrollmentReportingService/1.0</constant>
 			</setHeader>
-
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+						
 			<to uri="pretrialEnrollmentRequestServiceFileEndpoint" />
 		</route>
 		
