@@ -1,0 +1,1886 @@
+<ch-doc:CriminalHistory xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0 ../xsd/Criminal_History.xsd">
+	<ch-ext:RapSheet>
+		<rap:Metadata>
+			<nc:ReportingOrganizationText>CJIS-Hawaii
+					</nc:ReportingOrganizationText>
+		</rap:Metadata>
+		<rap:Introduction>
+			<rap:RapSheetRequest>
+				<rap:PurposeCode>A</rap:PurposeCode>
+				<rap:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE
+							AGENCIES ONLY**</rap:Attention>
+				<rap:RapSheetPerson>
+					<nc:PersonBirthDate>
+						<nc:Date>1960-01-24</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonName>
+						<nc:PersonGivenName>LAWRENCE LARRY</nc:PersonGivenName>
+						<nc:PersonSurName>ABILEY</nc:PersonSurName>
+					</nc:PersonName>
+				</rap:RapSheetPerson>
+			</rap:RapSheetRequest>
+		</rap:Introduction>
+		<ch-ext:Person s:id="idROW323028488">
+			<nc:PersonAlternateName>
+				<nc:PersonGivenName>LARRY LAWRENCE</nc:PersonGivenName>
+				<nc:PersonSurName>ABILEY</nc:PersonSurName>
+			</nc:PersonAlternateName>
+			<nc:PersonAlternateName>
+				<nc:PersonGivenName>LAWRENCE</nc:PersonGivenName>
+				<nc:PersonSurName>ABILEY</nc:PersonSurName>
+			</nc:PersonAlternateName>
+			<nc:PersonAlternateName>
+				<nc:PersonGivenName>LAWRENCE L</nc:PersonGivenName>
+				<nc:PersonSurName>BILEY</nc:PersonSurName>
+			</nc:PersonAlternateName>
+			<nc:PersonAlternateName>
+				<nc:PersonFullName>CRACK</nc:PersonFullName>
+			</nc:PersonAlternateName>
+			<nc:PersonBirthDate>
+				<nc:Date>1960-01-24</nc:Date>
+			</nc:PersonBirthDate>
+			<rap:PersonEyeColorText>Brown</rap:PersonEyeColorText>
+			<rap:PersonHairColorText>Brown</rap:PersonHairColorText>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>73</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>LAWRENCE LARRY</nc:PersonGivenName>
+				<nc:PersonSurName>ABILEY</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonPhysicalFeature>
+				<nc:PhysicalFeatureCategoryText>TAT</nc:PhysicalFeatureCategoryText>
+				<nc:PhysicalFeatureLocationText>L ANKL</nc:PhysicalFeatureLocationText>
+			</nc:PersonPhysicalFeature>
+			<nc:PersonPhysicalFeature>
+				<nc:PhysicalFeatureCategoryText>TAT</nc:PhysicalFeatureCategoryText>
+				<nc:PhysicalFeatureLocationText>LF ARM</nc:PhysicalFeatureLocationText>
+			</nc:PersonPhysicalFeature>
+			<nc:PersonPhysicalFeature>
+				<nc:PhysicalFeatureCategoryText>TAT</nc:PhysicalFeatureCategoryText>
+				<nc:PhysicalFeatureLocationText>RF ARM</nc:PhysicalFeatureLocationText>
+			</nc:PersonPhysicalFeature>
+			<nc:PersonPhysicalFeature>
+				<nc:PhysicalFeatureCategoryText>SC</nc:PhysicalFeatureCategoryText>
+				<nc:PhysicalFeatureLocationText>LF ARM</nc:PhysicalFeatureLocationText>
+			</nc:PersonPhysicalFeature>
+			<nc:PersonPhysicalFeature>
+				<nc:PhysicalFeatureCategoryText>TAT</nc:PhysicalFeatureCategoryText>
+				<nc:PhysicalFeatureDescriptionText>MOM BAD BUNNY BOY</nc:PhysicalFeatureDescriptionText>
+				<nc:PhysicalFeatureLocationText>L ARM</nc:PhysicalFeatureLocationText>
+			</nc:PersonPhysicalFeature>
+			<nc:PersonPhysicalFeature>
+				<nc:PhysicalFeatureCategoryText>TAT</nc:PhysicalFeatureCategoryText>
+				<nc:PhysicalFeatureDescriptionText>BAD BUNNY GIRL</nc:PhysicalFeatureDescriptionText>
+				<nc:PhysicalFeatureLocationText>R ARM</nc:PhysicalFeatureLocationText>
+			</nc:PersonPhysicalFeature>
+			<rap:PersonRaceText>White</rap:PersonRaceText>
+			<rap:PersonSexText>Unknown</rap:PersonSexText>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>576027618</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>150</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<j:PersonAugmentation>
+				<nc:DriverLicense>
+					<nc:DriverLicenseIdentification>
+						<nc:IdentificationID>21083</nc:IdentificationID>
+					</nc:DriverLicenseIdentification>
+				</nc:DriverLicense>
+				<j:PersonFBIIdentification>
+					<nc:IdentificationID>988580W7</nc:IdentificationID>
+				</j:PersonFBIIdentification>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0700334</nc:IdentificationID>
+					<nc:IdentificationJurisdictionText>HI</nc:IdentificationJurisdictionText>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+			<rap:SubjectCautionInformationText>Convicted Felon: 09/27/1979 11/04/2010 HAWAII PROS</rap:SubjectCautionInformationText>
+			<rap:SubjectCautionInformationText>Career Criminal: 11/04/2010 HAWAII PROS</rap:SubjectCautionInformationText>
+			<j:SubjectOffenderNoticeText>SENT FELON PROB</j:SubjectOffenderNoticeText>
+		</ch-ext:Person>
+		<rap:PersonBiometricsAssociation>
+			<nc:PersonReference s:ref="idROW323028488"/>
+			<nc:Biometric>
+				<nc:BiometricValueText>Y</nc:BiometricValueText>
+				<nc:BiometricDescriptionText>DNA Sample
+			</nc:BiometricDescriptionText>
+			</nc:Biometric>
+			<nc:Biometric>
+				<nc:BiometricValueText>W W \ W W ,/ W / W W</nc:BiometricValueText>
+				<nc:BiometricDescriptionText>Fingerprint Class
+				</nc:BiometricDescriptionText>
+			</nc:Biometric>
+			<rap:PersonBiometrics/>
+		</rap:PersonBiometricsAssociation>
+		<nc:Location s:id="idROW323034664">
+			<nc:LocationAddress>
+				<nc:AddressFullText>183 KEAWE ST, HILO, HI 96720</nc:AddressFullText>
+			</nc:LocationAddress>
+		</nc:Location>
+		<rap:Agency s:id="idSUP_ORI_X145037896">
+			<nc:OrganizationName>HI PROBATION</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323073976">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323074984">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323075992">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323077000">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323078008">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323079016">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323080024">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323081032">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323082040">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323083048">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323084056">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323085064">
+			<nc:OrganizationName>HONOLULU PD</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323085960">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323086856">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323087752">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323088648">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323089544">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323090440">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323091336">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323092232">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<rap:Agency s:id="idARR_ARR_ORI_X323093128">
+			<nc:OrganizationName>HON SHER (OLD)</nc:OrganizationName>
+		</rap:Agency>
+		<nc:ResidenceAssociation>
+			<nc:PersonReference s:ref="idROW323028488"/>
+			<nc:LocationReference s:ref="idROW323034664"/>
+		</nc:ResidenceAssociation>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2011-10-04</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Supervision s:id="idROW145037616">
+				<nc:ActivityCategoryText>SUPERVISION</nc:ActivityCategoryText>
+				<nc:ActivityDate>
+					<nc:Date>2011-10-04</nc:Date>
+				</nc:ActivityDate>
+				<nc:SupervisionCustodyStatus>
+					<nc:StatusDescriptionText>PROBATION</nc:StatusDescriptionText>
+				</nc:SupervisionCustodyStatus>
+			</rap:Supervision>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2010-11-03</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
+				<nc:ActivityDate>
+					<nc:Date>2010-10-28</nc:Date>
+				</nc:ActivityDate>
+			</rap:Incident>
+			<rap:Arrest s:id="idROW323073584">
+				<nc:ActivityDate>
+					<nc:Date>2010-11-03</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>57736K7</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>VIOLATE RBL/SR</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>3577458</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C10030503</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>804-0007.2</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>2010-11-09</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>CONTINUED</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>3577458</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C10030503</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>CR10-1-0294</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2010-08-10</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
+				<nc:ActivityDate>
+					<nc:Date>2010-08-02</nc:Date>
+				</nc:ActivityDate>
+			</rap:Incident>
+			<rap:Arrest s:id="idROW323074592">
+				<nc:ActivityDate>
+					<nc:Date>2010-08-10</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>55274K9</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>SO: NON-COMPLY</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>3491435</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FC</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C10022192</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>846E-0009</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>SO: NON-COMPLY</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>3491436</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FC</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C10022197</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>846E-0009</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>2010-08-17</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>CONTINUED</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>3491435</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C10022192</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>CR10-1-0294</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>2010-08-17</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>CONTINUED</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>3491436</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C10022197</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>CR10-1-0294</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2008-08-29</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
+				<nc:ActivityDate>
+					<nc:Date>2008-04-08</nc:Date>
+				</nc:ActivityDate>
+			</rap:Incident>
+			<rap:Arrest s:id="idROW323075600">
+				<nc:ActivityDate>
+					<nc:Date>2008-08-29</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>55415J1</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>SO: NON-COMPLY</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2769379</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FC</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C08025520</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>846E-0009</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:Prosecution>
+				<rap:ProsecutionCharge>
+					<j:ChargeDescriptionText>SO: NON-COMPLY</j:ChargeDescriptionText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C08025520</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>846E-0009</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ProsecutionCharge>
+			</rap:Prosecution>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>2009-03-25</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2769379</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C08025520</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>CR08-1-0422</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 03/25/2009, SUBJECT WAS SENTENCED TO 1 YEAR(S)
+						CONFINEMENT.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 03/25/2009, SUBJECT WAS SENTENCED TO 1 YEAR(S)
+						CONFINEMENT.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C08025520</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2008-08-22</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
+				<nc:ActivityDate>
+					<nc:Date>2008-08-22</nc:Date>
+				</nc:ActivityDate>
+			</rap:Incident>
+			<rap:Arrest s:id="idROW323076608">
+				<nc:ActivityDate>
+					<nc:Date>2008-08-22</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>55174J2</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>OPEN LEWDNESS</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2761671</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C08025504</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>712-1217</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDescriptionText>DISORD CONDUCT</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>2008-09-15</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2761671</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C08025504</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>711-1101</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>3P208-1172</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 09/15/2008, SUBJECT WAS SENTENCED TO 2 DAY(S)
+						CONFINEMENT.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 09/15/2008, SUBJECT WAS SENTENCED TO 2 DAY(S)
+						CONFINEMENT.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C08025504</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2008-08-22</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323077616">
+				<nc:ActivityDate>
+					<nc:Date>2008-08-22</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>55178J8</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+			</rap:Arrest>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2008-08-19</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
+				<nc:ActivityDate>
+					<nc:Date>2008-08-19</nc:Date>
+				</nc:ActivityDate>
+			</rap:Incident>
+			<rap:Arrest s:id="idROW323078624">
+				<nc:ActivityDate>
+					<nc:Date>2008-08-19</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>55093J0</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>CRIM TRESS 2</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2761642</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C08025231</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>708-0814</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDescriptionText>CRIM TRESS 1</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>2008-12-03</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2761642</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>MD</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C08025231</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>708-0813</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>3P208-1224</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 12/03/2008, SUBJECT WAS SENTENCED TO 30 DAY(S)
+						CONFINEMENT.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 12/03/2008, SUBJECT WAS SENTENCED TO 30 DAY(S)
+						CONFINEMENT.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C08025231</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2008-03-14</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
+				<nc:ActivityDate>
+					<nc:Date>2008-03-06</nc:Date>
+				</nc:ActivityDate>
+			</rap:Incident>
+			<rap:Arrest s:id="idROW323079632">
+				<nc:ActivityDate>
+					<nc:Date>2008-03-14</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>50483J9</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>CRIM CONTMP CRT</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2620201</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>MD</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C08008111</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>710-1077</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>2008-09-04</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2620201</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C08008111</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>3P208-370</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 09/04/2008, SUBJECT WAS SENTENCED TO 2 DAY(S)
+						CONFINEMENT.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 09/04/2008, SUBJECT WAS SENTENCED TO 2 DAY(S)
+						CONFINEMENT.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C08008111</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2007-11-24</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
+				<nc:ActivityDate>
+					<nc:Date>2007-11-24</nc:Date>
+				</nc:ActivityDate>
+			</rap:Incident>
+			<rap:Arrest s:id="idROW323080640">
+				<nc:ActivityDate>
+					<nc:Date>2007-11-24</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>50203I1</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>SO: NON-COMPLY</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2565499</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FC</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07037623</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>846E-0009</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDescriptionText>SO: NON-COMPLY</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>2007-11-28</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>DSM W/O PREJ</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2565499</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FC</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07037623</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>846E-0009</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>3P207-1511</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2007-10-26</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
+				<nc:ActivityDate>
+					<nc:Date>2007-10-20</nc:Date>
+				</nc:ActivityDate>
+			</rap:Incident>
+			<rap:Arrest s:id="idROW323081648">
+				<nc:ActivityDate>
+					<nc:Date>2007-10-26</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>69434H4</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>HARASSMENT</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2549430</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07034317</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>711-1106</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>CRIM TRESS 2</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2549431</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07034635</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>708-0814</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:Prosecution>
+				<rap:ProsecutionCharge>
+					<j:ChargeDescriptionText>SIMP TRESPASS</j:ChargeDescriptionText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07034635</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>708-0815</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ProsecutionCharge>
+			</rap:Prosecution>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDescriptionText>HARASSMENT</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>2007-11-14</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2549430</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07034317</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>711-1106</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>3P207-1405</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>2007-11-14</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2549431</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07034635</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>3P207-1406</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 11/14/2007, SUBJECT WAS SENTENCED TO 30 DAY(S)
+						CONFINEMENT.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 11/14/2007, SUBJECT WAS SENTENCED TO 30 DAY(S)
+						CONFINEMENT.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C07034317</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 11/14/2007, SUBJECT WAS SENTENCED TO $500 FINE.
+					</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 11/14/2007, SUBJECT WAS SENTENCED TO $500 FINE.
+					</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C07034635</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 04/15/2008, SUBJECT WAS RE-SENTENCED TO OR SENTENCE
+						WAS AMENDED TO 71 HOUR(S) COMMUNITY SERVICE.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 04/15/2008, SUBJECT WAS RE-SENTENCED TO OR SENTENCE
+						WAS AMENDED TO 71 HOUR(S) COMMUNITY SERVICE.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C07034635</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2007-10-26</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
+				<nc:ActivityDate>
+					<nc:Date>2007-10-26</nc:Date>
+				</nc:ActivityDate>
+			</rap:Incident>
+			<rap:Arrest s:id="idROW323082656">
+				<nc:ActivityDate>
+					<nc:Date>2007-10-26</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>69438H0</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>SEX ASLT 4</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDescriptionText>DISCH PEND INV</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2554712</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>MD</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07029903</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>707-733-87</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>2007-06-17</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
+				<nc:ActivityDate>
+					<nc:Date>2007-06-16</nc:Date>
+				</nc:ActivityDate>
+			</rap:Incident>
+			<rap:Arrest s:id="idROW323083664">
+				<nc:ActivityDate>
+					<nc:Date>2007-06-17</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>65385H1</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>DRVE W/OUT LGTS</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDescriptionText>DISCH PEND INV</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2470312</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>VL</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07019335</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>291-0025</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>RS ORDR TO STOP</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDescriptionText>DISCH PEND INV</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2470313</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>MD</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07019342</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>710-1027</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>RECKLESS DRIVE</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDescriptionText>DISCH PEND INV</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>2470314</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C07019343</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>291-0002</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>1993-12-01</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323084672">
+				<nc:ActivityDate>
+					<nc:Date>1993-12-01</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>9311770</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>MURDER 2</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDescriptionText>OUTSIDE AGENCY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1451273</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FA</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>93-484878</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>707-0701.5</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>TERR THREAT 2</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDescriptionText>OUTSIDE AGENCY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1451274</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>MD</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>93-485123</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>707-0717</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>ASSAULT 2</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDescriptionText>OUTSIDE AGENCY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1451275</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FC</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>93-485124</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>707-0711</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>1987-03-06</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323085568">
+				<nc:ActivityDate>
+					<nc:Date>1987-03-06</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>8378168</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>SEX ASLT 1</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1306393</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FA</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-56557</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>707-730-87</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>BURGLARY 1</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1306394</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FB</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-56572</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>708-0810</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>SEX ASLT 1</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1306395</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FA</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-56573</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>707-730-87</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>SEX ASLT 1</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1306396</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FA</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-56574</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>707-730-87</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>SEX ASLT 1</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1306397</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FA</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-56575</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>707-730-87</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1988-02-29</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1306393</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-56557</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>CR87-0101</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1988-02-29</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1306394</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-56572</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>CR87-0101</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1988-02-29</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1306395</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-56573</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>CR87-0101</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1988-05-02</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1306396</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-56574</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>CR87-0101</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1988-05-02</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1306397</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-56575</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>CR87-0101</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 05/02/1988, SUBJECT WAS SENTENCED TO 20 YEAR(S)
+						CONFINEMENT, to run CONCURRENTLY.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 05/02/1988, SUBJECT WAS SENTENCED TO 20 YEAR(S)
+						CONFINEMENT, to run CONCURRENTLY.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C-56557</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 05/02/1988, SUBJECT WAS SENTENCED TO 10 YEAR(S)
+						CONFINEMENT, to run CONCURRENTLY.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 05/02/1988, SUBJECT WAS SENTENCED TO 10 YEAR(S)
+						CONFINEMENT, to run CONCURRENTLY.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C-56572</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 05/02/1988, SUBJECT WAS SENTENCED TO 20 YEAR(S)
+						CONFINEMENT, to run CONCURRENTLY.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 05/02/1988, SUBJECT WAS SENTENCED TO 20 YEAR(S)
+						CONFINEMENT, to run CONCURRENTLY.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C-56573</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 05/02/1988, SUBJECT WAS SENTENCED TO 20 YEAR(S)
+						CONFINEMENT, to run CONCURRENTLY.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 05/02/1988, SUBJECT WAS SENTENCED TO 20 YEAR(S)
+						CONFINEMENT, to run CONCURRENTLY.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C-56574</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 05/02/1988, SUBJECT WAS SENTENCED TO 20 YEAR(S)
+						CONFINEMENT, to run CONCURRENTLY.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 05/02/1988, SUBJECT WAS SENTENCED TO 20 YEAR(S)
+						CONFINEMENT, to run CONCURRENTLY.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C-56575</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>1986-12-27</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323086464">
+				<nc:ActivityDate>
+					<nc:Date>1986-12-27</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>8436040</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>DISORD CONDUCT</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1315098</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-52731</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>711-1101</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1986-12-29</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1315098</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-52731</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>C-52731</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 12/29/1986, SUBJECT WAS SENTENCED TO 2 DAY(S)
+						CONFINEMENT.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 12/29/1986, SUBJECT WAS SENTENCED TO 2 DAY(S)
+						CONFINEMENT.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C-52731</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>1986-10-20</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323087360">
+				<nc:ActivityDate>
+					<nc:Date>1986-10-20</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>8428195</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>DISORD CONDUCT</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1313966</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-48907</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>711-1101</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>TERR THREAT 2</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1313967</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>MD</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-48908</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>707-0717</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1986-11-28</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1313966</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-48907</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+			</rap:CourtAction>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1986-11-28</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>NOLLE PROSEQUI</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1313967</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-48908</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 11/28/1986, SUBJECT WAS SENTENCED TO 39 DAY(S)
+						CONFINEMENT.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 11/28/1986, SUBJECT WAS SENTENCED TO 39 DAY(S)
+						CONFINEMENT.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C-48907</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>1986-05-14</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323088256">
+				<nc:ActivityDate>
+					<nc:Date>1986-05-14</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>8359846</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>DISORD CONDUCT</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1303638</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-39772</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>711-1101</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1986-07-09</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1303638</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>C-39772</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 07/09/1986, SUBJECT WAS SENTENCED TO 48 HOUR(S)
+						COMMUNITY SERVICE, 7 DAY(S) CONFINEMENT, 2 MONTH(S) PROBATION, and
+						7 DAY(S) CONFINEMENT TIME SUSPENDED.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 07/09/1986, SUBJECT WAS SENTENCED TO 48 HOUR(S)
+						COMMUNITY SERVICE, 7 DAY(S) CONFINEMENT, 2 MONTH(S) PROBATION, and
+						7 DAY(S) CONFINEMENT TIME SUSPENDED.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>C-39772</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>1983-04-22</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323089152">
+				<nc:ActivityDate>
+					<nc:Date>1983-04-22</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>8076580</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>PROM PR CON 1</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1282127</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FB</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>B-83213</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>710-1022</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1983-04-26</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1282127</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>B-83213</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>7388</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 08/30/1983, SUBJECT WAS SENTENCED TO 5 YEAR(S)
+						CONFINEMENT and 5 YEAR(S) CONFINEMENT TIME SUSPENDED.
+					</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 08/30/1983, SUBJECT WAS SENTENCED TO 5 YEAR(S)
+						CONFINEMENT and 5 YEAR(S) CONFINEMENT TIME SUSPENDED.
+					</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>B-83213</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>1981-12-14</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323090048">
+				<nc:ActivityDate>
+					<nc:Date>1981-12-14</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>8020349</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>ESCAPE 1</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDescriptionText>OUTSIDE AGENCY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1274617</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FB</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>B-69574</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>710-1020</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>1981-08-10</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323090944">
+				<nc:ActivityDate>
+					<nc:Date>1981-08-10</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>8000812</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>ROBBERY 1</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1272121</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FA</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>B-63139</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>708-0840</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDescriptionText>ROBBERY 2</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1981-11-12</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>1272121</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FB</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>B-63139</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>708-0841</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
+					<nc:IdentificationID>6676</nc:IdentificationID>
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 11/12/1981, SUBJECT WAS SENTENCED TO 10 YEAR(S)
+						PROBATION.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 11/12/1981, SUBJECT WAS SENTENCED TO 10 YEAR(S)
+						PROBATION.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>B-63139</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>1981-07-07</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323091840">
+				<nc:ActivityDate>
+					<nc:Date>1981-07-07</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>1796622</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+			</rap:Arrest>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
+				<nc:Date>1979-07-20</nc:Date>
+			</rap:CycleEarliestDate>
+			<rap:Arrest s:id="idROW323092736">
+				<nc:ActivityDate>
+					<nc:Date>1979-07-20</nc:Date>
+				</nc:ActivityDate>
+				<j:ArrestAgencyRecordIdentification>
+					<nc:IdentificationID>1224401</nc:IdentificationID>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeDescriptionText>BURGLARY 1</j:ChargeDescriptionText>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>278928</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeSeverityText>FB</j:ChargeSeverityText>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>B33572</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>708-0810</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:CourtAction>
+				<rap:CourtCharge>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:Date>1979-09-27</nc:Date>
+						</nc:DispositionDate>
+						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
+					</j:ChargeDisposition>
+					<j:ChargeIdentification>
+						<nc:IdentificationID>278928</nc:IdentificationID>
+					</j:ChargeIdentification>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>B33572</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+				</rap:CourtCharge>
+			</rap:CourtAction>
+			<ch-ext:Sentencing>
+				<ch-ext:Sentence>
+					<nc:ActivityDisposition>
+						<nc:DispositionDescriptionText>On 09/27/1979, SUBJECT WAS SENTENCED TO 5 YEAR(S)
+						PROBATION.</nc:DispositionDescriptionText>
+					</nc:ActivityDisposition>
+					<j:SentenceDescriptionText>On 09/27/1979, SUBJECT WAS SENTENCED TO 5 YEAR(S)
+						PROBATION.</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>B33572</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+		</ch-ext:RapSheetCycle>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323073584"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323073976"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323074592"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323074984"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323075600"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323075992"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323076608"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323077000"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323077616"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323078008"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323078624"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323079016"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323079632"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323080024"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323080640"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323081032"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323081648"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323082040"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323082656"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323083048"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323083664"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323084056"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323084672"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323085064"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323085568"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323085960"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323086464"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323086856"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323087360"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323087752"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323088256"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323088648"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323089152"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323089544"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323090048"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323090440"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323090944"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323091336"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323091840"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323092232"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="idROW323092736"/>
+			<nc:OrganizationReference s:ref="idARR_ARR_ORI_X323093128"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:SupervisionAgencyAssociation>
+			<rap:SupervisionReference s:ref="idROW145037616"/>
+			<nc:OrganizationReference s:ref="idSUP_ORI_X145037896"/>
+		</rap:SupervisionAgencyAssociation>
+		<ch-ext:Order>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>101496</nc:IdentificationID>
+				<nc:IdentificationCategoryText>TRO Document ID
+			</nc:IdentificationCategoryText>
+			</nc:ActivityIdentification>
+			<nc:ActivityCategoryText>PO CONVERTED FROM TRO</nc:ActivityCategoryText>
+			<nc:ActivityDate>
+				<nc:Date>2008-07-01</nc:Date>
+			</nc:ActivityDate>
+			<j:CourtOrderIssuingCourt>
+				<nc:OrganizationName>HAWAII FAM CT</nc:OrganizationName>
+			</j:CourtOrderIssuingCourt>
+			<j:CourtOrderServiceDate>
+				<nc:Date>2008-07-01</nc:Date>
+			</j:CourtOrderServiceDate>
+			<j:CourtOrderServiceDescriptionText>SERVED</j:CourtOrderServiceDescriptionText>
+			<ch-ext:CourtCase>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>FC-DA 08-1-0308</nc:IdentificationID>
+				</nc:ActivityIdentification>
+			</ch-ext:CourtCase>
+			<ch-ext:ProtectionOrderExpirationDate>
+				<nc:Date>2011-06-18</nc:Date>
+			</ch-ext:ProtectionOrderExpirationDate>
+		</ch-ext:Order>
+		<ch-ext:Order>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>124907</nc:IdentificationID>
+				<nc:IdentificationCategoryText>TRO Document ID
+			</nc:IdentificationCategoryText>
+			</nc:ActivityIdentification>
+			<nc:ActivityCategoryText>PO CONVERTED FROM TRO</nc:ActivityCategoryText>
+			<nc:ActivityDate>
+				<nc:Date>2010-04-27</nc:Date>
+			</nc:ActivityDate>
+			<j:CourtOrderIssuingCourt>
+				<nc:OrganizationName>HAWAII FAM CT</nc:OrganizationName>
+			</j:CourtOrderIssuingCourt>
+			<j:CourtOrderServiceDate>
+				<nc:Date>2010-04-27</nc:Date>
+			</j:CourtOrderServiceDate>
+			<j:CourtOrderServiceDescriptionText>SERVED</j:CourtOrderServiceDescriptionText>
+			<ch-ext:CourtCase>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>FC-DA 10-1-0231</nc:IdentificationID>
+				</nc:ActivityIdentification>
+			</ch-ext:CourtCase>
+			<ch-ext:ProtectionOrderExpirationDate>
+				<nc:Date>2013-04-11</nc:Date>
+			</ch-ext:ProtectionOrderExpirationDate>
+		</ch-ext:Order>
+	</ch-ext:RapSheet>
+</ch-doc:CriminalHistory>
