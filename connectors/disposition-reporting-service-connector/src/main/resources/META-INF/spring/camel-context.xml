@@ -51,26 +51,26 @@
 		</camel:route>
 		
 						
-		<camel:route id="memberSpecificRoutes">
+		<camel:route id="Disposition_Connector_Derived_Routes">
 
 			<camel:from uri="direct:derivedRoutes"/>
 		
 			<!-- Set up member specific endpoints -->
-			<camel:setHeader headerName="routingSlipJurisdiction"><simple>{{dispositionReporting.camelEndpointsToCall}}</simple></camel:setHeader>
+			<camel:setHeader headerName="routingSlipDerivedRoutes"><simple>{{dispositionReporting.camelEndpointsToCall}}</simple></camel:setHeader>
 
 			<camel:filter>
-				<camel:simple>${in.headers.routingSlipJurisdiction} != ''</camel:simple>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
 				
-				<camel:log message="About to call member specific routes using this routing slip: ${in.headers.routingSlipJurisdiction}"/>
+				<camel:log message="About to call derived routes using this routing slip: ${in.headers.routingSlipDerivedRoutes}"/>
 				
 				<camel:recipientList>
-					<camel:header>routingSlipJurisdiction</camel:header>
+					<camel:header>routingSlipDerivedRoutes</camel:header>
 				</camel:recipientList>
 			</camel:filter>			
 		
 		</camel:route>
 				
-		<camel:route id="callIntermediaryRoute">
+		<camel:route id="Disposition_Connector_Intermediary_Route">
 		
 			<camel:from uri="direct:callIntermediary"/>
 		
