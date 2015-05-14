@@ -59,9 +59,9 @@
    </jh-ext:JuvenileInformationAvailabilityMetadata>
    <nc30:Person s30:id="child" s30:metadata="metadata">
       <nc30:PersonName>
-         <nc30:PersonGivenName>Billy</nc30:PersonGivenName>
+         <nc30:PersonGivenName>John</nc30:PersonGivenName>
          <nc30:PersonMiddleName>W</nc30:PersonMiddleName>
-         <nc30:PersonSurName>Hunter</nc30:PersonSurName>
+         <nc30:PersonSurName>Matthews</nc30:PersonSurName>
          <jxdm50:PersonNameCategoryCode>provided</jxdm50:PersonNameCategoryCode>
       </nc30:PersonName>
       <nc30:PersonOtherIdentification>
@@ -85,7 +85,7 @@
       <nc30:PersonName>
          <nc30:PersonGivenName>Michael</nc30:PersonGivenName>
          <nc30:PersonMiddleName>B</nc30:PersonMiddleName>
-         <nc30:PersonSurName>Hunter</nc30:PersonSurName>
+         <nc30:PersonSurName>Matthews</nc30:PersonSurName>
          <jxdm50:PersonNameCategoryCode>provided</jxdm50:PersonNameCategoryCode>
       </nc30:PersonName>
       <nc30:PersonOtherIdentification>
