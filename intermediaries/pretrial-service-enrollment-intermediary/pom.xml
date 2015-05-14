@@ -136,6 +136,12 @@
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-common</artifactId>
 			<version>${ojb-common-version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
