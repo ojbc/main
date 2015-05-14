@@ -18,6 +18,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
+		<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
         
         <script src="#springUrl('/static/js/jquery-ui/js/jquery-1.9.0.js')"></script>
         <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>
