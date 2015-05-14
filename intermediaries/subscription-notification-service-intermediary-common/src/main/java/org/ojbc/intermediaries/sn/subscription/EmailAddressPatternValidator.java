@@ -20,12 +20,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.util.EmailAddressValidatorResponse;
 import org.ojbc.util.validator.EmailValidator;
 
 public class EmailAddressPatternValidator {
 
 	private List<String> allowedEmailAddressPatterns;
+	
+	private static final Log log = LogFactory.getLog(SubscriptionRequest.class);
 	
 	//read in comma separated list of allowed email address regular expressions
 	public EmailAddressPatternValidator(String allowedEmailAddressRegularExpressions) {
@@ -45,6 +49,11 @@ public class EmailAddressPatternValidator {
 	{
 		EmailAddressValidatorResponse emailAddressValidatorResponse = new EmailAddressValidatorResponse();
 		
+		if (allowedEmailAddressPatterns != null)
+		{	
+			log.debug("Allowed email address pattern: " + allowedEmailAddressPatterns.toString());
+		}
+			
 		//Start with a default of true
 		emailAddressValidatorResponse.setAreAllEmailAddressValid(true);
 
