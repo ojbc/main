@@ -1438,7 +1438,7 @@ public class StaticMockQuery {
 
 		xPaths.searchSystemId = JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID;
 		xPaths.systemName = "Juvenile Court Case Management System";
-		xPaths.recordType = "Juvenile Criminal History";
+		xPaths.recordType = "Juvenile History";
 		return xPaths;
 	}
 
