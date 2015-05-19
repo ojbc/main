@@ -516,7 +516,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE ="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0";
     
     public static final String NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXT = "pse-ext";
-    public static final String NS_RETRIAL_SERVICE_ENROLLMENT_EXT ="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0";
+    public static final String NS_PRETRIAL_SERVICE_ENROLLMENT_EXT ="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0";
 
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -978,8 +978,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    prefixToUriMap.put(NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE, NS_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE);
 	    uriToPrefixMap.put(NS_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE, NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE);
 	    
-	    prefixToUriMap.put(NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXT, NS_RETRIAL_SERVICE_ENROLLMENT_EXT);
-	    uriToPrefixMap.put(NS_RETRIAL_SERVICE_ENROLLMENT_EXT, NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXT);
+	    prefixToUriMap.put(NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXT, NS_PRETRIAL_SERVICE_ENROLLMENT_EXT);
+	    uriToPrefixMap.put(NS_PRETRIAL_SERVICE_ENROLLMENT_EXT, NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXT);
 	    
 	}
 

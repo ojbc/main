@@ -45,8 +45,6 @@ import org.w3c.dom.NodeList;
  * It will check if email addresses are unique and follow a defined email address pattern.
  * If there is a duplicate email address, a warning is logged but the subscription is still added.
  * 
- * @author yogeshchawla
- *
  */
 public abstract class SubscriptionRequest {
 
