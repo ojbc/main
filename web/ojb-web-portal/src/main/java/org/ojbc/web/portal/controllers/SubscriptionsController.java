@@ -1450,9 +1450,9 @@ public class SubscriptionsController {
 		
 		SubscribedPersonNames rSubscribedPersonNames = new SubscribedPersonNames();
 						
-		Node rapSheetNode = XmlUtils.xPathNodeSearch(rapSheetDoc, "/ch-doc:CriminalHistory/ch:RapSheet");	
+		Node rapSheetNode = XmlUtils.xPathNodeSearch(rapSheetDoc, "/ch-doc:CriminalHistory/ch-ext:RapSheet");	
 						
-		Node pNameNode = XmlUtils.xPathNodeSearch(rapSheetNode, "ch:Introduction/ch:RapSheetRequest/ch:RapSheetPerson/nc:PersonName");
+		Node pNameNode = XmlUtils.xPathNodeSearch(rapSheetNode, "rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonName");
 		
 		String personOrigFullName = getNameConcatinated(pNameNode);			
 		personOrigFullName = StringUtils.strip(personOrigFullName);
@@ -1461,7 +1461,7 @@ public class SubscriptionsController {
 			rSubscribedPersonNames.setOriginalName(personOrigFullName);			
 		}
 						
-		NodeList altNameNodeList = XmlUtils.xPathNodeListSearch(rapSheetNode, "ch:RapSheetPerson/nc:PersonAlternateName");	
+		NodeList altNameNodeList = XmlUtils.xPathNodeListSearch(rapSheetNode, "ch-ext:Person/nc:PersonAlternateName");	
 				
 		//process the alternate names
 		for(int i=0; i < altNameNodeList.getLength(); i++){
