@@ -1445,7 +1445,6 @@ public class SubscriptionsController {
 	}
 	
 	
-	
 	SubscribedPersonNames getAllPersonNamesFromRapsheet(Document rapSheetDoc) throws Exception{
 		
 		SubscribedPersonNames rSubscribedPersonNames = new SubscribedPersonNames();
@@ -1476,6 +1475,7 @@ public class SubscriptionsController {
 		return rSubscribedPersonNames;		
 	}
 	
+
 	
 	String getNameConcatinated(Node nameNode) throws Exception{
 		
@@ -1517,6 +1517,6 @@ public class SubscriptionsController {
 	public static String getFederatedQueryId() {
 		return UUID.randomUUID().toString();
 	}
-	
+
 }
 
