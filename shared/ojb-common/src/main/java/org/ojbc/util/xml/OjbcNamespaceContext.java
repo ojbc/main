@@ -40,7 +40,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 	
 	public static final String NS_DISPOSITION_REPORTS = "http://ojbc.org/DispositionReports/1.0";
-	public static final String NS_DISPOSITION_REPORTS_PREFIX = "dr";//TODO add to prefix map
+	public static final String NS_DISPOSITION_REPORTS_PREFIX = "dr";
 
 	public static final String NS_DISPOSITION_EXCHANGE = "http://ojbc.org/IEPD/Exchange/DispositionReport/1.0";
 	public static final String NS_DISPOSITION_EXCHANGE_PREFIX = "disp_exc";
@@ -524,6 +524,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public OjbcNamespaceContext() {
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();
+		
+		prefixToUriMap.put(NS_DISPOSITION_REPORTS_PREFIX, NS_DISPOSITION_REPORTS);
+		uriToPrefixMap.put(NS_DISPOSITION_REPORTS, NS_DISPOSITION_REPORTS_PREFIX);
 
 		prefixToUriMap.put(NS_PREFIX_CHARGE_REFERRAL_DOC, NS_CHARGE_REFERRAL_DOC);
 		uriToPrefixMap.put(NS_CHARGE_REFERRAL_DOC, NS_PREFIX_CHARGE_REFERRAL_DOC);
