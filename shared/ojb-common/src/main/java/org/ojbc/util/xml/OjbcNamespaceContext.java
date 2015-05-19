@@ -38,6 +38,9 @@ import org.w3c.dom.NodeList;
 public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
+	
+	public static final String NS_DISPOSITION_REPORTS = "http://ojbc.org/DispositionReports/1.0";
+	public static final String NS_DISPOSITION_REPORTS_PREFIX = "dr";//TODO add to prefix map
 
 	public static final String NS_DISPOSITION_EXCHANGE = "http://ojbc.org/IEPD/Exchange/DispositionReport/1.0";
 	public static final String NS_DISPOSITION_EXCHANGE_PREFIX = "disp_exc";
