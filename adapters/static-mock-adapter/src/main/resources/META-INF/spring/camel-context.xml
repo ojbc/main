@@ -372,10 +372,10 @@
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
 			<camel:setHeader headerName="operationName">
-				<constant>Report-Person-Query-Results---Criminal-History</constant>
+				<constant>SubmitCriminalHistoryQueryResults</constant>
 			</camel:setHeader>
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0</constant>
 			</camel:setHeader>
 
 			<camel:to uri="personQueryResultsHandlerCriminalHistoryServiceEndpoint" />
