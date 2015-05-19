@@ -214,6 +214,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_CH = "http://ojbc.org/IEPD/Extensions/RapSheet/1.0";
 	public static final String NS_PREFIX_CH_DOC = "ch-doc";
 	public static final String NS_CH_DOC = "http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0";
+	public static final String NS_PREFIX_RAPSHEET_41 = "rap";
+	public static final String NS_RAPSHEET_41 = "http://nlets.org/niem2/rapsheet/1.0";
 	public static final String NS_PREFIX_CH_EXT = "ch-ext";
 	public static final String NS_CH_EXT = "http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0";
 	public static final String NS_PREFIX_ANSI_NIST = "ansi-nist";
@@ -514,6 +516,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     
     public static final String NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXT = "pse-ext";
     public static final String NS_RETRIAL_SERVICE_ENROLLMENT_EXT ="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0";
+   
+    
 
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -599,8 +603,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_STRUCTURES, NS_PREFIX_STRUCTURES);
 		prefixToUriMap.put(NS_PREFIX_STRUCTURES_30, NS_STRUCTURES_30);
 		uriToPrefixMap.put(NS_STRUCTURES_30, NS_PREFIX_STRUCTURES_30);
+		
+		
 		prefixToUriMap.put(NS_PREFIX_CH, NS_CH);
 		uriToPrefixMap.put(NS_CH, NS_PREFIX_CH);
+		prefixToUriMap.put(NS_PREFIX_RAPSHEET_41, NS_RAPSHEET_41);
+		uriToPrefixMap.put(NS_RAPSHEET_41, NS_PREFIX_RAPSHEET_41);
 		prefixToUriMap.put(NS_PREFIX_CH_DOC, NS_CH_DOC);
 		uriToPrefixMap.put(NS_CH_DOC, NS_PREFIX_CH_DOC);
 		prefixToUriMap.put(NS_PREFIX_CH_EXT, NS_CH_EXT);
