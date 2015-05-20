@@ -35,7 +35,7 @@ xmlns:s="http://niem.gov/niem/structures/2.0"
 xmlns:screening="http://niem.gov/niem/domains/screening/2.0"
 xmlns:usps-states="http://niem.gov/niem/usps_states/2.0"
 xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0"
-xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0 ../xsd/Criminal_History.xsd">
+xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
     <ch-ext:RapSheet>
         <rap:Metadata>
             <nc:ReportingOrganizationText>State CHRI</nc:ReportingOrganizationText>
