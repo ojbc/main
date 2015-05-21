@@ -129,10 +129,12 @@
 		<camel:endpoint id="juvenileReferralHistoryResultsHandlerServiceEndpoint"
 			uri="cxf:bean:juvenileReferralHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 
+		<!-- In all of the endpoints below, the 'address' field uses the ':' notation to set a default value -->
+		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
 	
 		<!-- Juvenile Case Plan History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenileCasePlanHistoryResultsHandlerService"
-			address="${webapplication.casePlanHistoryResultsService.endpoint}"
+			address="${webapplication.casePlanHistoryResultsService.endpoint:}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenileCasePlanHistoryResultsService"
 			endpointName="ojbc:JuvenileCasePlanHistoryResultsSOAPPort"
@@ -150,7 +152,7 @@
 	   	    
 		<!-- Juvenile Hearing History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenileHearingHistoryResultsHandlerService"
-			address="${webapplication.hearingHistoryResultsService.endpoint}"
+			address="${webapplication.hearingHistoryResultsService.endpoint:}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenileHearingHistoryResultsService"
 			endpointName="ojbc:JuvenileHearingHistoryResultsSOAPPort"
@@ -168,7 +170,7 @@
 	
 		<!-- Juvenile Intake History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenileIntakeHistoryResultsHandlerService"
-			address="${webapplication.intakeHistoryResultsService.endpoint}"
+			address="${webapplication.intakeHistoryResultsService.endpoint:}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenileIntakeHistoryResultsService"
 			endpointName="ojbc:JuvenileIntakeHistoryResultsSOAPPort"
@@ -186,7 +188,7 @@
 	   	   
 		<!-- Juvenile Offense History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenileOffenseHistoryResultsHandlerService"
-			address="${webapplication.offenseHistoryResultsService.endpoint}"
+			address="${webapplication.offenseHistoryResultsService.endpoint:}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenileOffenseHistoryResultsService"
 			endpointName="ojbc:JuvenileOffenseHistoryResultsSOAPPort"
@@ -204,7 +206,7 @@
 				 
 		<!-- Juvenile Placement History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenilePlacementHistoryResultsHandlerService"
-			address="${webapplication.placementHistoryResultsService.endpoint}"
+			address="${webapplication.placementHistoryResultsService.endpoint:}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenilePlacementHistoryResultsService"
 			endpointName="ojbc:JuvenilePlacementHistoryResultsSOAPPort"
@@ -222,7 +224,7 @@
 
 		<!-- Juvenile Referral History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenileReferralHistoryResultsHandlerService"
-			address="${webapplication.referralHistoryResultsService.endpoint}"
+			address="${webapplication.referralHistoryResultsService.endpoint:}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenileReferralHistoryResultsService"
 			endpointName="ojbc:JuvenileReferralHistoryResultsSOAPPort"
@@ -243,7 +245,7 @@
 	    --> 
 	    <cxf:cxfEndpoint 
 	        id="accessControlResponseService"
-			address="${webapplication.accessControl.accessControlResponseEndpoint}"
+			address="${webapplication.accessControl.accessControlResponseEndpoint:}"
 	        wsdlURL="classpath:service-specifications/Access_Control_Response_Service/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
 	        serviceName="ojbc:Access-Control-Response-ServiceService"
 	        endpointName="ojbc:Access-Control-Response-Secure-Service"
@@ -265,7 +267,7 @@
 		<!-- OJB Notification Broker Secure Service -->
 	    <cxf:cxfEndpoint 
 	        id="notificationBrokerServiceSecure"
-	        address="${webapplication.subscription.notificationBrokerSecureEndpoint}" 
+	        address="${webapplication.subscription.notificationBrokerSecureEndpoint:}" 
 			wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSNotification.wsdl"
 			serviceName="ojbc:SecureNotificationBrokerServiceService" 
 			endpointName="ojbc:SecureNotificationBrokerService"
@@ -281,7 +283,7 @@
 		<!-- OJB Subscription Manager Secure Service -->
 	    <cxf:cxfEndpoint 
 	        id="subscriptionManagerServiceSecure"
-	        address="${webapplication.subscription.subscriptionManagerSecureEndpoint}" 
+	        address="${webapplication.subscription.subscriptionManagerSecureEndpoint:}" 
 			wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSubscriptionManager.wsdl"
 			serviceName="ojbc:SecureSubscriptionManagerServiceService" 
 			endpointName="ojbc:SecureSubscriptionManager"
@@ -299,7 +301,7 @@
 	    --> 
 	    <cxf:cxfEndpoint 
 	        id="subscriptionQueryResultsHandlerService"
-			address="${webapplication.subscriptionQuery.subscriptionQueryResultsEndpoint}"
+			address="${webapplication.subscriptionQuery.subscriptionQueryResultsEndpoint:}"
 	        wsdlURL="classpath:service-specifications/Subscription_Query_Results_Service/schema/SIP_WS_1.2/Subscription_Query_Results_Service.wsdl"
 			serviceName="ojbc:Subscription_Query_Results_Service_Service" 
 			endpointName="ojbc:Subscription_Query_Results_Secure_Service"
@@ -320,7 +322,7 @@
 	    --> 
 	    <cxf:cxfEndpoint 
 	        id="subscriptionSearchResultsHandlerService"
-			address="${webapplication.subscriptionSearch.subscriptionSearchResultsEndpoint}"
+			address="${webapplication.subscriptionSearch.subscriptionSearchResultsEndpoint:}"
 	        wsdlURL="classpath:service-specifications/Subscription_Search_Results_Service/schema/SIP_WS_1.2/Subscription_Search_Results_Service.wsdl"
 	        serviceName="ojbc:Subscription_Search_Results_Service_Service"
 	        endpointName="ojbc:Subscription_Search_Results_Secure_Service"
@@ -340,7 +342,7 @@
        
 		<!-- Policy Acknowledgement Recording Request Service  -->
 		<cxf:cxfEndpoint id="policyAcknowledgementRecordingResponseService"
-			address="${webapplication.accessControl.policyAcknowledgementRecordingResponseEndpoint}"
+			address="${webapplication.accessControl.policyAcknowledgementRecordingResponseEndpoint:}"
 			wsdlURL="classpath:service-specifications/Policy_Acknowledgement_Recording_Response_Service/schemas/SIP_WS_1.3/Policy_Acknowledgement_Recording_Response_Service.wsdl"
 			serviceName="ojbc:Policy-Acknowledgement-Recording-Response-ServiceService" endpointName="ojbc:Policy-Acknowledgement-Recording-Response-Secure-Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/PolicyAcknowledgementRecordingResponseService/1.0">
@@ -357,7 +359,7 @@
        
 		<!-- Person/Vehicle to Incident Search Results Service, hosted by Web Application -->
 		<cxf:cxfEndpoint id="personVehicleToIncidentSearchResultsHandlerService"
-			address="${webapplication.personSearch.personVehicleToIncidentSearchRequestResultsEndpoint}"
+			address="${webapplication.personSearch.personVehicleToIncidentSearchRequestResultsEndpoint:}"
 			wsdlURL="classpath:service-specifications/Incident_Search_Results_Service/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
 			serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
@@ -374,7 +376,7 @@
        
 		<!-- Present Person Merge Notification Service Results -->
 		<cxf:cxfEndpoint id="personSearchResultsHandlerService"
-			address="${webapplication.personSearch.personSearchResultsEndpoint}"
+			address="${webapplication.personSearch.personSearchResultsEndpoint:}"
 			wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
 			serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
 			xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
@@ -391,7 +393,7 @@
        
 		<!-- Incident Merge Notification Service Results Handler Service-->
 		<cxf:cxfEndpoint id="incidentSearchResultsHandlerService"
-			address="${webapplication.personSearch.incidentSearchRequestResultsEndpoint}"
+			address="${webapplication.personSearch.incidentSearchRequestResultsEndpoint:}"
 			wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
 			serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
 			xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
@@ -409,7 +411,7 @@
 	
 		<!-- Incident Report Results Handler, hosted by Web Application -->
 		<cxf:cxfEndpoint id="incidentReportResultsHandlerService"
-			address="${webapplication.personQuery.incidentReportRequestResultsEndpoint}"
+			address="${webapplication.personQuery.incidentReportRequestResultsEndpoint:}"
 			wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 			serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
@@ -427,7 +429,7 @@
 	
 		<!-- Firearm Search Results Handler, hosted by Web Application -->
 		<cxf:cxfEndpoint id="firearmSearchResultsHandlerService"
-			address="${webapplication.firearmSearch.firearmSearchResultsEndpoint}"
+			address="${webapplication.firearmSearch.firearmSearchResultsEndpoint:}"
 			wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
 			serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
 			xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
@@ -445,7 +447,7 @@
 		
 		<!-- Firearm Registration Query Results Handler, hosted by Web Application -->
 		<cxf:cxfEndpoint id="firearmRegistrationQueryResultsHandlerService"
-			address="${webapplication.firearmQuery.firearmQueryRequestResultsEndpoint}"
+			address="${webapplication.firearmQuery.firearmQueryRequestResultsEndpoint:}"
 			wsdlURL="classpath:service-specifications/Firearm_Registration_Query_Results_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Results_Service.wsdl"
 			serviceName="ojbc:Firearm_Registration_Query_Results_Service_Service" endpointName="ojbc:Firearm_Registration_Query_Results_Secure_Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0">
@@ -464,7 +466,7 @@
 		
 		<!-- Vehicle Search Results Handler, hosted by Web Application -->
 		<cxf:cxfEndpoint id="vehicleSearchResultsHandlerService"
-			address="${webapplication.vehicleSearch.vehicleSearchResultsEndpoint}"
+			address="${webapplication.vehicleSearch.vehicleSearchResultsEndpoint:}"
 			wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
 			serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
 			xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
@@ -482,7 +484,7 @@
 	    <!-- Criminal History handler, hosted by Web Application --> 
 	    <cxf:cxfEndpoint 
 	        id="personQueryResultsHandlerCriminalHistoryService"
-	        address="${webapplication.personQuery.personQueryResultsHandlerCriminalHistoryEndpoint}"
+	        address="${webapplication.personQuery.personQueryResultsHandlerCriminalHistoryEndpoint:}"
 	        wsdlURL="classpath:service-specifications/Person_Query_Results_Handler_Service_-_Criminal_History/schema/SIP_WS_1.2/Person_Query_Results_Handler_Service_-_Criminal_History.wsdl"
 	        serviceName="ojbc:Person-Query-Results-Handler-Service---Criminal-HistoryService"
 			endpointName="ojbc:Person-Query-Results-Handler-Service---Criminal-History"
@@ -502,7 +504,7 @@
 	    <!-- Warrants handler, hosted by Web Application --> 
 	    <cxf:cxfEndpoint 
 	        id="personQueryResultsHandlerWarrantsService"
-	        address="${webapplication.personQuery.personQueryResultsHandlerWarrantsEndpoint}"
+	        address="${webapplication.personQuery.personQueryResultsHandlerWarrantsEndpoint:}"
 	        wsdlURL="classpath:service-specifications/Person_Query_Results_Handler_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Results_Handler_Service_-_Warrants.wsdl"
 	        serviceName="ojbc:Person-Query-Results-Handler-Service---WarrantsService"
 			endpointName="ojbc:Person-Query-Results-Handler-Service---Warrants"
