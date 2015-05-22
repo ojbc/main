@@ -92,7 +92,7 @@
 		<div>
 			<table style="width:100%">
 	            <tr>
-	                <td colspan="2" class="detailsLabel">DATE</td>
+	                <td colspan="2" class="detailsLabel">ISSUE DATE</td>
 	                <td colspan="2">
 	                   <xsl:variable name="warrantDate" select="jxdm:Warrant/jxdm:CourtOrderIssuingDate/nc:Date"/>
 	                    <xsl:value-of select="concat(substring($warrantDate,6,2),'/',substring($warrantDate,9,2),'/',substring($warrantDate,3,2))"/>
