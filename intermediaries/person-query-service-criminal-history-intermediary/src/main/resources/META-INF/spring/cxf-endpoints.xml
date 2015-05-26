@@ -49,8 +49,8 @@
         address="${federatedQuery.criminalHistory.personQueryEndpoint}"
         wsdlURL="classpath:service-specifications/Criminal_History_Query_Request_Service/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
         serviceName="ojbc:Criminal-History-Query-Request-Service"
-        endpointName="ojbc:Person-Query-Secure-Service---Criminal-History"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0"
+        endpointName="ojbc:Criminal-History-Query-Request"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0"
     >
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
@@ -67,7 +67,7 @@
         wsdlURL="classpath:service-specifications/Criminal_History_Query_Results_Service/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
         serviceName="ojbc:Criminal-History-Query-Results-ServiceService"
 		endpointName="ojbc:Criminal-History-Query-Results-Service"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
     >
      <cxf:features>
       <policy:policies>
