@@ -9,7 +9,7 @@
   <packaging>bundle</packaging>
   <version>1.0.0</version>
 
-  <name>OJB :: vermont-analytics-adapter :: adapter</name>
+  <name>OJB :: analytical-data-store-persistence-adapter :: adapter</name>
   <url>http://www.ojbc.org</url>
 
   <properties>
@@ -50,11 +50,6 @@
       <artifactId>camel-cxf</artifactId>
       <version>${camel-version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-saxon</artifactId>
-      <version>${camel-version}</version>
-    </dependency>    
 
 	<!-- CXF libs -->
     
@@ -153,13 +148,6 @@
         <version>${camel-version}</version>
 		<scope>test</scope>
     </dependency>
-            
-	<dependency>
-		<groupId>commons-codec</groupId>
-		<artifactId>commons-codec</artifactId>
-		<version>${commonsCodec.version}</version>
-		<scope>test</scope>
-	</dependency>
 	
 	<dependency>
 		<groupId>org.ojbc.bundles.utilities</groupId>
