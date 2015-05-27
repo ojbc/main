@@ -31,9 +31,16 @@
 	<h2-mock-database-version>1.0.1</h2-mock-database-version>	
 	<xmlunit-version>1.5</xmlunit-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <lucene-version>5.1.0</lucene-version>
   </properties>
 
   <dependencies>
+  
+  	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-core</artifactId>
+		<version>${lucene-version}</version>
+	</dependency>
 		<!-- Camel libs -->
     <dependency>
       <groupId>org.apache.camel</groupId>
