@@ -16,10 +16,8 @@
  *#
 
 <div id="landingPageContent" >
+  #parse("_welcome.vm")
 <table>
-    <tr>
-      #parse("_welcome.vm")
-    </tr>
     <tr>
       #parse("landingPage/_announcements.vm")
     </tr>
