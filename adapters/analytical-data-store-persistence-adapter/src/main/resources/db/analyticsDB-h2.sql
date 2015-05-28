@@ -98,6 +98,7 @@ CREATE TABLE Person (
                 PersonLastName VARCHAR(40) NOT NULL,
                 PersonBirthDate DATE NOT NULL,
                 PersonSSN VARCHAR(11) NOT NULL,
+                PersonUniqueIdentifier CHAR(36) NOT NULL,
                 CONSTRAINT Person_pk PRIMARY KEY (PersonID)
 );
 
@@ -115,7 +116,6 @@ CREATE TABLE PretrialServiceParticipation (
                 CONSTRAINT PretrialServiceParticipation_pk PRIMARY KEY (PretrialServiceParticipationID)
 );
 COMMENT ON COLUMN PretrialServiceParticipation.RecordType IS 'N for new record, U for update to prior record, D for delete';
-
 
 CREATE TABLE Population (
                 PopulationID IDENTITY NOT NULL,
