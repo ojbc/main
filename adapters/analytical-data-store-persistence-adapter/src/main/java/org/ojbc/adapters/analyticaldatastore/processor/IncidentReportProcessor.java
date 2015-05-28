@@ -16,40 +16,82 @@
  */
 package org.ojbc.adapters.analyticaldatastore.processor;
 
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticaldatastore.personid.IdentifierGenerationStrategy;
+import org.ojbc.adapters.analyticaldatastore.util.AnalyticalDataStoreUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class IncidentReportProcessor {
 
 	private static final Log log = LogFactory.getLog( IncidentReportProcessor.class );
 	
+	private static final String PATH_TO_LEXS_DATA_ITEM_PACKAGE="/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage";
+	
+	private static final String PATH_TO_LEXS_DIGEST= PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:Digest";
+	
+	private IdentifierGenerationStrategy identifierGenerationStrategy;
+	
 	public void processIncidentReport(Document incidentReport) throws Exception
 	{
 		//XmlUtils.printNode(incidentReport);
 		
-		String reportingAgencyName = XmlUtils.xPathStringSearch(incidentReport, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityOrganization/nc:Organization[@s:id= /IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation[nc:ActivityReference/@s:ref=/IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName");
+		String reportingAgencyName = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id= " + PATH_TO_LEXS_DIGEST + " /lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation[nc:ActivityReference/@s:ref=" + PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName");
 		log.debug("Agency Name: " + reportingAgencyName);
 		
-		String incidentDateAsString = XmlUtils.xPathStringSearch(incidentReport, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityActivity/nc:Activity/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
+		String incidentDateAsString = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST+ "/lexsdigest:EntityActivity/nc:Activity/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
 		log.debug("Incident Date: " + incidentDateAsString);
 		
-		String mapHorizontalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapHorizontalCoordinateText");
+		String mapHorizontalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapHorizontalCoordinateText");
 		log.debug("Map horizontal coordinate text: " + mapHorizontalCoordinateText);
 		
-		String mapVerticalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapVerticalCoordinateText");
+		String mapVerticalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapVerticalCoordinateText");
 		log.debug("Map vertical coordinate text: " + mapVerticalCoordinateText);
 		
-		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(incidentReport, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexs:Associations/lexs:ArrestSubjectAssociation");
+		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestSubjectAssociation");
 		
-		if (arrestNodes.getLength() > 0)
-		{
+	    if (arrestNodes != null && arrestNodes.getLength() > 0) 
+	    {
 			log.debug("Arrest nodes in document");
-			
-		}	
 
+	        processArrests(incidentReport, arrestNodes);
+	    }
+			
+	}
+
+	protected void processArrests(Document incidentReport, NodeList arrestNodes)
+			throws Exception {
+		for (int i = 0; i < arrestNodes.getLength(); i++) 
+		{
+		    if (arrestNodes.item(i).getNodeType() == Node.ELEMENT_NODE)
+		    {
+		        String personId = XmlUtils.xPathStringSearch(arrestNodes.item(i), "nc:PersonReference/@s:ref");
+		        
+		        log.debug("Arrestee ID: " + personId);
+		        
+		        Node personNode = XmlUtils.xPathNodeSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityPerson/lexsdigest:Person[@s:id='" + personId + "']");
+		        
+		        Map<String, Object> arrestee = AnalyticalDataStoreUtils.retrieveMapOfPersonAttributes(personNode);
+		        
+		        int personIdentifierKey = identifierGenerationStrategy.generateIdentifier(arrestee);
+
+		        log.debug("Arrestee person identifier keys: " + personIdentifierKey);
+		    }
+		}
+	}
+
+	public IdentifierGenerationStrategy getIdentifierGenerationStrategy() {
+		return identifierGenerationStrategy;
+	}
+
+	public void setIdentifierGenerationStrategy(
+			IdentifierGenerationStrategy identifierGenerationStrategy) {
+		this.identifierGenerationStrategy = identifierGenerationStrategy;
 	}
 	
 }

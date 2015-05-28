@@ -114,7 +114,7 @@ public class CamelContextTest {
 	@Test
 	public void testIncidentReportService() throws Exception
 	{
-    	Exchange incidentReportExchange = createSenderExchange("src/test/resources/xmlInstances/incidentReport/incidentReport.xml");
+    	Exchange incidentReportExchange = createSenderExchange("src/test/resources/xmlInstances/incidentReport/incidentReportWithArrest.xml");
 	    
 	    //Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:incidentReportingServiceEndpoint", incidentReportExchange);
