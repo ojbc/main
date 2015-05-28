@@ -35,6 +35,7 @@ public class Incident {
 	private int countyID;
 	
 	private Date incidentDate;
+	private Time incidentTime;
 	
 	private String incidentCaseNumber;
 	
@@ -43,7 +44,7 @@ public class Incident {
     private String incidentLocationStreetAddress;
     private String incidentLocationTown;
 	
-    private Time incidentTime;
+    
     
 	private char recordType;
 
