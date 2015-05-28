@@ -28,6 +28,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
+import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
@@ -232,6 +233,28 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                connection.prepareStatement(pretrialServiceInsertStatement, new String[] {"PretrialServiceDescription","IsParticipant"});
         	            ps.setString(1, preTrialService.getPretrialServiceDescription());
         	            ps.setString(2, preTrialService.getIsParticipant());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+
+	@Override
+	public int saveDispositionType(final DispositionType dispositionType) {
+        log.debug("Inserting row into DispositionType table");
+
+        final String dispositionTypeInsertStatement="INSERT into DispositionType (DispositionDescription,IsConviction) values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(dispositionTypeInsertStatement, new String[] {"DispositionDescription","IsConviction"});
+        	            ps.setString(1, dispositionType.getDispositionDescription());
+        	            ps.setString(2, String.valueOf(dispositionType.getIsConviction()));
         	            return ps;
         	        }
         	    },

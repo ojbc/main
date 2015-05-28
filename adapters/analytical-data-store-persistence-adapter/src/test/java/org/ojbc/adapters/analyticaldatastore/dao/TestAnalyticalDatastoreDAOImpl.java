@@ -34,6 +34,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
+import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
@@ -149,4 +150,18 @@ public class TestAnalyticalDatastoreDAOImpl {
 		assertEquals(1, preTrialPk);
 		
 	}
+	
+	@Test
+	public void testDisposition() throws Exception
+	{
+		DispositionType dispositionType = new DispositionType();
+		
+		dispositionType.setDispositionDescription("Disposition Description");
+		dispositionType.setIsConviction('Y');
+		
+		int dispositionTypePk = analyticalDatastoreDAOImpl.saveDispositionType(dispositionType);
+		assertEquals(1, dispositionTypePk);
+
+	}
+
 }
