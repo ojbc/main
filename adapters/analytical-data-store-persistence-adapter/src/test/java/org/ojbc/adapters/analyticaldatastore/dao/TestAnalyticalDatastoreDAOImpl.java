@@ -16,7 +16,7 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
@@ -31,9 +31,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
+import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
+import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -62,7 +66,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 	}
 		
 	@Test
-	public void testSaveIncident() throws Exception
+	public void testSaveIncidentArrest() throws Exception
 	{
 		Agency agency = new Agency();
 		agency.setAgencyName("Some PD");
@@ -104,7 +108,45 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int incidentPk = analyticalDatastoreDAOImpl.saveIncident(incident);
 		assertEquals(1, incidentPk);
 
+		//TODO: Save person here, wait until person table is updated first with identifier field
+		
+		Arrest arrest = new Arrest();
+		
+		arrest.setPersonID(1);
+		arrest.setIncidentID(incidentPk);
+		arrest.setArrestingAgencyID(agencyPk);
+		arrest.setArrestDate(new Date());
+		arrest.setArrestDrugRelated('Y');
+		arrest.setArrestTime(new java.sql.Time(arrest.getArrestDate().getTime()));
+		
+//		int arrestPk = analyticalDatastoreDAOImpl.saveArrest(arrest);
+//		assertEquals(1, arrestPk);
+
 		
 	}
 
+	@Test
+	public void testSavePretrial() throws Exception
+	{
+		AssessedNeed assessedNeed = new AssessedNeed();
+		assessedNeed.setAssessedNeedDescription("Assessed Need Description");
+		
+		int assessedNeedPk = analyticalDatastoreDAOImpl.saveAssessedNeed(assessedNeed);
+		assertEquals(1, assessedNeedPk);
+		
+		RiskScore riskScore = new RiskScore();
+		riskScore.setRiskScoreDescription("Risk Score Description");
+		
+		int riskScorePk = analyticalDatastoreDAOImpl.saveRiskScore(riskScore);
+		assertEquals(1, riskScorePk);
+		
+		PreTrialService preTrialService = new PreTrialService();
+		
+		preTrialService.setIsParticipant("YES");
+		preTrialService.setPretrialServiceDescription("Pretrial Description");
+		
+		int preTrialPk = analyticalDatastoreDAOImpl.savePreTrialService(preTrialService);
+		assertEquals(1, preTrialPk);
+		
+	}
 }

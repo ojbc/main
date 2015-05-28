@@ -25,9 +25,13 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
+import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
+import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -134,6 +138,100 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            PreparedStatement ps =
         	                connection.prepareStatement(countyInsertStatement, new String[] {"CountyName"});
         	            ps.setString(1, county.getCountyName());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+	
+	@Override
+	public int saveArrest(final Arrest arrest) {
+        log.debug("Inserting row into Arrest table");
+
+        //TODO: map latitute and longitude
+        
+        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestingAgencyID,ArrestDate,ArrestTime,ArrestDrugRelated ) values (?,?,?,?,?,?)";
+		
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestingAgencyID","ArrestDate","ArrestTime","ArrestDrugRelated"});
+        	            ps.setInt(1, arrest.getPersonID());
+        	            ps.setInt(2, arrest.getIncidentID());
+        	            ps.setInt(3, arrest.getArrestingAgencyID());
+        	            ps.setDate(4, new java.sql.Date(arrest.getArrestDate().getTime()));
+        	            ps.setTime(5, new java.sql.Time(arrest.getArrestDate().getTime()));
+        	            ps.setString(6, String.valueOf(arrest.getArrestDrugRelated()));
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
+	
+	@Override
+	public int saveAssessedNeed(final AssessedNeed assessedNeed) {
+
+        log.debug("Inserting row into Assessed Need table");
+
+        final String assessedNeedInsertStatement="INSERT into AssessedNeed (AssessedNeedDescription) values (?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(assessedNeedInsertStatement, new String[] {"AssessedNeedDescription"});
+        	            ps.setString(1, assessedNeed.getAssessedNeedDescription());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+	
+	@Override
+	public int saveRiskScore(final RiskScore riskScore) {
+
+        log.debug("Inserting row into RiskScore table");
+
+        final String riskScoreInsertStatement="INSERT into RiskScore (RiskScoreDescription) values (?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(riskScoreInsertStatement, new String[] {"RiskScoreDescription"});
+        	            ps.setString(1, riskScore.getRiskScoreDescription());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+
+	@Override
+	public int savePreTrialService(final PreTrialService preTrialService) {
+        log.debug("Inserting row into PreTrialService table");
+
+        final String pretrialServiceInsertStatement="INSERT into PreTrialService (PretrialServiceDescription,IsParticipant) values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(pretrialServiceInsertStatement, new String[] {"PretrialServiceDescription","IsParticipant"});
+        	            ps.setString(1, preTrialService.getPretrialServiceDescription());
+        	            ps.setString(2, preTrialService.getIsParticipant());
         	            return ps;
         	        }
         	    },

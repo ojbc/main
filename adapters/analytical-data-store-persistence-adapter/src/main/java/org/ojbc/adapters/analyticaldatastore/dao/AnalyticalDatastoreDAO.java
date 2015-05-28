@@ -17,9 +17,13 @@
 package org.ojbc.adapters.analyticaldatastore.dao;
 
 import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
+import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
+import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 
 public interface AnalyticalDatastoreDAO {
 
@@ -30,5 +34,12 @@ public interface AnalyticalDatastoreDAO {
 	public int saveIncident(Incident incident);
 	
 	public int saveCounty(County county);
+
+	public int saveArrest(Arrest arrest);
 	
+	public int saveAssessedNeed(AssessedNeed assesedNeed);
+	
+	public int saveRiskScore(RiskScore riskScore);
+	
+	public int savePreTrialService(PreTrialService preTrialService);
 }
