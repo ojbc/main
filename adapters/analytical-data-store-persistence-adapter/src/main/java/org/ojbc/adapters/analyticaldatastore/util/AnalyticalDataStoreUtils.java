@@ -1,0 +1,77 @@
+package org.ojbc.adapters.analyticaldatastore.util;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.xml.XmlUtils;
+import org.w3c.dom.Node;
+
+public class AnalyticalDataStoreUtils {
+
+	private static final Log log = LogFactory.getLog( AnalyticalDataStoreUtils.class );
+	
+	public static Map<String, Object> retrieveMapOfPersonAttributes(Node personNode) throws Exception{
+
+		Map<String, Object> arrestee = new HashMap<String, Object>();
+		
+		String personFirstName=XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonGivenName");
+		
+		if (StringUtils.isNotBlank(personFirstName))
+		{
+			log.debug("Arrestee First Name: " + personFirstName);
+			arrestee.put("personFirstName", personFirstName);
+		}	
+		
+		String personMiddleName=XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonMiddleName");
+		
+		if (StringUtils.isNotBlank(personMiddleName))
+		{
+			log.debug("Arrestee Middle Name: " + personMiddleName);
+			arrestee.put("personMiddleName", personMiddleName);
+		}	
+				
+		String personLastName=XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonSurName");
+		
+		if (StringUtils.isNotBlank(personLastName))
+		{
+			log.debug("Arrestee Last Name: " + personLastName);
+			arrestee.put("personLastName", personLastName);
+		}	
+								
+		String personDateOfBirth=XmlUtils.xPathStringSearch(personNode,"nc:PersonBirthDate/nc:Date");
+		
+		if (StringUtils.isNotBlank(personDateOfBirth))
+		{
+			log.debug("Arrestee DOB: " + personDateOfBirth);
+			arrestee.put("personDateOfBirth", personDateOfBirth);
+		}	
+				
+		String personRace="";
+		
+		if (StringUtils.isNotBlank(personRace))
+		{
+			arrestee.put("personRace", personRace);
+		}	
+				
+		String personSex=XmlUtils.xPathStringSearch(personNode, "nc:PersonSexCode");
+		
+		if (StringUtils.isNotBlank(personSex))
+		{
+			log.debug("Arrestee Sex Code: " + personSex);
+			arrestee.put("personSex", personSex);
+		}	
+				
+		String personBiometricID=XmlUtils.xPathStringSearch(personNode, "jxdm40:PersonAugmentation/jxdm40:PersonStateFingerprintIdentification/nc:IdentificationID");
+		
+		if (StringUtils.isNotBlank(personBiometricID))
+		{
+			log.debug("Arrestee SID: " + personBiometricID);
+			arrestee.put("personBiometricID", personBiometricID);
+		}	
+		
+		return arrestee;
+	}
+}

@@ -189,6 +189,10 @@
                                     xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="OFFICER01"
                                 />
                             </j:ActivityEnforcementOfficialAssociation>
+							<nc:ActivityReportingOrganizationAssociation xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+								<nc:ActivityReference s:ref="IDIID9999999"  xmlns:s="http://niem.gov/niem/structures/2.0" />
+								<nc:OrganizationReference s:ref="AGENCY01" xmlns:s="http://niem.gov/niem/structures/2.0" />
+							</nc:ActivityReportingOrganizationAssociation>                        
                             <IncidentLocationAssociation>
                                 <nc:ActivityReference xmlns:nc="http://niem.gov/niem/niem-core/2.0"
                                     xmlns:s="http://niem.gov/niem/structures/2.0"
