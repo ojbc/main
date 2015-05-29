@@ -37,6 +37,9 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,19 +112,40 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int incidentPk = analyticalDatastoreDAOImpl.saveIncident(incident);
 		assertEquals(1, incidentPk);
 
-		//TODO: Save person here, wait until person table is updated first with identifier field
+		PersonSex personSex = new PersonSex();
+		personSex.setPersonSexDescription("male");
+		
+		int personSexPk = analyticalDatastoreDAOImpl.savePersonSex(personSex);
+		assertEquals(1, personSexPk);
+
+		PersonRace personRace = new PersonRace();
+		personRace.setPersonRaceDescription("caucasion");
+		
+		int personRacePk = analyticalDatastoreDAOImpl.savePersonRace(personRace);
+		assertEquals(1, personRacePk);
+
+		Person person = new Person();
+		
+		person.setPersonRaceID(personRacePk);
+		person.setPersonSexID(personSexPk);
+		person.setPersonBirthDate(new Date());
+		person.setPersonUniqueIdentifier("123332123123unique");
+		
+		int personPk = analyticalDatastoreDAOImpl.savePerson(person);
+		assertEquals(1, personPk);
+
 		
 		Arrest arrest = new Arrest();
 		
-		arrest.setPersonID(1);
+		arrest.setPersonID(personPk);
 		arrest.setIncidentID(incidentPk);
 		arrest.setArrestingAgencyID(agencyPk);
 		arrest.setArrestDate(new Date());
 		arrest.setArrestDrugRelated('Y');
 		arrest.setArrestTime(new java.sql.Time(arrest.getArrestDate().getTime()));
 		
-//		int arrestPk = analyticalDatastoreDAOImpl.saveArrest(arrest);
-//		assertEquals(1, arrestPk);
+		int arrestPk = analyticalDatastoreDAOImpl.saveArrest(arrest);
+		assertEquals(1, arrestPk);
 
 		
 	}

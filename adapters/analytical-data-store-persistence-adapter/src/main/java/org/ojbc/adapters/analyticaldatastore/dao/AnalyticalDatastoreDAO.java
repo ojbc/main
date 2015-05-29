@@ -23,6 +23,9 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 
@@ -45,4 +48,10 @@ public interface AnalyticalDatastoreDAO {
 	public int savePreTrialService(PreTrialService preTrialService);
 	
 	public int saveDispositionType(DispositionType dispositionType);
+	
+	public int savePersonSex(PersonSex personSex);
+	
+	public int savePersonRace(PersonRace personRace);
+	
+	public int savePerson(Person person);
 }

@@ -31,6 +31,9 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -262,4 +265,71 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
          return keyHolder.getKey().intValue();
 	}
+
+	@Override
+	public int savePersonSex(final PersonSex personSex) {
+        log.debug("Inserting row into PersonSex table");
+
+        final String personSexInsertStatement="INSERT into PersonSex (PersonSexDescription) values (?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(personSexInsertStatement, new String[] {"PersonSexDescription"});
+        	            ps.setString(1, personSex.getPersonSexDescription());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+	
+	@Override
+	public int savePersonRace(final PersonRace personRace) {
+        log.debug("Inserting row into PersonRace table");
+
+        final String personRaceInsertStatement="INSERT into PersonRace (PersonRaceDescription) values (?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(personRaceInsertStatement, new String[] {"PersonRaceDescription"});
+        	            ps.setString(1, personRace.getPersonRaceDescription());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+
+	@Override
+	public int savePerson(final Person person) {
+        log.debug("Inserting row into Person table");
+
+        final String personStatement="INSERT into Person (PersonSexID, PersonRaceID, PersonBirthDate, PersonUniqueIdentifier) values (?,?,?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(personStatement, new String[] {"PersonSexID", "PersonRaceID", "PersonBirthDate", "PersonUniqueIdentifier"});
+        	            ps.setInt(1, person.getPersonSexID());
+        	            ps.setInt(2, person.getPersonRaceID());
+        	            ps.setDate(3, new java.sql.Date(person.getPersonBirthDate().getTime()));
+        	            ps.setString(4, String.valueOf(person.getPersonUniqueIdentifier()));
+
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}	
 }
