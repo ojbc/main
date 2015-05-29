@@ -91,7 +91,7 @@ CREATE TABLE PersonRace (
 
 
 CREATE TABLE Person (
-                PersonID INTEGER NOT NULL,
+                PersonID IDENTITY NOT NULL,
                 PersonSexID INTEGER NOT NULL,
                 PersonRaceID INTEGER NOT NULL,
                 PersonBirthDate DATE NOT NULL,
