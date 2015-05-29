@@ -16,18 +16,137 @@
  */
 package org.ojbc.adapters.analyticaldatastore.personid;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.UUID;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.DateTools;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field.Store;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.IndexableField;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.BooleanClause.Occur;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.FuzzyQuery;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.util.Version;
 
 /**
  * An implementation of the identifier generation strategy that uses Lucene to maintain an index that maps sets of attributes to identifiers.
- *
+ * 
  */
 public class IndexedIdentifierGenerationStrategy implements IdentifierGenerationStrategy {
 
+	private static final Log log = LogFactory.getLog(IndexedIdentifierGenerationStrategy.class);
+	private static final String NULL_FIELD_VALUE = ".null.";
+
+	private IndexWriter indexWriter;
+	private boolean indexIsEmpty = true;
+
+	public IndexedIdentifierGenerationStrategy() {
+		init(null);
+	}
+
+	public void setIndexDirectory(String indexDirectoryPath) {
+		init(indexDirectoryPath);
+	}
+
 	@Override
-	public int generateIdentifier(Map<String, Object> attributes) {
-		// TODO Auto-generated method stub
-		return 0;
+	public String generateIdentifier(Map<String, Object> attributes) throws IOException {
+		log.debug("Generate identifier for attributes=" + attributes);
+		Document d = searchForExistingAttributes(attributes);
+		if (d == null) {
+			d = createDocumentFromAttributeMap(attributes);
+			indexWriter.addDocument(d);
+			indexIsEmpty = false;
+			indexWriter.commit();
+			log.debug("Wrote new document to index: " + attributes);
+			log.debug("Document: " + d);
+		}
+		return d.get(ID_FIELD);
+	}
+
+	private Document searchForExistingAttributes(Map<String, Object> attributes) throws IOException {
+		Document ret = null;
+		if (!indexIsEmpty) {
+			BooleanQuery query = new BooleanQuery();
+			// todo: adjust first name per corpus
+			query.add(new FuzzyQuery(new Term(FIRST_NAME_FIELD, getFormattedAttributeValue(attributes.get(FIRST_NAME_FIELD))), 2, 1), Occur.MUST);
+			query.add(new FuzzyQuery(new Term(LAST_NAME_FIELD, getFormattedAttributeValue(attributes.get(LAST_NAME_FIELD))), 2, 1), Occur.MUST);
+			query.add(new FuzzyQuery(new Term(MIDDLE_NAME_FIELD, getFormattedAttributeValue(attributes.get(MIDDLE_NAME_FIELD))), 2, 1), Occur.MUST);
+			query.add(new FuzzyQuery(new Term(BIRTHDATE_FIELD, getFormattedAttributeValue(attributes.get(BIRTHDATE_FIELD))), 1, 0), Occur.MUST);
+			query.add(new TermQuery(new Term(SEX_FIELD, getFormattedAttributeValue(attributes.get(SEX_FIELD)))), Occur.MUST);
+			query.add(new FuzzyQuery(new Term(SSN_FIELD, getFormattedAttributeValue(attributes.get(SSN_FIELD))), 1, 0), Occur.MUST);
+			log.debug("Query: " + query.toString());
+			Directory directory = indexWriter.getDirectory();
+			IndexSearcher searcher = new IndexSearcher(DirectoryReader.open(directory));
+			TopDocs hits = searcher.search(query, 2);
+			ScoreDoc[] hitDocs = hits.scoreDocs;
+			if (hitDocs.length > 1) {
+				throw new RuntimeException("Invalid index state:  multiple matches for attributes=" + attributes);
+			}
+			if (hitDocs.length == 1) {
+				int id = hitDocs[0].doc;
+				ret = searcher.doc(id);
+				log.debug("Found a match, id=" + id);
+			}
+		}
+		return ret;
+	}
+
+	private String getFormattedAttributeValue(Object value) {
+		String ret = NULL_FIELD_VALUE;
+		if (value != null) {
+			if (value instanceof Date) {
+				ret = DateTools.dateToString((Date) value, DateTools.Resolution.DAY);
+			} else {
+				ret = ((String) value).toUpperCase();
+			}
+		}
+		return ret;
+	}
+
+	private void init(String indexDirectoryPath) {
+		try {
+			Directory indexDirectory = indexDirectoryPath == null ? new RAMDirectory() : FSDirectory.open(new File(indexDirectoryPath));
+			log.info("Set Lucene index directory to " + indexDirectory.toString());
+			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
+			IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+			config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+			indexWriter = new IndexWriter(indexDirectory, config);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private Document createDocumentFromAttributeMap(Map<String, Object> attributes) {
+		Document ret = new Document();
+		for (Entry<String, Object> entry : attributes.entrySet()) {
+			ret.add(createFieldFromMapEntry(entry));
+		}
+		ret.add(new StringField(ID_FIELD, UUID.randomUUID().toString(), Store.YES));
+		return ret;
+	}
+
+	private IndexableField createFieldFromMapEntry(Entry<String, Object> entry) {
+		return new StringField(entry.getKey(), getFormattedAttributeValue(entry.getValue()), Store.YES);
 	}
 
 }
