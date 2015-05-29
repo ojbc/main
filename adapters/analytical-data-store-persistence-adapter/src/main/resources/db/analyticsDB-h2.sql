@@ -94,10 +94,7 @@ CREATE TABLE Person (
                 PersonID INTEGER NOT NULL,
                 PersonSexID INTEGER NOT NULL,
                 PersonRaceID INTEGER NOT NULL,
-                PersonFirstName VARCHAR(40) NOT NULL,
-                PersonLastName VARCHAR(40) NOT NULL,
                 PersonBirthDate DATE NOT NULL,
-                PersonSSN VARCHAR(11) NOT NULL,
                 PersonUniqueIdentifier CHAR(36) NOT NULL,
                 CONSTRAINT Person_pk PRIMARY KEY (PersonID)
 );
