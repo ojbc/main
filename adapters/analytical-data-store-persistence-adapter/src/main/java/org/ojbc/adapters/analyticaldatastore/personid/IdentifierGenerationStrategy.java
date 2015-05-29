@@ -24,11 +24,20 @@ import java.util.Map;
  */
 public interface IdentifierGenerationStrategy {
 	
+	public static final String FIRST_NAME_FIELD = "first-name";
+	public static final String LAST_NAME_FIELD = "last-name";
+	public static final String MIDDLE_NAME_FIELD = "middle-name";
+	public static final String BIRTHDATE_FIELD = "birthdate";
+	public static final String SEX_FIELD = "sex";
+	public static final String SSN_FIELD = "ssn";
+	public static final String ID_FIELD = "identifier";
+	
 	/**
 	 * Generate the identifier for the specified set of attributes
 	 * @param attributes the entity attributes for which to generate an identifier
 	 * @return the identifier
+	 * @throws Exception 
 	 */
-	public int generateIdentifier(Map<String, Object> attributes);
+	public String generateIdentifier(Map<String, Object> attributes) throws Exception;
 
 }

@@ -78,7 +78,7 @@ public class IncidentReportProcessor {
 		        
 		        Map<String, Object> arrestee = AnalyticalDataStoreUtils.retrieveMapOfPersonAttributes(personNode);
 		        
-		        int personIdentifierKey = identifierGenerationStrategy.generateIdentifier(arrestee);
+		        String personIdentifierKey = identifierGenerationStrategy.generateIdentifier(arrestee);
 
 		        log.debug("Arrestee person identifier keys: " + personIdentifierKey);
 		    }

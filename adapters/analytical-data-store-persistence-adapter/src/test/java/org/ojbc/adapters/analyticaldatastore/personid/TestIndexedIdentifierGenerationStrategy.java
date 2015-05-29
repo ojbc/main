@@ -18,6 +18,10 @@ package org.ojbc.adapters.analyticaldatastore.personid;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,8 +37,33 @@ public class TestIndexedIdentifierGenerationStrategy {
 	@Test
 	public void test() throws Exception {
 		
-		assertEquals(0, strategy.generateIdentifier(null));
+		Map<String, Object> attributeMap = new HashMap<String, Object>();
+		attributeMap.put(IndexedIdentifierGenerationStrategy.FIRST_NAME_FIELD, "George");
+		attributeMap.put(IndexedIdentifierGenerationStrategy.LAST_NAME_FIELD, "Washington");
+		attributeMap.put(IndexedIdentifierGenerationStrategy.MIDDLE_NAME_FIELD, "Herbert");
+		attributeMap.put(IndexedIdentifierGenerationStrategy.SEX_FIELD, "M");
+		attributeMap.put(IndexedIdentifierGenerationStrategy.SSN_FIELD, null);
+		attributeMap.put(IndexedIdentifierGenerationStrategy.BIRTHDATE_FIELD, makeDate(1745, 2, 3));
 		
+		String id = strategy.generateIdentifier(attributeMap);
+		String id2 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id, id2);
+		
+		attributeMap.put(IndexedIdentifierGenerationStrategy.FIRST_NAME_FIELD, "Henry");
+		id2 = strategy.generateIdentifier(attributeMap);
+		assertNotSame(id, id2);
+		
+		attributeMap.put(IndexedIdentifierGenerationStrategy.FIRST_NAME_FIELD, "Georg");
+		attributeMap.put(IndexedIdentifierGenerationStrategy.MIDDLE_NAME_FIELD, "Heriberto");
+		attributeMap.put(IndexedIdentifierGenerationStrategy.BIRTHDATE_FIELD, makeDate(1745, 2, 13));
+		id2 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id, id2);
+
+	}
+
+	private Object makeDate(int year, int monthOfYear, int dayOfMonth) {
+		DateTime d = new DateTime(year, monthOfYear, dayOfMonth, 1, 1, 1, 0);
+		return d.toDate();
 	}
 
 }
