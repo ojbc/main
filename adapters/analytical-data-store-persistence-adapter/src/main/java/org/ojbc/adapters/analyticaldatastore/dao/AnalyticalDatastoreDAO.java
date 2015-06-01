@@ -19,14 +19,17 @@ package org.ojbc.adapters.analyticaldatastore.dao;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
 import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 
 public interface AnalyticalDatastoreDAO {
@@ -54,4 +57,10 @@ public interface AnalyticalDatastoreDAO {
 	public int savePersonRace(PersonRace personRace);
 	
 	public int savePerson(Person person);
+	
+	public int savePretrialServiceParticipation(PretrialServiceParticipation pretrialServiceParticipation);
+	
+	public int saveOffenseType(OffenseType offenseType);
+	
+	public int saveCharge(Charge charge);
 }
