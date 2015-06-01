@@ -137,7 +137,7 @@ COMMENT ON COLUMN OffenseType.OffenseSeverity IS 'Felony, Misdemeanor, Infractio
 
 
 CREATE TABLE Disposition (
-                DispositionID INTEGER NOT NULL,
+                DispositionID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 DispositionTypeID INTEGER NOT NULL,
                 OffenseTypeID INTEGER NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE Incident (
                 RecordType CHAR(1) NOT NULL,
                 CONSTRAINT IncidentID PRIMARY KEY (IncidentID)
 );
-COMMENT ON COLUMN Incident.RecordType IS 'N for new record, U for update to previous record, D for delete';
+COMMENT ON COLUMN Incident.RecordType IS 'ete';
 
 
 CREATE TABLE Arrest (

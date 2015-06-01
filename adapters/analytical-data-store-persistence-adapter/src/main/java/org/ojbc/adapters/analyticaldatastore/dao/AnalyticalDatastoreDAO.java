@@ -21,6 +21,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
@@ -63,4 +64,6 @@ public interface AnalyticalDatastoreDAO {
 	public int saveOffenseType(OffenseType offenseType);
 	
 	public int saveCharge(Charge charge);
+	
+	public int saveDisposition(Disposition disposition);
 }
