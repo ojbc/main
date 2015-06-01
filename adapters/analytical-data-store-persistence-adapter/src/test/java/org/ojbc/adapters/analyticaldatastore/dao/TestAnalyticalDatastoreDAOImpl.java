@@ -100,7 +100,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		incident.setIncidentTypeID(incidentTypePk);
 		incident.setReportingAgencyID(agencyPk);
-		incident.setCountyID(countyTypePk);
 		incident.setIncidentCaseNumber("999999");
 		incident.setRecordType('N');
 		incident.setIncidentLocationStreetAddress("Street address");

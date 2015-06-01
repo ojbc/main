@@ -146,6 +146,8 @@ CREATE TABLE Disposition (
                 SentenceTermDays INTEGER NOT NULL,
                 SentenceFineAmount NUMERIC(10,2) NOT NULL,
                 RecordType CHAR(1) NOT NULL,
+                IsProbationViolation CHAR(1) NOT NULL,
+                RecidivismEligibilityDate DATE NOT NULL,
                 CONSTRAINT Disposition_pk PRIMARY KEY (DispositionID)
 );
 COMMENT ON COLUMN Disposition.RecordType IS 'N for new record, U for update to prior record, D for delete';
@@ -156,7 +158,6 @@ CREATE TABLE Incident (
                 ReportingAgencyID INTEGER NOT NULL,
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
                 IncidentTypeID INTEGER NOT NULL,
-                CountyID INTEGER NOT NULL,
                 IncidentLocationLatitude NUMERIC(14,10),
                 IncidentLocationLongitude NUMERIC(14,10),
                 IncidentLocationStreetAddress VARCHAR(100),
@@ -253,12 +254,6 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT County_PretrialServiceParticipation_fk
-FOREIGN KEY (CountyID)
-REFERENCES County (CountyID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Incident ADD CONSTRAINT County_Incident_fk
 FOREIGN KEY (CountyID)
 REFERENCES County (CountyID)
 ON DELETE NO ACTION
