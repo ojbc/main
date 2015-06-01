@@ -31,9 +31,6 @@ public class Incident {
 	//fk to IncidentType table
 	private int incidentTypeID;
 	
-	//fk to County table	
-	private int countyID;
-	
 	private Date incidentDate;
 	private Time incidentTime;
 	
@@ -78,14 +75,6 @@ public class Incident {
 
 	public void setIncidentDate(Date incidentDate) {
 		this.incidentDate = incidentDate;
-	}
-
-	public int getCountyID() {
-		return countyID;
-	}
-
-	public void setCountyID(int countyID) {
-		this.countyID = countyID;
 	}
 
 	public String getIncidentCaseNumber() {

@@ -101,25 +101,24 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
         //TODO: map latitute and longitude
         
-        final String incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber, IncidentTypeID, CountyID,"
-        		+ "IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,RecordType) values (?,?,?,?,?,?,?,?,?)";
+        final String incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber, IncidentTypeID,"
+        		+ "IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,RecordType) values (?,?,?,?,?,?,?,?)";
 		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(incidentInsertStatement, new String[] {"ReportingAgencyID", "IncidentCaseNumber", "IncidentTypeID", "CountyID,"
+        	                connection.prepareStatement(incidentInsertStatement, new String[] {"ReportingAgencyID", "IncidentCaseNumber", "IncidentTypeID"
         	                		+ "IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","RecordType"});
         	            ps.setInt(1, incident.getReportingAgencyID());
         	            ps.setString(2, incident.getIncidentCaseNumber());
         	            ps.setInt(3, incident.getIncidentTypeID());
-        	            ps.setInt(4, incident.getCountyID());
-        	            ps.setString(5, incident.getIncidentLocationStreetAddress());
-        	            ps.setString(6, incident.getIncidentLocationTown());
-        	            ps.setDate(7, new java.sql.Date(incident.getIncidentDate().getTime()));
-        	            ps.setTime(8, new java.sql.Time(incident.getIncidentDate().getTime()));
-        	            ps.setString(9, String.valueOf(incident.getRecordType()));
+        	            ps.setString(4, incident.getIncidentLocationStreetAddress());
+        	            ps.setString(5, incident.getIncidentLocationTown());
+        	            ps.setDate(6, new java.sql.Date(incident.getIncidentDate().getTime()));
+        	            ps.setTime(7, new java.sql.Time(incident.getIncidentDate().getTime()));
+        	            ps.setString(8, String.valueOf(incident.getRecordType()));
         	            return ps;
         	        }
         	    },
