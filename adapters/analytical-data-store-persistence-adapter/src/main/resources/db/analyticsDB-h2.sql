@@ -167,7 +167,7 @@ CREATE TABLE Incident (
                 RecordType CHAR(1) NOT NULL,
                 CONSTRAINT IncidentID PRIMARY KEY (IncidentID)
 );
-COMMENT ON COLUMN Incident.RecordType IS 'ete';
+COMMENT ON COLUMN Incident.RecordType IS 'N for new record, U for update to previous record, D for delete';
 
 
 CREATE TABLE Arrest (
