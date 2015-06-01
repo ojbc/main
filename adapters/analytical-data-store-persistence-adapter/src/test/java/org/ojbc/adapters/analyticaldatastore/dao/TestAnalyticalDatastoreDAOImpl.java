@@ -35,6 +35,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
@@ -222,7 +223,37 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		int dispositionTypePk = analyticalDatastoreDAOImpl.saveDispositionType(dispositionType);
 		assertEquals(1, dispositionTypePk);
+		
+		Person person = returnPerson();
+		
+		int personPk = analyticalDatastoreDAOImpl.savePerson(person);
+		assertEquals(3, personPk);
+		
+		OffenseType offenseType = new OffenseType();
+		offenseType.setIsDrugOffense("N");
+		offenseType.setOffenseDescription("Offense Description 2");
+		offenseType.setOffenseSeverity("Felony");
+		
+		int offenseTypePk = analyticalDatastoreDAOImpl.saveOffenseType(offenseType);
+		assertEquals(2, offenseTypePk);
+		
+		Disposition disposition = new Disposition();
+		
+		disposition.setDispositionDate(new Date());
+		disposition.setDispositionTypeID(dispositionTypePk);
+		disposition.setIncidentCaseNumber("case12345");
+		disposition.setIsProbationViolation('N');
+		disposition.setOffenseTypeID(offenseTypePk);
+		disposition.setPersonID(personPk);
+		disposition.setRecidivismEligibilityDate(new Date());
+		disposition.setRecordType('N');
+		disposition.setSentenceFineAmount(Float.parseFloat("354.65"));
+		disposition.setSentenceTermDays(354);
 
+		int dispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
+		assertEquals(1, dispositionPk);
+
+		
 	}
 
 }

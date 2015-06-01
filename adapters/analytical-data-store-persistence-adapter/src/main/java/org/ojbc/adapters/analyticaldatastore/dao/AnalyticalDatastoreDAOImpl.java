@@ -29,6 +29,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
@@ -410,5 +411,36 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    keyHolder);
 
          return keyHolder.getKey().intValue();		
-    }	
+    }
+
+	@Override
+	public int saveDisposition(final Disposition disposition) {
+        log.debug("Inserting row into Disposition table");
+
+        final String dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,OffenseTypeID,IncidentCaseNumber,DispositionDate,"
+        		+ "SentenceTermDays,SentenceFineAmount,RecordType,IsProbationViolation,RecidivismEligibilityDate) values (?,?,?,?,?,?,?,?,?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(dispositionInsertStatement, new String[] {"PersonID","DispositionTypeID","OffenseTypeID","IncidentCaseNumber","DispositionDate,"
+        	                		+ "SentenceTermDays","SentenceFineAmount","RecordType","IsProbationViolation","RecidivismEligibilityDate"});
+        	            ps.setInt(1, disposition.getPersonID());
+        	            ps.setInt(2, disposition.getDispositionTypeID());
+        	            ps.setInt(3, disposition.getOffenseTypeID());
+        	            ps.setString(4, disposition.getIncidentCaseNumber());
+        	            ps.setDate(5, new java.sql.Date(disposition.getDispositionDate().getTime()));
+        	            ps.setInt(6, disposition.getSentenceTermDays());
+        	            ps.setFloat(7, disposition.getSentenceFineAmount());
+        	            ps.setString(8, String.valueOf(disposition.getRecordType()));
+        	            ps.setString(9, String.valueOf(disposition.getIsProbationViolation()));
+        	            ps.setDate(10, new java.sql.Date(disposition.getRecidivismEligibilityDate().getTime()));
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		}	
 }
