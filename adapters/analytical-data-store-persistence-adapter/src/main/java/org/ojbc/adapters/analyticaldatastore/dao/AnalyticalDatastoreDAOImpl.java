@@ -27,14 +27,17 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
 import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -330,5 +333,82 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    keyHolder);
 
          return keyHolder.getKey().intValue();
-	}	
+	}
+
+	@Override
+	public int savePretrialServiceParticipation(
+			final PretrialServiceParticipation pretrialServiceParticipation) {
+
+        log.debug("Inserting row into PretrialServiceParticipation table");
+
+        final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PretrialServiceID, PersonID, CountyID,RiskScoreID,AssessedNeedID,IntakeDate,RecordType) values (?,?,?,?,?,?,?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(pretrialServiceParticipationStatement, new String[] {"PretrialServiceCaseNumber", "PretrialServiceID", "PersonID", "CountyID", 
+        	                		"RiskScoreID" , "AssessedNeedID" , "IntakeDate", "RecordType"});
+        	            ps.setString(1, pretrialServiceParticipation.getPretrialServiceCaseNumber());
+        	            ps.setInt(2, pretrialServiceParticipation.getPretrialServiceID());
+        	            ps.setInt(3, pretrialServiceParticipation.getPersonID());
+        	            ps.setInt(4, pretrialServiceParticipation.getCountyID());
+        	            ps.setInt(5, pretrialServiceParticipation.getRiskScoreID());
+        	            ps.setInt(6, pretrialServiceParticipation.getAssessedNeedID());
+        	            ps.setDate(7, new java.sql.Date(pretrialServiceParticipation.getIntakeDate().getTime()));
+        	            ps.setString(8, String.valueOf(pretrialServiceParticipation.getRecordType()));
+
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+    }
+
+	@Override
+	public int saveOffenseType(final OffenseType offenseType) {
+        log.debug("Inserting row into OffenseType table");
+
+        final String offenseTypeStatement="INSERT into OffenseType (OffenseDescription,IsDrugOffense,OffenseSeverity) values (?,?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(offenseTypeStatement, new String[] {"OffenseDescription","IsDrugOffense","OffenseSeverity"});
+        	            ps.setString(1, offenseType.getOffenseDescription());
+        	            ps.setString(2, offenseType.getIsDrugOffense());
+        	            ps.setString(3, offenseType.getOffenseSeverity());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+     }
+
+	@Override
+	public int saveCharge(final Charge charge) {
+        log.debug("Inserting row into Charge table");
+
+        final String chargeInsertStatement="INSERT into Charge (arrestOffenseTypeID,arrestID) values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(chargeInsertStatement, new String[] {"ArrestOffenseTypeID","ArrestID"});
+        	            ps.setInt(1, charge.getArrestOffenseTypeID());
+        	            ps.setInt(2, charge.getArrestID());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+    }	
 }

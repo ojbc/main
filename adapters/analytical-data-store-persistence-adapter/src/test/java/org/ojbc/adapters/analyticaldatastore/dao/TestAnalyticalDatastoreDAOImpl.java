@@ -33,14 +33,17 @@ import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
 import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -88,14 +91,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		log.debug("Incident Type primary key: " + incidentTypePk);
 
-		County county = new County();
-		county.setCountyName("County Name");
-		
-		int countyTypePk = analyticalDatastoreDAOImpl.saveCounty(county);
-		assertEquals(1, countyTypePk);
-		
-		log.debug("County Type primary key: " + countyTypePk);
-		
 		Incident incident = new Incident();
 		
 		incident.setIncidentTypeID(incidentTypePk);
@@ -111,29 +106,19 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int incidentPk = analyticalDatastoreDAOImpl.saveIncident(incident);
 		assertEquals(1, incidentPk);
 
-		PersonSex personSex = new PersonSex();
-		personSex.setPersonSexDescription("male");
-		
-		int personSexPk = analyticalDatastoreDAOImpl.savePersonSex(personSex);
-		assertEquals(1, personSexPk);
-
-		PersonRace personRace = new PersonRace();
-		personRace.setPersonRaceDescription("caucasion");
-		
-		int personRacePk = analyticalDatastoreDAOImpl.savePersonRace(personRace);
-		assertEquals(1, personRacePk);
-
-		Person person = new Person();
-		
-		person.setPersonRaceID(personRacePk);
-		person.setPersonSexID(personSexPk);
-		person.setPersonBirthDate(new Date());
-		person.setPersonUniqueIdentifier("123332123123unique");
+		Person person = returnPerson();
 		
 		int personPk = analyticalDatastoreDAOImpl.savePerson(person);
 		assertEquals(1, personPk);
 
+		OffenseType offenseType = new OffenseType();
+		offenseType.setIsDrugOffense("Y");
+		offenseType.setOffenseDescription("Offense Description");
+		offenseType.setOffenseSeverity("Felony");
 		
+		int offenseTypePk = analyticalDatastoreDAOImpl.saveOffenseType(offenseType);
+		assertEquals(1, offenseTypePk);
+
 		Arrest arrest = new Arrest();
 		
 		arrest.setPersonID(personPk);
@@ -145,8 +130,35 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		int arrestPk = analyticalDatastoreDAOImpl.saveArrest(arrest);
 		assertEquals(1, arrestPk);
-
 		
+		Charge charge = new Charge();
+		
+		charge.setArrestID(arrestPk);
+		charge.setArrestOffenseTypeID(offenseTypePk);
+		
+		int chargePk = analyticalDatastoreDAOImpl.saveCharge(charge);
+		assertEquals(1, chargePk);
+		
+	}
+
+	protected Person returnPerson() {
+		PersonSex personSex = new PersonSex();
+		personSex.setPersonSexDescription("male");
+		
+		int personSexPk = analyticalDatastoreDAOImpl.savePersonSex(personSex);
+
+		PersonRace personRace = new PersonRace();
+		personRace.setPersonRaceDescription("caucasion");
+		
+		int personRacePk = analyticalDatastoreDAOImpl.savePersonRace(personRace);
+
+		Person person = new Person();
+		
+		person.setPersonRaceID(personRacePk);
+		person.setPersonSexID(personSexPk);
+		person.setPersonBirthDate(new Date());
+		person.setPersonUniqueIdentifier("123332123123unique");
+		return person;
 	}
 
 	@Test
@@ -171,6 +183,32 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		int preTrialPk = analyticalDatastoreDAOImpl.savePreTrialService(preTrialService);
 		assertEquals(1, preTrialPk);
+		
+		County county = new County();
+		county.setCountyName("County Name");
+		
+		int countyTypePk = analyticalDatastoreDAOImpl.saveCounty(county);
+		assertEquals(1, countyTypePk);
+		
+		log.debug("County Type primary key: " + countyTypePk);
+		
+		PretrialServiceParticipation pretrialServiceParticipation = new PretrialServiceParticipation();
+		Person person = returnPerson();
+		
+		int personPk = analyticalDatastoreDAOImpl.savePerson(person);
+		assertEquals(2, personPk);
+		
+		pretrialServiceParticipation.setAssessedNeedID(assessedNeedPk);
+		pretrialServiceParticipation.setCountyID(countyTypePk);
+		pretrialServiceParticipation.setIntakeDate(new Date());
+		pretrialServiceParticipation.setPersonID(personPk);
+		pretrialServiceParticipation.setPretrialServiceCaseNumber("case1234");
+		pretrialServiceParticipation.setPretrialServiceID(preTrialPk);
+		pretrialServiceParticipation.setRecordType('N');
+		pretrialServiceParticipation.setRiskScoreID(riskScorePk);
+		
+		int pretrialServiceParticipationPk = analyticalDatastoreDAOImpl.savePretrialServiceParticipation(pretrialServiceParticipation);
+		assertEquals(1, pretrialServiceParticipationPk);
 		
 	}
 	
