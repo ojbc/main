@@ -16,16 +16,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.0" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
-    <ch:RapSheet>
-        <ch:Metadata>
+<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"  xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.1" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
+    <ch-ext:RapSheet>
+        <rap:Metadata>
             <nc:ReportingOrganizationText>State CHRI</nc:ReportingOrganizationText>
-        </ch:Metadata>
-        <ch:Introduction>
-            <ch:RapSheetRequest>
-                <ch:PurposeCode>A</ch:PurposeCode>
-                <ch:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</ch:Attention>
-                <ch:RapSheetPerson>
+        </rap:Metadata>
+        <rap:Introduction>
+            <rap:RapSheetRequest>
+                <rap:PurposeCode>A</rap:PurposeCode>
+                <rap:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</rap:Attention>
+                <rap:RapSheetPerson>
                     <nc:PersonBirthDate>
                         <nc:Date>1949-03-10</nc:Date>
                     </nc:PersonBirthDate>
@@ -34,10 +34,10 @@
                         <nc:PersonMiddleName>A</nc:PersonMiddleName>
                         <nc:PersonSurName>Reyna</nc:PersonSurName>
                     </nc:PersonName>
-                </ch:RapSheetPerson>
-            </ch:RapSheetRequest>
-        </ch:Introduction>
-        <ch:RapSheetPerson s:id="P2">
+                </rap:RapSheetPerson>
+            </rap:RapSheetRequest>
+        </rap:Introduction>
+        <ch-ext:Person s:id="P2">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Kevin G</nc:PersonGivenName>
                 <nc:PersonSurName>Reyna</nc:PersonSurName>
@@ -49,8 +49,8 @@
             <nc:PersonBirthDate>
                 <nc:Date>1949-03-10</nc:Date>
             </nc:PersonBirthDate>
-            <nc:PersonEyeColorText>Brown</nc:PersonEyeColorText>
-            <nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
+            <rap:PersonEyeColorText>Brown</rap:PersonEyeColorText>
+            <rap:PersonHairColorText>Blonde</rap:PersonHairColorText>
             <nc:PersonName>
                 <nc:PersonGivenName>Kevin</nc:PersonGivenName>
                 <nc:PersonMiddleName>A</nc:PersonMiddleName>
@@ -66,140 +66,140 @@
                 <nc:MeasurePointValue>182.6</nc:MeasurePointValue>
                 <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
             </nc:PersonWeightMeasure>
-            <jxdm40:PersonAugmentation>
-                <jxdm40:PersonFBIIdentification>
+            <jxdm41:PersonAugmentation>
+                <jxdm41:PersonFBIIdentification>
                     <nc:IdentificationID>275323XS5</nc:IdentificationID>
                     <nc:IdentificationSourceText/>
-                </jxdm40:PersonFBIIdentification>
-                <jxdm40:PersonStateFingerprintIdentification>
+                </jxdm41:PersonFBIIdentification>
+                <jxdm41:PersonStateFingerprintIdentification>
                     <nc:IdentificationID>A8951664</nc:IdentificationID>
                     <nc:IdentificationSourceText/>
-                </jxdm40:PersonStateFingerprintIdentification>
-            </jxdm40:PersonAugmentation>
-        </ch:RapSheetPerson>
-        <ch:PersonBiometricsAssociation>
+                </jxdm41:PersonStateFingerprintIdentification>
+            </jxdm41:PersonAugmentation>
+        </ch-ext:Person>
+        <screening:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P2"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
-            <ch:PersonBiometrics/>
-        </ch:PersonBiometricsAssociation>
+            <rap:PersonBiometrics/>
+        </screening:PersonBiometricsAssociation>
         <nc:Location s:id="L506786885">
             <nc:LocationAddress>
                 <nc:AddressFullText>2711 Shobe Lane Denver, CO 80202</nc:AddressFullText>
             </nc:LocationAddress>
         </nc:Location>
-        <ch:Agency s:id="AGY2055623023">
+        <rap:Agency s:id="AGY2055623023">
             <nc:OrganizationName>DELTA PD</nc:OrganizationName>
-        </ch:Agency>
-        <ch:Agency s:id="AGY-1641028873">
+        </rap:Agency>
+        <rap:Agency s:id="AGY-1641028873">
             <nc:OrganizationName>CHAMA PD</nc:OrganizationName>
-        </ch:Agency>
+        </rap:Agency>
         <nc:ResidenceAssociation>
             <nc:PersonReference s:ref="P2"/>
             <nc:LocationReference s:ref="L506786885"/>
         </nc:ResidenceAssociation>
-        <ch:RapSheetCycle>
-            <ch:CycleEarliestDate>
+        <ch-ext:RapSheetCycle>
+            <rap:CycleEarliestDate>
                 <nc:Date>2010-12-26</nc:Date>
-            </ch:CycleEarliestDate>
-            <ch:Arrest s:id="A7052446459">
+            </rap:CycleEarliestDate>
+            <rap:Arrest s:id="A7052446459">
                 <nc:ActivityDate>
                     <nc:Date>2010-12-26</nc:Date>
                 </nc:ActivityDate>
-                <jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm41:ArrestAgencyRecordIdentification>
                     <nc:IdentificationID>606-9432596</nc:IdentificationID>
-                </jxdm40:ArrestAgencyRecordIdentification>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                </jxdm41:ArrestAgencyRecordIdentification>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDescriptionText>LACK OF PROS</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC29707941</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>FA</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>FA</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC29707941</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-            </ch:Arrest>
-        </ch:RapSheetCycle>
-        <ch:RapSheetCycle>
-            <ch:CycleEarliestDate>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+            </rap:Arrest>
+        </ch-ext:RapSheetCycle>
+        <ch-ext:RapSheetCycle>
+            <rap:CycleEarliestDate>
                 <nc:Date>2012-05-18</nc:Date>
-            </ch:CycleEarliestDate>
-            <ch:Arrest s:id="A6674090194">
+            </rap:CycleEarliestDate>
+            <rap:Arrest s:id="A6674090194">
                 <nc:ActivityDate>
                     <nc:Date>2012-05-18</nc:Date>
                 </nc:ActivityDate>
-                <jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm41:ArrestAgencyRecordIdentification>
                     <nc:IdentificationID>465-5973013</nc:IdentificationID>
-                </jxdm40:ArrestAgencyRecordIdentification>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                </jxdm41:ArrestAgencyRecordIdentification>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDescriptionText>LACK OF PROS</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC94689761</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>FC</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>FC</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC94689761</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC02952540</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>FC</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>FC</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC02952540</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDescriptionText>LACK OF PROS</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC37969989</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>FBFA</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>FBFA</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC37969989</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-            </ch:Arrest>
-            <ch:CourtAction>
-                <jxdm40:CourtCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+            </rap:Arrest>
+            <rap:CourtAction>
+                <rap:CourtCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDate>
                             <nc:Date>2012-08-27</nc:Date>
                         </nc:DispositionDate>
                         <nc:DispositionDescriptionText>NOT GUILTY</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC02952540</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>FC</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>FC</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC02952540</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:CourtCharge>
-            </ch:CourtAction>
-        </ch:RapSheetCycle>
-        <ch:ArrestAgencyAssociation>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:CourtCharge>
+            </rap:CourtAction>
+        </ch-ext:RapSheetCycle>
+        <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A7052446459"/>
             <nc:OrganizationReference s:ref="AGY2055623023"/>
-        </ch:ArrestAgencyAssociation>
-        <ch:ArrestAgencyAssociation>
+        </rap:ArrestAgencyAssociation>
+        <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A6674090194"/>
             <nc:OrganizationReference s:ref="AGY-1641028873"/>
-        </ch:ArrestAgencyAssociation>
-    </ch:RapSheet>
+        </rap:ArrestAgencyAssociation>
+    </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

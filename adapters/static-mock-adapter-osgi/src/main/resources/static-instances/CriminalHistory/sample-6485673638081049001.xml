@@ -16,16 +16,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.0" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
-    <ch:RapSheet>
-        <ch:Metadata>
+<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"  xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.1" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
+    <ch-ext:RapSheet>
+        <rap:Metadata>
             <nc:ReportingOrganizationText>State CHRI</nc:ReportingOrganizationText>
-        </ch:Metadata>
-        <ch:Introduction>
-            <ch:RapSheetRequest>
-                <ch:PurposeCode>A</ch:PurposeCode>
-                <ch:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</ch:Attention>
-                <ch:RapSheetPerson>
+        </rap:Metadata>
+        <rap:Introduction>
+            <rap:RapSheetRequest>
+                <rap:PurposeCode>A</rap:PurposeCode>
+                <rap:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</rap:Attention>
+                <rap:RapSheetPerson>
                     <nc:PersonBirthDate>
                         <nc:Date>1936-08-16</nc:Date>
                     </nc:PersonBirthDate>
@@ -34,10 +34,10 @@
                         <nc:PersonMiddleName>M</nc:PersonMiddleName>
                         <nc:PersonSurName>Green</nc:PersonSurName>
                     </nc:PersonName>
-                </ch:RapSheetPerson>
-            </ch:RapSheetRequest>
-        </ch:Introduction>
-        <ch:RapSheetPerson s:id="P34">
+                </rap:RapSheetPerson>
+            </rap:RapSheetRequest>
+        </rap:Introduction>
+        <ch-ext:Person s:id="P34">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Suzanne J</nc:PersonGivenName>
                 <nc:PersonSurName>Green</nc:PersonSurName>
@@ -45,8 +45,8 @@
             <nc:PersonBirthDate>
                 <nc:Date>1936-08-16</nc:Date>
             </nc:PersonBirthDate>
-            <nc:PersonEyeColorText>Brown</nc:PersonEyeColorText>
-            <nc:PersonHairColorText>Brown</nc:PersonHairColorText>
+            <rap:PersonEyeColorText>Brown</rap:PersonEyeColorText>
+            <rap:PersonHairColorText>Brown</rap:PersonHairColorText>
             <nc:PersonHeightMeasure>
                 <nc:MeasurePointValue>60</nc:MeasurePointValue>
                 <nc:LengthUnitCode>INH</nc:LengthUnitCode>
@@ -66,53 +66,53 @@
                 <nc:MeasurePointValue>186.6</nc:MeasurePointValue>
                 <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
             </nc:PersonWeightMeasure>
-            <jxdm40:PersonAugmentation>
-                <jxdm40:PersonFBIIdentification>
+            <jxdm41:PersonAugmentation>
+                <jxdm41:PersonFBIIdentification>
                     <nc:IdentificationID>819556DW8</nc:IdentificationID>
                     <nc:IdentificationSourceText/>
-                </jxdm40:PersonFBIIdentification>
-                <jxdm40:PersonStateFingerprintIdentification>
+                </jxdm41:PersonFBIIdentification>
+                <jxdm41:PersonStateFingerprintIdentification>
                     <nc:IdentificationID>A0500841</nc:IdentificationID>
                     <nc:IdentificationSourceText/>
-                </jxdm40:PersonStateFingerprintIdentification>
-            </jxdm40:PersonAugmentation>
-        </ch:RapSheetPerson>
-        <ch:PersonBiometricsAssociation>
+                </jxdm41:PersonStateFingerprintIdentification>
+            </jxdm41:PersonAugmentation>
+        </ch-ext:Person>
+        <screening:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P34"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
-            <ch:PersonBiometrics/>
-        </ch:PersonBiometricsAssociation>
+            <rap:PersonBiometrics/>
+        </screening:PersonBiometricsAssociation>
         <nc:Location s:id="L659936446">
             <nc:LocationAddress>
                 <nc:AddressFullText>4736 Lighthouse Drive Pittsburg, MO 66762</nc:AddressFullText>
             </nc:LocationAddress>
         </nc:Location>
-        <ch:Agency s:id="AGY1028037696">
+        <rap:Agency s:id="AGY1028037696">
             <nc:OrganizationName>State Police</nc:OrganizationName>
-        </ch:Agency>
-        <ch:Agency s:id="AGY1285762715">
+        </rap:Agency>
+        <rap:Agency s:id="AGY1285762715">
             <nc:OrganizationName>AVA PD</nc:OrganizationName>
-        </ch:Agency>
-        <ch:Agency s:id="AGY446810717">
+        </rap:Agency>
+        <rap:Agency s:id="AGY446810717">
             <nc:OrganizationName>RICHWOODS PD</nc:OrganizationName>
-        </ch:Agency>
-        <ch:Agency s:id="AGY-193625037">
+        </rap:Agency>
+        <rap:Agency s:id="AGY-193625037">
             <nc:OrganizationName>Ray County Probation</nc:OrganizationName>
-        </ch:Agency>
-        <ch:Agency s:id="AGY1564880714">
+        </rap:Agency>
+        <rap:Agency s:id="AGY1564880714">
             <nc:OrganizationName>Andrew County Probation</nc:OrganizationName>
-        </ch:Agency>
+        </rap:Agency>
         <nc:ResidenceAssociation>
             <nc:PersonReference s:ref="P34"/>
             <nc:LocationReference s:ref="L659936446"/>
         </nc:ResidenceAssociation>
-        <ch:RapSheetCycle>
-            <ch:CycleEarliestDate>
+        <ch-ext:RapSheetCycle>
+            <rap:CycleEarliestDate>
                 <nc:Date>2012-09-09</nc:Date>
-            </ch:CycleEarliestDate>
+            </rap:CycleEarliestDate>
             <ch:Supervision s:id="A5796500237SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
@@ -127,11 +127,11 @@
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
             </ch:Supervision>
-        </ch:RapSheetCycle>
-        <ch:RapSheetCycle>
-            <ch:CycleEarliestDate>
+        </ch-ext:RapSheetCycle>
+        <ch-ext:RapSheetCycle>
+            <rap:CycleEarliestDate>
                 <nc:Date>2011-11-01</nc:Date>
-            </ch:CycleEarliestDate>
+            </rap:CycleEarliestDate>
             <ch:Supervision s:id="A4644547166SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
@@ -146,199 +146,199 @@
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
             </ch:Supervision>
-        </ch:RapSheetCycle>
-        <ch:RapSheetCycle>
-            <ch:CycleEarliestDate>
+        </ch-ext:RapSheetCycle>
+        <ch-ext:RapSheetCycle>
+            <rap:CycleEarliestDate>
                 <nc:Date>2012-02-23</nc:Date>
-            </ch:CycleEarliestDate>
-            <ch:Arrest s:id="A5796500237">
+            </rap:CycleEarliestDate>
+            <rap:Arrest s:id="A5796500237">
                 <nc:ActivityDate>
                     <nc:Date>2012-02-23</nc:Date>
                 </nc:ActivityDate>
-                <jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm41:ArrestAgencyRecordIdentification>
                     <nc:IdentificationID>860-1446994</nc:IdentificationID>
-                </jxdm40:ArrestAgencyRecordIdentification>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeIdentification>
+                </jxdm41:ArrestAgencyRecordIdentification>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC16729234</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>PM</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>PM</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC16729234</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC34459904</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>MD</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>MD</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC34459904</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDescriptionText>LACK OF PROS</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC04434602</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>MD</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>MD</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC04434602</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-            </ch:Arrest>
-            <ch:CourtAction>
-                <jxdm40:CourtCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+            </rap:Arrest>
+            <rap:CourtAction>
+                <rap:CourtCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDate>
                             <nc:Date>2012-09-09</nc:Date>
                         </nc:DispositionDate>
                         <nc:DispositionDescriptionText>NOT GUILTY</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC16729234</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>PM</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>PM</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC16729234</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:CourtCharge>
-                <jxdm40:CourtCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:CourtCharge>
+                <rap:CourtCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDate>
                             <nc:Date>2012-09-09</nc:Date>
                         </nc:DispositionDate>
                         <nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC34459904</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>MD</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>MD</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC34459904</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:CourtCharge>
-            </ch:CourtAction>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:CourtCharge>
+            </rap:CourtAction>
             <ch:Sentencing>
-                <jxdm40:Sentence>
-                    <jxdm40:SentenceCharge>
-                        <jxdm40:ChargeTrackingIdentification>
+                <jxdm41:Sentence>
+                    <jxdm41:SentenceCharge>
+                        <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC34459904</nc:IdentificationID>
-                        </jxdm40:ChargeTrackingIdentification>
-                    </jxdm40:SentenceCharge>
-                    <jxdm40:SentenceDescriptionText>ON 09/09/2012 SUBJECT SENTENCED TO 24 MONTHS PROBATION AND A FINE OF $664.86</jxdm40:SentenceDescriptionText>
-                </jxdm40:Sentence>
+                        </jxdm41:ChargeTrackingIdentification>
+                    </jxdm41:SentenceCharge>
+                    <jxdm41:SentenceDescriptionText>ON 09/09/2012 SUBJECT SENTENCED TO 24 MONTHS PROBATION AND A FINE OF $664.86</jxdm41:SentenceDescriptionText>
+                </jxdm41:Sentence>
             </ch:Sentencing>
-        </ch:RapSheetCycle>
-        <ch:RapSheetCycle>
-            <ch:CycleEarliestDate>
+        </ch-ext:RapSheetCycle>
+        <ch-ext:RapSheetCycle>
+            <rap:CycleEarliestDate>
                 <nc:Date>2006-04-12</nc:Date>
-            </ch:CycleEarliestDate>
-            <ch:Arrest s:id="A5754689665">
+            </rap:CycleEarliestDate>
+            <rap:Arrest s:id="A5754689665">
                 <nc:ActivityDate>
                     <nc:Date>2006-04-12</nc:Date>
                 </nc:ActivityDate>
-                <jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm41:ArrestAgencyRecordIdentification>
                     <nc:IdentificationID>650-0890805</nc:IdentificationID>
-                </jxdm40:ArrestAgencyRecordIdentification>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                </jxdm41:ArrestAgencyRecordIdentification>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDescriptionText>LACK OF PROS</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC02180130</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>PMVL</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>PMVL</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC02180130</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDescriptionText>LACK OF PROS</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC78776324</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>FC</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>FC</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC78776324</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-            </ch:Arrest>
-        </ch:RapSheetCycle>
-        <ch:RapSheetCycle>
-            <ch:CycleEarliestDate>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+            </rap:Arrest>
+        </ch-ext:RapSheetCycle>
+        <ch-ext:RapSheetCycle>
+            <rap:CycleEarliestDate>
                 <nc:Date>2011-04-13</nc:Date>
-            </ch:CycleEarliestDate>
-            <ch:Arrest s:id="A4644547166">
+            </rap:CycleEarliestDate>
+            <rap:Arrest s:id="A4644547166">
                 <nc:ActivityDate>
                     <nc:Date>2011-04-13</nc:Date>
                 </nc:ActivityDate>
-                <jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm41:ArrestAgencyRecordIdentification>
                     <nc:IdentificationID>097-6612209</nc:IdentificationID>
-                </jxdm40:ArrestAgencyRecordIdentification>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeIdentification>
+                </jxdm41:ArrestAgencyRecordIdentification>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC29227156</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>FC</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>FC</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC29227156</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-            </ch:Arrest>
-            <ch:CourtAction>
-                <jxdm40:CourtCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+            </rap:Arrest>
+            <rap:CourtAction>
+                <rap:CourtCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDate>
                             <nc:Date>2011-11-01</nc:Date>
                         </nc:DispositionDate>
                         <nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC29227156</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>FC</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>FC</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC29227156</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:CourtCharge>
-            </ch:CourtAction>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:CourtCharge>
+            </rap:CourtAction>
             <ch:Sentencing>
-                <jxdm40:Sentence>
-                    <jxdm40:SentenceCharge>
-                        <jxdm40:ChargeTrackingIdentification>
+                <jxdm41:Sentence>
+                    <jxdm41:SentenceCharge>
+                        <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC29227156</nc:IdentificationID>
-                        </jxdm40:ChargeTrackingIdentification>
-                    </jxdm40:SentenceCharge>
-                    <jxdm40:SentenceDescriptionText>ON 11/01/2011 SUBJECT SENTENCED TO 59 MONTHS PROBATION AND A FINE OF $772.34</jxdm40:SentenceDescriptionText>
-                </jxdm40:Sentence>
+                        </jxdm41:ChargeTrackingIdentification>
+                    </jxdm41:SentenceCharge>
+                    <jxdm41:SentenceDescriptionText>ON 11/01/2011 SUBJECT SENTENCED TO 59 MONTHS PROBATION AND A FINE OF $772.34</jxdm41:SentenceDescriptionText>
+                </jxdm41:Sentence>
             </ch:Sentencing>
-        </ch:RapSheetCycle>
-        <ch:ArrestAgencyAssociation>
+        </ch-ext:RapSheetCycle>
+        <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A5796500237"/>
             <nc:OrganizationReference s:ref="AGY1285762715"/>
-        </ch:ArrestAgencyAssociation>
-        <ch:ArrestAgencyAssociation>
+        </rap:ArrestAgencyAssociation>
+        <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A5754689665"/>
             <nc:OrganizationReference s:ref="AGY446810717"/>
-        </ch:ArrestAgencyAssociation>
-        <ch:ArrestAgencyAssociation>
+        </rap:ArrestAgencyAssociation>
+        <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A4644547166"/>
             <nc:OrganizationReference s:ref="AGY1028037696"/>
-        </ch:ArrestAgencyAssociation>
+        </rap:ArrestAgencyAssociation>
         <ch:SupervisionAgencyAssociation>
             <ch:SupervisionReference s:ref="A5796500237SP"/>
             <nc:OrganizationReference s:ref="AGY-193625037"/>
@@ -347,7 +347,7 @@
             <ch:SupervisionReference s:ref="A4644547166SP"/>
             <nc:OrganizationReference s:ref="AGY1564880714"/>
         </ch:SupervisionAgencyAssociation>
-        <ch:Order>
+        <ch-ext:Order>
             <nc:ActivityIdentification>
                 <nc:IdentificationID>ORDER8030115919</nc:IdentificationID>
                 <nc:IdentificationCategoryText>TRO DOCUMENT ID</nc:IdentificationCategoryText>
@@ -356,16 +356,16 @@
             <nc:ActivityDate>
                 <nc:Date>2010-10-26</nc:Date>
             </nc:ActivityDate>
-            <jxdm40:CourtOrderIssuingCourt>
+            <jxdm41:CourtOrderIssuingCourt>
                 <nc:OrganizationName>Andrew District Court</nc:OrganizationName>
-            </jxdm40:CourtOrderIssuingCourt>
-            <jxdm40:CourtOrderServiceDescriptionText>SERVED</jxdm40:CourtOrderServiceDescriptionText>
-            <ch:CourtCase>
+            </jxdm41:CourtOrderIssuingCourt>
+            <jxdm41:CourtOrderServiceDescriptionText>SERVED</jxdm41:CourtOrderServiceDescriptionText>
+            <ch-ext:CourtCase>
                 <nc:ActivityIdentification>
                     <nc:IdentificationID>TRO-2013-42060468</nc:IdentificationID>
                 </nc:ActivityIdentification>
-            </ch:CourtCase>
-            <ch:ProtectionOrderExpirationDate>2011-06-04</ch:ProtectionOrderExpirationDate>
-        </ch:Order>
-    </ch:RapSheet>
+            </ch-ext:CourtCase>
+            <ch-ext:ProtectionOrderExpirationDate>2011-06-04</ch-ext:ProtectionOrderExpirationDate>
+        </ch-ext:Order>
+    </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>
