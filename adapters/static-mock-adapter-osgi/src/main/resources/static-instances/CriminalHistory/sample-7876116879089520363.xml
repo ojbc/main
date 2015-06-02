@@ -60,12 +60,12 @@
             <nc:PersonSexCode>M</nc:PersonSexCode>
             <nc:PersonSSNIdentification>
                 <nc:IdentificationID>012-42-5593</nc:IdentificationID>
-                <nc:IdentificationSourceText>SSA</nc:IdentificationSourceText>
+                <nc:IdentificationJurisdictionText>SSA</nc:IdentificationJurisdictionText>
             </nc:PersonSSNIdentification>
             <jxdm41:PersonAugmentation>
                 <jxdm41:PersonStateFingerprintIdentification>
                     <nc:IdentificationID>A9473274</nc:IdentificationID>
-                    <nc:IdentificationSourceText/>
+                    <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>

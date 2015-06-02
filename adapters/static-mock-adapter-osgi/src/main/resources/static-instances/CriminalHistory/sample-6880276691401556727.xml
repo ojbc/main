@@ -61,11 +61,11 @@
             <jxdm41:PersonAugmentation>
                 <jxdm41:PersonFBIIdentification>
                     <nc:IdentificationID>015000MN6</nc:IdentificationID>
-                    <nc:IdentificationSourceText/>
+                    <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonFBIIdentification>
                 <jxdm41:PersonStateFingerprintIdentification>
                     <nc:IdentificationID>A6581146</nc:IdentificationID>
-                    <nc:IdentificationSourceText/>
+                    <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>

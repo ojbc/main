@@ -60,7 +60,7 @@
             <nc:PersonSexCode>F</nc:PersonSexCode>
             <nc:PersonSSNIdentification>
                 <nc:IdentificationID>356-34-1419</nc:IdentificationID>
-                <nc:IdentificationSourceText>SSA</nc:IdentificationSourceText>
+                <nc:IdentificationJurisdictionText>SSA</nc:IdentificationJurisdictionText>
             </nc:PersonSSNIdentification>
             <nc:PersonWeightMeasure>
                 <nc:MeasurePointValue>101.4</nc:MeasurePointValue>
@@ -69,7 +69,7 @@
             <jxdm41:PersonAugmentation>
                 <jxdm41:PersonStateFingerprintIdentification>
                     <nc:IdentificationID>A7770133</nc:IdentificationID>
-                    <nc:IdentificationSourceText/>
+                    <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>

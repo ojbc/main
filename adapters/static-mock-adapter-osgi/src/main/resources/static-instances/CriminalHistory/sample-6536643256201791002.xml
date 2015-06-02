@@ -56,12 +56,12 @@
             <nc:PersonSexCode>M</nc:PersonSexCode>
             <nc:PersonSSNIdentification>
                 <nc:IdentificationID>340-05-7160</nc:IdentificationID>
-                <nc:IdentificationSourceText>SSA</nc:IdentificationSourceText>
+                <nc:IdentificationJurisdictionText>SSA</nc:IdentificationJurisdictionText>
             </nc:PersonSSNIdentification>
             <jxdm41:PersonAugmentation>
                 <jxdm41:PersonStateFingerprintIdentification>
                     <nc:IdentificationID>A0281210</nc:IdentificationID>
-                    <nc:IdentificationSourceText/>
+                    <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>

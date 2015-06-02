@@ -57,7 +57,7 @@
             <jxdm41:PersonAugmentation>
                 <jxdm41:PersonStateFingerprintIdentification>
                     <nc:IdentificationID>A1364835</nc:IdentificationID>
-                    <nc:IdentificationSourceText/>
+                    <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
