@@ -64,7 +64,6 @@ CREATE TABLE RiskScore (
 CREATE TABLE PretrialService (
                 PretrialServiceID IDENTITY NOT NULL,
                 PretrialServiceDescription VARCHAR(80) NOT NULL,
-                IsParticipant VARCHAR(7) NOT NULL,
                 CONSTRAINT PretrialServiceID PRIMARY KEY (PretrialServiceID)
 );
 
@@ -175,9 +174,7 @@ CREATE TABLE Arrest (
                 PersonID INTEGER NOT NULL,
                 IncidentID INTEGER NOT NULL,
                 ArrestingAgencyID INTEGER NOT NULL,
-                ArrestLocationLatitude NUMERIC(14,10),
-                ArrestLocationLongitude NUMERIC(14,10),
-                ArrestDate DATE NOT NULL,
+	                ArrestDate DATE NOT NULL,
                 ArrestTime TIME NOT NULL,
                 ArrestDrugRelated CHAR(1) NOT NULL,
                 CONSTRAINT ArrestID PRIMARY KEY (ArrestID)

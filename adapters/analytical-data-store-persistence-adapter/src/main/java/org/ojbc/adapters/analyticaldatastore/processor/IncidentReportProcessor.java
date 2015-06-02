@@ -16,8 +16,16 @@
  */
 package org.ojbc.adapters.analyticaldatastore.processor;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
+import javax.xml.bind.DatatypeConverter;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.personid.IdentifierGenerationStrategy;
@@ -36,7 +44,7 @@ public class IncidentReportProcessor {
 	private static final String PATH_TO_LEXS_DIGEST= PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:Digest";
 	
 	private IdentifierGenerationStrategy identifierGenerationStrategy;
-	
+		
 	public void processIncidentReport(Document incidentReport) throws Exception
 	{
 		//XmlUtils.printNode(incidentReport);
@@ -44,14 +52,38 @@ public class IncidentReportProcessor {
 		String reportingAgencyName = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id= " + PATH_TO_LEXS_DIGEST + " /lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation[nc:ActivityReference/@s:ref=" + PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName");
 		log.debug("Agency Name: " + reportingAgencyName);
 		
-		String incidentDateAsString = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST+ "/lexsdigest:EntityActivity/nc:Activity/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
-		log.debug("Incident Date: " + incidentDateAsString);
+		String incidentDateTimeAsString = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST+ "/lexsdigest:EntityActivity/nc:Activity/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
+		log.debug("Incident Date: " + incidentDateTimeAsString);
+		
+		Calendar incidentDateTimeCal = DatatypeConverter.parseDateTime(incidentDateTimeAsString);
+		Date incidentDateTime = incidentDateTimeCal.getTime();
+
+		Time incidentTime =  new Time(incidentDateTime.getTime());
+		log.debug("Incident Time: " + incidentTime.toString());
 		
 		String mapHorizontalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapHorizontalCoordinateText");
 		log.debug("Map horizontal coordinate text: " + mapHorizontalCoordinateText);
 		
 		String mapVerticalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapVerticalCoordinateText");
 		log.debug("Map vertical coordinate text: " + mapVerticalCoordinateText);
+		
+		String incidentCaseNumber=XmlUtils.xPathStringSearch(incidentReport,  PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataItemID");
+		log.debug("Incident Case Number: " + incidentCaseNumber);
+		
+		String incidentLocationReference = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:IncidentLocationAssociation/nc:LocationReference/@s:ref");
+		
+		if (StringUtils.isNotEmpty(incidentLocationReference))
+		{
+			Node locationNode = XmlUtils.xPathNodeSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityLocation/nc:Location[@s:id='" + incidentLocationReference + "']");
+			
+			String streetFullText = XmlUtils.xPathStringSearch(locationNode, "nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetFullText");
+			log.debug("Street Full Text: " + streetFullText);
+			
+			//TODO: build address from components if no streetfull text
+			
+			String cityTown = XmlUtils.xPathStringSearch(locationNode, "nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName");
+			log.debug("City/Town: " + cityTown);
+		}	
 		
 		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestSubjectAssociation");
 		
@@ -71,8 +103,7 @@ public class IncidentReportProcessor {
 		    if (arrestNodes.item(i).getNodeType() == Node.ELEMENT_NODE)
 		    {
 		        String personId = XmlUtils.xPathStringSearch(arrestNodes.item(i), "nc:PersonReference/@s:ref");
-		        
-		        log.debug("Arrestee ID: " + personId);
+		        log.debug("Arrestee Person ID: " + personId);
 		        
 		        Node personNode = XmlUtils.xPathNodeSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityPerson/lexsdigest:Person[@s:id='" + personId + "']");
 		        
@@ -81,6 +112,21 @@ public class IncidentReportProcessor {
 		        String personIdentifierKey = identifierGenerationStrategy.generateIdentifier(arrestee);
 
 		        log.debug("Arrestee person identifier keys: " + personIdentifierKey);
+		        
+		        String arrestActivityReference = XmlUtils.xPathStringSearch(arrestNodes.item(i), "nc:ActivityReference/@s:ref");
+		        log.debug("Arrest Activity Reference: " + arrestActivityReference);
+		        
+		        Node arrestNode = XmlUtils.xPathNodeSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityActivity/nc:Activity[@s:id='" + arrestActivityReference + "']");
+		        
+		        String arrestDateTimeAsString = XmlUtils.xPathStringSearch(arrestNode, "nc:ActivityDate/nc:DateTime");
+		        
+				Calendar arrestDateTimeCal = DatatypeConverter.parseDateTime(arrestDateTimeAsString);
+				Date arrestDateTime = arrestDateTimeCal.getTime();
+
+				Time arrestTime =  new Time(arrestDateTime.getTime());
+				log.debug("Arrest Time: " + arrestTime.toString());
+
+		        
 		    }
 		}
 	}

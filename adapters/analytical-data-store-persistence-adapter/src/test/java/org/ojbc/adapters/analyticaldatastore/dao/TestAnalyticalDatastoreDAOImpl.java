@@ -179,7 +179,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		PreTrialService preTrialService = new PreTrialService();
 		
-		preTrialService.setIsParticipant("YES");
 		preTrialService.setPretrialServiceDescription("Pretrial Description");
 		
 		int preTrialPk = analyticalDatastoreDAOImpl.savePreTrialService(preTrialService);

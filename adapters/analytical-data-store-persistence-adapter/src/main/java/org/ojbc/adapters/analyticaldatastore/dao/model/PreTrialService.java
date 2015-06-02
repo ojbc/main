@@ -20,7 +20,6 @@ public class PreTrialService {
 
     private int pretrialServiceID;
     private String pretrialServiceDescription;
-    private String isParticipant;
     
 	public int getPretrialServiceID() {
 		return pretrialServiceID;
@@ -34,11 +33,6 @@ public class PreTrialService {
 	public void setPretrialServiceDescription(String pretrialServiceDescription) {
 		this.pretrialServiceDescription = pretrialServiceDescription;
 	}
-	public String getIsParticipant() {
-		return isParticipant;
-	}
-	public void setIsParticipant(String isParticipant) {
-		this.isParticipant = isParticipant;
-	}
+
 
 }
