@@ -126,11 +126,27 @@ public class IncidentReportProcessor {
 				Time arrestTime =  new Time(arrestDateTime.getTime());
 				log.debug("Arrest Time: " + arrestTime.toString());
 
+				String arrestingAgency = returnArrestingAgency(incidentReport);
+				log.debug("Arresting Agency: " + arrestingAgency);
 		        
 		    }
 		}
 	}
 
+	private String returnArrestingAgency(Node incidentReport) throws Exception
+	{
+		String arrestingOfficerRefernce = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestOfficerAssociation/nc:PersonReference/@s:ref");
+		log.debug("Arresting Officer Reference: " + arrestingOfficerRefernce);
+		
+		String arrestAgencyReference=XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/nc:PersonAssignedUnitAssociation/nc:PersonReference[@s:ref='" + arrestingOfficerRefernce + "']/following-sibling::nc:OrganizationReference/@s:ref");
+		log.debug("Arresting Agency Reference: " + arrestAgencyReference);
+		
+		String arrestingAgency = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id='" + arrestAgencyReference + "']/nc:OrganizationName");
+		log.debug("Arresting Agency: " + arrestingAgency);
+		
+		return arrestingAgency;
+	}
+	
 	public IdentifierGenerationStrategy getIdentifierGenerationStrategy() {
 		return identifierGenerationStrategy;
 	}
