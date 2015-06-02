@@ -16,6 +16,7 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -104,10 +105,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public int saveIncident(final Incident incident) {
         log.debug("Inserting row into Incident table");
 
-        //TODO: map latitute and longitude
-        
         final String incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber, IncidentTypeID,"
-        		+ "IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,RecordType) values (?,?,?,?,?,?,?,?)";
+        		+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,RecordType) values (?,?,?,?,?,?,?,?,?,?)";
 		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -115,15 +114,19 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(incidentInsertStatement, new String[] {"ReportingAgencyID", "IncidentCaseNumber", "IncidentTypeID"
-        	                		+ "IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","RecordType"});
+        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","RecordType"});
         	            ps.setInt(1, incident.getReportingAgencyID());
         	            ps.setString(2, incident.getIncidentCaseNumber());
         	            ps.setInt(3, incident.getIncidentTypeID());
-        	            ps.setString(4, incident.getIncidentLocationStreetAddress());
-        	            ps.setString(5, incident.getIncidentLocationTown());
-        	            ps.setDate(6, new java.sql.Date(incident.getIncidentDate().getTime()));
-        	            ps.setTime(7, new java.sql.Time(incident.getIncidentDate().getTime()));
-        	            ps.setString(8, String.valueOf(incident.getRecordType()));
+        	            
+        	            //TODO: fix this to use actual lat and long
+        	            ps.setBigDecimal(4, new BigDecimal("78.834163"));
+        	            ps.setBigDecimal(5, new BigDecimal("107.774506"));
+        	            ps.setString(6, incident.getIncidentLocationStreetAddress());
+        	            ps.setString(7, incident.getIncidentLocationTown());
+        	            ps.setDate(8, new java.sql.Date(incident.getIncidentDate().getTime()));
+        	            ps.setTime(9, new java.sql.Time(incident.getIncidentDate().getTime()));
+        	            ps.setString(10, String.valueOf(incident.getRecordType()));
         	            return ps;
         	        }
         	    },
