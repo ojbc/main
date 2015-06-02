@@ -26,3 +26,9 @@ insert into PersonRace(PersonRaceDescription) values('B');
 insert into PersonRace(PersonRaceDescription) values('I');
 insert into PersonRace(PersonRaceDescription) values('U');
 insert into PersonRace(PersonRaceDescription) values('W');
+
+-- Incident Type - Placeholder while waiting for code values
+insert into IncidentType (IncidentTypeDescription) values ('Placeholder');
+
+-- Agency - Placeholder while waiting for code values
+insert into Agency(AgencyName) values ('Placeholder Agency Name');

@@ -16,9 +16,8 @@
  */
 package org.ojbc.adapters.analyticaldatastore.processor;
 
+import java.math.BigDecimal;
 import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -28,9 +27,12 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAO;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.personid.IdentifierGenerationStrategy;
 import org.ojbc.adapters.analyticaldatastore.util.AnalyticalDataStoreUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -44,13 +46,21 @@ public class IncidentReportProcessor {
 	private static final String PATH_TO_LEXS_DIGEST= PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:Digest";
 	
 	private IdentifierGenerationStrategy identifierGenerationStrategy;
-		
+	
+	private AnalyticalDatastoreDAO analyticalDatastoreDAO;
+	
+	@Transactional
 	public void processIncidentReport(Document incidentReport) throws Exception
 	{
-		//XmlUtils.printNode(incidentReport);
+		Incident incident = new Incident();
 		
 		String reportingAgencyName = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id= " + PATH_TO_LEXS_DIGEST + " /lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation[nc:ActivityReference/@s:ref=" + PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName");
 		log.debug("Agency Name: " + reportingAgencyName);
+		
+		if (StringUtils.isNotBlank(reportingAgencyName))
+		{
+			//Query for agency fk, set value
+		}	
 		
 		String incidentDateTimeAsString = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST+ "/lexsdigest:EntityActivity/nc:Activity/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
 		log.debug("Incident Date: " + incidentDateTimeAsString);
@@ -58,17 +68,45 @@ public class IncidentReportProcessor {
 		Calendar incidentDateTimeCal = DatatypeConverter.parseDateTime(incidentDateTimeAsString);
 		Date incidentDateTime = incidentDateTimeCal.getTime();
 
+		if (incidentDateTime != null)
+		{
+			incident.setIncidentDate(incidentDateTime);
+		}	
+		
 		Time incidentTime =  new Time(incidentDateTime.getTime());
 		log.debug("Incident Time: " + incidentTime.toString());
+		
+		if (incidentTime != null)
+		{
+			incident.setIncidentTime(incidentTime);
+		}	
 		
 		String mapHorizontalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapHorizontalCoordinateText");
 		log.debug("Map horizontal coordinate text: " + mapHorizontalCoordinateText);
 		
+		if (StringUtils.isNotBlank(mapHorizontalCoordinateText))
+		{
+			BigDecimal latitute = new BigDecimal(mapHorizontalCoordinateText);
+			incident.setIncidentLocationLatitude(latitute);
+		}	
+		
 		String mapVerticalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapVerticalCoordinateText");
 		log.debug("Map vertical coordinate text: " + mapVerticalCoordinateText);
 		
+		if (StringUtils.isNotBlank(mapVerticalCoordinateText))
+		{
+			BigDecimal longitude = new BigDecimal(mapVerticalCoordinateText);
+			incident.setIncidentLocationLongitude(longitude);
+		}	
+		
+		
 		String incidentCaseNumber=XmlUtils.xPathStringSearch(incidentReport,  PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataItemID");
 		log.debug("Incident Case Number: " + incidentCaseNumber);
+		
+		if (StringUtils.isNotBlank(incidentCaseNumber))
+		{
+			incident.setIncidentCaseNumber(incidentCaseNumber);
+		}	
 		
 		String incidentLocationReference = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:IncidentLocationAssociation/nc:LocationReference/@s:ref");
 		
@@ -78,26 +116,41 @@ public class IncidentReportProcessor {
 			
 			String streetFullText = XmlUtils.xPathStringSearch(locationNode, "nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetFullText");
 			log.debug("Street Full Text: " + streetFullText);
-			
+
 			//TODO: build address from components if no streetfull text
+			if (StringUtils.isNotBlank(streetFullText))
+			{
+				incident.setIncidentLocationStreetAddress(streetFullText);
+			}	
 			
 			String cityTown = XmlUtils.xPathStringSearch(locationNode, "nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName");
 			log.debug("City/Town: " + cityTown);
+			
+			if (StringUtils.isNotBlank(cityTown))
+			{
+				incident.setIncidentLocationTown(cityTown);
+			}	
+
 		}	
 		
-		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestSubjectAssociation");
+		//TODO, get actual fk values for these fields
+		incident.setIncidentTypeID(1);
+		incident.setReportingAgencyID(1);
 		
-	    if (arrestNodes != null && arrestNodes.getLength() > 0) 
-	    {
-			log.debug("Arrest nodes in document");
-
-	        processArrests(incidentReport, arrestNodes);
-	    }
+		analyticalDatastoreDAO.saveIncident(incident);
 			
 	}
 
-	protected void processArrests(Document incidentReport, NodeList arrestNodes)
+	protected void processArrests(Document incidentReport)
 			throws Exception {
+		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestSubjectAssociation");
+		
+	    if (arrestNodes == null || arrestNodes.getLength() == 0) 
+	    {
+			log.debug("No Arrest nodes in document");
+			return;
+	    }
+		
 		for (int i = 0; i < arrestNodes.getLength(); i++) 
 		{
 		    if (arrestNodes.item(i).getNodeType() == Node.ELEMENT_NODE)
@@ -154,6 +207,15 @@ public class IncidentReportProcessor {
 	public void setIdentifierGenerationStrategy(
 			IdentifierGenerationStrategy identifierGenerationStrategy) {
 		this.identifierGenerationStrategy = identifierGenerationStrategy;
+	}
+
+	public AnalyticalDatastoreDAO getAnalyticalDatastoreDAO() {
+		return analyticalDatastoreDAO;
+	}
+
+	public void setAnalyticalDatastoreDAO(
+			AnalyticalDatastoreDAO analyticalDatastoreDAO) {
+		this.analyticalDatastoreDAO = analyticalDatastoreDAO;
 	}
 	
 }
