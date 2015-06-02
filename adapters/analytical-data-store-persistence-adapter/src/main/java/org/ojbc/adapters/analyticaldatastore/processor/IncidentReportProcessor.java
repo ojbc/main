@@ -86,7 +86,7 @@ public class IncidentReportProcessor {
 		
 		if (StringUtils.isNotBlank(mapHorizontalCoordinateText))
 		{
-			BigDecimal latitute = new BigDecimal(mapHorizontalCoordinateText);
+			BigDecimal latitute = new BigDecimal(mapHorizontalCoordinateText).setScale(4);
 			incident.setIncidentLocationLatitude(latitute);
 		}	
 		
@@ -95,7 +95,7 @@ public class IncidentReportProcessor {
 		
 		if (StringUtils.isNotBlank(mapVerticalCoordinateText))
 		{
-			BigDecimal longitude = new BigDecimal(mapVerticalCoordinateText);
+			BigDecimal longitude = new BigDecimal(mapVerticalCoordinateText).setScale(4);
 			incident.setIncidentLocationLongitude(longitude);
 		}	
 		

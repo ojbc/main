@@ -29,6 +29,14 @@ public class IncidentRowMapper implements RowMapper<Incident>
     	Incident incident = new Incident();
     	
     	incident.setIncidentCaseNumber(rs.getString("IncidentCaseNumber"));
+    	incident.setIncidentDate(rs.getDate("IncidentDate"));
+    	incident.setIncidentID(rs.getInt("IncidentID"));
+    	incident.setIncidentLocationStreetAddress(rs.getString("IncidentLocationStreetAddress"));
+    	incident.setIncidentLocationTown(rs.getString("IncidentLocationTown"));
+    	incident.setIncidentTime(rs.getTime("IncidentTime"));
+    	incident.setReportingAgencyID(rs.getInt("ReportingAgencyID"));
+    	incident.setIncidentLocationLatitude(rs.getBigDecimal("IncidentLocationLatitude"));
+    	incident.setIncidentLocationLongitude(rs.getBigDecimal("IncidentLocationLongitude"));
     	
     	return incident;
 	}
