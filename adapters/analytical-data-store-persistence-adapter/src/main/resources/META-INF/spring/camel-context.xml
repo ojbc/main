@@ -33,27 +33,43 @@
     
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="analytical-data-store-persistence-adapter">
 
-
-		<camel:endpoint id="incidentReportingServiceAdapterEndpoint"
+		<endpoint id="incidentReportingServiceAdapterEndpoint"
 			uri="cxf:bean:incidentReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}" />
 
+		<endpoint id="incidentReportingFileEndpoint"
+			uri="file://{{analyticsAdapter.inputDirectory}}/incident/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/incident/error&amp;move=processed/" />
+
 		<endpoint id="pretrialEnrollmentRequestServiceAdapterEndpoint"
-					uri="cxf:bean:pretrialEnrollmentRequestAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}" />
+			uri="cxf:bean:pretrialEnrollmentRequestAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}" />
 					
  		<endpoint id="dispositionReportingServiceAdapterEndpoint"
-				uri="cxf:bean:dispositionReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}"/>					
+			uri="cxf:bean:dispositionReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}"/>					
 
 		<!-- Incident Reporting Route -->
 		<camel:route id="Incident_Repository_Service">
 		
 			<camel:from	uri="incidentReportingServiceAdapterEndpoint" />
-						
+			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:processIncident" />
+			
+		</camel:route>	
+		
+		<camel:route id="Incident_Repository_Service_Filedrop">
+		
+			<camel:from	uri="incidentReportingFileEndpoint" />
+			
+			<camel:to uri="direct:processIncident" />
+		</camel:route>
+		
+		<camel:route id="Incident_Repository_Service_Process_Incident">				
+
+			<camel:from	uri="direct:processIncident" />
 			
 			<camel:log message="Here is the inbound incident reporting message: ${body}" loggingLevel="DEBUG"/>
 			
 			<camel:to uri="bean:incidentReportProcessor?method=processIncidentReport"/>
-				
 			
 		</camel:route>		
 
