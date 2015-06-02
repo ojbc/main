@@ -157,8 +157,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public int saveArrest(final Arrest arrest) {
         log.debug("Inserting row into Arrest table");
 
-        //TODO: map latitute and longitude
-        
         final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestingAgencyID,ArrestDate,ArrestTime,ArrestDrugRelated ) values (?,?,?,?,?,?)";
 		
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -229,16 +227,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public int savePreTrialService(final PreTrialService preTrialService) {
         log.debug("Inserting row into PreTrialService table");
 
-        final String pretrialServiceInsertStatement="INSERT into PreTrialService (PretrialServiceDescription,IsParticipant) values (?,?)";
+        final String pretrialServiceInsertStatement="INSERT into PreTrialService (PretrialServiceDescription) values (?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(pretrialServiceInsertStatement, new String[] {"PretrialServiceDescription","IsParticipant"});
+        	                connection.prepareStatement(pretrialServiceInsertStatement, new String[] {"PretrialServiceDescription"});
         	            ps.setString(1, preTrialService.getPretrialServiceDescription());
-        	            ps.setString(2, preTrialService.getIsParticipant());
         	            return ps;
         	        }
         	    },

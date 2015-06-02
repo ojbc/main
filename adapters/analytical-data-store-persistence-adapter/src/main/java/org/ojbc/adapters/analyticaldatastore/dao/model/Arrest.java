@@ -34,8 +34,6 @@ public class Arrest {
     //fk
     private int arrestingAgencyID;
 
-    private BigDecimal arrestLocationLatitude;
-	private BigDecimal arrestLocationLongitude;
 	private Date arrestDate;
 	private Time arrestTime;
 	
@@ -72,22 +70,6 @@ public class Arrest {
 
 	public void setArrestingAgencyID(int arrestingAgencyID) {
 		this.arrestingAgencyID = arrestingAgencyID;
-	}
-
-	public BigDecimal getArrestLocationLatitude() {
-		return arrestLocationLatitude;
-	}
-
-	public void setArrestLocationLatitude(BigDecimal arrestLocationLatitude) {
-		this.arrestLocationLatitude = arrestLocationLatitude;
-	}
-
-	public BigDecimal getArrestLocationLongitude() {
-		return arrestLocationLongitude;
-	}
-
-	public void setArrestLocationLongitude(BigDecimal arrestLocationLongitude) {
-		this.arrestLocationLongitude = arrestLocationLongitude;
 	}
 
 	public Date getArrestDate() {
