@@ -19,6 +19,7 @@ package org.ojbc.adapters.analyticaldatastore.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -439,5 +440,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    },
         	    keyHolder);
 
-         return keyHolder.getKey().intValue();		}	
+         return keyHolder.getKey().intValue();		}
+
+	@Override
+	public List<Incident> searchForIncidentsByIncidentNumber(String incidentNumber) {
+		
+		String sql = "select * from Incident where IncidentCaseNumber = ?";
+		 
+		List<Incident> incidents = this.jdbcTemplate.query(sql, new Object[] { incidentNumber },new IncidentRowMapper());
+		
+		return incidents;
+		
+	}	
 }

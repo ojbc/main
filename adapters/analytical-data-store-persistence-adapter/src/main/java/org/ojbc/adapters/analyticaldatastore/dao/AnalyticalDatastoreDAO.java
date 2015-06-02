@@ -16,6 +16,8 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao;
 
+import java.util.List;
+
 import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
@@ -66,4 +68,6 @@ public interface AnalyticalDatastoreDAO {
 	public int saveCharge(Charge charge);
 	
 	public int saveDisposition(Disposition disposition);
+	
+	public List<Incident> searchForIncidentsByIncidentNumber(String incidentNumber);
 }

@@ -16,22 +16,17 @@
  */
 package org.ojbc.adapters.analyticaldatastore;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import junit.framework.Assert;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
@@ -51,7 +46,10 @@ import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
@@ -74,6 +72,9 @@ public class CamelContextTest {
     
     @Produce
     protected ProducerTemplate template;
+    
+	@Autowired
+	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
     
 	@Test
 	public void contextStartup() {
@@ -130,7 +131,10 @@ public class CamelContextTest {
 		//Sleep while a response is generated
 		Thread.sleep(3000);
 	    
-
+		List<Incident> incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumber("15999999999");
+		assertEquals(1,incidents.size());
+		assertEquals("15999999999",incidents.get(0).getIncidentCaseNumber());
+		
 	}
 
 	protected Exchange createSenderExchange(String pathToInputFile) throws Exception, IOException {
