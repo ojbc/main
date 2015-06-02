@@ -222,6 +222,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_ANSI_NIST = "http://niem.gov/niem/ansi-nist/2.0";
 	public static final String NS_PREFIX_SCREENING = "screening";
 	public static final String NS_SCREENING = "http://niem.gov/niem/domains/screening/2.0";
+	public static final String NS_PREFIX_SCREENING_21 = "screening21";
+	public static final String NS_SCREENING_21 = "http://niem.gov/niem/domains/screening/2.1";
 
 	public static final String NS_JXDM_41 = "http://niem.gov/niem/domains/jxdm/4.1";
 	public static final String NS_PREFIX_JXDM_41 = "jxdm41";
@@ -617,6 +619,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_ANSI_NIST, NS_PREFIX_ANSI_NIST);
 		prefixToUriMap.put(NS_PREFIX_SCREENING, NS_SCREENING);
 		uriToPrefixMap.put(NS_SCREENING, NS_PREFIX_SCREENING);
+		prefixToUriMap.put(NS_PREFIX_SCREENING_21, NS_SCREENING_21);
+		uriToPrefixMap.put(NS_SCREENING_21, NS_PREFIX_SCREENING_21);
 		prefixToUriMap.put(NS_DISPOSITION_EXCHANGE_PREFIX, NS_DISPOSITION_EXCHANGE);
 		uriToPrefixMap.put(NS_DISPOSITION_EXCHANGE, NS_DISPOSITION_EXCHANGE_PREFIX);
 		prefixToUriMap.put(NS_DISPOSITION_EXTENSION_PREFIX, NS_DISPOSITION_EXTENSION);
