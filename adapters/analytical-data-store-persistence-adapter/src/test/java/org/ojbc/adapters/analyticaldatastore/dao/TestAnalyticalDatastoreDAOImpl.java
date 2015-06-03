@@ -45,7 +45,6 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
-import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -171,12 +170,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int assessedNeedPk = analyticalDatastoreDAOImpl.saveAssessedNeed(assessedNeed);
 		assertEquals(1, assessedNeedPk);
 		
-		RiskScore riskScore = new RiskScore();
-		riskScore.setRiskScoreDescription("Risk Score Description");
-		
-		int riskScorePk = analyticalDatastoreDAOImpl.saveRiskScore(riskScore);
-		assertEquals(1, riskScorePk);
-		
 		PreTrialService preTrialService = new PreTrialService();
 		
 		preTrialService.setPretrialServiceDescription("Pretrial Description");
@@ -198,14 +191,11 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int personPk = analyticalDatastoreDAOImpl.savePerson(person);
 		//assertEquals(2, personPk);
 		
-		pretrialServiceParticipation.setAssessedNeedID(assessedNeedPk);
 		pretrialServiceParticipation.setCountyID(countyTypePk);
 		pretrialServiceParticipation.setIntakeDate(new Date());
 		pretrialServiceParticipation.setPersonID(personPk);
 		pretrialServiceParticipation.setPretrialServiceCaseNumber("case1234");
-		pretrialServiceParticipation.setPretrialServiceID(preTrialPk);
 		pretrialServiceParticipation.setRecordType('N');
-		pretrialServiceParticipation.setRiskScoreID(riskScorePk);
 		pretrialServiceParticipation.setRiskScore(1);
 		
 		int pretrialServiceParticipationPk = analyticalDatastoreDAOImpl.savePretrialServiceParticipation(pretrialServiceParticipation);

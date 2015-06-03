@@ -33,7 +33,6 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
-import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 
 public interface AnalyticalDatastoreDAO {
 
@@ -48,8 +47,6 @@ public interface AnalyticalDatastoreDAO {
 	public int saveArrest(Arrest arrest);
 	
 	public int saveAssessedNeed(AssessedNeed assesedNeed);
-	
-	public int saveRiskScore(RiskScore riskScore);
 	
 	public int savePreTrialService(PreTrialService preTrialService);
 	
@@ -70,6 +67,8 @@ public interface AnalyticalDatastoreDAO {
 	public int saveDisposition(Disposition disposition);
 	
 	public List<Incident> searchForIncidentsByIncidentNumber(String incidentNumber);
+	
+	public List<Arrest> searchForArrestsByIncidentPk(int incidentPk);
 	
 	public int returnPersonSexKeyfromSexDescription(String personSexDescription);
 	

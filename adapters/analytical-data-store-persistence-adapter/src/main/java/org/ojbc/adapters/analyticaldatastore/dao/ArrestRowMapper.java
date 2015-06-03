@@ -14,28 +14,28 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.analyticaldatastore.dao.model;
+package org.ojbc.adapters.analyticaldatastore.dao;
 
-public class RiskScore {
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-	//pk
-	private int riskScoreID;
-	
-	private String riskScoreDescription;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
+import org.springframework.jdbc.core.RowMapper;
 
-	public int getRiskScoreID() {
-		return riskScoreID;
+public class ArrestRowMapper implements RowMapper<Arrest>
+{
+	@Override
+	public Arrest mapRow(ResultSet rs, int rowNum) throws SQLException {
+    	Arrest arrest = new Arrest();
+    	
+    	arrest.setArrestDate(rs.getDate("ArrestDate"));
+    	arrest.setArrestTime(rs.getTime("ArrestTime"));
+    	arrest.setArrestDrugRelated(rs.getString("ArrestDrugRelated").charAt(0));
+    	arrest.setArrestingAgencyID(rs.getInt("ArrestingAgencyID"));
+    	arrest.setIncidentID(rs.getInt("IncidentID"));
+    	arrest.setPersonID(rs.getInt("PersonID"));
+    	
+    	return arrest;
 	}
 
-	public void setRiskScoreID(int riskScoreID) {
-		this.riskScoreID = riskScoreID;
-	}
-
-	public String getRiskScoreDescription() {
-		return riskScoreDescription;
-	}
-
-	public void setRiskScoreDescription(String riskScoreDescription) {
-		this.riskScoreDescription = riskScoreDescription;
-	}
 }

@@ -42,7 +42,6 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
-import org.ojbc.adapters.analyticaldatastore.dao.model.RiskScore;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -205,28 +204,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
          return keyHolder.getKey().intValue();
 	}
-	
-	@Override
-	public int saveRiskScore(final RiskScore riskScore) {
-
-        log.debug("Inserting row into RiskScore table");
-
-        final String riskScoreInsertStatement="INSERT into RiskScore (RiskScoreDescription) values (?)";
-        
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(riskScoreInsertStatement, new String[] {"RiskScoreDescription"});
-        	            ps.setString(1, riskScore.getRiskScoreDescription());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();
-	}
 
 	@Override
 	public int savePreTrialService(final PreTrialService preTrialService) {
@@ -344,24 +321,21 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
         log.debug("Inserting row into PretrialServiceParticipation table");
 
-        final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PretrialServiceID, PersonID, CountyID,RiskScoreID,AssessedNeedID,RiskScore,IntakeDate,RecordType) values (?,?,?,?,?,?,?,?,?)";
+        final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PersonID, CountyID,RiskScore,IntakeDate,RecordType) values (?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(pretrialServiceParticipationStatement, new String[] {"PretrialServiceCaseNumber", "PretrialServiceID", "PersonID", "CountyID", 
+        	                connection.prepareStatement(pretrialServiceParticipationStatement, new String[] {"PretrialServiceCaseNumber",  "PersonID", "CountyID", 
         	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "RecordType"});
         	            ps.setString(1, pretrialServiceParticipation.getPretrialServiceCaseNumber());
-        	            ps.setInt(2, pretrialServiceParticipation.getPretrialServiceID());
-        	            ps.setInt(3, pretrialServiceParticipation.getPersonID());
-        	            ps.setInt(4, pretrialServiceParticipation.getCountyID());
-        	            ps.setInt(5, pretrialServiceParticipation.getRiskScoreID());
-        	            ps.setInt(6, pretrialServiceParticipation.getAssessedNeedID());
-        	            ps.setInt(7, pretrialServiceParticipation.getRiskScore());
-        	            ps.setDate(8, new java.sql.Date(pretrialServiceParticipation.getIntakeDate().getTime()));
-        	            ps.setString(9, String.valueOf(pretrialServiceParticipation.getRecordType()));
+        	            ps.setInt(2, pretrialServiceParticipation.getPersonID());
+        	            ps.setInt(3, pretrialServiceParticipation.getCountyID());
+        	            ps.setInt(4, pretrialServiceParticipation.getRiskScore());
+        	            ps.setDate(5, new java.sql.Date(pretrialServiceParticipation.getIntakeDate().getTime()));
+        	            ps.setString(6, String.valueOf(pretrialServiceParticipation.getRecordType()));
 
         	            return ps;
         	        }
@@ -496,6 +470,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		Long personRaceKey = (Long)rows.get(0).get("PersonRaceID");
 		
 		return personRaceKey.intValue();
+	}
+
+	@Override
+	public List<Arrest> searchForArrestsByIncidentPk(int incidentPk) {
+		String sql = "select * from Arrest where IncidentID = ?";
+		 
+		List<Arrest> arrests = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new ArrestRowMapper());
+		
+		return arrests;
 	}	
 	
 }
