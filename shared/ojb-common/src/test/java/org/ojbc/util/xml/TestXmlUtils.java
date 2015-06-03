@@ -284,7 +284,7 @@ public class TestXmlUtils {
         Document instance = db.parse("src/test/resources/test-iepd/Criminal_History-IEPD/xml/Criminal_History.xml");
         Exception ee = null;
         try {
-            XmlUtils.validateInstance("test-iepd/Criminal_History-IEPD/xsd/", "NIEM_2.0", "Criminal_History.xsd", instance);
+            XmlUtils.validateInstance("test-iepd/Criminal_History-IEPD/xsd/", "NIEM_2.1", "Criminal_History.xsd", instance);
         } catch (Exception e) {
             ee = e;
             e.printStackTrace();
