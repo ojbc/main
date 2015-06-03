@@ -65,14 +65,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P8"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L1738931034">
             <nc:LocationAddress>
                 <nc:AddressFullText>4853 Richards Avenue Stockton, CA 95204</nc:AddressFullText>
@@ -101,7 +101,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2006-09-07</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A0202135878SP">
+            <rap:Supervision s:id="A0202135878SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2006-09-07</nc:Date>
@@ -114,13 +114,13 @@
                         <nc:Date>2007-12-04</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
                 <nc:Date>2006-10-11</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A9083422421SP">
+            <rap:Supervision s:id="A9083422421SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2006-10-11</nc:Date>
@@ -133,7 +133,7 @@
                         <nc:Date>2008-02-26</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -214,16 +214,16 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 09/07/2006 SUBJECT SENTENCED TO 15 MONTHS PROBATION AND A FINE OF $388.66</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC67143484</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 09/07/2006 SUBJECT SENTENCED TO 15 MONTHS PROBATION AND A FINE OF $388.66</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -278,16 +278,16 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 10/11/2006 SUBJECT SENTENCED TO 17 MONTHS PROBATION AND A FINE OF $690.39</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC38345934</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 10/11/2006 SUBJECT SENTENCED TO 17 MONTHS PROBATION AND A FINE OF $690.39</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -337,14 +337,14 @@
             <nc:ActivityReference s:ref="A0008524999"/>
             <nc:OrganizationReference s:ref="AGY-737139532"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A0202135878SP"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A0202135878SP"/>
             <nc:OrganizationReference s:ref="AGY2108635289"/>
-        </ch:SupervisionAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A9083422421SP"/>
+        </rap:SupervisionAgencyAssociation>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A9083422421SP"/>
             <nc:OrganizationReference s:ref="AGY-1358981206"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
         <ch-ext:Order>
             <nc:ActivityIdentification>
                 <nc:IdentificationID>ORDER5180806489</nc:IdentificationID>

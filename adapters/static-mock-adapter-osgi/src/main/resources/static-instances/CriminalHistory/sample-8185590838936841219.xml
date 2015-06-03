@@ -73,14 +73,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P13"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L726841077">
             <nc:LocationAddress>
                 <nc:AddressFullText>1271 Stratford Park Canaan, IN 47224</nc:AddressFullText>
@@ -109,7 +109,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2008-05-12</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A5039339584SC">
+            <rap:Supervision s:id="A5039339584SC">
                 <nc:ActivityCategoryText>CUSTODY</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2008-05-12</nc:Date>
@@ -122,13 +122,13 @@
                         <nc:Date>2021-11-16</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
                 <nc:Date>2008-05-12</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A5039339584SP">
+            <rap:Supervision s:id="A5039339584SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2008-05-12</nc:Date>
@@ -141,7 +141,7 @@
                         <nc:Date>2011-10-13</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -317,24 +317,24 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 05/12/2008 SUBJECT SENTENCED TO 42 MONTHS PROBATION AND A FINE OF $431.66</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC52146208</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 05/12/2008 SUBJECT SENTENCED TO 42 MONTHS PROBATION AND A FINE OF $431.66</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 05/12/2008 SUBJECT SENTENCED TO 14 YEARS CONFINEMENT AND A FINE OF $11,140.88</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC72290951</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 05/12/2008 SUBJECT SENTENCED TO 14 YEARS CONFINEMENT AND A FINE OF $11,140.88</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A4348421823"/>
@@ -348,14 +348,14 @@
             <nc:ActivityReference s:ref="A5039339584"/>
             <nc:OrganizationReference s:ref="AGY-1067346999"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A5039339584SC"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A5039339584SC"/>
             <nc:OrganizationReference s:ref="AGY442213575"/>
-        </ch:SupervisionAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A5039339584SP"/>
+        </rap:SupervisionAgencyAssociation>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A5039339584SP"/>
             <nc:OrganizationReference s:ref="AGY1570802871"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
         <ch-ext:Order>
             <nc:ActivityIdentification>
                 <nc:IdentificationID>ORDER5493745762</nc:IdentificationID>

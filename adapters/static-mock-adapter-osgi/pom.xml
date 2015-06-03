@@ -43,7 +43,7 @@
 		<spring-version>3.0.7.RELEASE</spring-version> <!-- Needs to be in sync with what's in the current version of SMX -->
 		<commons-math-version>3.2</commons-math-version>
 		<ojbc-resources-version>1.0.0</ojbc-resources-version>
-		<ojb-common-version>[2.0.3,)</ojb-common-version>
+		<ojb-common-version>2.0.4</ojb-common-version>
 		<spring-osgi-version>1.0.2</spring-osgi-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 	</properties>
