@@ -18,7 +18,6 @@ package org.ojbc.adapters.analyticaldatastore.processor;
 
 import java.math.BigDecimal;
 import java.sql.Time;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -202,6 +201,8 @@ public class IncidentReportProcessor {
 				
 				//Save arrest
 		        analyticalDatastoreDAO.saveArrest(arrest);
+		        
+		        //Save Charges
 		    }
 		}
 	}
