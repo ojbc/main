@@ -16,10 +16,14 @@
  */
 package org.ojbc.adapters.analyticaldatastore;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +80,8 @@ public class CamelContextTest {
 	@Autowired
 	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
     
+	private static final DateFormat DATE_FOMRAT = new SimpleDateFormat("MM/dd/yyyy");
+	
 	@Test
 	public void contextStartup() {
 		assertTrue(true);
@@ -134,6 +140,10 @@ public class CamelContextTest {
 		List<Incident> incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumber("15999999999");
 		assertEquals(1,incidents.size());
 		assertEquals("15999999999",incidents.get(0).getIncidentCaseNumber());
+		assertEquals("45 VT ROUTE 100",incidents.get(0).getIncidentLocationStreetAddress());
+		assertEquals("Dover",incidents.get(0).getIncidentLocationTown());
+		assertEquals("13:46:43",incidents.get(0).getIncidentTime().toString());
+		assertEquals("05/23/2015",DATE_FOMRAT.format(incidents.get(0).getIncidentDate()));
 		
 	}
 

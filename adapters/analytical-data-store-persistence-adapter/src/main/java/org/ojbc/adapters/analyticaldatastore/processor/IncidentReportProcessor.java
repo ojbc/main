@@ -18,6 +18,8 @@ package org.ojbc.adapters.analyticaldatastore.processor;
 
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -28,7 +30,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAO;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.personid.IdentifierGenerationStrategy;
 import org.ojbc.adapters.analyticaldatastore.util.AnalyticalDataStoreUtils;
 import org.ojbc.util.xml.XmlUtils;
@@ -48,6 +52,8 @@ public class IncidentReportProcessor {
 	private IdentifierGenerationStrategy identifierGenerationStrategy;
 	
 	private AnalyticalDatastoreDAO analyticalDatastoreDAO;
+	
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	
 	@Transactional
 	public void processIncidentReport(Document incidentReport) throws Exception
@@ -137,53 +143,105 @@ public class IncidentReportProcessor {
 		incident.setIncidentTypeID(1);
 		incident.setReportingAgencyID(1);
 		
-		analyticalDatastoreDAO.saveIncident(incident);
+		int incidentPk = analyticalDatastoreDAO.saveIncident(incident);
+		
+		processArrests(incidentReport, incidentPk);
 			
 	}
 
-	protected void processArrests(Document incidentReport)
+	protected void processArrests(Document incidentReport, int incidentPk)
 			throws Exception {
-		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestSubjectAssociation");
+		NodeList arrestSubjectAssocationNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestSubjectAssociation");
 		
-	    if (arrestNodes == null || arrestNodes.getLength() == 0) 
+	    if (arrestSubjectAssocationNodes == null || arrestSubjectAssocationNodes.getLength() == 0) 
 	    {
 			log.debug("No Arrest nodes in document");
 			return;
 	    }
 		
-		for (int i = 0; i < arrestNodes.getLength(); i++) 
+		for (int i = 0; i < arrestSubjectAssocationNodes.getLength(); i++) 
 		{
-		    if (arrestNodes.item(i).getNodeType() == Node.ELEMENT_NODE)
+			Arrest arrest = new Arrest();
+			
+			arrest.setIncidentID(incidentPk);
+			
+		    if (arrestSubjectAssocationNodes.item(i).getNodeType() == Node.ELEMENT_NODE)
 		    {
-		        String personId = XmlUtils.xPathStringSearch(arrestNodes.item(i), "nc:PersonReference/@s:ref");
+		        String personId = XmlUtils.xPathStringSearch(arrestSubjectAssocationNodes.item(i), "nc:PersonReference/@s:ref");
 		        log.debug("Arrestee Person ID: " + personId);
 		        
 		        Node personNode = XmlUtils.xPathNodeSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityPerson/lexsdigest:Person[@s:id='" + personId + "']");
 		        
 		        Map<String, Object> arrestee = AnalyticalDataStoreUtils.retrieveMapOfPersonAttributes(personNode);
-		        
 		        String personIdentifierKey = identifierGenerationStrategy.generateIdentifier(arrestee);
-
 		        log.debug("Arrestee person identifier keys: " + personIdentifierKey);
+
+		        String personBirthDateAsString = (String)arrestee.get("personDateOfBirth");
+		        String personRace = (String)arrestee.get("personRace");
+		        String personSex = (String)arrestee.get("personSex");
 		        
-		        String arrestActivityReference = XmlUtils.xPathStringSearch(arrestNodes.item(i), "nc:ActivityReference/@s:ref");
-		        log.debug("Arrest Activity Reference: " + arrestActivityReference);
+		        int personPk = savePerson(personBirthDateAsString, personSex, personRace, personIdentifierKey);	
+		        arrest.setPersonID(personPk);
 		        
-		        Node arrestNode = XmlUtils.xPathNodeSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityActivity/nc:Activity[@s:id='" + arrestActivityReference + "']");
+		        Date arrestDateTime = returnArrestDate(incidentReport,
+		        		arrestSubjectAssocationNodes.item(i));
 		        
-		        String arrestDateTimeAsString = XmlUtils.xPathStringSearch(arrestNode, "nc:ActivityDate/nc:DateTime");
-		        
-				Calendar arrestDateTimeCal = DatatypeConverter.parseDateTime(arrestDateTimeAsString);
-				Date arrestDateTime = arrestDateTimeCal.getTime();
+		        arrest.setArrestDate(arrestDateTime);
 
 				Time arrestTime =  new Time(arrestDateTime.getTime());
 				log.debug("Arrest Time: " + arrestTime.toString());
 
+				arrest.setArrestTime(arrestTime);
+				
 				String arrestingAgency = returnArrestingAgency(incidentReport);
 				log.debug("Arresting Agency: " + arrestingAgency);
-		        
+
+				//TODO: Get these values from actual code tables or from the an Xpath
+				arrest.setArrestingAgencyID(1);
+				arrest.setArrestDrugRelated('N');
+				
+				//Save arrest
+		        analyticalDatastoreDAO.saveArrest(arrest);
 		    }
 		}
+	}
+
+	protected Date returnArrestDate(Document incidentReport,
+			Node arrestSubjectAssocationNode) throws Exception {
+		String arrestActivityReference = XmlUtils.xPathStringSearch(arrestSubjectAssocationNode, "nc:ActivityReference/@s:ref");
+		log.debug("Arrest Activity Reference: " + arrestActivityReference);
+		
+		Node arrestNode = XmlUtils.xPathNodeSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityActivity/nc:Activity[@s:id='" + arrestActivityReference + "']");
+		
+		String arrestDateTimeAsString = XmlUtils.xPathStringSearch(arrestNode, "nc:ActivityDate/nc:DateTime");
+		
+		Calendar arrestDateTimeCal = DatatypeConverter.parseDateTime(arrestDateTimeAsString);
+		Date arrestDateTime = arrestDateTimeCal.getTime();
+		return arrestDateTime;
+	}
+
+	protected int savePerson(String personBirthDateAsString, String personRace, String personSex,
+			String personIdentifierKey) throws Exception {
+		//Save person
+		Person person = new Person();
+		
+		person.setPersonUniqueIdentifier(personIdentifierKey);
+		
+		if (StringUtils.isNotEmpty(personBirthDateAsString))
+		{
+			Date personBirthDate = DATE_FORMAT.parse(personBirthDateAsString);
+			person.setPersonBirthDate(personBirthDate);
+		}	
+		
+		//Get Person Race from code table
+		int personRacePk = analyticalDatastoreDAO.returnPersonRaceKeyfromRaceDescription(personRace);
+		person.setPersonRaceID(personRacePk);
+		//Get Person Sex from code table
+		int personSexPk = analyticalDatastoreDAO.returnPersonSexKeyfromSexDescription(personSex);
+		person.setPersonSexID(personSexPk);
+		
+		int personPk = analyticalDatastoreDAO.savePerson(person);
+		return personPk;
 	}
 
 	private String returnArrestingAgency(Node incidentReport) throws Exception
@@ -217,5 +275,6 @@ public class IncidentReportProcessor {
 			AnalyticalDatastoreDAO analyticalDatastoreDAO) {
 		this.analyticalDatastoreDAO = analyticalDatastoreDAO;
 	}
+
 	
 }

@@ -70,4 +70,8 @@ public interface AnalyticalDatastoreDAO {
 	public int saveDisposition(Disposition disposition);
 	
 	public List<Incident> searchForIncidentsByIncidentNumber(String incidentNumber);
+	
+	public int returnPersonSexKeyfromSexDescription(String personSexDescription);
+	
+	public int returnPersonRaceKeyfromRaceDescription(String personRaceDescription);
 }

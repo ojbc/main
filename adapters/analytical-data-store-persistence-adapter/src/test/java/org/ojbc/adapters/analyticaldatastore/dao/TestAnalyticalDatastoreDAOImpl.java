@@ -206,6 +206,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		pretrialServiceParticipation.setPretrialServiceID(preTrialPk);
 		pretrialServiceParticipation.setRecordType('N');
 		pretrialServiceParticipation.setRiskScoreID(riskScorePk);
+		pretrialServiceParticipation.setRiskScore(1);
 		
 		int pretrialServiceParticipationPk = analyticalDatastoreDAOImpl.savePretrialServiceParticipation(pretrialServiceParticipation);
 		assertEquals(1, pretrialServiceParticipationPk);
@@ -255,4 +256,12 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 	}
 
+	@Test
+	public void testReturnPersonSexKeyfromSexDescription()
+	{
+		int sexPk = analyticalDatastoreDAOImpl.returnPersonSexKeyfromSexDescription("M");
+		
+		assertEquals(1, sexPk);
+		
+	}
 }
