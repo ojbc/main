@@ -61,14 +61,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P96"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L94206285">
             <nc:LocationAddress>
                 <nc:AddressFullText>4526 Vine Street Waukegan, IL 60085</nc:AddressFullText>

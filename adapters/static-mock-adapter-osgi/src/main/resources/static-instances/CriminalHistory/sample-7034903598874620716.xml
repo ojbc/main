@@ -65,14 +65,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P88"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L684386841">
             <nc:LocationAddress>
                 <nc:AddressFullText>268 Isaacs Creek Road Danville, IL 61832</nc:AddressFullText>
@@ -110,7 +110,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2011-05-16</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A1623458130SC">
+            <rap:Supervision s:id="A1623458130SC">
                 <nc:ActivityCategoryText>CUSTODY</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2011-05-16</nc:Date>
@@ -123,13 +123,13 @@
                         <nc:Date>2013-04-10</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
                 <nc:Date>2012-07-11</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A2897834729SP">
+            <rap:Supervision s:id="A2897834729SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2012-07-11</nc:Date>
@@ -142,7 +142,7 @@
                         <nc:Date>2013-11-17</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -197,16 +197,16 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 05/16/2011 SUBJECT SENTENCED TO 695 DAYS CONFINEMENT AND A FINE OF $791.92</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC27367416</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 05/16/2011 SUBJECT SENTENCED TO 695 DAYS CONFINEMENT AND A FINE OF $791.92</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -400,16 +400,16 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 07/11/2012 SUBJECT SENTENCED TO 16 MONTHS PROBATION AND A FINE OF $796.40</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC01931010</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 07/11/2012 SUBJECT SENTENCED TO 16 MONTHS PROBATION AND A FINE OF $796.40</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -528,13 +528,13 @@
             <nc:ActivityReference s:ref="A8268924367"/>
             <nc:OrganizationReference s:ref="AGY1028037696"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A1623458130SC"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A1623458130SC"/>
             <nc:OrganizationReference s:ref="AGY442213575"/>
-        </ch:SupervisionAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A2897834729SP"/>
+        </rap:SupervisionAgencyAssociation>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A2897834729SP"/>
             <nc:OrganizationReference s:ref="AGY1548424217"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

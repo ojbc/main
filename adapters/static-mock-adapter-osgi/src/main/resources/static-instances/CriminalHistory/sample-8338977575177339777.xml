@@ -73,14 +73,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P70"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L1187052686">
             <nc:LocationAddress>
                 <nc:AddressFullText>2181 Hershell Hollow Road Rogersville, TN 37856</nc:AddressFullText>
@@ -103,7 +103,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2008-06-21</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A7061281877SP">
+            <rap:Supervision s:id="A7061281877SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2008-06-21</nc:Date>
@@ -116,7 +116,7 @@
                         <nc:Date>2013-05-19</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -184,32 +184,32 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 06/21/2008 SUBJECT SENTENCED TO 19 MONTHS PROBATION AND A FINE OF $776.36</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC22172295</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 06/21/2008 SUBJECT SENTENCED TO 19 MONTHS PROBATION AND A FINE OF $776.36</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 06/21/2008 SUBJECT SENTENCED TO 60 MONTHS PROBATION AND A FINE OF $868.86</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC91100192</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 06/21/2008 SUBJECT SENTENCED TO 60 MONTHS PROBATION AND A FINE OF $868.86</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A7061281877"/>
             <nc:OrganizationReference s:ref="AGY726236048"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A7061281877SP"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A7061281877SP"/>
             <nc:OrganizationReference s:ref="AGY747840612"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

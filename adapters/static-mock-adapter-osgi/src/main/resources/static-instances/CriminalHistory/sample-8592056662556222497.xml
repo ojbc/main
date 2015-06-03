@@ -69,14 +69,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P99"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L709146615">
             <nc:LocationAddress>
                 <nc:AddressFullText>3895 Eagle Street Fairview Heights, IL 62208</nc:AddressFullText>

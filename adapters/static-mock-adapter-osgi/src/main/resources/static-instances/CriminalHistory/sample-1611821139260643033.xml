@@ -69,14 +69,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P76"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L297419097">
             <nc:LocationAddress>
                 <nc:AddressFullText>4651 Hott Street Oklahoma City, OK 73109</nc:AddressFullText>
@@ -99,7 +99,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2008-03-17</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A9956146405SC">
+            <rap:Supervision s:id="A9956146405SC">
                 <nc:ActivityCategoryText>CUSTODY</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2008-03-17</nc:Date>
@@ -112,7 +112,7 @@
                         <nc:Date>2010-11-23</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -167,16 +167,16 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 03/17/2008 SUBJECT SENTENCED TO 3 YEARS CONFINEMENT AND A FINE OF $7,471.44</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC28413980</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 03/17/2008 SUBJECT SENTENCED TO 3 YEARS CONFINEMENT AND A FINE OF $7,471.44</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -240,9 +240,9 @@
             <nc:ActivityReference s:ref="A3622439882"/>
             <nc:OrganizationReference s:ref="AGY1946953609"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A9956146405SC"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A9956146405SC"/>
             <nc:OrganizationReference s:ref="AGY442213575"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

@@ -73,14 +73,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P69"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L1933661991">
             <nc:LocationAddress>
                 <nc:AddressFullText>581 Williams Mine Road Newark, NJ 07102</nc:AddressFullText>
@@ -100,7 +100,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2013-04-29</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A4733675023SP">
+            <rap:Supervision s:id="A4733675023SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2013-04-29</nc:Date>
@@ -113,7 +113,7 @@
                         <nc:Date>2016-12-16</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -155,24 +155,24 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 04/29/2013 SUBJECT SENTENCED TO 44 MONTHS PROBATION AND A FINE OF $415.20</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC92240185</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 04/29/2013 SUBJECT SENTENCED TO 44 MONTHS PROBATION AND A FINE OF $415.20</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A4733675023"/>
             <nc:OrganizationReference s:ref="AGY1073178338"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A4733675023SP"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A4733675023SP"/>
             <nc:OrganizationReference s:ref="AGY-1416287422"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

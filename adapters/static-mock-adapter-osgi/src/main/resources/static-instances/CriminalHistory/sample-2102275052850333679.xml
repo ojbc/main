@@ -73,14 +73,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P51"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L1932654873">
             <nc:LocationAddress>
                 <nc:AddressFullText>4089 Ross Street Collinsville, IL 62234</nc:AddressFullText>
@@ -109,7 +109,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2008-10-27</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A4575813164SC">
+            <rap:Supervision s:id="A4575813164SC">
                 <nc:ActivityCategoryText>CUSTODY</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2008-10-27</nc:Date>
@@ -122,7 +122,7 @@
                         <nc:Date>2008-10-29</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -229,16 +229,16 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 10/27/2008 SUBJECT SENTENCED TO 2 DAYS CONFINEMENT AND A FINE OF $800.01</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC78868925</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 10/27/2008 SUBJECT SENTENCED TO 2 DAYS CONFINEMENT AND A FINE OF $800.01</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -323,9 +323,9 @@
             <nc:ActivityReference s:ref="A8433308208"/>
             <nc:OrganizationReference s:ref="AGY-425735380"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A4575813164SC"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A4575813164SC"/>
             <nc:OrganizationReference s:ref="AGY264536467"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

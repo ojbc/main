@@ -65,14 +65,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P85"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L791561201">
             <nc:LocationAddress>
                 <nc:AddressFullText>3131 Bee Street Wolf Lake (Muskegon), MI 49442</nc:AddressFullText>
@@ -98,7 +98,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2008-03-07</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A1782348956SP">
+            <rap:Supervision s:id="A1782348956SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2008-03-07</nc:Date>
@@ -111,7 +111,7 @@
                         <nc:Date>2010-05-21</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -259,16 +259,16 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 03/07/2008 SUBJECT SENTENCED TO 27 MONTHS PROBATION AND A FINE OF $558.27</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC19119599</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 03/07/2008 SUBJECT SENTENCED TO 27 MONTHS PROBATION AND A FINE OF $558.27</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A1463706372"/>
@@ -282,9 +282,9 @@
             <nc:ActivityReference s:ref="A1782348956"/>
             <nc:OrganizationReference s:ref="AGY-180040441"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A1782348956SP"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A1782348956SP"/>
             <nc:OrganizationReference s:ref="AGY806146623"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

@@ -69,14 +69,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P19"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L1738931034">
             <nc:LocationAddress>
                 <nc:AddressFullText>3014 College View Saint Louis, IL 63101</nc:AddressFullText>
@@ -105,7 +105,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2010-01-19</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A7458056015SP">
+            <rap:Supervision s:id="A7458056015SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2010-01-19</nc:Date>
@@ -118,7 +118,7 @@
                         <nc:Date>2013-03-02</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -264,24 +264,24 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 01/19/2010 SUBJECT SENTENCED TO 20 MONTHS PROBATION AND A FINE OF $449.68</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC22951136</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 01/19/2010 SUBJECT SENTENCED TO 20 MONTHS PROBATION AND A FINE OF $449.68</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 01/19/2010 SUBJECT SENTENCED TO 38 MONTHS PROBATION AND A FINE OF $581.69</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC21082338</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 01/19/2010 SUBJECT SENTENCED TO 38 MONTHS PROBATION AND A FINE OF $581.69</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A4035953904"/>
@@ -295,9 +295,9 @@
             <nc:ActivityReference s:ref="A7458056015"/>
             <nc:OrganizationReference s:ref="AGY45843055"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A7458056015SP"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A7458056015SP"/>
             <nc:OrganizationReference s:ref="AGY466284650"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

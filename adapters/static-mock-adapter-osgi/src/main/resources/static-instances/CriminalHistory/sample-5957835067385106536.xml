@@ -73,14 +73,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P90"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L643018452">
             <nc:LocationAddress>
                 <nc:AddressFullText>2393 Lena Lane Meridian, MS 39301</nc:AddressFullText>
@@ -103,7 +103,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2007-06-30</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A5518088209SP">
+            <rap:Supervision s:id="A5518088209SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2007-06-30</nc:Date>
@@ -116,7 +116,7 @@
                         <nc:Date>2009-01-26</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -197,16 +197,16 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 06/30/2007 SUBJECT SENTENCED TO 19 MONTHS PROBATION AND A FINE OF $774.03</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC13109994</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 06/30/2007 SUBJECT SENTENCED TO 19 MONTHS PROBATION AND A FINE OF $774.03</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -257,10 +257,10 @@
             <nc:ActivityReference s:ref="A5281696676"/>
             <nc:OrganizationReference s:ref="AGY-53392526"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A5518088209SP"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A5518088209SP"/>
             <nc:OrganizationReference s:ref="AGY1527577770"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
         <ch-ext:Order>
             <nc:ActivityIdentification>
                 <nc:IdentificationID>ORDER9362445964</nc:IdentificationID>

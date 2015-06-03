@@ -61,14 +61,14 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
         </ch-ext:Person>
-        <screening:PersonBiometricsAssociation>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P32"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
             <rap:PersonBiometrics/>
-        </screening:PersonBiometricsAssociation>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L1145346812">
             <nc:LocationAddress>
                 <nc:AddressFullText>1611 Haymond Rocks Road Elkton, OR 97436</nc:AddressFullText>
@@ -100,7 +100,7 @@
             <rap:CycleEarliestDate>
                 <nc:Date>2010-02-24</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A1513497894SC">
+            <rap:Supervision s:id="A1513497894SC">
                 <nc:ActivityCategoryText>CUSTODY</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2010-02-24</nc:Date>
@@ -113,13 +113,13 @@
                         <nc:Date>2010-03-27</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
                 <nc:Date>2012-06-21</nc:Date>
             </rap:CycleEarliestDate>
-            <ch:Supervision s:id="A3695972483SP">
+            <rap:Supervision s:id="A3695972483SP">
                 <nc:ActivityCategoryText>PROBATION</nc:ActivityCategoryText>
                 <nc:ActivityDate>
                     <nc:Date>2012-06-21</nc:Date>
@@ -132,7 +132,7 @@
                         <nc:Date>2017-04-08</nc:Date>
                     </nc:ActivityDate>
                 </nc:SupervisionRelease>
-            </ch:Supervision>
+            </rap:Supervision>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -213,16 +213,16 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 02/24/2010 SUBJECT SENTENCED TO 31 DAYS CONFINEMENT AND A FINE OF $798.11</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC52172075</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 02/24/2010 SUBJECT SENTENCED TO 31 DAYS CONFINEMENT AND A FINE OF $798.11</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <ch-ext:RapSheetCycle>
             <rap:CycleEarliestDate>
@@ -342,24 +342,24 @@
                     </jxdm41:ChargeTrackingIdentification>
                 </rap:CourtCharge>
             </rap:CourtAction>
-            <ch:Sentencing>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+            <ch-ext:Sentencing>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 06/21/2012 SUBJECT SENTENCED TO 54 MONTHS PROBATION AND A FINE OF $634.02</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC52480353</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 06/21/2012 SUBJECT SENTENCED TO 54 MONTHS PROBATION AND A FINE OF $634.02</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-                <jxdm41:Sentence>
-                    <jxdm41:SentenceCharge>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+                <ch-ext:Sentence>
+                    <jxdm41:SentenceDescriptionText>ON 06/21/2012 SUBJECT SENTENCED TO 58 MONTHS PROBATION AND A FINE OF $265.13</jxdm41:SentenceDescriptionText>
+                    <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC13541330</nc:IdentificationID>
                         </jxdm41:ChargeTrackingIdentification>
-                    </jxdm41:SentenceCharge>
-                    <jxdm41:SentenceDescriptionText>ON 06/21/2012 SUBJECT SENTENCED TO 58 MONTHS PROBATION AND A FINE OF $265.13</jxdm41:SentenceDescriptionText>
-                </jxdm41:Sentence>
-            </ch:Sentencing>
+                    </rap:SentenceCharge>
+                </ch-ext:Sentence>
+            </ch-ext:Sentencing>
         </ch-ext:RapSheetCycle>
         <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A0396437712"/>
@@ -373,14 +373,14 @@
             <nc:ActivityReference s:ref="A3695972483"/>
             <nc:OrganizationReference s:ref="AGY1063519131"/>
         </rap:ArrestAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A1513497894SC"/>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A1513497894SC"/>
             <nc:OrganizationReference s:ref="AGY1242738629"/>
-        </ch:SupervisionAgencyAssociation>
-        <ch:SupervisionAgencyAssociation>
-            <ch:SupervisionReference s:ref="A3695972483SP"/>
+        </rap:SupervisionAgencyAssociation>
+        <rap:SupervisionAgencyAssociation>
+            <rap:SupervisionReference s:ref="A3695972483SP"/>
             <nc:OrganizationReference s:ref="AGY2023647508"/>
-        </ch:SupervisionAgencyAssociation>
+        </rap:SupervisionAgencyAssociation>
         <ch-ext:Order>
             <nc:ActivityIdentification>
                 <nc:IdentificationID>ORDER7857933577</nc:IdentificationID>
