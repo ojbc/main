@@ -210,7 +210,9 @@
 <div id="searchTabs" class="contentBox">
     <div id="search-tab-title">ADVANCED SEARCH: PERSON</div>
     <ul>
-        <li><a href="#juvenileSearchTab">JUVENILE SEARCH</a></li>
+        #if($showJuvenileSearchTab)
+        	<li><a href="#juvenileSearchTab">JUVENILE SEARCH</a></li>
+    	#end
         <li><a href="#advancedSearchTab">ADVANCED SEARCH</a></li>
         <li><a href="#simpleSearchTab">SIMPLE SEARCH</a></li>
     </ul>
@@ -298,6 +300,8 @@
     	        </div>
 		    </form>
         </div>
-  		#parse('people/_juvenileSearchTab.vm')
+        #if($showJuvenileSearchTab)
+  			#parse('people/_juvenileSearchTab.vm')
+  		#end
   
 </div>
