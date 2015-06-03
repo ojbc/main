@@ -25,7 +25,7 @@
             <rap:RapSheetRequest>
                 <rap:PurposeCode>A</rap:PurposeCode>
                 <rap:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</rap:Attention>
-                <ch-ext:Person>
+                <rap:RapSheetPerson>
                     <nc:PersonBirthDate>
                         <nc:Date>1972-05-02</nc:Date>
                     </nc:PersonBirthDate>
@@ -34,7 +34,7 @@
                         <nc:PersonMiddleName>D</nc:PersonMiddleName>
                         <nc:PersonSurName>Macdonald</nc:PersonSurName>
                     </nc:PersonName>
-                </ch-ext:Person>
+                </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
         <ch-ext:Person s:id="P76">
@@ -42,7 +42,7 @@
                 <nc:Date>1972-05-02</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Black</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Red</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Red Or Auburn</rap:PersonHairColorText>
             <nc:PersonHeightMeasure>
                 <nc:MeasurePointValue>72</nc:MeasurePointValue>
                 <nc:LengthUnitCode>INH</nc:LengthUnitCode>

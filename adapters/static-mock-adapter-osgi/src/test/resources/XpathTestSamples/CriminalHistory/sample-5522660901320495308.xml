@@ -42,7 +42,7 @@
                 <nc:Date>1929-05-10</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Black</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Blonde</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Blonde Or Strawberry</rap:PersonHairColorText>
             <nc:PersonHeightMeasure>
                 <nc:MeasurePointValue>71</nc:MeasurePointValue>
                 <nc:LengthUnitCode>INH</nc:LengthUnitCode>
@@ -137,7 +137,7 @@
                     <nc:IdentificationID>TRO-2013-91782011</nc:IdentificationID>
                 </nc:ActivityIdentification>
             </ch-ext:CourtCase>
-            <ch-ext:ProtectionOrderExpirationDate>2011-02-03</ch-ext:ProtectionOrderExpirationDate>
+            <ch-ext:ProtectionOrderExpirationDate><nc:Date>2011-02-03</nc:Date></ch-ext:ProtectionOrderExpirationDate>
         </ch-ext:Order>
         <ch-ext:Order>
             <nc:ActivityIdentification>
@@ -157,7 +157,7 @@
                     <nc:IdentificationID>TRO-2013-07654257</nc:IdentificationID>
                 </nc:ActivityIdentification>
             </ch-ext:CourtCase>
-            <ch-ext:ProtectionOrderExpirationDate>2012-06-19</ch-ext:ProtectionOrderExpirationDate>
+            <ch-ext:ProtectionOrderExpirationDate><nc:Date>2012-06-19</nc:Date></ch-ext:ProtectionOrderExpirationDate>
         </ch-ext:Order>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

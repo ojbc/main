@@ -46,7 +46,7 @@
                 <nc:Date>1931-03-21</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Black</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Blonde</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Blonde Or Strawberry</rap:PersonHairColorText>
             <nc:PersonName>
                 <nc:PersonGivenName>Samatha</nc:PersonGivenName>
                 <nc:PersonMiddleName>J</nc:PersonMiddleName>
@@ -182,7 +182,7 @@
                     <nc:IdentificationID>TRO-2013-94763169</nc:IdentificationID>
                 </nc:ActivityIdentification>
             </ch-ext:CourtCase>
-            <ch-ext:ProtectionOrderExpirationDate>2013-07-27</ch-ext:ProtectionOrderExpirationDate>
+            <ch-ext:ProtectionOrderExpirationDate><nc:Date>2013-07-27</nc:Date></ch-ext:ProtectionOrderExpirationDate>
         </ch-ext:Order>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

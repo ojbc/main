@@ -46,7 +46,7 @@
                 <nc:Date>1955-01-10</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Hazel</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Red</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Red Or Auburn</rap:PersonHairColorText>
             <nc:PersonHeightMeasure>
                 <nc:MeasurePointValue>64</nc:MeasurePointValue>
                 <nc:LengthUnitCode>INH</nc:LengthUnitCode>

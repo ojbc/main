@@ -16,7 +16,24 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"  xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.1" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
+<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
+    xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+    xmlns:rap="http://nlets.org/niem2/rapsheet/1.0"
+    xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0"
+    xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0"
+    xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+    xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0"
+    xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
+    xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
+    xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+    xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
+    xmlns:s="http://niem.gov/niem/structures/2.0"
+    xmlns:screening="http://niem.gov/niem/domains/screening/2.1"
+    xmlns:usps-states="http://niem.gov/niem/usps_states/2.0"
+    xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0"
+    xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
     <ch-ext:RapSheet>
         <rap:Metadata>
             <nc:ReportingOrganizationText>State CHRI</nc:ReportingOrganizationText>
@@ -24,7 +41,8 @@
         <rap:Introduction>
             <rap:RapSheetRequest>
                 <rap:PurposeCode>A</rap:PurposeCode>
-                <rap:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</rap:Attention>
+                <rap:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES
+                    ONLY**</rap:Attention>
                 <rap:RapSheetPerson>
                     <nc:PersonBirthDate>
                         <nc:Date>1944-06-08</nc:Date>
@@ -42,7 +60,7 @@
                 <nc:Date>1944-06-08</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Black</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Red</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Red Or Auburn</rap:PersonHairColorText>
             <nc:PersonHeightMeasure>
                 <nc:MeasurePointValue>65</nc:MeasurePointValue>
                 <nc:LengthUnitCode>INH</nc:LengthUnitCode>
@@ -234,7 +252,8 @@
             </rap:CourtAction>
             <ch-ext:Sentencing>
                 <ch-ext:Sentence>
-                    <jxdm41:SentenceDescriptionText>ON 09/05/2010 SUBJECT SENTENCED TO 21 MONTHS PROBATION AND A FINE OF $413.95</jxdm41:SentenceDescriptionText>
+                    <jxdm41:SentenceDescriptionText>ON 09/05/2010 SUBJECT SENTENCED TO 21 MONTHS
+                        PROBATION AND A FINE OF $413.95</jxdm41:SentenceDescriptionText>
                     <rap:SentenceCharge>
                         <jxdm41:ChargeTrackingIdentification>
                             <nc:IdentificationID>AC57311825</nc:IdentificationID>

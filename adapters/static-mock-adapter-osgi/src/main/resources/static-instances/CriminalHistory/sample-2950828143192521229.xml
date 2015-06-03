@@ -50,7 +50,7 @@
                 <nc:Date>1987-12-13</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Blue</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Red</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Red Or Auburn</rap:PersonHairColorText>
             <nc:PersonName>
                 <nc:PersonGivenName>Nellie</nc:PersonGivenName>
                 <nc:PersonMiddleName>B</nc:PersonMiddleName>
