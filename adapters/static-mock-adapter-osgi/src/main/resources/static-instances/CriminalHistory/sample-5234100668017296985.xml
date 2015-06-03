@@ -249,7 +249,9 @@
 				<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
 				<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
 			</ch-ext:CourtCase>
-			<ch-ext:ProtectionOrderExpirationDate>2013-07-01</ch-ext:ProtectionOrderExpirationDate>
+			<ch-ext:ProtectionOrderExpirationDate>
+				<nc:Date>2013-07-01</nc:Date>
+			</ch-ext:ProtectionOrderExpirationDate>
 		</ch-ext:Order>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

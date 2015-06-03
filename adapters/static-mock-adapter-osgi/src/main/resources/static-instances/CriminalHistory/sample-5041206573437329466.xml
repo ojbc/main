@@ -46,7 +46,7 @@
                 <nc:Date>1982-02-01</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Blue</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Blonde</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Blonde Or Strawberry</rap:PersonHairColorText>
             <nc:PersonName>
                 <nc:PersonGivenName>Rebecca</nc:PersonGivenName>
                 <nc:PersonMiddleName>J</nc:PersonMiddleName>
@@ -178,7 +178,9 @@
                     <nc:IdentificationID>TRO-2013-36888089</nc:IdentificationID>
                 </nc:ActivityIdentification>
             </ch-ext:CourtCase>
-            <ch-ext:ProtectionOrderExpirationDate>2009-09-12</ch-ext:ProtectionOrderExpirationDate>
+            <ch-ext:ProtectionOrderExpirationDate>
+            	<nc:Date>2009-09-12</nc:Date>
+            </ch-ext:ProtectionOrderExpirationDate>
         </ch-ext:Order>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

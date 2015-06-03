@@ -46,7 +46,7 @@
                 <nc:Date>1979-10-25</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Hazel</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Red</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Red Or Auburn</rap:PersonHairColorText>
             <nc:PersonName>
                 <nc:PersonGivenName>John</nc:PersonGivenName>
                 <nc:PersonMiddleName>L</nc:PersonMiddleName>
@@ -363,7 +363,7 @@
                     <nc:IdentificationID>TRO-2013-08324092</nc:IdentificationID>
                 </nc:ActivityIdentification>
             </ch-ext:CourtCase>
-            <ch-ext:ProtectionOrderExpirationDate>2012-05-17</ch-ext:ProtectionOrderExpirationDate>
+            <ch-ext:ProtectionOrderExpirationDate><nc:Date>2012-05-17</nc:Date></ch-ext:ProtectionOrderExpirationDate>
         </ch-ext:Order>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

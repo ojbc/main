@@ -42,7 +42,7 @@
                 <nc:Date>1944-04-28</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Black</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Red</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Red Or Auburn</rap:PersonHairColorText>
             <nc:PersonName>
                 <nc:PersonGivenName>William</nc:PersonGivenName>
                 <nc:PersonMiddleName>E</nc:PersonMiddleName>
@@ -218,7 +218,7 @@
                     <nc:IdentificationID>TRO-2013-58087643</nc:IdentificationID>
                 </nc:ActivityIdentification>
             </ch-ext:CourtCase>
-            <ch-ext:ProtectionOrderExpirationDate>2010-05-23</ch-ext:ProtectionOrderExpirationDate>
+            <ch-ext:ProtectionOrderExpirationDate><nc:Date>2010-05-23</nc:Date></ch-ext:ProtectionOrderExpirationDate>
         </ch-ext:Order>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

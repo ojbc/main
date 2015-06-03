@@ -399,7 +399,7 @@
                     <nc:IdentificationID>TRO-2013-70404547</nc:IdentificationID>
                 </nc:ActivityIdentification>
             </ch-ext:CourtCase>
-            <ch-ext:ProtectionOrderExpirationDate>2013-10-22</ch-ext:ProtectionOrderExpirationDate>
+            <ch-ext:ProtectionOrderExpirationDate><nc:Date>2013-10-22</nc:Date></ch-ext:ProtectionOrderExpirationDate>
         </ch-ext:Order>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

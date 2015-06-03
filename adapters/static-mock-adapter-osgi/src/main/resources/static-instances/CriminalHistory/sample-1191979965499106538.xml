@@ -46,7 +46,7 @@
                 <nc:Date>1934-11-24</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Hazel</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Red</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Red Or Auburn</rap:PersonHairColorText>
             <nc:PersonHeightMeasure>
                 <nc:MeasurePointValue>66</nc:MeasurePointValue>
                 <nc:LengthUnitCode>INH</nc:LengthUnitCode>
@@ -163,7 +163,9 @@
                     <nc:IdentificationID>TRO-2013-61425353</nc:IdentificationID>
                 </nc:ActivityIdentification>
             </ch-ext:CourtCase>
-            <ch-ext:ProtectionOrderExpirationDate>2010-01-31</ch-ext:ProtectionOrderExpirationDate>
+            <ch-ext:ProtectionOrderExpirationDate>
+            	<nc:Date>2010-01-31</nc:Date>
+           	</ch-ext:ProtectionOrderExpirationDate>
         </ch-ext:Order>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

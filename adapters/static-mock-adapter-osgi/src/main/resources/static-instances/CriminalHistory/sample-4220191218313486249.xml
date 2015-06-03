@@ -46,7 +46,7 @@
                 <nc:Date>1936-04-13</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Blue</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Blonde</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Blonde Or Strawberry</rap:PersonHairColorText>
             <nc:PersonHeightMeasure>
                 <nc:MeasurePointValue>66</nc:MeasurePointValue>
                 <nc:LengthUnitCode>INH</nc:LengthUnitCode>

@@ -42,7 +42,7 @@
                 <nc:Date>1959-08-11</nc:Date>
             </nc:PersonBirthDate>
             <rap:PersonEyeColorText>Blue</rap:PersonEyeColorText>
-            <rap:PersonHairColorText>Red</rap:PersonHairColorText>
+            <rap:PersonHairColorText>Red Or Auburn</rap:PersonHairColorText>
             <nc:PersonHeightMeasure>
                 <nc:MeasurePointValue>67</nc:MeasurePointValue>
                 <nc:LengthUnitCode>INH</nc:LengthUnitCode>

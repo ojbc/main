@@ -226,7 +226,9 @@
                     <nc:IdentificationID>TRO-2013-81716417</nc:IdentificationID>
                 </nc:ActivityIdentification>
             </ch-ext:CourtCase>
-            <ch-ext:ProtectionOrderExpirationDate>2009-11-07</ch-ext:ProtectionOrderExpirationDate>
+            <ch-ext:ProtectionOrderExpirationDate>
+            	<nc:Date>2009-11-07</nc:Date>
+            </ch-ext:ProtectionOrderExpirationDate>
         </ch-ext:Order>
         <ch-ext:Order>
             <nc:ActivityIdentification>
@@ -246,7 +248,9 @@
                     <nc:IdentificationID>TRO-2013-29137558</nc:IdentificationID>
                 </nc:ActivityIdentification>
             </ch-ext:CourtCase>
-            <ch-ext:ProtectionOrderExpirationDate>2012-08-11</ch-ext:ProtectionOrderExpirationDate>
+            <ch-ext:ProtectionOrderExpirationDate>
+            	<nc:Date>2012-08-11</nc:Date>
+           	</ch-ext:ProtectionOrderExpirationDate>
         </ch-ext:Order>
     </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>
