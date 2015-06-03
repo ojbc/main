@@ -1067,9 +1067,25 @@
 	<xsd:element name="PersonOtherIdentification" type="nc:IdentificationType" nillable="true"/>
 	<xsd:element name="PersonPhysicalFeature" type="nc:PhysicalFeatureType" nillable="true"/>
 	<xsd:element name="PersonRace" abstract="true"/>
+	<xsd:element name="PersonRaceCode" type="fbi:RACCodeType" substitutionGroup="nc:PersonRace" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>A classification of a person based on factors such as geographical locations and genetics.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:name="PersonRace"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="PersonReligionText" type="nc:TextType" nillable="true"/>
 	<xsd:element name="PersonSSNIdentification" type="nc:IdentificationType" nillable="true"/>
 	<xsd:element name="PersonSex" abstract="true"/>
+	<xsd:element name="PersonSexCode" type="fbi:SEXCodeType" substitutionGroup="nc:PersonSex" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>A gender or sex of a person.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:name="PersonSex"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="PersonSkinTone" abstract="true"/>
 	<xsd:element name="PersonSurName" type="nc:PersonNameTextType" nillable="true"/>
 	<xsd:element name="PersonWeightMeasure" type="nc:WeightMeasureType" nillable="true"/>

@@ -66,7 +66,9 @@
 				<nc:PhysicalFeatureDescriptionText>dragon</nc:PhysicalFeatureDescriptionText>
 				<nc:PhysicalFeatureLocationText>left arm</nc:PhysicalFeatureLocationText>
 			</nc:PersonPhysicalFeature>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
 			<rap:PersonRaceText>White</rap:PersonRaceText>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
 			<rap:PersonSexText>Male</rap:PersonSexText>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123456789</nc:IdentificationID>
@@ -386,47 +388,47 @@
 			<rap:SupervisionReference s:ref="SUP1"/>
 			<nc:OrganizationReference s:ref="A2"/>
 		</rap:SupervisionAgencyAssociation>
-	<ch-ext:Order>
-		<nc:ActivityIdentification>
-			<nc:IdentificationID>50125</nc:IdentificationID>
-			<nc:IdentificationCategoryText>DOCUMENT ID
-				</nc:IdentificationCategoryText>
-			<nc:IdentificationJurisdictionText>HONOLULU FAM CT
-				</nc:IdentificationJurisdictionText>
-		</nc:ActivityIdentification>
-		<nc:ActivityDate>
-			<nc:Date>2010-04-01</nc:Date>
-		</nc:ActivityDate>
-		<nc:ActivityDescriptionText>TEMPORARY RESTRAINING ORDER</nc:ActivityDescriptionText>
-		<j:CourtOrderIssuingCourt>
-			<nc:OrganizationName>HONOLULU FAM CT</nc:OrganizationName>
-		</j:CourtOrderIssuingCourt>
-		<j:CourtOrderRequestDate>
-			<nc:Date>2010-04-01</nc:Date>
-		</j:CourtOrderRequestDate>
-		<j:CourtOrderServiceDate>
-			<nc:Date>2010-04-01</nc:Date>
-		</j:CourtOrderServiceDate>
-		<ch-ext:CourtCase>
+		<ch-ext:Order>
 			<nc:ActivityIdentification>
-				<nc:IdentificationID>FC-DA 02-1-9988</nc:IdentificationID>
-				<nc:IdentificationCategoryText>Case Number
-					</nc:IdentificationCategoryText>
+				<nc:IdentificationID>50125</nc:IdentificationID>
+				<nc:IdentificationCategoryText>DOCUMENT ID
+				</nc:IdentificationCategoryText>
 				<nc:IdentificationJurisdictionText>HONOLULU FAM CT
-					</nc:IdentificationJurisdictionText>
+				</nc:IdentificationJurisdictionText>
 			</nc:ActivityIdentification>
 			<nc:ActivityDate>
-				<nc:Date>1999-12-01</nc:Date>
+				<nc:Date>2010-04-01</nc:Date>
 			</nc:ActivityDate>
-			<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
-			<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
-		</ch-ext:CourtCase>
-		<ch-ext:ProtectionOrderExpirationDate>
-			<nc:Date>2001-12-01</nc:Date>
-		</ch-ext:ProtectionOrderExpirationDate>
-		<ch-ext:ProtectionOrderExpirationDate>
-			<nc:Date>2001-12-01</nc:Date>
-		</ch-ext:ProtectionOrderExpirationDate>
-	</ch-ext:Order>
+			<nc:ActivityDescriptionText>TEMPORARY RESTRAINING ORDER</nc:ActivityDescriptionText>
+			<j:CourtOrderIssuingCourt>
+				<nc:OrganizationName>HONOLULU FAM CT</nc:OrganizationName>
+			</j:CourtOrderIssuingCourt>
+			<j:CourtOrderRequestDate>
+				<nc:Date>2010-04-01</nc:Date>
+			</j:CourtOrderRequestDate>
+			<j:CourtOrderServiceDate>
+				<nc:Date>2010-04-01</nc:Date>
+			</j:CourtOrderServiceDate>
+			<ch-ext:CourtCase>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>FC-DA 02-1-9988</nc:IdentificationID>
+					<nc:IdentificationCategoryText>Case Number
+					</nc:IdentificationCategoryText>
+					<nc:IdentificationJurisdictionText>HONOLULU FAM CT
+					</nc:IdentificationJurisdictionText>
+				</nc:ActivityIdentification>
+				<nc:ActivityDate>
+					<nc:Date>1999-12-01</nc:Date>
+				</nc:ActivityDate>
+				<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
+				<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
+			</ch-ext:CourtCase>
+			<ch-ext:ProtectionOrderExpirationDate>
+				<nc:Date>2001-12-01</nc:Date>
+			</ch-ext:ProtectionOrderExpirationDate>
+			<ch-ext:ProtectionOrderExpirationDate>
+				<nc:Date>2001-12-01</nc:Date>
+			</ch-ext:ProtectionOrderExpirationDate>
+		</ch-ext:Order>
 	</ch-ext:RapSheet>
 </ch-doc:CriminalHistory>
