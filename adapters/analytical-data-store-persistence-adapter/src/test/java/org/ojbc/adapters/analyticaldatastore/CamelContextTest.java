@@ -32,11 +32,13 @@ import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
@@ -80,6 +82,9 @@ public class CamelContextTest {
     
 	@Autowired
 	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
+	
+	@EndpointInject(uri = "mock:direct:failedInvocation")
+    protected MockEndpoint failedInvocationEndpoint;
     
 	private static final DateFormat DATE_FOMRAT = new SimpleDateFormat("MM/dd/yyyy");
 	
@@ -100,6 +105,15 @@ public class CamelContextTest {
     	    }              
     	});
 
+    	context.getRouteDefinition("Incident_Repository_Service_Process_Incident").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	//This assists testing an invocation failure
+    	    	interceptSendToEndpoint("direct:failedInvocation").to("mock:direct:failedInvocation").stop();
+    	    }              
+    	});
+    	
+    	
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
     	context.getRouteDefinition("Pretrial_Service_Enrollment_Reporting_Service_Route").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
@@ -117,7 +131,6 @@ public class CamelContextTest {
     	    }              
     	});
 
-    	
     	context.start();
 	}	
 	
@@ -164,6 +177,30 @@ public class CamelContextTest {
 		//in the actual running code.  It would only be used in test and might not be worth
 		//the effort unless a use case is defined.
 	}
+	
+	@Test
+	public void testIncidentReportServiceFailure() throws Exception
+	{
+		failedInvocationEndpoint.reset();
+		
+		failedInvocationEndpoint.expectedMessageCount(1);
+		
+    	Exchange incidentReportExchange = createSenderExchange("src/test/resources/xmlInstances/incidentReport/incidentReportNoCaseNumberFail.xml");
+	    
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:incidentReportingServiceEndpoint", incidentReportExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+
+		//Sleep while a response is generated
+		Thread.sleep(3000);
+
+		failedInvocationEndpoint.assertIsSatisfied();
+	}	
 
 	protected Exchange createSenderExchange(String pathToInputFile) throws Exception, IOException {
 		//Create a new exchange
