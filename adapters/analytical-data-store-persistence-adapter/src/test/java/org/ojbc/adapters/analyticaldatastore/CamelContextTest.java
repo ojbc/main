@@ -227,8 +227,6 @@ public class CamelContextTest {
 
 	    assertNotNull(inputStr);
 	    
-	    log.debug(inputStr);
-	    
 	    //Set it as the message message body
 	    incidentReportExchange.getIn().setBody(inputStr);
 		return incidentReportExchange;
