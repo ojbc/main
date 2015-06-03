@@ -51,6 +51,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,6 +146,23 @@ public class CamelContextTest {
 		assertEquals("13:46:43",incidents.get(0).getIncidentTime().toString());
 		assertEquals("05/23/2015",DATE_FOMRAT.format(incidents.get(0).getIncidentDate()));
 		
+		int incidentPk = incidents.get(0).getIncidentID();
+		
+		log.info("PK of incident that was just saved: " + incidentPk);
+		
+		List<Arrest> arrestsInIncident = analyticalDatastoreDAOImpl.searchForArrestsByIncidentPk(incidentPk);
+		
+		assertEquals(1,arrestsInIncident.size());
+		
+		Arrest arrest = arrestsInIncident.get(0);
+		
+		assertEquals('N',arrest.getArrestDrugRelated());
+		assertEquals("13:48:00",arrest.getArrestTime().toString());
+		
+		//TODO: Determine whether the arrest row mapper should use ResultsSetExtractor.
+		//This would allow for run join queries, however, the arrest row mapper is not used
+		//in the actual running code.  It would only be used in test and might not be worth
+		//the effort unless a use case is defined.
 	}
 
 	protected Exchange createSenderExchange(String pathToInputFile) throws Exception, IOException {

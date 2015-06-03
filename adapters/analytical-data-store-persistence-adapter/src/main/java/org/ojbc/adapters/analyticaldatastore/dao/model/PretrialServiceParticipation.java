@@ -24,20 +24,11 @@ public class PretrialServiceParticipation {
     private int pretrialServiceParticipationID;
 
     //fk
-    private int pretrialServiceID;
-    
-    //fk
     private int personID;
     
     //fk
     private int countyID;
     
-    //fk
-    private int riskScoreID;
-    
-    //fk
-    private int assessedNeedID;
-
     private int riskScore;
     
     private String pretrialServiceCaseNumber;
@@ -54,14 +45,6 @@ public class PretrialServiceParticipation {
 		this.pretrialServiceParticipationID = pretrialServiceParticipationID;
 	}
 
-	public int getPretrialServiceID() {
-		return pretrialServiceID;
-	}
-
-	public void setPretrialServiceID(int pretrialServiceID) {
-		this.pretrialServiceID = pretrialServiceID;
-	}
-
 	public int getPersonID() {
 		return personID;
 	}
@@ -76,22 +59,6 @@ public class PretrialServiceParticipation {
 
 	public void setCountyID(int countyID) {
 		this.countyID = countyID;
-	}
-
-	public int getRiskScoreID() {
-		return riskScoreID;
-	}
-
-	public void setRiskScoreID(int riskScoreID) {
-		this.riskScoreID = riskScoreID;
-	}
-
-	public int getAssessedNeedID() {
-		return assessedNeedID;
-	}
-
-	public void setAssessedNeedID(int assessedNeedID) {
-		this.assessedNeedID = assessedNeedID;
 	}
 
 	public String getPretrialServiceCaseNumber() {

@@ -57,14 +57,6 @@ CREATE TABLE DispositionType (
 );
 
 
-CREATE TABLE RiskScore (
-                RiskScoreID IDENTITY NOT NULL,
-                RiskScoreDescription VARCHAR(30) NOT NULL,
-                CONSTRAINT RiskScoreID PRIMARY KEY (RiskScoreID)
-);
-COMMENT ON COLUMN RiskScore.RiskScoreDescription IS 'values can be "low risk", "moderate risk", "high risk" and "very high risk"';
-
-
 CREATE TABLE PretrialService (
                 PretrialServiceID IDENTITY NOT NULL,
                 PretrialServiceDescription VARCHAR(80) NOT NULL,
@@ -95,9 +87,9 @@ CREATE TABLE PersonRace (
 
 CREATE TABLE Person (
                 PersonID IDENTITY NOT NULL,
-                PersonSexID INTEGER NOT NULL,
-                PersonRaceID INTEGER NOT NULL,
-                PersonBirthDate DATE NOT NULL,
+                PersonSexID INTEGER,
+                PersonRaceID INTEGER,
+                PersonBirthDate DATE,
                 PersonUniqueIdentifier CHAR(36) NOT NULL,
                 CONSTRAINT Person_pk PRIMARY KEY (PersonID)
 );
@@ -106,17 +98,31 @@ CREATE TABLE Person (
 CREATE TABLE PretrialServiceParticipation (
                 PretrialServiceParticipationID IDENTITY NOT NULL,
                 PretrialServiceCaseNumber VARCHAR(30) NOT NULL,
-                PretrialServiceID INTEGER NOT NULL,
                 PersonID INTEGER NOT NULL,
                 CountyID INTEGER NOT NULL,
-                RiskScoreID INTEGER NOT NULL,
-                AssessedNeedID INTEGER NOT NULL,
                 RiskScore INTEGER NOT NULL,
                 IntakeDate DATE NOT NULL,
                 RecordType CHAR(1) NOT NULL,
                 CONSTRAINT PretrialServiceParticipation_pk PRIMARY KEY (PretrialServiceParticipationID)
 );
 COMMENT ON COLUMN PretrialServiceParticipation.RecordType IS 'N for new record, U for update to prior record, D for delete';
+
+
+CREATE TABLE PretrialServiceAssociation (
+                PretrialServiceAssociationID INTEGER NOT NULL,
+                PretrialServiceID INTEGER NOT NULL,
+                PretrialServiceParticipationID INTEGER NOT NULL,
+                CONSTRAINT PretrialServiceAssociation_pk PRIMARY KEY (PretrialServiceAssociationID)
+);
+
+
+CREATE TABLE PretrialServiceNeedAssociation (
+                PretrialServiceNeedAssociationID INTEGER NOT NULL,
+                AssessedNeedID INTEGER NOT NULL,
+                PretrialServiceParticipationID INTEGER NOT NULL,
+                CONSTRAINT PretrialServiceNeedAssociation_pk PRIMARY KEY (PretrialServiceNeedAssociationID)
+);
+
 
 CREATE TABLE Population (
                 PopulationID IDENTITY NOT NULL,
@@ -179,7 +185,7 @@ CREATE TABLE Arrest (
                 PersonID INTEGER NOT NULL,
                 IncidentID INTEGER NOT NULL,
                 ArrestingAgencyID INTEGER NOT NULL,
-	                ArrestDate DATE NOT NULL,
+                ArrestDate DATE NOT NULL,
                 ArrestTime TIME NOT NULL,
                 ArrestDrugRelated CHAR(1) NOT NULL,
                 CONSTRAINT ArrestID PRIMARY KEY (ArrestID)
@@ -207,7 +213,7 @@ REFERENCES IncidentType (IncidentTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT AssessedNeed_PretrialServiceParticipation_fk
+ALTER TABLE PretrialServiceNeedAssociation ADD CONSTRAINT AssessedNeed_PretrialServiceAssessedNeed_fk
 FOREIGN KEY (AssessedNeedID)
 REFERENCES AssessedNeed (AssessedNeedID)
 ON DELETE NO ACTION
@@ -231,13 +237,7 @@ REFERENCES DispositionType (DispositionTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT RiskScore_PretrialServiceParticipation_fk
-FOREIGN KEY (RiskScoreID)
-REFERENCES RiskScore (RiskScoreID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT PretrialService_PretrialServiceParticipation_fk
+ALTER TABLE PretrialServiceAssociation ADD CONSTRAINT PretrialService_PretrialServiceAssociation_fk
 FOREIGN KEY (PretrialServiceID)
 REFERENCES PretrialService (PretrialServiceID)
 ON DELETE NO ACTION
@@ -294,6 +294,18 @@ ON UPDATE NO ACTION;
 ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT Person_PretrialServiceParticipation_fk
 FOREIGN KEY (PersonID)
 REFERENCES Person (PersonID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE PretrialServiceNeedAssociation ADD CONSTRAINT PretrialServiceParticipation_PretrialServiceAssessedNeed_fk
+FOREIGN KEY (PretrialServiceParticipationID)
+REFERENCES PretrialServiceParticipation (PretrialServiceParticipationID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE PretrialServiceAssociation ADD CONSTRAINT PretrialServiceParticipation_PretrialServiceAssociation_fk
+FOREIGN KEY (PretrialServiceParticipationID)
+REFERENCES PretrialServiceParticipation (PretrialServiceParticipationID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
