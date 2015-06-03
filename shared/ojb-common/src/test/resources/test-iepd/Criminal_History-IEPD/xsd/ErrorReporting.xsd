@@ -17,25 +17,20 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema 
-	xmlns:Q1="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" 
-	xmlns:Q2="http://niem.gov/niem/structures/2.0" 
-	xmlns:Q3="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	targetNamespace="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0">
-  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="NIEM_2.0/niem-core/2.0/niem-core.xsd"/>
-  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="NIEM_2.0/structures/2.0/structures.xsd"/>
-  <xsd:element name="PersonQueryResultError" type="Q1:PersonQueryResultErrorType"/>
-  <xsd:complexType name="PersonQueryResultErrorType">
-    <xsd:complexContent>
-      <xsd:extension base="Q2:ComplexObjectType">
-        <xsd:sequence>
-          <xsd:element maxOccurs="1" minOccurs="1" ref="Q1:ErrorText"/>
-          <xsd:element maxOccurs="1" minOccurs="0" ref="Q1:PersonRecordRequestIdentification"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:element name="ErrorText" type="Q3:TextType"/>
-  <xsd:element name="PersonRecordRequestIdentification" type="Q3:IdentificationType"/>
+<xsd:schema xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="NIEM_2.1/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="NIEM_2.1/structures/2.0/structures.xsd"/>
+	<xsd:element name="PersonQueryResultError" type="error:PersonQueryResultErrorType"/>
+	<xsd:complexType name="PersonQueryResultErrorType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="error:ErrorText"/>
+					<xsd:element ref="error:PersonRecordRequestIdentification" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="ErrorText" type="nc:TextType"/>
+	<xsd:element name="PersonRecordRequestIdentification" type="nc:IdentificationType"/>
 </xsd:schema>

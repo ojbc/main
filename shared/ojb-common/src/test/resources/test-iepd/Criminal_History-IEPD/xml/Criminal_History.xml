@@ -17,26 +17,20 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ch-doc:CriminalHistory xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0" xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
-	xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0"
-	xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0 ../xsd/Criminal_History.xsd">
-	<ch:RapSheet>
-		<ch:Metadata>
+<ch-doc:CriminalHistory xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0 ../xsd/Criminal_History.xsd">
+	<ch-ext:RapSheet>
+		<rap:Metadata>
 			<nc:ReportedDate>
 				<nc:Date>2011-06-20</nc:Date>
 			</nc:ReportedDate>
 			<nc:ReportingOrganizationText>HCJDC</nc:ReportingOrganizationText>
 			<nc:SourceIDText>547257</nc:SourceIDText>
-		</ch:Metadata>
-		<ch:Introduction>
-			<ch:RapSheetRequest>
-				<ch:PurposeCode>A</ch:PurposeCode>
-				<ch:Attention />
-				<ch:RapSheetPerson>
+		</rap:Metadata>
+		<rap:Introduction>
+			<rap:RapSheetRequest>
+				<rap:PurposeCode>A</rap:PurposeCode>
+				<rap:Attention/>
+				<rap:RapSheetPerson>
 					<nc:PersonBirthDate>
 						<nc:Date>1960-01-15</nc:Date>
 					</nc:PersonBirthDate>
@@ -44,10 +38,10 @@
 						<nc:PersonGivenName>Mickey</nc:PersonGivenName>
 						<nc:PersonSurName>Mouse</nc:PersonSurName>
 					</nc:PersonName>
-				</ch:RapSheetPerson>
-			</ch:RapSheetRequest>
-		</ch:Introduction>
-		<ch:RapSheetPerson s:id="P1">
+				</rap:RapSheetPerson>
+			</rap:RapSheetRequest>
+		</rap:Introduction>
+		<ch-ext:Person s:id="P1">
 			<nc:PersonAlternateName>
 				<nc:PersonGivenName>Macaroni</nc:PersonGivenName>
 				<nc:PersonSurName>Mouse</nc:PersonSurName>
@@ -56,8 +50,8 @@
 				<nc:Date>1960-01-15</nc:Date>
 			</nc:PersonBirthDate>
 			<nc:PersonCitizenshipText>USA</nc:PersonCitizenshipText>
-			<ch:PersonEyeColorText>Black</ch:PersonEyeColorText>
-			<ch:PersonHairColorText>Black</ch:PersonHairColorText>
+			<rap:PersonEyeColorText>Black</rap:PersonEyeColorText>
+			<rap:PersonHairColorText>Black</rap:PersonHairColorText>
 			<nc:PersonHeightMeasure>
 				<nc:MeasurePointValue>72</nc:MeasurePointValue>
 				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
@@ -70,11 +64,12 @@
 				<nc:PhysicalFeatureCategoryText>tattoo
 				</nc:PhysicalFeatureCategoryText>
 				<nc:PhysicalFeatureDescriptionText>dragon</nc:PhysicalFeatureDescriptionText>
-				<nc:PhysicalFeatureLocationText>left arm
-                </nc:PhysicalFeatureLocationText>
+				<nc:PhysicalFeatureLocationText>left arm</nc:PhysicalFeatureLocationText>
 			</nc:PersonPhysicalFeature>
-			<ch:PersonRaceText>White</ch:PersonRaceText>
-			<ch:PersonSexText>Male</ch:PersonSexText>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<rap:PersonRaceText>White</rap:PersonRaceText>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<rap:PersonSexText>Male</rap:PersonSexText>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123456789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
@@ -82,24 +77,24 @@
 				<nc:MeasurePointValue>100</nc:MeasurePointValue>
 				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
 			</nc:PersonWeightMeasure>
-			<jxdm:PersonAugmentation>
+			<j:PersonAugmentation>
 				<nc:DriverLicense>
 					<nc:DriverLicenseIdentification>
 						<nc:IdentificationID>3333030303</nc:IdentificationID>
-						<nc:IdentificationSourceText>PA</nc:IdentificationSourceText>
+						<nc:IdentificationJurisdictionText>PA</nc:IdentificationJurisdictionText>
 					</nc:DriverLicenseIdentification>
 				</nc:DriverLicense>
-				<jxdm:PersonFBIIdentification>
+				<j:PersonFBIIdentification>
 					<nc:IdentificationID>12345678X9</nc:IdentificationID>
-				</jxdm:PersonFBIIdentification>
-				<jxdm:PersonRegisteredOffenderIndicator>true</jxdm:PersonRegisteredOffenderIndicator>
-				<jxdm:PersonStateFingerprintIdentification>
+				</j:PersonFBIIdentification>
+				<j:PersonRegisteredOffenderIndicator>true</j:PersonRegisteredOffenderIndicator>
+				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A1234567</nc:IdentificationID>
-					<nc:IdentificationSourceText>HI</nc:IdentificationSourceText>
-				</jxdm:PersonStateFingerprintIdentification>
-			</jxdm:PersonAugmentation>
-			<ch:SubjectCautionInformationText>Caution information about the subject!</ch:SubjectCautionInformationText>
-		</ch:RapSheetPerson>
+					<nc:IdentificationJurisdictionText>HI</nc:IdentificationJurisdictionText>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+			<rap:SubjectCautionInformationText>Caution information about the subject!</rap:SubjectCautionInformationText>
+		</ch-ext:Person>
 		<nc:Location s:id="L1">
 			<nc:LocationAddress>
 				<nc:StructuredAddress>
@@ -113,295 +108,175 @@
 				</nc:StructuredAddress>
 			</nc:LocationAddress>
 		</nc:Location>
-		<ch:Court s:id="C1">
+		<rap:Court s:id="C1">
 			<nc:OrganizationName>HONOLULU CIRCUIT COURT</nc:OrganizationName>
-		</ch:Court>
-		<ch:Court s:id="C2">
+		</rap:Court>
+		<rap:Court s:id="C2">
 			<nc:OrganizationName>MAUI CIRCUIT COURT</nc:OrganizationName>
-		</ch:Court>
-		<ch:Agency s:id="A1">
+		</rap:Court>
+		<rap:Agency s:id="A1">
 			<nc:OrganizationName>HONOLULU PD</nc:OrganizationName>
-		</ch:Agency>
-		<ch:Agency s:id="A2">
+		</rap:Agency>
+		<rap:Agency s:id="A2">
 			<nc:OrganizationName>HNL FCT ASB</nc:OrganizationName>
-		</ch:Agency>
-		<ch:Agency s:id="A3">
+		</rap:Agency>
+		<rap:Agency s:id="A3">
 			<nc:OrganizationName>MAUI PD</nc:OrganizationName>
-		</ch:Agency>
+		</rap:Agency>
 		<nc:ResidenceAssociation>
-			<nc:PersonReference s:ref="P1" />
-			<nc:LocationReference s:ref="L1" />
+			<nc:PersonReference s:ref="P1"/>
+			<nc:LocationReference s:ref="L1"/>
 		</nc:ResidenceAssociation>
-		<ch:RapSheetCycle>
-			<ch:CycleEarliestDate>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
 				<nc:Date>1999-03-15</nc:Date>
-			</ch:CycleEarliestDate>
-			<ch:Incident>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
 				<nc:ActivityDate>
 					<nc:Date>1999-03-15</nc:Date>
 				</nc:ActivityDate>
-			</ch:Incident>
-			<ch:Arrest s:id="ARR1">
+			</rap:Incident>
+			<rap:Arrest s:id="ARR1">
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>12345</nc:IdentificationID>
-					<ch:IdentificationCategoryText>Originating Agency Police ID
-					</ch:IdentificationCategoryText>
+					<rap:IdentificationCategoryText>Originating Agency Police ID
+					</rap:IdentificationCategoryText>
 					<nc:IdentificationJurisdictionText>HONOLULU PD
 					</nc:IdentificationJurisdictionText>
 				</nc:ActivityIdentification>
 				<nc:ActivityDate>
 					<nc:Date>1999-03-15</nc:Date>
 				</nc:ActivityDate>
-				<jxdm:ArrestAgencyRecordIdentification>
+				<j:ArrestAgencyRecordIdentification>
 					<nc:IdentificationID>12345</nc:IdentificationID>
-				</jxdm:ArrestAgencyRecordIdentification>
-				<jxdm:ArrestCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 03/15/1999, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
+				</j:ArrestAgencyRecordIdentification>
+				<rap:ArrestCharge>
+					<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+					<j:ChargeDescriptionText>On 03/15/1999, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
 						<nc:DispositionDescriptionText>disposition</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeNCICCode>3564</jxdm:ChargeNCICCode>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
+					</j:ChargeDisposition>
+					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
+					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35154W7</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</jxdm:ArrestCharge>
-				<jxdm:ArrestCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 03/15/1999, subject was arrested by the HONOLULU POLICE DEPARTMENT for DISORDERLY CONDUCT (HRS 888-9999) which is coded as being a MISDEMEANOR.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
-						<nc:DispositionDescriptionText>charges dropped</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
 							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
-						<nc:IdentificationID>35155W7</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</jxdm:ArrestCharge>
-			</ch:Arrest>
-			<ch:Arrest s:id="ARR2">
-				<nc:ActivityIdentification>
-					<nc:IdentificationID>54321</nc:IdentificationID>
-					<ch:IdentificationCategoryText>Originating Agency Police ID
-					</ch:IdentificationCategoryText>
-					<nc:IdentificationJurisdictionText>MAUI PD
-					</nc:IdentificationJurisdictionText>
-				</nc:ActivityIdentification>
-				<nc:ActivityDate>
-					<nc:Date>2000-03-15</nc:Date>
-				</nc:ActivityDate>
-				<jxdm:ArrestAgencyRecordIdentification>
-					<nc:IdentificationID>12345</nc:IdentificationID>
-				</jxdm:ArrestAgencyRecordIdentification>
-				<jxdm:ArrestCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 03/15/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
-						<nc:DispositionDescriptionText>charges dropped</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeNCICCode>3564</jxdm:ChargeNCICCode>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
-						<nc:IdentificationID>1221E4</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</jxdm:ArrestCharge>
-			</ch:Arrest>
-			<ch:Prosecution>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ArrestCharge>
+			</rap:Arrest>
+			<rap:Prosecution>
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>12345</nc:IdentificationID>
 				</nc:ActivityIdentification>
-				<jxdm:ProsecutionCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 03/15/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
+				<rap:ProsecutionCharge>
+					<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+					<j:ChargeDescriptionText>On 03/15/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
 						<nc:DispositionDescriptionText>charges dropped</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeNCICCode>3564</jxdm:ChargeNCICCode>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
+					</j:ChargeDisposition>
+					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
+					<j:ChargeTrackingIdentification>
+						<nc:IdentificationID>35154W7</nc:IdentificationID>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
 							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
-						<nc:IdentificationID>1221E4</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</jxdm:ProsecutionCharge>
-				<ch:ProsecutionAgencyRecordIdentification>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:ProsecutionCharge>
+				<rap:ProsecutionAgencyRecordIdentification>
 					<nc:IdentificationID>827837</nc:IdentificationID>
-				</ch:ProsecutionAgencyRecordIdentification>
-			</ch:Prosecution>
-			<ch:CourtAction s:id="CA1">
+				</rap:ProsecutionAgencyRecordIdentification>
+			</rap:Prosecution>
+			<rap:CourtAction s:id="CA1">
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>CR99-22222</nc:IdentificationID>
-					<nc:IdentificationSourceText>HONOLULU CIRCUIT COURT</nc:IdentificationSourceText>
+					<nc:IdentificationJurisdictionText>HONOLULU CIRCUIT COURT</nc:IdentificationJurisdictionText>
 				</nc:ActivityIdentification>
 				<nc:ActivityDate>
 					<nc:Date>1999-12-01</nc:Date>
 				</nc:ActivityDate>
-				<jxdm:CourtCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 03/15/1999, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
+				<rap:CourtCharge>
+					<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+					<j:ChargeDescriptionText>On 03/15/1999, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
 						<nc:DispositionDate>
 							<nc:Date>1999-12-01</nc:Date>
 						</nc:DispositionDate>
 						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
+					</j:ChargeDisposition>
+					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35854W7</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</jxdm:CourtCharge>
-				<jxdm:CourtCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 03/15/1999, subject was arrested by the HONOLULU POLICE DEPARTMENT for DISORDERLY CONDUCT (HRS 888-9999) which is coded as being a MISDEMEANOR.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
-						<nc:DispositionDate>
-							<nc:Date>1999-12-01</nc:Date>
-						</nc:DispositionDate>
-						<nc:DispositionDescriptionText>NOT GUILTY</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
 							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
-						<nc:IdentificationID>35155W7</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</jxdm:CourtCharge>
-				<ch:CourtRecordIdentification>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:CourtCharge>
+				<rap:CourtRecordIdentification>
 					<nc:IdentificationID>111222111
 					</nc:IdentificationID>
-				</ch:CourtRecordIdentification>
-			</ch:CourtAction>
-			<ch:CourtAction s:id="CA2">
-				<nc:ActivityIdentification>
-					<nc:IdentificationID>CR00-14141</nc:IdentificationID>
-					<nc:IdentificationSourceText>MAUI CIRCUIT COURT</nc:IdentificationSourceText>
-				</nc:ActivityIdentification>
-				<nc:ActivityDate>
-					<nc:Date>2000-11-12</nc:Date>
-				</nc:ActivityDate>
-				<jxdm:CourtCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 03/15/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
-						<nc:DispositionDate>
-							<nc:Date>2000-11-14</nc:Date>
-						</nc:DispositionDate>
-						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
-						<nc:IdentificationID>35854W7</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</jxdm:CourtCharge>
-			</ch:CourtAction>
-			<ch:Sentencing s:id="SENT1">
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing s:id="SENT1">
 				<nc:ActivityDate>
 					<nc:Date>1999-12-01</nc:Date>
 				</nc:ActivityDate>
-				<jxdm:Sentence>
+				<ch-ext:Sentence>
 					<nc:ActivityDate>
 						<nc:Date>1999-12-01</nc:Date>
 					</nc:ActivityDate>
 					<nc:ActivityDisposition>
 						<nc:DispositionDescriptionText>Sentenced</nc:DispositionDescriptionText>
 					</nc:ActivityDisposition>
-					<jxdm:SentenceCharge>
-						<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-						<jxdm:ChargeDescriptionText>On 03/15/1999, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-						<jxdm:ChargeDisposition>
+					<j:SentenceDescriptionText>SUBJECT WAS SENTENCED TO 5 YEAR(S) CONFINEMENT</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+						<j:ChargeDescriptionText>On 03/15/1999, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</j:ChargeDescriptionText>
+						<j:ChargeDisposition>
 							<nc:DispositionDate>
 								<nc:Date>1999-12-01</nc:Date>
 							</nc:DispositionDate>
 							<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-						</jxdm:ChargeDisposition>
-						<jxdm:ChargeStatute>
-							<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-						</jxdm:ChargeStatute>
-						<jxdm:ChargeTrackingIdentification>
+						</j:ChargeDisposition>
+						<j:ChargeTrackingIdentification>
 							<nc:IdentificationID>35154W7</nc:IdentificationID>
-						</jxdm:ChargeTrackingIdentification>
-					</jxdm:SentenceCharge>
-					<jxdm:SentenceDescriptionText>SUBJECT WAS SENTENCED TO 5 YEAR(S) CONFINEMENT</jxdm:SentenceDescriptionText>
-				</jxdm:Sentence>
-			</ch:Sentencing>
-			<ch:Sentencing s:id="SENT2">
-				<nc:ActivityDate>
-					<nc:Date>2000-12-01</nc:Date>
-				</nc:ActivityDate>
-				<jxdm:Sentence>
-					<nc:ActivityDate>
-						<nc:Date>2000-12-01</nc:Date>
-					</nc:ActivityDate>
-					<jxdm:SentenceCharge>
-						<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-						<jxdm:ChargeDescriptionText>On 03/15/1999, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-						<jxdm:ChargeDisposition>
-							<nc:DispositionDate>
-								<nc:Date>1999-12-01</nc:Date>
-							</nc:DispositionDate>
-							<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-						</jxdm:ChargeDisposition>
-						<jxdm:ChargeStatute>
-							<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-						</jxdm:ChargeStatute>
-						<jxdm:ChargeTrackingIdentification>
-							<nc:IdentificationID>35854W7</nc:IdentificationID>
-						</jxdm:ChargeTrackingIdentification>
-					</jxdm:SentenceCharge>
-					<jxdm:SentenceDescriptionText>SUBJECT WAS SENTENCED TO 15 YEAR(S) CONFINEMENT</jxdm:SentenceDescriptionText>
-				</jxdm:Sentence>
-			</ch:Sentencing>
-			<ch:Supervision s:id="SUP1">
+						</j:ChargeTrackingIdentification>
+						<rap:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>123.45</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</rap:ChargeStatute>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+			<rap:Supervision s:id="SUP1">
 				<nc:ActivityDate>
 					<nc:Date>2001-12-01</nc:Date>
 				</nc:ActivityDate>
 				<nc:ActivityDescriptionText>PROBATION</nc:ActivityDescriptionText>
-				<ch:SupervisionCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 03/15/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
+				<rap:SupervisionCharge>
+					<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+					<j:ChargeDescriptionText>On 03/15/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
 						<nc:DispositionDate>
 							<nc:Date>1999-12-01</nc:Date>
 						</nc:DispositionDate>
 						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
+					</j:ChargeDisposition>
+					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35154W7</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</ch:SupervisionCharge>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>123.45</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:SupervisionCharge>
 				<nc:SupervisionCustodyStatus>
 					<nc:StatusDescriptionText>PROBATION</nc:StatusDescriptionText>
 				</nc:SupervisionCustodyStatus>
@@ -410,189 +285,83 @@
 						<nc:Date>2005-12-01</nc:Date>
 					</nc:ActivityDate>
 				</nc:SupervisionRelease>
-			</ch:Supervision>
-			<ch:Supervision s:id="SUP2">
-				<nc:ActivityDate>
-					<nc:Date>2001-12-01</nc:Date>
-				</nc:ActivityDate>
-				<nc:ActivityDescriptionText>PROBATION</nc:ActivityDescriptionText>
-				<ch:SupervisionCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 03/15/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
-						<nc:DispositionDate>
-							<nc:Date>2000-11-14</nc:Date>
-						</nc:DispositionDate>
-						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
-						<nc:IdentificationID>35854W7</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</ch:SupervisionCharge>
-				<nc:SupervisionCustodyStatus>
-					<nc:StatusDescriptionText>PROBATION</nc:StatusDescriptionText>
-				</nc:SupervisionCustodyStatus>
-				<nc:SupervisionRelease>
-					<nc:ActivityDate>
-						<nc:Date>2009-12-01</nc:Date>
-					</nc:ActivityDate>
-				</nc:SupervisionRelease>
-			</ch:Supervision>
-		</ch:RapSheetCycle>
-
-
-		<ch:RapSheetCycle>
-			<ch:CycleEarliestDate>
+			</rap:Supervision>
+		</ch-ext:RapSheetCycle>
+		<ch-ext:RapSheetCycle>
+			<rap:CycleEarliestDate>
 				<nc:Date>2000-08-11</nc:Date>
-			</ch:CycleEarliestDate>
-			<ch:Incident>
+			</rap:CycleEarliestDate>
+			<rap:Incident>
 				<nc:ActivityDate>
 					<nc:Date>2000-08-11</nc:Date>
 				</nc:ActivityDate>
-			</ch:Incident>
-			<ch:Arrest s:id="ARR3">
-				<nc:ActivityIdentification>
-					<nc:IdentificationID>12345</nc:IdentificationID>
-					<ch:IdentificationCategoryText>Originating Agency Police ID
-					</ch:IdentificationCategoryText>
-					<nc:IdentificationJurisdictionText>HONOLULU PD
-					</nc:IdentificationJurisdictionText>
-				</nc:ActivityIdentification>
-				<nc:ActivityDate>
-					<nc:Date>2000-08-11</nc:Date>
-				</nc:ActivityDate>
-				<jxdm:ArrestAgencyRecordIdentification>
-					<nc:IdentificationID>0012345</nc:IdentificationID>
-				</jxdm:ArrestAgencyRecordIdentification>
-				<jxdm:ArrestCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 08/11/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
-						<nc:DispositionDescriptionText>disposition</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeNCICCode>3564</jxdm:ChargeNCICCode>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
-						<nc:IdentificationID>AC1111</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</jxdm:ArrestCharge>
-			</ch:Arrest>
-			<ch:Prosecution>
-				<nc:ActivityIdentification>
-					<nc:IdentificationID>12345</nc:IdentificationID>
-				</nc:ActivityIdentification>
-				<jxdm:ProsecutionCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 08/11/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
-						<nc:DispositionDescriptionText>charges dropped</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeNCICCode>3564</jxdm:ChargeNCICCode>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
-						<nc:IdentificationID>AC1111</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</jxdm:ProsecutionCharge>
-				<ch:ProsecutionAgencyRecordIdentification>
-					<nc:IdentificationID>827837</nc:IdentificationID>
-				</ch:ProsecutionAgencyRecordIdentification>
-			</ch:Prosecution>
-			<ch:CourtAction s:id="CA3">
+			</rap:Incident>
+			<rap:CourtAction s:id="CA3">
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>CR99-22222</nc:IdentificationID>
-					<nc:IdentificationSourceText>HONOLULU CIRCUIT COURT</nc:IdentificationSourceText>
+					<nc:IdentificationJurisdictionText>HONOLULU CIRCUIT COURT</nc:IdentificationJurisdictionText>
 				</nc:ActivityIdentification>
 				<nc:ActivityDate>
 					<nc:Date>1999-12-01</nc:Date>
 				</nc:ActivityDate>
-				<jxdm:CourtCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 08/11/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
-						<nc:DispositionDate>
-							<nc:Date>2000-12-01</nc:Date>
-						</nc:DispositionDate>
-						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
-						<nc:IdentificationID>AC1111</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</jxdm:CourtCharge>
-				<ch:CourtRecordIdentification>
+				<rap:CourtCharge/>
+				<rap:CourtRecordIdentification>
 					<nc:IdentificationID>111222111
 					</nc:IdentificationID>
-				</ch:CourtRecordIdentification>
-			</ch:CourtAction>
-			<ch:Sentencing s:id="SENT3">
+				</rap:CourtRecordIdentification>
+			</rap:CourtAction>
+			<ch-ext:Sentencing s:id="SENT3">
 				<nc:ActivityDate>
 					<nc:Date>2000-12-01</nc:Date>
 				</nc:ActivityDate>
-				<jxdm:Sentence>
+				<ch-ext:Sentence>
 					<nc:ActivityDate>
 						<nc:Date>2000-12-01</nc:Date>
 					</nc:ActivityDate>
-					<jxdm:SentenceCharge>
-						<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-						<jxdm:ChargeDescriptionText>On 08/11/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-						<jxdm:ChargeDisposition>
+					<j:SentenceDescriptionText>SUBJECT WAS SENTENCED TO 5 YEAR(S) CONFINEMENT</j:SentenceDescriptionText>
+					<rap:SentenceCharge>
+						<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+						<j:ChargeDescriptionText>On 08/11/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</j:ChargeDescriptionText>
+						<j:ChargeDisposition>
 							<nc:DispositionDate>
 								<nc:Date>1999-12-01</nc:Date>
 							</nc:DispositionDate>
 							<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-						</jxdm:ChargeDisposition>
-						<jxdm:ChargeStatute>
-							<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-						</jxdm:ChargeStatute>
-						<jxdm:ChargeTrackingIdentification>
-							<nc:IdentificationID>AC1111</nc:IdentificationID>
-						</jxdm:ChargeTrackingIdentification>
-					</jxdm:SentenceCharge>
-					<jxdm:SentenceDescriptionText>SUBJECT WAS SENTENCED TO 5 YEAR(S) CONFINEMENT</jxdm:SentenceDescriptionText>
-				</jxdm:Sentence>
-			</ch:Sentencing>
-			<ch:Supervision s:id="SUP3">
+						</j:ChargeDisposition>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>35154W7</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+						<rap:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>123.45</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</rap:ChargeStatute>
+					</rap:SentenceCharge>
+				</ch-ext:Sentence>
+			</ch-ext:Sentencing>
+			<rap:Supervision s:id="SUP3">
 				<nc:ActivityDate>
 					<nc:Date>2001-12-01</nc:Date>
 				</nc:ActivityDate>
 				<nc:ActivityDescriptionText>PROBATION</nc:ActivityDescriptionText>
-				<ch:SupervisionCharge>
-					<jxdm:ChargeCountQuantity>1</jxdm:ChargeCountQuantity>
-					<jxdm:ChargeDescriptionText>On 08/11/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</jxdm:ChargeDescriptionText>
-					<jxdm:ChargeDisposition>
+				<rap:SupervisionCharge>
+					<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+					<j:ChargeDescriptionText>On 08/11/2000, subject was arrested by the HONOLULU POLICE DEPARTMENT for SEXUAL ASSAULT 2 (HRS 707-0731) which is coded as being a FELONY CLASS B.</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
 						<nc:DispositionDate>
 							<nc:Date>2000-12-01</nc:Date>
 						</nc:DispositionDate>
 						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
-					</jxdm:ChargeDisposition>
-					<jxdm:ChargeStatute>
-						<jxdm:StatuteCodeIdentification>
-							<nc:IdentificationID>123.45</nc:IdentificationID>
-						</jxdm:StatuteCodeIdentification>
-					</jxdm:ChargeStatute>
-					<jxdm:ChargeTrackingIdentification>
+					</j:ChargeDisposition>
+					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>AC1111</nc:IdentificationID>
-					</jxdm:ChargeTrackingIdentification>
-				</ch:SupervisionCharge>
+					</j:ChargeTrackingIdentification>
+					<rap:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>123.45</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</rap:ChargeStatute>
+				</rap:SupervisionCharge>
 				<nc:SupervisionCustodyStatus>
 					<nc:StatusDescriptionText>PROBATION</nc:StatusDescriptionText>
 				</nc:SupervisionCustodyStatus>
@@ -601,50 +370,25 @@
 						<nc:Date>2009-10-01</nc:Date>
 					</nc:ActivityDate>
 				</nc:SupervisionRelease>
-			</ch:Supervision>
-		</ch:RapSheetCycle>
-
-		<ch:ArrestAgencyAssociation>
-			<nc:ActivityReference s:ref="ARR1" />
-			<nc:OrganizationReference s:ref="A1" />
-		</ch:ArrestAgencyAssociation>
-		<ch:ArrestAgencyAssociation>
-			<nc:ActivityReference s:ref="ARR2" />
-			<nc:OrganizationReference s:ref="A3" />
-		</ch:ArrestAgencyAssociation>
-<ch:ArrestAgencyAssociation>
-			<nc:ActivityReference s:ref="ARR3" />
-			<nc:OrganizationReference s:ref="A1" />
-		</ch:ArrestAgencyAssociation>
-		<ch:CourtActionCourtAssociation>
-			<nc:ActivityReference s:ref="CA1" />
-			<jxdm:CourtReference s:ref="C1" />
-		</ch:CourtActionCourtAssociation>
-		<ch:CourtActionCourtAssociation>
-			<nc:ActivityReference s:ref="CA2" />
-			<jxdm:CourtReference s:ref="C2" />
-		</ch:CourtActionCourtAssociation>
-
-
-		<ch:SentencingCourtAssociation>
-			<nc:ActivityReference s:ref="SENT1" />
-			<jxdm:CourtReference s:ref="C1" />
-		</ch:SentencingCourtAssociation>
-		<ch:SentencingCourtAssociation>
-			<nc:ActivityReference s:ref="SENT2" />
-			<jxdm:CourtReference s:ref="C2" />
-		</ch:SentencingCourtAssociation>
-
-		<ch:SupervisionAgencyAssociation>
-			<ch:SupervisionReference s:ref="SUP1" />
-			<nc:OrganizationReference s:ref="A2" />
-		</ch:SupervisionAgencyAssociation>
-		<ch:SupervisionAgencyAssociation>
-			<ch:SupervisionReference s:ref="SUP2" />
-			<nc:OrganizationReference s:ref="A2" />
-		</ch:SupervisionAgencyAssociation>
-
-		<ch:Order>
+			</rap:Supervision>
+		</ch-ext:RapSheetCycle>
+		<rap:ArrestAgencyAssociation>
+			<nc:ActivityReference s:ref="ARR1"/>
+			<nc:OrganizationReference s:ref="A1"/>
+		</rap:ArrestAgencyAssociation>
+		<rap:CourtActionCourtAssociation>
+			<nc:ActivityReference s:ref="CA1"/>
+			<j:CourtReference s:ref="C1"/>
+		</rap:CourtActionCourtAssociation>
+		<rap:SentencingCourtAssociation>
+			<nc:ActivityReference s:ref="SENT1"/>
+			<j:CourtReference s:ref="C1"/>
+		</rap:SentencingCourtAssociation>
+		<rap:SupervisionAgencyAssociation>
+			<rap:SupervisionReference s:ref="SUP1"/>
+			<nc:OrganizationReference s:ref="A2"/>
+		</rap:SupervisionAgencyAssociation>
+		<ch-ext:Order>
 			<nc:ActivityIdentification>
 				<nc:IdentificationID>50125</nc:IdentificationID>
 				<nc:IdentificationCategoryText>DOCUMENT ID
@@ -656,16 +400,16 @@
 				<nc:Date>2010-04-01</nc:Date>
 			</nc:ActivityDate>
 			<nc:ActivityDescriptionText>TEMPORARY RESTRAINING ORDER</nc:ActivityDescriptionText>
-			<jxdm:CourtOrderIssuingCourt>
+			<j:CourtOrderIssuingCourt>
 				<nc:OrganizationName>HONOLULU FAM CT</nc:OrganizationName>
-			</jxdm:CourtOrderIssuingCourt>
-			<jxdm:CourtOrderRequestDate>
+			</j:CourtOrderIssuingCourt>
+			<j:CourtOrderRequestDate>
 				<nc:Date>2010-04-01</nc:Date>
-			</jxdm:CourtOrderRequestDate>
-			<jxdm:CourtOrderServiceDate>
+			</j:CourtOrderRequestDate>
+			<j:CourtOrderServiceDate>
 				<nc:Date>2010-04-01</nc:Date>
-			</jxdm:CourtOrderServiceDate>
-			<ch:CourtCase>
+			</j:CourtOrderServiceDate>
+			<ch-ext:CourtCase>
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>FC-DA 02-1-9988</nc:IdentificationID>
 					<nc:IdentificationCategoryText>Case Number
@@ -678,8 +422,13 @@
 				</nc:ActivityDate>
 				<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
 				<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
-			</ch:CourtCase>
-			<ch:ProtectionOrderExpirationDate>2010-07-01</ch:ProtectionOrderExpirationDate>
-		</ch:Order>
-	</ch:RapSheet>
+			</ch-ext:CourtCase>
+			<ch-ext:ProtectionOrderExpirationDate>
+				<nc:Date>2001-12-01</nc:Date>
+			</ch-ext:ProtectionOrderExpirationDate>
+			<ch-ext:ProtectionOrderExpirationDate>
+				<nc:Date>2001-12-01</nc:Date>
+			</ch-ext:ProtectionOrderExpirationDate>
+		</ch-ext:Order>
+	</ch-ext:RapSheet>
 </ch-doc:CriminalHistory>
