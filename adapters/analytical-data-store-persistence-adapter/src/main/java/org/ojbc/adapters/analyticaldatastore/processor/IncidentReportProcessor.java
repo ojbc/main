@@ -203,8 +203,28 @@ public class IncidentReportProcessor {
 		        analyticalDatastoreDAO.saveArrest(arrest);
 		        
 		        //Save Charges
+		        //lexsdigest:ArrestOffenseAssociation
+		        NodeList arrestOffenseNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestOffenseAssociation");
+		        
+		        processArrestOffenseNodes(arrestOffenseNodes);
 		    }
 		}
+	}
+
+	private void processArrestOffenseNodes(NodeList arrestOffenseNodes) throws Exception{
+		for (int i = 0; i < arrestOffenseNodes.getLength(); i++) 
+		{
+			Node arrestOffenseNode = (arrestOffenseNodes.item(i));
+			
+		    if (arrestOffenseNode.getNodeType() == Node.ELEMENT_NODE)
+		    {
+		    	String offenseReference = XmlUtils.xPathStringSearch(arrestOffenseNode, "nc:ActivityReference[2]/@s:ref");
+		    	log.debug("Arrest offense reference: " + offenseReference);
+		    	
+		    	//TODO: determine whether to go after ndexia:Offense or OJB ext:Offense
+		    }
+		}	    
+		
 	}
 
 	protected Date returnArrestDate(Document incidentReport,
