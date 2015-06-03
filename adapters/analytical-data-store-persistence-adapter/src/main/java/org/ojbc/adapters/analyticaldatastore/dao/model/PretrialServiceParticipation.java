@@ -38,6 +38,8 @@ public class PretrialServiceParticipation {
     //fk
     private int assessedNeedID;
 
+    private int riskScore;
+    
     private String pretrialServiceCaseNumber;
     
     private Date intakeDate;
@@ -114,6 +116,14 @@ public class PretrialServiceParticipation {
 
 	public void setRecordType(char recordType) {
 		this.recordType = recordType;
+	}
+
+	public int getRiskScore() {
+		return riskScore;
+	}
+
+	public void setRiskScore(int riskScore) {
+		riskScore = riskScore;
 	}
 	
 }

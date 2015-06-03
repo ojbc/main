@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -343,7 +344,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
         log.debug("Inserting row into PretrialServiceParticipation table");
 
-        final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PretrialServiceID, PersonID, CountyID,RiskScoreID,AssessedNeedID,IntakeDate,RecordType) values (?,?,?,?,?,?,?,?)";
+        final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PretrialServiceID, PersonID, CountyID,RiskScoreID,AssessedNeedID,RiskScore,IntakeDate,RecordType) values (?,?,?,?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -351,15 +352,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(pretrialServiceParticipationStatement, new String[] {"PretrialServiceCaseNumber", "PretrialServiceID", "PersonID", "CountyID", 
-        	                		"RiskScoreID" , "AssessedNeedID" , "IntakeDate", "RecordType"});
+        	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "RecordType"});
         	            ps.setString(1, pretrialServiceParticipation.getPretrialServiceCaseNumber());
         	            ps.setInt(2, pretrialServiceParticipation.getPretrialServiceID());
         	            ps.setInt(3, pretrialServiceParticipation.getPersonID());
         	            ps.setInt(4, pretrialServiceParticipation.getCountyID());
         	            ps.setInt(5, pretrialServiceParticipation.getRiskScoreID());
         	            ps.setInt(6, pretrialServiceParticipation.getAssessedNeedID());
-        	            ps.setDate(7, new java.sql.Date(pretrialServiceParticipation.getIntakeDate().getTime()));
-        	            ps.setString(8, String.valueOf(pretrialServiceParticipation.getRecordType()));
+        	            ps.setInt(7, pretrialServiceParticipation.getRiskScore());
+        	            ps.setDate(8, new java.sql.Date(pretrialServiceParticipation.getIntakeDate().getTime()));
+        	            ps.setString(9, String.valueOf(pretrialServiceParticipation.getRecordType()));
 
         	            return ps;
         	        }
@@ -454,5 +456,46 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 		return incidents;
 		
+	}
+
+	@Override
+	public int returnPersonSexKeyfromSexDescription(String personSexDescription){
+		String sql = "select PersonSexID from PersonSex where PersonSexDescription = ?";
+		 
+		List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql,new Object[] { personSexDescription });
+		
+		if (rows.size() != 1)
+		{
+			log.info("Person Sex Query did not return the proper resultset.");
+			
+			//TODO: maybe query for 'unknown' once and then store it in a member variable instead of hardcoding?
+			//FIXME
+			return 3;
+		}	
+		
+		Long personSexKey = (Long)rows.get(0).get("PersonSexID");
+		
+		return personSexKey.intValue();
+	}
+	
+	@Override
+	public int returnPersonRaceKeyfromRaceDescription(String personRaceDescription){
+		String sql = "select PersonRaceID from PersonRace where PersonRaceDescription = ?";
+		 
+		List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql,new Object[] { personRaceDescription });
+		
+		if (rows.size() != 1)
+		{
+			log.info("Person Race Query did not return the proper resultset.");
+			
+			//TODO: maybe query for 'unknown' once and then store it in a member variable instead of hardcoding?
+			
+			return 4;
+		}	
+		
+		Long personRaceKey = (Long)rows.get(0).get("PersonRaceID");
+		
+		return personRaceKey.intValue();
 	}	
+	
 }

@@ -17,6 +17,9 @@
 
 CREATE schema AnalyticsDataStore;
 
+-- Go to analytics staging database model OJBStagingModel.architect and click Tools -> Forward Engineer, select H2
+-- and paste the contents below this comment
+
 CREATE TABLE PersonAgeRange (
                 PersonAgeRangeID INTEGER NOT NULL,
                 AgeRange5 VARCHAR(7) NOT NULL,
@@ -59,6 +62,7 @@ CREATE TABLE RiskScore (
                 RiskScoreDescription VARCHAR(30) NOT NULL,
                 CONSTRAINT RiskScoreID PRIMARY KEY (RiskScoreID)
 );
+COMMENT ON COLUMN RiskScore.RiskScoreDescription IS 'values can be "low risk", "moderate risk", "high risk" and "very high risk"';
 
 
 CREATE TABLE PretrialService (
@@ -107,6 +111,7 @@ CREATE TABLE PretrialServiceParticipation (
                 CountyID INTEGER NOT NULL,
                 RiskScoreID INTEGER NOT NULL,
                 AssessedNeedID INTEGER NOT NULL,
+                RiskScore INTEGER NOT NULL,
                 IntakeDate DATE NOT NULL,
                 RecordType CHAR(1) NOT NULL,
                 CONSTRAINT PretrialServiceParticipation_pk PRIMARY KEY (PretrialServiceParticipationID)
