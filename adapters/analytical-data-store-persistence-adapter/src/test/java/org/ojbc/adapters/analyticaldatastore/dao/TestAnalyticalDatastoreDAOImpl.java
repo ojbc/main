@@ -39,6 +39,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.InvolvedDrug;
 import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
@@ -79,7 +80,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		agency.setAgencyName("Some PD");
 		
 		int agencyPk = analyticalDatastoreDAOImpl.saveAgency(agency );
-		assertEquals(2, agencyPk);
+		assertEquals(3, agencyPk);
 		
 		log.debug("Agency primary key: " + agencyPk);
 
@@ -119,6 +120,11 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int offenseTypePk = analyticalDatastoreDAOImpl.saveOffenseType(offenseType);
 		assertEquals(1, offenseTypePk);
 
+		InvolvedDrug involvedDrug = new InvolvedDrug();
+		involvedDrug.setInvolvedDrugDescription("Meth");
+		
+		int involvedDrugPk = analyticalDatastoreDAOImpl.saveInvolvedDrug(involvedDrug);
+		
 		Arrest arrest = new Arrest();
 		
 		arrest.setPersonID(personPk);
@@ -127,6 +133,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		arrest.setArrestDate(new Date());
 		arrest.setArrestDrugRelated('Y');
 		arrest.setArrestTime(new java.sql.Time(arrest.getArrestDate().getTime()));
+		arrest.setInvolvedDrugID(involvedDrugPk);
 		
 		int arrestPk = analyticalDatastoreDAOImpl.saveArrest(arrest);
 		assertEquals(1, arrestPk);

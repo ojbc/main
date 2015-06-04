@@ -180,6 +180,7 @@ public class CamelContextTest {
 		assertEquals('N',arrest.getArrestDrugRelated());
 		assertEquals("13:48:00",arrest.getArrestTime().toString());
 		assertEquals(2,arrest.getArrestingAgencyID());
+		assertEquals(null,arrest.getInvolvedDrugID());
 		
 		//TODO: Determine whether the arrest row mapper should use ResultsSetExtractor.
 		//This would allow for run join queries, however, the arrest row mapper is not used

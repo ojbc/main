@@ -22,7 +22,7 @@ CREATE schema AnalyticsDataStore;
 
 
 CREATE TABLE InvolvedDrug (
-                InvolvedDrugID INTEGER NOT NULL,
+                InvolvedDrugID IDENTITY NOT NULL,
                 InvolvedDrugDescription VARCHAR(40) NOT NULL,
                 CONSTRAINT InvolvedDrug_pk PRIMARY KEY (InvolvedDrugID)
 );
