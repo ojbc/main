@@ -20,6 +20,14 @@ CREATE schema AnalyticsDataStore;
 -- Go to analytics staging database model OJBStagingModel.architect and click Tools -> Forward Engineer, select H2
 -- and paste the contents below this comment
 
+
+CREATE TABLE InvolvedDrug (
+                InvolvedDrugID INTEGER NOT NULL,
+                InvolvedDrugDescription VARCHAR(40) NOT NULL,
+                CONSTRAINT InvolvedDrug_pk PRIMARY KEY (InvolvedDrugID)
+);
+
+
 CREATE TABLE PersonAgeRange (
                 PersonAgeRangeID INTEGER NOT NULL,
                 AgeRange5 VARCHAR(7) NOT NULL,
@@ -188,6 +196,7 @@ CREATE TABLE Arrest (
                 ArrestDate DATE NOT NULL,
                 ArrestTime TIME NOT NULL,
                 ArrestDrugRelated CHAR(1) NOT NULL,
+                InvolvedDrugID INTEGER,
                 CONSTRAINT ArrestID PRIMARY KEY (ArrestID)
 );
 COMMENT ON COLUMN Arrest.ArrestDrugRelated IS 'Y if drug related, N otherwise';
@@ -200,6 +209,12 @@ CREATE TABLE Charge (
                 CONSTRAINT Charge_pk PRIMARY KEY (ChargeID)
 );
 
+
+ALTER TABLE Arrest ADD CONSTRAINT InvolvedDrug_Arrest_fk
+FOREIGN KEY (InvolvedDrugID)
+REFERENCES InvolvedDrug (InvolvedDrugID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 
 ALTER TABLE Population ADD CONSTRAINT AgeRange_Population_fk
 FOREIGN KEY (PersonAgeRangeID)
