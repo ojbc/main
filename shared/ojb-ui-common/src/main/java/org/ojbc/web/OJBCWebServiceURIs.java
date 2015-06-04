@@ -19,7 +19,7 @@ package org.ojbc.web;
 public class OJBCWebServiceURIs {
 	
 	public static final String CRIMINAL_HISTORY_SEARCH = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History";
-	public static final String CRIMINAL_HISTORY = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History";
+	public static final String CRIMINAL_HISTORY = "{http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0}Criminal-History-Query-RequestServiceService";
 	public static final String WARRANTS = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants";
 	public static final String FIREARMS = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequest";	
 	public static final String FIREARMS_QUERY_REQUEST_BY_FIREARM = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByFirearm";
