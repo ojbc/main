@@ -153,13 +153,17 @@ public class CamelContextTest {
 	    
 		List<Incident> incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumber("15999999999");
 		assertEquals(1,incidents.size());
-		assertEquals("15999999999",incidents.get(0).getIncidentCaseNumber());
-		assertEquals("45 VT ROUTE 100",incidents.get(0).getIncidentLocationStreetAddress());
-		assertEquals("Dover",incidents.get(0).getIncidentLocationTown());
-		assertEquals("13:46:43",incidents.get(0).getIncidentTime().toString());
-		assertEquals("05/23/2015",DATE_FOMRAT.format(incidents.get(0).getIncidentDate()));
 		
-		int incidentPk = incidents.get(0).getIncidentID();
+		Incident incident = incidents.get(0);
+		
+		assertEquals("15999999999",incident.getIncidentCaseNumber());
+		assertEquals("45 VT ROUTE 100",incident.getIncidentLocationStreetAddress());
+		assertEquals("Dover",incident.getIncidentLocationTown());
+		assertEquals("13:46:43",incident.getIncidentTime().toString());
+		assertEquals("05/23/2015",DATE_FOMRAT.format(incident.getIncidentDate()));
+		assertEquals(2,incident.getReportingAgencyID());
+		
+		int incidentPk = incident.getIncidentID();
 		
 		log.info("PK of incident that was just saved: " + incidentPk);
 		
@@ -171,6 +175,7 @@ public class CamelContextTest {
 		
 		assertEquals('N',arrest.getArrestDrugRelated());
 		assertEquals("13:48:00",arrest.getArrestTime().toString());
+		assertEquals(2,arrest.getArrestingAgencyID());
 		
 		//TODO: Determine whether the arrest row mapper should use ResultsSetExtractor.
 		//This would allow for run join queries, however, the arrest row mapper is not used

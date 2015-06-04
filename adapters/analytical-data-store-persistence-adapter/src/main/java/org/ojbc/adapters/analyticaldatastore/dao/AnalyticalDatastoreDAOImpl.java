@@ -479,6 +479,25 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		List<Arrest> arrests = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new ArrestRowMapper());
 		
 		return arrests;
+	}
+
+	@Override
+	public int returnAgencyKeyfromAgencyName(String agencyName) {
+		String sql = "select AgencyID from Agency where AgencyName = ?";
+		 
+		List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql,new Object[] { agencyName });
+		
+		if (rows.size() != 1)
+		{
+			log.info("Agency did not return the proper resultset.");
+			
+			//TODO: maybe we should have a code for 'unknown' or 'unmapped' agency
+			return 0;
+		}	
+		
+		Long agencyIdKey = (Long)rows.get(0).get("AgencyID");
+		
+		return agencyIdKey.intValue();	
 	}	
 	
 }
