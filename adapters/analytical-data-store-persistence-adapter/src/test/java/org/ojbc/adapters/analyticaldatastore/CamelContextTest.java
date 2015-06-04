@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -163,6 +164,8 @@ public class CamelContextTest {
 		assertEquals("05/23/2015",DATE_FOMRAT.format(incident.getIncidentDate()));
 		assertEquals(2,incident.getReportingAgencyID());
 		assertEquals(1,incident.getIncidentTypeID());
+		assertEquals(0,incident.getIncidentLocationLatitude().compareTo(new BigDecimal("42.931071")));
+		assertEquals(0,incident.getIncidentLocationLongitude().compareTo(new BigDecimal("-72.847988")));
 		
 		int incidentPk = incident.getIncidentID();
 		

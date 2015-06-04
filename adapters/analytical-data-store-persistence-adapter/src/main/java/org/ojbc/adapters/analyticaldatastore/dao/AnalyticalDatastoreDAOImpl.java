@@ -118,10 +118,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setInt(1, incident.getReportingAgencyID());
         	            ps.setString(2, incident.getIncidentCaseNumber());
         	            ps.setInt(3, incident.getIncidentTypeID());
-        	            
-        	            //TODO: fix this to use actual lat and long
-        	            ps.setBigDecimal(4, new BigDecimal("78.834163"));
-        	            ps.setBigDecimal(5, new BigDecimal("107.774506"));
+        	            ps.setBigDecimal(4, incident.getIncidentLocationLatitude());
+        	            ps.setBigDecimal(5, incident.getIncidentLocationLongitude());
         	            ps.setString(6, incident.getIncidentLocationStreetAddress());
         	            ps.setString(7, incident.getIncidentLocationTown());
         	            ps.setDate(8, new java.sql.Date(incident.getIncidentDate().getTime()));
