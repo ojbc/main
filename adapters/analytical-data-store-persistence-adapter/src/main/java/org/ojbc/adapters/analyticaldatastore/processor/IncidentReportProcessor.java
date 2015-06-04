@@ -89,21 +89,27 @@ public class IncidentReportProcessor {
 		}	
 		
 		String mapHorizontalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapHorizontalCoordinateText");
+		
+		//TODO: put this into a strategy
+		mapHorizontalCoordinateText = updatedCoordinate(mapHorizontalCoordinateText);
 		log.debug("Map horizontal coordinate text: " + mapHorizontalCoordinateText);
 		
 		if (StringUtils.isNotBlank(mapHorizontalCoordinateText))
 		{
-			BigDecimal latitute = new BigDecimal(mapHorizontalCoordinateText).setScale(4);
-			incident.setIncidentLocationLatitude(latitute);
+			BigDecimal longitude = new BigDecimal(mapHorizontalCoordinateText);
+			incident.setIncidentLocationLongitude(longitude);
 		}	
 		
 		String mapVerticalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapVerticalCoordinateText");
+		
+		//TODO: put this into a strategy
+		mapVerticalCoordinateText = updatedCoordinate(mapVerticalCoordinateText);
 		log.debug("Map vertical coordinate text: " + mapVerticalCoordinateText);
 		
 		if (StringUtils.isNotBlank(mapVerticalCoordinateText))
 		{
-			BigDecimal longitude = new BigDecimal(mapVerticalCoordinateText).setScale(4);
-			incident.setIncidentLocationLongitude(longitude);
+			BigDecimal latitude = new BigDecimal(mapVerticalCoordinateText);
+			incident.setIncidentLocationLatitude(latitude);
 		}	
 		
 		
@@ -304,6 +310,21 @@ public class IncidentReportProcessor {
 		
 		return arrestingAgency;
 	}
+	
+	protected String updatedCoordinate(String coordinateText) {
+		
+		if (coordinateText.startsWith("-"))
+		{
+			coordinateText = new StringBuilder(coordinateText).insert(3, ".").toString();
+		}	
+		else
+		{
+			coordinateText = new StringBuilder(coordinateText).insert(2, ".").toString();	
+		}	
+		
+		return coordinateText;
+	}
+
 	
 	public IdentifierGenerationStrategy getIdentifierGenerationStrategy() {
 		return identifierGenerationStrategy;
