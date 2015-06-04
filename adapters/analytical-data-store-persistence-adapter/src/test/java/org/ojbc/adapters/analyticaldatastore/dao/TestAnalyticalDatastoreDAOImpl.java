@@ -273,4 +273,13 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 	}
 
+	@Test
+	public void testReturnIncidentTypeKeyfromIncidentTypeDescription()
+	{
+		int incidentTypePk = analyticalDatastoreDAOImpl.returnIncidentTypeKeyfromIncidentTypeDescription("Placeholder");
+		
+		assertEquals(1, incidentTypePk);
+		
+	}
+
 }

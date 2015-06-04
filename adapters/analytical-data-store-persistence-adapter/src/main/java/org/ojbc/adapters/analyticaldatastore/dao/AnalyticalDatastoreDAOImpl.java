@@ -498,6 +498,26 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		Long agencyIdKey = (Long)rows.get(0).get("AgencyID");
 		
 		return agencyIdKey.intValue();	
+	}
+
+	@Override
+	public int returnIncidentTypeKeyfromIncidentTypeDescription(
+			String incidentTypeDescription) {
+		String sql = "select IncidentTypeID from IncidentType where IncidentTypeDescription = ?";
+		 
+		List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql,new Object[] { incidentTypeDescription });
+		
+		if (rows.size() != 1)
+		{
+			log.info("IncidentType did not return the proper resultset.");
+			
+			//TODO: maybe we should have a code for 'unknown' or 'unmapped' incident type description
+			return 0;
+		}	
+		
+		Long incidentTypeIdKey = (Long)rows.get(0).get("IncidentTypeID");
+		
+		return incidentTypeIdKey.intValue();	
 	}	
 	
 }
