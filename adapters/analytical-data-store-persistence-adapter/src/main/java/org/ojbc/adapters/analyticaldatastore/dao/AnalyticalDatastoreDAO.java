@@ -76,4 +76,6 @@ public interface AnalyticalDatastoreDAO {
 	
 	//TODO: Update this to use ORI when ORI added to data model
 	public int returnAgencyKeyfromAgencyName(String agencyName);
+	
+	public int returnIncidentTypeKeyfromIncidentTypeDescription(String incidentTypeDescription);
 }

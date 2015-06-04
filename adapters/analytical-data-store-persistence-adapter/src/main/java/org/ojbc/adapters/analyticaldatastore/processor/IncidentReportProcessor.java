@@ -159,8 +159,10 @@ public class IncidentReportProcessor {
 
 		}	
 		
-		//TODO, get actual fk values for these fields
-		incident.setIncidentTypeID(1);
+		String incidentTypeDescription="Placeholder";
+		
+		int incidentTypePK = analyticalDatastoreDAO.returnIncidentTypeKeyfromIncidentTypeDescription(incidentTypeDescription);
+		incident.setIncidentTypeID(incidentTypePK);
 		
 		int incidentPk = analyticalDatastoreDAO.saveIncident(incident);
 		

@@ -162,6 +162,7 @@ public class CamelContextTest {
 		assertEquals("13:46:43",incident.getIncidentTime().toString());
 		assertEquals("05/23/2015",DATE_FOMRAT.format(incident.getIncidentDate()));
 		assertEquals(2,incident.getReportingAgencyID());
+		assertEquals(1,incident.getIncidentTypeID());
 		
 		int incidentPk = incident.getIncidentID();
 		
