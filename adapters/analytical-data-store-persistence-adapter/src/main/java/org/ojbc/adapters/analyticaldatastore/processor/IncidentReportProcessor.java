@@ -124,10 +124,29 @@ public class IncidentReportProcessor {
 			String streetFullText = XmlUtils.xPathStringSearch(locationNode, "nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetFullText");
 			log.debug("Street Full Text: " + streetFullText);
 
-			//TODO: build address from components if no streetfull text
 			if (StringUtils.isNotBlank(streetFullText))
 			{
 				incident.setIncidentLocationStreetAddress(streetFullText);
+			}	
+			else
+			{
+				String streetNumberText = XmlUtils.xPathStringSearch(locationNode, "nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetNumberText");
+				log.debug("Street Number Text: " + streetNumberText);
+				
+				String streetName = XmlUtils.xPathStringSearch(locationNode, "nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetName");
+				log.debug("Street Name Text: " + streetName);
+
+				String streetCategoryText = XmlUtils.xPathStringSearch(locationNode, "nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetCategoryText");
+				log.debug("Street Category Text: " + streetCategoryText);
+
+				streetFullText = streetNumberText + streetName + streetFullText;
+				log.debug("Street Full Text built from number, name and category: " + streetFullText);
+
+				if (StringUtils.isNotBlank(streetFullText))
+				{
+					incident.setIncidentLocationStreetAddress(streetFullText);
+				}	
+	
 			}	
 			
 			String cityTown = XmlUtils.xPathStringSearch(locationNode, "nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName");
