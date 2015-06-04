@@ -14,31 +14,27 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.analyticaldatastore.dao;
+package org.ojbc.adapters.analyticaldatastore.util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
-import org.ojbc.adapters.analyticaldatastore.util.DaoUtils;
-import org.springframework.jdbc.core.RowMapper;
+public class DaoUtils {
 
-public class ArrestRowMapper implements RowMapper<Arrest>
-{
-	@Override
-	public Arrest mapRow(ResultSet rs, int rowNum) throws SQLException {
-    	Arrest arrest = new Arrest();
-    	
-    	arrest.setArrestDate(rs.getDate("ArrestDate"));
-    	arrest.setArrestTime(rs.getTime("ArrestTime"));
-    	arrest.setArrestDrugRelated(rs.getString("ArrestDrugRelated").charAt(0));
-    	arrest.setArrestingAgencyID(rs.getInt("ArrestingAgencyID"));
-    	arrest.setIncidentID(rs.getInt("IncidentID"));
-    	arrest.setPersonID(rs.getInt("PersonID"));
-    	arrest.setInvolvedDrugID(DaoUtils.getInteger(rs, "InvolvedDrugID"));
-    	
-    	return arrest;
-	}
-
-	
+	/**
+	 * This method will return a null rather than zero if the database has a null
+	 * value for the column.
+	 * 
+	 * See here:
+	 * http://stackoverflow.com/questions/2920364/checking-for-a-null-int-value-from-a-java-resultset
+	 * 
+	 * @param rs
+	 * @param strColName
+	 * @return
+	 * @throws SQLException
+	 */
+	static public Integer getInteger(ResultSet rs, String strColName) throws SQLException {
+        int nValue = rs.getInt(strColName);
+        return rs.wasNull() ? null : nValue;
+    }
 }

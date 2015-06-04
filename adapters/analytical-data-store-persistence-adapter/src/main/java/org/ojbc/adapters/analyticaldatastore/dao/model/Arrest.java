@@ -16,7 +16,6 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao.model;
 
-import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;
 
@@ -33,6 +32,9 @@ public class Arrest {
     
     //fk
     private int arrestingAgencyID;
+
+    //fk
+    private Integer involvedDrugID;
 
 	private Date arrestDate;
 	private Time arrestTime;
@@ -95,5 +97,14 @@ public class Arrest {
 	public void setArrestDrugRelated(char arrestDrugRelated) {
 		this.arrestDrugRelated = arrestDrugRelated;
 	}
+
+	public Integer getInvolvedDrugID() {
+		return involvedDrugID;
+	}
+
+	public void setInvolvedDrugID(Integer involvedDrugID) {
+		this.involvedDrugID = involvedDrugID;
+	}
+
 	
 }

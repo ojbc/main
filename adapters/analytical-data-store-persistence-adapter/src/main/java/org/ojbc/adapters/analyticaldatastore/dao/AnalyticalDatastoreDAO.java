@@ -27,6 +27,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.InvolvedDrug;
 import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
@@ -65,6 +66,8 @@ public interface AnalyticalDatastoreDAO {
 	public int saveCharge(Charge charge);
 	
 	public int saveDisposition(Disposition disposition);
+	
+	public int saveInvolvedDrug(InvolvedDrug involvedDrug);
 	
 	public List<Incident> searchForIncidentsByIncidentNumber(String incidentNumber);
 	

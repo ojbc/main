@@ -33,3 +33,6 @@ insert into IncidentType (IncidentTypeDescription) values ('Placeholder');
 -- Agency - Placeholder while waiting for code values
 insert into Agency(AgencyName) values ('Placeholder Agency Name');
 insert into Agency(AgencyName) values ('Some PD');
+
+-- Involved Drug Type - Placeholder while waiting for code values
+insert into InvolvedDrug (InvolvedDrugDescription) values ('Placeholder Involved Drug');

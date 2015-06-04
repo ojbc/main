@@ -36,6 +36,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.InvolvedDrug;
 import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
@@ -159,20 +160,31 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public int saveArrest(final Arrest arrest) {
         log.debug("Inserting row into Arrest table");
 
-        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestingAgencyID,ArrestDate,ArrestTime,ArrestDrugRelated ) values (?,?,?,?,?,?)";
+        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestingAgencyID,ArrestDate,ArrestTime,ArrestDrugRelated,InvolvedDrugID ) values (?,?,?,?,?,?,?)";
 		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestingAgencyID","ArrestDate","ArrestTime","ArrestDrugRelated"});
+        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestingAgencyID","ArrestDate","ArrestTime","ArrestDrugRelated","InvolvedDrugID"});
         	            ps.setInt(1, arrest.getPersonID());
         	            ps.setInt(2, arrest.getIncidentID());
         	            ps.setInt(3, arrest.getArrestingAgencyID());
         	            ps.setDate(4, new java.sql.Date(arrest.getArrestDate().getTime()));
         	            ps.setTime(5, new java.sql.Time(arrest.getArrestDate().getTime()));
         	            ps.setString(6, String.valueOf(arrest.getArrestDrugRelated()));
+        	            
+        	            //Allow null fk is not required
+        	            if (arrest.getInvolvedDrugID() != null)
+        	            {	
+        	            	ps.setInt(7, arrest.getInvolvedDrugID());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(7, java.sql.Types.NULL);
+        	            }	
+        	            	
         	            return ps;
         	        }
         	    },
@@ -516,6 +528,28 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		Long incidentTypeIdKey = (Long)rows.get(0).get("IncidentTypeID");
 		
 		return incidentTypeIdKey.intValue();	
+	}
+
+	@Override
+	public int saveInvolvedDrug(final InvolvedDrug involvedDrug) {
+        log.debug("Inserting row into PersonRace table");
+
+        final String involvedDrugInsertStatement="INSERT into InvolvedDrug (InvolvedDrugDescription) values (?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(involvedDrugInsertStatement, new String[] {"InvolvedDrugDescription"});
+        	            ps.setString(1, involvedDrug.getInvolvedDrugDescription());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+      
 	}	
 	
 }
