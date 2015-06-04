@@ -29,6 +29,7 @@ import java.util.StringTokenizer;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -109,10 +110,10 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
             ret.appendChild(e);
             e.setPrefix(OjbcNamespaceContext.NS_PREFIX_CH_DOC);
 
-            e = appendElement(e, OjbcNamespaceContext.NS_CH, "RapSheet");
+            e = appendElement(e, OjbcNamespaceContext.NS_CH_EXT, "RapSheet");
             Element rapSheet = e;
 
-            e = appendElement(rapSheet, OjbcNamespaceContext.NS_CH, "Metadata");
+            e = appendElement(rapSheet, OjbcNamespaceContext.NS_RAPSHEET_41, "Metadata");
             e = appendElement(e, OjbcNamespaceContext.NS_NC, "ReportingOrganizationText");
             e.setTextContent("State CHRI");
 
@@ -164,7 +165,7 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
         
         for (int i=0;i < orderCount;i++) {
             
-            Element orderElement = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "Order");
+            Element orderElement = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH_EXT, "Order");
             Element activityElement = appendElement(orderElement, OjbcNamespaceContext.NS_NC, "ActivityIdentification");
             Element e = appendElement(activityElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
             e.setTextContent(generateRandomID("ORDER", 10));
@@ -176,16 +177,17 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
             e = appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
             DateTime orderDate = generateUniformRandomDateBetween(baseDate, baseDate.minusYears(5));
             e.setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(orderDate));
-            e = appendElement(orderElement, OjbcNamespaceContext.NS_JXDM_40, "CourtOrderIssuingCourt");
+            e = appendElement(orderElement, OjbcNamespaceContext.NS_JXDM_41, "CourtOrderIssuingCourt");
             e = appendElement(e, OjbcNamespaceContext.NS_NC, "OrganizationName");
             e.setTextContent(getRandomCounty(person.state) + " District Court");
-            e = appendElement(orderElement, OjbcNamespaceContext.NS_JXDM_40, "CourtOrderServiceDescriptionText");
+            e = appendElement(orderElement, OjbcNamespaceContext.NS_JXDM_41, "CourtOrderServiceDescriptionText");
             e.setTextContent(generateRandomCodeFromList("PENDING", "SERVED"));
-            e = appendElement(orderElement, OjbcNamespaceContext.NS_CH, "CourtCase");
+            e = appendElement(orderElement, OjbcNamespaceContext.NS_CH_EXT, "CourtCase");
             e = appendElement(e, OjbcNamespaceContext.NS_NC, "ActivityIdentification");
             e = appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
             e.setTextContent("TRO-" + baseDate.getYear() + generateRandomID("-", 8));
-            e = appendElement(orderElement, OjbcNamespaceContext.NS_CH, "ProtectionOrderExpirationDate");
+            e = appendElement(orderElement, OjbcNamespaceContext.NS_CH_EXT, "ProtectionOrderExpirationDate");
+            e = appendElement(e, OjbcNamespaceContext.NS_NC, "Date"); 
             e.setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(orderDate.plusDays(randomGenerator.nextInt(5, 365))));
         }
         
@@ -197,8 +199,8 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
 
             if (arrest.custodySupervisionId != null) {
 
-                Element saa = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "SupervisionAgencyAssociation");
-                Element e = appendElement(saa, OjbcNamespaceContext.NS_CH, "SupervisionReference");
+                Element saa = appendElement(rapSheetElement, OjbcNamespaceContext.NS_RAPSHEET_41, "SupervisionAgencyAssociation");
+                Element e = appendElement(saa, OjbcNamespaceContext.NS_RAPSHEET_41, "SupervisionReference");
                 XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", arrest.custodySupervisionId);
                 e = appendElement(saa, OjbcNamespaceContext.NS_NC, "OrganizationReference");
                 XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", arrest.custodySupervisionAgency.getXmlId());
@@ -206,8 +208,8 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
 
             if (arrest.probationSupervisionId != null) {
 
-                Element saa = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "SupervisionAgencyAssociation");
-                Element e = appendElement(saa, OjbcNamespaceContext.NS_CH, "SupervisionReference");
+                Element saa = appendElement(rapSheetElement, OjbcNamespaceContext.NS_RAPSHEET_41, "SupervisionAgencyAssociation");
+                Element e = appendElement(saa, OjbcNamespaceContext.NS_RAPSHEET_41, "SupervisionReference");
                 XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", arrest.probationSupervisionId);
                 e = appendElement(saa, OjbcNamespaceContext.NS_NC, "OrganizationReference");
                 XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", arrest.probationSupervisionAgency.getXmlId());
@@ -220,7 +222,7 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
 
         for (Arrest arrest : arrests) {
 
-            Element e = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "ArrestAgencyAssociation");
+            Element e = appendElement(rapSheetElement, OjbcNamespaceContext.NS_RAPSHEET_41, "ArrestAgencyAssociation");
             Element aaa = e;
             e = appendElement(aaa, OjbcNamespaceContext.NS_NC, "ActivityReference");
             XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", arrest.id);
@@ -234,35 +236,35 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
         Element e;
         for (Arrest arrest : arrests) {
             boolean courtAction = false;
-            Element rapSheetCycle = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "RapSheetCycle");
-            e = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_CH, "CycleEarliestDate");
+            Element rapSheetCycle = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH_EXT, "RapSheetCycle");
+            e = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_RAPSHEET_41, "CycleEarliestDate");
             e = appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
             e.setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(arrest.date));
-            Element arrestElement = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_CH, "Arrest");
+            Element arrestElement = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_RAPSHEET_41, "Arrest");
             XmlUtils.addAttribute(arrestElement, OjbcNamespaceContext.NS_STRUCTURES, "id", arrest.id);
             e = appendElement(arrestElement, OjbcNamespaceContext.NS_NC, "ActivityDate");
             e = appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
             e.setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(arrest.date));
-            e = appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_40, "ArrestAgencyRecordIdentification");
+            e = appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_41, "ArrestAgencyRecordIdentification");
             e = appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
             e.setTextContent(arrest.recordId);
             for (ArrestCharge arrestCharge : arrest.charges) {
-                Element arrestChargeElement = appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_40, "ArrestCharge");
-                e = appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_40, "ChargeDescriptionText");
+                Element arrestChargeElement = appendElement(arrestElement, OjbcNamespaceContext.NS_RAPSHEET_41, "ArrestCharge");
+                e = appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_41, "ChargeDescriptionText");
                 e.setTextContent(arrestCharge.description);
                 if (!arrestCharge.prosecuted) {
-                    e = appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_40, "ChargeDisposition");
+                    e = appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_41, "ChargeDisposition");
                     e = appendElement(e, OjbcNamespaceContext.NS_NC, "DispositionDescriptionText");
                     e.setTextContent("LACK OF PROS");
                 } else {
                     courtAction = true;
                 }
-                e = appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_40, "ChargeIdentification");
+                e = appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_41, "ChargeIdentification");
                 e = appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
                 e.setTextContent(arrestCharge.id);
-                e = appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_40, "ChargeSeverityText");
+                e = appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_41, "ChargeSeverityText");
                 e.setTextContent(arrestCharge.severity);
-                e = appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_40, "ChargeTrackingIdentification");
+                e = appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_41, "ChargeTrackingIdentification");
                 e = appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
                 e.setTextContent(arrestCharge.trackingId);
             }
@@ -271,13 +273,13 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
 
             if (courtAction && arrest.dispoDate != null) {
 
-                Element courtActionElement = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_CH, "CourtAction");
+                Element courtActionElement = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_RAPSHEET_41, "CourtAction");
                 for (ArrestCharge arrestCharge : arrest.charges) {
                     if (arrestCharge.prosecuted) {
-                        Element courtChargeElement = appendElement(courtActionElement, OjbcNamespaceContext.NS_JXDM_40, "CourtCharge");
-                        e = appendElement(courtChargeElement, OjbcNamespaceContext.NS_JXDM_40, "ChargeDescriptionText");
+                        Element courtChargeElement = appendElement(courtActionElement, OjbcNamespaceContext.NS_RAPSHEET_41, "CourtCharge");
+                        e = appendElement(courtChargeElement, OjbcNamespaceContext.NS_JXDM_41, "ChargeDescriptionText");
                         e.setTextContent(arrestCharge.description);
-                        e = appendElement(courtChargeElement, OjbcNamespaceContext.NS_JXDM_40, "ChargeDisposition");
+                        e = appendElement(courtChargeElement, OjbcNamespaceContext.NS_JXDM_41, "ChargeDisposition");
                         Element dispoElement = e;
                         e = appendElement(dispoElement, OjbcNamespaceContext.NS_NC, "DispositionDate");
                         e = appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
@@ -289,12 +291,12 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
                         } else {
                             e.setTextContent("NOT GUILTY");
                         }
-                        e = appendElement(courtChargeElement, OjbcNamespaceContext.NS_JXDM_40, "ChargeIdentification");
+                        e = appendElement(courtChargeElement, OjbcNamespaceContext.NS_JXDM_41, "ChargeIdentification");
                         e = appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
                         e.setTextContent(arrestCharge.id);
-                        e = appendElement(courtChargeElement, OjbcNamespaceContext.NS_JXDM_40, "ChargeSeverityText");
+                        e = appendElement(courtChargeElement, OjbcNamespaceContext.NS_JXDM_41, "ChargeSeverityText");
                         e.setTextContent(arrestCharge.severity);
-                        e = appendElement(courtChargeElement, OjbcNamespaceContext.NS_JXDM_40, "ChargeTrackingIdentification");
+                        e = appendElement(courtChargeElement, OjbcNamespaceContext.NS_JXDM_41, "ChargeTrackingIdentification");
                         e = appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
                         e.setTextContent(arrestCharge.trackingId);
                     }
@@ -303,16 +305,12 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
 
             if (sentenced) {
 
-                Element sentencingElement = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_CH, "Sentencing");
+                Element sentencingElement = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_CH_EXT, "Sentencing");
 
                 for (ArrestCharge arrestCharge : arrest.charges) {
                     if (arrestCharge.guilty) {
-                        Element sentenceElement = appendElement(sentencingElement, OjbcNamespaceContext.NS_JXDM_40, "Sentence");
-                        e = appendElement(sentenceElement, OjbcNamespaceContext.NS_JXDM_40, "SentenceCharge");
-                        e = appendElement(e, OjbcNamespaceContext.NS_JXDM_40, "ChargeTrackingIdentification");
-                        e = appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
-                        e.setTextContent(arrestCharge.trackingId);
-                        e = appendElement(sentenceElement, OjbcNamespaceContext.NS_JXDM_40, "SentenceDescriptionText");
+                        Element sentenceElement = appendElement(sentencingElement, OjbcNamespaceContext.NS_CH_EXT, "Sentence");
+                        e = appendElement(sentenceElement, OjbcNamespaceContext.NS_JXDM_41, "SentenceDescriptionText");
                         String termPeriod = " DAYS";
                         String sentenceType = " CONFINEMENT ";
                         int termLength = arrestCharge.offense.daysInJail;
@@ -327,6 +325,10 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
                         e.setTextContent("ON " + DATE_FORMATTER_MM_DD_YYYY.print(arrest.dispoDate) + " SUBJECT SENTENCED TO " + termLength + termPeriod + sentenceType + "AND " + "A FINE OF "
                                 + NumberFormat.getCurrencyInstance().format(arrestCharge.offense.fine));
 
+                        e = appendElement(sentenceElement, OjbcNamespaceContext.NS_RAPSHEET_41, "SentenceCharge");
+                        e = appendElement(e, OjbcNamespaceContext.NS_JXDM_41, "ChargeTrackingIdentification");
+                        e = appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
+                        e.setTextContent(arrestCharge.trackingId);
                     }
                 }
             }
@@ -339,11 +341,11 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
         for (Arrest arrest : arrests) {
 
             if (arrest.custodyEndDate != null) {
-                Element rapSheetCycle = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "RapSheetCycle");
-                e = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_CH, "CycleEarliestDate");
+                Element rapSheetCycle = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH_EXT, "RapSheetCycle");
+                e = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_RAPSHEET_41, "CycleEarliestDate");
                 e = appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
                 e.setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(arrest.dispoDate));
-                Element supervisionElement = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_CH, "Supervision");
+                Element supervisionElement = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_RAPSHEET_41, "Supervision");
                 XmlUtils.addAttribute(supervisionElement, OjbcNamespaceContext.NS_STRUCTURES, "id", arrest.custodySupervisionId);
                 e = appendElement(supervisionElement, OjbcNamespaceContext.NS_NC, "ActivityCategoryText");
                 e.setTextContent("CUSTODY");
@@ -360,11 +362,11 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
             }
 
             if (arrest.probationEndDate != null) {
-                Element rapSheetCycle = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "RapSheetCycle");
-                e = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_CH, "CycleEarliestDate");
+                Element rapSheetCycle = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH_EXT, "RapSheetCycle");
+                e = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_RAPSHEET_41, "CycleEarliestDate");
                 e = appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
                 e.setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(arrest.dispoDate));
-                Element supervisionElement = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_CH, "Supervision");
+                Element supervisionElement = appendElement(rapSheetCycle, OjbcNamespaceContext.NS_RAPSHEET_41, "Supervision");
                 XmlUtils.addAttribute(supervisionElement, OjbcNamespaceContext.NS_STRUCTURES, "id", arrest.probationSupervisionId);
                 e = appendElement(supervisionElement, OjbcNamespaceContext.NS_NC, "ActivityCategoryText");
                 e.setTextContent("PROBATION");
@@ -396,7 +398,7 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
     private void addAgencyElements(Document parentDocument, Element rapSheetElement, Set<Agency> agencies) {
         Element e;
         for (Agency agency : agencies) {
-            e = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "Agency");
+            e = appendElement(rapSheetElement, OjbcNamespaceContext.NS_RAPSHEET_41, "Agency");
             XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "id", agency.getXmlId());
             e = appendElement(e, OjbcNamespaceContext.NS_NC, "OrganizationName");
             e.setTextContent(agency.name);
@@ -616,7 +618,7 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
 
     private void addBiometricElement(Document parentDocument, PersonElementWrapper person, Element rapSheetElement) {
 
-        Element bior = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "PersonBiometricsAssociation");
+        Element bior = appendElement(rapSheetElement, OjbcNamespaceContext.NS_RAPSHEET_41, "PersonBiometricsAssociation");
         Element e = appendElement(bior, OjbcNamespaceContext.NS_NC, "PersonReference");
         XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", person.personId);
 
@@ -626,13 +628,13 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
         e = appendElement(bio, OjbcNamespaceContext.NS_NC, "BiometricDescriptionText");
         e.setTextContent("Fingerprint Class");
 
-        e = appendElement(bior, OjbcNamespaceContext.NS_CH, "PersonBiometrics");
+        e = appendElement(bior, OjbcNamespaceContext.NS_RAPSHEET_41, "PersonBiometrics");
 
     }
 
     private void addPersonElement(Document parentDocument, PersonElementWrapper person, Element rapSheetElement) {
 
-        Element rsp = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "RapSheetPerson");
+        Element rsp = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH_EXT, "Person");
         Element e;
         
         XmlUtils.addAttribute(rsp, OjbcNamespaceContext.NS_STRUCTURES, "id", person.personId);
@@ -658,10 +660,10 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
         e = appendElement(rsp, OjbcNamespaceContext.NS_NC, "PersonBirthDate");
         e = appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
         e.setTextContent(DATE_FORMATTER_YYYY_MM_DD.print(person.birthdate));
-        e = appendElement(rsp, OjbcNamespaceContext.NS_NC, "PersonEyeColorText");
+        e = appendElement(rsp, OjbcNamespaceContext.NS_RAPSHEET_41, "PersonEyeColorText");
         e.setTextContent(generateRandomCodeFromList("Brown", "Black", "Blue", "Hazel"));
-        e = appendElement(rsp, OjbcNamespaceContext.NS_NC, "PersonHairColorText");
-        e.setTextContent(generateRandomCodeFromList("Brown", "Black", "Red", "Blonde"));
+        e = appendElement(rsp, OjbcNamespaceContext.NS_RAPSHEET_41, "PersonHairColorText");
+        e.setTextContent(generateRandomCodeFromList("Brown", "Black", "Red Or Auburn", "Blonde Or Strawberry"));
 
         if (coinFlip(.4)) {
             e = appendElement(rsp, OjbcNamespaceContext.NS_NC, "PersonHeightMeasure");
@@ -691,7 +693,7 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
             Element ssn = e;
             e = appendElement(ssn, OjbcNamespaceContext.NS_NC, "IdentificationID");
             e.setTextContent(person.nationalID);
-            e = appendElement(ssn, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
+            e = appendElement(ssn, OjbcNamespaceContext.NS_NC, "IdentificationJurisdictionText");
             e.setTextContent("SSA");
         }
 
@@ -704,37 +706,37 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
             e.setTextContent("LBR");
         }
 
-        e = appendElement(rsp, OjbcNamespaceContext.NS_JXDM_40, "PersonAugmentation");
+        e = appendElement(rsp, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
         Element pa = e;
         if (coinFlip(.7)) {
-            e = appendElement(pa, OjbcNamespaceContext.NS_JXDM_40, "PersonFBIIdentification");
+            e = appendElement(pa, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
             Element fbi = e;
             e = appendElement(fbi, OjbcNamespaceContext.NS_NC, "IdentificationID");
             e.setTextContent(generateRandomID("", 6) + generateRandomLetter() + generateRandomLetter() + generateRandomID("", 1));
-            e = appendElement(fbi, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
+            e = appendElement(fbi, OjbcNamespaceContext.NS_NC, "IdentificationJurisdictionText");
         }
-        e = appendElement(pa, OjbcNamespaceContext.NS_JXDM_40, "PersonStateFingerprintIdentification");
+        e = appendElement(pa, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
         Element sid = e;
         e = appendElement(sid, OjbcNamespaceContext.NS_NC, "IdentificationID");
         e.setTextContent(generateRandomID("A", 7));
-        e = appendElement(sid, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
+        e = appendElement(sid, OjbcNamespaceContext.NS_NC, "IdentificationJurisdictionText");
 
     }
 
     private void addIntroductionElement(PersonElementWrapper person, Element rapSheetElement) {
 
         Element e;
-        e = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH, "Introduction");
-        e = appendElement(e, OjbcNamespaceContext.NS_CH, "RapSheetRequest");
+        e = appendElement(rapSheetElement, OjbcNamespaceContext.NS_RAPSHEET_41, "Introduction");
+        e = appendElement(e, OjbcNamespaceContext.NS_RAPSHEET_41, "RapSheetRequest");
         Element rsr = e;
 
-        e = appendElement(rsr, OjbcNamespaceContext.NS_CH, "PurposeCode");
+        e = appendElement(rsr, OjbcNamespaceContext.NS_RAPSHEET_41, "PurposeCode");
         e.setTextContent("A");
 
-        e = appendElement(rsr, OjbcNamespaceContext.NS_CH, "Attention");
+        e = appendElement(rsr, OjbcNamespaceContext.NS_RAPSHEET_41, "Attention");
         e.setTextContent("**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**");
 
-        e = appendElement(rsr, OjbcNamespaceContext.NS_CH, "RapSheetPerson");
+        e = appendElement(rsr, OjbcNamespaceContext.NS_RAPSHEET_41, "RapSheetPerson");
         Element rsp = e;
 
         e = appendElement(rsp, OjbcNamespaceContext.NS_NC, "PersonBirthDate");
