@@ -254,4 +254,23 @@ public class TestAnalyticalDatastoreDAOImpl {
 		assertEquals(1, sexPk);
 		
 	}
+	
+	@Test
+	public void testReturnPersonRaceKeyfromRaceDescription()
+	{
+		int racePk = analyticalDatastoreDAOImpl.returnPersonSexKeyfromSexDescription("W");
+		
+		assertEquals(3, racePk);
+		
+	}
+
+	@Test
+	public void testReturnAgencyKeyfromAgencyName()
+	{
+		int racePk = analyticalDatastoreDAOImpl.returnAgencyKeyfromAgencyName("Placeholder Agency Name");
+		
+		assertEquals(1, racePk);
+		
+	}
+
 }

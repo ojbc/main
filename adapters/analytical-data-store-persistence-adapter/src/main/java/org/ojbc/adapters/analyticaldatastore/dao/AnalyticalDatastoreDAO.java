@@ -73,4 +73,7 @@ public interface AnalyticalDatastoreDAO {
 	public int returnPersonSexKeyfromSexDescription(String personSexDescription);
 	
 	public int returnPersonRaceKeyfromRaceDescription(String personRaceDescription);
+	
+	//TODO: Update this to use ORI when ORI added to data model
+	public int returnAgencyKeyfromAgencyName(String agencyName);
 }

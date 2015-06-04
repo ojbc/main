@@ -29,6 +29,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAO;
+import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
@@ -64,7 +65,8 @@ public class IncidentReportProcessor {
 		
 		if (StringUtils.isNotBlank(reportingAgencyName))
 		{
-			//Query for agency fk, set value
+			int reportingAgencyId = analyticalDatastoreDAO.returnAgencyKeyfromAgencyName(reportingAgencyName);
+			incident.setReportingAgencyID(reportingAgencyId);
 		}	
 		
 		String incidentDateTimeAsString = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST+ "/lexsdigest:EntityActivity/nc:Activity/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
@@ -140,7 +142,6 @@ public class IncidentReportProcessor {
 		
 		//TODO, get actual fk values for these fields
 		incident.setIncidentTypeID(1);
-		incident.setReportingAgencyID(1);
 		
 		int incidentPk = analyticalDatastoreDAO.saveIncident(incident);
 		
@@ -195,8 +196,12 @@ public class IncidentReportProcessor {
 				String arrestingAgency = returnArrestingAgency(incidentReport);
 				log.debug("Arresting Agency: " + arrestingAgency);
 
-				//TODO: Get these values from actual code tables or from the an Xpath
-				arrest.setArrestingAgencyID(1);
+				if (StringUtils.isNotBlank(arrestingAgency))
+				{
+					int arrestingAgencyId = analyticalDatastoreDAO.returnAgencyKeyfromAgencyName(arrestingAgency);
+					arrest.setArrestingAgencyID(arrestingAgencyId);
+				}	
+
 				arrest.setArrestDrugRelated('N');
 				
 				//Save arrest
