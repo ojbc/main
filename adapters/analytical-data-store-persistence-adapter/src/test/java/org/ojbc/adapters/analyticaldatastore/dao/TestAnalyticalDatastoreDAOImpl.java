@@ -119,7 +119,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		offenseType.setOffenseSeverity("Felony");
 		
 		int offenseTypePk = analyticalDatastoreDAOImpl.saveOffenseType(offenseType);
-		assertEquals(1, offenseTypePk);
+		assertEquals(2, offenseTypePk);
 
 		InvolvedDrug involvedDrug = new InvolvedDrug();
 		involvedDrug.setInvolvedDrugDescription("Meth");
@@ -205,6 +205,8 @@ public class TestAnalyticalDatastoreDAOImpl {
 		pretrialServiceParticipation.setPretrialServiceCaseNumber("case1234");
 		pretrialServiceParticipation.setRecordType('N');
 		pretrialServiceParticipation.setRiskScore(1);
+		pretrialServiceParticipation.setArrestIncidentCaseNumber("case12345");
+		pretrialServiceParticipation.setArrestingAgencyORI("ORI12345");
 		
 		int pretrialServiceParticipationPk = analyticalDatastoreDAOImpl.savePretrialServiceParticipation(pretrialServiceParticipation);
 		assertEquals(1, pretrialServiceParticipationPk);
@@ -290,4 +292,14 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 	}
 
+	@Test
+	public void returnOffenseTypeKeyfromOffenseDescription()
+	{
+		int incidentTypePk = analyticalDatastoreDAOImpl.returnOffenseTypeKeyfromOffenseDescription("Violation of a Court Order");
+		
+		assertEquals(1, incidentTypePk);
+		
+	}
+
+	
 }

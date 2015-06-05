@@ -16,7 +16,6 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -332,7 +331,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
         log.debug("Inserting row into PretrialServiceParticipation table");
 
-        final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PersonID, CountyID,RiskScore,IntakeDate,RecordType) values (?,?,?,?,?,?)";
+        final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber) values (?,?,?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -340,14 +339,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(pretrialServiceParticipationStatement, new String[] {"PretrialServiceCaseNumber",  "PersonID", "CountyID", 
-        	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "RecordType"});
+        	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "ArrestingAgencyORI","ArrestIncidentCaseNumber","RecordType"});
         	            ps.setString(1, pretrialServiceParticipation.getPretrialServiceCaseNumber());
         	            ps.setInt(2, pretrialServiceParticipation.getPersonID());
         	            ps.setInt(3, pretrialServiceParticipation.getCountyID());
         	            ps.setInt(4, pretrialServiceParticipation.getRiskScore());
         	            ps.setDate(5, new java.sql.Date(pretrialServiceParticipation.getIntakeDate().getTime()));
         	            ps.setString(6, String.valueOf(pretrialServiceParticipation.getRecordType()));
-
+        	            ps.setString(7, pretrialServiceParticipation.getArrestingAgencyORI());
+        	            ps.setString(8, pretrialServiceParticipation.getArrestIncidentCaseNumber());
         	            return ps;
         	        }
         	    },
@@ -551,6 +551,27 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
          return keyHolder.getKey().intValue();	
       
+	}
+
+	@Override
+	public int returnOffenseTypeKeyfromOffenseDescription(
+			String offenseDescription) {
+
+			String sql = "select OffenseTypeID from OffenseType where OffenseDescription = ?";
+			 
+			List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql,new Object[] { offenseDescription });
+			
+			if (rows.size() != 1)
+			{
+				log.info("Offense did not return the proper resultset.");
+				
+				//TODO: maybe we should have a code for 'unknown' or 'unmapped' offense type description
+				return 0;
+			}	
+			
+			Long offenseTypeIdKey = (Long)rows.get(0).get("OffenseTypeID");
+			
+			return offenseTypeIdKey.intValue();	
 	}	
 	
 }

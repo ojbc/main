@@ -36,3 +36,6 @@ insert into Agency(AgencyName, AgencyORI) values ('Some PD', '99999');
 
 -- Involved Drug Type - Placeholder while waiting for code values
 insert into InvolvedDrug (InvolvedDrugDescription) values ('Placeholder Involved Drug');
+
+-- OffenseType - adding a value for testing
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Violation of a Court Order','N','Infraction');

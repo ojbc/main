@@ -464,6 +464,7 @@
                                         xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
                                         lexslib:ref="IDJO506743"/>
                                 </ndexia:ActivityAugmentation>
+                                <ndexia:OffenseCode>Violation of a Court Order</ndexia:OffenseCode>
                                 <ndexia:OffenseText>DRIVING - LICENSE SUSPENDED</ndexia:OffenseText>
                             </ndexia:Offense>
                         </ndexia:IncidentReport>
