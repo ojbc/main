@@ -19,26 +19,19 @@ package org.ojbc.adapters.analyticaldatastore.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
-import org.ojbc.adapters.analyticaldatastore.util.DaoUtils;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.springframework.jdbc.core.RowMapper;
 
-public class ArrestRowMapper implements RowMapper<Arrest>
+public class ChargeRowMapper implements RowMapper<Charge>
 {
 	@Override
-	public Arrest mapRow(ResultSet rs, int rowNum) throws SQLException {
-    	Arrest arrest = new Arrest();
+	public Charge mapRow(ResultSet rs, int rowNum) throws SQLException {
+    	Charge charge = new Charge();
     	
-    	arrest.setArrestDate(rs.getDate("ArrestDate"));
-    	arrest.setArrestTime(rs.getTime("ArrestTime"));
-    	arrest.setArrestDrugRelated(rs.getString("ArrestDrugRelated").charAt(0));
-    	arrest.setArrestingAgencyID(rs.getInt("ArrestingAgencyID"));
-    	arrest.setIncidentID(rs.getInt("IncidentID"));
-    	arrest.setPersonID(rs.getInt("PersonID"));
-    	arrest.setInvolvedDrugID(DaoUtils.getInteger(rs, "InvolvedDrugID"));
-    	arrest.setArrestID(rs.getInt("ArrestID"));
-    	
-    	return arrest;
+    	charge.setArrestID(rs.getInt("ArrestID"));
+    	charge.setArrestOffenseTypeID(rs.getInt("ArrestOffenseTypeID"));
+
+    	return charge;
 	}
 
 	

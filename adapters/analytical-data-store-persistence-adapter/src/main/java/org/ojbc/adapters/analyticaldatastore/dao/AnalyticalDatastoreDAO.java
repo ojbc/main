@@ -83,4 +83,6 @@ public interface AnalyticalDatastoreDAO {
 	public int returnIncidentTypeKeyfromIncidentTypeDescription(String incidentTypeDescription);
 	
 	public int returnOffenseTypeKeyfromOffenseDescription(String offenseDescription);
+	
+	public List<Charge> returnChargesFromArrest(int arrestId);
 }

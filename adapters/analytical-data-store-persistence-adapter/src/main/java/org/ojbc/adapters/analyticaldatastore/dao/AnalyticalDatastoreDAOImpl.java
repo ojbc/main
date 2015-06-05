@@ -493,6 +493,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
+	public List<Charge> returnChargesFromArrest(int arrestId) {
+		String sql = "select * from Charge where ArrestID = ?";
+		 
+		List<Charge> charges = this.jdbcTemplate.query(sql, new Object[] { arrestId },new ChargeRowMapper());
+		
+		return charges;
+	}	
+
+	
+	@Override
 	public int returnAgencyKeyfromAgencyName(String agencyName) {
 		String sql = "select AgencyID from Agency where AgencyName = ?";
 		 
@@ -572,6 +582,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Long offenseTypeIdKey = (Long)rows.get(0).get("OffenseTypeID");
 			
 			return offenseTypeIdKey.intValue();	
-	}	
-	
+	}
+
 }
