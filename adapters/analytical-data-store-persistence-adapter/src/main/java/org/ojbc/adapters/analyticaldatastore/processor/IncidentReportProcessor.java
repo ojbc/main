@@ -238,12 +238,12 @@ public class IncidentReportProcessor {
 		        //lexsdigest:ArrestOffenseAssociation
 		        NodeList arrestOffenseNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestOffenseAssociation");
 		        
-		        processArrestOffenseNodes(arrestOffenseNodes);
+		        processArrestOffenseNodes(incidentReport,arrestOffenseNodes);
 		    }
 		}
 	}
 
-	private void processArrestOffenseNodes(NodeList arrestOffenseNodes) throws Exception{
+	private void processArrestOffenseNodes(Document incidentReport, NodeList arrestOffenseNodes) throws Exception{
 		for (int i = 0; i < arrestOffenseNodes.getLength(); i++) 
 		{
 			Node arrestOffenseNode = (arrestOffenseNodes.item(i));
@@ -253,7 +253,8 @@ public class IncidentReportProcessor {
 		    	String offenseReference = XmlUtils.xPathStringSearch(arrestOffenseNode, "nc:ActivityReference[2]/@s:ref");
 		    	log.debug("Arrest offense reference: " + offenseReference);
 		    	
-		    	//TODO: determine whether to go after ndexia:Offense or OJB ext:Offense
+		    	String ndexOffenseCode = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref='" + offenseReference + "']/ndexia:OffenseCode");
+		    	log.debug("NDEX offense Code: " + ndexOffenseCode);
 		    }
 		}	    
 		

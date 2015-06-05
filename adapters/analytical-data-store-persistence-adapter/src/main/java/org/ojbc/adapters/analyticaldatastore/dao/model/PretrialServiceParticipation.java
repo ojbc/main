@@ -36,6 +36,10 @@ public class PretrialServiceParticipation {
     private Date intakeDate;
     
     private char recordType;
+    
+    private String arrestingAgencyORI;
+    
+    private String arrestIncidentCaseNumber;
 
 	public int getPretrialServiceParticipationID() {
 		return pretrialServiceParticipationID;
@@ -91,6 +95,22 @@ public class PretrialServiceParticipation {
 
 	public void setRiskScore(int riskScore) {
 		riskScore = riskScore;
+	}
+
+	public String getArrestingAgencyORI() {
+		return arrestingAgencyORI;
+	}
+
+	public void setArrestingAgencyORI(String arrestingAgencyORI) {
+		this.arrestingAgencyORI = arrestingAgencyORI;
+	}
+
+	public String getArrestIncidentCaseNumber() {
+		return arrestIncidentCaseNumber;
+	}
+
+	public void setArrestIncidentCaseNumber(String arrestIncidentCaseNumber) {
+		this.arrestIncidentCaseNumber = arrestIncidentCaseNumber;
 	}
 	
 }

@@ -112,6 +112,8 @@ CREATE TABLE PretrialServiceParticipation (
                 RiskScore INTEGER NOT NULL,
                 IntakeDate DATE NOT NULL,
                 RecordType CHAR(1) NOT NULL,
+                ArrestingAgencyORI VARCHAR(12) NOT NULL,
+                ArrestIncidentCaseNumber VARCHAR(30) NOT NULL,
                 CONSTRAINT PretrialServiceParticipation_pk PRIMARY KEY (PretrialServiceParticipationID)
 );
 COMMENT ON COLUMN PretrialServiceParticipation.RecordType IS 'N for new record, U for update to prior record, D for delete';
