@@ -55,6 +55,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,6 +182,11 @@ public class CamelContextTest {
 		assertEquals("13:48:00",arrest.getArrestTime().toString());
 		assertEquals(2,arrest.getArrestingAgencyID());
 		assertEquals(null,arrest.getInvolvedDrugID());
+		
+		List<Charge> charges = analyticalDatastoreDAOImpl.returnChargesFromArrest(arrest.getArrestID());
+		
+		assertEquals(1,charges.size());
+		assertEquals(1,charges.get(0).getArrestOffenseTypeID());
 		
 		//TODO: Determine whether the arrest row mapper should use ResultsSetExtractor.
 		//This would allow for run join queries, however, the arrest row mapper is not used

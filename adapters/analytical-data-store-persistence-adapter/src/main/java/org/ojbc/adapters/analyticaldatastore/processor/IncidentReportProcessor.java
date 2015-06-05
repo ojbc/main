@@ -31,6 +31,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAO;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.personid.IdentifierGenerationStrategy;
@@ -232,18 +233,18 @@ public class IncidentReportProcessor {
 				arrest.setArrestDrugRelated('N');
 				
 				//Save arrest
-		        analyticalDatastoreDAO.saveArrest(arrest);
+		        int arrestPk = analyticalDatastoreDAO.saveArrest(arrest);
 		        
 		        //Save Charges
 		        //lexsdigest:ArrestOffenseAssociation
 		        NodeList arrestOffenseNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestOffenseAssociation");
 		        
-		        processArrestOffenseNodes(incidentReport,arrestOffenseNodes);
+		        processArrestOffenseNodes(incidentReport,arrestOffenseNodes, arrestPk);
 		    }
 		}
 	}
 
-	private void processArrestOffenseNodes(Document incidentReport, NodeList arrestOffenseNodes) throws Exception{
+	private void processArrestOffenseNodes(Document incidentReport, NodeList arrestOffenseNodes, int arrestPk) throws Exception{
 		for (int i = 0; i < arrestOffenseNodes.getLength(); i++) 
 		{
 			Node arrestOffenseNode = (arrestOffenseNodes.item(i));
@@ -255,6 +256,16 @@ public class IncidentReportProcessor {
 		    	
 		    	String ndexOffenseCode = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref='" + offenseReference + "']/ndexia:OffenseCode");
 		    	log.debug("NDEX offense Code: " + ndexOffenseCode);
+		    	
+		    	int arrestOffenseTypeID = analyticalDatastoreDAO.returnOffenseTypeKeyfromOffenseDescription(ndexOffenseCode);
+		    	
+	    		Charge charge = new Charge();
+	    		
+	    		charge.setArrestID(arrestPk);
+	    		charge.setArrestOffenseTypeID(arrestOffenseTypeID);
+		    		
+	    		analyticalDatastoreDAO.saveCharge(charge);
+	    		
 		    }
 		}	    
 		
