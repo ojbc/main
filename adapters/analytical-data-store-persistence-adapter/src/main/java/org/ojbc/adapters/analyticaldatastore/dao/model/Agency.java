@@ -22,6 +22,8 @@ public class Agency {
 	private int agencyID;
 	
 	private String agencyName;
+	
+	private String agencyOri;
 
 	public int getAgencyID() {
 		return agencyID;
@@ -37,6 +39,14 @@ public class Agency {
 
 	public void setAgencyName(String agencyName) {
 		this.agencyName = agencyName;
+	}
+
+	public String getAgencyOri() {
+		return agencyOri;
+	}
+
+	public void setAgencyOri(String agencyOri) {
+		this.agencyOri = agencyOri;
 	}
 
 }

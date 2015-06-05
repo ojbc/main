@@ -31,8 +31,8 @@ insert into PersonRace(PersonRaceDescription) values('W');
 insert into IncidentType (IncidentTypeDescription) values ('Placeholder');
 
 -- Agency - Placeholder while waiting for code values
-insert into Agency(AgencyName) values ('Placeholder Agency Name');
-insert into Agency(AgencyName) values ('Some PD');
+insert into Agency(AgencyName, AgencyORI) values ('Placeholder Agency Name', 'ST123');
+insert into Agency(AgencyName, AgencyORI) values ('Some PD', '99999');
 
 -- Involved Drug Type - Placeholder while waiting for code values
 insert into InvolvedDrug (InvolvedDrugDescription) values ('Placeholder Involved Drug');

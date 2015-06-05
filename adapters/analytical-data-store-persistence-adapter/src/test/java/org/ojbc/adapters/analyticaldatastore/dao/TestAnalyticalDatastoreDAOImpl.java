@@ -78,6 +78,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 	{
 		Agency agency = new Agency();
 		agency.setAgencyName("Some PD");
+		agency.setAgencyOri("12345");
 		
 		int agencyPk = analyticalDatastoreDAOImpl.saveAgency(agency );
 		assertEquals(3, agencyPk);
