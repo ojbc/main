@@ -61,17 +61,18 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	public int saveAgency(final Agency agency) {
 
-        log.debug("Inserting row into subscription table");
+        log.debug("Inserting row into Agency table");
 
-        final String agencyInsertStatement="INSERT into AGENCY (AgencyName) values (?)";
+        final String agencyInsertStatement="INSERT into AGENCY (AgencyName, AgencyORI) values (?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(agencyInsertStatement, new String[] {"AgencyName"});
+        	                connection.prepareStatement(agencyInsertStatement, new String[] {"AgencyName","AgencyORI"});
         	            ps.setString(1, agency.getAgencyName());
+        	            ps.setString(2, agency.getAgencyOri());
         	            return ps;
         	        }
         	    },

@@ -75,6 +75,7 @@ CREATE TABLE PretrialService (
 CREATE TABLE Agency (
                 AgencyID IDENTITY NOT NULL,
                 AgencyName VARCHAR(40) NOT NULL,
+                AgencyORI VARCHAR(12) NOT NULL,
                 CONSTRAINT AgencyID PRIMARY KEY (AgencyID)
 );
 
