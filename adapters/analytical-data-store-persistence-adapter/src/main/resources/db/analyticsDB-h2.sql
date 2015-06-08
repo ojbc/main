@@ -114,6 +114,7 @@ CREATE TABLE PretrialServiceParticipation (
                 RecordType CHAR(1) NOT NULL,
                 ArrestingAgencyORI VARCHAR(12) NOT NULL,
                 ArrestIncidentCaseNumber VARCHAR(30) NOT NULL,
+                Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
                 CONSTRAINT PretrialServiceParticipation_pk PRIMARY KEY (PretrialServiceParticipationID)
 );
 COMMENT ON COLUMN PretrialServiceParticipation.RecordType IS 'N for new record, U for update to prior record, D for delete';
@@ -169,6 +170,7 @@ CREATE TABLE Disposition (
                 RecordType CHAR(1) NOT NULL,
                 IsProbationViolation CHAR(1) NOT NULL,
                 RecidivismEligibilityDate DATE NOT NULL,
+                Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
                 CONSTRAINT Disposition_pk PRIMARY KEY (DispositionID)
 );
 COMMENT ON COLUMN Disposition.RecordType IS 'N for new record, U for update to prior record, D for delete';
@@ -186,6 +188,7 @@ CREATE TABLE Incident (
                 IncidentDate DATE NOT NULL,
                 IncidentTime TIME NOT NULL,
                 RecordType CHAR(1) NOT NULL,
+                Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
                 CONSTRAINT IncidentID PRIMARY KEY (IncidentID)
 );
 COMMENT ON COLUMN Incident.RecordType IS 'N for new record, U for update to previous record, D for delete';
@@ -200,6 +203,7 @@ CREATE TABLE Arrest (
                 ArrestTime TIME NOT NULL,
                 ArrestDrugRelated CHAR(1) NOT NULL,
                 InvolvedDrugID INTEGER,
+                Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
                 CONSTRAINT ArrestID PRIMARY KEY (ArrestID)
 );
 COMMENT ON COLUMN Arrest.ArrestDrugRelated IS 'Y if drug related, N otherwise';
