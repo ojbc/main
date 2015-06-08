@@ -336,10 +336,6 @@
                                     xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="OFFICER01"
                                 />
                             </j:ActivityEnforcementOfficialAssociation>
-							<nc:ActivityReportingOrganizationAssociation xmlns:nc="http://niem.gov/niem/niem-core/2.0">
-								<nc:ActivityReference s:ref="IDI15999999999"  xmlns:s="http://niem.gov/niem/structures/2.0" />
-								<nc:OrganizationReference s:ref="AGENCY01" xmlns:s="http://niem.gov/niem/structures/2.0" />
-							</nc:ActivityReportingOrganizationAssociation>                        
                             <lexsdigest:ArrestOffenseAssociation
                                 xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1">
                                 <nc:ActivityReference xmlns:nc="http://niem.gov/niem/niem-core/2.0"
@@ -408,6 +404,11 @@
                                     s:ref="PERSON1218821"/>
                                 <nc:PersonActivityInvolvementText>poi</nc:PersonActivityInvolvementText>
                             </nc:ActivityInvolvedPersonAssociation>
+							<nc:ActivityReportingOrganizationAssociation xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+								<nc:ActivityReference s:ref="IDI15999999999"  xmlns:s="http://niem.gov/niem/structures/2.0" />
+								<nc:OrganizationReference s:ref="AGENCY01" xmlns:s="http://niem.gov/niem/structures/2.0" />
+							</nc:ActivityReportingOrganizationAssociation>                        
+                            
                             <nc:PersonAssignedUnitAssociation
                                 xmlns:nc="http://niem.gov/niem/niem-core/2.0">
                                 <nc:PersonReference xmlns:s="http://niem.gov/niem/structures/2.0"
