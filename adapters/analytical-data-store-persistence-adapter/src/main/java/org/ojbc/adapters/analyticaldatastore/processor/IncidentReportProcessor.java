@@ -42,7 +42,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class IncidentReportProcessor {
+public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 
 	private static final Log log = LogFactory.getLog( IncidentReportProcessor.class );
 	
@@ -50,14 +50,8 @@ public class IncidentReportProcessor {
 	
 	private static final String PATH_TO_LEXS_DIGEST= PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:Digest";
 	
-	private IdentifierGenerationStrategy identifierGenerationStrategy;
-	
-	private AnalyticalDatastoreDAO analyticalDatastoreDAO;
-	
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-	
 	@Transactional
-	public void processIncidentReport(Document incidentReport) throws Exception
+	public void processReport(Document incidentReport) throws Exception
 	{
 		Incident incident = new Incident();
 		
@@ -285,30 +279,6 @@ public class IncidentReportProcessor {
 		return arrestDateTime;
 	}
 
-	protected int savePerson(String personBirthDateAsString, String personRace, String personSex,
-			String personIdentifierKey) throws Exception {
-		//Save person
-		Person person = new Person();
-		
-		person.setPersonUniqueIdentifier(personIdentifierKey);
-		
-		if (StringUtils.isNotEmpty(personBirthDateAsString))
-		{
-			Date personBirthDate = DATE_FORMAT.parse(personBirthDateAsString);
-			person.setPersonBirthDate(personBirthDate);
-		}	
-		
-		//Get Person Race from code table
-		int personRacePk = analyticalDatastoreDAO.returnPersonRaceKeyfromRaceDescription(personRace);
-		person.setPersonRaceID(personRacePk);
-		//Get Person Sex from code table
-		int personSexPk = analyticalDatastoreDAO.returnPersonSexKeyfromSexDescription(personSex);
-		person.setPersonSexID(personSexPk);
-		
-		int personPk = analyticalDatastoreDAO.savePerson(person);
-		return personPk;
-	}
-
 	private String returnArrestingAgency(Node incidentReport) throws Exception
 	{
 		String arrestingOfficerRefernce = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestOfficerAssociation/nc:PersonReference/@s:ref");
@@ -337,24 +307,4 @@ public class IncidentReportProcessor {
 		return coordinateText;
 	}
 
-	
-	public IdentifierGenerationStrategy getIdentifierGenerationStrategy() {
-		return identifierGenerationStrategy;
-	}
-
-	public void setIdentifierGenerationStrategy(
-			IdentifierGenerationStrategy identifierGenerationStrategy) {
-		this.identifierGenerationStrategy = identifierGenerationStrategy;
-	}
-
-	public AnalyticalDatastoreDAO getAnalyticalDatastoreDAO() {
-		return analyticalDatastoreDAO;
-	}
-
-	public void setAnalyticalDatastoreDAO(
-			AnalyticalDatastoreDAO analyticalDatastoreDAO) {
-		this.analyticalDatastoreDAO = analyticalDatastoreDAO;
-	}
-
-	
 }

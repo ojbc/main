@@ -75,7 +75,7 @@
 			<entry key="ws-security.signature.username" value="${analyticsAdapter.keystoreCertificateAlias}" />
 		</cxf:properties> 
 	</cxf:cxfEndpoint>	
-    
+
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
