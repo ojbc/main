@@ -29,12 +29,6 @@
     <tr>
       #parse("_serviceButtons.vm")
     </tr>
-    <tr>
-      <td colspan = 4>
-	<br/><br/>
-	<i>Using this website through a mobile device may cause some display issues.</i>
-      </td>
-    </tr>
 </table>
 	<br/>
     	<br/>
