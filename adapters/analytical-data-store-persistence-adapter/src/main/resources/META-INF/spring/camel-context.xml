@@ -45,6 +45,9 @@
 		<endpoint id="pretrialEnrollmentRequestServiceAdapterEndpoint"
 			uri="cxf:bean:pretrialEnrollmentRequestAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}" />
 					
+		<endpoint id="pretrialEnrollmentReportingFileEndpoint"
+			uri="file://{{analyticsAdapter.inputDirectory}}/pretrial/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/pretrial/error&amp;move=processed/" />
+			
  		<endpoint id="dispositionReportingServiceAdapterEndpoint"
 			uri="cxf:bean:dispositionReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}"/>					
 
@@ -74,7 +77,7 @@
 						
 				<camel:log message="Here is the inbound incident reporting message: ${body}" loggingLevel="DEBUG"/>
 				
-				<camel:to uri="bean:incidentReportProcessor?method=processIncidentReport"/>
+				<camel:to uri="bean:incidentReportProcessor?method=processReport"/>
 				
 				<camel:doCatch >
 					<camel:exception>java.lang.Exception</camel:exception>
@@ -101,9 +104,44 @@
 			
 			<camel:log message="Here is the inbound pretrial message: ${body}" loggingLevel="DEBUG"/>
 				
+			<camel:to uri="direct:processPretrialServiceReport" />
 			
 		</camel:route>		
 
+<!-- 		<camel:route id="Pretrial_Repository_Service_Filedrop">
+		
+			<camel:from	uri="incidentReportingFileEndpoint" />
+			
+			<camel:to uri="direct:processPretrialServiceReport" />
+		</camel:route>
+ -->		
+		<camel:route id="Pretrial_Repository_Service_Process">				
+			
+			<camel:from	uri="direct:processPretrialServiceReport" />
+
+			<camel:doTry>
+						
+				<camel:log message="Here is the inbound pretrial enrollment reporting message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:to uri="bean:pretrialEnrollmentReportProcessor?method=process"/>
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>incident/FailedIncident_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+					</camel:setHeader>	
+
+					<log message="Pretrial Enrollment Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
+					
+					<camel:to uri="direct:failedInvocation"/>
+				</camel:doCatch>
+			
+			</camel:doTry>
+			
+		</camel:route>
+				
 		<camel:route id="Disposition_Reporting_Service_Route">
 		
 			<camel:from	uri="dispositionReportingServiceAdapterEndpoint" />
@@ -130,6 +168,11 @@
 	<bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.adapters.analyticaldatastore.personid.IndexedIdentifierGenerationStrategy"/>
 	
 	<bean id ="incidentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.IncidentReportProcessor">
+		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
+		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
+	</bean>
+		
+	<bean id ="pretrialEnrollmentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.PretrialEnrollmentReportProcessor">
 		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
 		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
 	</bean>	
