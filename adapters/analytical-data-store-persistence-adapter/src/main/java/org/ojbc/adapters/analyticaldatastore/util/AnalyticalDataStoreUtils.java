@@ -30,10 +30,14 @@ public class AnalyticalDataStoreUtils {
 	private static final Log log = LogFactory.getLog( AnalyticalDataStoreUtils.class );
 	
 	public static Map<String, Object> retrieveMapOfPersonAttributes(Node personNode) throws Exception{
+		return retrieveMapOfPersonAttributes(personNode, "nc", "jxdm40");
+	}
+	
+	public static Map<String, Object> retrieveMapOfPersonAttributes(Node personNode, String ncPrefix, String jxdmPrefix) throws Exception{
 
 		Map<String, Object> arrestee = new HashMap<String, Object>();
 		
-		String personFirstName=XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonGivenName");
+		String personFirstName=XmlUtils.xPathStringSearch(personNode, ncPrefix + ":PersonName/" + ncPrefix + ":PersonGivenName");
 		
 		if (StringUtils.isNotBlank(personFirstName))
 		{
@@ -41,7 +45,7 @@ public class AnalyticalDataStoreUtils {
 			arrestee.put("personFirstName", personFirstName);
 		}	
 		
-		String personMiddleName=XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonMiddleName");
+		String personMiddleName=XmlUtils.xPathStringSearch(personNode, ncPrefix + ":PersonName/" + ncPrefix +":PersonMiddleName");
 		
 		if (StringUtils.isNotBlank(personMiddleName))
 		{
@@ -49,7 +53,7 @@ public class AnalyticalDataStoreUtils {
 			arrestee.put("personMiddleName", personMiddleName);
 		}	
 				
-		String personLastName=XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonSurName");
+		String personLastName=XmlUtils.xPathStringSearch(personNode, ncPrefix + ":PersonName/" + ncPrefix + ":PersonSurName");
 		
 		if (StringUtils.isNotBlank(personLastName))
 		{
@@ -57,7 +61,7 @@ public class AnalyticalDataStoreUtils {
 			arrestee.put("personLastName", personLastName);
 		}	
 								
-		String personDateOfBirth=XmlUtils.xPathStringSearch(personNode,"nc:PersonBirthDate/nc:Date");
+		String personDateOfBirth=XmlUtils.xPathStringSearch(personNode,ncPrefix + ":PersonBirthDate/"+ ncPrefix + ":Date");
 		
 		if (StringUtils.isNotBlank(personDateOfBirth))
 		{
@@ -65,22 +69,27 @@ public class AnalyticalDataStoreUtils {
 			arrestee.put("personDateOfBirth", personDateOfBirth);
 		}	
 				
-		String personRace="";
+		String personRace=XmlUtils.xPathStringSearch(personNode, ncPrefix + ":PersonEthnicityText");
 		
 		if (StringUtils.isNotBlank(personRace))
 		{
 			arrestee.put("personRace", personRace);
 		}	
 				
-		String personSex=XmlUtils.xPathStringSearch(personNode, "nc:PersonSexCode");
+		String personSex=XmlUtils.xPathStringSearch(personNode, ncPrefix + ":PersonSexCode");
 		
-		if (StringUtils.isNotBlank(personSex))
+		if (StringUtils.isBlank(personSex))
 		{
+			personSex = XmlUtils.xPathStringSearch(personNode, ncPrefix + ":PersonSexText");
+		}
+		
+		if (StringUtils.isNotBlank(personSex)){
 			log.debug("Arrestee Sex Code: " + personSex);
 			arrestee.put("personSex", personSex);
-		}	
+		}
 				
-		String personBiometricID=XmlUtils.xPathStringSearch(personNode, "jxdm40:PersonAugmentation/jxdm40:PersonStateFingerprintIdentification/nc:IdentificationID");
+		String personBiometricID=XmlUtils.xPathStringSearch(personNode, jxdmPrefix+":PersonAugmentation/"+jxdmPrefix+
+				":PersonStateFingerprintIdentification/"+ncPrefix +":IdentificationID");
 		
 		if (StringUtils.isNotBlank(personBiometricID))
 		{
@@ -90,4 +99,5 @@ public class AnalyticalDataStoreUtils {
 		
 		return arrestee;
 	}
+
 }
