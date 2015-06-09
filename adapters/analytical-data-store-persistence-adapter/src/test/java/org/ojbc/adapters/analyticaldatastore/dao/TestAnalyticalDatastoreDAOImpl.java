@@ -176,7 +176,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		assessedNeed.setAssessedNeedDescription("Assessed Need Description");
 		
 		int assessedNeedPk = analyticalDatastoreDAOImpl.saveAssessedNeed(assessedNeed);
-		assertEquals(1, assessedNeedPk);
+		assertEquals(6, assessedNeedPk);
 		
 		PreTrialService preTrialService = new PreTrialService();
 		
@@ -189,7 +189,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		county.setCountyName("County Name");
 		
 		int countyTypePk = analyticalDatastoreDAOImpl.saveCounty(county);
-		assertEquals(1, countyTypePk);
+		assertEquals(15, countyTypePk);
 		
 		log.debug("County Type primary key: " + countyTypePk);
 		
