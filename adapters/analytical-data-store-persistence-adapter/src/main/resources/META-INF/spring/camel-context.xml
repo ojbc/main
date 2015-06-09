@@ -108,13 +108,13 @@
 			
 		</camel:route>		
 
-<!-- 		<camel:route id="Pretrial_Repository_Service_Filedrop">
+ 		<camel:route id="Pretrial_Repository_Service_Filedrop">
 		
-			<camel:from	uri="incidentReportingFileEndpoint" />
+			<camel:from	uri="pretrialEnrollmentReportingFileEndpoint" />
 			
 			<camel:to uri="direct:processPretrialServiceReport" />
 		</camel:route>
- -->		
+		
 		<camel:route id="Pretrial_Repository_Service_Process">				
 			
 			<camel:from	uri="direct:processPretrialServiceReport" />

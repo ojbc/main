@@ -205,6 +205,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		        int personPk = savePerson(personBirthDateAsString, personSex, personRace, personIdentifierKey);	
 		        arrest.setPersonID(personPk);
 		        
+		        
 		        Date arrestDateTime = returnArrestDate(incidentReport,
 		        		arrestSubjectAssocationNodes.item(i));
 		        

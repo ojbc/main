@@ -39,3 +39,26 @@ insert into InvolvedDrug (InvolvedDrugDescription) values ('Placeholder Involved
 
 -- OffenseType - adding a value for testing
 insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Violation of a Court Order','N','Infraction');
+
+-- AssessedNeed - adding code table values
+insert into AssessedNeed (AssessedNeedDescription) values('housing');
+insert into AssessedNeed (AssessedNeedDescription) values('insurance');
+insert into AssessedNeed (AssessedNeedDescription) values('medical');
+insert into AssessedNeed (AssessedNeedDescription) values('mental health');
+insert into AssessedNeed (AssessedNeedDescription) values('substance abuse');
+
+-- County code values for Vermont
+insert into County (CountyName) values ('Addison');
+insert into County (CountyName) values ('Bennington');
+insert into County (CountyName) values ('Caledonia');
+insert into County (CountyName) values ('Chittenden');
+insert into County (CountyName) values ('Essex');
+insert into County (CountyName) values ('Franklin');
+insert into County (CountyName) values ('Grand Isle');
+insert into County (CountyName) values ('Lamoille');
+insert into County (CountyName) values ('Orange');
+insert into County (CountyName) values ('Orleans');
+insert into County (CountyName) values ('Rutland');
+insert into County (CountyName) values ('Washington');
+insert into County (CountyName) values ('Windham');
+insert into County (CountyName) values ('Windsor');
