@@ -198,9 +198,9 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		        String personIdentifierKey = identifierGenerationStrategy.generateIdentifier(arrestee);
 		        log.debug("Arrestee person identifier keys: " + personIdentifierKey);
 
-		        String personBirthDateAsString = (String)arrestee.get("personDateOfBirth");
+		        String personBirthDateAsString = (String)arrestee.get(IdentifierGenerationStrategy.BIRTHDATE_FIELD);
 		        String personRace = (String)arrestee.get("personRace");
-		        String personSex = (String)arrestee.get("personSex");
+		        String personSex = (String)arrestee.get(IdentifierGenerationStrategy.SEX_FIELD);
 		        
 		        int personPk = savePerson(personBirthDateAsString, personSex, personRace, personIdentifierKey);	
 		        arrest.setPersonID(personPk);

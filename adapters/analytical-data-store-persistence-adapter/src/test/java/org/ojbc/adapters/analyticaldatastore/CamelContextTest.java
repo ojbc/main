@@ -137,6 +137,24 @@ public class CamelContextTest {
 	}	
 	
 	@Test
+	public void testDispositionReportService() throws Exception
+	{
+    	Exchange dispostionReportExchange = createSenderExchange("src/test/resources/xmlInstances/disposition/Disposition_Report.xml");
+	    
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:dispositionReportingServiceEndpoint", dispostionReportExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+
+		//Sleep while a response is generated
+		Thread.sleep(3000);
+	}	
+	
+	@Test
 	public void testIncidentReportService() throws Exception
 	{
     	Exchange incidentReportExchange = createSenderExchange("src/test/resources/xmlInstances/incidentReport/incidentReportWithArrest.xml");
