@@ -24,10 +24,10 @@ public class Person {
     private int personID;
     
     //fk
-    private int personSexID;
+    private Integer personSexID;
     
     //fk
-    private int personRaceID;
+    private Integer personRaceID;
         
     private Date personBirthDate;
     private String personUniqueIdentifier;
@@ -37,18 +37,6 @@ public class Person {
 	}
 	public void setPersonID(int personID) {
 		this.personID = personID;
-	}
-	public int getPersonSexID() {
-		return personSexID;
-	}
-	public void setPersonSexID(int personSexID) {
-		this.personSexID = personSexID;
-	}
-	public int getPersonRaceID() {
-		return personRaceID;
-	}
-	public void setPersonRaceID(int personRaceID) {
-		this.personRaceID = personRaceID;
 	}
 	public Date getPersonBirthDate() {
 		return personBirthDate;
@@ -61,6 +49,18 @@ public class Person {
 	}
 	public void setPersonUniqueIdentifier(String personUniqueIdentifier) {
 		this.personUniqueIdentifier = personUniqueIdentifier;
+	}
+	public Integer getPersonSexID() {
+		return personSexID;
+	}
+	public void setPersonSexID(Integer personSexID) {
+		this.personSexID = personSexID;
+	}
+	public Integer getPersonRaceID() {
+		return personRaceID;
+	}
+	public void setPersonRaceID(Integer personRaceID) {
+		this.personRaceID = personRaceID;
 	}
 	
 }
