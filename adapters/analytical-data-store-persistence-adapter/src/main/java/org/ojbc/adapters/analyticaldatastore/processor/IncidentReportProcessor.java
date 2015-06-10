@@ -198,7 +198,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		        String personRace = (String)arrestee.get("personRace");
 		        String personSex = (String)arrestee.get(IdentifierGenerationStrategy.SEX_FIELD);
 		        
-		        int personPk = savePerson(personBirthDateAsString, personSex, personRace, personIdentifierKey);	
+		        int personPk = savePerson(personBirthDateAsString, personRace, personSex, personIdentifierKey);	
 		        arrest.setPersonID(personPk);
 		        
 		        

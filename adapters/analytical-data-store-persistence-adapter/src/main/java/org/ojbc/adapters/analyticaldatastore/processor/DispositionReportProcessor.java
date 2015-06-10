@@ -38,14 +38,16 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 		
 		Disposition disposition = new Disposition();
 
+		//Incident Number
 		String incidentNumber = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Incident/nc30:ActivityIdentification/nc30:IdentificationID");
-		
+				
 		if (StringUtils.isNotBlank(incidentNumber))
 		{
 			log.debug("Disposition incident number: " + incidentNumber);
 			disposition.setIncidentCaseNumber(incidentNumber);
 		}	
 		
+		//Sentence Fine Amount
 		String sentenceFineAmount = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeSentence/jxdm50:SentenceCondition/nc30:ConditionDisciplinaryAction/nc30:DisciplinaryActionFee/nc30:ObligationDueAmount/nc30:Amount");
 		
 		if (StringUtils.isNotBlank(sentenceFineAmount))
@@ -54,6 +56,7 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 			disposition.setSentenceFineAmount(Float.valueOf(sentenceFineAmount));
 		}	
 		
+		//Disposition Date
 		String dispositionDateAsString = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeDisposition/nc30:DispositionDate/nc30:Date");
 	
 		if (StringUtils.isNotEmpty(dispositionDateAsString))
@@ -76,6 +79,10 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         int personPk = savePerson(personNode, OjbcNamespaceContext.NS_PREFIX_NC_30, OjbcNamespaceContext.NS_PREFIX_JXDM_50);
         
         disposition.setPersonID(personPk);
+        
+        //For now, disposition records are all consider new
+        disposition.setRecordType('N');
+        
         
 	}
 
