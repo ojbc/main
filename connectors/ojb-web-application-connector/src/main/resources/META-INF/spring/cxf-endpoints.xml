@@ -485,10 +485,10 @@
 	    <cxf:cxfEndpoint 
 	        id="personQueryResultsHandlerCriminalHistoryService"
 	        address="${webapplication.personQuery.personQueryResultsHandlerCriminalHistoryEndpoint}"
-	        wsdlURL="classpath:service-specifications/Person_Query_Results_Handler_Service_-_Criminal_History/schema/SIP_WS_1.2/Person_Query_Results_Handler_Service_-_Criminal_History.wsdl"
-	        serviceName="ojbc:Person-Query-Results-Handler-Service---Criminal-HistoryService"
-			endpointName="ojbc:Person-Query-Results-Handler-Service---Criminal-History"
-	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0"
+	        wsdlURL="classpath:service-specifications/Criminal_History_Query_Results_Service/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
+	        serviceName="ojbc:Criminal-History-Query-Results-ServiceService"
+			endpointName="ojbc:Criminal-History-Query-Results-Service"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
 	    >
 	     <cxf:features>
 	      <policy:policies>
