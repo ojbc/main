@@ -59,13 +59,24 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 
 	private IndexWriter indexWriter;
 	private boolean indexIsEmpty = true;
+	private boolean resolveEquivalentNames = true;
+	private FirstNameEquivalentCorpus firstNameEquivalentCorpus;
 
 	public IndexedIdentifierGenerationStrategy() {
 		init(null);
+		firstNameEquivalentCorpus = new FirstNameEquivalentCorpus();
 	}
 
 	public void setIndexDirectory(String indexDirectoryPath) {
 		init(indexDirectoryPath);
+	}
+	
+	public boolean getResolveEquivalentNames() {
+		return resolveEquivalentNames;
+	}
+	
+	public void setResolveEquivalentNames(boolean value) {
+		resolveEquivalentNames = value;
 	}
 
 	@Override
@@ -86,20 +97,29 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 	}
 
 	private Document searchForExistingAttributes(Map<String, Object> attributes) throws IOException {
+		
 		Document ret = null;
+		
 		if (!indexIsEmpty) {
+			
 			BooleanQuery query = new BooleanQuery();
-			// todo: adjust first name per corpus
-			query.add(new FuzzyQuery(new Term(FIRST_NAME_FIELD, getFormattedAttributeValue(attributes.get(FIRST_NAME_FIELD))), 2, 1), Occur.MUST);
+			
+			String firstNameAttributeValue = getFormattedAttributeValue(attributes.get(FIRST_NAME_FIELD));
+			if (resolveEquivalentNames) {
+				firstNameAttributeValue = firstNameEquivalentCorpus.getEquivalentName(firstNameAttributeValue);
+			}
+			query.add(new FuzzyQuery(new Term(FIRST_NAME_FIELD, firstNameAttributeValue), 2, 1), Occur.MUST);
 			query.add(new FuzzyQuery(new Term(LAST_NAME_FIELD, getFormattedAttributeValue(attributes.get(LAST_NAME_FIELD))), 2, 1), Occur.MUST);
 			query.add(new FuzzyQuery(new Term(MIDDLE_NAME_FIELD, getFormattedAttributeValue(attributes.get(MIDDLE_NAME_FIELD))), 2, 1), Occur.MUST);
 			query.add(new FuzzyQuery(new Term(BIRTHDATE_FIELD, getFormattedAttributeValue(attributes.get(BIRTHDATE_FIELD))), 1, 0), Occur.MUST);
 			query.add(new TermQuery(new Term(SEX_FIELD, getFormattedAttributeValue(attributes.get(SEX_FIELD)))), Occur.SHOULD);
 			query.add(new FuzzyQuery(new Term(SSN_FIELD, getFormattedAttributeValue(attributes.get(SSN_FIELD))), 1, 0), Occur.SHOULD);
 			log.debug("Query: " + query.toString());
+			
 			Directory directory = indexWriter.getDirectory();
 			IndexSearcher searcher = new IndexSearcher(DirectoryReader.open(directory));
 			TopDocs hits = searcher.search(query, 2);
+			
 			ScoreDoc[] hitDocs = hits.scoreDocs;
 			if (hitDocs.length > 1) {
 				throw new RuntimeException("Invalid index state:  multiple matches for attributes=" + attributes);
@@ -109,8 +129,11 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 				ret = searcher.doc(id);
 				log.debug("Found a match, id=" + id);
 			}
+			
 		}
+		
 		return ret;
+		
 	}
 
 	private String getFormattedAttributeValue(Object value) {
