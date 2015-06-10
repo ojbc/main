@@ -22,7 +22,12 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class FirstNameEquivalentCorpus {
+/**
+ * Class that maintains a mapping of "diminutive" names to a canonical form.  For example, Bob and Bobby would map to Robert.  This is based upon a corpus originally downloaded
+ * from https://github.com/dtrebbien/diminutives.db.
+ *
+ */
+class FirstNameEquivalentCorpus {
 	
 	private static final Log log = LogFactory.getLog(FirstNameEquivalentCorpus.class);
 	
