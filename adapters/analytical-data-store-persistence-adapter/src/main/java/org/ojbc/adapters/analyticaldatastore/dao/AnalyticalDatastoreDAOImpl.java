@@ -424,7 +424,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         log.debug("Inserting row into Disposition table");
 
         final String dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,OffenseTypeID,IncidentCaseNumber,DispositionDate,"
-        		+ "SentenceTermDays,SentenceFineAmount,RecordType,IsProbationViolation,RecidivismEligibilityDate) values (?,?,?,?,?,?,?,?,?,?)";
+        		+ "SentenceTermDays,SentenceFineAmount,RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate) values (?,?,?,?,?,?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -432,7 +432,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(dispositionInsertStatement, new String[] {"PersonID","DispositionTypeID","OffenseTypeID","IncidentCaseNumber","DispositionDate,"
-        	                		+ "SentenceTermDays","SentenceFineAmount","RecordType","IsProbationViolation","RecidivismEligibilityDate"});
+        	                		+ "SentenceTermDays","SentenceFineAmount","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate"});
         	            ps.setInt(1, disposition.getPersonID());
         	            ps.setInt(2, disposition.getDispositionTypeID());
         	            ps.setInt(3, disposition.getOffenseTypeID());
@@ -442,7 +442,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setFloat(7, disposition.getSentenceFineAmount());
         	            ps.setString(8, String.valueOf(disposition.getRecordType()));
         	            ps.setString(9, String.valueOf(disposition.getIsProbationViolation()));
-        	            ps.setDate(10, new java.sql.Date(disposition.getRecidivismEligibilityDate().getTime()));
+        	            ps.setString(10, String.valueOf(disposition.getIsProbationViolationOnOldCharge()));
+        	            ps.setDate(11, new java.sql.Date(disposition.getRecidivismEligibilityDate().getTime()));
         	            return ps;
         	        }
         	    },

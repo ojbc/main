@@ -22,23 +22,25 @@ public class Disposition {
 
 	private int dispositionID;
 	
-	private int personID;
+	private Integer personID;
 	
-	private int dispositionTypeID;
+	private Integer dispositionTypeID;
 	
-	private int offenseTypeID;
+	private Integer offenseTypeID;
 	
 	private String incidentCaseNumber;
 	
 	private Date dispositionDate;
 	
-	private int sentenceTermDays;
+	private Integer sentenceTermDays;
 	
-	private float sentenceFineAmount;
+	private Float sentenceFineAmount;
 	
-	private char recordType;
+	private Character recordType;
 	
-	private char isProbationViolation;
+	private Character isProbationViolation;
+	
+	private Character IsProbationViolationOnOldCharge;
 	
 	private Date recidivismEligibilityDate;
 
@@ -50,27 +52,27 @@ public class Disposition {
 		this.dispositionID = dispositionID;
 	}
 
-	public int getPersonID() {
+	public Integer getPersonID() {
 		return personID;
 	}
 
-	public void setPersonID(int personID) {
+	public void setPersonID(Integer personID) {
 		this.personID = personID;
 	}
 
-	public int getDispositionTypeID() {
+	public Integer getDispositionTypeID() {
 		return dispositionTypeID;
 	}
 
-	public void setDispositionTypeID(int dispositionTypeID) {
+	public void setDispositionTypeID(Integer dispositionTypeID) {
 		this.dispositionTypeID = dispositionTypeID;
 	}
 
-	public int getOffenseTypeID() {
+	public Integer getOffenseTypeID() {
 		return offenseTypeID;
 	}
 
-	public void setOffenseTypeID(int offenseTypeID) {
+	public void setOffenseTypeID(Integer offenseTypeID) {
 		this.offenseTypeID = offenseTypeID;
 	}
 
@@ -90,35 +92,35 @@ public class Disposition {
 		this.dispositionDate = dispositionDate;
 	}
 
-	public int getSentenceTermDays() {
+	public Integer getSentenceTermDays() {
 		return sentenceTermDays;
 	}
 
-	public void setSentenceTermDays(int sentenceTermDays) {
+	public void setSentenceTermDays(Integer sentenceTermDays) {
 		this.sentenceTermDays = sentenceTermDays;
 	}
 
-	public float getSentenceFineAmount() {
+	public Float getSentenceFineAmount() {
 		return sentenceFineAmount;
 	}
 
-	public void setSentenceFineAmount(float sentenceFineAmount) {
+	public void setSentenceFineAmount(Float sentenceFineAmount) {
 		this.sentenceFineAmount = sentenceFineAmount;
 	}
 
-	public char getRecordType() {
+	public Character getRecordType() {
 		return recordType;
 	}
 
-	public void setRecordType(char recordType) {
+	public void setRecordType(Character recordType) {
 		this.recordType = recordType;
 	}
 
-	public char getIsProbationViolation() {
+	public Character getIsProbationViolation() {
 		return isProbationViolation;
 	}
 
-	public void setIsProbationViolation(char isProbationViolation) {
+	public void setIsProbationViolation(Character isProbationViolation) {
 		this.isProbationViolation = isProbationViolation;
 	}
 
@@ -129,4 +131,14 @@ public class Disposition {
 	public void setRecidivismEligibilityDate(Date recidivismEligibilityDate) {
 		this.recidivismEligibilityDate = recidivismEligibilityDate;
 	}
+
+	public Character getIsProbationViolationOnOldCharge() {
+		return IsProbationViolationOnOldCharge;
+	}
+
+	public void setIsProbationViolationOnOldCharge(
+			Character isProbationViolationOnOldCharge) {
+		IsProbationViolationOnOldCharge = isProbationViolationOnOldCharge;
+	}
+
 }

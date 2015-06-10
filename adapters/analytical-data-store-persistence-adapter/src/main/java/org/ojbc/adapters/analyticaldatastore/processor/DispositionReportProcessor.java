@@ -66,6 +66,7 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 			disposition.setDispositionDate(dispositionDate);
 		}	
 
+		//Sentence term total days
 		String termTotalDays = XmlUtils.xPathStringSearch(report, " /disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeSentence/jxdm50:SentenceTerm/disp_ext:SentenceTermAugmentation/disp_ext:TermTotalDays");
 		
 		if (StringUtils.isNotBlank(termTotalDays))
@@ -74,14 +75,14 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 			disposition.setSentenceTermDays(Integer.valueOf(termTotalDays));
 		}	
 		
+		//Person info
 		Node personNode = XmlUtils.xPathNodeSearch(report, "/disp_exc:DispositionReport/jxdm50:Subject/nc30:RoleOfPerson");
-		
         int personPk = savePerson(personNode, OjbcNamespaceContext.NS_PREFIX_NC_30, OjbcNamespaceContext.NS_PREFIX_JXDM_50);
-        
         disposition.setPersonID(personPk);
         
         //For now, disposition records are all consider new
         disposition.setRecordType('N');
+        
         
         
 	}
