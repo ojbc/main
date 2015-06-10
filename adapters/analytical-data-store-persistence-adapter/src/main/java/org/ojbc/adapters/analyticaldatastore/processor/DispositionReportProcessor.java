@@ -23,6 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
+import org.ojbc.adapters.analyticaldatastore.util.DaoUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -68,7 +69,7 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 		}	
 
 		//Sentence term total days
-		String termTotalDays = XmlUtils.xPathStringSearch(report, " /disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeSentence/jxdm50:SentenceTerm/disp_ext:SentenceTermAugmentation/disp_ext:TermTotalDays");
+		String termTotalDays = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeSentence/jxdm50:SentenceTerm/disp_ext:SentenceTermAugmentation/disp_ext:TermTotalDays");
 		
 		if (StringUtils.isNotBlank(termTotalDays))
 		{
@@ -84,7 +85,17 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         //For now, disposition records are all consider new
         disposition.setRecordType('N');
         
-        //TODO: add isProbationViolation, isProbationViolationOnOldCharge, RecidivismEligibilityDate
+        String isProbationIndicator = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:InitialCharge/disp_ext:ChargeAugmentation/disp_ext:ProbationViolationIndicator");
+        log.debug("Is probation indicator: " + isProbationIndicator);
+        
+        disposition.setIsProbationViolation(DaoUtils.getIndicatorValueForDatabase(isProbationIndicator));
+        
+        //TODO: isProbationViolationOnOldCharge, 
+        
+        //TODO: updated when mapping is available from IEPD RecidivismEligibilityDate
+        //Date recidivismEligibilityDate = new Date();
+        //disposition.setRecidivismEligibilityDate(recidivismEligibilityDate);
+        
         
         //TODO: Update when mapping is available from IEPD
         Integer dispositionTypePk = descriptionCodeLookupService.retrieveCode(CodeTable.DispositionType, "Disposition Type Placeholder");
@@ -96,6 +107,7 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         log.debug("Offense type PK: " + offenseTypePk);
         disposition.setOffenseTypeID(offenseTypePk);
         
+        analyticalDatastoreDAO.saveDisposition(disposition);
         
         
 	}

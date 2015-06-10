@@ -57,6 +57,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -236,6 +237,32 @@ public class CamelContextTest {
 		failedInvocationEndpoint.assertIsSatisfied();
 	}	
 
+	@Test
+	public void testPretrialServiceEnrollmentReportService() throws Exception
+	{
+    	Exchange pretrialEnrollmentReportExchange = createSenderExchange(
+    			"src/test/resources/xmlInstances/pretrialServicesEnrollmentReport/pretrial_services_enrollment_report.xml");
+	    
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:processPretrialServiceReport", pretrialEnrollmentReportExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+
+		//Sleep while a response is generated
+		Thread.sleep(3000);
+		
+		PretrialServiceParticipation pretrialServiceParticipation = 
+				analyticalDatastoreDAOImpl.getPretrialServiceParticipationByIncidentNumber("Incident4557");
+		
+		assertNotNull(pretrialServiceParticipation);
+		
+		
+	}	
+	
 	protected Exchange createSenderExchange(String pathToInputFile) throws Exception, IOException {
 		//Create a new exchange
     	Exchange incidentReportExchange = new DefaultExchange(context);

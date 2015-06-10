@@ -44,7 +44,12 @@ public class CodeTableDAOImpl implements CodeTableDAO
 	@Override
 	public List<KeyValue> retrieveCodeDescriptions(CodeTable codeTable) {
 		String sql = null;
-
+		/*
+		 * To developers: The KeyValueMapper is based on the query results column index, 
+		 * so if the table struture has more columns than just the pkID and *description, 
+		 * use a different sql statement in that case. Make sure the first column of the 
+		 * query result is pkId and the second is the one to be used to query the pkID.  
+		 */
 		switch (codeTable) {
 		
 			case County:

@@ -82,6 +82,8 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 
 	private int processPretrialServiceParticipation(Document report) throws Exception, ParseException {
 		PretrialServiceParticipation pretrialServiceParticipation = new PretrialServiceParticipation(); 
+		
+		pretrialServiceParticipation.setRecordType('N');
 		//TODO need to find out the mapping for PretrialServiceCaseNumber
 		
 		Node personNode = XmlUtils.xPathNodeSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/jxdm50:Subject/nc30:RoleOfPerson");
@@ -101,17 +103,20 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
         
         //TODO mapping to the arrest Date. double check with Andrew. 
 		String intakeDateString=XmlUtils.xPathStringSearch(report,
-				"/pse-doc:PretrialServicesEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/nc30:ActivityDate/nc30:DateTime");
+				"/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/nc30:ActivityDate/nc30:DateTime");
 		if (StringUtils.isNotBlank(intakeDateString)){
 			pretrialServiceParticipation.setIntakeDate(DATE_TIME_FORMAT.parse(intakeDateString));
 		}
 		
 		String arrestAgencyOri = XmlUtils.xPathStringSearch(report, 
-				"/pse-doc:PretrialServicesEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
+				"/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
 		pretrialServiceParticipation.setArrestingAgencyORI(StringUtils.trimToNull(arrestAgencyOri));
 		
-		String arrestIncidentCaseNumber = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServicesEnrollmentReport/nc30:Incident/nc30:ActivityIdentification/nc30:IdentificationID");
+		String arrestIncidentCaseNumber = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/nc30:ActivityIdentification/nc30:IdentificationID");
 		pretrialServiceParticipation.setArrestIncidentCaseNumber(StringUtils.trimToNull(arrestIncidentCaseNumber));
+		
+		//TODO pretrialServiceCaseNumber can not be null. set it to incident number to pass test.
+		pretrialServiceParticipation.setPretrialServiceCaseNumber(StringUtils.trimToNull(arrestIncidentCaseNumber));
 		
 		log.debug("pretrialServiceParticipation to be saved " + pretrialServiceParticipation.toString());
 

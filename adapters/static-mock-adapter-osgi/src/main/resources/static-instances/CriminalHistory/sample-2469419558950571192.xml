@@ -16,16 +16,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.0" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
-    <ch:RapSheet>
-        <ch:Metadata>
+<ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"  xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.1" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
+    <ch-ext:RapSheet>
+        <rap:Metadata>
             <nc:ReportingOrganizationText>State CHRI</nc:ReportingOrganizationText>
-        </ch:Metadata>
-        <ch:Introduction>
-            <ch:RapSheetRequest>
-                <ch:PurposeCode>A</ch:PurposeCode>
-                <ch:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</ch:Attention>
-                <ch:RapSheetPerson>
+        </rap:Metadata>
+        <rap:Introduction>
+            <rap:RapSheetRequest>
+                <rap:PurposeCode>A</rap:PurposeCode>
+                <rap:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</rap:Attention>
+                <rap:RapSheetPerson>
                     <nc:PersonBirthDate>
                         <nc:Date>1986-09-30</nc:Date>
                     </nc:PersonBirthDate>
@@ -34,10 +34,10 @@
                         <nc:PersonMiddleName>S</nc:PersonMiddleName>
                         <nc:PersonSurName>Crandell</nc:PersonSurName>
                     </nc:PersonName>
-                </ch:RapSheetPerson>
-            </ch:RapSheetRequest>
-        </ch:Introduction>
-        <ch:RapSheetPerson s:id="P57">
+                </rap:RapSheetPerson>
+            </rap:RapSheetRequest>
+        </rap:Introduction>
+        <ch-ext:Person s:id="P57">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Edward C</nc:PersonGivenName>
                 <nc:PersonSurName>Crandell</nc:PersonSurName>
@@ -45,8 +45,8 @@
             <nc:PersonBirthDate>
                 <nc:Date>1986-09-30</nc:Date>
             </nc:PersonBirthDate>
-            <nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
-            <nc:PersonHairColorText>Black</nc:PersonHairColorText>
+            <rap:PersonEyeColorText>Blue</rap:PersonEyeColorText>
+            <rap:PersonHairColorText>Black</rap:PersonHairColorText>
             <nc:PersonName>
                 <nc:PersonGivenName>Edward</nc:PersonGivenName>
                 <nc:PersonMiddleName>S</nc:PersonMiddleName>
@@ -56,68 +56,68 @@
             <nc:PersonSexCode>M</nc:PersonSexCode>
             <nc:PersonSSNIdentification>
                 <nc:IdentificationID>483-20-3817</nc:IdentificationID>
-                <nc:IdentificationSourceText>SSA</nc:IdentificationSourceText>
+                <nc:IdentificationJurisdictionText>SSA</nc:IdentificationJurisdictionText>
             </nc:PersonSSNIdentification>
             <nc:PersonWeightMeasure>
                 <nc:MeasurePointValue>239.4</nc:MeasurePointValue>
                 <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
             </nc:PersonWeightMeasure>
-            <jxdm40:PersonAugmentation>
-                <jxdm40:PersonStateFingerprintIdentification>
+            <jxdm41:PersonAugmentation>
+                <jxdm41:PersonStateFingerprintIdentification>
                     <nc:IdentificationID>A0111439</nc:IdentificationID>
-                    <nc:IdentificationSourceText/>
-                </jxdm40:PersonStateFingerprintIdentification>
-            </jxdm40:PersonAugmentation>
-        </ch:RapSheetPerson>
-        <ch:PersonBiometricsAssociation>
+                    <nc:IdentificationJurisdictionText/>
+                </jxdm41:PersonStateFingerprintIdentification>
+            </jxdm41:PersonAugmentation>
+        </ch-ext:Person>
+        <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P57"/>
             <nc:Biometric>
                 <nc:BiometricValueText>W W \ \ \ ,W A / / /</nc:BiometricValueText>
                 <nc:BiometricDescriptionText>Fingerprint Class</nc:BiometricDescriptionText>
             </nc:Biometric>
-            <ch:PersonBiometrics/>
-        </ch:PersonBiometricsAssociation>
+            <rap:PersonBiometrics/>
+        </rap:PersonBiometricsAssociation>
         <nc:Location s:id="L2043361103">
             <nc:LocationAddress>
                 <nc:AddressFullText>1200 Woodland Drive Sioux City, IA 57106</nc:AddressFullText>
             </nc:LocationAddress>
         </nc:Location>
-        <ch:Agency s:id="AGY-1783423116">
+        <rap:Agency s:id="AGY-1783423116">
             <nc:OrganizationName>SCOTCH GROVE PD</nc:OrganizationName>
-        </ch:Agency>
+        </rap:Agency>
         <nc:ResidenceAssociation>
             <nc:PersonReference s:ref="P57"/>
             <nc:LocationReference s:ref="L2043361103"/>
         </nc:ResidenceAssociation>
-        <ch:RapSheetCycle>
-            <ch:CycleEarliestDate>
+        <ch-ext:RapSheetCycle>
+            <rap:CycleEarliestDate>
                 <nc:Date>2007-03-01</nc:Date>
-            </ch:CycleEarliestDate>
-            <ch:Arrest s:id="A8383813024">
+            </rap:CycleEarliestDate>
+            <rap:Arrest s:id="A8383813024">
                 <nc:ActivityDate>
                     <nc:Date>2007-03-01</nc:Date>
                 </nc:ActivityDate>
-                <jxdm40:ArrestAgencyRecordIdentification>
+                <jxdm41:ArrestAgencyRecordIdentification>
                     <nc:IdentificationID>135-0683923</nc:IdentificationID>
-                </jxdm40:ArrestAgencyRecordIdentification>
-                <jxdm40:ArrestCharge>
-                    <jxdm40:ChargeDescriptionText/>
-                    <jxdm40:ChargeDisposition>
+                </jxdm41:ArrestAgencyRecordIdentification>
+                <rap:ArrestCharge>
+                    <jxdm41:ChargeDescriptionText/>
+                    <jxdm41:ChargeDisposition>
                         <nc:DispositionDescriptionText>LACK OF PROS</nc:DispositionDescriptionText>
-                    </jxdm40:ChargeDisposition>
-                    <jxdm40:ChargeIdentification>
+                    </jxdm41:ChargeDisposition>
+                    <jxdm41:ChargeIdentification>
                         <nc:IdentificationID>AC08555330</nc:IdentificationID>
-                    </jxdm40:ChargeIdentification>
-                    <jxdm40:ChargeSeverityText>FCMD</jxdm40:ChargeSeverityText>
-                    <jxdm40:ChargeTrackingIdentification>
+                    </jxdm41:ChargeIdentification>
+                    <jxdm41:ChargeSeverityText>FCMD</jxdm41:ChargeSeverityText>
+                    <jxdm41:ChargeTrackingIdentification>
                         <nc:IdentificationID>AC08555330</nc:IdentificationID>
-                    </jxdm40:ChargeTrackingIdentification>
-                </jxdm40:ArrestCharge>
-            </ch:Arrest>
-        </ch:RapSheetCycle>
-        <ch:ArrestAgencyAssociation>
+                    </jxdm41:ChargeTrackingIdentification>
+                </rap:ArrestCharge>
+            </rap:Arrest>
+        </ch-ext:RapSheetCycle>
+        <rap:ArrestAgencyAssociation>
             <nc:ActivityReference s:ref="A8383813024"/>
             <nc:OrganizationReference s:ref="AGY-1783423116"/>
-        </ch:ArrestAgencyAssociation>
-    </ch:RapSheet>
+        </rap:ArrestAgencyAssociation>
+    </ch-ext:RapSheet>
 </ch-doc:CriminalHistory>

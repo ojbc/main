@@ -68,7 +68,10 @@ public class PeopleController {
     String personSearchForm;
     
     @Value("${personSearchResultPage:people/_searchResult}")
-    String personSearchResultPage; 	
+    String personSearchResultPage;
+    
+	@Value("${showJuvenileSearchTab:false}")
+	Boolean showJuvenileSearchTab;
     
     @Resource
 	PeopleControllerConfigInterface config;
@@ -285,6 +288,7 @@ public class PeopleController {
     public void setupModelAttributes(Model model) {
         model.addAttribute("placements", placements);
         model.addAttribute("states", states);
+        model.addAttribute("showJuvenileSearchTab", showJuvenileSearchTab);
     }
     
 	@ModelAttribute("races")

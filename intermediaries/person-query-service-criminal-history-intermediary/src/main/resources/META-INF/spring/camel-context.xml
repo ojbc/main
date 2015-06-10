@@ -94,8 +94,8 @@
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 									
-			<camel:setHeader headerName="operationName"><constant>Submit-Person-Query---Criminal-History</constant></camel:setHeader>
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0</constant></camel:setHeader>
+			<camel:setHeader headerName="operationName"><constant>SubmitCriminalHistoryQueryRequest</constant></camel:setHeader>
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0</constant></camel:setHeader>
 									
 			<!-- Since this is a query, we only call one endpoint -->						
 			<camel:setHeader headerName="adapterURI">
@@ -212,10 +212,10 @@
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
             		<camel:setHeader headerName="operationName">
-            			<constant>Report-Person-Query-Results---Criminal-History</constant>
+            			<constant>SubmitCriminalHistoryQueryResults</constant>
             		</camel:setHeader>
 	        		<camel:setHeader headerName="operationNamespace">
-	        			<constant>http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Criminal_History/1.0</constant>
+	        			<constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0</constant>
 	        		</camel:setHeader>
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			

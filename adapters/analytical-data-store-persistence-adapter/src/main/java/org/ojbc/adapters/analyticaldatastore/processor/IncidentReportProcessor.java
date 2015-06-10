@@ -29,6 +29,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
+import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.personid.IdentifierGenerationStrategy;
 import org.ojbc.adapters.analyticaldatastore.util.AnalyticalDataStoreUtils;
@@ -158,7 +159,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		
 		String incidentTypeDescription="Placeholder";
 		
-		int incidentTypePK = analyticalDatastoreDAO.returnIncidentTypeKeyfromIncidentTypeDescription(incidentTypeDescription);
+		int incidentTypePK = descriptionCodeLookupService.retrieveCode(CodeTable.IncidentType, incidentTypeDescription);
 		incident.setIncidentTypeID(incidentTypePK);
 		
 		int incidentPk = analyticalDatastoreDAO.saveIncident(incident);
@@ -248,7 +249,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		    	String ndexOffenseCode = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref='" + offenseReference + "']/ndexia:OffenseCode");
 		    	log.debug("NDEX offense Code: " + ndexOffenseCode);
 		    	
-		    	int arrestOffenseTypeID = analyticalDatastoreDAO.returnOffenseTypeKeyfromOffenseDescription(ndexOffenseCode);
+		    	int arrestOffenseTypeID = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, ndexOffenseCode);
 		    	
 	    		Charge charge = new Charge();
 	    		
