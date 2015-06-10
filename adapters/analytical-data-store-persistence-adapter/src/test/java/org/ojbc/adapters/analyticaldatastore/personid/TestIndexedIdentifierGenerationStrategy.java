@@ -28,22 +28,26 @@ import org.junit.Test;
 public class TestIndexedIdentifierGenerationStrategy {
 	
 	private IndexedIdentifierGenerationStrategy strategy;
+	private Map<String, Object> attributeMap;
 	
 	@Before
 	public void setUp() throws Exception {
-		strategy = new IndexedIdentifierGenerationStrategy();
-	}
-	
-	@Test
-	public void test() throws Exception {
 		
-		Map<String, Object> attributeMap = new HashMap<String, Object>();
+		strategy = new IndexedIdentifierGenerationStrategy();
+		
+		attributeMap = new HashMap<String, Object>();
+		
 		attributeMap.put(IndexedIdentifierGenerationStrategy.FIRST_NAME_FIELD, "George");
 		attributeMap.put(IndexedIdentifierGenerationStrategy.LAST_NAME_FIELD, "Washington");
 		attributeMap.put(IndexedIdentifierGenerationStrategy.MIDDLE_NAME_FIELD, "Herbert");
 		attributeMap.put(IndexedIdentifierGenerationStrategy.SEX_FIELD, "M");
 		attributeMap.put(IndexedIdentifierGenerationStrategy.SSN_FIELD, null);
 		attributeMap.put(IndexedIdentifierGenerationStrategy.BIRTHDATE_FIELD, makeDate(1745, 2, 3));
+		
+	}
+	
+	@Test
+	public void test() throws Exception {
 		
 		String id = strategy.generateIdentifier(attributeMap);
 		String id2 = strategy.generateIdentifier(attributeMap);
@@ -59,6 +63,36 @@ public class TestIndexedIdentifierGenerationStrategy {
 		id2 = strategy.generateIdentifier(attributeMap);
 		assertEquals(id, id2);
 
+	}
+	
+	@Test
+	public void testOptionalFieldsMissing() throws Exception {
+		
+		String id = strategy.generateIdentifier(attributeMap);
+		
+		attributeMap.put(IndexedIdentifierGenerationStrategy.SEX_FIELD, null);
+		String id2 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id, id2);
+		
+		attributeMap.put(IndexedIdentifierGenerationStrategy.SSN_FIELD, "123-45-6789");
+		String id3 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id, id3);
+		
+		attributeMap.put(IndexedIdentifierGenerationStrategy.SSN_FIELD, "987-65-4321");
+		String id4 = strategy.generateIdentifier(attributeMap);
+		assertNotSame(id3, id4);
+		assertNotSame(id, id4);
+		String id5 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id4, id5);
+		
+		attributeMap.put(IndexedIdentifierGenerationStrategy.SSN_FIELD, null);
+		String id6 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id, id6);
+
+		attributeMap.put(IndexedIdentifierGenerationStrategy.FIRST_NAME_FIELD, "Henry");
+		id2 = strategy.generateIdentifier(attributeMap);
+		assertNotSame(id, id2);
+		
 	}
 
 	private Object makeDate(int year, int monthOfYear, int dayOfMonth) {
