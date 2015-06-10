@@ -22,5 +22,5 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
  */
 public enum CodeTable {
 	PersonRace, PersonSex, InvolvedDrug, IncidentType, AssessedNeed, 
-	PretrialService, County, Agency; 
+	PretrialService, County, Agency, DispositionType, OffenseType; 
 }

@@ -453,12 +453,54 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setInt(3, disposition.getOffenseTypeID());
         	            ps.setString(4, disposition.getIncidentCaseNumber());
         	            ps.setDate(5, new java.sql.Date(disposition.getDispositionDate().getTime()));
-        	            ps.setInt(6, disposition.getSentenceTermDays());
-        	            ps.setFloat(7, disposition.getSentenceFineAmount());
+        	            
+        	            if (disposition.getSentenceTermDays() != null)
+        	            {	
+        	            	ps.setInt(6, disposition.getSentenceTermDays());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(6, java.sql.Types.NULL);
+        	            }	
+
+        	            if (disposition.getSentenceFineAmount() != null)
+        	            {	
+        	            	ps.setFloat(7, disposition.getSentenceFineAmount());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(7, java.sql.Types.NULL);
+        	            }
+        	            
         	            ps.setString(8, String.valueOf(disposition.getRecordType()));
-        	            ps.setString(9, String.valueOf(disposition.getIsProbationViolation()));
-        	            ps.setString(10, String.valueOf(disposition.getIsProbationViolationOnOldCharge()));
-        	            ps.setDate(11, new java.sql.Date(disposition.getRecidivismEligibilityDate().getTime()));
+
+        	            if (disposition.getIsProbationViolation() != null)
+        	            {	
+        	            	ps.setString(9, String.valueOf(disposition.getIsProbationViolation()));
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(9, java.sql.Types.NULL);
+        	            }	
+
+        	            if (disposition.getIsProbationViolationOnOldCharge() != null)
+        	            {	
+        	            	ps.setString(10, String.valueOf(disposition.getIsProbationViolationOnOldCharge()));
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(10, java.sql.Types.NULL);
+        	            }	
+
+        	            if (disposition.getRecidivismEligibilityDate() != null)
+        	            {	
+        	            	ps.setDate(11, new java.sql.Date(disposition.getRecidivismEligibilityDate().getTime()));
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(11, java.sql.Types.NULL);
+        	            }	
+        	            
         	            return ps;
         	        }
         	    },
@@ -477,45 +519,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 	}
 
-	@Override
-	public int returnPersonSexKeyfromSexDescription(String personSexDescription){
-		String sql = "select PersonSexID from PersonSex where PersonSexDescription = ?";
-		 
-		List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql,new Object[] { personSexDescription });
-		
-		if (rows.size() != 1)
-		{
-			log.info("Person Sex Query did not return the proper resultset.");
-			
-			//TODO: maybe query for 'unknown' once and then store it in a member variable instead of hardcoding?
-			//FIXME
-			return 3;
-		}	
-		
-		Long personSexKey = (Long)rows.get(0).get("PersonSexID");
-		
-		return personSexKey.intValue();
-	}
-	
-	@Override
-	public int returnPersonRaceKeyfromRaceDescription(String personRaceDescription){
-		String sql = "select PersonRaceID from PersonRace where PersonRaceDescription = ?";
-		 
-		List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql,new Object[] { personRaceDescription });
-		
-		if (rows.size() != 1)
-		{
-			log.info("Person Race Query did not return the proper resultset.");
-			
-			//TODO: maybe query for 'unknown' once and then store it in a member variable instead of hardcoding?
-			
-			return 4;
-		}	
-		
-		Long personRaceKey = (Long)rows.get(0).get("PersonRaceID");
-		
-		return personRaceKey.intValue();
-	}
 
 	@Override
 	public List<Arrest> searchForArrestsByIncidentPk(int incidentPk) {
@@ -556,26 +559,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public int returnIncidentTypeKeyfromIncidentTypeDescription(
-			String incidentTypeDescription) {
-		String sql = "select IncidentTypeID from IncidentType where IncidentTypeDescription = ?";
-		 
-		List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql,new Object[] { incidentTypeDescription });
-		
-		if (rows.size() != 1)
-		{
-			log.info("IncidentType did not return the proper resultset.");
-			
-			//TODO: maybe we should have a code for 'unknown' or 'unmapped' incident type description
-			return 0;
-		}	
-		
-		Long incidentTypeIdKey = (Long)rows.get(0).get("IncidentTypeID");
-		
-		return incidentTypeIdKey.intValue();	
-	}
-
-	@Override
 	public int saveInvolvedDrug(final InvolvedDrug involvedDrug) {
         log.debug("Inserting row into PersonRace table");
 
@@ -597,26 +580,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
       
 	}
 
-	@Override
-	public int returnOffenseTypeKeyfromOffenseDescription(
-			String offenseDescription) {
-
-			String sql = "select OffenseTypeID from OffenseType where OffenseDescription = ?";
-			 
-			List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql,new Object[] { offenseDescription });
-			
-			if (rows.size() != 1)
-			{
-				log.info("Offense did not return the proper resultset.");
-				
-				//TODO: maybe we should have a code for 'unknown' or 'unmapped' offense type description
-				return 0;
-			}	
-			
-			Long offenseTypeIdKey = (Long)rows.get(0).get("OffenseTypeID");
-			
-			return offenseTypeIdKey.intValue();	
-	}
 
 	private final String PRETRIAL_SERVICE_NEED_ASSOCIATION_SAVE=
 			"INSERT INTO pretrialServiceNeedAssociation (assessedNeedID, pretrialServiceParticipationID) values (?,?)";

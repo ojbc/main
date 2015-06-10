@@ -65,3 +65,6 @@ insert into AssessedNeed (AssessedNeedDescription) values('substance abuse');
 
 -- County code value for test
 insert into County (CountyName) values ('Harrison');
+
+-- Disposition Type - placeholder while waiting for code values
+insert into DispositionType (DispositionDescription, IsConviction) values ('Disposition Type Placeholder','N');
