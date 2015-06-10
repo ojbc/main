@@ -16,11 +16,22 @@
  */
 package org.ojbc.adapters.analyticaldatastore.processor;
 
+import java.text.ParseException;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryProcessor{
 
@@ -30,8 +41,81 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 	@Transactional
 	public void processReport(Document report) throws Exception
 	{
-		PretrialServiceParticipation pretrialServiceParticipation = new PretrialServiceParticipation(); 
+		int pretrialServiceParticipationPkId = processPretrialServiceParticipation(report);
+		processAssessedNeeds(pretrialServiceParticipationPkId, report);
 		
+		//TODO need to know the pretrialServiceDescription mapping to work on PretrialServiceAssociation.
+	}
+
+
+	private void processAssessedNeeds(int pretrialServiceParticipationPkId,
+			Document report) throws Exception {
+		List<Integer> assessedNeedsIds = new ArrayList<Integer>();
+		
+		String housingNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:HousingNeedsIndicator");
+		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, housingNeeds, "housing");
+		
+		String insuranceNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:InsuranceNeedsIndicator");
+		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, insuranceNeeds, "insurance");
+		
+		String medicalNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:MedicalNeedsIndicator");
+		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, medicalNeeds, "medical");
+		
+		String mentalHealthNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:MentalHealthNeedsIndicator");
+		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, mentalHealthNeeds, "mental health");
+
+		String substanceAbuseNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:SubstanceAbuseNeedsIndicator");
+		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, substanceAbuseNeeds, "substance abuse");
+		
+		analyticalDatastoreDAO.savePretrialServiceNeedAssociations(assessedNeedsIds, pretrialServiceParticipationPkId);
+	}
+
+
+	private void addAssessedNeedsIdToList(int pretrialServiceParticipationPkId,
+			List<Integer> assessedNeedsIds,
+			String indicator, String indicatorType) {
+		if (BooleanUtils.toBoolean(indicator)){
+			assessedNeedsIds.add(descriptionCodeLookupService.retrieveCode(CodeTable.AssessedNeed, indicatorType));
+		}
+	}
+
+
+	private int processPretrialServiceParticipation(Document report) throws Exception, ParseException {
+		PretrialServiceParticipation pretrialServiceParticipation = new PretrialServiceParticipation(); 
+		//TODO need to find out the mapping for PretrialServiceCaseNumber
+		
+		Node personNode = XmlUtils.xPathNodeSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/jxdm50:Subject/nc30:RoleOfPerson");
+        int personPk = savePerson(personNode, OjbcNamespaceContext.NS_PREFIX_NC_30, OjbcNamespaceContext.NS_PREFIX_JXDM_50);
+        pretrialServiceParticipation.setPersonID(personPk);
+
+        String countyName = XmlUtils.xPathStringSearch(report, 
+        		"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:PreTrialServicesEnrollment/pse-ext:ActivityLocation/nc30:Address/nc30:LocationCountyName");
+        Integer countyId = descriptionCodeLookupService.retrieveCode(CodeTable.County, countyName); 
+        pretrialServiceParticipation.setCountyID(countyId);
+        
+        String riskScore = XmlUtils.xPathStringSearch(report, 
+        		"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:ORASAssessment/pse-ext:AssessmentScoreNumeric");
+        if (StringUtils.isNotBlank(riskScore)){
+        	pretrialServiceParticipation.setRiskScore(Integer.valueOf(riskScore));
+        }
+        
+        //TODO mapping to the arrest Date. double check with Andrew. 
+		String intakeDateString=XmlUtils.xPathStringSearch(report,
+				"/pse-doc:PretrialServicesEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/nc30:ActivityDate/nc30:DateTime");
+		if (StringUtils.isNotBlank(intakeDateString)){
+			pretrialServiceParticipation.setIntakeDate(DATE_TIME_FORMAT.parse(intakeDateString));
+		}
+		
+		String arrestAgencyOri = XmlUtils.xPathStringSearch(report, 
+				"/pse-doc:PretrialServicesEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
+		pretrialServiceParticipation.setArrestingAgencyORI(StringUtils.trimToNull(arrestAgencyOri));
+		
+		String arrestIncidentCaseNumber = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServicesEnrollmentReport/nc30:Incident/nc30:ActivityIdentification/nc30:IdentificationID");
+		pretrialServiceParticipation.setArrestIncidentCaseNumber(StringUtils.trimToNull(arrestIncidentCaseNumber));
+		
+		log.debug("pretrialServiceParticipation to be saved " + pretrialServiceParticipation.toString());
+
+		return analyticalDatastoreDAO.savePretrialServiceParticipation(pretrialServiceParticipation);
 	}
 
 }

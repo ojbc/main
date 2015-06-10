@@ -18,13 +18,10 @@ package org.ojbc.adapters.analyticaldatastore.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.lang.StringUtils;
 import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.KeyValue;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,8 +29,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * Data access implementations of all Firearms database code tables.
- * @since November 29, 2012
+ * Data access implementations of all database code tables.
  */
 @Repository
 public class CodeTableDAOImpl implements CodeTableDAO
@@ -58,6 +54,7 @@ public class CodeTableDAOImpl implements CodeTableDAO
 			case IncidentType: 
 			case AssessedNeed: 
 			case PretrialService: 
+			case Agency: 
 				sql = "SELECT * FROM " + codeTable.name();
 				return jdbcTemplate.query(sql, new KeyValueRowMapper());
 			default:
@@ -67,7 +64,7 @@ public class CodeTableDAOImpl implements CodeTableDAO
 
 	public class KeyValueRowMapper implements RowMapper<KeyValue> {
 		public KeyValue mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new KeyValue(rs.getLong(1), rs.getString(2));
+			return new KeyValue(rs.getInt(1), rs.getString(2));
 		}
 	}
 

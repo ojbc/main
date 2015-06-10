@@ -42,6 +42,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -583,5 +584,26 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			
 			return offenseTypeIdKey.intValue();	
 	}
+
+	private final String PRETRIAL_SERVICE_NEED_ASSOCIATION_SAVE=
+			"INSERT INTO pretrialServiceNeedAssociation (assessedNeedID, pretrialServiceParticipationID) values (?,?)";
+
+	@Override
+	public void savePretrialServiceNeedAssociations(
+			final List<Integer> assessedNeedIds, final int pretrialServiceParticipationId) {
+        jdbcTemplate.batchUpdate(PRETRIAL_SERVICE_NEED_ASSOCIATION_SAVE, new BatchPreparedStatementSetter() {
+                public void setValues(PreparedStatement ps, int i)
+                    throws SQLException {
+                    ps.setInt(1, assessedNeedIds.get(i));
+                    ps.setLong(2, pretrialServiceParticipationId);
+                }
+    	            
+                public int getBatchSize() {
+                    return assessedNeedIds.size();
+                }
+            });
+		
+	}
+
 
 }

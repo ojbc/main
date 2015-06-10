@@ -23,21 +23,21 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class KeyValue implements Serializable
 {
     private static final long serialVersionUID = -6279067862222444293L;
-    private Long key;
+    private Integer key;
 	private String value;
 
 	public KeyValue() {
 	}
 
-	public KeyValue(Long key, String value) {
+	public KeyValue(Integer key, String value) {
 		setKey(key);
 		setValue(value);
 	}
 
-	public Long getKey() {
+	public Integer getKey() {
 		return key;
 	}
-	public void setKey(Long key) {
+	public void setKey(Integer key) {
 		this.key = key;
 	}
 
