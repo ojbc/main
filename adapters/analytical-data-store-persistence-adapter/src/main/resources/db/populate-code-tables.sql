@@ -78,3 +78,6 @@ insert into County (CountyName) values ('Rutland');
 insert into County (CountyName) values ('Washington');
 insert into County (CountyName) values ('Windham');
 insert into County (CountyName) values ('Windsor');
+
+-- Disposition Type - placeholder while waiting for code values
+insert into DispositionType (DispositionDescription, IsConviction) values ('Disposition Type Placeholder','N');

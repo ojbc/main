@@ -21,6 +21,7 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -82,6 +83,18 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         
         //For now, disposition records are all consider new
         disposition.setRecordType('N');
+        
+        //TODO: add isProbationViolation, isProbationViolationOnOldCharge, RecidivismEligibilityDate
+        
+        //TODO: Update when mapping is available from IEPD
+        Integer dispositionTypePk = descriptionCodeLookupService.retrieveCode(CodeTable.DispositionType, "Disposition Type Placeholder");
+        log.debug("Disposition type PK: " + dispositionTypePk);
+        disposition.setDispositionTypeID(dispositionTypePk);
+        
+        //TODO: Update when mapping is available from IEPD
+        Integer offenseTypePk = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, "Violation of a Court Order");
+        log.debug("Offense type PK: " + offenseTypePk);
+        disposition.setOffenseTypeID(offenseTypePk);
         
         
         
