@@ -16,10 +16,10 @@
  */
 package org.ojbc.adapters.analyticaldatastore.service;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,7 +51,7 @@ public class DescriptionCodeLookupServiceTest {
 		assertEquals(Integer.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, "A"));
 		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "F"));
 		assertNull(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "W"));
-		assertEquals(Integer.valueOf(3), descriptionCodeLookupService.retrieveCode(CodeTable.County, "Caledonia"));
+		assertEquals(Integer.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.County, "Harrison"));
 		assertEquals(Integer.valueOf(5), descriptionCodeLookupService.retrieveCode(CodeTable.AssessedNeed, "substance abuse"));
 	}
 

@@ -145,7 +145,7 @@ CREATE TABLE PretrialServiceAssociation (
 
 
 CREATE TABLE PretrialServiceNeedAssociation (
-                PretrialServiceNeedAssociationID INTEGER NOT NULL,
+                PretrialServiceNeedAssociationID INTEGER NOT NULL auto_increment,
                 AssessedNeedID INTEGER NOT NULL,
                 PretrialServiceParticipationID INTEGER NOT NULL,
                 CONSTRAINT PretrialServiceNeedAssociation_pk PRIMARY KEY (PretrialServiceNeedAssociationID)

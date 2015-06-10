@@ -18,6 +18,7 @@ package org.ojbc.adapters.analyticaldatastore.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -42,9 +43,11 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
@@ -362,8 +365,20 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setInt(2, pretrialServiceParticipation.getPersonID());
         	            ps.setInt(3, pretrialServiceParticipation.getCountyID());
         	            ps.setInt(4, pretrialServiceParticipation.getRiskScore());
-        	            ps.setDate(5, new java.sql.Date(pretrialServiceParticipation.getIntakeDate().getTime()));
-        	            ps.setString(6, String.valueOf(pretrialServiceParticipation.getRecordType()));
+        	            
+        	            if (pretrialServiceParticipation.getIntakeDate() != null){
+        	            	ps.setDate(5, new java.sql.Date(pretrialServiceParticipation.getIntakeDate().getTime()));
+        	            }
+        	            else{
+        	            	ps.setNull(5, java.sql.Types.NULL);
+        	            }
+        	            
+        	            if (pretrialServiceParticipation.getRecordType() != null){
+        	            	ps.setString(6, String.valueOf(pretrialServiceParticipation.getRecordType()));
+        	            }
+        	            else{
+        	            	ps.setNull(6, java.sql.Types.NULL);
+        	            }
         	            ps.setString(7, pretrialServiceParticipation.getArrestingAgencyORI());
         	            ps.setString(8, pretrialServiceParticipation.getArrestIncidentCaseNumber());
         	            return ps;
@@ -456,7 +471,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 		String sql = "select * from Incident where IncidentCaseNumber = ?";
 		 
-		List<Incident> incidents = this.jdbcTemplate.query(sql, new Object[] { incidentNumber },new IncidentRowMapper());
+		List<Incident> incidents = this.jdbcTemplate.query(sql, new Object[] { incidentNumber }, new IncidentRowMapper());
 		
 		return incidents;
 		
@@ -623,5 +638,47 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 	}
 
+	@Override
+	public PretrialServiceParticipation getPretrialServiceParticipationByIncidentNumber(
+			String incidentNumber) {
+		String sql = "select * from PretrialServiceParticipation where ArrestIncidentCaseNumber = ?";
+		 
+		List<PretrialServiceParticipation> pretrialServiceParticipations = 
+				jdbcTemplate.query(sql, new PretrialServiceParticipationRowMapper(), incidentNumber);
+		
+		return DataAccessUtils.singleResult(pretrialServiceParticipations);
+	}
+
+	public class PretrialServiceParticipationRowMapper implements RowMapper<PretrialServiceParticipation>
+	{
+		@Override
+		public PretrialServiceParticipation mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PretrialServiceParticipation pretrialServiceParticipation = new PretrialServiceParticipation();
+	    	
+			pretrialServiceParticipation.setArrestIncidentCaseNumber(rs.getString("ArrestIncidentCaseNumber"));
+			pretrialServiceParticipation.setArrestingAgencyORI(rs.getString("arrestingAgencyORI"));
+			pretrialServiceParticipation.setCountyID(rs.getInt("CountyID"));
+			pretrialServiceParticipation.setIntakeDate(rs.getTimestamp("IntakeDate"));
+			pretrialServiceParticipation.setPersonID(rs.getInt("personID"));
+			pretrialServiceParticipation.setPretrialServiceCaseNumber(rs.getString("pretrialServiceCaseNumber"));
+			pretrialServiceParticipation.setPretrialServiceParticipationID(rs.getInt("pretrialServiceParticipationID"));
+			
+			String recordType = rs.getString("recordType"); 
+			if (recordType!= null){
+				pretrialServiceParticipation.setRecordType(rs.getString("recordType").charAt(0));
+			}
+			pretrialServiceParticipation.setRiskScore(rs.getInt("riskScore"));
+	    	
+	    	return pretrialServiceParticipation;
+		}
+
+	}
+
+	@Override
+	public List<AssessedNeed> getAssociatedNeeds(
+			int pretrialServiceParticipationId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

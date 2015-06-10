@@ -17,26 +17,19 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<pse-doc:PretrialServiceEnrollmentReport
-xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PretrialServicesEnrollment/1.0 ../xsd/exchange.xsd"
-xmlns:pse-doc="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0"
-xmlns:pse-ext="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0"
-xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
-xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<pse-doc:PretrialServiceEnrollmentReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0 ../xsd/exchange.xsd" xmlns:pse-doc="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0" xmlns:pse-ext="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<j:Subject structures:id="Defendant_01">
 		<nc:RoleOfPerson>
 			<nc:PersonBirthDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</nc:PersonBirthDate>
-			<nc:PersonEthnicityText>Whitw</nc:PersonEthnicityText>
+			<j:PersonEthnicityCode>U</j:PersonEthnicityCode>
 			<nc:PersonName>
 				<nc:PersonGivenName>Joeseph</nc:PersonGivenName>
 				<nc:PersonMiddleName>P</nc:PersonMiddleName>
 				<nc:PersonSurName>Martin</nc:PersonSurName>
 			</nc:PersonName>
+			<j:PersonRaceCode>W</j:PersonRaceCode>
 			<nc:PersonSexText>Male</nc:PersonSexText>
 			<nc:PersonUnionStatusText>Married</nc:PersonUnionStatusText>
 			<pse-ext:PersonIsAVeteranIndicator>true</pse-ext:PersonIsAVeteranIndicator>
@@ -51,7 +44,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<pse-ext:PreTrialServicesEnrollment structures:id="PTS_01">
 		<pse-ext:ActivityLocation>
 			<nc:Address>
-				<nc:LocationCountyName>Addison</nc:LocationCountyName>
+				<nc:LocationCountyName>Harrison</nc:LocationCountyName>
 			</nc:Address>
 		</pse-ext:ActivityLocation>
 		<nc:Referral>
@@ -63,7 +56,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<nc:IdentificationID>Incident4557</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:ActivityDate>
-			<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 		</nc:ActivityDate>
 		<nc:IncidentLocation>
 			<nc:Address>
@@ -77,7 +70,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<nc:IdentificationID>ArrestID345767</nc:IdentificationID>
 				</nc:ActivityIdentification>
 				<nc:ActivityDate>
-					<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+					<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 				</nc:ActivityDate>
 				<j:ArrestAgency>
 					<j:OrganizationAugmentation>
@@ -91,7 +84,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	</nc:Incident>
 	<j:Offense structures:id="Offense_01">
 		<nc:ActivityDate>
-			<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 		</nc:ActivityDate>
 		<pse-ext:FirstOffenseCategoryText>Offense Description</pse-ext:FirstOffenseCategoryText>
 		<pse-ext:SecondOffenseCategoryText>Offense Description</pse-ext:SecondOffenseCategoryText>
@@ -108,7 +101,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		</j:ActivityAugmentation>
 		<pse-ext:FirstContact>
 			<nc:ActivityDate>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 			</nc:ActivityDate>
 			<pse-ext:LeftMessageIndicator>true</pse-ext:LeftMessageIndicator>
 			<pse-ext:SentTextMessageIndicator>false</pse-ext:SentTextMessageIndicator>
@@ -116,7 +109,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		</pse-ext:FirstContact>
 		<pse-ext:SecondContact>
 			<nc:ActivityDate>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 			</nc:ActivityDate>
 			<pse-ext:LeftMessageIndicator>true</pse-ext:LeftMessageIndicator>
 			<pse-ext:SentTextMessageIndicator>false</pse-ext:SentTextMessageIndicator>
@@ -129,7 +122,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	</cyfs:ContactActivity>
 	<pse-ext:NeedsAssessment structures:id="NA_01">
 		<nc:ActivityDate>
-			<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 		</nc:ActivityDate>
 		<pse-ext:HousingNeedsIndicator>false</pse-ext:HousingNeedsIndicator>
 		<pse-ext:InsuranceNeedsIndicator>true</pse-ext:InsuranceNeedsIndicator>
@@ -154,7 +147,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	</pse-ext:GeneralAssessment>
 	<pse-ext:MMSAssessment structures:id="MMS_01">
 		<nc:ActivityDate>
-			<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 		</nc:ActivityDate>
 		<nc:AssessmentAssessor>
 			<nc:EntityPerson>
@@ -216,7 +209,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	</pse-ext:SASAAssessment>
 	<pse-ext:ORASAssessment structures:id="ORAS_01">
 		<nc:ActivityDate>
-			<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 		</nc:ActivityDate>
 		<nc:AssessmentAssessor>
 			<nc:EntityPerson>
@@ -275,31 +268,35 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<cyfs:PreferredDrugName>Heroin</cyfs:PreferredDrugName>
 		<pse-ext:DrugArrestExplanationText>It wasn't his bag.</pse-ext:DrugArrestExplanationText>
 		<pse-ext:LastDrugUseDate>
-			<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 		</pse-ext:LastDrugUseDate>
 		<pse-ext:DrugLifeImpactDescriptionText>Doesn't spend time with his children</pse-ext:DrugLifeImpactDescriptionText>
 		<pse-ext:DrugWorkImpactDescriptionText>Has missed a number of work days</pse-ext:DrugWorkImpactDescriptionText>
 		<pse-ext:DrugProblemFamilyDescriptionText>Family believes he has a drug problem</pse-ext:DrugProblemFamilyDescriptionText>
 	</pse-ext:ORASAssessment>
 	<nc:Program structures:id="Program_01">
-		<pse-ext:FirstProgramReferral>
-			<nc:ActivityCategoryText>drugs</nc:ActivityCategoryText>
+		<nc:ProgramReferral>
+			<nc:ActivityCategoryText>employment assistance</nc:ActivityCategoryText>
 			<nc:ActivityDate>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				<nc:Date>2015-01-01</nc:Date>
 			</nc:ActivityDate>
-		</pse-ext:FirstProgramReferral>
-		<pse-ext:SecondProgramReferral>
-			<nc:ActivityCategoryText>drugs</nc:ActivityCategoryText>
+		</nc:ProgramReferral>
+	</nc:Program>
+	<nc:Program structures:id="Program_02">
+		<nc:ActivityCategoryText>substance abuse treatment</nc:ActivityCategoryText>
+		<nc:ProgramReferral>
 			<nc:ActivityDate>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				<nc:Date>2015-02-02</nc:Date>
 			</nc:ActivityDate>
-		</pse-ext:SecondProgramReferral>
-		<pse-ext:ThirdProgramReferral>
-			<nc:ActivityCategoryText>drugs</nc:ActivityCategoryText>
+		</nc:ProgramReferral>
+	</nc:Program>
+	<nc:Program structures:id="Program_03">
+		<nc:ActivityCategoryText>behavioral health services</nc:ActivityCategoryText>
+		<nc:ProgramReferral>
 			<nc:ActivityDate>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				<nc:Date>2015-03-03</nc:Date>
 			</nc:ActivityDate>
-		</pse-ext:ThirdProgramReferral>
+		</nc:ProgramReferral>
 	</nc:Program>
 	<nc:ContactInformation structures:id="Defendant_ci_01">
 		<nc:ContactTelephoneNumber>
