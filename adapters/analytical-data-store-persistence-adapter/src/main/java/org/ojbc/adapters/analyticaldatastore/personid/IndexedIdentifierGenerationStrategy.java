@@ -80,7 +80,9 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 			log.debug("Wrote new document to index: " + attributes);
 			log.debug("Document: " + d);
 		}
-		return d.get(ID_FIELD);
+		String id = d.get(ID_FIELD);
+		log.debug("Generated ID=" + id);
+		return id;
 	}
 
 	private Document searchForExistingAttributes(Map<String, Object> attributes) throws IOException {
@@ -92,8 +94,8 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 			query.add(new FuzzyQuery(new Term(LAST_NAME_FIELD, getFormattedAttributeValue(attributes.get(LAST_NAME_FIELD))), 2, 1), Occur.MUST);
 			query.add(new FuzzyQuery(new Term(MIDDLE_NAME_FIELD, getFormattedAttributeValue(attributes.get(MIDDLE_NAME_FIELD))), 2, 1), Occur.MUST);
 			query.add(new FuzzyQuery(new Term(BIRTHDATE_FIELD, getFormattedAttributeValue(attributes.get(BIRTHDATE_FIELD))), 1, 0), Occur.MUST);
-			query.add(new TermQuery(new Term(SEX_FIELD, getFormattedAttributeValue(attributes.get(SEX_FIELD)))), Occur.MUST);
-			query.add(new FuzzyQuery(new Term(SSN_FIELD, getFormattedAttributeValue(attributes.get(SSN_FIELD))), 1, 0), Occur.MUST);
+			query.add(new TermQuery(new Term(SEX_FIELD, getFormattedAttributeValue(attributes.get(SEX_FIELD)))), Occur.SHOULD);
+			query.add(new FuzzyQuery(new Term(SSN_FIELD, getFormattedAttributeValue(attributes.get(SSN_FIELD))), 1, 0), Occur.SHOULD);
 			log.debug("Query: " + query.toString());
 			Directory directory = indexWriter.getDirectory();
 			IndexSearcher searcher = new IndexSearcher(DirectoryReader.open(directory));
