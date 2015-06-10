@@ -189,7 +189,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		county.setCountyName("County Name");
 		
 		int countyTypePk = analyticalDatastoreDAOImpl.saveCounty(county);
-		assertEquals(15, countyTypePk);
+		assertEquals(2, countyTypePk);
 		
 		log.debug("County Type primary key: " + countyTypePk);
 		

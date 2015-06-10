@@ -19,17 +19,17 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 public class Agency {
 
 	//pk
-	private int agencyID;
+	private Integer agencyID;
 	
 	private String agencyName;
 	
 	private String agencyOri;
 
-	public int getAgencyID() {
+	public Integer getAgencyID() {
 		return agencyID;
 	}
 
-	public void setAgencyID(int agencyID) {
+	public void setAgencyID(Integer agencyID) {
 		this.agencyID = agencyID;
 	}
 

@@ -74,6 +74,10 @@ public interface AnalyticalDatastoreDAO {
 	
 	public List<Incident> searchForIncidentsByIncidentNumber(String incidentNumber);
 	
+	public PretrialServiceParticipation getPretrialServiceParticipationByIncidentNumber(String incidentNumber);
+	
+	public List<AssessedNeed> getAssociatedNeeds(int pretrialServiceParticipationId);
+	
 	public List<Arrest> searchForArrestsByIncidentPk(int incidentPk);
 	
 	public int returnPersonSexKeyfromSexDescription(String personSexDescription);
