@@ -48,11 +48,11 @@ public class DescriptionCodeLookupServiceTest {
 
 	@Test
 	public void test(){
-		assertEquals(Long.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, "A"));
-		assertEquals(Long.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "F"));
+		assertEquals(Integer.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, "A"));
+		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "F"));
 		assertNull(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "W"));
-		assertEquals(Long.valueOf(3), descriptionCodeLookupService.retrieveCode(CodeTable.County, "Caledonia"));
-		assertEquals(Long.valueOf(5), descriptionCodeLookupService.retrieveCode(CodeTable.AssessedNeed, "substance abuse"));
+		assertEquals(Integer.valueOf(3), descriptionCodeLookupService.retrieveCode(CodeTable.County, "Caledonia"));
+		assertEquals(Integer.valueOf(5), descriptionCodeLookupService.retrieveCode(CodeTable.AssessedNeed, "substance abuse"));
 	}
 
 }

@@ -32,7 +32,7 @@ public class DescriptionCodeLookupService
 
 	protected Log log = LogFactory.getLog(this.getClass());
 
-	protected Map<String, Long>[] mapArray = null;
+	protected Map<String, Integer>[] mapArray = null;
 	
 	private CodeTableDAO codeTableDAO;
 
@@ -59,7 +59,7 @@ public class DescriptionCodeLookupService
 	 * @param code - The java.lang.String value to lookup in the cache.
 	 * @return A java.lang.String containing the cache search result.
 	 */
-	public Long retrieveCode(CodeTable codeTable, String description) {
+	public Integer retrieveCode(CodeTable codeTable, String description) {
 		if (StringUtils.isBlank( description )) {
 			return null;
 		}
@@ -70,7 +70,7 @@ public class DescriptionCodeLookupService
 				log.warn("No map entry found in lookup map for the CodeTable: " + codeTable);
 				return null;
 			}
-			return (Long) lookupMap.get(description);
+			return (Integer) lookupMap.get(description);
 		}
 		catch (Exception e) {
 			log.warn("Error occurred in retrieveCode() for code table ["
@@ -85,8 +85,8 @@ public class DescriptionCodeLookupService
 	 * @param codes
 	 * @return Map<String, String>
 	 */
-	protected Map<String, Long> convertListToMap(List<KeyValue> codes) {
-		Map<String, Long> codeMap = new HashMap<String, Long>();
+	protected Map<String, Integer> convertListToMap(List<KeyValue> codes) {
+		Map<String, Integer> codeMap = new HashMap<String, Integer>();
 
 		for (KeyValue kv : codes)
 			codeMap.put( kv.getValue(), kv.getKey());
@@ -99,7 +99,7 @@ public class DescriptionCodeLookupService
 	 * @param codeTable
 	 * @return
 	 */
-	public Map<String, Long> getCodeTable(CodeTable codeTable) {
+	public Map<String, Integer> getCodeTable(CodeTable codeTable) {
 		return mapArray[codeTable.ordinal()];
 	}
 	

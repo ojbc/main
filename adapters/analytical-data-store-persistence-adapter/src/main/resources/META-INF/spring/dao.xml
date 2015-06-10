@@ -49,8 +49,10 @@
 	<bean id="codeTableDAO" class="org.ojbc.adapters.analyticaldatastore.dao.CodeTableDAOImpl">
         <property name="dataSource" ref="dataSource"/>
 	</bean>
+	
 	<bean id="descriptionCodeLookupService" class="org.ojbc.adapters.analyticaldatastore.service.DescriptionCodeLookupService">
 		<constructor-arg ref="codeTableDAO"></constructor-arg>
 	</bean>
+		
 	
 </beans>

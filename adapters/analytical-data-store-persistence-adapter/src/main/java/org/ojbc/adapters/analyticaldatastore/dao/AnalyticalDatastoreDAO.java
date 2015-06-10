@@ -69,6 +69,9 @@ public interface AnalyticalDatastoreDAO {
 	
 	public int saveInvolvedDrug(InvolvedDrug involvedDrug);
 	
+	public void savePretrialServiceNeedAssociations(
+			final List<Integer> assessedNeedsIds, final int pretrialServiceParticipationId);
+	
 	public List<Incident> searchForIncidentsByIncidentNumber(String incidentNumber);
 	
 	public List<Arrest> searchForArrestsByIncidentPk(int incidentPk);

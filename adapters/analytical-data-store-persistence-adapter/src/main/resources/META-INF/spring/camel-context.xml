@@ -189,16 +189,19 @@
 	<bean id ="incidentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.IncidentReportProcessor">
 		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
 		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
+		<property name="descriptionCodeLookupService" ref="descriptionCodeLookupService"/>
 	</bean>
 
 	<bean id ="dispositionReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.DispositionReportProcessor">
 		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
 		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
+		<property name="descriptionCodeLookupService" ref="descriptionCodeLookupService"/>
 	</bean>
 		
 	<bean id ="pretrialEnrollmentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.PretrialEnrollmentReportProcessor">
 		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
 		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
+		<property name="descriptionCodeLookupService" ref="descriptionCodeLookupService"/>
 	</bean>	
-		
+	
 </beans>

@@ -18,18 +18,21 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class PretrialServiceParticipation {
 
 	//pk
-    private int pretrialServiceParticipationID;
+    private Integer pretrialServiceParticipationID;
 
     //fk
-    private int personID;
+    private Integer personID;
     
     //fk
-    private int countyID;
+    private Integer countyID;
     
-    private int riskScore;
+    private Integer riskScore;
     
     private String pretrialServiceCaseNumber;
     
@@ -41,27 +44,27 @@ public class PretrialServiceParticipation {
     
     private String arrestIncidentCaseNumber;
 
-	public int getPretrialServiceParticipationID() {
+	public Integer getPretrialServiceParticipationID() {
 		return pretrialServiceParticipationID;
 	}
 
-	public void setPretrialServiceParticipationID(int pretrialServiceParticipationID) {
+	public void setPretrialServiceParticipationID(Integer pretrialServiceParticipationID) {
 		this.pretrialServiceParticipationID = pretrialServiceParticipationID;
 	}
 
-	public int getPersonID() {
+	public Integer getPersonID() {
 		return personID;
 	}
 
-	public void setPersonID(int personID) {
+	public void setPersonID(Integer personID) {
 		this.personID = personID;
 	}
 
-	public int getCountyID() {
+	public Integer getCountyID() {
 		return countyID;
 	}
 
-	public void setCountyID(int countyID) {
+	public void setCountyID(Integer countyID) {
 		this.countyID = countyID;
 	}
 
@@ -89,12 +92,12 @@ public class PretrialServiceParticipation {
 		this.recordType = recordType;
 	}
 
-	public int getRiskScore() {
+	public Integer getRiskScore() {
 		return riskScore;
 	}
 
-	public void setRiskScore(int riskScore) {
-		riskScore = riskScore;
+	public void setRiskScore(Integer riskScore) {
+		this.riskScore = riskScore;
 	}
 
 	public String getArrestingAgencyORI() {
@@ -111,6 +114,10 @@ public class PretrialServiceParticipation {
 
 	public void setArrestIncidentCaseNumber(String arrestIncidentCaseNumber) {
 		this.arrestIncidentCaseNumber = arrestIncidentCaseNumber;
+	}
+	
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 	
 }

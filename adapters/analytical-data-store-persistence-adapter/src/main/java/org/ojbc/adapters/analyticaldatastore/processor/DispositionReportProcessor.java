@@ -17,14 +17,11 @@
 package org.ojbc.adapters.analyticaldatastore.processor;
 
 import java.util.Date;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
-import org.ojbc.adapters.analyticaldatastore.personid.IdentifierGenerationStrategy;
-import org.ojbc.adapters.analyticaldatastore.util.AnalyticalDataStoreUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -76,17 +73,8 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 		
 		Node personNode = XmlUtils.xPathNodeSearch(report, "/disp_exc:DispositionReport/jxdm50:Subject/nc30:RoleOfPerson");
 		
-		Map<String, Object> personAttributes = AnalyticalDataStoreUtils.retrieveMapOfPersonAttributes(personNode, OjbcNamespaceContext.NS_PREFIX_NC_30, OjbcNamespaceContext.NS_PREFIX_JXDM_50);
-		log.debug("Person Attributes: " + personAttributes);
-		
-        String personIdentifierKey = identifierGenerationStrategy.generateIdentifier(personAttributes);
-        log.debug("Arrestee person identifier keys: " + personIdentifierKey);
-
-        String personBirthDateAsString = (String)personAttributes.get(IdentifierGenerationStrategy.BIRTHDATE_FIELD);
-        String personRace = (String)personAttributes.get("personRace");
-        String personSex = (String)personAttributes.get(IdentifierGenerationStrategy.SEX_FIELD);
+        int personPk = savePerson(personNode, OjbcNamespaceContext.NS_PREFIX_NC_30, OjbcNamespaceContext.NS_PREFIX_JXDM_50);
         
-        int personPk = savePerson(personBirthDateAsString, personSex, personRace, personIdentifierKey);	
         disposition.setPersonID(personPk);
         
 	}

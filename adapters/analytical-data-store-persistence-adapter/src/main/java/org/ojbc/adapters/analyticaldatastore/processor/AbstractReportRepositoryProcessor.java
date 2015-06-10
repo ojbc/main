@@ -18,25 +18,51 @@ package org.ojbc.adapters.analyticaldatastore.processor;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAO;
+import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.personid.IdentifierGenerationStrategy;
+import org.ojbc.adapters.analyticaldatastore.service.DescriptionCodeLookupService;
+import org.ojbc.adapters.analyticaldatastore.util.AnalyticalDataStoreUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 public abstract class AbstractReportRepositoryProcessor {
+	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
 	protected IdentifierGenerationStrategy identifierGenerationStrategy;
 	
 	protected AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
+	protected DescriptionCodeLookupService descriptionCodeLookupService; 
+	
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	
     @Transactional
 	public abstract void processReport(Document report) throws Exception;
 
+    protected int savePerson(Node personNode, String ncPrefix, String jxdmPrefix) throws Exception{
+		Map<String, Object> personAttributes = AnalyticalDataStoreUtils.retrieveMapOfPersonAttributes(personNode, 
+				ncPrefix, jxdmPrefix);
+		log.debug("Person Attributes: " + personAttributes);
+		
+        String personIdentifierKey = identifierGenerationStrategy.generateIdentifier(personAttributes);
+        log.debug("Arrestee person identifier keys: " + personIdentifierKey);
+
+        String personBirthDateAsString = (String)personAttributes.get(IdentifierGenerationStrategy.BIRTHDATE_FIELD);
+        String personRace = (String)personAttributes.get("personRace");
+        String personSex = (String)personAttributes.get(IdentifierGenerationStrategy.SEX_FIELD);
+        
+        return savePerson(personBirthDateAsString, personSex, personRace, personIdentifierKey);	
+
+    }
 	protected int savePerson(String personBirthDateAsString, String personRace, String personSex,
 			String personIdentifierKey) throws Exception {
 		//Save person
@@ -51,10 +77,10 @@ public abstract class AbstractReportRepositoryProcessor {
 		}	
 		
 		//Get Person Race from code table
-		int personRacePk = analyticalDatastoreDAO.returnPersonRaceKeyfromRaceDescription(personRace);
+		int personRacePk = descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, personRace);
 		person.setPersonRaceID(personRacePk);
 		//Get Person Sex from code table
-		int personSexPk = analyticalDatastoreDAO.returnPersonSexKeyfromSexDescription(personSex);
+		int personSexPk = descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, personSex);
 		person.setPersonSexID(personSexPk);
 		
 		int personPk = analyticalDatastoreDAO.savePerson(person);
@@ -77,6 +103,15 @@ public abstract class AbstractReportRepositoryProcessor {
 	public void setAnalyticalDatastoreDAO(
 			AnalyticalDatastoreDAO analyticalDatastoreDAO) {
 		this.analyticalDatastoreDAO = analyticalDatastoreDAO;
+	}
+
+	public DescriptionCodeLookupService getDescriptionCodeLookupService() {
+		return descriptionCodeLookupService;
+	}
+
+	public void setDescriptionCodeLookupService(
+			DescriptionCodeLookupService descriptionCodeLookupService) {
+		this.descriptionCodeLookupService = descriptionCodeLookupService;
 	}
 
 }
