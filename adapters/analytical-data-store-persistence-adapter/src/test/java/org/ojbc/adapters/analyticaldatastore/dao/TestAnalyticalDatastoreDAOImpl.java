@@ -243,6 +243,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		disposition.setDispositionTypeID(dispositionTypePk);
 		disposition.setIncidentCaseNumber("case12345");
 		disposition.setIsProbationViolation('N');
+		disposition.setIsProbationViolationOnOldCharge('N');
 		disposition.setOffenseTypeID(offenseTypePk);
 		disposition.setPersonID(personPk);
 		disposition.setRecidivismEligibilityDate(new Date());

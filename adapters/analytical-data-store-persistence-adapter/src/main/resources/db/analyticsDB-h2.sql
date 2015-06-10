@@ -185,6 +185,7 @@ CREATE TABLE Disposition (
                 SentenceFineAmount NUMERIC(10,2) NOT NULL,
                 RecordType CHAR(1) NOT NULL,
                 IsProbationViolation CHAR(1) NOT NULL,
+                IsProbationViolationOnOldCharge CHAR(1) NOT NULL,
                 RecidivismEligibilityDate DATE NOT NULL,
                 Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
                 CONSTRAINT Disposition_pk PRIMARY KEY (DispositionID)
