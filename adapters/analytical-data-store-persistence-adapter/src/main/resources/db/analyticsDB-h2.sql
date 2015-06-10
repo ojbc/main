@@ -181,12 +181,12 @@ CREATE TABLE Disposition (
                 OffenseTypeID INTEGER NOT NULL,
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
                 DispositionDate DATE NOT NULL,
-                SentenceTermDays INTEGER NOT NULL,
-                SentenceFineAmount NUMERIC(10,2) NOT NULL,
+                SentenceTermDays INTEGER,
+                SentenceFineAmount NUMERIC(10,2),
                 RecordType CHAR(1) NOT NULL,
-                IsProbationViolation CHAR(1) NOT NULL,
-                IsProbationViolationOnOldCharge CHAR(1) NOT NULL,
-                RecidivismEligibilityDate DATE NOT NULL,
+                IsProbationViolation CHAR(1),
+                IsProbationViolationOnOldCharge CHAR(1),
+                RecidivismEligibilityDate DATE,
                 Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
                 CONSTRAINT Disposition_pk PRIMARY KEY (DispositionID)
 );

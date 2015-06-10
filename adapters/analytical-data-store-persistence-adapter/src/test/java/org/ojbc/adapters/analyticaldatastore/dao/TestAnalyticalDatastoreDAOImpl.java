@@ -222,7 +222,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		dispositionType.setIsConviction('Y');
 		
 		int dispositionTypePk = analyticalDatastoreDAOImpl.saveDispositionType(dispositionType);
-		assertEquals(1, dispositionTypePk);
+		assertEquals(2, dispositionTypePk);
 		
 		Person person = returnPerson();
 		
@@ -254,51 +254,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int dispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
 		assertEquals(1, dispositionPk);
 
-		
-	}
-
-	@Test
-	public void testReturnPersonSexKeyfromSexDescription()
-	{
-		int sexPk = analyticalDatastoreDAOImpl.returnPersonSexKeyfromSexDescription("M");
-		
-		assertEquals(1, sexPk);
-		
-	}
-	
-	@Test
-	public void testReturnPersonRaceKeyfromRaceDescription()
-	{
-		int racePk = analyticalDatastoreDAOImpl.returnPersonSexKeyfromSexDescription("W");
-		
-		assertEquals(3, racePk);
-		
-	}
-
-	@Test
-	public void testReturnAgencyKeyfromAgencyName()
-	{
-		int racePk = analyticalDatastoreDAOImpl.returnAgencyKeyfromAgencyName("Placeholder Agency Name");
-		
-		assertEquals(1, racePk);
-		
-	}
-
-	@Test
-	public void testReturnIncidentTypeKeyfromIncidentTypeDescription()
-	{
-		int incidentTypePk = analyticalDatastoreDAOImpl.returnIncidentTypeKeyfromIncidentTypeDescription("Placeholder");
-		
-		assertEquals(1, incidentTypePk);
-		
-	}
-
-	@Test
-	public void returnOffenseTypeKeyfromOffenseDescription()
-	{
-		int incidentTypePk = analyticalDatastoreDAOImpl.returnOffenseTypeKeyfromOffenseDescription("Violation of a Court Order");
-		
-		assertEquals(1, incidentTypePk);
 		
 	}
 

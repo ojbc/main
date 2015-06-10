@@ -80,16 +80,9 @@ public interface AnalyticalDatastoreDAO {
 	
 	public List<Arrest> searchForArrestsByIncidentPk(int incidentPk);
 	
-	public int returnPersonSexKeyfromSexDescription(String personSexDescription);
-	
-	public int returnPersonRaceKeyfromRaceDescription(String personRaceDescription);
+	public List<Charge> returnChargesFromArrest(int arrestId);
 	
 	//TODO: Update this to use ORI when ORI added to data model
 	public int returnAgencyKeyfromAgencyName(String agencyName);
-	
-	public int returnIncidentTypeKeyfromIncidentTypeDescription(String incidentTypeDescription);
-	
-	public int returnOffenseTypeKeyfromOffenseDescription(String offenseDescription);
-	
-	public List<Charge> returnChargesFromArrest(int arrestId);
+
 }
