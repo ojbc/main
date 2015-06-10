@@ -72,7 +72,7 @@ public class SubscriptionsControllerTest {
 		Assert.assertEquals("Mary R Billiot", originalName);
 		
 		String[] aAlternateNames = subscribedPersonNames.getAlternateNamesList().toArray(new String[]{});		
-		Assert.assertArrayEquals(aExpectedAlternateNames, aAlternateNames);								
+		Assert.assertArrayEquals(aExpectedAlternateNames, aAlternateNames);							
 	}
 	
 	@Test

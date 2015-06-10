@@ -50,10 +50,10 @@
 	    <cxf:cxfEndpoint 
 	        id="personQueryRequestCriminalHistoryService"
 	        address="${webapplication.personQuery.personQueryCriminalHistoryEndpoint}"
-	        wsdlURL="classpath:service-specifications/Person_Query_Service_-_Criminal_History/schema/SIP_WS_1.2/Person_Query_Service_-_Criminal_History.wsdl"
-	        serviceName="ojbc:Person-Query-Service---Criminal-HistoryService"
+	        wsdlURL="classpath:service-specifications/Criminal_History_Query_Request_Service/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
+	        serviceName="ojbc:Criminal-History-Query-RequestServiceService"
 	        endpointName="ojbc:Person-Query-Secure-Service---Criminal-History"
-	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0"
 	    >
 			<cxf:properties>
 				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
@@ -61,7 +61,6 @@
 				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
 				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
 			</cxf:properties>
-			
 	    </cxf:cxfEndpoint>
        
 	    <!-- Criminal History Request and Response Endpoints -->
@@ -76,8 +75,8 @@
 	   </bean>
 	  
 		<bean id="criminalHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
-			<property name="operationName"><value>Submit-Person-Query---Criminal-History</value></property>
-			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0</value></property>
+			<property name="operationName"><value>SubmitCriminalHistoryQueryRequest</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0</value></property>
 			<property name="destinationEndpoint"><value>personQueryRequestCriminalHistoryService</value></property>
 		</bean>
 					
