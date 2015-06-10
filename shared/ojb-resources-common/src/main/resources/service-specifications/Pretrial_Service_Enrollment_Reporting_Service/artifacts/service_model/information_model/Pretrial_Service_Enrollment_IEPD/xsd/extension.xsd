@@ -48,7 +48,7 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0" 
 					<xsd:element ref="pse-ext:MMSAssessment" minOccurs="0"/>
 					<xsd:element ref="pse-ext:SASAAssessment" minOccurs="0"/>
 					<xsd:element ref="pse-ext:ORASAssessment" minOccurs="0"/>
-					<xsd:element ref="nc:Program" minOccurs="0"/>
+					<xsd:element ref="nc:Program" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ContactInformation" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0"/>
@@ -388,21 +388,6 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0" 
 	<xsd:element name="InsuranceNeedsIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if insurance needs are required; false otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="FirstProgramReferral" type="nc:ReferralType" substitutionGroup="nc:ProgramAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>The first referral a person is provided to a program or service.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="SecondProgramReferral" type="nc:ReferralType" substitutionGroup="nc:ProgramAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>The second referral a person is provided to a program or service.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ThirdProgramReferral" type="nc:ReferralType" substitutionGroup="nc:ProgramAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>The third referral a person is provided to a program or service.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="GeneralAssessment" type="pse-ext:GeneralAssessmentType">
