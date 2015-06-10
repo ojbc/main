@@ -313,8 +313,25 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(personStatement, new String[] {"PersonSexID", "PersonRaceID", "PersonBirthDate", "PersonUniqueIdentifier"});
-        	            ps.setInt(1, person.getPersonSexID());
-        	            ps.setInt(2, person.getPersonRaceID());
+        	            
+        	            if (person.getPersonSexID() != null)
+        	            {	
+        	            	ps.setInt(1, person.getPersonSexID());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(1, java.sql.Types.NULL);
+        	            }	
+        	            
+        	            if (person.getPersonRaceID() != null)
+        	            {	
+        	            	ps.setInt(2, person.getPersonRaceID());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(2, java.sql.Types.NULL);
+        	            }	
+
         	            ps.setDate(3, new java.sql.Date(person.getPersonBirthDate().getTime()));
         	            ps.setString(4, String.valueOf(person.getPersonUniqueIdentifier()));
 

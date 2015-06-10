@@ -76,13 +76,13 @@ public abstract class AbstractReportRepositoryProcessor {
 			person.setPersonBirthDate(personBirthDate);
 		}	
 		
-		//Get Person Race from code table
-		int personRacePk = descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, personRace);
+		Integer personRacePk = descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, personRace);
 		person.setPersonRaceID(personRacePk);
+
 		//Get Person Sex from code table
-		int personSexPk = descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, personSex);
+		Integer personSexPk = descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, personSex);
 		person.setPersonSexID(personSexPk);
-		
+			
 		int personPk = analyticalDatastoreDAO.savePerson(person);
 		return personPk;
 	}
