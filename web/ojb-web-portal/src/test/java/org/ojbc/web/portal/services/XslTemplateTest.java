@@ -76,6 +76,7 @@ public class XslTemplateTest {
         validatePersonSearchTransformation("xsl/personSearchResult.xsl", "searchResultEmpty.xml", "searchResultEmpty.html");
     }
 
+ 
     @Test
     public void chMultipleSentences() throws Exception {
         validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory_multiple_sentence_charge.xml", "criminalHistory_multiple_sentence_charge.html");
@@ -85,6 +86,7 @@ public class XslTemplateTest {
     public void chNoCourtCharge() throws Exception {
         validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory_no_court_charge.xml", "criminalHistory_no_court_charge.html");
     }
+
 
     @Test
     public void reOrderedFirearmSearchResult() throws Exception {

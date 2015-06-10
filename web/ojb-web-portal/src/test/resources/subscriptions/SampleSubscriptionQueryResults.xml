@@ -49,6 +49,7 @@
                               xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
                               xmlns:firearms-codes-demostate="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0"
                               xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0"
+                              xmlns:rap="http://nlets.org/niem2/rapsheet/1.0"
                               xmlns:sqreq="http://ojbc.org/IEPD/Exchange/SubscriptionQueryRequest/1.0"
                               xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0"
                               xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0"
