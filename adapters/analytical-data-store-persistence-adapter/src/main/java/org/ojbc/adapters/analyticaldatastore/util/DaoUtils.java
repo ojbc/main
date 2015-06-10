@@ -37,4 +37,21 @@ public class DaoUtils {
         int nValue = rs.getInt(strColName);
         return rs.wasNull() ? null : nValue;
     }
+	
+	public static Character getIndicatorValueForDatabase(String indicatorValue)
+	{
+		Character returnValue = null;
+		
+		if (indicatorValue.equalsIgnoreCase("true"))
+		{
+			returnValue = 'Y';
+		}
+		
+		if (indicatorValue.equalsIgnoreCase("false"))
+		{
+			returnValue = 'N';
+		}
+		
+		return returnValue;
+	}
 }

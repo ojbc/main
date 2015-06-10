@@ -80,13 +80,13 @@
             <include>**/*.vm</include>
             <include>**/*.html</include>
             <include>**/*.js</include>
-
-            <!-- TODO? txt, cfg, properties -->
+            <include>**/*.sql</include>
           </includes>
           <mapping>
             <java>SLASHSTAR_STYLE</java>
             <wsdl>XML_STYLE</wsdl>
             <xslt>XML_STYLE</xslt>
+            <sql>SLASHSTAR_STYLE</sql>
           </mapping>
         </configuration>
         <executions>

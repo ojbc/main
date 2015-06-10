@@ -38,12 +38,12 @@ public class TestCriminalHistorySampleGenerator extends AbstractPersonSampleGene
 
     @Override
     protected String getSchemaRootFolderName() {
-        return "NIEM_2.0";
+        return "NIEM_2.1";
     }
 
     @Override
     protected String getIEPDRootPath() {
-        return "service-specifications/Person_Query_Results_Handler_Service_-_Criminal_History/artifacts/service_model/information_model/Criminal_History-IEPD/xsd/";
+        return "service-specifications/Criminal_History_Query_Results_Service/artifacts/service_model/information_model/Criminal_History-IEPD/xsd/";
     }
 
 }

@@ -38,7 +38,7 @@ public class PretrialServiceParticipation {
     
     private Date intakeDate;
     
-    private char recordType;
+    private Character recordType;
     
     private String arrestingAgencyORI;
     
@@ -84,11 +84,11 @@ public class PretrialServiceParticipation {
 		this.intakeDate = intakeDate;
 	}
 
-	public char getRecordType() {
+	public Character getRecordType() {
 		return recordType;
 	}
 
-	public void setRecordType(char recordType) {
+	public void setRecordType(Character recordType) {
 		this.recordType = recordType;
 	}
 

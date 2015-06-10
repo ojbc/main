@@ -19,15 +19,15 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 public class AssessedNeed {
 
 	//pk
-	private int assessedNeedID;
+	private Integer assessedNeedID;
 	
 	private String assessedNeedDescription;
 
-	public int getAssessedNeedID() {
+	public Integer getAssessedNeedID() {
 		return assessedNeedID;
 	}
 
-	public void setAssessedNeedID(int assessedNeedID) {
+	public void setAssessedNeedID(Integer assessedNeedID) {
 		this.assessedNeedID = assessedNeedID;
 	}
 
