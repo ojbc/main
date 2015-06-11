@@ -52,7 +52,7 @@
 			<from uri="direct:callDispositionReportingService" />
 			<!-- Core functionality - call adapter -->
 			<setHeader headerName="operationName">
-				<constant>PretrialServiceEnrollmentReport</constant>
+				<constant>ReportPretrialServiceEnrollment</constant>
 			</setHeader>
 
 			<setHeader headerName="operationNamespace">
