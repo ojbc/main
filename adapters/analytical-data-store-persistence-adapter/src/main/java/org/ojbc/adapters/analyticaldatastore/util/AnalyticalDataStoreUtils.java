@@ -79,7 +79,7 @@ public class AnalyticalDataStoreUtils {
 				
 		String personSex=XmlUtils.xPathStringSearch(personNode, ncPrefix + ":PersonSexCode");
 		
-		if (StringUtils.isBlank(personSex))
+		if (StringUtils.isNotBlank(personSex))
 		{
 			personSex = XmlUtils.xPathStringSearch(personNode, jxdmPrefix + ":PersonSexCode");
 		}
