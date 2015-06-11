@@ -16,7 +16,10 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao.model;
 
-public class PreTrialService {
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+public class PretrialService {
 
     private int pretrialServiceID;
     private String pretrialServiceDescription;
@@ -34,5 +37,7 @@ public class PreTrialService {
 		this.pretrialServiceDescription = pretrialServiceDescription;
 	}
 
-
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
 }
