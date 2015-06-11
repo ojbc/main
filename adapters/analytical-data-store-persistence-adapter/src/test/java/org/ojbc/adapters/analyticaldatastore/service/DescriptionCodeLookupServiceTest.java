@@ -32,7 +32,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/properties-context.xml"
+		"classpath:META-INF/spring/properties-context.xml",
+		"classpath:META-INF/spring/camel-context.xml",
+		"classpath:META-INF/spring/cxf-endpoints.xml"
 		})
 @DirtiesContext
 public class DescriptionCodeLookupServiceTest {
@@ -54,6 +56,7 @@ public class DescriptionCodeLookupServiceTest {
 		assertEquals(Integer.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.County, "Harrison"));
 		assertEquals(Integer.valueOf(5), descriptionCodeLookupService.retrieveCode(CodeTable.AssessedNeed, "substance abuse"));
 		assertEquals(Integer.valueOf(1),descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, "Violation of a Court Order"));
+		assertEquals(Integer.valueOf(1),descriptionCodeLookupService.retrieveCode(CodeTable.Agency, "Placeholder Agency Name"));
 	}
 
 }
