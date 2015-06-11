@@ -18,6 +18,9 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class Person {
 
 	//pk
@@ -29,6 +32,9 @@ public class Person {
     //fk
     private Integer personRaceID;
         
+    private String personSexDescription; 
+    private String personRaceDescription;
+    
     private Date personBirthDate;
     private String personUniqueIdentifier;
     
@@ -61,6 +67,22 @@ public class Person {
 	}
 	public void setPersonRaceID(Integer personRaceID) {
 		this.personRaceID = personRaceID;
+	}
+	public String getPersonSexDescription() {
+		return personSexDescription;
+	}
+	public void setPersonSexDescription(String personSexDescription) {
+		this.personSexDescription = personSexDescription;
+	}
+	public String getPersonRaceDescription() {
+		return personRaceDescription;
+	}
+	public void setPersonRaceDescription(String personRaceDescription) {
+		this.personRaceDescription = personRaceDescription;
+	}
+	
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 	
 }

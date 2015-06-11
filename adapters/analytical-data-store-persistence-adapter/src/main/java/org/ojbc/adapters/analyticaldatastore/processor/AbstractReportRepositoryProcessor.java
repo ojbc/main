@@ -63,7 +63,7 @@ public abstract class AbstractReportRepositoryProcessor {
         return savePerson(personBirthDateAsString, personSex, personRace, personIdentifierKey);	
 
     }
-	protected int savePerson(String personBirthDateAsString, String personRace, String personSex,
+	protected int savePerson(String personBirthDateAsString, String personSex, String personRace,
 			String personIdentifierKey) throws Exception {
 		//Save person
 		Person person = new Person();
