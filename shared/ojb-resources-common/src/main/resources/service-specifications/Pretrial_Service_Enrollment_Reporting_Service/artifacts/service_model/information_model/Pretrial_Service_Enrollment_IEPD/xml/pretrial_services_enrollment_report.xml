@@ -44,7 +44,7 @@
 	<pse-ext:PreTrialServicesEnrollment structures:id="PTS_01">
 		<pse-ext:ActivityLocation>
 			<nc:Address>
-				<nc:LocationCountyName>Harrison County</nc:LocationCountyName>
+				<nc:LocationCountyName>Harrison</nc:LocationCountyName>
 			</nc:Address>
 		</pse-ext:ActivityLocation>
 		<nc:Referral>
