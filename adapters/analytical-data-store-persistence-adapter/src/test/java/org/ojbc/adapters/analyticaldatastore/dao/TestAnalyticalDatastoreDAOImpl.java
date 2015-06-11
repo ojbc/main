@@ -44,7 +44,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
-import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -178,12 +178,12 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int assessedNeedPk = analyticalDatastoreDAOImpl.saveAssessedNeed(assessedNeed);
 		assertEquals(6, assessedNeedPk);
 		
-		PreTrialService preTrialService = new PreTrialService();
+		PretrialService preTrialService = new PretrialService();
 		
 		preTrialService.setPretrialServiceDescription("Pretrial Description");
 		
 		int preTrialPk = analyticalDatastoreDAOImpl.savePreTrialService(preTrialService);
-		assertEquals(1, preTrialPk);
+		assertEquals(4, preTrialPk);
 		
 		County county = new County();
 		county.setCountyName("County Name");
