@@ -81,12 +81,12 @@ public class AnalyticalDataStoreUtils {
 		
 		if (StringUtils.isBlank(personSex))
 		{
-			personSex = XmlUtils.xPathStringSearch(personNode, ncPrefix + ":PersonSexText");
+			personSex = XmlUtils.xPathStringSearch(personNode, jxdmPrefix + ":PersonSexCode");
 		}
 		
 		if (StringUtils.isNotBlank(personSex)){
 			log.debug("Arrestee Sex Code: " + personSex);
-			arrestee.put(IdentifierGenerationStrategy.SEX_FIELD, personSex.substring(0,1));
+			arrestee.put(IdentifierGenerationStrategy.SEX_FIELD, personSex);
 		}
 				
 		String personBiometricID=XmlUtils.xPathStringSearch(personNode, jxdmPrefix+":PersonAugmentation/"+jxdmPrefix+

@@ -30,7 +30,7 @@
 				<nc:PersonSurName>Martin</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonRaceCode>W</j:PersonRaceCode>
-			<nc:PersonSexText>Male</nc:PersonSexText>
+			<j:PersonSexCode>M</j:PersonSexCode>
 			<nc:PersonUnionStatusText>Married</nc:PersonUnionStatusText>
 			<pse-ext:PersonIsAVeteranIndicator>true</pse-ext:PersonIsAVeteranIndicator>
 			<pse-ext:PersonHasMinorChildrenIndicator>true</pse-ext:PersonHasMinorChildrenIndicator>
