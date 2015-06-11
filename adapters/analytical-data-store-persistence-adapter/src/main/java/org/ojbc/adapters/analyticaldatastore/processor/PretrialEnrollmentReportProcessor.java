@@ -118,8 +118,6 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 		//TODO pretrialServiceCaseNumber can not be null. set it to incident number to pass test.
 		pretrialServiceParticipation.setPretrialServiceCaseNumber(StringUtils.trimToNull(arrestIncidentCaseNumber));
 		
-		log.debug("pretrialServiceParticipation to be saved " + pretrialServiceParticipation.toString());
-
 		return analyticalDatastoreDAO.savePretrialServiceParticipation(pretrialServiceParticipation);
 	}
 

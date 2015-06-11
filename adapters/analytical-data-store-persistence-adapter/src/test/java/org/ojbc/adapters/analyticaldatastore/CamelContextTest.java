@@ -44,6 +44,8 @@ import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
@@ -55,9 +57,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
+import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
+import org.ojbc.adapters.analyticaldatastore.processor.AbstractReportRepositoryProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -259,7 +264,20 @@ public class CamelContextTest {
 				analyticalDatastoreDAOImpl.getPretrialServiceParticipationByIncidentNumber("Incident4557");
 		
 		assertNotNull(pretrialServiceParticipation);
+		assertEquals("Incident4557", pretrialServiceParticipation.getArrestIncidentCaseNumber());
+		assertTrue(DateUtils.isSameDay(AbstractReportRepositoryProcessor.DATE_TIME_FORMAT.parse("2001-12-17T09:30:47"), pretrialServiceParticipation.getIntakeDate())); 
+		assertEquals("ORI", pretrialServiceParticipation.getArrestingAgencyORI());
+		assertEquals(Integer.valueOf(1), pretrialServiceParticipation.getCountyID());
 		
+		List<AssessedNeed> associatedNeeds = analyticalDatastoreDAOImpl.getAssociatedNeeds(pretrialServiceParticipation.getPretrialServiceParticipationID());
+		assertEquals(3, associatedNeeds.size()); 
+		
+		Person person = analyticalDatastoreDAOImpl.getPerson(pretrialServiceParticipation.getPersonID()); 
+		assertNotNull(person); 
+		log.info("Person: " + person.toString());
+		assertEquals("Person[personID=3,personSexID=1,personRaceID=5,personSexDescription=M,"
+				+ "personRaceDescription=W,personBirthDate=2001-12-17,",
+				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
 		
 	}	
 	

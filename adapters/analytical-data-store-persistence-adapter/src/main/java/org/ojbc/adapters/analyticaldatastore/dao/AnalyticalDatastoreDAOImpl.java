@@ -346,13 +346,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
          return keyHolder.getKey().intValue();
 	}
 
+	final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber) values (?,?,?,?,?,?,?,?)";
 	@Override
 	public int savePretrialServiceParticipation(
 			final PretrialServiceParticipation pretrialServiceParticipation) {
 
-        log.debug("Inserting row into PretrialServiceParticipation table");
-
-        final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber) values (?,?,?,?,?,?,?,?)";
+        log.debug("Inserting row into PretrialServiceParticipation table: " + pretrialServiceParticipation);
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -601,13 +600,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 	}
 
+	private final String PRETRIAL_SERVICE_PARTICIPATION_BY_INCIDENT_NUMBER = 
+			"SELECT * FROM PretrialServiceParticipation WHERE ArrestIncidentCaseNumber = ?";
 	@Override
 	public PretrialServiceParticipation getPretrialServiceParticipationByIncidentNumber(
 			String incidentNumber) {
-		String sql = "select * from PretrialServiceParticipation where ArrestIncidentCaseNumber = ?";
 		 
 		List<PretrialServiceParticipation> pretrialServiceParticipations = 
-				jdbcTemplate.query(sql, new PretrialServiceParticipationRowMapper(), incidentNumber);
+				jdbcTemplate.query(PRETRIAL_SERVICE_PARTICIPATION_BY_INCIDENT_NUMBER, 
+						new PretrialServiceParticipationRowMapper(), incidentNumber);
 		
 		return DataAccessUtils.singleResult(pretrialServiceParticipations);
 	}
@@ -637,11 +638,60 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	}
 
+	private final String ASSOCIATED_NEEDS_SELECT = "SELECT a.* FROM PretrialServiceNeedAssociation p "
+			+ "LEFT JOIN AssessedNeed a ON a.AssessedNeedID = p.AssessedNeedID "
+			+ "WHERE p.PretrialServiceParticipationID = ?"; 
 	@Override
-	public List<AssessedNeed> getAssociatedNeeds(
-			int pretrialServiceParticipationId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<AssessedNeed> getAssociatedNeeds(int pretrialServiceParticipationId) {
+		List<AssessedNeed> assessedNeeds = 
+				jdbcTemplate.query(ASSOCIATED_NEEDS_SELECT, 
+						new AssessedNeedRowMapper(), pretrialServiceParticipationId);
+		return assessedNeeds;
+	}
+
+	public class AssessedNeedRowMapper implements RowMapper<AssessedNeed>
+	{
+		@Override
+		public AssessedNeed mapRow(ResultSet rs, int rowNum) throws SQLException {
+			AssessedNeed assessedNeed = new AssessedNeed();
+	    	
+			assessedNeed.setAssessedNeedID(rs.getInt("AssessedNeedID"));
+			assessedNeed.setAssessedNeedDescription(rs.getString("AssessedNeedDescription"));
+			
+	    	return assessedNeed;
+		}
+
+	}
+
+	private final String PERSON_SELECT = "SELECT * FROM Person p "
+			+ "LEFT JOIN PersonSex s ON s.PersonSexID = p.PersonSexID "
+			+ "LEFT JOIN PersonRace r ON r.PersonRaceID = p.PersonRaceID "
+			+ "WHERE p.PersonID = ?"; 
+	@Override
+	public Person getPerson(int personId) {
+		List<Person> persons = 
+				jdbcTemplate.query(PERSON_SELECT, 
+						new PersonRowMapper(), personId);
+		return DataAccessUtils.singleResult(persons);
+	}
+
+	public class PersonRowMapper implements RowMapper<Person>
+	{
+		@Override
+		public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Person person = new Person();
+	    	
+			person.setPersonBirthDate(rs.getDate("PersonBirthDate"));
+			person.setPersonID(rs.getInt("PersonID"));
+			person.setPersonRaceDescription(rs.getString("PersonRaceDescription"));
+			person.setPersonSexDescription(rs.getString("PersonSexDescription"));
+			person.setPersonRaceID(rs.getInt("PersonRaceID"));
+			person.setPersonSexID(rs.getInt("PersonSexID"));
+			person.setPersonUniqueIdentifier(rs.getString("PersonUniqueIdentifier"));
+			
+	    	return person;
+		}
+
 	}
 
 }
