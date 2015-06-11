@@ -137,7 +137,7 @@ COMMENT ON COLUMN PretrialServiceParticipation.RecordType IS 'N for new record, 
 
 
 CREATE TABLE PretrialServiceAssociation (
-                PretrialServiceAssociationID INTEGER NOT NULL,
+                PretrialServiceAssociationID IDENTITY NOT NULL,
                 PretrialServiceID INTEGER NOT NULL,
                 PretrialServiceParticipationID INTEGER NOT NULL,
                 CONSTRAINT PretrialServiceAssociation_pk PRIMARY KEY (PretrialServiceAssociationID)
