@@ -61,6 +61,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
 import org.ojbc.adapters.analyticaldatastore.processor.AbstractReportRepositoryProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -279,6 +280,8 @@ public class CamelContextTest {
 				+ "personRaceDescription=W,personBirthDate=2001-12-17,",
 				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
 		
+		List<PretrialService> pretrialServices = analyticalDatastoreDAOImpl.getAssociatedPretrialServices(pretrialServiceParticipation.getPretrialServiceParticipationID());
+		assertEquals(3, pretrialServices.size()); 
 	}	
 	
 	protected Exchange createSenderExchange(String pathToInputFile) throws Exception, IOException {

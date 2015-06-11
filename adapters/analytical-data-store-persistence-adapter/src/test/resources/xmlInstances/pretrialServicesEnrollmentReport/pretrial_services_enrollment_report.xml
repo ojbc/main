@@ -283,16 +283,16 @@
 		</nc:ProgramReferral>
 	</nc:Program>
 	<nc:Program structures:id="Program_02">
-		<nc:ActivityCategoryText>substance abuse treatment</nc:ActivityCategoryText>
 		<nc:ProgramReferral>
+			<nc:ActivityCategoryText>substance abuse treatment</nc:ActivityCategoryText>
 			<nc:ActivityDate>
 				<nc:Date>2015-02-02</nc:Date>
 			</nc:ActivityDate>
 		</nc:ProgramReferral>
 	</nc:Program>
 	<nc:Program structures:id="Program_03">
-		<nc:ActivityCategoryText>behavioral health services</nc:ActivityCategoryText>
 		<nc:ProgramReferral>
+			<nc:ActivityCategoryText>behavioral health services</nc:ActivityCategoryText>
 			<nc:ActivityDate>
 				<nc:Date>2015-03-03</nc:Date>
 			</nc:ActivityDate>

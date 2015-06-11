@@ -21,7 +21,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -41,7 +40,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
-import org.ojbc.adapters.analyticaldatastore.dao.model.PreTrialService;
+import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -220,7 +219,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public int savePreTrialService(final PreTrialService preTrialService) {
+	public int savePreTrialService(final PretrialService preTrialService) {
         log.debug("Inserting row into PreTrialService table");
 
         final String pretrialServiceInsertStatement="INSERT into PreTrialService (PretrialServiceDescription) values (?)";
@@ -560,13 +559,13 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 
-	private final String PRETRIAL_SERVICE_NEED_ASSOCIATION_SAVE=
+	private final String PRETRIAL_SERVICE_NEED_ASSOCIATION_INSERT=
 			"INSERT INTO pretrialServiceNeedAssociation (assessedNeedID, pretrialServiceParticipationID) values (?,?)";
 
 	@Override
 	public void savePretrialServiceNeedAssociations(
 			final List<Integer> assessedNeedIds, final int pretrialServiceParticipationId) {
-        jdbcTemplate.batchUpdate(PRETRIAL_SERVICE_NEED_ASSOCIATION_SAVE, new BatchPreparedStatementSetter() {
+        jdbcTemplate.batchUpdate(PRETRIAL_SERVICE_NEED_ASSOCIATION_INSERT, new BatchPreparedStatementSetter() {
                 public void setValues(PreparedStatement ps, int i)
                     throws SQLException {
                     ps.setInt(1, assessedNeedIds.get(i));
@@ -670,6 +669,54 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			person.setPersonUniqueIdentifier(rs.getString("PersonUniqueIdentifier"));
 			
 	    	return person;
+		}
+
+	}
+
+	private final String PRETRIAL_SERVICE_ASSOCIATION_INSERT=
+			"INSERT INTO PretrialServiceAssociation (PretrialServiceID, pretrialServiceParticipationID) values (?,?)";
+	@Override
+	public void savePretrialServiceAssociations(
+			final List<Integer> pretrialServiceIds,
+			final int pretrialServiceParticipationPkId) {
+		
+        jdbcTemplate.batchUpdate(PRETRIAL_SERVICE_ASSOCIATION_INSERT, new BatchPreparedStatementSetter() {
+            public void setValues(PreparedStatement ps, int i)
+                throws SQLException {
+                ps.setInt(1, pretrialServiceIds.get(i));
+                ps.setLong(2, pretrialServiceParticipationPkId);
+            }
+	            
+            public int getBatchSize() {
+                return pretrialServiceIds.size();
+            }
+        });
+	
+		
+	}
+
+	private final String ASSOCIATED_PRETRIAL_SERVICE_SELECT = "SELECT ps.* FROM PretrialServiceAssociation p "
+			+ "LEFT JOIN PretrialService ps ON ps.PretrialServiceID = p.PretrialServiceID "
+			+ "WHERE p.PretrialServiceParticipationID = ?"; 
+	@Override
+	public List<PretrialService> getAssociatedPretrialServices(
+			int pretrialServiceParticipationId) {
+		List<PretrialService> pretrialServices = 
+				jdbcTemplate.query(ASSOCIATED_PRETRIAL_SERVICE_SELECT, 
+						new PretrialServiceRowMapper(), pretrialServiceParticipationId);
+		return pretrialServices;
+	}
+
+	public class PretrialServiceRowMapper implements RowMapper<PretrialService>
+	{
+		@Override
+		public PretrialService mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PretrialService pretrialService = new PretrialService();
+	    	
+			pretrialService.setPretrialServiceID(rs.getInt("PretrialServiceID"));
+			pretrialService.setPretrialServiceDescription(rs.getString("PretrialServiceDescription"));
+			
+	    	return pretrialService;
 		}
 
 	}
