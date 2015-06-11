@@ -54,7 +54,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/properties-context.xml"
+		"classpath:META-INF/spring/properties-context.xml",
+		"classpath:META-INF/spring/camel-context.xml",
+		"classpath:META-INF/spring/cxf-endpoints.xml"
 		})
 @DirtiesContext
 public class TestAnalyticalDatastoreDAOImpl {
@@ -119,7 +121,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		offenseType.setOffenseSeverity("Felony");
 		
 		int offenseTypePk = analyticalDatastoreDAOImpl.saveOffenseType(offenseType);
-		assertEquals(2, offenseTypePk);
+		assertEquals(3, offenseTypePk);
 
 		InvolvedDrug involvedDrug = new InvolvedDrug();
 		involvedDrug.setInvolvedDrugDescription("Meth");

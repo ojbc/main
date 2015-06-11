@@ -83,9 +83,6 @@ public interface AnalyticalDatastoreDAO {
 	public List<Charge> returnChargesFromArrest(int arrestId);
 	
 	public Person getPerson(int personId);
-	
-	//TODO: Update this to use ORI when ORI added to data model
-	public int returnAgencyKeyfromAgencyName(String agencyName);
 
 	public void savePretrialServiceAssociations(
 			final List<Integer> pretrialServiceIds,
