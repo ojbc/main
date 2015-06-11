@@ -17,14 +17,11 @@
 package org.ojbc.adapters.analyticaldatastore.processor;
 
 import java.text.ParseException;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
 import org.ojbc.util.xml.OjbcNamespaceContext;
@@ -32,10 +29,11 @@ import org.ojbc.util.xml.XmlUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryProcessor{
 
-	private static final Log log = LogFactory.getLog( PretrialEnrollmentReportProcessor.class );
+	//private static final Log log = LogFactory.getLog( PretrialEnrollmentReportProcessor.class );
 	
 	
 	@Transactional
@@ -43,8 +41,27 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 	{
 		int pretrialServiceParticipationPkId = processPretrialServiceParticipation(report);
 		processAssessedNeeds(pretrialServiceParticipationPkId, report);
+		processPretrialServiceAssociations(pretrialServiceParticipationPkId, report);
+	}
+
+
+	private void processPretrialServiceAssociations(
+			int pretrialServiceParticipationPkId, Document report) throws Exception {
+		List<Integer> pretrialServiceIds = new ArrayList<Integer>();
 		
-		//TODO need to know the pretrialServiceDescription mapping to work on PretrialServiceAssociation.
+		NodeList pretrialServices = XmlUtils.xPathNodeListSearch(report, 
+				"/pse-doc:PretrialServiceEnrollmentReport/nc30:Program/nc30:ProgramReferral/nc30:ActivityCategoryText"); 
+		
+		for (int i = 0, len = pretrialServices.getLength(); i < len; i++){
+			Node node = pretrialServices.item(i);
+			String pretrialService = node.getTextContent();
+			
+			Integer pretrialServiceId = descriptionCodeLookupService.retrieveCode(CodeTable.PretrialService, pretrialService); 
+			pretrialServiceIds.add(pretrialServiceId); 
+		}
+		
+		analyticalDatastoreDAO.savePretrialServiceAssociations(pretrialServiceIds, pretrialServiceParticipationPkId);
+
 	}
 
 

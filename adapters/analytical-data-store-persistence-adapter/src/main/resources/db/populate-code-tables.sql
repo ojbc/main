@@ -68,3 +68,8 @@ insert into County (CountyName) values ('Harrison');
 
 -- Disposition Type - placeholder while waiting for code values
 insert into DispositionType (DispositionDescription, IsConviction) values ('Disposition Type Placeholder','N');
+
+-- PretrialService
+insert into PretrialService (PretrialServiceDescription) values ('employment assistance');
+insert into PretrialService (PretrialServiceDescription) values ('substance abuse treatment');
+insert into PretrialService (PretrialServiceDescription) values ('behavioral health services');
