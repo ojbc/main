@@ -16,6 +16,11 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import java.util.logging.Logger;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.eclipse.jetty.util.log.Log;
+import org.ojbc.web.impl.RapbackSearchMockImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,7 +28,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
-    
+	private Logger logger = Logger.getLogger(this.getClass().getName());
+
     @Value("${bannerPath:/static/images/banner/Banner.png}")
     String bannerPath;
 
@@ -32,11 +38,16 @@ public class GlobalControllerAdvice {
     
     @Value("${secondaryOptionsDisplay:false}")
     Boolean secondaryOptionsDisplay;
+    
+    @Value("${singleClickForDetail:false}")
+    Boolean singleClickForDetail;
 
     @ModelAttribute
     public void setupModelAttributes(Model model) {
         model.addAttribute("bannerPath", bannerPath);
         model.addAttribute("themePath", themePath);
         model.addAttribute("secondaryOptionsDisplay", secondaryOptionsDisplay);
+        model.addAttribute("singleClickForDetail", singleClickForDetail);
+        logger.info("singleClickForDetail" + BooleanUtils.toString(singleClickForDetail, "true", "false", "null"));
     }
 }
