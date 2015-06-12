@@ -51,11 +51,18 @@
 			      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage)
 		});
-		
-		$("#personSearchResultsTable").on('dblclick', 'tbody tr', function(){
-			$(this).find("a.viewDetails").click();
-		}); 
-		
+
+		#if($singleClickForDetail){
+			$("#personSearchResultsTable").on('click', 'tbody tr', function(){
+				$(this).find("a.viewDetails").click();
+			});
+		}
+		#else{
+			$("#personSearchResultsTable").on('dblclick', 'tbody tr', function(){
+				$(this).find("a.viewDetails").click();
+			});
+		} 
+		#end
 		
 		 $('a.viewDetails').click(function() {
             var url = this.href;
