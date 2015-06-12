@@ -19,6 +19,7 @@ package org.ojbc.adapters.analyticaldatastore.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.commons.lang.StringUtils;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -38,6 +39,12 @@ public class IncidentRowMapper implements RowMapper<Incident>
     	incident.setReportingAgencyID(rs.getInt("ReportingAgencyID"));
     	incident.setIncidentLocationLatitude(rs.getBigDecimal("IncidentLocationLatitude"));
     	incident.setIncidentLocationLongitude(rs.getBigDecimal("IncidentLocationLongitude"));
+    	
+    	String recordType = rs.getString("RecordType"); 
+    	
+    	if (StringUtils.isNotBlank(recordType)){
+    		incident.setRecordType(recordType.charAt(0));
+    	}
     	
     	return incident;
 	}

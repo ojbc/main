@@ -47,10 +47,22 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 	
 	private static final String PATH_TO_LEXS_DIGEST= PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:Digest";
 	
+	private static final String INCIDENT_REPORT_ROOT_ELEMENT_NAME = "IncidentReport"; 
+	
+	private static final String INCIDENT_REPORT_UPDATE_ROOT_ELEMENT_NAME="IncidentReportUpdate"; 
+	
 	@Transactional
 	public void processReport(Document incidentReport) throws Exception
 	{
 		Incident incident = new Incident();
+		
+		String rootElemntName = incidentReport.getDocumentElement().getLocalName(); 
+		if (INCIDENT_REPORT_ROOT_ELEMENT_NAME.equals(rootElemntName)){
+			incident.setRecordType('N');
+		}
+		else if (INCIDENT_REPORT_UPDATE_ROOT_ELEMENT_NAME.equals(rootElemntName)){
+			incident.setRecordType('U');
+		}
 		
 		String reportingAgencyName = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id= " + PATH_TO_LEXS_DIGEST + " /lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation[nc:ActivityReference/@s:ref=" + PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName");
 		log.debug("Agency Name: " + reportingAgencyName);

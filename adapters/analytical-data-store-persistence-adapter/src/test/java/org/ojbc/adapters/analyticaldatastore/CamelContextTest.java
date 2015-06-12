@@ -183,6 +183,7 @@ public class CamelContextTest {
 		
 		Incident incident = incidents.get(0);
 		
+		assertTrue(incident.getRecordType() == 'N');
 		assertEquals("15999999999",incident.getIncidentCaseNumber());
 		assertEquals("45 VT ROUTE 100",incident.getIncidentLocationStreetAddress());
 		assertEquals("Dover",incident.getIncidentLocationTown());
