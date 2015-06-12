@@ -23,13 +23,13 @@ import java.util.Date;
 public class Incident {
 
 	//pk
-	private int incidentID;
+	private Integer incidentID;
 	
 	//fk to Agency table
-	private int reportingAgencyID;
+	private Integer reportingAgencyID;
 	
 	//fk to IncidentType table
-	private int incidentTypeID;
+	private Integer incidentTypeID;
 	
 	private Date incidentDate;
 	private Time incidentTime;
@@ -45,27 +45,27 @@ public class Incident {
     
 	private char recordType;
 
-	public int getIncidentID() {
+	public Integer getIncidentID() {
 		return incidentID;
 	}
 
-	public void setIncidentID(int incidentID) {
+	public void setIncidentID(Integer incidentID) {
 		this.incidentID = incidentID;
 	}
 
-	public int getReportingAgencyID() {
+	public Integer getReportingAgencyID() {
 		return reportingAgencyID;
 	}
 
-	public void setReportingAgencyID(int reportingAgencyID) {
+	public void setReportingAgencyID(Integer reportingAgencyID) {
 		this.reportingAgencyID = reportingAgencyID;
 	}
 
-	public int getIncidentTypeID() {
+	public Integer getIncidentTypeID() {
 		return incidentTypeID;
 	}
 
-	public void setIncidentTypeID(int incidentTypeID) {
+	public void setIncidentTypeID(Integer incidentTypeID) {
 		this.incidentTypeID = incidentTypeID;
 	}
 

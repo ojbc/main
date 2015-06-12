@@ -37,37 +37,37 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipat
 
 public interface AnalyticalDatastoreDAO {
 
-	public int saveAgency(Agency agency);
+	public Integer saveAgency(Agency agency);
 	
-	public int saveIncidentType(IncidentType incidentType);
+	public Integer saveIncidentType(IncidentType incidentType);
 	
-	public int saveIncident(Incident incident);
+	public Integer saveIncident(Incident incident);
 	
-	public int saveCounty(County county);
+	public Integer saveCounty(County county);
 
-	public int saveArrest(Arrest arrest);
+	public Integer saveArrest(Arrest arrest);
 	
-	public int saveAssessedNeed(AssessedNeed assesedNeed);
+	public Integer saveAssessedNeed(AssessedNeed assesedNeed);
 	
-	public int savePreTrialService(PretrialService preTrialService);
+	public Integer savePreTrialService(PretrialService preTrialService);
 	
-	public int saveDispositionType(DispositionType dispositionType);
+	public Integer saveDispositionType(DispositionType dispositionType);
 	
-	public int savePersonSex(PersonSex personSex);
+	public Integer savePersonSex(PersonSex personSex);
 	
-	public int savePersonRace(PersonRace personRace);
+	public Integer savePersonRace(PersonRace personRace);
 	
-	public int savePerson(Person person);
+	public Integer savePerson(Person person);
 	
-	public int savePretrialServiceParticipation(PretrialServiceParticipation pretrialServiceParticipation);
+	public Integer savePretrialServiceParticipation(PretrialServiceParticipation pretrialServiceParticipation);
 	
-	public int saveOffenseType(OffenseType offenseType);
+	public Integer saveOffenseType(OffenseType offenseType);
 	
-	public int saveCharge(Charge charge);
+	public Integer saveCharge(Charge charge);
 	
-	public int saveDisposition(Disposition disposition);
+	public Integer saveDisposition(Disposition disposition);
 	
-	public int saveInvolvedDrug(InvolvedDrug involvedDrug);
+	public Integer saveInvolvedDrug(InvolvedDrug involvedDrug);
 	
 	public void savePretrialServiceNeedAssociations(
 			final List<Integer> assessedNeedsIds, final int pretrialServiceParticipationId);
@@ -76,17 +76,17 @@ public interface AnalyticalDatastoreDAO {
 	
 	public PretrialServiceParticipation getPretrialServiceParticipationByIncidentNumber(String incidentNumber);
 	
-	public List<AssessedNeed> getAssociatedNeeds(int pretrialServiceParticipationId);
+	public List<AssessedNeed> getAssociatedNeeds(Integer pretrialServiceParticipationId);
 	
-	public List<Arrest> searchForArrestsByIncidentPk(int incidentPk);
+	public List<Arrest> searchForArrestsByIncidentPk(Integer incidentPk);
 	
-	public List<Charge> returnChargesFromArrest(int arrestId);
+	public List<Charge> returnChargesFromArrest(Integer arrestId);
 	
-	public Person getPerson(int personId);
+	public Person getPerson(Integer personId);
 
 	public void savePretrialServiceAssociations(
 			final List<Integer> pretrialServiceIds,
 			final int pretrialServiceParticipationPkId);
 
-	public List<PretrialService> getAssociatedPretrialServices(int pretrialServiceParticipationId);
+	public List<PretrialService> getAssociatedPretrialServices(Integer pretrialServiceParticipationId);
 }

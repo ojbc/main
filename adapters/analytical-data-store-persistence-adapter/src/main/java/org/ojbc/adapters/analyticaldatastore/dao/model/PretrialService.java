@@ -21,13 +21,13 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class PretrialService {
 
-    private int pretrialServiceID;
+    private Integer pretrialServiceID;
     private String pretrialServiceDescription;
     
-	public int getPretrialServiceID() {
+	public Integer getPretrialServiceID() {
 		return pretrialServiceID;
 	}
-	public void setPretrialServiceID(int pretrialServiceID) {
+	public void setPretrialServiceID(Integer pretrialServiceID) {
 		this.pretrialServiceID = pretrialServiceID;
 	}
 	public String getPretrialServiceDescription() {

@@ -19,7 +19,7 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 public class County {
 
 	//pk
-	private int countyID;
+	private Integer countyID;
 	
 	private String countyName;
 
@@ -31,11 +31,11 @@ public class County {
 		this.countyName = countyName;
 	}
 
-	public int getCountyID() {
+	public Integer getCountyID() {
 		return countyID;
 	}
 
-	public void setCountyID(int countyID) {
+	public void setCountyID(Integer countyID) {
 		this.countyID = countyID;
 	}
 

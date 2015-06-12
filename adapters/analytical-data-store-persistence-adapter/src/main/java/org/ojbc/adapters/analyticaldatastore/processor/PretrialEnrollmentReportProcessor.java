@@ -46,7 +46,7 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 
 
 	private void processPretrialServiceAssociations(
-			int pretrialServiceParticipationPkId, Document report) throws Exception {
+			Integer pretrialServiceParticipationPkId, Document report) throws Exception {
 		List<Integer> pretrialServiceIds = new ArrayList<Integer>();
 		
 		NodeList pretrialServices = XmlUtils.xPathNodeListSearch(report, 
@@ -65,7 +65,7 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 	}
 
 
-	private void processAssessedNeeds(int pretrialServiceParticipationPkId,
+	private void processAssessedNeeds(Integer pretrialServiceParticipationPkId,
 			Document report) throws Exception {
 		List<Integer> assessedNeedsIds = new ArrayList<Integer>();
 		
@@ -88,7 +88,7 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 	}
 
 
-	private void addAssessedNeedsIdToList(int pretrialServiceParticipationPkId,
+	private void addAssessedNeedsIdToList(Integer pretrialServiceParticipationPkId,
 			List<Integer> assessedNeedsIds,
 			String indicator, String indicatorType) {
 		if (BooleanUtils.toBoolean(indicator)){
@@ -97,7 +97,7 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 	}
 
 
-	private int processPretrialServiceParticipation(Document report) throws Exception, ParseException {
+	private Integer processPretrialServiceParticipation(Document report) throws Exception, ParseException {
 		PretrialServiceParticipation pretrialServiceParticipation = new PretrialServiceParticipation(); 
 		
 		pretrialServiceParticipation.setRecordType('N');

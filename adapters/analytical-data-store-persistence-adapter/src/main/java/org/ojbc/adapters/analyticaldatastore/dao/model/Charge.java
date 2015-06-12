@@ -19,35 +19,35 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 public class Charge {
 
 	//pk
-	private int chargeID;
+	private Integer chargeID;
 	
 	//fk
-	private int arrestOffenseTypeID;
+	private Integer arrestOffenseTypeID;
 	
 	//fk
-	private int arrestID;
+	private Integer arrestID;
 
-	public int getChargeID() {
+	public Integer getChargeID() {
 		return chargeID;
 	}
 
-	public void setChargeID(int chargeID) {
+	public void setChargeID(Integer chargeID) {
 		this.chargeID = chargeID;
 	}
 
-	public int getArrestOffenseTypeID() {
+	public Integer getArrestOffenseTypeID() {
 		return arrestOffenseTypeID;
 	}
 
-	public void setArrestOffenseTypeID(int arrestOffenseTypeID) {
+	public void setArrestOffenseTypeID(Integer arrestOffenseTypeID) {
 		this.arrestOffenseTypeID = arrestOffenseTypeID;
 	}
 
-	public int getArrestID() {
+	public Integer getArrestID() {
 		return arrestID;
 	}
 
-	public void setArrestID(int arrestID) {
+	public void setArrestID(Integer arrestID) {
 		this.arrestID = arrestID;
 	}
 }

@@ -24,7 +24,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class Person {
 
 	//pk
-    private int personID;
+    private Integer personID;
     
     //fk
     private Integer personSexID;
@@ -38,10 +38,10 @@ public class Person {
     private Date personBirthDate;
     private String personUniqueIdentifier;
     
-	public int getPersonID() {
+	public Integer getPersonID() {
 		return personID;
 	}
-	public void setPersonID(int personID) {
+	public void setPersonID(Integer personID) {
 		this.personID = personID;
 	}
 	public Date getPersonBirthDate() {

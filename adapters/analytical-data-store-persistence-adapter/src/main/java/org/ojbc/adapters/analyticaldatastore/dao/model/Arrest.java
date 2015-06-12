@@ -22,16 +22,16 @@ import java.util.Date;
 public class Arrest {
 
 	//pk
-    private int arrestID; 
+    private Integer arrestID; 
     
     //fk
-    private int personID;
+    private Integer personID;
     
     //fk
-    private int incidentID;
+    private Integer incidentID;
     
     //fk
-    private int arrestingAgencyID;
+    private Integer arrestingAgencyID;
 
     //fk
     private Integer involvedDrugID;
@@ -42,35 +42,35 @@ public class Arrest {
 	//'Y if drug related, N otherwise'
 	private char arrestDrugRelated;
 
-	public int getArrestID() {
+	public Integer getArrestID() {
 		return arrestID;
 	}
 
-	public void setArrestID(int arrestID) {
+	public void setArrestID(Integer arrestID) {
 		this.arrestID = arrestID;
 	}
 
-	public int getPersonID() {
+	public Integer getPersonID() {
 		return personID;
 	}
 
-	public void setPersonID(int personID) {
+	public void setPersonID(Integer personID) {
 		this.personID = personID;
 	}
 
-	public int getIncidentID() {
+	public Integer getIncidentID() {
 		return incidentID;
 	}
 
-	public void setIncidentID(int incidentID) {
+	public void setIncidentID(Integer incidentID) {
 		this.incidentID = incidentID;
 	}
 
-	public int getArrestingAgencyID() {
+	public Integer getArrestingAgencyID() {
 		return arrestingAgencyID;
 	}
 
-	public void setArrestingAgencyID(int arrestingAgencyID) {
+	public void setArrestingAgencyID(Integer arrestingAgencyID) {
 		this.arrestingAgencyID = arrestingAgencyID;
 	}
 
