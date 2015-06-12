@@ -40,6 +40,11 @@ insert into InvolvedDrug (InvolvedDrugDescription) values ('Placeholder Involved
 -- OffenseType - adding a value for testing
 insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Violation of a Court Order','N','Infraction');
 insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Resisting Officer', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Theft from Building', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Disorderly Conduct', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Larceny', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Drug_Narcotic_Marijuana_selling', 'Y', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('False Report', 'N', 'Infraction');
 
 -- AssessedNeed - adding code table values
 insert into AssessedNeed (AssessedNeedDescription) values('housing');
