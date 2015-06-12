@@ -30,9 +30,15 @@
 			} ]
   		});
 	  
-		$("#searchResultsTable").on('dblclick', 'tbody tr', function(){
-			$(this).find("a.viewDetails").click();
-		}); 
+	  	#if($singleClickForDetail){
+			$("#searchResultsTable").on('click', 'tbody tr', function(){
+				$(this).find("a.viewDetails").click();
+			});}
+	  	#else{
+			$("#searchResultsTable").on('dblclick', 'tbody tr', function(){
+				$(this).find("a.viewDetails").click();
+			}); }
+		#end
 		
 		$('#returnToSearchSubmitButton').click (function(){
 	  		$.get("#springUrl('/firearms/searchForm')",function(data) {
