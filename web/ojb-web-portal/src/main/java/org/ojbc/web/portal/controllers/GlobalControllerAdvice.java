@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
-    
+
     @Value("${bannerPath:/static/images/banner/Banner.png}")
     String bannerPath;
 
@@ -32,11 +32,15 @@ public class GlobalControllerAdvice {
     
     @Value("${secondaryOptionsDisplay:false}")
     Boolean secondaryOptionsDisplay;
+    
+    @Value("${singleClickForDetail:false}")
+    Boolean singleClickForDetail;
 
     @ModelAttribute
     public void setupModelAttributes(Model model) {
         model.addAttribute("bannerPath", bannerPath);
         model.addAttribute("themePath", themePath);
         model.addAttribute("secondaryOptionsDisplay", secondaryOptionsDisplay);
+        model.addAttribute("singleClickForDetail", singleClickForDetail);
     }
 }
