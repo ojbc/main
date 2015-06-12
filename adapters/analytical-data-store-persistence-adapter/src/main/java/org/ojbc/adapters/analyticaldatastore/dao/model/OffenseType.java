@@ -19,7 +19,7 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 public class OffenseType {
 
 	//pk
-    private int offenseTypeID;
+    private Integer offenseTypeID;
     
     private String offenseDescription;
     
@@ -27,11 +27,11 @@ public class OffenseType {
     
     private String offenseSeverity;
 
-	public int getOffenseTypeID() {
+	public Integer getOffenseTypeID() {
 		return offenseTypeID;
 	}
 
-	public void setOffenseTypeID(int offenseTypeID) {
+	public void setOffenseTypeID(Integer offenseTypeID) {
 		this.offenseTypeID = offenseTypeID;
 	}
 

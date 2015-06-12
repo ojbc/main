@@ -19,15 +19,15 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 public class PersonRace {
 
 	//pk
-    private int personRaceID;
+    private Integer personRaceID;
     
     private String personRaceDescription;
 
-	public int getPersonRaceID() {
+	public Integer getPersonRaceID() {
 		return personRaceID;
 	}
 
-	public void setPersonRaceID(int personRaceID) {
+	public void setPersonRaceID(Integer personRaceID) {
 		this.personRaceID = personRaceID;
 	}
 

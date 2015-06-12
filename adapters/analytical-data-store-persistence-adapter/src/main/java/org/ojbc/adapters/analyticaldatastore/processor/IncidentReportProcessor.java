@@ -69,7 +69,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		
 		if (StringUtils.isNotBlank(reportingAgencyName))
 		{
-			int reportingAgencyId = descriptionCodeLookupService.retrieveCode(CodeTable.Agency, reportingAgencyName.trim());
+			Integer reportingAgencyId = descriptionCodeLookupService.retrieveCode(CodeTable.Agency, reportingAgencyName.trim());
 			incident.setReportingAgencyID(reportingAgencyId);
 		}	
 		
@@ -171,16 +171,16 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		
 		String incidentTypeDescription="Placeholder";
 		
-		int incidentTypePK = descriptionCodeLookupService.retrieveCode(CodeTable.IncidentType, incidentTypeDescription);
+		Integer incidentTypePK = descriptionCodeLookupService.retrieveCode(CodeTable.IncidentType, incidentTypeDescription);
 		incident.setIncidentTypeID(incidentTypePK);
 		
-		int incidentPk = analyticalDatastoreDAO.saveIncident(incident);
+		Integer incidentPk = analyticalDatastoreDAO.saveIncident(incident);
 		
 		processArrests(incidentReport, incidentPk);
 			
 	}
 
-	protected void processArrests(Document incidentReport, int incidentPk)
+	protected void processArrests(Document incidentReport, Integer incidentPk)
 			throws Exception {
 		NodeList arrestSubjectAssocationNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestSubjectAssociation");
 		
@@ -230,7 +230,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 
 				if (StringUtils.isNotBlank(arrestingAgency))
 				{
-					int arrestingAgencyId = descriptionCodeLookupService.retrieveCode(CodeTable.Agency, arrestingAgency);
+					Integer arrestingAgencyId = descriptionCodeLookupService.retrieveCode(CodeTable.Agency, arrestingAgency);
 					arrest.setArrestingAgencyID(arrestingAgencyId);
 				}	
 
@@ -248,7 +248,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		}
 	}
 
-	private void processArrestOffenseNodes(Document incidentReport, NodeList arrestOffenseNodes, int arrestPk) throws Exception{
+	private void processArrestOffenseNodes(Document incidentReport, NodeList arrestOffenseNodes, Integer arrestPk) throws Exception{
 		for (int i = 0; i < arrestOffenseNodes.getLength(); i++) 
 		{
 			Node arrestOffenseNode = (arrestOffenseNodes.item(i));
@@ -261,7 +261,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		    	String ndexOffenseCode = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref='" + offenseReference + "']/ndexia:OffenseCode");
 		    	log.debug("NDEX offense Code: " + ndexOffenseCode);
 		    	
-		    	int arrestOffenseTypeID = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, ndexOffenseCode);
+		    	Integer arrestOffenseTypeID = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, ndexOffenseCode);
 		    	
 	    		Charge charge = new Charge();
 	    		

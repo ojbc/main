@@ -19,15 +19,15 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 public class InvolvedDrug {
 
 	//pk
-	private int involvedDrugID;
+	private Integer involvedDrugID;
 	
 	private String involvedDrugDescription;
 
-	public int getInvolvedDrugID() {
+	public Integer getInvolvedDrugID() {
 		return involvedDrugID;
 	}
 
-	public void setInvolvedDrugID(int involvedDrugID) {
+	public void setInvolvedDrugID(Integer involvedDrugID) {
 		this.involvedDrugID = involvedDrugID;
 	}
 

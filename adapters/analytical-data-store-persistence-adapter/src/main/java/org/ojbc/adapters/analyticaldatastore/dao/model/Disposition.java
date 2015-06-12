@@ -20,7 +20,7 @@ import java.util.Date;
 
 public class Disposition {
 
-	private int dispositionID;
+	private Integer dispositionID;
 	
 	private Integer personID;
 	
@@ -44,11 +44,11 @@ public class Disposition {
 	
 	private Date recidivismEligibilityDate;
 
-	public int getDispositionID() {
+	public Integer getDispositionID() {
 		return dispositionID;
 	}
 
-	public void setDispositionID(int dispositionID) {
+	public void setDispositionID(Integer dispositionID) {
 		this.dispositionID = dispositionID;
 	}
 

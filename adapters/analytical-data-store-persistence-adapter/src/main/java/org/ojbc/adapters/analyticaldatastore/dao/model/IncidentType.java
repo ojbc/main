@@ -19,15 +19,15 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 public class IncidentType {
 
 	//pk
-	private int incidentTypeID;
+	private Integer incidentTypeID;
 	
 	private String incidentTypeDescription;
 
-	public int getIncidentTypeID() {
+	public Integer getIncidentTypeID() {
 		return incidentTypeID;
 	}
 
-	public void setIncidentTypeID(int incidentTypeID) {
+	public void setIncidentTypeID(Integer incidentTypeID) {
 		this.incidentTypeID = incidentTypeID;
 	}
 

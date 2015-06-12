@@ -189,8 +189,8 @@ public class CamelContextTest {
 		assertEquals("Dover",incident.getIncidentLocationTown());
 		assertEquals("13:46:43",incident.getIncidentTime().toString());
 		assertEquals("05/23/2015",DATE_FOMRAT.format(incident.getIncidentDate()));
-		assertEquals(2,incident.getReportingAgencyID());
-		assertEquals(1,incident.getIncidentTypeID());
+		assertEquals(Integer.valueOf(2),incident.getReportingAgencyID());
+		assertEquals(Integer.valueOf(1),incident.getIncidentTypeID());
 		assertEquals(0,incident.getIncidentLocationLatitude().compareTo(new BigDecimal("42.931071")));
 		assertEquals(0,incident.getIncidentLocationLongitude().compareTo(new BigDecimal("-72.847988")));
 		
@@ -206,13 +206,13 @@ public class CamelContextTest {
 		
 		assertEquals('N',arrest.getArrestDrugRelated());
 		assertEquals("13:48:00",arrest.getArrestTime().toString());
-		assertEquals(2,arrest.getArrestingAgencyID());
+		assertEquals(Integer.valueOf(2),arrest.getArrestingAgencyID());
 		assertEquals(null,arrest.getInvolvedDrugID());
 		
 		List<Charge> charges = analyticalDatastoreDAOImpl.returnChargesFromArrest(arrest.getArrestID());
 		
 		assertEquals(1,charges.size());
-		assertEquals(1,charges.get(0).getArrestOffenseTypeID());
+		assertEquals(Integer.valueOf(1),charges.get(0).getArrestOffenseTypeID());
 		
 		//TODO: Determine whether the arrest row mapper should use ResultsSetExtractor.
 		//This would allow for run join queries, however, the arrest row mapper is not used

@@ -18,14 +18,14 @@ package org.ojbc.adapters.analyticaldatastore.dao.model;
 
 public class DispositionType {
 
-    private int dispositionTypeID;
+    private Integer dispositionTypeID;
     private String dispositionDescription;
     private char isConviction;
     
-	public int getDispositionTypeID() {
+	public Integer getDispositionTypeID() {
 		return dispositionTypeID;
 	}
-	public void setDispositionTypeID(int dispositionTypeID) {
+	public void setDispositionTypeID(Integer dispositionTypeID) {
 		this.dispositionTypeID = dispositionTypeID;
 	}
 	public String getDispositionDescription() {

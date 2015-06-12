@@ -61,7 +61,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
     }
 	
 	@Override
-	public int saveAgency(final Agency agency) {
+	public Integer saveAgency(final Agency agency) {
 
         log.debug("Inserting row into Agency table");
 
@@ -84,7 +84,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public int saveIncidentType(final IncidentType incidentType) {
+	public Integer saveIncidentType(final IncidentType incidentType) {
 		
         log.debug("Inserting row into Incident Type table");
 
@@ -106,7 +106,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
     }
 
 	@Override
-	public int saveIncident(final Incident incident) {
+	public Integer saveIncident(final Incident incident) {
         log.debug("Inserting row into Incident table");
 
         final String incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber, IncidentTypeID,"
@@ -138,7 +138,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public int saveCounty(final County county) {
+	public Integer saveCounty(final County county) {
 
         log.debug("Inserting row into county table");
 
@@ -160,7 +160,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 	
 	@Override
-	public int saveArrest(final Arrest arrest) {
+	public Integer saveArrest(final Arrest arrest) {
         log.debug("Inserting row into Arrest table");
 
         final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestingAgencyID,ArrestDate,ArrestTime,ArrestDrugRelated,InvolvedDrugID ) values (?,?,?,?,?,?,?)";
@@ -197,7 +197,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 	
 	@Override
-	public int saveAssessedNeed(final AssessedNeed assessedNeed) {
+	public Integer saveAssessedNeed(final AssessedNeed assessedNeed) {
 
         log.debug("Inserting row into Assessed Need table");
 
@@ -219,7 +219,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public int savePreTrialService(final PretrialService preTrialService) {
+	public Integer savePreTrialService(final PretrialService preTrialService) {
         log.debug("Inserting row into PreTrialService table");
 
         final String pretrialServiceInsertStatement="INSERT into PreTrialService (PretrialServiceDescription) values (?)";
@@ -240,7 +240,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public int saveDispositionType(final DispositionType dispositionType) {
+	public Integer saveDispositionType(final DispositionType dispositionType) {
         log.debug("Inserting row into DispositionType table");
 
         final String dispositionTypeInsertStatement="INSERT into DispositionType (DispositionDescription,IsConviction) values (?,?)";
@@ -262,7 +262,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public int savePersonSex(final PersonSex personSex) {
+	public Integer savePersonSex(final PersonSex personSex) {
         log.debug("Inserting row into PersonSex table");
 
         final String personSexInsertStatement="INSERT into PersonSex (PersonSexDescription) values (?)";
@@ -283,7 +283,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 	
 	@Override
-	public int savePersonRace(final PersonRace personRace) {
+	public Integer savePersonRace(final PersonRace personRace) {
         log.debug("Inserting row into PersonRace table");
 
         final String personRaceInsertStatement="INSERT into PersonRace (PersonRaceDescription) values (?)";
@@ -304,7 +304,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public int savePerson(final Person person) {
+	public Integer savePerson(final Person person) {
         log.debug("Inserting row into Person table");
 
         final String personStatement="INSERT into Person (PersonSexID, PersonRaceID, PersonBirthDate, PersonUniqueIdentifier) values (?,?,?,?)";
@@ -347,7 +347,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber) values (?,?,?,?,?,?,?,?)";
 	@Override
-	public int savePretrialServiceParticipation(
+	public Integer savePretrialServiceParticipation(
 			final PretrialServiceParticipation pretrialServiceParticipation) {
 
         log.debug("Inserting row into PretrialServiceParticipation table: " + pretrialServiceParticipation);
@@ -388,7 +388,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
     }
 
 	@Override
-	public int saveOffenseType(final OffenseType offenseType) {
+	public Integer saveOffenseType(final OffenseType offenseType) {
         log.debug("Inserting row into OffenseType table");
 
         final String offenseTypeStatement="INSERT into OffenseType (OffenseDescription,IsDrugOffense,OffenseSeverity) values (?,?,?)";
@@ -411,7 +411,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
      }
 
 	@Override
-	public int saveCharge(final Charge charge) {
+	public Integer saveCharge(final Charge charge) {
         log.debug("Inserting row into Charge table");
 
         final String chargeInsertStatement="INSERT into Charge (arrestOffenseTypeID,arrestID) values (?,?)";
@@ -433,7 +433,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
     }
 
 	@Override
-	public int saveDisposition(final Disposition disposition) {
+	public Integer saveDisposition(final Disposition disposition) {
         log.debug("Inserting row into Disposition table");
 
         final String dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,OffenseTypeID,IncidentCaseNumber,DispositionDate,"
@@ -519,7 +519,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 
 	@Override
-	public List<Arrest> searchForArrestsByIncidentPk(int incidentPk) {
+	public List<Arrest> searchForArrestsByIncidentPk(Integer incidentPk) {
 		String sql = "select * from Arrest where IncidentID = ?";
 		 
 		List<Arrest> arrests = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new ArrestRowMapper());
@@ -528,7 +528,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public List<Charge> returnChargesFromArrest(int arrestId) {
+	public List<Charge> returnChargesFromArrest(Integer arrestId) {
 		String sql = "select * from Charge where ArrestID = ?";
 		 
 		List<Charge> charges = this.jdbcTemplate.query(sql, new Object[] { arrestId },new ChargeRowMapper());
@@ -537,7 +537,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}	
 
 	@Override
-	public int saveInvolvedDrug(final InvolvedDrug involvedDrug) {
+	public Integer saveInvolvedDrug(final InvolvedDrug involvedDrug) {
         log.debug("Inserting row into PersonRace table");
 
         final String involvedDrugInsertStatement="INSERT into InvolvedDrug (InvolvedDrugDescription) values (?)";
@@ -621,7 +621,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			+ "LEFT JOIN AssessedNeed a ON a.AssessedNeedID = p.AssessedNeedID "
 			+ "WHERE p.PretrialServiceParticipationID = ?"; 
 	@Override
-	public List<AssessedNeed> getAssociatedNeeds(int pretrialServiceParticipationId) {
+	public List<AssessedNeed> getAssociatedNeeds(Integer pretrialServiceParticipationId) {
 		List<AssessedNeed> assessedNeeds = 
 				jdbcTemplate.query(ASSOCIATED_NEEDS_SELECT, 
 						new AssessedNeedRowMapper(), pretrialServiceParticipationId);
@@ -647,7 +647,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			+ "LEFT JOIN PersonRace r ON r.PersonRaceID = p.PersonRaceID "
 			+ "WHERE p.PersonID = ?"; 
 	@Override
-	public Person getPerson(int personId) {
+	public Person getPerson(Integer personId) {
 		List<Person> persons = 
 				jdbcTemplate.query(PERSON_SELECT, 
 						new PersonRowMapper(), personId);
@@ -700,7 +700,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			+ "WHERE p.PretrialServiceParticipationID = ?"; 
 	@Override
 	public List<PretrialService> getAssociatedPretrialServices(
-			int pretrialServiceParticipationId) {
+			Integer pretrialServiceParticipationId) {
 		List<PretrialService> pretrialServices = 
 				jdbcTemplate.query(ASSOCIATED_PRETRIAL_SERVICE_SELECT, 
 						new PretrialServiceRowMapper(), pretrialServiceParticipationId);
