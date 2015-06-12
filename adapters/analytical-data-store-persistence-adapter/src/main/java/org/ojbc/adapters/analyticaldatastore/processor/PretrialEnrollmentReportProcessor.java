@@ -120,7 +120,7 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
         
         //TODO mapping to the arrest Date. double check with Andrew. 
 		String intakeDateString=XmlUtils.xPathStringSearch(report,
-				"/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/nc30:ActivityDate/nc30:DateTime");
+				"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:ORASAssessment/nc30:ActivityDate/nc30:DateTime");
 		if (StringUtils.isNotBlank(intakeDateString)){
 			pretrialServiceParticipation.setIntakeDate(DATE_TIME_FORMAT.parse(intakeDateString));
 		}
@@ -131,10 +131,7 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 		
 		String arrestIncidentCaseNumber = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/nc30:ActivityIdentification/nc30:IdentificationID");
 		pretrialServiceParticipation.setArrestIncidentCaseNumber(StringUtils.trimToNull(arrestIncidentCaseNumber));
-		
-		//TODO pretrialServiceCaseNumber can not be null. set it to incident number to pass test.
-		pretrialServiceParticipation.setPretrialServiceCaseNumber(StringUtils.trimToNull(arrestIncidentCaseNumber));
-		
+				
 		return analyticalDatastoreDAO.savePretrialServiceParticipation(pretrialServiceParticipation);
 	}
 
