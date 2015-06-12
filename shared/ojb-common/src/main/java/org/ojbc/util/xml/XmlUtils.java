@@ -465,7 +465,7 @@ public class XmlUtils {
 	/**
      * Validate a document against an IEPD. Note that this does not require the xsi namespace location attributes to be set in the instance.
      * 
-     * @param schemaPaths
+     * @param schemaPathList
      *            the paths to all schemas necessary to validate the instance; this is the equivalent of specifying these schemas in an xsi:schemaLocation attribute in the instance
      *                       
      * @param Never_Used_TODO_Remove 
@@ -481,18 +481,30 @@ public class XmlUtils {
      * @throws Exception
      *             if the document is not valid
      */
-	public static void validateInstance(Document d, LSResourceResolver iepdResourceResolver, List<String> schemaPaths) throws SAXException, Exception {
+	public static void validateInstance(Document d, LSResourceResolver iepdResourceResolver, List<String> schemaPathList) throws SAXException, Exception {
 		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         schemaFactory.setResourceResolver(iepdResourceResolver);
-        Source[] sources = new Source[schemaPaths.size()];
-        int i=0;
-        for (String path : schemaPaths) {
-        	sources[i++] = new StreamSource(XmlUtils.class.getClassLoader().getResourceAsStream(path));
+                
+        List<Source> sourceList = new ArrayList<Source>();
+        
+        for (String schemaPath : schemaPathList) {
+        	
+        	InputStream schemaInStream = XmlUtils.class.getClassLoader().getResourceAsStream(schemaPath);
+        	
+        	StreamSource schemaStreamSource = new StreamSource(schemaInStream);
+        	
+        	sourceList.add(schemaStreamSource);        	
         }
-        Schema schema = schemaFactory.newSchema(sources);
-        Validator v = schema.newValidator();
-        try {
-            v.validate(new DOMSource(d));
+        
+        Source[] schemaSourcesArray = sourceList.toArray(new Source[]{});
+        
+        try {        	
+            Schema schema = schemaFactory.newSchema(schemaSourcesArray);        
+            
+            Validator validator = schema.newValidator();
+            
+            validator.validate(new DOMSource(d));
+            
         } catch (Exception e) {
             try {
                 e.printStackTrace();
