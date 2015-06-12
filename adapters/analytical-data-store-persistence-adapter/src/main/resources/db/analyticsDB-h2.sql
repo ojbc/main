@@ -105,7 +105,7 @@ CREATE TABLE Person (
 
 CREATE TABLE PretrialServiceParticipation (
                 PretrialServiceParticipationID IDENTITY NOT NULL,
-                PretrialServiceCaseNumber VARCHAR(30) NOT NULL,
+                PretrialServiceCaseNumber VARCHAR(30),
                 PersonID INTEGER NOT NULL,
                 CountyID INTEGER NOT NULL,
                 RiskScore INTEGER NOT NULL,

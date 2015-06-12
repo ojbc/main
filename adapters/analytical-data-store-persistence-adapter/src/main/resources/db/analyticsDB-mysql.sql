@@ -103,7 +103,7 @@ CREATE TABLE Person (
 
 CREATE TABLE PretrialServiceParticipation (
                 PretrialServiceParticipationID INT AUTO_INCREMENT NOT NULL,
-                PretrialServiceCaseNumber VARCHAR(30) NOT NULL,
+                PretrialServiceCaseNumber VARCHAR(30),
                 PersonID INT NOT NULL,
                 CountyID INT NOT NULL,
                 RiskScore INT NOT NULL,
