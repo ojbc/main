@@ -55959,7 +55959,7 @@
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionCode" type="hi_codes_jims:DispositionCodeType" substitutionGroup="disp-ext:Disposition">
+	<xsd:element name="DispositionCode" type="hi_codes_jims:DispositionCodeType" substitutionGroup="disp-ext:DispositionCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a sentence condition.</xsd:documentation>
 		</xsd:annotation>
