@@ -1367,7 +1367,7 @@
 			<xsd:documentation>A code for the County of a court.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtDispCode" type="vt_codes:CourtDispCodeType" substitutionGroup="disp-ext:Disposition">
+	<xsd:element name="CourtDispCode" type="vt_codes:CourtDispCodeType" substitutionGroup="disp-ext:DispositionCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code for a court disposition.</xsd:documentation>
 		</xsd:annotation>
@@ -1377,7 +1377,7 @@
 			<xsd:documentation>A code for a range of fines.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="NonConvCatCode" type="vt_codes:NonConvCatCodeType" substitutionGroup="disp-ext:Disposition">
+	<xsd:element name="NonConvCatCode" type="vt_codes:NonConvCatCodeType" substitutionGroup="disp-ext:DispositionCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code for a non-conviction category.</xsd:documentation>
 		</xsd:annotation>
@@ -1407,7 +1407,7 @@
 			<xsd:documentation>A code for a change plea..</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ProsDispCode" type="vt_codes:ProsDispCodeType" substitutionGroup="disp-ext:Disposition">
+	<xsd:element name="ProsDispCode" type="vt_codes:ProsDispCodeType" substitutionGroup="disp-ext:DispositionCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code for a prosecution disposition.</xsd:documentation>
 		</xsd:annotation>

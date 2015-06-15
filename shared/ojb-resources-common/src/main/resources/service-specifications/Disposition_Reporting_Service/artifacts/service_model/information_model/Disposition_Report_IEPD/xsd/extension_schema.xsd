@@ -243,7 +243,7 @@
 					<xsd:element ref="disp-ext:CountDispositionDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:AppearanceDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:AppearanceCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="disp-ext:Disposition" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp-ext:DispositionCategory" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:Sentence" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:DispositionYear" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:DispositionDuration" minOccurs="0" maxOccurs="unbounded"/>
@@ -617,7 +617,7 @@
 			<xsd:documentation>A generic/abstract element for a Charge.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Disposition" abstract="true">
+	<xsd:element name="DispositionCategory" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A generic/abstract element for a disposition.</xsd:documentation>
 		</xsd:annotation>
