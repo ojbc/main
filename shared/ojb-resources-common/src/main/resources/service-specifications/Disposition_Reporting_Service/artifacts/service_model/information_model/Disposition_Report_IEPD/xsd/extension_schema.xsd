@@ -226,6 +226,7 @@
 					<xsd:element ref="disp-ext:SexRegistryChargeIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Bail" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:ProbationViolationIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp-ext:IsProbationViolationOnOldCharge" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -380,6 +381,11 @@
 	<xsd:element name="ProbationViolationIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if charge is a probation violation, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IsProbationViolationOnOldCharge" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if probation violation is on an old charge, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FailedToAppearIndicator" type="niem-xs:boolean">

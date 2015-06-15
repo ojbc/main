@@ -95,6 +95,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 								</j:BailSetAmount>
 							</j:Bail>
 							<disp-ext:ProbationViolationIndicator>false</disp-ext:ProbationViolationIndicator>
+							<disp-ext:IsProbationViolationOnOldCharge>false</disp-ext:IsProbationViolationOnOldCharge>
 						</disp-ext:ChargeAugmentation>
 					</disp-ext:InitialCharge>
 					<disp-ext:FinalCharge>
