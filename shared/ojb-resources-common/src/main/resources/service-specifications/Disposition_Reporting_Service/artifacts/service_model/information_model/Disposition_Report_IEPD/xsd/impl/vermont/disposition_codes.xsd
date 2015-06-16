@@ -273,104 +273,6 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:simpleType name="CourtDispCodeSimpleType">
-		<xsd:annotation>
-			<xsd:documentation>Court Disposition code set</xsd:documentation>
-			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
-			</xsd:appinfo>
-		</xsd:annotation>
-		<xsd:restriction base="xsd:token">
-			<xsd:enumeration value="1">
-				<xsd:annotation>
-					<xsd:documentation>CONVICTED</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="2">
-				<xsd:annotation>
-					<xsd:documentation>PROB W/O VERDICT</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="3">
-				<xsd:annotation>
-					<xsd:documentation>N.G., INSANITY</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="4">
-				<xsd:annotation>
-					<xsd:documentation>ACQUITTED</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="5">
-				<xsd:annotation>
-					<xsd:documentation>DISMISSED</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="6">
-				<xsd:annotation>
-					<xsd:documentation>CIVIL PROCEDURE</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="7">
-				<xsd:annotation>
-					<xsd:documentation>OFF CALENDAR</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="8">
-				<xsd:annotation>
-					<xsd:documentation>GUILTY/MENTAL</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="9">
-				<xsd:annotation>
-					<xsd:documentation>TRANS. TO JUVENILE COURT</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="10">
-				<xsd:annotation>
-					<xsd:documentation>MISTRIAL</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="11">
-				<xsd:annotation>
-					<xsd:documentation>NOLLE PROSEQUI</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="12">
-				<xsd:annotation>
-					<xsd:documentation>OTHER</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="66">
-				<xsd:annotation>
-					<xsd:documentation>EXTRADITED</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="88">
-				<xsd:annotation>
-					<xsd:documentation>NOT DISP BY CT</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="99">
-				<xsd:annotation>
-					<xsd:documentation>MISSING/UNKNOWN</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-		</xsd:restriction>
-	</xsd:simpleType>
-	<xsd:complexType name="CourtDispCodeType">
-		<xsd:annotation>
-			<xsd:documentation>Court Disposition code set</xsd:documentation>
-			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
-			</xsd:appinfo>
-		</xsd:annotation>
-		<xsd:simpleContent>
-			<xsd:extension base="vt_codes:CourtDispCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
 	<xsd:simpleType name="FineGrpCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Fine Group code set</xsd:documentation>
@@ -1365,11 +1267,6 @@
 	<xsd:element name="CountyCode" type="vt_codes:CountyCodeType" substitutionGroup="nc:LocationCounty">
 		<xsd:annotation>
 			<xsd:documentation>A code for the County of a court.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="CourtDispCode" type="vt_codes:CourtDispCodeType" substitutionGroup="disp-ext:DispositionCategory">
-		<xsd:annotation>
-			<xsd:documentation>A code for a court disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FineGrpCode" type="vt_codes:FineGrpCodeType" substitutionGroup="nc:AmountAugmentationPoint">
