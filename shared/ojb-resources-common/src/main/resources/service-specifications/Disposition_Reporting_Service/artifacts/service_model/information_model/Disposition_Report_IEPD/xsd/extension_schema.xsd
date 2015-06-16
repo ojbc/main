@@ -226,6 +226,7 @@
 					<xsd:element ref="disp-ext:SexRegistryChargeIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Bail" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:ProbationViolationIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp-ext:IsProbationViolationOnOldCharge" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -243,7 +244,7 @@
 					<xsd:element ref="disp-ext:CountDispositionDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:AppearanceDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:AppearanceCategoryCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="disp-ext:Disposition" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp-ext:DispositionCategory" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:Sentence" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:DispositionYear" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:DispositionDuration" minOccurs="0" maxOccurs="unbounded"/>
@@ -380,6 +381,11 @@
 	<xsd:element name="ProbationViolationIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if charge is a probation violation, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IsProbationViolationOnOldCharge" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if probation violation is on an old charge, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FailedToAppearIndicator" type="niem-xs:boolean">
@@ -617,7 +623,7 @@
 			<xsd:documentation>A generic/abstract element for a Charge.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Disposition" abstract="true">
+	<xsd:element name="DispositionCategory" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A generic/abstract element for a disposition.</xsd:documentation>
 		</xsd:annotation>
