@@ -37,77 +37,77 @@
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
-			<xsd:enumeration value="CONV">
+			<xsd:enumeration value="Convicted">
 				<xsd:annotation>
 					<xsd:documentation>Convicted</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="PWOV">
+			<xsd:enumeration value="Probation Without Verdict">
 				<xsd:annotation>
 					<xsd:documentation>Probation Without Verdict</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="NGRI">
+			<xsd:enumeration value="Not Guilty by Reason of Insanity">
 				<xsd:annotation>
 					<xsd:documentation>Not Guilty by Reason of Insanity</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="ACQ">
+			<xsd:enumeration value="Acquitted">
 				<xsd:annotation>
 					<xsd:documentation>Acquitted</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="DIS">
+			<xsd:enumeration value="Dismissed">
 				<xsd:annotation>
 					<xsd:documentation>Dismissed</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="CP">
+			<xsd:enumeration value="Civil Procedure">
 				<xsd:annotation>
 					<xsd:documentation>Civil Procedure</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="OC">
+			<xsd:enumeration value="Off Calendar">
 				<xsd:annotation>
 					<xsd:documentation>Off Calendar</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="GBMI">
+			<xsd:enumeration value="Guilty But Mentally Ill">
 				<xsd:annotation>
 					<xsd:documentation>Guilty But Mentally Ill</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="TTJC">
+			<xsd:enumeration value="Transferred to Juvenile Court">
 				<xsd:annotation>
 					<xsd:documentation>Transferred to Juvenile Court</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="MIST">
+			<xsd:enumeration value="Mistrial">
 				<xsd:annotation>
 					<xsd:documentation>Mistrial</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="NP">
+			<xsd:enumeration value="Nolle Prosequi">
 				<xsd:annotation>
 					<xsd:documentation>Nolle Prosequi</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="OTHER">
+			<xsd:enumeration value="Other">
 				<xsd:annotation>
 					<xsd:documentation>Other</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="EXTR">
+			<xsd:enumeration value="Extradited">
 				<xsd:annotation>
 					<xsd:documentation>Extradited</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="NDBC">
+			<xsd:enumeration value="Not Disposition By Court">
 				<xsd:annotation>
 					<xsd:documentation>Not Disposition By Court</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="MU">
+			<xsd:enumeration value="Missing/Unknown">
 				<xsd:annotation>
 					<xsd:documentation>Missing/Unknown</xsd:documentation>
 				</xsd:annotation>
