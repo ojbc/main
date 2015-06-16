@@ -98,7 +98,7 @@
 							</nc:DispositionDate>
 							<disp-ext:ChargeDispositionAugmentation>
 								<vt_codes:NonConvCatCode>6</vt_codes:NonConvCatCode>
-								<ojbc_disp_codes:CourtDispositionCode>NGRI</ojbc_disp_codes:CourtDispositionCode>
+								<ojbc_disp_codes:CourtDispositionCode>Not Guilty by Reason of Insanity</ojbc_disp_codes:CourtDispositionCode>
 								<vt_codes:ProsDispCode>1</vt_codes:ProsDispCode>
 								<disp-ext:DispositionYear>1999</disp-ext:DispositionYear>
 								<disp-ext:DispositionDuration>P23D</disp-ext:DispositionDuration>
