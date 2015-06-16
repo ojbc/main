@@ -16,14 +16,9 @@
  */
 package org.ojbc.util.xml;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
@@ -32,25 +27,20 @@ import org.w3c.dom.ls.LSResourceResolver;
  *
  */
 public class IEPDResourceResolver implements LSResourceResolver {
-    
-    private static final Log LOG = LogFactory.getLog( IEPDResourceResolver.class );
-    
+        
     protected String schemaRootFolderName;
     protected String iepdRootPath;
     
-    public IEPDResourceResolver(String schemaRootFolderName, String iepdRootPath)
-    {
+    public IEPDResourceResolver(String schemaRootFolderName, String iepdRootPath){
+    	
         this.schemaRootFolderName = schemaRootFolderName;
         this.iepdRootPath = iepdRootPath;
     }
 
     @Override
     public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
+    	
         String fullPath = reformatResourcePath(systemId, baseURI);
-//        LOG.info("Resolving resource: type=" + type + ", namespaceURI=" + namespaceURI);
-//        LOG.info("systemId=" + systemId + ", publicId=" + publicId + ", baseURI=" + baseURI);
-//        LOG.info("schemaRootFolderName=" + schemaRootFolderName + ", iepdRootPath=" + iepdRootPath);
-//        LOG.info("fullPath=" + fullPath);
         InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(fullPath);
         return new LSInputImpl(publicId, systemId, resourceAsStream);
     }
@@ -62,6 +52,7 @@ public class IEPDResourceResolver implements LSResourceResolver {
      * @return the reformatted path
      */
     protected String reformatResourcePath(String systemId, String baseURI) {
+    	
         String doctoredSystemId = systemId;
         if (systemId.contains("../"))
         {
@@ -100,7 +91,7 @@ public class IEPDResourceResolver implements LSResourceResolver {
 
         @Override
         public InputStream getByteStream() {
-            return null;
+            return inputStream;
         }
 
         @Override
@@ -119,19 +110,8 @@ public class IEPDResourceResolver implements LSResourceResolver {
         }
 
         @Override
-        public String getStringData() {
-//        	LOG.debug("publicId=" + publicId + ", systemId=" + systemId);
-            StringBuffer ret = new StringBuffer(1024 * 10);
-            String line = null;
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            try {
-                while ((line = br.readLine()) != null) {
-                    ret.append(line).append("\n");
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            return ret.toString();
+        public String getStringData() {        	        	
+        	return null;
         }
 
         @Override
@@ -165,15 +145,13 @@ public class IEPDResourceResolver implements LSResourceResolver {
         public void setSystemId(String systemId) {
             this.systemId = systemId;
         }
+        
+        private InputStream inputStream; 
 
-        private BufferedInputStream inputStream;
-
-        public LSInputImpl(String publicId, String sysId, InputStream input) {
+        public LSInputImpl(String publicId, String sysId, InputStream inputStream) {
             this.publicId = publicId;
-            this.systemId = sysId;
-            this.inputStream = new BufferedInputStream(input);
+            this.systemId = sysId;            
+            this.inputStream = inputStream;
         }
-
     }
-
 }
