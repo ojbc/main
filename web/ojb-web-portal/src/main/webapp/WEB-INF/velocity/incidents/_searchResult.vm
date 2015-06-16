@@ -34,7 +34,7 @@
 			$("#searchResultsTable").on('click', 'tbody tr', function(){
 				$(this).find("a.viewDetails").click();
 			});}
-		#else
+		#else{
 			$("#searchResultsTable").on('dblclick', 'tbody tr', function(){
 				$(this).find("a.viewDetails").click();
 			});}
