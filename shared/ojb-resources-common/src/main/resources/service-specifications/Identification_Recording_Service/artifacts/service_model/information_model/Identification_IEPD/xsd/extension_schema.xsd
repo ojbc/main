@@ -45,6 +45,10 @@ xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" ta
 					<xsd:element ref="ident-ext:IdentificationApplicantOrganization"/>
 					<xsd:element ref="ident-ext:IdentificationRequestRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PersonDocumentAssociation" minOccurs="0"/>
+					<xsd:choice>
+						<xsd:element ref="ident-ext:RequestForCivilPurposeIndicator"/>
+						<xsd:element ref="ident-ext:RequestForCriminalPurposeIndicator"/>
+					</xsd:choice>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -132,6 +136,16 @@ xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" ta
 	<xsd:element name="PersonTrackingIdentidication" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A tracking Identification associated with a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		<xsd:element name="RequestForCivilPurposeIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the identification request is being made for civil backgrounding purposes, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RequestForCriminalPurposeIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the identification request is being made as a result of a criminal activity such as an arrest, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
