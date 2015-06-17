@@ -46,6 +46,67 @@ insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) val
 insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Drug_Narcotic_Marijuana_selling', 'Y', 'Infraction');
 insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('False Report', 'N', 'Infraction');
 
+-- OffenseType - UCR codes
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('09A', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('09B', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('09C', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('100', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('11A', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('11B', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('11C', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('11D', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('120', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('13A', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('13B', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('13C', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('200', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('210', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('220', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('23C', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('23D', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('23E', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('23F', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('23G', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('23H', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('240', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('250', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('26A', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('26B', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('26C', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('26D', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('26E', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('270', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('280', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('290', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('35A', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('35B', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('36A', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('36B', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('370', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('39A', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('39B', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('39C', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('39D', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('40A', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('40B', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('40C', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('510', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('520', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('64A', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('64B', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90A', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90B', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90C', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90D', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90E', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90F', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90G', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90H', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90I', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90J', 'N', 'Infraction');
+insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('90Z', 'N', 'Infraction');
+
+
 -- AssessedNeed - adding code table values
 insert into AssessedNeed (AssessedNeedDescription) values('housing');
 insert into AssessedNeed (AssessedNeedDescription) values('insurance');
