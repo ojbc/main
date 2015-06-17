@@ -103,7 +103,6 @@ CREATE TABLE Person (
 
 CREATE TABLE PretrialServiceParticipation (
                 PretrialServiceParticipationID INT AUTO_INCREMENT NOT NULL,
-                PretrialServiceCaseNumber VARCHAR(30),
                 PersonID INT NOT NULL,
                 CountyID INT NOT NULL,
                 RiskScore INT NOT NULL,
@@ -164,6 +163,7 @@ CREATE TABLE Disposition (
                 OffenseTypeID INT NOT NULL,
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
                 DispositionDate DATE NOT NULL,
+                ArrestingAgencyORI VARCHAR(12) NOT NULL,
                 SentenceTermDays INT,
                 SentenceFineAmount NUMERIC(10,2),
                 RecordType CHAR(1) NOT NULL,
