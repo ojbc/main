@@ -263,13 +263,15 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		    	
 		    	Integer arrestOffenseTypeID = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, ndexOffenseCode);
 		    	
-	    		Charge charge = new Charge();
-	    		
-	    		charge.setArrestID(arrestPk);
-	    		charge.setArrestOffenseTypeID(arrestOffenseTypeID);
+		    	if (arrestOffenseTypeID != null)
+		    	{	
+		    		Charge charge = new Charge();
 		    		
-	    		analyticalDatastoreDAO.saveCharge(charge);
-	    		
+		    		charge.setArrestID(arrestPk);
+		    		charge.setArrestOffenseTypeID(arrestOffenseTypeID);
+			    		
+		    		analyticalDatastoreDAO.saveCharge(charge);
+		    	}
 		    }
 		}	    
 		
