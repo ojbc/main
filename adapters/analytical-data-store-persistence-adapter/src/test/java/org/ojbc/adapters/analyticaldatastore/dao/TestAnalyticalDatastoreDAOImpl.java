@@ -204,7 +204,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 		pretrialServiceParticipation.setCountyID(countyTypePk);
 		pretrialServiceParticipation.setIntakeDate(new Date());
 		pretrialServiceParticipation.setPersonID(personPk);
-		pretrialServiceParticipation.setPretrialServiceCaseNumber("case1234");
 		pretrialServiceParticipation.setRecordType('N');
 		pretrialServiceParticipation.setRiskScore(1);
 		pretrialServiceParticipation.setArrestIncidentCaseNumber("case12345");
@@ -252,6 +251,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		disposition.setRecordType('N');
 		disposition.setSentenceFineAmount(Float.parseFloat("354.65"));
 		disposition.setSentenceTermDays(354);
+		disposition.setArrestingAgencyORI("PD12345678");
 
 		int dispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
 		assertEquals(1, dispositionPk);

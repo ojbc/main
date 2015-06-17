@@ -34,8 +34,6 @@ public class PretrialServiceParticipation {
     
     private Integer riskScore;
     
-    private String pretrialServiceCaseNumber;
-    
     private Date intakeDate;
     
     private Character recordType;
@@ -66,14 +64,6 @@ public class PretrialServiceParticipation {
 
 	public void setCountyID(Integer countyID) {
 		this.countyID = countyID;
-	}
-
-	public String getPretrialServiceCaseNumber() {
-		return pretrialServiceCaseNumber;
-	}
-
-	public void setPretrialServiceCaseNumber(String pretrialServiceCaseNumber) {
-		this.pretrialServiceCaseNumber = pretrialServiceCaseNumber;
 	}
 
 	public Date getIntakeDate() {
