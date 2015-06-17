@@ -121,7 +121,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		offenseType.setOffenseSeverity("Felony");
 		
 		int offenseTypePk = analyticalDatastoreDAOImpl.saveOffenseType(offenseType);
-		assertEquals(8, offenseTypePk);
+		assertEquals(66, offenseTypePk);
 
 		InvolvedDrug involvedDrug = new InvolvedDrug();
 		involvedDrug.setInvolvedDrugDescription("Meth");
