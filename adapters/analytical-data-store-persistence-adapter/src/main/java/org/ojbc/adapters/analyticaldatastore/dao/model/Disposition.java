@@ -32,6 +32,8 @@ public class Disposition {
 	
 	private Date dispositionDate;
 	
+	private String arrestingAgencyORI;
+	
 	private Integer sentenceTermDays;
 	
 	private Float sentenceFineAmount;
@@ -139,6 +141,14 @@ public class Disposition {
 	public void setIsProbationViolationOnOldCharge(
 			Character isProbationViolationOnOldCharge) {
 		IsProbationViolationOnOldCharge = isProbationViolationOnOldCharge;
+	}
+
+	public String getArrestingAgencyORI() {
+		return arrestingAgencyORI;
+	}
+
+	public void setArrestingAgencyORI(String arrestingAgencyORI) {
+		this.arrestingAgencyORI = arrestingAgencyORI;
 	}
 
 }

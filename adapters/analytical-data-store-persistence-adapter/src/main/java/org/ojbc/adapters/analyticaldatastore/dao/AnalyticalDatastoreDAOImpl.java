@@ -345,7 +345,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
          return keyHolder.getKey().intValue();
 	}
 
-	final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PretrialServiceCaseNumber, PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber) values (?,?,?,?,?,?,?,?)";
+	final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber) values (?,?,?,?,?,?,?)";
 	@Override
 	public Integer savePretrialServiceParticipation(
 			final PretrialServiceParticipation pretrialServiceParticipation) {
@@ -357,28 +357,27 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(pretrialServiceParticipationStatement, new String[] {"PretrialServiceCaseNumber",  "PersonID", "CountyID", 
+        	                connection.prepareStatement(pretrialServiceParticipationStatement, new String[] {"PersonID", "CountyID", 
         	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "ArrestingAgencyORI","ArrestIncidentCaseNumber","RecordType"});
-        	            ps.setString(1, pretrialServiceParticipation.getPretrialServiceCaseNumber());
-        	            ps.setInt(2, pretrialServiceParticipation.getPersonID());
-        	            ps.setInt(3, pretrialServiceParticipation.getCountyID());
-        	            ps.setInt(4, pretrialServiceParticipation.getRiskScore());
+        	            ps.setInt(1, pretrialServiceParticipation.getPersonID());
+        	            ps.setInt(2, pretrialServiceParticipation.getCountyID());
+        	            ps.setInt(3, pretrialServiceParticipation.getRiskScore());
         	            
         	            if (pretrialServiceParticipation.getIntakeDate() != null){
-        	            	ps.setDate(5, new java.sql.Date(pretrialServiceParticipation.getIntakeDate().getTime()));
+        	            	ps.setDate(4, new java.sql.Date(pretrialServiceParticipation.getIntakeDate().getTime()));
+        	            }
+        	            else{
+        	            	ps.setNull(4, java.sql.Types.NULL);
+        	            }
+        	            
+        	            if (pretrialServiceParticipation.getRecordType() != null){
+        	            	ps.setString(5, String.valueOf(pretrialServiceParticipation.getRecordType()));
         	            }
         	            else{
         	            	ps.setNull(5, java.sql.Types.NULL);
         	            }
-        	            
-        	            if (pretrialServiceParticipation.getRecordType() != null){
-        	            	ps.setString(6, String.valueOf(pretrialServiceParticipation.getRecordType()));
-        	            }
-        	            else{
-        	            	ps.setNull(6, java.sql.Types.NULL);
-        	            }
-        	            ps.setString(7, pretrialServiceParticipation.getArrestingAgencyORI());
-        	            ps.setString(8, pretrialServiceParticipation.getArrestIncidentCaseNumber());
+        	            ps.setString(6, pretrialServiceParticipation.getArrestingAgencyORI());
+        	            ps.setString(7, pretrialServiceParticipation.getArrestIncidentCaseNumber());
         	            return ps;
         	        }
         	    },
@@ -436,67 +435,68 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveDisposition(final Disposition disposition) {
         log.debug("Inserting row into Disposition table");
 
-        final String dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,OffenseTypeID,IncidentCaseNumber,DispositionDate,"
-        		+ "SentenceTermDays,SentenceFineAmount,RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate) values (?,?,?,?,?,?,?,?,?,?,?)";
+        final String dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,OffenseTypeID,IncidentCaseNumber,DispositionDate,ArrestingAgencyORI,"
+        		+ "SentenceTermDays,SentenceFineAmount,RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate) values (?,?,?,?,?,?,?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(dispositionInsertStatement, new String[] {"PersonID","DispositionTypeID","OffenseTypeID","IncidentCaseNumber","DispositionDate,"
+        	                connection.prepareStatement(dispositionInsertStatement, new String[] {"PersonID","DispositionTypeID","OffenseTypeID","IncidentCaseNumber","DispositionDate,ArrestingAgencyORI,"
         	                		+ "SentenceTermDays","SentenceFineAmount","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate"});
         	            ps.setInt(1, disposition.getPersonID());
         	            ps.setInt(2, disposition.getDispositionTypeID());
         	            ps.setInt(3, disposition.getOffenseTypeID());
         	            ps.setString(4, disposition.getIncidentCaseNumber());
         	            ps.setDate(5, new java.sql.Date(disposition.getDispositionDate().getTime()));
+        	            ps.setString(6, disposition.getArrestingAgencyORI());
         	            
         	            if (disposition.getSentenceTermDays() != null)
         	            {	
-        	            	ps.setInt(6, disposition.getSentenceTermDays());
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(6, java.sql.Types.NULL);
-        	            }	
-
-        	            if (disposition.getSentenceFineAmount() != null)
-        	            {	
-        	            	ps.setFloat(7, disposition.getSentenceFineAmount());
+        	            	ps.setInt(7, disposition.getSentenceTermDays());
         	            }
         	            else
         	            {
         	            	ps.setNull(7, java.sql.Types.NULL);
-        	            }
-        	            
-        	            ps.setString(8, String.valueOf(disposition.getRecordType()));
+        	            }	
 
-        	            if (disposition.getIsProbationViolation() != null)
+        	            if (disposition.getSentenceFineAmount() != null)
         	            {	
-        	            	ps.setString(9, String.valueOf(disposition.getIsProbationViolation()));
+        	            	ps.setFloat(8, disposition.getSentenceFineAmount());
         	            }
         	            else
         	            {
-        	            	ps.setNull(9, java.sql.Types.NULL);
-        	            }	
+        	            	ps.setNull(8, java.sql.Types.NULL);
+        	            }
+        	            
+        	            ps.setString(9, String.valueOf(disposition.getRecordType()));
 
-        	            if (disposition.getIsProbationViolationOnOldCharge() != null)
+        	            if (disposition.getIsProbationViolation() != null)
         	            {	
-        	            	ps.setString(10, String.valueOf(disposition.getIsProbationViolationOnOldCharge()));
+        	            	ps.setString(10, String.valueOf(disposition.getIsProbationViolation()));
         	            }
         	            else
         	            {
         	            	ps.setNull(10, java.sql.Types.NULL);
         	            }	
 
-        	            if (disposition.getRecidivismEligibilityDate() != null)
+        	            if (disposition.getIsProbationViolationOnOldCharge() != null)
         	            {	
-        	            	ps.setDate(11, new java.sql.Date(disposition.getRecidivismEligibilityDate().getTime()));
+        	            	ps.setString(11, String.valueOf(disposition.getIsProbationViolationOnOldCharge()));
         	            }
         	            else
         	            {
         	            	ps.setNull(11, java.sql.Types.NULL);
+        	            }	
+
+        	            if (disposition.getRecidivismEligibilityDate() != null)
+        	            {	
+        	            	ps.setDate(12, new java.sql.Date(disposition.getRecidivismEligibilityDate().getTime()));
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(12, java.sql.Types.NULL);
         	            }	
         	            
         	            return ps;
@@ -603,7 +603,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			pretrialServiceParticipation.setCountyID(rs.getInt("CountyID"));
 			pretrialServiceParticipation.setIntakeDate(rs.getTimestamp("IntakeDate"));
 			pretrialServiceParticipation.setPersonID(rs.getInt("personID"));
-			pretrialServiceParticipation.setPretrialServiceCaseNumber(rs.getString("pretrialServiceCaseNumber"));
 			pretrialServiceParticipation.setPretrialServiceParticipationID(rs.getInt("pretrialServiceParticipationID"));
 			
 			String recordType = rs.getString("recordType"); 
