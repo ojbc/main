@@ -454,6 +454,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_VERMONT_DISPOSITION_CODES = "http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0";
     public static final String NS_PREFIX_VERMONT_DISPOSITION_CODES = "vt_disp_codes";
     
+    public static final String NS_OJBC_DISPOSITION_CODES ="http://ojbc.org/IEPD/Extensions/OJBC/DispositionCodes/1.0";
+    public static final String NS_PREFIX_OJBC_DISPOSITION_CODES = "ojbc_disp_codes";
+    	
     public static final String NS_HAWAII_JIMS_DISPOSITION_CODES = "http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0";
     public static final String NS_PREFIX_HAWAII_JIMS_DISPOSITION_CODES = "hi_jims_disp_codes";
     
@@ -936,7 +939,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    
 		prefixToUriMap.put(NS_PREFIX_VERMONT_DISPOSITION_CODES, NS_VERMONT_DISPOSITION_CODES);
 	    uriToPrefixMap.put(NS_VERMONT_DISPOSITION_CODES, NS_PREFIX_VERMONT_DISPOSITION_CODES);
-	    
+
+		prefixToUriMap.put(NS_PREFIX_OJBC_DISPOSITION_CODES, NS_OJBC_DISPOSITION_CODES);
+	    uriToPrefixMap.put(NS_OJBC_DISPOSITION_CODES, NS_PREFIX_OJBC_DISPOSITION_CODES);
+
 		prefixToUriMap.put(NS_PREFIX_HAWAII_JIMS_DISPOSITION_CODES, NS_HAWAII_JIMS_DISPOSITION_CODES);
 	    uriToPrefixMap.put(NS_HAWAII_JIMS_DISPOSITION_CODES, NS_PREFIX_HAWAII_JIMS_DISPOSITION_CODES);
 	    
