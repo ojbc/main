@@ -214,7 +214,7 @@ public class CamelContextTest {
 		List<Charge> charges = analyticalDatastoreDAOImpl.returnChargesFromArrest(arrest.getArrestID());
 		
 		assertEquals(1,charges.size());
-		assertEquals(Integer.valueOf(1),charges.get(0).getArrestOffenseTypeID());
+		assertEquals(Integer.valueOf(58),charges.get(0).getArrestOffenseTypeID());
 		
 		//TODO: Determine whether the arrest row mapper should use ResultsSetExtractor.
 		//This would allow for run join queries, however, the arrest row mapper is not used
