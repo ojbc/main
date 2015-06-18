@@ -56,7 +56,7 @@ CREATE TABLE PersonSex (
 
 CREATE TABLE DispositionType (
                 DispositionTypeID INT AUTO_INCREMENT NOT NULL,
-                DispositionDescription VARCHAR(30) NOT NULL,
+                DispositionDescription VARCHAR(35) NOT NULL,
                 IsConviction CHAR(1) NOT NULL,
                 PRIMARY KEY (DispositionTypeID)
 );
