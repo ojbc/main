@@ -629,6 +629,11 @@
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value="ATN Assignment" />
 	</util:map>
 
+	<util:map id="subscriptionPurposeValueToLabelMap" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Subscription Purpose" />
+		<entry key="supervision" value="Supervision" />
+		<entry key="investigation" value="Investigation" />
+	</util:map>
 
 	<!-- for the filter subscription form -->
 	<util:map id="subscriptionFilterValueToLabelMap" map-class="java.util.LinkedHashMap">
