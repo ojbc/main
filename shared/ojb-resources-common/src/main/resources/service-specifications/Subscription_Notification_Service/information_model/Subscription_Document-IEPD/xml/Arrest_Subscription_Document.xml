@@ -57,4 +57,5 @@
 			<nc20:Date>2015-06-20</nc20:Date>
 		</nc20:EndDate>
 	</nc20:DateRange>
+	<submsg-ext:SubscriptionReasonCode>Criminal Investigation</submsg-ext:SubscriptionReasonCode>
 </submsg-doc:SubscriptionMessage>
