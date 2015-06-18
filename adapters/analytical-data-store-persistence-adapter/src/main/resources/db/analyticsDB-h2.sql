@@ -58,7 +58,7 @@ CREATE TABLE PersonSex (
 
 CREATE TABLE DispositionType (
                 DispositionTypeID IDENTITY NOT NULL,
-                DispositionDescription VARCHAR(30) NOT NULL,
+                DispositionDescription VARCHAR(35) NOT NULL,
                 IsConviction CHAR(1) NOT NULL,
                 CONSTRAINT DispositionTypeID PRIMARY KEY (DispositionTypeID)
 );

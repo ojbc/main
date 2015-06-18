@@ -223,7 +223,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		dispositionType.setIsConviction('Y');
 		
 		int dispositionTypePk = analyticalDatastoreDAOImpl.saveDispositionType(dispositionType);
-		assertEquals(2, dispositionTypePk);
+		assertEquals(16, dispositionTypePk);
 		
 		Person person = returnPerson();
 		

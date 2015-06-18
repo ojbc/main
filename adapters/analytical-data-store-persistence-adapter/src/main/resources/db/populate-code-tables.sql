@@ -118,7 +118,21 @@ insert into AssessedNeed (AssessedNeedDescription) values('substance abuse');
 insert into County (CountyName) values ('Harrison');
 
 -- Disposition Type - placeholder while waiting for code values
-insert into DispositionType (DispositionDescription, IsConviction) values ('Disposition Type Placeholder','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Convicted', 'Y');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Probation Without Verdict','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Not Guilty by Reason of Insanity','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Acquitted','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Dismissed','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Civil Procedure','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Off Calendar','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Guilty But Mentally Ill','Y');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Transferred to Juvenile Court','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Mistrial','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Nolle Prosequi','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Other','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Extradited','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Not Disposition By Court','N');
+insert into DispositionType (DispositionDescription, IsConviction) values ('Missing/Unknown','N');
 
 -- PretrialService
 insert into PretrialService (PretrialServiceDescription) values ('employment assistance');
