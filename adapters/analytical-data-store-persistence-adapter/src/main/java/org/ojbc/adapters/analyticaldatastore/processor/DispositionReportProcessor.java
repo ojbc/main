@@ -92,18 +92,20 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         
         //TODO: isProbationViolationOnOldCharge, 
         
+        //TODO: Add arresting agency ORI
+        
         //TODO: updated when mapping is available from IEPD RecidivismEligibilityDate
         //Date recidivismEligibilityDate = new Date();
         //disposition.setRecidivismEligibilityDate(recidivismEligibilityDate);
         
+        String courtDispositionCode = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeDisposition/disp_ext:ChargeDispositionAugmentation/ojbc_disp_codes:CourtDispositionCode");
         
-        //TODO: Update when mapping is available from IEPD
-        Integer dispositionTypePk = descriptionCodeLookupService.retrieveCode(CodeTable.DispositionType, "Convicted");
+        Integer dispositionTypePk = descriptionCodeLookupService.retrieveCode(CodeTable.DispositionType, courtDispositionCode);
         log.debug("Disposition type PK: " + dispositionTypePk);
         disposition.setDispositionTypeID(dispositionTypePk);
         
         //TODO: Update when mapping is available from IEPD
-        Integer offenseTypePk = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, "Violation of a Court Order");
+        Integer offenseTypePk = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, "90Z");
         log.debug("Offense type PK: " + offenseTypePk);
         disposition.setOffenseTypeID(offenseTypePk);
         
