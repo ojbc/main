@@ -56,6 +56,7 @@
 					<xsd:element ref="Q2:DateRange" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionIdentification"
 						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -121,4 +122,27 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="SubscriptionReasonRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>The reason for creating a subscription</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionReasonCode" type="submsg-ext:SubscriptionReasonCodeType" substitutionGroup="submsg-ext:SubscriptionReasonRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A code value for the reason for creating a subscription</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SubscriptionReasonCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="submsg-ext:SubscriptionReasonCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"></xsd:attributeGroup>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SubscriptionReasonCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Criminal Investigation"></xsd:enumeration>
+			<xsd:enumeration value="Criminal Supervision"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
 </xsd:schema>

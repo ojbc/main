@@ -56,4 +56,5 @@
 		<nc:Person structures:ref="Subject01"/>
 		<nc:Document structures:ref="Doc_01"/>
 	</nc:PersonDocumentAssociation>
+	<ident-ext:RequestForCriminalPurposeIndicator>true</ident-ext:RequestForCriminalPurposeIndicator>
 </pidreq-doc:PersonIdentificationRequest>
