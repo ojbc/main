@@ -98,7 +98,7 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         
         
         //TODO: Update when mapping is available from IEPD
-        Integer dispositionTypePk = descriptionCodeLookupService.retrieveCode(CodeTable.DispositionType, "Disposition Type Placeholder");
+        Integer dispositionTypePk = descriptionCodeLookupService.retrieveCode(CodeTable.DispositionType, "Convicted");
         log.debug("Disposition type PK: " + dispositionTypePk);
         disposition.setDispositionTypeID(dispositionTypePk);
         
