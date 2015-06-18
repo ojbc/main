@@ -240,28 +240,27 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		        int arrestPk = analyticalDatastoreDAO.saveArrest(arrest);
 		        
 		        //Save Charges
-		        //lexsdigest:ArrestOffenseAssociation
-		        NodeList arrestOffenseNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestOffenseAssociation");
+		        //Retrieve UCR codes
+		        NodeList chargeUCRCodeNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:ArrestSubject/ndexia:ArrestSubjectAugmentation/jxdm40:ChargeUCRCode");
 		        
-		        processArrestOffenseNodes(incidentReport,arrestOffenseNodes, arrestPk);
+		        processArrestUCRCodes(incidentReport,chargeUCRCodeNodes, arrestPk);
 		    }
 		}
 	}
 
-	private void processArrestOffenseNodes(Document incidentReport, NodeList arrestOffenseNodes, Integer arrestPk) throws Exception{
-		for (int i = 0; i < arrestOffenseNodes.getLength(); i++) 
+	private void processArrestUCRCodes(Document incidentReport, NodeList chargeUCRCodeNodes, Integer arrestPk) throws Exception{
+		for (int i = 0; i < chargeUCRCodeNodes.getLength(); i++) 
 		{
-			Node arrestOffenseNode = (arrestOffenseNodes.item(i));
+			Node chargeUCRCodeNode = (chargeUCRCodeNodes.item(i));
 			
-		    if (arrestOffenseNode.getNodeType() == Node.ELEMENT_NODE)
+		    if (chargeUCRCodeNode.getNodeType() == Node.ELEMENT_NODE)
 		    {
-		    	String offenseReference = XmlUtils.xPathStringSearch(arrestOffenseNode, "nc:ActivityReference[2]/@s:ref");
-		    	log.debug("Arrest offense reference: " + offenseReference);
 		    	
-		    	String ndexOffenseCode = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref='" + offenseReference + "']/ndexia:OffenseCode");
-		    	log.debug("NDEX offense Code: " + ndexOffenseCode);
+		    	String ucrCode = chargeUCRCodeNode.getTextContent();
 		    	
-		    	Integer arrestOffenseTypeID = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, ndexOffenseCode);
+		    	log.debug("UCR Code:" + ucrCode);
+		    	
+		    	Integer arrestOffenseTypeID = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, ucrCode);
 		    	
 		    	if (arrestOffenseTypeID != null)
 		    	{	

@@ -468,6 +468,20 @@
                                 <ndexia:OffenseCode>Violation of a Court Order</ndexia:OffenseCode>
                                 <ndexia:OffenseText>DRIVING - LICENSE SUSPENDED</ndexia:OffenseText>
                             </ndexia:Offense>
+                            <ndexia:ArrestSubject 
+                            	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
+                            	xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+                                <ndexia:ArrestSubjectAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="PERSON138481" 
+                                    	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"/>
+                                    <j:ArrestSequenceID>
+                                        <nc:IdentificationID>1</nc:IdentificationID>
+                                    </j:ArrestSequenceID>
+                                    <j:ArrestSubjectCountCode>C</j:ArrestSubjectCountCode>
+                                    <j:ChargeUCRCode>90Z</j:ChargeUCRCode>
+                                    <ndexia:ArresteeArmedWithCode>01</ndexia:ArresteeArmedWithCode>
+                                </ndexia:ArrestSubjectAugmentation>
+                            </ndexia:ArrestSubject>                            
                         </ndexia:IncidentReport>
                     </StructuredPayload>
                     <StructuredPayload xmlns:NS1="http://niem.gov/niem/structures/2.0"

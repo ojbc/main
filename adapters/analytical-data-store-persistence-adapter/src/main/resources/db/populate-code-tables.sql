@@ -37,15 +37,6 @@ insert into Agency(AgencyName, AgencyORI) values ('Some PD', '99999');
 -- Involved Drug Type - Placeholder while waiting for code values
 insert into InvolvedDrug (InvolvedDrugDescription) values ('Placeholder Involved Drug');
 
--- OffenseType - adding a value for testing
-insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Violation of a Court Order','N','Infraction');
-insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Resisting Officer', 'N', 'Infraction');
-insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Theft from Building', 'N', 'Infraction');
-insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Disorderly Conduct', 'N', 'Infraction');
-insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Larceny', 'N', 'Infraction');
-insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('Drug_Narcotic_Marijuana_selling', 'Y', 'Infraction');
-insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('False Report', 'N', 'Infraction');
-
 -- OffenseType - UCR codes
 insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('09A', 'N', 'Infraction');
 insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('09B', 'N', 'Infraction');
