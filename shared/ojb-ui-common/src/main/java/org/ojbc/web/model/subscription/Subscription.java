@@ -35,6 +35,7 @@ public class Subscription implements Serializable {
 	
 	//note f/l name only used for incident(not arrest)
 	private String firstName;	
+	
 	private String lastName;
 	
 	private Date dateOfBirth;
@@ -44,6 +45,8 @@ public class Subscription implements Serializable {
 	private Date subscriptionEndDate;
 	
 	private List<String> emailList = new ArrayList<String>();
+	
+	private String subscriptionPurpose;
 
 	private String personNamesJsonArray;
 
@@ -85,6 +88,10 @@ public class Subscription implements Serializable {
 
 	public List<String> getEmailList() {
 		return emailList;
+	}
+
+	public String getSubscriptionPurpose() {
+		return subscriptionPurpose;
 	}
 
 	public String getPersonNamesJsonArray() {
@@ -131,6 +138,10 @@ public class Subscription implements Serializable {
 		this.emailList = emailList;
 	}
 
+	public void setSubscriptionPurpose(String subscriptionPurpose) {
+		this.subscriptionPurpose = subscriptionPurpose;
+	}
+
 	public void setPersonNamesJsonArray(String personNamesJsonArray) {
 		this.personNamesJsonArray = personNamesJsonArray;
 	}
@@ -143,10 +154,8 @@ public class Subscription implements Serializable {
 				+ ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
 				+ ", subscriptionStartDate=" + subscriptionStartDate
 				+ ", subscriptionEndDate=" + subscriptionEndDate
-				+ ", emailList=" + emailList + ", personNamesJsonArray="
+				+ ", emailList=" + emailList + ", subscriptionPurpose="
+				+ subscriptionPurpose + ", personNamesJsonArray="
 				+ personNamesJsonArray + "]";
-	}		
-	
+	}	
 }
-
-

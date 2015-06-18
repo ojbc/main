@@ -141,7 +141,10 @@ public class SubscriptionsController {
 	SearchResultConverter searchResultConverter;
 	
 	@Resource
-	Map<String, String> subscriptionTypeValueToLabelMap;	
+	Map<String, String> subscriptionTypeValueToLabelMap;
+	
+	@Resource
+	Map<String, String> subscriptionPurposeValueToLabelMap;
 		
 	@Resource
 	PeopleControllerConfigInterface config;
@@ -1232,6 +1235,11 @@ public class SubscriptionsController {
 		return subscriptionTypeValueToLabelMap;
 	}
 	
+	
+	@ModelAttribute("subscriptionPurposeValueToLabelMap")
+	public Map<String, String> getSubscriptionPurposeValueToLabelMap() {
+		return subscriptionPurposeValueToLabelMap;
+	}
 
 	private SubscribedPersonNames lookupNames(HttpServletRequest request, Subscription subscription) throws Exception{
 						

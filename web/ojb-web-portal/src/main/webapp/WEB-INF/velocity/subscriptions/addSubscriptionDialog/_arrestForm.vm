@@ -134,3 +134,6 @@
 	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
 </div>
 	       	    	        
+<div>
+	#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
+</div>	
