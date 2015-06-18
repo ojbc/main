@@ -88,6 +88,9 @@
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
+		<nc:PersonStateIdentification>
+			<nc:IdentificationID>SID23456</nc:IdentificationID>
+		</nc:PersonStateIdentification>
 	</nc:Person>
 	<nc:Organization s:id="ORG001">
 		<j:OrganizationAugmentation>
