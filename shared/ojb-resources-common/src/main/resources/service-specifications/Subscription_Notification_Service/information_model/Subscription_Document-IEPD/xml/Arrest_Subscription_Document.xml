@@ -25,12 +25,18 @@
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
 	<submsg-ext:Subject>
+		<nc20:PersonBirthDate>
+			<nc20:Date>1972-08-02</nc20:Date>
+		</nc20:PersonBirthDate>
 		<nc20:PersonName>
 			<nc20:PersonGivenName>John</nc20:PersonGivenName>
 			<nc20:PersonSurName>Doe</nc20:PersonSurName>
 			<nc20:PersonFullName>John Doe</nc20:PersonFullName>
 		</nc20:PersonName>
 		<j:PersonAugmentation>
+			<j:PersonFBIIdentification>
+				<nc20:IdentificationID>123456789</nc20:IdentificationID>
+			</j:PersonFBIIdentification>
 			<j:PersonStateFingerprintIdentification>
 				<nc20:IdentificationID>A398118900</nc20:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
@@ -51,4 +57,5 @@
 			<nc20:Date>2015-06-20</nc20:Date>
 		</nc20:EndDate>
 	</nc20:DateRange>
+	<submsg-ext:SubscriptionReasonCode>Criminal Investigation</submsg-ext:SubscriptionReasonCode>
 </submsg-doc:SubscriptionMessage>

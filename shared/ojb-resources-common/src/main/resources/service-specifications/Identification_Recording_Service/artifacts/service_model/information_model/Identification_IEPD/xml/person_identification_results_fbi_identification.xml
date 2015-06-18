@@ -17,7 +17,17 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<pidres-doc:PersonIdentificationResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0 ../xsd/person_identification_results_schema.xsd" xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<pidres-doc:PersonIdentificationResults 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0 ../xsd/person_identification_results_schema.xsd" 
+	xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
+	xmlns:xop="http://www.w3.org/2004/08/xop/include" 
+	xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" 
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" 
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>D56124</nc:IdentificationID>
 	</nc:DocumentIdentification>
@@ -29,13 +39,13 @@
 				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
-			<nc:PersonStateIdentification>
-				<nc:IdentificationID>SID</nc:IdentificationID>
-			</nc:PersonStateIdentification>
 			<j:PersonAugmentation>
 				<j:PersonFBIIdentification>
 					<nc:IdentificationID>FBI_ID</nc:IdentificationID>
 				</j:PersonFBIIdentification>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A123456</nc:IdentificationID>
+				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<ident-ext:PersonTrackingIdentidication>
 				<nc:IdentificationID>OTN</nc:IdentificationID>

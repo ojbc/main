@@ -30,9 +30,15 @@
 		        } ]
   		});
 	  
-		$("#searchResultsTable").on('dblclick', 'tbody tr', function(){
-			$(this).find("a.viewDetails").click();
-		}); 
+	  	#if($singleClickForDetail){
+			$("#searchResultsTable").on('click', 'tbody tr', function(){
+				$(this).find("a.viewDetails").click();
+			});}
+		#else{
+			$("#searchResultsTable").on('dblclick', 'tbody tr', function(){
+				$(this).find("a.viewDetails").click();
+			});}
+		#end 
 		
 		$('#returnToSearchSubmitButton').click (function(){
 	  		$.get("#springUrl('/incidents/searchForm')",function(data) {
@@ -49,7 +55,7 @@
 		  	}
 		)
 		
-		 $('a.viewDetails').click(function() {
+		 $('#searchResultsTable').on('click', 'a.viewDetails',function() {
             var url = this.href;
             var title = $(this).attr('searchName');
             var dialog = $('<div style="display:none"  title="' + title + '" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');

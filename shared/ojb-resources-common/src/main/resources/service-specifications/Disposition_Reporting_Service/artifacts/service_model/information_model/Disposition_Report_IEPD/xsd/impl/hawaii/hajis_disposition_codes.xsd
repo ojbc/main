@@ -1095,12 +1095,12 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1
 			<xsd:documentation>A code that describes a court event.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionCategoryCode" type="hi_codes_hajis:DispCategoryCodeType" substitutionGroup="disp-ext:Disposition">
+	<xsd:element name="DispositionCategoryCode" type="hi_codes_hajis:DispCategoryCodeType" substitutionGroup="disp-ext:DispositionCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a disposition category.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionCode" type="hi_codes_hajis:DispositionCodeType" substitutionGroup="disp-ext:Disposition">
+	<xsd:element name="DispositionCode" type="hi_codes_hajis:DispositionCodeType" substitutionGroup="disp-ext:DispositionCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a disposition.</xsd:documentation>
 		</xsd:annotation>
