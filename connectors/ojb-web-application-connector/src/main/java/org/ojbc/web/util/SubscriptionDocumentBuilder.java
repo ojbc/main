@@ -116,7 +116,7 @@ public class SubscriptionDocumentBuilder {
 	private void buildSubscriptionMessageNode(Element parentNode){
 		
 		Element subMsgNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXCHANGE, "SubscriptionMessage");
-		
+												
 		buildSubjectElement(subMsgNode);	
 		
 		buildEmailElements(subMsgNode, subscription.getEmailList());
@@ -129,6 +129,19 @@ public class SubscriptionDocumentBuilder {
 		buildDateRangeNode(subMsgNode);		
 		
 		buildSubscriptionIdNode(subMsgNode);
+		
+		buildSubscriptionReasonCodeElement(subMsgNode);
+	}
+		
+	private void buildSubscriptionReasonCodeElement(Element parentElement){
+
+		String subReasonCode = subscription.getSubscriptionPurpose();
+		
+		if(StringUtils.isNotEmpty(subReasonCode)){
+		
+			Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionReasonCode");
+			subReasonCodeElement.setTextContent(subReasonCode);
+		}
 	}
 		
 	private void buildSubscriptionIdNode(Element subMsgNode) {
