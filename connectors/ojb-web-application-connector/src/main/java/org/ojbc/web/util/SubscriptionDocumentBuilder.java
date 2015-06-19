@@ -191,14 +191,33 @@ public class SubscriptionDocumentBuilder {
 		
 		String sid = subscription.getStateId();
 		
-		if(StringUtils.isNotBlank(sid)){
+		String fbiId = subscription.getFirstName();
+		
+		boolean hasSid = StringUtils.isNotEmpty(sid);
+		
+		boolean hasFbiId = StringUtils.isNotEmpty(fbiId);
+		
+		if(hasSid || hasFbiId){
 			
 			Element personAugNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
-			
-			Element sidNode = XmlUtils.appendElement(personAugNode, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
-			
-			Element idNode = XmlUtils.appendElement(sidNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
-			idNode.setTextContent(sid);			
+
+			if(hasFbiId){
+				
+				Element fbiIdElement = XmlUtils.appendElement(personAugNode, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
+				
+				Element fbiIdValElement = XmlUtils.appendElement(fbiIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+				
+				fbiIdValElement.setTextContent(fbiId);				
+			}						
+						
+			if(hasSid){
+				
+				Element sidNode = XmlUtils.appendElement(personAugNode, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");				
+				
+				Element idNode = XmlUtils.appendElement(sidNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
+				
+				idNode.setTextContent(sid);			 
+			}			
 		}		
 	}
 	
