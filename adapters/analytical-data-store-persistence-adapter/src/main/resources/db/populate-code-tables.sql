@@ -35,7 +35,24 @@ insert into Agency(AgencyName, AgencyORI) values ('Placeholder Agency Name', 'ST
 insert into Agency(AgencyName, AgencyORI) values ('Some PD', '99999');
 
 -- Involved Drug Type - Placeholder while waiting for code values
-insert into InvolvedDrug (InvolvedDrugDescription) values ('Placeholder Involved Drug');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('opium');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('other drugs');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('morphine');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('LSD');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('more than 3 types');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('unknown');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('other narcotics');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('heroin');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('hashish');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('meth/ amphetamines');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('PCP');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('barbiturates');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('cocaine');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('other depressants');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('other stimulants');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('other hallucingens');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('marijuana');
+insert into InvolvedDrug (InvolvedDrugDescription) values ('crack cocaine');
 
 -- OffenseType - UCR codes
 insert into OffenseType (OffenseDescription, IsDrugOffense, OffenseSeverity) values ('09A', 'N', 'Infraction');
