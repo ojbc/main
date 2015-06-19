@@ -92,7 +92,14 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         
         //TODO: isProbationViolationOnOldCharge, 
         
-        //TODO: Add arresting agency ORI
+		String arrestingAgencyORI = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/jxdm50:Arrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
+		
+		if (StringUtils.isNotBlank(arrestingAgencyORI))
+		{
+			log.debug("Arresting Agency ORI: " + arrestingAgencyORI);
+			disposition.setArrestingAgencyORI(arrestingAgencyORI);
+		}	
+
         
         //TODO: updated when mapping is available from IEPD RecidivismEligibilityDate
         //Date recidivismEligibilityDate = new Date();
