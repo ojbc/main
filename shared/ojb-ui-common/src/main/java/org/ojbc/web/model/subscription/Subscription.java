@@ -29,6 +29,8 @@ public class Subscription implements Serializable {
 	
 	private String stateId;	
 	
+	private String fbiId;
+	
 	private String systemId;
 	
 	private String fullName;
@@ -56,6 +58,10 @@ public class Subscription implements Serializable {
 
 	public String getStateId() {
 		return stateId;
+	}
+
+	public String getFbiId() {
+		return fbiId;
 	}
 
 	public String getSystemId() {
@@ -106,6 +112,10 @@ public class Subscription implements Serializable {
 		this.stateId = stateId;
 	}
 
+	public void setFbiId(String fbiId) {
+		this.fbiId = fbiId;
+	}
+
 	public void setSystemId(String systemId) {
 		this.systemId = systemId;
 	}
@@ -149,13 +159,14 @@ public class Subscription implements Serializable {
 	@Override
 	public String toString() {
 		return "Subscription [subscriptionType=" + subscriptionType
-				+ ", stateId=" + stateId + ", systemId=" + systemId
-				+ ", fullName=" + fullName + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
-				+ ", subscriptionStartDate=" + subscriptionStartDate
-				+ ", subscriptionEndDate=" + subscriptionEndDate
-				+ ", emailList=" + emailList + ", subscriptionPurpose="
-				+ subscriptionPurpose + ", personNamesJsonArray="
-				+ personNamesJsonArray + "]";
-	}	
+				+ ", stateId=" + stateId + ", fbiId=" + fbiId + ", systemId="
+				+ systemId + ", fullName=" + fullName + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", dateOfBirth="
+				+ dateOfBirth + ", subscriptionStartDate="
+				+ subscriptionStartDate + ", subscriptionEndDate="
+				+ subscriptionEndDate + ", emailList=" + emailList
+				+ ", subscriptionPurpose=" + subscriptionPurpose
+				+ ", personNamesJsonArray=" + personNamesJsonArray + "]";
+	}
+	
 }
