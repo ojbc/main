@@ -17,6 +17,8 @@
 package org.ojbc.web.portal.controllers;
 
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -83,6 +85,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -92,6 +95,7 @@ import org.xml.sax.InputSource;
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/*")
+@SessionAttributes("subscription")
 public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
@@ -331,9 +335,7 @@ public class SubscriptionsController {
 						
 		String systemId = null;
 		
-		if(StringUtils.isNotBlank(personSid)){
-			
-			logger.info("Using personSid: " + personSid);
+		if(StringUtils.isNotBlank(personSid)){			
 			
 			systemId = getSystemIdFromPersonSID(request, detailsRequest);			
 		}
@@ -343,11 +345,42 @@ public class SubscriptionsController {
 			logger.info("using systemId: " + systemId);				
 			
 			Document rapSheetDoc = processDetailQueryCriminalHistory(request, systemId);	
-										
-			rNamesJsonArray = prepareNamesFromRapSheetParsing(rapSheetDoc, model);			
+									
+			loadChDataFromRapsheet(rapSheetDoc, model);
+
+			// consider making UI retrieve names from subscription pojo, since ui already 
+			// retrieves dob and fbi from sub. pojo
+			rNamesJsonArray = prepareNamesFromRapSheetParsing(rapSheetDoc, model);
 		}									
 						
 		return rNamesJsonArray;
+	}
+	
+	private void loadChDataFromRapsheet(Document rapSheetDoc, Map<String, Object> model){
+		
+		Subscription subscription = (Subscription)model.get("subscription");
+		
+		logger.info("\n\n\n * * * * \n Subscription before loading CH data * * * * \n " + subscription + "\n\n\n");
+		
+		String dobString = getDOBFromRapsheet(rapSheetDoc);
+				
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date dobDate;
+		try {
+			dobDate = sdf.parse(dobString);
+			subscription.setDateOfBirth(dobDate);
+		} catch (ParseException e) {
+			logger.severe("Couldn't parse date: " + dobString);
+			e.printStackTrace();
+		}
+				
+		String fbiId = getFbiIdFromRapsheet(rapSheetDoc);		
+		subscription.setFbiId(fbiId);
+		
+		logger.info("\n\n\n * * * * * \n\n Populated Subscription from Rapsheet \n " + subscription + "* * * * * \n");
+				
+		model.put("subscription", subscription);		
 	}
 	
 	
@@ -362,7 +395,7 @@ public class SubscriptionsController {
 				subscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
 				
 			} catch (Exception e) {
-				logger.severe("Excepting getting names from rapsheet \n" + e);
+				logger.severe("Exception getting names from rapsheet \n" + e);
 			}				
 		}				
 		
@@ -583,9 +616,10 @@ public class SubscriptionsController {
 	@RequestMapping(value="saveSubscription", method=RequestMethod.GET)
 	public  @ResponseBody String  saveSubscription(HttpServletRequest request,
 			@ModelAttribute("subscription") Subscription subscription,
-			BindingResult errors,
-			Map<String, Object> model) {
+			BindingResult errors) {
 								
+		logger.info("\n\n\n * * * * \n\n\n inside saveSubscription() * * * * *: " + subscription + "\n\n\n");
+		
 		Element samlElement = samlService.getSamlAssertion(request);
 										
 		validateSubscription(subscription, errors);										
@@ -1453,8 +1487,38 @@ public class SubscriptionsController {
 	}
 	
 	
-	SubscribedPersonNames getAllPersonNamesFromRapsheet(Document rapSheetDoc) throws Exception{
+	private String getFbiIdFromRapsheet(Document rapSheetDoc){
+	
+		String fbiId = null;
 		
+		try{			
+			fbiId = XmlUtils.xPathStringSearch(rapSheetDoc, 
+					"/ch-doc:CriminalHistory/ch-ext:RapSheet/ch-ext:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+					
+		}catch(Exception e){
+			logger.severe("Exception while getting fbi id from rapsheet: \n" + e);
+		}		
+		return fbiId;
+	}
+	
+	
+	private String getDOBFromRapsheet(Document rapSheetDoc){
+		
+		String dob = null;
+		
+		try{			
+			dob = XmlUtils.xPathStringSearch(rapSheetDoc, 
+					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonBirthDate/nc:Date");
+			
+		}catch(Exception e){
+			logger.severe("Exception while getting dob from rapsheet \n" + e);
+		}
+		
+		return dob;
+	}	
+	
+	SubscribedPersonNames getAllPersonNamesFromRapsheet(Document rapSheetDoc) throws Exception{
+						
 		SubscribedPersonNames rSubscribedPersonNames = new SubscribedPersonNames();
 						
 		Node rapSheetNode = XmlUtils.xPathNodeSearch(rapSheetDoc, "/ch-doc:CriminalHistory/ch-ext:RapSheet");	
