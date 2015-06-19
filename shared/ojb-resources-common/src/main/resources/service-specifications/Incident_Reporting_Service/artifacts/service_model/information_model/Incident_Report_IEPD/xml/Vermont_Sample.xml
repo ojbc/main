@@ -147,6 +147,18 @@
 								</nc:ActivityDescriptionText>
 							</nc:Activity>
 						</lexsdigest:EntityActivity>
+						<lexsdigest:EntityActivity>
+							<nc:Activity s:id="Arrest428697">
+								<nc:ActivityIdentification>
+									<nc:IdentificationID>499999</nc:IdentificationID>
+								</nc:ActivityIdentification>
+								<nc:ActivityCategoryText>Arrest</nc:ActivityCategoryText>
+								<nc:ActivityDate>
+									<nc:DateTime>2014-12-22T10:12:11</nc:DateTime>
+								</nc:ActivityDate>
+								<nc:ActivityDescriptionText>Driving With A Criminally Suspended License 23 VSA 674 90Z</nc:ActivityDescriptionText>
+							</nc:Activity>
+					</lexsdigest:EntityActivity>
 						<lexsdigest:EntityPerson>
 							<lexsdigest:Metadata>
 								<nc:SourceIDText>ABC123</nc:SourceIDText>
@@ -662,6 +674,10 @@
 								<lexslib:SameAsDigestReference
 									lexslib:ref="LOCATION01" />
 							</inc-ext:Location>
+							<inc-ext:Arrest>
+								<inc-ext:ArrestInvolvedDrugCategoryCode>B</inc-ext:ArrestInvolvedDrugCategoryCode>
+								<lexslib:SameAsDigestReference lexslib:ref="Arrest428697"/>
+							</inc-ext:Arrest>
 						</inc-ext:IncidentReport>
 					</lexs:StructuredPayload>
 				</lexs:DataItemPackage>

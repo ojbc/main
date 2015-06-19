@@ -17,12 +17,21 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
+<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" 
+	targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd"/>
 	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/fbi/2.0" schemaLocation="../../NIEM_2.0/fbi/2.0/fbi.xsd"/>
 	<xsd:annotation>
 		<xsd:documentation>Structured payload for the ext Incident Report
 		</xsd:documentation>
@@ -201,6 +210,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:ArrestType">
 				<xsd:sequence>
+					<xsd:element ref="inc-ext:ArrestInvolvedDrugCategoryCode" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="lexslib:SameAsDigestReference"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -626,6 +636,11 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="WarrantExtraditionTransportationInstructionsText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A set of instructions pertaining to picking up a person for extradition purposes.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestInvolvedDrugCategoryCode" type="fbi:DrugCategoryCodeType">
 		<xsd:annotation>
 			<xsd:documentation>A set of instructions pertaining to picking up a person for extradition purposes.</xsd:documentation>
 		</xsd:annotation>
