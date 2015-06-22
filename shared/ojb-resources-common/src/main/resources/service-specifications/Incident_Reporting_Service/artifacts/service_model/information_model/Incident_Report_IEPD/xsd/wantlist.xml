@@ -6362,6 +6362,7 @@
     <w:Facet w:facet="enumeration" w:value="X"/>
     <w:Facet w:facet="enumeration" w:value="G"/>
   </w:Type>
+  <w:Type w:name="fbi:DrugCategoryCodeType" w:isRequested="true"/>
   <w:Type w:name="fbi:DrugMeasurementCodeSimpleType" w:isRequested="true">
     <w:Facet w:facet="enumeration" w:value="KG"/>
     <w:Facet w:facet="enumeration" w:value="GM"/>
