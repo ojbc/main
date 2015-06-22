@@ -25,14 +25,6 @@ CREATE TABLE InvolvedDrug (
 );
 
 
-CREATE TABLE PersonAgeRange (
-                PersonAgeRangeID INT NOT NULL,
-                AgeRange5 VARCHAR(7) NOT NULL,
-                AgeRange5Sort VARCHAR(7) NOT NULL,
-                PRIMARY KEY (PersonAgeRangeID)
-);
-
-
 CREATE TABLE IncidentType (
                 IncidentTypeID INT AUTO_INCREMENT NOT NULL,
                 IncidentTypeDescription VARCHAR(80) NOT NULL,
@@ -57,7 +49,6 @@ CREATE TABLE PersonSex (
 CREATE TABLE DispositionType (
                 DispositionTypeID INT AUTO_INCREMENT NOT NULL,
                 DispositionDescription VARCHAR(35) NOT NULL,
-                IsConviction CHAR(1) NOT NULL,
                 PRIMARY KEY (DispositionTypeID)
 );
 
@@ -118,7 +109,7 @@ ALTER TABLE PretrialServiceParticipation MODIFY COLUMN RecordType CHAR(1) COMMEN
 
 
 CREATE TABLE PretrialServiceAssociation (
-                PretrialServiceAssociationID INT NOT NULL,
+                PretrialServiceAssociationID INT AUTO_INCREMENT NOT NULL,
                 PretrialServiceID INT NOT NULL,
                 PretrialServiceParticipationID INT NOT NULL,
                 PRIMARY KEY (PretrialServiceAssociationID)
@@ -133,27 +124,11 @@ CREATE TABLE PretrialServiceNeedAssociation (
 );
 
 
-CREATE TABLE Population (
-                PopulationID INT AUTO_INCREMENT NOT NULL,
-                Year INT NOT NULL,
-                CountyID INT NOT NULL,
-                PersonSexID INT NOT NULL,
-                PersonRaceID INT NOT NULL,
-                PersonAgeRangeID INT NOT NULL,
-                PopulationCount INT NOT NULL,
-                PRIMARY KEY (PopulationID)
-);
-
-
 CREATE TABLE OffenseType (
                 OffenseTypeID INT AUTO_INCREMENT NOT NULL,
                 OffenseDescription VARCHAR(80) NOT NULL,
-                IsDrugOffense CHAR(1) NOT NULL,
-                OffenseSeverity VARCHAR(30) NOT NULL,
                 PRIMARY KEY (OffenseTypeID)
 );
-
-ALTER TABLE OffenseType MODIFY COLUMN OffenseSeverity VARCHAR(30) COMMENT 'Felony, Misdemeanor, Infraction, etc.';
 
 
 CREATE TABLE Disposition (
@@ -226,12 +201,6 @@ REFERENCES InvolvedDrug (InvolvedDrugID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE Population ADD CONSTRAINT agerange_population_fk
-FOREIGN KEY (PersonAgeRangeID)
-REFERENCES PersonAgeRange (PersonAgeRangeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
 ALTER TABLE Incident ADD CONSTRAINT incidenttype_incident_fk
 FOREIGN KEY (IncidentTypeID)
 REFERENCES IncidentType (IncidentTypeID)
@@ -241,12 +210,6 @@ ON UPDATE NO ACTION;
 ALTER TABLE PretrialServiceNeedAssociation ADD CONSTRAINT assessedneed_pretrialserviceassessedneed_fk
 FOREIGN KEY (AssessedNeedID)
 REFERENCES AssessedNeed (AssessedNeedID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Population ADD CONSTRAINT personsex_population_fk
-FOREIGN KEY (PersonSexID)
-REFERENCES PersonSex (PersonSexID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
@@ -283,18 +246,6 @@ ON UPDATE NO ACTION;
 ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT county_pretrialserviceparticipation_fk
 FOREIGN KEY (CountyID)
 REFERENCES County (CountyID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Population ADD CONSTRAINT county_population_fk
-FOREIGN KEY (CountyID)
-REFERENCES County (CountyID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Population ADD CONSTRAINT personrace_population_fk
-FOREIGN KEY (PersonRaceID)
-REFERENCES PersonRace (PersonRaceID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
