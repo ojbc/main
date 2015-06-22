@@ -23,10 +23,6 @@ public class OffenseType {
     
     private String offenseDescription;
     
-    private String isDrugOffense;
-    
-    private String offenseSeverity;
-
 	public Integer getOffenseTypeID() {
 		return offenseTypeID;
 	}
@@ -43,19 +39,4 @@ public class OffenseType {
 		this.offenseDescription = offenseDescription;
 	}
 
-	public String getIsDrugOffense() {
-		return isDrugOffense;
-	}
-
-	public void setIsDrugOffense(String isDrugOffense) {
-		this.isDrugOffense = isDrugOffense;
-	}
-
-	public String getOffenseSeverity() {
-		return offenseSeverity;
-	}
-
-	public void setOffenseSeverity(String offenseSeverity) {
-		this.offenseSeverity = offenseSeverity;
-	}
 }

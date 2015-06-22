@@ -116,9 +116,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		assertEquals(1, personPk);
 
 		OffenseType offenseType = new OffenseType();
-		offenseType.setIsDrugOffense("Y");
 		offenseType.setOffenseDescription("Offense Description");
-		offenseType.setOffenseSeverity("Felony");
 		
 		int offenseTypePk = analyticalDatastoreDAOImpl.saveOffenseType(offenseType);
 		assertEquals(59, offenseTypePk);
@@ -220,7 +218,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 		DispositionType dispositionType = new DispositionType();
 		
 		dispositionType.setDispositionDescription("Disposition Description");
-		dispositionType.setIsConviction('Y');
 		
 		int dispositionTypePk = analyticalDatastoreDAOImpl.saveDispositionType(dispositionType);
 		assertEquals(16, dispositionTypePk);
@@ -231,9 +228,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		//assertEquals(3, personPk);
 		
 		OffenseType offenseType = new OffenseType();
-		offenseType.setIsDrugOffense("N");
 		offenseType.setOffenseDescription("Offense Description 2");
-		offenseType.setOffenseSeverity("Felony");
 		
 		int offenseTypePk = analyticalDatastoreDAOImpl.saveOffenseType(offenseType);
 		//assertEquals(2, offenseTypePk);

@@ -20,7 +20,6 @@ public class DispositionType {
 
     private Integer dispositionTypeID;
     private String dispositionDescription;
-    private char isConviction;
     
 	public Integer getDispositionTypeID() {
 		return dispositionTypeID;
@@ -33,12 +32,6 @@ public class DispositionType {
 	}
 	public void setDispositionDescription(String dispositionDescription) {
 		this.dispositionDescription = dispositionDescription;
-	}
-	public char getIsConviction() {
-		return isConviction;
-	}
-	public void setIsConviction(char isConviction) {
-		this.isConviction = isConviction;
 	}
 
 }

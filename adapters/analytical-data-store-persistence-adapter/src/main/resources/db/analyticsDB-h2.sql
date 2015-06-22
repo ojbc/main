@@ -27,14 +27,6 @@ CREATE TABLE InvolvedDrug (
 );
 
 
-CREATE TABLE PersonAgeRange (
-                PersonAgeRangeID INTEGER NOT NULL,
-                AgeRange5 VARCHAR(7) NOT NULL,
-                AgeRange5Sort VARCHAR(7) NOT NULL,
-                CONSTRAINT PersonAgeRange_pk PRIMARY KEY (PersonAgeRangeID)
-);
-
-
 CREATE TABLE IncidentType (
                 IncidentTypeID IDENTITY NOT NULL,
                 IncidentTypeDescription VARCHAR(80) NOT NULL,
@@ -59,7 +51,6 @@ CREATE TABLE PersonSex (
 CREATE TABLE DispositionType (
                 DispositionTypeID IDENTITY NOT NULL,
                 DispositionDescription VARCHAR(35) NOT NULL,
-                IsConviction CHAR(1) NOT NULL,
                 CONSTRAINT DispositionTypeID PRIMARY KEY (DispositionTypeID)
 );
 
@@ -134,26 +125,11 @@ CREATE TABLE PretrialServiceNeedAssociation (
 );
 
 
-CREATE TABLE Population (
-                PopulationID IDENTITY NOT NULL,
-                Year INTEGER NOT NULL,
-                CountyID INTEGER NOT NULL,
-                PersonSexID INTEGER NOT NULL,
-                PersonRaceID INTEGER NOT NULL,
-                PersonAgeRangeID INTEGER NOT NULL,
-                PopulationCount INTEGER NOT NULL,
-                CONSTRAINT Population_pk PRIMARY KEY (PopulationID)
-);
-
-
 CREATE TABLE OffenseType (
                 OffenseTypeID IDENTITY NOT NULL,
                 OffenseDescription VARCHAR(80) NOT NULL,
-                IsDrugOffense CHAR(1) NOT NULL,
-                OffenseSeverity VARCHAR(30) NOT NULL,
                 CONSTRAINT OffenseTypeID PRIMARY KEY (OffenseTypeID)
 );
-COMMENT ON COLUMN OffenseType.OffenseSeverity IS 'Felony, Misdemeanor, Infraction, etc.';
 
 
 CREATE TABLE Disposition (
@@ -223,12 +199,6 @@ REFERENCES InvolvedDrug (InvolvedDrugID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE Population ADD CONSTRAINT AgeRange_Population_fk
-FOREIGN KEY (PersonAgeRangeID)
-REFERENCES PersonAgeRange (PersonAgeRangeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
 ALTER TABLE Incident ADD CONSTRAINT IncidentType_Incident_fk
 FOREIGN KEY (IncidentTypeID)
 REFERENCES IncidentType (IncidentTypeID)
@@ -238,12 +208,6 @@ ON UPDATE NO ACTION;
 ALTER TABLE PretrialServiceNeedAssociation ADD CONSTRAINT AssessedNeed_PretrialServiceAssessedNeed_fk
 FOREIGN KEY (AssessedNeedID)
 REFERENCES AssessedNeed (AssessedNeedID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Population ADD CONSTRAINT PersonSex_Population_fk
-FOREIGN KEY (PersonSexID)
-REFERENCES PersonSex (PersonSexID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
@@ -280,18 +244,6 @@ ON UPDATE NO ACTION;
 ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT County_PretrialServiceParticipation_fk
 FOREIGN KEY (CountyID)
 REFERENCES County (CountyID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Population ADD CONSTRAINT County_Population_fk
-FOREIGN KEY (CountyID)
-REFERENCES County (CountyID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Population ADD CONSTRAINT PersonRace_Population_fk
-FOREIGN KEY (PersonRaceID)
-REFERENCES PersonRace (PersonRaceID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
