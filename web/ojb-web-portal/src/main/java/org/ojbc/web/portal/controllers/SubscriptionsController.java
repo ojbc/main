@@ -356,6 +356,23 @@ public class SubscriptionsController {
 		return rNamesJsonArray;
 	}
 	
+	
+	private Date parseRapsheetDate(String rapSheetDate){
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date dobDate = null;
+		try {
+			dobDate = sdf.parse(rapSheetDate);
+			
+		} catch (ParseException e) {
+			logger.severe("Couldn't parse date: " + rapSheetDate);
+			e.printStackTrace();
+		}		
+		return dobDate;
+	}
+	
+	
 	private void loadChDataFromRapsheet(Document rapSheetDoc, Map<String, Object> model){
 		
 		Subscription subscription = (Subscription)model.get("subscription");
@@ -364,22 +381,15 @@ public class SubscriptionsController {
 		
 		String dobString = getDOBFromRapsheet(rapSheetDoc);
 				
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date dobDate;
-		try {
-			dobDate = sdf.parse(dobString);
-			subscription.setDateOfBirth(dobDate);
-		} catch (ParseException e) {
-			logger.severe("Couldn't parse date: " + dobString);
-			e.printStackTrace();
-		}
+		Date dobDate = parseRapsheetDate(dobString);
+		subscription.setDateOfBirth(dobDate);
 				
 		String fbiId = getFbiIdFromRapsheet(rapSheetDoc);		
 		subscription.setFbiId(fbiId);
 		
 		logger.info("\n\n\n * * * * * \n\n Populated Subscription from Rapsheet \n " + subscription + "* * * * * \n");
 				
+		// see if this is needed, because we already modified the object which is pass-by-reference
 		model.put("subscription", subscription);		
 	}
 	
@@ -934,7 +944,13 @@ public class SubscriptionsController {
 			
 			if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 				
-				 allNamesList = getNamesListForArrestEdit(request, subscription, model);
+				 ChRapsheetData chRapsheetData = lookupChRapbackDataForArrestEdit(request, subscription, model);
+				
+				 allNamesList = chRapsheetData.formattedAlternateNamesList;				 
+				 subscription.setFbiId(chRapsheetData.fbiNumber);
+
+				 Date rapSheetDob = parseRapsheetDate(chRapsheetData.personDob);				 
+				 subscription.setDateOfBirth(rapSheetDob);
 				
 				 initDatesForEditArrestForm(model);
 				
@@ -966,12 +982,25 @@ public class SubscriptionsController {
 	}
 	
 	
-	private List<String> getNamesListForArrestEdit(HttpServletRequest request, Subscription subscription, 
+	private class ChRapsheetData{
+		
+		List<String> formattedAlternateNamesList;
+		
+		SubscribedPersonNames subscribedPersonNames;
+		
+		String fbiNumber;
+				
+		String personDob;
+	}
+	
+	private ChRapsheetData lookupChRapbackDataForArrestEdit(HttpServletRequest request, Subscription subscription, 
 			Map<String, Object> model) throws Exception{
 		
 		List<String> allNamesList = new ArrayList<String>();
 		
-		SubscribedPersonNames subscribedNames = lookupNames(request, subscription);
+		ChRapsheetData chRapsheetData = getChRapbackData(request, subscription);
+		
+		SubscribedPersonNames subscribedNames = chRapsheetData.subscribedPersonNames;
 		
 		String originalName = subscribedNames == null ? null : subscribedNames.getOriginalName();
 										
@@ -991,8 +1020,11 @@ public class SubscriptionsController {
 		}else{
 			model.put("originalName", subscribedNames.getOriginalName());
 		}
+				
+		chRapsheetData.formattedAlternateNamesList = allNamesList;
 		
-		return allNamesList;
+		
+		return chRapsheetData;
 	}
 	
 	
@@ -1275,7 +1307,7 @@ public class SubscriptionsController {
 		return subscriptionPurposeValueToLabelMap;
 	}
 
-	private SubscribedPersonNames lookupNames(HttpServletRequest request, Subscription subscription) throws Exception{
+	private ChRapsheetData getChRapbackData(HttpServletRequest request, Subscription subscription) throws Exception{
 						
 		DetailsRequest detailsRequestWithStateId = new DetailsRequest();
 		detailsRequestWithStateId.setIdentificationID(subscription.getStateId());
@@ -1287,16 +1319,21 @@ public class SubscriptionsController {
 		}
 		
 		Document rapSheetDoc = processDetailQueryCriminalHistory(request, crimHistSysIdFromPersonSid);	
-		
+				
 		logger.info("Rapsheet doc for alt names: \n");		
 		XmlUtils.printNode(rapSheetDoc);
 		
-		SubscribedPersonNames rSubscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
+		SubscribedPersonNames subscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
 				
-		logger.info("Subscription person names: \n"+ rSubscribedPersonNames.getOriginalName() + " + " 
-				+ Arrays.toString(rSubscribedPersonNames.getAlternateNamesList().toArray()));	
+		logger.info("Subscription person names: \n"+ subscribedPersonNames.getOriginalName() + " + " 
+				+ Arrays.toString(subscribedPersonNames.getAlternateNamesList().toArray()));	
+				
+		ChRapsheetData chRapsheetData = new ChRapsheetData();		
+		chRapsheetData.subscribedPersonNames = subscribedPersonNames;		
+		chRapsheetData.fbiNumber = getFbiIdFromRapsheet(rapSheetDoc);
+		chRapsheetData.personDob = getDOBFromRapsheet(rapSheetDoc);
 		
-		return rSubscribedPersonNames;
+		return chRapsheetData;
 	}
 		
 	
