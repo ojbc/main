@@ -59,6 +59,7 @@ public abstract class NotificationRequest {
 
     protected String notificationEventIdentifier;
     protected String notifyingAgencyName;
+    private String notifyingAgencyOri;
     protected String notifyingAgencyPhoneNumber;
     protected String notifyingSystemName;
 
@@ -74,6 +75,8 @@ public abstract class NotificationRequest {
     protected abstract String getNotificationEventDateRootXpath();
 
     protected abstract String getNotifyingAgencyXpath();
+
+    protected abstract String getNotifyingAgencyOriXpath();
 
     protected abstract String getNotificationAgencyPhoneNumberXpath();
 
@@ -199,6 +202,8 @@ public abstract class NotificationRequest {
         notifyingAgencyName = XmlUtils.xPathStringSearch(document, getNotifyingAgencyXpath());
         notifyingAgencyName = StringUtils.strip(notifyingAgencyName);
 
+        notifyingAgencyOri = StringUtils.trimToNull(XmlUtils.xPathStringSearch(document, getNotifyingAgencyOriXpath()));
+        
         notifyingAgencyPhoneNumber = XmlUtils.xPathStringSearch(document, getNotificationAgencyPhoneNumberXpath());
         notifyingAgencyPhoneNumber = StringUtils.strip(notifyingAgencyPhoneNumber);
 
@@ -315,6 +320,10 @@ public abstract class NotificationRequest {
 
 	public String getPersonAge() {
 		return personAge;
+	}
+
+	public String getNotifyingAgencyOri() {
+		return notifyingAgencyOri;
 	}
 
 }
