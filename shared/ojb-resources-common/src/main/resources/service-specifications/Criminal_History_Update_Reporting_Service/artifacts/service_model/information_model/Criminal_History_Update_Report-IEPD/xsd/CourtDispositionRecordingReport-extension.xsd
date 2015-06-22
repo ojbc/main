@@ -60,4 +60,9 @@
 			<xsd:documentation>A unique identifier issued for a sentence docket.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="SentenceCategory" abstract="true" substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A type of sentence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
