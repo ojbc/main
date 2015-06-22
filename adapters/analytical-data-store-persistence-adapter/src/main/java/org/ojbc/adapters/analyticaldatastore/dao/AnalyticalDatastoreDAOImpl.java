@@ -243,7 +243,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveDispositionType(final DispositionType dispositionType) {
         log.debug("Inserting row into DispositionType table");
 
-        final String dispositionTypeInsertStatement="INSERT into DispositionType (DispositionDescription,IsConviction) values (?,?)";
+        final String dispositionTypeInsertStatement="INSERT into DispositionType (DispositionDescription) values (?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -252,7 +252,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            PreparedStatement ps =
         	                connection.prepareStatement(dispositionTypeInsertStatement, new String[] {"DispositionDescription","IsConviction"});
         	            ps.setString(1, dispositionType.getDispositionDescription());
-        	            ps.setString(2, String.valueOf(dispositionType.getIsConviction()));
         	            return ps;
         	        }
         	    },
@@ -390,17 +389,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveOffenseType(final OffenseType offenseType) {
         log.debug("Inserting row into OffenseType table");
 
-        final String offenseTypeStatement="INSERT into OffenseType (OffenseDescription,IsDrugOffense,OffenseSeverity) values (?,?,?)";
+        final String offenseTypeStatement="INSERT into OffenseType (OffenseDescription) values (?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(offenseTypeStatement, new String[] {"OffenseDescription","IsDrugOffense","OffenseSeverity"});
+        	                connection.prepareStatement(offenseTypeStatement, new String[] {"OffenseDescription"});
         	            ps.setString(1, offenseType.getOffenseDescription());
-        	            ps.setString(2, offenseType.getIsDrugOffense());
-        	            ps.setString(3, offenseType.getOffenseSeverity());
         	            return ps;
         	        }
         	    },
