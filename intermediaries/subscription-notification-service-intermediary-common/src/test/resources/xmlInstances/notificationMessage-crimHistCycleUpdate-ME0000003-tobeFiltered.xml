@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<b:Notify xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:tns="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:tns1="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
+	xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0" xmlns:topics="http://ojbc.org/wsn/topics"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
+	<b:NotificationMessage>
+		<b:SubscriptionReference>
+			<add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+			<!--Optional: -->
+			<add:ReferenceParameters>
+				<!--You may enter ANY elements at this point -->
+			</add:ReferenceParameters>
+			<!--Optional: -->
+			<add:Metadata>
+				<!--You may enter ANY elements at this point -->
+			</add:Metadata>
+			<!--You may enter ANY elements at this point -->
+		</b:SubscriptionReference>
+		<!--Optional: -->
+		<b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
+			topics:person/criminalHistoryCycleTrackingIdentifierAssignment
+		</b:Topic>
+		<!--Optional: -->
+		<b:ProducerReference>
+			<add:Address>http://www.hawaii.gov/arrestNotificationProducer</add:Address>
+			<!--Optional: -->
+			<add:ReferenceParameters>
+				<!--You may enter ANY elements at this point -->
+			</add:ReferenceParameters>
+			<!--Optional: -->
+			<add:Metadata>
+				<!--You may enter ANY elements at this point -->
+			</add:Metadata>
+			<!--You may enter ANY elements at this point -->
+		</b:ProducerReference>
+		<b:Message>
+			<tns:NotificationMessage>
+				<tns1:NotifyingCriminalHistoryUpdate
+					s:id="A001">
+					<chu:CycleTrackingIdentifierAssignment>
+						<nc:ActivityDate>
+							<nc:Date>2014-11-11</nc:Date>
+						</nc:ActivityDate>
+						<chu:CycleTrackingIdentification>
+							<nc:IdentificationID>123456A</nc:IdentificationID>
+						</chu:CycleTrackingIdentification>
+						<chu:OriginatorOrganizationReference
+							s:ref="ORG01" />
+						<chu:ProsecutionAttorneyOrganizationReference
+							s:ref="ORG02" />
+						<nc:Case>
+							<nc:ActivityIdentification>
+								<nc:IdentificationID>123456</nc:IdentificationID>
+							</nc:ActivityIdentification>
+						</nc:Case>
+						<j:Charge s:id="C001">
+							<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
+							<chu:ChargeEnhancingFactor>
+								<j:ChargeEnhancingFactorDescriptionText>modifier description
+								</j:ChargeEnhancingFactorDescriptionText>
+								<me:ChargeEnhancingFactorCode>S</me:ChargeEnhancingFactorCode>
+							</chu:ChargeEnhancingFactor>
+							<j:ChargeStatute>
+								<j:StatuteCodeIdentification>
+									<nc:IdentificationID>004290</nc:IdentificationID>
+								</j:StatuteCodeIdentification>
+								<j:StatuteText>17-A MRSA SUBSECTION 651(1)(D)</j:StatuteText>
+							</j:ChargeStatute>
+							<j:ChargeTrackingIdentification>
+								<nc:IdentificationID>123</nc:IdentificationID>
+							</j:ChargeTrackingIdentification>
+						</j:Charge>
+					</chu:CycleTrackingIdentifierAssignment>
+				</tns1:NotifyingCriminalHistoryUpdate>
+				<nc:ActivityInvolvedPersonAssociation>
+					<nc:ActivityReference s:ref="A001" />
+					<nc:PersonReference s:ref="P001" />
+				</nc:ActivityInvolvedPersonAssociation>
+				<j:Person s:id="P001">
+					<nc:PersonBirthDate>
+						<nc:Date>1995-01-01</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonName>
+						<nc:PersonGivenName>Maggie</nc:PersonGivenName>
+						<nc:PersonSurName>Simpson</nc:PersonSurName>
+					</nc:PersonName>
+					<j:PersonAugmentation>
+						<j:PersonStateFingerprintIdentification>
+							<nc:IdentificationID>12345</nc:IdentificationID>
+						</j:PersonStateFingerprintIdentification>
+					</j:PersonAugmentation>
+				</j:Person>
+				<j:Organization s:id="ORG01">
+					<nc:OrganizationName>Springfield PD
+					</nc:OrganizationName>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>ME0000003</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</j:Organization>
+				<j:Organization s:id="ORG02">
+					<nc:OrganizationName>Cumberland County Prosecutor
+					</nc:OrganizationName>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>ME0000001</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</j:Organization>
+			</tns:NotificationMessage>
+		</b:Message>
+	</b:NotificationMessage>
+</b:Notify>
