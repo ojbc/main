@@ -45,7 +45,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<nc:PersonSurName>Sur</nc:PersonSurName>
 				<nc:PersonNameSuffixText>String</nc:PersonNameSuffixText>
 			</nc:PersonName>
-			<vt_codes:RaceCode>4</vt_codes:RaceCode>
+			<j:PersonRaceCode>A</j:PersonRaceCode>
 			<vt_codes:VTResCode>5</vt_codes:VTResCode>
 			<nc:PersonStateIdentification>
 				<nc:IdentificationID>String</nc:IdentificationID>
