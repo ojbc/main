@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:cdr-report-ext="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingReport/1.0" xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>Maine Disposition Report Codes</xsd:documentation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://release.niem.gov/niem/appinfo/3.0/" schemaLocation="../../Subset/niem/appinfo/3.0/appinfo.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="../../Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingReport/1.0" schemaLocation="../../CourtDispositionRecordingReport-extension.xsd"/>
+	<xsd:simpleType name="ChargeOriginCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes whether the charge is an original or amended charge.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ORIGINAL"/>
+			<xsd:enumeration value="AMENDED"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ChargeOriginCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes whether the charge is an original or amended charge.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me_disp_codes:ChargeOriginCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SentenceConditionLiteralCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes a sentence condition.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ABIDE BY PRETRIAL SERVICE CONTRACT"/>
+			<xsd:enumeration value="ADVISE ADDRESS CHANGE"/>
+			<xsd:enumeration value="ANGER MANAGEMENT COUNSELING"/>
+			<xsd:enumeration value="ANSWER PROBATION OFFICER INQUIRIES"/>
+			<xsd:enumeration value="APPEAR FOR JUDICIAL REVIEW"/>
+			<xsd:enumeration value="APPEAR IN COURT"/>
+			<xsd:enumeration value="BATTERER INTERVENTION PROGRAM"/>
+			<xsd:enumeration value="COUNSELING/TREATMENT AS INPATIENT"/>
+			<xsd:enumeration value="COUNSELING/TREATMENT AS OUTPATIENT"/>
+			<xsd:enumeration value="CURFEW RESTRICTION"/>
+			<xsd:enumeration value="DNA TESTING"/>
+			<xsd:enumeration value="DOMESTIC VIOLENCE COUNSELING/TREATMENT"/>
+			<xsd:enumeration value="EVALUATION/COUNSELING AS INPATIENT"/>
+			<xsd:enumeration value="EVALUATION/COUNSELING AS OUTPATIENT"/>
+			<xsd:enumeration value="FORFEIT FIREARM">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="IDENTIFY SELF AS ON ADMINISTRATIVE RELEASE"/>
+			<xsd:enumeration value="IDENTIFY SELF AS PROBATIONER"/>
+			<xsd:enumeration value="INPATIENT AT"/>
+			<xsd:enumeration value="JV ABIDE BY CURFEW"/>
+			<xsd:enumeration value="JV CUSTODY"/>
+			<xsd:enumeration value="JV CUSTODY TO MOTHER">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV CUSTODY TO FATHER">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV CUSTODY TO GUARDIAN">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV CUSTODY TO OTHER">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV INSURANCE PAYMENT AMOUNT">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV INSURANCE REQUIREMENT - MOTHER">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV INSURANCE REQUIREMENT - FATHER">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV INSURANCE REQUIREMENT - GUARDIAN">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV INSURANCE REQUIREMENT - OTHER">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV RESTRICTION ON ESTABLISHMENT SERVING LIQUOR"/>
+			<xsd:enumeration value="JV SUBMIT SEARCH AND TESTING TOBACCO"/>
+			<xsd:enumeration value="JV SUPPORT AMOUNT">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV SUPPORT BY MOTHER">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV SUPPORT BY FATHER">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV SUPPORT BY GUARDIAN">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV SUPPORT BY OTHER">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV SUPPORT PAYMENT FREQUENCY">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JV TO RESIDE WITH"/>
+			<xsd:enumeration value="JV TO ABIDE BY RULES"/>
+			<xsd:enumeration value="MAINTAIN EMPLOYMENT OR EDUCATION"/>
+			<xsd:enumeration value="MAINTAIN OR COMMENCE EDUCATION PROGRAM"/>
+			<xsd:enumeration value="MAINTAIN OR SEEK EMPLOYMENT"/>
+			<xsd:enumeration value="MEDICAL OR PSYCHIATRIC TREATMENT PLACE"/>
+			<xsd:enumeration value="MEDICAL COUNSELING"/>
+			<xsd:enumeration value="NO CONTACT WITH"/>
+			<xsd:enumeration value="NO CONTACT WITH FEMALE MINORS UNDER AGE"/>
+			<xsd:enumeration value="NO CONTACT WITH MINORS UNDER AGE"/>
+			<xsd:enumeration value="NO CONTACT WITH MALE MINORS UNDER AGE"/>
+			<xsd:enumeration value="NO FIREARM/WEAPON IF CLASS A, B, C"/>
+			<xsd:enumeration value="NO POSSESSORY INTEREST IN BANK ACCOUNT"/>
+			<xsd:enumeration value="NOT BE WITH OTHER ON PROBATION"/>
+			<xsd:enumeration value="NOT EXCESSIVELY USE LIQUOR"/>
+			<xsd:enumeration value="NOT OPERATE MOTOR VEHICLE"/>
+			<xsd:enumeration value="NOT OPERATE ATV, BOAT, PLANE"/>
+			<xsd:enumeration value="NOT OPERATE MOTOR VEHICLE UNTIL LICENSED"/>
+			<xsd:enumeration value="NOT POSSESS USE FIREARM OR DANGEROUS WEAPON"/>
+			<xsd:enumeration value="NOT USE OR POSSESS LIQUOR"/>
+			<xsd:enumeration value="NOT USE/POSSESS ILLEGAL DRUGS"/>
+			<xsd:enumeration value="NOT VIEW OR POSSESS SEXUAL MATERIAL"/>
+			<xsd:enumeration value="NOTIFY PO BEFORE CHANGING ADDRESS, EMPLOYMENT"/>
+			<xsd:enumeration value="OBEY PROTECTION FROM ABUSE ORDER"/>
+			<xsd:enumeration value="OTHER COUNSELING/TREATMENT"/>
+			<xsd:enumeration value="OTHER REQUIREMENT"/>
+			<xsd:enumeration value="OUT PATIENT MEDICAL OR PSYCHIATRIC"/>
+			<xsd:enumeration value="PARTICIPATE IN DEEP">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PAY ASSESSMENT"/>
+			<xsd:enumeration value="PAY BY DATE SET BY PROBATION OFFICER"/>
+			<xsd:enumeration value="PAY COUNSEL FEES"/>
+			<xsd:enumeration value="PAY DOC SUPERVISION FEE"/>
+			<xsd:enumeration value="PAY ELECTRONIC MONITORING FEE"/>
+			<xsd:enumeration value="PAY FINE"/>
+			<xsd:enumeration value="PAY FINE AND SURCHARGES"/>
+			<xsd:enumeration value="PAY RESTITUTION"/>
+			<xsd:enumeration value="PAY SUBSTANCE ABUSE TESTING FEE"/>
+			<xsd:enumeration value="PAY SURCHARGE"/>
+			<xsd:enumeration value="PERSON RESTRICTION"/>
+			<xsd:enumeration value="PSYCHIATRIC COUNSELING/TREATMENT"/>
+			<xsd:enumeration value="PSYCHIATRIC EVALUATION"/>
+			<xsd:enumeration value="PSYCHOLOGICAL COUNSELING"/>
+			<xsd:enumeration value="PUBLIC SERVICE WORK"/>
+			<xsd:enumeration value="REFRAIN FROM CRIMINAL CONDUCT"/>
+			<xsd:enumeration value="REMAIN IN STATE"/>
+			<xsd:enumeration value="REPORT TO AGENCY"/>
+			<xsd:enumeration value="REPORT TO ATTORNEY"/>
+			<xsd:enumeration value="REPORT TO PROBATION OFFICER"/>
+			<xsd:enumeration value="RESTRICTION ON ESTABLISHMENT SERVING LIQUOR"/>
+			<xsd:enumeration value="SEX OFFENDER COUNSELING/TREATMENT"/>
+			<xsd:enumeration value="SEX OFFENDER REGISTRATION"/>
+			<xsd:enumeration value="SEXUAL OFFENDER">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SEXUALLY VIOLENT PREDATOR">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SUBMIT SEARCH"/>
+			<xsd:enumeration value="SUBMIT SEARCH AND TESTING FOR ALCOHOL"/>
+			<xsd:enumeration value="SUBMIT SEARCH AND TESTING FOR DANGEROUS WEAPON">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use value without AND TESTING.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SUBMIT SEARCH AND TESTING FOR DRUGS"/>
+			<xsd:enumeration value="SUBMIT SEARCH AND TESTING FOR FIREARM">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.   Use value without AND TESTING.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SUBMIT SEARCH FOR DANGEROUS WEAPON"/>
+			<xsd:enumeration value="SUBMIT SEARCH FOR FIREARM"/>
+			<xsd:enumeration value="SUBMIT SEARCH SEXUAL MATERIAL"/>
+			<xsd:enumeration value="SUBSTANCE ABUSE COUNSELING"/>
+			<xsd:enumeration value="SUPPORT DEPENDENTS"/>
+			<xsd:enumeration value="UNCONDITIONAL DISCHARGE">
+				<xsd:annotation>
+					<xsd:documentation>No longer in use as of 2003-10-14.  Retained for historical purposes.  Use similar value in senteceTimeType.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VOLUNTARY PATIENT MEDICAL OR PSYCHIATRIC"/>
+			<xsd:enumeration value="WAIVE EXTRADITION TO MAINE"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="SentenceConditionLiteralCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes a sentence condition.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me_disp_codes:SentenceConditionLiteralCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="CourtActionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes an action or judgement by a court related to a charge.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="GUILTY"/>
+			<xsd:enumeration value="CONDITIONAL PARDON (NON-CONVICTION)"/>
+			<xsd:enumeration value="WAIVER"/>
+			<xsd:enumeration value="PROBABLE CAUSE"/>
+			<xsd:enumeration value="NOT GUILTY"/>
+			<xsd:enumeration value="OFFENSE COMMITTED"/>
+			<xsd:enumeration value="OFFENSE NOT COMMITTED"/>
+			<xsd:enumeration value="ADJUDGED"/>
+			<xsd:enumeration value="DEFAULT"/>
+			<xsd:enumeration value="PROBATION VIOLATED"/>
+			<xsd:enumeration value="COMMUTATION"/>
+			<xsd:enumeration value="CONDITIONAL PARDON (CONVICTION)"/>
+			<xsd:enumeration value="ACQUITTAL BY REASON OF MENTAL DISEASE OR DEFECT"/>
+			<xsd:enumeration value="NOT GUILTY BY REASON OF MENTAL DISEASE OR DEFECT"/>
+			<xsd:enumeration value="NOT CRIMINALLY RESPONSIBLE"/>
+			<xsd:enumeration value="PERMANENT TRANSFER"/>
+			<xsd:enumeration value="TRANSFER FOR JURY TRIAL"/>
+			<xsd:enumeration value="BAIL AND PLEADING"/>
+			<xsd:enumeration value="DIMINIMUS"/>
+			<xsd:enumeration value="NO PROBABLE CAUSE"/>
+			<xsd:enumeration value="NO BILL"/>
+			<xsd:enumeration value="NOT ADJUDGED"/>
+			<xsd:enumeration value="DISMISSED BY COURT"/>
+			<xsd:enumeration value="NO COMPLAINT"/>
+			<xsd:enumeration value="JUDGMENT OF ACQUITTAL"/>
+			<xsd:enumeration value="FILED WITH COSTS"/>
+			<xsd:enumeration value="FILED WITHOUT COSTS"/>
+			<xsd:enumeration value="DISMISSED BY DA/AG"/>
+			<xsd:enumeration value="DISMISSED BY DA/AG - PLED OTHER CHARGE"/>
+			<xsd:enumeration value="DISMISSED BY DA/AG - INDICTED IN SUPERIOR COURT"/>
+			<xsd:enumeration value="DISMISSED BY DA/AG - INSUFFICIENT EVIDENCE"/>
+			<xsd:enumeration value="DISMISSED BY DA/AG - WITNESS UNAVAILABLE"/>
+			<xsd:enumeration value="DISMISSED BY DA/AG - OTHER"/>
+			<xsd:enumeration value="PROBATION NOT VIOLATED"/>
+			<xsd:enumeration value="PROBATION WITHDRAWN"/>
+			<xsd:enumeration value="DISMISSED AFTER FILING"/>
+			<xsd:enumeration value="AMENDED"/>
+			<xsd:enumeration value="AFFIRMED"/>
+			<xsd:enumeration value="REVISED"/>
+			<xsd:enumeration value="REVOKED"/>
+			<xsd:enumeration value="VACATED"/>
+			<xsd:enumeration value="MODIFIED"/>
+			<xsd:enumeration value="REVERSED"/>
+			<xsd:enumeration value="WITHDRAWN"/>
+			<xsd:enumeration value="FULL AND FREE PARDON"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE NOT VIOLATED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE VIOLATED"/>
+			<xsd:enumeration value="DISMISSED BY CLERK RULE 48(B)(2)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="CourtActionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes an action or judgement by a court related to a charge.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me_disp_codes:CourtActionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="ChargeClassCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes the class or level of a charge.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="A"/>
+			<xsd:enumeration value="B"/>
+			<xsd:enumeration value="C"/>
+			<xsd:enumeration value="D"/>
+			<xsd:enumeration value="E"/>
+			<xsd:enumeration value="F"/>
+			<xsd:enumeration value="M"/>
+			<xsd:enumeration value="U"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ChargeClassCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes the class or level of a charge.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me_disp_codes:ChargeClassCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SentenceOriginCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes whether a sentence is 'original', 'corrected' or 'amended.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ORIGINAL"/>
+			<xsd:enumeration value="CORRECTED"/>
+			<xsd:enumeration value="AMENDED"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="SentenceOriginCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes whether a sentence is 'original', 'corrected' or 'amended.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me_disp_codes:SentenceOriginCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SentenceTermCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes the type of time to be served.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ALCOHOL AND DRUG EVALUATION (DEEP)"/>
+			<xsd:enumeration value="COMMUNITY SERVICE"/>
+			<xsd:enumeration value="CONTINUED FOR SENTENCE"/>
+			<xsd:enumeration value="CUSTODY OF DEPARTMENT OF HUMAN SERVICES"/>
+			<xsd:enumeration value="DNA TESTING"/>
+			<xsd:enumeration value="FINED"/>
+			<xsd:enumeration value="FORFEIT FIREARM USED IN OFFENSE"/>
+			<xsd:enumeration value="INCARCERATED"/>
+			<xsd:enumeration value="JAIL BOARD REIMBURSEMENT TO COUNTY TREASURER"/>
+			<xsd:enumeration value="JUVENILE DETENTION FACILITY"/>
+			<xsd:enumeration value="JUVENILE DETENTION FACILITY SUSPENSION"/>
+			<xsd:enumeration value="LICENSE AND REGISTRATION SUSPENSION"/>
+			<xsd:enumeration value="LICENSE SUSPENSION"/>
+			<xsd:enumeration value="NO SENTENCE IMPOSED"/>
+			<xsd:enumeration value="PARENTS OR GUARDIAN PROVIDE INSURANCE"/>
+			<xsd:enumeration value="PROBATION"/>
+			<xsd:enumeration value="PROBATION CONTINUED"/>
+			<xsd:enumeration value="PROBATION PARTIALLY REVOKED"/>
+			<xsd:enumeration value="PROBATION PARTIALLY REVOKED PROBATION REVOCATION CONTINUED"/>
+			<xsd:enumeration value="PROBATION REVOKED"/>
+			<xsd:enumeration value="PROBATION REVOKED PROBATION REVOCATION CONTINUED"/>
+			<xsd:enumeration value="PUBLIC SERVICE"/>
+			<xsd:enumeration value="REGISTRATION SUSPENSION"/>
+			<xsd:enumeration value="REMAIN IN LEGAL CUSTODY OF PARENT/GUARDIAN"/>
+			<xsd:enumeration value="RESTITUTION"/>
+			<xsd:enumeration value="RESTITUTION REQUIRED"/>
+			<xsd:enumeration value="RESTITUTION UNKNOWN">
+				<xsd:annotation>
+					<xsd:documentation>Used for internal SBI purposes only.  No longer in use as of 2003-10-14.  Maintained for historical purposes.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SERVICE PROGRAM"/>
+			<xsd:enumeration value="SEX OFFENDER REGISTRATION"/>
+			<xsd:enumeration value="SEXUAL OFFENDER"/>
+			<xsd:enumeration value="SEXUALLY VIOLENT PREDATOR"/>
+			<xsd:enumeration value="UNCONDITIONAL DISCHARGE"/>
+			<xsd:enumeration value="WORK PROGRAM"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE CONTINUED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE TERMINATED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE CONTINUED; NO SENTENCE IMPOSED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED; ADMINISTRATIVE RELEASE CONTINUED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED; ADMINISTRATIVE RELEASE CONTINUED; NO SENTENCE IMPOSED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED; ADMINISTRATIVE RELEASE TERMINATED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED; ADMINISTRATIVE RELEASE TERMINATED; NO SENTENCE IMPOSED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE CONTINUED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE TERMINATED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE TERMINATED; NO SENTENCE IMPOSED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE; NO SENTENCE IMPOSED"/>
+			<xsd:enumeration value="PROBATION CONVERTED TO ADMINISTARTIVE RELEASE"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="SentenceTermCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes the type of time to be served.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me_disp_codes:SentenceTermCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="StatusCodeCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="SUCCESS"/>
+			<xsd:enumeration value="SCHEMA"/>
+			<xsd:enumeration value="STATUTE"/>
+			<xsd:enumeration value="NAME"/>
+			<xsd:enumeration value="ORI"/>
+			<xsd:enumeration value="DISPDATE"/>
+			<xsd:enumeration value="DISPCODE"/>
+			<xsd:enumeration value="SENTTIME"/>
+			<xsd:enumeration value="ENHANCE"/>
+			<xsd:enumeration value="PROBATION"/>
+			<xsd:enumeration value="OTHER"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="StatusLiteralCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="TRANSACTION PROCESSED SUCCESSFULLY WITHOUT ERRORS"/>
+			<xsd:enumeration value="SCHEMA VALIDATION FAILED"/>
+			<xsd:enumeration value="INVALID ATN/CTN/STATUTE CODE COMBINATION"/>
+			<xsd:enumeration value="ATN NAME MISMATCH"/>
+			<xsd:enumeration value="INVALID COURT ORI"/>
+			<xsd:enumeration value="THE DATE OF DISPOSITION CANNOT BE IN THE FUTURE"/>
+			<xsd:enumeration value="INVALID DISPOSITION CODE"/>
+			<xsd:enumeration value="INVALID SENTENCE TIME TYPE"/>
+			<xsd:enumeration value="INVALID ENHANCEMENT CODE"/>
+			<xsd:enumeration value="ONE OR MORE CONDITIONS WERE PRESENT BUT THERE WAS NO PROBATION SENTENCE TIME TYPE"/>
+			<xsd:enumeration value="OTHER CHRI ERROR CONTACT SBI"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="EnhancementCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ATTEMPT"/>
+			<xsd:enumeration value="CONSPIRACY"/>
+			<xsd:enumeration value="SOLICITATION"/>
+			<xsd:enumeration value="FIREARM"/>
+			<xsd:enumeration value="OTHER"/>
+			<xsd:enumeration value="DANGEROUS WEAPON"/>
+			<xsd:enumeration value="FIREARM OR DANGEROUS WEAPON"/>
+			<xsd:enumeration value="PRIORS"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="EnhancementCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes a charge enhancement.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me_disp_codes:EnhancementCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SentenceServedCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="CONSECUTIVE"/>
+			<xsd:enumeration value="CONCURRENT"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="SentenceServedCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a code that describes a sentence.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me_disp_codes:SentenceServedCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	
+
+	<xsd:element name="CourtActionCode" type="me_disp_codes:CourtActionCodeType" substitutionGroup="nc:DispositionCategory">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes an action or judgement by a court related to a charge.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	
+
+	<xsd:element name="SentenceTermCategoryCode" type="me_disp_codes:SentenceTermCategoryCodeType" substitutionGroup="cdr-report-ext:SentenceCategory">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the type of time to be served.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
