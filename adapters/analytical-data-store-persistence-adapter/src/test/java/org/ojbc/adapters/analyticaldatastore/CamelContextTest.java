@@ -239,10 +239,16 @@ public class CamelContextTest {
 		assertEquals(1,charges.size());
 		assertEquals(Integer.valueOf(58),charges.get(0).getArrestOffenseTypeID());
 		
-		//TODO: Determine whether the arrest row mapper should use ResultsSetExtractor.
-		//This would allow for run join queries, however, the arrest row mapper is not used
-		//in the actual running code.  It would only be used in test and might not be worth
-		//the effort unless a use case is defined.
+		log.debug("Person ID of arrestee: " + arrest.getPersonID());
+		
+		Person person = analyticalDatastoreDAOImpl.getPerson(arrest.getPersonID());
+		
+		log.debug("Person (Arrestee): " + person);
+		
+		assertEquals("Person[personID=1,personSexID=1,personRaceID=0,personSexDescription=M,"
+				+ "personRaceDescription=<null>,personBirthDate=1980-01-27,",
+				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
+		
 	}
 	
 	@Test
