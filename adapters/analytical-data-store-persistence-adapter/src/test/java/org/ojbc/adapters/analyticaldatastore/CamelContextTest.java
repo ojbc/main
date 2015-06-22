@@ -183,7 +183,12 @@ public class CamelContextTest {
 		assertNotNull(person); 
 		log.info("Person: " + person.toString());
 		
-		//TODO: assert person attributes after adding race mappings.
+		assertEquals("Person[personID=1,personSexID=0,personRaceID=1,personSexDescription=<null>,"
+				+ "personRaceDescription=A,personBirthDate=2001-12-17,",
+				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
+		
+
+		
 	}	
 	
 	@Test
@@ -245,7 +250,7 @@ public class CamelContextTest {
 		
 		log.debug("Person (Arrestee): " + person);
 		
-		assertEquals("Person[personID=1,personSexID=1,personRaceID=0,personSexDescription=M,"
+		assertEquals("Person[personID=2,personSexID=1,personRaceID=0,personSexDescription=M,"
 				+ "personRaceDescription=<null>,personBirthDate=1980-01-27,",
 				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
 		
