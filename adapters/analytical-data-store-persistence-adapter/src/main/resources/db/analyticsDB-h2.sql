@@ -17,7 +17,8 @@
 CREATE schema AnalyticsDataStore;
 
 -- Go to analytics staging database model OJBStagingModel.architect and click Tools -> Forward Engineer, select H2
--- and paste the contents below this comment
+-- and paste the contents below this comment.  You will need to change all timestamps in the fact tables to auto
+-- insert current timestamp: Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP()
 
 
 CREATE TABLE InvolvedDrug (
