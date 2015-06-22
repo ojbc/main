@@ -23,7 +23,6 @@ import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -67,21 +66,25 @@ public class ChCycleNotificationRequest extends NotificationRequest {
 	@Override
 	protected String getNotifyingAgencyXpath() {
 		
-		String notifAgencyXpath = null;		
+		String notifyingAgencyXpath = null;		
 		
 		try {
-			String origOrganizerRef = XmlUtils.xPathStringSearch(requestDocument, 
-					"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingCriminalHistoryUpdate/chu:CycleTrackingIdentifierAssignment/chu:OriginatorOrganizationReference/@s:ref");
+			String origOrganizerRef = getOrigOrganizationRef();
 			
-			logger.info("Notifying Agency ref: " + origOrganizerRef);
-			
-			notifAgencyXpath = "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Organization[@s:id='"+origOrganizerRef+"']/nc:OrganizationName";	
-			
+			notifyingAgencyXpath = "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Organization[@s:id='"+origOrganizerRef+"']/nc:OrganizationName";	
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
 
-		return notifAgencyXpath;
+		return notifyingAgencyXpath;
+	}
+
+	private String getOrigOrganizationRef() throws Exception {
+		String origOrganizerRef = XmlUtils.xPathStringSearch(requestDocument, 
+				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingCriminalHistoryUpdate/chu:CycleTrackingIdentifierAssignment/chu:OriginatorOrganizationReference/@s:ref");
+		
+		logger.info("Notifying Agency ref: " + origOrganizerRef);
+		return origOrganizerRef;
 	}
 
 	@Override
@@ -133,6 +136,19 @@ public class ChCycleNotificationRequest extends NotificationRequest {
 		logger.debug("Notification message DOB: " + dateOfBirth);
 		
 		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
+	}
+
+	@Override
+	protected String getNotifyingAgencyOriXpath() {
+		try {
+			String origOrganizerRef = getOrigOrganizationRef();
+			return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Organization[@s:id='"
+					+origOrganizerRef+"']/jxdm41:OrganizationAugmentation/jxdm41:OrganizationORIIdentification/nc:IdentificationID";			
+		} catch (Exception e) {			
+			e.printStackTrace();
+			return null;
+		}
+
 	}	
 
 }
