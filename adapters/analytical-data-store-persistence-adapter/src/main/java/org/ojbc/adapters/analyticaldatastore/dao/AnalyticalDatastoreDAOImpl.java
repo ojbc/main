@@ -575,6 +575,20 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
             });
 		
 	}
+	
+	private final String DISPOSITION_BY_INCIDENT_CASE_NUMBER = 
+			"SELECT * FROM Disposition WHERE IncidentCaseNumber = ?";
+	
+	@Override
+	public List<Disposition> searchForDispositionsByIncidentCaseNumber(
+			String incidentCaseNumber) {
+		List<Disposition> dispositions = 
+				jdbcTemplate.query(DISPOSITION_BY_INCIDENT_CASE_NUMBER, 
+						new DispositionRowMapper(), incidentCaseNumber);
+		
+		return dispositions;	
+	
+	}
 
 	private final String PRETRIAL_SERVICE_PARTICIPATION_BY_INCIDENT_NUMBER = 
 			"SELECT * FROM PretrialServiceParticipation WHERE ArrestIncidentCaseNumber = ?";

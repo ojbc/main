@@ -74,6 +74,8 @@ public interface AnalyticalDatastoreDAO {
 	
 	public List<Incident> searchForIncidentsByIncidentNumber(String incidentNumber);
 	
+	public List<Disposition> searchForDispositionsByIncidentCaseNumber(String incidentCaseNumber);
+	
 	public PretrialServiceParticipation getPretrialServiceParticipationByIncidentNumber(String incidentNumber);
 	
 	public List<AssessedNeed> getAssociatedNeeds(Integer pretrialServiceParticipationId);

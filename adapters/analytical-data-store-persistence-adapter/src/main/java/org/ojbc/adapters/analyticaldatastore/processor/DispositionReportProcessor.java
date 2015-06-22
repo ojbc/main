@@ -36,7 +36,7 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 	@Override
 	public void processReport(Document report) throws Exception {
 		
-		XmlUtils.printNode(report);
+		//XmlUtils.printNode(report);
 		
 		Disposition disposition = new Disposition();
 
@@ -90,7 +90,10 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         
         disposition.setIsProbationViolation(DaoUtils.getIndicatorValueForDatabase(isProbationIndicator));
         
-        //TODO: isProbationViolationOnOldCharge, 
+        String isProbationViolationOnOldCharge = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:InitialCharge/disp_ext:ChargeAugmentation/disp_ext:IsProbationViolationOnOldCharge");
+        log.debug("Is probation violation on old charge: " + isProbationViolationOnOldCharge);
+        
+        disposition.setIsProbationViolationOnOldCharge(DaoUtils.getIndicatorValueForDatabase(isProbationViolationOnOldCharge));
         
 		String arrestingAgencyORI = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/jxdm50:Arrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
 		

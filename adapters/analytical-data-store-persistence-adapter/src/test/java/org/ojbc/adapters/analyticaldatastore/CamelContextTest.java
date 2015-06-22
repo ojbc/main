@@ -59,6 +59,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialService;
@@ -160,7 +161,29 @@ public class CamelContextTest {
 		//Sleep while a response is generated
 		Thread.sleep(3000);
 		
-		//TODO: query database and assert disposition values
+		List<Disposition> dispositions = analyticalDatastoreDAOImpl.searchForDispositionsByIncidentCaseNumber("Incident Number");
+		
+		assertEquals(1, dispositions.size());
+		
+		Disposition disposition = dispositions.get(0);
+		
+		assertEquals("ORI", disposition.getArrestingAgencyORI());
+		assertEquals("Incident Number", disposition.getIncidentCaseNumber());
+		assertEquals("12/17/2001",DATE_FOMRAT.format(disposition.getDispositionDate()));
+		assertEquals(545, disposition.getSentenceTermDays().intValue());
+		assertEquals(new Float("100.00"), disposition.getSentenceFineAmount());
+		assertEquals('N', disposition.getIsProbationViolation().charValue());
+		assertEquals(null, disposition.getIsProbationViolationOnOldCharge());
+		assertEquals(3, disposition.getDispositionTypeID().intValue());
+		
+		int personId = disposition.getPersonID();
+		
+		Person person = analyticalDatastoreDAOImpl.getPerson(personId);
+		
+		assertNotNull(person); 
+		log.info("Person: " + person.toString());
+		
+		//TODO: assert person attributes after adding race mappings.
 	}	
 	
 	@Test
