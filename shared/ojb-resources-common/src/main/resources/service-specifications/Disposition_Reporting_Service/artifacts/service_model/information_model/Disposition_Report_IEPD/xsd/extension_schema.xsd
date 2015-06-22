@@ -167,6 +167,7 @@
 					<xsd:element ref="disp-ext:TermMinimumTotalYears" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:TermTotalDays" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:SentenceJuvenileAgeTo" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="disp-ext:RecidivismEligibilityDate" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -679,6 +680,11 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SentenceJuvenileAgeTo" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Need definition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RecidivismEligibilityDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>Need definition.</xsd:documentation>
 		</xsd:annotation>
