@@ -350,8 +350,7 @@ public class ArrestNotificationRequest extends NotificationRequest {
 
 	@Override
 	protected String getNotifyingAgencyOriXpath() {
-		// TODO Auto-generated method stub
-		return null;
+		return null; //ArrestNotificationRequest does not have agency ORI element.
 	}
 
 }
