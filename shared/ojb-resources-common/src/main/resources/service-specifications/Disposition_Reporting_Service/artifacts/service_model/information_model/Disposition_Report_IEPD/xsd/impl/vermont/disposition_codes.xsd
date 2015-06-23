@@ -827,74 +827,6 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:simpleType name="RaceCodeSimpleType">
-		<xsd:annotation>
-			<xsd:documentation>Race code set</xsd:documentation>
-			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
-			</xsd:appinfo>
-		</xsd:annotation>
-		<xsd:restriction base="xsd:token">
-			<xsd:enumeration value="0">
-				<xsd:annotation>
-					<xsd:documentation>Missing</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="1">
-				<xsd:annotation>
-					<xsd:documentation>African American</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="2">
-				<xsd:annotation>
-					<xsd:documentation>Asian</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="3">
-				<xsd:annotation>
-					<xsd:documentation>Caucasian</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="4">
-				<xsd:annotation>
-					<xsd:documentation>Hispanic</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="5">
-				<xsd:annotation>
-					<xsd:documentation>Native American</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="7">
-				<xsd:annotation>
-					<xsd:documentation>Not Reported</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="8">
-				<xsd:annotation>
-					<xsd:documentation>Other</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="9">
-				<xsd:annotation>
-					<xsd:documentation>Not Known</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-		</xsd:restriction>
-	</xsd:simpleType>
-	<xsd:complexType name="RaceCodeType">
-		<xsd:annotation>
-			<xsd:documentation>Race code set</xsd:documentation>
-			<xsd:appinfo>
-				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
-			</xsd:appinfo>
-		</xsd:annotation>
-		<xsd:simpleContent>
-			<xsd:extension base="vt_codes:RaceCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
 	<xsd:simpleType name="SentCatCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Sentence Category code set</xsd:documentation>
@@ -1307,11 +1239,6 @@
 	<xsd:element name="ProsDispCode" type="vt_codes:ProsDispCodeType" substitutionGroup="disp-ext:DispositionCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code for a prosecution disposition.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="RaceCode" type="vt_codes:RaceCodeType" substitutionGroup="nc:PersonRace">
-		<xsd:annotation>
-			<xsd:documentation>A code for race.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SentCatCode" type="vt_codes:SentCatCodeType" substitutionGroup="disp-ext:Sentence">
