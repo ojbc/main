@@ -33,7 +33,7 @@
 				<xsd:sequence>
 					<xsd:element ref="cyfs:SubmittedDateTime" minOccurs="0"/>
 					<xsd:element ref="disp-ext:DispositionReportOriginatingSystem" minOccurs="0"/>
-					<xsd:element ref="j:Subject" minOccurs="0"/>
+					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Case" minOccurs="0"/>
 					<xsd:element ref="disp-ext:DeferredCase" minOccurs="0"/>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
@@ -78,6 +78,18 @@
 					<xsd:element ref="j:PretrialReleaseStatus" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:PresentenceInvestigation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="disp-ext:OriginalChargeAmendedIndicator" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SubjectAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a subject.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="j:RegisteredOffender" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -430,6 +442,11 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CourtAugmentation" type="disp-ext:CourtAugmentationType" substitutionGroup="j:CourtAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a court.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubjectAugmentation" type="disp-ext:SubjectAugmentationType" substitutionGroup="j:SubjectAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a court.</xsd:documentation>
 		</xsd:annotation>
