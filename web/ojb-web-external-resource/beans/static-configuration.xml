@@ -631,8 +631,8 @@
 
 	<util:map id="subscriptionPurposeValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Subscription Purpose" />
-		<entry key="supervision" value="Supervision" />
-		<entry key="investigation" value="Investigation" />
+		<entry key="CS" value="Supervision" />
+		<entry key="CI" value="Investigation" />
 	</util:map>
 
 	<!-- for the filter subscription form -->
