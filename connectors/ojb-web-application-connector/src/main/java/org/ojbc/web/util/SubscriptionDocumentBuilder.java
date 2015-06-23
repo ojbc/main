@@ -139,7 +139,7 @@ public class SubscriptionDocumentBuilder {
 		
 		if(StringUtils.isNotEmpty(subReasonCode)){
 		
-			Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionReasonCode");
+			Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
 			subReasonCodeElement.setTextContent(subReasonCode);
 		}
 	}
