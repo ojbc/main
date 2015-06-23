@@ -17,60 +17,75 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<disp-doc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0 ../xsd/impl/hawaii/jims_disposition_codes.xsd"
-xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
-xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
-xmlns:hi_codes_jims="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0"
-xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
-xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/"
-xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<disp-doc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0 ../xsd/impl/hawaii/jims_disposition_codes.xsd" xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:hi_codes_jims="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<cyfs:SubmittedDateTime>
-		<nc:DateTime>2014-10-12T09:30:47.0Z</nc:DateTime>
+		<nc:DateTime>2014-08-29T17:39:37</nc:DateTime>
 	</cyfs:SubmittedDateTime>
-	<!-- Update this with URI -->
 	<disp-ext:DispositionReportOriginatingSystem>
 		<nc:SystemName>{http://ojbc.org/hawaii/judicial/1.0}JIMS</nc:SystemName>
 	</disp-ext:DispositionReportOriginatingSystem>
-	<nc:Case structures:id="CASE_01">
+	<j:Subject>
+		<disp-ext:SubjectAugmentation>
+			<j:RegisteredOffender>
+				<j:RegisteredOffenderIdentification>
+					<nc:IdentificationID>9254B10
+					-</nc:IdentificationID>
+				</j:RegisteredOffenderIdentification>
+			</j:RegisteredOffender>
+		</disp-ext:SubjectAugmentation>
+	</j:Subject>
+	<j:Subject>
+		<disp-ext:SubjectAugmentation>
+			<j:RegisteredOffender>
+				<j:RegisteredOffenderIdentification>
+					<nc:IdentificationID>9254B10
+					-</nc:IdentificationID>
+				</j:RegisteredOffenderIdentification>
+			</j:RegisteredOffender>
+		</disp-ext:SubjectAugmentation>
+	</j:Subject>
+	<j:Subject>
+		<disp-ext:SubjectAugmentation>
+			<j:RegisteredOffender>
+				<j:RegisteredOffenderIdentification>
+					<nc:IdentificationID>9254B10
+					-</nc:IdentificationID>
+				</j:RegisteredOffenderIdentification>
+			</j:RegisteredOffender>
+		</disp-ext:SubjectAugmentation>
+	</j:Subject>
+	<nc:Case structures:id="idRecordset137039888">
 		<j:CaseAugmentation>
-			<j:CaseCharge structures:id="CHARGE_01">
-				<j:ChargeDescriptionText>Unauthorized entry into motor vehicle first degree</j:ChargeDescriptionText>
+			<j:CaseCharge>
+				<j:ChargeDescriptionText>ASSAULT IN THE THIRD DEGREE</j:ChargeDescriptionText>
 				<j:ChargeDisposition>
 					<nc:DispositionDate>
-						<nc:Date>2013-11-12</nc:Date>
+						<nc:Date>2014-08-28</nc:Date>
 					</nc:DispositionDate>
 					<disp-ext:ChargeDispositionAugmentation>
-						<hi_codes_jims:DispositionCode>DWO</hi_codes_jims:DispositionCode>
+						<hi_codes_jims:DispositionCode>NCP</hi_codes_jims:DispositionCode>
 					</disp-ext:ChargeDispositionAugmentation>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
-					<nc:IdentificationID>ID764767</nc:IdentificationID>
-					<nc:IdentificationCategoryText>Charge ID</nc:IdentificationCategoryText>
+					<nc:IdentificationID>14304404</nc:IdentificationID>
 				</j:ChargeIdentification>
-				<j:ChargeIdentification>
-					<nc:IdentificationID>ID567567</nc:IdentificationID>
-					<nc:IdentificationCategoryText>Registered Offender ID</nc:IdentificationCategoryText>
-				</j:ChargeIdentification>
-				<j:ChargeSequenceID>4</j:ChargeSequenceID>
+				<j:ChargeSequenceID>1</j:ChargeSequenceID>
 				<disp-ext:ChargeAugmentation>
 					<disp-ext:InitialCharge>
 						<j:ChargePlea>
 							<nc:ActivityDate>
-								<nc:Date>2001-12-17</nc:Date>
+								<nc:Date>2014-08-28</nc:Date>
 							</nc:ActivityDate>
 							<disp-ext:PleaAugmentation>
-								<hi_codes_jims:PleaCode>A</hi_codes_jims:PleaCode>
+								<hi_codes_jims:PleaCode>NC</hi_codes_jims:PleaCode>
 							</disp-ext:PleaAugmentation>
 						</j:ChargePlea>
 						<j:ChargeSeverityLevel>
-							<j:SeverityLevelDescriptionText>MED</j:SeverityLevelDescriptionText>
+							<j:SeverityLevelDescriptionText>MD</j:SeverityLevelDescriptionText>
 						</j:ChargeSeverityLevel>
 						<j:ChargeStatute>
 							<j:StatuteCodeIdentification>
-								<nc:IdentificationID>ID</nc:IdentificationID>
+								<nc:IdentificationID>HRS 707-712(1)(a)</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 						</j:ChargeStatute>
 						<disp-ext:ChargeAugmentation>
@@ -80,18 +95,18 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<disp-ext:FinalCharge>
 						<j:ChargePlea>
 							<nc:ActivityDate>
-								<nc:Date>2001-12-17</nc:Date>
+								<nc:Date>2014-08-28</nc:Date>
 							</nc:ActivityDate>
 							<disp-ext:PleaAugmentation>
-								<hi_codes_jims:PleaCode>A</hi_codes_jims:PleaCode>
+								<hi_codes_jims:PleaCode>NC</hi_codes_jims:PleaCode>
 							</disp-ext:PleaAugmentation>
 						</j:ChargePlea>
 						<j:ChargeSeverityLevel>
-							<j:SeverityLevelDescriptionText>MED</j:SeverityLevelDescriptionText>
+							<j:SeverityLevelDescriptionText>MD</j:SeverityLevelDescriptionText>
 						</j:ChargeSeverityLevel>
 						<j:ChargeStatute>
 							<j:StatuteCodeIdentification>
-								<nc:IdentificationID>ID</nc:IdentificationID>
+								<nc:IdentificationID>HRS 707-712(1)(a)</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 						</j:ChargeStatute>
 						<disp-ext:ChargeAugmentation>
@@ -100,31 +115,159 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					</disp-ext:FinalCharge>
 					<disp-ext:ChargeFee>
 						<nc:ObligationDueAmount>
-							<nc:Amount>500.00</nc:Amount>
+							<nc:Amount>0</nc:Amount>
 						</nc:ObligationDueAmount>
 					</disp-ext:ChargeFee>
 					<scr:ChargeDate>
-						<nc:Date>2013-11-05</nc:Date>
+						<nc:Date>2014-08-22</nc:Date>
+					</scr:ChargeDate>
+				</disp-ext:ChargeAugmentation>
+			</j:CaseCharge>
+			<j:CaseCharge>
+				<j:ChargeDescriptionText>TERRORISTIC THREATENING II</j:ChargeDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2014-08-28</nc:Date>
+					</nc:DispositionDate>
+					<disp-ext:ChargeDispositionAugmentation>
+						<hi_codes_jims:DispositionCode>NCP</hi_codes_jims:DispositionCode>
+					</disp-ext:ChargeDispositionAugmentation>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>14304405</nc:IdentificationID>
+				</j:ChargeIdentification>
+				<j:ChargeSequenceID>2</j:ChargeSequenceID>
+				<disp-ext:ChargeAugmentation>
+					<disp-ext:InitialCharge>
+						<j:ChargePlea>
+							<nc:ActivityDate>
+								<nc:Date>2014-08-28</nc:Date>
+							</nc:ActivityDate>
+							<disp-ext:PleaAugmentation>
+								<hi_codes_jims:PleaCode>NC</hi_codes_jims:PleaCode>
+							</disp-ext:PleaAugmentation>
+						</j:ChargePlea>
+						<j:ChargeSeverityLevel>
+							<j:SeverityLevelDescriptionText>MD</j:SeverityLevelDescriptionText>
+						</j:ChargeSeverityLevel>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>HRS 707-717(1)</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
+						<disp-ext:ChargeAugmentation/>
+					</disp-ext:InitialCharge>
+					<disp-ext:FinalCharge>
+						<j:ChargePlea>
+							<nc:ActivityDate>
+								<nc:Date>2014-08-28</nc:Date>
+							</nc:ActivityDate>
+							<disp-ext:PleaAugmentation>
+								<hi_codes_jims:PleaCode>NC</hi_codes_jims:PleaCode>
+							</disp-ext:PleaAugmentation>
+						</j:ChargePlea>
+						<j:ChargeSeverityLevel>
+							<j:SeverityLevelDescriptionText>MD</j:SeverityLevelDescriptionText>
+						</j:ChargeSeverityLevel>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>HRS 707-717(1)</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
+						<disp-ext:ChargeAugmentation>
+							<hi_codes_jims:ChargeModifierCode>HRS 231-34</hi_codes_jims:ChargeModifierCode>
+						</disp-ext:ChargeAugmentation>
+					</disp-ext:FinalCharge>
+					<disp-ext:ChargeFee>
+						<nc:ObligationDueAmount>
+							<nc:Amount>0</nc:Amount>
+						</nc:ObligationDueAmount>
+					</disp-ext:ChargeFee>
+					<scr:ChargeDate>
+						<nc:Date>2014-08-22</nc:Date>
+					</scr:ChargeDate>
+				</disp-ext:ChargeAugmentation>
+			</j:CaseCharge>
+			<j:CaseCharge>
+				<j:ChargeDescriptionText>Criminal Prop Damage IV-Knowingly damages</j:ChargeDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2014-08-28</nc:Date>
+					</nc:DispositionDate>
+					<disp-ext:ChargeDispositionAugmentation>
+						<hi_codes_jims:DispositionCode>NCP</hi_codes_jims:DispositionCode>
+					</disp-ext:ChargeDispositionAugmentation>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>14304631</nc:IdentificationID>
+				</j:ChargeIdentification>
+				<j:ChargeSequenceID>3</j:ChargeSequenceID>
+				<disp-ext:ChargeAugmentation>
+					<disp-ext:InitialCharge>
+						<j:ChargePlea>
+							<nc:ActivityDate>
+								<nc:Date>2014-08-28</nc:Date>
+							</nc:ActivityDate>
+							<disp-ext:PleaAugmentation>
+								<hi_codes_jims:PleaCode>NC</hi_codes_jims:PleaCode>
+							</disp-ext:PleaAugmentation>
+						</j:ChargePlea>
+						<j:ChargeSeverityLevel>
+							<j:SeverityLevelDescriptionText>PM</j:SeverityLevelDescriptionText>
+						</j:ChargeSeverityLevel>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>HRS 708-823(1)</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
+						<disp-ext:ChargeAugmentation/>
+					</disp-ext:InitialCharge>
+					<disp-ext:FinalCharge>
+						<j:ChargePlea>
+							<nc:ActivityDate>
+								<nc:Date>2014-08-28</nc:Date>
+							</nc:ActivityDate>
+							<disp-ext:PleaAugmentation>
+								<hi_codes_jims:PleaCode>NC</hi_codes_jims:PleaCode>
+							</disp-ext:PleaAugmentation>
+						</j:ChargePlea>
+						<j:ChargeSeverityLevel>
+							<j:SeverityLevelDescriptionText>PM</j:SeverityLevelDescriptionText>
+						</j:ChargeSeverityLevel>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>HRS 708-823(1)</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
+						<disp-ext:ChargeAugmentation/>
+					</disp-ext:FinalCharge>
+					<disp-ext:ChargeFee>
+						<nc:ObligationDueAmount>
+							<nc:Amount>0</nc:Amount>
+						</nc:ObligationDueAmount>
+					</disp-ext:ChargeFee>
+					<scr:ChargeDate>
+						<nc:Date>2014-08-22</nc:Date>
 					</scr:ChargeDate>
 				</disp-ext:ChargeAugmentation>
 			</j:CaseCharge>
 			<j:CaseCourt>
 				<nc:OrganizationLocation>
 					<nc:Address>
-						<nc:LocationCountyName>Court County Name</nc:LocationCountyName>
+						<nc:LocationCountyName>Honolulu</nc:LocationCountyName>
 					</nc:Address>
 				</nc:OrganizationLocation>
 				<disp-ext:CourtAugmentation>
-					<hi_codes_jims:CourtCode>2D</hi_codes_jims:CourtCode>
-					<hi_codes_jims:CourtLocationCode>WA</hi_codes_jims:CourtLocationCode>
+					<hi_codes_jims:CourtCode>1D</hi_codes_jims:CourtCode>
+					<hi_codes_jims:CourtLocationCode>KP</hi_codes_jims:CourtLocationCode>
 				</disp-ext:CourtAugmentation>
 			</j:CaseCourt>
 			<j:CaseCourtEvent>
 				<nc:ActivityDate>
-					<nc:Date>2014-12-17</nc:Date>
+					<nc:Date>2014-10-23</nc:Date>
 				</nc:ActivityDate>
 				<disp-ext:CourtEventAugmentation>
-					<hi_codes_jims:CourtEventCode>AP</hi_codes_jims:CourtEventCode>
+					<hi_codes_jims:CourtEventCode>HRG</hi_codes_jims:CourtEventCode>
 				</disp-ext:CourtEventAugmentation>
 			</j:CaseCourtEvent>
 			<j:CaseDefenseAttorney>
@@ -135,92 +278,379 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<j:CaseJudge>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
-						<nc:PersonFullName>Roy W. Williams</nc:PersonFullName>
+						<nc:PersonFullName>Harry Smith</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
-			</j:CaseJudge>
-			<j:CaseOfficial>
 				<j:CaseOfficialCaseIdentification>
-					<nc:IdentificationID>Case ID</nc:IdentificationID>
+					<nc:IdentificationID>1DCW-14-0003895</nc:IdentificationID>
 				</j:CaseOfficialCaseIdentification>
-			</j:CaseOfficial>
+			</j:CaseJudge>
 		</j:CaseAugmentation>
 		<disp-ext:CaseAugmentation>
 			<disp-ext:CaseFee>
-				<nc:Amount>500.00</nc:Amount>
+				<nc:Amount>0</nc:Amount>
 			</disp-ext:CaseFee>
-			<disp-ext:CasePenalSummonsIndicator>false</disp-ext:CasePenalSummonsIndicator>
-			<hi_codes_jims:CaseDocketCode>*AM-A</hi_codes_jims:CaseDocketCode>
+			<disp-ext:CasePenalSummonsIndicator>true</disp-ext:CasePenalSummonsIndicator>
 		</disp-ext:CaseAugmentation>
 	</nc:Case>
-	<nc:Person structures:id="PARTY_01">
+	<nc:Person structures:id="idPerson137040168">
 		<nc:PersonBirthDate>
 			<nc:Date>1990-07-13</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonName>
 			<nc:PersonGivenName>Kaipo</nc:PersonGivenName>
-			<nc:PersonMiddleName>B</nc:PersonMiddleName>
+			<nc:PersonMiddleName>David Pagan</nc:PersonMiddleName>
 			<nc:PersonSurName>Vannata</nc:PersonSurName>
 		</nc:PersonName>
 		<nc:PersonSSNIdentification>
-			<nc:IdentificationID>123456789</nc:IdentificationID>
+			<nc:IdentificationID>575532914</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
 		<nc:PersonStateIdentification>
-			<nc:IdentificationID>HI2067898</nc:IdentificationID>
+			<nc:IdentificationID>A6019276</nc:IdentificationID>
 		</nc:PersonStateIdentification>
 	</nc:Person>
 	<j:Charge>
 		<j:ChargeSentence>
 			<nc:ActivityIdentification>
-				<nc:IdentificationID>String</nc:IdentificationID>
-				<nc:IdentificationCategoryText>String</nc:IdentificationCategoryText>
+				<nc:IdentificationID>100</nc:IdentificationID>
 			</nc:ActivityIdentification>
 			<nc:ActivityDate>
-				<nc:Date>2001-12-17</nc:Date>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>1</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 707-712(1)(a)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Anger Management Assessment and treatment, at own expense until clinically discharged.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<j:SentenceSuspendedIndicator>true</j:SentenceSuspendedIndicator>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>CSW</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>101</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>1</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 707-712(1)(a)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>for Restitution Study and Ability to Pay.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>CSW</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>102</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
 			</nc:ActivityDate>
 			<j:SentenceCharge>
 				<j:ChargeSequenceID>2</j:ChargeSequenceID>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>StatuteID</nc:IdentificationID>
+						<nc:IdentificationID>HRS 707-712(1)(a)</nc:IdentificationID>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 			</j:SentenceCharge>
-			<j:SentenceCondition/>
-			<j:SentenceSuspendedIndicator>true</j:SentenceSuspendedIndicator>
-			<j:SentenceTerm>
-				<j:TermDuration>P1Y2M3D</j:TermDuration>
-			</j:SentenceTerm>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Credit for time served; concurrent with any other sentence serving. Mittimus issued.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
 			<disp-ext:SentenceAugmentation>
-				<hi_codes_jims:SentenceCode>*CV</hi_codes_jims:SentenceCode>
+				<hi_codes_jims:SentenceCode>JL</hi_codes_jims:SentenceCode>
 			</disp-ext:SentenceAugmentation>
 		</j:ChargeSentence>
 	</j:Charge>
-	<nc:Identity structures:id="IDENTITY_01">
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>103</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>3</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 707-712(1)(a)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Waived for inability to pay.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>FIN</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>104</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>3</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 707-712(1)(a)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Waived for inability to pay.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>FIN</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>95</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>2</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 707-717(1)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Concurrent with Count 1.  Anger Management Assessment and Treatment, at own expense until clinically discharged.  Concurrent with Count 1</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>CSW</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>96</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>2</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 707-717(1)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>for Restitution Study and Ability to Pay.  Concurrent.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>CSW</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>97</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>2</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 707-717(1)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Credit for time served; concurrent with any other sentence serving. Mittimus issued.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>JL</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>98</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>2</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 707-717(1)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Waived for inability to pay.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>FIN</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>99</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>2</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 707-717(1)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Waived for inability to pay.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>FIN</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>105</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>3</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 708-823(1)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>for Restitution Study and Ability to pay.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>CSW</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>106</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>3</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 708-823(1)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Credit for time served; concurrent with any other sentence serving.  Mittimus issued.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>JL</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeSentence>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>107</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2014-08-28</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCharge>
+				<j:ChargeSequenceID>3</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>HRS 708-823(1)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:SentenceCharge>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Waived for inability to pay.</nc:ActivityDescriptionText>
+			</j:SentenceCondition>
+			<disp-ext:SentenceAugmentation>
+				<hi_codes_jims:SentenceCode>FIN</hi_codes_jims:SentenceCode>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+	</j:Charge>
+	<nc:Identity structures:id="idPersonAlias137041904">
 		<nc:IdentityPersonRepresentation>
 			<nc:PersonName>
-				<nc:PersonGivenName>Harold</nc:PersonGivenName>
-				<nc:PersonMiddleName/>
-				<nc:PersonSurName>Davies</nc:PersonSurName>
+				<nc:PersonGivenName>Kaipo</nc:PersonGivenName>
+				<nc:PersonMiddleName>D</nc:PersonMiddleName>
+				<nc:PersonSurName>Pagan Vannatta Jr</nc:PersonSurName>
 			</nc:PersonName>
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
-	<nc:Identity structures:id="IDENTITY_02">
+	<nc:Identity structures:id="idPersonAlias141944112">
 		<nc:IdentityPersonRepresentation>
 			<nc:PersonName>
-				<nc:PersonGivenName>Harry</nc:PersonGivenName>
-				<nc:PersonMiddleName/>
-				<nc:PersonSurName>David</nc:PersonSurName>
+				<nc:PersonGivenName>Kaipo</nc:PersonGivenName>
+				<nc:PersonMiddleName>D</nc:PersonMiddleName>
+				<nc:PersonSurName>Vannatta</nc:PersonSurName>
+			</nc:PersonName>
+		</nc:IdentityPersonRepresentation>
+	</nc:Identity>
+	<nc:Identity structures:id="idPersonAlias141944504">
+		<nc:IdentityPersonRepresentation>
+			<nc:PersonName>
+				<nc:PersonGivenName>Kaipo</nc:PersonGivenName>
+				<nc:PersonMiddleName>D H</nc:PersonMiddleName>
+				<nc:PersonSurName>Vannatta</nc:PersonSurName>
 			</nc:PersonName>
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
 	<nc:ActivityPersonAssociation>
-		<nc:Activity structures:ref="CASE_01"/>
-		<nc:Person structures:ref="PARTY_01"/>
+		<nc:Activity structures:ref="idRecordset137039888"/>
+		<nc:Person structures:ref="idPerson137040168"/>
 	</nc:ActivityPersonAssociation>
-	<nc:PersonAliasIdentityAssociation>
-		<nc:Person structures:ref="PARTY_01"/>
-		<nc:Identity structures:ref="IDENTITY_01"/>
-		<nc:Identity structures:ref="IDENTITY_02"/>
-	</nc:PersonAliasIdentityAssociation>
 </disp-doc:DispositionReport>

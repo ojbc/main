@@ -35,7 +35,7 @@
 				<nc:PersonSurName>String</nc:PersonSurName>
 				<nc:PersonNameSuffixText>String</nc:PersonNameSuffixText>
 			</nc:PersonName>
-			<vt_codes:RaceCode>4</vt_codes:RaceCode>
+			<j:PersonRaceCode>W</j:PersonRaceCode>
 			<vt_codes:VTResCode>5</vt_codes:VTResCode>
 			<nc:PersonStateIdentification>
 				<nc:IdentificationID>String</nc:IdentificationID>
@@ -140,6 +140,9 @@
 									<disp-ext:TermMinimumTotalDays>6.1</disp-ext:TermMinimumTotalDays>
 									<disp-ext:TermMinimumTotalYears>2.1</disp-ext:TermMinimumTotalYears>
 									<disp-ext:TermTotalDays>545.6</disp-ext:TermTotalDays>
+									<disp-ext:RecidivismEligibilityDate>
+										<nc:Date>2011-12-17</nc:Date>
+									</disp-ext:RecidivismEligibilityDate>
 								</disp-ext:SentenceTermAugmentation>
 							</j:SentenceTerm>
 							<disp-ext:SentenceAugmentation>
