@@ -42,7 +42,4 @@
 		</property>
 	</bean>
 
-	<util:properties id="springProperties">
-		<prop key="fbiEbtsAdapterDir">${fbiEBTCAdapter.inputDirectory}</prop>
-	</util:properties>		
 </beans>
