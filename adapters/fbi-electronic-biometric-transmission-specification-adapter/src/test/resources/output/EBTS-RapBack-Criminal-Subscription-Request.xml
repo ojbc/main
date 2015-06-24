@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<itl:NISTBiometricInformationExchangePackage
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
+	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
+	<itl:PackageInformationRecord>
+		<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
+		<ansi-nist:Transaction>
+			<ansi-nist:TransactionDate>
+				<nc20:Date>2015-06-24-04:00</nc20:Date>
+			</ansi-nist:TransactionDate>
+		</ansi-nist:Transaction>
+	</itl:PackageInformationRecord>
+	<itl:PackageInformationRecord>
+		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+		<itl:UserDefinedDescriptiveDetail>
+			<ebts:DomainDefinedDescriptiveFields>
+				<ebts:RecordRapBackData>
+					<!--Modify XSLT to populate the following field -->
+					<ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
+					<!--Modify XSLT to populate the following field -->
+					<ebts:RecordRapBackCategoryCode>F</ebts:RecordRapBackCategoryCode>
+					<!--Modify XSLT to populate the following field -->
+					<ebts:RecordRapBackExpirationDate>
+						<nc20:Date>2010-02-24</nc20:Date>
+					</ebts:RecordRapBackExpirationDate>
+					<!--Modify XSLT to populate the following field -->
+					<ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
+					<!--Modify XSLT to populate the following field -->
+					<ebts:RecordRapBackTriggeringEventCode>1</ebts:RecordRapBackTriggeringEventCode>
+					<ebts:RecordRapBackUserDefinedElement>
+						<ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
+				</ebts:RecordRapBackData>
+				<ebts:RecordSubject>
+					<nc20:PersonBirthDate>
+						<nc20:Date>1972-08-02</nc20:Date>
+					</nc20:PersonBirthDate>
+					<ebts:PersonName>
+						<nc20:PersonGivenName>John</nc20:PersonGivenName>
+						<nc20:PersonSurName>Doe</nc20:PersonSurName>
+					</ebts:PersonName>
+					<!-- Modify XSLT to populate the following field -->
+					<j:PersonFBIIdentification>
+                        <nc20:IdentificationID>123456789</nc20:IdentificationID>
+                    </j:PersonFBIIdentification>
+				</ebts:RecordSubject>
+			</ebts:DomainDefinedDescriptiveFields>
+		</itl:UserDefinedDescriptiveDetail>
+	</itl:PackageInformationRecord>
+</itl:NISTBiometricInformationExchangePackage>
