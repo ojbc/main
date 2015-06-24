@@ -18,6 +18,8 @@ package org.ojbc.bundles.adapters.fbi.ebts;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.transform.Source;
 
@@ -57,7 +59,12 @@ public class EbtsTransformTest {
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
-								
+		
+		Map<String, Object> xsltParamMap = new HashMap<String, Object>();
+		xsltParamMap.put("rapBackNotificatonFormat", 3);
+		xsltParamMap.put("rapBackInStateOptOutIndicator", true);
+		xsltParamMap.put("rapBackTriggeringEvent", 1);
+		
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, null);		
 		
 		String expectedXmlString = XmlUtils.getRootNodeAsString("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml");		
