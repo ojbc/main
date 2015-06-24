@@ -208,6 +208,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:IdentityPersonRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:IdentityAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -673,6 +674,11 @@
   <xs:element name="Identity" type="nc:IdentityType">
     <xs:annotation>
       <xs:documentation>A set of known aspects, identifiers, and/or characteristics by which a person is defined or recognized.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IdentityAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for IdentityType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="IdentityPersonRepresentation" type="nc:PersonType" nillable="true">
