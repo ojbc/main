@@ -29,7 +29,4 @@
 
     <ctx:property-placeholder location="classpath:fbi_electronic_biometric_transmission_specification_adapter.cfg"/>
 
-	<util:properties id="springProperties">
-		<prop key="fbiEbtsAdapterDir">${fbiEBTCAdapter.inputDirectory}</prop>
-	</util:properties>	
 </beans>

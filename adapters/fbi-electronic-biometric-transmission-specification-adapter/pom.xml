@@ -49,6 +49,8 @@
 		<ojb-common-version>[2.0.0,)</ojb-common-version>
 		<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
+		
+		<xmlunit.version>1.5</xmlunit.version>
 	</properties>
 
 	<dependencies>
@@ -129,20 +131,23 @@
 			<version>${spring-version}</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-test</artifactId>
 			<version>${camel-version}</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-test-spring</artifactId>
 			<version>${camel-version}</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>		
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>${xmlunit.version}</version>
+		</dependency>		
 	</dependencies>
 
 	<build>

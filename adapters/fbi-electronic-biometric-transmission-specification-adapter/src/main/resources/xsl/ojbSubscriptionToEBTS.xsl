@@ -29,10 +29,16 @@
 	<xsl:output indent="yes" method="xml"/>
 	<!-- These are implementation-specific parameters that must be passed in when calling this stylesheet -->
 	
-	<!-- This field corresponds to RBNF (2.2062) in EBTS 10.0 and indicates whether the subscriber wishes Rap Back Activity Notification Format to be Pre-notification, Triggering Event, or Triggering Event with Identity History Summary. This field is mandatory in establishing a Rap Back Subscription. -->
+	<!-- This field corresponds to RBNF (2.2062) in EBTS 10.0 and indicates whether the subscriber wishes Rap Back Activity Notification 
+		Format to be Pre-notification, Triggering Event, or Triggering Event with Identity History Summary. This field is mandatory in 
+		establishing a Rap Back Subscription. 
+	-->
 	<xsl:param name="rapBackNotificatonFormat">3</xsl:param>
 	
-	<!-- This field corresponds to RBOO (2.2063) in EBTS 10.0 and indicates whether FBI/NGI should send notifications of events originating from within the Submitter’s own state. The default value is ‘false’, NGI sending all notifications. A value of ‘true’ must be provided on all subscriptions for which Submitter wishes to opt-out of in-state notifications -->
+	<!-- This field corresponds to RBOO (2.2063) in EBTS 10.0 and indicates whether FBI/NGI should send notifications of events originating from 
+		within the Submitter’s own state. The default value is ‘false’, NGI sending all notifications. A value of ‘true’ must be provided on all subscriptions 
+		for which Submitter wishes to opt-out of in-state notifications 
+	-->
 	<xsl:param name="rapBackInStateOptOutIndicator">true</xsl:param>
 	
 	<!-- This field corresponds to RBT 2.2040 and specifies which Events will result in notifications sent to the subscriber -->
