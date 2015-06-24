@@ -468,6 +468,8 @@
   <w:Type w:name="nc:IdentityType" w:isRequested="false">
     <w:ElementInType w:name="nc:IdentityPersonRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:IdentityAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:IncidentType" w:isRequested="true">
     <w:ElementInType w:name="nc:IncidentAugmentationPoint"
