@@ -38,7 +38,7 @@
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
     ">
 
-	<cxf:cxfEndpoint id="subscriptionManagerService"
+	<cxf:cxfEndpoint id="fbiEbtsService"
 		address="${fbiEBTCAdapter.endpoint}" 
 		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
 		serviceName="ojb-sm:SubscriptionManagerServiceService"
