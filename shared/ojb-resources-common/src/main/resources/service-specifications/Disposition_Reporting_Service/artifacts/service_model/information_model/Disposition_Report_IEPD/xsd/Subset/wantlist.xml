@@ -352,6 +352,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SubjectIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:SubjectAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:TermType" w:isRequested="false">
     <w:ElementInType w:name="j:TermDuration" w:isReference="false"
@@ -465,6 +467,8 @@
   </w:Type>
   <w:Type w:name="nc:IdentityType" w:isRequested="false">
     <w:ElementInType w:name="nc:IdentityPersonRepresentation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:IdentityAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:IncidentType" w:isRequested="true">
