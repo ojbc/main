@@ -62,24 +62,19 @@
 			
 			<camel:convertBodyTo type="java.lang.String"/>
 			
-			<!-- Set Incident ID header -->
-			<camel:setHeader headerName="incidentID">
-				<camel:simple>${bean:NDExUtils?method=getIncidentIDFromFileName}</camel:simple> 
-			</camel:setHeader>
-			
 			<camel:setHeader headerName="to">
-				<camel:simple>${bean:FailedNDExSubmissionMessageNotificationEmailAddress.trim}</camel:simple>
+				<camel:simple>{{NDExSubmission.emailNotificationRecipientMessageError}}</camel:simple>
 			</camel:setHeader>
 			<camel:setHeader headerName="subject">
 				<camel:simple>{{NDExSubmission.emailNotificationSubjectTransportError}}}</camel:simple>
 			</camel:setHeader>
 			
 			<camel:setBody>
-				<camel:simple>N-DEx message delivery failed for Incident ID: ${in.header.incidentID}.  N-DEx returned this message:\n\n ${body}</camel:simple>
+				<camel:simple>N-DEx message delivery failed.  N-DEx returned this message:\n\n ${body}</camel:simple>
 			</camel:setBody>
 			<camel:to uri="deadLetterMail" />
 			<log
-				message="E-mail about to be sent to ${bean:FailedNDExSubmissionMessageNotificationEmailAddress.trim} to notify of N-DEx submission failure with Incident ID of ${in.header.incidentID}." />
+				message="E-mail about to be sent to {{NDExSubmission.emailNotificationRecipientMessageError}} to notify of N-DEx submission failure." />
 			
 		</camel:route>
 
@@ -94,11 +89,6 @@
 			<camel:to uri="ndexSubmissionDeadLetterDirArchive" />
 			
 			<camel:convertBodyTo type="java.lang.String"/>
-
-			<!-- Set Incident ID header -->
-			<camel:setHeader headerName="incidentID">
-				<camel:simple>{{NDExSubmission.emailNotificationSubjectTransportError}}</camel:simple> 
-			</camel:setHeader>
 			
 			<camel:setHeader headerName="to">
 				<camel:simple>{{NDExSubmission.emailNotificationRecipientTransportError}}</camel:simple>
@@ -107,11 +97,11 @@
 				<camel:simple>{{NDExSubmission.emailNotificationSubjectMessageError}}</camel:simple>
 			</camel:setHeader>
 			<camel:setBody>
-				<camel:simple>N-DEx message delivery failed for Incident ID: ${in.header.incidentID}. Check connection from N-DEx intermediary to FBI.</camel:simple>
+				<camel:simple>N-DEx message delivery failed. Check connection from N-DEx intermediary to FBI.</camel:simple>
 			</camel:setBody>
 			<camel:to uri="deadLetterMail" />
 			<camel:log
-				message="E-mail about to be sent to ${bean:FailedNDExSubmissionTransportNotificationEmailAddress.trim} to notify of connection or delivery failure." />
+				message="E-mail about to be sent to {{NDExSubmission.emailNotificationRecipientTransportError}} to notify of connection or delivery failure." />
 			
 		</camel:route>
 	</routeContext>	
