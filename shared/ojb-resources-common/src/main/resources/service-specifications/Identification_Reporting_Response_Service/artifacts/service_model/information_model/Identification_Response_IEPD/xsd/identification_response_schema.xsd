@@ -20,13 +20,12 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0"
-xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
-targetNamespace="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" elementFormDefault="qualified">
+xmlns:pidreq="http://ojbc.org/IEPD/Exchange/PersonIdentificationReportResponse/1.0"
+xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationReportResponseExtension/1.0"
+targetNamespace="http://ojbc.org/IEPD/Exchange/PersonIdentificationReportResponse/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" schemaLocation="./extension_schema.xsd"/>
-	<!-- Root data element for a Person Identification Results -->
-	<xsd:element name="PersonStateIdentificationResults" type="ident-ext:PersonIdentificationResultsType"/>
-	<xsd:element name="PersonFederalIdentificationResults" type="ident-ext:PersonIdentificationResultsType"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/IdentificationReportResponseExtension/1.0" schemaLocation="./extension_schema.xsd"/>
+
+	<xsd:element name="PersonIdentificationReportResponse" type="ident-ext:PersonIdentificationReportResponseType"/>
 </xsd:schema>
