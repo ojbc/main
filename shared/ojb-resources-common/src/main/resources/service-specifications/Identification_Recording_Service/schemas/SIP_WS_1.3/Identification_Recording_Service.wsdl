@@ -30,18 +30,30 @@
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" schemaLocation="../../artifacts/service_model/information_model/Identification_IEPD/xsd/person_identification_results_schema.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
-	<wsdl:message name="PersonIdentificationRequest">
-		<wsdl:part name="PersonIdentificationRequest" element="pidreq:PersonIdentificationRequest"/>
+	<wsdl:message name="PersonStateIdentificationRequest">
+		<wsdl:part name="PersonStateIdentificationRequest" element="pidreq:PersonStateIdentificationRequest"/>
 	</wsdl:message>
-	<wsdl:message name="PersonIdentificationResults">
-		<wsdl:part name="PersonIdentificationResults" element="pidres-doc:PersonIdentificationResults"/>
+	<wsdl:message name="PersonStateIdentificationResults">
+		<wsdl:part name="PersonStateIdentificationResults" element="pidres-doc:PersonStateIdentificationResults"/>
+	</wsdl:message>
+	<wsdl:message name="PersonFederalIdentificationRequest">
+		<wsdl:part name="PersonFederalIdentificationRequest" element="pidreq:PersonFederalIdentificationRequest"/>
+	</wsdl:message>
+	<wsdl:message name="PersonFederalIdentificationResults">
+		<wsdl:part name="PersonFederalIdentificationResults" element="pidres-doc:PersonFederalIdentificationResults"/>
 	</wsdl:message>
 	<wsdl:portType name="Identification-Recording-Service">
-		<wsdl:operation name="RecordPersonIdentificationRequest">
-			<wsdl:input name="PersonIdentificationRequest" message="tns:PersonIdentificationRequest"/>
+		<wsdl:operation name="RecordPersonStateIdentificationRequest">
+			<wsdl:input name="PersonStateIdentificationRequest" message="tns:PersonStateIdentificationRequest"/>
 		</wsdl:operation>
-		<wsdl:operation name="RecordPersonIdentificationResults">
-			<wsdl:input name="PersonIdentificationResults" message="tns:PersonIdentificationResults"/>
+		<wsdl:operation name="RecordPersonStateIdentificationResults">
+			<wsdl:input name="PersonStateIdentificationResults" message="tns:PersonStateIdentificationResults"/>
+		</wsdl:operation>
+		<wsdl:operation name="RecordPersonFederalIdentificationRequest">
+			<wsdl:input name="PersonFederalIdentificationRequest" message="tns:PersonFederalIdentificationRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="RecordPersonFederalIdentificationResults">
+			<wsdl:input name="PersonFederalIdentificationResults" message="tns:PersonFederalIdentificationResults"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- Secure, GFIPM-conforming binding -->
@@ -49,14 +61,26 @@
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem"/>
 		<wsp:PolicyReference URI="#MTOMPolicy" wsdl:required="true"/>
-		<wsdl:operation name="RecordPersonIdentificationRequest">
-			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0/RecordPersonIdentificationRequest" style="document"/>
+		<wsdl:operation name="RecordPersonStateIdentificationRequest">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0/RecordPersonStateIdentificationRequest" style="document"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="RecordPersonIdentificationResults">
-			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0/RecordPersonIdentificationResults" style="document"/>
+		<wsdl:operation name="RecordPersonStateIdentificationResults">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0/RecordPersonStateIdentificationResults" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="RecordPersonFederalIdentificationRequest">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0/RecordPersonFederalIdentificationRequest" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="RecordPersonFederalIdentificationResults">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0/RecordPersonFederalIdentificationResults" style="document"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>
