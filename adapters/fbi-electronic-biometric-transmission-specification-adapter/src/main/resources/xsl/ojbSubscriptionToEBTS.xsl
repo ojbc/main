@@ -30,7 +30,7 @@
 	
 	<!-- These are implementation-specific parameters that must be passed in when calling this stylesheet -->	
 		
-	<xsl:param name="rapBackTransactionDate">2015-06-24</xsl:param>
+	<xsl:param name="rapBackTransactionDate"/>
 	
 	<!-- This field corresponds to RBNF (2.2062) in EBTS 10.0 and indicates whether the subscriber wishes Rap Back Activity Notification 
 		Format to be Pre-notification, Triggering Event, or Triggering Event with Identity History Summary. This field is mandatory in 
@@ -38,9 +38,9 @@
 	-->
 	<xsl:param name="rapBackNotificatonFormat" />
 	
-	<xsl:param name="recordRapBackCategoryCode">F</xsl:param>
+	<xsl:param name="recordRapBackCategoryCode" />
 	
-	<xsl:param name="recordRapBackExpirationDate">2010-02-24</xsl:param>
+	<xsl:param name="recordRapBackExpirationDate" />
 	
 	<!-- This field corresponds to RBOO (2.2063) in EBTS 10.0 and indicates whether FBI/NGI should send notifications of events originating from 
 		within the Submitter’s own state. The default value is ‘false’, NGI sending all notifications. A value of ‘true’ must be provided on all subscriptions 
