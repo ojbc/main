@@ -64,6 +64,10 @@ public class EbtsTransformTest {
 		xsltParamMap.put("rapBackInStateOptOutIndicator", true);
 		xsltParamMap.put("rapBackTriggeringEvent", 1);
 		
+		xsltParamMap.put("rapBackTransactionDate", "2015-06-24");
+		xsltParamMap.put("recordRapBackCategoryCode", "F");
+		xsltParamMap.put("recordRapBackExpirationDate", "2010-02-24");
+		
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
 		String expectedXmlString = FileUtils.readFileToString(
