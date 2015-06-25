@@ -88,6 +88,7 @@
 					<xsd:element ref="inc-ext:IncidentCase" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:OfficerInCharge" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:IncidentCategory" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:IncidentNature" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:IncidentNatureText" minOccurs="0"/>
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
@@ -429,7 +430,17 @@
 			<xsd:documentation>The kind of incident.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="IncidentNature" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A classification of an incident.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="IncidentCategoryCode" type="inc-ext:IncidentCategoryCodeType" substitutionGroup="inc-ext:IncidentCategory">
+		<xsd:annotation>
+			<xsd:documentation>The kind of incident.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IncidentNatureCode" type="inc-ext:IncidentNatureCodeType" substitutionGroup="inc-ext:IncidentNature">
 		<xsd:annotation>
 			<xsd:documentation>The kind of incident.</xsd:documentation>
 		</xsd:annotation>
@@ -446,6 +457,25 @@
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="inc-ext:IncidentCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="IncidentNatureCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type to specify the kind of incident.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="IncidentNatureCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type to specify the kind of incident.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="inc-ext:IncidentNatureCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>
