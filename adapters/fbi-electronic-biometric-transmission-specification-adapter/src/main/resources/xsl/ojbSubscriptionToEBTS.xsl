@@ -27,74 +27,126 @@
     xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
 	
 	<xsl:output indent="yes" method="xml"/>
-	<!-- These are implementation-specific parameters that must be passed in when calling this stylesheet -->
+	
+	<!-- These are implementation-specific parameters that must be passed in when calling this stylesheet -->	
+		
+	<xsl:param name="rapBackTransactionDate">2015-06-24</xsl:param>
 	
 	<!-- This field corresponds to RBNF (2.2062) in EBTS 10.0 and indicates whether the subscriber wishes Rap Back Activity Notification 
 		Format to be Pre-notification, Triggering Event, or Triggering Event with Identity History Summary. This field is mandatory in 
 		establishing a Rap Back Subscription. 
 	-->
-	<xsl:param name="rapBackNotificatonFormat">3</xsl:param>
+	<xsl:param name="rapBackNotificatonFormat" />
+	
+	<xsl:param name="recordRapBackCategoryCode">F</xsl:param>
+	
+	<xsl:param name="recordRapBackExpirationDate">2010-02-24</xsl:param>
 	
 	<!-- This field corresponds to RBOO (2.2063) in EBTS 10.0 and indicates whether FBI/NGI should send notifications of events originating from 
 		within the Submitter’s own state. The default value is ‘false’, NGI sending all notifications. A value of ‘true’ must be provided on all subscriptions 
 		for which Submitter wishes to opt-out of in-state notifications 
 	-->
-	<xsl:param name="rapBackInStateOptOutIndicator">true</xsl:param>
+	<xsl:param name="rapBackInStateOptOutIndicator" />
 	
 	<!-- This field corresponds to RBT 2.2040 and specifies which Events will result in notifications sent to the subscriber -->
-	<xsl:param name="rapBackTriggeringEvent">1</xsl:param>
+	<xsl:param name="rapBackTriggeringEvent" />
+		
 	
 	<xsl:template match="/submsg-doc:SubscriptionMessage">
 	
 		<itl:NISTBiometricInformationExchangePackage>
+		
 			<!-- Record Type 1 -->
 			<itl:PackageInformationRecord>
 				<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
+				 
 				 <ansi-nist:Transaction>
 				 	<ansi-nist:TransactionDate>
 				 		<nc20:Date>
-				 			<xsl:value-of select="current-date()"/>
+				 			<xsl:value-of select="$rapBackTransactionDate"/>
 				 		</nc20:Date>
 				 	</ansi-nist:TransactionDate>
 				 </ansi-nist:Transaction>
+				 
 			</itl:PackageInformationRecord>
+			
 			<!-- Record Type 2 -->
 			<itl:PackageInformationRecord>
+			
 				<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
 				<itl:UserDefinedDescriptiveDetail>
 					<ebts:DomainDefinedDescriptiveFields>
+					
 						<ebts:RecordRapBackData>
-							<!-- in here somewhere is where we will need to add elements for rap back notification format, opt out indicator, and tiggering event -->
+													
+							<ebts:RecordRapBackActivityNotificationFormatCode>
+								<xsl:value-of select="$rapBackNotificatonFormat" />
+							</ebts:RecordRapBackActivityNotificationFormatCode>
+							 
+							<ebts:RecordRapBackCategoryCode>
+								<xsl:value-of select="$recordRapBackCategoryCode"/>
+							</ebts:RecordRapBackCategoryCode>
+														
+							<ebts:RecordRapBackExpirationDate>
+								<nc20:Date>								
+									<xsl:value-of select="$recordRapBackExpirationDate" />
+								</nc20:Date>
+							</ebts:RecordRapBackExpirationDate>							
+							
+							<ebts:RecordRapBackInStateOptOutIndicator>
+								<xsl:value-of select="$rapBackInStateOptOutIndicator" />
+							</ebts:RecordRapBackInStateOptOutIndicator>
+														
+							<ebts:RecordRapBackTriggeringEventCode>
+								<xsl:value-of select="$rapBackTriggeringEvent" />
+							</ebts:RecordRapBackTriggeringEventCode>							
+														
 							<xsl:apply-templates select="submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification[nc20:IdentificationID !='']"/>
+																				
 						</ebts:RecordRapBackData>
+						
 						<xsl:apply-templates select="submsg-ext:Subject"/>
+						
 					</ebts:DomainDefinedDescriptiveFields>
 				</itl:UserDefinedDescriptiveDetail>
 			</itl:PackageInformationRecord>
 		</itl:NISTBiometricInformationExchangePackage>
 	</xsl:template>
 	<xsl:template match="submsg-ext:Subject">
-		<ebts:RecordSubject>
-			<xsl:apply-templates select="nc20:PersonBirthDate"/>
-			<xsl:apply-templates select="nc20:PersonName"/>
-			<!-- call template to write PerosnFBIIdentification -->
+		<ebts:RecordSubject>			
+			<xsl:apply-templates select="nc20:PersonBirthDate"/>			
+			<xsl:apply-templates select="nc20:PersonName"/>												
+			<xsl:apply-templates select="j:PersonAugmentation" />					
 		</ebts:RecordSubject>
 	</xsl:template>
+	
 	<xsl:template match="nc20:PersonBirthDate">
 		<xsl:copy-of select="." copy-namespaces="no"/>
 	</xsl:template>
+	
 	<xsl:template match="nc20:PersonName">
 		<ebts:PersonName>
 			<xsl:apply-templates select="nc20:PersonGivenName"/>
 			<xsl:apply-templates select="nc20:PersonSurName"/>
 		</ebts:PersonName>
 	</xsl:template>
+	
 	<xsl:template match="nc20:PersonGivenName">
 		<xsl:copy-of select="." copy-namespaces="no"/>
 	</xsl:template>
+	
 	<xsl:template match="nc20:PersonSurName">
 		<xsl:copy-of select="." copy-namespaces="no"/>
 	</xsl:template>
+	
+	<xsl:template match="j:PersonAugmentation">
+		<xsl:apply-templates select="j:PersonFBIIdentification"/>			
+	</xsl:template>
+	
+	<xsl:template match="j:PersonFBIIdentification">		
+		<xsl:copy-of select="." copy-namespaces="no" />
+	</xsl:template>
+		
 	<xsl:template match="j:PersonStateFingerprintIdentification">
 		<ebts:RecordRapBackUserDefinedElement>
 			<ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
@@ -103,4 +155,5 @@
 			</ebts:UserDefinedElementText>
 		</ebts:RecordRapBackUserDefinedElement>
 	</xsl:template>
+	
 </xsl:stylesheet>
