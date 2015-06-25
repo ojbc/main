@@ -18,11 +18,14 @@
 
 -->
 <pidreq-doc:PersonIdentificationRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0 ../xsd/person_identification_request_schema.xsd" xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<nc:DocumentIdentification>
-		<nc:IdentificationID>D567214</nc:IdentificationID>
-	</nc:DocumentIdentification>
+	<ident-ext:TransactionIdentification>
+		<nc:IdentificationID>000001820140729014008340000</nc:IdentificationID>
+	</ident-ext:TransactionIdentification>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
+			<nc:PersonBirthDate>
+				<nc:Date>1900-01-01</nc:Date>
+			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>Joe</nc:PersonGivenName>
 				<nc:PersonMiddleName>D</nc:PersonMiddleName>
@@ -33,7 +36,7 @@
 				<nc:IdentificationID>123456789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
 			<ident-ext:PersonTrackingIdentidication>
-				<nc:IdentificationID>OTN</nc:IdentificationID>
+				<nc:IdentificationID>OTN12345</nc:IdentificationID>
 			</ident-ext:PersonTrackingIdentidication>
 		</nc:RoleOfPerson>
 	</j:Subject>
@@ -48,13 +51,9 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ident-ext:IdentificationApplicantOrganization>
-	<ident-ext:FingerprintBasedIdentificationRequestDocument structures:id="Doc_01">
+	<ident-ext:FederalFingerprintBasedIdentificationRequestDocument structures:id="Doc_01">
 		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
 				<xop:Include href="cid:http://ojbc.org/identification/request/example"/>
-	</ident-ext:FingerprintBasedIdentificationRequestDocument>
-	<nc:PersonDocumentAssociation>
-		<nc:Person structures:ref="Subject01"/>
-		<nc:Document structures:ref="Doc_01"/>
-	</nc:PersonDocumentAssociation>
+	</ident-ext:FederalFingerprintBasedIdentificationRequestDocument>
 	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>
 </pidreq-doc:PersonIdentificationRequest>

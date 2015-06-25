@@ -33,9 +33,6 @@
 				<j:PersonFBIIdentification>
 					<nc:IdentificationID>B1234567</nc:IdentificationID>
 				</j:PersonFBIIdentification>
-				<j:PersonStateFingerprintIdentification>
-					<nc:IdentificationID>A123456</nc:IdentificationID>
-				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<ident-ext:PersonTrackingIdentidication>
 				<nc:IdentificationID>12345</nc:IdentificationID>
@@ -53,10 +50,10 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ident-ext:IdentificationApplicantOrganization>
-	<ident-ext:FBIIdentityHistorySummaryDocument structures:id="Doc_01">
+	<ident-ext:StateCriminalHistoryRecordDocument structures:id="Doc_01">
 		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
-	</ident-ext:FBIIdentityHistorySummaryDocument>
+	</ident-ext:StateCriminalHistoryRecordDocument>
 	<ident-ext:LinkedSystems>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>SYSTEM_ID_01</nc:IdentificationID>
