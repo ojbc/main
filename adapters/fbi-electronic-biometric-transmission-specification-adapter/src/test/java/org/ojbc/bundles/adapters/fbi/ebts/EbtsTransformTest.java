@@ -16,6 +16,7 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -25,17 +26,15 @@ import javax.xml.transform.Source;
 
 import junit.framework.Assert;
 
+import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
-import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.XsltTransformer;
 
-//TODO enable when passing
-@Ignore
 public class EbtsTransformTest {
 	
 	private XsltTransformer xsltTransformer;
@@ -51,7 +50,7 @@ public class EbtsTransformTest {
 		xsltTransformer = new XsltTransformer();
 	}	
 	
-	@Ignore
+	@Test
 	public void testEbtsTransform() throws Exception{
 								
 		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_Subscription_Document.xml");
@@ -65,10 +64,10 @@ public class EbtsTransformTest {
 		xsltParamMap.put("rapBackInStateOptOutIndicator", true);
 		xsltParamMap.put("rapBackTriggeringEvent", 1);
 		
-		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, null);		
-		
-		String expectedXmlString = XmlUtils.getRootNodeAsString("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml");		
-//		String expectedXmlString = FileUtils.readFileToString(new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"));
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"));
 							
 		Diff diff = XMLUnit.compareXML(expectedXmlString, actualTransformedXml);		
 		
