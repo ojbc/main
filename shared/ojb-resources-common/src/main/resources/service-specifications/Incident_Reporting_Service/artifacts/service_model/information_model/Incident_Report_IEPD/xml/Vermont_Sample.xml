@@ -629,6 +629,7 @@
 								</inc-ext:IncidentAutomobileTheftIndicator>
 								<j:IncidentCriminalIndicator>true</j:IncidentCriminalIndicator>
 								<inc-ext:IncidentCategoryCode>Law</inc-ext:IncidentCategoryCode>
+								<inc-ext:IncidentNatureCode>TBD</inc-ext:IncidentNatureCode>
 								<lexslib:SameAsDigestReference
 									lexslib:ref="INCIDENT01" />
 							</inc-ext:Incident>
