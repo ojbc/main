@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<pidreq-doc:PersonIdentificationRequest 
+<pidreq-doc:PersonStateIdentificationRequest 
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0 ../xsd/person_identification_request_schema.xsd" 
 	xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0" 
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
@@ -30,6 +30,9 @@
 	<ident-ext:TransactionIdentification>
 		<nc:IdentificationID>000001820140729014008340000</nc:IdentificationID>
 	</ident-ext:TransactionIdentification>
+	<ident-ext:TaskIdentification>
+		<nc:IdentificationID>TaskID</nc:IdentificationID>
+	</ident-ext:TaskIdentification>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
 			<nc:PersonBirthDate>
@@ -61,4 +64,4 @@
 				<xop:Include href="cid:http://ojbc.org/identification/request/example"/>
 	</ident-ext:StateFingerprintBasedIdentificationRequestDocument>
 	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>
-</pidreq-doc:PersonIdentificationRequest>
+</pidreq-doc:PersonStateIdentificationRequest>
