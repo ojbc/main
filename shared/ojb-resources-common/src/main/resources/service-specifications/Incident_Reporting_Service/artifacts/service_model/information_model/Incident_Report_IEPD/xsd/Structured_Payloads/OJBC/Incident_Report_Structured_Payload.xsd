@@ -88,7 +88,7 @@
 					<xsd:element ref="inc-ext:IncidentCase" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:OfficerInCharge" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:IncidentCategory" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentNatureText" minOccurs="0"/>
+					<xsd:element ref="inc-ext:IncidentNature" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -429,6 +429,11 @@
 			<xsd:documentation>The kind of incident.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="IncidentNature" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A classification of an incident.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="IncidentCategoryCode" type="inc-ext:IncidentCategoryCodeType" substitutionGroup="inc-ext:IncidentCategory">
 		<xsd:annotation>
 			<xsd:documentation>The kind of incident.</xsd:documentation>
@@ -558,7 +563,7 @@
 			<xsd:documentation>An alleged violation of a statute, ordinance, or rule.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentNatureText" type="nc:TextType">
+	<xsd:element name="IncidentNatureText" type="nc:TextType" substitutionGroup="inc-ext:IncidentNature">
 		<xsd:annotation>
 			<xsd:documentation>A description of the nature of an incident.</xsd:documentation>
 		</xsd:annotation>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
+	xmlns:identrepres-ext="http://ojbc.org/IEPD/Extensions/IdentificationReportResponseExtension/1.0" 
+	targetNamespace="http://ojbc.org/IEPD/Extensions/IdentificationReportResponseExtension/1.0" 
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:complexType name="PersonIdentificationReportResponseType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a set of details associated with a person identification request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="identrepres-ext:TransactionIdentification"/>
+					<xsd:element ref="identrepres-ext:TransactionCategoryText"/>
+					<xsd:element ref="identrepres-ext:IdentificationReportStatus"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:element name="TransactionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification for transaction where a transaction could consist of multiple messages.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="TransactionCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>An additional categorization of the transaction.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="IdentificationReportStatus" type="nc:StatusType">
+		<xsd:annotation>
+			<xsd:documentation>The standing of a previously reported identification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="IdentificationReportStatusCode" type="identrepres-ext:IdentificationReportStatusCodeType" substitutionGroup="nc:StatusAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code for the specific status of an identification report.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="IdentificationReportStatusCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="identrepres-ext:IdentificationReportStatusCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="IdentificationReportStatusCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="success">
+				<xsd:annotation>
+					<xsd:documentation>Identification report processed successfully.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="failure">
+				<xsd:annotation>
+					<xsd:documentation>Identification report failed to process.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+</xsd:schema>
