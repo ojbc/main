@@ -45,7 +45,7 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="ident-ext:TransactionIdentification"/>
-					<xsd:element ref="ident-ext:TaskIdentification"/>
+					<xsd:element ref="ident-ext:TransactionCategoryText"/>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="ident-ext:IdentificationApplicantOrganization"/>
 					<xsd:element ref="ident-ext:IdentificationRequestRepresentation" minOccurs="0" maxOccurs="unbounded"/>
@@ -63,7 +63,7 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="ident-ext:TransactionIdentification"/>
-					<xsd:element ref="ident-ext:TaskIdentification"/>
+					<xsd:element ref="ident-ext:TransactionCategoryText"/>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="ident-ext:IdentificationApplicantOrganization"/>
 					<xsd:element ref="ident-ext:IdentificationResultsRepresentation" minOccurs="0" maxOccurs="unbounded"/>
@@ -169,11 +169,12 @@
 		</xsd:annotation>
 	</xsd:element>
 	
-	<xsd:element name="TaskIdentification" type="nc:IdentificationType">
+	<xsd:element name="TransactionCategoryText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification for tran a specific task that resulted in the event being reported.</xsd:documentation>
+			<xsd:documentation>An additional categorization of the transaction.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
 	
 	<xsd:element name="CivilIdentificationReasonCode" type="ident-ext:CivilIdentificationReasonCodeType" substitutionGroup="ident-ext:IdentificationReasonRepresentation"/>
 	
