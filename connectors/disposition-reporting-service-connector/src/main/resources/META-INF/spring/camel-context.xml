@@ -30,7 +30,7 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="disposition-connector">
 	
 		<endpoint id="inputDirectory"
-			uri="file:///${dispositionReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${dispositionReporting.ConnectorFileDirectory}/error&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${dispositionReporting.deleteInputFiles}" />
+			uri="file:///${dispositionReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${dispositionReporting.ConnectorFileDirectory}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${dispositionReporting.deleteInputFiles}" />
 		
 		<camel:route id="Disposition_Connector_Route">
 		
