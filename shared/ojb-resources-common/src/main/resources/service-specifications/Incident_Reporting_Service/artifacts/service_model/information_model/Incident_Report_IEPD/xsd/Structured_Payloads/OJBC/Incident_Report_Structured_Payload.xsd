@@ -89,7 +89,6 @@
 					<xsd:element ref="inc-ext:OfficerInCharge" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:IncidentCategory" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:IncidentNature" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentNatureText" minOccurs="0"/>
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -440,11 +439,6 @@
 			<xsd:documentation>The kind of incident.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentNatureCode" type="inc-ext:IncidentNatureCodeType" substitutionGroup="inc-ext:IncidentNature">
-		<xsd:annotation>
-			<xsd:documentation>The kind of incident.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="SpatialReferenceIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>Aunique value used to unambiguously identify projected, unprojected, and local spatial coordinate system definitions. commonly referred to as SRID.</xsd:documentation>
@@ -457,25 +451,6 @@
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="inc-ext:IncidentCategoryCodeSimpleType">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
-	<xsd:simpleType name="IncidentNatureCodeSimpleType">
-		<xsd:annotation>
-			<xsd:documentation>A data type to specify the kind of incident.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:restriction base="xsd:string">
-		</xsd:restriction>
-	</xsd:simpleType>
-	<xsd:complexType name="IncidentNatureCodeType">
-		<xsd:annotation>
-			<xsd:documentation>A data type to specify the kind of incident.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:simpleContent>
-			<xsd:extension base="inc-ext:IncidentNatureCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -588,7 +563,7 @@
 			<xsd:documentation>An alleged violation of a statute, ordinance, or rule.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentNatureText" type="nc:TextType">
+	<xsd:element name="IncidentNatureText" type="nc:TextType" substitutionGroup="inc-ext:IncidentNature">
 		<xsd:annotation>
 			<xsd:documentation>A description of the nature of an incident.</xsd:documentation>
 		</xsd:annotation>
