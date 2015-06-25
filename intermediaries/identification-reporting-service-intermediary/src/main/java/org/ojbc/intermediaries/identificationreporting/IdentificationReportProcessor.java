@@ -39,18 +39,15 @@ public class IdentificationReportProcessor {
 
 		boolean result = operationNames.contains(operationName);
 		
-		if (result)
-		{	
+		if (result){	
 			log.debug("Received request with correct operation Name: "+operationName);
 			exchange.getIn().setHeader("operationName", operationName.replace("Report", "Recording"));
 			exchange.getIn().setHeader("operationNamespace", IDENTIFICATION_RECORDING_OPERATION_NAMESPACE);
 		}	
-		else
-		{
-			log.debug("The operation Name is not correct: "+ StringUtils.trimToEmpty(operationName));
+		else{
+			log.info("The operation Name '" +StringUtils.trimToEmpty(operationName) +  "' is not correct, the message will not be forwarded." );
 		}	
 
-		
 		exchange.getIn().setHeader("callIdentificationRecordingService", result);
 			
 	}

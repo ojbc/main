@@ -69,10 +69,19 @@
 			</camel:filter>			
 		
 		</camel:route>
-				
+
+		<camel:route id="Disposition_Connector_DirectVM_Intermediary_Route">
+			<camel:from uri="direct-vm:dispositionConnectorCallIntermediary"/>
+			<camel:to uri="direct:callIntermediary"/>
+		</camel:route>
+						
 		<camel:route id="Disposition_Connector_Intermediary_Route">
 		
 			<camel:from uri="direct:callIntermediary"/>
+			
+			<camel:convertBodyTo type="java.lang.String"/>
+			
+			<camel:log message="In Direct Call Intermediary with body of: ${body}" loggingLevel="DEBUG"/>
 		
 			<camel:setHeader headerName="operationName">
 				<constant>ReportDisposition</constant>
