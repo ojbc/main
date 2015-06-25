@@ -31,6 +31,7 @@ public class DispositionRowMapper implements  RowMapper<Disposition> {
 		disposition.setArrestingAgencyORI(rs.getString("ArrestingAgencyORI"));
 		disposition.setIncidentCaseNumber(rs.getString("IncidentCaseNumber"));
 		disposition.setDispositionDate(rs.getDate("DispositionDate"));
+		disposition.setRecidivismEligibilityDate(rs.getDate("RecidivismEligibilityDate"));
 		disposition.setSentenceTermDays(rs.getInt("SentenceTermDays"));
 		disposition.setSentenceFineAmount(rs.getFloat("SentenceFineAmount"));
 		
@@ -46,6 +47,9 @@ public class DispositionRowMapper implements  RowMapper<Disposition> {
 			
 		disposition.setDispositionTypeID(rs.getInt("DispositionTypeID"));
 		disposition.setPersonID(rs.getInt("PersonID"));
+		
+		disposition.setInitialChargeCode(rs.getString("InitialChargeCode"));
+		disposition.setFinalChargeCode(rs.getString("FinalChargeCode"));
 		
     	return disposition;
 	}

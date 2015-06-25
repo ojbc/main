@@ -76,7 +76,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						</j:ChargePlea>
 						<j:ChargeStatute>
 							<j:StatuteCodeIdentification>
-								<nc:IdentificationID>String</nc:IdentificationID>
+								<nc:IdentificationID>Initial Charge Code</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 							<j:StatuteCodeSectionIdentification>
 								<nc:IdentificationID>476-689</nc:IdentificationID>
@@ -151,6 +151,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 									<disp-ext:TermMinimumTotalDays>6.1</disp-ext:TermMinimumTotalDays>
 									<disp-ext:TermMinimumTotalYears>2.1</disp-ext:TermMinimumTotalYears>
 									<disp-ext:TermTotalDays>545</disp-ext:TermTotalDays>
+									<disp-ext:RecidivismEligibilityDate>
+										<nc:Date>2011-12-17</nc:Date>
+									</disp-ext:RecidivismEligibilityDate>
 								</disp-ext:SentenceTermAugmentation>
 							</j:SentenceTerm>
 							<disp-ext:SentenceAugmentation>
@@ -164,7 +167,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						</j:ChargeSentence>
 						<j:ChargeStatute>
 							<j:StatuteCodeIdentification>
-								<nc:IdentificationID>String</nc:IdentificationID>
+								<nc:IdentificationID>Final Charge Code</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 							<j:StatuteCodeSectionIdentification>
 								<nc:IdentificationID>476-689</nc:IdentificationID>

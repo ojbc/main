@@ -240,14 +240,15 @@ public class TestAnalyticalDatastoreDAOImpl {
 		disposition.setIncidentCaseNumber("case12345");
 		disposition.setIsProbationViolation('N');
 		disposition.setIsProbationViolationOnOldCharge('N');
-		disposition.setOffenseTypeID(offenseTypePk);
 		disposition.setPersonID(personPk);
 		disposition.setRecidivismEligibilityDate(new Date());
 		disposition.setRecordType('N');
 		disposition.setSentenceFineAmount(Float.parseFloat("354.65"));
 		disposition.setSentenceTermDays(354);
 		disposition.setArrestingAgencyORI("PD12345678");
-
+		disposition.setInitialChargeCode("Initial Charge Code");
+		disposition.setFinalChargeCode("Initial Charge Code");
+		
 		int dispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
 		assertEquals(1, dispositionPk);
 

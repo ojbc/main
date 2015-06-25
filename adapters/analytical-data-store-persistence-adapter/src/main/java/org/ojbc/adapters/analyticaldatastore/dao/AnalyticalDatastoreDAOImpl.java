@@ -432,68 +432,70 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveDisposition(final Disposition disposition) {
         log.debug("Inserting row into Disposition table");
 
-        final String dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,OffenseTypeID,IncidentCaseNumber,DispositionDate,ArrestingAgencyORI,"
-        		+ "SentenceTermDays,SentenceFineAmount,RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        final String dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,IncidentCaseNumber,DispositionDate,ArrestingAgencyORI,"
+        		+ "SentenceTermDays,SentenceFineAmount,InitialChargeCode, FinalChargeCode, RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(dispositionInsertStatement, new String[] {"PersonID","DispositionTypeID","OffenseTypeID","IncidentCaseNumber","DispositionDate,ArrestingAgencyORI,"
-        	                		+ "SentenceTermDays","SentenceFineAmount","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate"});
+        	                connection.prepareStatement(dispositionInsertStatement, new String[] {"PersonID","DispositionTypeID","IncidentCaseNumber","DispositionDate,ArrestingAgencyORI,"
+        	                		+ "SentenceTermDays","SentenceFineAmount","InitialChargeCode", "FinalChargeCode","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate"});
         	            ps.setInt(1, disposition.getPersonID());
         	            ps.setInt(2, disposition.getDispositionTypeID());
-        	            ps.setInt(3, disposition.getOffenseTypeID());
-        	            ps.setString(4, disposition.getIncidentCaseNumber());
-        	            ps.setDate(5, new java.sql.Date(disposition.getDispositionDate().getTime()));
-        	            ps.setString(6, disposition.getArrestingAgencyORI());
+        	            ps.setString(3, disposition.getIncidentCaseNumber());
+        	            ps.setDate(4, new java.sql.Date(disposition.getDispositionDate().getTime()));
+        	            ps.setString(5, disposition.getArrestingAgencyORI());
         	            
         	            if (disposition.getSentenceTermDays() != null)
         	            {	
-        	            	ps.setInt(7, disposition.getSentenceTermDays());
+        	            	ps.setInt(6, disposition.getSentenceTermDays());
         	            }
         	            else
         	            {
-        	            	ps.setNull(7, java.sql.Types.NULL);
+        	            	ps.setNull(6, java.sql.Types.NULL);
         	            }	
 
         	            if (disposition.getSentenceFineAmount() != null)
         	            {	
-        	            	ps.setFloat(8, disposition.getSentenceFineAmount());
+        	            	ps.setFloat(7, disposition.getSentenceFineAmount());
         	            }
         	            else
         	            {
-        	            	ps.setNull(8, java.sql.Types.NULL);
+        	            	ps.setNull(7, java.sql.Types.NULL);
         	            }
         	            
-        	            ps.setString(9, String.valueOf(disposition.getRecordType()));
+        	            ps.setString(8, disposition.getInitialChargeCode());
+        	            ps.setString(9, disposition.getFinalChargeCode());
+        	            
+        	            ps.setString(10, String.valueOf(disposition.getRecordType()));
 
         	            if (disposition.getIsProbationViolation() != null)
         	            {	
-        	            	ps.setString(10, String.valueOf(disposition.getIsProbationViolation()));
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(10, java.sql.Types.NULL);
-        	            }	
-
-        	            if (disposition.getIsProbationViolationOnOldCharge() != null)
-        	            {	
-        	            	ps.setString(11, String.valueOf(disposition.getIsProbationViolationOnOldCharge()));
+        	            	ps.setString(11, String.valueOf(disposition.getIsProbationViolation()));
         	            }
         	            else
         	            {
         	            	ps.setNull(11, java.sql.Types.NULL);
         	            }	
 
-        	            if (disposition.getRecidivismEligibilityDate() != null)
+        	            if (disposition.getIsProbationViolationOnOldCharge() != null)
         	            {	
-        	            	ps.setDate(12, new java.sql.Date(disposition.getRecidivismEligibilityDate().getTime()));
+        	            	ps.setString(12, String.valueOf(disposition.getIsProbationViolationOnOldCharge()));
         	            }
         	            else
         	            {
         	            	ps.setNull(12, java.sql.Types.NULL);
+        	            }	
+
+        	            if (disposition.getRecidivismEligibilityDate() != null)
+        	            {	
+        	            	ps.setDate(13, new java.sql.Date(disposition.getRecidivismEligibilityDate().getTime()));
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(13, java.sql.Types.NULL);
         	            }	
         	            
         	            return ps;

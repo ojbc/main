@@ -175,6 +175,9 @@ public class CamelContextTest {
 		assertEquals('N', disposition.getIsProbationViolation().charValue());
 		assertEquals(null, disposition.getIsProbationViolationOnOldCharge());
 		assertEquals(3, disposition.getDispositionTypeID().intValue());
+		assertEquals("Initial Charge Code", disposition.getInitialChargeCode());
+		assertEquals("Final Charge Code", disposition.getFinalChargeCode());
+		assertEquals("12/17/2011",DATE_FOMRAT.format(disposition.getRecidivismEligibilityDate()));
 		
 		int personId = disposition.getPersonID();
 		

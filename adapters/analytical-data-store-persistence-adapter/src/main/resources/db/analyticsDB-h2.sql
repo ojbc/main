@@ -126,23 +126,17 @@ CREATE TABLE PretrialServiceNeedAssociation (
 );
 
 
-CREATE TABLE OffenseType (
-                OffenseTypeID IDENTITY NOT NULL,
-                OffenseDescription VARCHAR(80) NOT NULL,
-                CONSTRAINT OffenseTypeID PRIMARY KEY (OffenseTypeID)
-);
-
-
 CREATE TABLE Disposition (
                 DispositionID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 DispositionTypeID INTEGER NOT NULL,
-                OffenseTypeID INTEGER NOT NULL,
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
                 DispositionDate DATE NOT NULL,
                 ArrestingAgencyORI VARCHAR(12) NOT NULL,
                 SentenceTermDays INTEGER,
                 SentenceFineAmount NUMERIC(10,2),
+                InitialChargeCode VARCHAR(35) NOT NULL,
+                FinalChargeCode VARCHAR(35) NOT NULL,
                 RecordType CHAR(1) NOT NULL,
                 IsProbationViolation CHAR(1),
                 IsProbationViolationOnOldCharge CHAR(1),
@@ -151,6 +145,13 @@ CREATE TABLE Disposition (
                 CONSTRAINT Disposition_pk PRIMARY KEY (DispositionID)
 );
 COMMENT ON COLUMN Disposition.RecordType IS 'N for new record, U for update to prior record, D for delete';
+
+
+CREATE TABLE OffenseType (
+                OffenseTypeID IDENTITY NOT NULL,
+                OffenseDescription VARCHAR(80) NOT NULL,
+                CONSTRAINT OffenseTypeID PRIMARY KEY (OffenseTypeID)
+);
 
 
 CREATE TABLE Incident (
@@ -286,12 +287,6 @@ ON UPDATE NO ACTION;
 
 ALTER TABLE Charge ADD CONSTRAINT OffenseType_Charge_Arrest_fk
 FOREIGN KEY (ArrestOffenseTypeID)
-REFERENCES OffenseType (OffenseTypeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Disposition ADD CONSTRAINT OffenseType_Disposition_fk
-FOREIGN KEY (OffenseTypeID)
 REFERENCES OffenseType (OffenseTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
