@@ -31,7 +31,7 @@
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="analytical-data-store-persistence-adapter">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="identification-recording-service-adapter">
 
 		<endpoint id="identificationRecordingAdapterEndpoint"
 			uri="cxf:bean:identificationRecordingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationRecordingAdapter.cxflogging}}" />
