@@ -44,6 +44,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
+					<xsd:element ref="ident-ext:TransactionIdentification"/>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="ident-ext:IdentificationApplicantOrganization"/>
 					<xsd:element ref="ident-ext:IdentificationRequestRepresentation" minOccurs="0" maxOccurs="unbounded"/>
@@ -60,11 +61,11 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
+					<xsd:element ref="ident-ext:TransactionIdentification"/>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="ident-ext:IdentificationApplicantOrganization"/>
 					<xsd:element ref="ident-ext:IdentificationResultsRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ident-ext:LinkedSystems" minOccurs="0"/>
-					<xsd:element ref="nc:PersonDocumentAssociation" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -103,9 +104,14 @@
 			<xsd:documentation>A placeholder for an identification request document.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FingerprintBasedIdentificationRequestDocument" type="ident-ext:IdentificationDocumentType" substitutionGroup="ident-ext:IdentificationRequestRepresentation">
+	<xsd:element name="StateFingerprintBasedIdentificationRequestDocument" type="ident-ext:IdentificationDocumentType" substitutionGroup="ident-ext:IdentificationRequestRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A document used to request a person's identity based on fingerprints.</xsd:documentation>
+			<xsd:documentation>A document used to request a person's identity, based on fingerprints, from the State.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FederalFingerprintBasedIdentificationRequestDocument" type="ident-ext:IdentificationDocumentType" substitutionGroup="ident-ext:IdentificationRequestRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document used to request a person's identity, based on fingerprints, from the Federal Bureau of Investigation.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IdentificationResultsRepresentation" abstract="true">
@@ -151,6 +157,12 @@
 	<xsd:element name="IdentificationReasonRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A representation of a reason why someone is being identified.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="TransactionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification for transaction where a transaction could consist of multiple messages.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	
