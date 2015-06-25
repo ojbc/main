@@ -104,9 +104,15 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 		}	
 
         
-        //TODO: updated when mapping is available from IEPD RecidivismEligibilityDate
-        //Date recidivismEligibilityDate = new Date();
-        //disposition.setRecidivismEligibilityDate(recidivismEligibilityDate);
+        //RecidivismEligibilityDate
+		String recidivismEligibilityDateAsString = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeSentence/jxdm50:SentenceTerm/disp_ext:SentenceTermAugmentation/disp_ext:RecidivismEligibilityDate/nc30:Date");
+		
+		if (StringUtils.isNotEmpty(recidivismEligibilityDateAsString))
+		{
+			log.debug("Recidivism Eligibility date as string: " + recidivismEligibilityDateAsString);
+			Date recidivismEligibilityDate = DATE_FORMAT.parse(recidivismEligibilityDateAsString);
+			disposition.setRecidivismEligibilityDate(recidivismEligibilityDate);
+		}	
         
         String courtDispositionCode = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeDisposition/disp_ext:ChargeDispositionAugmentation/ojbc_disp_codes:CourtDispositionCode");
         
@@ -114,10 +120,14 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         log.debug("Disposition type PK: " + dispositionTypePk);
         disposition.setDispositionTypeID(dispositionTypePk);
         
-        //TODO: Update when mapping is available from IEPD
-        Integer offenseTypePk = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, "90Z");
-        log.debug("Offense type PK: " + offenseTypePk);
-        disposition.setOffenseTypeID(offenseTypePk);
+        //Add initial charge code and final charge code
+        String initialChargeCode = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:InitialCharge/jxdm50:ChargeStatute/jxdm50:StatuteCodeIdentification/nc30:IdentificationID");
+        disposition.setInitialChargeCode(initialChargeCode);
+        log.debug("Initial Charge Code: " + initialChargeCode);
+        
+        String finalChargeCode = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeStatute/jxdm50:StatuteCodeIdentification/nc30:IdentificationID");
+        disposition.setFinalChargeCode(finalChargeCode);
+        log.debug("Final Charge Code: " + finalChargeCode);
         
         analyticalDatastoreDAO.saveDisposition(disposition);
         

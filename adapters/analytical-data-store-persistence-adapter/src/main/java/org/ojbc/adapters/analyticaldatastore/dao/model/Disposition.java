@@ -26,8 +26,6 @@ public class Disposition {
 	
 	private Integer dispositionTypeID;
 	
-	private Integer offenseTypeID;
-	
 	private String incidentCaseNumber;
 	
 	private Date dispositionDate;
@@ -37,6 +35,10 @@ public class Disposition {
 	private Integer sentenceTermDays;
 	
 	private Float sentenceFineAmount;
+	
+	private String initialChargeCode;
+	
+	private String finalChargeCode;
 	
 	private Character recordType;
 	
@@ -68,14 +70,6 @@ public class Disposition {
 
 	public void setDispositionTypeID(Integer dispositionTypeID) {
 		this.dispositionTypeID = dispositionTypeID;
-	}
-
-	public Integer getOffenseTypeID() {
-		return offenseTypeID;
-	}
-
-	public void setOffenseTypeID(Integer offenseTypeID) {
-		this.offenseTypeID = offenseTypeID;
 	}
 
 	public String getIncidentCaseNumber() {
@@ -149,6 +143,22 @@ public class Disposition {
 
 	public void setArrestingAgencyORI(String arrestingAgencyORI) {
 		this.arrestingAgencyORI = arrestingAgencyORI;
+	}
+
+	public String getInitialChargeCode() {
+		return initialChargeCode;
+	}
+
+	public void setInitialChargeCode(String initialChargeCode) {
+		this.initialChargeCode = initialChargeCode;
+	}
+
+	public String getFinalChargeCode() {
+		return finalChargeCode;
+	}
+
+	public void setFinalChargeCode(String finalChargeCode) {
+		this.finalChargeCode = finalChargeCode;
 	}
 
 }

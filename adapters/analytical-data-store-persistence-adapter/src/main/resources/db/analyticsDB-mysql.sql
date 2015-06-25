@@ -14,9 +14,15 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
+ 
 drop database if exists `AnalyticsDataStore`;
 CREATE DATABASE `AnalyticsDataStore`; 
 use AnalyticsDataStore;
+
+/**
+* Copy DDL from SQL PA below here.  Modify timestamps in fact tables like this:
+*                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+**/
 
 CREATE TABLE InvolvedDrug (
                 InvolvedDrugID INT AUTO_INCREMENT NOT NULL,
@@ -135,12 +141,13 @@ CREATE TABLE Disposition (
                 DispositionID INT AUTO_INCREMENT NOT NULL,
                 PersonID INT NOT NULL,
                 DispositionTypeID INT NOT NULL,
-                OffenseTypeID INT NOT NULL,
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
                 DispositionDate DATE NOT NULL,
                 ArrestingAgencyORI VARCHAR(12) NOT NULL,
                 SentenceTermDays INT,
                 SentenceFineAmount NUMERIC(10,2),
+                InitialChargeCode VARCHAR(35) NOT NULL,
+                FinalChargeCode VARCHAR(35) NOT NULL,
                 RecordType CHAR(1) NOT NULL,
                 IsProbationViolation CHAR(1),
                 IsProbationViolationOnOldCharge CHAR(1),
@@ -287,12 +294,6 @@ ON UPDATE NO ACTION;
 
 ALTER TABLE Charge ADD CONSTRAINT offensetype_charge_arrest_fk
 FOREIGN KEY (ArrestOffenseTypeID)
-REFERENCES OffenseType (OffenseTypeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Disposition ADD CONSTRAINT offensetype_disposition_fk
-FOREIGN KEY (OffenseTypeID)
 REFERENCES OffenseType (OffenseTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
