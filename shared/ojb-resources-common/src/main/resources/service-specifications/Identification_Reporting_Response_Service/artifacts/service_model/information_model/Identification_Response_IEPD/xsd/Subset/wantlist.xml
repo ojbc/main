@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w:WantList w:release="3.0-with-domain-updates" w:product="NIEM"
+  w:nillableDefault="true" xmlns:w="http://niem.gov/niem/wantlist/2.2" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+  <w:Type w:name="nc:IdentificationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:StatusType" w:isRequested="true">
+    <w:ElementInType w:name="nc:StatusCommentText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:StatusIssuerText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:StatusAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:SystemIdentificationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:SystemName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+</w:WantList>
