@@ -62,7 +62,7 @@ public class CamelContextTest {
 	public void setUp() throws Exception {
 
     	//We mock the web service endpoints here
-    	context.getRouteDefinition("callIntermediaryRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("Disposition_Connector_Intermediary_Route").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	
