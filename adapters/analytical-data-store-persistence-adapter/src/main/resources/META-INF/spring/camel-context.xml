@@ -49,7 +49,10 @@
 			uri="file://{{analyticsAdapter.inputDirectory}}/pretrial/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/pretrial/error&amp;move=processed/" />
 			
  		<endpoint id="dispositionReportingServiceAdapterEndpoint"
-			uri="cxf:bean:dispositionReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}"/>					
+			uri="cxf:bean:dispositionReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}"/>				
+			
+		<endpoint id="dispositionReportingFileEndpoint"
+			uri="file://{{analyticsAdapter.inputDirectory}}/disposition/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/disposition/error&amp;move=processed/" />
 
 		<!-- Incident Reporting Route -->
 		<camel:route id="Incident_Repository_Service">
@@ -141,12 +144,30 @@
 			</camel:doTry>
 			
 		</camel:route>
-				
+		
 		<camel:route id="Disposition_Reporting_Service_Route">
 		
 			<camel:from	uri="dispositionReportingServiceAdapterEndpoint" />
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:log message="Here is the inbound disposition report message: ${body}" loggingLevel="DEBUG"/>
+				
+			<camel:to uri="direct:processDispositionReport" />
+			
+		</camel:route>		
+
+ 		<camel:route id="Disposition_Reporting_Service_Filedrop">
+		
+			<camel:from	uri="dispositionReportingFileEndpoint" />
+			
+			<camel:to uri="direct:processDispositionReport" />
+		</camel:route>
+		
+				
+		<camel:route id="Disposition_Reporting_Service_Process_Route">
+		
+			<camel:from	uri="direct:processDispositionReport" />
 			
 			<camel:doTry>
 						

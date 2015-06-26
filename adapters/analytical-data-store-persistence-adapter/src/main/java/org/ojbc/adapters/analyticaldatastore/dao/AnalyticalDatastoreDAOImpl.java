@@ -333,7 +333,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            	ps.setNull(2, java.sql.Types.NULL);
         	            }	
 
-        	            ps.setDate(3, new java.sql.Date(person.getPersonBirthDate().getTime()));
+        	            if (person.getPersonBirthDate() != null)
+        	            {	
+        	            	ps.setDate(3, new java.sql.Date(person.getPersonBirthDate().getTime()));
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(3, java.sql.Types.NULL);
+        	            }	
+        	            
         	            ps.setString(4, String.valueOf(person.getPersonUniqueIdentifier()));
 
         	            return ps;
