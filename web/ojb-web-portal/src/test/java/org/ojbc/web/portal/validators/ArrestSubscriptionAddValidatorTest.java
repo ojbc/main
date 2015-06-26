@@ -50,7 +50,10 @@ public class ArrestSubscriptionAddValidatorTest {
 		assertEquals("Start date must be specified", startDateError);		
 								
 		String emailListError = fieldToErrorMap.get("emailList");
-		assertEquals("Email Address must be specified", emailListError);				
+		assertEquals("Email Address must be specified", emailListError);		
+		
+		String fbiIdError = fieldToErrorMap.get("fbiId");
+		assertEquals("Criminal History is missing the FBI ID for this Person", fbiIdError);
 	}
 		
 	
@@ -111,6 +114,7 @@ public class ArrestSubscriptionAddValidatorTest {
 		subscription.setFullName("Homer Simpson");	
 		subscription.setSubscriptionStartDate(new Date());
 		subscription.getEmailList().add("hsimpson@gmail.com");
+		subscription.setFbiId("245");
 		
 		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
 		
@@ -133,6 +137,10 @@ public class ArrestSubscriptionAddValidatorTest {
 		String emailListError = fieldToErrorMap.get("emailList");
 		boolean hasEmailError = StringUtils.isNotBlank(emailListError);
 		assertEquals(false, hasEmailError);
+		
+		String fbiIdError = fieldToErrorMap.get("fbiId");
+		boolean hasFbiIdError = StringUtils.isNotBlank(fbiIdError);
+		assertEquals(false, hasFbiIdError);
 	}
 
 }
