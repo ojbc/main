@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- needed cxf imports -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="identification-recording-service-adapter">
+
+		<endpoint id="identificationRecordingAdapterEndpoint"
+			uri="cxf:bean:identificationRecordingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationRecordingAdapter.cxflogging}}" />
+
+		<endpoint id="identificationRecordingFileEndpoint"
+			uri="file://{{identificationRecordingAdapter.inputDirectory}}/input?idempotent=true&amp;moveFailed={{identificationRecordingAdapter.inputDirectory}}/error&amp;move=processed/" />
+
+		<endpoint id="invocationFailedFileEndpoint"
+			uri="file://{{identificationRecordingAdapter.inputDirectory}}/failed" />
+
+		<!-- Incident Reporting Route -->
+		<camel:route id="identification_recording_service">
+		
+			<camel:from	uri="identificationRecordingAdapterEndpoint" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:processIdentificationReport" />
+			
+		</camel:route>	
+		
+		<camel:route id="identification_recording_service_filedrop">
+		
+			<camel:from	uri="identificationRecordingFileEndpoint" />
+			
+			<camel:to uri="direct:processIdentificationReport" />
+		</camel:route>
+		
+		<camel:route id="identfication_recording_service_process_report">				
+			
+			<camel:from	uri="direct:processIdentificationReport" />
+
+			<camel:doTry>
+						
+				<camel:log message="Here is the inbound identification reporting message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:choice>
+					<camel:when>
+						<camel:simple>${in.header.operationName} == 'RecordPersonIdentificationRequest'</camel:simple>
+						<camel:to uri="bean:identficationRequestReportProcessor?method=processReport"/>
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.operationName} == 'RecordPersonIdentificationResults'</camel:simple>
+						<camel:to uri="bean:identficationResultsReportProcessor?method=processReport"/>
+					</camel:when>
+					<camel:otherwise>
+						<camel:log message="The operation name '${in.header.operationName}' is not supported."></camel:log>
+						<camel:throwException ref="opertaionNameNotSupported"></camel:throwException>
+					</camel:otherwise>
+				</camel:choice>
+				
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>identificationReport/FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+					</camel:setHeader>	
+
+					<log message="Identification Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
+					
+					<camel:to uri="direct:failedInvocation"/>
+				</camel:doCatch>
+			
+			</camel:doTry>
+			
+		</camel:route>		
+
+		<camel:route id="failed_invocation_route">
+			<camel:from uri="direct:failedInvocation"/>
+			
+			<camel:log message="Invocation failed. File will be persisted: ${in.headers.CamelFileName}"/>
+			
+			<camel:to uri="invocationFailedFileEndpoint"/>
+			
+		</camel:route>
+	</camel:camelContext>
+
+	<bean id="opertaionNameNotSupported" class="java.lang.IllegalArgumentException">
+	   <constructor-arg index="0" value="Operation Name is not supported."/>
+	</bean>
+	
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<bean id ="identificationRequestReportProcessor" class="org.ojbc.adapters.identificationrecording.processor.IdentificationRequestReportProcessor">
+		<property name="rapbacksDatastoreDAO" ref="rapbacksDatastoreDAOImpl"/>
+	</bean>
+
+	<bean id ="identificationReusltsReportProcessor" class="org.ojbc.adapters.identificationrecording.processor.IdentificationResultsReportProcessor">
+		<property name="rapbacksDatastoreDAO" ref="rapbacksDatastoreDAOImpl"/>
+	</bean>
+
+	<bean id="rapbacksDatastoreDAOImpl" class="org.ojbc.adapters.identificationrecording.dao.RapbacksDatastoreDAOImpl">
+        <property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+</beans>
