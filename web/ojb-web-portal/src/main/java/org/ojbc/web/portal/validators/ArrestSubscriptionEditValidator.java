@@ -90,6 +90,11 @@ public class ArrestSubscriptionEditValidator {
 				fieldToErrorMap.put("subscriptionEndDate", "End date may not occur before start date");
 			}									
 		}
+		
+		String fbiId = subscription.getFbiId();		
+		if(StringUtils.isEmpty(fbiId)){
+			fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
+		}
 				
 		boolean hasEmail = false;
 		
