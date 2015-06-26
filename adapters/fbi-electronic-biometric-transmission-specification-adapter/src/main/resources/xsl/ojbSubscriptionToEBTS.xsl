@@ -39,9 +39,7 @@
 	<xsl:param name="rapBackNotificatonFormat" />
 	
 	<xsl:param name="recordRapBackCategoryCode" />
-	
-	<xsl:param name="recordRapBackExpirationDate" />
-	
+		
 	<!-- This field corresponds to RBOO (2.2063) in EBTS 10.0 and indicates whether FBI/NGI should send notifications of events originating from 
 		within the Submitter’s own state. The default value is ‘false’, NGI sending all notifications. A value of ‘true’ must be provided on all subscriptions 
 		for which Submitter wishes to opt-out of in-state notifications 
@@ -50,7 +48,41 @@
 	
 	<!-- This field corresponds to RBT 2.2040 and specifies which Events will result in notifications sent to the subscriber -->
 	<xsl:param name="rapBackTriggeringEvent" />
-		
+	
+	<!-- RBXD 2.2015-->	
+	<xsl:param name="recordRapBackExpirationDate" />
+	
+	<!-- DAI 1.007 -->
+	<xsl:param name="destinationOrganizationORI" />
+	
+	<!-- ORI 1.007 -->
+	<xsl:param name="originatorOrganizationORI" />
+	
+	<!-- TCN 1.009 -->
+	<xsl:param name="controlID" />
+	
+	<!-- DOM 1.013 -->
+	<xsl:param name="domainVersion" />
+	<xsl:param name="domainName" />
+	
+	<!-- VER 1.002 -->
+	<xsl:param name="transactionMajorVersion"/>
+	<xsl:param name="transactionMinorVersion"/>
+	
+	<!-- SCO 2.007 -->
+	<xsl:param name="recordForwardingOrganizationID"/>
+	
+	<!-- RAP 2.070 -->
+	<xsl:param name="rapSheetRequestIndicator"/>
+	
+	<!-- RBR 2.020 -->
+	<xsl:param name="rapBackRecipient"/>
+	
+	<!-- CRI 2.073 -->
+	<xsl:param name="controllingAgencyID"/>
+	
+	<!-- OCA 2.009 -->
+	<xsl:param name="originatingAgencyCaseNumber"/>
 	
 	<xsl:template match="/submsg-doc:SubscriptionMessage">
 	
@@ -66,6 +98,44 @@
 				 			<xsl:value-of select="$rapBackTransactionDate"/>
 				 		</nc20:Date>
 				 	</ansi-nist:TransactionDate>
+				 	<ansi-nist:TransactionDestinationOrganization>
+               			 <nc20:OrganizationIdentification>
+                    		<nc20:IdentificationID>
+                    			<xsl:value-of select="$destinationOrganizationORI"/>
+                    		</nc20:IdentificationID>
+               			 </nc20:OrganizationIdentification>
+          		 	</ansi-nist:TransactionDestinationOrganization>
+          		 	<ansi-nist:TransactionOriginatingOrganization>
+               			 <nc20:OrganizationIdentification>
+                   			 <!--ORI 1.008-->
+                    		<nc20:IdentificationID>
+                    			<xsl:value-of select="$originatorOrganizationORI"/>
+                    		</nc20:IdentificationID>
+                		</nc20:OrganizationIdentification>
+            		</ansi-nist:TransactionOriginatingOrganization>
+            		<ansi-nist:TransactionControlIdentification>
+                		<nc20:IdentificationID>
+                			<xsl:value-of select="$controlID"/>
+                		</nc20:IdentificationID>
+            		</ansi-nist:TransactionControlIdentification>
+            		<ansi-nist:TransactionDomain>
+               			 <ansi-nist:DomainVersionNumberIdentification>
+                    		<nc20:IdentificationID>
+                    			<xsl:value-of select="$domainVersion"/>
+                    		</nc20:IdentificationID>
+               			 </ansi-nist:DomainVersionNumberIdentification>
+               			 <ansi-nist:TransactionDomainName>
+               			 	<xsl:value-of select="$domainName"/>
+               			 </ansi-nist:TransactionDomainName>
+           			</ansi-nist:TransactionDomain>
+           			<ansi-nist:TransactionMajorVersionValue>
+           				<xsl:value-of select="$transactionMajorVersion"/>
+           			</ansi-nist:TransactionMajorVersionValue>
+           			<ansi-nist:TransactionMinorVersionValue>
+           				<xsl:value-of select="$transactionMinorVersion"/>
+           			</ansi-nist:TransactionMinorVersionValue>
+				 	<!-- Transaction Category TOT 1.004 -->
+				 	<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
 				 </ansi-nist:Transaction>
 				 
 			</itl:PackageInformationRecord>
@@ -76,17 +146,24 @@
 				<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
 				<itl:UserDefinedDescriptiveDetail>
 					<ebts:DomainDefinedDescriptiveFields>
-					
+						<ansi-nist:RecordForwardOrganizations>
+                   			<nc20:OrganizationIdentification>
+                       			 <nc20:IdentificationID>
+                       			 	<xsl:value-of select="$recordForwardingOrganizationID"/>                       			 
+                       			 </nc20:IdentificationID>
+                       		</nc20:OrganizationIdentification>
+						</ansi-nist:RecordForwardOrganizations>
+						<ansi-nist:RecordRapSheetRequestIndicator><xsl:value-of select="$rapSheetRequestIndicator"/></ansi-nist:RecordRapSheetRequestIndicator>
 						<ebts:RecordRapBackData>
 													
 							<ebts:RecordRapBackActivityNotificationFormatCode>
 								<xsl:value-of select="$rapBackNotificatonFormat" />
 							</ebts:RecordRapBackActivityNotificationFormatCode>
-							 
-							<ebts:RecordRapBackCategoryCode>
-								<xsl:value-of select="$recordRapBackCategoryCode"/>
-							</ebts:RecordRapBackCategoryCode>
-														
+							
+							<!--Rap Back Category RBC 2.2065-->
+							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
+							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
+							<!-- TODO: we need to determine how to set this since it can vary depending on the category -->						
 							<ebts:RecordRapBackExpirationDate>
 								<nc20:Date>								
 									<xsl:value-of select="$recordRapBackExpirationDate" />
@@ -96,6 +173,14 @@
 							<ebts:RecordRapBackInStateOptOutIndicator>
 								<xsl:value-of select="$rapBackInStateOptOutIndicator" />
 							</ebts:RecordRapBackInStateOptOutIndicator>
+							
+							<ansi-nist:RecordForwardOrganizations>
+		                        <nc20:OrganizationIdentification>
+		                            <nc20:IdentificationID>
+		                            	<xsl:value-of select="$rapBackRecipient"/>
+		                            </nc20:IdentificationID>
+		                        </nc20:OrganizationIdentification>
+		                     </ansi-nist:RecordForwardOrganizations>
 														
 							<ebts:RecordRapBackTriggeringEventCode>
 								<xsl:value-of select="$rapBackTriggeringEvent" />
@@ -105,8 +190,19 @@
 																				
 						</ebts:RecordRapBackData>
 						
-						<xsl:apply-templates select="submsg-ext:Subject"/>
-						
+						<ebts:RecordTransactionActivity>
+							<nc20:CaseTrackingID>
+								<xsl:value-of select="$originatingAgencyCaseNumber"/>
+							</nc20:CaseTrackingID>
+							<ebts:RecordControllingAgency>
+                       			 <nc20:OrganizationIdentification>
+                            			<nc20:IdentificationID>
+                            				<xsl:value-of select="$controllingAgencyID"/>
+                            			</nc20:IdentificationID>
+                       			 </nc20:OrganizationIdentification>
+                   			</ebts:RecordControllingAgency>
+						</ebts:RecordTransactionActivity>
+						<xsl:apply-templates select="submsg-ext:Subject"/>	
 					</ebts:DomainDefinedDescriptiveFields>
 				</itl:UserDefinedDescriptiveDetail>
 			</itl:PackageInformationRecord>
@@ -156,4 +252,22 @@
 		</ebts:RecordRapBackUserDefinedElement>
 	</xsl:template>
 	
+	<xsl:template match="submsg-ext:CriminalSubscriptionReasonCode" mode="transactionCategory">
+		<ebts:TransactionCategoryCode>
+			<xsl:choose>
+				<xsl:when test=". = 'CI'">RBSCRM</xsl:when>
+				<xsl:when test=". = 'CS'">RBSCRM</xsl:when>
+			</xsl:choose>
+		</ebts:TransactionCategoryCode>
+	</xsl:template>
+	<xsl:template match="submsg-ext:CriminalSubscriptionReasonCode" mode="rapBackCategory">
+		<ebts:RecordRapBackCategoryCode>
+			<xsl:value-of select="."/>
+		</ebts:RecordRapBackCategoryCode>
+	</xsl:template>
+	<xsl:template match="submsg-ext:CivilSubscriptionReasonCode" mode="rapBackCategory">
+		<ebts:RecordRapBackCategoryCode>
+			<xsl:value-of select="."/>
+		</ebts:RecordRapBackCategoryCode>
+	</xsl:template>
 </xsl:stylesheet>
