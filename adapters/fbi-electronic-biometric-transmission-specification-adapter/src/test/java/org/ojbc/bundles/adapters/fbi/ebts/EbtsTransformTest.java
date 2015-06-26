@@ -65,8 +65,20 @@ public class EbtsTransformTest {
 		xsltParamMap.put("rapBackTriggeringEvent", 1);
 		
 		xsltParamMap.put("rapBackTransactionDate", "2015-06-24");
-		xsltParamMap.put("recordRapBackCategoryCode", "F");
 		xsltParamMap.put("recordRapBackExpirationDate", "2010-02-24");
+		
+		xsltParamMap.put("destinationOrganizationORI", "A99999999");
+		xsltParamMap.put("originatorOrganizationORI", "123456");
+		xsltParamMap.put("controlID", "98765");
+		xsltParamMap.put("domainVersion", "EBTS 10.0");
+		xsltParamMap.put("domainName", "NORAM");
+		xsltParamMap.put("transactionMajorVersion", "05");
+		xsltParamMap.put("transactionMinorVersion", "00");
+		xsltParamMap.put("recordForwardingOrganizationID", "123456");
+		xsltParamMap.put("rapSheetRequestIndicator", "true");
+		xsltParamMap.put("rapBackRecipient", "123456");
+		xsltParamMap.put("controllingAgencyID", "123456");
+		xsltParamMap.put("originatingAgencyCaseNumber", "Case-123");
 		
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
