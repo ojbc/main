@@ -30,7 +30,10 @@
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- needed cxf imports -->
-	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+	<import resource="properties-context.xml"/>
+	<import resource="cxf-endpoints.xml"/>	
+	
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
 		id="fbi-electronic-biometric-transmission-specification-adapter">
@@ -47,6 +50,15 @@
 			<camel:log message="Inbound Message: ${body}" loggingLevel="DEBUG" />
 
 			<camel:convertBodyTo type="java.lang.String" />
+						
+			<setHeader headerName="rapBackTransactionDate"><constant></constant></setHeader>
+			<setHeader headerName="rapBackNotificatonFormat"><constant>${fbiEbtsAdapter.rapBackNotificatonFormat}</constant></setHeader>
+			<setHeader headerName="recordRapBackCategoryCode"><constant>${fbiEbtsAdapter.recordRapBackCategoryCode}</constant></setHeader>
+			<setHeader headerName="recordRapBackExpirationDate"><constant>${fbiEbtsAdapter.recordRapBackExpirationDate}</constant></setHeader>			
+			<setHeader headerName="rapBackInStateOptOutIndicator"><constant>${fbiEbtsAdapter.rapBackInStateOptOutIndicator}</constant></setHeader>
+			<setHeader headerName="rapBackTriggeringEvent"><constant>${fbiEbtsAdapter.rapBackTriggeringEvent}</constant></setHeader>			
+						
+			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
 
 		</camel:route>
 
