@@ -202,7 +202,7 @@
 
 
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:230px;height:400px;" id="subFormDiv">
+<div style="width:230px;height:440px;" id="subFormDiv">
 	<form id="subscriptionForm">  	
 							
 		#if(${subscription.subscriptionType}  == '{http://ojbc.org/wsn/topics}:person/arrest')	
@@ -245,4 +245,3 @@
         <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
     </div>            
 </div>	  
-
