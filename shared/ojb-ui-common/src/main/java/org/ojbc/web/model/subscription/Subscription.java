@@ -49,6 +49,8 @@ public class Subscription implements Serializable {
 	private List<String> emailList = new ArrayList<String>();
 	
 	private String subscriptionPurpose;
+	
+	private String caseId;
 
 	private String personNamesJsonArray;
 
@@ -98,6 +100,10 @@ public class Subscription implements Serializable {
 
 	public String getSubscriptionPurpose() {
 		return subscriptionPurpose;
+	}
+
+	public String getCaseId() {
+		return caseId;
 	}
 
 	public String getPersonNamesJsonArray() {
@@ -152,6 +158,10 @@ public class Subscription implements Serializable {
 		this.subscriptionPurpose = subscriptionPurpose;
 	}
 
+	public void setCaseId(String caseId) {
+		this.caseId = caseId;
+	}
+
 	public void setPersonNamesJsonArray(String personNamesJsonArray) {
 		this.personNamesJsonArray = personNamesJsonArray;
 	}
@@ -165,8 +175,9 @@ public class Subscription implements Serializable {
 				+ dateOfBirth + ", subscriptionStartDate="
 				+ subscriptionStartDate + ", subscriptionEndDate="
 				+ subscriptionEndDate + ", emailList=" + emailList
-				+ ", subscriptionPurpose=" + subscriptionPurpose
-				+ ", personNamesJsonArray=" + personNamesJsonArray + "]";
+				+ ", subscriptionPurpose=" + subscriptionPurpose + ", caseId="
+				+ caseId + ", personNamesJsonArray=" + personNamesJsonArray
+				+ "]";
 	}
 	
 }

@@ -92,3 +92,6 @@
 	#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
 </div>
 	       	    	        
+<div>
+	#springFormInput("subscription.caseId" "placeholder='Case Id'" )
+</div>	       	    	        
