@@ -54,6 +54,9 @@ public class ArrestSubscriptionAddValidatorTest {
 		
 		String fbiIdError = fieldToErrorMap.get("fbiId");
 		assertEquals("Criminal History is missing the FBI ID for this Person", fbiIdError);
+		
+		String purposeError = fieldToErrorMap.get("subscriptionPurpose");
+		assertEquals("Purpose must be specified", purposeError);
 	}
 		
 	
@@ -115,6 +118,7 @@ public class ArrestSubscriptionAddValidatorTest {
 		subscription.setSubscriptionStartDate(new Date());
 		subscription.getEmailList().add("hsimpson@gmail.com");
 		subscription.setFbiId("245");
+		subscription.setSubscriptionPurpose("CS");
 		
 		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
 		
@@ -141,6 +145,10 @@ public class ArrestSubscriptionAddValidatorTest {
 		String fbiIdError = fieldToErrorMap.get("fbiId");
 		boolean hasFbiIdError = StringUtils.isNotBlank(fbiIdError);
 		assertEquals(false, hasFbiIdError);
+		
+		String purposeError = fieldToErrorMap.get("subscriptionPurpose");
+		boolean hasPurposeError = StringUtils.isNotBlank(purposeError);		
+		assertEquals(false, hasPurposeError);
 	}
 
 }
