@@ -111,11 +111,12 @@ public class SubscriptionDocumentBuilder {
 		idNode.setTextContent( getFederatedQueryId());
 	}
 	
-
 	
 	private void buildSubscriptionMessageNode(Element parentNode){
 		
 		Element subMsgNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXCHANGE, "SubscriptionMessage");
+		
+		buildCaseIdElement(subMsgNode);
 												
 		buildSubjectElement(subMsgNode);	
 		
@@ -131,6 +132,20 @@ public class SubscriptionDocumentBuilder {
 		buildSubscriptionIdNode(subMsgNode);
 		
 		buildSubscriptionReasonCodeElement(subMsgNode);
+	}
+	
+	private void buildCaseIdElement(Element parentNode){
+		
+		String caseId = subscription.getCaseId();
+		
+		if(StringUtils.isNotEmpty(caseId)){
+			
+			Element subRelCaseIdElement = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionRelatedCaseIdentification");
+			
+			Element caseIdValElement = XmlUtils.appendElement(subRelCaseIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");		
+			
+			caseIdValElement.setTextContent(caseId);
+		}		
 	}
 		
 	private void buildSubscriptionReasonCodeElement(Element parentElement){
