@@ -27,5 +27,6 @@ targetNamespace="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" schemaLocation="./extension_schema.xsd"/>
 	<!-- Root data element for a Person Identification Results -->
-	<xsd:element name="PersonIdentificationResults" type="ident-ext:PersonIdentificationResultsType"/>
+	<xsd:element name="PersonStateIdentificationResults" type="ident-ext:PersonIdentificationResultsType"/>
+	<xsd:element name="PersonFederalIdentificationResults" type="ident-ext:PersonIdentificationResultsType"/>
 </xsd:schema>

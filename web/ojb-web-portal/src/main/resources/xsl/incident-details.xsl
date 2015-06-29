@@ -130,7 +130,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="incidentLabel"> Nature:</td>
+				<td class="incidentLabel"> Type:</td>
 				<td><xsl:value-of select="//ext:IncidentReport/ext:Incident/ext:IncidentCategoryCode"/></td>
 				<td class="incidentLabel"></td>
 				<td></td>
