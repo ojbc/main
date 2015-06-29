@@ -100,7 +100,12 @@ public class ArrestSubscriptionEditValidator {
 		if(StringUtils.isEmpty(fbiId)){
 			fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
 		}
-				
+			
+		String caseId = subscription.getCaseId();		
+		if(StringUtils.isEmpty(caseId)){
+			fieldToErrorMap.put("caseId", "Case Id must be specified");
+		}		
+			
 		boolean hasEmail = false;
 		
 		for(String iEmail : subscription.getEmailList()){
