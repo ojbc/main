@@ -16,6 +16,7 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Disposition {
@@ -32,7 +33,7 @@ public class Disposition {
 	
 	private String arrestingAgencyORI;
 	
-	private Integer sentenceTermDays;
+	private BigDecimal sentenceTermDays;
 	
 	private Float sentenceFineAmount;
 	
@@ -86,14 +87,6 @@ public class Disposition {
 
 	public void setDispositionDate(Date dispositionDate) {
 		this.dispositionDate = dispositionDate;
-	}
-
-	public Integer getSentenceTermDays() {
-		return sentenceTermDays;
-	}
-
-	public void setSentenceTermDays(Integer sentenceTermDays) {
-		this.sentenceTermDays = sentenceTermDays;
 	}
 
 	public Float getSentenceFineAmount() {
@@ -159,6 +152,14 @@ public class Disposition {
 
 	public void setFinalChargeCode(String finalChargeCode) {
 		this.finalChargeCode = finalChargeCode;
+	}
+
+	public BigDecimal getSentenceTermDays() {
+		return sentenceTermDays;
+	}
+
+	public void setSentenceTermDays(BigDecimal sentenceTermDays) {
+		this.sentenceTermDays = sentenceTermDays;
 	}
 
 }

@@ -18,6 +18,7 @@ package org.ojbc.adapters.analyticaldatastore.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -244,7 +245,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		disposition.setRecidivismEligibilityDate(new Date());
 		disposition.setRecordType('N');
 		disposition.setSentenceFineAmount(Float.parseFloat("354.65"));
-		disposition.setSentenceTermDays(354);
+		disposition.setSentenceTermDays(new BigDecimal(345.25));
 		disposition.setArrestingAgencyORI("PD12345678");
 		disposition.setInitialChargeCode("Initial Charge Code");
 		disposition.setFinalChargeCode("Initial Charge Code");
