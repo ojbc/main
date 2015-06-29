@@ -133,7 +133,7 @@ CREATE TABLE Disposition (
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
                 DispositionDate DATE NOT NULL,
                 ArrestingAgencyORI VARCHAR(12) NOT NULL,
-                SentenceTermDays INTEGER,
+                SentenceTermDays NUMERIC(10,2),
                 SentenceFineAmount NUMERIC(10,2),
                 InitialChargeCode VARCHAR(35) NOT NULL,
                 FinalChargeCode VARCHAR(35) NOT NULL,

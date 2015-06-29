@@ -16,8 +16,10 @@
  */
 package org.ojbc.adapters.analyticaldatastore.processor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
+import org.apache.commons.lang.NumberUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -69,12 +71,20 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 		}	
 
 		//Sentence term total days
-		String termTotalDays = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeSentence/jxdm50:SentenceTerm/disp_ext:SentenceTermAugmentation/disp_ext:TermTotalDays");
+		String termTotalDaysAsString = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/jxdm50:ChargeSentence/jxdm50:SentenceTerm/disp_ext:SentenceTermAugmentation/disp_ext:TermTotalDays");
 		
-		if (StringUtils.isNotBlank(termTotalDays))
+		if (StringUtils.isNotBlank(termTotalDaysAsString))
 		{
-			log.debug("Disposition sentence term total days: " + termTotalDays);
-			disposition.setSentenceTermDays(Integer.valueOf(termTotalDays));
+			log.debug("Disposition sentence term total days: " + termTotalDaysAsString);
+			
+			//Check if value is integer.  If it is, append .00 to match precision in database
+			if (isStringInt(termTotalDaysAsString))
+			{
+				termTotalDaysAsString = termTotalDaysAsString + ".00";
+			}	
+			
+			BigDecimal termTotalDays = new BigDecimal(termTotalDaysAsString);
+			disposition.setSentenceTermDays(termTotalDays);
 		}	
 		
 		//Person info
@@ -134,4 +144,16 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         
 	}
 
+	private boolean isStringInt(String s)
+	{
+	    try
+	    {
+	        Integer.parseInt(s);
+	        return true;
+	    } catch (NumberFormatException ex)
+	    {
+	        return false;
+	    }
+	}
+	
 }

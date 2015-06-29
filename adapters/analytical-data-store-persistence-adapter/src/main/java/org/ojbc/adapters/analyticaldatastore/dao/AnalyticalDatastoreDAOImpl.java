@@ -458,7 +458,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            
         	            if (disposition.getSentenceTermDays() != null)
         	            {	
-        	            	ps.setInt(6, disposition.getSentenceTermDays());
+        	            	ps.setBigDecimal(6, disposition.getSentenceTermDays());
         	            }
         	            else
         	            {
