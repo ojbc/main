@@ -95,6 +95,10 @@ public class ArrestSubscriptionAddValidator {
 			fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
 		}
 		
+		String purpose = subscription.getSubscriptionPurpose();
+		if(StringUtils.isEmpty(purpose)){
+			fieldToErrorMap.put("subscriptionPurpose", "Purpose must be specified");
+		}
 				
 		boolean hasEmail = false;
 		
