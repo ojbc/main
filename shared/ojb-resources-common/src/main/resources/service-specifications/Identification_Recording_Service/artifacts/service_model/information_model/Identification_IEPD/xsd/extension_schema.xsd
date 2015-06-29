@@ -45,6 +45,7 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="ident-ext:TransactionIdentification"/>
+					<xsd:element ref="ident-ext:TransactionCategoryText"/>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="ident-ext:IdentificationApplicantOrganization"/>
 					<xsd:element ref="ident-ext:IdentificationRequestRepresentation" minOccurs="0" maxOccurs="unbounded"/>
@@ -62,10 +63,12 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="ident-ext:TransactionIdentification"/>
+					<xsd:element ref="ident-ext:TransactionCategoryText"/>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="ident-ext:IdentificationApplicantOrganization"/>
 					<xsd:element ref="ident-ext:IdentificationResultsRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ident-ext:LinkedSystems" minOccurs="0"/>
+					<xsd:element ref="ident-ext:IdentificationReasonRepresentation" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -166,6 +169,12 @@
 		</xsd:annotation>
 	</xsd:element>
 	
+	<xsd:element name="TransactionCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>An additional categorization of the transaction.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
 	<xsd:element name="CivilIdentificationReasonCode" type="ident-ext:CivilIdentificationReasonCodeType" substitutionGroup="ident-ext:IdentificationReasonRepresentation"/>
 	
 	<xsd:complexType name="CivilIdentificationReasonCodeType">
@@ -195,7 +204,7 @@
 			</xsd:enumeration>
 			<xsd:enumeration value="S">
 				<xsd:annotation>
-					<xsd:documentation>Security Clearane Information Act</xsd:documentation>
+					<xsd:documentation>Security Clearance Information Act</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
@@ -220,4 +229,15 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
+	
+	<xsd:element name="FingerpringIdentificationIssuedForCivilPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for a civil background check, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerpringIdentificationIssuedForCriminalPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for an arrest, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

@@ -16,22 +16,40 @@
  */
 package org.ojbc.bundles.intermediaries.identificationreporting;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.activation.DataHandler;
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.mail.util.ByteArrayDataSource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.EndpointInject;
+import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
+import org.apache.cxf.headers.Header;
+import org.apache.cxf.helpers.IOUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +71,8 @@ public class CamelContextTest {
 	
 	public static final String CXF_OPERATION_NAME = "ReportPersonIdentificationRequest";
 	public static final String CXF_OPERATION_NAMESPACE = "http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0";
+	
+	private static final String IMAGE_ID = "http://ojbc.org/identification/request/example";
 	
     @Resource
     private ModelCamelContext context;
@@ -100,7 +120,60 @@ public class CamelContextTest {
 	@Test
 	public void testContextRoutes() throws Exception
 	{
+		identificationRecordingServiceMock.expectedMessageCount(1);
+    	//Create a new exchange
+    	Exchange senderExchange = new DefaultExchange(context);
+    	
+    	//Test the entire web service route by sending through an Identification Report
+		Document doc = createDocument();
+		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
+		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+
+	    //Read the Identification report file from the file system, this example has an as an approved submitter
+	    File inputFile = new File("src/test/resources/xmlInstances/identificationReport/person_identification_request.xml");
+	    String inputStr = FileUtils.readFileToString(inputFile);
+
+	    assertNotNull(inputStr);
+	    
+	    //Set it as the message message body
+	    senderExchange.getIn().setBody(inputStr);
+
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:IdentificationReportingServiceEndpoint", senderExchange);
+
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
 		
+		identificationRecordingServiceMock.assertIsNotSatisfied();
+		
+		senderExchange.getIn().setHeader("operationName", "ReportPersonIdentificationRequest");
+		
+		/*
+		 * add MTOM attachment to the exchange.
+		 */
+		byte[] imgData = extractBytes("src/test/resources/mtomAttachment/java.jpg");
+		senderExchange.getIn().addAttachment(IMAGE_ID, 
+			new DataHandler(new ByteArrayDataSource(imgData, "image/jpeg")));
+
+		returnExchange = template.send("direct:IdentificationReportingServiceEndpoint", senderExchange);
+		
+		identificationRecordingServiceMock.assertIsSatisfied();
+		Exchange receivedExchange = identificationRecordingServiceMock.getExchanges().get(0);
+		String body = receivedExchange.getIn().getBody(String.class);
+		assertEquals(inputStr, body);
+		
+		DataHandler dataHandler = receivedExchange.getIn().getAttachment(IMAGE_ID);
+		assertEquals("image/jpeg", dataHandler.getContentType());
+		
+		byte[] receivedImageData = IOUtils.readBytesFromStream(dataHandler.getInputStream());
+		assertByteArrayEquals(imgData, receivedImageData);
+		BufferedImage image = ImageIO.read(dataHandler.getInputStream());
+		assertEquals(41, image.getWidth());
+		assertEquals(39, image.getHeight());
 	}
 	
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
@@ -119,4 +192,27 @@ public class CamelContextTest {
 		return doc;
 	}
 	
+	public byte[] extractBytes(String ImageName) throws IOException {
+		// open image
+		File imgPath = new File(ImageName);
+		BufferedImage bufferedImage = ImageIO.read(imgPath);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+		ImageIO.write(bufferedImage, "jpg", baos);
+		baos.flush();
+		byte[] imageInByte = baos.toByteArray();
+		baos.close();
+
+		return imageInByte;
+	}
+	
+    static void assertByteArrayEquals(byte[] bytes1, byte[] bytes2) {
+        assertNotNull(bytes1);
+        assertNotNull(bytes2);
+        assertEquals(bytes1.length, bytes2.length);
+        for (int i = 0; i < bytes1.length; i++) {
+            assertEquals(bytes1[i], bytes2[i]);
+        }
+    }
 }
