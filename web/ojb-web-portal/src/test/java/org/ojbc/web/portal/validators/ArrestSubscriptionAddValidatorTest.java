@@ -57,6 +57,9 @@ public class ArrestSubscriptionAddValidatorTest {
 		
 		String purposeError = fieldToErrorMap.get("subscriptionPurpose");
 		assertEquals("Purpose must be specified", purposeError);
+		
+		String caseIdError = fieldToErrorMap.get("caseId");
+		assertEquals("Case Id must be specified", caseIdError);
 	}
 		
 	
@@ -119,6 +122,7 @@ public class ArrestSubscriptionAddValidatorTest {
 		subscription.getEmailList().add("hsimpson@gmail.com");
 		subscription.setFbiId("245");
 		subscription.setSubscriptionPurpose("CS");
+		subscription.setCaseId("4321");
 		
 		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
 		
@@ -149,6 +153,10 @@ public class ArrestSubscriptionAddValidatorTest {
 		String purposeError = fieldToErrorMap.get("subscriptionPurpose");
 		boolean hasPurposeError = StringUtils.isNotBlank(purposeError);		
 		assertEquals(false, hasPurposeError);
+		
+		String caseIdError = fieldToErrorMap.get("caseId");
+		boolean hasCaseIdError = StringUtils.isNotBlank(caseIdError);
+		assertEquals(false, hasCaseIdError);
 	}
 
 }

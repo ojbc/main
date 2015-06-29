@@ -99,6 +99,11 @@ public class ArrestSubscriptionAddValidator {
 		if(StringUtils.isEmpty(purpose)){
 			fieldToErrorMap.put("subscriptionPurpose", "Purpose must be specified");
 		}
+		
+		String caseId = subscription.getCaseId();		
+		if(StringUtils.isEmpty(caseId)){
+			fieldToErrorMap.put("caseId", "Case Id must be specified");
+		}
 				
 		boolean hasEmail = false;
 		
