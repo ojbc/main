@@ -20,6 +20,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PERSON_IDENTIFICATION_REPORT_RESPONSE;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -27,6 +28,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.Header;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.XmlUtils;
@@ -68,9 +70,9 @@ public class IdentificationReportingResponseProcessor{
         Element rootElement = document.createElementNS(
                 NS_PERSON_IDENTIFICATION_REPORT_RESPONSE,
                 NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE +":PersonIdentificationReportResponse");
-        rootElement.setAttribute("xmlns:pidrepres-doc", NS_PERSON_IDENTIFICATION_REPORT_RESPONSE );
-        rootElement.setAttribute("xmlns:identrepres-ext", NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT );
-        rootElement.setAttribute("xmlns:s30", NS_STRUCTURES_30);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE, NS_PERSON_IDENTIFICATION_REPORT_RESPONSE );
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT, NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT );
+        rootElement.setAttribute("xmlns:nc30", NS_NC_30);
         document.appendChild(rootElement);
         return rootElement;
 	}
@@ -84,6 +86,11 @@ public class IdentificationReportingResponseProcessor{
 
 	private Document createResponse(String identificationID,
 			String transactionCategoryText, IdentificationReportStatus identificationReportStatus) {
+		
+		log.info("Createing identification report response with ID '" + StringUtils.trimToEmpty(identificationID)
+				+ "', TransactionCategoryText '" + StringUtils.trimToEmpty(transactionCategoryText)
+				+ "' and status " + identificationReportStatus.name());
+		
 		Document document = documentBuilder.newDocument();
         Element rootElement = createRootElement(document);
         

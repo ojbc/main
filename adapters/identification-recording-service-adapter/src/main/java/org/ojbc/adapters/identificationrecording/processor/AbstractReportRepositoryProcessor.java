@@ -23,12 +23,14 @@ import org.apache.camel.Exchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.identificationrecording.dao.RapbacksDatastoreDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 
 public abstract class AbstractReportRepositoryProcessor {
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
+	@Autowired
 	protected RapbacksDatastoreDAO rapbacksDatastoreDAO;
 	
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -36,14 +38,5 @@ public abstract class AbstractReportRepositoryProcessor {
 	
     @Transactional
 	public abstract void processReport(@Body Document report, Exchange exchange) throws Exception;
-
-	public RapbacksDatastoreDAO getRapbacksDatastoreDAO() {
-		return rapbacksDatastoreDAO;
-	}
-
-	public void setRapbacksDatastoreDAO(
-			RapbacksDatastoreDAO rapbacksDatastoreDAO) {
-		this.rapbacksDatastoreDAO = rapbacksDatastoreDAO;
-	}
 
 }
