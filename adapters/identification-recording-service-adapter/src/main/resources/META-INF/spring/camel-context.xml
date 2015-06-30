@@ -21,13 +21,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:cxf="http://camel.apache.org/schema/cxf"
-	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:context="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     
@@ -96,7 +100,7 @@
 
 		<route id="successful_identification_recording_invocation_route">
 			<from uri="direct:successfulIdentificationRecordingInvocation"/>
-			<to uri="bean:identificationRequestReportProcessor?method=sendResponseMessage"/>
+			<to uri="direct:sendIdentificationReportingResponseMessage"/>
 		</route>
 		<route id="failed_identification_recording_invocation_route">
 			<from uri="direct:failedIdentificationRecordingInvocation"/>
@@ -108,8 +112,13 @@
 			<log message="Failed to process Identification Report document. File Name to archive is: ${in.headers.CamelFileName}"/>
 			
 			<to uri="invocationFailedFileEndpoint"/>
-			<to uri="bean:identificationRequestReportProcessor?method=sendResponseMessage"/>
+			<to uri="direct:sendIdentificationReportingResponseMessage"/>
 			
+		</route>
+		
+		<route id="send_identification_reporting_response_route">
+			<from uri="direct:sendIdentificationReportingResponseMessage"/>
+			<to uri="bean:identificationReportingResultMessageProcessor?method=sendResponseMessage"/>
 		</route>
 	</camelContext>
 
@@ -125,7 +134,7 @@
 		<property name="destinationEndpoint"><value>identificationReportingResponseService</value></property>
 	</bean>
 	
-	<bean id ="identificationRequestReportProcessor" class="org.ojbc.adapters.identificationrecording.processor.IdentificationRequestReportProcessor">
+<!-- 	<bean id ="identificationRequestReportProcessor" class="org.ojbc.adapters.identificationrecording.processor.IdentificationRequestReportProcessor">
 		<property name="rapbacksDatastoreDAO" ref="rapbacksDatastoreDAOImpl"/>
 	</bean>
 
@@ -135,6 +144,20 @@
 
 	<bean id="rapbacksDatastoreDAOImpl" class="org.ojbc.adapters.identificationrecording.dao.RapbacksDatastoreDAOImpl">
         <property name="dataSource" ref="dataSource"/>
+	</bean>
+
+ -->	
+ 	<context:annotation-config />
+	<context:component-scan base-package="org.ojbc.adapters.identificationrecording" />
+
+	<!-- Transaction manager and scan for annotations -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
 	</bean>
 	
 </beans>

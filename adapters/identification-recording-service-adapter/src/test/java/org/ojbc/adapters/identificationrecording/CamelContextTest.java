@@ -58,6 +58,7 @@ import org.w3c.dom.Element;
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
+        "classpath:META-INF/spring/spring-context.xml",
         "classpath:META-INF/spring/cxf-endpoints.xml",      
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml",
@@ -75,6 +76,9 @@ public class CamelContextTest {
     
 	@EndpointInject(uri = "mock:direct:failedInvocation")
     protected MockEndpoint failedInvocationEndpoint;
+	
+    @EndpointInject(uri = "mock:bean:identificationReportingResultMessageProcessor")
+    protected MockEndpoint identificationReportingResultMessageProcessor;
     
 	@Test
 	public void contextStartup() {
@@ -93,6 +97,13 @@ public class CamelContextTest {
     	    }              
     	});
 
+    	context.getRouteDefinition("send_identification_reporting_response_route").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	mockEndpointsAndSkip("bean:identificationReportingResultMessageProcessor*");
+    	    }              
+    	});
     	context.start();
 	}	
 	

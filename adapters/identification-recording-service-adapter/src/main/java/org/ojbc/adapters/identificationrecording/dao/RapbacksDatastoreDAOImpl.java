@@ -20,14 +20,18 @@ import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
+@Component("rapbacksDatastoreDAO")
 public class RapbacksDatastoreDAOImpl implements RapbacksDatastoreDAO{
 
 	private static final Log log = LogFactory.getLog(RapbacksDatastoreDAOImpl.class);
 	
 	private JdbcTemplate jdbcTemplate;
 	
+	@Autowired
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
