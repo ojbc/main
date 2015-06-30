@@ -39,6 +39,7 @@
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
     ">
 
+	<!-- Identification Recording Adapter - hosted by the rapback data store adapter, called by the intermediary -->
 	<cxf:cxfEndpoint id="identificationRecordingAdapter"
 		address="${identificationRecordingAdapter.adapterEndpoint}"
 		wsdlURL="classpath:service-specifications/Identification_Recording_Service/schemas/SIP_WS_1.3/Identification_Recording_Service.wsdl"
@@ -51,6 +52,24 @@
 			<entry key="ws-security.signature.properties" value-ref="identificationRecordingAdapterKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${identificationRecordingAdapter.keystoreCertificateAlias}" />
 		</cxf:properties> 
+	</cxf:cxfEndpoint>
+
+	<!-- Identification Response Handler - hosted by the intermediary, called by the rapback data store adapter -->
+	<cxf:cxfEndpoint id="identificationReportingResponseService"
+		address="${identificationRecordingAdapter.identificationReportingResponseServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Identification_Reporting_Response_Service/schemas/SIP_WS_1.3/Identification_Reporting_Response_Service.wsdl"
+		serviceName="ojbc:Identification-Reporting-Response-ServiceService"
+		endpointName="ojbc:Identification-Reporting-Response-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
 	</cxf:cxfEndpoint>
 
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
