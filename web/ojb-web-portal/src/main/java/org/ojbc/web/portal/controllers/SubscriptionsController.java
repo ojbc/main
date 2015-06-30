@@ -120,6 +120,9 @@ public class SubscriptionsController {
 	@Resource
 	Map<String, SubscriptionStartDateStrategy> editSubscriptionStartDateStrategyMap;
 	
+	@Resource
+	Map<String, String> subscriptionDefaultsMap;
+	
     @Resource
     Map<String, String> subscriptionFilterProperties;
 		
@@ -445,6 +448,11 @@ public class SubscriptionsController {
 		String sEmail = userSession.getUserLogonInfo().emailAddress;
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
+		}
+		
+		String purposeSelection = subscriptionDefaultsMap.get("purpose");
+		if(StringUtils.isNotEmpty(purposeSelection)){
+			subscription.setSubscriptionPurpose(purposeSelection);	
 		}		
 				
 		model.put("subscription", subscription);

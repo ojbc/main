@@ -56,6 +56,10 @@
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="currentEditableStartDateStrategy" />
 	</util:map>
+	
+	<util:map id="subscriptionDefaultsMap">
+		<entry key="purpose" value="CI" />
+	</util:map>
 
 	<util:map id="subscriptionEndDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
