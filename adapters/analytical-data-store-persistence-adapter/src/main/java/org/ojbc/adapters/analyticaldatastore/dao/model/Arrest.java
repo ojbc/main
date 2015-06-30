@@ -29,15 +29,14 @@ public class Arrest {
     
     //fk
     private Integer incidentID;
-    
-    //fk
-    private Integer arrestingAgencyID;
 
     //fk
     private Integer involvedDrugID;
 
 	private Date arrestDate;
 	private Time arrestTime;
+
+	private String arrestingAgencyName;
 	
 	//'Y if drug related, N otherwise'
 	private char arrestDrugRelated;
@@ -64,14 +63,6 @@ public class Arrest {
 
 	public void setIncidentID(Integer incidentID) {
 		this.incidentID = incidentID;
-	}
-
-	public Integer getArrestingAgencyID() {
-		return arrestingAgencyID;
-	}
-
-	public void setArrestingAgencyID(Integer arrestingAgencyID) {
-		this.arrestingAgencyID = arrestingAgencyID;
 	}
 
 	public Date getArrestDate() {
@@ -104,6 +95,14 @@ public class Arrest {
 
 	public void setInvolvedDrugID(Integer involvedDrugID) {
 		this.involvedDrugID = involvedDrugID;
+	}
+
+	public String getArrestingAgencyName() {
+		return arrestingAgencyName;
+	}
+
+	public void setArrestingAgencyName(String arrestingAgencyName) {
+		this.arrestingAgencyName = arrestingAgencyName;
 	}
 
 	

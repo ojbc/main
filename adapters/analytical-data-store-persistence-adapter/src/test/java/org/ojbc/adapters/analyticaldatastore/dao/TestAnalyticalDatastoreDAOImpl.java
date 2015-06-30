@@ -16,7 +16,7 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -131,7 +131,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		arrest.setPersonID(personPk);
 		arrest.setIncidentID(incidentPk);
-		arrest.setArrestingAgencyID(agencyPk);
+		arrest.setArrestingAgencyName("Arresting Agency Name");
 		arrest.setArrestDate(new Date());
 		arrest.setArrestDrugRelated('Y');
 		arrest.setArrestTime(new java.sql.Time(arrest.getArrestDate().getTime()));
@@ -254,6 +254,15 @@ public class TestAnalyticalDatastoreDAOImpl {
 		assertEquals(1, dispositionPk);
 
 		
+	}
+	
+	@Test
+	public void testSearchForAgenyIDbyAgencyORI()
+	{
+		assertEquals(1,analyticalDatastoreDAOImpl.searchForAgenyIDbyAgencyORI("99999").intValue());
+		
+		//The ORI below is undefined
+		assertNull(analyticalDatastoreDAOImpl.searchForAgenyIDbyAgencyORI("PD023242342342"));
 	}
 
 	

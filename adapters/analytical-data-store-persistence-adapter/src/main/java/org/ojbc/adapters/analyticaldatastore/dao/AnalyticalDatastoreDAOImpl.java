@@ -163,19 +163,19 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveArrest(final Arrest arrest) {
         log.debug("Inserting row into Arrest table");
 
-        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestingAgencyID,ArrestDate,ArrestTime,ArrestDrugRelated,InvolvedDrugID ) values (?,?,?,?,?,?,?)";
+        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestDate,ArrestTime,ArrestingAgencyName,ArrestDrugRelated,InvolvedDrugID ) values (?,?,?,?,?,?,?)";
 		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestingAgencyID","ArrestDate","ArrestTime","ArrestDrugRelated","InvolvedDrugID"});
+        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestDate","ArrestTime","ArrestingAgencyName","ArrestDrugRelated","InvolvedDrugID"});
         	            ps.setInt(1, arrest.getPersonID());
         	            ps.setInt(2, arrest.getIncidentID());
-        	            ps.setInt(3, arrest.getArrestingAgencyID());
-        	            ps.setDate(4, new java.sql.Date(arrest.getArrestDate().getTime()));
-        	            ps.setTime(5, new java.sql.Time(arrest.getArrestDate().getTime()));
+        	            ps.setDate(3, new java.sql.Date(arrest.getArrestDate().getTime()));
+        	            ps.setTime(4, new java.sql.Time(arrest.getArrestDate().getTime()));
+        	            ps.setString(5, arrest.getArrestingAgencyName());
         	            ps.setString(6, String.valueOf(arrest.getArrestDrugRelated()));
         	            
         	            //Allow null fk is not required
@@ -737,6 +737,40 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			pretrialService.setPretrialServiceDescription(rs.getString("PretrialServiceDescription"));
 			
 	    	return pretrialService;
+		}
+
+	}
+
+	@Override
+	public Integer searchForAgenyIDbyAgencyORI(String agencyORI) {
+			String sql = "select * from Agency where AgencyORI = ?";
+			 
+			List<Agency> agencies = 
+					jdbcTemplate.query(sql, 
+							new AgencyRowMapper(), agencyORI);
+			
+			Agency agency = DataAccessUtils.singleResult(agencies);
+			
+			if (agency == null)
+			{
+				return null;
+			}	
+			
+			return agency.getAgencyID();
+			
+	}
+	
+	public class AgencyRowMapper implements RowMapper<Agency>
+	{
+		@Override
+		public Agency mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Agency agency = new Agency();
+	    	
+			agency.setAgencyID(rs.getInt("AgencyID"));
+			agency.setAgencyName(rs.getString("AgencyName"));
+			agency.setAgencyName(rs.getString("AgencyORI"));
+			
+	    	return agency;
 		}
 
 	}

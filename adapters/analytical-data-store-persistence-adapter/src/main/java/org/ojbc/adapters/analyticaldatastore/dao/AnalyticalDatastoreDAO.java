@@ -84,6 +84,8 @@ public interface AnalyticalDatastoreDAO {
 	
 	public List<Charge> returnChargesFromArrest(Integer arrestId);
 	
+	public Integer searchForAgenyIDbyAgencyORI(String agencyORI);
+	
 	public Person getPerson(Integer personId);
 
 	public void savePretrialServiceAssociations(

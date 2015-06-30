@@ -240,7 +240,7 @@ public class CamelContextTest {
 		
 		assertEquals('N',arrest.getArrestDrugRelated());
 		assertEquals("13:48:00",arrest.getArrestTime().toString());
-		assertEquals(Integer.valueOf(2),arrest.getArrestingAgencyID());
+		assertEquals("Some PD",arrest.getArrestingAgencyName());
 		assertEquals(null,arrest.getInvolvedDrugID());
 		
 		List<Charge> charges = analyticalDatastoreDAOImpl.returnChargesFromArrest(arrest.getArrestID());
