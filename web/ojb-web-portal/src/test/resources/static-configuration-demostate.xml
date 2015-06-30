@@ -70,7 +70,10 @@
 			value-ref="uneditableStartDateStrategy" />
 	</util:map>
 
-
+	<util:map id="subscriptionDefaultsMap">
+		<entry key="purpose" value="CI" />
+	</util:map>
+	
 	<util:map id="searchProfilesEnabled" map-class="java.util.LinkedHashMap">
 		<!-- Valid values are 'enabled', 'disabled' and 'hidden' -->
 		<!-- 'enabled': clicking tab shows search form -->
