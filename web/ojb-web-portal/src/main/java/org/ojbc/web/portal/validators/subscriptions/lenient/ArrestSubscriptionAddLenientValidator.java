@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.portal.validators;
+package org.ojbc.web.portal.validators.subscriptions.lenient;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -23,13 +23,14 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 @Service
-public class ArrestSubscriptionAddValidator {
+public class ArrestSubscriptionAddLenientValidator implements ArrestSubscriptionValidatorInterface{
 	
-	private Logger logger = Logger.getLogger(ArrestSubscriptionAddValidator.class.getName());
+	private Logger logger = Logger.getLogger(ArrestSubscriptionAddLenientValidator.class.getName());
 		
 	public void validate(Subscription subscription, BindingResult errors){
 						
@@ -55,7 +56,7 @@ public class ArrestSubscriptionAddValidator {
 	}
 	
 	
-	Map<String, String> getValidationErrorsList(Subscription subscription){
+	public Map<String, String> getValidationErrorsList(Subscription subscription){
 		
 		if(subscription == null){
 			return null;

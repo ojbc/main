@@ -25,10 +25,12 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
+import org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionAddStrictValidator;
 
 public class ArrestSubscriptionAddValidatorTest {
 	
-	private ArrestSubscriptionAddValidator validator = new ArrestSubscriptionAddValidator();
+	private ArrestSubscriptionValidatorInterface validator = new ArrestSubscriptionAddStrictValidator();
 	
 	@Test
 	public void testValidator(){

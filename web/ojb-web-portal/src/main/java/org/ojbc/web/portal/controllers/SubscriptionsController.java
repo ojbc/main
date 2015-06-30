@@ -67,10 +67,9 @@ import org.ojbc.web.portal.controllers.helpers.SubscriptionQueryResultsProcessor
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
-import org.ojbc.web.portal.validators.ArrestSubscriptionAddValidator;
-import org.ojbc.web.portal.validators.ArrestSubscriptionEditValidator;
 import org.ojbc.web.portal.validators.IncidentSubscriptionAddValidator;
 import org.ojbc.web.portal.validators.IncidentSubscriptionEditValidator;
+import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
@@ -133,10 +132,10 @@ public class SubscriptionsController {
 	SamlService samlService;
 		
 	@Resource
-	ArrestSubscriptionAddValidator arrestSubscriptionAddValidator;
+	ArrestSubscriptionValidatorInterface arrestSubscriptionAddValidator;
 	
 	@Resource
-	ArrestSubscriptionEditValidator arrestSubscriptionEditValidator;
+	ArrestSubscriptionValidatorInterface arrestSubscriptionEditValidator;
 	
 	@Resource
 	IncidentSubscriptionAddValidator incidentSubscriptionAddValidator;

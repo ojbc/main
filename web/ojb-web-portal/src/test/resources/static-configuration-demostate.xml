@@ -35,6 +35,12 @@
 
 	<bean id="searchTermsTokenizer" class="org.ojbc.web.portal.services.SearchTermsTokenizer" />
 
+	<bean id="arrestSubscriptionAddValidator" 
+		class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionAddStrictValidator" />
+	
+	<bean id="arrestSubscriptionEditValidator" 
+		class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEditStrictValidator" />
+
 	<bean id="currentUneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.add.CurrentUneditableStartDateStrategy" />
 
