@@ -75,7 +75,7 @@
                         <lexs:DataItemStatus>Status Placeholder</lexs:DataItemStatus>
                         <lexs:DataOwnerMetadata>
                             <lexs:DataOwnerIdentifier>
-                                <lexs:ORI>PD9999999</lexs:ORI>
+                                <lexs:ORI>99999</lexs:ORI>
                                 <nc:OrganizationName xmlns:nc="http://niem.gov/niem/niem-core/2.0"
                                     >Some PD</nc:OrganizationName>
                                 <lexs:SystemID>RMS</lexs:SystemID>

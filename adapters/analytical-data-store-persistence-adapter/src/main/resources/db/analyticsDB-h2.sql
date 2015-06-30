@@ -176,9 +176,9 @@ CREATE TABLE Arrest (
                 ArrestID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 IncidentID INTEGER NOT NULL,
-                ArrestingAgencyID INTEGER NOT NULL,
                 ArrestDate DATE NOT NULL,
                 ArrestTime TIME NOT NULL,
+                ArrestingAgencyName VARCHAR(40) NOT NULL,
                 ArrestDrugRelated CHAR(1) NOT NULL,
                 InvolvedDrugID INTEGER,
                 Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
@@ -233,12 +233,6 @@ ON UPDATE NO ACTION;
 
 ALTER TABLE Incident ADD CONSTRAINT Agency_Incident_fk
 FOREIGN KEY (ReportingAgencyID)
-REFERENCES Agency (AgencyID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Arrest ADD CONSTRAINT Agency_Arrest_fk
-FOREIGN KEY (ArrestingAgencyID)
 REFERENCES Agency (AgencyID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;

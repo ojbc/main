@@ -66,10 +66,19 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		
 		String reportingAgencyName = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id= " + PATH_TO_LEXS_DIGEST + " /lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation[nc:ActivityReference/@s:ref=" + PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName");
 		log.debug("Agency Name: " + reportingAgencyName);
-		
-		if (StringUtils.isNotBlank(reportingAgencyName))
+
+		String reportingAgencyORI = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataOwnerMetadata/lexs:DataOwnerIdentifier/lexs:ORI");
+		log.debug("Agency ORI: " + reportingAgencyORI);
+
+		if (StringUtils.isNotBlank(reportingAgencyORI))
 		{
-			Integer reportingAgencyId = descriptionCodeLookupService.retrieveCode(CodeTable.Agency, reportingAgencyName.trim());
+			Integer reportingAgencyId = analyticalDatastoreDAO.searchForAgenyIDbyAgencyORI(reportingAgencyORI);
+			
+			if (reportingAgencyId == null)
+			{
+				throw new Exception("Valid Agency ORI required for incident.  Agency Name is: " + reportingAgencyName + ", Agency ORI is: " + reportingAgencyORI);
+			}	
+			
 			incident.setReportingAgencyID(reportingAgencyId);
 		}	
 		
@@ -230,8 +239,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 
 				if (StringUtils.isNotBlank(arrestingAgency))
 				{
-					Integer arrestingAgencyId = descriptionCodeLookupService.retrieveCode(CodeTable.Agency, arrestingAgency);
-					arrest.setArrestingAgencyID(arrestingAgencyId);
+					arrest.setArrestingAgencyName(arrestingAgency);
 				}	
 
 				arrest.setArrestDrugRelated('N');
