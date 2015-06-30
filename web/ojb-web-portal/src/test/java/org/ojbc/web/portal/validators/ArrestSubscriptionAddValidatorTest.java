@@ -30,14 +30,14 @@ import org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionAdd
 
 public class ArrestSubscriptionAddValidatorTest {
 	
-	private ArrestSubscriptionValidatorInterface validator = new ArrestSubscriptionAddStrictValidator();
+	private ArrestSubscriptionValidatorInterface arrestStrictValidator = new ArrestSubscriptionAddStrictValidator();
 	
 	@Test
 	public void testValidator(){
 						
 		Subscription subscription = new Subscription();
 									
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);	
+		Map<String, String> fieldToErrorMap = arrestStrictValidator.getValidationErrorsList(subscription);	
 				
 		String subTypeError = fieldToErrorMap.get("subscriptionType");		
 		assertEquals("Subscription type must be specified", subTypeError);
@@ -81,7 +81,7 @@ public class ArrestSubscriptionAddValidatorTest {
 		subscription.setSubscriptionStartDate(startDate);		
 		subscription.setSubscriptionEndDate(endDate);			
 
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
+		Map<String, String> fieldToErrorMap = arrestStrictValidator.getValidationErrorsList(subscription);
 		
 		String endDateError = fieldToErrorMap.get("subscriptionEndDate");
 		boolean hasEndDateError = StringUtils.isNotBlank(endDateError);
@@ -105,7 +105,7 @@ public class ArrestSubscriptionAddValidatorTest {
 		subscription.setSubscriptionStartDate(startDate);		
 		subscription.setSubscriptionEndDate(endDate);			
 
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
+		Map<String, String> fieldToErrorMap = arrestStrictValidator.getValidationErrorsList(subscription);
 		
 		String endDateError = fieldToErrorMap.get("subscriptionEndDate");
 		assertEquals("End date may not occur before start date", endDateError);		
@@ -126,7 +126,7 @@ public class ArrestSubscriptionAddValidatorTest {
 		subscription.setSubscriptionPurpose("CS");
 		subscription.setCaseId("4321");
 		
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
+		Map<String, String> fieldToErrorMap = arrestStrictValidator.getValidationErrorsList(subscription);
 		
 		String subTypeError = fieldToErrorMap.get("subscriptionType");		
 		boolean hasSubTypeError = StringUtils.isNotBlank(subTypeError);				

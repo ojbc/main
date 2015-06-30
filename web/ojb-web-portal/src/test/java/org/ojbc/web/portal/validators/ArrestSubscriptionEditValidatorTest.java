@@ -30,14 +30,14 @@ import org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEdi
 
 public class ArrestSubscriptionEditValidatorTest {
 	
-	private ArrestSubscriptionValidatorInterface validator = new ArrestSubscriptionEditStrictValidator();
+	private ArrestSubscriptionValidatorInterface strictEditValidator = new ArrestSubscriptionEditStrictValidator();
 	
 	@Test
 	public void testValidatorErrors(){
 						
 		Subscription subscription = new Subscription();
 									
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);	
+		Map<String, String> fieldToErrorMap = strictEditValidator.getValidationErrorsList(subscription);	
 				
 		String subTypeError = fieldToErrorMap.get("subscriptionType");		
 		assertEquals("Subscription type must be specified", subTypeError);
@@ -78,7 +78,7 @@ public class ArrestSubscriptionEditValidatorTest {
 		subscription.setSubscriptionPurpose("CS");
 		subscription.setCaseId("6789");
 		
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
+		Map<String, String> fieldToErrorMap = strictEditValidator.getValidationErrorsList(subscription);
 		
 		String subTypeError = fieldToErrorMap.get("subscriptionType");		
 		boolean hasSubTypeError = StringUtils.isNotBlank(subTypeError);				
@@ -130,7 +130,7 @@ public class ArrestSubscriptionEditValidatorTest {
 		subscription.setSubscriptionStartDate(startDate);		
 		subscription.setSubscriptionEndDate(endDate);			
 
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
+		Map<String, String> fieldToErrorMap = strictEditValidator.getValidationErrorsList(subscription);
 		
 		String endDateError = fieldToErrorMap.get("subscriptionEndDate");
 		assertEquals("End date may not occur before start date", endDateError);		
@@ -153,7 +153,7 @@ public class ArrestSubscriptionEditValidatorTest {
 		subscription.setSubscriptionStartDate(startDate);		
 		subscription.setSubscriptionEndDate(endDate);			
 
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
+		Map<String, String> fieldToErrorMap = strictEditValidator.getValidationErrorsList(subscription);
 		
 		String endDateError = fieldToErrorMap.get("subscriptionEndDate");
 		boolean hasEndDateError = StringUtils.isNotBlank(endDateError);
