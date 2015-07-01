@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- needed cxf imports -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    
+	<camelContext xmlns="http://camel.apache.org/schema/spring" 
+		xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
+		xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
+		xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
+		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+		id="identification-recording-service-adapter">
+
+		<endpoint id="identificationRecordingAdapterEndpoint"
+			uri="cxf:bean:identificationRecordingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationRecordingAdapter.cxflogging}}" />
+
+		<endpoint id="identificationRecordingFileEndpoint"
+			uri="file://{{identificationRecordingAdapter.inputDirectory}}/input?idempotent=true&amp;moveFailed={{identificationRecordingAdapter.inputDirectory}}/error&amp;move=processed/" />
+
+		<endpoint id="invocationFailedFileEndpoint"
+			uri="file://{{identificationRecordingAdapter.inputDirectory}}/failed" />
+
+		<!-- Incident Reporting Route -->
+		<route id="identification_recording_service">
+		
+			<from	uri="identificationRecordingAdapterEndpoint" />
+			
+			<to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<to uri="direct:processIdentificationReport" />
+			
+		</route>	
+		
+		<route id="identification_recording_service_filedrop">
+		
+			<from	uri="identificationRecordingFileEndpoint" />
+			
+			<to uri="direct:processIdentificationReport" />
+		</route>
+		
+		<route id="identfication_recording_service_process_report">				
+			
+			<from uri="direct:processIdentificationReport" />
+
+			<setHeader headerName="identificationID">
+				<xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
+					|/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionIdentification/nc:IdentificationID
+					|/pidres-doc:PersonFederalIdentificationResults/ident-ext:TransactionIdentification/nc:IdentificationID
+					|/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
+				</xpath>
+			</setHeader>
+			<setHeader headerName="transactionCategoryText">
+				<xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionCategoryText
+					|/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionCategoryText
+					|/pidres-doc:PersonFederalIdentificationResults/ident-ext:TransactionCategoryText
+					|/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:TransactionCategoryText
+				</xpath>
+			</setHeader>
+				
+			<doTry>
+						
+				<log message="Here is the inbound identification reporting message: ${body}" loggingLevel="DEBUG"/>
+				
+				<choice>
+					<when>
+						<simple>${in.header.operationName} == 'RecordPersonStateIdentificationRequest' 
+							|| ${in.header.operationName} == 'RecordPersonFederalIdentificationRequest'</simple>
+						<to uri="bean:identificationRequestReportProcessor?method=processReport"/>
+					</when>
+					<when>
+						<simple>${in.header.operationName} == 'RecordPersonStateIdentificationResults' 
+							|| ${in.header.operationName} == 'RecordPersonFederalIdentificationResults'</simple>
+						<to uri="bean:identificationResultsReportProcessor?method=processReport"/>
+					</when>
+					<otherwise>
+						<log message="The operation name '${in.header.operationName}' is not supported."></log>
+						<throwException ref="opertaionNameNotSupported"></throwException>
+					</otherwise>
+				</choice>
+				
+				<to uri="direct:successfulIdentificationRecordingInvocation"/>
+				
+				<doCatch >
+					<exception>java.lang.Exception</exception>
+					<log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					<to uri="direct:failedIdentificationRecordingInvocation"/>
+				</doCatch>
+			
+			</doTry>
+			
+		</route>		
+
+		<route id="successful_identification_recording_invocation_route">
+			<from uri="direct:successfulIdentificationRecordingInvocation"/>
+			<to uri="bean:identificationReportingResponseProcessor?method=createSuccessResponse"/>
+			<to uri="direct:sendIdentificationReportingResponseMessage"/>
+		</route>
+		
+		<route id="failed_identification_recording_invocation_route">
+			<from uri="direct:failedIdentificationRecordingInvocation"/>
+			
+			<camel:multicast>
+				<to uri="direct:deadLetterChannel"/>
+				<camel:pipeline>
+					<to uri="bean:identificationReportingResponseProcessor?method=createErrorResponse"/>
+					<to uri="direct:sendIdentificationReportingResponseMessage"/>
+				</camel:pipeline>
+			</camel:multicast>
+		</route>
+		
+		<route id="archive_failed_identification_report_route">
+			<from uri="direct:deadLetterChannel"/>
+			<setHeader headerName="CamelFileName">
+				<simple>identificationReport/FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+			</setHeader>	
+			<to uri="invocationFailedFileEndpoint"/>
+			<log message="Failed to process Identification Report document. File Name to archive is: ${in.headers.CamelFileName}"/>
+		</route>
+		
+		<route id="send_identification_reporting_response_route">
+			<from uri="direct:sendIdentificationReportingResponseMessage"/>
+			<to uri="bean:identificationReportingResultMessageProcessor?method=sendResponseMessage"/>
+		</route>
+	</camelContext>
+
+	<bean id="opertaionNameNotSupported" class="java.lang.IllegalArgumentException">
+	   <constructor-arg index="0" value="Operation Name is not supported."/>
+	</bean>
+	
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<bean id="identificationReportingResultMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
+		<property name="operationName"><value>SubmitPersonIdentificationReportResponse</value></property>
+		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0</value></property>
+		<property name="destinationEndpoint"><value>identificationReportingResponseService</value></property>
+	</bean>
+	
+</beans>
