@@ -14,28 +14,40 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.analyticaldatastore.dao.model;
+package org.ojbc.adapters.analyticaldatastore.dao;
 
-public class InvolvedDrug {
+public class IncidentType {
 
 	//pk
-	private Integer involvedDrugID;
+	private Integer incidentTypeID;
 	
-	private String involvedDrugDescription;
+	//fk
+	private Integer incidentID;
 
-	public Integer getInvolvedDrugID() {
-		return involvedDrugID;
+	private String incidentDescriptionText;
+
+	public Integer getIncidentTypeID() {
+		return incidentTypeID;
 	}
 
-	public void setInvolvedDrugID(Integer involvedDrugID) {
-		this.involvedDrugID = involvedDrugID;
+	public void setIncidentTypeID(Integer incidentTypeID) {
+		this.incidentTypeID = incidentTypeID;
 	}
 
-	public String getInvolvedDrugDescription() {
-		return involvedDrugDescription;
+	public Integer getIncidentID() {
+		return incidentID;
 	}
 
-	public void setInvolvedDrugDescription(String involvedDrugDescription) {
-		this.involvedDrugDescription = involvedDrugDescription;
+	public void setIncidentID(Integer incidentID) {
+		this.incidentID = incidentID;
 	}
+
+	public String getIncidentDescriptionText() {
+		return incidentDescriptionText;
+	}
+
+	public void setIncidentDescriptionText(String incidentDescriptionText) {
+		this.incidentDescriptionText = incidentDescriptionText;
+	}
+
 }

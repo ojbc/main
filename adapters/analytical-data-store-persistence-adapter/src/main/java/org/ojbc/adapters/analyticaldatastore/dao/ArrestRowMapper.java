@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
-import org.ojbc.adapters.analyticaldatastore.util.DaoUtils;
 import org.springframework.jdbc.core.RowMapper;
 
 public class ArrestRowMapper implements RowMapper<Arrest>
@@ -35,7 +34,6 @@ public class ArrestRowMapper implements RowMapper<Arrest>
     	arrest.setArrestingAgencyName(rs.getString("ArrestingAgencyName"));
     	arrest.setIncidentID(rs.getInt("IncidentID"));
     	arrest.setPersonID(rs.getInt("PersonID"));
-    	arrest.setInvolvedDrugID(DaoUtils.getInteger(rs, "InvolvedDrugID"));
     	arrest.setArrestID(rs.getInt("ArrestID"));
     	
     	return arrest;

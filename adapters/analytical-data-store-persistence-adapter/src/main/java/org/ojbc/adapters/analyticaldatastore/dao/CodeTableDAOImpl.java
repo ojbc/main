@@ -55,12 +55,9 @@ public class CodeTableDAOImpl implements CodeTableDAO
 			case County:
 			case PersonRace:
 			case PersonSex:
-			case InvolvedDrug: 
-			case IncidentType: 
 			case AssessedNeed: 
 			case PretrialService: 
 			case DispositionType:
-			case OffenseType:
 				sql = "SELECT * FROM " + codeTable.name();
 				return jdbcTemplate.query(sql, new KeyValueRowMapper());
 			case Agency:				
