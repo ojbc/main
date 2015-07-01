@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" targetNamespace="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:complexType name="CourtDispositionUpdateType">
+		<xsd:annotation>
+			<xsd:documentation>A data type that contains information about a court disposition update.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="cdu:CycleTrackingIdentification"/>
+					<xsd:element ref="j:Charge" maxOccurs="unbounded"/>
+					<xsd:element ref="cdu:Sentence" minOccurs="0"/>
+					<xsd:element ref="cdu:Disposition" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SentenceType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a punishment resulting from conviction of charges in a court case.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:SentenceType">
+				<xsd:sequence>
+					<xsd:element ref="cdu:SentenceCourtOrganizationReference" minOccurs="0"/>
+					<xsd:element ref="cdu:SentenceDocketIdentification" minOccurs="0"/>
+					<xsd:element ref="cdu:SentenceCategory" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DispositionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a result or outcome that is the product of handling, processing, or finalizing something.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:DispositionType">
+				<xsd:sequence>
+					<xsd:element ref="cdu:DispositionCourtOrganizationReference" minOccurs="0"/>
+					<xsd:element ref="cdu:DispositionIdentification" minOccurs="0"/>
+					<xsd:element ref="cdu:DispositionDocketIdentification" minOccurs="0"/>
+					<xsd:element ref="cdu:DispositionCategory" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="Sentence" type="cdu:SentenceType">
+		<xsd:annotation>
+			<xsd:documentation>Details about a punishment resulting from conviction of charges in a court case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Disposition" type="cdu:DispositionType">
+		<xsd:annotation>
+			<xsd:documentation>A result or outcome that is the product of handling, processing, or finalizing something.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtDispositionUpdate" type="cdu:CourtDispositionUpdateType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a court disposition update.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CycleTrackingIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier issued for the purpose of tracking criminal activity and can be used to link this activity to a criminal history.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier issued for a disposition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionDocketIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier issued for a disposition docket.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceDocketIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier issued for a sentence docket.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceCategory" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A type of sentence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionCategory" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A type of disposition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceCourtOrganizationReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>An agency that issues a sentence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionCourtOrganizationReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>An agency that issues a disposition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

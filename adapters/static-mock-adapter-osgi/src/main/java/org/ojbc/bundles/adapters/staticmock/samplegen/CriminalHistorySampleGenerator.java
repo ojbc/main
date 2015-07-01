@@ -634,7 +634,7 @@ public class CriminalHistorySampleGenerator extends AbstractPersonSampleGenerato
 
     private void addPersonElement(Document parentDocument, PersonElementWrapper person, Element rapSheetElement) {
 
-        Element rsp = appendElement(rapSheetElement, OjbcNamespaceContext.NS_CH_EXT, "Person");
+        Element rsp = appendElement(rapSheetElement, OjbcNamespaceContext.NS_RAPSHEET_41, "RapSheetPerson");
         Element e;
         
         XmlUtils.addAttribute(rsp, OjbcNamespaceContext.NS_STRUCTURES, "id", person.personId);

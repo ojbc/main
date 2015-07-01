@@ -17,24 +17,14 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema 
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	targetNamespace="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0" 
-	xmlns:me-chrg-codes="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0" 
-	xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
-	elementFormDefault="qualified">
-	
-	<xsd:import schemaLocation="../../Subset/niem/structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
-	<xsd:import schemaLocation="../../CriminalHistoryUpdate.xsd" namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"/>
-
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:me-chrg-codes="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../../Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0" schemaLocation="../../CriminalHistoryUpdate.xsd"/>
 	<xsd:element name="ChargeEnhancingFactorCode" type="me-chrg-codes:ChargeEnhancingFactorCodeType" substitutionGroup="chu:ChargeEnhancingFactorCodeRepresentation">
 		<xsd:annotation>
-			 <xsd:documentation>A code for a factor that modifies the charge, specific to the state of Maine.</xsd:documentation>
+			<xsd:documentation>A code for a factor that modifies the charge, specific to the state of Maine.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-
-
 	<xsd:simpleType name="ChargeEnhancingFactorCodeSimpleType">
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="A">
@@ -79,11 +69,10 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
-	
-	<xsd:complexType name="ChargeEnhancingFactorCodeType">	
+	<xsd:complexType name="ChargeEnhancingFactorCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="me-chrg-codes:ChargeEnhancingFactorCodeSimpleType">
-				 <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
