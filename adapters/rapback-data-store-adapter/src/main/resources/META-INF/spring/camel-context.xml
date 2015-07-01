@@ -35,7 +35,12 @@
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     
-	<camelContext xmlns="http://camel.apache.org/schema/spring" id="identification-recording-service-adapter">
+	<camelContext xmlns="http://camel.apache.org/schema/spring" 
+		xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
+		xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
+		xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
+		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+		id="identification-recording-service-adapter">
 
 		<endpoint id="identificationRecordingAdapterEndpoint"
 			uri="cxf:bean:identificationRecordingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationRecordingAdapter.cxflogging}}" />
@@ -68,18 +73,35 @@
 			
 			<from uri="direct:processIdentificationReport" />
 
+			<setHeader headerName="identificationID">
+				<xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
+					|/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionIdentification/nc:IdentificationID
+					|/pidres-doc:PersonFederalIdentificationResults/ident-ext:TransactionIdentification/nc:IdentificationID
+					|/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
+				</xpath>
+			</setHeader>
+			<setHeader headerName="transactionCategoryText">
+				<xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionCategoryText
+					|/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionCategoryText
+					|/pidres-doc:PersonFederalIdentificationResults/ident-ext:TransactionCategoryText
+					|/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:TransactionCategoryText
+				</xpath>
+			</setHeader>
+				
 			<doTry>
 						
 				<log message="Here is the inbound identification reporting message: ${body}" loggingLevel="DEBUG"/>
 				
 				<choice>
 					<when>
-						<simple>${in.header.operationName} == 'RecordPersonIdentificationRequest'</simple>
-						<to uri="bean:identficationRequestReportProcessor?method=processReport"/>
+						<simple>${in.header.operationName} == 'RecordPersonStateIdentificationRequest' 
+							|| ${in.header.operationName} == 'RecordPersonFederalIdentificationRequest'</simple>
+						<to uri="bean:identificationRequestReportProcessor?method=processReport"/>
 					</when>
 					<when>
-						<simple>${in.header.operationName} == 'RecordPersonIdentificationResults'</simple>
-						<to uri="bean:identficationResultsReportProcessor?method=processReport"/>
+						<simple>${in.header.operationName} == 'RecordPersonStateIdentificationResults' 
+							|| ${in.header.operationName} == 'RecordPersonFederalIdentificationResults'</simple>
+						<to uri="bean:identificationResultsReportProcessor?method=processReport"/>
 					</when>
 					<otherwise>
 						<log message="The operation name '${in.header.operationName}' is not supported."></log>
@@ -87,6 +109,7 @@
 					</otherwise>
 				</choice>
 				
+				<to uri="direct:successfulIdentificationRecordingInvocation"/>
 				
 				<doCatch >
 					<exception>java.lang.Exception</exception>
@@ -100,20 +123,29 @@
 
 		<route id="successful_identification_recording_invocation_route">
 			<from uri="direct:successfulIdentificationRecordingInvocation"/>
+			<to uri="bean:identificationReportingResponseProcessor?method=createSuccessResponse"/>
 			<to uri="direct:sendIdentificationReportingResponseMessage"/>
 		</route>
+		
 		<route id="failed_identification_recording_invocation_route">
 			<from uri="direct:failedIdentificationRecordingInvocation"/>
 			
+			<camel:multicast>
+				<to uri="direct:deadLetterChannel"/>
+				<camel:pipeline>
+					<to uri="bean:identificationReportingResponseProcessor?method=createErrorResponse"/>
+					<to uri="direct:sendIdentificationReportingResponseMessage"/>
+				</camel:pipeline>
+			</camel:multicast>
+		</route>
+		
+		<route id="archive_failed_identification_report_route">
+			<from uri="direct:deadLetterChannel"/>
 			<setHeader headerName="CamelFileName">
 				<simple>identificationReport/FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 			</setHeader>	
-
-			<log message="Failed to process Identification Report document. File Name to archive is: ${in.headers.CamelFileName}"/>
-			
 			<to uri="invocationFailedFileEndpoint"/>
-			<to uri="direct:sendIdentificationReportingResponseMessage"/>
-			
+			<log message="Failed to process Identification Report document. File Name to archive is: ${in.headers.CamelFileName}"/>
 		</route>
 		
 		<route id="send_identification_reporting_response_route">
@@ -132,32 +164,6 @@
 		<property name="operationName"><value>SubmitPersonIdentificationReportResponse</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0</value></property>
 		<property name="destinationEndpoint"><value>identificationReportingResponseService</value></property>
-	</bean>
-	
-<!-- 	<bean id ="identificationRequestReportProcessor" class="org.ojbc.adapters.identificationrecording.processor.IdentificationRequestReportProcessor">
-		<property name="rapbacksDatastoreDAO" ref="rapbacksDatastoreDAOImpl"/>
-	</bean>
-
-	<bean id ="identificationReusltsReportProcessor" class="org.ojbc.adapters.identificationrecording.processor.IdentificationResultsReportProcessor">
-		<property name="rapbacksDatastoreDAO" ref="rapbacksDatastoreDAOImpl"/>
-	</bean>
-
-	<bean id="rapbacksDatastoreDAOImpl" class="org.ojbc.adapters.identificationrecording.dao.RapbacksDatastoreDAOImpl">
-        <property name="dataSource" ref="dataSource"/>
-	</bean>
-
- -->	
- 	<context:annotation-config />
-	<context:component-scan base-package="org.ojbc.adapters.identificationrecording" />
-
-	<!-- Transaction manager and scan for annotations -->
-	<tx:annotation-driven transaction-manager="transactionManager"
-		proxy-target-class="true" />
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
 	</bean>
 	
 </beans>

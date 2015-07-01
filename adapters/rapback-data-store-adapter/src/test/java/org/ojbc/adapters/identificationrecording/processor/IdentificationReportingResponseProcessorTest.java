@@ -63,7 +63,7 @@ public class IdentificationReportingResponseProcessorTest {
 
 	}
 
-	private void assertAsExpected(String documentString, String expectedFileLocation) throws IOException,
+	public static void assertAsExpected(String documentString, String expectedFileLocation) throws IOException,
 			SAXException {
 		File expectedReponseFile = new File(expectedFileLocation);
         String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);

@@ -16,6 +16,7 @@
  */
 package org.ojbc.adapters.identificationrecording;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -49,7 +50,12 @@ import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.ojbc.adapters.identificationrecording.processor.IdentificationReportingResponseProcessorTest.assertAsExpected;
+
+import org.ojbc.adapters.identificationrecording.processor.IdentificationRequestReportProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
@@ -68,13 +74,16 @@ public class CamelContextTest {
 	
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
 	
+	@Autowired
+	IdentificationRequestReportProcessor identificationRequestReportProcessor;
+	
     @Resource
     private ModelCamelContext context;
     
     @Produce
     protected ProducerTemplate template;
     
-	@EndpointInject(uri = "mock:direct:failedInvocation")
+	@EndpointInject(uri = "mock:failedInvocation")
     protected MockEndpoint failedInvocationEndpoint;
 	
     @EndpointInject(uri = "mock:bean:identificationReportingResultMessageProcessor")
@@ -88,6 +97,8 @@ public class CamelContextTest {
 	@Before
 	public void setUp() throws Exception {
 		
+		assertNotNull(identificationRequestReportProcessor);
+
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
     	context.getRouteDefinition("identification_recording_service").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
@@ -109,19 +120,55 @@ public class CamelContextTest {
 	
 	
 	@Test
-	public void testIdentificationRecordingService() throws Exception
+	@DirtiesContext
+	public void testIdentificationRecordingServiceError() throws Exception
 	{
-    	Exchange incidentReportExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_request.xml");
+    	Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request.xml");
 	    
 	    //Send the one-way exchange.  Using template.send will send an one way message
-		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", incidentReportExchange);
+		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
 		
 		//Use getException to see if we received an exception
 		if (returnExchange.getException() != null)
 		{	
 			throw new Exception(returnExchange.getException());
 		}	
+		
+		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		
+		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_failure_response.xml");
 
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testIdentificationRecordingServiceSuccess() throws Exception
+	{
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonStateIdentificationRequest");
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		
+		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
+		
 	}
 	
 	
@@ -170,4 +217,5 @@ public class CamelContextTest {
 
 		return doc;
 	}
+	
 }
