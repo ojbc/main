@@ -87,7 +87,7 @@ public class IdentificationReportingResponseProcessor{
 	private Document createResponse(String identificationID,
 			String transactionCategoryText, IdentificationReportStatus identificationReportStatus) {
 		
-		log.info("Createing identification report response with ID '" + StringUtils.trimToEmpty(identificationID)
+		log.info("Creating identification report response with ID '" + StringUtils.trimToEmpty(identificationID)
 				+ "', TransactionCategoryText '" + StringUtils.trimToEmpty(transactionCategoryText)
 				+ "' and status " + identificationReportStatus.name());
 		
