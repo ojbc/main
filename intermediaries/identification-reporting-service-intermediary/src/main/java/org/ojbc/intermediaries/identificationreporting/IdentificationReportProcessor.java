@@ -33,7 +33,7 @@ public class IdentificationReportProcessor {
 	private static final String IDENTIFICATION_RECORDING_OPERATION_NAMESPACE=
 			"http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0";
 	private static final List<String> operationNames = 
-			Arrays.asList(new String[]{"ReportPersonIdentificationRequest","ReportPersonIdentificationResults"});
+			Arrays.asList(new String[]{"ReportPersonStateIdentificationRequest","ReportPersonStateIdentificationResults", "ReportPersonFederalIdentificationRequest", "ReportPersonFederalIdentificationResults"});
 	
 	public void setOperationNameAndNamespace(Exchange exchange, @Header("operationName") String operationName){
 
@@ -41,7 +41,7 @@ public class IdentificationReportProcessor {
 		
 		if (result){	
 			log.debug("Received request with correct operation Name: "+operationName);
-			exchange.getIn().setHeader("operationName", operationName.replace("Report", "Recording"));
+			exchange.getIn().setHeader("operationName", operationName.replace("Report", "Record"));
 			exchange.getIn().setHeader("operationNamespace", IDENTIFICATION_RECORDING_OPERATION_NAMESPACE);
 		}	
 		else{
