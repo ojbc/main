@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema targetNamespace="http://niem.gov/niem/domains/jxdm/4.1" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+<xsd:schema targetNamespace="http://niem.gov/niem/domains/jxdm/4.1" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:i="http://niem.gov/niem/appinfo/2.0">
   <xsd:annotation>
     <xsd:documentation>Justice</xsd:documentation>
     <xsd:appinfo>
@@ -27,6 +27,7 @@
   <xsd:import schemaLocation="../../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
   <xsd:import schemaLocation="../../../appinfo/2.1/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.1"/>
   <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
+  <xsd:import schemaLocation="../../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
   <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
   <xsd:complexType name="ArrestType">
     <xsd:annotation>
@@ -227,6 +228,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:AugmentationType">
         <xsd:sequence>
+          <xsd:element ref="nc:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
@@ -245,6 +247,23 @@
       <xsd:extension base="nc:PersonType">
         <xsd:sequence>
           <xsd:element ref="j:PersonAugmentation" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SentenceType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a punishment resulting from conviction of charges in a court case.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ActivityType">
+        <xsd:sequence>
+          <xsd:element ref="j:SentenceCondition" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:SentenceGroupingText" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:SentenceTerm" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -276,6 +295,21 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:RoleOfPersonReference" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="TermType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a duration length either in specific terms or as a range.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ActivityType">
+        <xsd:sequence>
+          <xsd:element ref="j:TermDuration" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -467,6 +501,26 @@
       <xsd:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="Sentence" type="j:SentenceType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Details about a punishment resulting from conviction of charges in a court case.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SentenceCondition" type="nc:ConditionType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A description and duration of a sentence component.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SentenceGroupingText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An order to how a sentence must be served.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SentenceTerm" type="j:TermType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A duration of a sentence. Specified as either a specific term in days-months-years or as a minimum - maximum range.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="StatuteCodeIdentification" type="nc:IdentificationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An identifier of a set of laws for a particular jurisdiction.</xsd:documentation>
@@ -475,6 +529,11 @@
   <xsd:element name="StatuteText" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>The full text of a statute or law.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="TermDuration" type="niem-xsd:duration" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A specific range or duration of a term.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
 </xsd:schema>
