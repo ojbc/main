@@ -42,7 +42,7 @@
 				<xsd:sequence>
 					<xsd:element ref="rap:Metadata" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:Introduction" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ch-ext:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="rap:RapSheetPerson" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:PersonBiometricsAssociation" minOccurs="0"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:Court" minOccurs="0" maxOccurs="unbounded"/>
@@ -81,26 +81,13 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="PersonType">
-		<xsd:annotation>
-			<xsd:documentation/>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="nc:PersonType">
-				<xsd:sequence>
-					<xsd:element ref="rap:PersonCorrectionsIdentification" minOccurs="0"/>
-					<xsd:element ref="j:PersonAugmentation" minOccurs="0"/>
-					<xsd:element ref="rap:SubjectCautionInformationText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:SubjectOffenderNoticeText" minOccurs="0" maxOccurs="unbounded"/>
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
 	<xsd:complexType name="SentencingType">
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
 					<xsd:element ref="ch-ext:Sentence" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="rap:SentencingCourtRecordIdentification" minOccurs="0"/>
+					<xsd:element ref="rap:SentencingSubject" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -141,7 +128,5 @@
 	<xsd:element name="Sentencing" type="ch-ext:SentencingType"/>
 	<xsd:element name="RapSheet" type="ch-ext:RapSheetType"/>
 	<xsd:element name="RapSheetCycle" type="ch-ext:RapSheetCycleType"/>
-	<xsd:element name="Person" type="ch-ext:PersonType"/>
-	<xsd:element name="PersonPhysicalFeature" type="nc:PhysicalFeatureType"/>
 	<xsd:element name="Order" type="ch-ext:OrderType"/>
 </xsd:schema>
