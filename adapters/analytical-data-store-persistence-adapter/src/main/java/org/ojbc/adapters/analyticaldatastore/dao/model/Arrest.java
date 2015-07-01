@@ -30,9 +30,6 @@ public class Arrest {
     //fk
     private Integer incidentID;
 
-    //fk
-    private Integer involvedDrugID;
-
 	private Date arrestDate;
 	private Time arrestTime;
 
@@ -87,14 +84,6 @@ public class Arrest {
 
 	public void setArrestDrugRelated(char arrestDrugRelated) {
 		this.arrestDrugRelated = arrestDrugRelated;
-	}
-
-	public Integer getInvolvedDrugID() {
-		return involvedDrugID;
-	}
-
-	public void setInvolvedDrugID(Integer involvedDrugID) {
-		this.involvedDrugID = involvedDrugID;
 	}
 
 	public String getArrestingAgencyName() {

@@ -27,10 +27,7 @@ public class Incident {
 	
 	//fk to Agency table
 	private Integer reportingAgencyID;
-	
-	//fk to IncidentType table
-	private Integer incidentTypeID;
-	
+		
 	private Date incidentDate;
 	private Time incidentTime;
 	
@@ -41,7 +38,7 @@ public class Incident {
     private String incidentLocationStreetAddress;
     private String incidentLocationTown;
 	
-    
+    private String incidentDescriptionText;
     
 	private char recordType;
 
@@ -59,14 +56,6 @@ public class Incident {
 
 	public void setReportingAgencyID(Integer reportingAgencyID) {
 		this.reportingAgencyID = reportingAgencyID;
-	}
-
-	public Integer getIncidentTypeID() {
-		return incidentTypeID;
-	}
-
-	public void setIncidentTypeID(Integer incidentTypeID) {
-		this.incidentTypeID = incidentTypeID;
 	}
 
 	public Date getIncidentDate() {
@@ -132,6 +121,14 @@ public class Incident {
 
 	public void setRecordType(char recordType) {
 		this.recordType = recordType;
+	}
+
+	public String getIncidentDescriptionText() {
+		return incidentDescriptionText;
+	}
+
+	public void setIncidentDescriptionText(String incidentDescriptionText) {
+		this.incidentDescriptionText = incidentDescriptionText;
 	}
 	
 }

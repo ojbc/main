@@ -34,9 +34,6 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
-import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
-import org.ojbc.adapters.analyticaldatastore.dao.model.InvolvedDrug;
-import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
@@ -84,51 +81,28 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public Integer saveIncidentType(final IncidentType incidentType) {
-		
-        log.debug("Inserting row into Incident Type table");
-
-        final String incidentTypeInsertStatement="INSERT into INCIDENTTYPE (IncidentTypeDescription) values (?)";
-		
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(incidentTypeInsertStatement, new String[] {"IncidentTypeDescription"});
-        	            ps.setString(1, incidentType.getIncidentTypeDescription());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();	
-    }
-
-	@Override
 	public Integer saveIncident(final Incident incident) {
         log.debug("Inserting row into Incident table");
 
-        final String incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber, IncidentTypeID,"
-        		+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,RecordType) values (?,?,?,?,?,?,?,?,?,?)";
+        final String incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
+        		+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,RecordType) values (?,?,?,?,?,?,?,?,?)";
 		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(incidentInsertStatement, new String[] {"ReportingAgencyID", "IncidentCaseNumber", "IncidentTypeID"
+        	                connection.prepareStatement(incidentInsertStatement, new String[] {"ReportingAgencyID", "IncidentCaseNumber"
         	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","RecordType"});
         	            ps.setInt(1, incident.getReportingAgencyID());
         	            ps.setString(2, incident.getIncidentCaseNumber());
-        	            ps.setInt(3, incident.getIncidentTypeID());
-        	            ps.setBigDecimal(4, incident.getIncidentLocationLatitude());
-        	            ps.setBigDecimal(5, incident.getIncidentLocationLongitude());
-        	            ps.setString(6, incident.getIncidentLocationStreetAddress());
-        	            ps.setString(7, incident.getIncidentLocationTown());
-        	            ps.setDate(8, new java.sql.Date(incident.getIncidentDate().getTime()));
-        	            ps.setTime(9, new java.sql.Time(incident.getIncidentDate().getTime()));
-        	            ps.setString(10, String.valueOf(incident.getRecordType()));
+        	            ps.setBigDecimal(3, incident.getIncidentLocationLatitude());
+        	            ps.setBigDecimal(4, incident.getIncidentLocationLongitude());
+        	            ps.setString(5, incident.getIncidentLocationStreetAddress());
+        	            ps.setString(6, incident.getIncidentLocationTown());
+        	            ps.setDate(7, new java.sql.Date(incident.getIncidentDate().getTime()));
+        	            ps.setTime(8, new java.sql.Time(incident.getIncidentDate().getTime()));
+        	            ps.setString(9, String.valueOf(incident.getRecordType()));
         	            return ps;
         	        }
         	    },
@@ -163,31 +137,21 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveArrest(final Arrest arrest) {
         log.debug("Inserting row into Arrest table");
 
-        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestDate,ArrestTime,ArrestingAgencyName,ArrestDrugRelated,InvolvedDrugID ) values (?,?,?,?,?,?,?)";
+        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestDate,ArrestTime,ArrestingAgencyName,ArrestDrugRelated) values (?,?,?,?,?,?)";
 		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestDate","ArrestTime","ArrestingAgencyName","ArrestDrugRelated","InvolvedDrugID"});
+        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestDate","ArrestTime","ArrestingAgencyName","ArrestDrugRelated"});
         	            ps.setInt(1, arrest.getPersonID());
         	            ps.setInt(2, arrest.getIncidentID());
         	            ps.setDate(3, new java.sql.Date(arrest.getArrestDate().getTime()));
         	            ps.setTime(4, new java.sql.Time(arrest.getArrestDate().getTime()));
         	            ps.setString(5, arrest.getArrestingAgencyName());
         	            ps.setString(6, String.valueOf(arrest.getArrestDrugRelated()));
-        	            
-        	            //Allow null fk is not required
-        	            if (arrest.getInvolvedDrugID() != null)
-        	            {	
-        	            	ps.setInt(7, arrest.getInvolvedDrugID());
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(7, java.sql.Types.NULL);
-        	            }	
-        	            	
+
         	            return ps;
         	        }
         	    },
@@ -394,39 +358,18 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
     }
 
 	@Override
-	public Integer saveOffenseType(final OffenseType offenseType) {
-        log.debug("Inserting row into OffenseType table");
-
-        final String offenseTypeStatement="INSERT into OffenseType (OffenseDescription) values (?)";
-        
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(offenseTypeStatement, new String[] {"OffenseDescription"});
-        	            ps.setString(1, offenseType.getOffenseDescription());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();	
-     }
-
-	@Override
 	public Integer saveCharge(final Charge charge) {
         log.debug("Inserting row into Charge table");
 
-        final String chargeInsertStatement="INSERT into Charge (arrestOffenseTypeID,arrestID) values (?,?)";
+        final String chargeInsertStatement="INSERT into Charge (OffenseDescriptionText,ArrestID) values (?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(chargeInsertStatement, new String[] {"ArrestOffenseTypeID","ArrestID"});
-        	            ps.setInt(1, charge.getArrestOffenseTypeID());
+        	                connection.prepareStatement(chargeInsertStatement, new String[] {"OffenseDescriptionText","ArrestID"});
+        	            ps.setString(1, charge.getOffenseDescriptionText());
         	            ps.setInt(2, charge.getArrestID());
         	            return ps;
         	        }
@@ -542,29 +485,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 		return charges;
 	}	
-
-	@Override
-	public Integer saveInvolvedDrug(final InvolvedDrug involvedDrug) {
-        log.debug("Inserting row into PersonRace table");
-
-        final String involvedDrugInsertStatement="INSERT into InvolvedDrug (InvolvedDrugDescription) values (?)";
-        
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(involvedDrugInsertStatement, new String[] {"InvolvedDrugDescription"});
-        	            ps.setString(1, involvedDrug.getInvolvedDrugDescription());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();	
-      
-	}
-
 
 	private final String PRETRIAL_SERVICE_NEED_ASSOCIATION_INSERT=
 			"INSERT INTO pretrialServiceNeedAssociation (assessedNeedID, pretrialServiceParticipationID) values (?,?)";
@@ -775,4 +695,72 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	}
 
+	@Override
+	public Integer saveIncidentType(final IncidentType incidentType) {
+        log.debug("Inserting row into IncidentType table");
+
+        final String incidentTypeInsertStatement="INSERT into IncidentType (IncidentDescriptionText,IncidentID) values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(incidentTypeInsertStatement, new String[] {"IncidentDescriptionText","IncidentID"});
+        	            ps.setString(1, incidentType.getIncidentDescriptionText());
+        	            ps.setInt(2, incidentType.getIncidentID());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+    }
+
+	@Override
+	public Integer saveIncidentCircumstance(final IncidentCircumstance incidentCircumstance) {
+        log.debug("Inserting row into IncidentCircumstance table");
+
+        final String incidentCircumstanceInsertStatement="INSERT into IncidentCircumstance (IncidentCircumstanceText,IncidentID) values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(incidentCircumstanceInsertStatement, new String[] {"IncidentCircumstanceText","IncidentID"});
+        	            ps.setString(1, incidentCircumstance.getIncidentCircumstanceText());
+        	            ps.setInt(2, incidentCircumstance.getIncidentID());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();			
+   }
+
+	@Override
+	public List<IncidentCircumstance> returnCircumstancesFromIncident(
+			Integer incidentPk) {
+		String sql = "select * from IncidentCircumstance where IncidentID = ?";
+		 
+		List<IncidentCircumstance> circumstances = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new IncidentCircumstanceRowMapper());
+		
+		return circumstances;
+	}
+
+	public class IncidentCircumstanceRowMapper implements RowMapper<IncidentCircumstance>
+	{
+		@Override
+		public IncidentCircumstance mapRow(ResultSet rs, int rowNum) throws SQLException {
+			IncidentCircumstance incidentCircumstance = new IncidentCircumstance();
+	    	
+			incidentCircumstance.setIncidentCircumstanceID(rs.getInt("IncidentCircumstanceID"));
+			incidentCircumstance.setIncidentID(rs.getInt("IncidentID"));
+			incidentCircumstance.setIncidentCircumstanceText(rs.getString("IncidentCircumstanceText"));
+			
+	    	return incidentCircumstance;
+		}
+
+	}
 }

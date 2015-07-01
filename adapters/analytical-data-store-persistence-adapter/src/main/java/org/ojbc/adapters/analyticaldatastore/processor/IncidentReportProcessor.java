@@ -27,6 +27,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticaldatastore.dao.IncidentCircumstance;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
@@ -178,15 +179,39 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 
 		}	
 		
-		String incidentTypeDescription="Placeholder";
-		
-		Integer incidentTypePK = descriptionCodeLookupService.retrieveCode(CodeTable.IncidentType, incidentTypeDescription);
-		incident.setIncidentTypeID(incidentTypePK);
+		//TODO: Add Incident Description Text
 		
 		Integer incidentPk = analyticalDatastoreDAO.saveIncident(incident);
 		
+		//TODO: Save circumstance codes
+		processCircumstanceCodes(incidentReport, incidentPk);
+		
 		processArrests(incidentReport, incidentPk);
 			
+	}
+
+	private void processCircumstanceCodes(Document incidentReport,
+			Integer incidentPk) throws Exception{
+		
+		NodeList circumstanceCodeNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Offense/inc-ext:OffenseModifierText");
+		
+	    if (circumstanceCodeNodes == null || circumstanceCodeNodes.getLength() == 0) 
+	    {
+			log.debug("No circumstance codes in document");
+			return;
+	    }
+		
+		for (int i = 0; i < circumstanceCodeNodes.getLength(); i++) 
+		{
+			IncidentCircumstance incidentCircumstance = new IncidentCircumstance();
+			
+			incidentCircumstance.setIncidentID(incidentPk);
+			incidentCircumstance.setIncidentCircumstanceText(circumstanceCodeNodes.item(0).getTextContent());
+			
+			analyticalDatastoreDAO.saveIncidentCircumstance(incidentCircumstance);
+			
+		}	
+		
 	}
 
 	protected void processArrests(Document incidentReport, Integer incidentPk)
@@ -248,40 +273,10 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		        int arrestPk = analyticalDatastoreDAO.saveArrest(arrest);
 		        
 		        //Save Charges
-		        //Retrieve UCR codes
-		        NodeList chargeUCRCodeNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:ArrestSubject/ndexia:ArrestSubjectAugmentation/jxdm40:ChargeUCRCode");
+		        //TODO: Properly retrieve charge descriptions and save
 		        
-		        processArrestUCRCodes(incidentReport,chargeUCRCodeNodes, arrestPk);
 		    }
 		}
-	}
-
-	private void processArrestUCRCodes(Document incidentReport, NodeList chargeUCRCodeNodes, Integer arrestPk) throws Exception{
-		for (int i = 0; i < chargeUCRCodeNodes.getLength(); i++) 
-		{
-			Node chargeUCRCodeNode = (chargeUCRCodeNodes.item(i));
-			
-		    if (chargeUCRCodeNode.getNodeType() == Node.ELEMENT_NODE)
-		    {
-		    	
-		    	String ucrCode = chargeUCRCodeNode.getTextContent();
-		    	
-		    	log.debug("UCR Code:" + ucrCode);
-		    	
-		    	Integer arrestOffenseTypeID = descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, ucrCode);
-		    	
-		    	if (arrestOffenseTypeID != null)
-		    	{	
-		    		Charge charge = new Charge();
-		    		
-		    		charge.setArrestID(arrestPk);
-		    		charge.setArrestOffenseTypeID(arrestOffenseTypeID);
-			    		
-		    		analyticalDatastoreDAO.saveCharge(charge);
-		    	}
-		    }
-		}	    
-		
 	}
 
 	protected Date returnArrestDate(Document incidentReport,
