@@ -16,9 +16,9 @@
  */
 package org.ojbc.adapters.identificationrecording;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.ojbc.adapters.identificationrecording.processor.IdentificationReportingResponseProcessorTest.assertAsExpected;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,9 +50,6 @@ import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.ojbc.adapters.identificationrecording.processor.IdentificationReportingResponseProcessorTest.assertAsExpected;
-
 import org.ojbc.adapters.identificationrecording.processor.IdentificationRequestReportProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,11 +143,38 @@ public class CamelContextTest {
 	
 	@Test
 	@DirtiesContext
-	public void testIdentificationRecordingServiceSuccess() throws Exception
+	public void testIdentificationRecordingRequestServiceSuccess() throws Exception
 	{
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request.xml");
 		
-		senderExchange.getIn().setHeader("operationName", "RecordPersonStateIdentificationRequest");
+		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		
+		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
+		
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testIdentificationRecordingResultServiceSuccess() throws Exception
+	{
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
 		
 		//Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
