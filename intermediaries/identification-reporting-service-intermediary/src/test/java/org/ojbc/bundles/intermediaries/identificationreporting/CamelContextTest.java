@@ -83,6 +83,9 @@ public class CamelContextTest {
     @EndpointInject(uri = "mock:cxf:bean:IdentificationRecordingService")
     protected MockEndpoint identificationRecordingServiceMock;
     
+    @EndpointInject(uri = "mock:cxf:bean:identificationReportingResponseRecipient")
+    protected MockEndpoint identificationRecordingResponseRecipientMock;
+    
     @Before
 	public void setUp() throws Exception {
 		
@@ -95,7 +98,7 @@ public class CamelContextTest {
     	    }              
     	});
 
-    	//We mock the 'N-DEx' web service endpoint and intercept any submissions
+    	//We mock the IdentificationRecordingService endpoint and intercept any submissions
     	context.getRouteDefinition("CallIdentificationRecordingServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
@@ -104,6 +107,15 @@ public class CamelContextTest {
     	    }              
     	});
 
+    	context.getRouteDefinition("identificationReportingResponseHandlerRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	replaceFromWith("direct:IdentificationReportingResponseEndpoint");
+    	    	mockEndpointsAndSkip("cxf:bean:identificationReportingResponseRecipient*");
+    	    }              
+    	});
+    	
 		context.start();		
 		
 	}
@@ -118,7 +130,7 @@ public class CamelContextTest {
 	}
 
 	@Test
-	public void testContextRoutes() throws Exception
+	public void testReportingContextRoutes() throws Exception
 	{
 		identificationRecordingServiceMock.expectedMessageCount(1);
     	//Create a new exchange
@@ -130,7 +142,7 @@ public class CamelContextTest {
 		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
 		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
 
-	    //Read the Identification report file from the file system, this example has an as an approved submitter
+	    //Read the Identification report file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 
@@ -174,6 +186,49 @@ public class CamelContextTest {
 		BufferedImage image = ImageIO.read(dataHandler.getInputStream());
 		assertEquals(41, image.getWidth());
 		assertEquals(39, image.getHeight());
+	}
+	
+	@Test
+	public void testReportingResponseRoute() throws Exception
+	{
+		identificationRecordingResponseRecipientMock.expectedMessageCount(1);
+    	//Create a new exchange
+    	Exchange senderExchange = new DefaultExchange(context);
+    	
+    	//Test the entire web service route by sending through an Identification Report
+		Document doc = createDocument();
+		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
+		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+
+	    //Read the Identification reporting response file from the file system.
+	    File inputFile = new File("src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
+	    String inputStr = FileUtils.readFileToString(inputFile);
+
+	    assertNotNull(inputStr);
+	    
+	    //Set it as the message message body
+	    senderExchange.getIn().setBody(inputStr);
+	    senderExchange.getIn().setHeader("federatedQueryRequestGUID", "12345");
+
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:IdentificationReportingResponseEndpoint", senderExchange);
+
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationRecordingResponseRecipientMock.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationRecordingResponseRecipientMock.getExchanges().get(0);
+		String body = receivedExchange.getIn().getBody(String.class);
+		assertEquals(inputStr, body);
+		
+		String operationName = (String) receivedExchange.getIn().getHeader("operationName");
+		assertEquals("SubmitPersonIdentificationReportResponse", operationName);
+		
 	}
 	
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
