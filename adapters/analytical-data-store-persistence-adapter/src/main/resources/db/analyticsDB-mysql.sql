@@ -24,19 +24,6 @@ use AnalyticsDataStore;
 *                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 **/
 
-CREATE TABLE InvolvedDrug (
-                InvolvedDrugID INT AUTO_INCREMENT NOT NULL,
-                InvolvedDrugDescription VARCHAR(40) NOT NULL,
-                PRIMARY KEY (InvolvedDrugID)
-);
-
-
-CREATE TABLE IncidentType (
-                IncidentTypeID INT AUTO_INCREMENT NOT NULL,
-                IncidentTypeDescription VARCHAR(80) NOT NULL,
-                PRIMARY KEY (IncidentTypeID)
-);
-
 
 CREATE TABLE AssessedNeed (
                 AssessedNeedID INT AUTO_INCREMENT NOT NULL,
@@ -130,13 +117,6 @@ CREATE TABLE PretrialServiceNeedAssociation (
 );
 
 
-CREATE TABLE OffenseType (
-                OffenseTypeID INT AUTO_INCREMENT NOT NULL,
-                OffenseDescription VARCHAR(80) NOT NULL,
-                PRIMARY KEY (OffenseTypeID)
-);
-
-
 CREATE TABLE Disposition (
                 DispositionID INT AUTO_INCREMENT NOT NULL,
                 PersonID INT NOT NULL,
@@ -163,19 +143,35 @@ CREATE TABLE Incident (
                 IncidentID INT AUTO_INCREMENT NOT NULL,
                 ReportingAgencyID INT NOT NULL,
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
-                IncidentTypeID INT NOT NULL,
                 IncidentLocationLatitude NUMERIC(14,10),
                 IncidentLocationLongitude NUMERIC(14,10),
                 IncidentLocationStreetAddress VARCHAR(100),
                 IncidentLocationTown VARCHAR(50),
                 IncidentDate DATE NOT NULL,
                 IncidentTime TIME NOT NULL,
+                ReportingSystem VARCHAR(30) NOT NULL,
                 RecordType CHAR(1) NOT NULL,
                 `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (IncidentID)
 );
 
 ALTER TABLE Incident MODIFY COLUMN RecordType CHAR(1) COMMENT 'ete';
+
+
+CREATE TABLE IncidentType (
+                IncidentTypeID INT AUTO_INCREMENT NOT NULL,
+                IncidentID INT NOT NULL,
+                IncidentDescriptionText VARCHAR(120) NOT NULL,
+                PRIMARY KEY (IncidentTypeID)
+);
+
+
+CREATE TABLE IncidentCircumstance (
+                IncidentCircumstanceID INT AUTO_INCREMENT NOT NULL,
+                IncidentID INT NOT NULL,
+                IncidentCircumstanceText VARCHAR(80) NOT NULL,
+                PRIMARY KEY (IncidentCircumstanceID)
+);
 
 
 CREATE TABLE Arrest (
@@ -185,34 +181,19 @@ CREATE TABLE Arrest (
                 ArrestDate DATE NOT NULL,
                 ArrestTime TIME NOT NULL,
                 ArrestingAgencyName VARCHAR(40) NOT NULL,
-                ArrestDrugRelated CHAR(1) NOT NULL,
-                InvolvedDrugID INT,
+                ReportingSystem VARCHAR(30) NOT NULL,
                 `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (ArrestID)
 );
 
-ALTER TABLE Arrest MODIFY COLUMN ArrestDrugRelated CHAR(1) COMMENT 'Y if drug related, N otherwise';
-
 
 CREATE TABLE Charge (
                 ChargeID INT AUTO_INCREMENT NOT NULL,
-                ArrestOffenseTypeID INT NOT NULL,
                 ArrestID INT NOT NULL,
+                OffenseDescriptionText VARCHAR(120) NOT NULL,
                 PRIMARY KEY (ChargeID)
 );
 
-
-ALTER TABLE Arrest ADD CONSTRAINT involveddrug_arrest_fk
-FOREIGN KEY (InvolvedDrugID)
-REFERENCES InvolvedDrug (InvolvedDrugID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Incident ADD CONSTRAINT incidenttype_incident_fk
-FOREIGN KEY (IncidentTypeID)
-REFERENCES IncidentType (IncidentTypeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
 
 ALTER TABLE PretrialServiceNeedAssociation ADD CONSTRAINT assessedneed_pretrialserviceassessedneed_fk
 FOREIGN KEY (AssessedNeedID)
@@ -286,13 +267,19 @@ REFERENCES PretrialServiceParticipation (PretrialServiceParticipationID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE Charge ADD CONSTRAINT offensetype_charge_arrest_fk
-FOREIGN KEY (ArrestOffenseTypeID)
-REFERENCES OffenseType (OffenseTypeID)
+ALTER TABLE Arrest ADD CONSTRAINT incident_arrest_fk
+FOREIGN KEY (IncidentID)
+REFERENCES Incident (IncidentID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE Arrest ADD CONSTRAINT incident_arrest_fk
+ALTER TABLE IncidentCircumstance ADD CONSTRAINT incident_incidentcircumstance_fk
+FOREIGN KEY (IncidentID)
+REFERENCES Incident (IncidentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE IncidentType ADD CONSTRAINT incident_incidenttype_fk
 FOREIGN KEY (IncidentID)
 REFERENCES Incident (IncidentID)
 ON DELETE NO ACTION
