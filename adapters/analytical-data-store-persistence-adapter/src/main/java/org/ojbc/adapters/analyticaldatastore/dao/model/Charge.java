@@ -22,11 +22,10 @@ public class Charge {
 	private Integer chargeID;
 	
 	//fk
-	private Integer arrestOffenseTypeID;
-	
-	//fk
 	private Integer arrestID;
 
+	private String offenseDescriptionText;
+	
 	public Integer getChargeID() {
 		return chargeID;
 	}
@@ -35,19 +34,19 @@ public class Charge {
 		this.chargeID = chargeID;
 	}
 
-	public Integer getArrestOffenseTypeID() {
-		return arrestOffenseTypeID;
-	}
-
-	public void setArrestOffenseTypeID(Integer arrestOffenseTypeID) {
-		this.arrestOffenseTypeID = arrestOffenseTypeID;
-	}
-
 	public Integer getArrestID() {
 		return arrestID;
 	}
 
 	public void setArrestID(Integer arrestID) {
 		this.arrestID = arrestID;
+	}
+
+	public String getOffenseDescriptionText() {
+		return offenseDescriptionText;
+	}
+
+	public void setOffenseDescriptionText(String offenseDescriptionText) {
+		this.offenseDescriptionText = offenseDescriptionText;
 	}
 }

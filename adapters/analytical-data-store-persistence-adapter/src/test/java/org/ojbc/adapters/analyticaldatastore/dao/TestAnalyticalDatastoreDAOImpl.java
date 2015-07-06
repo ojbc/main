@@ -17,7 +17,9 @@
 package org.ojbc.adapters.analyticaldatastore.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -38,9 +40,6 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
-import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
-import org.ojbc.adapters.analyticaldatastore.dao.model.InvolvedDrug;
-import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
@@ -87,17 +86,9 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		log.debug("Agency primary key: " + agencyPk);
 
-		IncidentType incidentType = new IncidentType();
-		incidentType.setIncidentTypeDescription("Incident Type Description");
-		
-		int incidentTypePk = analyticalDatastoreDAOImpl.saveIncidentType(incidentType);
-		//assertEquals(1, incidentTypePk);
-		
-		log.debug("Incident Type primary key: " + incidentTypePk);
-
 		Incident incident = new Incident();
 		
-		incident.setIncidentTypeID(incidentTypePk);
+		incident.setIncidentDescriptionText("Incident Description Text");
 		incident.setReportingAgencyID(agencyPk);
 		incident.setIncidentCaseNumber("999999");
 		incident.setRecordType('N');
@@ -110,31 +101,33 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int incidentPk = analyticalDatastoreDAOImpl.saveIncident(incident);
 		assertEquals(1, incidentPk);
 
+		IncidentType incidentType = new IncidentType();
+		incidentType.setIncidentID(1);
+		incidentType.setIncidentDescriptionText("Incident DescriptionText");
+		
+		int incidentTypePk = analyticalDatastoreDAOImpl.saveIncidentType(incidentType);
+		assertEquals(1, incidentTypePk);
+		
+		IncidentCircumstance incidentCircumstance = new IncidentCircumstance();
+		incidentCircumstance.setIncidentID(1);
+		incidentCircumstance.setIncidentCircumstanceText("Incident Circumstance Text");
+		
+		int incidentCircumstancePk = analyticalDatastoreDAOImpl.saveIncidentCircumstance(incidentCircumstance);
+		assertEquals(1, incidentCircumstancePk);
+
+
 		Person person = returnPerson();
 		
 		int personPk = analyticalDatastoreDAOImpl.savePerson(person);
 		assertEquals(1, personPk);
-
-		OffenseType offenseType = new OffenseType();
-		offenseType.setOffenseDescription("Offense Description");
-		
-		int offenseTypePk = analyticalDatastoreDAOImpl.saveOffenseType(offenseType);
-		assertEquals(59, offenseTypePk);
-
-		InvolvedDrug involvedDrug = new InvolvedDrug();
-		involvedDrug.setInvolvedDrugDescription("Meth");
-		
-		int involvedDrugPk = analyticalDatastoreDAOImpl.saveInvolvedDrug(involvedDrug);
-		
+				
 		Arrest arrest = new Arrest();
 		
 		arrest.setPersonID(personPk);
 		arrest.setIncidentID(incidentPk);
-		arrest.setArrestingAgencyID(agencyPk);
+		arrest.setArrestingAgencyName("Arresting Agency Name");
 		arrest.setArrestDate(new Date());
-		arrest.setArrestDrugRelated('Y');
 		arrest.setArrestTime(new java.sql.Time(arrest.getArrestDate().getTime()));
-		arrest.setInvolvedDrugID(involvedDrugPk);
 		
 		int arrestPk = analyticalDatastoreDAOImpl.saveArrest(arrest);
 		assertEquals(1, arrestPk);
@@ -142,7 +135,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		Charge charge = new Charge();
 		
 		charge.setArrestID(arrestPk);
-		charge.setArrestOffenseTypeID(offenseTypePk);
+		charge.setOffenseDescriptionText("Offense Description Text");
 		
 		int chargePk = analyticalDatastoreDAOImpl.saveCharge(charge);
 		assertEquals(1, chargePk);
@@ -226,13 +219,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		int personPk = analyticalDatastoreDAOImpl.savePerson(person);
 		//assertEquals(3, personPk);
-		
-		OffenseType offenseType = new OffenseType();
-		offenseType.setOffenseDescription("Offense Description 2");
-		
-		int offenseTypePk = analyticalDatastoreDAOImpl.saveOffenseType(offenseType);
-		//assertEquals(2, offenseTypePk);
-		
+				
 		Disposition disposition = new Disposition();
 		
 		disposition.setDispositionDate(new Date());
@@ -244,7 +231,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		disposition.setRecidivismEligibilityDate(new Date());
 		disposition.setRecordType('N');
 		disposition.setSentenceFineAmount(Float.parseFloat("354.65"));
-		disposition.setSentenceTermDays(354);
+		disposition.setSentenceTermDays(new BigDecimal(345.25));
 		disposition.setArrestingAgencyORI("PD12345678");
 		disposition.setInitialChargeCode("Initial Charge Code");
 		disposition.setFinalChargeCode("Initial Charge Code");
@@ -253,6 +240,15 @@ public class TestAnalyticalDatastoreDAOImpl {
 		assertEquals(1, dispositionPk);
 
 		
+	}
+	
+	@Test
+	public void testSearchForAgenyIDbyAgencyORI()
+	{
+		assertEquals(1,analyticalDatastoreDAOImpl.searchForAgenyIDbyAgencyORI("ST123").intValue());
+		
+		//The ORI below is undefined
+		assertNull(analyticalDatastoreDAOImpl.searchForAgenyIDbyAgencyORI("PD023242342342"));
 	}
 
 	

@@ -26,9 +26,6 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
-import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentType;
-import org.ojbc.adapters.analyticaldatastore.dao.model.InvolvedDrug;
-import org.ojbc.adapters.analyticaldatastore.dao.model.OffenseType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
@@ -39,9 +36,11 @@ public interface AnalyticalDatastoreDAO {
 
 	public Integer saveAgency(Agency agency);
 	
+	public Integer saveIncident(Incident incident);
+	
 	public Integer saveIncidentType(IncidentType incidentType);
 	
-	public Integer saveIncident(Incident incident);
+	public Integer saveIncidentCircumstance(IncidentCircumstance incidentCircumstance);
 	
 	public Integer saveCounty(County county);
 
@@ -61,13 +60,9 @@ public interface AnalyticalDatastoreDAO {
 	
 	public Integer savePretrialServiceParticipation(PretrialServiceParticipation pretrialServiceParticipation);
 	
-	public Integer saveOffenseType(OffenseType offenseType);
-	
 	public Integer saveCharge(Charge charge);
 	
 	public Integer saveDisposition(Disposition disposition);
-	
-	public Integer saveInvolvedDrug(InvolvedDrug involvedDrug);
 	
 	public void savePretrialServiceNeedAssociations(
 			final List<Integer> assessedNeedsIds, final int pretrialServiceParticipationId);
@@ -83,6 +78,10 @@ public interface AnalyticalDatastoreDAO {
 	public List<Arrest> searchForArrestsByIncidentPk(Integer incidentPk);
 	
 	public List<Charge> returnChargesFromArrest(Integer arrestId);
+	
+	public List<IncidentCircumstance> returnCircumstancesFromIncident(Integer incidentPk);
+	
+	public Integer searchForAgenyIDbyAgencyORI(String agencyORI);
 	
 	public Person getPerson(Integer personId);
 
