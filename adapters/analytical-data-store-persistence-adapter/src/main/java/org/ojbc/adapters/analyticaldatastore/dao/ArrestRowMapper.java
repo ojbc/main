@@ -30,7 +30,6 @@ public class ArrestRowMapper implements RowMapper<Arrest>
     	
     	arrest.setArrestDate(rs.getDate("ArrestDate"));
     	arrest.setArrestTime(rs.getTime("ArrestTime"));
-    	arrest.setArrestDrugRelated(rs.getString("ArrestDrugRelated").charAt(0));
     	arrest.setArrestingAgencyName(rs.getString("ArrestingAgencyName"));
     	arrest.setIncidentID(rs.getInt("IncidentID"));
     	arrest.setPersonID(rs.getInt("PersonID"));

@@ -127,7 +127,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 		arrest.setIncidentID(incidentPk);
 		arrest.setArrestingAgencyName("Arresting Agency Name");
 		arrest.setArrestDate(new Date());
-		arrest.setArrestDrugRelated('Y');
 		arrest.setArrestTime(new java.sql.Time(arrest.getArrestDate().getTime()));
 		
 		int arrestPk = analyticalDatastoreDAOImpl.saveArrest(arrest);

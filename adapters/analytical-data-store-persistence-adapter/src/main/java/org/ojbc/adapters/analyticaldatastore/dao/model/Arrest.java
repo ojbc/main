@@ -35,9 +35,6 @@ public class Arrest {
 
 	private String arrestingAgencyName;
 	
-	//'Y if drug related, N otherwise'
-	private char arrestDrugRelated;
-
 	public Integer getArrestID() {
 		return arrestID;
 	}
@@ -76,14 +73,6 @@ public class Arrest {
 
 	public void setArrestTime(Time arrestTime) {
 		this.arrestTime = arrestTime;
-	}
-
-	public char getArrestDrugRelated() {
-		return arrestDrugRelated;
-	}
-
-	public void setArrestDrugRelated(char arrestDrugRelated) {
-		this.arrestDrugRelated = arrestDrugRelated;
 	}
 
 	public String getArrestingAgencyName() {

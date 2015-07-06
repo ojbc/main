@@ -240,7 +240,6 @@ public class CamelContextTest {
 		
 		Arrest arrest = arrestsInIncident.get(0);
 		
-		assertEquals('N',arrest.getArrestDrugRelated());
 		assertEquals("13:48:00",arrest.getArrestTime().toString());
 		assertEquals("Some PD",arrest.getArrestingAgencyName());
 		
