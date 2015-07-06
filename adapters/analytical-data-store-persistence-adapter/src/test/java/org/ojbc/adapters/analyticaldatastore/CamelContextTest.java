@@ -57,6 +57,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticaldatastore.dao.IncidentCircumstance;
+import org.ojbc.adapters.analyticaldatastore.dao.IncidentType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
@@ -227,8 +228,6 @@ public class CamelContextTest {
 		assertEquals(Integer.valueOf(2),incident.getReportingAgencyID());
 		assertEquals(0,incident.getIncidentLocationLatitude().compareTo(new BigDecimal("42.931071")));
 		assertEquals(0,incident.getIncidentLocationLongitude().compareTo(new BigDecimal("-72.847988")));
-
-		//TODO: add assertion for IncidentDescriptionText
 		
 		int incidentPk = incident.getIncidentID();
 		
@@ -242,15 +241,22 @@ public class CamelContextTest {
 		
 		assertEquals("13:48:00",arrest.getArrestTime().toString());
 		assertEquals("Some PD",arrest.getArrestingAgencyName());
-		
+
+		//Assert charge info
 		List<Charge> charges = analyticalDatastoreDAOImpl.returnChargesFromArrest(arrest.getArrestID());
-		
-		//TODO: Properly assert after inserting charges
-		
-		//assertEquals(1,charges.size());
+		assertEquals(1,charges.size());
+		assertEquals("2621",charges.get(0).getOffenseDescriptionText());
 		
 		List<IncidentCircumstance> incidentCircumstances = analyticalDatastoreDAOImpl.returnCircumstancesFromIncident(incidentPk);
 		assertEquals(1, incidentCircumstances.size());
+		
+		//Assert Incident Description Text
+		List<IncidentType> incidentTypes = analyticalDatastoreDAOImpl.returnIncidentDescriptionsFromIncident(incidentPk);
+		
+		assertEquals(2, incidentTypes.size());
+		assertEquals("Nature 1", incidentTypes.get(0).getIncidentDescriptionText());
+		assertEquals("Nature 2", incidentTypes.get(1).getIncidentDescriptionText());
+		
 		
 		log.debug("Person ID of arrestee: " + arrest.getPersonID());
 		

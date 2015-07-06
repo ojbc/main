@@ -499,6 +499,8 @@
                                     >true</j:IncidentArrestMadeIndicator>
                                 <ext:IncidentCrimeSolvedIndicator>true</ext:IncidentCrimeSolvedIndicator>
                                 <ext:IncidentCategoryCode>Law</ext:IncidentCategoryCode>
+                                <ext:IncidentNatureText>Nature 1</ext:IncidentNatureText>
+                                <ext:IncidentNatureText>Nature 2</ext:IncidentNatureText>
                                 <lexslib:SameAsDigestReference
                                     xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
                                     lexslib:ref="IDI15999999999"/>
@@ -516,6 +518,7 @@
                             <ext:Offense>
                                 <ext:OffenseCodeText>DRIVING - LICENSE
                                     SUSPENDED</ext:OffenseCodeText>
+                                <ext:OffenseCategoryCodeText>2621</ext:OffenseCategoryCodeText>    
                                 <lexslib:SameAsDigestReference
                                     xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
                                     lexslib:ref="IDJO506743"/>
