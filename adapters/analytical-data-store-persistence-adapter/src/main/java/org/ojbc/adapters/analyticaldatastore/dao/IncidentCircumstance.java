@@ -14,29 +14,39 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.analyticaldatastore.dao.model;
+package org.ojbc.adapters.analyticaldatastore.dao;
 
-public class IncidentType {
+public class IncidentCircumstance {
 
 	//pk
-	private Integer incidentTypeID;
+	private Integer incidentCircumstanceID;
 	
-	private String incidentTypeDescription;
+	//fk
+	private Integer incidentID;
 
-	public Integer getIncidentTypeID() {
-		return incidentTypeID;
+	private String incidentCircumstanceText;
+
+	public Integer getIncidentCircumstanceID() {
+		return incidentCircumstanceID;
 	}
 
-	public void setIncidentTypeID(Integer incidentTypeID) {
-		this.incidentTypeID = incidentTypeID;
+	public void setIncidentCircumstanceID(Integer incidentCircumstanceID) {
+		this.incidentCircumstanceID = incidentCircumstanceID;
 	}
 
-	public String getIncidentTypeDescription() {
-		return incidentTypeDescription;
+	public Integer getIncidentID() {
+		return incidentID;
 	}
 
-	public void setIncidentTypeDescription(String incidentTypeDescription) {
-		this.incidentTypeDescription = incidentTypeDescription;
+	public void setIncidentID(Integer incidentID) {
+		this.incidentID = incidentID;
 	}
 
+	public String getIncidentCircumstanceText() {
+		return incidentCircumstanceText;
+	}
+
+	public void setIncidentCircumstanceText(String incidentCircumstanceText) {
+		this.incidentCircumstanceText = incidentCircumstanceText;
+	}
 }

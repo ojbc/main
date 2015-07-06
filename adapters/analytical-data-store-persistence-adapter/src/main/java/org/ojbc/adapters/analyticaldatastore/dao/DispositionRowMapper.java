@@ -32,7 +32,7 @@ public class DispositionRowMapper implements  RowMapper<Disposition> {
 		disposition.setIncidentCaseNumber(rs.getString("IncidentCaseNumber"));
 		disposition.setDispositionDate(rs.getDate("DispositionDate"));
 		disposition.setRecidivismEligibilityDate(rs.getDate("RecidivismEligibilityDate"));
-		disposition.setSentenceTermDays(rs.getInt("SentenceTermDays"));
+		disposition.setSentenceTermDays(rs.getBigDecimal("SentenceTermDays"));
 		disposition.setSentenceFineAmount(rs.getFloat("SentenceFineAmount"));
 		
 		if (rs.getString("IsProbationViolation") != null)

@@ -144,7 +144,7 @@ CREATE TABLE Disposition (
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
                 DispositionDate DATE NOT NULL,
                 ArrestingAgencyORI VARCHAR(12) NOT NULL,
-                SentenceTermDays INT,
+                SentenceTermDays NUMERIC(10,2),
                 SentenceFineAmount NUMERIC(10,2),
                 InitialChargeCode VARCHAR(35) NOT NULL,
                 FinalChargeCode VARCHAR(35) NOT NULL,
@@ -182,9 +182,9 @@ CREATE TABLE Arrest (
                 ArrestID INT AUTO_INCREMENT NOT NULL,
                 PersonID INT NOT NULL,
                 IncidentID INT NOT NULL,
-                ArrestingAgencyID INT NOT NULL,
                 ArrestDate DATE NOT NULL,
                 ArrestTime TIME NOT NULL,
+                ArrestingAgencyName VARCHAR(40) NOT NULL,
                 ArrestDrugRelated CHAR(1) NOT NULL,
                 InvolvedDrugID INT,
                 `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -240,12 +240,6 @@ ON UPDATE NO ACTION;
 
 ALTER TABLE Incident ADD CONSTRAINT agency_incident_fk
 FOREIGN KEY (ReportingAgencyID)
-REFERENCES Agency (AgencyID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Arrest ADD CONSTRAINT agency_arrest_fk
-FOREIGN KEY (ArrestingAgencyID)
 REFERENCES Agency (AgencyID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;

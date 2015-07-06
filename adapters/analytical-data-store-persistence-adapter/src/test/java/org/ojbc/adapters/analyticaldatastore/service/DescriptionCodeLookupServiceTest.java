@@ -55,7 +55,6 @@ public class DescriptionCodeLookupServiceTest {
 		assertNull(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "W"));
 		assertEquals(Integer.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.County, "Harrison"));
 		assertEquals(Integer.valueOf(5), descriptionCodeLookupService.retrieveCode(CodeTable.AssessedNeed, "substance abuse"));
-		assertEquals(Integer.valueOf(58),descriptionCodeLookupService.retrieveCode(CodeTable.OffenseType, "90Z"));
 		assertEquals(Integer.valueOf(1),descriptionCodeLookupService.retrieveCode(CodeTable.Agency, "Placeholder Agency Name"));
 	}
 
