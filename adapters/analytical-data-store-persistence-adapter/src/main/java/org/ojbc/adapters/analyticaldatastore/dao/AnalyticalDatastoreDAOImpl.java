@@ -762,4 +762,29 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		}
 
 	}
+
+	@Override
+	public List<IncidentType> returnIncidentDescriptionsFromIncident(
+			Integer incidentPk) {
+		String sql = "select * from IncidentType where IncidentID = ?";
+		 
+		List<IncidentType> incidentTypes = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new IncidentTypeRowMapper());
+		
+		return incidentTypes;
+	}
+	
+	public class IncidentTypeRowMapper implements RowMapper<IncidentType>
+	{
+		@Override
+		public IncidentType mapRow(ResultSet rs, int rowNum) throws SQLException {
+			IncidentType incidentType = new IncidentType();
+	    	
+			incidentType.setIncidentID(rs.getInt("IncidentID"));
+			incidentType.setIncidentDescriptionText(rs.getString("IncidentDescriptionText"));
+			incidentType.setIncidentTypeID(rs.getInt("IncidentTypeID"));
+			
+	    	return incidentType;
+		}
+
+	}
 }

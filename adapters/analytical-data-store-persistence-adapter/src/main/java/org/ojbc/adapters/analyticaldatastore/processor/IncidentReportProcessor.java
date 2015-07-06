@@ -28,6 +28,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.IncidentCircumstance;
+import org.ojbc.adapters.analyticaldatastore.dao.IncidentType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
@@ -179,15 +180,38 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 
 		}	
 		
-		//TODO: Add Incident Description Text
-		
 		Integer incidentPk = analyticalDatastoreDAO.saveIncident(incident);
-		
-		//TODO: Save circumstance codes
+
+		//Add Incident Description Text
+		processIncidentType(incidentReport, incidentPk);
+
+		//Save circumstance codes
 		processCircumstanceCodes(incidentReport, incidentPk);
 		
 		processArrests(incidentReport, incidentPk);
 			
+	}
+
+	private void processIncidentType(Document incidentReport, Integer incidentPk) throws Exception {
+		NodeList incidentNatureTextNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Incident/inc-ext:IncidentNatureText");
+		
+	    if (incidentNatureTextNodes == null || incidentNatureTextNodes.getLength() == 0) 
+	    {
+			log.debug("No incident nature text nodes in document");
+			return;
+	    }
+	    
+		for (int i = 0; i < incidentNatureTextNodes.getLength(); i++) 
+		{
+			IncidentType incidentType = new IncidentType();
+			
+			incidentType.setIncidentID(incidentPk);
+			incidentType.setIncidentDescriptionText(incidentNatureTextNodes.item(i).getTextContent());
+			
+			analyticalDatastoreDAO.saveIncidentType(incidentType);
+			
+		}	
+
 	}
 
 	private void processCircumstanceCodes(Document incidentReport,
@@ -206,7 +230,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			IncidentCircumstance incidentCircumstance = new IncidentCircumstance();
 			
 			incidentCircumstance.setIncidentID(incidentPk);
-			incidentCircumstance.setIncidentCircumstanceText(circumstanceCodeNodes.item(0).getTextContent());
+			incidentCircumstance.setIncidentCircumstanceText(circumstanceCodeNodes.item(i).getTextContent());
 			
 			analyticalDatastoreDAO.saveIncidentCircumstance(incidentCircumstance);
 			
@@ -234,7 +258,10 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		    {
 		        String personId = XmlUtils.xPathStringSearch(arrestSubjectAssocationNodes.item(i), "nc:PersonReference/@s:ref");
 		        log.debug("Arrestee Person ID: " + personId);
-		        
+
+		        String arrestId = XmlUtils.xPathStringSearch(arrestSubjectAssocationNodes.item(i), "nc:ActivityReference/@s:ref");
+		        log.debug("Arrest ID: " + arrestId);
+
 		        Node personNode = XmlUtils.xPathNodeSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityPerson/lexsdigest:Person[@s:id='" + personId + "']");
 		        
 		        Map<String, Object> arrestee = AnalyticalDataStoreUtils.retrieveMapOfPersonAttributes(personNode);
@@ -267,16 +294,35 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 					arrest.setArrestingAgencyName(arrestingAgency);
 				}	
 
-				arrest.setArrestDrugRelated('N');
-				
 				//Save arrest
 		        int arrestPk = analyticalDatastoreDAO.saveArrest(arrest);
 		        
 		        //Save Charges
-		        //TODO: Properly retrieve charge descriptions and save
-		        
+		        processArrestCharge(incidentReport, arrestPk, arrestId);
 		    }
 		}
+	}
+
+
+	private void processArrestCharge(Document incidentReport, int arrestPk, String arrestId) throws Exception {
+		//get lexsdigest:ArrestOffenseAssociation nodes using arrest id
+		NodeList arrestOffenseAssociationNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestOffenseAssociation");
+
+		//Get all offense IDs by looping through association
+		for (int i = 0; i < arrestOffenseAssociationNodes.getLength(); i++) 
+		{
+			String offenseId = XmlUtils.xPathStringSearch(arrestOffenseAssociationNodes.item(i), "nc:ActivityReference[2]/@s:ref");
+			log.debug("Arrest Node, Offense ID: " + offenseId);
+			
+			String offenseCategoryCodeText = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Offense[lexslib:SameAsDigestReference/@lexslib:ref='" + offenseId + "']/inc-ext:OffenseCategoryCodeText");
+			
+			Charge charge = new Charge();
+			charge.setArrestID(arrestPk);
+			charge.setOffenseDescriptionText(offenseCategoryCodeText);
+			
+			analyticalDatastoreDAO.saveCharge(charge);
+		}
+		
 	}
 
 	protected Date returnArrestDate(Document incidentReport,

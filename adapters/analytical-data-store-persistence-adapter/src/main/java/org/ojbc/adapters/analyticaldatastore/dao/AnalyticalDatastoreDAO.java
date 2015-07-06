@@ -81,6 +81,8 @@ public interface AnalyticalDatastoreDAO {
 	
 	public List<IncidentCircumstance> returnCircumstancesFromIncident(Integer incidentPk);
 	
+	public List<IncidentType> returnIncidentDescriptionsFromIncident(Integer incidentPk);
+	
 	public Integer searchForAgenyIDbyAgencyORI(String agencyORI);
 	
 	public Person getPerson(Integer personId);
