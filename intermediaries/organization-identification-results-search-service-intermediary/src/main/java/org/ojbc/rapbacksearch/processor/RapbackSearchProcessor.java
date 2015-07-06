@@ -16,8 +16,24 @@
  */
 package org.ojbc.rapbacksearch.processor;
 
-import java.security.Policy;
-import java.util.List;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_JXDM_41;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_SEARCH_REQUEST_ERROR_REPORTING;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_SEARCH_RESULTS_METADATA_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_WSN_BROKERED;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SEARCH_REQUEST_ERROR_REPORTING;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_WSN_BROKERED;
 
 import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
@@ -33,9 +49,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
 import org.ojbc.rapbacksearch.dao.RapbackDAO;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
-import org.ojbc.util.model.accesscontrol.AccessControlResponse;
 import org.ojbc.util.model.saml.SamlAttribute;
-import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -104,47 +118,53 @@ public class RapbackSearchProcessor {
     }
 
     private Element createRapbackSearchResponseRootElement(Document document) {
-		// TODO Auto-generated method stub
-		return null;
+        Element rootElement = document.createElementNS(
+        		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS,
+        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +"OrganizationIdentificationResultsSearchResults");
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES, NS_STRUCTURES);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, 
+        		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+        		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_INTEL, NS_INTEL);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_JXDM_41, NS_JXDM_41);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_NC, NS_NC);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_WSN_BROKERED, NS_WSN_BROKERED);
+        document.appendChild(rootElement);
+		return rootElement;
 	}
 
-	//TODO build rapback error response
     public Document buildErrorResponse(@ExchangeException Exception exception) {
         Document document = documentBuilder.newDocument();
         Element rootElement = createErrorResponseRootElement(document);
 
-        Element accessControlResultsMetadataNode = XmlUtils.appendElement(rootElement,
-                OjbcNamespaceContext.NS_ACCESS_CONTROL_RESULT_METADATA,
-                "AccessControlResultsMetadata");
+        Element searchResultsMetadataNode = XmlUtils.appendElement(rootElement,
+        		NS_SEARCH_RESULTS_METADATA_EXT, "SearchResultsMetadata");
 
-        Element accessControlRequestErrorNode = XmlUtils.appendElement(accessControlResultsMetadataNode, 
-                OjbcNamespaceContext.NS_ACCESS_CONTROL_ERROR_REPORTING,
-                "AccessControlRequestError");
+        Element searchRequestErrorNode = XmlUtils.appendElement(searchResultsMetadataNode, 
+        		NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchRequestError");
 
-        Element errorTextNode = XmlUtils.appendElement(accessControlRequestErrorNode,
-                OjbcNamespaceContext.NS_ACCESS_CONTROL_ERROR_REPORTING, "ErrorText");
+        Element errorTextNode = XmlUtils.appendElement(searchRequestErrorNode,
+        		NS_SEARCH_REQUEST_ERROR_REPORTING, "ErrorText");
         errorTextNode.setTextContent(exception.getMessage());
 
-        Element systemNameNode = XmlUtils.appendElement(accessControlRequestErrorNode, OjbcNamespaceContext.NS_NC_30,
+        Element systemNameNode = XmlUtils.appendElement(searchRequestErrorNode, NS_INTEL,
                 "SystemName");
         systemNameNode.setTextContent(systemName);
         return document;
     }
 
-    //TODO create rapback error response root element
     private Element createErrorResponseRootElement(Document document) {
         Element rootElement = document.createElementNS(
-                OjbcNamespaceContext.NS_ACCESS_CONTROL_EXCHANGE,
-                "ac-exchange:AccessControlResponse");
-        rootElement
-                .setAttribute("xsi:schemaLocation",
-                        "http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0 ../xsd/exchange_schema.xsd");
-        rootElement.setAttribute("xmlns:s30", OjbcNamespaceContext.NS_STRUCTURES_30);
-        rootElement.setAttribute("xmlns:ac-exchange",
-                OjbcNamespaceContext.NS_ACCESS_CONTROL_EXCHANGE);
-        rootElement.setAttribute("xmlns:ac-ext", OjbcNamespaceContext.NS_ACCESS_CONTROL_EXT);
-        rootElement.setAttribute("xmlns:ac-p", OjbcNamespaceContext.NS_POLICY_DECISION_CONTEXT);
-        rootElement.setAttribute("xmlns:xsi", OjbcNamespaceContext.NS_XSI);
+        		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS,
+        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +"OrganizationIdentificationResultsSearchResults");
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES, NS_STRUCTURES);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, 
+        		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_INTEL, NS_INTEL);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_SEARCH_RESULTS_METADATA_EXT, NS_SEARCH_RESULTS_METADATA_EXT);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_SEARCH_REQUEST_ERROR_REPORTING, NS_SEARCH_REQUEST_ERROR_REPORTING);
+
         document.appendChild(rootElement);
         return rootElement;
     }
