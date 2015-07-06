@@ -151,9 +151,7 @@
 	</camelContext>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	<bean id="policyAcknowledgementProcessor"
-		class="org.ojbc.processor.policyacknowledgement.PolicyAcknowledgementProcessor" />
-
+	
 	<context:annotation-config />
 	<context:component-scan base-package="org.ojbc.policyacknowledgement" />
 	<context:component-scan base-package="org.ojbc.processor.policyacknowledgement" />

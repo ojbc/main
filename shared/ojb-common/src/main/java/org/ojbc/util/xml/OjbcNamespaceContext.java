@@ -39,6 +39,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 	
+	public static final String NS_PERSON_IDENTIFICATION_REPORT_RESPONSE = "http://ojbc.org/IEPD/Exchange/PersonIdentificationReportResponse/1.0";
+	public static final String NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE = "pidrepres-doc";
+	
+	public static final String NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT = "http://ojbc.org/IEPD/Extensions/IdentificationReportResponseExtension/1.0";
+	public static final String NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT = "identrepres-ext";
+
 	public static final String NS_DISPOSITION_REPORTS = "http://ojbc.org/DispositionReports/1.0";
 	public static final String NS_DISPOSITION_REPORTS_PREFIX = "dr";
 
@@ -544,6 +550,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public OjbcNamespaceContext() {
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();
+		
+		prefixToUriMap.put(NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT, NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT);
+		uriToPrefixMap.put(NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT, NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE, NS_PERSON_IDENTIFICATION_REPORT_RESPONSE);
+		uriToPrefixMap.put(NS_PERSON_IDENTIFICATION_REPORT_RESPONSE, NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE);
 		
 		prefixToUriMap.put(NS_DISPOSITION_REPORTS_PREFIX, NS_DISPOSITION_REPORTS);
 		uriToPrefixMap.put(NS_DISPOSITION_REPORTS, NS_DISPOSITION_REPORTS_PREFIX);

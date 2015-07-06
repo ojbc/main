@@ -26,9 +26,11 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       
        ">
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="subscription-notification-service-intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
+		id="subscription-notification-service-intermediary">
 		<camel:propertyPlaceholder id="springPropertiesToLoad" location="ref:springProperties" />
 		<camel:routeContextRef ref="searchQueryRoutes" />
 		<camel:routeContextRef ref="subscriptionSecureRouteContext" />
