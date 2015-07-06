@@ -653,6 +653,7 @@
 							</inc-ext:Offense>
 							<inc-ext:Offense>
 								<inc-ext:OffenseCodeText>OFFCODE01</inc-ext:OffenseCodeText>
+								<inc-ext:OffenseCategoryCodeText>OFFCATEGORYCODE01</inc-ext:OffenseCategoryCodeText>
 								<lexslib:SameAsDigestReference
 									lexslib:ref="OFFENSE01" />
 							</inc-ext:Offense>
