@@ -174,11 +174,9 @@ CREATE TABLE Arrest (
                 ArrestDate DATE NOT NULL,
                 ArrestTime TIME NOT NULL,
                 ArrestingAgencyName VARCHAR(40) NOT NULL,
-                ArrestDrugRelated CHAR(1) NOT NULL,
                 Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
                 CONSTRAINT ArrestID PRIMARY KEY (ArrestID)
 );
-COMMENT ON COLUMN Arrest.ArrestDrugRelated IS 'Y if drug related, N otherwise';
 
 
 CREATE TABLE Charge (

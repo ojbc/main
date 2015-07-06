@@ -137,20 +137,19 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveArrest(final Arrest arrest) {
         log.debug("Inserting row into Arrest table");
 
-        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestDate,ArrestTime,ArrestingAgencyName,ArrestDrugRelated) values (?,?,?,?,?,?)";
+        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestDate,ArrestTime,ArrestingAgencyName) values (?,?,?,?,?)";
 		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestDate","ArrestTime","ArrestingAgencyName","ArrestDrugRelated"});
+        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestDate","ArrestTime","ArrestingAgencyName"});
         	            ps.setInt(1, arrest.getPersonID());
         	            ps.setInt(2, arrest.getIncidentID());
         	            ps.setDate(3, new java.sql.Date(arrest.getArrestDate().getTime()));
         	            ps.setTime(4, new java.sql.Time(arrest.getArrestDate().getTime()));
         	            ps.setString(5, arrest.getArrestingAgencyName());
-        	            ps.setString(6, String.valueOf(arrest.getArrestDrugRelated()));
 
         	            return ps;
         	        }
