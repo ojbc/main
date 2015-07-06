@@ -38,6 +38,7 @@ public class IncidentRowMapper implements RowMapper<Incident>
     	incident.setReportingAgencyID(rs.getInt("ReportingAgencyID"));
     	incident.setIncidentLocationLatitude(rs.getBigDecimal("IncidentLocationLatitude"));
     	incident.setIncidentLocationLongitude(rs.getBigDecimal("IncidentLocationLongitude"));
+    	incident.setReportingSystem(rs.getString("ReportingSystem"));
     	
     	String recordType = rs.getString("RecordType"); 
     	

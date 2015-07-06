@@ -144,6 +144,7 @@ CREATE TABLE Incident (
                 IncidentLocationTown VARCHAR(50),
                 IncidentDate DATE NOT NULL,
                 IncidentTime TIME NOT NULL,
+                ReportingSystem VARCHAR(30) NOT NULL,
                 RecordType CHAR(1) NOT NULL,
                 Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
                 CONSTRAINT IncidentID PRIMARY KEY (IncidentID)
@@ -174,7 +175,8 @@ CREATE TABLE Arrest (
                 ArrestDate DATE NOT NULL,
                 ArrestTime TIME NOT NULL,
                 ArrestingAgencyName VARCHAR(40) NOT NULL,
-                Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
+                ReportingSystem VARCHAR(30) NOT NULL,
+				Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
                 CONSTRAINT ArrestID PRIMARY KEY (ArrestID)
 );
 

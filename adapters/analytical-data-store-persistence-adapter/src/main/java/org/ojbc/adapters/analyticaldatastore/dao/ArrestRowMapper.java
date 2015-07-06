@@ -34,6 +34,7 @@ public class ArrestRowMapper implements RowMapper<Arrest>
     	arrest.setIncidentID(rs.getInt("IncidentID"));
     	arrest.setPersonID(rs.getInt("PersonID"));
     	arrest.setArrestID(rs.getInt("ArrestID"));
+    	arrest.setReportingSystem(rs.getString("ReportingSystem"));
     	
     	return arrest;
 	}

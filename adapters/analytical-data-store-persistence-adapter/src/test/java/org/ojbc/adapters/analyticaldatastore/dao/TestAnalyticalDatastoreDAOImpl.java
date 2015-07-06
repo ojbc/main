@@ -94,6 +94,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		incident.setRecordType('N');
 		incident.setIncidentLocationStreetAddress("Street address");
 		incident.setIncidentLocationTown("Town");
+		incident.setReportingSystem("RMS");
 		
 		incident.setIncidentDate(new Date());
 		incident.setIncidentTime(new java.sql.Time(incident.getIncidentDate().getTime()));
@@ -128,6 +129,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		arrest.setArrestingAgencyName("Arresting Agency Name");
 		arrest.setArrestDate(new Date());
 		arrest.setArrestTime(new java.sql.Time(arrest.getArrestDate().getTime()));
+		arrest.setReportingSystem("RMS");
 		
 		int arrestPk = analyticalDatastoreDAOImpl.saveArrest(arrest);
 		assertEquals(1, arrestPk);
