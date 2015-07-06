@@ -85,7 +85,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         log.debug("Inserting row into Incident table");
 
         final String incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
-        		+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,RecordType) values (?,?,?,?,?,?,?,?,?)";
+        		+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,ReportingSystem,RecordType) values (?,?,?,?,?,?,?,?,?,?)";
 		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -93,7 +93,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(incidentInsertStatement, new String[] {"ReportingAgencyID", "IncidentCaseNumber"
-        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","RecordType"});
+        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","ReportingSystem","RecordType"});
         	            ps.setInt(1, incident.getReportingAgencyID());
         	            ps.setString(2, incident.getIncidentCaseNumber());
         	            ps.setBigDecimal(3, incident.getIncidentLocationLatitude());
@@ -102,7 +102,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setString(6, incident.getIncidentLocationTown());
         	            ps.setDate(7, new java.sql.Date(incident.getIncidentDate().getTime()));
         	            ps.setTime(8, new java.sql.Time(incident.getIncidentDate().getTime()));
-        	            ps.setString(9, String.valueOf(incident.getRecordType()));
+        	            ps.setString(9, incident.getReportingSystem());
+        	            ps.setString(10, String.valueOf(incident.getRecordType()));
         	            return ps;
         	        }
         	    },
@@ -137,19 +138,20 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveArrest(final Arrest arrest) {
         log.debug("Inserting row into Arrest table");
 
-        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestDate,ArrestTime,ArrestingAgencyName) values (?,?,?,?,?)";
+        final String arrestInsertStatement="INSERT into ARREST ( PersonID,IncidentID,ArrestDate,ArrestTime,ArrestingAgencyName, ReportingSystem) values (?,?,?,?,?,?)";
 		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestDate","ArrestTime","ArrestingAgencyName"});
+        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestDate","ArrestTime","ArrestingAgencyName","ReportingSystem"});
         	            ps.setInt(1, arrest.getPersonID());
         	            ps.setInt(2, arrest.getIncidentID());
         	            ps.setDate(3, new java.sql.Date(arrest.getArrestDate().getTime()));
         	            ps.setTime(4, new java.sql.Time(arrest.getArrestDate().getTime()));
         	            ps.setString(5, arrest.getArrestingAgencyName());
+        	            ps.setString(6, arrest.getReportingSystem());
 
         	            return ps;
         	        }

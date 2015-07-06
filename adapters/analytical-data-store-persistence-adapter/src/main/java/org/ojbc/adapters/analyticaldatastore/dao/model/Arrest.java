@@ -34,6 +34,8 @@ public class Arrest {
 	private Time arrestTime;
 
 	private String arrestingAgencyName;
+
+	private String reportingSystem;
 	
 	public Integer getArrestID() {
 		return arrestID;
@@ -81,6 +83,14 @@ public class Arrest {
 
 	public void setArrestingAgencyName(String arrestingAgencyName) {
 		this.arrestingAgencyName = arrestingAgencyName;
+	}
+
+	public String getReportingSystem() {
+		return reportingSystem;
+	}
+
+	public void setReportingSystem(String reportingSystem) {
+		this.reportingSystem = reportingSystem;
 	}
 
 	

@@ -228,6 +228,7 @@ public class CamelContextTest {
 		assertEquals(Integer.valueOf(2),incident.getReportingAgencyID());
 		assertEquals(0,incident.getIncidentLocationLatitude().compareTo(new BigDecimal("42.931071")));
 		assertEquals(0,incident.getIncidentLocationLongitude().compareTo(new BigDecimal("-72.847988")));
+		assertEquals("RMS", incident.getReportingSystem());
 		
 		int incidentPk = incident.getIncidentID();
 		
@@ -241,6 +242,7 @@ public class CamelContextTest {
 		
 		assertEquals("13:48:00",arrest.getArrestTime().toString());
 		assertEquals("Some PD",arrest.getArrestingAgencyName());
+		assertEquals("RMS", arrest.getReportingSystem());
 
 		//Assert charge info
 		List<Charge> charges = analyticalDatastoreDAOImpl.returnChargesFromArrest(arrest.getArrestID());

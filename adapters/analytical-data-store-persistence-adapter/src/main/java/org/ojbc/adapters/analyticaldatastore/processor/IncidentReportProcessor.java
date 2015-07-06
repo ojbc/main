@@ -84,6 +84,9 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			incident.setReportingAgencyID(reportingAgencyId);
 		}	
 		
+		String reportingSystem = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataOwnerMetadata/lexs:DataOwnerIdentifier/lexs:SystemID");
+		incident.setReportingSystem(reportingSystem);
+		
 		String incidentDateTimeAsString = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST+ "/lexsdigest:EntityActivity/nc:Activity/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
 		log.debug("Incident Date: " + incidentDateTimeAsString);
 		
@@ -188,7 +191,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		//Save circumstance codes
 		processCircumstanceCodes(incidentReport, incidentPk);
 		
-		processArrests(incidentReport, incidentPk);
+		processArrests(incidentReport, incidentPk, reportingSystem);
 			
 	}
 
@@ -238,7 +241,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		
 	}
 
-	protected void processArrests(Document incidentReport, Integer incidentPk)
+	protected void processArrests(Document incidentReport, Integer incidentPk, String reportingSystem)
 			throws Exception {
 		NodeList arrestSubjectAssocationNodes = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestSubjectAssociation");
 		
@@ -253,6 +256,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			Arrest arrest = new Arrest();
 			
 			arrest.setIncidentID(incidentPk);
+			arrest.setReportingSystem(reportingSystem);
 			
 		    if (arrestSubjectAssocationNodes.item(i).getNodeType() == Node.ELEMENT_NODE)
 		    {

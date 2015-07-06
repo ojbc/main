@@ -42,6 +42,8 @@ public class Incident {
     
 	private char recordType;
 
+	private String reportingSystem;
+	
 	public Integer getIncidentID() {
 		return incidentID;
 	}
@@ -129,6 +131,14 @@ public class Incident {
 
 	public void setIncidentDescriptionText(String incidentDescriptionText) {
 		this.incidentDescriptionText = incidentDescriptionText;
+	}
+
+	public String getReportingSystem() {
+		return reportingSystem;
+	}
+
+	public void setReportingSystem(String reportingSystem) {
+		this.reportingSystem = reportingSystem;
 	}
 	
 }
