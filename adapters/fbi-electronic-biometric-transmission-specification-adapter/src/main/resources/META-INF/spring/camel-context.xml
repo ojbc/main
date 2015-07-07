@@ -47,7 +47,7 @@
 
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:log message="Inbound Message: ${body}" loggingLevel="DEBUG" />
+			<camel:log message="Inbound Message: ${body}" />
 
 			<camel:convertBodyTo type="java.lang.String" />
 						
@@ -59,6 +59,10 @@
 			<setHeader headerName="rapBackTriggeringEvent"><constant>${fbiEbtsAdapter.rapBackTriggeringEvent}</constant></setHeader>			
 						
 			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
+			
+			<camel:log message="Transformed message for FBI EBTS: \n\n ${body}" />
+									
+			<!-- TODO send to FBI -->		
 
 		</camel:route>
 
