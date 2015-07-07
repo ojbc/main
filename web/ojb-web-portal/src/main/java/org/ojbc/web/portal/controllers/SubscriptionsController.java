@@ -131,7 +131,8 @@ public class SubscriptionsController {
 	@Resource
 	SamlService samlService;
 		
-	@Resource
+	//TODO see if edit validator needs injection also
+	@Value("#{getObject('arrestSubscriptionAddValidator')}")
 	ArrestSubscriptionValidatorInterface arrestSubscriptionAddValidator;
 	
 	@Resource
