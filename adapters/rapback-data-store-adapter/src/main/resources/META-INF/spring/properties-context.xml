@@ -36,9 +36,9 @@
 				<!-- The .cfg file from the classpath will be consulted first, followed 
 					by the optional .cfg file under $KARAF_HOME/etc -->
 				<util:properties
-					location="classpath:identification_recording_service_adapter.cfg" />
+					location="classpath:rapback_data_store_adapter.cfg" />
 				<osgix:cm-properties id="osgiProperties"
-					persistent-id="identification_recording_service_adapter" />
+					persistent-id="rapback_data_store_adapter" />
 			</array>
 		</property>
 	</bean>
