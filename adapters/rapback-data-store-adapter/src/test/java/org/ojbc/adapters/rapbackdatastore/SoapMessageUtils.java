@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.intermediaries.rapbacksearch;
+package org.ojbc.adapters.rapbackdatastore;
 
 import java.util.ArrayList;
 import java.util.HashMap;

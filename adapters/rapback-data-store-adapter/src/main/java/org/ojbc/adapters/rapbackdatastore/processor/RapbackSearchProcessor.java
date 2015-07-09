@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.rapbacksearch.processor;
+package org.ojbc.adapters.rapbackdatastore.processor;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
@@ -47,7 +47,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.ojbc.rapbacksearch.dao.RapbackDAO;
+import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;

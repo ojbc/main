@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.rapbacksearch.dao;
+package org.ojbc.adapters.rapbackdatastore.dao;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
