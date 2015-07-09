@@ -79,6 +79,11 @@ public class EbtsTransformTest {
 		xsltParamMap.put("rapBackRecipient", "123456");
 		xsltParamMap.put("controllingAgencyID", "123456");
 		xsltParamMap.put("originatingAgencyCaseNumber", "Case-123");
+		xsltParamMap.put("nativeScanningResolution", "00.00");
+		xsltParamMap.put("nominalTransmittingResolution", "00.00");
+		xsltParamMap.put("transactionContentSummaryContentFirstRecordCategoryCode", "1");
+		xsltParamMap.put("transactionContentSummaryContentRecordCountCriminal", "01");
+		xsltParamMap.put("imageReferenceID", "00");
 		
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
