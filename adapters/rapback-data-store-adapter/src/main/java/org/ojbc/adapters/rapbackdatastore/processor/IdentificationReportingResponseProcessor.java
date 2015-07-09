@@ -14,14 +14,13 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.identificationrecording.processor;
+package org.ojbc.adapters.rapbackdatastore.processor;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PERSON_IDENTIFICATION_REPORT_RESPONSE;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

@@ -14,11 +14,11 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.identificationrecording;
+package org.ojbc.adapters.rapbackdatastore;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.ojbc.adapters.identificationrecording.processor.IdentificationReportingResponseProcessorTest.assertAsExpected;
+import static org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessorTest.assertAsExpected;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +50,7 @@ import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.adapters.identificationrecording.processor.IdentificationRequestReportProcessor;
+import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
