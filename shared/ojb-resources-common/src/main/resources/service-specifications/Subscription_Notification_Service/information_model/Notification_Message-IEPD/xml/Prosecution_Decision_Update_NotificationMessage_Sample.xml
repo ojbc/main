@@ -26,16 +26,30 @@
 				<nc:IdentificationID>123456A</nc:IdentificationID>
 			</pdu:CycleTrackingIdentification>
 			<pdu:ProsecutionAttorneyOrganizationReference s:ref="d1e132"/>
-			<j:Charge>
+			<pdu:Charge>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>004290</nc:IdentificationID>
+						<nc:IdentificationID>0042901</nc:IdentificationID>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 				<j:ChargeTrackingIdentification>
-					<nc:IdentificationID>456</nc:IdentificationID>
+					<nc:IdentificationID>4561</nc:IdentificationID>
 				</j:ChargeTrackingIdentification>
-			</j:Charge>
+				<pdu:ChargeToCourtIndicator>true</pdu:ChargeToCourtIndicator>
+				<pdu:EndProsecutorChargeCycleIndicator>true</pdu:EndProsecutorChargeCycleIndicator>
+			</pdu:Charge>
+			<pdu:Charge>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>0042902</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>4562</nc:IdentificationID>
+				</j:ChargeTrackingIdentification>
+				<pdu:ChargeToCourtIndicator>true</pdu:ChargeToCourtIndicator>
+				<pdu:EndProsecutorChargeCycleIndicator>false</pdu:EndProsecutorChargeCycleIndicator>
+			</pdu:Charge>
 			<nc:Location s:id="LOC001">
 				<nc:LocationAddress>
 					<nc:StructuredAddress>
@@ -48,8 +62,6 @@
 					</nc:StructuredAddress>
 				</nc:LocationAddress>
 			</nc:Location>
-			<pdu:ChargeToCourtIndicator>true</pdu:ChargeToCourtIndicator>
-			<pdu:EndProsecutorChargeCycleIndicator>false</pdu:EndProsecutorChargeCycleIndicator>
 			<nc:ResidenceAssociation>
 				<nc:PersonReference s:ref="d1e162"/>
 				<nc:LocationReference s:ref="LOC001"/>
