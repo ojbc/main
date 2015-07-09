@@ -198,6 +198,8 @@
 			
 			<camel:log message="Invocation failed. File will be persisted: ${in.headers.CamelFileName}"/>
 			
+			<camel:log message="FileName: ${in.headers.CamelFileName} \n. An exception was thrown: ${exception.message}" loggingLevel="ERROR" logName="org.ojbc.adapters.analyticaldatastore.logger"/>
+			
 			<camel:to uri="invocationFailedFileEndpoint"/>
 			
 		</camel:route>
