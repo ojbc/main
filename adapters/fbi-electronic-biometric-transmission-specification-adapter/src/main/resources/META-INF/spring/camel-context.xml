@@ -39,7 +39,7 @@
 		id="fbi-electronic-biometric-transmission-specification-adapter">
 
 		<endpoint id="fbiEbtsServiceEndpoint"
-			uri="cxf:bean:fbiEbtsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+			uri="cxf:bean:fbiEbtsServiceSecure?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 
 		<camel:route id="fbiEbtsServiceRoute">
 
