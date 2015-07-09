@@ -31,11 +31,22 @@
 				<xsd:sequence>
 					<xsd:element ref="pdu:CycleTrackingIdentification"/>
 					<xsd:element ref="pdu:ProsecutionAttorneyOrganizationReference" minOccurs="0"/>
-					<xsd:element ref="j:Charge" maxOccurs="unbounded"/>
+					<xsd:element ref="pdu:Charge" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Location" minOccurs="0"/>
-					<xsd:element ref="pdu:ChargeToCourtIndicator" minOccurs="0"/>
-					<xsd:element ref="pdu:EndProsecutorChargeCycleIndicator" minOccurs="0"/>
 					<xsd:element ref="nc:ResidenceAssociation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ChargeType">
+		<xsd:annotation>
+			<xsd:documentation>Details about a formal allegation that a specific person has committed a specific offense.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:ChargeType">
+				<xsd:sequence>
+					<xsd:element ref="pdu:ChargeToCourtIndicator" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="pdu:EndProsecutorChargeCycleIndicator" minOccurs="0" maxOccurs="1"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -63,6 +74,11 @@
 	<xsd:element name="EndProsecutorChargeCycleIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the charge cycle ends at the prosecutor segment; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Charge" type="pdu:ChargeType">
+		<xsd:annotation>
+			<xsd:documentation>A result or outcome that is the product of handling, processing, or finalizing something.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
