@@ -37,8 +37,6 @@
 					<xsd:element ref="nc:Person"/>
 					<xsd:element ref="nc:Location"/>
 					<xsd:element ref="nc:Organization"/>
-					<xsd:element ref="pdr-report-ext:ChargeToCourtIndicator"/>
-					<xsd:element ref="pdr-report-ext:EndProsecutorChargeCycleIndicator"/>
 					<xsd:element ref="nc:PersonResidenceAssociation"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -54,12 +52,12 @@
 			<xsd:documentation>An agency that institutes legal proceedings.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeToCourtIndicator" type="niem-xs:boolean">
+	<xsd:element name="ChargeToCourtIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the charge will proceed to the courts; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="EndProsecutorChargeCycleIndicator" type="niem-xs:boolean">
+	<xsd:element name="EndProsecutorChargeCycleIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the charge cycle ends at the prosecutor segment; false otherwise.</xsd:documentation>
 		</xsd:annotation>
