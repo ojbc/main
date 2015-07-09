@@ -87,23 +87,40 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		String reportingSystem = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataOwnerMetadata/lexs:DataOwnerIdentifier/lexs:SystemID");
 		incident.setReportingSystem(reportingSystem);
 		
+		//Look for either incident date/time or incident date field
 		String incidentDateTimeAsString = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST+ "/lexsdigest:EntityActivity/nc:Activity/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
-		log.debug("Incident Date: " + incidentDateTimeAsString);
+		log.debug("Incident Date/Time: " + incidentDateTimeAsString);
 		
-		Calendar incidentDateTimeCal = DatatypeConverter.parseDateTime(incidentDateTimeAsString);
-		Date incidentDateTime = incidentDateTimeCal.getTime();
+		if (StringUtils.isNotEmpty(incidentDateTimeAsString))
+		{	
+			Calendar incidentDateTimeCal = DatatypeConverter.parseDateTime(incidentDateTimeAsString);
+			Date incidentDateTime = incidentDateTimeCal.getTime();
+	
+			if (incidentDateTime != null)
+			{
+				incident.setIncidentDate(incidentDateTime);
+			}	
+			
+			Time incidentTime =  new Time(incidentDateTime.getTime());
+			log.debug("Incident Time: " + incidentTime.toString());
+			
+			if (incidentTime != null)
+			{
+				incident.setIncidentTime(incidentTime);
+			}
+		} else {
+			String incidentDateAsString = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST+ "/lexsdigest:EntityActivity/nc:Activity/nc:ActivityDate/nc:Date");
+			log.debug("Incident Date: " + incidentDateAsString);
+			
+			Calendar incidentDateCal = DatatypeConverter.parseDate(incidentDateAsString);
+			Date incidentDate = incidentDateCal.getTime();
+	
+			if (incidentDate != null)
+			{
+				incident.setIncidentDate(incidentDate);
+			}	
 
-		if (incidentDateTime != null)
-		{
-			incident.setIncidentDate(incidentDateTime);
-		}	
-		
-		Time incidentTime =  new Time(incidentDateTime.getTime());
-		log.debug("Incident Time: " + incidentTime.toString());
-		
-		if (incidentTime != null)
-		{
-			incident.setIncidentTime(incidentTime);
+
 		}	
 		
 		String mapHorizontalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapHorizontalCoordinateText");
