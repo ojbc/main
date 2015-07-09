@@ -23,11 +23,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.ojbc.bundles.adapters</groupId>
-  <artifactId>identification-recording-service-adapter</artifactId>
+  <artifactId>rapback-data-store-adapter</artifactId>
   <packaging>bundle</packaging>
   <version>1.0.0</version>
 
-  <name>OJB :: identification-recording-service-adapter:: adapter</name>
+  <name>OJB :: rapback-data-store-adapter:: adapter</name>
   <url>http://www.ojbc.org</url>
 
   <parent>

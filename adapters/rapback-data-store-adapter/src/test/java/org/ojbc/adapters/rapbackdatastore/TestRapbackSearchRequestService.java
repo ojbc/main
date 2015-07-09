@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.intermediaries.rapbacksearch;
+package org.ojbc.adapters.rapbackdatastore;
 
 import static org.junit.Assert.assertTrue;
 
@@ -34,7 +34,7 @@ import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.rapbacksearch.dao.RapbackDAOImpl;
+import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
@@ -47,12 +47,10 @@ import org.springframework.test.context.ContextConfiguration;
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",
-        "classpath:META-INF/spring/extensible-beans.xml",
-        "classpath:META-INF/spring/local-osgi-context.xml",
+        "classpath:META-INF/spring/spring-context.xml",
+        "classpath:META-INF/spring/cxf-endpoints.xml",      
         "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
+        "classpath:META-INF/spring/dao.xml",
 		})
 @DirtiesContext
 public class TestRapbackSearchRequestService {

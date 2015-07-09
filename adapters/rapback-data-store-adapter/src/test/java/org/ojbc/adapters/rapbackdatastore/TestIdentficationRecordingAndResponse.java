@@ -67,9 +67,9 @@ import org.w3c.dom.Element;
         "classpath:META-INF/spring/dao.xml",
         })
 @DirtiesContext
-public class CamelContextTest {
+public class TestIdentficationRecordingAndResponse {
 	
-	private static final Log log = LogFactory.getLog( CamelContextTest.class );
+	private static final Log log = LogFactory.getLog( TestIdentficationRecordingAndResponse.class );
 	
 	@Autowired
 	IdentificationRequestReportProcessor identificationRequestReportProcessor;
