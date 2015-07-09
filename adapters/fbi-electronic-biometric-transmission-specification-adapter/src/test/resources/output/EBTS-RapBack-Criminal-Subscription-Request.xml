@@ -53,11 +53,18 @@
                 </ansi-nist:DomainVersionNumberIdentification>
                 <ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
             </ansi-nist:TransactionDomain>
+             <ansi-nist:TransactionImageResolutionDetails>
+                <ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
+                <ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
+            </ansi-nist:TransactionImageResolutionDetails>
             <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
            	<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
 			
 			<ebts:TransactionCategoryCode>RBSCRM</ebts:TransactionCategoryCode>
-			
+			<ansi-nist:TransactionContentSummary>
+            	<ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
+            	<ansi-nist:ContentRecordQuantity>01</ansi-nist:ContentRecordQuantity>
+            </ansi-nist:TransactionContentSummary>
 		</ansi-nist:Transaction>
 		
 	</itl:PackageInformationRecord>
@@ -66,6 +73,9 @@
 	<itl:PackageInformationRecord>
 	
 		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+		<ansi-nist:ImageReferenceIdentification>
+            <nc20:IdentificationID>00</nc20:IdentificationID>
+        </ansi-nist:ImageReferenceIdentification>
 	
 		<itl:UserDefinedDescriptiveDetail>
 		

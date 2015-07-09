@@ -32,18 +32,13 @@
 		
 	<xsl:param name="rapBackTransactionDate"/>
 	
-	<!-- This field corresponds to RBNF (2.2062) in EBTS 10.0 and indicates whether the subscriber wishes Rap Back Activity Notification 
-		Format to be Pre-notification, Triggering Event, or Triggering Event with Identity History Summary. This field is mandatory in 
-		establishing a Rap Back Subscription. 
-	-->
+	<!-- RBNF (2.2062)-->
 	<xsl:param name="rapBackNotificatonFormat" />
 	
+	<!-- RBC 2.2065-->
 	<xsl:param name="recordRapBackCategoryCode" />
 		
-	<!-- This field corresponds to RBOO (2.2063) in EBTS 10.0 and indicates whether FBI/NGI should send notifications of events originating from 
-		within the Submitter’s own state. The default value is ‘false’, NGI sending all notifications. A value of ‘true’ must be provided on all subscriptions 
-		for which Submitter wishes to opt-out of in-state notifications 
-	-->
+	<!-- RBOO (2.2063) -->
 	<xsl:param name="rapBackInStateOptOutIndicator" />
 	
 	<!-- This field corresponds to RBT 2.2040 and specifies which Events will result in notifications sent to the subscriber -->
@@ -83,6 +78,20 @@
 	
 	<!-- OCA 2.009 -->
 	<xsl:param name="originatingAgencyCaseNumber"/>
+	
+	<!-- Native Scanning Resolution (NSR 1.011) -->
+	<xsl:param name="nativeScanningResolution"/>
+	
+	<!--  Nominal Transmitting Resolution (NTR 1.012 -->
+	<xsl:param name="nominalTransmittingResolution"/>
+	
+	<!-- CNT 1.003 -->
+	<xsl:param name="transactionContentSummaryContentFirstRecordCategoryCode"/>
+	<xsl:param name="transactionContentSummaryContentRecordCountCriminal"/>
+	<xsl:param name="transactionContentSummaryContentRecordCountCivil"/>
+	
+	<!-- IDC 2.002 -->
+	<xsl:param name="imageReferenceID"/>
 	
 	<xsl:template match="/submsg-doc:SubscriptionMessage">
 	
@@ -128,6 +137,14 @@
                			 	<xsl:value-of select="$domainName"/>
                			 </ansi-nist:TransactionDomainName>
            			</ansi-nist:TransactionDomain>
+           			<ansi-nist:TransactionImageResolutionDetails>
+           				 <ansi-nist:NativeScanningResolutionValue>
+           				 	<xsl:value-of select="$nativeScanningResolution"/>
+           				 </ansi-nist:NativeScanningResolutionValue>
+               			 <ansi-nist:NominalTransmittingResolutionValue>
+               			 	<xsl:value-of select="$nominalTransmittingResolution"/>
+               			 </ansi-nist:NominalTransmittingResolutionValue>
+           			</ansi-nist:TransactionImageResolutionDetails>
            			<ansi-nist:TransactionMajorVersionValue>
            				<xsl:value-of select="$transactionMajorVersion"/>
            			</ansi-nist:TransactionMajorVersionValue>
@@ -136,6 +153,22 @@
            			</ansi-nist:TransactionMinorVersionValue>
 				 	<!-- Transaction Category TOT 1.004 -->
 				 	<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
+				 	
+				 	 <ansi-nist:TransactionContentSummary>
+				 	 	<ansi-nist:ContentFirstRecordCategoryCode>
+				 	 		<xsl:value-of select="$transactionContentSummaryContentFirstRecordCategoryCode"/>
+				 	 	</ansi-nist:ContentFirstRecordCategoryCode>
+				 	 	<ansi-nist:ContentRecordQuantity>
+				 	 		<xsl:choose>
+								<xsl:when test="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode = 'CI'">
+									<xsl:value-of select="$transactionContentSummaryContentRecordCountCriminal"/>
+								</xsl:when>
+								<xsl:when test="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode = 'CS'">
+									<xsl:value-of select="$transactionContentSummaryContentRecordCountCriminal"/>
+								</xsl:when>
+							</xsl:choose>
+				 	 	</ansi-nist:ContentRecordQuantity>
+				 	 </ansi-nist:TransactionContentSummary>
 				 </ansi-nist:Transaction>
 				 
 			</itl:PackageInformationRecord>
@@ -144,6 +177,11 @@
 			<itl:PackageInformationRecord>
 			
 				<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+				<ansi-nist:ImageReferenceIdentification>
+            		<nc20:IdentificationID>
+            			<xsl:value-of select="$imageReferenceID"/>
+            		</nc20:IdentificationID>
+     		   </ansi-nist:ImageReferenceIdentification>
 				<itl:UserDefinedDescriptiveDetail>
 					<ebts:DomainDefinedDescriptiveFields>
 						<ansi-nist:RecordForwardOrganizations>
@@ -153,7 +191,9 @@
                        			 </nc20:IdentificationID>
                        		</nc20:OrganizationIdentification>
 						</ansi-nist:RecordForwardOrganizations>
-						<ansi-nist:RecordRapSheetRequestIndicator><xsl:value-of select="$rapSheetRequestIndicator"/></ansi-nist:RecordRapSheetRequestIndicator>
+						<ansi-nist:RecordRapSheetRequestIndicator>
+							<xsl:value-of select="$rapSheetRequestIndicator"/>
+						</ansi-nist:RecordRapSheetRequestIndicator>
 						<ebts:RecordRapBackData>
 													
 							<ebts:RecordRapBackActivityNotificationFormatCode>
