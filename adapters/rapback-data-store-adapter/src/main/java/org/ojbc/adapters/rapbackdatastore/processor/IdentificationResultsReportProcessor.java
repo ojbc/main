@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.identificationrecording.processor;
+package org.ojbc.adapters.rapbackdatastore.processor;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;

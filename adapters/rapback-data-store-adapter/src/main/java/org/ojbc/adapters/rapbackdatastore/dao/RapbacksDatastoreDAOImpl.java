@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.identificationrecording.dao;
+package org.ojbc.adapters.rapbackdatastore.dao;
 
 import javax.sql.DataSource;
 

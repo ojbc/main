@@ -42,7 +42,7 @@
 
  -->	
  	<context:annotation-config />
-	<context:component-scan base-package="org.ojbc.adapters.identificationrecording" />
+	<context:component-scan base-package="org.ojbc.adapters.rapbackdatastore" />
 
 	<!-- Transaction manager and scan for annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager"

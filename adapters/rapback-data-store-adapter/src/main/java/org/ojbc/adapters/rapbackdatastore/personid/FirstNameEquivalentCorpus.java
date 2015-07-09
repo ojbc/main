@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.identificationrecording.personid;
+package org.ojbc.adapters.rapbackdatastore.personid;
 
 import java.util.HashMap;
 import java.util.Map;

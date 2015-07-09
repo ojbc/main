@@ -14,24 +14,9 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.identificationrecording.processor;
+package org.ojbc.adapters.rapbackdatastore.dao;
 
-import org.apache.camel.Body;
-import org.apache.camel.Exchange;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
 
-@Service
-public class IdentificationRequestReportProcessor extends AbstractReportRepositoryProcessor {
-
-	private static final Log log = LogFactory.getLog( IdentificationRequestReportProcessor.class );
-	
-	@Override
-	public void processReport(@Body Document report, Exchange exchange) throws Exception {
-		
-		log.info("Processing Identification Request report");
-	}
+public interface RapbacksDatastoreDAO {
 
 }

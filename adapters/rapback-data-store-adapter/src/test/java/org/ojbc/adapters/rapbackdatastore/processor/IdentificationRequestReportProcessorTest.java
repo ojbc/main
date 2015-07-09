@@ -14,29 +14,37 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.identificationrecording.processor;
+package org.ojbc.adapters.rapbackdatastore.processor;
 
-import java.text.SimpleDateFormat;
+import static org.junit.Assert.*;
 
-import org.apache.camel.Body;
-import org.apache.camel.Exchange;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.ojbc.adapters.identificationrecording.dao.RapbacksDatastoreDAO;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.w3c.dom.Document;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-public abstract class AbstractReportRepositoryProcessor {
-	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {
+        "classpath:META-INF/spring/spring-context.xml",
+        "classpath:META-INF/spring/dao.xml",
+        "classpath:META-INF/spring/properties-context.xml",
+		})
+public class IdentificationRequestReportProcessorTest {
 
 	@Autowired
-	protected RapbacksDatastoreDAO rapbacksDatastoreDAO;
+	IdentificationRequestReportProcessor identificationRequestReportProcessor;
 	
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-	
-    @Transactional
-	public abstract void processReport(@Body Document report, Exchange exchange) throws Exception;
+	@Before
+	public void setUp() throws Exception {
+		assertNotNull(identificationRequestReportProcessor);
+	}
+
+	@Test
+	public void test() {
+		//fail("Not yet implemented");
+	}
 
 }
