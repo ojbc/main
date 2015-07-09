@@ -128,11 +128,18 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		if (StringUtils.isNotBlank(mapHorizontalCoordinateText))
 		{
 			//TODO: put this into a strategy
-			mapHorizontalCoordinateText = updatedCoordinate(mapHorizontalCoordinateText);
-			log.debug("Map horizontal coordinate text: " + mapHorizontalCoordinateText);
-
-			BigDecimal longitude = new BigDecimal(mapHorizontalCoordinateText);
-			incident.setIncidentLocationLongitude(longitude);
+			try
+			{
+				mapHorizontalCoordinateText = updatedCoordinate(mapHorizontalCoordinateText);
+				log.debug("Map horizontal coordinate text: " + mapHorizontalCoordinateText);
+	
+				BigDecimal longitude = new BigDecimal(mapHorizontalCoordinateText);
+				incident.setIncidentLocationLongitude(longitude);
+			}
+			catch (Exception ex)
+			{
+				log.warn("Unable to set map horizontal text coordinate");
+			}
 		}	
 		
 		String mapVerticalCoordinateText =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/nc:LocationMapLocation/nc:MapVerticalCoordinateText");
@@ -140,11 +147,18 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		if (StringUtils.isNotBlank(mapVerticalCoordinateText))
 		{	
 			//TODO: put this into a strategy
-			mapVerticalCoordinateText = updatedCoordinate(mapVerticalCoordinateText);
-			log.debug("Map vertical coordinate text: " + mapVerticalCoordinateText);
-
-			BigDecimal latitude = new BigDecimal(mapVerticalCoordinateText);
-			incident.setIncidentLocationLatitude(latitude);
+			try
+			{
+				mapVerticalCoordinateText = updatedCoordinate(mapVerticalCoordinateText);
+				log.debug("Map vertical coordinate text: " + mapVerticalCoordinateText);
+	
+				BigDecimal latitude = new BigDecimal(mapVerticalCoordinateText);
+				incident.setIncidentLocationLatitude(latitude);
+			}
+			catch (Exception ex)
+			{
+				log.warn("Unable to set map vertical text coordinate");
+			}
 		}	
 		
 		
