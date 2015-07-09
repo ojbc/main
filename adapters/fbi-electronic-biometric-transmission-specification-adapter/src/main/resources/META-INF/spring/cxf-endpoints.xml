@@ -37,29 +37,24 @@
     http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
     ">
-
-	<cxf:cxfEndpoint id="fbiEbtsService"
-		address="${fbiEBTCAdapter.endpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
-		serviceName="ojb-sm:SubscriptionManagerServiceService"
-		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
-	</cxf:cxfEndpoint>
-
-    <cxf:cxfEndpoint 
+    
+     <cxf:cxfEndpoint 
         id="fbiEbtsServiceSecure"
-        address="${fbiEBTCAdapter.secureEndpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSubscriptionManager.wsdl"
-		serviceName="ojbc:SecureSubscriptionManagerServiceService" 
-		endpointName="ojbc:SecureSubscriptionManager"
-		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+        address="${fbiEbtsAdapter.secureEndpoint}" 
+		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSNotification.wsdl"
+		serviceName="ojbc:SecureNotificationBrokerServiceService" 
+		endpointName="ojbc:SecureNotificationBrokerService"
+		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="fbiEbtsAdapterKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${fbiEbtsAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 		</cxf:properties>
-    </cxf:cxfEndpoint>
+    </cxf:cxfEndpoint>    
     
+    <bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+        
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
