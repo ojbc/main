@@ -64,9 +64,6 @@
 	<xsl:param name="transactionMajorVersion"/>
 	<xsl:param name="transactionMinorVersion"/>
 	
-	<!-- SCO 2.007 -->
-	<xsl:param name="recordForwardingOrganizationID"/>
-	
 	<!-- RAP 2.070 -->
 	<xsl:param name="rapSheetRequestIndicator"/>
 	
@@ -184,13 +181,7 @@
      		   </ansi-nist:ImageReferenceIdentification>
 				<itl:UserDefinedDescriptiveDetail>
 					<ebts:DomainDefinedDescriptiveFields>
-						<ansi-nist:RecordForwardOrganizations>
-                   			<nc20:OrganizationIdentification>
-                       			 <nc20:IdentificationID>
-                       			 	<xsl:value-of select="$recordForwardingOrganizationID"/>                       			 
-                       			 </nc20:IdentificationID>
-                       		</nc20:OrganizationIdentification>
-						</ansi-nist:RecordForwardOrganizations>
+		
 						<ansi-nist:RecordRapSheetRequestIndicator>
 							<xsl:value-of select="$rapSheetRequestIndicator"/>
 						</ansi-nist:RecordRapSheetRequestIndicator>
