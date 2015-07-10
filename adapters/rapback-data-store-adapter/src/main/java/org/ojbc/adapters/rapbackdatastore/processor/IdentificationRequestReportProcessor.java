@@ -20,6 +20,8 @@ import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 
@@ -27,6 +29,9 @@ import org.w3c.dom.Document;
 public class IdentificationRequestReportProcessor extends AbstractReportRepositoryProcessor {
 
 	private static final Log log = LogFactory.getLog( IdentificationRequestReportProcessor.class );
+	
+	@Autowired
+	private RapbackDAO rapbackDAO;
 	
 	@Override
 	public void processReport(@Body Document report, Exchange exchange) throws Exception {
