@@ -65,6 +65,21 @@ public class CycleTrackingIdentifierAssignmentReportTransformerServiceTest {
 		transformAndValidate(xslt, xml,"output/notifications/notification.xml", paramsMap);
 	}
 	
+	@Test
+	public void courtDispositionRecordingReportToNotificationsTransform() throws Exception{
+				
+		String xml = XmlUtils.getRootNodeAsString(
+				"src/test/resources/xmlInstances/courtDispositionRecordingReport/Court-Disposition-Recording-Report.xml");
+		
+		String xslt = FileUtils.readFileToString(new File(
+				"src/main/resources/xslt/courtDispositionRecordingReportToNotifications.xsl"));
+
+		Map<String, Object> paramsMap = new HashMap<String, Object>(1);
+		paramsMap.put("systemId", "{http://ojbc.org}CourtDispositionRecordingUpdate");
+		
+		transformAndValidate(xslt, xml,"output/notifications/disposition-notification.xml", paramsMap);
+	}
+	
 	
 	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedXMLPath, Map<String,Object> paramsMap) throws Exception {
 						
