@@ -82,6 +82,9 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     
     @EndpointInject(uri = "mock:direct:processSubscription")
     protected MockEndpoint subscriptionProcessorMock;
+    
+    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
+    protected MockEndpoint fbiEbtsSubscriptionMockEndpoint;    
 
     @EndpointInject(uri = "mock:direct:processUnsubscription")
     protected MockEndpoint unsubscriptionProcessorMock;
@@ -108,7 +111,15 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	    	interceptSendToEndpoint("bean:genericFaultProcessor?method=createFault").to("mock:faultProcessorMock");
     	    }              
     	});
-
+    	
+    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {    	    
+    	    	
+    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+    	    }              
+    	});    	    	
+    	
     	context.getRouteDefinition("processSubscriptions").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
@@ -550,6 +561,9 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	subscriptionProcessorMock.reset();
     	subscriptionProcessorMock.expectedMessageCount(1);
     	
+    	fbiEbtsSubscriptionMockEndpoint.reset();
+    	fbiEbtsSubscriptionMockEndpoint.expectedMessageCount(1);
+    	
     	Exchange senderExchange = createSenderExchangeSubscription();
     	
 	    //Read the subscription request file from the file system
@@ -608,7 +622,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 		assertEquals(today.plusMonths(1).toString("yyyy-MM-dd"), subscriptionOfInterest.getEndDate().toString("yyyy-MM-dd"));
 		
 		//Assert that the mock endpoint expectations are satisfied
-		subscriptionProcessorMock.assertIsSatisfied();
+		subscriptionProcessorMock.assertIsSatisfied();		
 
 		//Get the first exchange (the only one and confirm the SAML token header was set)
 		Exchange exSamlToken = subscriptionProcessorMock.getExchanges().get(0);
@@ -620,7 +634,8 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 		String subscriptionOwner = (String)exSamlToken.getIn().getHeader("subscriptionOwner");
 		log.info("Subscription Owner is: " + subscriptionOwner);
 		assertEquals("OJBC:IDP:OJBC:USER:admin", subscriptionOwner);
-
+		
+		fbiEbtsSubscriptionMockEndpoint.assertIsSatisfied();
     }
 
     
@@ -629,7 +644,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     
     	subscriptionProcessorMock.reset();
     	subscriptionProcessorMock.expectedMessageCount(1);
-    	
+    	    	    	    	
     	Exchange senderExchange = createSenderExchangeSubscription();
     	
 	    //Read the subscription request file from the file system
