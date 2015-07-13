@@ -36,7 +36,7 @@
 			
 			<ansi-nist:TransactionDestinationOrganization>
             	<nc20:OrganizationIdentification>
-                 	<nc20:IdentificationID>A99999999</nc20:IdentificationID>
+                 	<nc20:IdentificationID>WVIAFIS0Z</nc20:IdentificationID>
             	</nc20:OrganizationIdentification>
           	</ansi-nist:TransactionDestinationOrganization>
           	<ansi-nist:TransactionOriginatingOrganization>
@@ -80,11 +80,7 @@
 		<itl:UserDefinedDescriptiveDetail>
 		
 			<ebts:DomainDefinedDescriptiveFields>
-				<ansi-nist:RecordForwardOrganizations>
-                	<nc20:OrganizationIdentification>
-                    	<nc20:IdentificationID>123456</nc20:IdentificationID>
-                    </nc20:OrganizationIdentification>
-				</ansi-nist:RecordForwardOrganizations>
+
 				<ansi-nist:RecordRapSheetRequestIndicator>true</ansi-nist:RecordRapSheetRequestIndicator>
 			
 				<ebts:RecordRapBackData>
