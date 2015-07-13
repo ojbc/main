@@ -31,40 +31,6 @@
 				<xsd:sequence>
 					<xsd:element ref="pdu:CycleTrackingIdentification"/>
 					<xsd:element ref="pdu:ProsecutionAttorneyOrganizationReference" minOccurs="0"/>
-<<<<<<< HEAD
-					<xsd:element ref="j:Charge" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Location" minOccurs="0"/>
-					<xsd:element ref="pdu:ChargeToCourtIndicator" minOccurs="0"/>
-					<xsd:element ref="pdu:EndProsecutorChargeCycleIndicator" minOccurs="0"/>
-					<xsd:element ref="nc:ResidenceAssociation" minOccurs="0" maxOccurs="unbounded"/>
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:element name="ProsecutionDecisionUpdate" type="pdu:ProsecutionDecisionUpdateType">
-		<xsd:annotation>
-			<xsd:documentation>Information about a prosecution'd decision to proceed with charges to the court.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="CycleTrackingIdentification" type="nc:IdentificationType">
-		<xsd:annotation>
-			<xsd:documentation>A unique identifier issued for the purpose of tracking criminal activity and can be used to link this activity to a criminal history.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ProsecutionAttorneyOrganizationReference" type="s:ReferenceType">
-		<xsd:annotation>
-			<xsd:documentation>Prosecution attorney office.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ChargeToCourtIndicator" type="niem-xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if the charge will proceed to the courts; false otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="EndProsecutorChargeCycleIndicator" type="niem-xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if the charge cycle ends at the prosecutor segment; false otherwise.</xsd:documentation>
-=======
 					<xsd:element ref="pdu:Charge" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Location" minOccurs="0"/>
 					<xsd:element ref="nc:ResidenceAssociation" minOccurs="0" maxOccurs="unbounded"/>
@@ -113,7 +79,6 @@
 	<xsd:element name="Charge" type="pdu:ChargeType">
 		<xsd:annotation>
 			<xsd:documentation>A result or outcome that is the product of handling, processing, or finalizing something.</xsd:documentation>
->>>>>>> refs/remotes/origin/master
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
