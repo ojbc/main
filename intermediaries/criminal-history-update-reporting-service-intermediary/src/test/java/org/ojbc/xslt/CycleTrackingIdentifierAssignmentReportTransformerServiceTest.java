@@ -81,6 +81,21 @@ public class CycleTrackingIdentifierAssignmentReportTransformerServiceTest {
 	}
 	
 	
+	@Test
+	public void prosecutionDecisionRecordingReportReportToNotificationsTransform() throws Exception{
+				
+		String xml = XmlUtils.getRootNodeAsString(
+				"src/test/resources/xmlInstances/prosecutionDecisionRecordingReport/Prosecution-Decision-Recording-Report.xml");
+		
+		String xslt = FileUtils.readFileToString(new File(
+				"src/main/resources/xslt/prosecutionDecisionRecordingReportToNotifications.xsl"));
+
+		Map<String, Object> paramsMap = new HashMap<String, Object>(1);
+		paramsMap.put("systemId", "{http://ojbc.org}ProsecutionDecisionRecordingUpdate");
+		
+		transformAndValidate(xslt, xml,"output/notifications/decision-notification.xml", paramsMap);
+	}
+	
 	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedXMLPath, Map<String,Object> paramsMap) throws Exception {
 						
 		String expectedXml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/" + expectedXMLPath);
