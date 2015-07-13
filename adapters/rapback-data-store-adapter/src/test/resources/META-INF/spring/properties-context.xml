@@ -34,7 +34,7 @@
 		<property name="propertiesArray">
 			<array>
 				<util:properties
-					location="classpath:identification_recording_service_adapter.cfg" />
+					location="classpath:rapback_data_store_adapter.cfg" />
 			</array>
 		</property>
 	</bean>

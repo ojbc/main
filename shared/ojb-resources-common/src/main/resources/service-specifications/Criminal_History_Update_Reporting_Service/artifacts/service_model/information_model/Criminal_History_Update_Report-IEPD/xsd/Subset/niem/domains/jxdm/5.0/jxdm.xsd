@@ -91,6 +91,7 @@
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeSubject" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -254,6 +255,11 @@
   <xs:element name="Charge" type="j:ChargeType" nillable="true">
     <xs:annotation>
       <xs:documentation>A formal allegation that a specific person has committed a specific offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ChargeType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeDescriptionText" type="nc:TextType" nillable="true">
