@@ -58,14 +58,5 @@
 		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
 	</ident-ext:FBIIdentityHistorySummaryDocument>
-	<ident-ext:LinkedSystems>
-		<intel:SystemIdentification>
-			<nc:IdentificationID>SYSTEM_ID_01</nc:IdentificationID>
-			<nc:SystemName>SYSTEM_NAME_01</nc:SystemName>
-		</intel:SystemIdentification>
-		<intel:SystemIdentification>
-			<nc:IdentificationID>SYSTEM_ID_02</nc:IdentificationID>
-			<nc:SystemName>SYSTEM_NAME_02</nc:SystemName>
-		</intel:SystemIdentification>
-	</ident-ext:LinkedSystems>
+	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>
 </pidres-doc:PersonFederalIdentificationResults>
