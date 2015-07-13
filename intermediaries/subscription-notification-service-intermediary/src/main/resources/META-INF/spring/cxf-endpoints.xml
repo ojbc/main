@@ -57,6 +57,9 @@
 	<!-- Query Endpoints, the results endpoints are inline in the route to support camel testing -->
     <camel:endpoint id="subscriptionQueryRequestServiceEndpoint"
         uri="cxf:bean:subscriptionQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
+        
+    <camel:endpoint id="fbiEbtsSubscriptionRequestServiceEndpoint"  
+		uri="cxf:bean:fbiEbtsSubscriptionRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
 
 	<!-- OJB Notification Broker Service -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
@@ -81,7 +84,16 @@
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
-
+        
+    <!-- FBI EBTS Adapter endpoint, called by this intermediary  -->
+     <cxf:cxfEndpoint 
+        id="fbiEbtsSubscriptionRequestService"
+        address="${publishSubscribe.fbiEbtsSubscriptionRequestSecureEndpoint}" 
+		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		serviceName="ojbc:NotificationBrokerServiceService" 
+		endpointName="ojbc:NotificationBrokerService"
+		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+    </cxf:cxfEndpoint>
 
 	<!-- OJB Subscription Manager Service -->
 	<cxf:cxfEndpoint id="subscriptionManagerService"

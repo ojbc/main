@@ -33,6 +33,9 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 
+import org.apache.camel.EndpointInject;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.geronimo.mail.util.StringBufferOutputStream;
@@ -51,6 +54,9 @@ import org.subethamail.wiser.WiserMessage;
 public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
     private static final Log log = LogFactory.getLog(SubscriptionNotificationIntegrationTest.class);
+    
+    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
+    protected MockEndpoint fbiEbtsSubscriptionMockEndpoint; 
 	
 	@Resource
 	protected IncidentNotificationProcessor incidentNotificationProcessor;
@@ -58,6 +64,14 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
+		
+    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {    	    
+    	    	
+    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+    	    }              
+    	});    	    	
 	}
 	
 	@After

@@ -193,9 +193,24 @@
    
 		<camel:route>
 			<camel:from uri="direct:processSubscriptionArrest" />
-			<camel:log message="Processing Subscription (arrest)" />
-			<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+			<camel:log message="Processing Subscription (arrest)" />	
+								
+			<camel:multicast>								 																														 		
+				<camel:to uri="direct:callFbiEbtsSubscriptionService"/>
+				
+				<!-- this synchronous call is last because it modifies the message -->
+				<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />										
+			</camel:multicast>						
 		</camel:route>
+		
+		<camel:route id="fbiEbtsSubscriptionSecureRoute">					
+			<camel:from uri="direct:callFbiEbtsSubscriptionService" />
+			<camel:log message="Calling fbi ebts service..."/>			
+			<camel:setHeader headerName="operationName"><constant>Subscribe</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
+			<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />		
+		</camel:route>
+
 
 		<camel:route>
 			<camel:from uri="direct:processSubscriptionIncident" />
