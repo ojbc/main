@@ -38,6 +38,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-auditlog.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"
 		})
@@ -52,6 +53,9 @@ public class TestDatabaseLoad {
     @Resource  
     private DataSource subscriptionDataSource;  
 	
+    @Resource  
+    private DataSource rapbackDataSource;  
+    
     @Resource  
     private DataSource policyAcknowledgementDataSource;  
 
@@ -77,6 +81,16 @@ public class TestDatabaseLoad {
 		
 	}
 
+	@Test
+	public void testRapbackDatastore() throws Exception {
+		
+		Connection conn = rapbackDataSource.getConnection();
+		ResultSet rs = conn.createStatement().executeQuery("select * from subscription");
+		assertTrue(rs.next());
+		assertEquals(62720,rs.getInt("id"));
+		
+	}
+	
 	@Test
 	public void testPolicyAcknowledgement() throws Exception {
 		

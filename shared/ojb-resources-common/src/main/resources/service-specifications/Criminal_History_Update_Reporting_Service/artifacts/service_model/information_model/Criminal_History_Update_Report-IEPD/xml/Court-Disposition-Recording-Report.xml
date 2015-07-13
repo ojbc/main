@@ -51,7 +51,7 @@
 			<nc:EntityOrganization s:ref="ORG001"/>
 		</j:SentenceIssuerEntity>
 		<j:SentenceTerm>
-			<j:TermDuration>P1Y2M3DT10H30M0S</j:TermDuration>
+			<j:TermDuration>P2DT12H</j:TermDuration>
 		</j:SentenceTerm>
 		<cdr-report-ext:SentenceDocketIdentification>
 			<nc:IdentificationID>Sentence Docket ID</nc:IdentificationID>

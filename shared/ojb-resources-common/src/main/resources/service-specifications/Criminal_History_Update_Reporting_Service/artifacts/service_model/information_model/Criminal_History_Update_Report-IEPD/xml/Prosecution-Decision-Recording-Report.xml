@@ -34,6 +34,20 @@
 		<j:ChargeTrackingIdentification>
 			<nc:IdentificationID>456</nc:IdentificationID>
 		</j:ChargeTrackingIdentification>
+		<pdr-report-ext:ChargeToCourtIndicator>true</pdr-report-ext:ChargeToCourtIndicator>
+		<pdr-report-ext:EndProsecutorChargeCycleIndicator>true</pdr-report-ext:EndProsecutorChargeCycleIndicator>
+	</j:Charge>
+	<j:Charge>
+		<j:ChargeStatute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>0046790</nc:IdentificationID>
+			</j:StatuteCodeIdentification>
+		</j:ChargeStatute>
+		<j:ChargeTrackingIdentification>
+			<nc:IdentificationID>4563</nc:IdentificationID>
+		</j:ChargeTrackingIdentification>
+		<pdr-report-ext:ChargeToCourtIndicator>true</pdr-report-ext:ChargeToCourtIndicator>
+		<pdr-report-ext:EndProsecutorChargeCycleIndicator>false</pdr-report-ext:EndProsecutorChargeCycleIndicator>
 	</j:Charge>
 	<j:Subject>
 		<nc:RoleOfPerson s:ref="P001"/>
@@ -90,8 +104,6 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</nc:Organization>
-	<pdr-report-ext:ChargeToCourtIndicator>true</pdr-report-ext:ChargeToCourtIndicator>
-	<pdr-report-ext:EndProsecutorChargeCycleIndicator>false</pdr-report-ext:EndProsecutorChargeCycleIndicator>
 	<nc:PersonResidenceAssociation>
 		<nc:Person s:ref="P001"/>
 		<nc:Location s:ref="LOC001"/>
