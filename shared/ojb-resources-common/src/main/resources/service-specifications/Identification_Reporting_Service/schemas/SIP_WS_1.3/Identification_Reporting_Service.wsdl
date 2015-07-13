@@ -31,7 +31,6 @@
 	targetNamespace="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0">
 
 	<wsp:Policy wsu:Id="MTOMPolicy" 
-
 		xmlns:mtom="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" >
 	    <mtom:OptimizedMimeSerialization wsp:Optional="true"/>
 	</wsp:Policy>
