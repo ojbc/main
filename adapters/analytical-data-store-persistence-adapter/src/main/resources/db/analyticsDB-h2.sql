@@ -17,8 +17,7 @@
 CREATE schema AnalyticsDataStore;
 
 -- Go to analytics staging database model OJBStagingModel.architect and click Tools -> Forward Engineer, select H2
--- and paste the contents below this comment.  You will need to change all timestamps in the fact tables to auto
--- insert current timestamp: Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP()
+-- and paste the contents below this comment.
 
 
 
@@ -91,7 +90,7 @@ CREATE TABLE PretrialServiceParticipation (
                 RecordType CHAR(1) NOT NULL,
                 ArrestingAgencyORI VARCHAR(12) NOT NULL,
                 ArrestIncidentCaseNumber VARCHAR(30) NOT NULL,
-                Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
+                Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT PretrialServiceParticipation_pk PRIMARY KEY (PretrialServiceParticipationID)
 );
 COMMENT ON COLUMN PretrialServiceParticipation.RecordType IS 'N for new record, U for update to prior record, D for delete';
@@ -128,7 +127,7 @@ CREATE TABLE Disposition (
                 IsProbationViolation CHAR(1),
                 IsProbationViolationOnOldCharge CHAR(1),
                 RecidivismEligibilityDate DATE,
-                Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
+                Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT Disposition_pk PRIMARY KEY (DispositionID)
 );
 COMMENT ON COLUMN Disposition.RecordType IS 'N for new record, U for update to prior record, D for delete';
@@ -146,7 +145,7 @@ CREATE TABLE Incident (
                 IncidentTime TIME NOT NULL,
                 ReportingSystem VARCHAR(30) NOT NULL,
                 RecordType CHAR(1) NOT NULL,
-                Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
+                Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT IncidentID PRIMARY KEY (IncidentID)
 );
 COMMENT ON COLUMN Incident.RecordType IS 'N for new record, U for update to previous record, D for delete';
@@ -176,7 +175,7 @@ CREATE TABLE Arrest (
                 ArrestTime TIME NOT NULL,
                 ArrestingAgencyName VARCHAR(40) NOT NULL,
                 ReportingSystem VARCHAR(30) NOT NULL,
-				Timestamp TIMESTAMP NOT NULL AS CURRENT_TIMESTAMP(),
+                Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT ArrestID PRIMARY KEY (ArrestID)
 );
 
