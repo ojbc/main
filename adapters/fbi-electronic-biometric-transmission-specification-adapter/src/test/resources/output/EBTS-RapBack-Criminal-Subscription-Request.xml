@@ -31,17 +31,17 @@
 	
 		<ansi-nist:Transaction>
 			<ansi-nist:TransactionDate>
-				<nc20:Date>2015-06-24</nc20:Date>
+				<nc20:Date>2015-07-14</nc20:Date>
 			</ansi-nist:TransactionDate>
 			
 			<ansi-nist:TransactionDestinationOrganization>
             	<nc20:OrganizationIdentification>
-                 	<nc20:IdentificationID>WVIAFIS0Z</nc20:IdentificationID>
+                 	<nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
             	</nc20:OrganizationIdentification>
           	</ansi-nist:TransactionDestinationOrganization>
           	<ansi-nist:TransactionOriginatingOrganization>
                	<nc20:OrganizationIdentification>
-                    <nc20:IdentificationID>123456</nc20:IdentificationID>
+                    <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
                 </nc20:OrganizationIdentification>
             </ansi-nist:TransactionOriginatingOrganization>
             <ansi-nist:TransactionControlIdentification>
@@ -111,10 +111,10 @@
 				</ebts:RecordRapBackData>
 				
 				<ebts:RecordTransactionActivity>
-					<nc20:CaseTrackingID>Case-123</nc20:CaseTrackingID>
+					<nc20:CaseTrackingID>HCJDC-CASE</nc20:CaseTrackingID>
 					<ebts:RecordControllingAgency>
 		                <nc20:OrganizationIdentification>
-		                    <nc20:IdentificationID>123456</nc20:IdentificationID>
+		                    <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
 		                </nc20:OrganizationIdentification>
                		</ebts:RecordControllingAgency>
                	</ebts:RecordTransactionActivity>

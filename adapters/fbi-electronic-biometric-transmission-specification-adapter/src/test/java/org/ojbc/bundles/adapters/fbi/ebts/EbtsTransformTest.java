@@ -64,11 +64,11 @@ public class EbtsTransformTest {
 		xsltParamMap.put("rapBackInStateOptOutIndicator", true);
 		xsltParamMap.put("rapBackTriggeringEvent", 1);
 		
-		xsltParamMap.put("rapBackTransactionDate", "2015-06-24");
+		xsltParamMap.put("rapBackTransactionDate", "2015-07-14");
 		xsltParamMap.put("recordRapBackExpirationDate", "2010-02-24");
 		
-		xsltParamMap.put("destinationOrganizationORI", "WVIAFIS0Z");
-		xsltParamMap.put("originatorOrganizationORI", "123456");
+		xsltParamMap.put("destinationOrganizationORI", "HI002595Y");
+		xsltParamMap.put("originatorOrganizationORI", "HI002595Y");
 		xsltParamMap.put("controlID", "98765");
 		xsltParamMap.put("domainVersion", "EBTS 10.0");
 		xsltParamMap.put("domainName", "NORAM");
@@ -76,8 +76,8 @@ public class EbtsTransformTest {
 		xsltParamMap.put("transactionMinorVersion", "00");
 		xsltParamMap.put("rapSheetRequestIndicator", "true");
 		xsltParamMap.put("rapBackRecipient", "123456");
-		xsltParamMap.put("controllingAgencyID", "123456");
-		xsltParamMap.put("originatingAgencyCaseNumber", "Case-123");
+		xsltParamMap.put("controllingAgencyID", "HI002595Y");
+		xsltParamMap.put("originatingAgencyCaseNumber", "HCJDC-CASE");
 		xsltParamMap.put("nativeScanningResolution", "00.00");
 		xsltParamMap.put("nominalTransmittingResolution", "00.00");
 		xsltParamMap.put("transactionContentSummaryContentFirstRecordCategoryCode", "1");
