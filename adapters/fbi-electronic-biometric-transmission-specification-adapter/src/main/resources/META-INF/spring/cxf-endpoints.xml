@@ -45,32 +45,7 @@
 		serviceName="ojbc:SecureNotificationBrokerServiceService" 
 		endpointName="ojbc:SecureNotificationBrokerService"
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="fbiEbtsAdapterKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${fbiEbtsAdapter.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>    
-    
-    <bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
-        
-   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
-	    <property name="passwords">
-            <map>
-                <entry key="${fbiEbtsAdapter.keystoreCertificateAlias}" value="${fbiEbtsAdapter.keyPassword}"/>
-            </map>
-        </property>
-	</bean>
-   
-	<util:properties id="fbiEbtsAdapterKeystoreProperties">
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${fbiEbtsAdapter.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${fbiEbtsAdapter.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${fbiEbtsAdapter.keystoreLocation}</prop>
-	</util:properties>	
-      
+    </cxf:cxfEndpoint>             
       
    	<!-- Used for inbound SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection -->
 	<httpj:engine-factory id="ClientAuthHttpsSettings"

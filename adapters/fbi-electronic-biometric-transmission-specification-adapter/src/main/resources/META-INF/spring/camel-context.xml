@@ -34,7 +34,6 @@
 	<import resource="properties-context.xml"/>
 	<import resource="cxf-endpoints.xml"/>	
 	
-
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
 		id="fbi-electronic-biometric-transmission-specification-adapter">
 
@@ -51,12 +50,29 @@
 
 			<camel:convertBodyTo type="java.lang.String" />
 						
-			<setHeader headerName="rapBackTransactionDate"><constant></constant></setHeader>
+			<setHeader headerName="rapBackTransactionDate"><constant>${fbiEbtsAdapter.rapBackTransactionDate}</constant></setHeader>
 			<setHeader headerName="rapBackNotificatonFormat"><constant>${fbiEbtsAdapter.rapBackNotificatonFormat}</constant></setHeader>
-			<setHeader headerName="recordRapBackCategoryCode"><constant>${fbiEbtsAdapter.recordRapBackCategoryCode}</constant></setHeader>
-			<setHeader headerName="recordRapBackExpirationDate"><constant>${fbiEbtsAdapter.recordRapBackExpirationDate}</constant></setHeader>			
-			<setHeader headerName="rapBackInStateOptOutIndicator"><constant>${fbiEbtsAdapter.rapBackInStateOptOutIndicator}</constant></setHeader>
-			<setHeader headerName="rapBackTriggeringEvent"><constant>${fbiEbtsAdapter.rapBackTriggeringEvent}</constant></setHeader>			
+			<setHeader headerName="recordRapBackCategoryCode"><constant>${fbiEbtsAdapter.recordRapBackCategoryCode}</constant></setHeader>			
+			<setHeader headerName="rapBackInStateOptOutIndicator"><constant>${fbiEbtsAdapter.rapBackInStateOptOutIndicator}</constant></setHeader>			
+			<setHeader headerName="rapBackTriggeringEvent"><constant>${fbiEbtsAdapter.rapBackTriggeringEvent}</constant></setHeader>
+			<setHeader headerName="recordRapBackExpirationDate"><constant>${fbiEbtsAdapter.recordRapBackExpirationDate}</constant></setHeader>										
+			<setHeader headerName="destinationOrganizationORI"><constant>${fbiEbtsAdapter.destinationOrganizationORI}</constant></setHeader>
+			<setHeader headerName="originatorOrganizationORI"><constant>${fbiEbtsAdapter.originatorOrganizationORI}</constant></setHeader>
+			<setHeader headerName="controlID"><constant>${fbiEbtsAdapter.controlID}</constant></setHeader>
+			<setHeader headerName="domainVersion"><constant>${fbiEbtsAdapter.domainVersion}</constant></setHeader>
+			<setHeader headerName="domainName"><constant>${fbiEbtsAdapter.domainName}</constant></setHeader>
+			<setHeader headerName="transactionMajorVersion"><constant>${fbiEbtsAdapter.transactionMajorVersion}</constant></setHeader>
+			<setHeader headerName="transactionMinorVersion"><constant>${fbiEbtsAdapter.transactionMinorVersion}</constant></setHeader>
+			<setHeader headerName="rapSheetRequestIndicator"><constant>${fbiEbtsAdapter.rapSheetRequestIndicator}</constant></setHeader>
+			<setHeader headerName="rapBackRecipient"><constant>${fbiEbtsAdapter.rapBackRecipient}</constant></setHeader>
+			<setHeader headerName="controllingAgencyID"><constant>${fbiEbtsAdapter.controllingAgencyID}</constant></setHeader>
+			<setHeader headerName="originatingAgencyCaseNumber"><constant>${fbiEbtsAdapter.originatingAgencyCaseNumber}</constant></setHeader>
+			<setHeader headerName="nativeScanningResolution"><constant>${fbiEbtsAdapter.nativeScanningResolution}</constant></setHeader>
+			<setHeader headerName="nominalTransmittingResolution"><constant>${fbiEbtsAdapter.nominalTransmittingResolution}</constant></setHeader>
+			<setHeader headerName="transactionContentSummaryContentFirstRecordCategoryCode"><constant>${fbiEbtsAdapter.transactionContentSummaryContentFirstRecordCategoryCode}</constant></setHeader>
+			<setHeader headerName="transactionContentSummaryContentRecordCountCriminal"><constant>${fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}</constant></setHeader>
+			<setHeader headerName="transactionContentSummaryContentRecordCountCivil"><constant>${fbiEbtsAdapter.transactionContentSummaryContentRecordCountCivil}</constant></setHeader>
+			<setHeader headerName="imageReferenceID"><constant>${fbiEbtsAdapter.imageReferenceID}</constant></setHeader>
 						
 			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
 			
