@@ -51,24 +51,6 @@
       		<nc:IdentificationID>HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
       	</ssr-ext:SubscriptionOriginatorIdentification>
       </ssr-ext:SubscriptionOriginator>
-      <ssr-ext:SubscriptionValidation>
-      	<ssr-ext:SubscriptionValidationDueDate>
-      		<nc:Date>2015-03-12</nc:Date>
-      	</ssr-ext:SubscriptionValidationDueDate>
-      	<ssr-ext:SubscriptionValidatedDate>
-      		<nc:Date>2014-03-12</nc:Date>
-      	</ssr-ext:SubscriptionValidatedDate>
-      </ssr-ext:SubscriptionValidation>
-      <ssr-ext:SubscriptionGracePeriod>
-      	<ssr-ext:SubscriptionGracePeriodDateRange>
-      		<nc:StartDate>
-      			<nc:Date>2014-09-13</nc:Date>
-      		</nc:StartDate>
-      		<nc:EndDate>
-      			<nc:Date>2014-10-13</nc:Date>
-      		</nc:EndDate>
-      	</ssr-ext:SubscriptionGracePeriodDateRange>
-      </ssr-ext:SubscriptionGracePeriod>
     </ssr-ext:Subscription>
     <ssr-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ssr-ext:SourceSystemNameText>
 	<intel:SystemIdentifier>
@@ -117,6 +99,9 @@
 			<nc:IdentificationID>1234567</nc:IdentificationID>
 		</ssr-ext:SubscriptionFBIIdentification>
 		<ssr-ext:CriminalSubscriptionReasonCode>CI</ssr-ext:CriminalSubscriptionReasonCode>
+		<ssr-ext:SubscriptionTerm>
+			<j:TermDuration>P1Y</j:TermDuration>
+		</ssr-ext:SubscriptionTerm>
 	</ssr-ext:FBISubscription>
 
   <ssr-ext:Person s:id="P001">
