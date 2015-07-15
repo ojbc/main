@@ -33,6 +33,21 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
+					<xsd:element ref="ssreq-ext:FBISubscription" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:element name="FBISubscription" type="ssreq-ext:FBISubscriptionType"/>
+	
+	<xsd:complexType name="FBISubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a subscription created by the Federal Bureau of Investigation.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
 					<xsd:element ref="ssreq-ext:SubscriptionSubject" minOccurs="0"/>
 					<xsd:element ref="ssreq-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 				</xsd:sequence>
