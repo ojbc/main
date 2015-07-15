@@ -42,7 +42,7 @@
 			uri="cxf:bean:fbiEbtsServiceSecure?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 	
 		<!-- alternative endpoint for testing: filesystem message input directory -->
-		<endpoint id="inputMessageDirEndpoint" uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />						
+		<endpoint id="inputMessageDirEndpoint" uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />						
 
 		<endpoint id="outputMessageDirEndpoint" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output" />
 		
@@ -52,6 +52,12 @@
 			<camel:from uri="inputMessageDirEndpoint"/>
 		
 			<camel:to uri="direct:processFbiEbtsSubscription"/>
+		
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>NISTBiometricInfo_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
+			</camel:setHeader>
+			
+			<camel:to uri="outputMessageDirEndpoint"/>
 		</camel:route>
 
 
@@ -59,6 +65,7 @@
 	
 			<camel:from uri="fbiEbtsWebServiceInputEndpoint" />
 	
+			<!-- TODO confirm don't need to call this for file drop input route -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 	
 			<camel:to uri="direct:processFbiEbtsSubscription" />
