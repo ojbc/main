@@ -26,6 +26,7 @@
   xmlns:usps-3.0.1="http://publication.niem.gov/niem/codes/usps_states/3.0/1/"
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/">
   <w:Element w:name="j:ActivityAugmentation" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CaseNumberText" w:isReference="false" w:nillable="true"/>
@@ -38,6 +39,7 @@
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OriginatorOrganization" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:PersonChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonEyeColorCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonHairColorCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonRaceCode" w:isReference="false" w:nillable="false"/>
@@ -66,6 +68,15 @@
   <w:Type w:name="j:ActivityAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:CaseNumberText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:ActivityChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType
+      w:name="j:ActivityChargeAssociationAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CaseOfficialType" w:isRequested="false">
     <w:ElementInType w:name="j:CaseOfficialAugmentationPoint"
@@ -111,12 +122,20 @@
     <w:ElementInType w:name="j:DriverLicense" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:PersonChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Person" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:SentenceType" w:isRequested="true">
     <w:ElementInType w:name="j:SentenceCondition" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SentenceGroupingText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SentenceIssuerEntity"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:SentenceSuspendedTerm"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SentenceTerm" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -136,6 +155,10 @@
   <w:Type w:name="j:TermType" w:isRequested="false">
     <w:ElementInType w:name="j:TermDuration" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:TermLifeIndicator" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:TermAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityType" w:isRequested="true">
     <w:ElementInType w:name="nc:ActivityCategoryText"
@@ -173,6 +196,8 @@
   </w:Type>
   <w:Type w:name="nc:DisciplinaryActionType" w:isRequested="false">
     <w:ElementInType w:name="nc:DisciplinaryActionFee"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DisciplinaryActionRestitution"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:DispositionType" w:isRequested="false">
