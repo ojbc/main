@@ -37,15 +37,38 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
 		id="fbi-electronic-biometric-transmission-specification-adapter">
 
-		<endpoint id="fbiEbtsServiceEndpoint"
+		<!-- webservice endpoint -->
+		<endpoint id="fbiEbtsWebServiceInputEndpoint"
 			uri="cxf:bean:fbiEbtsServiceSecure?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+	
+		<!-- alternative endpoint for testing: filesystem message input directory -->
+		<endpoint id="inputMessageDirEndpoint" uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />						
 
-		<camel:route id="fbiEbtsServiceRoute">
+		<endpoint id="outputMessageDirEndpoint" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output" />
+		
+		
+		<camel:route id="fbiEbtsFileDropRoute">
+		
+			<camel:from uri="inputMessageDirEndpoint"/>
+		
+			<camel:to uri="direct:processFbiEbtsSubscription"/>
+		</camel:route>
 
-			<camel:from uri="fbiEbtsServiceEndpoint" />
 
+		<camel:route id="fbiEbtsWebServiceRoute">
+	
+			<camel:from uri="fbiEbtsWebServiceInputEndpoint" />
+	
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
-
+	
+			<camel:to uri="direct:processFbiEbtsSubscription" />
+		</camel:route>
+		
+		
+		<camel:route id="fbiEbtsProcessingRoute">
+		
+			<camel:from uri="direct:processFbiEbtsSubscription"/>
+			
 			<camel:log message="Inbound Message: ${body}" />
 
 			<camel:convertBodyTo type="java.lang.String" />
@@ -76,10 +99,9 @@
 						
 			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
 			
-			<camel:log message="Transformed message for FBI EBTS: \n\n ${body}" />
-									
-			<!-- TODO send to FBI -->		
-
+			<camel:log message="Transformed message for FBI EBTS: \n\n ${body}" />	
+			
+			<!-- TODO send to FBI -->	
 		</camel:route>
 
 	</camel:camelContext>
