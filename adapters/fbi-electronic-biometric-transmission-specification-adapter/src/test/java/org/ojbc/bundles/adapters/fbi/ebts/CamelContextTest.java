@@ -26,10 +26,12 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
@@ -65,7 +67,7 @@ public class CamelContextTest {
     
     @Produce
     protected ProducerTemplate producerTemplate;
-	
+    	
     @Before
     public void setup() throws Exception{
     	
@@ -83,6 +85,13 @@ public class CamelContextTest {
     	    	replaceFromWith("direct:fbiEbtsInputEndpoint");    	    	
     	    }              
     	}); 
+    	
+    	context.getRouteDefinition("fbiEbtsProcessingRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {    	    	
+    	    	mockEndpointsAndSkip("cxf:bean:ngiUserService*");
+    	    }              
+    	});     	
     	
     	context.start();	
     }
