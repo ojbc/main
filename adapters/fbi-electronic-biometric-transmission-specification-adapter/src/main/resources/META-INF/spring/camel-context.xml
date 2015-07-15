@@ -37,6 +37,7 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
 		id="fbi-electronic-biometric-transmission-specification-adapter">
 
+
 		<!-- webservice endpoint -->
 		<endpoint id="fbiEbtsWebServiceInputEndpoint"
 			uri="cxf:bean:fbiEbtsServiceSecure?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
@@ -46,15 +47,22 @@
 
 		<endpoint id="outputMessageDirEndpoint" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output" />
 		
+		<endpoint id="ngiResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/ngiResponse"/>
+
+		<!-- hosted at the fbi, receives our requests -->		
 		<endpoint id="ngiUserServiceRequestEndpoint" 
 			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" /> 
 		
 		<endpoint id="ngiResponseServiceEndpoint" 
 			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
-		<camel:route id="fbiEbtsFileDropRoute">
+		
+		<!-- intended for testing by dropping message into adapter input directory -->
+		<camel:route id="fbiEbtsInputFileDropRoute">
 		
 			<camel:from uri="inputMessageDirEndpoint"/>
+			
+			<camel:log message="\n\n Fbi Adapter received File-Drop inbound message: \n ${body}" />
 		
 			<camel:to uri="direct:processFbiEbtsSubscription"/>
 		
@@ -66,9 +74,11 @@
 		</camel:route>
 
 
-		<camel:route id="fbiEbtsWebServiceRoute">
+		<camel:route id="fbiEbtsInputWebServiceRoute">
 	
 			<camel:from uri="fbiEbtsWebServiceInputEndpoint" />
+			
+			<camel:log message="\n\n Fbi Adapter service received inbound message: \n ${body}" />
 	
 			<!-- TODO confirm don't need to call this for file drop input route -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
@@ -76,15 +86,44 @@
 			<camel:to uri="direct:processFbiEbtsSubscription" />
 		</camel:route>
 		
-		
+
 		<camel:route id="fbiEbtsProcessingRoute">
 		
 			<camel:from uri="direct:processFbiEbtsSubscription"/>
 			
-			<camel:log message="Inbound Message: ${body}" />
+			<camel:log message="\n\n Processing message...\n\n" />
 
 			<camel:convertBodyTo type="java.lang.String" />
 						
+			<camel:to uri="direct:transformToFbiNgiSubscription" />
+			
+			<camel:log message="\n\n Calling FBI NGI service...\n\n"/>			
+
+			<camel:to uri="ngiUserServiceRequestEndpoint"/>
+		</camel:route>
+		
+		
+		<!-- Receives responses from FBI NGI -->
+		<camel:route id="ngiResponseRoute">
+		
+			<camel:from uri="ngiResponseServiceEndpoint"/>
+			
+			<camel:log message="\n\n Received NGI response: \n ${body} \n\n"/>
+			
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>NgiResponse_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
+			</camel:setHeader>
+			
+			<camel:to uri="ngiResponseDir"/>
+		</camel:route>
+		
+		
+		<camel:route id="ojbSubscriptionToFbiNgiSubscriptionRoute">
+						
+			<camel:from uri="direct:transformToFbiNgiSubscription" />
+			
+			<camel:log message="\n\n Transforming ojb subscription to FBI NGI subscription format...\n\n"/>
+			
 			<setHeader headerName="rapBackTransactionDate"><simple>{{fbiEbtsAdapter.rapBackTransactionDate}}</simple></setHeader>
 			<setHeader headerName="rapBackNotificatonFormat"><simple>{{fbiEbtsAdapter.rapBackNotificatonFormat}}</simple></setHeader>
 			<setHeader headerName="recordRapBackCategoryCode"><simple>{{fbiEbtsAdapter.recordRapBackCategoryCode}}</simple></setHeader>			
@@ -111,10 +150,8 @@
 						
 			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
 			
-			<camel:log message="Transformed message for FBI EBTS: \n\n ${body}" />	
-			
-			<camel:to uri="ngiUserServiceRequestEndpoint"/>
-		</camel:route>
+			<camel:log message="\n\n Transformed ojb subscription to FBI EBTS NGI format: \n\n ${body}" />		
+		</camel:route>				
 
 	</camel:camelContext>
 

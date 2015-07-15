@@ -26,12 +26,10 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
@@ -77,7 +75,7 @@ public class CamelContextTest {
     	XMLUnit.setXSLTVersion("2.0");
     	
     	// replace'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("fbiEbtsWebServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("fbiEbtsInputWebServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	
