@@ -45,7 +45,25 @@
 		serviceName="ojbc:SecureNotificationBrokerServiceService" 
 		endpointName="ojbc:SecureNotificationBrokerService"
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
-    </cxf:cxfEndpoint>             
+    </cxf:cxfEndpoint>   
+        
+    <cxf:cxfEndpoint
+    	id="ngiUserService"
+    	address="${fbiEbtsAdapter.ngiUserServiceEndpoint}"
+    	wsdlURL="classpath:ebts-10.0-ws-specification/Inc4_External_Service_Contracts_v1.1/external/wsdl/ngi/user-services/NGIUserService.wsdl"
+    	serviceName="ngi:NGIUserService"
+    	endpointName="ngi:NGIUserServicePort"
+    	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/service">
+    </cxf:cxfEndpoint> 
+    
+    <cxf:cxfEndpoint
+    	id="ngiResponseService"
+    	address="${fbiEbtsAdapter.ngiUserServiceResponseEndpoint}"
+    	wsdlURL="classpath:ebts-10.0-ws-specification/Inc4_External_Service_Contracts_v1.1/external/wsdl/ngi/user-services/NGIResponseService.wsdl"
+    	serviceName="ngi:NGIResponseService"
+    	endpointName="ngi:NGIResponsePort"
+    	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/services/risc">
+    </cxf:cxfEndpoint>         
       
    	<!-- Used for inbound SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection -->
 	<httpj:engine-factory id="ClientAuthHttpsSettings"

@@ -46,6 +46,11 @@
 
 		<endpoint id="outputMessageDirEndpoint" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output" />
 		
+		<endpoint id="ngiUserServiceRequestEndpoint" 
+			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" /> 
+		
+		<endpoint id="ngiResponseServiceEndpoint" 
+			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
 		<camel:route id="fbiEbtsFileDropRoute">
 		
@@ -108,7 +113,7 @@
 			
 			<camel:log message="Transformed message for FBI EBTS: \n\n ${body}" />	
 			
-			<!-- TODO send to FBI -->	
+			<camel:to uri="ngiUserServiceRequestEndpoint"/>
 		</camel:route>
 
 	</camel:camelContext>
