@@ -362,16 +362,17 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveCharge(final Charge charge) {
         log.debug("Inserting row into Charge table");
 
-        final String chargeInsertStatement="INSERT into Charge (OffenseDescriptionText,ArrestID) values (?,?)";
+        final String chargeInsertStatement="INSERT into Charge (OffenseDescriptionText,OffenseDescriptionText1,ArrestID) values (?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(chargeInsertStatement, new String[] {"OffenseDescriptionText","ArrestID"});
+        	                connection.prepareStatement(chargeInsertStatement, new String[] {"OffenseDescriptionText","OffenseDescriptionText1","ArrestID"});
         	            ps.setString(1, charge.getOffenseDescriptionText());
-        	            ps.setInt(2, charge.getArrestID());
+        	            ps.setString(2, charge.getOffenseDescriptionText1());
+        	            ps.setInt(3, charge.getArrestID());
         	            return ps;
         	        }
         	    },

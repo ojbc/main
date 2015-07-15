@@ -138,6 +138,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		charge.setArrestID(arrestPk);
 		charge.setOffenseDescriptionText("Offense Description Text");
+		charge.setOffenseDescriptionText1("Offense Description Text 1");
 		
 		int chargePk = analyticalDatastoreDAOImpl.saveCharge(charge);
 		assertEquals(1, chargePk);

@@ -30,6 +30,7 @@ public class ChargeRowMapper implements RowMapper<Charge>
     	
     	charge.setArrestID(rs.getInt("ArrestID"));
     	charge.setOffenseDescriptionText(rs.getString("OffenseDescriptionText"));
+    	charge.setOffenseDescriptionText1(rs.getString("OffenseDescriptionText1"));
 
     	return charge;
 	}

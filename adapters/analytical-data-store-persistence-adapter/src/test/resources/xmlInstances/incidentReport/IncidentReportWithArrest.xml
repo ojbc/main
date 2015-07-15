@@ -465,6 +465,12 @@
                                         xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
                                         lexslib:ref="IDJO506743"/>
                                 </ndexia:ActivityAugmentation>
+                                <j:Statute xmlns:j="http://niem.gov/niem/domains/jxdm/4.0">
+                                    <j:StatuteCodeIdentification>
+                                        <nc:IdentificationID
+                                            xmlns:nc="http://niem.gov/niem/niem-core/2.0">13V3017</nc:IdentificationID>
+                                    </j:StatuteCodeIdentification>
+                                </j:Statute>
                                 <ndexia:OffenseCode>Violation of a Court Order</ndexia:OffenseCode>
                                 <ndexia:OffenseText>DRIVING - LICENSE SUSPENDED</ndexia:OffenseText>
                             </ndexia:Offense>

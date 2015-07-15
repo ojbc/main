@@ -26,6 +26,8 @@ public class Charge {
 
 	private String offenseDescriptionText;
 	
+	private String offenseDescriptionText1;
+	
 	public Integer getChargeID() {
 		return chargeID;
 	}
@@ -48,5 +50,13 @@ public class Charge {
 
 	public void setOffenseDescriptionText(String offenseDescriptionText) {
 		this.offenseDescriptionText = offenseDescriptionText;
+	}
+
+	public String getOffenseDescriptionText1() {
+		return offenseDescriptionText1;
+	}
+
+	public void setOffenseDescriptionText1(String offenseDescriptionText1) {
+		this.offenseDescriptionText1 = offenseDescriptionText1;
 	}
 }
