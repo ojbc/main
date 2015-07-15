@@ -75,7 +75,7 @@ public class CamelContextTest {
     	XMLUnit.setXSLTVersion("2.0");
     	
     	// replace'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("fbiEbtsServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("fbiEbtsWebServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	
