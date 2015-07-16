@@ -44,9 +44,6 @@
 	<!-- This field corresponds to RBT 2.2040 and specifies which Events will result in notifications sent to the subscriber -->
 	<xsl:param name="rapBackTriggeringEvent" />
 	
-	<!-- RBXD 2.2015-->	
-	<xsl:param name="recordRapBackExpirationDate" />
-	
 	<!-- DAI 1.007 -->
 	<xsl:param name="destinationOrganizationORI" />
 	
@@ -194,13 +191,8 @@
 							<!--Rap Back Category RBC 2.2065-->
 							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
 							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
-							<!-- TODO: we need to determine how to set this since it can vary depending on the category -->						
-							<ebts:RecordRapBackExpirationDate>
-								<nc20:Date>								
-									<xsl:value-of select="$recordRapBackExpirationDate" />
-								</nc20:Date>
-							</ebts:RecordRapBackExpirationDate>							
-							
+							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date" mode="expirationDate"/>
+												
 							<ebts:RecordRapBackInStateOptOutIndicator>
 								<xsl:value-of select="$rapBackInStateOptOutIndicator" />
 							</ebts:RecordRapBackInStateOptOutIndicator>
@@ -301,4 +293,13 @@
 			<xsl:value-of select="."/>
 		</ebts:RecordRapBackCategoryCode>
 	</xsl:template>
+	
+	<xsl:template match="nc20:Date" mode="expirationDate">
+		<ebts:RecordRapBackExpirationDate>
+			<nc20:Date>								
+				<xsl:value-of select="." />
+			</nc20:Date>
+		</ebts:RecordRapBackExpirationDate>		
+	</xsl:template>
+	
 </xsl:stylesheet>
