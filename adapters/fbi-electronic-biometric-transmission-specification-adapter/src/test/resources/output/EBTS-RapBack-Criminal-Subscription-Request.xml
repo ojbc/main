@@ -90,7 +90,7 @@
 					<ebts:RecordRapBackCategoryCode>CI</ebts:RecordRapBackCategoryCode>
 			
 					<ebts:RecordRapBackExpirationDate>
-						<nc20:Date>2010-02-24</nc20:Date>
+						<nc20:Date>2015-06-20</nc20:Date>
 					</ebts:RecordRapBackExpirationDate>
 			
 					<ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
