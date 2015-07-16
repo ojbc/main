@@ -129,7 +129,7 @@
 		</camel:route>
 		
 		
-		<!-- Receives responses from FBI NGI -->
+		<!-- Receives responses from FBI NGI, saves them to disk and sends back a response -->
 		<camel:route id="ngiSubAckResponseRoute">
 		
 			<camel:from uri="ngiSubAckResponseServiceEndpoint"/>
@@ -140,9 +140,12 @@
 				<camel:simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
 			</camel:setHeader>
 			
-			<camel:to uri="ngiSubAcknowledgeAsynchResponseDir"/>
-						
-			<!--  TODO send VOID message to FBI -->			
+			<camel:multicast>
+				<camel:to uri="ngiSubAcknowledgeAsynchResponseDir"/>	
+			
+				<camel:to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>
+			</camel:multicast>
+				
 		</camel:route>
 		
 		
@@ -183,5 +186,7 @@
 	</camel:camelContext>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<bean id="ngiResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.NgiResponseProcessor"/>
 
 </beans>
