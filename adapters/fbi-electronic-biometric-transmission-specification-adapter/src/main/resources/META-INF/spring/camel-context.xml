@@ -35,30 +35,48 @@
 	<import resource="cxf-endpoints.xml"/>	
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="fbi-electronic-biometric-transmission-specification-adapter">
-
-		<!-- called by ojb s/n intermediary -->
-		<endpoint id="fbiEbtsWebServiceInputEndpoint"
-			uri="cxf:bean:fbiEbtsServiceSecure?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 	
-		<!-- alternative endpoint for testing: file system message input directory -->
-		<endpoint id="inputMessageDirEndpoint" 
-			uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />						
+		<!-- 
+			#########################################################################################
+					File system Directories		
+			#########################################################################################
+		-->
+			<!-- alternative endpoint for testing: file system message input directory -->
+			<endpoint id="inputMessageDirEndpoint" 
+				uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />			
 
+			<!-- Our directory to store synchronous FBI responses with 'control number' information -->
+			<endpoint id="ngiControlNumberSynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>
+
+			<!-- Our directory to store FBI asynchronous Subscription Acknowledgement responses -->
+			<endpoint id="ngiSubAcknowledgeAsynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_SubAcknowledge_AsynchResponse"/>
+
+		<!-- 
+			#########################################################################################
+					Web Service Endpoints
+			#########################################################################################		
+		 -->
+
+		<!-- called by s/n intermediary -->
+		<endpoint id="fbiEbtsWebServiceInputEndpoint"
+			uri="cxf:bean:fbiEbtsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+							
 		<!-- hosted at FBI, receives our subscription requests -->		
 		<endpoint id="ngiUserServiceRequestEndpoint" 
 			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
-		<!-- For storing synchronous FBI responses with 'control number' information -->
-		<endpoint id="ngiControlNumberSynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>
-
-		<!-- Endpoint we expose to the FBI so they can send us asynchronous Subscription Acknowledgement responses --> 
-		<endpoint id="ngiSubAckResponseServiceEndpoint" uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+		<!-- Endpoint we expose to FBI so they can send us asynchronous Subscription Acknowledgement responses --> 
+		<endpoint id="ngiSubAckResponseServiceEndpoint" 
+			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
-		<!-- For us to store FBI asynchronous Subscription Acknowledgement responses -->
-		<endpoint id="ngiSubAcknowledgeAsynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_SubAcknowledge_AsynchResponse"/>
+		<!-- 
+			#########################################################################################
+					Routes
+			#########################################################################################		
+		 -->
 
 		
-		<!-- intended for testing by dropping message into adapter input directory -->
+		<!--  for testing by dropping message into adapter input directory -->
 		<camel:route id="fbiEbtsInputFileDropRoute">
 		
 			<camel:from uri="inputMessageDirEndpoint"/>
@@ -67,11 +85,10 @@
 		
 			<camel:to uri="direct:processFbiEbtsSubscription"/>
 		
+			<!-- Save the fbi synchronous response(control number) to a file -->
 			<camel:setHeader headerName="CamelFileName">
 				<camel:simple>NGI_ControlNum_Resp_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
 			</camel:setHeader>
-			
-			<!-- TODO do something with the control number -->
 			
 			<camel:to uri="ngiControlNumberSynchResponseDir"/>
 		</camel:route>
@@ -106,6 +123,8 @@
 			<camel:to uri="ngiUserServiceRequestEndpoint"/>
 			
 			<camel:log message="\n\n Received FBI NGI NCN synchronous response: \n ${body}"/>
+			
+			<!-- TODO do something with the control number -->
 						
 		</camel:route>
 		
@@ -122,6 +141,8 @@
 			</camel:setHeader>
 			
 			<camel:to uri="ngiSubAcknowledgeAsynchResponseDir"/>
+						
+			<!--  TODO send VOID message to FBI -->			
 		</camel:route>
 		
 		
