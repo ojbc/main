@@ -157,7 +157,6 @@
 			<setHeader headerName="recordRapBackCategoryCode"><simple>{{fbiEbtsAdapter.recordRapBackCategoryCode}}</simple></setHeader>			
 			<setHeader headerName="rapBackInStateOptOutIndicator"><simple>{{fbiEbtsAdapter.rapBackInStateOptOutIndicator}}</simple></setHeader>			
 			<setHeader headerName="rapBackTriggeringEvent"><simple>{{fbiEbtsAdapter.rapBackTriggeringEvent}}</simple></setHeader>
-			<setHeader headerName="recordRapBackExpirationDate"><simple>{{fbiEbtsAdapter.recordRapBackExpirationDate}}</simple></setHeader>										
 			<setHeader headerName="destinationOrganizationORI"><simple>{{fbiEbtsAdapter.destinationOrganizationORI}}</simple></setHeader>
 			<setHeader headerName="originatorOrganizationORI"><simple>{{fbiEbtsAdapter.originatorOrganizationORI}}</simple></setHeader>
 			<setHeader headerName="controlID"><simple>{{fbiEbtsAdapter.controlID}}</simple></setHeader>
