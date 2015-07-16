@@ -39,12 +39,12 @@
     ">
     
      <cxf:cxfEndpoint 
-        id="fbiEbtsServiceSecure"
+        id="fbiEbtsService"
         address="${fbiEbtsAdapter.secureEndpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSNotification.wsdl"
-		serviceName="ojbc:SecureNotificationBrokerServiceService" 
-		endpointName="ojbc:SecureNotificationBrokerService"
-		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
+		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		serviceName="ojb-nb:NotificationBrokerServiceService" 
+		endpointName="ojb-nb:NotificationBrokerService"
+		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
     </cxf:cxfEndpoint>   
         
     <cxf:cxfEndpoint
