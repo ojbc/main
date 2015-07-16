@@ -191,6 +191,7 @@ CREATE TABLE Charge (
                 ChargeID INT AUTO_INCREMENT NOT NULL,
                 ArrestID INT NOT NULL,
                 OffenseDescriptionText VARCHAR(120) NOT NULL,
+                OffenseDescriptionText1 VARCHAR(120) NOT NULL,
                 PRIMARY KEY (ChargeID)
 );
 
