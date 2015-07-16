@@ -28,9 +28,6 @@ import org.w3c.dom.Element;
 /**
  * This class will help person search response errors using DOM
  * 
- * 
- * @author yogeshchawla
- *
  */
 public class PersonSearchResponseErrorBuilderUtils {
 
