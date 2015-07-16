@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.ojbc.build</groupId>
+		<artifactId>ojb-utilities-aggregate</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<groupId>org.ojbc.bundles.utilities</groupId>
+	<artifactId>ojb-fbi-ngi-mock-impl</artifactId>
+	<version>1.0.0</version>
+	
+	<packaging>bundle</packaging>	
+	<name>OJB :: ojb-fbi-ngi-mock-impl :: mockimpl</name>
+	
+	<url>http://www.ojbc.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>		
+		<felix-bundle-plugin-version>2.4.0</felix-bundle-plugin-version>
+		<camel-version>2.10.7</camel-version>
+		<cxf-version>2.6.4</cxf-version>
+		<ojb-common-version>[2.0.3,)</ojb-common-version>
+		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cxf</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>${cxf-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-common</artifactId>
+			<version>${ojb-common-version}</version>
+		</dependency>	
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-camel-common</artifactId>
+			<version>${ojb-camel-common-version}</version>
+		</dependency>			
+	</dependencies>
+	
+	<build>	
+		<plugins>					
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>					
+					
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>${felix-bundle-plugin-version}</version>				
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<DynamicImport-Package>*</DynamicImport-Package>
+						<Import-Package>
+							META-INF.cxf,
+							META-INF.cxf.osgi,
+							org.springframework.beans.factory.config,
+							javax.xml.namespace,
+							*
+						</Import-Package>
+						<Bundle-Activator>org.apache.camel.impl.osgi.Activator</Bundle-Activator>
+					</instructions>
+				</configuration>
+			</plugin>						
+				
+		</plugins>
+	
+	</build>
+</project>
