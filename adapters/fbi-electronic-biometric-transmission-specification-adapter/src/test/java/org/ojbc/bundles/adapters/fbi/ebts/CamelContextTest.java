@@ -89,7 +89,14 @@ public class CamelContextTest {
     	    public void configure() throws Exception {    	    	
     	    	mockEndpointsAndSkip("cxf:bean:ngiUserService*");
     	    }              
-    	});     	
+    	});
+    	
+    	context.getRouteDefinition("ngiSubAckResponseRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {    	    	
+    	    	mockEndpointsAndSkip("cxf:bean:ngiResponseService*");
+    	    }              
+    	});        	
     	
     	context.start();	
     }
