@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -17,21 +16,4 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
-
-	<util:properties id="classpathProperties" location="classpath:ojb_fbi_ngi_mock_impl.cfg" />
-	
-	<bean class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
-		<property name="propertiesArray">
-			<array>
-				<!-- cfg file must be on container classpath -->
-				<ref bean="classpathProperties"/>
-			</array>
-		</property>
-	</bean>
-
-</beans>
+<ngi-core:NGIControlNumber xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd">123</ngi-core:NGIControlNumber>

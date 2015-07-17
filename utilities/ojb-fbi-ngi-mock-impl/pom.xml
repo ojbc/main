@@ -45,6 +45,9 @@
 		<cxf-version>2.6.4</cxf-version>
 		<ojb-common-version>[2.0.3,)</ojb-common-version>
 		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
+		<junit-version>4.8.1</junit-version>
+		<xmlunit.version>1.5</xmlunit.version>
+		<spring-version>3.0.7.RELEASE</spring-version>
 	</properties>
 
 	<dependencies>
@@ -87,6 +90,37 @@
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-camel-common</artifactId>
 			<version>${ojb-camel-common-version}</version>
+		</dependency>			
+		
+		<!-- For testing -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test</artifactId>
+			<version>${camel-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-spring</artifactId>
+			<version>${camel-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>${xmlunit.version}</version>
 		</dependency>			
 	</dependencies>
 	
