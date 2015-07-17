@@ -18,10 +18,10 @@
 
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
-	xmlns:ctx="http://www.springframework.org/schema/context" xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:exchange="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -74,7 +74,6 @@
 					Routes
 			#########################################################################################		
 		 -->
-
 		
 		<!--  for testing by dropping message into adapter input directory -->
 		<camel:route id="fbiEbtsInputFileDropRoute">

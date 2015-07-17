@@ -63,9 +63,31 @@
     	serviceName="ngi:NGIResponseService"
     	endpointName="ngi:NGIResponsePort"
     	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/services/risc">
-    </cxf:cxfEndpoint>         
+    </cxf:cxfEndpoint>      
+    
+	<!-- 
+		Used for OUTBOUND SSL/TLS Connection. No CCA, just SSL. Client side SSL connection 
+	-->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${fbiEbtsAdapter.truststorePassword}"
+					file="${fbiEbtsAdapter.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>       
       
-   	<!-- Used for inbound SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection -->
+   	<!-- Used for INBOUND SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection -->
 	<httpj:engine-factory id="ClientAuthHttpsSettings"
 		bus="cxf">
 		<httpj:engine port="${fbiEbtsAdapter.portNumber}">
