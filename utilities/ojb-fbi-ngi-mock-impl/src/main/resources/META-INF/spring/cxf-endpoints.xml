@@ -56,7 +56,7 @@
     	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/services/risc">
     </cxf:cxfEndpoint>         
       
-   	<!-- Used for inbound SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection -->
+   	<!-- Used for INBOUND SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection -->
 	<httpj:engine-factory id="ClientAuthHttpsSettings"
 		bus="cxf">
 		<httpj:engine port="${fbiNgiMockImpl.portNumber}">
@@ -75,5 +75,28 @@
 			</httpj:tlsServerParameters>
 		</httpj:engine>
 	</httpj:engine-factory> 
+	
+    
+	<!-- 
+		Used for OUTBOUND SSL/TLS Connection. No CCA, just SSL. Client side SSL connection 
+	-->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${fbiNgiMockImpl.truststorePassword}"
+					file="${fbiNgiMockImpl.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>  	
     
 </beans>
