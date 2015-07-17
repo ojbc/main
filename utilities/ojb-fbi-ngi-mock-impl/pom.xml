@@ -38,36 +38,67 @@
 	<url>http://www.ojbc.org</url>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>		
-		<felix-bundle-plugin-version>2.4.0</felix-bundle-plugin-version>
-		<camel-version>2.10.7</camel-version>
-		<cxf-version>2.6.4</cxf-version>
-		<ojb-common-version>[2.0.3,)</ojb-common-version>
-		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
-		<junit-version>4.8.1</junit-version>
-		<xmlunit.version>1.5</xmlunit.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
+		<camel.version>2.10.4</camel.version>
 		<spring-version>3.0.7.RELEASE</spring-version>
+		<cxf-version>2.6.4</cxf-version>
+		<camel-version>2.10.3</camel-version>
+		<ojb-common-version>[2.0.0,)</ojb-common-version>
+		<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
+		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>		
+		<xmlunit.version>1.5</xmlunit.version>
+		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	</properties>
 
-	<dependencies>	
+	<dependencies>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
-			<version>${camel-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-spring</artifactId>
-			<version>${camel-version}</version>
+			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-cxf</artifactId>
-			<version>${camel-version}</version>
+			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-common</artifactId>
+			<version>${ojb-common-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-camel-common</artifactId>
+			<version>${ojb-camel-common-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-resources-common</artifactId>
+			<version>${ojb-resources-common-version}</version>
+		</dependency>
+
+
+		<!-- CXF libs -->
+
+		<dependency>
 			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<artifactId>cxf-rt-transports-http</artifactId>
 			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
@@ -77,21 +108,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
+			<artifactId>cxf-rt-ws-policy</artifactId>
 			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-common</artifactId>
-			<version>${ojb-common-version}</version>
-		</dependency>	
+			<groupId>org.apache.cxf.services.sts</groupId>
+			<artifactId>cxf-services-sts-core</artifactId>
+			<version>${cxf-version}</version>
+		</dependency>
 		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-camel-common</artifactId>
-			<version>${ojb-camel-common-version}</version>
-		</dependency>			
-		
-		<!-- For testing -->
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>${cxf-version}</version>
+		</dependency>
+
+
+		<!-- for testing -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -109,18 +141,12 @@
 			<artifactId>camel-test-spring</artifactId>
 			<version>${camel-version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
 			<version>${xmlunit.version}</version>
-		</dependency>			
+		</dependency>		
 	</dependencies>
 	
 	<build>	
@@ -138,21 +164,26 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${felix-bundle-plugin-version}</version>				
+				<version>${maven-bundle-plugin-version}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<DynamicImport-Package>*</DynamicImport-Package>
 						<Import-Package>
-							META-INF.cxf,
-							META-INF.cxf.osgi,
-							org.springframework.beans.factory.config,
-							javax.xml.namespace,
 							*
 						</Import-Package>
+						<Export-Package>
+						</Export-Package>
+						<Require-Bundle>
+							org.apache.cxf.bundle,
+							org.ojbc.bundles.shared.ojb-common,
+							org.ojbc.bundles.shared.ojb-camel-common,
+							org.ojbc.bundles.shared.ojb-resources-common
+						</Require-Bundle>
 						<Bundle-Activator>org.apache.camel.impl.osgi.Activator</Bundle-Activator>
+						<Bundle-Name>${pom.name}</Bundle-Name>
 					</instructions>
 				</configuration>
+			</plugin>
 			</plugin>						
 				
 		</plugins>

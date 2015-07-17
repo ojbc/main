@@ -22,7 +22,6 @@
 	xmlns:cxf="http://camel.apache.org/schema/cxf"
 	xmlns:ctx="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd

@@ -29,12 +29,11 @@
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- needed cxf imports -->
-	<import resource="classpath:META-INF/cxf/cxf.xml" />
-	<import resource="properties-context.xml" />
-	<import resource="cxf-endpoints.xml" />
+	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+	<import resource="properties-context.xml"/>
+	<import resource="cxf-endpoints.xml"/>	
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
-		id="ojb_fbi_ngi_mock_impl_context">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="ojb-fbi-ngi-mock-impl">
 
 		<endpoint id="ngiUserServiceEndpoint"
 			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiNgiMockImpl.cxflogging}" />
