@@ -46,16 +46,12 @@
 		
 			<camel:from uri="ngiUserServiceEndpoint" />
 
-			<camel:log message="Handling FbiNgiUserServiceRequest(responding control #)..." />
-			
-			<!-- TODO 
-			<camel:to uri="bean:messageProcessor?method="/>
-			-->
+			<camel:log message="\n\n Handling FbiNgiUserServiceRequest(responding control #)...\n\n" />			
 
-			<camel:to uri="bean:ngiUserServiceProcessor?method=handleUserServiceRequest" />
-			
-			<!-- TODO figure how to trigger asynch response -->
-			<camel:to uri="direct:sendSubAckResponse"/>			
+			<camel:to uri="bean:fbiNgiUserServiceProcessor?method=handleUserServiceRequest" />
+				
+			<!-- Send Asynchronous response -->		
+			<camel:wireTap uri="direct:sendSubAckResponse" />
 			
 		</camel:route>
 
@@ -64,23 +60,36 @@
 		
 			<camel:from uri="direct:sendSubAckResponse"/>
 			
-			<camel:log message="Sending asynch sub. ack. response..."/>
+			<camel:log message="\n\n WireTapped Message:\n ${body} \n\n"/>
 			
-			<!-- TODO 
-			<camel:to uri="bean:messageProcessor?method="/>
-			-->
+			<camel:log message="\n\n Creating asynch sub. ack. response... \n\n"/>			
 
-			<camel:to uri="bean:ngiResponseProcessor?method=createResponse"/>
+			<camel:to uri="bean:fbiNgiResponseProcessor?method=createResponse"/>
+			
+			<camel:setHeader headerName="operationNameSpace">
+				<constant>http://ws.cjis.gov/2014/08/01/ngi/services/risc</constant>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="operationName">
+				<constant>receiveResponse</constant>
+			</camel:setHeader>
+			
+			<camel:log message="\n\n Sending Response:\n ${body} \n"/>			
+			
+			<camel:to uri="ngiResponseServiceEndpoint"/>
+			
+			<camel:log message="\n\n Body after ngiResponseService:\n ${body} \n\n"/>
+			
 		</camel:route>
 
 	</camel:camelContext>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 
-	<bean id="ngiUserServiceProcessor"
+	<bean id="fbiNgiUserServiceProcessor"
 		class="org.ojbc.bundles.mockimpl.fbi.ngi.FbiNgiUserServiceProcessor" />
 
-	<bean id="ngiResponseProcessor"
+	<bean id="fbiNgiResponseProcessor"
 		class="org.ojbc.bundles.mockimpl.fbi.ngi.FbiNgiResponseProcessor" />
 
 </beans>

@@ -30,13 +30,15 @@ public class FbiNgiResponseProcessor {
 	private Logger logger = Logger.getLogger(FbiNgiResponseProcessor.class);
 	
 	
-	public void createResponse(Exchange exchange) throws ParserConfigurationException{
+	public String createResponse(Exchange exchange) throws ParserConfigurationException{
 		
 		String subAckResponse = getSubAckResponse();
 		
 		logger.info("returning response: \n" + subAckResponse);
 		
-		exchange.getOut().setBody(subAckResponse);		
+//		exchange.getOut().setBody(subAckResponse);	
+		
+		return subAckResponse;
 	}
 	
 	
