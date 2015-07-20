@@ -54,9 +54,6 @@
 		<j:SentenceIssuerEntity>
 			<nc:EntityOrganization structures:ref="Org_001"/>
 		</j:SentenceIssuerEntity>
-		<j:SentenceSuspendedTerm>
-			<cdr-report-ext:TermDurationRemaining>P18M</cdr-report-ext:TermDurationRemaining>
-		</j:SentenceSuspendedTerm>
 		<j:SentenceTerm>
 			<j:TermDuration>P2Y</j:TermDuration>
 			<j:TermLifeIndicator>false</j:TermLifeIndicator>

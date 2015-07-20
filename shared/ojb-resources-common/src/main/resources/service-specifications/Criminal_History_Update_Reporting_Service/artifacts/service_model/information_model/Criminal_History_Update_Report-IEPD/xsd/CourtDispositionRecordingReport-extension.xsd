@@ -81,11 +81,6 @@
 			<xsd:documentation>A type of sentence.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TermDurationRemaining" type="niem-xs:duration" substitutionGroup="j:TermAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A specific range or duration of a term remaining.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="ChargeDispositionAssociation" type="cdr-report-ext:ChargeDispositionAssociationType" substitutionGroup="j:TermAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A data type for an association between a charge and a disposition.</xsd:documentation>
