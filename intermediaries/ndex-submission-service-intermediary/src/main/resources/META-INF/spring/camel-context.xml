@@ -210,6 +210,10 @@
 			<camel:keyStore resource="{{NDExSubmission.ndexClientKeystoreLocation}}"
 				password="{{NDExSubmission.ndexClientKeystorePassword}}" />
 		</camel:keyManagers>
+		
+	   <camel:cipherSuitesFilter>
+        <camel:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</camel:include>
+      </camel:cipherSuitesFilter>		
 	</camel:sslContextParameters>
 	
     <bean id="https4" class="org.apache.camel.component.http4.HttpComponent">

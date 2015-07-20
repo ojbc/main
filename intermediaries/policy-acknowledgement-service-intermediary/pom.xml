@@ -302,6 +302,7 @@
 							javax.xml.namespace,
 							service-specifications.*,
 							org.ojbc.*,
+							com.mysql.jdbc,
 							<!--packages needed to use annotation driven beans  -->
 							org.springframework.aop,
 							org.springframework.aop.framework,
