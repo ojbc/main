@@ -79,7 +79,7 @@
 		
 			<camel:from uri="inputMessageDirEndpoint"/>
 			
-			<camel:log message="\n\n Fbi Adapter received File-Drop inbound message: \n ${body}" />
+			<camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message: \n\n ${body} \n\n" />
 		
 			<camel:to uri="direct:processFbiEbtsSubscription"/>
 		
@@ -87,6 +87,8 @@
 			<camel:setHeader headerName="CamelFileName">
 				<camel:simple>NGI_ControlNum_Resp_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
 			</camel:setHeader>
+			
+			<camel:log message="\n\n Saving ControlNumber response to disk...\n\n"/>
 			
 			<camel:to uri="ngiControlNumberSynchResponseDir"/>
 		</camel:route>
@@ -97,9 +99,9 @@
 	
 			<camel:from uri="fbiEbtsWebServiceInputEndpoint" />
 			
-			<camel:log message="\n\n Fbi Adapter service received inbound message: \n ${body}" />
+			<camel:log message="\n\n Fbi Adapter service received inbound message: \n\n ${body} \n\n" />
 	
-			<!-- TODO confirm don't need to call this for file drop input route -->
+			<!-- TODO confirm don't need to call this for other file drop input route -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 	
 			<camel:to uri="direct:processFbiEbtsSubscription" />
@@ -111,8 +113,6 @@
 			<camel:from uri="direct:processFbiEbtsSubscription"/>
 			
 			<camel:log message="\n\n Processing ojb subscription...\n\n" />
-
-			<camel:convertBodyTo type="java.lang.String" />
 						
 			<camel:to uri="direct:transformToFbiNgiSubscription" />
 			
@@ -128,14 +128,13 @@
 
 			<camel:to uri="ngiUserServiceRequestEndpoint"/>
 			
-			<camel:log message="\n\n Received FBI NGI NCN synchronous response: \n ${body}"/>
-			
-			<!-- TODO do something with the control number -->
-						
+			<camel:log message="\n\n Received FBI NGI ControlNumber synchronous response: \n ${body} \n\n"/>
+									
 		</camel:route>
 		
 		
-		<!-- Receives responses from FBI NGI, saves them to disk and sends back a response -->
+		<!-- Receives Asynch. responses from FBI NGI, saves them to disk 
+			and sends back a VOID response message to FBI -->
 		<camel:route id="ngiSubAckResponseRoute">
 		
 			<camel:from uri="ngiSubAckResponseServiceEndpoint"/>
@@ -150,7 +149,7 @@
 			
 			<camel:to uri="ngiSubAcknowledgeAsynchResponseDir"/>	
 			
-			<camel:log message="\n\n Sending synchronous VOID repsonse...\n ${body} \n\n"/>
+			<camel:log message="\n\n Sending synchronous VOID response to FBI...\n ${body} \n\n"/>
 				
 			<camel:to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>							
 				
@@ -188,7 +187,7 @@
 						
 			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
 			
-			<camel:log message="\n\n Transformed ojb subscription to FBI EBTS NGI format: \n\n ${body}" />		
+			<camel:log message="\n\n Transformed ojb subscription to FBI EBTS NGI format: \n\n ${body} \n\n" />		
 		</camel:route>				
 
 	</camel:camelContext>
