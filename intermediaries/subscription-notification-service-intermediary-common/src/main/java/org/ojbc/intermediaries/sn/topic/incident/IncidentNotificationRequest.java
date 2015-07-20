@@ -26,7 +26,6 @@ import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.notification.Offense;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
@@ -140,5 +139,10 @@ public class IncidentNotificationRequest extends NotificationRequest {
     public String getIncidentDateTimeDisplay() {
         return NotificationBrokerUtils.returnFormattedNotificationEventDate(getNotificationEventDate(), isNotificationEventDateInclusiveOfTime());
     }
+
+	@Override
+	protected String getNotifyingAgencyOriXpath() {
+		return null;
+	}
 
 }

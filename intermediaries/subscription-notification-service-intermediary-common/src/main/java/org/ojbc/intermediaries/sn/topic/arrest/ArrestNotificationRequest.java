@@ -26,7 +26,6 @@ import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.notification.Offense;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -347,6 +346,11 @@ public class ArrestNotificationRequest extends NotificationRequest {
 		}
 
 		return ret.toString().trim();
+	}
+
+	@Override
+	protected String getNotifyingAgencyOriXpath() {
+		return null; //ArrestNotificationRequest does not have agency ORI element.
 	}
 
 }

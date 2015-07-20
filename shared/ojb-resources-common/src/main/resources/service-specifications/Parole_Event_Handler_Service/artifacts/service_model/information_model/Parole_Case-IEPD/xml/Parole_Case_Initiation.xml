@@ -28,6 +28,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0 ../xsd/Parole_Case_Initiation.xsd ">
   <prlcase-ext:ParoleCase>
+  	<prlcase-ext:ParoleCaseIdentification>
+  		<nc:IdentificationID>12345</nc:IdentificationID>
+  	</prlcase-ext:ParoleCaseIdentification>
     <prlcase-ext:ParoleeIdentity>
       <nc:IdentityPersonRepresentation>
         <nc:PersonName/>
