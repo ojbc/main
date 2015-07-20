@@ -183,7 +183,6 @@
 						<Bundle-Name>${pom.name}</Bundle-Name>
 					</instructions>
 				</configuration>
-			</plugin>
 			</plugin>						
 				
 		</plugins>

@@ -22,7 +22,7 @@
  	<message name="NGIResponseInput">
   		<part name="NISTBiometricInformation" element="itl:NISTBiometricInformationExchangePackage" ></part>
  	</message> 
- 			<message name="NGIResponseOutput">
+ 	<message name="NGIResponseOutput">
   		<part name="VOID" element="ngi-core:VOID"> </part>
  	</message>
  	<message name="NGIResponseFault">

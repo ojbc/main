@@ -34,7 +34,7 @@ public class FbiNgiUserServiceProcessor {
 		
 		String responseXml = getControlNumResponseMessage();
 		
-		logger.info("Returning doc: \n" + responseXml);
+		logger.info("\n\n Returning doc: \n" + responseXml + "\n\n");
 		
 		exchange.getOut().setBody(responseXml);
 	}
