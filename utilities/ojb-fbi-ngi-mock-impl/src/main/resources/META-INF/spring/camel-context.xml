@@ -50,7 +50,7 @@
 
 			<camel:to uri="bean:fbiNgiUserServiceProcessor?method=handleUserServiceRequest" />
 				
-			<!-- Send Asynchronous response -->		
+			<!-- Create additional Asynchronous "Subscription Acknowledgement" response -->		
 			<camel:wireTap uri="direct:sendSubAckResponse" />
 			
 		</camel:route>
@@ -74,7 +74,7 @@
 				<constant>receiveResponse</constant>
 			</camel:setHeader>
 			
-			<camel:log message="\n\n Sending Response:\n ${body} \n"/>			
+			<camel:log message="\n\n Sending Sub. Ack. Response:\n\n ${body} \n\n"/>			
 			
 			<camel:to uri="ngiResponseServiceEndpoint"/>
 			
@@ -83,8 +83,7 @@
 		</camel:route>
 
 	</camel:camelContext>
-
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
 
 	<bean id="fbiNgiUserServiceProcessor"
 		class="org.ojbc.bundles.mockimpl.fbi.ngi.FbiNgiUserServiceProcessor" />
