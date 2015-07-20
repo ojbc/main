@@ -118,6 +118,14 @@
 			
 			<camel:log message="\n\n Calling FBI NGI service...\n\n"/>			
 
+			<camel:setHeader headerName="operationNameSpace">
+				<constant>http://ws.cjis.gov/2014/08/01/ngi/service</constant>
+			</camel:setHeader>
+
+			<camel:setHeader headerName="operationName">
+				<constant>submitRequest</constant>
+			</camel:setHeader>
+
 			<camel:to uri="ngiUserServiceRequestEndpoint"/>
 			
 			<camel:log message="\n\n Received FBI NGI NCN synchronous response: \n ${body}"/>
@@ -132,17 +140,19 @@
 		
 			<camel:from uri="ngiSubAckResponseServiceEndpoint"/>
 			
-			<camel:log message="\n\n Received NGI Sub. Ack. response: \n ${body} \n\n"/>
+			<camel:log message="\n\n Received NGI Sub. Ack. response: \n ${body} \n\n"/>						
 			
 			<camel:setHeader headerName="CamelFileName">
 				<camel:simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
 			</camel:setHeader>
+						
+			<camel:log message="\n\n Saving Sub. Ack. response to disk... \n\n"/>
 			
-			<camel:multicast>
-				<camel:to uri="ngiSubAcknowledgeAsynchResponseDir"/>	
+			<camel:to uri="ngiSubAcknowledgeAsynchResponseDir"/>	
 			
-				<camel:to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>
-			</camel:multicast>
+			<camel:log message="\n\n Sending synchronous VOID repsonse...\n ${body} \n\n"/>
+				
+			<camel:to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>							
 				
 		</camel:route>
 		
