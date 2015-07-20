@@ -34,10 +34,8 @@ public class FbiNgiResponseProcessor {
 		
 		String subAckResponse = getSubAckResponse();
 		
-		logger.info("returning response: \n" + subAckResponse);
-		
-//		exchange.getOut().setBody(subAckResponse);	
-		
+		logger.info("\n\n Processor returning subsription aknowledgement response: \n\n" + subAckResponse + "\n\n");
+				
 		return subAckResponse;
 	}
 	
