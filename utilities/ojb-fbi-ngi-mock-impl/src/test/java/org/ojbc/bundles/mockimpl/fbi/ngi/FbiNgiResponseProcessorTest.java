@@ -42,7 +42,7 @@ public class FbiNgiResponseProcessorTest {
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/FbiNgiResponseSubAck.xml"));
 							
-		Diff diff = XMLUnit.compareXML(expectedXmlString, expectedXmlString);		
+		Diff diff = XMLUnit.compareXML(expectedXmlString, subAckResponse);		
 		
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 		
