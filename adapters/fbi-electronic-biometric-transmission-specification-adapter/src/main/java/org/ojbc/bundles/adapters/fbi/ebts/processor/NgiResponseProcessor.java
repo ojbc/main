@@ -47,7 +47,7 @@ public class NgiResponseProcessor {
 		
 		String voidResponse = OJBUtils.getStringFromDocument(doc);
 		
-		logger.info("\n\n returning void response: \n" + voidResponse + "\n\n");
+		logger.info("\n\n returning void response: \n" + voidResponse + "\n\n");				
 		
 		return voidResponse;
 	}
