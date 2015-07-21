@@ -21,7 +21,12 @@
 <!-- Configures the Camel Context-->
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2" 
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0" 
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -195,19 +200,37 @@
 			<camel:from uri="direct:processSubscriptionArrest" />
 			<camel:log message="Processing Subscription (arrest)" />	
 								
-			<camel:multicast>								 																														 		
-				<camel:to uri="direct:callFbiEbtsSubscriptionService"/>
+			<camel:multicast>				
+
+				<camel:choice>
+					<camel:when>
+						<camel:xpath>boolean(//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonFBIIdentification/nc20:IdentificationID/text()[1])</camel:xpath>
+						
+						<camel:log message="\n\n Found FBI ID, Sending subscription to FBI EBTS...\n\n"/>						
+						
+						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
+					</camel:when>			
+					<camel:otherwise>					
+						<!-- Make this easy to find in a separate log or file -->
+						<camel:log message="There is no FBI ID available for SID: .  Not sending subscription to FBI"/>						
+					</camel:otherwise>							
+				</camel:choice>				 				 							 																														 				
 				
 				<!-- this synchronous call is last because it modifies the message -->
-				<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />										
+				<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+														
 			</camel:multicast>						
 		</camel:route>
 		
 		<camel:route id="fbiEbtsSubscriptionSecureRoute">					
+			
 			<camel:from uri="direct:callFbiEbtsSubscriptionService" />
-			<camel:log message="Calling fbi ebts service..."/>			
+			
+			<camel:log message="Calling fbi ebts service..."/>
+						
 			<camel:setHeader headerName="operationName"><constant>Subscribe</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
+			
 			<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />		
 		</camel:route>
 
