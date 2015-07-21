@@ -76,26 +76,8 @@
 			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
-	</http:conduit>  	
-	      
-   	<!-- Used for INBOUND SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection -->
-	<httpj:engine-factory id="ClientAuthHttpsSettings"
-		bus="cxf">
-		<httpj:engine port="${fbiNgiMockImpl.portNumber}">
-			<httpj:tlsServerParameters>
-				<sec:keyManagers keyPassword="${fbiNgiMockImpl.keyPassword}">
-					<sec:keyStore type="jks" password="${fbiNgiMockImpl.keystorePassword}" file="${fbiNgiMockImpl.keystoreLocation}" />
-				</sec:keyManagers>
-				<sec:cipherSuitesFilter>
-					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				</sec:cipherSuitesFilter>
-				<sec:clientAuthentication want="false"
-					required="false" />
-			</httpj:tlsServerParameters>
-		</httpj:engine>
-	</httpj:engine-factory> 
+	</http:conduit>  		     
 	    
+	<!-- NOTE assuming osgi container(karaf) handles providing server side ssl for hosted services -->
 </beans>
+
