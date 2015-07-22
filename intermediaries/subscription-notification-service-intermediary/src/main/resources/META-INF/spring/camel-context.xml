@@ -210,9 +210,12 @@
 						
 						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
 					</camel:when>			
-					<camel:otherwise>					
-						<!-- Make this easy to find in a separate log or file -->
-						<camel:log message="There is no FBI ID available for SID: .  Not sending subscription to FBI"/>						
+					<camel:otherwise>															
+						<camel:setHeader headerName="sid">
+							<camel:xpath>//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath>
+						</camel:setHeader>					
+						<!-- TODO Make this easy to find in a separate log or file -->
+						<camel:log message="There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI."/>						
 					</camel:otherwise>							
 				</camel:choice>				 				 							 																														 				
 				
