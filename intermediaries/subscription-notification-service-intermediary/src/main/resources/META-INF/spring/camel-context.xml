@@ -209,13 +209,15 @@
 						<camel:log message="\n\n Found FBI ID, Sending subscription to FBI EBTS...\n\n"/>						
 						
 						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
-					</camel:when>			
-					<camel:otherwise>															
+					</camel:when>								
+					<camel:otherwise>																					
 						<camel:setHeader headerName="sid">
 							<camel:xpath>//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath>
 						</camel:setHeader>					
-						<!-- TODO Make this easy to find in a separate log or file -->
-						<camel:log message="There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI."/>						
+						
+						<!-- rapback logger must be defined in karaf/etc/org.ops4j.pax.logging.cfg  Allows rare important message to go to file where 
+							it's easy to notice, but requires manual monitoring -->
+						<camel:log message="There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI." logName="rapback"/>						
 					</camel:otherwise>							
 				</camel:choice>				 				 							 																														 				
 				
