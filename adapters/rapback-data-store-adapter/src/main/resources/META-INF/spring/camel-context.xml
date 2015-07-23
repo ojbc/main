@@ -40,16 +40,24 @@
 		xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
 		xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
 		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
-		id="identification-recording-service-adapter">
+		id="rapback-data-store-adapter">
 
 		<endpoint id="identificationRecordingAdapterEndpoint"
-			uri="cxf:bean:identificationRecordingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationRecordingAdapter.cxflogging}}" />
+			uri="cxf:bean:identificationRecordingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{rapbackDatastoreAdapter.cxflogging}}" />
 
 		<endpoint id="identificationRecordingFileEndpoint"
-			uri="file://{{identificationRecordingAdapter.inputDirectory}}/input?idempotent=true&amp;moveFailed={{identificationRecordingAdapter.inputDirectory}}/error&amp;move=processed/" />
+			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/input?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/error&amp;move=processed/" />
 
 		<endpoint id="invocationFailedFileEndpoint"
-			uri="file://{{identificationRecordingAdapter.inputDirectory}}/failed" />
+			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed" />
+			
+		<!-- Rapback Search Request Endpoints -->
+		<endpoint id="rapbackSearchRequestServiceEndpoint"
+			uri="cxf:bean:rapbackSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
+
+		<endpoint id="rapbackSearchResponseServiceEndpoint"
+			uri="cxf:bean:rapbackSearchResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
+
 
 		<!-- Incident Reporting Route -->
 		<route id="identification_recording_service">
@@ -152,6 +160,42 @@
 			<from uri="direct:sendIdentificationReportingResponseMessage"/>
 			<to uri="bean:identificationReportingResultMessageProcessor?method=sendResponseMessage"/>
 		</route>
+		
+		<!-- Rapback Search Request flow -->
+		<route id="rapbackSearchRequestRoute">
+			<from uri="rapbackSearchRequestServiceEndpoint" />
+			<onException>
+				<exception>java.lang.Exception</exception>
+				<handled><constant>true</constant></handled>
+				<camel:log message="An exception was thrown: ${exception.message}"
+					loggingLevel="WARN" />
+				<camel:to
+					uri="bean:rapbackSearchProcessor?method=buildErrorResponse" />
+				<log message="${body}" loggingLevel="DEBUG"></log>
+				<to uri="direct:rapbackSearchResponse" />
+			</onException>
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			<to uri="bean:rapbackSearchProcessor?method=returnRapbackSearchResponse" />
+			<log message="${body}"></log>
+			<to uri="direct:rapbackSearchResponse" />
+		</route>
+
+		<route id="rapbackSearchResponseRoute">
+			<from uri="direct:rapbackSearchResponse" />
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+
+			<camel:setHeader headerName="operationName">
+	            <constant>ReportOrganizationIdentificationResultsSearchResults</constant>
+	        </camel:setHeader>
+	        
+	        <camel:setHeader headerName="operationNamespace">
+	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0</constant>
+	        </camel:setHeader>
+			<to uri="rapbackSearchResponseServiceEndpoint" />
+			<log message="Called Rapback Search Response Handler" />
+		</route>
+
 	</camelContext>
 
 	<bean id="opertaionNameNotSupported" class="java.lang.IllegalArgumentException">

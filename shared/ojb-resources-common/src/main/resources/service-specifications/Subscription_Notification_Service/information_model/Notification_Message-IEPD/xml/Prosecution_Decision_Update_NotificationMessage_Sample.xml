@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<notfm-doc:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" xmlns:pdu="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0 ../xsd/impl/maine/disposition_codes.xsd">
+<notfm-doc:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:pdu="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd">
 	<notfm-ext:NotifyingProsecutionDecisionUpdate s:id="d1e1">
 		<notfm-ext:NotifyingActivityReportingSystemNameText>SystemName</notfm-ext:NotifyingActivityReportingSystemNameText>
 		<notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere</notfm-ext:NotifyingActivityReportingSystemURI>
@@ -26,16 +26,30 @@
 				<nc:IdentificationID>123456A</nc:IdentificationID>
 			</pdu:CycleTrackingIdentification>
 			<pdu:ProsecutionAttorneyOrganizationReference s:ref="d1e132"/>
-			<j:Charge>
+			<pdu:Charge>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>004290</nc:IdentificationID>
+						<nc:IdentificationID>0042901</nc:IdentificationID>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 				<j:ChargeTrackingIdentification>
-					<nc:IdentificationID>456</nc:IdentificationID>
+					<nc:IdentificationID>4561</nc:IdentificationID>
 				</j:ChargeTrackingIdentification>
-			</j:Charge>
+				<pdu:ChargeToCourtIndicator>true</pdu:ChargeToCourtIndicator>
+				<pdu:EndProsecutorChargeCycleIndicator>true</pdu:EndProsecutorChargeCycleIndicator>
+			</pdu:Charge>
+			<pdu:Charge>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>0042902</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>4562</nc:IdentificationID>
+				</j:ChargeTrackingIdentification>
+				<pdu:ChargeToCourtIndicator>true</pdu:ChargeToCourtIndicator>
+				<pdu:EndProsecutorChargeCycleIndicator>false</pdu:EndProsecutorChargeCycleIndicator>
+			</pdu:Charge>
 			<nc:Location s:id="LOC001">
 				<nc:LocationAddress>
 					<nc:StructuredAddress>
@@ -48,8 +62,6 @@
 					</nc:StructuredAddress>
 				</nc:LocationAddress>
 			</nc:Location>
-			<pdu:ChargeToCourtIndicator>true</pdu:ChargeToCourtIndicator>
-			<pdu:EndProsecutorChargeCycleIndicator>false</pdu:EndProsecutorChargeCycleIndicator>
 			<nc:ResidenceAssociation>
 				<nc:PersonReference s:ref="d1e162"/>
 				<nc:LocationReference s:ref="LOC001"/>

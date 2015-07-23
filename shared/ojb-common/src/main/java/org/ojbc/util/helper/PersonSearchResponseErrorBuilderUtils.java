@@ -28,9 +28,6 @@ import org.w3c.dom.Element;
 /**
  * This class will help person search response errors using DOM
  * 
- * 
- * @author yogeshchawla
- *
  */
 public class PersonSearchResponseErrorBuilderUtils {
 
@@ -67,5 +64,33 @@ public class PersonSearchResponseErrorBuilderUtils {
 		return doc;
 	}
 	
+	public static Document createPersonSearchError(String errorText, String systemName) throws Exception
+	{
+		
+		Document doc = null;
+		
+        DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
+        docBuilderFact.setNamespaceAware(true);
+        DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
+
+        doc = docBuilder.newDocument();
+        Element root = doc.createElementNS(OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_DOC, "PersonSearchResults");
+        doc.appendChild(root);
+        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_PERSON_SEARCH_RESULTS_DOC);
+        
+        Element searchResultsMetadata = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_EXT, "SearchResultsMetadata");
+		
+        Element searchRequestError = XmlUtils.appendElement(searchResultsMetadata, OjbcNamespaceContext.NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchRequestError");
+
+        Element searchRequestErrorText = XmlUtils.appendElement(searchRequestError, OjbcNamespaceContext.NS_SEARCH_REQUEST_ERROR_REPORTING, "ErrorText");
+        searchRequestErrorText.setTextContent(errorText);
+        
+        Element systemNameText = XmlUtils.appendElement(searchRequestError, OjbcNamespaceContext.NS_INTEL, "SystemName");
+        systemNameText.setTextContent(systemName);
+
+        OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);
+
+		return doc;
+	}
 
 }

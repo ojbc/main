@@ -526,8 +526,12 @@
 									<lexslib:SameAsDigestReference
 										lexslib:ref="OFFENSE01" />
 								</ndexia:ActivityAugmentation>
-								<j:IncidentStructuresEnteredQuantity>1.0
-								</j:IncidentStructuresEnteredQuantity>
+								<j:IncidentStructuresEnteredQuantity>1.0</j:IncidentStructuresEnteredQuantity>
+								<j:Statute>
+									<j:StatuteCodeIdentification>
+										<nc:IdentificationID>ABC123</nc:IdentificationID>
+									</j:StatuteCodeIdentification>
+								</j:Statute>
 								<ndexia:CriminalActivityCategoryText>crime type
 								</ndexia:CriminalActivityCategoryText>
 								<ndexia:OffenseEntryPoint>
@@ -649,6 +653,7 @@
 							</inc-ext:Offense>
 							<inc-ext:Offense>
 								<inc-ext:OffenseCodeText>OFFCODE01</inc-ext:OffenseCodeText>
+								<inc-ext:OffenseCategoryCodeText>OFFCATEGORYCODE01</inc-ext:OffenseCategoryCodeText>
 								<lexslib:SameAsDigestReference
 									lexslib:ref="OFFENSE01" />
 							</inc-ext:Offense>

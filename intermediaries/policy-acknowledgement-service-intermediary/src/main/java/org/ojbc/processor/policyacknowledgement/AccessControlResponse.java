@@ -18,8 +18,9 @@ package org.ojbc.processor.policyacknowledgement;
 
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.ojbc.policyacknowledgement.dao.Policy;
-import org.ojbc.policyacknowledgement.util.JSONUtil;
 
 public class AccessControlResponse {
     private Boolean accessDenied;
@@ -65,7 +66,6 @@ public class AccessControlResponse {
     }
 
     public String toString() {
-        String jsonString = JSONUtil.toJsonString(this); 
-        return "\n" + this.getClass().getSimpleName() + ":\n" + jsonString;
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

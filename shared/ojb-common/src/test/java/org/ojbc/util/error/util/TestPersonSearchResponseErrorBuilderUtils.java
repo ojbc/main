@@ -40,5 +40,19 @@ public class TestPersonSearchResponseErrorBuilderUtils {
         		"Subset/niem", "exchange_schema.xsd", doc);
 
 	}	
+	
+	@Test
+	public void testCreatePersonSearchError() throws Exception{
+						
+		
+		Document doc = PersonSearchResponseErrorBuilderUtils.createPersonSearchError("Error Text", "System Name");
+		
+		//XmlUtils.printNode(doc);		
+
+        // ensure the document we generated is valid by using the xsd to validate it
+        XmlUtils.validateInstance("service-specifications/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", 
+        		"Subset/niem", "exchange_schema.xsd", doc);
+
+	}	
 
 }

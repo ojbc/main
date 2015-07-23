@@ -104,6 +104,7 @@
 					<xsd:element ref="inc-ext:OffenseViolatedStatute" minOccurs="0"/>
 					<xsd:element ref="inc-ext:OffenseModifier" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:OffenseCodeText" minOccurs="0"/>
+					<xsd:element ref="inc-ext:OffenseCategoryCodeText" minOccurs="0"/>
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -546,6 +547,11 @@
 	<xsd:element name="OffenseCodeText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A records management system's representation of an offense code. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OffenseCategoryCodeText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A text representation of an offense category.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseModifierDescriptionText" type="nc:TextType">
