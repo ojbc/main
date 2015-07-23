@@ -16,20 +16,62 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
 import org.ojbc.bundles.adapters.fbi.ebts.FbiSubscriptionSearchResult;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
-
+import org.w3c.dom.Node;
 
 public class FbiSubSearchResultsProcessor {
-	
+		
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 	public FbiSubscriptionSearchResult processFbiSubResults(Document fbiSubResultDoc) throws Exception{
+								
+		FbiSubscriptionSearchResult fbiSubResult = new FbiSubscriptionSearchResult();
+				
+		Node fbiSubNode = XmlUtils.xPathNodeSearch(fbiSubResultDoc, 
+				"/ssr:SubscriptionSearchResults/ssr-ext:FBISubscription");
+		
+		Node dateRangeNode = XmlUtils.xPathNodeSearch(fbiSubNode, "nc:ActivityDateRange");
+				
+		String startDate = XmlUtils.xPathStringSearch(dateRangeNode, "nc:StartDate/nc:Date");
 						
-		XmlUtils.xPathStringSearch(fbiSubResultDoc, "");
+		if(StringUtils.isNotEmpty(startDate)){			
+			Date dStartDate = sdf.parse(startDate);			
+			fbiSubResult.setStartDate(dStartDate);
+		}
+						
+		String endDate = XmlUtils.xPathStringSearch(dateRangeNode, "nc:EndDate/nc:Date");
 		
-		XmlUtils.xPathNodeSearch(fbiSubResultDoc, "");
+		if(StringUtils.isNotEmpty(endDate)){
+			Date dEndDate = sdf.parse(endDate);
+			fbiSubResult.setEndDate(dEndDate);
+		}
 		
-		return null;
+		String fbiId = XmlUtils.xPathStringSearch(fbiSubNode, 
+				"ssr-ext:SubscriptionFBIIdentification/nc:IdentificationID");
+		
+		if(StringUtils.isNotEmpty(fbiId)){
+			fbiSubResult.setFbiId(fbiId);
+		}
+		
+		String reasonCode = XmlUtils.xPathStringSearch(fbiSubNode, "ssr-ext:CriminalSubscriptionReasonCode");
+		if(StringUtils.isNotEmpty(reasonCode)){
+			fbiSubResult.setReasonCode(reasonCode);
+		}
+		
+		String subTermDuration = XmlUtils.xPathStringSearch(fbiSubNode, 
+				"ssr-ext:SubscriptionTerm/jxdm41:TermDuration");
+		
+		if(StringUtils.isNotEmpty(subTermDuration)){
+			fbiSubResult.setTermDuration(subTermDuration);
+		}
+		
+		return fbiSubResult;
 	}
 
 }
