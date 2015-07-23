@@ -41,7 +41,7 @@
 
 	<!-- Identification Recording Adapter - hosted by the rapback data store adapter, called by the intermediary -->
 	<cxf:cxfEndpoint id="identificationRecordingAdapter"
-		address="${identificationRecordingAdapter.adapterEndpoint}"
+		address="${rapbackDatastoreAdapter.IdentificationRecordingEndpoint}"
 		wsdlURL="classpath:service-specifications/Identification_Recording_Service/schemas/SIP_WS_1.3/Identification_Recording_Service.wsdl"
 		serviceName="ojbc:Identification-Recording-ServiceService" endpointName="ojbc:Identification-Recording-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0">
@@ -49,14 +49,14 @@
          	<entry key="mtom-enabled" value="true"/>			
 			<entry key="dataFormat" value="PAYLOAD"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="identificationRecordingAdapterKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${identificationRecordingAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
 
 	<!-- Identification Response Handler - hosted by the intermediary, called by the rapback data store adapter -->
 	<cxf:cxfEndpoint id="identificationReportingResponseService"
-		address="${identificationRecordingAdapter.identificationReportingResponseServiceEndpoint}"
+		address="${rapbackDatastoreAdapter.identificationReportingResponseServiceEndpoint}"
 		wsdlURL="classpath:service-specifications/Identification_Reporting_Response_Service/schemas/SIP_WS_1.3/Identification_Reporting_Response_Service.wsdl"
 		serviceName="ojbc:Identification-Reporting-Response-ServiceService"
 		endpointName="ojbc:Identification-Reporting-Response-Secure-Service"
@@ -72,20 +72,60 @@
 		</cxf:features>
 	</cxf:cxfEndpoint>
 
+    <!-- 
+    	Rapback Search Request Service 
+    -->
+    <cxf:cxfEndpoint 
+        id="rapbackSearchRequestService"
+        address="${rapbackDatastoreAdapter.rapbackSearchRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Request_Service.wsdl"
+		serviceName="ojbc:Organization_Identification_Results_Search_Request_Service_Service" 
+		endpointName="ojbc:Organization_Identification_Results_Search_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>
+    
+    
+    <!-- 
+    	Rapback Search Response Service 
+    --> 
+    <cxf:cxfEndpoint 
+        id="rapbackSearchResponseService"
+		address="${rapbackDatastoreAdapter.rapbackSearchResponseEndpoint}"
+        wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Results_Service.wsdl"
+        serviceName="ojbc:OrganizationIdentificationResults_Search_Results_Service_Service"
+        endpointName="ojbc:OrganizationIdentificationResults_Search_Results_Secure_Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0"
+        >
+        <cxf:features>
+            <policy:policies>
+                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+                    <wsam:Addressing>
+                        <wsp:Policy/>
+                    </wsam:Addressing>
+                </wsp:Policy>
+            </policy:policies>
+        </cxf:features>
+    </cxf:cxfEndpoint>
+    
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
-                <entry key="${identificationRecordingAdapter.keystoreCertificateAlias}" value="${identificationRecordingAdapter.keyPassword}"/>
+                <entry key="${rapbackDatastoreAdapter.keystoreCertificateAlias}" value="${rapbackDatastoreAdapter.keyPassword}"/>
             </map>
         </property>
 	</bean>
    
-	<util:properties id="identificationRecordingAdapterKeystoreProperties">
+	<util:properties id="rapbackDatastoreAdapterKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${identificationRecordingAdapter.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${identificationRecordingAdapter.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${identificationRecordingAdapter.keystoreLocation}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${rapbackDatastoreAdapter.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${rapbackDatastoreAdapter.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${rapbackDatastoreAdapter.keystoreLocation}</prop>
 	</util:properties>	
       
 </beans>

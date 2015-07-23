@@ -36,6 +36,22 @@
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="nc:Person"/>
 					<xsd:element ref="nc:Organization" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonChargeAssociation" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ActivityChargeAssociation" maxOccurs="unbounded"/>
+					<xsd:element ref="cdr-report-ext:ChargeDispositionAssociation" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ChargeDispositionAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a charge and a disposition</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -63,6 +79,11 @@
 	<xsd:element name="SentenceCategory" abstract="true" substitutionGroup="j:SentenceAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A type of sentence.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeDispositionAssociation" type="cdr-report-ext:ChargeDispositionAssociationType" substitutionGroup="j:TermAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a charge and a disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

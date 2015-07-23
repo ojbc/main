@@ -68,7 +68,7 @@
 					<xsd:element ref="ident-ext:IdentificationApplicantOrganization"/>
 					<xsd:element ref="ident-ext:IdentificationResultsRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ident-ext:LinkedSystems" minOccurs="0"/>
-					<xsd:element ref="ident-ext:IdentificationReasonRepresentation" minOccurs="0"/>
+					<xsd:element ref="ident-ext:IdentificationReasonRepresentation"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

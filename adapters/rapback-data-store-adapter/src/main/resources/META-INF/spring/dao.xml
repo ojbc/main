@@ -31,12 +31,12 @@
        ">
 	
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-			<property name="driverClassName" value="${identificationRecordingAdapter.dataSource.driverClass}" />
-			<property name="url" value="${identificationRecordingAdapter.dataSource.jdbcUrl}" />
-			<property name="username" value="${identificationRecordingAdapter.dataSource.user}" />
-			<property name="password" value="${identificationRecordingAdapter.dataSource.password}" />
-			<property name="initialSize" value="${identificationRecordingAdapter.dataSource.minPoolSize}" />
-			<property name="maxActive" value="${identificationRecordingAdapter.dataSource.maxPoolSize}" />
+			<property name="driverClassName" value="${rapbackDatastoreAdapter.dataSource.driverClass}" />
+			<property name="url" value="${rapbackDatastoreAdapter.dataSource.jdbcUrl}" />
+			<property name="username" value="${rapbackDatastoreAdapter.dataSource.user}" />
+			<property name="password" value="${rapbackDatastoreAdapter.dataSource.password}" />
+			<property name="initialSize" value="${rapbackDatastoreAdapter.dataSource.minPoolSize}" />
+			<property name="maxActive" value="${rapbackDatastoreAdapter.dataSource.maxPoolSize}" />
 			<property name="validationQuery" value="select 1" />
 			<property name="testOnBorrow" value="true" />
 		</bean>

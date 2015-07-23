@@ -28,21 +28,8 @@
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-<!-- 	<bean id ="identificationRequestReportProcessor" class="org.ojbc.adapters.identificationrecording.processor.IdentificationRequestReportProcessor">
-		<property name="rapbacksDatastoreDAO" ref="rapbacksDatastoreDAOImpl"/>
-	</bean>
-
-	<bean id ="identificationReusltsReportProcessor" class="org.ojbc.adapters.identificationrecording.processor.IdentificationResultsReportProcessor">
-		<property name="rapbacksDatastoreDAO" ref="rapbacksDatastoreDAOImpl"/>
-	</bean>
-
-	<bean id="rapbacksDatastoreDAOImpl" class="org.ojbc.adapters.identificationrecording.dao.RapbacksDatastoreDAOImpl">
-        <property name="dataSource" ref="dataSource"/>
-	</bean>
-
- -->	
  	<context:annotation-config />
-	<context:component-scan base-package="org.ojbc.adapters.identificationrecording" />
+	<context:component-scan base-package="org.ojbc.adapters.rapbackdatastore" />
 
 	<!-- Transaction manager and scan for annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager"
@@ -53,5 +40,16 @@
 			<ref bean="dataSource" />
 		</property>
 	</bean>
+	
+	<bean id="namedParameterJdbcTemplate" 
+      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="jdbcTemplate" 
+      class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
 	
 </beans>
