@@ -114,6 +114,7 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="nc:DisciplinaryActionFee" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DisciplinaryActionRestitution" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -300,6 +301,11 @@
       <xs:extension base="niem-xs:string"/>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:element name="Activity" type="nc:ActivityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A single or set of related actions, events, or process steps.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ActivityAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for ActivityType.</xs:documentation>
@@ -373,6 +379,11 @@
   <xs:element name="DisciplinaryActionFee" type="nc:ObligationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A monetary fine assigned to a person as a disciplinary action.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DisciplinaryActionRestitution" type="nc:ObligationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A requirement for a person to financially or otherwise compensate another person as  a disciplinary action.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Disposition" type="nc:DispositionType" nillable="true">

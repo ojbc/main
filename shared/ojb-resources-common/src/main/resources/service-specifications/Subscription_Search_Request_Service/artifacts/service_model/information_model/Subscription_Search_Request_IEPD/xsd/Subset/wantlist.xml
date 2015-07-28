@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -17,29 +17,19 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
-targetNamespace="http://www.w3.org/2005/05/xmlmime">
-	<xs:attribute name="contentType">
-		<xs:simpleType>
-			<xs:restriction base="xs:string">
-				<xs:minLength value="3"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:attribute>
-	<xs:attribute name="expectedContentTypes" type="xs:string"/>
-	<xs:complexType name="base64Binary">
-		<xs:simpleContent>
-			<xs:extension base="xs:base64Binary">
-				<xs:attribute ref="xmime:contentType"/>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
-	<xs:complexType name="hexBinary">
-		<xs:simpleContent>
-			<xs:extension base="xs:hexBinary">
-				<xs:attribute ref="xmime:contentType"/>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
-</xs:schema>
+<w:WantList w:release="2.1-with-domain-updates" w:product="NIEM"
+  w:nillableDefault="true" xmlns:w="http://niem.gov/niem/wantlist/2.2"
+  xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
+  <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="j:PersonStateFingerprintIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="j:PersonType" w:isRequested="true">
+    <w:ElementInType w:name="j:PersonAugmentation" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:IdentificationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+</w:WantList>

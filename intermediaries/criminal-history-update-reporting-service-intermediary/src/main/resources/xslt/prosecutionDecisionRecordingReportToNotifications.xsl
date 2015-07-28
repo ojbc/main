@@ -156,7 +156,7 @@
 		<xsl:variable name="locationID" select="@s30:ref"/>
 		<nc:PersonResidenceAssociation>
 			<nc:PersonReference>
-				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/pdr-report-doc:ProsecutionDecisionRecordingReport/nc30:Person[@s30:id=$personID])"/></xsl:attribute>
+				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/pdr-report-doc:ProsecutionDecisionRecordingReport/nc30:Person)"/></xsl:attribute>
 			</nc:PersonReference>
 			<nc:LocationReference>
 				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/pdr-report-doc:ProsecutionDecisionRecordingReport/nc30:Location[@s30:id=$locationID])"/></xsl:attribute>

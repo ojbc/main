@@ -65,7 +65,7 @@ public class CycleTrackingIdentifierAssignmentReportTransformerServiceTest {
 		transformAndValidate(xslt, xml,"output/notifications/notification.xml", paramsMap);
 	}
 
-	/*@Test
+	@Test
 	public void courtDispositionRecordingReportToNotificationsTransform() throws Exception{
 				
 		String xml = XmlUtils.getRootNodeAsString(
@@ -75,11 +75,10 @@ public class CycleTrackingIdentifierAssignmentReportTransformerServiceTest {
 				"src/main/resources/xslt/courtDispositionRecordingReportToNotifications.xsl"));
 
 		Map<String, Object> paramsMap = new HashMap<String, Object>(1);
-		paramsMap.put("systemId", "{http://ojbc.org}CourtDispositionRecordingUpdate");
+		paramsMap.put("systemId", "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
 		
 		transformAndValidate(xslt, xml,"output/notifications/disposition-notification.xml", paramsMap);
 	}
-	
 	
 	@Test
 	public void prosecutionDecisionRecordingReportReportToNotificationsTransform() throws Exception{
@@ -91,10 +90,10 @@ public class CycleTrackingIdentifierAssignmentReportTransformerServiceTest {
 				"src/main/resources/xslt/prosecutionDecisionRecordingReportToNotifications.xsl"));
 
 		Map<String, Object> paramsMap = new HashMap<String, Object>(1);
-		paramsMap.put("systemId", "{http://ojbc.org}ProsecutionDecisionRecordingUpdate");
+		paramsMap.put("systemId", "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
 		
 		transformAndValidate(xslt, xml,"output/notifications/decision-notification.xml", paramsMap);
-	}*/
+	}
 
 	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedXMLPath, Map<String,Object> paramsMap) throws Exception {
 						
