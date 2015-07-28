@@ -50,10 +50,10 @@ public class Subject implements Serializable{
 		this.dob = dob; 
 	}
 	
-	public Integer getSubjectID() {
+	public Integer getSubjectId() {
 		return subjectId;
 	}
-	public void setSubjectID(Integer subjectID) {
+	public void setSubjectId(Integer subjectID) {
 		this.subjectId = subjectID;
 	}
 	public String getUcn() {
