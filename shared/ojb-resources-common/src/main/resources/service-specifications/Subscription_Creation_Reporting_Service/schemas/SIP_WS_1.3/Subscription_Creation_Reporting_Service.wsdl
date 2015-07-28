@@ -21,8 +21,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
-	xmlns:itl="http://biometrics.nist.gov/standard/2011"
+	xmlns:fed_subcr-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/SubscriptionCreationReportingService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
@@ -30,11 +29,11 @@
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://cjis.fbi.gov/fbi_ebts/10.0" schemaLocation="../../artifacts/service_model/information_model/Subscription_Creation_Reporting-IEPD/xsd/fbi_ebts/10.0/fbi_ebts.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0" schemaLocation="../../artifacts/service_model/information_model/Subscription_Creation_Report-IEPD/xsd/federal_subscription_creation_report_schema.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="FederalSubscriptionCreationReport">
-		<wsdl:part name="FederalSubscriptionCreationReport" element="itl:NISTBiometricInformationExchangePackage" />
+		<wsdl:part name="FederalSubscriptionCreationReport" element="fed_subcr-doc:FederalSubscriptionCreationReport" />
 	</wsdl:message>
 	<wsdl:portType name="Subscription-Creation-Report-Service">
 		<wsdl:operation name="ReportFederalSubscriptionCreation">
