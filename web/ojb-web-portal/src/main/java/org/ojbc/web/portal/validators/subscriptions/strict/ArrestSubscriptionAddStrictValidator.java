@@ -89,12 +89,7 @@ public class ArrestSubscriptionAddStrictValidator implements ArrestSubscriptionV
 			if(subEndDate.before(subStartDate)){
 				fieldToErrorMap.put("subscriptionEndDate", "End date may not occur before start date");
 			}									
-		}
-		
-		String fbiId = subscription.getFbiId();		
-		if(StringUtils.isEmpty(fbiId)){
-			fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
-		}
+		}		
 		
 		String purpose = subscription.getSubscriptionPurpose();
 		if(StringUtils.isEmpty(purpose)){

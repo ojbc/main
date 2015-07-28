@@ -643,29 +643,64 @@ public class SubscriptionsController {
 		validateSubscription(subscription, errors);										
 		
 		// retrieve any spring mvc validation errors from the controller
-		String sErrorsJsonArray = getBindingErrorsAsJsonArray(errors);
+		List<String> errorsList = getValidationBindingErrorsList(errors);
 						
 		// if no spring mvc validation errors were found, call the subscribe operation and see if there are errors 
 		// from the notification broker response
-		if(StringUtils.isBlank(sErrorsJsonArray)){		
+		if(errorsList == null || errorsList.isEmpty()){		
 			
 			try {
-				sErrorsJsonArray = processSubscribeOperation(subscription, samlElement);
+				errorsList = processSubscribeOperation(subscription, samlElement);										
 				
 			} catch (Exception e) {
 
-				List<String> errorsList = Arrays.asList("An error occurred while processing subscription");
-				JSONArray jsonErrorsArray = new JSONArray(errorsList);
-				
-				sErrorsJsonArray = jsonErrorsArray.toString();
-				
+				errorsList = Arrays.asList("An error occurred while processing subscription");				
+								
 				logger.severe("Failed processing subscription: " + e);
 			}									
 		}					
-		return sErrorsJsonArray;
+		
+		List<String> subWarningsList = getSubscriptionWarnings(subscription);
+		
+		String errorMsgsWarnMsgsJson = getErrorsWarningsJson(errorsList, subWarningsList);
+		
+		logger.info("\n\n Returning errors/warnings json:\n\n" + errorMsgsWarnMsgsJson);
+		
+		return errorMsgsWarnMsgsJson;
 	}		 
 	
+	List<String> getSubscriptionWarnings(Subscription subscription){
+		
+		List<String> warningList = new ArrayList<String>();
+			
+		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){			
+			
+			String fbiId = subscription.getFbiId(); 			
+		
+			if(StringUtils.isEmpty(fbiId)){
+				warningList.add("FBI ID missing. Subscription with the FBI is pending.");
+			}				
+		}			
+		
+		return warningList;
+	}
 	
+	String getErrorsWarningsJson(List<String> errorsList, List<String> warningsList){
+		
+		JSONObject errorsWarningsArraysJson = new JSONObject();
+		
+		for(String error : errorsList){
+			errorsWarningsArraysJson.append("errors", error);
+		}
+		
+		for(String warning : warningsList){
+			errorsWarningsArraysJson.append("warnings", warning);
+		}
+		
+		String sErrWarnJson = errorsWarningsArraysJson.toString();
+		
+		return sErrWarnJson;
+	}
 	
 	/**
 	 * @return
@@ -674,7 +709,7 @@ public class SubscriptionsController {
 	 * @throws Exception 
 	 * 		if no response received from subscribe operation
 	 */
-	private String processSubscribeOperation(Subscription subscription, Element samlElement) throws Exception{
+	private List<String> processSubscribeOperation(Subscription subscription, Element samlElement) throws Exception{
 				
 		if(subscription == null){
 			throw new Exception("subscription was null");
@@ -689,45 +724,43 @@ public class SubscriptionsController {
 				
 		logger.info("Subscribe operation returned faultableSoapResponse:  " + faultableSoapResponse);
 		
-		String sSubRespJsonErrorsArray = null;
+		List<String> subRespErrorsList = null;
 		
 		if(faultableSoapResponse != null){
 			
-			sSubRespJsonErrorsArray = getJsonErrorsFromSubscriptionResponse(faultableSoapResponse);		
+			subRespErrorsList = getErrorListFromSubscriptionResponse(faultableSoapResponse);		
 			
 		}else{
 			throw new Exception("FaultableSoapResponse was null(got no response from subscribe operation), which is required");
 		}
 				
-		return sSubRespJsonErrorsArray;				
+		return subRespErrorsList;				
 	}
 	
 	
 	/**
 	 * note default visibility so it can be unit-tested
 	 */
-	String getJsonErrorsFromSubscriptionResponse(FaultableSoapResponse faultableSoapResponse) throws Exception{
-		
-		String rErrorsJsonArray = null; 
-		
+	List<String> getErrorListFromSubscriptionResponse(FaultableSoapResponse faultableSoapResponse) throws Exception{
+				
 		if(faultableSoapResponse == null){
 			throw new Exception("FaultableSoapResponse was null");
 		}		
 				
+		List<String> errorsList = null;
+		
 		Document subResponseDoc = getSubscriptionResponseDoc(faultableSoapResponse);
 						
 		if(subResponseDoc != null){
 			
-			rErrorsJsonArray = getJsonErrorsFromSubscriptionResponse(subResponseDoc);	
+			errorsList = getErrorsFromSubscriptionResponse(subResponseDoc);	
 			
 		}else{
 			
-			List<String> errorsList = Arrays.asList("Did not receive subscription confirmation");
-			
-			rErrorsJsonArray = new JSONArray(errorsList).toString();
+			errorsList = Arrays.asList("Did not receive subscription confirmation");			
 		}	
 		
-		return rErrorsJsonArray;
+		return errorsList;
 	}
 	
 	
@@ -801,13 +834,11 @@ public class SubscriptionsController {
 	}
 	
 		 
-	private String getJsonErrorsFromSubscriptionResponse(Document subResponseDoc) throws Exception{
+	private List<String> getErrorsFromSubscriptionResponse(Document subResponseDoc) throws Exception{
 												
 		if(subResponseDoc == null){
 			throw new Exception("subResponseDoc was null");
 		}
-
-		String rErrorsJsonArray = null;
 		
 		SubscriptionResponseProcessor subResponseProcessor = new SubscriptionResponseProcessor();
 		
@@ -833,19 +864,11 @@ public class SubscriptionsController {
 				
 				responseErrorList.add(sError);
 				
-				logger.info("\n Parsed/received error: " + sError);
-				
+				logger.info("\n Parsed/received error: " + sError);				
 			}
 		}
-				
-		if(responseErrorList != null && !responseErrorList.isEmpty()){
-			
-			rErrorsJsonArray = new JSONArray(responseErrorList).toString();		
-			
-			logger.info("Returning json errors: " + rErrorsJsonArray);
-		}		
-		
-		return rErrorsJsonArray;
+						
+		return responseErrorList;
 	}
 	
 	private String getErrorFromResponse(SubscriptionResponse subResponse) throws Exception{
@@ -1369,17 +1392,20 @@ public class SubscriptionsController {
 		// get potential spring mvc controller validation errors from validating UI values
 		validateSubscriptionUpdate(subscription, errors);		
 						
-		String sErrorsJsonArray = getBindingErrorsAsJsonArray(errors);
+		List<String> errorsList = getValidationBindingErrorsList(errors);
 		
-		if(StringUtils.isBlank(sErrorsJsonArray)){
-											
+		if(errorsList == null || errorsList.isEmpty()){											
 			// get potential errors from processing subscribe operation
-			sErrorsJsonArray = processSubscribeOperation(subscription, samlElement);			
+			errorsList = processSubscribeOperation(subscription, samlElement);			
 		}
+						
+		List<String> warningsList = getSubscriptionWarnings(subscription);
 		
-		logger.info("updateSubscription(...) returning: " + sErrorsJsonArray);
+		String errorsWarningsJson = getErrorsWarningsJson(errorsList, warningsList);
 		
-		return sErrorsJsonArray;
+		logger.info("\n\n updateSubscription(...) returning errors/warnings json: \n" + errorsWarningsJson);
+		
+		return errorsWarningsJson;
 	}
 	
 	
@@ -1398,28 +1424,24 @@ public class SubscriptionsController {
 	}
 	
 	
-	private String getBindingErrorsAsJsonArray(BindingResult errors){
+	private List<String> getValidationBindingErrorsList(BindingResult errors){
 		
-		String sErrorsJsonArray = null;
+		List<String> errorMsgList = null;
 		
 		if(errors.hasErrors()){		
 			
 			List<ObjectError> bindingErrorsList = errors.getAllErrors();
 			
-			List<String> errorMsgList = new ArrayList<String>();
+			errorMsgList = new ArrayList<String>();
 			
 			for(ObjectError iObjError : bindingErrorsList){		
 				
 				String errorMsgCode = iObjError.getCode();		
 				
 				errorMsgList.add(errorMsgCode);
-			}
-			
-			JSONArray errorsJsonArray = new JSONArray(errorMsgList);
-			
-			sErrorsJsonArray = errorsJsonArray.toString();						
+			}								
 		}		
-		return sErrorsJsonArray;
+		return errorMsgList;
 	}
 		
 	

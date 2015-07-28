@@ -66,17 +66,7 @@
   		$.get("#springUrl('/subscriptions/saveSubscription')", 
   			formData,
   			function(data){		
-  					  		  	
-  				var errorString = '';			
-  				
-  				if(data != null && data != ''){
-					$.each(JSON.parse(data), function( index, value ) {												
-						errorString += '\n ' + value;																											
-					});
-					alert(errorString);				  							  				
-  				}else{
-					refreshAfterSaveSubscription();
-				}														  						  						  				  			
+  				handleDisplayAfterSave(data);  														  						  						  				  			
   			},
   			"text"
   		).fail(ojbc.displayFailMessage);		  
@@ -91,21 +81,43 @@
 		
   		$.get("#springUrl('/subscriptions/saveSubscription')", 
   			formData,
-  			function(data){		
-  					  		  	
-  				var errorString = '';			
-  				
-  				if(data != null && data != ''){
-					$.each(JSON.parse(data), function( index, value ) {												
-						errorString += '\n ' + value;																											
-					});
-					alert(errorString);				  							  				
-  				}else{
-					refreshAfterSaveSubscription();
-				}														  						  						  				  			
+  			function(data){		  					  		  			  	
+				handleDisplayAfterSave(data);  					  		  									  						  						  				  			
   			},
   			"text"
   		).fail(ojbc.displayFailMessage);				  				  									  	  
+	  }
+	  
+	  
+	  function handleDisplayAfterSave(messagesJson){
+	  
+	  		var messagesJsFromSubscribeJson = ''; 
+			var errorsArray = '';
+			var warningsArray = '';
+			var displayMessage = '';  					  		  	
+				  		  	
+			if(messagesJson != null && messagesJson != ''){  				  				
+			  messagesJsFromSubscribeJson = JSON.parse(messagesJson);  					  					  					
+			}				
+			if(messagesJsFromSubscribeJson != null && messagesJsFromSubscribeJson != ''){
+			  errorsArray = messagesJsFromSubscribeJson.errors;
+			  warningsArray = messagesJsFromSubscribeJson.warnings;	
+			}								
+			if(errorsArray != null && errorsArray != ''){
+				$.each(errorsArray, function( index, value ) {												
+				  displayMessage += '\n ' + value;																											
+				});
+				
+				alert(displayMessage);				                            
+			}else{				
+			  if(warningsArray != null && warningsArray != ''){
+				    $.each(warningsArray, function( index, value ) {												
+				    	displayMessage += '\n ' + value;																											
+				  	});
+				  	alert(displayMessage);
+			   }				
+			   refreshAfterSaveSubscription();
+			}		  	  
 	  }
 	  
 	  
@@ -123,17 +135,7 @@
   		$.get("#springUrl('/subscriptions/saveSubscription')", 
   			formData,
   			function(data){		
-  					  		  	
-  				var errorString = '';			
-  				
-  				if(data != null && data != ''){
-					$.each(JSON.parse(data), function( index, value ) {												
-						errorString += '\n ' + value;																											
-					});
-					alert(errorString);				  							  				
-  				}else{
-					refreshAfterSaveSubscription();
-				}														  						  						  				  			
+  				handleDisplayAfterSave(data);														  						  						  				  			
   			},
   			"text"
   		).fail(ojbc.displayFailMessage);		  

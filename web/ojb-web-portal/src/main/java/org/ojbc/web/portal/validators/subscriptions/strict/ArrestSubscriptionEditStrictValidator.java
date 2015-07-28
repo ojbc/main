@@ -95,12 +95,7 @@ public class ArrestSubscriptionEditStrictValidator implements ArrestSubscription
 		String purpose = subscription.getSubscriptionPurpose();
 		if(StringUtils.isEmpty(purpose)){
 			fieldToErrorMap.put("subscriptionPurpose", "Purpose must be specified");
-		}
-		
-		String fbiId = subscription.getFbiId();		
-		if(StringUtils.isEmpty(fbiId)){
-			fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
-		}
+		}		
 			
 		String caseId = subscription.getCaseId();		
 		if(StringUtils.isEmpty(caseId)){
