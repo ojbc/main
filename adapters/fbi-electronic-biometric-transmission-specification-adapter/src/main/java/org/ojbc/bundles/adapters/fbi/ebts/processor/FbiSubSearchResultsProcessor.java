@@ -20,12 +20,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.ojbc.bundles.adapters.fbi.ebts.FbiSubscriptionSearchResult;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 public class FbiSubSearchResultsProcessor {
+	
+	private Logger logger = Logger.getLogger(FbiSubSearchResultsProcessor.class);
 		
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
