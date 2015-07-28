@@ -55,9 +55,25 @@
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
+	<!-- binding that doesn't require a SAML assertion -->
+	<wsdl:binding name="Subscription_Search_Request_ServiceSOAPBinding"
+		type="tns:Subscription_Search_Request_Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
+		<wsdl:operation name="SubmitSubscriptionSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0/SubmitSubscriptionSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
 	<wsdl:service name="Subscription_Search_Request_Service_Service">
-		<wsdl:port binding="tns:Subscription_Search_Request_Secure_ServiceSOAPBinding"
-			name="Subscription_Search_Request_Secure_Service">
+		<wsdl:port binding="tns:Subscription_Search_Request_Secure_ServiceSOAPBinding" name="Subscription_Search_Request_Secure_Service">
+			<soap:address location="http://localhost/secure" />
+		</wsdl:port>
+		<wsdl:port binding="tns:Subscription_Search_Request_ServiceSOAPBinding" name="Subscription_Search_Request_Service">
 			<soap:address location="http://localhost/secure" />
 		</wsdl:port>
 	</wsdl:service>

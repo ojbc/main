@@ -36,6 +36,11 @@
 				</j:PersonFBIIdentification>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A123456</nc:IdentificationID>
+					<ident-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>true</ident-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>
+				</j:PersonStateFingerprintIdentification>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>L456789</nc:IdentificationID>
+					<ident-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</ident-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<ident-ext:PersonTrackingIdentidication>
@@ -58,14 +63,5 @@
 		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
 	</ident-ext:FBIIdentityHistorySummaryDocument>
-	<ident-ext:LinkedSystems>
-		<intel:SystemIdentification>
-			<nc:IdentificationID>SYSTEM_ID_01</nc:IdentificationID>
-			<nc:SystemName>SYSTEM_NAME_01</nc:SystemName>
-		</intel:SystemIdentification>
-		<intel:SystemIdentification>
-			<nc:IdentificationID>SYSTEM_ID_02</nc:IdentificationID>
-			<nc:SystemName>SYSTEM_NAME_02</nc:SystemName>
-		</intel:SystemIdentification>
-	</ident-ext:LinkedSystems>
+	<ident-ext:CriminalIdentificationReasonCode>CAR</ident-ext:CriminalIdentificationReasonCode>
 </pidres-doc:PersonFederalIdentificationResults>

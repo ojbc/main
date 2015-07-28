@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -17,29 +17,11 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
-targetNamespace="http://www.w3.org/2005/05/xmlmime">
-	<xs:attribute name="contentType">
-		<xs:simpleType>
-			<xs:restriction base="xs:string">
-				<xs:minLength value="3"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:attribute>
-	<xs:attribute name="expectedContentTypes" type="xs:string"/>
-	<xs:complexType name="base64Binary">
-		<xs:simpleContent>
-			<xs:extension base="xs:base64Binary">
-				<xs:attribute ref="xmime:contentType"/>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
-	<xs:complexType name="hexBinary">
-		<xs:simpleContent>
-			<xs:extension base="xs:hexBinary">
-				<xs:attribute ref="xmime:contentType"/>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
-</xs:schema>
+
+<!-- The idea here is the content of the SAML assertion would drive the request -->
+
+<ssreq-doc:SubscriptionSearchRequest
+	xmlns:ssreq-doc="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
+	xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0 ../xsd/exchange_schema.xsd "/>
