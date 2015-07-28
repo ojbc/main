@@ -34,11 +34,11 @@ import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.XsltTransformer;
 
-public class CycleTrackingIdentifierAssignmentReportTransformerServiceTest {
+public class CriminalHistoryUpdateReportingServiceTransformerTest {
 				
 	private XsltTransformer xsltTransformer; 
 		
-	private Logger logger = Logger.getLogger(CycleTrackingIdentifierAssignmentReportTransformerServiceTest.class.getName());
+	private Logger logger = Logger.getLogger(CriminalHistoryUpdateReportingServiceTransformerTest.class.getName());
 
 	@Before
 	public void setup() throws Exception {
