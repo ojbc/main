@@ -24,9 +24,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:cxf="http://camel.apache.org/schema/cxf" 
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
+	xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"	
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
@@ -103,7 +103,20 @@
 			
 			<camel:to uri="bean:cycleIdToNotifXsltParamMapper?method=populateHeaderWithXsltParams" />
 			
-			<camel:to uri="xslt:xslt/cycleTrackingIdentifierAssignmentReportToNotifications.xsl"/>
+			<camel:filter>
+				<camel:xpath>/crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport</camel:xpath>
+				<camel:to uri="xslt:xslt/cycleTrackingIdentifierAssignmentReportToNotifications.xsl"/>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:xpath>/cdr-report-doc:CourtDispositionRecordingReport</camel:xpath>
+				<camel:to uri="xslt:xslt/courtDispositionRecordingReportToNotifications.xsl"/>
+			</camel:filter>
+			
+			<camel:filter>
+				<camel:xpath>/pdr-report-doc:ProsecutionDecisionRecordingReport</camel:xpath>
+				<camel:to uri="xslt:xslt/prosecutionDecisionRecordingReportToNotifications.xsl"/>
+			</camel:filter>
 			
 			<camel:log message="After xslt transformation: \n ${body}" />
 						
