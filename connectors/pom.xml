@@ -31,6 +31,7 @@
   </parent>
 
   <modules>
+    <module>disposition-reporting-service-connector</module>
     <module>incident-reporting-service-connector</module>
     <module>ojb-web-application-connector-extension</module>
     <module>ojb-web-application-connector</module>
