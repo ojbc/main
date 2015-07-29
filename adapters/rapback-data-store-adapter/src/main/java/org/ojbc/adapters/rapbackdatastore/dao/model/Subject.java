@@ -40,6 +40,7 @@ public class Subject implements Serializable{
 	
 	public Subject(Integer subjectId, String ucn, String criminalSid, 
 			String civilSid, String firstName, String lastName, String middleInitial, DateTime dob){
+		this();
 		this.subjectId = subjectId; 
 		this.ucn = ucn; 
 		this.criminalSid = criminalSid; 
@@ -50,10 +51,10 @@ public class Subject implements Serializable{
 		this.dob = dob; 
 	}
 	
-	public Integer getSubjectID() {
+	public Integer getSubjectId() {
 		return subjectId;
 	}
-	public void setSubjectID(Integer subjectID) {
+	public void setSubjectId(Integer subjectID) {
 		this.subjectId = subjectID;
 	}
 	public String getUcn() {
