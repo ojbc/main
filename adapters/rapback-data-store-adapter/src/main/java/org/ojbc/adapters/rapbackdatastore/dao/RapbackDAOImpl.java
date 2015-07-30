@@ -244,7 +244,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String CIVIL_INITIAL_RAP_SHEET_INSERT="insert into CIVIL_INITIAL_RAP_SHEET "
-			+ "(CIVIL_INITIAL_RESULT_ID, RAP_SHEET, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) "
+			+ "(CIVIL_INITIAL_RESULT_ID, RAP_SHEET, TRANSACTION_TYPE) "
 			+ "values (?, ?, ?)";
 	@Override
 	public Integer saveCivilInitialRapSheet(
