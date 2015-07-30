@@ -32,6 +32,8 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +97,12 @@ public class RapbackDAOImplTest {
 
 	@Test
 	@DirtiesContext
-	public void testSaveIdentificationTransaction() throws Exception {
+	public void testSaveIdentificationTransactionWithSubject() throws Exception {
+		saveIdentificationTransaction(); 
+		
+	}
+
+	private void saveIdentificationTransaction() {
 		IdentificationTransaction transaction = new IdentificationTransaction(); 
 		transaction.setTransactionNumber("000001820140729014008340000");
 		transaction.setOtn("12345");
@@ -112,8 +119,53 @@ public class RapbackDAOImplTest {
 		
 		transaction.setSubject(subject);
 		
+		rapbackDAO.saveIdentificationTransaction(transaction);
+	}
+
+	@Test
+	@DirtiesContext
+	public void testSaveIdentificationTransactionWithOutSubject() throws Exception {
+		IdentificationTransaction transaction = new IdentificationTransaction(); 
+		transaction.setTransactionNumber("000001820140729014008340000");
+		transaction.setOtn("12345");
+		transaction.setOwnerOri("68796860");
+		transaction.setOwnerProgramOca("owner-program-oca");
+		
 		rapbackDAO.saveIdentificationTransaction(transaction); 
 		
 	}
-
+	
+	@Test
+	@DirtiesContext
+	public void testSaveCivilFingerPrints() throws Exception {
+		
+		saveIdentificationTransaction();
+		
+		CivilFingerPrints civilFingerPrints = new CivilFingerPrints(); 
+		civilFingerPrints.setTransactionNumber("000001820140729014008340000");
+		civilFingerPrints.setFingerPrintsFile("FingerPrints".getBytes());
+		civilFingerPrints.setTransactionType("Transaction Type");
+		civilFingerPrints.setFingerPrintsType("FBI");
+		
+		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
+		assertNotNull(pkId);
+		assertEquals(1, pkId.intValue()); 
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testSaveCriminalFingerPrints() throws Exception {
+		saveIdentificationTransaction();
+		
+		CriminalFingerPrints criminalFingerPrints = new CriminalFingerPrints(); 
+		criminalFingerPrints.setTransactionNumber("000001820140729014008340000");
+		criminalFingerPrints.setFingerPrintsFile("FingerPrints".getBytes());
+		criminalFingerPrints.setTransactionType("Transaction Type");
+		criminalFingerPrints.setFingerPrintsType("FBI");
+		
+		Integer pkId = rapbackDAO.saveCriminalFingerPrints(criminalFingerPrints);
+		assertNotNull(pkId);
+		assertEquals(1, pkId.intValue()); 
+	}
+	
 }
