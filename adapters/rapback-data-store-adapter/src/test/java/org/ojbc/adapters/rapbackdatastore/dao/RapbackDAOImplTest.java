@@ -33,6 +33,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
@@ -102,7 +103,11 @@ public class RapbackDAOImplTest {
 	@DirtiesContext
 	public void testSaveIdentificationTransactionWithSubject() throws Exception {
 		saveIdentificationTransaction(); 
-		
+		IdentificationTransaction identificationTransaction = 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+		assertNotNull(identificationTransaction); 
+		assertNotNull(identificationTransaction.getSubject()); 
+		log.info(identificationTransaction.toString());
 	}
 
 	private void saveIdentificationTransaction() {
@@ -190,6 +195,31 @@ public class RapbackDAOImplTest {
 	
 		criminalInitialResults.setSubject(identificationTransaction.getSubject());
 		Integer pkId = rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
+		assertNotNull(pkId);
+		assertEquals(1, pkId.intValue()); 
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testSaveCivilInitialResults() throws Exception {
+		saveIdentificationTransaction();
+		
+		IdentificationTransaction identificationTransaction = 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+		
+		assertNotNull(identificationTransaction); 
+		assertNotNull(identificationTransaction.getSubject()); 
+		
+		CivilInitialResults civilInitialResults = new CivilInitialResults(); 
+		civilInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
+		civilInitialResults.setMatch(Boolean.TRUE);
+		civilInitialResults.setCurrentState("current_state");
+		civilInitialResults.setTransactionType("Transaction Type");
+		civilInitialResults.setCivilRapBackCategory("I");
+		civilInitialResults.setResultsSender("FBI");
+		
+		civilInitialResults.setSubject(identificationTransaction.getSubject());
+		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		assertNotNull(pkId);
 		assertEquals(1, pkId.intValue()); 
 	}
