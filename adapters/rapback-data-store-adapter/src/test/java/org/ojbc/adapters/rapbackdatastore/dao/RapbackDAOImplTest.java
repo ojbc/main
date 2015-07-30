@@ -33,6 +33,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
@@ -222,6 +223,16 @@ public class RapbackDAOImplTest {
 		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		assertNotNull(pkId);
 		assertEquals(1, pkId.intValue()); 
+		
+		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
+		civilInitialRapSheet.setCivilIntitialResultId(1);
+		civilInitialRapSheet.setRapSheet("rapsheet".getBytes());
+		civilInitialRapSheet.setTransactionType("Transaction Type");
+		
+		Integer civilInitialRapSheetPkId = 
+				rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);  
+		assertNotNull(civilInitialRapSheetPkId);
+		assertEquals(1, civilInitialRapSheetPkId.intValue()); 
 	}
 	
 }
