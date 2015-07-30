@@ -104,19 +104,10 @@ public class RapbackDAOImpl implements RapbackDAO {
 	private final class SubjectRowMapper implements RowMapper<Subject> {
 		public Subject mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
-			Subject subject = new Subject();
-	
-	    subject.setSubjectId(rs.getInt("subject_id"));
-	    subject.setUcn(rs.getString("ucn"));
-	    subject.setCriminalSid(rs.getString("CRIMINAL_SID"));
-	    subject.setCivilSid(rs.getString("CIVIL_SID"));
-	    subject.setFirstName(rs.getString("FIRST_NAME")); 
-	    subject.setLastName(rs.getString("LAST_NAME")); 
-	    subject.setMiddleInitial(rs.getString("MIDDLE_INITIAL")); 
-	    subject.setDob(toDateTime(rs.getDate("DOB")));
-	
+		Subject subject = buildSubject(rs);
 	    return subject;
 		}
+
 	}
 
 	private DateTime toDateTime(Date date){
@@ -407,6 +398,55 @@ public class RapbackDAOImpl implements RapbackDAO {
 
          return keyHolder.getKey().intValue();
 	}
+	
+	final static String ID_TRANSACTION_SELECT_BY_TRANSACTION_NUMBER = 
+			" SELECT * FROM identification_transaction i "
+			+ "LEFT JOIN fbi_rap_back_subject s ON s.subject_id = i.subject_id "
+			+ "WHERE transaction_number = ?";
+	
+	@Override
+	public IdentificationTransaction getIdentificationTransaction(
+			String transactionNumber) {
+		List<IdentificationTransaction> transactions = 
+				jdbcTemplate.query(ID_TRANSACTION_SELECT_BY_TRANSACTION_NUMBER, 
+						new IdentificationTransactionRowMapper(), transactionNumber);
+		return DataAccessUtils.singleResult(transactions);
+	}
 
+	private final class IdentificationTransactionRowMapper 
+		implements RowMapper<IdentificationTransaction> {
+		public IdentificationTransaction mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			IdentificationTransaction identificationTransaction = new IdentificationTransaction();
+			identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
+			identificationTransaction.setOtn(rs.getString("otn"));
+			identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp_received")));
+			identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
+			identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
+
+			Integer subjectId = rs.getInt("subject_id");
+			
+			if (subjectId != null){
+				Subject subject = buildSubject(rs);
+				identificationTransaction.setSubject(subject);
+			}
+			
+			return identificationTransaction;
+		}
+	}
+	
+	private Subject buildSubject(ResultSet rs) throws SQLException {
+		Subject subject = new Subject();
+
+		subject.setSubjectId(rs.getInt("subject_id"));
+		subject.setUcn(rs.getString("ucn"));
+		subject.setCriminalSid(rs.getString("CRIMINAL_SID"));
+		subject.setCivilSid(rs.getString("CIVIL_SID"));
+		subject.setFirstName(rs.getString("FIRST_NAME")); 
+		subject.setLastName(rs.getString("LAST_NAME")); 
+		subject.setMiddleInitial(rs.getString("MIDDLE_INITIAL")); 
+		subject.setDob(toDateTime(rs.getDate("DOB")));
+		return subject;
+	}
 	
 }
