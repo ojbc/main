@@ -211,7 +211,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(CRIMINAL_FBI_SUBSCRIPTION_RECORD_INSERT, 
+        	                connection.prepareStatement(CIVIL_FINGER_PRINTS_INSERT, 
         	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "TRANSACTION_TYPE", "FINGER_PRINTS_TYPE"});
         	            ps.setString(1, civilFingerPrints.getTransactionNumber());
         	            ps.setBlob(2, new SerialBlob(civilFingerPrints.getFingerPrintsFile()));
@@ -238,7 +238,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(CRIMINAL_FBI_SUBSCRIPTION_RECORD_INSERT, 
+        	                connection.prepareStatement(CRIMINAL_FINGER_PRINTS_INSERT, 
         	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "TRANSACTION_TYPE", "FINGER_PRINTS_TYPE"});
         	            ps.setString(1, criminalFingerPrints.getTransactionNumber());
         	            ps.setBlob(2, new SerialBlob(criminalFingerPrints.getFingerPrintsFile()));
