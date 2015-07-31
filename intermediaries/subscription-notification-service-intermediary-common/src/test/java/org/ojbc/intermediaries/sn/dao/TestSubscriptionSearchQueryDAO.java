@@ -41,10 +41,10 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -540,7 +540,7 @@ public class TestSubscriptionSearchQueryDAO {
         postRecordCount = 0;
         while (rs.next()) {
             postRecordCount++;
-            assertEquals("email", rs.getString("NOTIFICATIONMECHANISMTYPE"));
+            assertEquals(NotificationConstants.NOTIFICATION_MECHANISM_EMAIL, rs.getString("NOTIFICATIONMECHANISMTYPE"));
             assertEquals("none@none.com", rs.getString("NOTIFICATIONADDRESS"));
         }
 
@@ -595,7 +595,7 @@ public class TestSubscriptionSearchQueryDAO {
         int recordCount = 0;
         while (rs.next()) {
             recordCount++;
-            assertEquals("email", rs.getString("NOTIFICATIONMECHANISMTYPE"));
+            assertEquals(NotificationConstants.NOTIFICATION_MECHANISM_EMAIL, rs.getString("NOTIFICATIONMECHANISMTYPE"));
             String addy = rs.getString("NOTIFICATIONADDRESS");
             assertTrue(emailAddyList.contains(addy));
             emailAddyList.remove(addy);
