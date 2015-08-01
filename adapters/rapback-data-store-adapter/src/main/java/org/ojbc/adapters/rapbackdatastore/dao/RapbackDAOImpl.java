@@ -67,8 +67,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 	
 	final static String SUBJECT_INSERT="INSERT into FBI_RAP_BACK_SUBJECT "
-			+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB) "
-			+ "values (?, ?, ?, ?, ?, ?, ?)";
+			+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB, SEX_CODE) "
+			+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
 	@Override
 	public Integer saveSubject(final Subject subject) {
         log.debug("Inserting row into FBI_RAP_BACK_SUBJECT table : " + subject);
@@ -86,6 +86,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            ps.setString(5, subject.getLastName());
         	            ps.setString(6, subject.getMiddleInitial());
         	            ps.setDate(7, new java.sql.Date(subject.getDob().getMillis()));
+        	            ps.setString(8, subject.getSexCode());
         	            return ps;
         	        }
         	    },
@@ -446,6 +447,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		subject.setLastName(rs.getString("LAST_NAME")); 
 		subject.setMiddleInitial(rs.getString("MIDDLE_INITIAL")); 
 		subject.setDob(toDateTime(rs.getDate("DOB")));
+		subject.setSexCode(rs.getString("SEX_CODE"));
 		return subject;
 	}
 	
