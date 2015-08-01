@@ -87,6 +87,7 @@ public class RapbackDAOImplTest {
 		subject.setFirstName("Homer");
 		subject.setLastName("Simpson");
 		subject.setMiddleInitial("W");
+		subject.setSexCode("M");
 		
 		Integer subjectId = rapbackDAO.saveSubject(subject); 
 		
@@ -97,7 +98,8 @@ public class RapbackDAOImplTest {
 		log.info(persistedSubject.toString());
 		
 		assertEquals(persistedSubject.toString(), "Subject[subjectId=1,ucn=B1234567,criminalSid=<null>,"
-				+ "civilSid=B1234567,firstName=Homer,lastName=Simpson,middleInitial=W,dob=1990-05-12T00:00:00.000-05:00]");
+				+ "civilSid=B1234567,firstName=Homer,lastName=Simpson,middleInitial=W,"
+				+ "dob=1990-05-12T00:00:00.000-05:00,sexCode=M]");
 	}
 
 	@Test
