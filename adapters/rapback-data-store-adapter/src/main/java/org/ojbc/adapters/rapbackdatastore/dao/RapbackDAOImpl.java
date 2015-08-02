@@ -85,7 +85,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            ps.setString(4, subject.getFirstName());
         	            ps.setString(5, subject.getLastName());
         	            ps.setString(6, subject.getMiddleInitial());
-        	            ps.setDate(7, new java.sql.Date(subject.getDob().getMillis()));
+        	            ps.setDate(7, toSqlDate(subject.getDob()));
         	            ps.setString(8, subject.getSexCode());
         	            return ps;
         	        }
@@ -113,6 +113,10 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	private DateTime toDateTime(Date date){
 		return date == null? null : new DateTime(date); 
+	}
+	
+	private java.sql.Date toSqlDate(DateTime date){
+		return date == null? null : new java.sql.Date(date.getMillis()); 
 	}
 
 	final static String IDENTIFICATION_TRANSACTION_INSERT="INSERT into IDENTIFICATION_TRANSACTION "
