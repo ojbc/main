@@ -120,7 +120,7 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testIdentificationRecordingServiceError() throws Exception
 	{
-    	Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request.xml");
+    	Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request-civil.xml");
 	    
 	    //Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
@@ -145,7 +145,7 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testIdentificationRecordingRequestServiceSuccess() throws Exception
 	{
-		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request.xml");
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request-civil.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
 		
@@ -172,7 +172,7 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testIdentificationRecordingResultServiceSuccess() throws Exception
 	{
-		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification.xml");
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-civil.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
 		
