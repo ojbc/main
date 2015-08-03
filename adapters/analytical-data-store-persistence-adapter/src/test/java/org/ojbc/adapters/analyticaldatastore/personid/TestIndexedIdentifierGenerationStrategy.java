@@ -86,7 +86,14 @@ public class TestIndexedIdentifierGenerationStrategy {
 		attributeMap.put(IndexedIdentifierGenerationStrategy.FIRST_NAME_FIELD, "Zeke");
 		id2 = strategy.generateIdentifier(attributeMap);
 		assertEquals(id, id2);
-		
+
+		setUp();
+		strategy.setResolveEquivalentNames(true);
+		attributeMap.put(IndexedIdentifierGenerationStrategy.MIDDLE_NAME_FIELD, "Herbert");
+		id = strategy.generateIdentifier(attributeMap);
+		attributeMap.put(IndexedIdentifierGenerationStrategy.MIDDLE_NAME_FIELD, "");
+		id2 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id, id2);
 	}
 	
 	@Test
