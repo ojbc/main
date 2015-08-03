@@ -59,7 +59,6 @@
 				<b:Message>
 					<notification:NotificationMessage>
 						<notificationExt:NotifyingCourtDispositionUpdate>
-							<xsl:attribute name="s:id"><xsl:value-of select="generate-id()"/></xsl:attribute>
 							<notificationExt:NotifyingActivityReportingSystemNameText>
 								<xsl:value-of select="$systemId"/>
 							</notificationExt:NotifyingActivityReportingSystemNameText>
@@ -68,9 +67,10 @@
 								<xsl:apply-templates select="." mode="update"/>
 							</cdu:CourtDispositionUpdate>
 						</notificationExt:NotifyingCourtDispositionUpdate>
-						<xsl:apply-templates select="j50:Subject/nc30:RoleOfPerson[@s30:ref]" mode="activityInvolvedPerson"/>
 						<xsl:apply-templates select="nc30:Person" mode="person"/>
 						<xsl:apply-templates select="nc30:Organization"/>
+						<xsl:apply-templates select="." mode="person-charge"/>
+						<xsl:apply-templates select="." mode="activity-charge"/>
 					</notification:NotificationMessage>
 				</b:Message>
 			</b:NotificationMessage>
@@ -84,6 +84,7 @@
 	</xsl:template>
 	<xsl:template match="j50:Charge">
 		<j:Charge>
+			<xsl:attribute name="s:id"><xsl:value-of select="generate-id(.)"/></xsl:attribute>
 			<xsl:apply-templates select="j50:ChargeStatute"/>
 			<xsl:apply-templates select="j50:ChargeTrackingIdentification"/>
 		</j:Charge>
@@ -106,6 +107,7 @@
 	</xsl:template>
 	<xsl:template match="j50:Sentence">
 		<cdu:Sentence>
+			<xsl:attribute name="s:id"><xsl:value-of select="generate-id(.)"/></xsl:attribute>
 			<xsl:apply-templates select="nc30:ActivityDate"/>
 			<xsl:apply-templates select="j50:SentenceCondition"/>
 			<xsl:apply-templates select="j50:SentenceGroupingText"/>
@@ -117,6 +119,7 @@
 	</xsl:template>
 	<xsl:template match="nc30:Disposition">
 		<cdu:Disposition>
+			<xsl:attribute name="s:id"><xsl:value-of select="generate-id(.)"/></xsl:attribute>
 			<xsl:apply-templates select="nc30:DispositionDate"/>
 			<xsl:apply-templates select="nc30:DispositionEntity"/>
 			<xsl:apply-templates select="cdr-report-ext:DispositionIdentification"/>
@@ -152,12 +155,23 @@
 	</xsl:template>
 	<xsl:template match="nc30:ConditionDisciplinaryAction">
 		<nc:ConditionDisciplinaryAction>
-			<nc:DisciplinaryActionFee>
-				<nc:ObligationDueAmount>
-					<xsl:value-of select="."/>
-				</nc:ObligationDueAmount>
-			</nc:DisciplinaryActionFee>
+			<xsl:apply-templates select="nc30:DisciplinaryActionFee/nc30:ObligationDueAmount/nc30:Amount"/>
+			<xsl:apply-templates select="nc30:DisciplinaryActionRestitution/nc30:ObligationDueAmount/nc30:Amount"/>
 		</nc:ConditionDisciplinaryAction>
+	</xsl:template>
+	<xsl:template match="nc30:DisciplinaryActionFee/nc30:ObligationDueAmount/nc30:Amount">
+		<nc:DisciplinaryActionFee>
+			<nc:ObligationDueAmount>
+				<xsl:value-of select="."/>
+			</nc:ObligationDueAmount>
+		</nc:DisciplinaryActionFee>
+	</xsl:template>
+	<xsl:template match="nc30:DisciplinaryActionRestitution/nc30:ObligationDueAmount/nc30:Amount">
+		<nc:DisciplinaryActionRestitution>
+			<nc:ObligationDueAmount>
+				<xsl:value-of select="."/>
+			</nc:ObligationDueAmount>
+		</nc:DisciplinaryActionRestitution>
 	</xsl:template>
 	<xsl:template match="j50:SentenceGroupingText">
 		<j:SentenceGroupingText>
@@ -193,10 +207,19 @@
 	</xsl:template>
 	<xsl:template match="j50:SentenceTerm">
 		<j:SentenceTerm>
-			<j:TermDuration>
-				<xsl:value-of select="."/>
-			</j:TermDuration>
+			<xsl:apply-templates select="j50:TermDuration"/>
+			<xsl:apply-templates select="j50:TermLifeIndicator"/>
 		</j:SentenceTerm>
+	</xsl:template>
+	<xsl:template match="j50:TermDuration">
+		<j:TermDuration>
+			<xsl:value-of select="."/>
+		</j:TermDuration>
+	</xsl:template>
+	<xsl:template match="j50:TermLifeIndicator">
+		<j:TermLifeIndicator>
+			<xsl:value-of select="."/>
+		</j:TermLifeIndicator>
 	</xsl:template>
 	<xsl:template match="cdr-report-ext:SentenceDocketIdentification">
 		<cdu:SentenceDocketIdentification>
@@ -213,16 +236,25 @@
 			<xsl:value-of select="."/>
 		</me_disp_codes:CourtActionCode>
 	</xsl:template>
-	<xsl:template match="nc30:RoleOfPerson" mode="activityInvolvedPerson">
-		<xsl:variable name="personID" select="@s30:ref"/>
-		<nc:ActivityInvolvedPersonAssociation>
-			<nc:ActivityReference>
-				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport)"/></xsl:attribute>
-			</nc:ActivityReference>
+	<xsl:template match="cdr-report-doc:CourtDispositionRecordingReport" mode="person-charge">
+		<j:PersonChargeAssociation>
 			<nc:PersonReference>
-				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/nc30:Person[@s30:id=$personID])"/></xsl:attribute>
+				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/nc30:Person)"/></xsl:attribute>
 			</nc:PersonReference>
-		</nc:ActivityInvolvedPersonAssociation>
+			<j:ChargeReference>
+				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/j50:Charge)"/></xsl:attribute>
+			</j:ChargeReference>
+		</j:PersonChargeAssociation>
+	</xsl:template>
+	<xsl:template match="cdr-report-doc:CourtDispositionRecordingReport" mode="activity-charge">
+		<j:ActivityChargeAssociation>
+			<nc:ActivityReference>
+				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/nc30:Disposition)"/></xsl:attribute>
+			</nc:ActivityReference>
+			<j:ChargeReference>
+				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/j50:Charge)"/></xsl:attribute>
+			</j:ChargeReference>
+		</j:ActivityChargeAssociation>
 	</xsl:template>
 	<xsl:template match="nc30:Person" mode="person">
 		<xsl:variable name="personID" select="@s30:ref"/>

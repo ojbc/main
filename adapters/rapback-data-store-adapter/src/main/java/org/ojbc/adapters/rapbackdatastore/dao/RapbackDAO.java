@@ -16,8 +16,35 @@
  */
 package org.ojbc.adapters.rapbackdatastore.dao;
 
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
+import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
+
 
 public interface RapbackDAO {
 	
 	public Iterable<Object> getRapbackReports(String federationId, String employerOri);
+	
+	public Integer saveSubject(final Subject subject);
+	public void saveIdentificationTransaction(IdentificationTransaction identificationTransaction);
+	public Integer saveCivilFbiSubscriptionRecord(final CivilFbiSubscriptionRecord civilFbiSubscriptionRecord);
+	public Integer saveCriminalFbiSubscriptionRecord(final CriminalFbiSubscriptionRecord criminalFbiSubscriptionRecord);
+	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints);
+	public Integer saveCriminalFingerPrints(final CriminalFingerPrints criminalFingerPrints);
+	public Integer saveCivilInitialRapSheet(final CivilInitialRapSheet civilInitialRapSheet);
+	public Integer saveCivilInitialResults(final CivilInitialResults civilInitialResults);
+	public Integer saveCriminalInitialResults(final CriminalInitialResults criminalInitialResults);
+	public Integer saveSubsequentResults(final SubsequentResults subsequentResults);
+	public Integer saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
+	
+	public Subject getSubject(Integer id);
+	public IdentificationTransaction getIdentificationTransaction(String transactionNumber); 
 }

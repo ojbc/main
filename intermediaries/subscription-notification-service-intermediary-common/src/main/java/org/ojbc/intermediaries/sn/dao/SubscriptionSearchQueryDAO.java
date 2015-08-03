@@ -29,9 +29,9 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
+import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
-
 import org.apache.camel.Header;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -368,7 +368,7 @@ public class SubscriptionSearchQueryDAO {
             log.debug("Inserting row into notification_mechanism table");
 
             for (String emailAddress : emailAddresses) {
-                this.jdbcTemplate.update("insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", keyHolder.getKey(), "email",
+                this.jdbcTemplate.update("insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", keyHolder.getKey(), NotificationConstants.NOTIFICATION_MECHANISM_EMAIL,
                         emailAddress);
             }
 
@@ -402,7 +402,7 @@ public class SubscriptionSearchQueryDAO {
             });
 
             for (String emailAddress : emailAddresses) {
-                this.jdbcTemplate.update("insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", subscriptions.get(0).getId(), "email",
+                this.jdbcTemplate.update("insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", subscriptions.get(0).getId(), NotificationConstants.NOTIFICATION_MECHANISM_EMAIL,
                         emailAddress);
             }
 
