@@ -505,7 +505,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PREFIX_XOP  = "xop";
     
     public static final String NS_WSOMA = "http://www.w3.org/2007/08/soap12-mtom-policy";
-    public static final String NS_PREFIX_WSOMA  = "xop";
+    public static final String NS_PREFIX_WSOMA  = "wsoma";
 	
     public static final String NS_PREFIX_CHARGE_REFERRAL_DOC = "cr-doc";
     public static final String NS_CHARGE_REFERRAL_DOC ="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0";
