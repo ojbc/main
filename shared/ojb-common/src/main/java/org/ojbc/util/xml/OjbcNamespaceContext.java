@@ -540,6 +540,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PREFIX_PROSECUTION_DECISION_RECORDING_REPORT_EXT = "pdr-report-ext";
     public static final String NS_PROSECUTION_DECISION_RECORDING_REPORT_EXT ="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0";
     
+    public static final String NS_PREFIX_FEDERAL_SUBSCRIPTION_CREATION_REPORT = "fed_subcr-doc";
+    public static final String NS_FEDERAL_SUBSCRIPTION_CREATION_REPORT ="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0";
+    
+    public static final String NS_PREFIX_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT = "fed_subcr-ext";
+    public static final String NS_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0";
+    
     
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -1027,6 +1033,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    
 	    prefixToUriMap.put(NS_PREFIX_PROSECUTION_DECISION_RECORDING_REPORT_EXT, NS_PROSECUTION_DECISION_RECORDING_REPORT_EXT);
 	    uriToPrefixMap.put(NS_PROSECUTION_DECISION_RECORDING_REPORT_EXT, NS_PREFIX_PROSECUTION_DECISION_RECORDING_REPORT_EXT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_FEDERAL_SUBSCRIPTION_CREATION_REPORT, NS_FEDERAL_SUBSCRIPTION_CREATION_REPORT);
+	    uriToPrefixMap.put(NS_FEDERAL_SUBSCRIPTION_CREATION_REPORT, NS_PREFIX_FEDERAL_SUBSCRIPTION_CREATION_REPORT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT, NS_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT);
+	    uriToPrefixMap.put(NS_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT, NS_PREFIX_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT);
+	      
 	      
 	}
 
