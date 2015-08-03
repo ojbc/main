@@ -67,6 +67,7 @@ import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.ArrestSubscriptionAddValidator;
 import org.ojbc.web.portal.validators.ArrestSubscriptionEditValidator;
+import org.ojbc.web.portal.validators.ChCycleSubscriptionValidator;
 import org.ojbc.web.portal.validators.IncidentSubscriptionAddValidator;
 import org.ojbc.web.portal.validators.IncidentSubscriptionEditValidator;
 import org.springframework.beans.factory.annotation.Value;
@@ -133,6 +134,9 @@ public class SubscriptionsController {
 	
 	@Resource
 	IncidentSubscriptionAddValidator incidentSubscriptionAddValidator;
+	
+	@Resource
+	ChCycleSubscriptionValidator chCycleSubscriptionValidator;
 	
 	@Resource
 	IncidentSubscriptionEditValidator incidentSubscriptionEditValidator;
@@ -569,7 +573,11 @@ public class SubscriptionsController {
 		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 			
 			incidentSubscriptionAddValidator.validate(subscription, errors);
-		}			
+			
+		}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+			
+			chCycleSubscriptionValidator.validate(subscription, errors);
+		}
 	}
 	
 	
@@ -1307,6 +1315,10 @@ public class SubscriptionsController {
 		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 			
 			incidentSubscriptionEditValidator.validate(subscription, errorsBindingResult);
+		
+		}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+			
+			chCycleSubscriptionValidator.validate(subscription, errorsBindingResult);
 		}
 	}
 	

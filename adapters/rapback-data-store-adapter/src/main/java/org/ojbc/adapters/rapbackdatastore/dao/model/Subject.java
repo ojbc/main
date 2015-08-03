@@ -33,13 +33,16 @@ public class Subject implements Serializable{
 	private String lastName; 
 	private String middleInitial; 
 	private DateTime dob;
+	private String sexCode; 
 
 	public Subject(){
 		super();
 	}
 	
 	public Subject(Integer subjectId, String ucn, String criminalSid, 
-			String civilSid, String firstName, String lastName, String middleInitial, DateTime dob){
+			String civilSid, String firstName, String lastName, String middleInitial, 
+			String sexCode, DateTime dob){
+		this();
 		this.subjectId = subjectId; 
 		this.ucn = ucn; 
 		this.criminalSid = criminalSid; 
@@ -48,12 +51,13 @@ public class Subject implements Serializable{
 		this.lastName = lastName; 
 		this.middleInitial = middleInitial; 
 		this.dob = dob; 
+		this.sexCode = sexCode;
 	}
 	
-	public Integer getSubjectID() {
+	public Integer getSubjectId() {
 		return subjectId;
 	}
-	public void setSubjectID(Integer subjectID) {
+	public void setSubjectId(Integer subjectID) {
 		this.subjectId = subjectID;
 	}
 	public String getUcn() {
@@ -107,5 +111,13 @@ public class Subject implements Serializable{
 
 	public void setMiddleInitial(String middleInitial) {
 		this.middleInitial = middleInitial;
+	}
+
+	public String getSexCode() {
+		return sexCode;
+	}
+
+	public void setSexCode(String sexCode) {
+		this.sexCode = sexCode;
 	}
 }

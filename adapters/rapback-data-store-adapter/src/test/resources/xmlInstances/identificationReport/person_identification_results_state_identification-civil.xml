@@ -65,5 +65,5 @@
 		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
 	</ident-ext:StateCriminalHistoryRecordDocument>
-	<ident-ext:CriminalIdentificationReasonCode>CAR</ident-ext:CriminalIdentificationReasonCode>
+	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>
 </pidres-doc:PersonStateIdentificationResults>
