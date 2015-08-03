@@ -278,9 +278,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String CIVIL_INITIAL_RESULTS_INSERT="insert into CIVIL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, SUBJECT_ID, MATCH_NO_MATCH, CURRENT_STATE, TRANSACTION_TYPE, "
+			+ "(TRANSACTION_NUMBER, MATCH_NO_MATCH, CURRENT_STATE, TRANSACTION_TYPE, "
 			+ " CIVIL_RAP_BACK_CATEGORY, RESULTS_SENDER) "
-			+ "values (?, ?, ?, ?, ?, ?, ?)";
+			+ "values (?, ?, ?, ?, ?, ?)";
 	@Override
 	public Integer saveCivilInitialResults(
 			final CivilInitialResults civilInitialResults) {
@@ -292,15 +292,14 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_INITIAL_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "SUBJECT_ID", "MATCH_NO_MATCH", "CURRENT_STATE", 
+        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH", "CURRENT_STATE", 
         	                		"TRANSACTION_TYPE", "CIVIL_RAP_BACK_CATEGORY", "RESULTS_SENDER", });
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
-        	            ps.setInt(2, civilInitialResults.getSubject().getSubjectId());
-        	            ps.setBoolean(3, civilInitialResults.getMatch());
-        	            ps.setString(4, civilInitialResults.getCurrentState());
-        	            ps.setString(5, civilInitialResults.getTransactionType());
-        	            ps.setString(6, civilInitialResults.getCivilRapBackCategory());
-        	            ps.setString(7, civilInitialResults.getResultsSender());
+        	            ps.setBoolean(2, civilInitialResults.getMatch());
+        	            ps.setString(3, civilInitialResults.getCurrentState());
+        	            ps.setString(4, civilInitialResults.getTransactionType());
+        	            ps.setString(5, civilInitialResults.getCivilRapBackCategory());
+        	            ps.setString(6, civilInitialResults.getResultsSender());
         	            return ps;
         	        }
         	    },
@@ -310,9 +309,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String CRIMINAL_INITIAL_RESULTS_INSERT="insert into CRIMINAL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, SUBJECT_ID, MATCH_NO_MATCH, TRANSACTION_TYPE, "
+			+ "(TRANSACTION_NUMBER, MATCH_NO_MATCH, TRANSACTION_TYPE, "
 			+ " RESULTS_SENDER) "
-			+ "values (?, ?, ?, ?, ?)";
+			+ "values (?, ?, ?, ?)";
 	@Override
 	public Integer saveCriminalInitialResults(
 			final CriminalInitialResults criminalInitialResults) {
@@ -324,13 +323,12 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CRIMINAL_INITIAL_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "SUBJECT_ID", "MATCH_NO_MATCH",  
+        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
         	                		"TRANSACTION_TYPE", "RESULTS_SENDER", });
         	            ps.setString(1, criminalInitialResults.getTransactionNumber());
-        	            ps.setInt(2, criminalInitialResults.getSubject().getSubjectId());
-        	            ps.setBoolean(3, criminalInitialResults.getMatch());
-        	            ps.setString(4, criminalInitialResults.getTransactionType());
-        	            ps.setString(5, criminalInitialResults.getResultsSender());
+        	            ps.setBoolean(2, criminalInitialResults.getMatch());
+        	            ps.setString(3, criminalInitialResults.getTransactionType());
+        	            ps.setString(4, criminalInitialResults.getResultsSender());
         	            return ps;
         	        }
         	    },
@@ -340,9 +338,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String SUBSEQUENT_RESULTS_INSERT="insert into SUBSEQUENT_RESULTS "
-			+ "(TRANSACTION_NUMBER, FBI_SUBSCRIPTION_ID, SUBJECT_ID, RAP_BACK_SUBSCRIPTION_IDENTIFIER, "
+			+ "(TRANSACTION_NUMBER, FBI_SUBSCRIPTION_ID, RAP_BACK_SUBSCRIPTION_IDENTIFIER, "
 			+ " MATCH_NO_MATCH, RAPSHEET, TRANSACTION_TYPE ) "
-			+ "values (?, ?, ?, ?, ?, ?, ?)";
+			+ "values (?, ?, ?, ?, ?, ?)";
 	@Override
 	public Integer saveSubsequentResults(final SubsequentResults subsequentResults) {
         log.debug("Inserting row into SUBSEQUENT_RESULTS table : " + subsequentResults.toString());
@@ -357,11 +355,10 @@ public class RapbackDAOImpl implements RapbackDAO {
         	                		"MATCH_NO_MATCH",  "RAP_SHEET", "TRANSACTION_TYPE"  });
         	            ps.setString(1, subsequentResults.getTransactionNumber());
         	            ps.setString(2, subsequentResults.getFbiSubscriptionId());
-        	            ps.setInt(3, subsequentResults.getSubject().getSubjectId());
-        	            ps.setString(4, subsequentResults.getRapbackSubscriptionIdentifier());
-        	            ps.setBoolean(5, subsequentResults.getMatch());
-        	            ps.setBlob(6, new SerialBlob(subsequentResults.getRapSheet()));
-        	            ps.setString(7, subsequentResults.getTransactionType());
+        	            ps.setString(3, subsequentResults.getRapbackSubscriptionIdentifier());
+        	            ps.setBoolean(4, subsequentResults.getMatch());
+        	            ps.setBlob(5, new SerialBlob(subsequentResults.getRapSheet()));
+        	            ps.setString(6, subsequentResults.getTransactionType());
         	            return ps;
         	        }
         	    },
