@@ -41,14 +41,14 @@
       </b:ProducerReference>
       <b:Message>
          <notification:NotificationMessage>
-            <notificationExt:NotifyingCourtDispositionUpdate s:id="d1e1">
+            <notificationExt:NotifyingCourtDispositionUpdate>
                <notificationExt:NotifyingActivityReportingSystemNameText>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</notificationExt:NotifyingActivityReportingSystemNameText>
                <notificationExt:NotifyingActivityReportingSystemURI>SystemURIHere</notificationExt:NotifyingActivityReportingSystemURI>
                <cdu:CourtDispositionUpdate>
                   <cdu:CycleTrackingIdentification>
                      <nc:IdentificationID>123456A</nc:IdentificationID>
                   </cdu:CycleTrackingIdentification>
-                  <j:Charge>
+                  <j:Charge s:id="d1e10">
                      <j:ChargeStatute>
                         <j:StatuteCodeIdentification>
                            <nc:IdentificationID>004290</nc:IdentificationID>
@@ -58,7 +58,7 @@
                         <nc:IdentificationID>456</nc:IdentificationID>
                      </j:ChargeTrackingIdentification>
                   </j:Charge>
-                  <cdu:Sentence>
+                  <cdu:Sentence s:id="d1e28">
                      <nc:ActivityDate>
                         <nc:Date>2001-12-17</nc:Date>
                      </nc:ActivityDate>
@@ -66,33 +66,29 @@
                         <nc:ActivityDescriptionText>Sentence Condition</nc:ActivityDescriptionText>
                         <nc:ConditionDisciplinaryAction>
                            <nc:DisciplinaryActionFee>
-                              <nc:ObligationDueAmount>
-				
-					
-						0.0
-					
-				
-			</nc:ObligationDueAmount>
+                              <nc:ObligationDueAmount>100.00</nc:ObligationDueAmount>
                            </nc:DisciplinaryActionFee>
+                           <nc:DisciplinaryActionRestitution>
+                              <nc:ObligationDueAmount>200.00</nc:ObligationDueAmount>
+                           </nc:DisciplinaryActionRestitution>
                         </nc:ConditionDisciplinaryAction>
                      </j:SentenceCondition>
                      <j:SentenceGroupingText>Consecutive/Concurrent Details</j:SentenceGroupingText>
                      <j:SentenceTerm>
-                        <j:TermDuration>
-			P2DT12H
-		</j:TermDuration>
+                        <j:TermDuration>P2Y</j:TermDuration>
+                        <j:TermLifeIndicator>false</j:TermLifeIndicator>
                      </j:SentenceTerm>
-                     <cdu:SentenceCourtOrganizationReference s:ref="d1e146"/>
+                     <cdu:SentenceCourtOrganizationReference s:ref="d1e159"/>
                      <cdu:SentenceDocketIdentification>
                         <nc:IdentificationID>Sentence Docket ID</nc:IdentificationID>
                      </cdu:SentenceDocketIdentification>
                      <me_disp_codes:SentenceTermCategoryCode>ADMINISTRATIVE RELEASE CONTINUED</me_disp_codes:SentenceTermCategoryCode>
                   </cdu:Sentence>
-                  <cdu:Disposition>
+                  <cdu:Disposition s:id="d1e91">
                      <nc:DispositionDate>
                         <nc:Date>2001-12-17</nc:Date>
                      </nc:DispositionDate>
-                     <cdu:DispositionCourtOrganizationReference s:ref="d1e158"/>
+                     <cdu:DispositionCourtOrganizationReference s:ref="d1e171"/>
                      <cdu:DispositionIdentification>
                         <nc:IdentificationID>UTN</nc:IdentificationID>
                      </cdu:DispositionIdentification>
@@ -103,11 +99,7 @@
                   </cdu:Disposition>
                </cdu:CourtDispositionUpdate>
             </notificationExt:NotifyingCourtDispositionUpdate>
-            <nc:ActivityInvolvedPersonAssociation>
-               <nc:ActivityReference s:ref="d1e1"/>
-               <nc:PersonReference s:ref="d1e113"/>
-            </nc:ActivityInvolvedPersonAssociation>
-            <j:Person s:id="d1e113">
+            <j:Person s:id="d1e126">
                <nc:PersonBirthDate>
                   <nc:Date>2001-12-17</nc:Date>
                </nc:PersonBirthDate>
@@ -117,20 +109,28 @@
                   <nc:PersonSurName>White</nc:PersonSurName>
                </nc:PersonName>
             </j:Person>
-            <j:Organization s:id="d1e146">
+            <j:Organization s:id="d1e159">
                <j:OrganizationAugmentation>
                   <j:OrganizationORIIdentification>
                      <nc:IdentificationID>ME0000001</nc:IdentificationID>
                   </j:OrganizationORIIdentification>
                </j:OrganizationAugmentation>
             </j:Organization>
-            <j:Organization s:id="d1e158">
+            <j:Organization s:id="d1e171">
                <j:OrganizationAugmentation>
                   <j:OrganizationORIIdentification>
                      <nc:IdentificationID>ME0000002</nc:IdentificationID>
                   </j:OrganizationORIIdentification>
                </j:OrganizationAugmentation>
             </j:Organization>
+            <j:PersonChargeAssociation>
+               <nc:PersonReference s:ref="d1e126"/>
+               <j:ChargeReference s:ref="d1e10"/>
+            </j:PersonChargeAssociation>
+            <j:ActivityChargeAssociation>
+               <nc:ActivityReference s:ref="d1e91"/>
+               <j:ChargeReference s:ref="d1e10"/>
+            </j:ActivityChargeAssociation>
          </notification:NotificationMessage>
       </b:Message>
    </b:NotificationMessage>
