@@ -20,13 +20,18 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessorTest.assertAsExpected;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.activation.DataHandler;
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.mail.util.ByteArrayDataSource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -151,6 +156,14 @@ public class TestIdentficationRecordingAndResponse {
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
 		
+		/*
+		 * add MTOM attachment to the exchange.
+		 */
+		
+		byte[] imgData = extractBytes("src/test/resources/xmlInstances/mtomAttachment/java.jpg");
+		senderExchange.getIn().addAttachment("http://ojbc.org/identification/request/example", 
+			new DataHandler(new ByteArrayDataSource(imgData, "image/jpeg")));
+
 		//Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
 		
@@ -243,5 +256,21 @@ public class TestIdentficationRecordingAndResponse {
 
 		return doc;
 	}
+	
+	public byte[] extractBytes(String ImageName) throws IOException {
+		// open image
+		File imgPath = new File(ImageName);
+		BufferedImage bufferedImage = ImageIO.read(imgPath);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+		ImageIO.write(bufferedImage, "jpg", baos);
+		baos.flush();
+		byte[] imageInByte = baos.toByteArray();
+		baos.close();
+
+		return imageInByte;
+	}
+	
 	
 }

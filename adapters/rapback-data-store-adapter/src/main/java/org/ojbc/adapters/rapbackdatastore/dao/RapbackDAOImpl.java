@@ -210,7 +210,10 @@ public class RapbackDAOImpl implements RapbackDAO {
         	                connection.prepareStatement(CIVIL_FINGER_PRINTS_INSERT, 
         	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "TRANSACTION_TYPE", "FINGER_PRINTS_TYPE"});
         	            ps.setString(1, civilFingerPrints.getTransactionNumber());
-        	            ps.setBlob(2, new SerialBlob(civilFingerPrints.getFingerPrintsFile()));
+        	            
+        	            if (civilFingerPrints.getFingerPrintsFile() != null){
+        	            	ps.setBlob(2, new SerialBlob(civilFingerPrints.getFingerPrintsFile()));
+        	            }
         	            ps.setString(3, civilFingerPrints.getTransactionType());
         	            ps.setString(4, civilFingerPrints.getFingerPrintsType());
         	            return ps;

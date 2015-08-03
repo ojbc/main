@@ -16,14 +16,20 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
+import static org.junit.Assert.assertEquals;
+
+import javax.activation.DataHandler;
+
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.helpers.IOUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.util.xml.XmlUtils;
@@ -46,11 +52,47 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 		
 		log.info("Processing Identification Request report");
 		
+		Node rootNode = XmlUtils.xPathNodeSearch(report, "/pidreq:PersonFederalIdentificationRequest|/pidreq:PersonStateIdentificationRequest");
+		String transactionNumber = XmlUtils.xPathStringSearch(rootNode, "ident-ext:TransactionIdentification/nc30:IdentificationID"); 
+
+		processIdentificationTransaction(rootNode, transactionNumber);
+		
+		CivilFingerPrints civilFingerPrints = new CivilFingerPrints();
+		
+		civilFingerPrints.setTransactionNumber(transactionNumber);
+		
+		if (rootNode.getLocalName().equals("PersonFederalIdentificationRequest")){
+			civilFingerPrints.setFingerPrintsType("FBI");
+		}
+		else if (rootNode.getLocalName().equals("PersonStateIdentificationRequest")){
+			civilFingerPrints.setFingerPrintsType("STATE");
+		}
+		
+//		String contentType = XmlUtils.xPathStringSearch(rootNode, 
+//				"ident-ext:FederalFingerprintBasedIdentificationRequestDocument/ident-ext:DocumentBinary/@xmime:contentType");
+		String attachmentId = XmlUtils.xPathStringSearch(rootNode, 
+				"ident-ext:FederalFingerprintBasedIdentificationRequestDocument/xop:Include/@href");
+		
+		DataHandler dataHandler = exchange.getIn().getAttachment(StringUtils.substringAfter(attachmentId, "cid:"));
+		//assertEquals("image/jpeg", dataHandler.getContentType());
+		
+		if (dataHandler != null){
+			byte[] receivedAttachment = IOUtils.readBytesFromStream(dataHandler.getInputStream());
+			civilFingerPrints.setFingerPrintsFile(receivedAttachment);
+		}
+		else{
+			log.error("No finger prints file found in the attachement for transaction " + transactionNumber);
+			throw new IllegalArgumentException("No finger prints file found in the attachement"); 
+		}
+
+		civilFingerPrints.setTransactionType("Transaction");
+		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
+	}
+
+	private void processIdentificationTransaction(Node rootNode, String transactionNumber)
+			throws Exception {
 		IdentificationTransaction identificationTransaction = new IdentificationTransaction(); 
 		
-		Node rootNode = XmlUtils.xPathNodeSearch(report, "/pidreq:PersonFederalIdentificationRequest|/pidreq:PersonStateIdentificationRequest");
-		
-		String transactionNumber = XmlUtils.xPathStringSearch(rootNode, "ident-ext:TransactionIdentification/nc30:IdentificationID"); 
 		identificationTransaction.setTransactionNumber(transactionNumber);
 		
 		Node subjectNode = XmlUtils.xPathNodeSearch(rootNode, "jxdm50:Subject/nc30:RoleOfPerson"); 
@@ -95,42 +137,3 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 	}
 
 }
-//private Integer processPretrialServiceParticipation(Document report) throws Exception, ParseException {
-//	PretrialServiceParticipation pretrialServiceParticipation = new PretrialServiceParticipation(); 
-//	
-//	pretrialServiceParticipation.setRecordType('N');
-//	//TODO need to find out the mapping for PretrialServiceCaseNumber
-//	
-//	Node personNode = XmlUtils.xPathNodeSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/jxdm50:Subject/nc30:RoleOfPerson");
-//    int personPk = savePerson(personNode, OjbcNamespaceContext.NS_PREFIX_NC_30, OjbcNamespaceContext.NS_PREFIX_JXDM_50);
-//    pretrialServiceParticipation.setPersonID(personPk);
-//
-//    String countyName = XmlUtils.xPathStringSearch(report, 
-//    		"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:PreTrialServicesEnrollment/pse-ext:ActivityLocation/nc30:Address/nc30:LocationCountyName");
-//    Integer countyId = descriptionCodeLookupService.retrieveCode(CodeTable.County, countyName); 
-//    pretrialServiceParticipation.setCountyID(countyId);
-//    
-//    String riskScore = XmlUtils.xPathStringSearch(report, 
-//    		"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:ORASAssessment/pse-ext:AssessmentScoreNumeric");
-//    if (StringUtils.isNotBlank(riskScore)){
-//    	pretrialServiceParticipation.setRiskScore(Integer.valueOf(riskScore));
-//    }
-//    
-//    //TODO mapping to the arrest Date. double check with Andrew. 
-//	String intakeDateString=XmlUtils.xPathStringSearch(report,
-//			"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:ORASAssessment/nc30:ActivityDate/nc30:DateTime");
-//	if (StringUtils.isNotBlank(intakeDateString)){
-//		pretrialServiceParticipation.setIntakeDate(DATE_TIME_FORMAT.parse(intakeDateString));
-//	}
-//	
-//	String arrestAgencyOri = XmlUtils.xPathStringSearch(report, 
-//			"/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
-//	pretrialServiceParticipation.setArrestingAgencyORI(StringUtils.trimToNull(arrestAgencyOri));
-//	
-//	String arrestIncidentCaseNumber = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/nc30:ActivityIdentification/nc30:IdentificationID");
-//	pretrialServiceParticipation.setArrestIncidentCaseNumber(StringUtils.trimToNull(arrestIncidentCaseNumber));
-//			
-//	return analyticalDatastoreDAO.savePretrialServiceParticipation(pretrialServiceParticipation);
-//}
-//
-//}
