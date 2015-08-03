@@ -110,7 +110,7 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 			}
 			query.add(new FuzzyQuery(new Term(FIRST_NAME_FIELD, firstNameAttributeValue), 2, 1), Occur.MUST);
 			query.add(new FuzzyQuery(new Term(LAST_NAME_FIELD, getFormattedAttributeValue(attributes.get(LAST_NAME_FIELD))), 2, 1), Occur.MUST);
-			query.add(new FuzzyQuery(new Term(MIDDLE_NAME_FIELD, getFormattedAttributeValue(attributes.get(MIDDLE_NAME_FIELD))), 2, 1), Occur.MUST);
+			query.add(new FuzzyQuery(new Term(MIDDLE_NAME_FIELD, getFormattedAttributeValue(attributes.get(MIDDLE_NAME_FIELD))), 2, 1), Occur.SHOULD);
 			query.add(new FuzzyQuery(new Term(BIRTHDATE_FIELD, getFormattedAttributeValue(attributes.get(BIRTHDATE_FIELD))), 1, 0), Occur.MUST);
 			query.add(new TermQuery(new Term(SEX_FIELD, getFormattedAttributeValue(attributes.get(SEX_FIELD)))), Occur.SHOULD);
 			query.add(new FuzzyQuery(new Term(SSN_FIELD, getFormattedAttributeValue(attributes.get(SSN_FIELD))), 1, 0), Occur.SHOULD);
