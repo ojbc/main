@@ -16,7 +16,7 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import static org.junit.Assert.assertEquals;
+import java.io.IOException;
 
 import javax.activation.DataHandler;
 
@@ -26,8 +26,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.helpers.IOUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
@@ -57,6 +55,11 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 
 		processIdentificationTransaction(rootNode, transactionNumber);
 		
+		processCivilFingerPrints(exchange, rootNode, transactionNumber);
+	}
+
+	private void processCivilFingerPrints(Exchange exchange, Node rootNode,
+			String transactionNumber) throws Exception, IOException {
 		CivilFingerPrints civilFingerPrints = new CivilFingerPrints();
 		
 		civilFingerPrints.setTransactionNumber(transactionNumber);
