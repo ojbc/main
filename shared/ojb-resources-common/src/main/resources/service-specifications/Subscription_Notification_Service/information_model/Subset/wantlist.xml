@@ -26,14 +26,17 @@
   xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
   xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0">
   <w:Element w:name="intel:SystemName" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Charge" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:Disposition" w:isReference="true" w:nillable="false"/>
   <w:Element w:name="j:Incident" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Offense" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OffenseCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OffenseChargeAssociation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Organization" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Person" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:PersonChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Sentence" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Activity" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
@@ -105,6 +108,12 @@
     <w:Facet w:facet="enumeration" w:value="F"/>
     <w:Facet w:facet="enumeration" w:value="M"/>
     <w:Facet w:facet="enumeration" w:value="U"/>
+  </w:Type>
+  <w:Type w:name="j:ActivityChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:ArrestType" w:isRequested="false">
     <w:ElementInType w:name="j:ArrestAgency" w:isReference="false"
@@ -180,6 +189,12 @@
     <w:ElementInType w:name="j:PersonStateFingerprintIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
+  <w:Type w:name="j:PersonChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Person" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:PersonType" w:isRequested="false">
     <w:ElementInType w:name="j:PersonAugmentation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
@@ -204,6 +219,8 @@
   </w:Type>
   <w:Type w:name="j:TermType" w:isRequested="false">
     <w:ElementInType w:name="j:TermDuration" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:TermLifeIndicator" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityInvolvedPersonAssociationType" w:isRequested="false">
@@ -255,6 +272,8 @@
   </w:Type>
   <w:Type w:name="nc:DisciplinaryActionType" w:isRequested="false">
     <w:ElementInType w:name="nc:DisciplinaryActionFee"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DisciplinaryActionRestitution"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:DispositionType" w:isRequested="false">
