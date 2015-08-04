@@ -25,6 +25,7 @@ import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.common.util.StringUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.DateTools;
@@ -45,7 +46,6 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
 /**
@@ -58,17 +58,19 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 	private static final String NULL_FIELD_VALUE = ".null.";
 
 	private IndexWriter indexWriter;
-	private boolean indexIsEmpty = true;
 	private boolean resolveEquivalentNames = true;
 	private FirstNameEquivalentCorpus firstNameEquivalentCorpus;
 
-	public IndexedIdentifierGenerationStrategy() {
-		init(null);
-		firstNameEquivalentCorpus = new FirstNameEquivalentCorpus();
-	}
-
-	public void setIndexDirectory(String indexDirectoryPath) {
+	public IndexedIdentifierGenerationStrategy(String indexDirectoryPath) throws Exception{
+		
+		if (StringUtils.isEmpty(indexDirectoryPath))
+		{
+			throw new IllegalStateException("Index Directory Path Required.");
+		}	
+		
 		init(indexDirectoryPath);
+		
+		firstNameEquivalentCorpus = new FirstNameEquivalentCorpus();
 	}
 	
 	public boolean getResolveEquivalentNames() {
@@ -78,6 +80,11 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 	public void setResolveEquivalentNames(boolean value) {
 		resolveEquivalentNames = value;
 	}
+	
+	public void destroy() throws IOException
+	{
+		indexWriter.close();
+	}
 
 	@Override
 	public String generateIdentifier(Map<String, Object> attributes) throws IOException {
@@ -86,7 +93,6 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 		if (d == null) {
 			d = createDocumentFromAttributeMap(attributes);
 			indexWriter.addDocument(d);
-			indexIsEmpty = false;
 			indexWriter.commit();
 			log.debug("Wrote new document to index: " + attributes);
 			log.debug("Document: " + d);
@@ -100,24 +106,26 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 		
 		Document ret = null;
 		
-		if (!indexIsEmpty) {
+		BooleanQuery query = new BooleanQuery();
+		
+		String firstNameAttributeValue = getFormattedAttributeValue(attributes.get(FIRST_NAME_FIELD));
+		if (resolveEquivalentNames) {
+			firstNameAttributeValue = firstNameEquivalentCorpus.getEquivalentName(firstNameAttributeValue);
+		}
+		query.add(new FuzzyQuery(new Term(FIRST_NAME_FIELD, firstNameAttributeValue), 2, 1), Occur.MUST);
+		query.add(new FuzzyQuery(new Term(LAST_NAME_FIELD, getFormattedAttributeValue(attributes.get(LAST_NAME_FIELD))), 2, 1), Occur.MUST);
+		query.add(new FuzzyQuery(new Term(MIDDLE_NAME_FIELD, getFormattedAttributeValue(attributes.get(MIDDLE_NAME_FIELD))), 2, 1), Occur.SHOULD);
+		query.add(new FuzzyQuery(new Term(BIRTHDATE_FIELD, getFormattedAttributeValue(attributes.get(BIRTHDATE_FIELD))), 1, 0), Occur.MUST);
+		query.add(new TermQuery(new Term(SEX_FIELD, getFormattedAttributeValue(attributes.get(SEX_FIELD)))), Occur.SHOULD);
+		query.add(new FuzzyQuery(new Term(SSN_FIELD, getFormattedAttributeValue(attributes.get(SSN_FIELD))), 1, 0), Occur.SHOULD);
+		log.debug("Query: " + query.toString());
+		
+		Directory directory = indexWriter.getDirectory();
+		if (DirectoryReader.indexExists(directory))
+		{	
+			DirectoryReader reader = DirectoryReader.open(directory);
 			
-			BooleanQuery query = new BooleanQuery();
-			
-			String firstNameAttributeValue = getFormattedAttributeValue(attributes.get(FIRST_NAME_FIELD));
-			if (resolveEquivalentNames) {
-				firstNameAttributeValue = firstNameEquivalentCorpus.getEquivalentName(firstNameAttributeValue);
-			}
-			query.add(new FuzzyQuery(new Term(FIRST_NAME_FIELD, firstNameAttributeValue), 2, 1), Occur.MUST);
-			query.add(new FuzzyQuery(new Term(LAST_NAME_FIELD, getFormattedAttributeValue(attributes.get(LAST_NAME_FIELD))), 2, 1), Occur.MUST);
-			query.add(new FuzzyQuery(new Term(MIDDLE_NAME_FIELD, getFormattedAttributeValue(attributes.get(MIDDLE_NAME_FIELD))), 2, 1), Occur.SHOULD);
-			query.add(new FuzzyQuery(new Term(BIRTHDATE_FIELD, getFormattedAttributeValue(attributes.get(BIRTHDATE_FIELD))), 1, 0), Occur.MUST);
-			query.add(new TermQuery(new Term(SEX_FIELD, getFormattedAttributeValue(attributes.get(SEX_FIELD)))), Occur.SHOULD);
-			query.add(new FuzzyQuery(new Term(SSN_FIELD, getFormattedAttributeValue(attributes.get(SSN_FIELD))), 1, 0), Occur.SHOULD);
-			log.debug("Query: " + query.toString());
-			
-			Directory directory = indexWriter.getDirectory();
-			IndexSearcher searcher = new IndexSearcher(DirectoryReader.open(directory));
+			IndexSearcher searcher = new IndexSearcher(reader);
 			TopDocs hits = searcher.search(query, 2);
 			
 			ScoreDoc[] hitDocs = hits.scoreDocs;
@@ -130,7 +138,8 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 				log.debug("Found a match, id=" + id);
 			}
 			
-		}
+			reader.close();
+		}	
 		
 		return ret;
 		
@@ -148,17 +157,13 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 		return ret;
 	}
 
-	private void init(String indexDirectoryPath) {
-		try {
-			Directory indexDirectory = indexDirectoryPath == null ? new RAMDirectory() : FSDirectory.open(new File(indexDirectoryPath));
-			log.info("Set Lucene index directory to " + indexDirectory.toString());
-			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
-			IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer);
-			config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
-			indexWriter = new IndexWriter(indexDirectory, config);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+	private void init(String indexDirectoryPath) throws Exception {
+		Directory indexDirectory = FSDirectory.open(new File(indexDirectoryPath));
+		log.info("Set Lucene index directory to " + indexDirectory.toString());
+		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
+		IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+		indexWriter = new IndexWriter(indexDirectory, config);
 	}
 
 	private Document createDocumentFromAttributeMap(Map<String, Object> attributes) {

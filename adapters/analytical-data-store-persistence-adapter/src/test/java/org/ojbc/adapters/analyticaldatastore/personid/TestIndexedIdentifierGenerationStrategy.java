@@ -16,12 +16,18 @@
  */
 package org.ojbc.adapters.analyticaldatastore.personid;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,11 +35,31 @@ public class TestIndexedIdentifierGenerationStrategy {
 	
 	private IndexedIdentifierGenerationStrategy strategy;
 	private Map<String, Object> attributeMap;
+	private String tempFilePath;
+	private static final Log log = LogFactory.getLog(TestIndexedIdentifierGenerationStrategy.class);
 	
 	@Before
 	public void setUp() throws Exception {
 		
-		strategy = new IndexedIdentifierGenerationStrategy();
+		//create a temp file
+		File temp = File.createTempFile("temp-file-name", ".tmp"); 
+		
+		log.debug("Temp file : " + temp.getAbsolutePath());
+		
+		//Get temp file path
+		String absolutePath = temp.getAbsolutePath();
+		tempFilePath = absolutePath.
+		    substring(0,absolutePath.lastIndexOf(File.separator));
+		
+		if ( !(tempFilePath.endsWith("/") || tempFilePath.endsWith("\\")) )
+		{	
+			tempFilePath = tempFilePath + System.getProperty("file.separator");
+		}
+			   
+		if (strategy == null)
+		{	
+			strategy = new IndexedIdentifierGenerationStrategy(tempFilePath + "lucene");
+		}	
 		
 		attributeMap = new HashMap<String, Object>();
 		
@@ -44,6 +70,18 @@ public class TestIndexedIdentifierGenerationStrategy {
 		attributeMap.put(IndexedIdentifierGenerationStrategy.SSN_FIELD, null);
 		attributeMap.put(IndexedIdentifierGenerationStrategy.BIRTHDATE_FIELD, makeDate(1745, 2, 3));
 		
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+		File directory = new File(tempFilePath + "lucene");
+		
+		if (directory.exists())
+		{	
+			FileUtils.deleteDirectory(directory);
+		}	
+		
+		strategy.destroy();
 	}
 	
 	@Test
@@ -94,6 +132,15 @@ public class TestIndexedIdentifierGenerationStrategy {
 		attributeMap.put(IndexedIdentifierGenerationStrategy.MIDDLE_NAME_FIELD, "");
 		id2 = strategy.generateIdentifier(attributeMap);
 		assertEquals(id, id2);
+		
+		setUp();
+		strategy.setResolveEquivalentNames(true);
+		attributeMap.put(IndexedIdentifierGenerationStrategy.MIDDLE_NAME_FIELD, "M");
+		id = strategy.generateIdentifier(attributeMap);
+		attributeMap.put(IndexedIdentifierGenerationStrategy.MIDDLE_NAME_FIELD, "M.");
+		id2 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id, id2);
+
 	}
 	
 	@Test
