@@ -26,5 +26,6 @@ public class NotificationConstants {
 	public static final String HEADER_SUBJECT_IDENTIFIER = "subjectIdentifier";
     public static final String HEADER_EMAIL_NOTIFICATIONS = "emailNotifications";
     public static final String HEADER_NOTIFICATION_TOPIC = "notificationTopic";
+    public static final String NOTIFICATION_MECHANISM_EMAIL = "email";
 	
 }

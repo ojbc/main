@@ -29,6 +29,22 @@
   <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
   <xsd:import schemaLocation="../../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
   <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:complexType name="ActivityChargeAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between an activity and a charge.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:ActivityReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:ChargeReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="ArrestType">
     <xsd:annotation>
       <xsd:documentation>A data type for the apprehension of a subject by a peace official.</xsd:documentation>
@@ -235,6 +251,22 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="PersonChargeAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between a person and a charge.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:ChargeReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="PersonType">
     <xsd:annotation>
       <xsd:documentation>A data type for an applied augmentation for type nc:PersonType</xsd:documentation>
@@ -310,10 +342,16 @@
       <xsd:extension base="nc:ActivityType">
         <xsd:sequence>
           <xsd:element ref="j:TermDuration" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:TermLifeIndicator" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:element name="ActivityChargeAssociation" type="j:ActivityChargeAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between an activity and a charge.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="Arrest" type="j:ArrestType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>Details about the apprehension of a subject by a peace official based on an observed or a reported violation of a law or ordinance, an outstanding arrest warrant, or probable cause information. </xsd:documentation>
@@ -491,6 +529,11 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="PersonChargeAssociation" type="j:PersonChargeAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between a person and a charge issued to that person.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A number issued by the FBI's Automated Fingerprint Identification System (AFIS) based on submitted fingerprints.</xsd:documentation>
@@ -534,6 +577,11 @@
   <xsd:element name="TermDuration" type="niem-xsd:duration" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A specific range or duration of a term.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="TermLifeIndicator" type="niem-xsd:boolean" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>True if the term is not for a set duration length but for life; false otherwise.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
 </xsd:schema>

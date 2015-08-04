@@ -201,6 +201,7 @@
       <xsd:extension base="nc:ActivityType">
         <xsd:sequence>
           <xsd:element ref="nc:DisciplinaryActionFee" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DisciplinaryActionRestitution" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -740,6 +741,11 @@
   <xsd:element name="DisciplinaryActionFee" type="nc:ObligationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A monetary fine assigned to a person as a disciplinary action.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DisciplinaryActionRestitution" type="nc:ObligationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A requirement for a person to financially or otherwise compensate another person as  a disciplinary action.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="Disposition" type="nc:DispositionType" nillable="true">
