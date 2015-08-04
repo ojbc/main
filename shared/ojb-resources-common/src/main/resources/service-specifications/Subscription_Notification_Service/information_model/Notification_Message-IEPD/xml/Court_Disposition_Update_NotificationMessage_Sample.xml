@@ -105,7 +105,11 @@
                <j:ChargeReference s:ref="d1e10"/>
             </j:PersonChargeAssociation>
             <j:ActivityChargeAssociation>
-               <nc:ActivityReference s:ref="d1e91"/>
+               <nc:ActivityReference s:ref="d1e28"/>
                <j:ChargeReference s:ref="d1e10"/>
             </j:ActivityChargeAssociation>
+            <notfm-doc:ChargeDispositionAssociation>
+               <j:ChargeReference s:ref="d1e10"/>
+               <j:DispositionReference s:ref="d1e91"/>
+            </notfm-doc:ChargeDispositionAssociation>
          </notfm-doc:NotificationMessage>

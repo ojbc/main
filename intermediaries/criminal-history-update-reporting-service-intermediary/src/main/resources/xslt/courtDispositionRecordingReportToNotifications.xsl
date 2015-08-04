@@ -71,6 +71,7 @@
 						<xsl:apply-templates select="nc30:Organization"/>
 						<xsl:apply-templates select="." mode="person-charge"/>
 						<xsl:apply-templates select="." mode="activity-charge"/>
+						<xsl:apply-templates select="." mode="charge-disposition"/>
 					</notification:NotificationMessage>
 				</b:Message>
 			</b:NotificationMessage>
@@ -249,12 +250,22 @@
 	<xsl:template match="cdr-report-doc:CourtDispositionRecordingReport" mode="activity-charge">
 		<j:ActivityChargeAssociation>
 			<nc:ActivityReference>
-				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/nc30:Disposition)"/></xsl:attribute>
+				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/j50:Sentence)"/></xsl:attribute>
 			</nc:ActivityReference>
 			<j:ChargeReference>
 				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/j50:Charge)"/></xsl:attribute>
 			</j:ChargeReference>
 		</j:ActivityChargeAssociation>
+	</xsl:template>
+	<xsl:template match="cdr-report-doc:CourtDispositionRecordingReport" mode="charge-disposition">
+		<notification:ChargeDispositionAssociation>
+			<j:ChargeReference>
+				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/j50:Charge)"/></xsl:attribute>
+			</j:ChargeReference>
+			<j:DispositionReference>
+				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/nc30:Disposition)"/></xsl:attribute>
+			</j:DispositionReference>
+		</notification:ChargeDispositionAssociation>
 	</xsl:template>
 	<xsl:template match="nc30:Person" mode="person">
 		<xsl:variable name="personID" select="@s30:ref"/>
