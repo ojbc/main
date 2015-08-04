@@ -51,7 +51,7 @@
 			<camel:to uri="direct:processParoleDocument" />
 		</camel:route>
 
-		<!-- Probation Service Handler -->
+		<!-- Parole Service Handler -->
 		<camel:route>
 			<camel:from uri="paroleEventHandlerServiceEndpoint" />
 			<camel:log message="This is the body the service recieved: ${body}" loggingLevel="DEBUG"/>
@@ -81,7 +81,7 @@
 			</camel:filter>
 
 		</camel:route>
-		
+				
 		<camel:route>
 			<camel:from uri="direct:transformAndInvokeUnsubscriptionProcessor" />
 			<camel:convertBodyTo type="java.lang.String"/>
@@ -93,15 +93,58 @@
 
 		<camel:route>
 			<camel:from uri="direct:transformAndInvokeSubscriptionProcessor" />
+			
 			<camel:convertBodyTo type="java.lang.String"/>
+			
+			<camel:to uri="direct:setFbiIdHeaderParam"/>
+			
 			<camel:to uri="xslt:xslt/paroleDocumentToSubscription.xsl" />
-			<camel:log message="After transform: ${body}" />
-			<camel:to
-				uri="bean:notificationBrokerServiceMessageProcessor?method=sendResponseMessage" />
+			
+			<camel:log message="\n\n After paroleDocumentToSubscription.xsl \n ${body} \n\n" />
+			
+			<camel:to uri="bean:notificationBrokerServiceMessageProcessor?method=sendResponseMessage" />
+			
 		</camel:route>
 
+		<!-- TODO only for ARREST (topic filter) 
+			? do for unsubscription also?
+			need param for system id going into person search request - or put whole project in hawaii repo
+			
+			put original message body in header
+			camel to personSearch bean
+			what to do if more than one person search result?
+			
+			caseInit xml to personSearchRequest xml (xslt)
+			personSearchResponse xml to personQueryXml (xslt)
+			xpath get fbiId from rapback person query
+			put fbiid in subscription message with xslt param
+			
+			will have to pole for response in any case(using asynch. services)
+		-->		
+		<camel:route id="fbiIdHeaderRoute">
+			<camel:from uri="direct:setFbiIdHeaderParam"/>			
+			<camel:setHeader headerName="fbiId">
+				<camel:constant>123</camel:constant>
+			</camel:setHeader>
+		</camel:route>
+		
+		
+	    <!-- Criminal History Response Listener -->
+	    <camel:route id="personQueryResultsHandlerCriminalHistoryServiceRoute" autoStartup="false">
+	    	<from uri="personQueryResultsHandlerCriminalHistoryServiceEndpoint"/>
+	    	<camel:log message="Received response message - Criminal History: ${body}" loggingLevel="DEBUG"/>
+			<!-- 			
+				TODO see why 'warrants' is mentioned 				
+			-->
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:warrantsMessageProcessor?method=processRequestPayload" />			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	<camel:to uri="bean:criminalHistoryRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>				
 
 	</camel:camelContext>
+	
+	
 
 	<bean id="notificationBrokerServiceMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
 		<property name="operationName">
