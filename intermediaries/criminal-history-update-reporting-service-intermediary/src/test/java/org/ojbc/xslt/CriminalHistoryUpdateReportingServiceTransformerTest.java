@@ -20,13 +20,18 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.xml.transform.sax.SAXSource;
 
+import junit.framework.Assert;
+
 import org.apache.commons.io.FileUtils;
+import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
 import org.junit.Test;
@@ -109,7 +114,13 @@ public class CriminalHistoryUpdateReportingServiceTransformerTest {
 
 		Diff diff = new Diff(expectedXml, convertedResult);
 		
-		assertTrue(diff.identical());
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+		
+		List<Difference> diffList = detailedDiff.getAllDifferences();
+		
+		int difCount = diffList.size();
+		
+		Assert.assertEquals(detailedDiff.toString(), 0, difCount);
 	}
 
 }
