@@ -46,5 +46,7 @@ public interface RapbackDAO {
 	public Integer saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
 	
 	public Subject getSubject(Integer id);
-	public IdentificationTransaction getIdentificationTransaction(String transactionNumber); 
+	public IdentificationTransaction getIdentificationTransaction(String transactionNumber);
+	
+	public void updateSubject(Subject subject);
 }

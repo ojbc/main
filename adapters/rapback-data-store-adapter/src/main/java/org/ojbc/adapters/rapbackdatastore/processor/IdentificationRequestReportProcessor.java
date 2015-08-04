@@ -18,22 +18,15 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 
 import java.io.IOException;
 
-import javax.activation.DataHandler;
-
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.helpers.IOUtils;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
-import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
-import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -71,72 +64,14 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 			civilFingerPrints.setFingerPrintsType("STATE");
 		}
 		
-//		String contentType = XmlUtils.xPathStringSearch(rootNode, 
-//				"ident-ext:FederalFingerprintBasedIdentificationRequestDocument/ident-ext:DocumentBinary/@xmime:contentType");
-		String attachmentId = XmlUtils.xPathStringSearch(rootNode, 
-				"ident-ext:FederalFingerprintBasedIdentificationRequestDocument/xop:Include/@href");
+		String attachmentId = getAttachmentId(rootNode);
 		
-		DataHandler dataHandler = exchange.getIn().getAttachment(StringUtils.substringAfter(attachmentId, "cid:"));
-		//assertEquals("image/jpeg", dataHandler.getContentType());
-		
-		if (dataHandler != null){
-			byte[] receivedAttachment = IOUtils.readBytesFromStream(dataHandler.getInputStream());
-			civilFingerPrints.setFingerPrintsFile(receivedAttachment);
-		}
-		else{
-			log.error("No finger prints file found in the attachement for transaction " + transactionNumber);
-			throw new IllegalArgumentException("No finger prints file found in the attachement"); 
-		}
+		byte[] receivedAttachment = getAttachment(exchange, transactionNumber,
+				attachmentId);
 
-		civilFingerPrints.setTransactionType("Transaction");
+		civilFingerPrints.setFingerPrintsFile(receivedAttachment);
+		civilFingerPrints.setTransactionType("Transaction"); //TODO replace the placeholder with real value.
 		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
-	}
-
-	private void processIdentificationTransaction(Node rootNode, String transactionNumber)
-			throws Exception {
-		IdentificationTransaction identificationTransaction = new IdentificationTransaction(); 
-		
-		identificationTransaction.setTransactionNumber(transactionNumber);
-		
-		Node subjectNode = XmlUtils.xPathNodeSearch(rootNode, "jxdm50:Subject/nc30:RoleOfPerson"); 
-		Assert.notNull(subjectNode);
-		Subject subject = buildSubject(subjectNode) ;
-		identificationTransaction.setSubject(subject);
-		
-		String otn = XmlUtils.xPathStringSearch(subjectNode, "ident-ext:PersonTrackingIdentidication/nc30:IdentificationID");
-		identificationTransaction.setOtn(otn);
-		
-		String ownerOri = XmlUtils.xPathStringSearch(rootNode, "ident-ext:IdentificationApplicantOrganization/"
-				+ "jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
-		identificationTransaction.setOwnerOri(ownerOri);
-		
-		String ownerProgramOca = XmlUtils.xPathStringSearch(rootNode, "//ident-ext:IdentificationApplicantOrganization/"
-				+ "nc30:OrganizationIdentification/nc30:IdentificationID");
-		identificationTransaction.setOwnerProgramOca(ownerProgramOca);
-		
-		rapbackDAO.saveIdentificationTransaction(identificationTransaction);
-	}
-
-	private Subject buildSubject(Node subjectNode) throws Exception {
-		Subject subject = new Subject();
-		String firstName = XmlUtils.xPathStringSearch(subjectNode, "nc30:PersonName/nc30:PersonGivenName");
-		subject.setFirstName(firstName);
-		
-		String lastName = XmlUtils.xPathStringSearch(subjectNode, "nc30:PersonName/nc30:PersonSurName");
-		subject.setLastName(lastName);
-		
-		String middleInitial = XmlUtils.xPathStringSearch(subjectNode, "nc30:PersonName/nc30:PersonMiddleName");
-		subject.setMiddleInitial(middleInitial);
-		
-		String dobString = XmlUtils.xPathStringSearch(subjectNode, "nc30:PersonBirthDate/nc30:date");
-		if (StringUtils.isNotBlank(dobString)){
-			subject.setDob(XmlUtils.parseXmlDate(dobString));
-		}
-		
-		String sexCode = XmlUtils.xPathStringSearch(subjectNode, "jxdm50:PersonSexCode"); 
-		subject.setSexCode(sexCode);
-		 
-		return subject;
 	}
 
 }

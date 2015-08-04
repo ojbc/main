@@ -21,7 +21,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -453,6 +455,33 @@ public class RapbackDAOImpl implements RapbackDAO {
 		subject.setDob(toDateTime(rs.getDate("DOB")));
 		subject.setSexCode(rs.getString("SEX_CODE"));
 		return subject;
+	}
+
+	final static String SUBJECT_UPDATE="UPDATE FBI_RAP_BACK_SUBJECT SET "
+			+ "UCN = :ucn, "
+			+ "CRIMINAL_SID = :criminalSid, "
+			+ "CIVIL_SID = :civilSid, "
+			+ "FIRST_NAME = :firstName, "
+			+ "LAST_NAME = :lastName, "
+			+ "MIDDLE_INITIAL = :middelInitial, "
+			+ "DOB = :dob, "
+			+ "SEX_CODE = :sexCode "
+			+ "WHERE SUBJECT_ID = :subjectId";
+	@Override
+	public void updateSubject(Subject subject) {
+		Map<String, Object> paramMap = new HashMap<String, Object>(); 
+		
+		paramMap.put("ucn", subject.getUcn()); 
+		paramMap.put("criminalSid", subject.getCriminalSid()); 
+		paramMap.put("civilSid", subject.getCivilSid()); 
+		paramMap.put("firstName", subject.getFirstName()); 
+		paramMap.put("lastName", subject.getLastName()); 
+		paramMap.put("middelInitial", subject.getMiddleInitial()); 
+		paramMap.put("dob", subject.getDob() == null? null:subject.getDob().toDate()); 
+		paramMap.put("sexCode", subject.getSexCode()); 
+		paramMap.put("subjectId", subject.getSubjectId()); 
+		
+		namedParameterJdbcTemplate.update(SUBJECT_UPDATE, paramMap);
 	}
 	
 }
