@@ -131,10 +131,10 @@
                <nc:ActivityReference s:ref="d1e27"/>
                <j:ChargeReference s:ref="d1e9"/>
             </j:ActivityChargeAssociation>
-            <notification:ChargeDispositionAssociation>
+            <cdu:ChargeDispositionAssociation>
                <j:ChargeReference s:ref="d1e9"/>
-               <j:DispositionReference s:ref="d1e90"/>
-            </notification:ChargeDispositionAssociation>
+               <nc:Disposition s:ref="d1e90"/>
+            </cdu:ChargeDispositionAssociation>
          </notification:NotificationMessage>
       </b:Message>
    </b:NotificationMessage>
