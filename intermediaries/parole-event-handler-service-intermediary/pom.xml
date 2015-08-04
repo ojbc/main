@@ -54,6 +54,7 @@
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
 	    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+	    <ojb-fedquery-common-version>1.0.2</ojb-fedquery-common-version>
 	</properties>
 
 	<dependencies>
@@ -108,7 +109,11 @@
 			<artifactId>cxf-rt-ws-policy</artifactId>
 			<version>${cxf-version}</version>
 		</dependency>
-
+        <dependency>
+           <groupId>org.apache.cxf</groupId>
+           <artifactId>cxf-rt-ws-security</artifactId>
+           <version>${cxf-version}</version>
+       </dependency>       
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -127,6 +132,12 @@
 	      <artifactId>ojb-camel-common</artifactId>
 	      <version>${ojb-camel-common}</version>
 	    </dependency>
+	    
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>		
+			<artifactId>ojb-fedquery-common</artifactId>
+			<version>${ojb-fedquery-common-version}</version>
+		</dependency>	    
 
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
