@@ -75,7 +75,10 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		criminalInitialResults.setMatch(StringUtils.isNotBlank(attachmentId));
 		
 		criminalInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
-		//String rapBackCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CriminalIdentificationReasonCode");
+		
+		String rapBackCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CriminalIdentificationReasonCode");
+		criminalInitialResults.setRapBackCategory(rapBackCategory);
+		
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
 			criminalInitialResults.setResultsSender("FBI");
 		}

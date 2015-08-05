@@ -312,8 +312,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	final static String CRIMINAL_INITIAL_RESULTS_INSERT="insert into CRIMINAL_INITIAL_RESULTS "
 			+ "(TRANSACTION_NUMBER, MATCH_NO_MATCH, TRANSACTION_TYPE, "
-			+ " RESULTS_SENDER) "
-			+ "values (?, ?, ?, ?)";
+			+ " RESULTS_SENDER, RAP_BACK_CATEGORY) "
+			+ "values (?, ?, ?, ?, ?)";
 	@Override
 	public Integer saveCriminalInitialResults(
 			final CriminalInitialResults criminalInitialResults) {
@@ -326,11 +326,12 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CRIMINAL_INITIAL_RESULTS_INSERT, 
         	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
-        	                		"TRANSACTION_TYPE", "RESULTS_SENDER", });
+        	                		"TRANSACTION_TYPE", "RESULTS_SENDER", "RAP_BACK_CATEGORY" });
         	            ps.setString(1, criminalInitialResults.getTransactionNumber());
         	            ps.setBoolean(2, criminalInitialResults.getMatch());
         	            ps.setString(3, criminalInitialResults.getTransactionType());
         	            ps.setString(4, criminalInitialResults.getResultsSender());
+        	            ps.setString(5, criminalInitialResults.getRapBackCategory());
         	            return ps;
         	        }
         	    },

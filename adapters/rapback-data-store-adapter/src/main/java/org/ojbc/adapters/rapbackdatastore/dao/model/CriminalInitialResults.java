@@ -30,6 +30,8 @@ public class CriminalInitialResults implements Serializable{
 	private Boolean match; 
 	private String transactionType; 
 	private String resultsSender; 
+	private String rapBackCategory; 
+
 	
 	private DateTime timestamp;
 	
@@ -102,6 +104,14 @@ public class CriminalInitialResults implements Serializable{
 
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+
+	public String getRapBackCategory() {
+		return rapBackCategory;
+	}
+
+	public void setRapBackCategory(String rapBackCategory) {
+		this.rapBackCategory = rapBackCategory;
 	}
 
 }
