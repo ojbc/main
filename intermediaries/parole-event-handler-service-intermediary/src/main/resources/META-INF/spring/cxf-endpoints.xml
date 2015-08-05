@@ -42,6 +42,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        ">
     
+   
     <camel:endpoint id="paroleEventHandlerServiceEndpoint" 
     	uri="cxf:bean:paroleEventHandlerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}"/>                        
     
@@ -50,10 +51,7 @@
     
     <camel:endpoint id="subscriptionManagerServiceEndpoint" 
     	uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}"/>                
-            
-    <camel:endpoint id="personQueryResultsHandlerCriminalHistoryServiceEndpoint"
-		uri="cxf:bean:personQueryResultsHandlerCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}&amp;allowStreaming=false" />    
-    
+
     
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
@@ -81,8 +79,30 @@
 	</cxf:cxfEndpoint>
 
 
-
-
+	<!--***********************************************************
+		***********************************************************
+				 		person search 
+		***********************************************************
+		***********************************************************					
+	 -->
+	 
+	<camel:endpoint id="personMergeSearchResultsHandlerServiceEndpoint"
+		uri="cxf:bean:personSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}&amp;allowStreaming=false" />
+			
+   <bean id="personSearchRequestProcessor" class="org.ojbc.bundles.intermediaries.parole.event.PersonSearchRequestProcessor">
+   		<property name="replyToAddress"><value>${parole.event.personSearchResultsReplyToEndpoint}</value></property>
+   		<property name="personSearchMessageProcessor" ref="personSearchMessageProcessor"/>
+   		<property name="requestResponseMap" ref="personSearchRequestResponseMap"/>
+   		<property name="maxPolls" value="${parole.event.maxPolls}"/>
+   		<property name="pollingIntervalInMillis" value="${parole.event.pollingIntervalInMillis}"/>
+   </bean>
+  
+	<bean id="personSearchMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+		<property name="operationName"><value>SubmitPersonSearchRequest</value></property>
+		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0</value></property>
+		<property name="destinationEndpoint"><value>personSearchRequestService</value></property>
+	</bean>
+	
    	<!-- Person Search Request Service, invoked by intermediary  -->
 	<cxf:cxfEndpoint id="personSearchRequestService"
 		address="${parole.event.personSearchEndpoint}"
@@ -95,27 +115,27 @@
 			<entry key="ws-security.signature.properties" value-ref="paroleKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${parole.event.keystoreCertificateAlias}" />
 		</cxf:properties>
-	</cxf:cxfEndpoint>
+	</cxf:cxfEndpoint>			
+	
+	<!-- Present Person Merge Notification Service Results -->
+	<cxf:cxfEndpoint id="personSearchResultsHandlerService"
+		address="${parole.event.personSearchResultsReplyToEndpoint}"
+		wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
+		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>	
+	
+	<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="personSearchRequestResponseMap"/>
 
-    <!-- Criminal History Results handler, hosted by parole intermediary --> 
-    <cxf:cxfEndpoint 
-        id="personQueryResultsHandlerCriminalHistoryService"
-        address="${parole.event.personQueryResultsHandlerCriminalHistoryEndpoint}"
-        wsdlURL="classpath:service-specifications/Criminal_History_Query_Results_Service/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
-        serviceName="ojbc:Criminal-History-Query-Results-ServiceService"
-		endpointName="ojbc:Criminal-History-Query-Results-Service"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0">
-	     <cxf:features>
-	      <policy:policies>
-	        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-	          <wsam:Addressing>
-	            <wsp:Policy/>
-	          </wsam:Addressing>
-	        </wsp:Policy>
-	       </policy:policies>
-	    </cxf:features>    
-   </cxf:cxfEndpoint>  
-      
       
       
    	<util:properties id="paroleKeystoreProperties">
