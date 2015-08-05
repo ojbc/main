@@ -195,6 +195,7 @@ public class RapbackDAOImplTest {
 		criminalInitialResults.setMatch(Boolean.TRUE);
 		criminalInitialResults.setTransactionType("Transaction Type");
 		criminalInitialResults.setResultsSender("FBI");
+		criminalInitialResults.setRapBackCategory("CAR");
 	
 		criminalInitialResults.setSubject(identificationTransaction.getSubject());
 		Integer pkId = rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
