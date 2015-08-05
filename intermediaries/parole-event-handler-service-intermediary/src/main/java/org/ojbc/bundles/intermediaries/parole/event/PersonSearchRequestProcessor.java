@@ -27,7 +27,6 @@ import org.ojbc.bundles.intermediaries.parole.event.utils.PersonSearchRequest;
 import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.fedquery.error.MergeNotificationErrorProcessor;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 public class PersonSearchRequestProcessor extends RequestResponseProcessor implements CamelContextAware{
 
@@ -40,7 +39,7 @@ public class PersonSearchRequestProcessor extends RequestResponseProcessor imple
 		
 	private static final Log log = LogFactory.getLog( PersonSearchRequestProcessor.class );
 		
-	public String invokePersonSearchRequest(PersonSearchRequest personSearchRequest, String federatedQueryID, Element samlToken) throws Exception
+	public String invokePersonSearchRequest(PersonSearchRequest personSearchRequest, String federatedQueryID) throws Exception
 	{
 		String response = "";
 		
@@ -66,6 +65,7 @@ public class PersonSearchRequestProcessor extends RequestResponseProcessor imple
 			String tokenID = senderExchange.getExchangeId();
 			senderExchange.getIn().setHeader("tokenID", tokenID);
 		
+			// call async. service(returns immediately even though response not there)
 			personSearchMessageProcessor.sendResponseMessage(camelContext, senderExchange);
 				
 			//Put message ID and "noResponse" place holder.  

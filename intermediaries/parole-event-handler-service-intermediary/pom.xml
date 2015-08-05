@@ -48,16 +48,21 @@
 		<xmlunit-version>1.3</xmlunit-version>
 		<junit.version>4.10</junit.version>
 		<spring-version>3.0.7.RELEASE</spring-version>
-	    <spring-version>3.0.7.RELEASE</spring-version>
 		<ojb-camel-common>1.0.0</ojb-camel-common>
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
 	    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	    <ojb-fedquery-common-version>1.0.2</ojb-fedquery-common-version>
+	    <er-resources-version>1.0.2</er-resources-version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>gov.nij.bundles.shared</groupId>
+			<artifactId>Entity_Resolution_Resources</artifactId>
+			<version>${er-resources-version}</version>		
+		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
@@ -155,9 +160,9 @@
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test</artifactId>
-			<scope>test</scope>
+			<artifactId>camel-test</artifactId>			
 			<version>${camel-version}</version>
+			<scope>test</scope>
 		</dependency>
 
 	    <dependency>
