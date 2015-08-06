@@ -94,6 +94,7 @@ CREATE TABLE PretrialServiceParticipation (
                 RecordType CHAR(1) NOT NULL,
                 ArrestingAgencyORI VARCHAR(12) NOT NULL,
                 ArrestIncidentCaseNumber VARCHAR(30) NOT NULL,
+                PretrialServiceUniqueID VARCHAR(128) NOT NULL,
                 `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (PretrialServiceParticipationID)
 );
@@ -132,7 +133,8 @@ CREATE TABLE Disposition (
                 IsProbationViolation CHAR(1),
                 IsProbationViolationOnOldCharge CHAR(1),
                 RecidivismEligibilityDate DATE,
-                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                DocketChargeNumber VARCHAR(60) NOT NULL,
+				`Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (DispositionID)
 );
 

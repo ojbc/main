@@ -19,7 +19,6 @@ package org.ojbc.adapters.analyticaldatastore.processor;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import org.apache.commons.lang.NumberUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,6 +48,14 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 		{
 			log.debug("Disposition incident number: " + incidentNumber);
 			disposition.setIncidentCaseNumber(incidentNumber);
+		}	
+		
+		String docketId = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseHearing/nc30:ActivityIdentification/nc30:IdentificationID");
+		String count = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:InitialCharge/jxdm50:ChargeCountQuantity");
+		
+		if (StringUtils.isNotBlank(docketId) && StringUtils.isNotBlank(count))
+		{
+			disposition.setDocketChargeNumber(docketId + "|" + count);
 		}	
 		
 		//Sentence Fine Amount

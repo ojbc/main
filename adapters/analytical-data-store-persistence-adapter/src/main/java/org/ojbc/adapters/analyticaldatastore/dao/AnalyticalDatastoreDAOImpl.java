@@ -317,7 +317,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
          return keyHolder.getKey().intValue();
 	}
 
-	final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber) values (?,?,?,?,?,?,?)";
+	final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber,PretrialServiceUniqueID) values (?,?,?,?,?,?,?,?)";
 	@Override
 	public Integer savePretrialServiceParticipation(
 			final PretrialServiceParticipation pretrialServiceParticipation) {
@@ -330,7 +330,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(pretrialServiceParticipationStatement, new String[] {"PersonID", "CountyID", 
-        	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "ArrestingAgencyORI","ArrestIncidentCaseNumber","RecordType"});
+        	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "ArrestingAgencyORI","ArrestIncidentCaseNumber","RecordType","PretrialServiceUniqueID"});
         	            ps.setInt(1, pretrialServiceParticipation.getPersonID());
         	            ps.setInt(2, pretrialServiceParticipation.getCountyID());
         	            ps.setInt(3, pretrialServiceParticipation.getRiskScore());
@@ -350,6 +350,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            }
         	            ps.setString(6, pretrialServiceParticipation.getArrestingAgencyORI());
         	            ps.setString(7, pretrialServiceParticipation.getArrestIncidentCaseNumber());
+        	            ps.setString(8, pretrialServiceParticipation.getPretrialServiceUniqueID());
+        	            
         	            return ps;
         	        }
         	    },
@@ -386,7 +388,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         log.debug("Inserting row into Disposition table");
 
         final String dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,IncidentCaseNumber,DispositionDate,ArrestingAgencyORI,"
-        		+ "SentenceTermDays,SentenceFineAmount,InitialChargeCode, FinalChargeCode, RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        		+ "SentenceTermDays,SentenceFineAmount,InitialChargeCode, FinalChargeCode, RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate, DocketChargeNumber) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -394,7 +396,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(dispositionInsertStatement, new String[] {"PersonID","DispositionTypeID","IncidentCaseNumber","DispositionDate,ArrestingAgencyORI,"
-        	                		+ "SentenceTermDays","SentenceFineAmount","InitialChargeCode", "FinalChargeCode","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate"});
+        	                		+ "SentenceTermDays","SentenceFineAmount","InitialChargeCode", "FinalChargeCode","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate","DocketChargeNumber"});
         	            ps.setInt(1, disposition.getPersonID());
         	            ps.setInt(2, disposition.getDispositionTypeID());
         	            ps.setString(3, disposition.getIncidentCaseNumber());
@@ -450,6 +452,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            {
         	            	ps.setNull(13, java.sql.Types.NULL);
         	            }	
+        	            
+        	            ps.setString(14, disposition.getDocketChargeNumber());
         	            
         	            return ps;
         	        }
@@ -554,6 +558,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			}
 			pretrialServiceParticipation.setRiskScore(rs.getInt("riskScore"));
 	    	
+			pretrialServiceParticipation.setPretrialServiceUniqueID(rs.getString("PretrialServiceUniqueID"));
+			
 	    	return pretrialServiceParticipation;
 		}
 

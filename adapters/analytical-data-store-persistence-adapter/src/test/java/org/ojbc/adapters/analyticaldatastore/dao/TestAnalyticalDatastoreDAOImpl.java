@@ -207,6 +207,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		pretrialServiceParticipation.setRiskScore(1);
 		pretrialServiceParticipation.setArrestIncidentCaseNumber("case12345");
 		pretrialServiceParticipation.setArrestingAgencyORI("ORI12345");
+		pretrialServiceParticipation.setPretrialServiceUniqueID("12345");
 		
 		int pretrialServiceParticipationPk = analyticalDatastoreDAOImpl.savePretrialServiceParticipation(pretrialServiceParticipation);
 		assertEquals(1, pretrialServiceParticipationPk);
@@ -243,6 +244,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		disposition.setArrestingAgencyORI("PD12345678");
 		disposition.setInitialChargeCode("Initial Charge Code");
 		disposition.setFinalChargeCode("Initial Charge Code");
+		disposition.setDocketChargeNumber("123|456");
 		
 		int dispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
 		assertEquals(1, dispositionPk);

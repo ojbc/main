@@ -41,6 +41,8 @@ public class PretrialServiceParticipation {
     private String arrestingAgencyORI;
     
     private String arrestIncidentCaseNumber;
+    
+    private String pretrialServiceUniqueID;
 
 	public Integer getPretrialServiceParticipationID() {
 		return pretrialServiceParticipationID;
@@ -108,6 +110,14 @@ public class PretrialServiceParticipation {
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+	public String getPretrialServiceUniqueID() {
+		return pretrialServiceUniqueID;
+	}
+
+	public void setPretrialServiceUniqueID(String pretrialServiceUniqueID) {
+		this.pretrialServiceUniqueID = pretrialServiceUniqueID;
 	}
 	
 }
