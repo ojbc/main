@@ -82,8 +82,8 @@ public class RapbackDAOImplTest {
 	public void testSaveSubject() throws Exception {
 		Subject subject = new Subject(); 
 		subject.setUcn("B1234567");
-		subject.setCivilSid("B1234567");
-		subject.setDob(new DateTime(1990, 5, 12,0,0,0,0));
+		subject.setCivilSid("A123456");
+		subject.setDob(new DateTime(1969, 5, 12,0,0,0,0));
 		subject.setFirstName("Homer");
 		subject.setLastName("Simpson");
 		subject.setMiddleInitial("W");
@@ -92,14 +92,14 @@ public class RapbackDAOImplTest {
 		Integer subjectId = rapbackDAO.saveSubject(subject); 
 		
 		assertNotNull(subjectId);
-		assertEquals(1, subjectId.intValue()); 
+		assertEquals(3, subjectId.intValue()); 
 		
 		Subject persistedSubject = rapbackDAO.getSubject(subjectId); 
 		log.info(persistedSubject.toString());
 		
-		assertEquals(persistedSubject.toString(), "Subject[subjectId=1,ucn=B1234567,criminalSid=<null>,"
-				+ "civilSid=B1234567,firstName=Homer,lastName=Simpson,middleInitial=W,"
-				+ "dob=1990-05-12T00:00:00.000-05:00,sexCode=M]");
+		assertEquals(persistedSubject.toString(), "Subject[subjectId=3,ucn=B1234567,criminalSid=<null>,"
+				+ "civilSid=A123456,firstName=Homer,lastName=Simpson,middleInitial=W,"
+				+ "dob=1969-05-12T00:00:00.000-05:00,sexCode=M]");
 	}
 
 	@Test
@@ -123,7 +123,7 @@ public class RapbackDAOImplTest {
 		Subject subject = new Subject(); 
 		subject.setUcn("B1234567");
 		subject.setCivilSid("A123456");
-		subject.setDob(new DateTime(1990, 5, 12,0,0,0,0));
+		subject.setDob(new DateTime(1969, 5, 12,0,0,0,0));
 		subject.setFirstName("Homer");
 		subject.setLastName("Simpson");
 		subject.setMiddleInitial("W");
@@ -135,7 +135,7 @@ public class RapbackDAOImplTest {
 
 	@Test
 	@DirtiesContext
-	public void testSaveIdentificationTransactionWithOutSubject() throws Exception {
+	public void testSaveIdentificationTransactionWithoutSubject() throws Exception {
 		IdentificationTransaction transaction = new IdentificationTransaction(); 
 		transaction.setTransactionNumber(TRANSACTION_NUMBER);
 		transaction.setOtn("12345");
@@ -200,7 +200,7 @@ public class RapbackDAOImplTest {
 		criminalInitialResults.setSubject(identificationTransaction.getSubject());
 		Integer pkId = rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
 		assertNotNull(pkId);
-		assertEquals(1, pkId.intValue()); 
+		assertEquals(3, pkId.intValue()); 
 	}
 	
 	@Test
