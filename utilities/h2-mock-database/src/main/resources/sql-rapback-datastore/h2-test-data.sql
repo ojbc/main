@@ -35,3 +35,38 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62721', 'dateOfBirth', '1980-06-16');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62721', 'firstName', 'MICHAEL');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62721', 'lastName', 'Jones-Smith');
+
+insert into fbi_rap_back_subject(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
+	values ('1', 'B1234568','A123457', NULL, '1990-10-12', 'Lisa', 'Simpson', 'W','F');
+insert into fbi_rap_back_subject(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
+	values ('2', 'B1234569','A123458', NULL, '1987-10-10', 'Bart', 'Simpson', 'C','M');
+
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA) 
+	values ('000001820140729014008339990', '1', '12343', '68796860', 'ID12345');
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA) 
+	values ('000001820140729014008339991', '2', '12344', '68796860', 'ID12345');
+
+insert into CIVIL_FINGER_PRINTS (TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) 
+	values ('000001820140729014008339990', 'FBICivilFingerPrints', 'Transaction', 'FBI');
+insert into CIVIL_FINGER_PRINTS (TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) 
+	values ('000001820140729014008339990', 'StateCivilFingerPrints', 'Transaction', 'STATE');
+
+insert into CRIMINAL_FINGER_PRINTS (TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) 
+	values ('000001820140729014008339991', 'FBICriminalFingerPrints', 'Transaction', 'FBI');
+insert into CRIMINAL_FINGER_PRINTS (TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) 
+	values ('000001820140729014008339991', 'StateCriminalFingerPrints', 'Transaction', 'STATE');
+
+insert into CIVIL_INITIAL_RESULTS (CIVIL_INITIAL_RESULT_ID,TRANSACTION_NUMBER, MATCH_NO_MATCH, CURRENT_STATE, 
+	TRANSACTION_TYPE, CIVIL_RAP_BACK_CATEGORY, RESULTS_SENDER); 
+	values ('1', '000001820140729014008339990', 'true', 'Current State', 'Transaction', 'I', 'FBI')
+insert into CIVIL_INITIAL_RESULTS (CIVIL_INITIAL_RESULT_ID,TRANSACTION_NUMBER, MATCH_NO_MATCH, CURRENT_STATE, 
+	TRANSACTION_TYPE, CIVIL_RAP_BACK_CATEGORY, RESULTS_SENDER) 
+	values ('2', '000001820140729014008339990', 'true', 'Current State', 'Transaction', 'I', 'STATE');
+	
+insert into CIVIL_INITIAL_RAP_SHEET (CIVIL_INITIAL_RESULT_ID, RAP_SHEET, TRANSACTION_TYPE) values ('1', 'FBICivilRapSheet', 'Transaction');	
+insert into CIVIL_INITIAL_RAP_SHEET (CIVIL_INITIAL_RESULT_ID, RAP_SHEET, TRANSACTION_TYPE) values ('2', 'StateCivilRapSheet', 'Transaction');	
+
+insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NUMBER, MATCH_NO_MATCH, TRANSACTION_TYPE, RESULTS_SENDER, RAP_BACK_CATEGORY) 
+			values ('1', '000001820140729014008339991', 'true', 'Transaction', 'FBI', 'CAR');
+insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NUMBER, MATCH_NO_MATCH, TRANSACTION_TYPE, RESULTS_SENDER, RAP_BACK_CATEGORY) 
+			values ('2', '000001820140729014008339991', 'true', 'Transaction', 'STATE', 'CAR');
