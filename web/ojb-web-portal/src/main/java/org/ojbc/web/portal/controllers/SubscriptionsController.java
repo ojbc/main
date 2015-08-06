@@ -484,7 +484,7 @@ public class SubscriptionsController {
 		
 		
 		
-		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
+		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE);
 		
 		Date defaultSubEndDate = endDateStrategy.getDefaultValue();
 		
