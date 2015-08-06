@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<pse-doc:PretrialServiceEnrollmentReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0 ../xsd/Pretrial_Service_Enrollment_Report.xsd" xmlns:pse-doc="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0" xmlns:pse-ext="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<pseu-doc:PretrialServiceEnrollmentReportUpdate xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollmentUpdate/1.0 ../xsd/Pretrial_Service_Enrollment_Report_Update.xsd" xmlns:pseu-doc="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollmentUpdate/1.0" xmlns:pse-ext="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<j:Subject structures:id="Defendant_01">
 		<nc:RoleOfPerson>
 			<nc:PersonBirthDate>
@@ -384,4 +384,4 @@
 		<j:Offense structures:ref="Offense_01"/>
 		<nc:Incident structures:ref="Incident_01"/>
 	</j:OffenseIncidentAssociation>
-</pse-doc:PretrialServiceEnrollmentReport>
+</pseu-doc:PretrialServiceEnrollmentReportUpdate>
