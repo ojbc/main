@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNull;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -143,6 +144,10 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int chargePk = analyticalDatastoreDAOImpl.saveCharge(charge);
 		assertEquals(1, chargePk);
 		
+		analyticalDatastoreDAOImpl.deleteIncident(incidentTypePk);
+		
+		List<Incident> incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumberAndReportingAgencyID("999999", agencyPk);
+		assertEquals(0, incidents.size());
 	}
 
 	protected Person returnPerson() {

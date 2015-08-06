@@ -459,11 +459,11 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
          return keyHolder.getKey().intValue();		}
 
 	@Override
-	public List<Incident> searchForIncidentsByIncidentNumber(String incidentNumber) {
+	public List<Incident> searchForIncidentsByIncidentNumberAndReportingAgencyID(String incidentNumber, Integer reportingAgencyID) {
 		
-		String sql = "select * from Incident where IncidentCaseNumber = ?";
+		String sql = "select * from Incident where IncidentCaseNumber = ? and ReportingAgencyID = ?";
 		 
-		List<Incident> incidents = this.jdbcTemplate.query(sql, new Object[] { incidentNumber }, new IncidentRowMapper());
+		List<Incident> incidents = this.jdbcTemplate.query(sql, new Object[] { incidentNumber,  reportingAgencyID}, new IncidentRowMapper());
 		
 		return incidents;
 		
@@ -789,5 +789,13 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	    	return incidentType;
 		}
 
+	}
+
+	@Override
+	public void deleteIncident(Integer incidentID) throws Exception{
+		String sql = "delete from Incident where IncidentID = ?";
+		 
+		this.jdbcTemplate.update(sql, new Object[] { incidentID });
+		
 	}
 }

@@ -213,8 +213,10 @@ public class CamelContextTest {
 
 		//Sleep while a response is generated
 		Thread.sleep(3000);
+		
+		Integer reportingAgencyID = analyticalDatastoreDAOImpl.searchForAgenyIDbyAgencyORI("99999");
 	    
-		List<Incident> incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumber("15999999999");
+		List<Incident> incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumberAndReportingAgencyID("15999999999", reportingAgencyID);
 		assertEquals(1,incidents.size());
 		
 		Incident incident = incidents.get(0);
@@ -270,7 +272,14 @@ public class CamelContextTest {
 		assertEquals("Person[personID=2,personSexID=1,personRaceID=0,personSexDescription=M,"
 				+ "personRaceDescription=<null>,personBirthDate=1980-01-27,",
 				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
-		
+	
+		//Resend incident report
+		template.send("direct:incidentReportingServiceEndpoint", incidentReportExchange);
+
+		//Assert that there is still only one record in the database
+		incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumberAndReportingAgencyID("15999999999", reportingAgencyID);
+		assertEquals(1,incidents.size());
+
 	}
 	
 	@Test
@@ -330,7 +339,7 @@ public class CamelContextTest {
 		Person person = analyticalDatastoreDAOImpl.getPerson(pretrialServiceParticipation.getPersonID()); 
 		assertNotNull(person); 
 		log.info("Person: " + person.toString());
-		assertEquals("Person[personID=3,personSexID=1,personRaceID=5,personSexDescription=M,"
+		assertEquals("Person[personID=4,personSexID=1,personRaceID=5,personSexDescription=M,"
 				+ "personRaceDescription=W,personBirthDate=2001-12-17,",
 				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
 		

@@ -67,7 +67,7 @@ public interface AnalyticalDatastoreDAO {
 	public void savePretrialServiceNeedAssociations(
 			final List<Integer> assessedNeedsIds, final int pretrialServiceParticipationId);
 	
-	public List<Incident> searchForIncidentsByIncidentNumber(String incidentNumber);
+	public List<Incident> searchForIncidentsByIncidentNumberAndReportingAgencyID(String incidentNumber, Integer reportingAgencyID);
 	
 	public List<Disposition> searchForDispositionsByIncidentCaseNumber(String incidentCaseNumber);
 	
@@ -92,4 +92,6 @@ public interface AnalyticalDatastoreDAO {
 			final int pretrialServiceParticipationPkId);
 
 	public List<PretrialService> getAssociatedPretrialServices(Integer pretrialServiceParticipationId);
+	
+	public void deleteIncident(Integer incidentID) throws Exception;
 }
