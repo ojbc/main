@@ -332,6 +332,7 @@ public class CamelContextTest {
 		assertTrue(DateUtils.isSameDay(AbstractReportRepositoryProcessor.DATE_TIME_FORMAT.parse("2001-12-17T09:30:47"), pretrialServiceParticipation.getIntakeDate())); 
 		assertEquals("ORI", pretrialServiceParticipation.getArrestingAgencyORI());
 		assertEquals(Integer.valueOf(1), pretrialServiceParticipation.getCountyID());
+		assertEquals("Defendant_01", pretrialServiceParticipation.getPretrialServiceUniqueID());
 		
 		List<AssessedNeed> associatedNeeds = analyticalDatastoreDAOImpl.getAssociatedNeeds(pretrialServiceParticipation.getPretrialServiceParticipationID());
 		assertEquals(3, associatedNeeds.size()); 

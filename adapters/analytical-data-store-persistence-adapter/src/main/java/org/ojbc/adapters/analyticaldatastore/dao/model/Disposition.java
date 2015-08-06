@@ -48,6 +48,8 @@ public class Disposition {
 	private Character IsProbationViolationOnOldCharge;
 	
 	private Date recidivismEligibilityDate;
+	
+	private String docketChargeNumber;
 
 	public Integer getDispositionID() {
 		return dispositionID;
@@ -160,6 +162,14 @@ public class Disposition {
 
 	public void setSentenceTermDays(BigDecimal sentenceTermDays) {
 		this.sentenceTermDays = sentenceTermDays;
+	}
+
+	public String getDocketChargeNumber() {
+		return docketChargeNumber;
+	}
+
+	public void setDocketChargeNumber(String docketChargeNumber) {
+		this.docketChargeNumber = docketChargeNumber;
 	}
 
 }

@@ -106,6 +106,8 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 		Node personNode = XmlUtils.xPathNodeSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/jxdm50:Subject/nc30:RoleOfPerson");
         int personPk = savePerson(personNode, OjbcNamespaceContext.NS_PREFIX_NC_30, OjbcNamespaceContext.NS_PREFIX_JXDM_50);
         pretrialServiceParticipation.setPersonID(personPk);
+        
+        pretrialServiceParticipation.setPretrialServiceUniqueID(XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/jxdm50:Subject/@s30:id"));
 
         String countyName = XmlUtils.xPathStringSearch(report, 
         		"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:PreTrialServicesEnrollment/pse-ext:ActivityLocation/nc30:Address/nc30:LocationCountyName");

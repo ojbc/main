@@ -90,6 +90,7 @@ CREATE TABLE PretrialServiceParticipation (
                 RecordType CHAR(1) NOT NULL,
                 ArrestingAgencyORI VARCHAR(12) NOT NULL,
                 ArrestIncidentCaseNumber VARCHAR(30) NOT NULL,
+                PretrialServiceUniqueID VARCHAR(128) NOT NULL,
                 Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT PretrialServiceParticipation_pk PRIMARY KEY (PretrialServiceParticipationID)
 );
@@ -127,6 +128,7 @@ CREATE TABLE Disposition (
                 IsProbationViolation CHAR(1),
                 IsProbationViolationOnOldCharge CHAR(1),
                 RecidivismEligibilityDate DATE,
+                DocketChargeNumber VARCHAR(60) NOT NULL,
                 Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT Disposition_pk PRIMARY KEY (DispositionID)
 );
