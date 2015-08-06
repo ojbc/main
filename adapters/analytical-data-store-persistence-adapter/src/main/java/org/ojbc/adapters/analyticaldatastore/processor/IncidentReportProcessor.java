@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.DatatypeConverter;
@@ -27,11 +28,12 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAO;
+import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticaldatastore.dao.IncidentCircumstance;
 import org.ojbc.adapters.analyticaldatastore.dao.IncidentType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
-import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.personid.IdentifierGenerationStrategy;
 import org.ojbc.adapters.analyticaldatastore.util.AnalyticalDataStoreUtils;
@@ -72,9 +74,11 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		String reportingAgencyORI = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataOwnerMetadata/lexs:DataOwnerIdentifier/lexs:ORI");
 		log.debug("Agency ORI: " + reportingAgencyORI);
 
+		Integer reportingAgencyId = null;
+				
 		if (StringUtils.isNotBlank(reportingAgencyORI))
 		{
-			Integer reportingAgencyId = analyticalDatastoreDAO.searchForAgenyIDbyAgencyORI(reportingAgencyORI);
+			reportingAgencyId = analyticalDatastoreDAO.searchForAgenyIDbyAgencyORI(reportingAgencyORI);
 			
 			if (reportingAgencyId == null)
 			{
@@ -83,6 +87,24 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			
 			incident.setReportingAgencyID(reportingAgencyId);
 		}	
+		
+		String incidentCaseNumber=XmlUtils.xPathStringSearch(incidentReport,  PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataItemID");
+		log.debug("Incident Case Number: " + incidentCaseNumber);
+		
+		if (StringUtils.isNotBlank(incidentCaseNumber))
+		{
+			incident.setIncidentCaseNumber(incidentCaseNumber);
+		}			
+		
+		//Check to see if incident(s) already exists
+		List<Incident> incidents = analyticalDatastoreDAO.searchForIncidentsByIncidentNumberAndReportingAgencyID(incidentCaseNumber, reportingAgencyId);
+		
+		//if incidents exist, delete them prior to inserting a new one
+		for (Incident incidentInDatabase : incidents)
+		{
+			analyticalDatastoreDAO.deleteIncident(incidentInDatabase.getIncidentID());
+		}	
+		
 		
 		String reportingSystem = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataOwnerMetadata/lexs:DataOwnerIdentifier/lexs:SystemID");
 		incident.setReportingSystem(reportingSystem);
@@ -159,15 +181,6 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			{
 				log.warn("Unable to set map vertical text coordinate");
 			}
-		}	
-		
-		
-		String incidentCaseNumber=XmlUtils.xPathStringSearch(incidentReport,  PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataItemID");
-		log.debug("Incident Case Number: " + incidentCaseNumber);
-		
-		if (StringUtils.isNotBlank(incidentCaseNumber))
-		{
-			incident.setIncidentCaseNumber(incidentCaseNumber);
 		}	
 		
 		String incidentLocationReference = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:IncidentLocationAssociation/nc:LocationReference/@s:ref");
