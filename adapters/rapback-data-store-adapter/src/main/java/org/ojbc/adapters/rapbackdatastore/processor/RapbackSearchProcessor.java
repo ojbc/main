@@ -113,7 +113,6 @@ public class RapbackSearchProcessor {
 
         Document document = documentBuilder.newDocument();
         Element rootElement = createRapbackSearchResponseRootElement(document);
-
         return document;
     }
 

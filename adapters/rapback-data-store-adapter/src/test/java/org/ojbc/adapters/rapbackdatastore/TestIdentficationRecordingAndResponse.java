@@ -80,6 +80,7 @@ public class TestIdentficationRecordingAndResponse {
 	
 	private static final String CIVIL_RESULTS_ATTACHEMNT_ID = "http://ojbc.org/identification/results/example";
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( TestIdentficationRecordingAndResponse.class );
 
 	private static final String TRANSACTION_NUMBER = "000001820140729014008340000";
@@ -235,6 +236,36 @@ public class TestIdentficationRecordingAndResponse {
 		
 	}
 	
+	@Test
+	public void testIdentificationRecordingCriminalResultsSuccess() throws Exception
+	{
+		criminalRecordingResultServiceSuccess();
+	}
+	
+	public void criminalRecordingResultServiceSuccess() throws Exception
+	{
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-criminal.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		
+		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
+		
+	}
 	
 	protected Exchange createSenderExchange(String pathToInputFile) throws Exception, IOException {
 		//Create a new exchange
