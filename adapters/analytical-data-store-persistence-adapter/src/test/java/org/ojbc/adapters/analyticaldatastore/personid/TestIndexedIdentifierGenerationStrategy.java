@@ -16,8 +16,7 @@
  */
 package org.ojbc.adapters.analyticaldatastore.personid;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.HashMap;
@@ -27,6 +26,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +59,7 @@ public class TestIndexedIdentifierGenerationStrategy {
 			   
 		if (strategy == null)
 		{	
-			strategy = new IndexedIdentifierGenerationStrategy(tempFilePath + "lucene");
+			strategy = new IndexedIdentifierGenerationStrategy(tempFilePath + "lucene", tempFilePath + "backup");
 		}	
 		
 		attributeMap = new HashMap<String, Object>();
@@ -173,6 +174,29 @@ public class TestIndexedIdentifierGenerationStrategy {
 		
 	}
 
+	@Test
+	public void testBackup() throws Exception {
+		
+		String id = strategy.generateIdentifier(attributeMap);
+		
+		attributeMap.put(IndexedIdentifierGenerationStrategy.SEX_FIELD, null);
+		String id2 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id, id2);
+		
+		String backupDirectoryPath = strategy.backup();
+
+		File backupDirectory = new File(backupDirectoryPath);
+		
+		assertTrue(backupDirectory.exists());
+		assertTrue(backupDirectory.list().length>0);
+		
+		if (backupDirectory.exists())
+		{	
+			FileUtils.deleteDirectory(backupDirectory);
+		}	
+
+
+	}	
 	private Object makeDate(int year, int monthOfYear, int dayOfMonth) {
 		DateTime d = new DateTime(year, monthOfYear, dayOfMonth, 1, 1, 1, 0);
 		return d.toDate();

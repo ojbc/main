@@ -203,12 +203,19 @@
 			<camel:to uri="invocationFailedFileEndpoint"/>
 			
 		</camel:route>
+		
+		<camel:route id="IndexBackupRoute">
+			<from uri="timer://foo?fixedRate=true&amp;period=1H&amp;delay=5M"/>
+			<to uri="bean:indexedIdentifierGenerationStrategy?method=backup"/>
+		</camel:route>
+		
 	</camel:camelContext>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	
 	<bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.adapters.analyticaldatastore.personid.IndexedIdentifierGenerationStrategy"  destroy-method="destroy">
 		<constructor-arg name="indexDirectoryPath" value="${analyticsAdapter.luceneDirectory}"/>
+		<constructor-arg name="indexBackupRoot" value="${analyticsAdapter.luceneBackupDirectory}"/>
 	</bean>
 	
 	<bean id ="incidentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.IncidentReportProcessor">

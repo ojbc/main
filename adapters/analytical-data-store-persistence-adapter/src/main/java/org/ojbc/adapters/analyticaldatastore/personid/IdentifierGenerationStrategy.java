@@ -40,4 +40,10 @@ public interface IdentifierGenerationStrategy {
 	 */
 	public String generateIdentifier(Map<String, Object> attributes) throws Exception;
 
+	/**
+	 * Backup the identifier cache where the identifiers were generated.
+	 * 
+	 * @return the path to where the cache was backed up.
+	 */
+	public String backup() throws Exception;
 }
