@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.common.util.StringUtils;
@@ -33,9 +34,12 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexCommit;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexableField;
+import org.apache.lucene.index.KeepOnlyLastCommitDeletionPolicy;
+import org.apache.lucene.index.SnapshotDeletionPolicy;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
@@ -47,6 +51,9 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * An implementation of the identifier generation strategy that uses Lucene to maintain an index that maps sets of attributes to identifiers.
@@ -60,17 +67,23 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 	private IndexWriter indexWriter;
 	private boolean resolveEquivalentNames = true;
 	private FirstNameEquivalentCorpus firstNameEquivalentCorpus;
+	private String indexBackupRoot;
+	private String indexDirectoryPath;
 
-	public IndexedIdentifierGenerationStrategy(String indexDirectoryPath) throws Exception{
+	public IndexedIdentifierGenerationStrategy(String indexDirectoryPath, String indexBackupRoot) throws Exception{
 		
 		if (StringUtils.isEmpty(indexDirectoryPath))
 		{
 			throw new IllegalStateException("Index Directory Path Required.");
 		}	
 		
-		init(indexDirectoryPath);
+		this.indexBackupRoot=indexBackupRoot;
+		this.indexDirectoryPath = indexDirectoryPath;
+
+		init();
 		
 		firstNameEquivalentCorpus = new FirstNameEquivalentCorpus();
+		
 	}
 	
 	public boolean getResolveEquivalentNames() {
@@ -157,12 +170,13 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 		return ret;
 	}
 
-	private void init(String indexDirectoryPath) throws Exception {
+	private void init() throws Exception {
 		Directory indexDirectory = FSDirectory.open(new File(indexDirectoryPath));
 		log.info("Set Lucene index directory to " + indexDirectory.toString());
 		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
 		IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer);
 		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+		config.setIndexDeletionPolicy(new SnapshotDeletionPolicy(new KeepOnlyLastCommitDeletionPolicy()));
 		indexWriter = new IndexWriter(indexDirectory, config);
 	}
 
@@ -178,5 +192,49 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 	private IndexableField createFieldFromMapEntry(Entry<String, Object> entry) {
 		return new StringField(entry.getKey(), getFormattedAttributeValue(entry.getValue()), Store.YES);
 	}
+	
+	/**
+	 * This method will back up the lucene cache using the specified backup path.
+	 * It will create a new directory with the format yyyy_MM_dd_HH_mm_ss which will
+	 * contain the backed up index.  Hot backups are allowed.
+	 * 
+	 */
+	@Override
+	public String backup() throws Exception {
+	    SnapshotDeletionPolicy snapshotter = (SnapshotDeletionPolicy) indexWriter.getConfig().getIndexDeletionPolicy();
+	    
+	    IndexCommit commit = null;
+	    String backupFileDirectory = "";
+	    
+	    try {
+			DateTime now = new DateTime();
+			DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy_MM_dd_HH_mm_ss");
+			String dateTimeStamp = now.toString(dtf);
+			
+			if ( !(indexBackupRoot.endsWith("/") || indexBackupRoot.endsWith("\\")) )
+			{	
+				indexBackupRoot = indexBackupRoot + System.getProperty("file.separator");
+			}
 
+		    backupFileDirectory = indexBackupRoot + dateTimeStamp + System.getProperty("file.separator");
+	    	
+	    	commit = snapshotter.snapshot();
+	        for (String fileName : commit.getFileNames()) {
+	           log.debug("File Name: " + fileName);
+	           
+	           File srcFile = new File(indexDirectoryPath + System.getProperty("file.separator") + fileName);
+	           File destFile = new File(backupFileDirectory + System.getProperty("file.separator") + fileName);
+	           
+	           FileUtils.copyFile(srcFile, destFile);
+	           
+	        }
+	    } catch (Exception e) {
+	    	log.error("Exception", e);
+	    } finally {
+	        snapshotter.release(commit);
+	    }	
+	    
+	    return backupFileDirectory;
+	} 
+	
 }
