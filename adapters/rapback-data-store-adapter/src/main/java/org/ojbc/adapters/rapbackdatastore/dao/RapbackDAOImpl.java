@@ -62,12 +62,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Autowired
 	private JdbcTemplate jdbcTemplate;
-	@Override
-	public Iterable<Object> getRapbackReports(String federationId,
-			String employerOri) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	final static String SUBJECT_INSERT="INSERT into FBI_RAP_BACK_SUBJECT "
 			+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB, SEX_CODE) "

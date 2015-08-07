@@ -33,8 +33,6 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
 
 public interface RapbackDAO {
 	
-	public Iterable<Object> getRapbackReports(String federationId, String employerOri);
-	
 	public Integer saveSubject(final Subject subject);
 	public void saveIdentificationTransaction(IdentificationTransaction identificationTransaction);
 	public Integer saveCivilFbiSubscriptionRecord(final CivilFbiSubscriptionRecord civilFbiSubscriptionRecord);
