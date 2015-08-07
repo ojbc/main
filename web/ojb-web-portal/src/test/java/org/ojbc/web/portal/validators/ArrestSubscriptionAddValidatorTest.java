@@ -110,6 +110,28 @@ public class ArrestSubscriptionAddValidatorTest {
 	
 	
 	@Test
+	public void testSubGreaterThanOneYear(){
+		
+		Subscription subscription = new Subscription();
+								
+		Calendar oneYearPlus1DayCal = Calendar.getInstance();
+		oneYearPlus1DayCal.add(Calendar.YEAR, 1);
+		oneYearPlus1DayCal.add(Calendar.DAY_OF_MONTH, 1);
+		Date oneYearPlusOneDayDate = oneYearPlus1DayCal.getTime();
+		
+		subscription.setSubscriptionStartDate(new Date());
+		
+		subscription.setSubscriptionEndDate(oneYearPlusOneDayDate);
+		
+		Map<String, String> fieldToErrorMap = arrestStrictValidator.getValidationErrorsList(subscription);
+		
+		String oneYearError = fieldToErrorMap.get("subscriptionEndDate");
+		
+		assertEquals("End date may not occur more than one year after the start date", oneYearError);				
+	}
+	
+	
+	@Test
 	public void testValidatorSuccesses(){
 						
 		Subscription subscription = new Subscription();

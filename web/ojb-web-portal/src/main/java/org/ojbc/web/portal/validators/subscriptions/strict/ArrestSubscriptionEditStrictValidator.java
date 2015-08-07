@@ -16,6 +16,7 @@
  */
 package org.ojbc.web.portal.validators.subscriptions.strict;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,7 +90,17 @@ public class ArrestSubscriptionEditStrictValidator implements ArrestSubscription
 		if(subEndDate != null && subStartDate != null){			
 			if(subEndDate.before(subStartDate)){
 				fieldToErrorMap.put("subscriptionEndDate", "End date may not occur before start date");
-			}									
+			}else{				
+				Calendar oneYearAfterStartCal = Calendar.getInstance();
+									
+				oneYearAfterStartCal.setTime(subStartDate);
+				oneYearAfterStartCal.add(Calendar.YEAR, 1);
+				Date oneYearAfterStartDate = oneYearAfterStartCal.getTime();
+						
+				if(subEndDate.after(oneYearAfterStartDate)){
+					fieldToErrorMap.put("subscriptionEndDate", "End date may not occur more than one year after the start date");
+				}					
+			}					
 		}
 		
 		String purpose = subscription.getSubscriptionPurpose();
