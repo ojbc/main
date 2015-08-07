@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:cc-filing-ext="http://ojbc.org/IEPD/Extension/CourtCaseFiling/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extension/CourtCaseFiling/1.0" elementFormDefault="qualified" attributeFormDefault="qualified" version="1">
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="./Subset/niem/domains/jxdm/4.1/jxdm.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="./Subset/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="./Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="./Subset/niem/appinfo/2.1/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="./Subset/niem/appinfo/2.0/appinfo.xsd"/>
+	<xsd:complexType name="CourtCaseFilingDocumentType" abstract="false" mixed="false">
+		<xsd:annotation>
+			<xsd:documentation>A data type for charge filing document.</xsd:documentation>
+			<xsd:appinfo>
+				<i:ConformantIndicator>true</i:ConformantIndicator>
+				<i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+				<xsd:documentation>A data type for a charge filing</xsd:documentation>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="nc:DocumentType">
+				<xsd:sequence>
+					<xsd:element ref="cc-filing-ext:VictimRightsAssertionCertificationIndicator"/>
+					<xsd:element ref="j:Case"/>
+					<xsd:element ref="cc-filing-ext:Arrest"/>
+					<xsd:element ref="cc-filing-ext:Person" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Person" maxOccurs="unbounded"/>
+					<xsd:element ref="j:JudicialOfficial" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a human being.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:name="PersonType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:PersonType">
+				<xsd:sequence>
+					<xsd:element ref="cc-filing-ext:AlaskaPublicSafetyInformationNetworkIdentification"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ArrestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the apprehension of a subject by a peace official.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:name="ArrestType" i:namespace="http://niem.gov/niem/domains/jxdm/4.1"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:ArrestType">
+				<xsd:sequence>
+					<xsd:element ref="cc-filing-ext:ArrestTrackingNumberIdentification"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="Person" type="cc-filing-ext:PersonType">
+		<xsd:annotation>
+			<xsd:documentation>A human being.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Arrest" type="cc-filing-ext:ArrestType">
+		<xsd:annotation>
+			<xsd:documentation>Details about the apprehension of a subject by a peace official based on an observed or a reported violation of a law or ordinance, an outstanding arrest warrant, or probable cause information.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AlaskaPublicSafetyInformationNetworkIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An Alaska APSIN Identifier for a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VictimRightsAssertionCertificationIndicator" type="xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a victim rights certificate applies; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestTrackingNumberIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A tracking number associated with an arrest.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
