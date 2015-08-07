@@ -257,7 +257,7 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		identificationReportingResultMessageProcessor.expectedMessageCount(3);
 		
 		identificationReportingResultMessageProcessor.assertIsSatisfied();
 		

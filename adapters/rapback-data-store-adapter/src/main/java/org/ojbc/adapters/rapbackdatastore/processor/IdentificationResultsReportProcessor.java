@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
@@ -106,7 +107,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		civilInitialResults.setMatch(StringUtils.isNotBlank(attachmentId));
 			
-		civilInitialResults.setCurrentState("current_state"); //TODO replace the placeholder with real value
+		civilInitialResults.setCurrentState(CivilInitialResultsState.Available); //TODO replace the placeholder with real value
 		civilInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
 		
 		String rapBackCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CivilIdentificationReasonCode");
