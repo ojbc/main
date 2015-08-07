@@ -165,7 +165,7 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 		assertNotNull(pkId);
-		assertEquals(1, pkId.intValue()); 
+		assertEquals(3, pkId.intValue()); 
 	}
 	
 	@Test
@@ -181,7 +181,7 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCriminalFingerPrints(criminalFingerPrints);
 		assertNotNull(pkId);
-		assertEquals(1, pkId.intValue()); 
+		assertEquals(3, pkId.intValue()); 
 	}
 	
 	@Test
