@@ -29,4 +29,14 @@ public enum CivilInitialResultsState {
 	public String toString(){
 		return this.description; 
 	}
+	
+	public static CivilInitialResultsState valueOfDesc(String desc){
+		for (CivilInitialResultsState civilInitialResultsState: CivilInitialResultsState.values()){
+			if (civilInitialResultsState.toString().equalsIgnoreCase(desc)){
+				return civilInitialResultsState; 
+			}
+		}
+		
+		return null;
+	}
 }

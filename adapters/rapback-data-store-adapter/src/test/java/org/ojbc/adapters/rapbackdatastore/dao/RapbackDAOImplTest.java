@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -41,6 +42,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -129,6 +131,7 @@ public class RapbackDAOImplTest {
 		subject.setFirstName("Homer");
 		subject.setLastName("Simpson");
 		subject.setMiddleInitial("W");
+		subject.setSexCode("M");
 		
 		transaction.setSubject(subject);
 		
@@ -224,20 +227,24 @@ public class RapbackDAOImplTest {
 		civilInitialResults.setCivilRapBackCategory("I");
 		civilInitialResults.setResultsSender("FBI");
 		
-		civilInitialResults.setSubject(identificationTransaction.getSubject());
 		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		assertNotNull(pkId);
-		assertEquals(1, pkId.intValue()); 
+		assertEquals(3, pkId.intValue()); 
+		
+		CivilInitialResults persistedCivilInitialResults = 
+				(rapbackDAO.getCivilInitialResults(identificationTransaction.getOwnerOri())).get(2);
+		log.info("PersistedCivilIntialResults: \n" + persistedCivilInitialResults.toString());
+		
 		
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
-		civilInitialRapSheet.setCivilIntitialResultId(1);
+		civilInitialRapSheet.setCivilIntitialResultId(3);
 		civilInitialRapSheet.setRapSheet("rapsheet".getBytes());
 		civilInitialRapSheet.setTransactionType("Transaction Type");
 		
 		Integer civilInitialRapSheetPkId = 
 				rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);  
 		assertNotNull(civilInitialRapSheetPkId);
-		assertEquals(1, civilInitialRapSheetPkId.intValue()); 
+		assertEquals(3, civilInitialRapSheetPkId.intValue()); 
 	}
 	
 }

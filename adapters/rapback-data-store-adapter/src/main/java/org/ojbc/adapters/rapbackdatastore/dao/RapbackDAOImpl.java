@@ -34,6 +34,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
@@ -420,27 +421,32 @@ public class RapbackDAOImpl implements RapbackDAO {
 						new IdentificationTransactionRowMapper(), transactionNumber);
 		return DataAccessUtils.singleResult(transactions);
 	}
-
 	private final class IdentificationTransactionRowMapper 
 		implements RowMapper<IdentificationTransaction> {
 		public IdentificationTransaction mapRow(ResultSet rs, int rowNum) throws SQLException {
 			
-			IdentificationTransaction identificationTransaction = new IdentificationTransaction();
-			identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
-			identificationTransaction.setOtn(rs.getString("otn"));
-			identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp_received")));
-			identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
-			identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
-
-			Integer subjectId = rs.getInt("subject_id");
-			
-			if (subjectId != null){
-				Subject subject = buildSubject(rs);
-				identificationTransaction.setSubject(subject);
-			}
+			IdentificationTransaction identificationTransaction = buildIdentificationTransaction(rs);
 			
 			return identificationTransaction;
 		}
+	}
+	
+	private IdentificationTransaction buildIdentificationTransaction(ResultSet rs)
+			throws SQLException {
+		IdentificationTransaction identificationTransaction = new IdentificationTransaction();
+		identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
+		identificationTransaction.setOtn(rs.getString("otn"));
+		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp_received")));
+		identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
+		identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
+
+		Integer subjectId = rs.getInt("subject_id");
+		
+		if (subjectId != null){
+			Subject subject = buildSubject(rs);
+			identificationTransaction.setSubject(subject);
+		}
+		return identificationTransaction;
 	}
 	
 	private Subject buildSubject(ResultSet rs) throws SQLException {
@@ -458,16 +464,16 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return subject;
 	}
 
-	final static String SUBJECT_UPDATE="UPDATE FBI_RAP_BACK_SUBJECT SET "
-			+ "UCN = :ucn, "
-			+ "CRIMINAL_SID = :criminalSid, "
-			+ "CIVIL_SID = :civilSid, "
-			+ "FIRST_NAME = :firstName, "
-			+ "LAST_NAME = :lastName, "
-			+ "MIDDLE_INITIAL = :middelInitial, "
-			+ "DOB = :dob, "
-			+ "SEX_CODE = :sexCode "
-			+ "WHERE SUBJECT_ID = :subjectId";
+	final static String SUBJECT_UPDATE="UPDATE fbi_rap_back_subject SET "
+			+ "ucn = :ucn, "
+			+ "criminal_sid = :criminalSid, "
+			+ "civil_sid = :civilSid, "
+			+ "first_name = :firstName, "
+			+ "last_name = :lastName, "
+			+ "middle_initial = :middelInitial, "
+			+ "dob = :dob, "
+			+ "sex_code = :sexCode "
+			+ "WHERE subject_id = :subjectId";
 	@Override
 	public void updateSubject(Subject subject) {
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
@@ -485,4 +491,39 @@ public class RapbackDAOImpl implements RapbackDAO {
 		namedParameterJdbcTemplate.update(SUBJECT_UPDATE, paramMap);
 	}
 	
+	final static String CIVIL_INITIAL_RESULTS_SELECT="SELECT c.*, t.timestamp_received, t.otn, t.owner_ori, t.owner_program_oca, s.* "
+			+ "FROM civil_initial_results c "
+			+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
+			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
+			+ "WHERE c.match_no_match = true AND t.owner_ori = ?";
+
+	@Override
+	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
+		List<CivilInitialResults> civilIntialResults = 
+				jdbcTemplate.query(CIVIL_INITIAL_RESULTS_SELECT, 
+						new CivilInitialResultsRowMapper(), ownerOri);
+		return civilIntialResults;
+	}
+
+	private final class CivilInitialResultsRowMapper 
+	implements RowMapper<CivilInitialResults> {
+	public CivilInitialResults mapRow(ResultSet rs, int rowNum) throws SQLException {
+		
+		CivilInitialResults civilInitialResults = new CivilInitialResults();
+		civilInitialResults.setId(rs.getInt("civil_initial_result_id"));
+		civilInitialResults.setTransactionNumber( rs.getString("transaction_number") );
+		civilInitialResults.setTransactionType(rs.getString("transaction_type"));
+		civilInitialResults.setCivilRapBackCategory(rs.getString("civil_rap_back_category"));
+		civilInitialResults.setResultsSender(rs.getString("results_sender"));
+		civilInitialResults.setMatch(rs.getBoolean("match_no_match"));
+		civilInitialResults.setCurrentState(CivilInitialResultsState.valueOfDesc(rs.getString("current_state")));
+		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+
+		civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs));
+		
+		return civilInitialResults;
+	}
+}
+
+
 }

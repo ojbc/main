@@ -16,6 +16,8 @@
  */
 package org.ojbc.adapters.rapbackdatastore.dao;
 
+import java.util.List;
+
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
@@ -47,6 +49,7 @@ public interface RapbackDAO {
 	
 	public Subject getSubject(Integer id);
 	public IdentificationTransaction getIdentificationTransaction(String transactionNumber);
+	public List<CivilInitialResults> getCivilInitialResults(String ori);
 	
 	public void updateSubject(Subject subject);
 }
