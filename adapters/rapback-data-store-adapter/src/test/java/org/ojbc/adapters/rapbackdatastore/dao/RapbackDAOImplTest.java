@@ -35,6 +35,7 @@ import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
@@ -75,6 +76,7 @@ public class RapbackDAOImplTest {
 		ResultSet rs = conn.createStatement().executeQuery("select * from subscription");
 		assertTrue(rs.next());
 		assertEquals(62720,rs.getInt("id"));
+		rs = conn.createStatement().executeQuery("select * from FBI_RAP_BACK_SUBJECT");
 	}
 
 	@Test
@@ -217,7 +219,7 @@ public class RapbackDAOImplTest {
 		CivilInitialResults civilInitialResults = new CivilInitialResults(); 
 		civilInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
 		civilInitialResults.setMatch(Boolean.TRUE);
-		civilInitialResults.setCurrentState("current_state");
+		civilInitialResults.setCurrentState(CivilInitialResultsState.Available);
 		civilInitialResults.setTransactionType("Transaction Type");
 		civilInitialResults.setCivilRapBackCategory("I");
 		civilInitialResults.setResultsSender("FBI");

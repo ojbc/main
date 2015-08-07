@@ -36,6 +36,10 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62721', 'firstName', 'MICHAEL');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62721', 'lastName', 'Jones-Smith');
 
+insert into CIVIL_INITIAL_RESULTS_STATE(state) values('Archived');
+insert into CIVIL_INITIAL_RESULTS_STATE(state) values('Available for subscription');
+insert into CIVIL_INITIAL_RESULTS_STATE(state) values('Subscribed');
+
 insert into fbi_rap_back_subject(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
 	values ('1', 'B1234568','A123457', NULL, '1990-10-12', 'Lisa', 'Simpson', 'W','F');
 insert into fbi_rap_back_subject(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
@@ -58,10 +62,10 @@ insert into CRIMINAL_FINGER_PRINTS (TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRAN
 
 insert into CIVIL_INITIAL_RESULTS (CIVIL_INITIAL_RESULT_ID,TRANSACTION_NUMBER, MATCH_NO_MATCH, CURRENT_STATE, 
 	TRANSACTION_TYPE, CIVIL_RAP_BACK_CATEGORY, RESULTS_SENDER); 
-	values ('1', '000001820140729014008339990', 'true', 'Current State', 'Transaction', 'I', 'FBI')
+	values ('1', '000001820140729014008339990', 'true', 'Available for subscription', 'Transaction', 'I', 'FBI')
 insert into CIVIL_INITIAL_RESULTS (CIVIL_INITIAL_RESULT_ID,TRANSACTION_NUMBER, MATCH_NO_MATCH, CURRENT_STATE, 
 	TRANSACTION_TYPE, CIVIL_RAP_BACK_CATEGORY, RESULTS_SENDER) 
-	values ('2', '000001820140729014008339990', 'true', 'Current State', 'Transaction', 'I', 'STATE');
+	values ('2', '000001820140729014008339990', 'true', 'Available for subscription', 'Transaction', 'I', 'STATE');
 	
 insert into CIVIL_INITIAL_RAP_SHEET (CIVIL_INITIAL_RESULT_ID, RAP_SHEET, TRANSACTION_TYPE) values ('1', 'FBICivilRapSheet', 'Transaction');	
 insert into CIVIL_INITIAL_RAP_SHEET (CIVIL_INITIAL_RESULT_ID, RAP_SHEET, TRANSACTION_TYPE) values ('2', 'StateCivilRapSheet', 'Transaction');	

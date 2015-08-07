@@ -298,7 +298,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	                		"TRANSACTION_TYPE", "CIVIL_RAP_BACK_CATEGORY", "RESULTS_SENDER", });
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
         	            ps.setBoolean(2, civilInitialResults.getMatch());
-        	            ps.setString(3, civilInitialResults.getCurrentState());
+        	            ps.setString(3, civilInitialResults.getCurrentState().toString());
         	            ps.setString(4, civilInitialResults.getTransactionType());
         	            ps.setString(5, civilInitialResults.getCivilRapBackCategory());
         	            ps.setString(6, civilInitialResults.getResultsSender());

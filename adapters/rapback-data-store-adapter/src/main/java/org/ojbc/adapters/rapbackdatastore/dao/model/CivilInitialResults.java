@@ -28,7 +28,7 @@ public class CivilInitialResults implements Serializable{
 	private Long id; //Civil Initial Results ID;
 	private String transactionNumber;
 	private Boolean match; 
-	private String currentState;
+	private CivilInitialResultsState currentState;
 	private String transactionType; 
 	private String civilRapBackCategory; 
 	private String resultsSender; 
@@ -106,11 +106,11 @@ public class CivilInitialResults implements Serializable{
 		this.subject = subject;
 	}
 
-	public String getCurrentState() {
+	public CivilInitialResultsState getCurrentState() {
 		return currentState;
 	}
 
-	public void setCurrentState(String currentState) {
+	public void setCurrentState(CivilInitialResultsState currentState) {
 		this.currentState = currentState;
 	}
 
