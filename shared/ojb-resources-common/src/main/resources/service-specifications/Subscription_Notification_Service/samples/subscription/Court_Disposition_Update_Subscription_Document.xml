@@ -32,7 +32,7 @@
 		<add:Metadata />
 	</b-2:ConsumerReference>
 	<b-2:Filter>
-		<b-2:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/court/disposition/update</b-2:TopicExpression>
+		<b-2:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/criminalHistoryCourtDispositionRecording</b-2:TopicExpression>
 	</b-2:Filter>
 	<b-2:SubscriptionPolicy />
 	<submsg-doc:SubscriptionMessage>

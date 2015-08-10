@@ -89,4 +89,5 @@
 			<j:TermDuration>P1Y</j:TermDuration>
 		</submsg-ext:SubscriptionTerm>
 	</submsg-ext:RelatedFBISubscription>
+	</submsg-doc:SubscriptionMessage>
 </b-2:Subscribe>
