@@ -242,7 +242,7 @@ ON UPDATE NO ACTION;
 ALTER TABLE Disposition ADD CONSTRAINT Person_Disposition_fk
 FOREIGN KEY (PersonID)
 REFERENCES Person (PersonID)
-ON DELETE NO ACTION
+ON DELETE CASCADE
 ON UPDATE NO ACTION;
 
 ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT Person_PretrialServiceParticipation_fk
