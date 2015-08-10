@@ -84,16 +84,33 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveIncident(final Incident incident) {
         log.debug("Inserting row into Incident table");
 
-        final String incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
-        		+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,ReportingSystem,RecordType) values (?,?,?,?,?,?,?,?,?,?)";
-		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	        	
+        	        	String incidentInsertStatement="";
+        	        	String[] insertArgs = null;	
+        	        	
+        	            if (incident.getIncidentID() == null)
+        	            {	
+        	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
+        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,ReportingSystem,RecordType) values (?,?,?,?,?,?,?,?,?,?)";
+        	            	
+            	        	insertArgs = new String[] {"ReportingAgencyID", "IncidentCaseNumber"
+        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","ReportingSystem","RecordType"};	
+        	            }	
+        	            else
+        	            {
+        	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
+        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,ReportingSystem,RecordType, IncidentID) values (?,?,?,?,?,?,?,?,?,?,?)";
+        	            	
+            	        	insertArgs = new String[] {"ReportingAgencyID", "IncidentCaseNumber"
+        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","ReportingSystem","RecordType", "IncidentID"};	
+        	            }	
+        	        	
         	            PreparedStatement ps =
-        	                connection.prepareStatement(incidentInsertStatement, new String[] {"ReportingAgencyID", "IncidentCaseNumber"
-        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","ReportingSystem","RecordType"});
+        	                connection.prepareStatement(incidentInsertStatement, insertArgs);
         	            ps.setInt(1, incident.getReportingAgencyID());
         	            ps.setString(2, incident.getIncidentCaseNumber());
         	            ps.setBigDecimal(3, incident.getIncidentLocationLatitude());
@@ -104,6 +121,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setTime(8, new java.sql.Time(incident.getIncidentDate().getTime()));
         	            ps.setString(9, incident.getReportingSystem());
         	            ps.setString(10, String.valueOf(incident.getRecordType()));
+        	            
+        	            if (incident.getIncidentID() != null)
+        	            {	
+        	            	ps.setInt(11, incident.getIncidentID());
+        	            }	
+        	            
         	            return ps;
         	        }
         	    },
@@ -460,7 +483,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    },
         	    keyHolder);
 
-         return keyHolder.getKey().intValue();		}
+         return keyHolder.getKey().intValue();		
+    }
 
 	@Override
 	public List<Incident> searchForIncidentsByIncidentNumberAndReportingAgencyID(String incidentNumber, Integer reportingAgencyID) {
@@ -801,7 +825,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public void deleteIncident(Integer incidentID) throws Exception{
 		String sql = "delete from Incident where IncidentID = ?";
 		 
-		this.jdbcTemplate.update(sql, new Object[] { incidentID });
+		int resultSize = this.jdbcTemplate.update(sql, new Object[] { incidentID });
+		
+		if (resultSize == 0)
+		{
+			throw new Exception("No incident found with IncidentID of: " + incidentID);
+		}	
 		
 	}
 }
