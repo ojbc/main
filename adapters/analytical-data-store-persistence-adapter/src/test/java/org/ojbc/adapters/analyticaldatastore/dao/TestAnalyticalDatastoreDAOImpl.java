@@ -97,7 +97,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		incident.setIncidentLocationTown("Town");
 		incident.setReportingSystem("RMS");
 		
-		//Explicity set incident ID and make sure database honors it
+		//Explicitly set incident ID and make sure database honors it
 		incident.setIncidentID(new Integer(999999999));
 		
 		incident.setIncidentDate(new Date());
