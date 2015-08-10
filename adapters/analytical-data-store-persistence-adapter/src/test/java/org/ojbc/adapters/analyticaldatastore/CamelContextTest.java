@@ -279,6 +279,9 @@ public class CamelContextTest {
 		//Assert that there is still only one record in the database
 		incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumberAndReportingAgencyID("15999999999", reportingAgencyID);
 		assertEquals(1,incidents.size());
+		
+		//Assert it has the same PK
+		assertEquals(incidentPk, incidents.get(0).getIncidentID().intValue());
 
 	}
 	
@@ -340,7 +343,7 @@ public class CamelContextTest {
 		Person person = analyticalDatastoreDAOImpl.getPerson(pretrialServiceParticipation.getPersonID()); 
 		assertNotNull(person); 
 		log.info("Person: " + person.toString());
-		assertEquals("Person[personID=4,personSexID=1,personRaceID=5,personSexDescription=M,"
+		assertEquals("Person[personID=3,personSexID=1,personRaceID=5,personSexDescription=M,"
 				+ "personRaceDescription=W,personBirthDate=2001-12-17,",
 				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
 		

@@ -97,21 +97,24 @@ public class TestAnalyticalDatastoreDAOImpl {
 		incident.setIncidentLocationTown("Town");
 		incident.setReportingSystem("RMS");
 		
+		//Explicity set incident ID and make sure database honors it
+		incident.setIncidentID(new Integer(999999999));
+		
 		incident.setIncidentDate(new Date());
 		incident.setIncidentTime(new java.sql.Time(incident.getIncidentDate().getTime()));
 		
 		int incidentPk = analyticalDatastoreDAOImpl.saveIncident(incident);
-		assertEquals(1, incidentPk);
+		assertEquals(999999999, incidentPk);
 
 		IncidentType incidentType = new IncidentType();
-		incidentType.setIncidentID(1);
+		incidentType.setIncidentID(incidentPk);
 		incidentType.setIncidentDescriptionText("Incident DescriptionText");
 		
 		int incidentTypePk = analyticalDatastoreDAOImpl.saveIncidentType(incidentType);
 		assertEquals(1, incidentTypePk);
 		
 		IncidentCircumstance incidentCircumstance = new IncidentCircumstance();
-		incidentCircumstance.setIncidentID(1);
+		incidentCircumstance.setIncidentID(incidentPk);
 		incidentCircumstance.setIncidentCircumstanceText("Incident Circumstance Text");
 		
 		int incidentCircumstancePk = analyticalDatastoreDAOImpl.saveIncidentCircumstance(incidentCircumstance);
@@ -144,7 +147,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int chargePk = analyticalDatastoreDAOImpl.saveCharge(charge);
 		assertEquals(1, chargePk);
 		
-		analyticalDatastoreDAOImpl.deleteIncident(incidentTypePk);
+		analyticalDatastoreDAOImpl.deleteIncident(incidentPk);
 		
 		List<Incident> incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumberAndReportingAgencyID("999999", agencyPk);
 		assertEquals(0, incidents.size());
