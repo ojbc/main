@@ -152,6 +152,14 @@
                         </EntityActivity>
                         <EntityActivity xmlns="http://usdoj.gov/leisp/lexs/digest/3.1">
                             <Activity xmlns="http://niem.gov/niem/niem-core/2.0"
+                                xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="IDOFFENSENdexStyle">
+                                <nc:ActivityCategoryText
+                                    xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                    >Offense</nc:ActivityCategoryText>
+                            </Activity>
+                        </EntityActivity>
+                        <EntityActivity xmlns="http://usdoj.gov/leisp/lexs/digest/3.1">
+                            <Activity xmlns="http://niem.gov/niem/niem-core/2.0"
                                 xmlns:NS1="http://niem.gov/niem/structures/2.0"
                                 NS1:id="IDArrest138481">
                                 <nc:ActivityIdentification
@@ -345,6 +353,15 @@
                                     xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="IDJO506743"
                                 />
                             </lexsdigest:ArrestOffenseAssociation>
+                            <lexsdigest:ArrestOffenseAssociation
+                                xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1">
+                                <nc:ActivityReference xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                    xmlns:s="http://niem.gov/niem/structures/2.0"
+                                    s:ref="IDArrest138481"/>
+                                <nc:ActivityReference xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                    xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="IDOFFENSENdexStyle"
+                                />
+                            </lexsdigest:ArrestOffenseAssociation>
                             <lexsdigest:ArrestOfficerAssociation
                                 xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1">
                                 <nc:ActivityReference xmlns:nc="http://niem.gov/niem/niem-core/2.0"
@@ -474,6 +491,15 @@
                                 <ndexia:OffenseCode>Violation of a Court Order</ndexia:OffenseCode>
                                 <ndexia:OffenseText>DRIVING - LICENSE SUSPENDED</ndexia:OffenseText>
                             </ndexia:Offense>
+                            <ndexia:Offense>
+                                <ndexia:ActivityAugmentation>
+                                    <lexslib:SameAsDigestReference
+                                        xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+                                        lexslib:ref="IDOFFENSENdexStyle"/>
+                                </ndexia:ActivityAugmentation>
+                                <ndexia:OffenseCode>Violation of a Court Order</ndexia:OffenseCode>
+                                <ndexia:OffenseText>DRIVING - LICENSE SUSPENDED</ndexia:OffenseText>
+                            </ndexia:Offense>                            
                             <ndexia:ArrestSubject 
                             	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
                             	xmlns:nc="http://niem.gov/niem/niem-core/2.0">

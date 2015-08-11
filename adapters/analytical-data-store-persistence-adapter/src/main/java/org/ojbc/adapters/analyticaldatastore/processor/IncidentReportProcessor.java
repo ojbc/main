@@ -373,12 +373,29 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			
 			String offenseCategoryCodeText = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Offense[lexslib:SameAsDigestReference/@lexslib:ref='" + offenseId + "']/inc-ext:OffenseCategoryCodeText");
 			
+			if (StringUtils.isBlank(offenseCategoryCodeText))
+			{
+				offenseCategoryCodeText = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref='" + offenseId + "']/ndexia:OffenseCode");
+			}	
+			
+			log.debug("Offense Category Code Text (Statute): " + offenseCategoryCodeText);
+			
 			String offenseDescriptionText1 = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref='" + offenseId + "']/jxdm40:Statute/jxdm40:StatuteCodeIdentification/nc:IdentificationID");
+
+			if (StringUtils.isBlank(offenseDescriptionText1))
+			{
+				offenseDescriptionText1 = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref='" + offenseId + "']/ndexia:OffenseText");
+			}	
+			
 			log.debug("Offense Description Text 1 (Statute): " + offenseDescriptionText1);
 			
 			Charge charge = new Charge();
 			charge.setArrestID(arrestPk);
-			charge.setOffenseDescriptionText(offenseCategoryCodeText);
+			
+			if (StringUtils.isNotBlank(offenseCategoryCodeText))
+			{
+				charge.setOffenseDescriptionText(offenseCategoryCodeText);
+			}	
 			
 			if (StringUtils.isNotBlank(offenseDescriptionText1))
 			{
