@@ -28,8 +28,6 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAO;
-import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticaldatastore.dao.IncidentCircumstance;
 import org.ojbc.adapters.analyticaldatastore.dao.IncidentType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
@@ -100,9 +98,20 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		List<Incident> incidents = analyticalDatastoreDAO.searchForIncidentsByIncidentNumberAndReportingAgencyID(incidentCaseNumber, reportingAgencyId);
 		
 		//if incidents exist, delete them prior to inserting a new one
-		for (Incident incidentInDatabase : incidents)
+		if (incidents.size() >1)
 		{
-			analyticalDatastoreDAO.deleteIncident(incidentInDatabase.getIncidentID());
+			throw new IllegalStateException("Error condition. Duplicate records with same incident number and agency ID exists in database");
+		}	
+		
+		Integer incidentIDToReplace = null;
+				
+		if (incidents.size() == 1)
+		{
+			incidentIDToReplace = incidents.get(0).getIncidentID();
+			incident.setIncidentID(incidentIDToReplace);
+			log.debug("Incident ID to replace: " + incidentIDToReplace);
+			
+			analyticalDatastoreDAO.deleteIncident(incidents.get(0).getIncidentID());
 		}	
 		
 		

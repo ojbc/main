@@ -16,8 +16,7 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -74,6 +73,37 @@ public class TestAnalyticalDatastoreDAOImpl {
 		Assert.assertNotNull(analyticalDatastoreDAOImpl);
 		Assert.assertNotNull(dataSource);
 	}
+	
+	@Test
+	public void testSaveIncidentWithoutSpecifyingIncidentID() throws Exception
+	{
+
+		Incident incident = new Incident();
+		
+		incident.setIncidentDescriptionText("Incident Description Text");
+		incident.setReportingAgencyID(1);
+		incident.setIncidentCaseNumber("999999");
+		incident.setRecordType('N');
+		incident.setIncidentLocationStreetAddress("Street address");
+		incident.setIncidentLocationTown("Town");
+		incident.setReportingSystem("RMS");
+		
+		incident.setIncidentDate(new Date());
+		incident.setIncidentTime(new java.sql.Time(incident.getIncidentDate().getTime()));
+		
+		Integer incidentPk = analyticalDatastoreDAOImpl.saveIncident(incident);
+		assertNotNull(incidentPk);
+		
+		//Now delete the inserted incident
+		analyticalDatastoreDAOImpl.deleteIncident(incidentPk);
+		
+		//Set the incident ID to the previously saved incident, resave and confirm the incident PKs are the same
+		incident.setIncidentID(incidentPk);
+		Integer subsequentIncidentPk = analyticalDatastoreDAOImpl.saveIncident(incident);
+		assertNotNull(subsequentIncidentPk);
+		assertEquals(subsequentIncidentPk,incidentPk);
+
+	}
 		
 	@Test
 	public void testSaveIncidentArrest() throws Exception
@@ -97,21 +127,24 @@ public class TestAnalyticalDatastoreDAOImpl {
 		incident.setIncidentLocationTown("Town");
 		incident.setReportingSystem("RMS");
 		
+		//Explicitly set incident ID and make sure database honors it
+		incident.setIncidentID(new Integer(999999999));
+		
 		incident.setIncidentDate(new Date());
 		incident.setIncidentTime(new java.sql.Time(incident.getIncidentDate().getTime()));
 		
 		int incidentPk = analyticalDatastoreDAOImpl.saveIncident(incident);
-		assertEquals(1, incidentPk);
+		assertEquals(999999999, incidentPk);
 
 		IncidentType incidentType = new IncidentType();
-		incidentType.setIncidentID(1);
+		incidentType.setIncidentID(incidentPk);
 		incidentType.setIncidentDescriptionText("Incident DescriptionText");
 		
 		int incidentTypePk = analyticalDatastoreDAOImpl.saveIncidentType(incidentType);
 		assertEquals(1, incidentTypePk);
 		
 		IncidentCircumstance incidentCircumstance = new IncidentCircumstance();
-		incidentCircumstance.setIncidentID(1);
+		incidentCircumstance.setIncidentID(incidentPk);
 		incidentCircumstance.setIncidentCircumstanceText("Incident Circumstance Text");
 		
 		int incidentCircumstancePk = analyticalDatastoreDAOImpl.saveIncidentCircumstance(incidentCircumstance);
@@ -144,7 +177,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int chargePk = analyticalDatastoreDAOImpl.saveCharge(charge);
 		assertEquals(1, chargePk);
 		
-		analyticalDatastoreDAOImpl.deleteIncident(incidentTypePk);
+		analyticalDatastoreDAOImpl.deleteIncident(incidentPk);
 		
 		List<Incident> incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumberAndReportingAgencyID("999999", agencyPk);
 		assertEquals(0, incidents.size());
@@ -250,6 +283,88 @@ public class TestAnalyticalDatastoreDAOImpl {
 		assertEquals(1, dispositionPk);
 
 		
+	}
+	
+	@Test(expected=Exception.class)
+	public void testDispositionDelete() throws Exception
+	{
+		DispositionType dispositionType = new DispositionType();
+		
+		dispositionType.setDispositionDescription("Disposition Description");
+		
+		int dispositionTypePk = analyticalDatastoreDAOImpl.saveDispositionType(dispositionType);
+		
+		Person person = returnPerson();
+		
+		int personPk = analyticalDatastoreDAOImpl.savePerson(person);
+				
+		Disposition disposition = new Disposition();
+		
+		disposition.setDispositionDate(new Date());
+		disposition.setDispositionTypeID(dispositionTypePk);
+		disposition.setIncidentCaseNumber("case12345");
+		disposition.setIsProbationViolation('N');
+		disposition.setIsProbationViolationOnOldCharge('N');
+		disposition.setPersonID(personPk);
+		disposition.setRecidivismEligibilityDate(new Date());
+		disposition.setRecordType('N');
+		disposition.setSentenceFineAmount(Float.parseFloat("354.65"));
+		disposition.setSentenceTermDays(new BigDecimal(345.25));
+		disposition.setArrestingAgencyORI("PD12345678");
+		disposition.setInitialChargeCode("Initial Charge Code");
+		disposition.setFinalChargeCode("Initial Charge Code");
+		disposition.setDocketChargeNumber("12345|6789");
+		
+		Integer dispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
+
+		assertEquals(1,analyticalDatastoreDAOImpl.searchForDispositionsByDocketChargeNumber("12345|6789").size());
+		
+		analyticalDatastoreDAOImpl.deleteDisposition(dispositionPk);
+	
+		//Try to delete the same disposition twice and exception will be thrown and asserted by test
+		analyticalDatastoreDAOImpl.deleteDisposition(dispositionPk);
+	}
+	
+	@Test
+	public void testDispositionUpdate() throws Exception
+	{
+		DispositionType dispositionType = new DispositionType();
+		
+		dispositionType.setDispositionDescription("Disposition Description");
+		
+		int dispositionTypePk = analyticalDatastoreDAOImpl.saveDispositionType(dispositionType);
+		
+		Person person = returnPerson();
+		
+		int personPk = analyticalDatastoreDAOImpl.savePerson(person);
+				
+		Disposition disposition = new Disposition();
+		
+		disposition.setDispositionDate(new Date());
+		disposition.setDispositionTypeID(dispositionTypePk);
+		disposition.setIncidentCaseNumber("case12345");
+		disposition.setIsProbationViolation('N');
+		disposition.setIsProbationViolationOnOldCharge('N');
+		disposition.setPersonID(personPk);
+		disposition.setRecidivismEligibilityDate(new Date());
+		disposition.setRecordType('N');
+		disposition.setSentenceFineAmount(Float.parseFloat("354.65"));
+		disposition.setSentenceTermDays(new BigDecimal(345.25));
+		disposition.setArrestingAgencyORI("PD12345678");
+		disposition.setInitialChargeCode("Initial Charge Code");
+		disposition.setFinalChargeCode("Initial Charge Code");
+		disposition.setDocketChargeNumber("12345|6789");
+		
+		Integer dispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
+
+		assertEquals(1,analyticalDatastoreDAOImpl.searchForDispositionsByDocketChargeNumber("12345|6789").size());
+		
+		analyticalDatastoreDAOImpl.deleteDisposition(dispositionPk);
+		
+		disposition.setDispositionID(dispositionPk);
+		
+		Integer subsequentDispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
+		assertEquals(dispositionPk,subsequentDispositionPk);
 	}
 	
 	@Test

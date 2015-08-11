@@ -18,10 +18,12 @@ package org.ojbc.adapters.analyticaldatastore.processor;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAO;
 import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.util.DaoUtils;
@@ -53,9 +55,29 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 		String docketId = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseHearing/nc30:ActivityIdentification/nc30:IdentificationID");
 		String count = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:InitialCharge/jxdm50:ChargeCountQuantity");
 		
+		String docketChargeNumber = "";
+		
 		if (StringUtils.isNotBlank(docketId) && StringUtils.isNotBlank(count))
 		{
-			disposition.setDocketChargeNumber(docketId + "|" + count);
+			docketChargeNumber = docketId + "|" + count;
+			log.debug("Setting docket charge number to: " + docketChargeNumber);
+			disposition.setDocketChargeNumber(docketChargeNumber);
+		}	
+		
+		if (StringUtils.isNotEmpty(docketChargeNumber))
+		{	
+			List<Disposition> dispositions = analyticalDatastoreDAO.searchForDispositionsByDocketChargeNumber(docketChargeNumber);
+			
+			if (dispositions.size() > 1)
+			{
+				throw new Exception("Database has more than one disposition with the same docket charge number: " + docketChargeNumber);
+			}	
+			
+			if (dispositions.size() == 1)
+			{
+				analyticalDatastoreDAO.deleteDisposition(dispositions.get(0).getDispositionID());
+			}	
+			
 		}	
 		
 		//Sentence Fine Amount
