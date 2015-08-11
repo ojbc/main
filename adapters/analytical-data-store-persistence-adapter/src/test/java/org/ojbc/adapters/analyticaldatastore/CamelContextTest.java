@@ -163,7 +163,7 @@ public class CamelContextTest {
 		//Sleep while a response is generated
 		Thread.sleep(3000);
 		
-		List<Disposition> dispositions = analyticalDatastoreDAOImpl.searchForDispositionsByIncidentCaseNumber("Incident Number");
+		List<Disposition> dispositions = analyticalDatastoreDAOImpl.searchForDispositionsByDocketChargeNumber("DOCID|1");
 		
 		assertEquals(1, dispositions.size());
 		
@@ -182,6 +182,8 @@ public class CamelContextTest {
 		assertEquals("12/17/2011",DATE_FOMRAT.format(disposition.getRecidivismEligibilityDate()));
 		assertTrue(new BigDecimal("545.00").equals(disposition.getSentenceTermDays()));
 		
+		Integer originalDispositionID = disposition.getDispositionID();
+		
 		int personId = disposition.getPersonID();
 		
 		Person person = analyticalDatastoreDAOImpl.getPerson(personId);
@@ -193,7 +195,13 @@ public class CamelContextTest {
 				+ "personRaceDescription=A,personBirthDate=2001-12-17,",
 				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
 		
-
+		//Resend same disposition, make sure we get one record with same PK
+		template.send("direct:dispositionReportingServiceEndpoint", dispostionReportExchange);
+		
+		dispositions = analyticalDatastoreDAOImpl.searchForDispositionsByDocketChargeNumber("DOCID|1");
+		
+		assertEquals(1, dispositions.size());
+		assertEquals(originalDispositionID, dispositions.get(0).getDispositionID());
 		
 	}	
 	
@@ -343,7 +351,7 @@ public class CamelContextTest {
 		Person person = analyticalDatastoreDAOImpl.getPerson(pretrialServiceParticipation.getPersonID()); 
 		assertNotNull(person); 
 		log.info("Person: " + person.toString());
-		assertEquals("Person[personID=3,personSexID=1,personRaceID=5,personSexDescription=M,"
+		assertEquals("Person[personID=4,personSexID=1,personRaceID=5,personSexDescription=M,"
 				+ "personRaceDescription=W,personBirthDate=2001-12-17,",
 				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
 		
