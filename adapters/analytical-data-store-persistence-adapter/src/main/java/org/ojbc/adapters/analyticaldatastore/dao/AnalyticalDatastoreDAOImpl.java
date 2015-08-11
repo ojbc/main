@@ -351,7 +351,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
          return keyHolder.getKey().intValue();
 	}
 
-	final String pretrialServiceParticipationStatement="INSERT into PretrialServiceParticipation (PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber,PretrialServiceUniqueID) values (?,?,?,?,?,?,?,?)";
 	@Override
 	public Integer savePretrialServiceParticipation(
 			final PretrialServiceParticipation pretrialServiceParticipation) {
@@ -362,9 +361,29 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	        	
+        	        	String pretrialInsertStatement="";
+        	        	String[] insertArgs = null;
+        	        	
+        	        	if (pretrialServiceParticipation.getPretrialServiceParticipationID() != null)
+        	        	{
+        	        		insertArgs = new String[] {"PersonID", "CountyID", 
+        	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "ArrestingAgencyORI","ArrestIncidentCaseNumber","RecordType","PretrialServiceUniqueID","PretrialServiceParticipationID"};
+
+        	        		pretrialInsertStatement="INSERT into PretrialServiceParticipation (PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber,PretrialServiceUniqueID,PretrialServiceParticipationID) values (?,?,?,?,?,?,?,?,?)";
+        	        	}	
+        	        	else
+        	        	{
+        	        		insertArgs = new String[] {"PersonID", "CountyID", 
+        	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "ArrestingAgencyORI","ArrestIncidentCaseNumber","RecordType","PretrialServiceUniqueID"};
+
+        	        		pretrialInsertStatement="INSERT into PretrialServiceParticipation (PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber,PretrialServiceUniqueID) values (?,?,?,?,?,?,?,?)";
+        	        		
+        	        	}	
+        	        			
+        	        	
         	            PreparedStatement ps =
-        	                connection.prepareStatement(pretrialServiceParticipationStatement, new String[] {"PersonID", "CountyID", 
-        	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "ArrestingAgencyORI","ArrestIncidentCaseNumber","RecordType","PretrialServiceUniqueID"});
+        	                connection.prepareStatement(pretrialInsertStatement, insertArgs);
         	            ps.setInt(1, pretrialServiceParticipation.getPersonID());
         	            ps.setInt(2, pretrialServiceParticipation.getCountyID());
         	            ps.setInt(3, pretrialServiceParticipation.getRiskScore());
@@ -386,12 +405,29 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setString(7, pretrialServiceParticipation.getArrestIncidentCaseNumber());
         	            ps.setString(8, pretrialServiceParticipation.getPretrialServiceUniqueID());
         	            
+        	        	if (pretrialServiceParticipation.getPretrialServiceParticipationID() != null)
+        	        	{
+        	        		ps.setInt(9, pretrialServiceParticipation.getPretrialServiceParticipationID());
+        	        	}	
+        	            
         	            return ps;
         	        }
         	    },
         	    keyHolder);
 
-         return keyHolder.getKey().intValue();	
+		        Integer returnValue = null;
+		        
+		        if (pretrialServiceParticipation.getPretrialServiceParticipationID() != null)
+		        {
+		       	 	returnValue = pretrialServiceParticipation.getPretrialServiceParticipationID();
+		        }	 
+		        else
+		        {
+		       	 	returnValue = keyHolder.getKey().intValue();
+		        }	 
+		        
+		        return returnValue;	
+
     }
 
 	@Override
@@ -595,15 +631,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	
 	}
 
-	private final String PRETRIAL_SERVICE_PARTICIPATION_BY_INCIDENT_NUMBER = 
-			"SELECT * FROM PretrialServiceParticipation WHERE ArrestIncidentCaseNumber = ?";
+	private final String PRETRIAL_SERVICE_PARTICIPATION_BY_UNIQUE_ID = 
+			"SELECT * FROM PretrialServiceParticipation WHERE PretrialServiceUniqueID = ?";
 	@Override
-	public PretrialServiceParticipation getPretrialServiceParticipationByIncidentNumber(
-			String incidentNumber) {
+	public PretrialServiceParticipation searchForPretrialServiceParticipationByUniqueID(
+			String uniqueID) {
 		 
 		List<PretrialServiceParticipation> pretrialServiceParticipations = 
-				jdbcTemplate.query(PRETRIAL_SERVICE_PARTICIPATION_BY_INCIDENT_NUMBER, 
-						new PretrialServiceParticipationRowMapper(), incidentNumber);
+				jdbcTemplate.query(PRETRIAL_SERVICE_PARTICIPATION_BY_UNIQUE_ID, 
+						new PretrialServiceParticipationRowMapper(), uniqueID);
 		
 		return DataAccessUtils.singleResult(pretrialServiceParticipations);
 	}
@@ -889,6 +925,22 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		{
 			throw new Exception("No disposition found with DispositionID of: " + dispositionID);
 		}	
+		
+	}
+
+	@Override
+	public void deletePretrialServiceParticipation(
+			Integer pretrialServiceParticipationID) throws Exception {
+
+			String sql = "delete from PretrialServiceParticipation where PretrialServiceParticipationID = ?";
+			 
+			int resultSize = this.jdbcTemplate.update(sql, new Object[] { pretrialServiceParticipationID });
+			
+			if (resultSize == 0)
+			{
+				throw new Exception("No Pretrial Service Participation found with PretrialServiceParticipationID of: " + pretrialServiceParticipationID);
+			}	
+
 		
 	}
 }

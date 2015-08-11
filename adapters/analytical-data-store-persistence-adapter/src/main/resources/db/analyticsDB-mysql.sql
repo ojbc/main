@@ -249,25 +249,25 @@ ON UPDATE NO ACTION;
 ALTER TABLE Disposition ADD CONSTRAINT person_disposition_fk
 FOREIGN KEY (PersonID)
 REFERENCES Person (PersonID)
-ON DELETE CASCADE
+ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT person_pretrialserviceparticipation_fk
 FOREIGN KEY (PersonID)
 REFERENCES Person (PersonID)
-ON DELETE NO ACTION
+ON DELETE CASCADE
 ON UPDATE NO ACTION;
 
 ALTER TABLE PretrialServiceNeedAssociation ADD CONSTRAINT pretrialserviceparticipation_pretrialserviceassessedneed_fk
 FOREIGN KEY (PretrialServiceParticipationID)
 REFERENCES PretrialServiceParticipation (PretrialServiceParticipationID)
-ON DELETE NO ACTION
+ON DELETE CASCADE
 ON UPDATE NO ACTION;
 
 ALTER TABLE PretrialServiceAssociation ADD CONSTRAINT pretrialserviceparticipation_pretrialserviceassociation_fk
 FOREIGN KEY (PretrialServiceParticipationID)
 REFERENCES PretrialServiceParticipation (PretrialServiceParticipationID)
-ON DELETE NO ACTION
+ON DELETE CASCADE
 ON UPDATE NO ACTION;
 
 ALTER TABLE Arrest ADD CONSTRAINT incident_arrest_fk

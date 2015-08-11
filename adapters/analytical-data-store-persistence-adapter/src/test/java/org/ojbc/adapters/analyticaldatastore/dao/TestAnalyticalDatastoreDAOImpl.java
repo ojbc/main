@@ -241,9 +241,24 @@ public class TestAnalyticalDatastoreDAOImpl {
 		pretrialServiceParticipation.setArrestIncidentCaseNumber("case12345");
 		pretrialServiceParticipation.setArrestingAgencyORI("ORI12345");
 		pretrialServiceParticipation.setPretrialServiceUniqueID("12345");
+		pretrialServiceParticipation.setPretrialServiceUniqueID("123|case12345");
 		
 		int pretrialServiceParticipationPk = analyticalDatastoreDAOImpl.savePretrialServiceParticipation(pretrialServiceParticipation);
 		assertEquals(1, pretrialServiceParticipationPk);
+		
+		PretrialServiceParticipation participation = analyticalDatastoreDAOImpl.searchForPretrialServiceParticipationByUniqueID("123|case12345");
+		assertNotNull(participation);
+		
+		analyticalDatastoreDAOImpl.deletePretrialServiceParticipation(pretrialServiceParticipationPk);
+		
+		participation = analyticalDatastoreDAOImpl.searchForPretrialServiceParticipationByUniqueID("123|case12345");
+		assertNull(participation);
+
+		//Perform an subsequent save and confirm the same PK
+		pretrialServiceParticipation.setPretrialServiceParticipationID(pretrialServiceParticipationPk);
+		int updatedPretrialServiceParticipationPk = analyticalDatastoreDAOImpl.savePretrialServiceParticipation(pretrialServiceParticipation);
+		assertEquals(updatedPretrialServiceParticipationPk, pretrialServiceParticipationPk);
+
 		
 	}
 	
