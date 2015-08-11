@@ -71,7 +71,7 @@ public interface AnalyticalDatastoreDAO {
 	
 	public List<Disposition> searchForDispositionsByDocketChargeNumber(String docketChargeNumber);
 	
-	public PretrialServiceParticipation getPretrialServiceParticipationByIncidentNumber(String incidentNumber);
+	public PretrialServiceParticipation searchForPretrialServiceParticipationByUniqueID(String uniqueID);
 	
 	public List<AssessedNeed> getAssociatedNeeds(Integer pretrialServiceParticipationId);
 	
@@ -96,4 +96,6 @@ public interface AnalyticalDatastoreDAO {
 	public void deleteIncident(Integer incidentID) throws Exception;
 	
 	public void deleteDisposition(Integer dispositionID) throws Exception;
+	
+	public void deletePretrialServiceParticipation(Integer pretrialServiceParticipationID) throws Exception;
 }

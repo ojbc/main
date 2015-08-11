@@ -336,14 +336,14 @@ public class CamelContextTest {
 		Thread.sleep(3000);
 		
 		PretrialServiceParticipation pretrialServiceParticipation = 
-				analyticalDatastoreDAOImpl.getPretrialServiceParticipationByIncidentNumber("Incident4557");
+				analyticalDatastoreDAOImpl.searchForPretrialServiceParticipationByUniqueID("ID43597|Incident4557");
 		
 		assertNotNull(pretrialServiceParticipation);
 		assertEquals("Incident4557", pretrialServiceParticipation.getArrestIncidentCaseNumber());
 		assertTrue(DateUtils.isSameDay(AbstractReportRepositoryProcessor.DATE_TIME_FORMAT.parse("2001-12-17T09:30:47"), pretrialServiceParticipation.getIntakeDate())); 
 		assertEquals("ORI", pretrialServiceParticipation.getArrestingAgencyORI());
 		assertEquals(Integer.valueOf(1), pretrialServiceParticipation.getCountyID());
-		assertEquals("Defendant_01", pretrialServiceParticipation.getPretrialServiceUniqueID());
+		assertEquals("ID43597|Incident4557", pretrialServiceParticipation.getPretrialServiceUniqueID());
 		
 		List<AssessedNeed> associatedNeeds = analyticalDatastoreDAOImpl.getAssociatedNeeds(pretrialServiceParticipation.getPretrialServiceParticipationID());
 		assertEquals(3, associatedNeeds.size()); 
@@ -357,6 +357,14 @@ public class CamelContextTest {
 		
 		List<PretrialService> pretrialServices = analyticalDatastoreDAOImpl.getAssociatedPretrialServices(pretrialServiceParticipation.getPretrialServiceParticipationID());
 		assertEquals(3, pretrialServices.size()); 
+		
+		template.send("direct:processPretrialServiceReport", pretrialEnrollmentReportExchange);
+		
+		PretrialServiceParticipation participationUpdated = analyticalDatastoreDAOImpl.searchForPretrialServiceParticipationByUniqueID("ID43597|Incident4557");
+		assertNotNull(participationUpdated);
+		
+		//Assert it has the same PK
+		assertEquals(pretrialServiceParticipation.getPretrialServiceParticipationID().intValue(), participationUpdated.getPretrialServiceParticipationID().intValue());
 	}	
 	
 	protected Exchange createSenderExchange(String pathToInputFile) throws Exception, IOException {

@@ -107,7 +107,29 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
         int personPk = savePerson(personNode, OjbcNamespaceContext.NS_PREFIX_NC_30, OjbcNamespaceContext.NS_PREFIX_JXDM_50);
         pretrialServiceParticipation.setPersonID(personPk);
         
-        pretrialServiceParticipation.setPretrialServiceUniqueID(XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/jxdm50:Subject/@s30:id"));
+		String arrestIncidentCaseNumber = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/nc30:ActivityIdentification/nc30:IdentificationID");
+		pretrialServiceParticipation.setArrestIncidentCaseNumber(StringUtils.trimToNull(arrestIncidentCaseNumber));
+        
+		String subjectID = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/jxdm50:Subject/jxdm50:SubjectIdentification/nc30:IdentificationID");
+		
+		if (StringUtils.isNotEmpty(arrestIncidentCaseNumber) && StringUtils.isNotEmpty(subjectID))
+		{
+			String uniqueID = subjectID + "|" + arrestIncidentCaseNumber;
+			
+			pretrialServiceParticipation.setPretrialServiceUniqueID(uniqueID);
+			
+			PretrialServiceParticipation participation = analyticalDatastoreDAO.searchForPretrialServiceParticipationByUniqueID(uniqueID);
+			
+			if (participation != null)
+			{
+				pretrialServiceParticipation.setPretrialServiceParticipationID(participation.getPretrialServiceParticipationID());
+				analyticalDatastoreDAO.deletePretrialServiceParticipation(participation.getPretrialServiceParticipationID());
+			}	
+		}	
+		else
+		{
+			throw new Exception("Subject ID and Arrest Incident Case Number required to process pre-trial record");
+		}	
 
         String countyName = XmlUtils.xPathStringSearch(report, 
         		"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:PreTrialServicesEnrollment/pse-ext:ActivityLocation/nc30:Address/nc30:LocationCountyName");
@@ -131,9 +153,6 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 				"/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
 		pretrialServiceParticipation.setArrestingAgencyORI(StringUtils.trimToNull(arrestAgencyOri));
 		
-		String arrestIncidentCaseNumber = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/nc30:ActivityIdentification/nc30:IdentificationID");
-		pretrialServiceParticipation.setArrestIncidentCaseNumber(StringUtils.trimToNull(arrestIncidentCaseNumber));
-				
 		return analyticalDatastoreDAO.savePretrialServiceParticipation(pretrialServiceParticipation);
 	}
 
