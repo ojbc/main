@@ -23,6 +23,7 @@
 	xmlns:cxf="http://camel.apache.org/schema/cxf"
 	xmlns:ctx="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -68,6 +69,12 @@
 		<camel:route id="Incident_Repository_Service_Filedrop">
 		
 			<camel:from	uri="incidentReportingFileEndpoint" />
+			
+			<!-- Some historic extracts have doPublish as the root, wrap in proper Incident Report wrapper -->
+			<camel:filter>
+				<camel:xpath>/lexspd:doPublish</camel:xpath>
+				<camel:to uri="xslt:xslt/wrapIncidentReport.xslt"/>
+			</camel:filter>
 			
 			<camel:to uri="direct:processIncident" />
 		</camel:route>
