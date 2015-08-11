@@ -24,9 +24,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
-	<submsg-ext:SubscriptionRelatedCaseIdentification>
-		<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
-	</submsg-ext:SubscriptionRelatedCaseIdentification>
 	<submsg-ext:Subject>
 		<nc20:PersonBirthDate>
 			<nc20:Date>1977-12-17</nc20:Date>
