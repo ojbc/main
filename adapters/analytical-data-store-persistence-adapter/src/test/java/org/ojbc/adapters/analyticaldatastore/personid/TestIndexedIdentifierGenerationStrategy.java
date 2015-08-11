@@ -168,6 +168,14 @@ public class TestIndexedIdentifierGenerationStrategy {
 		String id6 = strategy.generateIdentifier(attributeMap);
 		assertEquals(id, id6);
 
+		attributeMap.put(IndexedIdentifierGenerationStrategy.SSN_FIELD, "123-45-6789");
+		String id7 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id6, id7);
+		
+		attributeMap.put(IndexedIdentifierGenerationStrategy.SSN_FIELD, null);
+		String id8 = strategy.generateIdentifier(attributeMap);
+		assertEquals(id8, id7);
+
 		attributeMap.put(IndexedIdentifierGenerationStrategy.FIRST_NAME_FIELD, "Henry");
 		id2 = strategy.generateIdentifier(attributeMap);
 		assertNotSame(id, id2);
