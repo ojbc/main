@@ -74,12 +74,9 @@ public class RapbackController {
 		logger.debug("Rapback search results raw xml:\n" + rawResults);
 		model.put("rapbackSearchResults", rawResults);
 		
-		String transformedResults = ""; 
-		if (StringUtils.isNotBlank(rawResults)) {
-    		transformedResults = searchResultConverter.convertRapbackSearchResult(rawResults);
-    		
-    		logger.debug("Rapback Results HTML:\n" + transformedResults);
-		}
+    	String transformedResults = searchResultConverter.convertRapbackSearchResult(rawResults);
+		logger.debug("Rapback Results HTML:\n" + transformedResults);
+		
 		model.put("searchContent", transformedResults);
 		
 		model.put("informationMessages", informationMessage);

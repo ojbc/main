@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -35,11 +36,13 @@ import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -75,6 +78,7 @@ public class RapbackDAOImplTest {
 		ResultSet rs = conn.createStatement().executeQuery("select * from subscription");
 		assertTrue(rs.next());
 		assertEquals(62720,rs.getInt("id"));
+		rs = conn.createStatement().executeQuery("select * from FBI_RAP_BACK_SUBJECT");
 	}
 
 	@Test
@@ -82,8 +86,8 @@ public class RapbackDAOImplTest {
 	public void testSaveSubject() throws Exception {
 		Subject subject = new Subject(); 
 		subject.setUcn("B1234567");
-		subject.setCivilSid("B1234567");
-		subject.setDob(new DateTime(1990, 5, 12,0,0,0,0));
+		subject.setCivilSid("A123456");
+		subject.setDob(new DateTime(1969, 5, 12,0,0,0,0));
 		subject.setFirstName("Homer");
 		subject.setLastName("Simpson");
 		subject.setMiddleInitial("W");
@@ -92,14 +96,14 @@ public class RapbackDAOImplTest {
 		Integer subjectId = rapbackDAO.saveSubject(subject); 
 		
 		assertNotNull(subjectId);
-		assertEquals(1, subjectId.intValue()); 
+		assertEquals(3, subjectId.intValue()); 
 		
 		Subject persistedSubject = rapbackDAO.getSubject(subjectId); 
 		log.info(persistedSubject.toString());
 		
-		assertEquals(persistedSubject.toString(), "Subject[subjectId=1,ucn=B1234567,criminalSid=<null>,"
-				+ "civilSid=B1234567,firstName=Homer,lastName=Simpson,middleInitial=W,"
-				+ "dob=1990-05-12T00:00:00.000-05:00,sexCode=M]");
+		assertEquals(persistedSubject.toString(), "Subject[subjectId=3,ucn=B1234567,criminalSid=<null>,"
+				+ "civilSid=A123456,firstName=Homer,lastName=Simpson,middleInitial=W,"
+				+ "dob=1969-05-12T00:00:00.000-05:00,sexCode=M]");
 	}
 
 	@Test
@@ -123,10 +127,11 @@ public class RapbackDAOImplTest {
 		Subject subject = new Subject(); 
 		subject.setUcn("B1234567");
 		subject.setCivilSid("A123456");
-		subject.setDob(new DateTime(1990, 5, 12,0,0,0,0));
+		subject.setDob(new DateTime(1969, 5, 12,0,0,0,0));
 		subject.setFirstName("Homer");
 		subject.setLastName("Simpson");
 		subject.setMiddleInitial("W");
+		subject.setSexCode("M");
 		
 		transaction.setSubject(subject);
 		
@@ -135,7 +140,7 @@ public class RapbackDAOImplTest {
 
 	@Test
 	@DirtiesContext
-	public void testSaveIdentificationTransactionWithOutSubject() throws Exception {
+	public void testSaveIdentificationTransactionWithoutSubject() throws Exception {
 		IdentificationTransaction transaction = new IdentificationTransaction(); 
 		transaction.setTransactionNumber(TRANSACTION_NUMBER);
 		transaction.setOtn("12345");
@@ -160,7 +165,7 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 		assertNotNull(pkId);
-		assertEquals(1, pkId.intValue()); 
+		assertEquals(3, pkId.intValue()); 
 	}
 	
 	@Test
@@ -176,7 +181,7 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCriminalFingerPrints(criminalFingerPrints);
 		assertNotNull(pkId);
-		assertEquals(1, pkId.intValue()); 
+		assertEquals(3, pkId.intValue()); 
 	}
 	
 	@Test
@@ -195,11 +200,12 @@ public class RapbackDAOImplTest {
 		criminalInitialResults.setMatch(Boolean.TRUE);
 		criminalInitialResults.setTransactionType("Transaction Type");
 		criminalInitialResults.setResultsSender("FBI");
+		criminalInitialResults.setRapBackCategory("CAR");
 	
 		criminalInitialResults.setSubject(identificationTransaction.getSubject());
 		Integer pkId = rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
 		assertNotNull(pkId);
-		assertEquals(1, pkId.intValue()); 
+		assertEquals(3, pkId.intValue()); 
 	}
 	
 	@Test
@@ -216,25 +222,29 @@ public class RapbackDAOImplTest {
 		CivilInitialResults civilInitialResults = new CivilInitialResults(); 
 		civilInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
 		civilInitialResults.setMatch(Boolean.TRUE);
-		civilInitialResults.setCurrentState("current_state");
+		civilInitialResults.setCurrentState(CivilInitialResultsState.Available);
 		civilInitialResults.setTransactionType("Transaction Type");
 		civilInitialResults.setCivilRapBackCategory("I");
 		civilInitialResults.setResultsSender("FBI");
 		
-		civilInitialResults.setSubject(identificationTransaction.getSubject());
 		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		assertNotNull(pkId);
-		assertEquals(1, pkId.intValue()); 
+		assertEquals(3, pkId.intValue()); 
+		
+		CivilInitialResults persistedCivilInitialResults = 
+				(rapbackDAO.getCivilInitialResults(identificationTransaction.getOwnerOri())).get(2);
+		log.info("PersistedCivilIntialResults: \n" + persistedCivilInitialResults.toString());
+		
 		
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
-		civilInitialRapSheet.setCivilIntitialResultId(1);
+		civilInitialRapSheet.setCivilIntitialResultId(3);
 		civilInitialRapSheet.setRapSheet("rapsheet".getBytes());
 		civilInitialRapSheet.setTransactionType("Transaction Type");
 		
 		Integer civilInitialRapSheetPkId = 
 				rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);  
 		assertNotNull(civilInitialRapSheetPkId);
-		assertEquals(1, civilInitialRapSheetPkId.intValue()); 
+		assertEquals(3, civilInitialRapSheetPkId.intValue()); 
 	}
 	
 }

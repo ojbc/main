@@ -29,6 +29,7 @@
   <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Charge" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:Disposition" w:isReference="true" w:nillable="false"/>
   <w:Element w:name="j:Incident" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Offense" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OffenseCategoryText" w:isReference="false" w:nillable="false"/>
