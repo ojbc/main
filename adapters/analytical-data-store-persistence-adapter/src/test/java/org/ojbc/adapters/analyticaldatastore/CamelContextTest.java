@@ -256,10 +256,13 @@ public class CamelContextTest {
 
 		//Assert charge info
 		List<Charge> charges = analyticalDatastoreDAOImpl.returnChargesFromArrest(arrest.getArrestID());
-		assertEquals(1,charges.size());
+		assertEquals(2,charges.size());
 		assertEquals("2621",charges.get(0).getOffenseDescriptionText());
 		assertEquals("13V3017",charges.get(0).getOffenseDescriptionText1());
-		
+
+		assertEquals("Violation of a Court Order",charges.get(1).getOffenseDescriptionText());
+		assertEquals("DRIVING - LICENSE SUSPENDED",charges.get(1).getOffenseDescriptionText1());
+
 		List<IncidentCircumstance> incidentCircumstances = analyticalDatastoreDAOImpl.returnCircumstancesFromIncident(incidentPk);
 		assertEquals(1, incidentCircumstances.size());
 		
