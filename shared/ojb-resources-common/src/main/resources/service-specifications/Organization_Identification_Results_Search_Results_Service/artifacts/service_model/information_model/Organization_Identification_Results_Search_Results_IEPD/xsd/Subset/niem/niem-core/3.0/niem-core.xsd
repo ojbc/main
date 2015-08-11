@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xs:schema targetNamespace="http://release.niem.gov/niem/niem-core/3.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xs:import schemaLocation="../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
+  <xs:import schemaLocation="../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivityType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:ActivityIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ActivityDateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AssociationType">
+    <xs:complexContent>
+      <xs:extension base="structures:AssociationType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ContactInformationType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:ContactMeans" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DateRangeType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:EndDate" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DateType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:DateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IdentificationType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonNameTextType">
+    <xs:simpleContent>
+      <xs:extension base="nc:ProperNameTextType"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PersonNameType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonMiddleName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonFullName" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonType">
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ProperNameTextType">
+    <xs:simpleContent>
+      <xs:extension base="nc:TextType"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="SystemIdentificationType">
+    <xs:complexContent>
+      <xs:extension base="nc:IdentificationType">
+        <xs:sequence>
+          <xs:element ref="nc:SystemName" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TextType">
+    <xs:simpleContent>
+      <xs:extension base="niem-xs:string"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="ActivityDateRange" type="nc:DateRangeType" substitutionGroup="nc:ActivityDateRepresentation" nillable="true"/>
+  <xs:element name="ActivityDateRepresentation" abstract="true"/>
+  <xs:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true"/>
+  <xs:element name="ContactEmailID" type="niem-xs:string" substitutionGroup="nc:ContactMeans" nillable="true"/>
+  <xs:element name="ContactInformation" type="nc:ContactInformationType" nillable="true"/>
+  <xs:element name="ContactMeans" abstract="true"/>
+  <xs:element name="Date" type="niem-xs:date" substitutionGroup="nc:DateRepresentation" nillable="true"/>
+  <xs:element name="DateRepresentation" abstract="true"/>
+  <xs:element name="EndDate" type="nc:DateType" nillable="true"/>
+  <xs:element name="IdentificationID" type="niem-xs:string" nillable="true"/>
+  <xs:element name="PersonAugmentationPoint" abstract="true"/>
+  <xs:element name="PersonBirthDate" type="nc:DateType" nillable="true"/>
+  <xs:element name="PersonFullName" type="nc:PersonNameTextType" nillable="true"/>
+  <xs:element name="PersonGivenName" type="nc:PersonNameTextType" nillable="true"/>
+  <xs:element name="PersonMiddleName" type="nc:PersonNameTextType" nillable="true"/>
+  <xs:element name="PersonName" type="nc:PersonNameType" nillable="true"/>
+  <xs:element name="PersonSurName" type="nc:PersonNameTextType" nillable="true"/>
+  <xs:element name="RoleOf" abstract="true"/>
+  <xs:element name="RoleOfPerson" type="nc:PersonType" substitutionGroup="nc:RoleOf" nillable="true"/>
+  <xs:element name="StartDate" type="nc:DateType" nillable="true"/>
+  <xs:element name="SystemName" type="nc:TextType" nillable="true"/>
+</xs:schema>

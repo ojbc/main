@@ -20,7 +20,7 @@
 <oirs-req-doc:OrganizationIdentificationResultsSearchRequest
 	xmlns:oirs-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0"
 	xmlns:oirs-req-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0 ../xsd/exchange_schema.xsd ">
 	<oirs-req-ext:IdentificationResultsCategoryCode>Criminal</oirs-req-ext:IdentificationResultsCategoryCode>
 </oirs-req-doc:OrganizationIdentificationResultsSearchRequest>
