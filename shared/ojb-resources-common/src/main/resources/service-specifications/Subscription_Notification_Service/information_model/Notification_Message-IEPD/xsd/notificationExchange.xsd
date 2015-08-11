@@ -49,8 +49,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeReference" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:DispositionReference" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

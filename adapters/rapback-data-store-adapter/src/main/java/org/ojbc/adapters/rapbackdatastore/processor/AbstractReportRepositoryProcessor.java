@@ -16,16 +16,26 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+
+import javax.activation.DataHandler;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.helpers.IOUtils;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 public abstract class AbstractReportRepositoryProcessor {
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
@@ -38,5 +48,85 @@ public abstract class AbstractReportRepositoryProcessor {
 	
     @Transactional
 	public abstract void processReport(@Body Document report, Exchange exchange) throws Exception;
+
+	protected byte[] getAttachment(Exchange exchange, String transactionNumber,
+			String attachmentId) throws IOException {
+		byte[] receivedAttachment;
+		DataHandler dataHandler = exchange.getIn().getAttachment(StringUtils.substringAfter(attachmentId, "cid:"));
+		
+		if (dataHandler != null){
+			receivedAttachment = IOUtils.readBytesFromStream(dataHandler.getInputStream());
+		}
+		else{
+			log.error("No valid file found in the attachement for transaction " + transactionNumber);
+			throw new IllegalArgumentException("No file found in the attachement"); 
+		}
+		return receivedAttachment;
+	}
+
+	protected void processIdentificationTransaction(Node rootNode, String transactionNumber)
+			throws Exception {
+		IdentificationTransaction identificationTransaction = new IdentificationTransaction(); 
+		
+		identificationTransaction.setTransactionNumber(transactionNumber);
+		
+		Node subjectNode = XmlUtils.xPathNodeSearch(rootNode, "jxdm50:Subject/nc30:RoleOfPerson"); 
+		Assert.notNull(subjectNode);
+		Subject subject = buildSubject(subjectNode) ;
+		identificationTransaction.setSubject(subject);
+		
+		String otn = XmlUtils.xPathStringSearch(subjectNode, "ident-ext:PersonTrackingIdentidication/nc30:IdentificationID");
+		identificationTransaction.setOtn(otn);
+		
+		String ownerOri = XmlUtils.xPathStringSearch(rootNode, "ident-ext:IdentificationApplicantOrganization/"
+				+ "jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
+		identificationTransaction.setOwnerOri(ownerOri);
+		
+		String ownerProgramOca = XmlUtils.xPathStringSearch(rootNode, "//ident-ext:IdentificationApplicantOrganization/"
+				+ "nc30:OrganizationIdentification/nc30:IdentificationID");
+		identificationTransaction.setOwnerProgramOca(ownerProgramOca);
+		
+		rapbackDAO.saveIdentificationTransaction(identificationTransaction);
+	}
+
+	protected Subject buildSubject(Node subjectNode) throws Exception {
+		Subject subject = new Subject();
+		String firstName = XmlUtils.xPathStringSearch(subjectNode, "nc30:PersonName/nc30:PersonGivenName");
+		subject.setFirstName(firstName);
+		
+		String lastName = XmlUtils.xPathStringSearch(subjectNode, "nc30:PersonName/nc30:PersonSurName");
+		subject.setLastName(lastName);
+		
+		String middleInitial = XmlUtils.xPathStringSearch(subjectNode, "nc30:PersonName/nc30:PersonMiddleName");
+		subject.setMiddleInitial(middleInitial);
+		
+		String dobString = XmlUtils.xPathStringSearch(subjectNode, "nc30:PersonBirthDate/nc30:Date");
+		subject.setDob(XmlUtils.parseXmlDate(dobString));
+		
+		String sexCode = XmlUtils.xPathStringSearch(subjectNode, "jxdm50:PersonSexCode"); 
+		subject.setSexCode(sexCode);
+		
+		String fbiId = XmlUtils.xPathStringSearch(subjectNode, 
+				"jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
+		subject.setUcn(StringUtils.trimToNull(fbiId));
+		
+		String civilSid = XmlUtils.xPathStringSearch(subjectNode, 
+				"jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification"
+				+ "[ident-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator = 'true']/nc30:IdentificationID");
+		subject .setCivilSid(StringUtils.trimToNull(civilSid));
+		
+		String criminalSid = XmlUtils.xPathStringSearch(subjectNode, 
+				"jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification"
+						+ "[ident-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator = 'true']/nc30:IdentificationID");
+		subject .setCriminalSid(criminalSid);
+		 
+		return subject;
+	}
+
+	protected String getAttachmentId(Node rootNode) throws Exception {
+		return XmlUtils.xPathStringSearch(rootNode, 
+				"ident-ext:FederalFingerprintBasedIdentificationRequestDocument/xop:Include/@href|"
+				+ "ident-ext:FBIIdentityHistorySummaryDocument/xop:Include/@href");
+	}
 
 }

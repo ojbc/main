@@ -435,6 +435,14 @@
       <xsd:documentation>A unique identifying number assigned to an entire set of charges for an arrest. Different numbers may appear in the set if cases have been consolidated.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="DispositionReference" type="s:ReferenceType">
+    <xsd:annotation>
+      <xsd:documentation>A result or outcome that is the product of handling, processing, or finalizing something.</xsd:documentation>
+      <xsd:appinfo>
+        <i:ReferenceTarget i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="DispositionType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="EnforcementOfficialUnit" type="j:EnforcementUnitType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An enforcement unit to which an enforcement officer is assigned.</xsd:documentation>

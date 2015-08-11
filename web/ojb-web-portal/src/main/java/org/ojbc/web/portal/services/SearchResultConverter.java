@@ -95,6 +95,9 @@ public class SearchResultConverter implements ApplicationContextAware {
 	}
 
     public String convertRapbackSearchResult(String searchContent) {
+    	if (StringUtils.isBlank(searchContent)){
+    		return "";
+    	}
         return convertXml(searchContent, rapbackSearchResultXsl, null);
     }
     

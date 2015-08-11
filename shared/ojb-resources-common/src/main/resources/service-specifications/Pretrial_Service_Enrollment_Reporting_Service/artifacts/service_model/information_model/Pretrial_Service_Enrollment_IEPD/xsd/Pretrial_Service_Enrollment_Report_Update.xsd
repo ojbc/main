@@ -20,12 +20,12 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-xmlns:pse-doc="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0"
+xmlns:pseu-doc="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollmentUpdate/1.0"
 xmlns:pse-ext="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0"
-targetNamespace="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0" elementFormDefault="qualified">
+targetNamespace="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollmentUpdate/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0" schemaLocation="./extension.xsd"/>
-	<!-- Root data element for Pretrial Services Enrollment -->
-	<xsd:element name="PretrialServiceEnrollmentReport" type="pse-ext:PretrialServiceEnrollmentReportType"/>
+	<!-- Root data element for a PreTrial Services Enrollment Report Update-->
+	<xsd:element name="PretrialServiceEnrollmentReportUpdate" type="pse-ext:PretrialServiceEnrollmentReportType"/>
 </xsd:schema>

@@ -78,7 +78,7 @@
             </notfm-ext:NotifyingCourtDispositionUpdate>
             <j:Person s:id="d1e126">
                <nc:PersonBirthDate>
-                  <nc:Date>2001-12-17</nc:Date>
+                  <nc:Date>1977-12-17</nc:Date>
                </nc:PersonBirthDate>
                <nc:PersonName>
                   <nc:PersonGivenName>Walter</nc:PersonGivenName>
@@ -105,7 +105,11 @@
                <j:ChargeReference s:ref="d1e10"/>
             </j:PersonChargeAssociation>
             <j:ActivityChargeAssociation>
-               <nc:ActivityReference s:ref="d1e91"/>
+               <nc:ActivityReference s:ref="d1e28"/>
                <j:ChargeReference s:ref="d1e10"/>
             </j:ActivityChargeAssociation>
+            <notfm-doc:ChargeDispositionAssociation>
+               <j:ChargeReference s:ref="d1e10"/>
+               <j:DispositionReference s:ref="d1e91"/>
+            </notfm-doc:ChargeDispositionAssociation>
          </notfm-doc:NotificationMessage>

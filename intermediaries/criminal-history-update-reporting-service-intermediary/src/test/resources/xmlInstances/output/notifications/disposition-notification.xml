@@ -48,7 +48,7 @@
                   <cdu:CycleTrackingIdentification>
                      <nc:IdentificationID>123456A</nc:IdentificationID>
                   </cdu:CycleTrackingIdentification>
-                  <j:Charge s:id="d1e10">
+                  <j:Charge s:id="d1e9">
                      <j:ChargeStatute>
                         <j:StatuteCodeIdentification>
                            <nc:IdentificationID>004290</nc:IdentificationID>
@@ -58,7 +58,7 @@
                         <nc:IdentificationID>456</nc:IdentificationID>
                      </j:ChargeTrackingIdentification>
                   </j:Charge>
-                  <cdu:Sentence s:id="d1e28">
+                  <cdu:Sentence s:id="d1e27">
                      <nc:ActivityDate>
                         <nc:Date>2001-12-17</nc:Date>
                      </nc:ActivityDate>
@@ -78,17 +78,17 @@
                         <j:TermDuration>P2Y</j:TermDuration>
                         <j:TermLifeIndicator>false</j:TermLifeIndicator>
                      </j:SentenceTerm>
-                     <cdu:SentenceCourtOrganizationReference s:ref="d1e159"/>
+                     <cdu:SentenceCourtOrganizationReference s:ref="d1e158"/>
                      <cdu:SentenceDocketIdentification>
                         <nc:IdentificationID>Sentence Docket ID</nc:IdentificationID>
                      </cdu:SentenceDocketIdentification>
                      <me_disp_codes:SentenceTermCategoryCode>ADMINISTRATIVE RELEASE CONTINUED</me_disp_codes:SentenceTermCategoryCode>
                   </cdu:Sentence>
-                  <cdu:Disposition s:id="d1e91">
+                  <cdu:Disposition s:id="d1e90">
                      <nc:DispositionDate>
                         <nc:Date>2001-12-17</nc:Date>
                      </nc:DispositionDate>
-                     <cdu:DispositionCourtOrganizationReference s:ref="d1e171"/>
+                     <cdu:DispositionCourtOrganizationReference s:ref="d1e170"/>
                      <cdu:DispositionIdentification>
                         <nc:IdentificationID>UTN</nc:IdentificationID>
                      </cdu:DispositionIdentification>
@@ -99,7 +99,7 @@
                   </cdu:Disposition>
                </cdu:CourtDispositionUpdate>
             </notificationExt:NotifyingCourtDispositionUpdate>
-            <j:Person s:id="d1e126">
+            <j:Person s:id="d1e125">
                <nc:PersonBirthDate>
                   <nc:Date>2001-12-17</nc:Date>
                </nc:PersonBirthDate>
@@ -109,14 +109,14 @@
                   <nc:PersonSurName>White</nc:PersonSurName>
                </nc:PersonName>
             </j:Person>
-            <j:Organization s:id="d1e159">
+            <j:Organization s:id="d1e158">
                <j:OrganizationAugmentation>
                   <j:OrganizationORIIdentification>
                      <nc:IdentificationID>ME0000001</nc:IdentificationID>
                   </j:OrganizationORIIdentification>
                </j:OrganizationAugmentation>
             </j:Organization>
-            <j:Organization s:id="d1e171">
+            <j:Organization s:id="d1e170">
                <j:OrganizationAugmentation>
                   <j:OrganizationORIIdentification>
                      <nc:IdentificationID>ME0000002</nc:IdentificationID>
@@ -124,13 +124,17 @@
                </j:OrganizationAugmentation>
             </j:Organization>
             <j:PersonChargeAssociation>
-               <nc:PersonReference s:ref="d1e126"/>
-               <j:ChargeReference s:ref="d1e10"/>
+               <nc:PersonReference s:ref="d1e125"/>
+               <j:ChargeReference s:ref="d1e9"/>
             </j:PersonChargeAssociation>
             <j:ActivityChargeAssociation>
-               <nc:ActivityReference s:ref="d1e91"/>
-               <j:ChargeReference s:ref="d1e10"/>
+               <nc:ActivityReference s:ref="d1e27"/>
+               <j:ChargeReference s:ref="d1e9"/>
             </j:ActivityChargeAssociation>
+            <notification:ChargeDispositionAssociation>
+               <j:ChargeReference s:ref="d1e9"/>
+               <j:DispositionReference s:ref="d1e90"/>
+            </notification:ChargeDispositionAssociation>
          </notification:NotificationMessage>
       </b:Message>
    </b:NotificationMessage>

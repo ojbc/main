@@ -18,6 +18,7 @@ package org.ojbc.adapters.rapbackdatastore.dao.model;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
@@ -120,4 +121,42 @@ public class Subject implements Serializable{
 	public void setSexCode(String sexCode) {
 		this.sexCode = sexCode;
 	}
+	
+	/**
+     * Builds and returns the formatted person full name.
+     */
+	public String getFullName() {
+    	return getFullName(false);
+    }
+
+	/**
+     * Builds and returns a formatted person full name.
+	 * Note: first and last name are required.
+	 * @param lastNameFirst
+	 * @return
+	 */
+	public String getFullName(boolean lastNameFirst) {
+    	StringBuilder sb = new StringBuilder(64);
+
+    	if (lastNameFirst) {
+        	sb.append(lastName);
+        	sb.append(", ");
+        	sb.append(firstName);
+        	if (StringUtils.isNotEmpty(middleInitial)) {
+        		sb.append(" ");
+        		sb.append(middleInitial);
+        	}
+    	}
+    	else {
+        	sb.append(firstName);
+        	if (StringUtils.isNotEmpty(middleInitial)) {
+        		sb.append(" ");
+        		sb.append(middleInitial);
+        	}
+        	sb.append(" ");
+        	sb.append(lastName);
+    	}
+
+    	return sb.toString();
+    }
 }

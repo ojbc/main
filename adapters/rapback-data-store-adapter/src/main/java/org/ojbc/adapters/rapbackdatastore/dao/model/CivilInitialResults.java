@@ -25,17 +25,16 @@ import org.joda.time.DateTime;
 public class CivilInitialResults implements Serializable{
 
 	private static final long serialVersionUID = -8697166964476446066L;
-	private Long id; //Civil Initial Results ID;
+	private Integer id; //Civil Initial Results ID;
 	private String transactionNumber;
 	private Boolean match; 
-	private String currentState;
+	private CivilInitialResultsState currentState;
 	private String transactionType; 
 	private String civilRapBackCategory; 
 	private String resultsSender; 
-	
 	private DateTime timestamp;
 	
-	private Subject subject; 
+	private IdentificationTransaction identificationTransaction;
 	
 	public CivilInitialResults(){
 		super();
@@ -58,11 +57,11 @@ public class CivilInitialResults implements Serializable{
 		this.transactionNumber = transactionNumber;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -98,19 +97,11 @@ public class CivilInitialResults implements Serializable{
 		this.resultsSender = resultsSender;
 	}
 
-	public Subject getSubject() {
-		return subject;
-	}
-
-	public void setSubject(Subject subject) {
-		this.subject = subject;
-	}
-
-	public String getCurrentState() {
+	public CivilInitialResultsState getCurrentState() {
 		return currentState;
 	}
 
-	public void setCurrentState(String currentState) {
+	public void setCurrentState(CivilInitialResultsState currentState) {
 		this.currentState = currentState;
 	}
 
@@ -120,6 +111,14 @@ public class CivilInitialResults implements Serializable{
 
 	public void setCivilRapBackCategory(String civilRapBackCategory) {
 		this.civilRapBackCategory = civilRapBackCategory;
+	}
+
+	public IdentificationTransaction getIdentificationTransaction() {
+		return identificationTransaction;
+	}
+
+	public void setIdentificationTransaction(IdentificationTransaction identificationTransaction) {
+		this.identificationTransaction = identificationTransaction;
 	}
 
 }
