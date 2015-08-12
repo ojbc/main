@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="http://www.w3.org/2004/08/xop/include"/>
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="http://www.w3.org/2005/05/xmlmime"/>
+	<xsd:complexType name="OrganizationIdentificationResultsQueryResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a message to submit organization identification results query results.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="oirq-res-ext:OrganizationIdentificationResultsRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="OrganizationIdentificationResultsDocumentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a document containing organization identification results.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:BinaryType">
+				<xsd:sequence>
+					<xsd:element ref="xop:Include"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="OrganizationIdentificationResultsRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for an identification request document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="StateRapsheetDocument" type="oirq-res-ext:OrganizationIdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:OrganizationIdentificationResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>State rap sheet.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="StateIdentificationQueryResultsDocument" type="oirq-res-ext:OrganizationIdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:OrganizationIdentificationResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>State identification query results document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FederalRapsheetDocument" type="oirq-res-ext:OrganizationIdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:OrganizationIdentificationResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>Federal rap sheet.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FederaldentificationQueryResultsDocument" type="oirq-res-ext:OrganizationIdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:OrganizationIdentificationResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>Federal identification query results document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DocumentBinary" type="xmime:base64Binary" substitutionGroup="nc:BinaryObject">
+		<xsd:annotation>
+			<xsd:documentation>A binary representation of an identification document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

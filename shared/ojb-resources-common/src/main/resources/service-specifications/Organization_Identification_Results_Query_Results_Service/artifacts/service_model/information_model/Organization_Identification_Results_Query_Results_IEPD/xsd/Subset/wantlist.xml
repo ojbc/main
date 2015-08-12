@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w:WantList w:release="3.0" w:product="NIEM" w:nillableDefault="true"
+  xmlns:w="http://niem.gov/niem/wantlist/2.2" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+  <w:Type w:name="nc:BinaryType" w:isRequested="true">
+    <w:ElementInType w:name="nc:BinaryObject" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+</w:WantList>
