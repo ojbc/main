@@ -23,7 +23,6 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAO;
 import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.util.DaoUtils;
@@ -168,8 +167,16 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         disposition.setFinalChargeCode(finalChargeCode);
         log.debug("Final Charge Code: " + finalChargeCode);
         
-        analyticalDatastoreDAO.saveDisposition(disposition);
+        //Add initial charge rank and final charge rank
+        String initialChargeRank = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:InitialCharge/disp_ext:ChargeAugmentation/disp_ext:ChargeNumericalRank");
+        disposition.setInitialChargeRank(initialChargeRank);
+        log.debug("Initial Charge Rank: " + initialChargeRank);
         
+        String finalChargeRank = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/nc30:Case/jxdm50:CaseAugmentation/jxdm50:CaseCharge/disp_ext:ChargeAugmentation/disp_ext:FinalCharge/disp_ext:ChargeAugmentation/disp_ext:ChargeNumericalRank");
+        disposition.setFinalChargeRank(finalChargeRank);
+        log.debug("Final Charge Rank: " + finalChargeRank);
+        
+        analyticalDatastoreDAO.saveDisposition(disposition);
         
 	}
 

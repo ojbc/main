@@ -465,21 +465,23 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	String dispositionInsertStatement="";
         	        	String[] insertArgs = null;	
         	        	
+        	        	//No disposition ID provided in POJO
         	            if (inboundDisposition.getDispositionID() == null)
         	            {	
         	            	dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,IncidentCaseNumber,DispositionDate,ArrestingAgencyORI,"
-        	                		+ "SentenceTermDays,SentenceFineAmount,InitialChargeCode, FinalChargeCode, RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate, DocketChargeNumber) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	                		+ "SentenceTermDays,SentenceFineAmount,InitialChargeCode, FinalChargeCode, RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate, DocketChargeNumber,InitialChargeCode1, FinalChargeCode1) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            	
             	        	insertArgs = new String[] {"PersonID","DispositionTypeID","IncidentCaseNumber","DispositionDate,ArrestingAgencyORI,"
-        	                		+ "SentenceTermDays","SentenceFineAmount","InitialChargeCode", "FinalChargeCode","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate","DocketChargeNumber"};	
+        	                		+ "SentenceTermDays","SentenceFineAmount","InitialChargeCode", "FinalChargeCode","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate","DocketChargeNumber","InitialChargeCode1", "FinalChargeCode1"};	
         	            }	
+        	            //Disposition ID provided in POJO
         	            else
         	            {
         	            	dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,IncidentCaseNumber,DispositionDate,ArrestingAgencyORI,"
-        	                		+ "SentenceTermDays,SentenceFineAmount,InitialChargeCode, FinalChargeCode, RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate, DocketChargeNumber, DispositionID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	                		+ "SentenceTermDays,SentenceFineAmount,InitialChargeCode, FinalChargeCode, RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate, DocketChargeNumber, InitialChargeCode1, FinalChargeCode1,DispositionID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            	
             	        	insertArgs = new String[] {"PersonID","DispositionTypeID","IncidentCaseNumber","DispositionDate,ArrestingAgencyORI,"
-        	                		+ "SentenceTermDays","SentenceFineAmount","InitialChargeCode", "FinalChargeCode","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate","DocketChargeNumber","DispositionID"};
+        	                		+ "SentenceTermDays","SentenceFineAmount","InitialChargeCode", "FinalChargeCode","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate","DocketChargeNumber","InitialChargeCode1", "FinalChargeCode1","DispositionID"};
         	            }	
         	        	
         	        	
@@ -543,9 +545,13 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            
         	            ps.setString(14, inboundDisposition.getDocketChargeNumber());
         	            
+        	            ps.setString(15, inboundDisposition.getInitialChargeRank());
+        	            
+        	            ps.setString(16, inboundDisposition.getFinalChargeRank());
+        	            
         	            if (inboundDisposition.getDispositionID() != null)
         	            {	
-        	            	ps.setInt(15, inboundDisposition.getDispositionID());
+        	            	ps.setInt(17, inboundDisposition.getDispositionID());
         	            }	
         	            
         	            return ps;
