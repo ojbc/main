@@ -123,7 +123,9 @@ CREATE TABLE Disposition (
                 SentenceTermDays NUMERIC(10,2),
                 SentenceFineAmount NUMERIC(10,2),
                 InitialChargeCode VARCHAR(35) NOT NULL,
+                InitialChargeCode1 VARCHAR(5) NOT NULL,
                 FinalChargeCode VARCHAR(35) NOT NULL,
+                FinalChargeCode1 VARCHAR(5) NOT NULL,
                 RecordType CHAR(1) NOT NULL,
                 IsProbationViolation CHAR(1),
                 IsProbationViolationOnOldCharge CHAR(1),
@@ -185,7 +187,7 @@ CREATE TABLE Arrest (
 CREATE TABLE Charge (
                 ChargeID IDENTITY NOT NULL,
                 ArrestID INTEGER NOT NULL,
-                OffenseDescriptionText VARCHAR(120) NOT NULL,
+                OffenseDescriptionText VARCHAR(120),
                 OffenseDescriptionText1 VARCHAR(120),
                 CONSTRAINT Charge_pk PRIMARY KEY (ChargeID)
 );

@@ -293,6 +293,8 @@ public class TestAnalyticalDatastoreDAOImpl {
 		disposition.setInitialChargeCode("Initial Charge Code");
 		disposition.setFinalChargeCode("Initial Charge Code");
 		disposition.setDocketChargeNumber("123|456");
+		disposition.setInitialChargeRank("1");
+		disposition.setFinalChargeRank("2");
 		
 		int dispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
 		assertEquals(1, dispositionPk);
@@ -329,6 +331,8 @@ public class TestAnalyticalDatastoreDAOImpl {
 		disposition.setInitialChargeCode("Initial Charge Code");
 		disposition.setFinalChargeCode("Initial Charge Code");
 		disposition.setDocketChargeNumber("12345|6789");
+		disposition.setInitialChargeRank("1");
+		disposition.setFinalChargeRank("2");
 		
 		Integer dispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
 
@@ -369,6 +373,8 @@ public class TestAnalyticalDatastoreDAOImpl {
 		disposition.setInitialChargeCode("Initial Charge Code");
 		disposition.setFinalChargeCode("Initial Charge Code");
 		disposition.setDocketChargeNumber("12345|6789");
+		disposition.setInitialChargeRank("1");
+		disposition.setFinalChargeRank("2");
 		
 		Integer dispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);
 

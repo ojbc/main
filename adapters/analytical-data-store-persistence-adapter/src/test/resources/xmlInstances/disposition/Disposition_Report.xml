@@ -174,7 +174,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 							</j:StatuteCodeSectionIdentification>
 						</j:ChargeStatute>
 						<disp-ext:ChargeAugmentation>
-							<disp-ext:ChargeNumericalRank>40</disp-ext:ChargeNumericalRank>
+							<disp-ext:ChargeNumericalRank>45</disp-ext:ChargeNumericalRank>
 							<disp-ext:SexRegistryChargeIndicator>true</disp-ext:SexRegistryChargeIndicator>
 						</disp-ext:ChargeAugmentation>
 					</disp-ext:FinalCharge>

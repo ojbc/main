@@ -179,6 +179,8 @@ public class CamelContextTest {
 		assertEquals(3, disposition.getDispositionTypeID().intValue());
 		assertEquals("Initial Charge Code", disposition.getInitialChargeCode());
 		assertEquals("Final Charge Code", disposition.getFinalChargeCode());
+		assertEquals("40", disposition.getInitialChargeRank());
+		assertEquals("45", disposition.getFinalChargeRank());
 		assertEquals("12/17/2011",DATE_FOMRAT.format(disposition.getRecidivismEligibilityDate()));
 		assertTrue(new BigDecimal("545.00").equals(disposition.getSentenceTermDays()));
 		

@@ -41,6 +41,10 @@ public class Disposition {
 	
 	private String finalChargeCode;
 	
+	private String initialChargeRank;
+	
+	private String finalChargeRank;
+	
 	private Character recordType;
 	
 	private Character isProbationViolation;
@@ -170,6 +174,22 @@ public class Disposition {
 
 	public void setDocketChargeNumber(String docketChargeNumber) {
 		this.docketChargeNumber = docketChargeNumber;
+	}
+
+	public String getInitialChargeRank() {
+		return initialChargeRank;
+	}
+
+	public void setInitialChargeRank(String initialChargeRank) {
+		this.initialChargeRank = initialChargeRank;
+	}
+
+	public String getFinalChargeRank() {
+		return finalChargeRank;
+	}
+
+	public void setFinalChargeRank(String finalChargeRank) {
+		this.finalChargeRank = finalChargeRank;
 	}
 
 }
