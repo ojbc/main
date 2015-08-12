@@ -327,6 +327,13 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 
 		        String personBirthDateAsString = (String)arrestee.get(IdentifierGenerationStrategy.BIRTHDATE_FIELD);
 		        String personRace = (String)arrestee.get("personRace");
+		        
+		        if (StringUtils.isBlank(personRace))
+		        {
+		        	personRace = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Person/ndexia:PersonAugmentation[lexslib:SameAsDigestReference/@lexslib:ref='" + personId + "']/ndexia:PersonRaceCode");
+		        	log.debug("Person race retrieved from ndex payload: " + personRace);
+		        }	
+		        
 		        String personSex = (String)arrestee.get(IdentifierGenerationStrategy.SEX_FIELD);
 		        
 		        int personPk = savePerson(personBirthDateAsString, personSex, personRace, personIdentifierKey);	
