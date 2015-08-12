@@ -282,7 +282,7 @@ public class CamelContextTest {
 		
 		log.debug("Person (Arrestee): " + person);
 		
-		assertEquals("Person[personID=2,personSexID=1,personRaceID=5,personSexDescription=M,"
+		assertEquals("Person[personID=3,personSexID=1,personRaceID=5,personSexDescription=M,"
 				+ "personRaceDescription=W,personBirthDate=1980-01-27,",
 				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
 	
@@ -356,7 +356,7 @@ public class CamelContextTest {
 		Person person = analyticalDatastoreDAOImpl.getPerson(pretrialServiceParticipation.getPersonID()); 
 		assertNotNull(person); 
 		log.info("Person: " + person.toString());
-		assertEquals("Person[personID=4,personSexID=1,personRaceID=5,personSexDescription=M,"
+		assertEquals("Person[personID=5,personSexID=1,personRaceID=5,personSexDescription=M,"
 				+ "personRaceDescription=W,personBirthDate=2001-12-17,",
 				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
 		

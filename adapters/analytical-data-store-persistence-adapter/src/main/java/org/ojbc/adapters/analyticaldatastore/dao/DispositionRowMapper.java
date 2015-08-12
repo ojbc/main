@@ -55,6 +55,8 @@ public class DispositionRowMapper implements  RowMapper<Disposition> {
 		disposition.setInitialChargeRank(rs.getString("InitialChargeCode1"));
 		disposition.setFinalChargeRank(rs.getString("FinalChargeCode1"));
 		
+		disposition.setDispositionID(rs.getInt("DispositionID"));
+		
     	return disposition;
 	}
 
