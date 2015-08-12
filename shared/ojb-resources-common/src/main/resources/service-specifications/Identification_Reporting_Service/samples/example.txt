@@ -34,9 +34,9 @@ Content-ID: <identification_request_message@ojbc.org>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123456789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
-			<ext:PersonTrackingIdentidication>
+			<ext:PersonTrackingIdentification>
 				<nc:IdentificationID>OTN</nc:IdentificationID>
-			</ext:PersonTrackingIdentidication>
+			</ext:PersonTrackingIdentification>
 		</nc:RoleOfPerson>
 	</j:Subject>
 	<ext:IdentificationApplicantOrganization>

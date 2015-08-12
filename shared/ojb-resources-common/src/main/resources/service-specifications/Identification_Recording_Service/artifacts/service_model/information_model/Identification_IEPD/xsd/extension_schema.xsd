@@ -142,7 +142,7 @@
 			<xsd:documentation>Systems with information about the offender.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonTrackingIdentidication" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A biometric identifier assigned to a person for the purpose of correlating identification activities.</xsd:documentation>
 		</xsd:annotation>

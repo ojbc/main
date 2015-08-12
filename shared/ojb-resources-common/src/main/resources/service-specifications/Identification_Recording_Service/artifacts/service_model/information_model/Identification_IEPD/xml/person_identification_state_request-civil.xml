@@ -41,9 +41,9 @@
 				<nc:PersonMiddleName>D</nc:PersonMiddleName>
 				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
-			<ident-ext:PersonTrackingIdentidication>
+			<ident-ext:PersonTrackingIdentification>
 				<nc:IdentificationID>OTN12345</nc:IdentificationID>
-			</ident-ext:PersonTrackingIdentidication>
+			</ident-ext:PersonTrackingIdentification>
 		</nc:RoleOfPerson>
 	</j:Subject>
 	<ident-ext:IdentificationApplicantOrganization>

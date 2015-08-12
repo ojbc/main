@@ -52,9 +52,9 @@
 					<ident-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</ident-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
-			<ident-ext:PersonTrackingIdentidication>
+			<ident-ext:PersonTrackingIdentification>
 				<nc:IdentificationID>12345</nc:IdentificationID>
-			</ident-ext:PersonTrackingIdentidication>
+			</ident-ext:PersonTrackingIdentification>
 		</nc:RoleOfPerson>
 	</j:Subject>
 	<ident-ext:IdentificationApplicantOrganization>
