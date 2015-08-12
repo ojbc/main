@@ -36,9 +36,9 @@
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123456789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
-			<ident-ext:PersonTrackingIdentidication>
+			<ident-ext:PersonTrackingIdentification>
 				<nc:IdentificationID>OTN12345</nc:IdentificationID>
-			</ident-ext:PersonTrackingIdentidication>
+			</ident-ext:PersonTrackingIdentification>
 		</nc:RoleOfPerson>
 	</j:Subject>
 	<ident-ext:IdentificationApplicantOrganization>
