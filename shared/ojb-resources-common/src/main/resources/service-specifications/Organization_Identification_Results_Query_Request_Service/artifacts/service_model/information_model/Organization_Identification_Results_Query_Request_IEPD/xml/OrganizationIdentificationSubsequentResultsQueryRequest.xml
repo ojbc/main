@@ -17,8 +17,8 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<oirq-req-doc:OrganizationIdentificationResultsQueryRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsQueryRequest/1.0 ../xsd/exchange_schema.xsd" xmlns:oirq-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsQueryRequest/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<oisrq-req-doc:OrganizationIdentificationSubsequentResultsQueryRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryRequest/1.0 ../xsd/SubsequentResultsQueryRequest_schema.xsd" xmlns:oisrq-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryRequest/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<intel:SystemIdentification>
 		<nc:IdentificationID>PersonRecordID</nc:IdentificationID>
 	</intel:SystemIdentification>
-</oirq-req-doc:OrganizationIdentificationResultsQueryRequest>
+</oisrq-req-doc:OrganizationIdentificationSubsequentResultsQueryRequest>
