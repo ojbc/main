@@ -75,6 +75,7 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
 			if (dispositions.size() == 1)
 			{
 				analyticalDatastoreDAO.deleteDisposition(dispositions.get(0).getDispositionID());
+				disposition.setDispositionID(dispositions.get(0).getDispositionID());
 			}	
 			
 		}	
