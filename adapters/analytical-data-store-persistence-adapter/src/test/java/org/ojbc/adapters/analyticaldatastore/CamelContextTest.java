@@ -280,8 +280,8 @@ public class CamelContextTest {
 		
 		log.debug("Person (Arrestee): " + person);
 		
-		assertEquals("Person[personID=2,personSexID=1,personRaceID=0,personSexDescription=M,"
-				+ "personRaceDescription=<null>,personBirthDate=1980-01-27,",
+		assertEquals("Person[personID=2,personSexID=1,personRaceID=5,personSexDescription=M,"
+				+ "personRaceDescription=W,personBirthDate=1980-01-27,",
 				StringUtils.substringBefore(person.toString(), "personUniqueIdentifier"));
 	
 		//Resend incident report
