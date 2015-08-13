@@ -24,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
+import org.ojbc.adapters.analyticaldatastore.processor.PretrialEnrollmentReportProcessor.AssessedNeeds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -54,7 +55,7 @@ public class DescriptionCodeLookupServiceTest {
 		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "F"));
 		assertNull(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "W"));
 		assertEquals(Integer.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.County, "Harrison"));
-		assertEquals(Integer.valueOf(5), descriptionCodeLookupService.retrieveCode(CodeTable.AssessedNeed, "substance abuse"));
+		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.AssessedNeed, AssessedNeeds.SubstanceAbuse.toString()));
 		assertEquals(Integer.valueOf(1),descriptionCodeLookupService.retrieveCode(CodeTable.Agency, "Placeholder Agency Name"));
 	}
 

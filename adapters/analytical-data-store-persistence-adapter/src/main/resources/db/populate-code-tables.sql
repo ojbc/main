@@ -32,11 +32,18 @@ insert into Agency(AgencyName, AgencyORI) values ('Placeholder Agency Name', 'ST
 insert into Agency(AgencyName, AgencyORI) values ('Some PD', '99999');
 
 -- AssessedNeed - adding code table values
-insert into AssessedNeed (AssessedNeedDescription) values('housing');
-insert into AssessedNeed (AssessedNeedDescription) values('insurance');
-insert into AssessedNeed (AssessedNeedDescription) values('medical');
-insert into AssessedNeed (AssessedNeedDescription) values('mental health');
-insert into AssessedNeed (AssessedNeedDescription) values('substance abuse');
+insert into AssessedNeed (AssessedNeedID, AssessedNeedDescription) values('1','Housing');
+insert into AssessedNeed (AssessedNeedID, AssessedNeedDescription) values('2', 'Substance Abuse');
+insert into AssessedNeed (AssessedNeedID, AssessedNeedDescription) values('3', 'Mental Health');
+insert into AssessedNeed (AssessedNeedID, AssessedNeedDescription) values('4', 'Medical');
+insert into AssessedNeed (AssessedNeedID, AssessedNeedDescription) values('5', 'Insurance');
+
+-- PretrialService
+insert into PretrialService (PretrialServiceID, PretrialServiceDescription) values('1','Housing');
+insert into PretrialService (PretrialServiceID, PretrialServiceDescription) values('2', 'Substance Abuse');
+insert into PretrialService (PretrialServiceID, PretrialServiceDescription) values('3', 'Mental Health');
+insert into PretrialService (PretrialServiceID, PretrialServiceDescription) values('4', 'Medical');
+insert into PretrialService (PretrialServiceID, PretrialServiceDescription) values('5', 'Insurance');
 
 -- County code value for test
 insert into County (CountyName) values ('Harrison');
@@ -58,7 +65,3 @@ insert into DispositionType (DispositionDescription) values ('Extradited');
 insert into DispositionType (DispositionDescription) values ('Not Disposition By Court');
 insert into DispositionType (DispositionDescription) values ('Missing/Unknown');
 
--- PretrialService
-insert into PretrialService (PretrialServiceDescription) values ('employment assistance');
-insert into PretrialService (PretrialServiceDescription) values ('substance abuse treatment');
-insert into PretrialService (PretrialServiceDescription) values ('behavioral health services');

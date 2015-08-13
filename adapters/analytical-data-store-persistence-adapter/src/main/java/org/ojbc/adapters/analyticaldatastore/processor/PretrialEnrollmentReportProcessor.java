@@ -49,19 +49,32 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 			Integer pretrialServiceParticipationPkId, Document report) throws Exception {
 		List<Integer> pretrialServiceIds = new ArrayList<Integer>();
 		
-		NodeList pretrialServices = XmlUtils.xPathNodeListSearch(report, 
-				"/pse-doc:PretrialServiceEnrollmentReport/nc30:Program/nc30:ProgramReferral/nc30:ActivityCategoryText"); 
+		String housingNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:HousingNeedsIndicator");
+		addPretrialServiceIdToList(pretrialServiceParticipationPkId, pretrialServiceIds, housingNeeds, AssessedNeeds.Housing);
 		
-		for (int i = 0, len = pretrialServices.getLength(); i < len; i++){
-			Node node = pretrialServices.item(i);
-			String pretrialService = node.getTextContent();
-			
-			Integer pretrialServiceId = descriptionCodeLookupService.retrieveCode(CodeTable.PretrialService, pretrialService); 
-			pretrialServiceIds.add(pretrialServiceId); 
-		}
+		String insuranceNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:InsuranceNeedsIndicator");
+		addPretrialServiceIdToList(pretrialServiceParticipationPkId, pretrialServiceIds, insuranceNeeds, AssessedNeeds.Insurance);
+		
+		String medicalNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:MedicalNeedsIndicator");
+		addPretrialServiceIdToList(pretrialServiceParticipationPkId, pretrialServiceIds, medicalNeeds, AssessedNeeds.Medical);
+		
+		String mentalHealthNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:MentalHealthNeedsIndicator");
+		addPretrialServiceIdToList(pretrialServiceParticipationPkId, pretrialServiceIds, mentalHealthNeeds, AssessedNeeds.MentalHealth);
+
+		String substanceAbuseNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:SubstanceAbuseNeedsIndicator");
+		addPretrialServiceIdToList(pretrialServiceParticipationPkId, pretrialServiceIds, substanceAbuseNeeds, AssessedNeeds.SubstanceAbuse);
 		
 		analyticalDatastoreDAO.savePretrialServiceAssociations(pretrialServiceIds, pretrialServiceParticipationPkId);
 
+	}
+
+
+	private void addPretrialServiceIdToList(
+			Integer pretrialServiceParticipationPkId,
+			List<Integer> pretrialServiceIds, String indicator, AssessedNeeds assessedNeeds) {
+		if (BooleanUtils.toBoolean(indicator)){
+			pretrialServiceIds.add(descriptionCodeLookupService.retrieveCode(CodeTable.PretrialService, assessedNeeds.toString()));
+		}
 	}
 
 
@@ -70,29 +83,36 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 		List<Integer> assessedNeedsIds = new ArrayList<Integer>();
 		
 		String housingNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:HousingNeedsIndicator");
-		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, housingNeeds, "housing");
+		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, housingNeeds, AssessedNeeds.Housing);
 		
 		String insuranceNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:InsuranceNeedsIndicator");
-		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, insuranceNeeds, "insurance");
+		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, insuranceNeeds, AssessedNeeds.Insurance);
 		
 		String medicalNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:MedicalNeedsIndicator");
-		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, medicalNeeds, "medical");
+		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, medicalNeeds, AssessedNeeds.Medical);
 		
 		String mentalHealthNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:MentalHealthNeedsIndicator");
-		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, mentalHealthNeeds, "mental health");
+		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, mentalHealthNeeds, AssessedNeeds.MentalHealth);
 
 		String substanceAbuseNeeds = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/pse-ext:NeedsAssessment/pse-ext:SubstanceAbuseNeedsIndicator");
-		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, substanceAbuseNeeds, "substance abuse");
+		addAssessedNeedsIdToList(pretrialServiceParticipationPkId, assessedNeedsIds, substanceAbuseNeeds, AssessedNeeds.SubstanceAbuse);
 		
 		analyticalDatastoreDAO.savePretrialServiceNeedAssociations(assessedNeedsIds, pretrialServiceParticipationPkId);
 	}
 
 
+	public static enum AssessedNeeds{
+		Housing, Insurance, Medical, MentalHealth, SubstanceAbuse; 
+		
+		public String toString(){
+			return StringUtils.join(name().split("(?<=[a-z])(?=[A-Z])"), " ");
+		}
+	}
 	private void addAssessedNeedsIdToList(Integer pretrialServiceParticipationPkId,
 			List<Integer> assessedNeedsIds,
-			String indicator, String indicatorType) {
+			String indicator, AssessedNeeds assessedNeeds) {
 		if (BooleanUtils.toBoolean(indicator)){
-			assessedNeedsIds.add(descriptionCodeLookupService.retrieveCode(CodeTable.AssessedNeed, indicatorType));
+			assessedNeedsIds.add(descriptionCodeLookupService.retrieveCode(CodeTable.AssessedNeed, assessedNeeds.toString()));
 		}
 	}
 
