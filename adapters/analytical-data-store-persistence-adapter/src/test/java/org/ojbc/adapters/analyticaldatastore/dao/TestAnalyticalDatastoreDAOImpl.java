@@ -217,7 +217,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		preTrialService.setPretrialServiceDescription("Pretrial Description");
 		
 		int preTrialPk = analyticalDatastoreDAOImpl.savePreTrialService(preTrialService);
-		assertEquals(4, preTrialPk);
+		assertEquals(6, preTrialPk);
 		
 		County county = new County();
 		county.setCountyName("County Name");
