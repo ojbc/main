@@ -36,19 +36,25 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62721', 'firstName', 'MICHAEL');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62721', 'lastName', 'Jones-Smith');
 
-insert into CIVIL_INITIAL_RESULTS_STATE(state) values('Archived');
-insert into CIVIL_INITIAL_RESULTS_STATE(state) values('Available for subscription');
-insert into CIVIL_INITIAL_RESULTS_STATE(state) values('Subscribed');
+insert into current_state(current_state_id , current_state ) values('1', 'archived');
+insert into current_state(current_state_id , current_state ) values('2', 'available for subscription');
+insert into current_state(current_state_id , current_state ) values('3','subscribed');
+
+insert into finger_prints_type(finger_prints_type_id, finger_prints_type) values('1', 'FBI'); 
+insert into finger_prints_type(finger_prints_type_id, finger_prints_type) values('2', 'State'); 
+
+insert into results_sender(results_sender_id, results_sender) values('1', 'FBI'); 
+insert into results_sender(results_sender_id, results_sender) values('2', 'State'); 
 
 insert into fbi_rap_back_subject(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
 	values ('1', 'B1234568','A123457', NULL, '1990-10-12', 'Lisa', 'Simpson', 'W','F');
 insert into fbi_rap_back_subject(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
 	values ('2', 'B1234569','A123458', NULL, '1987-10-10', 'Bart', 'Simpson', 'C','M');
 
-insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA) 
-	values ('000001820140729014008339990', '1', '12343', '68796860', 'ID12345');
-insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA) 
-	values ('000001820140729014008339991', '2', '12344', '68796860', 'ID12345');
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY) 
+	values ('000001820140729014008339990', '1', '12343', '68796860', 'ID12345', 'I');
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY) 
+	values ('000001820140729014008339991', '2', '12344', '68796860', 'ID12345', 'CAR');
 	
 /*http://stackoverflow.com/questions/2607326/insert-a-blob-via-a-sql-script*/
 insert into CIVIL_FINGER_PRINTS (TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) 
