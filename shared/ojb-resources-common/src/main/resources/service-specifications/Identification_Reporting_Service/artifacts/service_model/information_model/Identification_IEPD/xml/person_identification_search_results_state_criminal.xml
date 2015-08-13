@@ -68,9 +68,9 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ident-ext:IdentificationApplicantOrganization>
-	<ident-ext:StateCriminalHistoryRecordDocument structures:id="Doc_01">
+	<ident-ext:StateIdentificationSearchResultDocument structures:id="Doc_01">
 		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
-	</ident-ext:StateCriminalHistoryRecordDocument>
+	</ident-ext:StateIdentificationSearchResultDocument>
 	<ident-ext:CriminalIdentificationReasonCode>CAR</ident-ext:CriminalIdentificationReasonCode>
 </pidres-doc:PersonStateIdentificationResults>

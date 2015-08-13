@@ -22,24 +22,24 @@
 		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
 		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_1"/>
 	</oirq-res-ext:StateIdentificationSearchResultDocument>
-	<oirq-res-ext:FederaldentificationSearchResultDocument structures:id="Doc_03">
+	<oirq-res-ext:FBIIdentificationSearchResultDocument structures:id="Doc_03">
 		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
 		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_3"/>
-	</oirq-res-ext:FederaldentificationSearchResultDocument>
-		<oirq-res-ext:StateRapsheetDocument structures:id="Doc_02">
+	</oirq-res-ext:FBIIdentificationSearchResultDocument>
+	<oirq-res-ext:StateCriminalHistoryRecordDocument structures:id="Doc_02">
 		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
 		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_2"/>
-	</oirq-res-ext:StateRapsheetDocument>
-	<oirq-res-ext:FederalRapsheetDocument structures:id="Doc_04">
+	</oirq-res-ext:StateCriminalHistoryRecordDocument>
+	<oirq-res-ext:FBIIdentityHistorySummaryDocument structures:id="Doc_04">
 		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
 		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_4"/>
-	</oirq-res-ext:FederalRapsheetDocument>
-	<oirq-res-ext:FederalRapsheetDocument structures:id="Doc_05">
+	</oirq-res-ext:FBIIdentityHistorySummaryDocument>
+	<oirq-res-ext:FBIIdentityHistorySummaryDocument structures:id="Doc_05">
 		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
 		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_4"/>
-	</oirq-res-ext:FederalRapsheetDocument>
-	<oirq-res-ext:FederalRapsheetDocument structures:id="Doc_06">
+	</oirq-res-ext:FBIIdentityHistorySummaryDocument>
+	<oirq-res-ext:FBIIdentityHistorySummaryDocument structures:id="Doc_06">
 		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
 		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_4"/>
-	</oirq-res-ext:FederalRapsheetDocument>
+	</oirq-res-ext:FBIIdentityHistorySummaryDocument>
 </oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults>
