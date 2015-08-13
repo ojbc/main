@@ -254,6 +254,9 @@ public class TestAnalyticalDatastoreDAOImpl {
 		participation = analyticalDatastoreDAOImpl.searchForPretrialServiceParticipationByUniqueID("123|case12345");
 		assertNull(participation);
 
+		personPk = analyticalDatastoreDAOImpl.savePerson(person);
+		pretrialServiceParticipation.setPersonID(personPk);
+		
 		//Perform an subsequent save and confirm the same PK
 		pretrialServiceParticipation.setPretrialServiceParticipationID(pretrialServiceParticipationPk);
 		int updatedPretrialServiceParticipationPk = analyticalDatastoreDAOImpl.savePretrialServiceParticipation(pretrialServiceParticipation);
@@ -382,6 +385,8 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		analyticalDatastoreDAOImpl.deleteDisposition(dispositionPk);
 		
+		personPk = analyticalDatastoreDAOImpl.savePerson(person);
+		disposition.setPersonID(personPk);
 		disposition.setDispositionID(dispositionPk);
 		
 		Integer subsequentDispositionPk = analyticalDatastoreDAOImpl.saveDisposition(disposition);

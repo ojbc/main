@@ -20,7 +20,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -44,17 +46,21 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.transaction.annotation.Transactional;
 
 public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	private static final Log log = LogFactory.getLog(AnalyticalDatastoreDAOImpl.class);
 	
 	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;  
 	
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 	
 	@Override
@@ -908,11 +914,27 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	}
 
+	String INCIDENT_DELETE = "delete from Incident where IncidentID = ?";
+	String INCIDENT_PERSON_DELETE = "delete from Person p where p.personId in (:personIds)";
+	String INCIDENT_PERSON_ID_SELECT = "select personId FROM Arrest where IncidentID = ?";
+	String INCIDENT_CHARGE_DELETE = "delete from Charge where arrestID in "
+			+ "(SELECT arrestId FROM Arrest WHERE IncidentID = ?)";
+	String INCIDENT_ARREST_DELETE = "delete from Arrest where IncidentID = ?";
+	String INCIDENT_CIRCUMSTANCE_DELETE = "delete from IncidentCircumstance where IncidentID = ?";
+	String INCIDENT_TYPE_DELETE = "delete from IncidentType where IncidentID = ?";
 	@Override
 	public void deleteIncident(Integer incidentID) throws Exception{
-		String sql = "delete from Incident where IncidentID = ?";
 		 
-		int resultSize = this.jdbcTemplate.update(sql, new Object[] { incidentID });
+		jdbcTemplate.update(INCIDENT_CHARGE_DELETE, incidentID);
+
+		List<Integer> personIds = jdbcTemplate.queryForList(INCIDENT_PERSON_ID_SELECT, Integer.class, incidentID); 
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("personIds", personIds);
+		jdbcTemplate.update(INCIDENT_ARREST_DELETE, incidentID);
+		namedParameterJdbcTemplate.update(INCIDENT_PERSON_DELETE, params);
+		jdbcTemplate.update(INCIDENT_CIRCUMSTANCE_DELETE, incidentID);
+		jdbcTemplate.update(INCIDENT_TYPE_DELETE,incidentID);
+		int resultSize = this.jdbcTemplate.update(INCIDENT_DELETE, incidentID);
 		
 		if (resultSize == 0)
 		{
@@ -921,31 +943,44 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 	}
 
+	String DISPOSITION_PERSON_DELETE = "DELETE FROM Person p WHERE p.personId = ?";
+	String DISPOSTION_DELETE = "delete from Disposition where DispositionID = ?";
+	String DISPOSITION_PERSON_ID_SELECT = "SELECT personId FROM Disposition WHERE DispositionID = ?";
+ 
+	
 	@Override
+	@Transactional
 	public void deleteDisposition(Integer dispositionID) throws Exception {
-		String sql = "delete from Disposition where DispositionID = ?";
-		 
-		int resultSize = this.jdbcTemplate.update(sql, new Object[] { dispositionID });
-		
+
+		Integer personId = jdbcTemplate.queryForObject(DISPOSITION_PERSON_ID_SELECT, Integer.class, dispositionID);
+		int resultSize = this.jdbcTemplate.update(DISPOSTION_DELETE, new Object[] { dispositionID });
 		if (resultSize == 0)
 		{
 			throw new Exception("No disposition found with DispositionID of: " + dispositionID);
 		}	
+		jdbcTemplate.update(DISPOSITION_PERSON_DELETE, personId);
 		
 	}
 
+	String PRETRIAL_SERVICE_PARTICIPATION_DELETE = "DELETE FROM PretrialServiceParticipation WHERE PretrialServiceParticipationID = ?";
+	String PRETRIAL_SERVICE_PERSON_DELETE = "DELETE FROM Person p WHERE p.personId = ?";
+	String PRETRIAL_PERSON_ID_SELECT = "SELECT personId FROM PretrialServiceParticipation WHERE PretrialServiceParticipationID = ?";
+	String PRETRIAL_SERVICE_ASSOCIATION_DELETE="delete from PretrialServiceAssociation where PretrialServiceParticipationID = ?";
+	String PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE="delete from PretrialServiceNeedAssociation where PretrialServiceParticipationID = ?";
 	@Override
+	@Transactional
 	public void deletePretrialServiceParticipation(
 			Integer pretrialServiceParticipationID) throws Exception {
-
-			String sql = "delete from PretrialServiceParticipation where PretrialServiceParticipationID = ?";
-			 
-			int resultSize = this.jdbcTemplate.update(sql, new Object[] { pretrialServiceParticipationID });
+		
+			jdbcTemplate.update(PRETRIAL_SERVICE_ASSOCIATION_DELETE, pretrialServiceParticipationID);
+			jdbcTemplate.update(PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE, pretrialServiceParticipationID); 
+			Integer personId = jdbcTemplate.queryForObject(PRETRIAL_PERSON_ID_SELECT, Integer.class, pretrialServiceParticipationID);
+			int resultSize = this.jdbcTemplate.update(PRETRIAL_SERVICE_PARTICIPATION_DELETE, new Object[] { pretrialServiceParticipationID });
 			
-			if (resultSize == 0)
-			{
+			if (resultSize == 0){
 				throw new Exception("No Pretrial Service Participation found with PretrialServiceParticipationID of: " + pretrialServiceParticipationID);
 			}	
+			jdbcTemplate.update(PRETRIAL_SERVICE_PERSON_DELETE, personId);
 
 		
 	}
