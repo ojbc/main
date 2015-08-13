@@ -20,5 +20,6 @@
 <oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryRequest/1.0 ../xsd/InitialResultsQueryRequest_schema.xsd" xmlns:oiirq-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryRequest/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<intel:SystemIdentification>
 		<nc:IdentificationID>PersonRecordID</nc:IdentificationID>
+		<nc:SystemName>rap-back-data-store</nc:SystemName>
 	</intel:SystemIdentification>
 </oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest>

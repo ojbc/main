@@ -18,19 +18,15 @@
 
 -->
 <oisrq-res-doc:OrganizationIdentificationSubsequentResultsQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0 ../xsd/SubsequentResultsQueryResults_schema.xsd" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:oisrq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0" xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xop="http://www.w3.org/2004/08/xop/include">
-	<oirq-res-ext:StateIdentificationQueryResultsDocument structures:id="Doc_01">
-		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
-		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_1"/>
-	</oirq-res-ext:StateIdentificationQueryResultsDocument>
 	<oirq-res-ext:StateRapsheetDocument structures:id="Doc_02">
 		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
 		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_2"/>
 	</oirq-res-ext:StateRapsheetDocument>
-	<oirq-res-ext:FederaldentificationQueryResultsDocument structures:id="Doc_03">
-		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
-		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_3"/>
-	</oirq-res-ext:FederaldentificationQueryResultsDocument>
 	<oirq-res-ext:FederalRapsheetDocument structures:id="Doc_04">
+		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
+		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_4"/>
+	</oirq-res-ext:FederalRapsheetDocument>
+	<oirq-res-ext:FederalRapsheetDocument structures:id="Doc_05">
 		<oirq-res-ext:DocumentBinary>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</oirq-res-ext:DocumentBinary>
 		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_4"/>
 	</oirq-res-ext:FederalRapsheetDocument>

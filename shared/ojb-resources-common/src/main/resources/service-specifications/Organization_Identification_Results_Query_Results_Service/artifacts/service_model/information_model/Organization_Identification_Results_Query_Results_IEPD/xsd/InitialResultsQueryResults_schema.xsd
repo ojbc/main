@@ -21,9 +21,9 @@
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" schemaLocation="extension_schema.xsd"/>
 	<!-- Root data element for the Organization Identification Results - Initial Query Results -->
-	<xsd:element name="OrganizationIdentificationInitialResultsQueryResults" type="oirq-res-ext:OrganizationIdentificationResultsQueryResultsType">
+	<xsd:element name="OrganizationIdentificationInitialResultsQueryResults" type="oirq-res-ext:IdentificationInitialResultsQueryResultsType">
 		<xsd:annotation>
-			<xsd:documentation>A message to submit an organization identification results - initial query results.</xsd:documentation>
+			<xsd:documentation>A collection of identification search results and criminal history records returned as part of identifying an individual.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
