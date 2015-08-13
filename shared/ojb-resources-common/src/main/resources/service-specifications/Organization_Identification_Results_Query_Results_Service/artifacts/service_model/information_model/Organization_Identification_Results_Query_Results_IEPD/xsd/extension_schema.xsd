@@ -69,7 +69,7 @@
 			<xsd:documentation>A placeholder for an identification request document.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StateRapsheetDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
+	<xsd:element name="StateCriminalHistoryRecordDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>State criminal history record for a person.</xsd:documentation>
 		</xsd:annotation>
@@ -79,12 +79,12 @@
 			<xsd:documentation>A document usually returned by a State criminal history repository, based on a biometric submission, indicating whether a person has a criminal history with the state..</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FederalRapsheetDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
+	<xsd:element name="FBIIdentityHistorySummaryDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>Federal criminal history record for a person.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FederaldentificationSearchResultDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationSearchResultsRepresentation">
+	<xsd:element name="FBIIdentificationSearchResultDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationSearchResultsRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document returned by the FBI, based on a biometric submission, indicating whether a person has a criminal history with the FBI.</xsd:documentation>
 		</xsd:annotation>
