@@ -29,7 +29,6 @@ import org.ojbc.util.xml.XmlUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryProcessor{
 
