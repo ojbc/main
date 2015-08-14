@@ -38,7 +38,7 @@
 			uri="cxf:bean:incidentReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}" />
 
 		<endpoint id="incidentReportingFileEndpoint"
-			uri="file://{{analyticsAdapter.inputDirectory}}/incident/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/incident/error&amp;recursive=true&amp;delete=true" />
+			uri="file://{{analyticsAdapter.inputDirectory}}/incident/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/incident/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
 
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{analyticsAdapter.inputDirectory}}/failed" />
