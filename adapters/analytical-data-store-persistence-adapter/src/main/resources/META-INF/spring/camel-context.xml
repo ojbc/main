@@ -56,7 +56,7 @@
 			uri="file://{{analyticsAdapter.inputDirectory}}/disposition/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/disposition/error&amp;move=processed/" />
 
 		<!-- Incident Reporting Route -->
-		<camel:route id="Incident_Repository_Service">
+		<camel:route id="Incident_Repository_Service" >
 		
 			<camel:from	uri="incidentReportingServiceAdapterEndpoint" />
 			
@@ -79,7 +79,7 @@
 			<camel:to uri="direct:processIncident" />
 		</camel:route>
 		
-		<camel:route id="Incident_Repository_Service_Process_Incident">				
+		<camel:route id="Incident_Repository_Service_Process_Incident" startupOrder="1">				
 			
 			<camel:from	uri="direct:processIncident" />
 
@@ -125,7 +125,7 @@
 			<camel:to uri="direct:processPretrialServiceReport" />
 		</camel:route>
 		
-		<camel:route id="Pretrial_Repository_Service_Process">				
+		<camel:route id="Pretrial_Repository_Service_Process" startupOrder="2">				
 			
 			<camel:from	uri="direct:processPretrialServiceReport" />
 
@@ -172,7 +172,7 @@
 		</camel:route>
 		
 				
-		<camel:route id="Disposition_Reporting_Service_Process_Route">
+		<camel:route id="Disposition_Reporting_Service_Process_Route" startupOrder="3">
 		
 			<camel:from	uri="direct:processDispositionReport" />
 			
