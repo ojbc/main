@@ -915,7 +915,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	String INCIDENT_DELETE = "delete from Incident where IncidentID = ?";
-	String INCIDENT_PERSON_DELETE = "delete from Person p where p.personId in (:personIds)";
+	String INCIDENT_PERSON_DELETE = "delete from Person where personId in (:personIds)";
 	String INCIDENT_PERSON_ID_SELECT = "select personId FROM Arrest where IncidentID = ?";
 	String INCIDENT_CHARGE_DELETE = "delete from Charge where arrestID in "
 			+ "(SELECT arrestId FROM Arrest WHERE IncidentID = ?)";
@@ -943,7 +943,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 	}
 
-	String DISPOSITION_PERSON_DELETE = "DELETE FROM Person p WHERE p.personId = ?";
+	String DISPOSITION_PERSON_DELETE = "DELETE FROM Person WHERE personId = ?";
 	String DISPOSTION_DELETE = "delete from Disposition where DispositionID = ?";
 	String DISPOSITION_PERSON_ID_SELECT = "SELECT personId FROM Disposition WHERE DispositionID = ?";
  
@@ -963,7 +963,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	String PRETRIAL_SERVICE_PARTICIPATION_DELETE = "DELETE FROM PretrialServiceParticipation WHERE PretrialServiceParticipationID = ?";
-	String PRETRIAL_SERVICE_PERSON_DELETE = "DELETE FROM Person p WHERE p.personId = ?";
+	String PRETRIAL_SERVICE_PERSON_DELETE = "DELETE FROM Person WHERE personId = ?";
 	String PRETRIAL_PERSON_ID_SELECT = "SELECT personId FROM PretrialServiceParticipation WHERE PretrialServiceParticipationID = ?";
 	String PRETRIAL_SERVICE_ASSOCIATION_DELETE="delete from PretrialServiceAssociation where PretrialServiceParticipationID = ?";
 	String PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE="delete from PretrialServiceNeedAssociation where PretrialServiceParticipationID = ?";
