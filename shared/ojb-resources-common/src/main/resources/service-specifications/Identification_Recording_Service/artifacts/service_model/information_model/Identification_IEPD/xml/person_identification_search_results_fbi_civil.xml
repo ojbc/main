@@ -24,6 +24,9 @@
 	<ident-ext:TransactionCategoryText>Task ID</ident-ext:TransactionCategoryText>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
+			<nc:PersonBirthDate>
+				<nc:Date>1950-01-02</nc:Date>
+			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>Joe</nc:PersonGivenName>
 				<nc:PersonMiddleName>D</nc:PersonMiddleName>
@@ -36,11 +39,6 @@
 				</j:PersonFBIIdentification>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A123456</nc:IdentificationID>
-					<ident-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>true</ident-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>
-				</j:PersonStateFingerprintIdentification>
-				<j:PersonStateFingerprintIdentification>
-					<nc:IdentificationID>L456789</nc:IdentificationID>
-					<ident-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</ident-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<ident-ext:PersonTrackingIdentification>
@@ -59,9 +57,9 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ident-ext:IdentificationApplicantOrganization>
-	<ident-ext:FBIIdentityHistorySummaryDocument structures:id="Doc_01">
+	<ident-ext:FBIIdentificationSearchResultDocument structures:id="Doc_01">
 		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
-	</ident-ext:FBIIdentityHistorySummaryDocument>
-	<ident-ext:CriminalIdentificationReasonCode>CAR</ident-ext:CriminalIdentificationReasonCode>
+	</ident-ext:FBIIdentificationSearchResultDocument>
+	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>
 </pidres-doc:PersonFederalIdentificationResults>

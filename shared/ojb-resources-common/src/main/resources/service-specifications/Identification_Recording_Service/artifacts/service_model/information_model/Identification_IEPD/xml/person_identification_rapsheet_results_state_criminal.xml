@@ -34,6 +34,9 @@
 	<ident-ext:TransactionCategoryText>Task ID</ident-ext:TransactionCategoryText>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
+			<nc:PersonBirthDate>
+				<nc:Date>1950-01-02</nc:Date>
+			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>Joe</nc:PersonGivenName>
 				<nc:PersonMiddleName>D</nc:PersonMiddleName>
@@ -65,5 +68,5 @@
 		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
 	</ident-ext:StateCriminalHistoryRecordDocument>
-	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>
+	<ident-ext:CriminalIdentificationReasonCode>CAR</ident-ext:CriminalIdentificationReasonCode>
 </pidres-doc:PersonStateIdentificationResults>
