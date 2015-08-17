@@ -169,7 +169,7 @@ public class CamelContextTest {
 		
 		Disposition disposition = dispositions.get(0);
 		
-		assertEquals("ORI", disposition.getArrestingAgencyORI());
+		assertEquals("ID", disposition.getArrestingAgencyORI());
 		assertEquals("Incident Number", disposition.getIncidentCaseNumber());
 		assertEquals("12/17/2001",DATE_FOMRAT.format(disposition.getDispositionDate()));
 		assertEquals(545, disposition.getSentenceTermDays().intValue());
