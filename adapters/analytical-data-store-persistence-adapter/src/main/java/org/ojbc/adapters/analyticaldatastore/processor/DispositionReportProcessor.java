@@ -134,7 +134,7 @@ public class DispositionReportProcessor extends AbstractReportRepositoryProcesso
         
         disposition.setIsProbationViolationOnOldCharge(DaoUtils.getIndicatorValueForDatabase(isProbationViolationOnOldCharge));
         
-		String arrestingAgencyORI = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/jxdm50:Arrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
+		String arrestingAgencyORI = XmlUtils.xPathStringSearch(report, "/disp_exc:DispositionReport/jxdm50:Arrest/jxdm50:ArrestAgency/nc30:OrganizationIdentification/nc30:IdentificationID");
 		
 		if (StringUtils.isNotBlank(arrestingAgencyORI))
 		{
