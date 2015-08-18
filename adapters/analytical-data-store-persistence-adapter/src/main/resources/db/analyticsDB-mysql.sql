@@ -194,8 +194,8 @@ CREATE TABLE Arrest (
 CREATE TABLE Charge (
                 ChargeID INT AUTO_INCREMENT NOT NULL,
                 ArrestID INT NOT NULL,
-                OffenseDescriptionText VARCHAR(120),
-                OffenseDescriptionText1 VARCHAR(120),
+                OffenseDescriptionText VARCHAR(300),
+                OffenseDescriptionText1 VARCHAR(300),
                 PRIMARY KEY (ChargeID)
 );
 

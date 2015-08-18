@@ -187,8 +187,8 @@ CREATE TABLE Arrest (
 CREATE TABLE Charge (
                 ChargeID IDENTITY NOT NULL,
                 ArrestID INTEGER NOT NULL,
-                OffenseDescriptionText VARCHAR(120),
-                OffenseDescriptionText1 VARCHAR(120),
+                OffenseDescriptionText VARCHAR(300),
+                OffenseDescriptionText1 VARCHAR(300),
                 CONSTRAINT Charge_pk PRIMARY KEY (ChargeID)
 );
 
