@@ -20,6 +20,9 @@ import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class Incident {
 
 	//pk
@@ -139,6 +142,10 @@ public class Incident {
 
 	public void setReportingSystem(String reportingSystem) {
 		this.reportingSystem = reportingSystem;
+	}
+	
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 	
 }
