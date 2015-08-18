@@ -932,6 +932,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		params.put("personIds", personIds);
 		jdbcTemplate.update(INCIDENT_ARREST_DELETE, incidentID);
 		
+		/*
+		 * If the incident has no arrest, the personIds list will be empty.
+		 */
 		if (personIds.size() > 0){
 			namedParameterJdbcTemplate.update(INCIDENT_PERSON_DELETE, params);
 		}
