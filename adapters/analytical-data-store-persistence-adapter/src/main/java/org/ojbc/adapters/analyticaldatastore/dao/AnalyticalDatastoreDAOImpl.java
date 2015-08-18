@@ -931,7 +931,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("personIds", personIds);
 		jdbcTemplate.update(INCIDENT_ARREST_DELETE, incidentID);
-		namedParameterJdbcTemplate.update(INCIDENT_PERSON_DELETE, params);
+		
+		if (personIds.size() > 0){
+			namedParameterJdbcTemplate.update(INCIDENT_PERSON_DELETE, params);
+		}
 		jdbcTemplate.update(INCIDENT_CIRCUMSTANCE_DELETE, incidentID);
 		jdbcTemplate.update(INCIDENT_TYPE_DELETE,incidentID);
 		int resultSize = this.jdbcTemplate.update(INCIDENT_DELETE, incidentID);
@@ -958,7 +961,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		{
 			throw new Exception("No disposition found with DispositionID of: " + dispositionID);
 		}	
-		jdbcTemplate.update(DISPOSITION_PERSON_DELETE, personId);
+		
+		if (personId != null){
+			jdbcTemplate.update(DISPOSITION_PERSON_DELETE, personId);
+		}
 		
 	}
 
@@ -980,7 +986,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			if (resultSize == 0){
 				throw new Exception("No Pretrial Service Participation found with PretrialServiceParticipationID of: " + pretrialServiceParticipationID);
 			}	
-			jdbcTemplate.update(PRETRIAL_SERVICE_PERSON_DELETE, personId);
+			
+			if (personId != null){
+				jdbcTemplate.update(PRETRIAL_SERVICE_PERSON_DELETE, personId);
+			}
 
 		
 	}
