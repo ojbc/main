@@ -88,7 +88,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public Integer saveIncident(final Incident inboundIncident) {
-        log.debug("Inserting row into Incident table");
+        log.debug("Inserting row into Incident table: " + inboundIncident.toString());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -98,16 +98,14 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	String incidentInsertStatement="";
         	        	String[] insertArgs = null;	
         	        	
-        	            if (inboundIncident.getIncidentID() == null)
-        	            {	
+        	            if (inboundIncident.getIncidentID() == null){	
         	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
         	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,ReportingSystem,RecordType) values (?,?,?,?,?,?,?,?,?,?)";
         	            	
             	        	insertArgs = new String[] {"ReportingAgencyID", "IncidentCaseNumber"
         	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","ReportingSystem","RecordType"};	
         	            }	
-        	            else
-        	            {
+        	            else{
         	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
         	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,ReportingSystem,RecordType, IncidentID) values (?,?,?,?,?,?,?,?,?,?,?)";
         	            	
@@ -117,7 +115,14 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	
         	            PreparedStatement ps =
         	                connection.prepareStatement(incidentInsertStatement, insertArgs);
-        	            ps.setInt(1, inboundIncident.getReportingAgencyID());
+        	            if (inboundIncident.getReportingAgencyID() != null){
+        	            	ps.setInt(1, inboundIncident.getReportingAgencyID());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(1, java.sql.Types.NULL);
+        	            }	
+
         	            ps.setString(2, inboundIncident.getIncidentCaseNumber());
         	            ps.setBigDecimal(3, inboundIncident.getIncidentLocationLatitude());
         	            ps.setBigDecimal(4, inboundIncident.getIncidentLocationLongitude());
