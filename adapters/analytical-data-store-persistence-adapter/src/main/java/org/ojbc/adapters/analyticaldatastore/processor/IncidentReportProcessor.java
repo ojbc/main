@@ -66,7 +66,10 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			incident.setRecordType('U');
 		}
 		
-		String reportingAgencyName = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id= " + PATH_TO_LEXS_DIGEST + " /lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation[nc:ActivityReference/@s:ref=" + PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName");
+		String reportingAgencyName = XmlUtils.xPathStringSearch(incidentReport, 
+				PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id= " + PATH_TO_LEXS_DIGEST + 
+				" /lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation[nc:ActivityReference/@s:ref=" + 
+						PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName");
 		log.debug("Agency Name: " + reportingAgencyName);
 
 		String reportingAgencyORI = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataOwnerMetadata/lexs:DataOwnerIdentifier/lexs:ORI");
@@ -84,7 +87,11 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			}	
 			
 			incident.setReportingAgencyID(reportingAgencyId);
-		}	
+		}
+		else{
+			throw new Exception("Valid Agency ORI required for incident.  Agency Name is: " + StringUtils.trimToEmpty(reportingAgencyName) + 
+					", Agency ORI is: " + StringUtils.trimToEmpty(reportingAgencyORI));
+		}
 		
 		String incidentCaseNumber=XmlUtils.xPathStringSearch(incidentReport,  PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataItemID");
 		log.debug("Incident Case Number: " + incidentCaseNumber);
@@ -430,13 +437,17 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 
 	private String returnArrestingAgency(Node incidentReport) throws Exception
 	{
-		String arrestingOfficerRefernce = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestOfficerAssociation/nc:PersonReference/@s:ref");
+		String arrestingOfficerRefernce = XmlUtils.xPathStringSearch(incidentReport, 
+				PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/lexsdigest:ArrestOfficerAssociation/nc:PersonReference/@s:ref");
 		log.debug("Arresting Officer Reference: " + arrestingOfficerRefernce);
 		
-		String arrestAgencyReference=XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/nc:PersonAssignedUnitAssociation/nc:PersonReference[@s:ref='" + arrestingOfficerRefernce + "']/following-sibling::nc:OrganizationReference/@s:ref");
+		String arrestAgencyReference=XmlUtils.xPathStringSearch(incidentReport, 
+				PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/nc:PersonAssignedUnitAssociation/nc:PersonReference"
+						+ "[@s:ref='" + arrestingOfficerRefernce + "']/following-sibling::nc:OrganizationReference/@s:ref");
 		log.debug("Arresting Agency Reference: " + arrestAgencyReference);
 		
-		String arrestingAgency = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id='" + arrestAgencyReference + "']/nc:OrganizationName");
+		String arrestingAgency = XmlUtils.xPathStringSearch(incidentReport, 
+				PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id='" + arrestAgencyReference + "']/nc:OrganizationName");
 		log.debug("Arresting Agency: " + arrestingAgency);
 		
 		return arrestingAgency;
