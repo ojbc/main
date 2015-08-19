@@ -366,7 +366,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer savePretrialServiceParticipation(
 			final PretrialServiceParticipation pretrialServiceParticipation) {
 
-        log.debug("Inserting row into PretrialServiceParticipation table: " + pretrialServiceParticipation);
+        log.debug("Inserting row into PretrialServiceParticipation table: " + pretrialServiceParticipation.toString());
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -396,7 +396,13 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            PreparedStatement ps =
         	                connection.prepareStatement(pretrialInsertStatement, insertArgs);
         	            ps.setInt(1, pretrialServiceParticipation.getPersonID());
-        	            ps.setInt(2, pretrialServiceParticipation.getCountyID());
+        	            
+        	            if (pretrialServiceParticipation.getCountyID() != null){
+        	            	ps.setInt(2, pretrialServiceParticipation.getCountyID());
+        	            }
+        	            else{
+        	            	ps.setNull(2, java.sql.Types.NULL);
+        	            }
         	            ps.setInt(3, pretrialServiceParticipation.getRiskScore());
         	            
         	            if (pretrialServiceParticipation.getIntakeDate() != null){

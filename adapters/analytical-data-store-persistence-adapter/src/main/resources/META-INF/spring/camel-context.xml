@@ -137,7 +137,7 @@
 				
 				<camel:doCatch >
 					<camel:exception>java.lang.Exception</camel:exception>
-					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					<camel:log message="An exception was thrown: ${exception.message}" loggingLevel="INFO"/>				
 					
 					<camel:setHeader headerName="CamelFileName">
 						<camel:simple>pretrial/FailedPretrial_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
