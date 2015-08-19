@@ -1,0 +1,72 @@
+MIME-Version: 1.0
+Content-Type: Multipart/Related;boundary=MIME_boundary;
+	      type=text/xml;start="<identification_request_message@ojbc.org>"
+Content-Description: Identification Request
+
+--MIME_boundary
+Content-Type: text/xml; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Content-ID: <identification_request_message@ojbc.org>
+
+<soap:Envelope
+ xmlns:soap='http://www.w3.org/2003/05/soap-envelope'
+ xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+ xmlns:xop="http://www.w3.org/2004/08/xop/include"
+ xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
+ xmlns:ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
+ xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+ xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+ xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <soap:Body>
+<pidreq-doc:PersonIdentificationRequest>
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>D567214</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<j:Subject structures:id="Subject01">
+		<nc:RoleOfPerson>
+			<nc:PersonName>
+				<nc:PersonGivenName>Joe</nc:PersonGivenName>
+				<nc:PersonMiddleName>D</nc:PersonMiddleName>
+				<nc:PersonSurName>Smith</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<ext:PersonTrackingIdentification>
+				<nc:IdentificationID>OTN</nc:IdentificationID>
+			</ext:PersonTrackingIdentification>
+		</nc:RoleOfPerson>
+	</j:Subject>
+	<ext:IdentificationApplicantOrganization>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>ID23457</nc:IdentificationID>
+		</nc:OrganizationIdentification>
+		<nc:OrganizationName>Submitting Organization Name</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>68796860</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</ext:IdentificationApplicantOrganization>
+	<ext:IdentificationRequestDocument structures:id="Doc_01">
+		<ext:DocumentBinary xmime:contentType="text/plain"/>
+				<xop:Include href="'cid:http://ojbc.org/identification/request/example"/>
+	</ext:IdentificationRequestDocument>
+	<nc:PersonDocumentAssociation>
+		<nc:Person structures:ref="Subject01"/>
+		<nc:Document structures:ref="Doc_01"/>
+	</nc:PersonDocumentAssociation>
+</pidreq-doc:PersonIdentificationRequest>  
+  </soap:Body>
+</soap:Envelope>
+
+--MIME_boundary
+Content-Type: text/plain
+Content-Transfer-Encoding: binary
+Content-ID: <http://ojbc.org/identification/request/example>
+
+// binary octets for text
+
+--MIME_boundary--
