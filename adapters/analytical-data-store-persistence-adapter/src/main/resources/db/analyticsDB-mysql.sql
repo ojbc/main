@@ -88,11 +88,11 @@ CREATE TABLE Person (
 CREATE TABLE PretrialServiceParticipation (
                 PretrialServiceParticipationID INT AUTO_INCREMENT NOT NULL,
                 PersonID INT NOT NULL,
-                CountyID INT NOT NULL,
+                CountyID INT,
                 RiskScore INT NOT NULL,
                 IntakeDate DATE NOT NULL,
                 RecordType CHAR(1) NOT NULL,
-                ArrestingAgencyORI VARCHAR(12) NOT NULL,
+                ArrestingAgencyORI VARCHAR(12),
                 ArrestIncidentCaseNumber VARCHAR(30) NOT NULL,
                 PretrialServiceUniqueID VARCHAR(128) NOT NULL,
                 `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
