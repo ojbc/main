@@ -22,6 +22,8 @@ import java.util.List;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
 import org.ojbc.util.xml.OjbcNamespaceContext;
@@ -32,7 +34,7 @@ import org.w3c.dom.Node;
 
 public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryProcessor{
 
-	//private static final Log log = LogFactory.getLog( PretrialEnrollmentReportProcessor.class );
+	private static final Log log = LogFactory.getLog( PretrialEnrollmentReportProcessor.class );
 	
 	
 	@Transactional
@@ -152,7 +154,16 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
 
         String countyName = XmlUtils.xPathStringSearch(report, 
         		"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:PreTrialServicesEnrollment/pse-ext:ActivityLocation/nc30:Address/nc30:LocationCountyName");
-        Integer countyId = descriptionCodeLookupService.retrieveCode(CodeTable.County, countyName); 
+        
+        if (StringUtils.isBlank(countyName)){
+        	countyName = XmlUtils.xPathStringSearch(report, "/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/nc30:IncidentLocation/nc30:Address/nc30:LocationCountyName");
+        }
+        
+        Integer countyId = descriptionCodeLookupService.retrieveCode(CodeTable.County, countyName);
+        
+        if (countyId == null){
+        	log.warn("County name " + StringUtils.trimToEmpty(countyName) + " not found in the county table") ;
+        }
         pretrialServiceParticipation.setCountyID(countyId);
         
         String riskScore = XmlUtils.xPathStringSearch(report, 
@@ -161,16 +172,19 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
         	pretrialServiceParticipation.setRiskScore(Integer.valueOf(riskScore));
         }
         
-        //TODO mapping to the arrest Date. double check with Andrew. 
+        String arrestAgencyOri = XmlUtils.xPathStringSearch(report, 
+        		"/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
+        pretrialServiceParticipation.setArrestingAgencyORI(StringUtils.trimToNull(arrestAgencyOri));
+        
 		String intakeDateString=XmlUtils.xPathStringSearch(report,
 				"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:ORASAssessment/nc30:ActivityDate/nc30:DateTime");
 		if (StringUtils.isNotBlank(intakeDateString)){
 			pretrialServiceParticipation.setIntakeDate(DATE_TIME_FORMAT.parse(intakeDateString));
 		}
+		else{
+			throw new Exception("The record is rejected because the intake date is null : " + pretrialServiceParticipation.toString()); 
+		}
 		
-		String arrestAgencyOri = XmlUtils.xPathStringSearch(report, 
-				"/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
-		pretrialServiceParticipation.setArrestingAgencyORI(StringUtils.trimToNull(arrestAgencyOri));
 		
 		return analyticalDatastoreDAO.savePretrialServiceParticipation(pretrialServiceParticipation);
 	}
