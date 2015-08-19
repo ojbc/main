@@ -29,6 +29,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.personid.IdentifierGenerationStrategy;
 import org.ojbc.adapters.analyticaldatastore.service.DescriptionCodeLookupService;
 import org.ojbc.adapters.analyticaldatastore.util.AnalyticalDataStoreUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -57,12 +58,19 @@ public abstract class AbstractReportRepositoryProcessor {
         log.debug("Arrestee person identifier keys: " + personIdentifierKey);
 
         String personBirthDateAsString = (String)personAttributes.get(IdentifierGenerationStrategy.BIRTHDATE_FIELD);
-        String personRace = (String)personAttributes.get("personRace");
         String personSex = (String)personAttributes.get(IdentifierGenerationStrategy.SEX_FIELD);
-        
+		String personRace = getPersonRace(personNode, jxdmPrefix);	
+				
+
         return savePerson(personBirthDateAsString, personSex, personRace, personIdentifierKey);	
 
     }
+
+	private String getPersonRace(Node personNode, String jxdmPrefix) throws Exception {
+		String personRace=XmlUtils.xPathStringSearch(personNode, jxdmPrefix + ":PersonRaceCode");
+		return StringUtils.trimToNull(personRace);
+	}
+	
 	protected int savePerson(String personBirthDateAsString, String personSex, String personRace,
 			String personIdentifierKey) throws Exception {
 		//Save person

@@ -70,13 +70,6 @@ public class AnalyticalDataStoreUtils {
 			arrestee.put(IdentifierGenerationStrategy.BIRTHDATE_FIELD, personDateOfBirth);
 		}	
 				
-		String personRace=XmlUtils.xPathStringSearch(personNode, jxdmPrefix + ":PersonRaceCode");
-		
-		if (StringUtils.isNotBlank(personRace))
-		{
-			arrestee.put("personRace", personRace.trim());
-		}	
-				
 		String personSex=XmlUtils.xPathStringSearch(personNode, ncPrefix + ":PersonSexCode");
 		
 		if (StringUtils.isBlank(personSex))
@@ -89,15 +82,6 @@ public class AnalyticalDataStoreUtils {
 			arrestee.put(IdentifierGenerationStrategy.SEX_FIELD, personSex.trim());
 		}
 				
-		String personBiometricID=XmlUtils.xPathStringSearch(personNode, jxdmPrefix+":PersonAugmentation/"+jxdmPrefix+
-				":PersonStateFingerprintIdentification/"+ncPrefix +":IdentificationID");
-		
-		if (StringUtils.isNotBlank(personBiometricID))
-		{
-			log.debug("Arrestee SID: " + personBiometricID);
-			arrestee.put("personBiometricID", personBiometricID);
-		}	
-		
 		return arrestee;
 	}
 
