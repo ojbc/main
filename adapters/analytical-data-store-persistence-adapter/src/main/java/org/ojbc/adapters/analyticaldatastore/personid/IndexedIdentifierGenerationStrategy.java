@@ -100,7 +100,7 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 	}
 
 	@Override
-	public String generateIdentifier(Map<String, Object> attributes) throws IOException {
+	public synchronized String generateIdentifier(Map<String, Object> attributes) throws IOException {
 		log.debug("Generate identifier for attributes=" + attributes);
 		Document d = searchForExistingAttributes(attributes);
 		if (d == null) {
