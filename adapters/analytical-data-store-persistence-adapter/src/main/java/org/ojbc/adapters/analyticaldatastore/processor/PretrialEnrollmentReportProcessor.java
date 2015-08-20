@@ -176,17 +176,42 @@ public class PretrialEnrollmentReportProcessor extends AbstractReportRepositoryP
         		"/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/jxdm50:IncidentAugmentation/jxdm50:IncidentArrest/jxdm50:ArrestAgency/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
         pretrialServiceParticipation.setArrestingAgencyORI(StringUtils.trimToNull(arrestAgencyOri));
         
+		setIntakeDate(report, pretrialServiceParticipation);
+		
+		
+		return analyticalDatastoreDAO.savePretrialServiceParticipation(pretrialServiceParticipation);
+	}
+
+
+	/**
+	 * Set intakeDate in the order of ORAS AsseseementDate, contactDate1, incidentDate. 
+	 * @param report
+	 * @param pretrialServiceParticipation
+	 * @throws Exception
+	 * @throws ParseException
+	 */
+	private void setIntakeDate(Document report,
+			PretrialServiceParticipation pretrialServiceParticipation)
+			throws Exception, ParseException {
 		String intakeDateString=XmlUtils.xPathStringSearch(report,
 				"/pse-doc:PretrialServiceEnrollmentReport/pse-ext:ORASAssessment/nc30:ActivityDate/nc30:DateTime");
+		
+		if (StringUtils.isBlank(intakeDateString)){
+			intakeDateString=XmlUtils.xPathStringSearch(report,
+				"/pse-doc:PretrialServiceEnrollmentReport/cyfs:ContactActivity/pse-ext:FirstContact/nc30:ActivityDate/nc30:DateTime");
+		}
+		
+		if (StringUtils.isBlank(intakeDateString)){
+			intakeDateString=XmlUtils.xPathStringSearch(report,
+				"/pse-doc:PretrialServiceEnrollmentReport/nc30:Incident/nc30:ActivityDate/nc30:DateTime");
+		}
+		
 		if (StringUtils.isNotBlank(intakeDateString)){
 			pretrialServiceParticipation.setIntakeDate(DATE_TIME_FORMAT.parse(intakeDateString));
 		}
 		else{
 			throw new Exception("The record is rejected because the intake date is null : " + pretrialServiceParticipation.toString()); 
 		}
-		
-		
-		return analyticalDatastoreDAO.savePretrialServiceParticipation(pretrialServiceParticipation);
 	}
 
 }
