@@ -225,7 +225,7 @@ public class RapbackDAOImplTest {
 		civilInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
 		//TODO save either search result file or rap sheet. Should not save both.
 		civilInitialResults.setSearchResultFile("Match".getBytes());
-		civilInitialResults.setCurrentState(CivilInitialResultsState.Available);
+		civilInitialResults.setCurrentState(CivilInitialResultsState.Available_for_subscription);
 		civilInitialResults.setTransactionType("Transaction Type");
 		civilInitialResults.setResultsSender(ResultSender.FBI);
 		

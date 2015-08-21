@@ -17,26 +17,13 @@
 package org.ojbc.adapters.rapbackdatastore.dao.model;
 
 public enum CivilInitialResultsState {
-	Archived("Archived"), 
-	Available("Available for subscription"), 
-	Subscibed("Subscribed");
-	
-	private String description; 
-	private CivilInitialResultsState(String description){
-		this.description = description; 
-	}
+	/*
+	 * The ordinal of the enum is used in the code. DO NOT change the order 
+	 * of the instances. 
+	 */
+	Archived, Available_for_subscription, Subscribed;
 	
 	public String toString(){
-		return this.description; 
-	}
-	
-	public static CivilInitialResultsState valueOfDesc(String desc){
-		for (CivilInitialResultsState civilInitialResultsState: CivilInitialResultsState.values()){
-			if (civilInitialResultsState.toString().equalsIgnoreCase(desc)){
-				return civilInitialResultsState; 
-			}
-		}
-		
-		return null;
+		return name().replace('_', ' '); 
 	}
 }
