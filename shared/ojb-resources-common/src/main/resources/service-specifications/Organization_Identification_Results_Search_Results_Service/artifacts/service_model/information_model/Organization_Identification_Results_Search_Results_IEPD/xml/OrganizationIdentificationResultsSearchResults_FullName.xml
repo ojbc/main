@@ -20,12 +20,12 @@
 <oirs-res-doc:OrganizationIdentificationResultsSearchResults
 	xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
 	xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
-	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
 	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
@@ -62,10 +62,10 @@
       </oirs-res-ext:SubscriptionValidation>
     </oirs-res-ext:Subscription>
     <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
-	<intel:SystemIdentifier>
+	<intel:SystemIdentification>
 		<nc:IdentificationID>123456</nc:IdentificationID>
-		<intel:SystemName>RapbackDataStore</intel:SystemName>
-	</intel:SystemIdentifier>
+		<nc:SystemName>RapbackDataStore</nc:SystemName>
+	</intel:SystemIdentification>
 </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
 	<oirs-res-ext:OrganizationIdentificationResultsSearchResult>
 	  	 <oirs-res-ext:IdentifiedPerson>
@@ -82,9 +82,9 @@
 		  </oirs-res-ext:IdentifiedPerson>
 		  <oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
 	    <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
-		<intel:SystemIdentifier>
+		<intel:SystemIdentification>
 			<nc:IdentificationID>9876543</nc:IdentificationID>
-			<intel:SystemName>RapbackDataStore</intel:SystemName>
-		</intel:SystemIdentifier>
+			<nc:SystemName>RapbackDataStore</nc:SystemName>
+		</intel:SystemIdentification>
 	</oirs-res-ext:OrganizationIdentificationResultsSearchResult>
 </oirs-res-doc:OrganizationIdentificationResultsSearchResults>

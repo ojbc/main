@@ -19,6 +19,7 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL;
@@ -35,6 +36,8 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_WSN_BROKERED;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -48,6 +51,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
@@ -58,7 +63,14 @@ import org.w3c.dom.Element;
 
 @Service
 public class RapbackSearchProcessor {
-    private final Log log = LogFactory.getLog(this.getClass());
+    private static final String SYSTEM_NAME = "RapbackDataStore";
+
+	private static final String SOURCE_SYSTEM_NAME_TEXT = 
+    		"http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore";
+
+	private static final String YYYY_MM_DD = "yyyy-MM-dd";
+
+	private final Log log = LogFactory.getLog(this.getClass());
 
     @Resource
     private RapbackDAO rapbackDAO;
@@ -84,6 +96,9 @@ public class RapbackSearchProcessor {
      *         schema.
      */
     public Document returnRapbackSearchResponse(@Header(CxfConstants.CAMEL_CXF_MESSAGE) Message cxfMessage) {
+    	
+    	List<CivilInitialResults> civilInitialResults = null; 
+    	
         if (cxfMessage != null) {
             String federationId = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.FederationId);
             String employerOri = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.EmployerORI); 
@@ -93,29 +108,89 @@ public class RapbackSearchProcessor {
             
             if (StringUtils.isNotBlank(federationId)) {
                 //Pass the ORIs in the SAML assertion to the DAO method. 
-                rapbackDAO.getRapbackReports(federationId, employerOri);
+                civilInitialResults = rapbackDAO.getCivilInitialResults(employerOri);
                 log.info("Get rapback search results count");
             } else {
                 throw new IllegalArgumentException(
-                        "Either request is missing SAML assertion or the federation ID or Employer ORI is missing in the SAML assertion. ");
+                        "Either request is missing SAML assertion or the federation "
+                        + "ID or Employer ORI is missing in the SAML assertion. ");
             }
         } else {
             throw new IllegalArgumentException(
                     "Invalid request. CXF message is not found.");
         }
 
-        Document rapbackSearchResponseDocument = buildRapbackSearchResponse();
+        Document rapbackSearchResponseDocument = buildRapbackSearchResponse(civilInitialResults);
 
         return rapbackSearchResponseDocument;
     }
     
-    private Document buildRapbackSearchResponse() {
+    private Document buildRapbackSearchResponse(List<CivilInitialResults> civilInitialResults) {
 
         Document document = documentBuilder.newDocument();
         Element rootElement = createRapbackSearchResponseRootElement(document);
-
+        
+        for (CivilInitialResults civilInitialResult : civilInitialResults){
+        	Element organizationIdentificationResultsSearchResultElement = 
+        			XmlUtils.appendElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+        					"OrganizationIdentificationResultsSearchResult");
+        	appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, civilInitialResult);
+        	appdendStatusElement(organizationIdentificationResultsSearchResultElement,
+					civilInitialResult);
+        	//TODO add subscripion info if available. 
+        	
+        	appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
+        	
+        	Element systemIdentifierElement = XmlUtils.appendElement(
+        			organizationIdentificationResultsSearchResultElement, NS_INTEL, "SystemIdentifierElement");
+        	Element identificationIdElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC, "IdentificationID"); 
+        	identificationIdElement.setTextContent("9876543"); //Find out what value should be put here. 
+        	Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, NS_INTEL, "SystemName");
+        	systemNameElement.setTextContent(SYSTEM_NAME);
+        }
         return document;
     }
+
+	private void appendSourceSystemNameTextElement(
+			Element organizationIdentificationResultsSearchResultElement) {
+		Element sourceSystemNameText = XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
+				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "SourceSystemNameText");
+		sourceSystemNameText.setTextContent(SOURCE_SYSTEM_NAME_TEXT);
+	}
+
+	private void appdendStatusElement(
+			Element organizationIdentificationResultsSearchResultElement,
+			CivilInitialResults civilInitialResult) {
+		Element identificationResultStatusCode = XmlUtils.appendElement(
+				organizationIdentificationResultsSearchResultElement, 
+				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentificationResultStatusCode");
+		identificationResultStatusCode.setTextContent(civilInitialResult.getCurrentState().toString());
+	}
+
+	private void appendIdentifiedPersonElement(Element organizationIdentificationResultsSearchResultElement,
+			CivilInitialResults civilInitialResult) {
+		
+		Subject subject = civilInitialResult.getIdentificationTransaction().getSubject();
+		Element identifiedPerson = XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
+				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPerson");
+		
+		if (subject.getDob() != null){
+			Element personBirthDateElement = 
+					XmlUtils.appendElement(identifiedPerson, NS_NC, "PersonBirthDate");
+			Element dateElement = XmlUtils.appendElement(personBirthDateElement, NS_NC, "Date");
+			dateElement.setTextContent(subject.getDob().toString(YYYY_MM_DD));
+		}
+		
+		Element personNameElement = XmlUtils.appendElement(identifiedPerson, NS_NC, "PersonName"); 
+		Element personFullNameElement = XmlUtils.appendElement(personNameElement, NS_NC, "PersonFullName");
+		personFullNameElement.setTextContent(subject.getFullName());
+		
+		Element identifiedPersonTrackingIdentification = XmlUtils.appendElement(identifiedPerson, 
+				NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPersonTrackingIdentification");
+		Element identificationIdElement = XmlUtils.appendElement(
+				identifiedPersonTrackingIdentification, NS_NC, "IdentificationID");
+		identificationIdElement.setTextContent(civilInitialResult.getIdentificationTransaction().getOtn());
+	}
 
     private Element createRapbackSearchResponseRootElement(Document document) {
         Element rootElement = document.createElementNS(
