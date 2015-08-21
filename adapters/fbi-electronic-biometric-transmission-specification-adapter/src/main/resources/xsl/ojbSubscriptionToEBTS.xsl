@@ -37,6 +37,8 @@
 	
 	<!-- RBC 2.2065-->
 	<xsl:param name="recordRapBackCategoryCode" />
+	
+	<xsl:param name="rapBackDisclosureIndicator"/>
 		
 	<!-- RBOO (2.2063) -->
 	<xsl:param name="rapBackInStateOptOutIndicator" />
@@ -192,7 +194,10 @@
 							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
 							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
 							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date" mode="expirationDate"/>
-												
+								<!-- RBDI 2.2067, Optional-->
+    						<ebts:RecordRapBackDisclosureIndicator>
+    							<xsl:value-of select="$rapBackDisclosureIndicator"/>
+   							 </ebts:RecordRapBackDisclosureIndicator>					
 							<ebts:RecordRapBackInStateOptOutIndicator>
 								<xsl:value-of select="$rapBackInStateOptOutIndicator" />
 							</ebts:RecordRapBackInStateOptOutIndicator>
