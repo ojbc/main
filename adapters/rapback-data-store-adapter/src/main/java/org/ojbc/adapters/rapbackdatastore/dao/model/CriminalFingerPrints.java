@@ -22,6 +22,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
 
+/**
+ * Might not need this model any more. Will remove it when 100% sure.  
+ */
+@Deprecated 
+
 public class CriminalFingerPrints implements Serializable{
 
 	private static final long serialVersionUID = -8933466115916742922L;
