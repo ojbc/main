@@ -21,7 +21,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -32,6 +34,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
@@ -59,12 +62,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Autowired
 	private JdbcTemplate jdbcTemplate;
-	@Override
-	public Iterable<Object> getRapbackReports(String federationId,
-			String employerOri) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	final static String SUBJECT_INSERT="INSERT into FBI_RAP_BACK_SUBJECT "
 			+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB, SEX_CODE) "
@@ -296,7 +293,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	                		"TRANSACTION_TYPE", "CIVIL_RAP_BACK_CATEGORY", "RESULTS_SENDER", });
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
         	            ps.setBoolean(2, civilInitialResults.getMatch());
-        	            ps.setString(3, civilInitialResults.getCurrentState());
+        	            ps.setString(3, civilInitialResults.getCurrentState().toString());
         	            ps.setString(4, civilInitialResults.getTransactionType());
         	            ps.setString(5, civilInitialResults.getCivilRapBackCategory());
         	            ps.setString(6, civilInitialResults.getResultsSender());
@@ -310,8 +307,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	final static String CRIMINAL_INITIAL_RESULTS_INSERT="insert into CRIMINAL_INITIAL_RESULTS "
 			+ "(TRANSACTION_NUMBER, MATCH_NO_MATCH, TRANSACTION_TYPE, "
-			+ " RESULTS_SENDER) "
-			+ "values (?, ?, ?, ?)";
+			+ " RESULTS_SENDER, RAP_BACK_CATEGORY) "
+			+ "values (?, ?, ?, ?, ?)";
 	@Override
 	public Integer saveCriminalInitialResults(
 			final CriminalInitialResults criminalInitialResults) {
@@ -324,11 +321,12 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CRIMINAL_INITIAL_RESULTS_INSERT, 
         	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
-        	                		"TRANSACTION_TYPE", "RESULTS_SENDER", });
+        	                		"TRANSACTION_TYPE", "RESULTS_SENDER", "RAP_BACK_CATEGORY" });
         	            ps.setString(1, criminalInitialResults.getTransactionNumber());
         	            ps.setBoolean(2, criminalInitialResults.getMatch());
         	            ps.setString(3, criminalInitialResults.getTransactionType());
         	            ps.setString(4, criminalInitialResults.getResultsSender());
+        	            ps.setString(5, criminalInitialResults.getRapBackCategory());
         	            return ps;
         	        }
         	    },
@@ -417,27 +415,32 @@ public class RapbackDAOImpl implements RapbackDAO {
 						new IdentificationTransactionRowMapper(), transactionNumber);
 		return DataAccessUtils.singleResult(transactions);
 	}
-
 	private final class IdentificationTransactionRowMapper 
 		implements RowMapper<IdentificationTransaction> {
 		public IdentificationTransaction mapRow(ResultSet rs, int rowNum) throws SQLException {
 			
-			IdentificationTransaction identificationTransaction = new IdentificationTransaction();
-			identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
-			identificationTransaction.setOtn(rs.getString("otn"));
-			identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp_received")));
-			identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
-			identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
-
-			Integer subjectId = rs.getInt("subject_id");
-			
-			if (subjectId != null){
-				Subject subject = buildSubject(rs);
-				identificationTransaction.setSubject(subject);
-			}
+			IdentificationTransaction identificationTransaction = buildIdentificationTransaction(rs);
 			
 			return identificationTransaction;
 		}
+	}
+	
+	private IdentificationTransaction buildIdentificationTransaction(ResultSet rs)
+			throws SQLException {
+		IdentificationTransaction identificationTransaction = new IdentificationTransaction();
+		identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
+		identificationTransaction.setOtn(rs.getString("otn"));
+		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp_received")));
+		identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
+		identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
+
+		Integer subjectId = rs.getInt("subject_id");
+		
+		if (subjectId != null){
+			Subject subject = buildSubject(rs);
+			identificationTransaction.setSubject(subject);
+		}
+		return identificationTransaction;
 	}
 	
 	private Subject buildSubject(ResultSet rs) throws SQLException {
@@ -454,5 +457,67 @@ public class RapbackDAOImpl implements RapbackDAO {
 		subject.setSexCode(rs.getString("SEX_CODE"));
 		return subject;
 	}
+
+	final static String SUBJECT_UPDATE="UPDATE fbi_rap_back_subject SET "
+			+ "ucn = :ucn, "
+			+ "criminal_sid = :criminalSid, "
+			+ "civil_sid = :civilSid, "
+			+ "first_name = :firstName, "
+			+ "last_name = :lastName, "
+			+ "middle_initial = :middelInitial, "
+			+ "dob = :dob, "
+			+ "sex_code = :sexCode "
+			+ "WHERE subject_id = :subjectId";
+	@Override
+	public void updateSubject(Subject subject) {
+		Map<String, Object> paramMap = new HashMap<String, Object>(); 
+		
+		paramMap.put("ucn", subject.getUcn()); 
+		paramMap.put("criminalSid", subject.getCriminalSid()); 
+		paramMap.put("civilSid", subject.getCivilSid()); 
+		paramMap.put("firstName", subject.getFirstName()); 
+		paramMap.put("lastName", subject.getLastName()); 
+		paramMap.put("middelInitial", subject.getMiddleInitial()); 
+		paramMap.put("dob", subject.getDob() == null? null:subject.getDob().toDate()); 
+		paramMap.put("sexCode", subject.getSexCode()); 
+		paramMap.put("subjectId", subject.getSubjectId()); 
+		
+		namedParameterJdbcTemplate.update(SUBJECT_UPDATE, paramMap);
+	}
 	
+	final static String CIVIL_INITIAL_RESULTS_SELECT="SELECT c.*, t.timestamp_received, t.otn, t.owner_ori, t.owner_program_oca, s.* "
+			+ "FROM civil_initial_results c "
+			+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
+			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
+			+ "WHERE c.match_no_match = true AND t.owner_ori = ?";
+
+	@Override
+	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
+		List<CivilInitialResults> civilIntialResults = 
+				jdbcTemplate.query(CIVIL_INITIAL_RESULTS_SELECT, 
+						new CivilInitialResultsRowMapper(), ownerOri);
+		return civilIntialResults;
+	}
+
+	private final class CivilInitialResultsRowMapper 
+	implements RowMapper<CivilInitialResults> {
+	public CivilInitialResults mapRow(ResultSet rs, int rowNum) throws SQLException {
+		
+		CivilInitialResults civilInitialResults = new CivilInitialResults();
+		civilInitialResults.setId(rs.getInt("civil_initial_result_id"));
+		civilInitialResults.setTransactionNumber( rs.getString("transaction_number") );
+		civilInitialResults.setTransactionType(rs.getString("transaction_type"));
+		civilInitialResults.setCivilRapBackCategory(rs.getString("civil_rap_back_category"));
+		civilInitialResults.setResultsSender(rs.getString("results_sender"));
+		civilInitialResults.setMatch(rs.getBoolean("match_no_match"));
+		civilInitialResults.setCurrentState(CivilInitialResultsState.valueOfDesc(rs.getString("current_state")));
+		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+
+		civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs));
+		
+		return civilInitialResults;
+	}
+}
+
+
 }

@@ -55,6 +55,8 @@ import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +64,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -73,11 +76,18 @@ import org.w3c.dom.Element;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
       })
-@DirtiesContext
 public class TestIdentficationRecordingAndResponse {
 	
+	private static final String CIVIL_RESULTS_ATTACHEMNT_ID = "http://ojbc.org/identification/results/example";
+
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( TestIdentficationRecordingAndResponse.class );
+
+	private static final String TRANSACTION_NUMBER = "000001820140729014008340000";
 	
+	@Autowired
+	RapbackDAO rapbackDAO;
+
 	@Autowired
 	IdentificationRequestReportProcessor identificationRequestReportProcessor;
 	
@@ -149,9 +159,14 @@ public class TestIdentficationRecordingAndResponse {
 	}
 	
 	@Test
-	@DirtiesContext
-	public void testIdentificationRecordingRequestServiceSuccess() throws Exception
+	public void testIdentificationRecordingRequestAndResultsSuccess() throws Exception
 	{
+		civilRecordingRequestSuccess(); 
+		civilRecordingResultServiceSuccess();
+	}
+
+	private void civilRecordingRequestSuccess() throws Exception, IOException,
+			InterruptedException, SAXException {
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request-civil.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
@@ -160,7 +175,7 @@ public class TestIdentficationRecordingAndResponse {
 		 * add MTOM attachment to the exchange.
 		 */
 		
-		byte[] imgData = extractBytes("src/test/resources/xmlInstances/mtomAttachment/java.jpg");
+		byte[] imgData = extractImageBytes("src/test/resources/xmlInstances/mtomAttachment/java.jpg");
 		senderExchange.getIn().addAttachment("http://ojbc.org/identification/request/example", 
 			new DataHandler(new ByteArrayDataSource(imgData, "image/jpeg")));
 
@@ -181,13 +196,55 @@ public class TestIdentficationRecordingAndResponse {
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
+		IdentificationTransaction identificationTransaction = 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+		
+		assertNotNull(identificationTransaction); 
+		assertNotNull(identificationTransaction.getSubject());
+	}
+	
+	public void civilRecordingResultServiceSuccess() throws Exception
+	{
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-civil.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
+		
+		/*
+		 * add MTOM attachment to the exchange.
+		 */
+		
+		byte[] rapsheet = FileUtils.readFileToByteArray(new File("src/test/resources/xmlInstances/mtomAttachment/fbiResultFromLOTC.html"));
+		senderExchange.getIn().addAttachment(CIVIL_RESULTS_ATTACHEMNT_ID, 
+			new DataHandler(new ByteArrayDataSource(rapsheet, "text/plain")));
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResultMessageProcessor.expectedMessageCount(2);
+		
+		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
+		
 	}
 	
 	@Test
-	@DirtiesContext
-	public void testIdentificationRecordingResultServiceSuccess() throws Exception
+	public void testIdentificationRecordingCriminalResultsSuccess() throws Exception
 	{
-		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-civil.xml");
+		criminalRecordingResultServiceSuccess();
+	}
+	
+	public void criminalRecordingResultServiceSuccess() throws Exception
+	{
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-criminal.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
 		
@@ -200,7 +257,7 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		identificationReportingResultMessageProcessor.expectedMessageCount(3);
 		
 		identificationReportingResultMessageProcessor.assertIsSatisfied();
 		
@@ -209,7 +266,6 @@ public class TestIdentficationRecordingAndResponse {
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
 	}
-	
 	
 	protected Exchange createSenderExchange(String pathToInputFile) throws Exception, IOException {
 		//Create a new exchange
@@ -257,7 +313,7 @@ public class TestIdentficationRecordingAndResponse {
 		return doc;
 	}
 	
-	public byte[] extractBytes(String ImageName) throws IOException {
+	public byte[] extractImageBytes(String ImageName) throws IOException {
 		// open image
 		File imgPath = new File(ImageName);
 		BufferedImage bufferedImage = ImageIO.read(imgPath);

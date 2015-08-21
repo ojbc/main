@@ -17,8 +17,8 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:oirs-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:oirs-req-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:oirs-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:oirs-req-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0" schemaLocation="extension_schema.xsd"/>
 	<!-- Root data element for the Organization Identification Results Search Request -->
 	<xsd:element name="OrganizationIdentificationResultsSearchRequest" type="oirs-req-ext:OrganizationIdentificationResultsSearchRequestType">

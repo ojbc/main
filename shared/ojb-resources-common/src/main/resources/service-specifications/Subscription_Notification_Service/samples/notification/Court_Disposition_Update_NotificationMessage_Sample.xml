@@ -41,7 +41,7 @@
 		</b-2:SubscriptionReference>
 		<!--Optional: -->
 		<b-2:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
-			topics:person/CourtDispositionUpdate
+			topics:person/criminalHistoryCourtDispositionRecording
 		</b-2:Topic>
 		<!--Optional: -->
 		<b-2:ProducerReference>
@@ -118,7 +118,7 @@
 	</nc:ActivityInvolvedPersonAssociation>
 	<j:Person s:id="d1e162">
 		<nc:PersonBirthDate>
-			<nc:Date>1975-02-20</nc:Date>
+			<nc:Date>1977-02-20</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonName>
 			<nc:PersonGivenName>Walter</nc:PersonGivenName>

@@ -17,22 +17,12 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
-	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
-	elementFormDefault="qualified">
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.0/" schemaLocation="Subset/niem/domains/intelligence/3.0/intelligence.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
 	<xsd:import namespace="http://docs.oasis-open.org/wsn/br-2" schemaLocation="WS-Notification/wsn/br-2.xsd"/>
 	<xsd:complexType name="OrganizationIdentificationResultsSearchResultsType">
@@ -41,9 +31,9 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="oirs-res-ext:OrganizationIdentificationResultsSearchResult" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirs-res-ext:OrganizationIdentificationResultsSearchResult" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -60,19 +50,19 @@
 			<xsd:documentation>A data type for an organization's identification result</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="oirs-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="oirs-res-ext:IdentificationResultStatusRepresentation"/>
 					<xsd:element ref="oirs-res-ext:Subscription" minOccurs="0"/>
-					<xsd:element ref="oirs-res-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:SourceSystemNameText" minOccurs="0"/>
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SearchResultCategoryText" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-		<xsd:complexType name="SubscriptionType">
+	<xsd:complexType name="SubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a subscription.</xsd:documentation>
 		</xsd:annotation>
@@ -106,7 +96,7 @@
 			<xsd:documentation>A data type for the details about validation requirements for a subscription.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="oirs-res-ext:SubscriptionValidationDueDate" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SubscriptionValidatedDate" minOccurs="0"/>
@@ -129,7 +119,7 @@
 			<xsd:documentation>A data type for the details about validation requirements for a subscription.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="oirs-res-ext:SubscriptionGracePeriodDateRange"/>
 				</xsd:sequence>
@@ -153,7 +143,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
-					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
+					<xsd:element ref="j:PersonAugmentation" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:IdentifiedPersonTrackingIdentification"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -189,20 +179,15 @@
 			<xsd:documentation>A data type for an entity in a subscription that wishes to be notified.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType"/>
+			<xsd:extension base="structures:ObjectType"/>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="SubscribedEntityReference" type="s:ReferenceType">
-		<xsd:annotation>
-			<xsd:documentation>A reference to entity in a subscription that wishes to be notified.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:complexType name="SubscriptionOriginatorType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for the entity that created the subscription.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="oirs-res-ext:SubscriptionOriginatorIdentification"/>
 				</xsd:sequence>
@@ -226,8 +211,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="oirs-res-ext:SubscribedEntityReference"/>
-					<xsd:element ref="nc:ContactInformationReference"/>
+					<xsd:element ref="oirs-res-ext:SubscribedEntity"/>
+					<xsd:element ref="nc:ContactInformation"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -250,7 +235,7 @@
 	<xsd:complexType name="IdentificationResultStatusCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="oirs-res-ext:IdentificationResultStatusCodeSimpleType">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>

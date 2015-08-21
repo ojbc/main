@@ -40,7 +40,7 @@
 		</b-2:SubscriptionReference>
 		<!--Optional: -->
 		<b-2:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
-			topics:person/ProsecutionDecisionUpdate
+			topics:person/criminalHistoryProsecutionDecisionRecording
 		</b-2:Topic>
 		<!--Optional: -->
 		<b-2:ProducerReference>
