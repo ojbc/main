@@ -16,14 +16,6 @@
  */
 package org.ojbc.adapters.rapbackdatastore.dao.model;
 
-public enum CivilInitialResultsState {
-	/*
-	 * The ordinal of the enum is used in the code. DO NOT change the order 
-	 * of the instances. 
-	 */
-	Archived, Available_for_subscription, Subscribed;
-	
-	public String toString(){
-		return name().replace('_', ' '); 
-	}
+public enum ResultSender {
+	FBI, State;
 }

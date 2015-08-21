@@ -30,7 +30,8 @@ public class IdentificationTransaction implements Serializable{
 	private DateTime timestamp;
 	private String ownerOri; 
 	private String ownerProgramOca;
-	
+	private String identificationCategory; 
+
 	private Subject subject; 
 
 	public IdentificationTransaction(){
@@ -43,7 +44,7 @@ public class IdentificationTransaction implements Serializable{
 	}
 	
 	public String toString(){
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 
 	public String getTransactionNumber() {
@@ -92,5 +93,13 @@ public class IdentificationTransaction implements Serializable{
 
 	public void setOwnerProgramOca(String ownerProgramOca) {
 		this.ownerProgramOca = ownerProgramOca;
+	}
+
+	public String getIdentificationCategory() {
+		return identificationCategory;
+	}
+
+	public void setIdentificationCategory(String identificationCategory) {
+		this.identificationCategory = identificationCategory;
 	}
 }

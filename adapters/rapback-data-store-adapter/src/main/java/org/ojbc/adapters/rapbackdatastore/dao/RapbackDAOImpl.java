@@ -36,10 +36,10 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,8 +117,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String IDENTIFICATION_TRANSACTION_INSERT="INSERT into IDENTIFICATION_TRANSACTION "
-			+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA) "
-			+ "values (?, ?, ?, ?, ?)";
+			+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY) "
+			+ "values (?, ?, ?, ?, ?, ?)";
 	@Override
 	@Transactional
 	public void saveIdentificationTransaction(
@@ -126,9 +126,14 @@ public class RapbackDAOImpl implements RapbackDAO {
         log.debug("Inserting row into IDENTIFICATION_TRANSACTION table : " + identificationTransaction.toString());
         
         Integer subjectId  = null; 
-        if ( identificationTransaction.getSubject() != null){
-	        subjectId = saveSubject(identificationTransaction.getSubject());
-	        identificationTransaction.getSubject().setSubjectId(subjectId);
+        if ( identificationTransaction.getSubject() == null){
+        	throw new IllegalArgumentException("The subject should not be null when saving Identification Transaction :" + 
+        			identificationTransaction.toString()); 
+        }
+        else{
+        	subjectId = saveSubject(identificationTransaction.getSubject());
+        	identificationTransaction.getSubject().setSubjectId(subjectId);
+        	
         }
         
         jdbcTemplate.update(IDENTIFICATION_TRANSACTION_INSERT, 
@@ -136,7 +141,8 @@ public class RapbackDAOImpl implements RapbackDAO {
         		subjectId, 
         		identificationTransaction.getOtn(),
         		identificationTransaction.getOwnerOri(),
-        		identificationTransaction.getOwnerProgramOca()); 
+        		identificationTransaction.getOwnerProgramOca(), 
+        		identificationTransaction.getIdentificationCategory()); 
 	}
 
 	final static String CIVIL_FBI_SUBSCRIPTION_RECORD_INSERT="INSERT into CIVIL_FBI_SUBSCRIPTION_RECORD "
@@ -193,7 +199,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String CIVIL_FINGER_PRINTS_INSERT="insert into CIVIL_FINGER_PRINTS "
-			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) "
+			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE_ID) "
 			+ "values (?, ?, ?, ?)";
 	@Override
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints) {
@@ -212,7 +218,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            	ps.setBlob(2, new SerialBlob(civilFingerPrints.getFingerPrintsFile()));
         	            }
         	            ps.setString(3, civilFingerPrints.getTransactionType());
-        	            ps.setString(4, civilFingerPrints.getFingerPrintsType());
+        	            ps.setInt(4, civilFingerPrints.getFingerPrintsType().ordinal()+1);
         	            return ps;
         	        }
         	    },
@@ -221,32 +227,33 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
-	final static String CRIMINAL_FINGER_PRINTS_INSERT="insert into CRIMINAL_FINGER_PRINTS "
-			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) "
-			+ "values (?, ?, ?, ?)";
-	@Override
-	public Integer saveCriminalFingerPrints(
-			final CriminalFingerPrints criminalFingerPrints) {
-        log.debug("Inserting row into CRIMINAL_FINGER_PRINTS table : " + criminalFingerPrints.toString());
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(CRIMINAL_FINGER_PRINTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "TRANSACTION_TYPE", "FINGER_PRINTS_TYPE"});
-        	            ps.setString(1, criminalFingerPrints.getTransactionNumber());
-        	            ps.setBlob(2, new SerialBlob(criminalFingerPrints.getFingerPrintsFile()));
-        	            ps.setString(3, criminalFingerPrints.getTransactionType());
-        	            ps.setString(4, criminalFingerPrints.getFingerPrintsType());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();
-	}
+// TODO delete this when we are 100% sure the table is not needed any more. 
+//	final static String CRIMINAL_FINGER_PRINTS_INSERT="insert into CRIMINAL_FINGER_PRINTS "
+//			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) "
+//			+ "values (?, ?, ?, ?)";
+//	@Override
+//	public Integer saveCriminalFingerPrints(
+//			final CriminalFingerPrints criminalFingerPrints) {
+//        log.debug("Inserting row into CRIMINAL_FINGER_PRINTS table : " + criminalFingerPrints.toString());
+//
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        jdbcTemplate.update(
+//        	    new PreparedStatementCreator() {
+//        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//        	            PreparedStatement ps =
+//        	                connection.prepareStatement(CRIMINAL_FINGER_PRINTS_INSERT, 
+//        	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "TRANSACTION_TYPE", "FINGER_PRINTS_TYPE"});
+//        	            ps.setString(1, criminalFingerPrints.getTransactionNumber());
+//        	            ps.setBlob(2, new SerialBlob(criminalFingerPrints.getFingerPrintsFile()));
+//        	            ps.setString(3, criminalFingerPrints.getTransactionType());
+//        	            ps.setString(4, criminalFingerPrints.getFingerPrintsType());
+//        	            return ps;
+//        	        }
+//        	    },
+//        	    keyHolder);
+//
+//         return keyHolder.getKey().intValue();
+//	}
 
 	final static String CIVIL_INITIAL_RAP_SHEET_INSERT="insert into CIVIL_INITIAL_RAP_SHEET "
 			+ "(CIVIL_INITIAL_RESULT_ID, RAP_SHEET, TRANSACTION_TYPE) "
@@ -274,10 +281,11 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
+	//TODO solve the current_state change. 
 	final static String CIVIL_INITIAL_RESULTS_INSERT="insert into CIVIL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, MATCH_NO_MATCH, CURRENT_STATE, TRANSACTION_TYPE, "
-			+ " CIVIL_RAP_BACK_CATEGORY, RESULTS_SENDER) "
-			+ "values (?, ?, ?, ?, ?, ?)";
+			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, CURRENT_STATE_ID, TRANSACTION_TYPE, "
+			+ " RESULTS_SENDER_ID) "
+			+ "values (?, ?, ?, ?, ?)";
 	@Override
 	public Integer saveCivilInitialResults(
 			final CivilInitialResults civilInitialResults) {
@@ -289,14 +297,13 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_INITIAL_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH", "CURRENT_STATE", 
-        	                		"TRANSACTION_TYPE", "CIVIL_RAP_BACK_CATEGORY", "RESULTS_SENDER", });
+        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH", "CURRENT_STATE_ID", 
+        	                		"TRANSACTION_TYPE", "RESULTS_SENDER_ID"});
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
-        	            ps.setBoolean(2, civilInitialResults.getMatch());
-        	            ps.setString(3, civilInitialResults.getCurrentState().toString());
+        	            ps.setBlob(2, new SerialBlob(civilInitialResults.getSearchResultFile()));
+        	            ps.setInt(3, civilInitialResults.getCurrentState().ordinal()+1);
         	            ps.setString(4, civilInitialResults.getTransactionType());
-        	            ps.setString(5, civilInitialResults.getCivilRapBackCategory());
-        	            ps.setString(6, civilInitialResults.getResultsSender());
+        	            ps.setInt(5, civilInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
         	    },
@@ -306,9 +313,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String CRIMINAL_INITIAL_RESULTS_INSERT="insert into CRIMINAL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, MATCH_NO_MATCH, TRANSACTION_TYPE, "
-			+ " RESULTS_SENDER, RAP_BACK_CATEGORY) "
-			+ "values (?, ?, ?, ?, ?)";
+			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, TRANSACTION_TYPE, "
+			+ " RESULTS_SENDER_ID) "
+			+ "values (?, ?, ?, ?)";
 	@Override
 	public Integer saveCriminalInitialResults(
 			final CriminalInitialResults criminalInitialResults) {
@@ -320,13 +327,12 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CRIMINAL_INITIAL_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
-        	                		"TRANSACTION_TYPE", "RESULTS_SENDER", "RAP_BACK_CATEGORY" });
+        	                		new String[] {"TRANSACTION_NUMBER", "SEARCH_RESULT_FILE",  
+        	                		"TRANSACTION_TYPE", "RESULTS_SENDER_ID"});
         	            ps.setString(1, criminalInitialResults.getTransactionNumber());
-        	            ps.setBoolean(2, criminalInitialResults.getMatch());
+        	            ps.setBlob(2, new SerialBlob(criminalInitialResults.getSearchResultFile()));
         	            ps.setString(3, criminalInitialResults.getTransactionType());
-        	            ps.setString(4, criminalInitialResults.getResultsSender());
-        	            ps.setString(5, criminalInitialResults.getRapBackCategory());
+        	            ps.setInt(4, criminalInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
         	    },
@@ -430,9 +436,10 @@ public class RapbackDAOImpl implements RapbackDAO {
 		IdentificationTransaction identificationTransaction = new IdentificationTransaction();
 		identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
 		identificationTransaction.setOtn(rs.getString("otn"));
-		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp_received")));
+		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
 		identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
 		identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
+		identificationTransaction.setIdentificationCategory(rs.getString("identification_category"));
 
 		Integer subjectId = rs.getInt("subject_id");
 		
@@ -485,11 +492,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 		namedParameterJdbcTemplate.update(SUBJECT_UPDATE, paramMap);
 	}
 	
-	final static String CIVIL_INITIAL_RESULTS_SELECT="SELECT c.*, t.timestamp_received, t.otn, t.owner_ori, t.owner_program_oca, s.* "
+	final static String CIVIL_INITIAL_RESULTS_SELECT="SELECT c.*, t.identification_category, t.timestamp as timestamp_received, "
+			+ "t.otn, t.owner_ori, t.owner_program_oca, s.* "
 			+ "FROM civil_initial_results c "
 			+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
 			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
-			+ "WHERE c.match_no_match = true AND t.owner_ori = ?";
+			+ "WHERE t.owner_ori = ?";
 
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
@@ -507,10 +515,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 		civilInitialResults.setId(rs.getInt("civil_initial_result_id"));
 		civilInitialResults.setTransactionNumber( rs.getString("transaction_number") );
 		civilInitialResults.setTransactionType(rs.getString("transaction_type"));
-		civilInitialResults.setCivilRapBackCategory(rs.getString("civil_rap_back_category"));
-		civilInitialResults.setResultsSender(rs.getString("results_sender"));
-		civilInitialResults.setMatch(rs.getBoolean("match_no_match"));
-		civilInitialResults.setCurrentState(CivilInitialResultsState.valueOfDesc(rs.getString("current_state")));
+		civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") -1]);
+		civilInitialResults.setSearchResultFile(rs.getBytes("search_result_file"));
+		civilInitialResults.setCurrentState(CivilInitialResultsState.values()[rs.getInt("current_state_id") -1]);
 		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
 
 		civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs));

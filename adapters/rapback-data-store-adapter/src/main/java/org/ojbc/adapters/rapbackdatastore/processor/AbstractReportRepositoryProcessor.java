@@ -86,6 +86,9 @@ public abstract class AbstractReportRepositoryProcessor {
 				+ "nc30:OrganizationIdentification/nc30:IdentificationID");
 		identificationTransaction.setOwnerProgramOca(ownerProgramOca);
 		
+		String identificationCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CivilIdentificationReasonCode|ident-ext:CriminalIdentificationReasonCode");
+		identificationTransaction.setIdentificationCategory(identificationCategory);
+		
 		rapbackDAO.saveIdentificationTransaction(identificationTransaction);
 	}
 

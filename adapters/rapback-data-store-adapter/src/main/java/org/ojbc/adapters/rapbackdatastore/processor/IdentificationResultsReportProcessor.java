@@ -28,6 +28,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Service;
@@ -73,18 +74,16 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		criminalInitialResults.setTransactionNumber(transactionNumber);
 		
 		String attachmentId = getAttachmentId(rootNode);
-		criminalInitialResults.setMatch(StringUtils.isNotBlank(attachmentId));
+		criminalInitialResults.setSearchResultFile(	getAttachment(exchange, transactionNumber,
+				attachmentId));
 		
 		criminalInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
 		
-		String rapBackCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CriminalIdentificationReasonCode");
-		criminalInitialResults.setRapBackCategory(rapBackCategory);
-		
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
-			criminalInitialResults.setResultsSender("FBI");
+			criminalInitialResults.setResultsSender(ResultSender.FBI);
 		}
 		else{
-			criminalInitialResults.setResultsSender("STATE");
+			criminalInitialResults.setResultsSender(ResultSender.State);
 		}
 		
 		rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
@@ -105,19 +104,19 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		String attachmentId = getAttachmentId(rootNode);
 		
-		civilInitialResults.setMatch(StringUtils.isNotBlank(attachmentId));
+		//TODO decide whether to save it to search result file or 
+		// rap sheet. 
+		civilInitialResults.setSearchResultFile(getAttachment(exchange, transactionNumber,
+				attachmentId));
 			
-		civilInitialResults.setCurrentState(CivilInitialResultsState.Available); //TODO replace the placeholder with real value
+		civilInitialResults.setCurrentState(CivilInitialResultsState.Available_for_subscription); //TODO replace the placeholder with real value
 		civilInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
-		
-		String rapBackCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CivilIdentificationReasonCode");
-		civilInitialResults.setCivilRapBackCategory(rapBackCategory);
-		
+
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
-			civilInitialResults.setResultsSender("FBI");
+			civilInitialResults.setResultsSender(ResultSender.FBI);
 		}
 		else{
-			civilInitialResults.setResultsSender("STATE");
+			civilInitialResults.setResultsSender(ResultSender.State);
 		}
 		
 		Integer initalResultsPkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
