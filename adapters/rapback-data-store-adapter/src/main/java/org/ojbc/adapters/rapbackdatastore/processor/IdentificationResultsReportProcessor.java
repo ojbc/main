@@ -103,12 +103,8 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		String attachmentId = getAttachmentId(rootNode);
 		
-		//TODO decide whether to save it to search result file or 
-		// rap sheet. 
-		civilInitialResults.setSearchResultFile(getAttachment(exchange, transactionNumber,
-				attachmentId));
 			
-		civilInitialResults.setCurrentState(CivilInitialResultsState.Available_for_subscription); //TODO replace the placeholder with real value
+		civilInitialResults.setCurrentState(CivilInitialResultsState.Available_for_subscription); 
 		civilInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
 
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
@@ -118,10 +114,24 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 			civilInitialResults.setResultsSender(ResultSender.State);
 		}
 		
-		Integer initalResultsPkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
+		Integer initialResultsPkId = rapbackDAO.getCivilIntialResultsId(transactionNumber, civilInitialResults.getResultsSender());
 		
+		if (initialResultsPkId == null){
+			civilInitialResults.setSearchResultFile(getAttachment(exchange, transactionNumber,
+					attachmentId));
+			rapbackDAO.saveCivilInitialResults(civilInitialResults);
+		}
+		else{
+		
+			saveCivilRapSheet(exchange, transactionNumber, attachmentId,
+					initialResultsPkId);
+		}
+	}
+
+	private void saveCivilRapSheet(Exchange exchange, String transactionNumber,
+			String attachmentId, Integer initialResultsPkId) throws IOException {
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
-		civilInitialRapSheet.setCivilIntitialResultId(initalResultsPkId);
+		civilInitialRapSheet.setCivilIntitialResultId(initialResultsPkId);
 		civilInitialRapSheet.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value.
 		
 		byte[] receivedAttachment = getAttachment(exchange, transactionNumber,
