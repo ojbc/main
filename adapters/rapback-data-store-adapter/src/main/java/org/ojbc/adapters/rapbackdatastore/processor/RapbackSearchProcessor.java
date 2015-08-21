@@ -19,7 +19,6 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL;
