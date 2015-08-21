@@ -297,11 +297,11 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_INITIAL_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH", "CURRENT_STATE", 
+        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH", "CURRENT_STATE_ID", 
         	                		"TRANSACTION_TYPE", "RESULTS_SENDER_ID"});
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
         	            ps.setBlob(2, new SerialBlob(civilInitialResults.getSearchResultFile()));
-        	            ps.setString(3, civilInitialResults.getCurrentState().toString());
+        	            ps.setInt(3, civilInitialResults.getCurrentState().ordinal()+1);
         	            ps.setString(4, civilInitialResults.getTransactionType());
         	            ps.setInt(5, civilInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
@@ -492,11 +492,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 		namedParameterJdbcTemplate.update(SUBJECT_UPDATE, paramMap);
 	}
 	
-	final static String CIVIL_INITIAL_RESULTS_SELECT="SELECT c.*, t.timestamp_received, t.otn, t.owner_ori, t.owner_program_oca, s.* "
+	final static String CIVIL_INITIAL_RESULTS_SELECT="SELECT c.*, t.identification_category, t.timestamp as timestamp_received, "
+			+ "t.otn, t.owner_ori, t.owner_program_oca, s.* "
 			+ "FROM civil_initial_results c "
 			+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
 			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
-			+ "WHERE c.match_no_match = true AND t.owner_ori = ?";
+			+ "WHERE t.owner_ori = ?";
 
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
@@ -514,9 +515,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 		civilInitialResults.setId(rs.getInt("civil_initial_result_id"));
 		civilInitialResults.setTransactionNumber( rs.getString("transaction_number") );
 		civilInitialResults.setTransactionType(rs.getString("transaction_type"));
-		civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender") -1]);
+		civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") -1]);
 		civilInitialResults.setSearchResultFile(rs.getBytes("search_result_file"));
-		civilInitialResults.setCurrentState(CivilInitialResultsState.valueOfDesc(rs.getString("current_state")));
+		civilInitialResults.setCurrentState(CivilInitialResultsState.values()[rs.getInt("current_state_id") -1]);
 		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
 
 		civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs));

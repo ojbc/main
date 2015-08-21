@@ -109,13 +109,9 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		civilInitialResults.setSearchResultFile(getAttachment(exchange, transactionNumber,
 				attachmentId));
 			
-		civilInitialResults.setCurrentState(CivilInitialResultsState.Available); //TODO replace the placeholder with real value
+		civilInitialResults.setCurrentState(CivilInitialResultsState.Available_for_subscription); //TODO replace the placeholder with real value
 		civilInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
 
-		//TODO need to move this up to the processIdentificationTransaction()
-//		String rapBackCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CivilIdentificationReasonCode");
-//		civilInitialResults.setCivilRapBackCategory(rapBackCategory);
-		
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
 			civilInitialResults.setResultsSender(ResultSender.FBI);
 		}
