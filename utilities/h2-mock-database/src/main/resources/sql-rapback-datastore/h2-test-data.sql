@@ -36,9 +36,9 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62721', 'firstName', 'MICHAEL');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62721', 'lastName', 'Jones-Smith');
 
-insert into current_state(current_state_id , current_state ) values('1', 'archived');
-insert into current_state(current_state_id , current_state ) values('2', 'available for subscription');
-insert into current_state(current_state_id , current_state ) values('3','subscribed');
+insert into current_state(current_state_id , current_state ) values('1', 'Archived');
+insert into current_state(current_state_id , current_state ) values('2', 'Available for subscription');
+insert into current_state(current_state_id , current_state ) values('3','Subscribed');
 
 insert into finger_prints_type(finger_prints_type_id, finger_prints_type) values('1', 'FBI'); 
 insert into finger_prints_type(finger_prints_type_id, finger_prints_type) values('2', 'State'); 
