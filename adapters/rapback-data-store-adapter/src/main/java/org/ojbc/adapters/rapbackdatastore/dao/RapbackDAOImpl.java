@@ -492,7 +492,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		namedParameterJdbcTemplate.update(SUBJECT_UPDATE, paramMap);
 	}
 	
-	final static String CIVIL_INITIAL_RESULTS_SELECT="SELECT c.*, t.identification_category, t.timestamp as timestamp_received, "
+	final static String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.timestamp as timestamp_received, "
 			+ "t.otn, t.owner_ori, t.owner_program_oca, s.* "
 			+ "FROM civil_initial_results c "
 			+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
@@ -507,24 +507,35 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return civilIntialResults;
 	}
 
-	private final class CivilInitialResultsRowMapper 
-	implements RowMapper<CivilInitialResults> {
-	public CivilInitialResults mapRow(ResultSet rs, int rowNum) throws SQLException {
-		
-		CivilInitialResults civilInitialResults = new CivilInitialResults();
-		civilInitialResults.setId(rs.getInt("civil_initial_result_id"));
-		civilInitialResults.setTransactionNumber( rs.getString("transaction_number") );
-		civilInitialResults.setTransactionType(rs.getString("transaction_type"));
-		civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") -1]);
-		civilInitialResults.setSearchResultFile(rs.getBytes("search_result_file"));
-		civilInitialResults.setCurrentState(CivilInitialResultsState.values()[rs.getInt("current_state_id") -1]);
-		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+	private final class CivilInitialResultsRowMapper implements
+			RowMapper<CivilInitialResults> {
+		public CivilInitialResults mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
 
-		civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs));
-		
-		return civilInitialResults;
+			CivilInitialResults civilInitialResults = new CivilInitialResults();
+			civilInitialResults.setId(rs.getInt("civil_initial_result_id"));
+			civilInitialResults.setTransactionNumber(rs.getString("transaction_number"));
+			civilInitialResults.setTransactionType(rs.getString("transaction_type"));
+			civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") - 1]);
+			civilInitialResults.setSearchResultFile(rs.getBytes("search_result_file"));
+			civilInitialResults.setCurrentState(CivilInitialResultsState.values()[rs.getInt("current_state_id") - 1]);
+			civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+			
+			civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs));
+
+			return civilInitialResults;
+		}
 	}
-}
+
+	private final String CIVIL_INITIAL_RESULTS_ID_SELECT = "SELECT t.civiL_INITIAL_RESULT_ID  "
+			+ "FROM RAPBACK_DATASTORE.CIVIL_INITIAL_RESULTS t "
+			+ "WHERE t.TRANSACTION_NUMBER  = ? AND RESULTS_SENDER_ID = ?";
+
+	@Override
+	public Integer getCivilIntialResultsId(String transactionNumber,
+			ResultSender resultSender) {
+		return jdbcTemplate.queryForInt(CIVIL_INITIAL_RESULTS_ID_SELECT, transactionNumber, resultSender.ordinal() + 1);
+	}
 
 
 }
