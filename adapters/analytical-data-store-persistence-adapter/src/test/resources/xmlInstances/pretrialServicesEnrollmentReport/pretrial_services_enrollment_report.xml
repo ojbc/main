@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<pse-doc:PretrialServiceEnrollmentReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0 ../xsd/exchange.xsd" xmlns:pse-doc="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0" xmlns:pse-ext="http://ojbc.org/IEPD/Extensions/PretrialServiceEnrollment/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<j:Subject structures:id="Defendant_01">
+		<nc:RoleOfPerson>
+			<nc:PersonBirthDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</nc:PersonBirthDate>
+			<j:PersonEthnicityCode>U</j:PersonEthnicityCode>
+			<nc:PersonName>
+				<nc:PersonGivenName>Joeseph</nc:PersonGivenName>
+				<nc:PersonMiddleName>P</nc:PersonMiddleName>
+				<nc:PersonSurName>Martin</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonRaceCode>W</j:PersonRaceCode>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<nc:PersonUnionStatusText>Married</nc:PersonUnionStatusText>
+			<pse-ext:PersonIsAVeteranIndicator>true</pse-ext:PersonIsAVeteranIndicator>
+			<pse-ext:PersonHasMinorChildrenIndicator>true</pse-ext:PersonHasMinorChildrenIndicator>
+			<pse-ext:PersonTotalNumberMinorChildren>4</pse-ext:PersonTotalNumberMinorChildren>
+			<pse-ext:PersonCurrentEducationLevelText>High school graduate with some college courses.</pse-ext:PersonCurrentEducationLevelText>
+		</nc:RoleOfPerson>
+		<j:SubjectIdentification>
+			<nc:IdentificationID>ID43597</nc:IdentificationID>
+		</j:SubjectIdentification>
+	</j:Subject>
+	<pse-ext:PreTrialServicesEnrollment structures:id="PTS_01">
+		<pse-ext:ActivityLocation>
+			<nc:Address>
+				<nc:LocationCountyName>Harrison</nc:LocationCountyName>
+			</nc:Address>
+		</pse-ext:ActivityLocation>
+		<nc:Referral>
+			<pse-ext:ReferralSourceDescriptionText>Judge</pse-ext:ReferralSourceDescriptionText>
+		</nc:Referral>
+	</pse-ext:PreTrialServicesEnrollment>
+	<nc:Incident structures:id="Incident_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>Incident4557</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDate>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+		</nc:ActivityDate>
+		<nc:IncidentLocation>
+			<nc:Address>
+				<nc:LocationCityName>Smithville</nc:LocationCityName>
+				<nc:LocationCountyName>Harrison</nc:LocationCountyName>
+			</nc:Address>
+		</nc:IncidentLocation>
+		<j:IncidentAugmentation>
+			<j:IncidentArrest>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>ArrestID345767</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityDate>
+					<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+				</nc:ActivityDate>
+				<j:ArrestAgency>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>ORI</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</j:ArrestAgency>
+			</j:IncidentArrest>
+		</j:IncidentAugmentation>
+	</nc:Incident>
+	<j:Offense structures:id="Offense_01">
+		<nc:ActivityDate>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+		</nc:ActivityDate>
+		<pse-ext:FirstOffenseCategoryText>Offense Description</pse-ext:FirstOffenseCategoryText>
+		<pse-ext:SecondOffenseCategoryText>Offense Description</pse-ext:SecondOffenseCategoryText>
+		<pse-ext:ThirdOffenseCategoryText>Offense Description</pse-ext:ThirdOffenseCategoryText>
+	</j:Offense>
+	<cyfs:ContactActivity structures:id="CA_01">
+		<j:ActivityAugmentation>
+			<j:ActivityOfficial>
+				<nc:PersonName>
+					<nc:PersonGivenName>Mary</nc:PersonGivenName>
+					<nc:PersonSurName>Jones</nc:PersonSurName>
+				</nc:PersonName>
+			</j:ActivityOfficial>
+		</j:ActivityAugmentation>
+		<pse-ext:FirstContact>
+			<nc:ActivityDate>
+				<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+			</nc:ActivityDate>
+			<pse-ext:LeftMessageIndicator>true</pse-ext:LeftMessageIndicator>
+			<pse-ext:SentTextMessageIndicator>false</pse-ext:SentTextMessageIndicator>
+			<pse-ext:SpokeToDefendantIndicator>true</pse-ext:SpokeToDefendantIndicator>
+		</pse-ext:FirstContact>
+		<pse-ext:SecondContact>
+			<nc:ActivityDate>
+				<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+			</nc:ActivityDate>
+			<pse-ext:LeftMessageIndicator>true</pse-ext:LeftMessageIndicator>
+			<pse-ext:SentTextMessageIndicator>false</pse-ext:SentTextMessageIndicator>
+			<pse-ext:SpokeToDefendantIndicator>true</pse-ext:SpokeToDefendantIndicator>
+		</pse-ext:SecondContact>
+		<pse-ext:HIPPAAuthorizationIndicator>true</pse-ext:HIPPAAuthorizationIndicator>
+		<pse-ext:ConsentToReleaseIndicator>true</pse-ext:ConsentToReleaseIndicator>
+		<pse-ext:TotalNumberOfIncidentsCleared>3</pse-ext:TotalNumberOfIncidentsCleared>
+		<pse-ext:MultipleIncidentsClearedIndicator>true</pse-ext:MultipleIncidentsClearedIndicator>
+	</cyfs:ContactActivity>
+	<pse-ext:NeedsAssessment structures:id="NA_01">
+		<nc:ActivityDate>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+		</nc:ActivityDate>
+		<pse-ext:HousingNeedsIndicator>false</pse-ext:HousingNeedsIndicator>
+		<pse-ext:InsuranceNeedsIndicator>true</pse-ext:InsuranceNeedsIndicator>
+		<pse-ext:MedicalNeedsIndicator>false</pse-ext:MedicalNeedsIndicator>
+		<pse-ext:MentalHealthNeedsIndicator>true</pse-ext:MentalHealthNeedsIndicator>
+		<pse-ext:SubstanceAbuseNeedsIndicator>true</pse-ext:SubstanceAbuseNeedsIndicator>
+	</pse-ext:NeedsAssessment>
+	<pse-ext:GeneralAssessment structures:id="GA_01">
+		<pse-ext:AbuseNeglectIndicator>true</pse-ext:AbuseNeglectIndicator>
+		<pse-ext:CulturalBarrierIndicator>false</pse-ext:CulturalBarrierIndicator>
+		<pse-ext:EthnicityBarrierIndicator>true</pse-ext:EthnicityBarrierIndicator>
+		<pse-ext:InterpersonalAnxietyIndicator>true</pse-ext:InterpersonalAnxietyIndicator>
+		<pse-ext:LackOfAdequateChildCareIndicator>false</pse-ext:LackOfAdequateChildCareIndicator>
+		<pse-ext:LackOfAdequateTransportationIndicator>true</pse-ext:LackOfAdequateTransportationIndicator>
+		<pse-ext:LanguageBarrierIndicator>false</pse-ext:LanguageBarrierIndicator>
+		<pse-ext:LiteracyIssuesIndicator>true</pse-ext:LiteracyIssuesIndicator>
+		<pse-ext:LowIQIndicator>true</pse-ext:LowIQIndicator>
+		<pse-ext:NoServicesDesiredIndicator>false</pse-ext:NoServicesDesiredIndicator>
+		<pse-ext:PhysicalDisabilityIndicator>false</pse-ext:PhysicalDisabilityIndicator>
+		<pse-ext:UnstableHousingIndicator>true</pse-ext:UnstableHousingIndicator>
+		<pse-ext:OtherBarrierDescriptionText>Text</pse-ext:OtherBarrierDescriptionText>
+	</pse-ext:GeneralAssessment>
+	<pse-ext:MMSAssessment structures:id="MMS_01">
+		<nc:ActivityDate>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+		</nc:ActivityDate>
+		<nc:AssessmentAssessor>
+			<nc:EntityPerson>
+				<nc:PersonName>
+					<nc:PersonFullName>Mr. Assessor</nc:PersonFullName>
+				</nc:PersonName>
+			</nc:EntityPerson>
+		</nc:AssessmentAssessor>
+		<pse-ext:InPersonAssessmentIndicator>true</pse-ext:InPersonAssessmentIndicator>
+		<pse-ext:MMSQuestion1>true</pse-ext:MMSQuestion1>
+		<pse-ext:MMSQuestion2>true</pse-ext:MMSQuestion2>
+		<pse-ext:MMSQuestion3>true</pse-ext:MMSQuestion3>
+		<pse-ext:MMSQuestion4>true</pse-ext:MMSQuestion4>
+		<pse-ext:MMSQuestion5>true</pse-ext:MMSQuestion5>
+		<pse-ext:MMSQuestion6>true</pse-ext:MMSQuestion6>
+		<pse-ext:MMSQuestion7>true</pse-ext:MMSQuestion7>
+		<pse-ext:MMSQuestion8>true</pse-ext:MMSQuestion8>
+		<pse-ext:MMSQuestion9>true</pse-ext:MMSQuestion9>
+		<pse-ext:MMSQuestion10>true</pse-ext:MMSQuestion10>
+		<pse-ext:MMSQuestion11>true</pse-ext:MMSQuestion11>
+		<pse-ext:MMSQuestion12>true</pse-ext:MMSQuestion12>
+		<pse-ext:MMSQuestion13>true</pse-ext:MMSQuestion13>
+		<pse-ext:MMSQuestion14>true</pse-ext:MMSQuestion14>
+		<pse-ext:MMSQuestion15>true</pse-ext:MMSQuestion15>
+		<pse-ext:MMSQuestion16>true</pse-ext:MMSQuestion16>
+		<pse-ext:MMSQuestion17>true</pse-ext:MMSQuestion17>
+		<pse-ext:MMSQuestion18>true</pse-ext:MMSQuestion18>
+		<pse-ext:MMSQuestion19>true</pse-ext:MMSQuestion19>
+		<pse-ext:MMSQuestion20>true</pse-ext:MMSQuestion20>
+		<pse-ext:MMSQuestion21>true</pse-ext:MMSQuestion21>
+		<pse-ext:MMSQuestion22>true</pse-ext:MMSQuestion22>
+	</pse-ext:MMSAssessment>
+	<pse-ext:SASAAssessment structures:id="SASA_01">
+		<pse-ext:InPersonAssessmentIndicator>true</pse-ext:InPersonAssessmentIndicator>
+		<pse-ext:SASAQuestion1>true</pse-ext:SASAQuestion1>
+		<pse-ext:SASAQuestion2>true</pse-ext:SASAQuestion2>
+		<pse-ext:SASAQuestion3>true</pse-ext:SASAQuestion3>
+		<pse-ext:SASAQuestion4>true</pse-ext:SASAQuestion4>
+		<pse-ext:SASAQuestion5a>true</pse-ext:SASAQuestion5a>
+		<pse-ext:SASAQuestion5b>true</pse-ext:SASAQuestion5b>
+		<pse-ext:SASAQuestion5c>true</pse-ext:SASAQuestion5c>
+		<pse-ext:SASAQuestion5d>true</pse-ext:SASAQuestion5d>
+		<pse-ext:SASAQuestion5e>true</pse-ext:SASAQuestion5e>
+		<pse-ext:SASAQuestion5f>true</pse-ext:SASAQuestion5f>
+		<pse-ext:SASAQuestion5g>true</pse-ext:SASAQuestion5g>
+		<pse-ext:SASAQuestion5h>true</pse-ext:SASAQuestion5h>
+		<pse-ext:SASAQuestion6>true</pse-ext:SASAQuestion6>
+		<pse-ext:SASAQuestion7>true</pse-ext:SASAQuestion7>
+		<pse-ext:SASAQuestion8>true</pse-ext:SASAQuestion8>
+		<pse-ext:SASAQuestion9>true</pse-ext:SASAQuestion9>
+		<pse-ext:SASAQuestion10>true</pse-ext:SASAQuestion10>
+		<pse-ext:SASAQuestion11>true</pse-ext:SASAQuestion11>
+		<pse-ext:SASAQuestion12>true</pse-ext:SASAQuestion12>
+		<pse-ext:SASAQuestion13>true</pse-ext:SASAQuestion13>
+		<pse-ext:SASAQuestion14>true</pse-ext:SASAQuestion14>
+		<pse-ext:SASAQuestion15>true</pse-ext:SASAQuestion15>
+		<pse-ext:SASAQuestion16>true</pse-ext:SASAQuestion16>
+		<pse-ext:AssessmentScoreNumeric>4</pse-ext:AssessmentScoreNumeric>
+	</pse-ext:SASAAssessment>
+	<pse-ext:ORASAssessment structures:id="ORAS_01">
+		<nc:ActivityDate>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+		</nc:ActivityDate>
+		<nc:AssessmentAssessor>
+			<nc:EntityPerson>
+				<nc:PersonName>
+					<nc:PersonFullName>Mr. Assessor</nc:PersonFullName>
+				</nc:PersonName>
+			</nc:EntityPerson>
+		</nc:AssessmentAssessor>
+		<pse-ext:InPersonAssessmentIndicator>true</pse-ext:InPersonAssessmentIndicator>
+		<pse-ext:AssessmentInformationVerifiedIndicator>true</pse-ext:AssessmentInformationVerifiedIndicator>
+		<pse-ext:ORASQuestion1>1</pse-ext:ORASQuestion1>
+		<pse-ext:ORASQuestion2>4</pse-ext:ORASQuestion2>
+		<pse-ext:ORASQuestion3>3</pse-ext:ORASQuestion3>
+		<pse-ext:ORASQuestion4>2</pse-ext:ORASQuestion4>
+		<pse-ext:ORASQuestion5>1</pse-ext:ORASQuestion5>
+		<pse-ext:ORASQuestion6>1</pse-ext:ORASQuestion6>
+		<pse-ext:ORASQuestion7>2</pse-ext:ORASQuestion7>
+		<pse-ext:AssessmentScoreNumeric>4</pse-ext:AssessmentScoreNumeric>
+		<pse-ext:Landlord structures:id="Landlord_01">
+			<nc:PersonName>
+				<nc:PersonFullName>Joel Rollins</nc:PersonFullName>
+			</nc:PersonName>
+		</pse-ext:Landlord>
+		<pse-ext:DefendantRentIndicator>true</pse-ext:DefendantRentIndicator>
+		<pse-ext:HousingVerifiedIndicator>true</pse-ext:HousingVerifiedIndicator>
+		<pse-ext:EmploymentVerifiedIndicator>true</pse-ext:EmploymentVerifiedIndicator>
+		<pse-ext:FaiureToAppearVerifiedIndicator>true</pse-ext:FaiureToAppearVerifiedIndicator>
+		<pse-ext:CriminalHistoryVerifiedIndicator>true</pse-ext:CriminalHistoryVerifiedIndicator>
+		<pse-ext:JailVerifiedIndicator>true</pse-ext:JailVerifiedIndicator>
+		<pse-ext:SubstanceAbuseVerifiedIndicator>true</pse-ext:SubstanceAbuseVerifiedIndicator>
+		<pse-ext:AgeAtFirstArrestVerifiedIndicator>true</pse-ext:AgeAtFirstArrestVerifiedIndicator>
+		<pse-ext:HoursInSchool>30</pse-ext:HoursInSchool>
+		<pse-ext:PriorArrestsIndicator>true</pse-ext:PriorArrestsIndicator>
+		<pse-ext:JailVerifiedIndicator>true</pse-ext:JailVerifiedIndicator>
+		<pse-ext:FailureToAppearIndicator>true</pse-ext:FailureToAppearIndicator>
+		<pse-ext:PriorJailIndicator>true</pse-ext:PriorJailIndicator>
+		<pse-ext:PriorPrisonIndicator>true</pse-ext:PriorPrisonIndicator>
+		<pse-ext:CurrentEmploymentIndicator>true</pse-ext:CurrentEmploymentIndicator>
+		<pse-ext:AttendingSchoolIndicator>true</pse-ext:AttendingSchoolIndicator>
+		<pse-ext:DrugProblemIndicator>true</pse-ext:DrugProblemIndicator>
+		<pse-ext:DrugArrestIndicator>true</pse-ext:DrugArrestIndicator>
+		<pse-ext:PhysicianDrugProblemIndicator>true</pse-ext:PhysicianDrugProblemIndicator>
+		<pse-ext:TotalNumberOfFTA>3</pse-ext:TotalNumberOfFTA>
+		<pse-ext:NumberOfTwoYearFTA>1</pse-ext:NumberOfTwoYearFTA>
+		<pse-ext:DrugProblemRating>3</pse-ext:DrugProblemRating>
+		<pse-ext:PriorArrestDescriptionText>Arrested for possession of stolen goods</pse-ext:PriorArrestDescriptionText>
+		<pse-ext:AgeAtFirstArrest>12</pse-ext:AgeAtFirstArrest>
+		<pse-ext:FTADisciplinaryActionText>Communith Service</pse-ext:FTADisciplinaryActionText>
+		<pse-ext:NumberOfTimesInJail>2</pse-ext:NumberOfTimesInJail>
+		<pse-ext:NumberOfTimesInPrison>1</pse-ext:NumberOfTimesInPrison>
+		<pse-ext:NotEmployedReasonText>Disability</pse-ext:NotEmployedReasonText>
+		<pse-ext:DrugProblemExplanationText>Explanation</pse-ext:DrugProblemExplanationText>
+		<pse-ext:DrugArrestDatesText>Arrested on 3/5/12 and 5/22/14</pse-ext:DrugArrestDatesText>
+		<pse-ext:DrugArrestCategoryDescriptionText>Description</pse-ext:DrugArrestCategoryDescriptionText>
+		<cyfs:DrugUseFrequencyDescriptionText>3 times a week</cyfs:DrugUseFrequencyDescriptionText>
+		<cyfs:PreferredDrugName>Heroin</cyfs:PreferredDrugName>
+		<pse-ext:DrugArrestExplanationText>It wasn't his bag.</pse-ext:DrugArrestExplanationText>
+		<pse-ext:LastDrugUseDate>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+		</pse-ext:LastDrugUseDate>
+		<pse-ext:DrugLifeImpactDescriptionText>Doesn't spend time with his children</pse-ext:DrugLifeImpactDescriptionText>
+		<pse-ext:DrugWorkImpactDescriptionText>Has missed a number of work days</pse-ext:DrugWorkImpactDescriptionText>
+		<pse-ext:DrugProblemFamilyDescriptionText>Family believes he has a drug problem</pse-ext:DrugProblemFamilyDescriptionText>
+	</pse-ext:ORASAssessment>
+	<nc:Program structures:id="Program_01">
+		<nc:ProgramReferral>
+			<nc:ActivityCategoryText>employment assistance</nc:ActivityCategoryText>
+			<nc:ActivityDate>
+				<nc:Date>2015-01-01</nc:Date>
+			</nc:ActivityDate>
+		</nc:ProgramReferral>
+	</nc:Program>
+	<nc:Program structures:id="Program_02">
+		<nc:ProgramReferral>
+			<nc:ActivityCategoryText>substance abuse treatment</nc:ActivityCategoryText>
+			<nc:ActivityDate>
+				<nc:Date>2015-02-02</nc:Date>
+			</nc:ActivityDate>
+		</nc:ProgramReferral>
+	</nc:Program>
+	<nc:Program structures:id="Program_03">
+		<nc:ProgramReferral>
+			<nc:ActivityCategoryText>behavioral health services</nc:ActivityCategoryText>
+			<nc:ActivityDate>
+				<nc:Date>2015-03-03</nc:Date>
+			</nc:ActivityDate>
+		</nc:ProgramReferral>
+	</nc:Program>
+	<nc:ContactInformation structures:id="Defendant_ci_01">
+		<nc:ContactTelephoneNumber>
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>8792153256</nc:TelephoneNumberFullID>
+			</nc:FullTelephoneNumber>
+			<pse-ext:ContactTelephoneNumberValidIndicator>true</pse-ext:ContactTelephoneNumberValidIndicator>
+		</nc:ContactTelephoneNumber>
+		<pse-ext:ContactInformationSourceDescriptionText>Court records</pse-ext:ContactInformationSourceDescriptionText>
+	</nc:ContactInformation>
+	<nc:ContactInformation structures:id="Defendant_ci_02">
+		<nc:ContactTelephoneNumber>
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>8792153256</nc:TelephoneNumberFullID>
+			</nc:FullTelephoneNumber>
+			<nc:TelephoneNumberCategoryText>VJIS</nc:TelephoneNumberCategoryText>
+		</nc:ContactTelephoneNumber>
+	</nc:ContactInformation>
+	<nc:ContactInformation structures:id="Landlord_ci_01">
+		<nc:ContactTelephoneNumber>
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>8792153256</nc:TelephoneNumberFullID>
+			</nc:FullTelephoneNumber>
+		</nc:ContactTelephoneNumber>
+	</nc:ContactInformation>
+	<nc:Location structures:id="Defendant_loc_01">
+		<nc:Address>
+			<nc:LocationStreet>
+				<nc:StreetFullText>121 East Avenuw</nc:StreetFullText>
+			</nc:LocationStreet>
+			<nc:LocationCityName>Smithville</nc:LocationCityName>
+			<nc:LocationCountyName>Harrison</nc:LocationCountyName>
+			<nc:LocationPostalCode>12932</nc:LocationPostalCode>
+		</nc:Address>
+	</nc:Location>
+	<nc:PersonEmploymentAssociation>
+		<nc:Employee structures:ref="Defendant_01"/>
+		<nc:Employer>
+			<nc:EntityOrganization>
+				<nc:OrganizationName>McClane Trucking Company</nc:OrganizationName>
+			</nc:EntityOrganization>
+		</nc:Employer>
+		<nc:EmploymentContactInformation>
+			<nc:ContactTelephoneNumber>
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>8792153256</nc:TelephoneNumberFullID>
+				</nc:FullTelephoneNumber>
+			</nc:ContactTelephoneNumber>
+		</nc:EmploymentContactInformation>
+		<j:PersonEmploymentAssociationAugmentation>
+			<j:EmployeeHoursText>Works approximately 45 hours per week</j:EmployeeHoursText>
+		</j:PersonEmploymentAssociationAugmentation>
+		<pse-ext:EmploymentCategoryDescriptionText>full time</pse-ext:EmploymentCategoryDescriptionText>
+		<pse-ext:FullTimeEmploymentDescriptionText>Truck Driver</pse-ext:FullTimeEmploymentDescriptionText>
+	</nc:PersonEmploymentAssociation>
+	<nc:PersonResidenceAssociation>
+		<nc:Person structures:ref="Defendant_01"/>
+		<nc:Location structures:ref="Defendant_loc_01"/>
+		<pse-ext:LengthAtResidenceText>2 Years</pse-ext:LengthAtResidenceText>
+		<pse-ext:MovedInLastSixMonthsDescriptionText>Has Not moved.</pse-ext:MovedInLastSixMonthsDescriptionText>
+		<pse-ext:NotPrimaryResidenceExplanationText>Currently living with his sister.</pse-ext:NotPrimaryResidenceExplanationText>
+		<pse-ext:PrimaryResidenceIndicator>false</pse-ext:PrimaryResidenceIndicator>
+		<pse-ext:ResidenceInhabitantsDescriptionText>Lives with sister, Jane Williams.</pse-ext:ResidenceInhabitantsDescriptionText>
+		<pse-ext:ResidenceOwnOrRentDescriptionText>Pays his sister rent every month</pse-ext:ResidenceOwnOrRentDescriptionText>
+	</nc:PersonResidenceAssociation>
+	<cyfs:PersonCaseAssociation>
+		<nc:Person structures:ref="Defendant_01"/>
+		<nc:Case structures:ref="PTS_01"/>
+	</cyfs:PersonCaseAssociation>
+	<cyfs:AssessmentCaseAssociation>
+		<nc:Activity structures:ref="NA_01"/>
+		<nc:Activity structures:ref="GA_01"/>
+		<nc:Activity structures:ref="MMS_01"/>
+		<nc:Activity structures:ref="SASA_01"/>
+		<nc:Activity structures:ref="ORAS_01"/>
+		<nc:Case structures:ref="PTS_01"/>
+	</cyfs:AssessmentCaseAssociation>
+	<j:ActivityProgramAssociation>
+		<nc:Activity structures:ref="PTS_01"/>
+		<nc:Program structures:ref="Program_01"/>
+	</j:ActivityProgramAssociation>
+	<j:ActivityCaseAssociation>
+		<nc:Activity structures:ref="CA_01"/>
+		<nc:Activity structures:ref="Incident_01"/>
+		<nc:Case structures:ref="PTS_01"/>
+	</j:ActivityCaseAssociation>
+	<j:OffenseIncidentAssociation>
+		<j:Offense structures:ref="Offense_01"/>
+		<nc:Incident structures:ref="Incident_01"/>
+	</j:OffenseIncidentAssociation>
+</pse-doc:PretrialServiceEnrollmentReport>

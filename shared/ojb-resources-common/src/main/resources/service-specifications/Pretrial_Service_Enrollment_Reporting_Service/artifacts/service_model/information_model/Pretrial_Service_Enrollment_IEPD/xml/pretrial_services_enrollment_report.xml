@@ -24,7 +24,6 @@
 				<nc:Date>2001-12-17</nc:Date>
 			</nc:PersonBirthDate>
 			<j:PersonEthnicityCode>U</j:PersonEthnicityCode>
-			<nc:PersonEthnicityText>Whitw</nc:PersonEthnicityText>
 			<nc:PersonName>
 				<nc:PersonGivenName>Joeseph</nc:PersonGivenName>
 				<nc:PersonMiddleName>P</nc:PersonMiddleName>
@@ -45,7 +44,7 @@
 	<pse-ext:PreTrialServicesEnrollment structures:id="PTS_01">
 		<pse-ext:ActivityLocation>
 			<nc:Address>
-				<nc:LocationCountyName>Harrison County</nc:LocationCountyName>
+				<nc:LocationCountyName>Harrison</nc:LocationCountyName>
 			</nc:Address>
 		</pse-ext:ActivityLocation>
 		<nc:Referral>
@@ -276,24 +275,28 @@
 		<pse-ext:DrugProblemFamilyDescriptionText>Family believes he has a drug problem</pse-ext:DrugProblemFamilyDescriptionText>
 	</pse-ext:ORASAssessment>
 	<nc:Program structures:id="Program_01">
-		<pse-ext:FirstProgramReferral>
-			<nc:ActivityCategoryText>drugs</nc:ActivityCategoryText>
+		<nc:ProgramReferral>
+			<nc:ActivityCategoryText>employment assistance</nc:ActivityCategoryText>
 			<nc:ActivityDate>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				<nc:Date>2015-01-01</nc:Date>
 			</nc:ActivityDate>
-		</pse-ext:FirstProgramReferral>
-		<pse-ext:SecondProgramReferral>
-			<nc:ActivityCategoryText>drugs</nc:ActivityCategoryText>
+		</nc:ProgramReferral>
+	</nc:Program>
+	<nc:Program structures:id="Program_02">
+		<nc:ActivityCategoryText>substance abuse treatment</nc:ActivityCategoryText>
+		<nc:ProgramReferral>
 			<nc:ActivityDate>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				<nc:Date>2015-02-02</nc:Date>
 			</nc:ActivityDate>
-		</pse-ext:SecondProgramReferral>
-		<pse-ext:ThirdProgramReferral>
-			<nc:ActivityCategoryText>drugs</nc:ActivityCategoryText>
+		</nc:ProgramReferral>
+	</nc:Program>
+	<nc:Program structures:id="Program_03">
+		<nc:ActivityCategoryText>behavioral health services</nc:ActivityCategoryText>
+		<nc:ProgramReferral>
 			<nc:ActivityDate>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				<nc:Date>2015-03-03</nc:Date>
 			</nc:ActivityDate>
-		</pse-ext:ThirdProgramReferral>
+		</nc:ProgramReferral>
 	</nc:Program>
 	<nc:ContactInformation structures:id="Defendant_ci_01">
 		<nc:ContactTelephoneNumber>
