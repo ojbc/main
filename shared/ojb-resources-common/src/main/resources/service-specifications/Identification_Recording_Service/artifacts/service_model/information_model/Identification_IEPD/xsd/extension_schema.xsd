@@ -66,7 +66,7 @@
 					<xsd:element ref="ident-ext:TransactionCategoryText"/>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="ident-ext:IdentificationApplicantOrganization"/>
-					<xsd:element ref="ident-ext:IdentificationResultsRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ident-ext:IdentificationResultsRepresentation" minOccurs="0"/>
 					<xsd:element ref="ident-ext:LinkedSystems" minOccurs="0"/>
 					<xsd:element ref="ident-ext:IdentificationReasonRepresentation"/>
 				</xsd:sequence>
@@ -127,9 +127,19 @@
 			<xsd:documentation>A document returned by the FBI that lists certain information taken from fingerprint submissions retained by the FBI in connection with arrests and, in some instances, employment, naturalization, or military service. Sometimes this is referred to as a federal rap sheet.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="FBIIdentificationSearchResultDocument" type="ident-ext:IdentificationDocumentType" substitutionGroup="ident-ext:IdentificationResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document returned by the FBI, after doing a fingerprint search, that indicates whether the person has a criminal history. Sometimes this is referred to as a "match/no-match".</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="StateCriminalHistoryRecordDocument" type="ident-ext:IdentificationDocumentType" substitutionGroup="ident-ext:IdentificationResultsRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document returned by a State's criminal history system that contains the person's criminal history. Sometimes this is referred to as a state rap sheet.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="StateIdentificationSearchResultDocument" type="ident-ext:IdentificationDocumentType" substitutionGroup="ident-ext:IdentificationResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document returned by the State, after doing a fingerprint search, that indicates whether the person has a criminal history in the state. Sometimes this is referred to as a "match/no-match".</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DocumentBinary" type="xmime:base64Binary" substitutionGroup="nc:BinaryObject">
@@ -142,7 +152,7 @@
 			<xsd:documentation>Systems with information about the offender.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonTrackingIdentidication" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A biometric identifier assigned to a person for the purpose of correlating identification activities.</xsd:documentation>
 		</xsd:annotation>
@@ -174,7 +184,6 @@
 			<xsd:documentation>An additional categorization of the transaction.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
 	
 	<xsd:element name="CivilIdentificationReasonCode" type="ident-ext:CivilIdentificationReasonCodeType" substitutionGroup="ident-ext:IdentificationReasonRepresentation"/>
 	

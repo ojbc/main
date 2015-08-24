@@ -23,8 +23,8 @@
 	xmlns:oirsr-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
@@ -117,7 +117,7 @@
 
 	<xsl:template match="srer:SearchRequestError">
 		<span class="error">
-			System Name: <xsl:value-of select="intel:SystemName" />, 
+			System Name: <xsl:value-of select="nc:SystemName" />, 
 			Error: <xsl:value-of select="srer:ErrorText" />
 		</span>
 		<br />
@@ -125,7 +125,7 @@
 
 	<xsl:template match="srer:SearchResultsExceedThresholdError">
 		<span class="error">
-			System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.
+			System <xsl:value-of select="../nc:SystemName" /> returned too many records, please refine your criteria.
 		</span>
 		<br />
 	</xsl:template>
