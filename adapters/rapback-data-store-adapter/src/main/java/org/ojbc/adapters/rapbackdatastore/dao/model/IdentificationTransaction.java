@@ -31,8 +31,10 @@ public class IdentificationTransaction implements Serializable{
 	private String ownerOri; 
 	private String ownerProgramOca;
 	private String identificationCategory; 
+	private Boolean archived; 
 
-	private Subject subject; 
+	private Subject subject;
+	private IdentificationTransactionState currentState; 
 
 	public IdentificationTransaction(){
 		super();
@@ -102,4 +104,20 @@ public class IdentificationTransaction implements Serializable{
 	public void setIdentificationCategory(String identificationCategory) {
 		this.identificationCategory = identificationCategory;
 	}
+	public IdentificationTransactionState getCurrentState() {
+		return currentState;
+	}
+
+	public void setCurrentState(IdentificationTransactionState currentState) {
+		this.currentState = currentState;
+	}
+
+	public Boolean getArchived() {
+		return archived;
+	}
+
+	public void setArchived(Boolean archived) {
+		this.archived = archived;
+	}
+
 }

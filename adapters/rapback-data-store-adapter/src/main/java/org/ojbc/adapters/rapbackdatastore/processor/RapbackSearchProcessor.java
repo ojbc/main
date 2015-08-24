@@ -45,12 +45,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
@@ -96,7 +98,7 @@ public class RapbackSearchProcessor {
      */
     public Document returnRapbackSearchResponse(@Header(CxfConstants.CAMEL_CXF_MESSAGE) Message cxfMessage) {
     	
-    	List<CivilInitialResults> civilInitialResults = null; 
+    	List<IdentificationTransaction> identificationTransactions = null; 
     	
         if (cxfMessage != null) {
             String federationId = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.FederationId);
@@ -107,7 +109,7 @@ public class RapbackSearchProcessor {
             
             if (StringUtils.isNotBlank(federationId)) {
                 //Pass the ORIs in the SAML assertion to the DAO method. 
-                civilInitialResults = rapbackDAO.getCivilInitialResults(employerOri);
+            	identificationTransactions = rapbackDAO.getIdentificationTransactions(employerOri);
                 log.info("Get rapback search results count");
             } else {
                 throw new IllegalArgumentException(
@@ -119,23 +121,23 @@ public class RapbackSearchProcessor {
                     "Invalid request. CXF message is not found.");
         }
 
-        Document rapbackSearchResponseDocument = buildRapbackSearchResponse(civilInitialResults);
+        Document rapbackSearchResponseDocument = buildRapbackSearchResponse(identificationTransactions);
 
         return rapbackSearchResponseDocument;
     }
     
-    private Document buildRapbackSearchResponse(List<CivilInitialResults> civilInitialResults) {
+    private Document buildRapbackSearchResponse(List<IdentificationTransaction> identificationTransactions) {
 
         Document document = documentBuilder.newDocument();
         Element rootElement = createRapbackSearchResponseRootElement(document);
         
-        for (CivilInitialResults civilInitialResult : civilInitialResults){
+        for (IdentificationTransaction identificationTransaction : identificationTransactions){
         	Element organizationIdentificationResultsSearchResultElement = 
         			XmlUtils.appendElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
         					"OrganizationIdentificationResultsSearchResult");
-        	appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, civilInitialResult);
+        	appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, identificationTransaction);
         	appdendStatusElement(organizationIdentificationResultsSearchResultElement,
-					civilInitialResult);
+        			identificationTransaction);
         	//TODO add subscripion info if available. 
         	
         	appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
@@ -159,17 +161,28 @@ public class RapbackSearchProcessor {
 
 	private void appdendStatusElement(
 			Element organizationIdentificationResultsSearchResultElement,
-			CivilInitialResults civilInitialResult) {
+			IdentificationTransaction identificationTransaction) {
 		Element identificationResultStatusCode = XmlUtils.appendElement(
 				organizationIdentificationResultsSearchResultElement, 
 				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentificationResultStatusCode");
-		identificationResultStatusCode.setTextContent(civilInitialResult.getCurrentState().toString());
+		identificationResultStatusCode.setTextContent(getCurrentState(identificationTransaction));
+	}
+
+	private String getCurrentState(
+			IdentificationTransaction identificationTransaction) {
+		if (BooleanUtils.isTrue(identificationTransaction.getArchived())){
+			return IdentificationTransactionState.Archived.toString();
+		}
+		else {
+			//TODO need to check the subscription state to decide the state.
+			return IdentificationTransactionState.Available_for_subscription.toString();
+		}
 	}
 
 	private void appendIdentifiedPersonElement(Element organizationIdentificationResultsSearchResultElement,
-			CivilInitialResults civilInitialResult) {
+			IdentificationTransaction identificationTransaction) {
 		
-		Subject subject = civilInitialResult.getIdentificationTransaction().getSubject();
+		Subject subject = identificationTransaction.getSubject();
 		Element identifiedPerson = XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
 				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPerson");
 		
@@ -188,7 +201,7 @@ public class RapbackSearchProcessor {
 				NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPersonTrackingIdentification");
 		Element identificationIdElement = XmlUtils.appendElement(
 				identifiedPersonTrackingIdentification, NS_NC, "IdentificationID");
-		identificationIdElement.setTextContent(civilInitialResult.getIdentificationTransaction().getOtn());
+		identificationIdElement.setTextContent(identificationTransaction.getOtn());
 	}
 
     private Element createRapbackSearchResponseRootElement(Document document) {

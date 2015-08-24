@@ -24,7 +24,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
@@ -104,7 +103,6 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		String attachmentId = getAttachmentId(rootNode);
 		
 			
-		civilInitialResults.setCurrentState(CivilInitialResultsState.Available_for_subscription); 
 		civilInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
 
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
@@ -115,6 +113,8 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		}
 		
 		Integer initialResultsPkId = rapbackDAO.getCivilIntialResultsId(transactionNumber, civilInitialResults.getResultsSender());
+		
+		//TODO set identificationTransaction.currentState;
 		
 		if (initialResultsPkId == null){
 			civilInitialResults.setSearchResultFile(getAttachment(exchange, transactionNumber,
