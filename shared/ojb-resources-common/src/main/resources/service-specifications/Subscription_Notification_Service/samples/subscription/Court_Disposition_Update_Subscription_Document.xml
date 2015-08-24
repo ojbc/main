@@ -37,10 +37,12 @@
 	<b-2:SubscriptionPolicy />
 	<submsg-doc:SubscriptionMessage>
 		<submsg-ext:Subject>
+			<nc20:PersonBirthDate>
+				<nc20:Date>1977-12-17</nc20:Date>
+			</nc20:PersonBirthDate>
 			<nc20:PersonName>
 				<nc20:PersonGivenName>Walter</nc20:PersonGivenName>
 				<nc20:PersonSurName>White</nc20:PersonSurName>
-				<nc20:PersonFullName>Walter A White</nc20:PersonFullName>
 			</nc20:PersonName>
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
