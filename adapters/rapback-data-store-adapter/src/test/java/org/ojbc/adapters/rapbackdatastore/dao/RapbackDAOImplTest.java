@@ -35,7 +35,7 @@ import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
@@ -124,6 +124,7 @@ public class RapbackDAOImplTest {
 		transaction.setOwnerOri("68796860");
 		transaction.setOwnerProgramOca("ID23457");
 		transaction.setIdentificationCategory("I");
+		transaction.setArchived(Boolean.FALSE);
 		
 		Subject subject = new Subject(); 
 		subject.setUcn("B1234567");
@@ -149,6 +150,7 @@ public class RapbackDAOImplTest {
 		transaction.setOwnerOri("68796860");
 		transaction.setOwnerProgramOca("ID23457");
 		transaction.setIdentificationCategory("CAR");
+		transaction.setCurrentState(IdentificationTransactionState.Available_for_subscription);
 		
 		rapbackDAO.saveIdentificationTransaction(transaction); 
 		
@@ -225,7 +227,6 @@ public class RapbackDAOImplTest {
 		civilInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
 		//TODO save either search result file or rap sheet. Should not save both.
 		civilInitialResults.setSearchResultFile("Match".getBytes());
-		civilInitialResults.setCurrentState(CivilInitialResultsState.Available_for_subscription);
 		civilInitialResults.setTransactionType("Transaction Type");
 		civilInitialResults.setResultsSender(ResultSender.FBI);
 		

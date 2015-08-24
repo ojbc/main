@@ -28,7 +28,6 @@ public class CivilInitialResults implements Serializable{
 	private Integer id; //Civil Initial Results ID;
 	private String transactionNumber;
 	private byte[] searchResultFile; 
-	private CivilInitialResultsState currentState;
 	private String transactionType; 
 	private ResultSender resultsSender; 
 	private DateTime timestamp;
@@ -78,14 +77,6 @@ public class CivilInitialResults implements Serializable{
 
 	public void setTimestamp(DateTime timestamp) {
 		this.timestamp = timestamp;
-	}
-
-	public CivilInitialResultsState getCurrentState() {
-		return currentState;
-	}
-
-	public void setCurrentState(CivilInitialResultsState currentState) {
-		this.currentState = currentState;
 	}
 
 	public IdentificationTransaction getIdentificationTransaction() {

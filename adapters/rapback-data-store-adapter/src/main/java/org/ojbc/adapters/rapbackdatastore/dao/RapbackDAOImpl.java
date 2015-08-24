@@ -27,6 +27,7 @@ import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -34,7 +35,6 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
@@ -117,8 +117,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String IDENTIFICATION_TRANSACTION_INSERT="INSERT into IDENTIFICATION_TRANSACTION "
-			+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY) "
-			+ "values (?, ?, ?, ?, ?, ?)";
+			+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, ARCHIVED, IDENTIFICATION_CATEGORY) "
+			+ "values (?, ?, ?, ?, ?, ?, ?)";
 	@Override
 	@Transactional
 	public void saveIdentificationTransaction(
@@ -142,6 +142,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         		identificationTransaction.getOtn(),
         		identificationTransaction.getOwnerOri(),
         		identificationTransaction.getOwnerProgramOca(), 
+        		BooleanUtils.isTrue(identificationTransaction.getArchived()),
         		identificationTransaction.getIdentificationCategory()); 
 	}
 
@@ -283,9 +284,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	//TODO solve the current_state change. 
 	final static String CIVIL_INITIAL_RESULTS_INSERT="insert into CIVIL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, CURRENT_STATE_ID, TRANSACTION_TYPE, "
+			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, TRANSACTION_TYPE, "
 			+ " RESULTS_SENDER_ID) "
-			+ "values (?, ?, ?, ?, ?)";
+			+ "values (?, ?, ?, ?)";
 	@Override
 	public Integer saveCivilInitialResults(
 			final CivilInitialResults civilInitialResults) {
@@ -297,13 +298,12 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_INITIAL_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH", "CURRENT_STATE_ID", 
+        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
         	                		"TRANSACTION_TYPE", "RESULTS_SENDER_ID"});
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
         	            ps.setBlob(2, new SerialBlob(civilInitialResults.getSearchResultFile()));
-        	            ps.setInt(3, civilInitialResults.getCurrentState().ordinal()+1);
-        	            ps.setString(4, civilInitialResults.getTransactionType());
-        	            ps.setInt(5, civilInitialResults.getResultsSender().ordinal()+1);
+        	            ps.setString(3, civilInitialResults.getTransactionType());
+        	            ps.setInt(4, civilInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
         	    },
@@ -440,6 +440,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
 		identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
 		identificationTransaction.setIdentificationCategory(rs.getString("identification_category"));
+		identificationTransaction.setArchived(BooleanUtils.isTrue(rs.getBoolean("archived")));
 
 		Integer subjectId = rs.getInt("subject_id");
 		
@@ -493,7 +494,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 	
 	final static String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.timestamp as timestamp_received, "
-			+ "t.otn, t.owner_ori, t.owner_program_oca, s.* "
+			+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
 			+ "FROM civil_initial_results c "
 			+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
 			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
@@ -518,7 +519,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 			civilInitialResults.setTransactionType(rs.getString("transaction_type"));
 			civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") - 1]);
 			civilInitialResults.setSearchResultFile(rs.getBytes("search_result_file"));
-			civilInitialResults.setCurrentState(CivilInitialResultsState.values()[rs.getInt("current_state_id") - 1]);
 			civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
 			
 			civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs));
@@ -535,6 +535,23 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public Integer getCivilIntialResultsId(String transactionNumber,
 			ResultSender resultSender) {
 		return jdbcTemplate.queryForInt(CIVIL_INITIAL_RESULTS_ID_SELECT, transactionNumber, resultSender.ordinal() + 1);
+	}
+
+	// TODO Need to join subscription table
+	final static String IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
+			+ "FROM identification_transaction t "
+			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
+			+ "WHERE t.owner_ori = ? and t.transaction_number = (select distinct transaction_number from "
+			+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
+
+	@Override
+	public List<IdentificationTransaction> getIdentificationTransactions(
+			String ori) {
+		List<IdentificationTransaction> identificationTransactions = 
+				jdbcTemplate.query(IDENTIFICATION_TRANSACTION_SELECT, 
+						new IdentificationTransactionRowMapper(), ori);
+		return identificationTransactions;
 	}
 
 

@@ -16,7 +16,7 @@
  */
 package org.ojbc.adapters.rapbackdatastore.dao.model;
 
-public enum CivilInitialResultsState {
+public enum IdentificationTransactionState {
 	/*
 	 * The ordinal of the enum is used in the code. DO NOT change the order 
 	 * of the instances. 
