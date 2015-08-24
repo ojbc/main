@@ -26,6 +26,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecor
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
 
@@ -37,9 +38,11 @@ public interface RapbackDAO {
 	public Integer saveCivilFbiSubscriptionRecord(final CivilFbiSubscriptionRecord civilFbiSubscriptionRecord);
 	public Integer saveCriminalFbiSubscriptionRecord(final CriminalFbiSubscriptionRecord criminalFbiSubscriptionRecord);
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints);
+	//TODO remove this method when we are 100% certain the table is not needed. 
 //	public Integer saveCriminalFingerPrints(final CriminalFingerPrints criminalFingerPrints);
 	public Integer saveCivilInitialRapSheet(final CivilInitialRapSheet civilInitialRapSheet);
 	public Integer saveCivilInitialResults(final CivilInitialResults civilInitialResults);
+	public Integer getCivilIntialResultsId(String transactionNumber, ResultSender resultSender);
 	public Integer saveCriminalInitialResults(final CriminalInitialResults criminalInitialResults);
 	public Integer saveSubsequentResults(final SubsequentResults subsequentResults);
 	public Integer saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
@@ -47,6 +50,7 @@ public interface RapbackDAO {
 	public Subject getSubject(Integer id);
 	public IdentificationTransaction getIdentificationTransaction(String transactionNumber);
 	public List<CivilInitialResults> getCivilInitialResults(String ori);
+	public List<IdentificationTransaction> getIdentificationTransactions(String ori);
 	
 	public void updateSubject(Subject subject);
 }
