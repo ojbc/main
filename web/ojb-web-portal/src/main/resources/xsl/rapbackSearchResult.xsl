@@ -117,7 +117,7 @@
 
 	<xsl:template match="srer:SearchRequestError">
 		<span class="error">
-			System Name: <xsl:value-of select="intel:SystemName" />, 
+			System Name: <xsl:value-of select="nc:SystemName" />, 
 			Error: <xsl:value-of select="srer:ErrorText" />
 		</span>
 		<br />
@@ -125,7 +125,7 @@
 
 	<xsl:template match="srer:SearchResultsExceedThresholdError">
 		<span class="error">
-			System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.
+			System <xsl:value-of select="../nc:SystemName" /> returned too many records, please refine your criteria.
 		</span>
 		<br />
 	</xsl:template>
