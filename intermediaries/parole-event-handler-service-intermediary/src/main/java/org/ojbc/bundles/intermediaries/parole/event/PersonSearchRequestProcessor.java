@@ -16,6 +16,8 @@
  */
 package org.ojbc.bundles.intermediaries.parole.event;
 
+import java.util.Arrays;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
@@ -38,6 +40,19 @@ public class PersonSearchRequestProcessor extends RequestResponseProcessor imple
 	private MessageProcessor personSearchMessageProcessor;
 		
 	private static final Log log = LogFactory.getLog( PersonSearchRequestProcessor.class );
+	
+	
+	public void testInvokePersonSearchRequest() throws Exception{
+	
+		PersonSearchRequest psr = new PersonSearchRequest();
+		
+		psr.setPersonSID("a2588583");
+		psr.setSourceSystems(Arrays.asList("{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History"));
+		
+		invokePersonSearchRequest(psr, "123");
+	}
+	
+	
 		
 	public String invokePersonSearchRequest(PersonSearchRequest personSearchRequest, String federatedQueryID) throws Exception
 	{

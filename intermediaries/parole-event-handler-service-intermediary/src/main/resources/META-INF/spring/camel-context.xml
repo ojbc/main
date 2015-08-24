@@ -96,6 +96,8 @@
 			
 			<camel:convertBodyTo type="java.lang.String"/>
 			
+			<camel:to uri="bean:personSearchRequestProcessor?method=testInvokePersonSearchRequest"/>
+			
 			<camel:to uri="direct:setFbiIdHeaderParam"/>
 			
 			<camel:to uri="xslt:xslt/paroleDocumentToSubscription.xsl" />
