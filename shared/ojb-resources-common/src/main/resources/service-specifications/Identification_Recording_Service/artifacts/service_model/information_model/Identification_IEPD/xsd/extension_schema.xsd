@@ -185,7 +185,6 @@
 		</xsd:annotation>
 	</xsd:element>
 	
-	
 	<xsd:element name="CivilIdentificationReasonCode" type="ident-ext:CivilIdentificationReasonCodeType" substitutionGroup="ident-ext:IdentificationReasonRepresentation"/>
 	
 	<xsd:complexType name="CivilIdentificationReasonCodeType">
