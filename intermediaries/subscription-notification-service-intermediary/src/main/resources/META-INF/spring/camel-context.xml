@@ -204,8 +204,16 @@
 
 				<camel:choice>
 					<camel:when>
-						<camel:xpath>boolean(//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonFBIIdentification/nc20:IdentificationID/text()[1])</camel:xpath>
-						
+						<camel:xpath>boolean(//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonFBIIdentification/nc20:IdentificationID/text()[1])</camel:xpath>					
+<!-- 
+	2. before sending subscription request to the FBI EBTS adapter, the s/n intermediary will query the rap back data store (formerly called subscriptions database) 
+		to deterine if a FBI subscription already exists for a given SID/purpose combination
+
+	3. If FBI subscription exists, enrich the subscription message with the FBI subscription details 
+		(see example here: https://github.com/ojbc/main/blob/master/shared/ojb-resources-common/src/main/resources/service-specifications/Subscription_Notification_Service/samples/subscription/Arrest_Subscription_Document-with-FBI-Subscription.xml) 
+
+	4. If FBI subscription doesn't exist, then just send subscription message as-is to the EBTS adapter as long as the subscription message contains the person's FBI ID. 						
+-->						
 						<camel:log message="\n\n Found FBI ID, Sending subscription to FBI EBTS...\n\n"/>						
 						
 						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
