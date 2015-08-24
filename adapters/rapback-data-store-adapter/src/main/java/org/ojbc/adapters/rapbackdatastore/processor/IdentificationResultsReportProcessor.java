@@ -20,12 +20,10 @@ import java.io.IOException;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
@@ -104,12 +102,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		String attachmentId = getAttachmentId(rootNode);
 		
-		//TODO decide whether to save it to search result file or 
-		// rap sheet. 
-		civilInitialResults.setSearchResultFile(getAttachment(exchange, transactionNumber,
-				attachmentId));
 			
-		civilInitialResults.setCurrentState(CivilInitialResultsState.Available_for_subscription); //TODO replace the placeholder with real value
 		civilInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
 
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
@@ -119,10 +112,26 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 			civilInitialResults.setResultsSender(ResultSender.State);
 		}
 		
-		Integer initalResultsPkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
+		Integer initialResultsPkId = rapbackDAO.getCivilIntialResultsId(transactionNumber, civilInitialResults.getResultsSender());
 		
+		//TODO set identificationTransaction.currentState;
+		
+		if (initialResultsPkId == null){
+			civilInitialResults.setSearchResultFile(getAttachment(exchange, transactionNumber,
+					attachmentId));
+			rapbackDAO.saveCivilInitialResults(civilInitialResults);
+		}
+		else{
+		
+			saveCivilRapSheet(exchange, transactionNumber, attachmentId,
+					initialResultsPkId);
+		}
+	}
+
+	private void saveCivilRapSheet(Exchange exchange, String transactionNumber,
+			String attachmentId, Integer initialResultsPkId) throws IOException {
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
-		civilInitialRapSheet.setCivilIntitialResultId(initalResultsPkId);
+		civilInitialRapSheet.setCivilIntitialResultId(initialResultsPkId);
 		civilInitialRapSheet.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value.
 		
 		byte[] receivedAttachment = getAttachment(exchange, transactionNumber,
