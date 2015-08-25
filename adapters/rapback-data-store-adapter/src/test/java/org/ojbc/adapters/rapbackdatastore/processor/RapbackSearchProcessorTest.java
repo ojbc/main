@@ -33,6 +33,7 @@ import org.ojbc.adapters.rapbackdatastore.TestRapbackSearchRequestService;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
@@ -45,6 +46,7 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
+@DirtiesContext
 public class RapbackSearchProcessorTest {
 	private static final Log log = LogFactory.getLog( RapbackSearchProcessorTest.class );
 
