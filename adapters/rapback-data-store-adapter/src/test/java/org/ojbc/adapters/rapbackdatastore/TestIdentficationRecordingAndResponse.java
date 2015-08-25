@@ -76,6 +76,7 @@ import org.xml.sax.SAXException;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
       })
+@DirtiesContext
 public class TestIdentficationRecordingAndResponse {
 	
 	private static final String CIVIL_RESULTS_ATTACHEMNT_ID = "http://ojbc.org/identification/results/example";

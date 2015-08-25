@@ -101,7 +101,7 @@ public class TestRapbackSearchRequestService {
     }
 
     
-    private org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(
+    public static org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(
             Map<String, String> customAttributes) throws Exception {
         org.apache.cxf.message.Message message = new MessageImpl();
 

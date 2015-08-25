@@ -50,7 +50,8 @@ public interface RapbackDAO {
 	public Subject getSubject(Integer id);
 	public IdentificationTransaction getIdentificationTransaction(String transactionNumber);
 	public List<CivilInitialResults> getCivilInitialResults(String ori);
-	public List<IdentificationTransaction> getIdentificationTransactions(String ori);
+	public List<IdentificationTransaction> getCivilIdentificationTransactions(String ori);
+	public List<IdentificationTransaction> getCriminalIdentificationTransactions(String ori);
 	
 	public void updateSubject(Subject subject);
 }
