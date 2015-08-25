@@ -109,7 +109,7 @@ public class RapbackSearchProcessor {
             
             if (StringUtils.isNotBlank(federationId)) {
                 //Pass the ORIs in the SAML assertion to the DAO method. 
-            	identificationTransactions = rapbackDAO.getIdentificationTransactions(employerOri);
+            	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(employerOri);
                 log.info("Get rapback search results count");
             } else {
                 throw new IllegalArgumentException(
