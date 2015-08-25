@@ -538,18 +538,33 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	// TODO Need to join subscription table
-	final static String IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+	final static String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
 			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
 			+ "FROM identification_transaction t "
 			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
-			+ "WHERE t.owner_ori = ? and t.transaction_number = (select distinct transaction_number from "
+			+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
 			+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
 
 	@Override
-	public List<IdentificationTransaction> getIdentificationTransactions(
+	public List<IdentificationTransaction> getCivilIdentificationTransactions(
 			String ori) {
 		List<IdentificationTransaction> identificationTransactions = 
-				jdbcTemplate.query(IDENTIFICATION_TRANSACTION_SELECT, 
+				jdbcTemplate.query(CIVIL_IDENTIFICATION_TRANSACTION_SELECT, 
+						new IdentificationTransactionRowMapper(), ori);
+		return identificationTransactions;
+	}
+
+	final static String CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
+			+ "FROM identification_transaction t "
+			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
+			+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
+			+ "	criminal_initial_results c where c.transaction_number = t.transaction_number)"; 
+	@Override
+	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
+			String ori) {
+		List<IdentificationTransaction> identificationTransactions = 
+				jdbcTemplate.query(CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT, 
 						new IdentificationTransactionRowMapper(), ori);
 		return identificationTransactions;
 	}
