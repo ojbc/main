@@ -18,6 +18,7 @@ package org.ojbc.intermediaries.sn;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
@@ -28,21 +29,38 @@ import org.w3c.dom.Node;
 
 public class FbiSubscriptionProcessor {
 	
+	private static final Logger logger = Logger.getLogger(FbiSubscriptionProcessor.class.getName());
+	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 	
 	public String processSubscription(Document subscriptionDoc) throws Exception{
 		
-		FbiSubscription fbiSubscription = getFbiSubscriptionFromRapbackDataStore("sid(TODO)", "reasonCode(TODO");
-	
-		String subXmlWithFbiData = appendFbiDataToSubscriptionDoc(subscriptionDoc, fbiSubscription);
+		logger.info("processSubscription...");
+					
+		boolean fbiSubscriptionExists = isFbiSubscriptionExisting("sid(TODO)", "purpose(TODO)");
 		
-		return subXmlWithFbiData;
+		String subscriptionMessage = "";
+		
+		if(!fbiSubscriptionExists){
+		
+			FbiSubscription fbiSubscription = getFbiSubscriptionFromRapbackDataStore("sid(TODO)", "reasonCode(TODO");
+			
+			subscriptionMessage = appendFbiDataToSubscriptionDoc(subscriptionDoc, fbiSubscription);
+			
+		}else{
+			
+			subscriptionMessage = XmlUtils.getStringFromNode(subscriptionDoc);
+		}
+						
+		return subscriptionMessage;
 	}
 	
-	
+
 	public String appendFbiDataToSubscriptionDoc(Document subscriptionDoc, FbiSubscription fbiSubscription) throws Exception{
 				
+		logger.info("appendFbiDataToSubscriptionDoc...");
+		
 		Element relatedFBISubscriptionElement = subscriptionDoc.createElementNS(OjbcNamespaceContext.NS_SUB_MSG_EXT, "RelatedFBISubscription");
 		relatedFBISubscriptionElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_SUB_MSG_EXT);						
 		
@@ -110,5 +128,13 @@ public class FbiSubscriptionProcessor {
 		
 		return fbiSubscription;
 	}
+	
+	
+	private boolean isFbiSubscriptionExisting(String string, String string2) {
+
+		//TODO reference actual sub. msg to see if fbi subscription exists
+		return false;
+	}	
+
 }
 
