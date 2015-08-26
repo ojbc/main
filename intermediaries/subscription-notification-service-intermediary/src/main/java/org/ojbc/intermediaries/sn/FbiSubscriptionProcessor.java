@@ -22,18 +22,35 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 public class FbiSubscriptionProcessor {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 	
-	public Element appendFbiSubscriptionNode(Element parentElement, FbiSubscription fbiSubscription){
+	public String processSubscription(Document subscriptionDoc) throws Exception{
 		
-		Element relatedFBISubscriptionElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "RelatedFBISubscription"); 
+		FbiSubscription fbiSubscription = getFbiSubscriptionFromRapbackDataStore("sid(TODO)", "reasonCode(TODO");
+	
+		String subXmlWithFbiData = appendFbiDataToSubscriptionDoc(subscriptionDoc, fbiSubscription);
 		
-		Element dateRangeElement = XmlUtils.appendElement(relatedFBISubscriptionElement, OjbcNamespaceContext.NS_NC, "DateRange");
+		return subXmlWithFbiData;
+	}
+	
+	
+	public String appendFbiDataToSubscriptionDoc(Document subscriptionDoc, FbiSubscription fbiSubscription) throws Exception{
+				
+		Element relatedFBISubscriptionElement = subscriptionDoc.createElementNS(OjbcNamespaceContext.NS_SUB_MSG_EXT, "RelatedFBISubscription");
+		relatedFBISubscriptionElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_SUB_MSG_EXT);						
+		
+		Node subMsgNode = XmlUtils.xPathNodeSearch(subscriptionDoc, "//submsg-exch:SubscriptionMessage");
+				
+		subMsgNode.appendChild(relatedFBISubscriptionElement);		
+				
+		Element dateRangeElement = XmlUtils.appendElement(relatedFBISubscriptionElement, OjbcNamespaceContext.NS_NC, "DateRange");				
 		
 		Date startDate = fbiSubscription.getStartDate();
 		if(startDate != null){
@@ -71,8 +88,27 @@ public class FbiSubscriptionProcessor {
 			Element termDurationElement = XmlUtils.appendElement(subscriptionTermElement, OjbcNamespaceContext.NS_JXDM_41, "TermDuration");		
 			termDurationElement.setTextContent(subTerm);			
 		}		
+				
+		String subDocWithFbiData = XmlUtils.getStringFromNode(subscriptionDoc);
 		
-		return relatedFBISubscriptionElement;
+		OjbcNamespaceContext ojbNsCtxt = new OjbcNamespaceContext();
+		ojbNsCtxt.populateRootNamespaceDeclarations(subscriptionDoc.getDocumentElement());
+				
+		return subDocWithFbiData;
 	}
 
+	
+	// TODO query rabpack datastore
+	private FbiSubscription getFbiSubscriptionFromRapbackDataStore(String sid, String reasonCode){
+		
+		FbiSubscription fbiSubscription = new FbiSubscription();
+		
+		fbiSubscription.setCrimSubReasonCode("CI");
+		fbiSubscription.setFbiId("1234");
+		fbiSubscription.setStartDate(new Date());
+		fbiSubscription.setEndDate(new Date());
+		
+		return fbiSubscription;
+	}
 }
+
