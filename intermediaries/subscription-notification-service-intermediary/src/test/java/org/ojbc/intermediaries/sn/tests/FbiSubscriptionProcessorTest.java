@@ -16,6 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,16 +30,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.FbiSubscription;
 import org.ojbc.intermediaries.sn.FbiSubscriptionProcessor;
-import org.ojbc.util.helper.OJBCXMLUtils;
-import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 
 public class FbiSubscriptionProcessorTest {
 	
 	private FbiSubscriptionProcessor fbiSubscriptionProcessor = new FbiSubscriptionProcessor();
+	
+	private FbiSubscription sampleFbiSubscription;
 		
 	@Before
 	public void setup(){		
@@ -47,13 +47,15 @@ public class FbiSubscriptionProcessorTest {
     	XMLUnit.setIgnoreAttributeOrder(true);
     	XMLUnit.setIgnoreComments(true);
     	XMLUnit.setXSLTVersion("2.0");
+    	
+    	sampleFbiSubscription = getSampleFbiSubscription();
 	}
 		
-	@Test
-	public void testFbiSubscriptionProcessor() throws Exception{
+	
+	private FbiSubscription getSampleFbiSubscription(){
 		
 		FbiSubscription fbiSubscription = new FbiSubscription();
-						
+		
 		Calendar startCal = Calendar.getInstance();
 		startCal.set(2015, 0, 1);		
 		fbiSubscription.setStartDate(startCal.getTime());
@@ -66,19 +68,20 @@ public class FbiSubscriptionProcessorTest {
 		fbiSubscription.setFbiId("1234567");		
 		fbiSubscription.setCrimSubReasonCode("CI");	
 		
-		Document sampleDoc = OJBCXMLUtils.createDocument();
-		Element sampleRoot = sampleDoc.createElementNS(OjbcNamespaceContext.NS_B2, "Subscribe");	
-		OjbcNamespaceContext namespaceContext = new OjbcNamespaceContext();
-						
-		Element fbiSubElement =  fbiSubscriptionProcessor.appendFbiSubscriptionNode(sampleRoot, fbiSubscription);
+		return fbiSubscription;
+	}
+	
+	@Test
+	public void testFbiSubscriptionProcessor() throws Exception{
+								
+		Document arrestSubDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/Arrest_Subscription_Document.xml"));		
 		
-		namespaceContext.populateRootNamespaceDeclarations(sampleRoot);				
-		
-		String generatedXml = XmlUtils.getStringFromNode(fbiSubElement);
+		String subXmlWithAppendedFbiData = fbiSubscriptionProcessor.appendFbiDataToSubscriptionDoc(arrestSubDoc, sampleFbiSubscription);						
 												
-		String expectedXml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/fbi/RelatedFBISubscription.xml");
+		String expectedXml = XmlUtils.getRootNodeAsString(
+				"src/test/resources/xmlInstances/fbi/Arrest_Subscription_Document_WithFbiData.xml");
 							
-		Diff diff = new Diff(expectedXml, generatedXml);						
+		Diff diff = new Diff(expectedXml, subXmlWithAppendedFbiData);						
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 		
 		List<Difference> diffList = detailedDiff.getAllDifferences();		
