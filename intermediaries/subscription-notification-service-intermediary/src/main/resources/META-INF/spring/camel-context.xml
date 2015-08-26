@@ -213,7 +213,7 @@
 
 						<!-- 4. If FBI subscription doesn't exist, then just send subscription message as-is to the EBTS adapter as long as the subscription message contains the person's FBI ID. 						
 						-->						
-						<camel:log message="\n\n Found FBI ID, Sending subscription to FBI EBTS...\n\n"/>						
+						<camel:log message="\n\n\n\n Found FBI ID, Sending subscription to FBI EBTS..., message body:\n\n ${body}\n\n\n\n"/>						
 						
 						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
 					</camel:when>								
@@ -227,7 +227,7 @@
 						<camel:log message="There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI." logName="rapback"/>						
 					</camel:otherwise>							
 				</camel:choice>				 				 							 																														 				
-				
+												
 				<!-- this synchronous call is last because it modifies the message -->
 				<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
 														

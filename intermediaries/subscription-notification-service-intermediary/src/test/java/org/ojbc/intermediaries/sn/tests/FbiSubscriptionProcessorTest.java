@@ -76,12 +76,12 @@ public class FbiSubscriptionProcessorTest {
 								
 		Document arrestSubDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/Arrest_Subscription_Document.xml"));		
 		
-		String subXmlWithAppendedFbiData = fbiSubscriptionProcessor.appendFbiDataToSubscriptionDoc(arrestSubDoc, sampleFbiSubscription);						
-												
-		String expectedXml = XmlUtils.getRootNodeAsString(
-				"src/test/resources/xmlInstances/fbi/Arrest_Subscription_Document_WithFbiData.xml");
+		Document subXmlDocWithAppendedFbiData = fbiSubscriptionProcessor.appendFbiDataToSubscriptionDoc(arrestSubDoc, sampleFbiSubscription);						
+		
+		Document expectedXmlDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/Arrest_Subscription_Document_WithFbiData.xml"));
+		
 							
-		Diff diff = new Diff(expectedXml, subXmlWithAppendedFbiData);						
+		Diff diff = new Diff(expectedXmlDoc, subXmlDocWithAppendedFbiData);						
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 		
 		List<Difference> diffList = detailedDiff.getAllDifferences();		

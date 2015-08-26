@@ -34,13 +34,13 @@ public class FbiSubscriptionProcessor {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 	
-	public String processSubscription(Document subscriptionDoc) throws Exception{
+	public Document processSubscription(Document subscriptionDoc) throws Exception{
 		
 		logger.info("processSubscription...");
 					
 		boolean fbiSubscriptionExists = isFbiSubscriptionExisting("sid(TODO)", "purpose(TODO)");
 		
-		String subscriptionMessage = "";
+		Document subscriptionMessage = null;
 		
 		if(!fbiSubscriptionExists){
 		
@@ -50,14 +50,14 @@ public class FbiSubscriptionProcessor {
 			
 		}else{
 			
-			subscriptionMessage = XmlUtils.getStringFromNode(subscriptionDoc);
+			subscriptionMessage = subscriptionDoc;
 		}
 						
 		return subscriptionMessage;
 	}
 	
 
-	public String appendFbiDataToSubscriptionDoc(Document subscriptionDoc, FbiSubscription fbiSubscription) throws Exception{
+	public Document appendFbiDataToSubscriptionDoc(Document subscriptionDoc, FbiSubscription fbiSubscription) throws Exception{
 				
 		logger.info("appendFbiDataToSubscriptionDoc...");
 		
@@ -106,13 +106,11 @@ public class FbiSubscriptionProcessor {
 			Element termDurationElement = XmlUtils.appendElement(subscriptionTermElement, OjbcNamespaceContext.NS_JXDM_41, "TermDuration");		
 			termDurationElement.setTextContent(subTerm);			
 		}		
-				
-		String subDocWithFbiData = XmlUtils.getStringFromNode(subscriptionDoc);
-		
+								
 		OjbcNamespaceContext ojbNsCtxt = new OjbcNamespaceContext();
 		ojbNsCtxt.populateRootNamespaceDeclarations(subscriptionDoc.getDocumentElement());
-				
-		return subDocWithFbiData;
+						
+		return subscriptionDoc;
 	}
 
 	
