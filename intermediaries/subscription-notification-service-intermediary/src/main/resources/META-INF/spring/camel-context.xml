@@ -224,7 +224,7 @@
 						
 						<!-- rapback logger must be defined in karaf/etc/org.ops4j.pax.logging.cfg  Allows rare important message to go to file where 
 							it's easy to notice, but requires manual monitoring -->
-						<camel:log message="There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI." logName="rapback"/>						
+						<camel:log message="\n\n\n\n There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI.\n\n\n\n" logName="rapback"/>						
 					</camel:otherwise>							
 				</camel:choice>				 				 							 																														 				
 												
