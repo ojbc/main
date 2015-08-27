@@ -89,6 +89,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:IdentificationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -200,6 +201,11 @@
   <xs:element name="EndDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>An end date.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IdentificationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for IdentificationType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="IdentificationID" type="niem-xs:string" nillable="true">
