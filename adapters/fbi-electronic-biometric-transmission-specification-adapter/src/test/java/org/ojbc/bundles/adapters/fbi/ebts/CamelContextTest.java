@@ -108,11 +108,11 @@ public class CamelContextTest {
 	
 	
 	@Test
-	public void exchangeTest() throws Exception{
+	public void newCriminalSubscriptionTest() throws Exception{
 		
     	Exchange senderExchange = new DefaultExchange(context);
 
-	    File inputFile = new File("src/test/resources/input/OJBC_Subscription_Document.xml");
+	    File inputFile = new File("src/test/resources/input/OJBC_Criminal_Subscription_Request_Document.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 	    
 	    Assert.assertNotNull(inputStr);

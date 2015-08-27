@@ -24,7 +24,8 @@
     xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
     xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
     xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
-    xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
+    xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+    xmlns:b-2="http://docs.oasis-open.org/wsn/b-2">
 	
 	<xsl:output indent="yes" method="xml"/>
 	
@@ -89,7 +90,11 @@
 	<!-- IDC 2.002 -->
 	<xsl:param name="imageReferenceID"/>
 	
-	<xsl:template match="/submsg-doc:SubscriptionMessage">
+	<xsl:template match="/b-2:Subscribe">
+		<xsl:apply-templates select="submsg-doc:SubscriptionMessage"/>
+	</xsl:template>
+	
+	<xsl:template match="submsg-doc:SubscriptionMessage">
 	
 		<itl:NISTBiometricInformationExchangePackage>
 		
@@ -148,7 +153,7 @@
            				<xsl:value-of select="$transactionMinorVersion"/>
            			</ansi-nist:TransactionMinorVersionValue>
 				 	<!-- Transaction Category TOT 1.004 -->
-				 	<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
+				 	<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
 				 	
 				 	 <ansi-nist:TransactionContentSummary>
 				 	 	<ansi-nist:ContentFirstRecordCategoryCode>
@@ -156,10 +161,10 @@
 				 	 	</ansi-nist:ContentFirstRecordCategoryCode>
 				 	 	<ansi-nist:ContentRecordQuantity>
 				 	 		<xsl:choose>
-								<xsl:when test="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode = 'CI'">
+								<xsl:when test="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode = 'CI'">
 									<xsl:value-of select="$transactionContentSummaryContentRecordCountCriminal"/>
 								</xsl:when>
-								<xsl:when test="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode = 'CS'">
+								<xsl:when test="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode = 'CS'">
 									<xsl:value-of select="$transactionContentSummaryContentRecordCountCriminal"/>
 								</xsl:when>
 							</xsl:choose>
@@ -191,9 +196,9 @@
 							</ebts:RecordRapBackActivityNotificationFormatCode>
 							
 							<!--Rap Back Category RBC 2.2065-->
-							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
-							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
-							<xsl:apply-templates select="/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date" mode="expirationDate"/>
+							<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
+							<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
+							<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date" mode="expirationDate"/>
 								<!-- RBDI 2.2067, Optional-->
     						<ebts:RecordRapBackDisclosureIndicator>
     							<xsl:value-of select="$rapBackDisclosureIndicator"/>
