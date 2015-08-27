@@ -207,16 +207,13 @@
 				<camel:choice>
 					<camel:when>
 						<camel:xpath>boolean(//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonFBIIdentification/nc20:IdentificationID/text()[1])</camel:xpath>					
-<!-- 
-	2. before sending subscription request to the FBI EBTS adapter, the s/n intermediary will query the rap back data store (formerly called subscriptions database) 
-		to deterine if a FBI subscription already exists for a given SID/purpose combination
+						
+						<camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription"/>
 
-	3. If FBI subscription exists, enrich the subscription message with the FBI subscription details 
-		(see example here: https://github.com/ojbc/main/blob/master/shared/ojb-resources-common/src/main/resources/service-specifications/Subscription_Notification_Service/samples/subscription/Arrest_Subscription_Document-with-FBI-Subscription.xml) 
 
-	4. If FBI subscription doesn't exist, then just send subscription message as-is to the EBTS adapter as long as the subscription message contains the person's FBI ID. 						
--->						
-						<camel:log message="\n\n Found FBI ID, Sending subscription to FBI EBTS...\n\n"/>						
+						<!-- 4. If FBI subscription doesn't exist, then just send subscription message as-is to the EBTS adapter as long as the subscription message contains the person's FBI ID. 						
+						-->						
+						<camel:log message="\n\n\n\n Found FBI ID, Sending subscription to FBI EBTS..., message body:\n\n ${body}\n\n\n\n"/>						
 						
 						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
 					</camel:when>								
@@ -230,7 +227,7 @@
 						<camel:log message="There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI." logName="rapback"/>						
 					</camel:otherwise>							
 				</camel:choice>				 				 							 																														 				
-				
+												
 				<!-- this synchronous call is last because it modifies the message -->
 				<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
 														
@@ -435,5 +432,7 @@
 		<property name="transactionManager" ref="txManager" />
 		<property name="propagationBehaviorName" value="PROPAGATION_REQUIRED" />
 	</bean>
+	
+	<bean id="fbiSubscriptionProcessor" class="org.ojbc.intermediaries.sn.FbiSubscriptionProcessor" />
 
 </beans>

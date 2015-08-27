@@ -161,7 +161,6 @@
 			
 			<setHeader headerName="rapBackTransactionDate"><simple>{{fbiEbtsAdapter.rapBackTransactionDate}}</simple></setHeader>
 			<setHeader headerName="rapBackNotificatonFormat"><simple>{{fbiEbtsAdapter.rapBackNotificatonFormat}}</simple></setHeader>
-			<setHeader headerName="recordRapBackCategoryCode"><simple>{{fbiEbtsAdapter.recordRapBackCategoryCode}}</simple></setHeader>			
 			<setHeader headerName="rapBackInStateOptOutIndicator"><simple>{{fbiEbtsAdapter.rapBackInStateOptOutIndicator}}</simple></setHeader>			
 			<setHeader headerName="rapBackTriggeringEvent"><simple>{{fbiEbtsAdapter.rapBackTriggeringEvent}}</simple></setHeader>
 			<setHeader headerName="destinationOrganizationORI"><simple>{{fbiEbtsAdapter.destinationOrganizationORI}}</simple></setHeader>
