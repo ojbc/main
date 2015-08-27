@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,9 +34,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
-
 public class SubscriptionDocumentBuilder {				
 
+	private static final Logger logger = Logger.getLogger(SubscriptionDocumentBuilder.class.getName());
+	
 	private static final String SYSTEM_NAME = "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB";
 	
 	private static final String CONSUMER_REF_ADDRESS = "http://www.ojbc.org/OJB/SubscribeNotify";
@@ -206,11 +208,13 @@ public class SubscriptionDocumentBuilder {
 		
 		String sid = subscription.getStateId();
 		
-		String fbiId = subscription.getFirstName();
+		String fbiId = subscription.getFbiId();
 		
 		boolean hasSid = StringUtils.isNotEmpty(sid);
 		
 		boolean hasFbiId = StringUtils.isNotEmpty(fbiId);
+		
+		logger.info("\n\n subscription = \n" + subscription + "\n\n\n");
 		
 		if(hasSid || hasFbiId){
 			
