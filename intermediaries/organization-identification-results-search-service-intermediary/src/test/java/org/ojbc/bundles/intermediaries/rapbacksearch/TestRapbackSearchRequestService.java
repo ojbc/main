@@ -34,7 +34,6 @@ import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.rapbacksearch.dao.RapbackDAOImpl;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
@@ -51,8 +50,6 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/extensible-beans.xml",
         "classpath:META-INF/spring/local-osgi-context.xml",
         "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
 		})
 @DirtiesContext
 public class TestRapbackSearchRequestService {
@@ -64,9 +61,6 @@ public class TestRapbackSearchRequestService {
     
     @EndpointInject(uri = "mock:result")
     protected MockEndpoint resultEndpoint;
-
-    @Autowired
-    private RapbackDAOImpl rapbackDAO;
 
     @Test
     public void testApplicationStartup() {
