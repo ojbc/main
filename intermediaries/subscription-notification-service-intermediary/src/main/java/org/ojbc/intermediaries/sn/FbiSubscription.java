@@ -14,58 +14,56 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.adapters.fbi.ebts;
+package org.ojbc.intermediaries.sn;
 
 import java.util.Date;
 
-public class FbiSubscriptionSearchResult {
-		 
-	
+public class FbiSubscription {
+
 	private Date startDate;
 	
 	private Date endDate;
 	
 	private String fbiId;
 	
-	private String reasonCode;
+	private String crimSubReasonCode;
 	
 	private String termDuration;
 
-		
 	public Date getStartDate() {
 		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
 	}
 
 	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
 	public String getFbiId() {
 		return fbiId;
+	}
+
+	public String getCrimSubReasonCode() {
+		return crimSubReasonCode;
+	}
+
+	public String getTermDuration() {
+		return termDuration;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public void setFbiId(String fbiId) {
 		this.fbiId = fbiId;
 	}
 
-	public String getReasonCode() {
-		return reasonCode;
-	}
-
-	public void setReasonCode(String reasonCode) {
-		this.reasonCode = reasonCode;
-	}
-
-	public String getTermDuration() {
-		return termDuration;
+	public void setCrimSubReasonCode(String crimSubReasonCode) {
+		this.crimSubReasonCode = crimSubReasonCode;
 	}
 
 	public void setTermDuration(String termDuration) {
@@ -74,9 +72,10 @@ public class FbiSubscriptionSearchResult {
 
 	@Override
 	public String toString() {
-		return "FbiSubscriptionSearchResult [startDate=" + startDate
-				+ ", endDate=" + endDate + ", fbiId=" + fbiId + ", reasonCode="
-				+ reasonCode + ", termDuration=" + termDuration + "]";
+		return "FbiSubscription [startDate=" + startDate + ", endDate="
+				+ endDate + ", fbiId=" + fbiId + ", crimSubReasonCode="
+				+ crimSubReasonCode + ", termDuration=" + termDuration + "]";
 	}
-		
+	
 }
+
