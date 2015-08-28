@@ -46,7 +46,7 @@
 		
 			<camel:from uri="ngiUserServiceEndpoint" />
 
-			<camel:log message="\n\n Handling FbiNgiUserServiceRequest(responding control #)...\n\n" />			
+			<camel:log message="\n\nNGI-MOCK: Handling FbiNgiUserServiceRequest(responding control #)...\n\n" />			
 
 			<camel:to uri="bean:fbiNgiUserServiceProcessor?method=handleUserServiceRequest" />
 				
@@ -58,11 +58,7 @@
 
 		<camel:route id="ngiResponseServiceRoute">		
 		
-			<camel:from uri="direct:sendSubAckResponse"/>
-			
-			<camel:log message="\n\n WireTapped Message:\n ${body} \n\n"/>
-			
-			<camel:log message="\n\n Creating asynch sub. ack. response... \n\n"/>			
+			<camel:from uri="direct:sendSubAckResponse"/>								
 
 			<camel:to uri="bean:fbiNgiResponseProcessor?method=createResponse"/>
 			
@@ -74,11 +70,11 @@
 				<constant>receiveResponse</constant>
 			</camel:setHeader>
 			
-			<camel:log message="\n\n Sending Sub. Ack. Response:\n\n ${body} \n\n"/>			
+			<camel:log message="\n\nNGI-MOCK: Sending Sub. Ack. Response:\n\n ${body} \n\n"/>			
 			
 			<camel:to uri="ngiResponseServiceEndpoint"/>
 			
-			<camel:log message="\n\n Body after ngiResponseService:\n ${body} \n\n"/>
+			<camel:log message="\n\nNGI-MOCK: Body after ngiResponseService:\n ${body} \n\n"/>
 			
 		</camel:route>
 

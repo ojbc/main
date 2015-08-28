@@ -54,6 +54,9 @@
     	serviceName="ngi:NGIUserService"
     	endpointName="ngi:NGIUserServicePort"
     	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/service">
+		<cxf:properties>
+			<entry key="synchronous" value="true" />
+		</cxf:properties>    	
     </cxf:cxfEndpoint> 
     
     <cxf:cxfEndpoint
