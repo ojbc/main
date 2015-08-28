@@ -40,7 +40,7 @@
 	<camel-version>2.10.7</camel-version>
 	<slf4j-version>1.6.4</slf4j-version>
 	<log4j-version>1.2.16</log4j-version>
-	<cxf-version>2.6.4</cxf-version>
+	<cxf-version>2.6.9</cxf-version>
 	<bouncycastle-version>140</bouncycastle-version>		
 	<ojb-common-version>[2.0.0,)</ojb-common-version>
 	<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
