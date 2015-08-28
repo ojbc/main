@@ -166,7 +166,7 @@ public class PeopleControllerTest {
 		personSearchCommand.setAdvanceSearch(newPersonSearchRequest);
 		personSearchCommand.setSearchType(PersonSearchType.ADVANCED);
 		when(personSearchCommandUtils.getPersonSearchRequest(any(PersonSearchCommand.class))).thenReturn(newPersonSearchRequest);
-		unit.advanceSearch( personSearchCommand, errors, model);
+		unit.advanceSearch( servletRequest, personSearchCommand, errors, model);
 
 		verify(userSession).setMostRecentSearch(personSearchCommand);
 	}
@@ -193,7 +193,7 @@ public class PeopleControllerTest {
 		        .thenReturn("some xml");
 		when(searchResultConverter.convertPersonSearchResult(eq("some xml"),paramsCaptor.capture())).thenReturn("some html");
 
-		String expectedView = unit.advanceSearch(personSearchCommand, errors, model);
+		String expectedView = unit.advanceSearch(servletRequest, personSearchCommand, errors, model);
 
 		verify(personSearchCommandValidator).validate(personSearchCommand, errors);
 		verify(userSession).setMostRecentSearchResult("some xml");
@@ -219,7 +219,7 @@ public class PeopleControllerTest {
 		when(personSearchInterface.invokePersonSearchRequest(advanceSearch, federatedQueryId, null)).thenReturn(
 		        "some xml");
 
-		String expectedView = unit.advanceSearch( personSearchCommand, errors, model);
+		String expectedView = unit.advanceSearch( servletRequest, personSearchCommand, errors, model);
 
 		verify(userSession).setMostRecentSearchResult(null);
 		assertThat(expectedView, Matchers.is("people/_searchForm"));
@@ -293,7 +293,7 @@ public class PeopleControllerTest {
 		when(searchResultConverter.convertPersonSearchResult(eq("some search result"),paramsCaptor.capture())).thenReturn(
 		        "some converted search result");
 
-		String expectedView = unit.simpleSearch(personSearchCommand, errors, model);
+		String expectedView = unit.simpleSearch(servletRequest, personSearchCommand, errors, model);
 
 		assertThat(expectedView, is("people/_searchResult"));
 		assertThat((String) model.get("searchContent"), is("some converted search result"));
@@ -316,7 +316,7 @@ public class PeopleControllerTest {
 		        personSearchRequest);
 		when(errors.hasErrors()).thenReturn(true);
 
-		String expectedView = unit.simpleSearch( personSearchCommand, errors, model);
+		String expectedView = unit.simpleSearch( servletRequest, personSearchCommand, errors, model);
 
 		verify(userSession).setMostRecentSearchResult(null);
 		assertThat(expectedView, is("people/_searchForm"));
