@@ -60,7 +60,7 @@
             <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
            	<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
 			
-			<ebts:TransactionCategoryCode>RBSCRM</ebts:TransactionCategoryCode>
+			<ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
 			<ansi-nist:TransactionContentSummary>
             	<ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
             	<ansi-nist:ContentRecordQuantity>01</ansi-nist:ContentRecordQuantity>
@@ -90,7 +90,7 @@
 					<ebts:RecordRapBackCategoryCode>CI</ebts:RecordRapBackCategoryCode>
 			
 					<ebts:RecordRapBackExpirationDate>
-						<nc20:Date>2015-06-20</nc20:Date>
+						<nc20:Date>2016-01-01</nc20:Date>
 					</ebts:RecordRapBackExpirationDate>
 			
 					<ebts:RecordRapBackDisclosureIndicator>false</ebts:RecordRapBackDisclosureIndicator>
@@ -102,7 +102,9 @@
                           <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
                       </nc20:OrganizationIdentification>
 		         	</ansi-nist:RecordForwardOrganizations>
-			
+				
+					<ebts:RecordRapBackSubscriptionID>1234567</ebts:RecordRapBackSubscriptionID>
+					
 					<ebts:RecordRapBackTriggeringEventCode>1</ebts:RecordRapBackTriggeringEventCode>
 					
 					<ebts:RecordRapBackUserDefinedElement>
