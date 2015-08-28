@@ -238,7 +238,7 @@ public class RapbackSearchProcessor {
     private Element createRapbackSearchResponseRootElement(Document document) {
         Element rootElement = document.createElementNS(
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS,
-        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +"OrganizationIdentificationResultsSearchResults");
+        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +":OrganizationIdentificationResultsSearchResults");
         rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES, NS_STRUCTURES);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, 
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
@@ -275,7 +275,7 @@ public class RapbackSearchProcessor {
     private Element createErrorResponseRootElement(Document document) {
         Element rootElement = document.createElementNS(
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS,
-        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +"OrganizationIdentificationResultsSearchResults");
+        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +":OrganizationIdentificationResultsSearchResults");
         rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES, NS_STRUCTURES);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, 
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
