@@ -209,13 +209,13 @@
 						<camel:xpath>boolean(//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonFBIIdentification/nc20:IdentificationID/text()[1])</camel:xpath>					
 						
 						<camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription"/>
-
-
-						<!-- 4. If FBI subscription doesn't exist, then just send subscription message as-is to the EBTS adapter as long as the subscription message contains the person's FBI ID. 						
-						-->						
+				
 						<camel:log message="\n\n\n\n Found FBI ID, Sending subscription to FBI EBTS..., message body:\n\n ${body}\n\n\n\n"/>						
 						
 						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
+						
+						<camel:log message="\n\n\n\n s/n interm. msg body after calling ebts adapter: \n ${body} \n\n\n\n"/>
+						
 					</camel:when>								
 					<camel:otherwise>																					
 						<camel:setHeader headerName="sid">
@@ -238,12 +238,13 @@
 			
 			<camel:from uri="direct:callFbiEbtsSubscriptionService" />
 			
-			<camel:log message="Calling fbi ebts service..."/>
+			<camel:log message="Calling fbi ebts service..."/>			
 						
 			<camel:setHeader headerName="operationName"><constant>Subscribe</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
 			
-			<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />		
+			<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />	
+			
 		</camel:route>
 
 
@@ -434,5 +435,7 @@
 	</bean>
 	
 	<bean id="fbiSubscriptionProcessor" class="org.ojbc.intermediaries.sn.FbiSubscriptionProcessor" />
+	
+	<bean id="simpleMsgProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
 
 </beans>
