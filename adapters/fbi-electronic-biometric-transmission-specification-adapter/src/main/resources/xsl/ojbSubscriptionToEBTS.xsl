@@ -152,8 +152,16 @@
            			<ansi-nist:TransactionMinorVersionValue>
            				<xsl:value-of select="$transactionMinorVersion"/>
            			</ansi-nist:TransactionMinorVersionValue>
+           			
 				 	<!-- Transaction Category TOT 1.004 -->
-				 	<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
+				 	<xsl:choose>
+				 		<xsl:when test="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription">
+				 			<ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
+				 		</xsl:when>
+				 		<xsl:otherwise>
+				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
+				 		</xsl:otherwise>
+				 	</xsl:choose>
 				 	
 				 	 <ansi-nist:TransactionContentSummary>
 				 	 	<ansi-nist:ContentFirstRecordCategoryCode>
@@ -198,8 +206,19 @@
 							<!--Rap Back Category RBC 2.2065-->
 							<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
 							<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
-							<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date" mode="expirationDate"/>
-								<!-- RBDI 2.2067, Optional-->
+							
+							<!-- This is important, this is where we determine the proper end date for a subscription -->
+							<!-- TODO: should we even call the XSLT if the new end date is less than existing end date? -->
+							<xsl:choose>
+								<xsl:when test=" /b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription/nc20:DateRange/nc20:EndDate/nc20:Date >  /b-2:Subscribe/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date">
+									<xsl:apply-templates select=" /b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription/nc20:DateRange/nc20:EndDate/nc20:Date" mode="extendExpirationDate"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date" mode="expirationDate"/>
+								</xsl:otherwise>
+							</xsl:choose>
+							
+							<!-- RBDI 2.2067, Optional-->
     						<ebts:RecordRapBackDisclosureIndicator>
     							<xsl:value-of select="$rapBackDisclosureIndicator"/>
    							 </ebts:RecordRapBackDisclosureIndicator>					
@@ -214,6 +233,8 @@
 		                            </nc20:IdentificationID>
 		                        </nc20:OrganizationIdentification>
 		                     </ansi-nist:RecordForwardOrganizations>
+		                     
+		                     <xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID" mode="fbiSubscriptionID"/>
 														
 							<ebts:RecordRapBackTriggeringEventCode>
 								<xsl:value-of select="$rapBackTriggeringEvent" />
@@ -310,6 +331,20 @@
 				<xsl:value-of select="." />
 			</nc20:Date>
 		</ebts:RecordRapBackExpirationDate>		
+	</xsl:template>
+	
+	<xsl:template match="nc20:Date" mode="extendExpirationDate">
+		<ebts:RecordRapBackExpirationDate>
+			<nc20:Date>								
+				<xsl:value-of select="." />
+			</nc20:Date>
+		</ebts:RecordRapBackExpirationDate>		
+	</xsl:template>
+	
+	<xsl:template match="nc20:IdentificationID" mode="fbiSubscriptionID">
+		 <ebts:RecordRapBackSubscriptionID>
+		 	<xsl:value-of select="."/>
+		 </ebts:RecordRapBackSubscriptionID>
 	</xsl:template>
 	
 </xsl:stylesheet>
