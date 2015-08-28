@@ -75,10 +75,10 @@
 			</camel:setHeader>
 
 			<camel:setHeader headerName="operationName">
-	            <constant>ReportOrganizationIdentificationResultsSearchResults</constant>
+	            <constant>SubmitOrganizationIdentificationResultsSearchRequest</constant>
 	        </camel:setHeader>
 	        <camel:setHeader headerName="operationNamespace">
-	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0</constant>
+	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchRequestService/1.0</constant>
 	        </camel:setHeader>
 	        
 			<!-- We only call one endpoint -->						
