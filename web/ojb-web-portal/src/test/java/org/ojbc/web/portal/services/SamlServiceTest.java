@@ -16,9 +16,9 @@
  */
 package org.ojbc.web.portal.services;
 
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,11 +29,12 @@ import org.w3c.dom.Element;
 
 public class SamlServiceTest {
 
-	private SamlService unit;
+	private SamlServiceImpl unit;
 	
 	@Before
 	public void setUp() throws Exception {
 		unit = new SamlServiceImpl();
+		unit.setAllowQueriesWithoutSAMLToken(false);
 	}
 
 	@Test

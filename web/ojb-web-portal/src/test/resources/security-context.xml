@@ -57,7 +57,6 @@
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationDetailsSource" ref="portalAuthenticationDetailsSource"/>
         <property name="samlService" ref="mockSamlService"/>
-        <property name="allowQueriesWithoutSAMLToken" value="false"/>
         <property name="checkForPrincipalChanges" value="true"/>
     </bean>
     
