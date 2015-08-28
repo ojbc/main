@@ -44,7 +44,7 @@
     -->
     <cxf:cxfEndpoint 
         id="rapbackSearchRequestService"
-        address="${rapbackSearch.rapbackSearchRequestEndpoint}"
+        address="${rapbackSearchIntermediary.rapbackSearchRequestEndpoint}"
 		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Request_Service.wsdl"
 		serviceName="ojbc:Organization_Identification_Results_Search_Request_Service_Service" 
 		endpointName="ojbc:Organization_Identification_Results_Search_Request_Secure_Service"
@@ -52,17 +52,49 @@
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="rapbackSearchKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${rapbackSearch.keystoreCertificateAlias}" />
+			<entry key="ws-security.signature.username" value="${rapbackSearchIntermediary.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
     
+	<!-- Rapback Data Store Adapter, called by the intermediary -->
+	<cxf:cxfEndpoint id="rapbackDataStoreAdapter"
+        address="${rapbackSearchIntermediary.rapbackDataStoreEndpoint}"
+		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Request_Service.wsdl"
+		serviceName="ojbc:Organization_Identification_Results_Search_Request_Service_Service" 
+		endpointName="ojbc:Organization_Identification_Results_Search_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="rapbackSearchKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${rapbackSearchIntermediary.keystoreCertificateAlias}" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
     
+ 	<!-- Rapback Search Results Handler Service, hosted by OJB, called by rapback adapter  -->
+	<cxf:cxfEndpoint id="rapbackSearchResultsHandlerService"
+		address="${rapbackSearchIntermediary.rapbackSearchResultsEndpoint}"
+		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Results_Service.wsdl"
+		serviceName="ojbc:OrganizationIdentificationResults_Search_Results_Service_Service" 
+		endpointName="ojbc:OrganizationIdentificationResults_Search_Results_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0">
+		 <cxf:features> 
+ 			<policy:policies> 
+ 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+ 					<wsam:Addressing> 
+ 						<wsp:Policy /> 
+ 					</wsam:Addressing> 
+ 				</wsp:Policy> 
+ 			</policy:policies> 
+ 		</cxf:features>	 
+	</cxf:cxfEndpoint>
     <!-- 
     	Rapback Search Response Service 
     --> 
     <cxf:cxfEndpoint 
-        id="rapbackSearchResponseService"
-		address="${rapbackSearch.rapbackSearchResponseEndpoint}"
+        id="presentRapbackSearchResultService"
+		address="${rapbackSearchIntermediary.presentRapbackSearchResultEndpoint}"
         wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Results_Service.wsdl"
         serviceName="ojbc:OrganizationIdentificationResults_Search_Results_Service_Service"
         endpointName="ojbc:OrganizationIdentificationResults_Search_Results_Secure_Service"
@@ -84,7 +116,7 @@
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
-                <entry key="${rapbackSearch.keystoreCertificateAlias}" value="${rapbackSearch.keyPassword}"/>
+                <entry key="${rapbackSearchIntermediary.keystoreCertificateAlias}" value="${rapbackSearchIntermediary.keyPassword}"/>
             </map>
         </property>
 	</bean>
@@ -92,9 +124,9 @@
 	<util:properties id= "rapbackSearchKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${rapbackSearch.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${rapbackSearch.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${rapbackSearch.keystoreLocation}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${rapbackSearchIntermediary.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${rapbackSearchIntermediary.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${rapbackSearchIntermediary.keystoreLocation}</prop>
 	</util:properties>	
       
 	<!-- 
@@ -105,8 +137,8 @@
 		<http:tlsClientParameters disableCNCheck="true">
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
-					password="${rapbackSearch.truststorePassword}"
-					file="${rapbackSearch.truststoreLocation}" />
+					password="${rapbackSearchIntermediary.truststorePassword}"
+					file="${rapbackSearchIntermediary.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 
