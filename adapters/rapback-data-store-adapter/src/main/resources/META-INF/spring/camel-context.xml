@@ -193,7 +193,7 @@
 	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0</constant>
 	        </camel:setHeader>
 			<to uri="rapbackSearchResponseServiceEndpoint" />
-			<log message="Called Rapback Search Response Handler" />
+			<log message="Called Rapback Search Response Intermediary" />
 		</route>
 
 	</camelContext>
