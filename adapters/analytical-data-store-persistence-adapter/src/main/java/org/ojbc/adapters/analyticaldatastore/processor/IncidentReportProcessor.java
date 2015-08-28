@@ -45,7 +45,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 
 	private static final Log log = LogFactory.getLog( IncidentReportProcessor.class );
 	
-	private static final String PATH_TO_LEXS_DATA_ITEM_PACKAGE="/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage";
+	private static final String PATH_TO_LEXS_DATA_ITEM_PACKAGE="//lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage";
 	
 	private static final String PATH_TO_LEXS_DIGEST= PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:Digest";
 	
