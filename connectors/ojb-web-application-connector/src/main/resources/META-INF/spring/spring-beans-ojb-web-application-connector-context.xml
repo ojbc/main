@@ -55,6 +55,7 @@
 	<import resource="subscriptions.xml"/>
 	<import resource="policy-acknowledgement.xml"/>
 	<import resource="access-control.xml"/>
+	<import resource="rapback-search.xml"/>
 	
 	<import resource="camel-context.xml"/>
 	
