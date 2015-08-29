@@ -48,9 +48,15 @@
 		<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>		
 		<xmlunit.version>1.5</xmlunit.version>
+		<sn-interm-cmn-version>1.0.1</sn-interm-cmn-version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.ojbc.bundles.intermediaries</groupId>
+			<artifactId>subscription-notification-service-intermediary-common</artifactId>
+			<version>${sn-interm-cmn-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
