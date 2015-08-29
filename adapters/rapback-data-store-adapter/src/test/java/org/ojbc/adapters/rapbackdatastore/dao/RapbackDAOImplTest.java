@@ -55,6 +55,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
+@DirtiesContext
 public class RapbackDAOImplTest {
     private static final String TRANSACTION_NUMBER = "000001820140729014008340000";
 
