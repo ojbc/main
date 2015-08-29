@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.portal.controllers.config.RapbackControllerConfigInterface;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
@@ -36,7 +37,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
 @Controller
-@Profile({"rapbacks","standalone"})
+@Profile({"rapback-search","standalone"})
 @SessionAttributes("rapbackSearchResults")
 @RequestMapping("/rapbacks")
 public class RapbackController {
@@ -65,7 +66,7 @@ public class RapbackController {
 		String rawResults = "";
         try {
             rawResults = config.getRapbackSearchBean()
-            		.invokeRapbackSearchRequest(searchId, samlElement);
+            		.invokeRapbackSearchRequest(IdentificationResultsCategory.Civil, searchId, samlElement);
         } catch (Exception e) {
             informationMessage="Failed to process the request.";
             e.printStackTrace();

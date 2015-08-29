@@ -14,14 +14,8 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web;
+package org.ojbc.web.model;
 
-import org.ojbc.web.model.IdentificationResultsCategory;
-import org.w3c.dom.Element;
-
-public interface RapbackSearchInterface {
-
-	public String invokeRapbackSearchRequest(IdentificationResultsCategory category, String federatedQueryID,
-	        Element samlToken) throws Exception;
-
+public enum IdentificationResultsCategory {
+	Civil, Criminal; 
 }
