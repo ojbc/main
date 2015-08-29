@@ -99,9 +99,12 @@
 	
 			<camel:from uri="fbiEbtsWebServiceInputEndpoint" />
 			
-			<camel:log message="\n\n Fbi Adapter service received inbound message: \n\n ${body} \n\n" />
-		
-			<camel:to uri="direct:processFbiEbtsSubscription" />
+			<camel:log message="\n\n Fbi Adapter service received inbound message: \n\n ${body} \n\n" />													 						
+			
+			<camel:to uri="direct:processFbiEbtsSubscription" />									   			   
+												   			  
+			<camel:to uri="bean:fbiEbtsResponseProcessor?method=sendFbiSubscribeResponse" />
+						
 		</camel:route>
 		
 
@@ -112,7 +115,7 @@
 			<camel:log message="\n\n Processing ojb subscription...\n\n" />
 						
 			<camel:to uri="direct:transformToFbiNgiSubscription" />
-			
+		
 			<camel:log message="\n\n Calling FBI NGI service...\n\n"/>			
 
 			<camel:setHeader headerName="operationNameSpace">
@@ -122,9 +125,9 @@
 			<camel:setHeader headerName="operationName">
 				<constant>submitRequest</constant>
 			</camel:setHeader>
-
+		
 			<camel:to uri="ngiUserServiceRequestEndpoint"/>
-			
+						
 			<camel:log message="\n\n Received FBI NGI ControlNumber synchronous response: \n ${body} \n\n"/>
 									
 		</camel:route>
@@ -146,7 +149,7 @@
 			
 			<camel:to uri="ngiSubAcknowledgeAsynchResponseDir"/>	
 			
-			<camel:log message="\n\n Sending synchronous VOID response to FBI...\n ${body} \n\n"/>
+			<camel:log message="\n\n Sending synchronous VOID response to FBI...\n\n"/>
 				
 			<camel:to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>							
 				
@@ -155,9 +158,11 @@
 		
 		<camel:route id="ojbSubscriptionToFbiNgiSubscriptionRoute">
 						
-			<camel:from uri="direct:transformToFbiNgiSubscription" />
+			<camel:from uri="direct:transformToFbiNgiSubscription" />			
 			
-			<camel:log message="\n\n Transforming ojb subscription to FBI NGI subscription format...\n\n"/>
+			<convertBodyTo type="java.lang.String"/>
+			
+			<camel:log message="\n\n Transforming ojb subscription to FBI NGI subscription format...\n\n using message input: \n ${body} \n\n"/>
 			
 			<setHeader headerName="rapBackTransactionDate"><simple>{{fbiEbtsAdapter.rapBackTransactionDate}}</simple></setHeader>
 			<setHeader headerName="rapBackNotificatonFormat"><simple>{{fbiEbtsAdapter.rapBackNotificatonFormat}}</simple></setHeader>
@@ -188,7 +193,9 @@
 		</camel:route>				
 
 	</camel:camelContext>
-	
+		
 	<bean id="ngiResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.NgiResponseProcessor"/>
+	
+	<bean id="fbiEbtsResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEbtsResponseProcessor"/>
 
 </beans>

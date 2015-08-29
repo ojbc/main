@@ -153,6 +153,52 @@ public class CamelContextTest {
 	    
 	}
 	
+	@Test
+	public void modifyCriminalSubscriptionTest() throws Exception{
+		
+    	Exchange senderExchange = new DefaultExchange(context);
+
+	    File inputFile = new File("src/test/resources/input/OJBC_Criminal_Subscription_Modify_Document.xml");
+	    String inputStr = FileUtils.readFileToString(inputFile);
+	    
+	    Assert.assertNotNull(inputStr);
+	    
+	    logger.info(inputStr);
+	    
+	    senderExchange.getIn().setBody(inputStr);	    
+	    	    
+	    	    
+		Map<String, Object> requestContext = OJBUtils.setWSAddressingMessageID("123456789");		
+		//Set the operation name and operation namespace for the CXF exchange
+		senderExchange.getIn().setHeader(Client.REQUEST_CONTEXT , requestContext);				
+		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+		soapHeaders.add(makeSoapHeader("http://www.w3.org/2005/08/addressing", "MessageID", "12345"));		
+		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+		
+		
+	    Exchange returnExchange = producerTemplate.send("direct:fbiEbtsInputEndpoint", senderExchange);
+	    
+		if (returnExchange.getException() != null) {
+			throw new Exception(returnExchange.getException());
+		}
+		
+		String transformedReturnMessage = returnExchange.getIn().getBody(String.class);
+		
+		logger.info("return message: \n" + transformedReturnMessage);
+		
+		
+		//assert the transformed xml against expected xml output doc				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Maintenance-Request.xml"));
+							
+		Diff diff = XMLUnit.compareXML(expectedXmlString, transformedReturnMessage);		
+		
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+		
+		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff.getAllDifferences().size());
+	    
+	}
+	
 	private SoapHeader makeSoapHeader(String namespace, String localName, String value) throws ParserConfigurationException {
 		
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
