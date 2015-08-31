@@ -30,6 +30,7 @@ import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.SearchFieldMetadata;
+import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequest;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequestDomUtils;
 import org.ojbc.web.model.incident.search.IncidentSearchRequest;
@@ -616,6 +617,27 @@ public class RequestMessageBuilderUtilities {
 
         log.debug("\nCreated Request:\n" + OJBUtils.getStringFromDocument(document));
         return document;
-    }	
+    }
+
+	public static Document createRapbackSearchRequest(IdentificationResultsCategory category) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();       
+        Element rootElement = document.createElementNS(OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST, 
+                OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST 
+                +":OrganizationIdentificationResultsSearchRequest");
+        document.appendChild(rootElement); 
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST, 
+                OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST);
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+        		OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT);
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30, 
+        		OjbcNamespaceContext.NS_STRUCTURES_30);
+
+        Element identificationResultsCategoryCode  = XmlUtils.appendElement(rootElement, 
+                OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+                "IdentificationResultsCategoryCode"); 
+        identificationResultsCategoryCode.setTextContent(category.name());
+
+		return document;
+	}	
     
 }

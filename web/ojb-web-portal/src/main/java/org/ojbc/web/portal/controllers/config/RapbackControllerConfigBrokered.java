@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("rapbacks")
+@Profile("rapback-search")
 public class RapbackControllerConfigBrokered implements RapbackControllerConfigInterface {
     @Resource(name="${rapbackSearchRequestProcessorBean:rapbackSearchRequestProcessor}")
     RapbackSearchInterface rapbackSearchInterface;
