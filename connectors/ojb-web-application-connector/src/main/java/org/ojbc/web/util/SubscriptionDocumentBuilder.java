@@ -66,6 +66,8 @@ public class SubscriptionDocumentBuilder {
 				
 		buildSubscriptionMessageNode(rootSubscribeElement);
 		
+		OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(rootSubscribeElement);
+		
 		return subMsgDoc;
 	}
 	
@@ -304,9 +306,7 @@ public class SubscriptionDocumentBuilder {
 	        
 	        responseDoc.appendChild(root);
 	        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);
-	        
-	        OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);	
-	        
+	        	        
 	        return root;
 	}
 	
