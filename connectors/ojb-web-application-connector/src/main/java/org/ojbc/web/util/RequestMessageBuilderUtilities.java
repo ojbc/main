@@ -42,6 +42,7 @@ import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * This class contains methods to convert POJOs to XML request documents or to 
@@ -415,9 +416,8 @@ public class RequestMessageBuilderUtilities {
 	public static Document createSubscriptionRequest(Subscription subscription) throws Exception{
 
 		SubscriptionDocumentBuilder subscriptionDocumentBuilder = new SubscriptionDocumentBuilder();		
-		Document subAddReqDoc = subscriptionDocumentBuilder.buildSubscribeDoc(subscription);		
-        XmlUtils.printNode(subAddReqDoc);
-        
+		Document subAddReqDoc = subscriptionDocumentBuilder.buildSubscribeDoc(subscription);	
+		
 		return subAddReqDoc;
 	}
 
