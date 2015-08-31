@@ -65,7 +65,7 @@
 			<log message="${body}"></log>
 			
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
@@ -75,10 +75,10 @@
 			</camel:setHeader>
 
 			<camel:setHeader headerName="operationName">
-	            <constant>ReportOrganizationIdentificationResultsSearchResults</constant>
+	            <constant>SubmitOrganizationIdentificationResultsSearchRequest</constant>
 	        </camel:setHeader>
 	        <camel:setHeader headerName="operationNamespace">
-	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0</constant>
+	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchRequestService/1.0</constant>
 	        </camel:setHeader>
 	        
 			<!-- We only call one endpoint -->						

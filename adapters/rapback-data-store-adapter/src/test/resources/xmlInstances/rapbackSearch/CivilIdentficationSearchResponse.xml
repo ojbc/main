@@ -16,7 +16,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<oirs-res-docOrganizationIdentificationResultsSearchResults xmlns="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
+<oirs-res-doc:OrganizationIdentificationResultsSearchResults xmlns="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
                                                             xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
                                                             xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
                                                             xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
@@ -43,4 +43,4 @@
          <intel:SystemName>RapbackDataStore</intel:SystemName>
       </intel:SystemIdentifierElement>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
-</oirs-res-docOrganizationIdentificationResultsSearchResults>
+</oirs-res-doc:OrganizationIdentificationResultsSearchResults>

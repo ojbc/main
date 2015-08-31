@@ -14,26 +14,8 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.security;
+package org.ojbc.web.model;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.w3c.dom.Element;
-
-public class SecurityContextUtils {
-    @SuppressWarnings("unused")
-    private final static Log log = LogFactory.getLog(SecurityContextUtils.class);
- 
-    /**
-     * Get SamlAssertion from Spring SecurityContext.  
-     * @return null if authentication is null in the security context. 
-     */
-    public static Element getSamlToken() {
-        
-        if (SecurityContextHolder.getContext().getAuthentication() != null) {
-            return (Element) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-        }
-        return null;
-    }
+public enum IdentificationResultsCategory {
+	Civil, Criminal; 
 }
