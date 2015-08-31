@@ -164,7 +164,7 @@
 			
 			<camel:log message="\n\n Transforming ojb subscription to FBI NGI subscription format...\n\n using message input: \n ${body} \n\n"/>
 			
-			<setHeader headerName="rapBackTransactionDate"><simple>{{fbiEbtsAdapter.rapBackTransactionDate}}</simple></setHeader>
+			<setHeader headerName="rapBackTransactionDate"><simple>${date:now:yyyy-MM-dd}</simple></setHeader>
 			<setHeader headerName="rapBackNotificatonFormat"><simple>{{fbiEbtsAdapter.rapBackNotificatonFormat}}</simple></setHeader>
 			<setHeader headerName="rapBackInStateOptOutIndicator"><simple>{{fbiEbtsAdapter.rapBackInStateOptOutIndicator}}</simple></setHeader>			
 			<setHeader headerName="rapBackTriggeringEvent"><simple>{{fbiEbtsAdapter.rapBackTriggeringEvent}}</simple></setHeader>
