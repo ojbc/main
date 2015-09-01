@@ -171,7 +171,7 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 		assertNotNull(pkId);
-		assertEquals(3, pkId.intValue()); 
+		assertEquals(5, pkId.intValue()); 
 	}
 	
 //	@Test
@@ -210,7 +210,7 @@ public class RapbackDAOImplTest {
 		criminalInitialResults.setSubject(identificationTransaction.getSubject());
 		Integer pkId = rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
 		assertNotNull(pkId);
-		assertEquals(3, pkId.intValue()); 
+		assertEquals(5, pkId.intValue()); 
 	}
 	
 	@Test
@@ -233,7 +233,7 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		assertNotNull(pkId);
-		assertEquals(3, pkId.intValue()); 
+		assertEquals(5, pkId.intValue()); 
 		
 		CivilInitialResults persistedCivilInitialResults = 
 				(rapbackDAO.getCivilInitialResults(identificationTransaction.getOwnerOri())).get(2);
@@ -248,7 +248,7 @@ public class RapbackDAOImplTest {
 		Integer civilInitialRapSheetPkId = 
 				rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);  
 		assertNotNull(civilInitialRapSheetPkId);
-		assertEquals(3, civilInitialRapSheetPkId.intValue()); 
+		assertEquals(5, civilInitialRapSheetPkId.intValue()); 
 	}
 	
 }
