@@ -30,11 +30,9 @@
 	
 	<xsl:output indent="yes" method="xml"/>
 	
-	<!-- These are implementation-specific parameters that must be passed in when calling this stylesheet -->				
-	<xsl:param name="currentDateTime" as="xs:dateTime">current-date()</xsl:param>		 
-	<xsl:variable name="currentDateString" select="format-dateTime($currentDateTime, '[Y0001]-[M01]-[D01]')" />	 
-	<xsl:variable name="currentDate" as="xs:date" select="xs:date($currentDateString)" />			
-		
+	<!-- These are implementation-specific parameters that must be passed in when calling this stylesheet -->
+					
+	<!-- Assumes to be string: yyyy-MM-dd -->	
 	<xsl:param name="rapBackTransactionDate"/>
 	
 	<!-- RBNF (2.2062)-->
