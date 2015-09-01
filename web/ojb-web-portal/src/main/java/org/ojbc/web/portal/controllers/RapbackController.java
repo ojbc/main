@@ -22,7 +22,6 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.model.IdentificationResultsCategory;
@@ -38,7 +37,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @Profile({"rapback-search","standalone"})
-@SessionAttributes("rapbackSearchResults")
+@SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
 	
@@ -85,6 +84,37 @@ public class RapbackController {
 		return "rapbacks/_rapbackResults";
 	}
 
+	@RequestMapping(value = "/criminalIdentificationsResults", method = RequestMethod.POST)
+	public String criminalIdentificationResults(HttpServletRequest request,	        
+			Map<String, Object> model) {		
+		
+		Element samlElement = samlService.getSamlAssertion(request);
+		String searchId = getFederatedQueryId();
+		
+		String informationMessage = "";
+		
+		String rawResults = "";
+		try {
+			rawResults = config.getRapbackSearchBean()
+					.invokeRapbackSearchRequest(IdentificationResultsCategory.Criminal, searchId, samlElement);
+		} catch (Exception e) {
+			informationMessage="Failed to process the request.";
+			e.printStackTrace();
+		}
+		
+		logger.debug("Criminal Identification search results raw xml:\n" + rawResults);
+		model.put("criminalIdentificationSearchResults", rawResults);
+		
+		String transformedResults = searchResultConverter.convertCriminalIdentificationSearchResult(rawResults);
+		logger.debug("Criminal Identification Results HTML:\n" + transformedResults);
+		
+		model.put("searchContent", transformedResults);
+		
+		model.put("informationMessages", informationMessage);
+		
+		return "rapbacks/_criminalIdentificationResults";
+	}
+	
 	public static String getFederatedQueryId() {
 		return UUID.randomUUID().toString();
 	}

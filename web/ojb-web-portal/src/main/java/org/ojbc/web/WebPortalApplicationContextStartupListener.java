@@ -42,7 +42,7 @@ public class WebPortalApplicationContextStartupListener implements
 		
 		Environment environment = event.getApplicationContext().getEnvironment();
 		
-		String defaultProfilesAsString = StringUtils.join(environment.getDefaultProfiles());
+		String defaultProfilesAsString = StringUtils.join(environment.getDefaultProfiles(), ',');
 		
 		LOG.debug("Current default profiles: "  + defaultProfilesAsString);
 		
