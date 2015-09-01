@@ -18,6 +18,7 @@ package org.ojbc.bundles.adapters.fbi.ebts;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
+import org.xml.sax.SAXException;
 
 public class EbtsTransformTest {
 	
@@ -51,7 +53,7 @@ public class EbtsTransformTest {
 	}	
 	
 	@Test
-	public void testEbtsTransform() throws Exception{
+	public void newCriminalSubscriptionTestEbtsTransform() throws Exception{
 								
 		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_Criminal_Subscription_Request_Document.xml");
 		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
@@ -59,6 +61,39 @@ public class EbtsTransformTest {
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
 		
+		Map<String, Object> xsltParamMap = getXsltParamMap();	
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);					
+	}
+	
+	
+	@Test
+	public void modifyCriminalSubscriptionTestEbtsTransform() throws IOException, SAXException{
+		
+		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_Criminal_Subscription_Modify_Document.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+								
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Maintenance-Request.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	}
+		
+	
+	private Map<String, Object> getXsltParamMap(){
+	
 		Map<String, Object> xsltParamMap = new HashMap<String, Object>();
 		
 		xsltParamMap.put("rapBackTransactionDate", "2015-07-14");		
@@ -82,18 +117,18 @@ public class EbtsTransformTest {
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCriminal", "01");					
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");		
 		xsltParamMap.put("imageReferenceID", "00");				
-		xsltParamMap.put("rapBackDisclosureIndicator", "false");		
-			
-		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
-				
-		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"));
-							
+		xsltParamMap.put("rapBackDisclosureIndicator", "false");	
+		
+		return xsltParamMap;
+	}
+	
+	private static void compareXml(String expectedXmlString, String actualTransformedXml) throws SAXException, IOException{
+		
 		Diff diff = XMLUnit.compareXML(expectedXmlString, actualTransformedXml);		
 		
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 		
 		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff.getAllDifferences().size());
-	}
+	}	
 }
 
