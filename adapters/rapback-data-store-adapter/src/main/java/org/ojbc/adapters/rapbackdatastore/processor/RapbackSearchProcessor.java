@@ -229,7 +229,7 @@ public class RapbackSearchProcessor {
 		personFullNameElement.setTextContent(subject.getFullName());
 		
 		Element identifiedPersonTrackingIdentification = XmlUtils.appendElement(identifiedPerson, 
-				NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPersonTrackingIdentification");
+				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPersonTrackingIdentification");
 		Element identificationIdElement = XmlUtils.appendElement(
 				identifiedPersonTrackingIdentification, NS_NC_30, "IdentificationID");
 		identificationIdElement.setTextContent(identificationTransaction.getOtn());
