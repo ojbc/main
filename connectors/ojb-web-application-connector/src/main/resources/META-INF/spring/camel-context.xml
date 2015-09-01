@@ -284,6 +284,19 @@
 	    	<camel:convertBodyTo type="java.lang.String"/>
 	    	
 			<camel:to uri="bean:juvenileReferralHistoryRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>
+	    	    
+	    <!--Rapback Search Result Listener -->
+	    <camel:route id="rapbackSearchResultsHandlerRoute" autoStartup="false">
+	    	<from uri="rapbackSearchResultsHandlerServiceEndpoint"/>
+	    	<camel:log message="Received response message - Rap Back Search Response: ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
+			<camel:to uri="bean:rapbackSearchMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	
+			<camel:to uri="bean:rapbackSearchRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>	    
 	    
 	</camel:camelContext>

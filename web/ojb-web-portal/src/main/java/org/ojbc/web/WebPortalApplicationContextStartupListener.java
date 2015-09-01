@@ -138,6 +138,11 @@ public class WebPortalApplicationContextStartupListener implements
                         camelContext.startRoute("juvenileHearingHistoryResultsHandlerRoute");
                         continue;
                     }
+                    if (profile.equals("rapback-search"))
+                    {   
+                    	camelContext.startRoute("rapbackSearchResultsHandlerRoute");
+                    	continue;
+                    }
 			    }
 				
 			} catch (Exception e) {
