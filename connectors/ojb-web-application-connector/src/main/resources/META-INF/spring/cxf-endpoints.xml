@@ -128,6 +128,10 @@
 		<!--  Juvenile Query Referral -->
 		<camel:endpoint id="juvenileReferralHistoryResultsHandlerServiceEndpoint"
 			uri="cxf:bean:juvenileReferralHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+		<!--  Juvenile Query Referral -->
+		
+		<camel:endpoint id="rapbackSearchResultsHandlerServiceEndpoint"
+			uri="cxf:bean:rapbackSearchResultsHandlerWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 
 		<!-- In all of the endpoints below, the 'address' field uses the ':' notation to set a default value -->
 		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
@@ -509,6 +513,26 @@
 	        serviceName="ojbc:Person-Query-Results-Handler-Service---WarrantsService"
 			endpointName="ojbc:Person-Query-Results-Handler-Service---Warrants"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Warrants/1.0"
+	    >
+	     <cxf:features>
+	      <policy:policies>
+	        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	          <wsam:Addressing>
+	            <wsp:Policy/>
+	          </wsam:Addressing>
+	        </wsp:Policy>
+	       </policy:policies>
+	    </cxf:features>
+	   </cxf:cxfEndpoint>      
+       
+	    <!-- Rapback Search Result handler, hosted by Web Application --> 
+	    <cxf:cxfEndpoint 
+	        id="rapbackSearchResultsHandlerWarrantsService"
+	        address="${webapplication.rapbackSearch.rapbackSearchResultsHandlerEndpoint}"
+	        wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Results_Service.wsdl"
+	        serviceName="ojbc:OrganizationIdentificationResults_Search_Results_Service_Service"
+			endpointName="ojbc:OrganizationIdentificationResults_Search_Results_Secure_Service"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0"
 	    >
 	     <cxf:features>
 	      <policy:policies>
