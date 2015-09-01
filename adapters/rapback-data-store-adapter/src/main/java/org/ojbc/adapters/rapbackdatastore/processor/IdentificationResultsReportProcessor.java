@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
@@ -155,11 +156,15 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		Subject subject = identificationTransaction.getSubject(); 
 		String fbiId = XmlUtils.xPathStringSearch(rootNode, 
 				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
-		subject.setUcn(fbiId);
+		if (StringUtils.isNotBlank(fbiId)){
+			subject.setUcn(fbiId);
+		}
 		
 		String civilSid = XmlUtils.xPathStringSearch(rootNode, 
 				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification/nc30:IdentificationID");
-		subject.setCivilSid(civilSid);
+		if (StringUtils.isNotBlank(civilSid)){
+			subject.setCivilSid(civilSid);
+		}
 		rapbackDAO.updateSubject(subject);
 	}
 
