@@ -17,7 +17,8 @@
 
 -->
 <xsl:stylesheet version="2.0" 
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
     xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
     xmlns:itl="http://biometrics.nist.gov/standard/2011" 
@@ -29,8 +30,9 @@
 	
 	<xsl:output indent="yes" method="xml"/>
 	
-	<!-- These are implementation-specific parameters that must be passed in when calling this stylesheet -->	
-		
+	<!-- These are implementation-specific parameters that must be passed in when calling this stylesheet -->
+					
+	<!-- Assumes to be string: yyyy-MM-dd -->	
 	<xsl:param name="rapBackTransactionDate"/>
 	
 	<!-- RBNF (2.2062)-->
