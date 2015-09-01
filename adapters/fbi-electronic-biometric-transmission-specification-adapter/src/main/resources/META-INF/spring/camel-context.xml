@@ -22,6 +22,7 @@
 	xmlns:cxf="http://camel.apache.org/schema/cxf"
 	xmlns:ctx="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd" 
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -88,7 +89,11 @@
 				<camel:simple>NGI_ControlNum_Resp_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
 			</camel:setHeader>
 			
-			<camel:log message="\n\n Saving ControlNumber response to disk...\n\n"/>
+			<camel:setHeader headerName="fbiResponseControlNumber">
+				<camel:xpath>/ngi-core:NGIControlNumber/text()</camel:xpath>												
+			</camel:setHeader>
+			
+			<camel:log message="\n\n Saving ControlNumber:  ${header.fbiResponseControlNumber} response xml to disk...\n\n"/>
 			
 			<camel:to uri="ngiControlNumberSynchResponseDir"/>
 		</camel:route>
@@ -164,7 +169,7 @@
 			
 			<camel:log message="\n\n Transforming ojb subscription to FBI NGI subscription format...\n\n using message input: \n ${body} \n\n"/>
 			
-			<setHeader headerName="rapBackTransactionDate"><simple>{{fbiEbtsAdapter.rapBackTransactionDate}}</simple></setHeader>
+			<setHeader headerName="rapBackTransactionDate"><simple>${date:now:yyyy-MM-dd}</simple></setHeader>
 			<setHeader headerName="rapBackNotificatonFormat"><simple>{{fbiEbtsAdapter.rapBackNotificatonFormat}}</simple></setHeader>
 			<setHeader headerName="rapBackInStateOptOutIndicator"><simple>{{fbiEbtsAdapter.rapBackInStateOptOutIndicator}}</simple></setHeader>			
 			<setHeader headerName="rapBackTriggeringEvent"><simple>{{fbiEbtsAdapter.rapBackTriggeringEvent}}</simple></setHeader>
