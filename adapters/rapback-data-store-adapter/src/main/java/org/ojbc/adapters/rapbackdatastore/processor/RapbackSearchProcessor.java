@@ -228,11 +228,38 @@ public class RapbackSearchProcessor {
 		Element personFullNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonFullName");
 		personFullNameElement.setTextContent(subject.getFullName());
 		
+		if (StringUtils.isNotBlank(subject.getCivilSid()) || StringUtils.isNotBlank(subject.getCriminalSid())){
+			Element personAugmentation = XmlUtils.appendElement(identifiedPerson, NS_JXDM_50, "PersonAugmentation");
+			appendSidElement(subject.getCivilSid(), personAugmentation, true);
+			appendSidElement(subject.getCriminalSid(), personAugmentation, false);
+		}
+		
 		Element identifiedPersonTrackingIdentification = XmlUtils.appendElement(identifiedPerson, 
 				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPersonTrackingIdentification");
 		Element identificationIdElement = XmlUtils.appendElement(
 				identifiedPersonTrackingIdentification, NS_NC_30, "IdentificationID");
 		identificationIdElement.setTextContent(identificationTransaction.getOtn());
+	}
+
+	private void appendSidElement(String sid, Element personAugmentation, boolean isCivilSid) {
+		if (StringUtils.isNotBlank(sid)){
+			Element personStateFingerprintIdentification = 
+					XmlUtils.appendElement(personAugmentation, NS_JXDM_50, "PersonStateFingerprintIdentification");
+			Element identificationID = 
+					XmlUtils.appendElement(personStateFingerprintIdentification, NS_NC_30, "IdentificationID");
+			identificationID.setTextContent(sid);
+			if (isCivilSid){
+				Element fingerpringIdentificationIssuedForCivilPurposeIndicator =
+						XmlUtils.appendElement(personStateFingerprintIdentification, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "FingerpringIdentificationIssuedForCivilPurposeIndicator");
+				fingerpringIdentificationIssuedForCivilPurposeIndicator.setTextContent("true");
+			}
+			else{
+				Element fingerpringIdentificationIssuedForCriminalPurposeIndicator =
+						XmlUtils.appendElement(personStateFingerprintIdentification, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "FingerpringIdentificationIssuedForCriminalPurposeIndicator");
+				fingerpringIdentificationIssuedForCriminalPurposeIndicator.setTextContent("true");
+			}
+				
+		}
 	}
 
     private Element createRapbackSearchResponseRootElement(Document document) {

@@ -31,6 +31,16 @@
          <nc30:PersonName>
             <nc30:PersonFullName>Lisa W Simpson</nc30:PersonFullName>
          </nc30:PersonName>
+         <jxdm50:PersonAugmentation>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>A123457</nc30:IdentificationID>
+               <oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>C1234567</nc30:IdentificationID>
+               <oirs-res-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+         </jxdm50:PersonAugmentation>
          <oirs-res-ext:IdentifiedPersonTrackingIdentification>
             <nc30:IdentificationID>12343</nc30:IdentificationID>
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
