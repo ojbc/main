@@ -1,0 +1,78 @@
+<arrest-exch:ArrestReport xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" xmlns:arrest-exch="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<lexspd:doPublish>
+		<lexs:PublishMessageContainer>
+			<lexs:PublishMessage>
+				<lexs:PDMessageMetadata>
+					<lexs:LEXSVersion/>
+					<lexs:MessageDateTime>2007-01-01T00:00:01Z</lexs:MessageDateTime>
+					<lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
+				</lexs:PDMessageMetadata>
+				<lexs:DataSubmitterMetadata>
+					<lexs:SystemIdentifier>
+						<nc:OrganizationName/>
+						<lexs:SystemID/>
+					</lexs:SystemIdentifier>
+					<lexs:SystemContact>
+						<nc:PersonSurName/>
+					</lexs:SystemContact>
+				</lexs:DataSubmitterMetadata>
+				<lexs:DataItemPackage>
+					<lexs:PackageMetadata>
+						<lexs:DataItemID/>
+						<lexs:DataItemReferenceID/>
+						<lexs:DataItemStatus/>
+						<lexs:DataOwnerMetadata>
+							<lexs:DataOwnerIdentifier>
+								<lexs:ORI>NY0303000</lexs:ORI>
+								<nc:OrganizationName/>
+								<lexs:SystemID/>
+							</lexs:DataOwnerIdentifier>
+							<lexs:DataOwnerContact>
+								<nc:PersonSurName/>
+							</lexs:DataOwnerContact>
+						</lexs:DataOwnerMetadata>
+						<lexs:DisseminationCriteriaValue>
+							<lexs:DisseminationCriteriaDomainText/>
+							<lexs:DisseminationCriteriaText/>
+						</lexs:DisseminationCriteriaValue>
+					</lexs:PackageMetadata>
+					<lexs:Digest>
+						<lexsdigest:EntityPerson>
+							<lexsdigest:Person s:id="idebts:RecordSubject310344800">
+								<nc:PersonBirthDate>
+									<nc:Date>1977-08-25</nc:Date>
+								</nc:PersonBirthDate>
+								<nc:PersonName>
+									<nc:PersonGivenName>ANTHONY</nc:PersonGivenName>
+									<nc:PersonMiddleName>PAUL</nc:PersonMiddleName>
+									<nc:PersonSurName></nc:PersonSurName>
+								</nc:PersonName>
+								<j:PersonAugmentation>
+									<j:PersonFBIIdentification>
+										<nc:IdentificationID>62760NY12</nc:IdentificationID>
+									</j:PersonFBIIdentification>
+								</j:PersonAugmentation>
+							</lexsdigest:Person>
+							<j:ArrestSubject>
+								<nc:RoleOfPersonReference s:ref="idebts:RecordSubject310344800"/>
+							</j:ArrestSubject>
+						</lexsdigest:EntityPerson>
+					</lexs:Digest>
+					<lexs:StructuredPayload>
+						<lexs:StructuredPayloadMetadata>
+							<lexs:CommunityURI>http://www.ojbc.org</lexs:CommunityURI>
+							<lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
+							<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
+						</lexs:StructuredPayloadMetadata>
+						<ojbc:ArrestReport xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include">
+							<ojbc:FederalCriminalHistoryRecordDocument>
+								<ojbc:DocumentBinary xmime:contentType="text/plain"/>
+								<xop:Include href="cid:http://ojbc.org/arrest/document/example"/>
+							</ojbc:FederalCriminalHistoryRecordDocument>
+						</ojbc:ArrestReport>
+					</lexs:StructuredPayload>
+				</lexs:DataItemPackage>
+			</lexs:PublishMessage>
+		</lexs:PublishMessageContainer>
+	</lexspd:doPublish>
+</arrest-exch:ArrestReport>
