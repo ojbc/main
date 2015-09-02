@@ -17,7 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<oirs-res-doc:OrganizationIdentificationResultsSearchResults xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0" xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0 ../xsd/exchange_schema.xsd ">
+<oirs-res-doc:OrganizationIdentificationResultsSearchResults 
+xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0" 
+xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0 ../xsd/exchange_schema.xsd ">
 	<oirs-res-ext:OrganizationIdentificationResultsSearchResult>
 		<oirs-res-ext:IdentifiedPerson>
 			<nc:PersonBirthDate>
@@ -27,6 +29,12 @@
 				<nc:PersonGivenName>Michael</nc:PersonGivenName>
 				<nc:PersonSurName>Scott</nc:PersonSurName>
 			</nc:PersonName>
+			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A123456</nc:IdentificationID>
+					<oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
 			<!-- This is sometimes called the OTN -->
 			<oirs-res-ext:IdentifiedPersonTrackingIdentification>
 				<nc:IdentificationID>A1000999</nc:IdentificationID>
@@ -64,6 +72,12 @@
 				<nc:PersonGivenName>Jim</nc:PersonGivenName>
 				<nc:PersonSurName>Halpert</nc:PersonSurName>
 			</nc:PersonName>
+			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A9000000</nc:IdentificationID>
+					<oirs-res-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
 			<!-- This is sometimes called the OTN -->
 			<oirs-res-ext:IdentifiedPersonTrackingIdentification>
 				<nc:IdentificationID>A1000999</nc:IdentificationID>
@@ -85,6 +99,12 @@
 				<nc:PersonGivenName>Bart</nc:PersonGivenName>
 				<nc:PersonSurName>Simpson</nc:PersonSurName>
 			</nc:PersonName>
+			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A81771818</nc:IdentificationID>
+					<oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
 			<!-- This is sometimes called the OTN -->
 			<oirs-res-ext:IdentifiedPersonTrackingIdentification>
 				<nc:IdentificationID>A1000998</nc:IdentificationID>
