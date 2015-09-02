@@ -63,12 +63,12 @@ public class RapbackDAOImpl implements RapbackDAO {
     @Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	final static String SUBJECT_INSERT="INSERT into FBI_RAP_BACK_SUBJECT "
+	final static String SUBJECT_INSERT="INSERT into IDENTIFICATION_SUBJECT "
 			+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB, SEX_CODE) "
 			+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
 	@Override
 	public Integer saveSubject(final Subject subject) {
-        log.debug("Inserting row into FBI_RAP_BACK_SUBJECT table : " + subject);
+        log.debug("Inserting row into IDENTIFICATION_SUBJECT table : " + subject);
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -92,7 +92,7 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 	
-	final static String SUBJECT_SELECT="SELECT * FROM FBI_RAP_BACK_SUBJECT WHERE SUBJECT_ID = ?";
+	final static String SUBJECT_SELECT="SELECT * FROM IDENTIFICATION_SUBJECT WHERE SUBJECT_ID = ?";
 	@Override
 	public Subject getSubject(Integer id) {
 		List<Subject> subjects = jdbcTemplate.query(SUBJECT_SELECT, new SubjectRowMapper(), id);
@@ -410,7 +410,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	final static String ID_TRANSACTION_SELECT_BY_TRANSACTION_NUMBER = 
 			" SELECT * FROM identification_transaction i "
-			+ "LEFT JOIN fbi_rap_back_subject s ON s.subject_id = i.subject_id "
+			+ "LEFT JOIN identification_subject s ON s.subject_id = i.subject_id "
 			+ "WHERE transaction_number = ?";
 	
 	@Override
@@ -466,7 +466,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return subject;
 	}
 
-	final static String SUBJECT_UPDATE="UPDATE fbi_rap_back_subject SET "
+	final static String SUBJECT_UPDATE="UPDATE identification_subject SET "
 			+ "ucn = :ucn, "
 			+ "criminal_sid = :criminalSid, "
 			+ "civil_sid = :civilSid, "
@@ -497,7 +497,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
 			+ "FROM civil_initial_results c "
 			+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
-			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
+			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 			+ "WHERE t.owner_ori = ?";
 
 	@Override
@@ -541,7 +541,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	final static String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
 			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
 			+ "FROM identification_transaction t "
-			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
+			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 			+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
 			+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
 
@@ -557,7 +557,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	final static String CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
 			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
 			+ "FROM identification_transaction t "
-			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
+			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 			+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
 			+ "	criminal_initial_results c where c.transaction_number = t.transaction_number)"; 
 	@Override

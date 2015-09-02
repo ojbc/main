@@ -79,7 +79,7 @@ public class RapbackDAOImplTest {
 		ResultSet rs = conn.createStatement().executeQuery("select * from subscription");
 		assertTrue(rs.next());
 		assertEquals(62720,rs.getInt("id"));
-		rs = conn.createStatement().executeQuery("select * from FBI_RAP_BACK_SUBJECT");
+		rs = conn.createStatement().executeQuery("select * from IDENTIFICATION_SUBJECT");
 	}
 
 	@Test
