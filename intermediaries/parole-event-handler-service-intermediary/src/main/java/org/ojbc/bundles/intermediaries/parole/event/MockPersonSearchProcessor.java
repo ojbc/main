@@ -32,9 +32,7 @@ public class MockPersonSearchProcessor {
 	
 	
 	public String mockPersonSearch(String personSearchRequest) throws Exception{
-		
-//		InputStream responseInStream = ClassLoader.getSystemResourceAsStream("mock/Person_EntityMergeResultMessage.xml");
-		
+				
 		InputStream responseInStream = getClass().getClassLoader().getResourceAsStream("mock/Person_EntityMergeResultMessage.xml");
 		
 		if(responseInStream == null){
