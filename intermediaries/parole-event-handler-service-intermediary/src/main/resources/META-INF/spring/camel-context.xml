@@ -21,13 +21,20 @@
 <!-- Configures the Camel Context -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
-	xmlns:ctx="http://www.springframework.org/schema/context" xmlns:sec="http://cxf.apache.org/configuration/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:sec="http://cxf.apache.org/configuration/security"
 	xmlns:http="http://cxf.apache.org/transports/http/configuration"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:j="http://www.it.ojp.gov/jxdm/3.0.3"
-	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:j="http://www.it.ojp.gov/jxdm/3.0.3"
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:pcext="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"
+	xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:pci="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
@@ -121,8 +128,7 @@
 			<!-- TODO filter, do sid/fbiId only for arrest -->
 						
 			<camel:setHeader headerName="sid">
-				<!-- TODO improve xpath -->
-				<camel:xpath>//nc20:PersonStateIdentification/nc20:IdentificationID/text()</camel:xpath>						
+				<camel:xpath>/pci:ParoleCaseInitiation/pcext:ParoleCase/jxdm41:Supervision/nc20:SupervisionPerson/nc20:PersonStateIdentification/nc20:IdentificationID/text()</camel:xpath>						
 			</camel:setHeader>
 			
 			<camel:log message="\n\n\n Using SID: ${header.sid} \n\n\n"/>					
@@ -132,7 +138,6 @@
 			<!-- TODO send person search request to real ws endpoint -->
 			<camel:to uri="bean:mockPersonSearchProcessor?method=mockPersonSearch"/>
 			
-			<!-- TODO confirm this depends on contract: existence of fbi id in person search response -->
 			<camel:to uri="bean:mockPersonSearchProcessor?method=setFbiIdHeaderFromPersonSearchResponse" />
 						
 			<camel:setBody>
@@ -147,11 +152,6 @@
 			
 		</camel:route>
 
-		<!-- TODO 					
-			only use fbi id for ARREST (topic filter) 									
-			will have to pole for response in any case(using asynch. services)
-		-->		
-		
 		
 	    <!--Person Merge Notification Search Response Listener -->
 	    <camel:route id="personMergeSearchResultsHandlerRoute" autoStartup="false">
@@ -171,7 +171,6 @@
 	</camel:camelContext>
 	
 	
-
 	<bean id="notificationBrokerServiceMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
 		<property name="operationName">
 			<value>Subscribe</value>
