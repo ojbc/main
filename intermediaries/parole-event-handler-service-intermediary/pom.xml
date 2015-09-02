@@ -17,7 +17,6 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -57,7 +56,7 @@
 	    <er-resources-version>1.0.2</er-resources-version>
 	</properties>
 
-	<dependencies>
+	<dependencies>	
 		<dependency>
 			<groupId>gov.nij.bundles.shared</groupId>
 			<artifactId>Entity_Resolution_Resources</artifactId>
@@ -183,7 +182,6 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${commonsIo.version}</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
