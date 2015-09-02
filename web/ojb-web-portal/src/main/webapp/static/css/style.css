@@ -229,13 +229,17 @@ a.grayButton:hover {
 	background: url('../images/Left Menu/icon-query-on.png');
 }
 
-#leftMenu #subscriptionsLink div, #leftMenu #rapbackLink div {
+#leftMenu #subscriptionsLink div, 
+#leftMenu #criminalIdLink div, 
+#leftMenu #rapbackLink div {
 	width: 24px;
 	height: 24px;
 	background: url('../images/Left Menu/icon-subscriptions-off.png');	
 }
 
-#leftMenu #subscriptionsLink:hover div,#leftMenu #rapbackLink:hover div{
+#leftMenu #subscriptionsLink:hover div,
+#leftMenu #criminalIdLink:hover div,
+#leftMenu #rapbackLink:hover div{
 	background: url('../images/Left Menu/icon-subscriptions-on.png');
 }
 

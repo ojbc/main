@@ -147,6 +147,17 @@
 			return false;
 		});
 		
+		$('#criminalIdLink').click(function() {	  
+	  				  				  					  					    			    	
+    		$.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
+    		
+				$('#portalContent').html(data);	
+											
+			}).fail(ojbc.displayFailMessage);
+							    
+			return false;
+		});
+		
 		$('#faqLink').click (function() {	  
 		  		
 		    $('#searchBarButtonDiv').css("display", "none");

@@ -57,6 +57,12 @@
   </properties>
 
   <dependencies>
+	<dependency>
+		<groupId>org.apache.felix</groupId>
+		<artifactId>org.osgi.core</artifactId>
+		<version>${osgi-core-version}</version>
+		<scope>provided</scope>
+	</dependency>
   
 		<!-- Camel libs -->
     <dependency>
@@ -170,7 +176,13 @@
 		<version>${spring-version}</version>
 		<scope>test</scope>
 	</dependency>
-	
+<!-- 	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>${apache-commons-io-version}</version>
+		<scope>test</scope>
+	</dependency>
+ -->	
 	<dependency>
 		<groupId>org.apache.camel</groupId>
 		<artifactId>camel-test</artifactId>
@@ -184,12 +196,11 @@
         <version>${camel-version}</version>
 		<scope>test</scope>
     </dependency>
-	
+    	
 	<dependency>
 		<groupId>org.ojbc.bundles.utilities</groupId>
 		<artifactId>h2-mock-database</artifactId>	
 		<version>${h2-mock-database-version}</version>
-		<scope>test</scope>
 	</dependency>
 
 	<dependency>
@@ -226,7 +237,6 @@
 			<includes>
 				<include>META-INF/spring/**</include>
 				<include>**/*</include>
-				<include>db/**</include>
 			</includes>
 		</resource>
 		<resource>

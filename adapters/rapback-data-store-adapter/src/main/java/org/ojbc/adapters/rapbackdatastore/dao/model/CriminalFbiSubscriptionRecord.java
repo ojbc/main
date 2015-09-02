@@ -27,7 +27,6 @@ public class CriminalFbiSubscriptionRecord implements Serializable{
 	private Integer id; //Criminal FBI Subscription ID 
 	private Integer subscriptionId; 
 	private String fbiSubscriptionId;
-	private String fbiOca;
 	
 	public String getFbiSubscriptionId() {
 		return fbiSubscriptionId;
@@ -51,14 +50,6 @@ public class CriminalFbiSubscriptionRecord implements Serializable{
 
 	public void setSubscriptionId(Integer subscriptionId) {
 		this.subscriptionId = subscriptionId;
-	}
-
-	public String getFbiOca() {
-		return fbiOca;
-	}
-
-	public void setFbiOca(String fbiOca) {
-		this.fbiOca = fbiOca;
 	}
 
 	public String toString(){
