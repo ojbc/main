@@ -43,9 +43,9 @@ insert into results_sender(results_sender_id, results_sender) values('1', 'FBI')
 insert into results_sender(results_sender_id, results_sender) values('2', 'State'); 
 
 insert into fbi_rap_back_subject(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
-	values ('1', 'B1234568','A123457', NULL, '1990-10-12', 'Lisa', 'Simpson', 'W','F');
+	values ('1', 'B1234568','A123457', 'C1234567', '1990-10-12', 'Lisa', 'Simpson', 'W','F');
 insert into fbi_rap_back_subject(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
-	values ('2', 'B1234569','A123458', NULL, '1987-10-10', 'Bart', 'Simpson', 'C','M');
+	values ('2', 'B1234569','A123458', 'C1234568', '1987-10-10', 'Bart', 'Simpson', 'C','M');
 
 insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED) 
 	values ('000001820140729014008339990', '1', '12343', '68796860', 'ID12345', 'I', 'false');
