@@ -57,7 +57,7 @@
 					</lexs:PackageMetadata>
 					<lexs:Digest>
 						<lexsdigest:EntityPerson>
-							<lexsdigest:Person s:id="idebts:RecordSubject242963528">
+							<lexsdigest:Person s:id="d1e346">
 								<nc:PersonBirthDate>
 									<nc:Date>1977-08-25</nc:Date>
 								</nc:PersonBirthDate>
@@ -76,7 +76,7 @@
 								</j:PersonAugmentation>
 							</lexsdigest:Person>
 							<j:ArrestSubject>
-								<nc:RoleOfPersonReference s:ref="idebts:RecordSubject242963528"/>
+								<nc:RoleOfPersonReference s:ref="d1e346"/>
 							</j:ArrestSubject>
 						</lexsdigest:EntityPerson>
 					</lexs:Digest>
