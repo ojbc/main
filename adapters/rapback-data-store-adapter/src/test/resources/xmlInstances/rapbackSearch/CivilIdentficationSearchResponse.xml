@@ -29,6 +29,9 @@
             <nc30:Date>1990-10-12</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
+            <nc30:PersonGivenName>Lisa</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>W</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Simpson</nc30:PersonSurName>
             <nc30:PersonFullName>Lisa W Simpson</nc30:PersonFullName>
          </nc30:PersonName>
          <jxdm50:PersonAugmentation>
