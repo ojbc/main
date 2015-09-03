@@ -17,9 +17,18 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
-	<xsl:output method="html" encoding="UTF-8" />
-	<xsl:template match="cars/car">
-		<div>Maker:<xsl:value-of select="maker" /></div>
-	</xsl:template>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+	<xsl:param name="sid"/>
+
+	<PersonSearchRequest xmlns="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0">                     	                                           
+	   <Person xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">            
+	      <PersonAugmentation xmlns="http://niem.gov/niem/domains/jxdm/4.1">
+	         <PersonStateFingerprintIdentification>
+	            <IdentificationID xmlns="http://niem.gov/niem/niem-core/2.0"><xsl:value-of select="$sid"/></IdentificationID>
+	         </PersonStateFingerprintIdentification>
+	      </PersonAugmentation>                 
+	   </Person>   
+	   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History</SourceSystemNameText>
+   </PersonSearchRequest>
 </xsl:stylesheet>
