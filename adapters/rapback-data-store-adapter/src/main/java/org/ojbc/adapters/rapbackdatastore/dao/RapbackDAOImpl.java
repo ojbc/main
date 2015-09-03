@@ -41,6 +41,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
+import org.ojbc.adapters.rapbackdatastore.dao.model.Subscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -424,13 +425,23 @@ public class RapbackDAOImpl implements RapbackDAO {
 		implements RowMapper<IdentificationTransaction> {
 		public IdentificationTransaction mapRow(ResultSet rs, int rowNum) throws SQLException {
 			
-			IdentificationTransaction identificationTransaction = buildIdentificationTransaction(rs);
+			IdentificationTransaction identificationTransaction = buildIdentificationTransaction(rs, false);
 			
 			return identificationTransaction;
 		}
 	}
 	
-	private IdentificationTransaction buildIdentificationTransaction(ResultSet rs)
+	private final class FullIdentificationTransactionRowMapper 
+	implements RowMapper<IdentificationTransaction> {
+		public IdentificationTransaction mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			IdentificationTransaction identificationTransaction = buildIdentificationTransaction(rs, true);
+			
+			return identificationTransaction;
+		}
+	}
+	
+	private IdentificationTransaction buildIdentificationTransaction(ResultSet rs, boolean includeSubscription)
 			throws SQLException {
 		IdentificationTransaction identificationTransaction = new IdentificationTransaction();
 		identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
@@ -447,9 +458,28 @@ public class RapbackDAOImpl implements RapbackDAO {
 			Subject subject = buildSubject(rs);
 			identificationTransaction.setSubject(subject);
 		}
+		
+		if (includeSubscription){
+			Integer subscriptionId = rs.getInt("id"); 
+			
+			if (subscriptionId != null){
+				Subscription subscription = buildSubscription(rs); 
+				identificationTransaction.setSubscription(subscription);
+			}
+		}
 		return identificationTransaction;
 	}
 	
+	private Subscription buildSubscription(ResultSet rs) throws SQLException {
+		Subscription subscription = new Subscription(); 
+		subscription.setId(rs.getInt("id"));
+		subscription.setStartDate(toDateTime(rs.getDate("startDate")));
+		subscription.setEndDate(toDateTime(rs.getDate("endDate")));
+		subscription.setActive(rs.getInt("active"));
+		subscription.setTopic(rs.getString("topic"));
+		return subscription;
+	}
+
 	private Subject buildSubject(ResultSet rs) throws SQLException {
 		Subject subject = new Subject();
 
@@ -520,7 +550,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			civilInitialResults.setSearchResultFile(rs.getBytes("search_result_file"));
 			civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
 			
-			civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs));
+			civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs, false));
 
 			return civilInitialResults;
 		}
@@ -536,11 +566,11 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return jdbcTemplate.queryForInt(CIVIL_INITIAL_RESULTS_ID_SELECT, transactionNumber, resultSender.ordinal() + 1);
 	}
 
-	// TODO Need to join subscription table
 	final static String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
-			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
+			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.* "
 			+ "FROM identification_transaction t "
 			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+			+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
 			+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
 			+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
 
@@ -549,7 +579,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			String ori) {
 		List<IdentificationTransaction> identificationTransactions = 
 				jdbcTemplate.query(CIVIL_IDENTIFICATION_TRANSACTION_SELECT, 
-						new IdentificationTransactionRowMapper(), ori);
+						new FullIdentificationTransactionRowMapper(), ori);
 		return identificationTransactions;
 	}
 

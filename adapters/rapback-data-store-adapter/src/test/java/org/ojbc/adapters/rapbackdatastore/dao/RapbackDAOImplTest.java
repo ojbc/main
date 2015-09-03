@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -35,10 +36,10 @@ import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -249,6 +250,14 @@ public class RapbackDAOImplTest {
 				rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);  
 		assertNotNull(civilInitialRapSheetPkId);
 		assertEquals(5, civilInitialRapSheetPkId.intValue()); 
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testGetCivilIdentificationTransactions() throws Exception {
+		List<IdentificationTransaction> transactions = 
+				rapbackDAO.getCivilIdentificationTransactions("68796860");
+		log.info(transactions.get(0).toString());
 	}
 	
 }

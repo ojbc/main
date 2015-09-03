@@ -51,10 +51,12 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
+import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
+import org.ojbc.adapters.rapbackdatastore.dao.model.Subscription;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
@@ -65,7 +67,9 @@ import org.w3c.dom.Element;
 
 @Service
 public class RapbackSearchProcessor {
-    private static final String SYSTEM_NAME = "RapbackDataStore";
+    private static final String TOPIC_DIALECT = "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete";
+
+	private static final String SYSTEM_NAME = "RapbackDataStore";
 
 	private static final String SOURCE_SYSTEM_NAME_TEXT = 
     		"http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore";
@@ -158,7 +162,6 @@ public class RapbackSearchProcessor {
 				appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, identificationTransaction);
 				appdendStatusElement(organizationIdentificationResultsSearchResultElement,
 						identificationTransaction);
-				//TODO add subscripion info if available. 
 				appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
 				
 				Element systemIdentifierElement = XmlUtils.appendElement(
@@ -196,17 +199,69 @@ public class RapbackSearchProcessor {
 		Element identificationResultStatusCode = XmlUtils.appendElement(
 				organizationIdentificationResultsSearchResultElement, 
 				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentificationResultStatusCode");
-		identificationResultStatusCode.setTextContent(getCurrentState(identificationTransaction));
+		
+		IdentificationTransactionState currentState = getCurrentState(identificationTransaction); 
+		identificationResultStatusCode.setTextContent(currentState.toString());
+		
+		if (currentState == IdentificationTransactionState.Subscribed){
+			appendSubscriptionElement(
+					organizationIdentificationResultsSearchResultElement, identificationTransaction.getSubscription());
+		}
 	}
 
-	private String getCurrentState(
+	private void appendSubscriptionElement(
+			Element organizationIdentificationResultsSearchResultElement,
+			Subscription subscription) {
+		Element subscriptionElement = XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
+				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "Subscription");
+		Element activityDateRange = 
+				XmlUtils.appendElement(subscriptionElement, NS_NC_30, "ActivityDateRange"); 
+		appendDateElement(subscription.getStartDate(), activityDateRange, "StartDate", NS_NC_30);
+		appendDateElement(subscription.getEndDate(), activityDateRange, "EndDate", NS_NC_30);
+		
+		appendTopicElement(subscriptionElement);
+		
+		appendValidationDueDate(subscription.getValidationDueDate(), subscriptionElement);
+		
+	}
+
+	private void appendTopicElement(Element subscriptionElement) {
+		Element topic = XmlUtils.appendElement(subscriptionElement, NS_WSN_BROKERED, "Topic");
+		topic.setAttribute("Dialect", TOPIC_DIALECT);
+		topic.setTextContent("{http://ojbc.org/wsn/topics}:person/civilArrest");
+	}
+
+	private void appendValidationDueDate(DateTime validationDueDate,
+			Element subscriptionElement) {
+		Element subscriptionValidation = XmlUtils.appendElement(
+				subscriptionElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "SubscriptionValidation");
+		appendDateElement(validationDueDate, subscriptionValidation, "SubscriptionValidation", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		
+	}
+
+	private void appendDateElement(DateTime dateObject, Element parentElement, 
+			String elementName, String wrapperElementNS) {
+		if (dateObject != null){
+			Element dateWrapperElement = XmlUtils.appendElement(parentElement, wrapperElementNS, elementName);
+			Element date = XmlUtils.appendElement(dateWrapperElement, NS_NC_30, "Date");
+			date.setTextContent(dateObject.toString(YYYY_MM_DD));
+		}
+	}
+
+	private IdentificationTransactionState getCurrentState(
 			IdentificationTransaction identificationTransaction) {
 		if (BooleanUtils.isTrue(identificationTransaction.getArchived())){
-			return IdentificationTransactionState.Archived.toString();
+			return IdentificationTransactionState.Archived;
 		}
 		else {
-			//TODO need to check the subscription state to decide the state.
-			return IdentificationTransactionState.Available_for_subscription.toString();
+			
+			Subscription subscription = identificationTransaction.getSubscription(); 
+			if (subscription != null){
+				return IdentificationTransactionState.Subscribed;
+			}
+			else{
+				return IdentificationTransactionState.Available_for_subscription;
+			}
 		}
 	}
 

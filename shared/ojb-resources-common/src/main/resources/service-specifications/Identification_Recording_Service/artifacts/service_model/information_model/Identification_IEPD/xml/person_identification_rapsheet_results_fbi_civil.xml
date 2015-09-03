@@ -37,9 +37,6 @@
 				<j:PersonFBIIdentification>
 					<nc:IdentificationID>B1234567</nc:IdentificationID>
 				</j:PersonFBIIdentification>
-				<j:PersonStateFingerprintIdentification>
-					<nc:IdentificationID>A123456</nc:IdentificationID>
-				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<ident-ext:PersonTrackingIdentification>
 				<nc:IdentificationID>12345</nc:IdentificationID>

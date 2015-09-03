@@ -35,6 +35,7 @@ public class IdentificationTransaction implements Serializable{
 
 	private Subject subject;
 	private IdentificationTransactionState currentState; 
+	private Subscription subscription;
 
 	public IdentificationTransaction(){
 		super();
@@ -118,6 +119,14 @@ public class IdentificationTransaction implements Serializable{
 
 	public void setArchived(Boolean archived) {
 		this.archived = archived;
+	}
+
+	public Subscription getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(Subscription subscription) {
+		this.subscription = subscription;
 	}
 
 }
