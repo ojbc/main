@@ -53,7 +53,6 @@ public class MockPersonSearchProcessor {
 	//	TODO
 	//	make sure person search response has one result and see if it has an fbi id(with processor and xmlutils)
 	//	if more than one, log an error.  
-	//	If 1 result, use xpath to get fbiId and set header with it	
 	public void setFbiIdHeaderFromPersonSearchResponse(Exchange exchange, Document personSearchResponse) throws Exception{
 		
 		String fbiId = XmlUtils.xPathStringSearch(personSearchResponse, 
