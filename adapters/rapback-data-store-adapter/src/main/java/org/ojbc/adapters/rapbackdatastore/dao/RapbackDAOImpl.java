@@ -41,8 +41,9 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
-import org.ojbc.adapters.rapbackdatastore.dao.model.Subscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
+import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -63,6 +64,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Autowired
 	private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private TopicMapValidationDueDateStrategy validationDueDateStrategy;
 	
 	final static String SUBJECT_INSERT="INSERT into IDENTIFICATION_SUBJECT "
 			+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB, SEX_CODE) "
@@ -475,8 +478,10 @@ public class RapbackDAOImpl implements RapbackDAO {
 		subscription.setId(rs.getInt("id"));
 		subscription.setStartDate(toDateTime(rs.getDate("startDate")));
 		subscription.setEndDate(toDateTime(rs.getDate("endDate")));
+		subscription.setLastValidationDate(toDateTime(rs.getDate("lastValidationDate")));
 		subscription.setActive(rs.getInt("active"));
 		subscription.setTopic(rs.getString("topic"));
+		subscription.setValidationDueDate(validationDueDateStrategy.getValidationDueDate(subscription));
 		return subscription;
 	}
 
