@@ -167,7 +167,7 @@
 			<onException>
 				<exception>java.lang.Exception</exception>
 				<handled><constant>true</constant></handled>
-				<camel:log message="An exception was thrown: ${exception.message}"
+				<camel:log message="An exception was thrown: ${exception.cause.message}"
 					loggingLevel="WARN" />
 				<camel:to
 					uri="bean:rapbackSearchProcessor?method=buildErrorResponse" />
