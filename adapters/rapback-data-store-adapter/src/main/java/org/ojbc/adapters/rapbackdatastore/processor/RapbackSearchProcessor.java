@@ -123,7 +123,13 @@ public class RapbackSearchProcessor {
         					+ "ID or Employer ORI is missing in the SAML assertion. ");
         } 
         
-        Document rapbackSearchResponseDocument = buildRapbackSearchResponse(employerOri, report);
+        Document rapbackSearchResponseDocument;
+		try {
+			rapbackSearchResponseDocument = buildRapbackSearchResponse(employerOri, report);
+		} catch (Exception e) {
+			log.error("Got exception building rapback search response", e);
+			throw e;
+		}
 
         return rapbackSearchResponseDocument;
     }
@@ -280,6 +286,12 @@ public class RapbackSearchProcessor {
 		}
 		
 		Element personNameElement = XmlUtils.appendElement(identifiedPerson, NS_NC_30, "PersonName"); 
+		Element personFirstNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonGivenName");
+		personFirstNameElement.setTextContent(subject.getFirstName());
+		Element personMiddleNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonMiddleName");
+		personMiddleNameElement.setTextContent(subject.getMiddleInitial());
+		Element personSurNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonSurName");
+		personSurNameElement.setTextContent(subject.getLastName());
 		Element personFullNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonFullName");
 		personFullNameElement.setTextContent(subject.getFullName());
 		
