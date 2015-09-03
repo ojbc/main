@@ -18,8 +18,6 @@
 
 -->
 
-<!-- Configures the Camel Context -->
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
@@ -52,7 +50,7 @@
 			uri="file:///${publishSubscribe.paroleIntermediaryDirectory}/input?idempotent=true&amp;moveFailed=${publishSubscribe.paroleIntermediaryDirectory}/error&amp;move=processed/" />
 
 
-		<!-- Parole Service File Handler -->
+		<!-- Parole Service, Input File Drop Handler -->
 		<camel:route>
 			<camel:from uri="inputDir" />
 			
@@ -71,8 +69,10 @@
 		<!-- Parole Service Handler -->
 		<camel:route>
 			<camel:from uri="paroleEventHandlerServiceEndpoint" />
+			
 			<camel:log message="This is the body the service recieved: ${body}" loggingLevel="DEBUG"/>
 			<camel:log message="THIS IS THE OPERATION:, ${in.header.operationName}" />
+			
 			<camel:to uri="direct:processParoleDocument" />
 		</camel:route>
 
@@ -118,15 +118,32 @@
 			<camel:from uri="direct:transformAndInvokeSubscriptionProcessor" />
 			
 			<camel:log message="\n\n\n transformAndInvokeSubscriptionProcessor...\n\n\n" />
+				
+			<camel:convertBodyTo type="java.lang.String"/>
+									
+			<camel:filter>
+				<camel:simple>${header.topicExpression} == 'topics:person/arrest'</camel:simple>
+						
+				<camel:to uri="direct:setFbiId"/>		
+			</camel:filter>									
+			
+			<camel:to uri="xslt:xslt/paroleDocumentToSubscription.xsl" />
+			
+			<camel:log message="\n\n After paroleDocumentToSubscription.xsl \n ${body} \n\n" />
+			
+			<camel:to uri="bean:notificationBrokerServiceMessageProcessor?method=sendResponseMessage" />
+			
+		</camel:route>
 
+
+		<camel:route id="setFbiIdRoute">
+		
+			<camel:from uri="direct:setFbiId" />
+			
 			<camel:setHeader headerName="originalMessageBody">
 				<camel:simple>${body}</camel:simple>			
-			</camel:setHeader>		
-			
-			<camel:convertBodyTo type="java.lang.String"/>
-						
-			<!-- TODO filter, do sid/fbiId only for arrest -->
-						
+			</camel:setHeader>				
+		
 			<camel:setHeader headerName="sid">
 				<camel:xpath>/pci:ParoleCaseInitiation/pcext:ParoleCase/jxdm41:Supervision/nc20:SupervisionPerson/nc20:PersonStateIdentification/nc20:IdentificationID/text()</camel:xpath>						
 			</camel:setHeader>
@@ -142,14 +159,8 @@
 						
 			<camel:setBody>
 				<camel:simple>${header.originalMessageBody}</camel:simple>
-			</camel:setBody>
-			
-			<camel:to uri="xslt:xslt/paroleDocumentToSubscription.xsl" />
-			
-			<camel:log message="\n\n After paroleDocumentToSubscription.xsl \n ${body} \n\n" />
-			
-			<camel:to uri="bean:notificationBrokerServiceMessageProcessor?method=sendResponseMessage" />
-			
+			</camel:setBody>		
+				
 		</camel:route>
 
 		
