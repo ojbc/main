@@ -56,7 +56,11 @@
             </nc30:EndDate>
          </nc30:ActivityDateRange>
          <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/civilArrest</wsn-br:Topic>
-         <oirs-res-ext:SubscriptionValidation/>
+         <oirs-res-ext:SubscriptionValidation>
+            <oirs-res-ext:SubscriptionValidationDueDate>
+               <nc30:Date>2015-10-19</nc30:Date>
+            </oirs-res-ext:SubscriptionValidationDueDate>
+         </oirs-res-ext:SubscriptionValidation>
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
       <intel:SystemIdentifierElement>
