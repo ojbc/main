@@ -98,7 +98,7 @@
 					<xsl:attribute name="s:id"><xsl:value-of select="generate-id(.)"/></xsl:attribute>
 					<xsl:apply-templates select="nc:PersonBirthDate/nc:Date"/>
 					<xsl:apply-templates select="ebts:PersonName"/>
-					<xsl:apply-templates select="j41:PersonFBIIdentification"/>
+					<xsl:apply-templates select="." mode="ids"/>
 				</lexsdigest:Person>
 				<xsl:apply-templates select="." mode="arrest_subject"/>
 			</lexsdigest:EntityPerson>
@@ -120,18 +120,29 @@
 				<xsl:value-of select="./nc:PersonMiddleName"/>
 			</nc:PersonMiddleName>
 			<nc:PersonSurName>
-				<xsl:value-of select="./nc:PersonlastName"/>
+				<xsl:value-of select="./nc:PersonSurName"/>
 			</nc:PersonSurName>
 		</nc:PersonName>
 	</xsl:template>
-	<xsl:template match="j41:PersonFBIIdentification">
+	<xsl:template match="itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordSubject" mode="ids">
 		<j:PersonAugmentation>
-			<j:PersonFBIIdentification>
-				<nc:IdentificationID>
-					<xsl:value-of select="."/>
-				</nc:IdentificationID>
-			</j:PersonFBIIdentification>
+			<xsl:apply-templates select="./j41:PersonFBIIdentification"/>
+			<xsl:apply-templates select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText"/>
 		</j:PersonAugmentation>
+	</xsl:template>
+	<xsl:template match="j41:PersonFBIIdentification">
+		<j:PersonFBIIdentification>
+			<nc:IdentificationID>
+				<xsl:value-of select="."/>
+			</nc:IdentificationID>
+		</j:PersonFBIIdentification>
+	</xsl:template>
+	<xsl:template match="ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText">
+		<j:PersonStateFingerprintIdentification>
+			<nc:IdentificationID>
+				<xsl:value-of select="."/>
+			</nc:IdentificationID>
+		</j:PersonStateFingerprintIdentification>
 	</xsl:template>
 	<xsl:template match="itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordSubject" mode="arrest_subject">
 		<j:ArrestSubject>
