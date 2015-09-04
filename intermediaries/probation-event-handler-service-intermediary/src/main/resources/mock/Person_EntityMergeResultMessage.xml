@@ -120,99 +120,10 @@
 				</intel:SystemIdentifier>
 			</ext1:PersonSearchResult>
 		</ext:Entity>
-		<ext:Entity>
-			<ext1:PersonSearchResult s:id="PSR002"
-				xmlns:ext1="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
-				xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
-				xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
-				<ext:Person s:id="P002">
-					<nc:PersonBirthDate>
-						<nc:Date>1962-04-15</nc:Date>
-					</nc:PersonBirthDate>
-					<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
-					<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
-					<nc:PersonHeightMeasure>
-						<nc:MeasurePointValue>66</nc:MeasurePointValue>
-						<nc:LengthUnitCode>INH</nc:LengthUnitCode>
-					</nc:PersonHeightMeasure>
-					<nc:PersonName>
-						<nc:PersonGivenName>Michael</nc:PersonGivenName>
-						<nc:PersonSurName>Scotts</nc:PersonSurName>
-					</nc:PersonName>
-					<nc:PersonPhysicalFeature>
-						<nc:PhysicalFeatureCategoryText>tattoo
-						</nc:PhysicalFeatureCategoryText>
-						<nc:PhysicalFeatureDescriptionText>bird
-						</nc:PhysicalFeatureDescriptionText>
-						<nc:PhysicalFeatureLocationText>left arm
-						</nc:PhysicalFeatureLocationText>
-					</nc:PersonPhysicalFeature>
-					<nc:PersonRaceCode>W</nc:PersonRaceCode>
-					<nc:PersonSexCode>M</nc:PersonSexCode>
-					<nc:PersonSSNIdentification>
-						<nc:IdentificationID>123456789</nc:IdentificationID>
-					</nc:PersonSSNIdentification>
-					<nc:PersonWeightMeasure>
-						<nc:MeasurePointValue>155</nc:MeasurePointValue>
-						<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
-					</nc:PersonWeightMeasure>
-					<j:PersonAugmentation>
-						<nc:DriverLicense>
-							<nc:DriverLicenseIdentification>
-								<nc:IdentificationID>12345</nc:IdentificationID>
-								<nc:IdentificationSourceText>VT</nc:IdentificationSourceText>
-							</nc:DriverLicenseIdentification>
-						</nc:DriverLicense>
-						<j:PersonFBIIdentification>
-							<nc:IdentificationID>12345</nc:IdentificationID>
-						</j:PersonFBIIdentification>
-						<j:PersonStateFingerprintIdentification>
-							<nc:IdentificationID>12345</nc:IdentificationID>
-							<nc:IdentificationSourceText>VT</nc:IdentificationSourceText>
-						</j:PersonStateFingerprintIdentification>
-					</j:PersonAugmentation>
-				</ext:Person>
-				<nc:Location s:id="L002">
-					<nc:LocationAddress>
-						<nc:StructuredAddress>
-							<nc:LocationStreet>
-								<nc:StreetNumberText>300</nc:StreetNumberText>
-								<nc:StreetName>Elm Street</nc:StreetName>
-							</nc:LocationStreet>
-							<nc:LocationCityName>Scranton</nc:LocationCityName>
-							<nc:LocationStateNCICRESCode>PA</nc:LocationStateNCICRESCode>
-							<nc:LocationPostalCode>18501</nc:LocationPostalCode>
-						</nc:StructuredAddress>
-					</nc:LocationAddress>
-				</nc:Location>
-				<nc:ContactInformation s:id="CI002">
-					<nc:ContactTelephoneNumber>
-						<nc:FullTelephoneNumber>
-							<nc:TelephoneNumberFullID>555-555-1234</nc:TelephoneNumberFullID>
-						</nc:FullTelephoneNumber>
-					</nc:ContactTelephoneNumber>
-				</nc:ContactInformation>
-				<nc:ResidenceAssociation>
-					<nc:PersonReference s:ref="P002" />
-					<nc:LocationReference s:ref="L002" />
-				</nc:ResidenceAssociation>
-				<nc:PersonContactInformationAssociation>
-					<nc:PersonReference s:ref="P002" />
-					<nc:ContactInformationReference
-						s:ref="CI002" />
-				</nc:PersonContactInformationAssociation>
-				<ext:SourceSystemNameText>Valcour</ext:SourceSystemNameText>
-				<intel:SystemIdentifier>
-					<nc:IdentificationID>12345</nc:IdentificationID>
-					<intel:SystemName>Valcour</intel:SystemName>
-				</intel:SystemIdentifier>
-			</ext1:PersonSearchResult>
-		</ext:Entity>
 	</exc:EntityContainer>
 	<exc:MergedRecords>
 		<ext:MergedRecord>
 			<ext:OriginalRecordReference s:ref="PSR001" />
-			<ext:OriginalRecordReference s:ref="PSR002" />
 			<ext:MergeQuality>
 				<ext:StringDistanceStatistics>
 					<ext:AttributeXPath></ext:AttributeXPath>
