@@ -39,6 +39,15 @@
 	  	<nc:PersonName>
 	  		<nc:PersonFullName>Michael Scott</nc:PersonFullName>
 	  	</nc:PersonName>
+	  	<j:PersonAugmentation>
+				<j:PersonFBIIdentification>
+					<nc:IdentificationID>F987654321</nc:IdentificationID>
+				</j:PersonFBIIdentification>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A123456</nc:IdentificationID>
+					<oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
 	  	<!-- This is sometimes called the OTN -->
 	  	<oirs-res-ext:IdentifiedPersonTrackingIdentification>
 	  		<nc:IdentificationID>A1000999</nc:IdentificationID>
@@ -75,6 +84,12 @@
 		  	<nc:PersonName>
 		  		<nc:PersonFullName>Jim Halpert</nc:PersonFullName>
 		  	</nc:PersonName>
+		  	<j:PersonAugmentation>
+		  		<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A123456</nc:IdentificationID>
+					<oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
 		  	<!-- This is sometimes called the OTN -->
 		  	<oirs-res-ext:IdentifiedPersonTrackingIdentification>
 		  		<nc:IdentificationID>A1000999</nc:IdentificationID>

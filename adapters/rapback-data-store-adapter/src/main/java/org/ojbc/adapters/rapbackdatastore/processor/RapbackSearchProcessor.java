@@ -56,7 +56,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
-import org.ojbc.adapters.rapbackdatastore.dao.model.Subscription;
+import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
@@ -123,7 +123,13 @@ public class RapbackSearchProcessor {
         					+ "ID or Employer ORI is missing in the SAML assertion. ");
         } 
         
-        Document rapbackSearchResponseDocument = buildRapbackSearchResponse(employerOri, report);
+        Document rapbackSearchResponseDocument;
+		try {
+			rapbackSearchResponseDocument = buildRapbackSearchResponse(employerOri, report);
+		} catch (Exception e) {
+			log.error("Got exception building rapback search response", e);
+			throw e;
+		}
 
         return rapbackSearchResponseDocument;
     }
@@ -235,7 +241,7 @@ public class RapbackSearchProcessor {
 			Element subscriptionElement) {
 		Element subscriptionValidation = XmlUtils.appendElement(
 				subscriptionElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "SubscriptionValidation");
-		appendDateElement(validationDueDate, subscriptionValidation, "SubscriptionValidation", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		appendDateElement(validationDueDate, subscriptionValidation, "SubscriptionValidationDueDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 		
 	}
 
@@ -280,20 +286,44 @@ public class RapbackSearchProcessor {
 		}
 		
 		Element personNameElement = XmlUtils.appendElement(identifiedPerson, NS_NC_30, "PersonName"); 
+		Element personFirstNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonGivenName");
+		personFirstNameElement.setTextContent(subject.getFirstName());
+		Element personMiddleNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonMiddleName");
+		personMiddleNameElement.setTextContent(subject.getMiddleInitial());
+		Element personSurNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonSurName");
+		personSurNameElement.setTextContent(subject.getLastName());
 		Element personFullNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonFullName");
 		personFullNameElement.setTextContent(subject.getFullName());
 		
-		if (StringUtils.isNotBlank(subject.getCivilSid()) || StringUtils.isNotBlank(subject.getCriminalSid())){
-			Element personAugmentation = XmlUtils.appendElement(identifiedPerson, NS_JXDM_50, "PersonAugmentation");
-			appendSidElement(subject.getCivilSid(), personAugmentation, true);
-			appendSidElement(subject.getCriminalSid(), personAugmentation, false);
-		}
+		appendPersonAugmentationElement(subject, identifiedPerson);
 		
 		Element identifiedPersonTrackingIdentification = XmlUtils.appendElement(identifiedPerson, 
 				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPersonTrackingIdentification");
 		Element identificationIdElement = XmlUtils.appendElement(
 				identifiedPersonTrackingIdentification, NS_NC_30, "IdentificationID");
 		identificationIdElement.setTextContent(identificationTransaction.getOtn());
+	}
+
+	private void appendPersonAugmentationElement(Subject subject, Element identifiedPerson) {
+		
+		if (StringUtils.isNotBlank(subject.getUcn()) 
+				|| StringUtils.isNotBlank(subject.getCivilSid()) 
+				|| StringUtils.isNotBlank(subject.getCriminalSid())){
+			Element personAugmentation = XmlUtils.appendElement(identifiedPerson, NS_JXDM_50, "PersonAugmentation");
+			appendFbiIdElement(subject.getUcn(), personAugmentation);
+			appendSidElement(subject.getCivilSid(), personAugmentation, true);
+			appendSidElement(subject.getCriminalSid(), personAugmentation, false);
+		}
+	}
+
+	private void appendFbiIdElement(String ucn, Element personAugmentation) {
+		if (StringUtils.isNotBlank(ucn)){
+			Element personFBIIdentification = XmlUtils.appendElement(personAugmentation, NS_JXDM_50, "PersonFBIIdentification");
+			Element identificationID = 
+					XmlUtils.appendElement(personFBIIdentification, NS_NC_30, "IdentificationID");
+			identificationID.setTextContent(ucn);
+		}
+		
 	}
 
 	private void appendSidElement(String sid, Element personAugmentation, boolean isCivilSid) {

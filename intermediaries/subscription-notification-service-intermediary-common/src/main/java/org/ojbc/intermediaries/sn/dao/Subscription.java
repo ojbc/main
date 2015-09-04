@@ -50,6 +50,7 @@ public class Subscription {
 	
 	private DateTime validationDueDate;
 	private Interval gracePeriod;
+	private Boolean active; 
 
     public DateTime getValidationDueDate() {
 	    return validationDueDate;
@@ -167,5 +168,18 @@ public class Subscription {
 				+ subscriptionIdentifier + ", subscribingSystemIdentifier="
 				+ subscribingSystemIdentifier + "]";
 	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+	
+	public void setActive(Integer active) {
+		this.active = (active.intValue() == 1);
+	}
+
 
 }
