@@ -86,7 +86,7 @@
 	            </nc20:PersonSSNIdentification>
 	            <jxdm41:PersonAugmentation xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
 	               <jxdm41:PersonStateFingerprintIdentification>
-	                  <nc20:IdentificationID xmlns:nc20="http://niem.gov/niem/niem-core/2.0">A1234567</nc20:IdentificationID>
+	                  <nc20:IdentificationID xmlns:nc20="http://niem.gov/niem/niem-core/2.0">A8666767</nc20:IdentificationID>
 	               </jxdm41:PersonStateFingerprintIdentification>
 	            </jxdm41:PersonAugmentation>
 	         </pcext:Probationer>
@@ -95,12 +95,12 @@
 	         </pcext:SupervisionIdentification>
 	      </pcext:Supervision>
 	      <nc20:ContactInformation xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" s:id="emaild3e12212">
-	         <nc20:ContactEmailID>officer.email@local.gov</nc20:ContactEmailID>
+	         <nc20:ContactEmailID>officer.email@localhost</nc20:ContactEmailID>
 	      </nc20:ContactInformation>
 	      <nc20:PersonContactInformationAssociation xmlns:nc20="http://niem.gov/niem/niem-core/2.0">
 	         <nc20:PersonReference xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="d3e12212"/>
 	         <nc20:ContactInformationReference xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="emaild3e12212"/>
 	      </nc20:PersonContactInformationAssociation>
       </pcext:ProbationCase>
-      <pcext:SystemName>systemUri</pcext:SystemName>
+      <pcext:SystemName>{http://objc.org/ProbationCase/1.0}ProbationAuthority</pcext:SystemName>
    </pci:ProbationCaseInitiation>
