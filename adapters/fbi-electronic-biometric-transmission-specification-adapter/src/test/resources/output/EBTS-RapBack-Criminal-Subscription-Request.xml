@@ -64,15 +64,22 @@
 			<ansi-nist:TransactionContentSummary>
             	<ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
             	<ansi-nist:ContentRecordQuantity>01</ansi-nist:ContentRecordQuantity>
+            	 <ansi-nist:ContentRecordSummary>
+                    <ansi-nist:ImageReferenceIdentification>
+                        <nc20:IdentificationID>00</nc20:IdentificationID>
+                    </ansi-nist:ImageReferenceIdentification>
+                    <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+                </ansi-nist:ContentRecordSummary>
             </ansi-nist:TransactionContentSummary>
 		</ansi-nist:Transaction>
 		
 	</itl:PackageInformationRecord>
 	
 	
-	<itl:PackageInformationRecord>
+	<itl:PackageDescriptiveTextRecord>
 	
 		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+
 		<ansi-nist:ImageReferenceIdentification>
             <nc20:IdentificationID>00</nc20:IdentificationID>
         </ansi-nist:ImageReferenceIdentification>
@@ -88,12 +95,14 @@
 					<ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
 			
 					<ebts:RecordRapBackCategoryCode>CI</ebts:RecordRapBackCategoryCode>
-			
+				
+					<ebts:RecordRapBackDisclosureIndicator>false</ebts:RecordRapBackDisclosureIndicator>
+					
 					<ebts:RecordRapBackExpirationDate>
 						<nc20:Date>2015-06-20</nc20:Date>
 					</ebts:RecordRapBackExpirationDate>
 			
-					<ebts:RecordRapBackDisclosureIndicator>false</ebts:RecordRapBackDisclosureIndicator>
+					
 					
 					<ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
 					
@@ -137,7 +146,7 @@
 				</ebts:RecordSubject>
 			</ebts:DomainDefinedDescriptiveFields>
 		</itl:UserDefinedDescriptiveDetail>
-		
-	</itl:PackageInformationRecord>
+
+	</itl:PackageDescriptiveTextRecord>
 	
 </itl:NISTBiometricInformationExchangePackage>
