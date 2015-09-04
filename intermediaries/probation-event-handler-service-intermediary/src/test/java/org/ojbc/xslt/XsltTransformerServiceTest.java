@@ -75,34 +75,6 @@ public class XsltTransformerServiceTest {
 //		assertThat(expectedXml, is("<?xml version=\"1.0\" encoding=\"UTF-8\"?><cars/>"));
 		assertEquals(expectedXml, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><cars/>");
 	}
-
-	@Test
-	public void simpleTransform() throws Exception{
-		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/simple/simpleXml.xml"));
-		String xslt = FileUtils.readFileToString(new File("src/test/resources/xmlInstances/simple/simpleXmlTransform.xsl"));
-		String expectedXml = unit.transform(createSource(xml), createSource(xslt),null);
-
-//		assertThat(expectedXml, Matchers.containsString("<div>Maker:Tella</div>"));
-//		assertThat(expectedXml, Matchers.containsString("<div>Maker:Mini</div>"));
-		assertTrue(expectedXml.contains("<div>Maker:Tella</div>"));
-		assertTrue(expectedXml.contains("<div>Maker:Mini</div>"));
-	}
-
-	@Test
-	public void simpleTransformWithParameters() throws Exception{
-		String xml = "<xml></xml>";
-		String xslt = FileUtils.readFileToString(new File("src/test/resources/xmlInstances/simple/simpleXmlTransformWithParams.xsl"));
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("param1","value1");
-		params.put("param2", 2);
-		String expectedXml = unit.transform(createSource(xml), createSource(xslt),params );
-		
-//		assertThat(expectedXml, Matchers.containsString("<div>Parameter 2: 2</div>"));
-//		assertThat(expectedXml, Matchers.containsString("<div>Parameter 1: value1</div>"));
-		assertTrue(expectedXml.contains("<div>Parameter 1: value1</div>"));
-		assertTrue(expectedXml.contains("<div>Parameter 2: 2</div>"));
-	}
-
 	
 	private SAXSource createSource(String xml) {
 		InputSource inputSource = new InputSource(new ByteArrayInputStream(xml.getBytes()));

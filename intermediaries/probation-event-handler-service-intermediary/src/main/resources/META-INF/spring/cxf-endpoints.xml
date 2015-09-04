@@ -51,6 +51,7 @@
 		serviceName="ojb-sm:SubscriptionManagerServiceService" endpointName="ojb-sm:SubscriptionManager"
 		xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
 	</cxf:cxfEndpoint>
+	
 	<!-- OJB Probation Hander Service, Hosted by intermediary -->
 	<cxf:cxfEndpoint id="probationEventHandlerService"
 		address="${publishSubscribe.probationEventHandlerEndpoint}"

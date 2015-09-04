@@ -44,6 +44,11 @@
             <nc20:PersonSurName>Sur</nc20:PersonSurName>
             <nc20:PersonFullName>Given Sur</nc20:PersonFullName>
          </nc20:PersonName>
+         <jxdm41:PersonAugmentation>
+            <jxdm41:PersonFBIIdentification>
+               <nc20:IdentificationID>123</nc20:IdentificationID>
+            </jxdm41:PersonFBIIdentification>
+         </jxdm41:PersonAugmentation>         
       </smext:Subject>
       <nc20:ContactEmailID>officer.email@local.gov</nc20:ContactEmailID>
       <smext:SystemName>systemUriNonBiometric</smext:SystemName>
