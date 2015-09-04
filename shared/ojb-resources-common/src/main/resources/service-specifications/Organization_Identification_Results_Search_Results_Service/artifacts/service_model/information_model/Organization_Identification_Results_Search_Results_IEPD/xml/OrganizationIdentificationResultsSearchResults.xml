@@ -30,6 +30,9 @@ xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationRe
 				<nc:PersonSurName>Scott</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonAugmentation>
+				<j:PersonFBIIdentification>
+					<nc:IdentificationID>F987654321</nc:IdentificationID>
+				</j:PersonFBIIdentification>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A123456</nc:IdentificationID>
 					<oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
