@@ -295,17 +295,35 @@ public class RapbackSearchProcessor {
 		Element personFullNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonFullName");
 		personFullNameElement.setTextContent(subject.getFullName());
 		
-		if (StringUtils.isNotBlank(subject.getCivilSid()) || StringUtils.isNotBlank(subject.getCriminalSid())){
-			Element personAugmentation = XmlUtils.appendElement(identifiedPerson, NS_JXDM_50, "PersonAugmentation");
-			appendSidElement(subject.getCivilSid(), personAugmentation, true);
-			appendSidElement(subject.getCriminalSid(), personAugmentation, false);
-		}
+		appendPersonAugmentationElement(subject, identifiedPerson);
 		
 		Element identifiedPersonTrackingIdentification = XmlUtils.appendElement(identifiedPerson, 
 				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPersonTrackingIdentification");
 		Element identificationIdElement = XmlUtils.appendElement(
 				identifiedPersonTrackingIdentification, NS_NC_30, "IdentificationID");
 		identificationIdElement.setTextContent(identificationTransaction.getOtn());
+	}
+
+	private void appendPersonAugmentationElement(Subject subject, Element identifiedPerson) {
+		
+		if (StringUtils.isNotBlank(subject.getUcn()) 
+				|| StringUtils.isNotBlank(subject.getCivilSid()) 
+				|| StringUtils.isNotBlank(subject.getCriminalSid())){
+			Element personAugmentation = XmlUtils.appendElement(identifiedPerson, NS_JXDM_50, "PersonAugmentation");
+			appendFbiIdElement(subject.getUcn(), personAugmentation);
+			appendSidElement(subject.getCivilSid(), personAugmentation, true);
+			appendSidElement(subject.getCriminalSid(), personAugmentation, false);
+		}
+	}
+
+	private void appendFbiIdElement(String ucn, Element personAugmentation) {
+		if (StringUtils.isNotBlank(ucn)){
+			Element personFBIIdentification = XmlUtils.appendElement(personAugmentation, NS_JXDM_50, "PersonFBIIdentification");
+			Element identificationID = 
+					XmlUtils.appendElement(personFBIIdentification, NS_NC_30, "IdentificationID");
+			identificationID.setTextContent(ucn);
+		}
+		
 	}
 
 	private void appendSidElement(String sid, Element personAugmentation, boolean isCivilSid) {
