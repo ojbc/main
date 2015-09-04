@@ -172,18 +172,19 @@
 			<!-- TODO send person search request to real ws endpoint -->
 			<camel:to uri="bean:mockPersonSearchProcessor?method=mockPersonSearch"/>
 			
-			<camel:to uri="bean:mockPersonSearchProcessor?method=setFbiIdHeaderFromPersonSearchResponse" />
+			<camel:to uri="bean:personSearchResponseProcessor?method=setFbiIdHeaderFromPersonSearchResponse" />
 						
 			<camel:setBody>
 				<camel:simple>${header.originalMessageBody}</camel:simple>
 			</camel:setBody>		
 				
-		</camel:route>		
-		
+		</camel:route>				
 		
 	</camel:camelContext>
 
 	<bean id="mockPersonSearchProcessor" class="org.ojbc.bundles.intermediaries.probation.event.MockPersonSearchProcessor"/>
+	
+	<bean id="personSearchResponseProcessor" class="org.ojbc.bundles.intermediaries.probation.event.PersonSearchResponseProcessor"/>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
 	
