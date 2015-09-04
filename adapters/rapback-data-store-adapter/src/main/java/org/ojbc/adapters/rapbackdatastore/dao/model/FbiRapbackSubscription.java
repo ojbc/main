@@ -26,7 +26,6 @@ public class FbiRapbackSubscription implements Serializable{
 
 	private static final long serialVersionUID = 5492996006114314857L;
 	private String fbiSubscriptionId; 
-	private Integer subjectId; 
 	private String rapbackCategory;
 	private String subscriptionTerm;
 	private DateTime rapbackExpirationDate;
@@ -35,6 +34,7 @@ public class FbiRapbackSubscription implements Serializable{
 	private String rapbackActivityNotificationFormat; 
 	private String fbiOca;
 	private String ucn;
+	private DateTime timestamp;
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
@@ -46,14 +46,6 @@ public class FbiRapbackSubscription implements Serializable{
 
 	public void setFbiSubscriptionId(String fbiSubscriptionId) {
 		this.fbiSubscriptionId = fbiSubscriptionId;
-	}
-
-	public Integer getSubjectId() {
-		return subjectId;
-	}
-
-	public void setSubjectId(Integer subjectId) {
-		this.subjectId = subjectId;
 	}
 
 	public String getRapbackCategory() {
@@ -119,6 +111,14 @@ public class FbiRapbackSubscription implements Serializable{
 
 	public void setUcn(String ucn) {
 		this.ucn = ucn;
+	}
+
+	public DateTime getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(DateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 
 }
