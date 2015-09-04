@@ -24,8 +24,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:cxf="http://camel.apache.org/schema/cxf" 
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ir="http://local.gov/IEPD/Exchange/IncidentReport/1.0"
+	xmlns:iru="http://local.gov/IEPD/Exchange/IncidentReportUpdate/1.0"	
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -52,10 +52,21 @@
 			<camel:convertBodyTo type="java.lang.String" charset="UTF-8"/>
 			
 			<camel:log message="This is the body: ${body}" loggingLevel="DEBUG"/>
+
+			<camel:filter>
+				<camel:xpath>/ir:IncidentReport</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportIncident</constant>
+				</camel:setHeader>
+			</camel:filter>
 			
-			<camel:setHeader headerName="operationName">
-				<constant>ReportIncident</constant>
-			</camel:setHeader>
+			<camel:filter>
+				<camel:xpath>/iru:IncidentReportUpdate</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportIncidentUpdate</constant>
+				</camel:setHeader>
+			</camel:filter>	
+	                        		
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>
