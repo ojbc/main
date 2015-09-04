@@ -127,7 +127,7 @@
 	<xsl:template match="itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordSubject" mode="ids">
 		<j:PersonAugmentation>
 			<xsl:apply-templates select="./j41:PersonFBIIdentification"/>
-			<xsl:apply-templates select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText"/>
+			<xsl:apply-templates select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText[../ebts:UserDefinedElementName='State Fingerprint ID']" mode="sid"/>
 		</j:PersonAugmentation>
 	</xsl:template>
 	<xsl:template match="j41:PersonFBIIdentification">
@@ -137,7 +137,7 @@
 			</nc:IdentificationID>
 		</j:PersonFBIIdentification>
 	</xsl:template>
-	<xsl:template match="ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText">
+	<xsl:template match="ebts:UserDefinedElementText" mode="sid">
 		<j:PersonStateFingerprintIdentification>
 			<nc:IdentificationID>
 				<xsl:value-of select="."/>
