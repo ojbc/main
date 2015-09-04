@@ -179,13 +179,19 @@
 								</xsl:when>
 							</xsl:choose>
 				 	 	</ansi-nist:ContentRecordQuantity>
+				 	 	<ansi-nist:ContentRecordSummary>
+                    		<ansi-nist:ImageReferenceIdentification>
+                        		<nc20:IdentificationID>00</nc20:IdentificationID>
+                   			 </ansi-nist:ImageReferenceIdentification>
+                    		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+                		</ansi-nist:ContentRecordSummary>
 				 	 </ansi-nist:TransactionContentSummary>
 				 </ansi-nist:Transaction>
 				 
 			</itl:PackageInformationRecord>
 			
 			<!-- Record Type 2 -->
-			<itl:PackageInformationRecord>
+			<itl:PackageDescriptiveTextRecord>
 			
 				<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
 				<ansi-nist:ImageReferenceIdentification>
@@ -209,6 +215,11 @@
 							<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
 							<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
 							
+							<!-- RBDI 2.2067, Optional-->
+    						<ebts:RecordRapBackDisclosureIndicator>
+    							<xsl:value-of select="$rapBackDisclosureIndicator"/>
+   							 </ebts:RecordRapBackDisclosureIndicator>		
+							
 							<!-- This is important, this is where we determine the proper end date for a subscription -->
 							<!-- TODO: should we even call the XSLT if the new end date is less than existing end date? -->
 							<xsl:choose>
@@ -219,11 +230,7 @@
 									<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date" mode="expirationDate"/>
 								</xsl:otherwise>
 							</xsl:choose>
-							
-							<!-- RBDI 2.2067, Optional-->
-    						<ebts:RecordRapBackDisclosureIndicator>
-    							<xsl:value-of select="$rapBackDisclosureIndicator"/>
-   							 </ebts:RecordRapBackDisclosureIndicator>					
+								
 							<ebts:RecordRapBackInStateOptOutIndicator>
 								<xsl:value-of select="$rapBackInStateOptOutIndicator" />
 							</ebts:RecordRapBackInStateOptOutIndicator>
@@ -261,7 +268,7 @@
 						<xsl:apply-templates select="submsg-ext:Subject"/>	
 					</ebts:DomainDefinedDescriptiveFields>
 				</itl:UserDefinedDescriptiveDetail>
-			</itl:PackageInformationRecord>
+			</itl:PackageDescriptiveTextRecord>
 		</itl:NISTBiometricInformationExchangePackage>
 	</xsl:template>
 	<xsl:template match="submsg-ext:Subject">
