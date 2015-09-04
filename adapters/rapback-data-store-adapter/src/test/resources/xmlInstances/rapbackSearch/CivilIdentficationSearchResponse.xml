@@ -29,9 +29,15 @@
             <nc30:Date>1990-10-12</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
+            <nc30:PersonGivenName>Lisa</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>W</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Simpson</nc30:PersonSurName>
             <nc30:PersonFullName>Lisa W Simpson</nc30:PersonFullName>
          </nc30:PersonName>
          <jxdm50:PersonAugmentation>
+            <jxdm50:PersonFBIIdentification>
+               <nc30:IdentificationID>B1234568</nc30:IdentificationID>
+            </jxdm50:PersonFBIIdentification>
             <jxdm50:PersonStateFingerprintIdentification>
                <nc30:IdentificationID>A123457</nc30:IdentificationID>
                <oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
@@ -56,7 +62,11 @@
             </nc30:EndDate>
          </nc30:ActivityDateRange>
          <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/civilArrest</wsn-br:Topic>
-         <oirs-res-ext:SubscriptionValidation/>
+         <oirs-res-ext:SubscriptionValidation>
+            <oirs-res-ext:SubscriptionValidationDueDate>
+               <nc30:Date>2015-10-19</nc30:Date>
+            </oirs-res-ext:SubscriptionValidationDueDate>
+         </oirs-res-ext:SubscriptionValidation>
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
       <intel:SystemIdentifierElement>

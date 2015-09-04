@@ -39,5 +39,17 @@
 			<property name="validationQuery" value="select 1" />
 			<property name="testOnBorrow" value="true" />
 		</bean>
-	
+
+		<bean id="staticValidationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.StaticValidationDueDateStrategy">
+			<property name="validDays" value="365"/>
+		</bean>
+		
+		<bean id="validationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy">
+			<constructor-arg name="map">
+				<util:map>
+					<entry key="{http://ojbc.org/wsn/topics}:person/civilArrest" value-ref="staticValidationDueDateStrategy" />
+				</util:map>
+			</constructor-arg>
+		</bean>
+
 </beans>

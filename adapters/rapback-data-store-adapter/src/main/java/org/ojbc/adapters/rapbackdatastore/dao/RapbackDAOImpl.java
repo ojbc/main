@@ -41,8 +41,9 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
-import org.ojbc.adapters.rapbackdatastore.dao.model.Subscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
+import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -63,6 +64,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Autowired
 	private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private TopicMapValidationDueDateStrategy validationDueDateStrategy;
 	
 	final static String SUBJECT_INSERT="INSERT into IDENTIFICATION_SUBJECT "
 			+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB, SEX_CODE) "
@@ -372,7 +375,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String FBI_RAP_BACK_SUBSCRIPTION_INSERT="insert into FBI_RAP_BACK_SUBSCRIPTION "
-			+ "(FBI_SUBSCRIPTION_ID, SUBJECT_ID, RAP_BACK_CATEGORY, SUBSCRIPTION_TERM, "
+			+ "(FBI_SUBSCRIPTION_ID, UCN, RAP_BACK_CATEGORY, SUBSCRIPTION_TERM, "
 			+ " RAP_BACK_EXPIRATION_DATE, RAP_BACK_START_DATE, "
 			+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT,FBI_OCA, UCN) "
 			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -387,19 +390,18 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(FBI_RAP_BACK_SUBSCRIPTION_INSERT, 
-        	                		new String[] {"FBI_SUBSCRIPTION_ID", "SUBJECT_ID", "RAP_BACK_CATEGORY", 
+        	                		new String[] {"FBI_SUBSCRIPTION_ID", "UCN", "RAP_BACK_CATEGORY", 
         	                		"SUBSCRIPTION_TERM",  "RAP_BACK_EXPIRATION_DATE",
         	                		"RAP_BACK_START_DATE", "RAP_BACK_OPT_OUT_IN_STATE_INDICATOR", 
-        	                		"RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT","FBI_OCA", "UCN" });
+        	                		"RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT","FBI_OCA" });
         	            ps.setString(1, fbiRapbackSubscription.getFbiSubscriptionId());
-        	            ps.setInt(2, fbiRapbackSubscription.getSubjectId());
+        	            ps.setString(2, fbiRapbackSubscription.getUcn());
         	            ps.setString(3, fbiRapbackSubscription.getRapbackCategory());
         	            ps.setString(4, fbiRapbackSubscription.getSubscriptionTerm());
         	            ps.setDate(5, new java.sql.Date(fbiRapbackSubscription.getRapbackExpirationDate().getMillis()));
         	            ps.setDate(6, new java.sql.Date(fbiRapbackSubscription.getRapbackStartDate().getMillis()));
         	            ps.setBoolean(7, fbiRapbackSubscription.getRapbackOptOutInState());
         	            ps.setString(8, fbiRapbackSubscription.getRapbackActivityNotificationFormat());
-        	            ps.setString(9, fbiRapbackSubscription.getUcn());
         	            return ps;
         	        }
         	    },
@@ -475,8 +477,10 @@ public class RapbackDAOImpl implements RapbackDAO {
 		subscription.setId(rs.getInt("id"));
 		subscription.setStartDate(toDateTime(rs.getDate("startDate")));
 		subscription.setEndDate(toDateTime(rs.getDate("endDate")));
+		subscription.setLastValidationDate(toDateTime(rs.getDate("lastValidationDate")));
 		subscription.setActive(rs.getInt("active"));
 		subscription.setTopic(rs.getString("topic"));
+		subscription.setValidationDueDate(validationDueDateStrategy.getValidationDueDate(subscription));
 		return subscription;
 	}
 
@@ -596,6 +600,42 @@ public class RapbackDAOImpl implements RapbackDAO {
 				jdbcTemplate.query(CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT, 
 						new IdentificationTransactionRowMapper(), ori);
 		return identificationTransactions;
+	}
+
+	final static String FBI_SUBSCRIPTION_SELECT = "SELECT * FROM fbi_rap_back_subscription "
+			+ "WHERE rap_back_category = ? AND ucn=?;";
+	
+	@Override
+	public FbiRapbackSubscription getFbiRapbackSubscription(String category,
+			String ucn) {
+		if (category == null || ucn == null){
+			throw new IllegalArgumentException("category and ucn can not be null."); 
+		}
+		
+		FbiRapbackSubscription fbiSubscription = 
+				jdbcTemplate.queryForObject(FBI_SUBSCRIPTION_SELECT, new FbiSubscriptionRowMapper(), category, ucn);
+		return fbiSubscription;
+	}
+
+	private final class FbiSubscriptionRowMapper implements
+			RowMapper<FbiRapbackSubscription> {
+		public FbiRapbackSubscription mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+
+			FbiRapbackSubscription fbiSubscription = new FbiRapbackSubscription();
+			fbiSubscription.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
+			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category"));
+			fbiSubscription.setSubscriptionTerm(rs.getString("subscription_term"));
+			fbiSubscription.setFbiOca(rs.getString("fbi_oca"));
+			fbiSubscription.setRapbackExpirationDate(toDateTime(rs.getDate("rap_back_expiration_date")));
+			fbiSubscription.setRapbackStartDate(toDateTime(rs.getDate("rap_back_start_date")));
+			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
+			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format"));
+			fbiSubscription.setUcn(rs.getString("ucn"));
+			fbiSubscription.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+
+			return fbiSubscription;
+		}
 	}
 
 

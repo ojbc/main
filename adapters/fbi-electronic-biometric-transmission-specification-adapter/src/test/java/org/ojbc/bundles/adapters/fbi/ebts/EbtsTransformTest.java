@@ -91,6 +91,46 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
 		
+	@Test
+	public void RapbackSubscriptionResponseTransform() throws IOException, SAXException{
+		
+		InputStream intputFileStream = new FileInputStream("src/test/resources/input/Template(RBSR)RapBackSubscriptionResponse.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+								
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/RapBackSubscriptionResponse.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	}
+	
+	
+	
+	@Test
+	public void ArrestReportTestEbtsTransform() throws IOException, SAXException{
+		
+		InputStream intputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+								
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/Federal_To_Arrest_Report_Transform.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/Federal_Rapback_Arrest_Report.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	}
+	
 	
 	private Map<String, Object> getXsltParamMap(){
 	
