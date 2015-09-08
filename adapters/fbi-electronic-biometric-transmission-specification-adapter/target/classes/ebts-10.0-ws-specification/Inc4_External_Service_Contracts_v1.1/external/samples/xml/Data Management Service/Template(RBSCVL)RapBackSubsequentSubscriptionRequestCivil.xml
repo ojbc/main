@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itl:NISTBiometricInformationExchangePackage 
+    xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
+    xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
+    xmlns:itl="http://biometrics.nist.gov/standard/2011" 
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+    xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://cjis.fbi.gov/fbi_ebts/10.0 ../../xsd/fbi_ebts/10.0/fbi_ebts.xsd">
+    <!--******************************************************************-->
+    <!--Type-1 Record (Header Record) -->
+    <!--******************************************************************-->
+    <itl:PackageInformationRecord>
+        <!--RCC 1.001-->
+        <ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
+        <ansi-nist:Transaction>
+            <!--DAT 1.005-->
+            <ansi-nist:TransactionDate>
+                <nc:Date>2007-01-01</nc:Date>
+            </ansi-nist:TransactionDate>
+            <ansi-nist:TransactionDestinationOrganization>
+                <!--DAI 1.007-->
+                <nc:OrganizationIdentification>
+                    <nc:IdentificationID>WI013415Y</nc:IdentificationID>
+                </nc:OrganizationIdentification>
+            </ansi-nist:TransactionDestinationOrganization>
+            <ansi-nist:TransactionOriginatingOrganization>
+                <nc:OrganizationIdentification>
+                    <!--ORI 1.008-->
+                    <nc:IdentificationID>DCFBIWAA4</nc:IdentificationID>
+                </nc:OrganizationIdentification>
+            </ansi-nist:TransactionOriginatingOrganization>
+            <!--GMT 1.014, Optional-->
+            <ansi-nist:TransactionUTCDate>
+                <nc:DateTime>2007-01-01T00:00:01Z</nc:DateTime>
+            </ansi-nist:TransactionUTCDate>
+            <!--TCN 1.009-->
+            <ansi-nist:TransactionControlIdentification>
+                <nc:IdentificationID>5683956839</nc:IdentificationID>
+            </ansi-nist:TransactionControlIdentification>
+            <!--TCR 1.010, Optional-->
+            <ansi-nist:TransactionControlReferenceIdentification>
+                <nc:IdentificationID>1234567890</nc:IdentificationID>
+            </ansi-nist:TransactionControlReferenceIdentification>
+            <!--DOM 1.013-->
+            <ansi-nist:TransactionDomain>
+                <ansi-nist:DomainVersionNumberIdentification>
+                    <nc:IdentificationID>EBTS 10.0</nc:IdentificationID>
+                </ansi-nist:DomainVersionNumberIdentification>
+                <ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
+            </ansi-nist:TransactionDomain>
+            <!--APS 1.016, Optional --> 
+            <ansi-nist:TransactionApplicationProfile>
+                <!--APO-->
+                <ansi-nist:ApplicationProfileOrganizationName>DoD</ansi-nist:ApplicationProfileOrganizationName>
+                <!--APN-->
+                <ansi-nist:ApplicationProfileName>EBTS</ansi-nist:ApplicationProfileName>
+                <!--APV-->
+                <ansi-nist:ApplicationProfileVersionIdentification>
+                    <nc:IdentificationID>3.0</nc:IdentificationID>
+                </ansi-nist:ApplicationProfileVersionIdentification>
+            </ansi-nist:TransactionApplicationProfile>
+            <ansi-nist:TransactionImageResolutionDetails>
+                <!--NSR 1.011 Non-zero values apply to Type-4 and Type-7 fingerprint records only.-->
+                <ansi-nist:NativeScanningResolutionValue>19.69</ansi-nist:NativeScanningResolutionValue>
+                <!--NTR 1.012 Non-zero values apply to Type-4 and Type-7 fingerprint records only.-->
+                <ansi-nist:NominalTransmittingResolutionValue>19.69</ansi-nist:NominalTransmittingResolutionValue>
+            </ansi-nist:TransactionImageResolutionDetails>
+            <!--VER 1.002-->
+            <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
+            <ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
+            <!--PRY 1.006, Optional-->
+            <ansi-nist:TransactionPriorityValue>5</ansi-nist:TransactionPriorityValue>
+            <!--TOT 1.004-->
+            <ebts:TransactionCategoryCode>RBSCVL</ebts:TransactionCategoryCode>
+            <!--CNT 1.003-->
+            <ansi-nist:TransactionContentSummary>
+                <ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
+                <ansi-nist:ContentRecordQuantity>03</ansi-nist:ContentRecordQuantity>
+                <ansi-nist:ContentRecordSummary>
+                    <ansi-nist:ImageReferenceIdentification>
+                        <nc:IdentificationID>00</nc:IdentificationID>
+                    </ansi-nist:ImageReferenceIdentification>
+                    <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+                </ansi-nist:ContentRecordSummary>
+                <ansi-nist:ContentRecordSummary>
+                    <ansi-nist:ImageReferenceIdentification>
+                        <nc:IdentificationID>01</nc:IdentificationID>
+                    </ansi-nist:ImageReferenceIdentification>
+                    <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
+                </ansi-nist:ContentRecordSummary>
+                <ansi-nist:ContentRecordSummary>
+                    <ansi-nist:ImageReferenceIdentification>
+                        <nc:IdentificationID>02</nc:IdentificationID>
+                    </ansi-nist:ImageReferenceIdentification>
+                    <ansi-nist:RecordCategoryCode>14</ansi-nist:RecordCategoryCode>
+                </ansi-nist:ContentRecordSummary>
+            </ansi-nist:TransactionContentSummary>
+            <!--DCS 1.015, Optional -->
+            <ansi-nist:TransactionCharacterSetDirectory>
+                <ansi-nist:CharacterSetCommonNameCode>UTF-8</ansi-nist:CharacterSetCommonNameCode>
+                <ansi-nist:CharacterSetIndexCode>0</ansi-nist:CharacterSetIndexCode>
+                <ansi-nist:CharacterSetVersionIdentification>
+                    <nc:IdentificationID>000</nc:IdentificationID>
+                </ansi-nist:CharacterSetVersionIdentification>		
+            </ansi-nist:TransactionCharacterSetDirectory>
+        </ansi-nist:Transaction>
+    </itl:PackageInformationRecord>
+    <!--******************************************************************-->
+    <!--Type-2 Record (User Defined Descriptive Text Record)-->
+    <!--******************************************************************-->
+    <itl:PackageDescriptiveTextRecord>
+        <!--RCC 2.001-->
+        <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+        <!-- IDC 2.002-->
+        <ansi-nist:ImageReferenceIdentification>
+            <nc:IdentificationID>00</nc:IdentificationID>
+        </ansi-nist:ImageReferenceIdentification>
+        <itl:UserDefinedDescriptiveDetail>
+            <ebts:DomainDefinedDescriptiveFields>
+                <!-- SCO 2.007, (0..9)-->
+                <ansi-nist:RecordForwardOrganizations>
+                    <nc:OrganizationIdentification>
+                        <nc:IdentificationID>WV1000000</nc:IdentificationID>
+                    </nc:OrganizationIdentification>
+                    <nc:OrganizationIdentification>
+                        <nc:IdentificationID>NY030025P</nc:IdentificationID>
+                    </nc:OrganizationIdentification>
+                </ansi-nist:RecordForwardOrganizations>
+                <!--ATN 2.006, Optional-->
+                <nc:CaveatText>SA J Q DOE,RM 11867</nc:CaveatText>
+                <ebts:RecordRapBackData>
+                    <!--RBNF 2.2062-->
+                    <ebts:RecordRapBackActivityNotificationFormatCode>2</ebts:RecordRapBackActivityNotificationFormatCode>
+                    <!-- RBATN 2.2070, Optional -->
+                    <ebts:RecordRapBackAttentionText>DET J Q PUBLIC</ebts:RecordRapBackAttentionText>
+                    <!-- RBC 2.2065-->
+                    <ebts:RecordRapBackCategoryCode>F</ebts:RecordRapBackCategoryCode>
+                    <!-- RBXD 2.2015-->
+                    <ebts:RecordRapBackExpirationDate>
+                        <nc:Date>2010-02-24</nc:Date>
+                    </ebts:RecordRapBackExpirationDate>
+                    <!-- RBOO 2.2063, Optional-->
+                    <ebts:RecordRapBackInStateOptOutIndicator>false</ebts:RecordRapBackInStateOptOutIndicator>
+                    <!-- RBR 2.2020 (0..9) -->
+                    <ansi-nist:RecordForwardOrganizations>
+                        <nc:OrganizationIdentification>
+                            <nc:IdentificationID>NY0303000</nc:IdentificationID>
+                        </nc:OrganizationIdentification>
+                    </ansi-nist:RecordForwardOrganizations>
+                    <!-- RBST 2.2071 -->
+                    <ebts:RecordRapBackSubscriptionTerm>5</ebts:RecordRapBackSubscriptionTerm>
+                    <!-- RBT 2.2040 (0..40) -->
+                    <ebts:RecordRapBackTriggeringEventCode>7</ebts:RecordRapBackTriggeringEventCode>
+                    <!-- RBUD 2.2064 (0..10) -->
+                    <ebts:RecordRapBackUserDefinedElement>
+                        <!-- 2.2064A -->
+                        <ebts:UserDefinedElementName>Element Name</ebts:UserDefinedElementName>
+                        <!-- 2.2064B -->
+                        <ebts:UserDefinedElementText>Element information</ebts:UserDefinedElementText>
+                    </ebts:RecordRapBackUserDefinedElement>
+                </ebts:RecordRapBackData>
+                <ebts:RecordTransactionActivity>
+                    <!-- EVI 2.2035, Optional -->
+                    <ebts:EnrollmentEventID>1234135</ebts:EnrollmentEventID>
+                    <!--CRI 2.073, (0..3)-->
+                    <ebts:RecordControllingAgency>
+                        <nc:OrganizationIdentification>
+                            <nc:IdentificationID>NY0303000</nc:IdentificationID>
+                        </nc:OrganizationIdentification>
+                    </ebts:RecordControllingAgency>
+                </ebts:RecordTransactionActivity>
+                <ebts:RecordSubject>
+                    <!--DOB 2.022-->
+                    <nc:PersonBirthDate>
+                        <nc:Date>1977-08-25</nc:Date>
+                    </nc:PersonBirthDate>
+                    <!--NAM 2.018-->
+                    <ebts:PersonName>
+                        <nc:PersonGivenName>ANTHONY</nc:PersonGivenName>
+                        <nc:PersonMiddleName>PAUL</nc:PersonMiddleName>
+                        <nc:PersonSurName>JONES</nc:PersonSurName>
+                    </ebts:PersonName>
+                    <!-- FBI 2.014-->
+                    <j:PersonFBIIdentification>
+                        <nc:IdentificationID>62760NY12</nc:IdentificationID>
+                    </j:PersonFBIIdentification>
+                    <ebts:PersonFingerprintSet>
+                        <!--DPR 2.038, Optional (Mandatory if submitting fingerprints)-->
+                        <nc:BiometricCaptureDate>
+                            <nc:Date>1995-03-24</nc:Date>
+                        </nc:BiometricCaptureDate>
+                    </ebts:PersonFingerprintSet>
+                </ebts:RecordSubject>
+            </ebts:DomainDefinedDescriptiveFields>
+        </itl:UserDefinedDescriptiveDetail>
+    </itl:PackageDescriptiveTextRecord>
+    
+    <!--******************************************************************-->
+    <!--	BIOMETRIC RECORDS-->
+    <!-- RBSCVL Transactions allow the following biometric record types:		-->
+    <!--Type 4  (0..14)-->
+    <!--Type 14 (0..14)-->
+    <!--Please refer to EBTS 10.0 spec for further RBSCVL biometric requirements -->
+    <!--******************************************************************-->
+    
+    <!--******************************************************************-->
+    <!--Type-4 Record (High Resolution Grayscale Fingerprint Image Record)-->
+    <!--******************************************************************-->
+    <itl:PackageHighResolutionGrayscaleImageRecord>
+        <!-- RCC -->
+        <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
+        <!-- IDC -->
+        <ansi-nist:ImageReferenceIdentification>
+            <nc:IdentificationID>01</nc:IdentificationID>
+        </ansi-nist:ImageReferenceIdentification>
+        <ansi-nist:FingerprintImage>
+            <!--IMG -->
+            <nc:BinaryBase64Object>mrHbPdrko3u1s7ahtgPBjtmO1s85tfG2U7bpofY9
+                4Czu2SbY7d7wF9fQ7ZptgGrtkO2a2dsJ7wZbe 8BlzvAmQ7xq+Y94GoHeEsR3ikWd4DIGhzmp3k42
+                d4DRmzs94DKveDTB3hqw6PeBLrtpPep0H/+h </nc:BinaryBase64Object>
+            <ansi-nist:ImageCaptureDetail>
+                <!--ISR -->
+                <ansi-nist:CaptureResolutionCode>1</ansi-nist:CaptureResolutionCode>
+            </ansi-nist:ImageCaptureDetail>
+            <!--GCA -->
+            <ansi-nist:ImageCompressionAlgorithmCode>2</ansi-nist:ImageCompressionAlgorithmCode>
+            <!--HLL -->
+            <ansi-nist:ImageHorizontalLineLengthPixelQuantity>80</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
+            <!--VLL -->
+            <ansi-nist:ImageVerticalLineLengthPixelQuantity>65</ansi-nist:ImageVerticalLineLengthPixelQuantity>
+            <!--FGP -->
+            <ansi-nist:FingerprintImagePosition>
+                <ansi-nist:FingerPositionCode>2</ansi-nist:FingerPositionCode>
+            </ansi-nist:FingerprintImagePosition>
+            <!--IMP -->
+            <ansi-nist:FingerprintImageImpressionCaptureCategoryCode>3</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
+        </ansi-nist:FingerprintImage>
+    </itl:PackageHighResolutionGrayscaleImageRecord>
+    <!--******************************************************************-->
+    <!--Type-14 Record (Complete Friction Ridge Exemplars Image Record)-->
+    <!--******************************************************************-->
+    <itl:PackageFingerprintImageRecord>
+        <!--RCC 14.001-->
+        <ansi-nist:RecordCategoryCode>14</ansi-nist:RecordCategoryCode>
+        <!-- IDC 14.002-->
+        <ansi-nist:ImageReferenceIdentification>
+            <nc:IdentificationID>02</nc:IdentificationID>
+        </ansi-nist:ImageReferenceIdentification>
+        <ebts:Type14UserDefinedFields>
+            <!--ISC 14.200, Optional-->
+            <ebts:ImageSourceCode>1</ebts:ImageSourceCode>
+        </ebts:Type14UserDefinedFields>
+        <itl:FingerprintImage>
+            <!--DAT 14.999, Optional-->
+            <nc:BinaryBase64Object>mrHbPdrko3u1s7ahtgPBjtmO1s85tfG2U7bpofY9
+                4Czu2SbY7d7wF9fQ7ZptgGrtkO2a2dsJ7wZbe 8BlzvAmQ7xq+Y94GoHeEsR3ikWd4DIGhzmp3k42
+                d4DRmzs94DKveDTB3hqw6PeBLrtpPep0H/+h </nc:BinaryBase64Object>
+            <!-- BPX 14.012, Optional-->
+            <ansi-nist:ImageBitsPerPixelQuantity>8</ansi-nist:ImageBitsPerPixelQuantity>
+            <ansi-nist:ImageCaptureDetail>
+                <!-- FCD 14.005-->
+                <ansi-nist:CaptureDate>
+                    <nc:Date>2007-01-01</nc:Date>
+                </ansi-nist:CaptureDate>
+                <!-- SHPS 14.016, Optional-->
+                <ansi-nist:CaptureHorizontalPixelDensityValue>500</ansi-nist:CaptureHorizontalPixelDensityValue>
+                <!-- SRC 14.004-->
+                <ansi-nist:CaptureOrganization>
+                    <nc:OrganizationIdentification>
+                        <nc:IdentificationID>WI013415Y</nc:IdentificationID>
+                    </nc:OrganizationIdentification>
+                    <nc:OrganizationName>WI CRIME INFORMATION BUREAU</nc:OrganizationName>
+                </ansi-nist:CaptureOrganization>
+                <!-- SVPS 14.017, Optional-->
+                <ansi-nist:CaptureVerticalPixelDensityValue>500</ansi-nist:CaptureVerticalPixelDensityValue>
+                <!-- DMM 14.030, Optional -->
+                <ansi-nist:CaptureDeviceMonitoringModeCode>ASSISTED</ansi-nist:CaptureDeviceMonitoringModeCode>
+                <!-- SCF 14.026-->
+                <ansi-nist:CaptureIdentification>
+                    <nc:IdentificationID>123</nc:IdentificationID>
+                </ansi-nist:CaptureIdentification>
+            </ansi-nist:ImageCaptureDetail>
+            <!--COM 14.020, Optional-->
+            <ansi-nist:ImageCommentText>A comment</ansi-nist:ImageCommentText>
+            <!--CGA 14.011, Optional-->
+            <ansi-nist:ImageCompressionAlgorithmText>WSQ20</ansi-nist:ImageCompressionAlgorithmText>
+            <!--HLL 14.006, Optional-->
+            <ansi-nist:ImageHorizontalLineLengthPixelQuantity>80</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
+            <!-- THPS 14.009, Optional-->
+            <ansi-nist:ImageHorizontalPixelDensityValue>1000</ansi-nist:ImageHorizontalPixelDensityValue>
+            <!-- SLC 14.008, Optional-->
+            <ansi-nist:ImageScaleUnitsCode>1</ansi-nist:ImageScaleUnitsCode>
+            <!--VLL 14.007, Optional-->
+            <ansi-nist:ImageVerticalLineLengthPixelQuantity>65</ansi-nist:ImageVerticalLineLengthPixelQuantity>
+            <!-- TVPS 14.010, Optional-->
+            <ansi-nist:ImageVerticalPixelDensityValue>1000</ansi-nist:ImageVerticalPixelDensityValue>
+            <!--IMP 14.003-->
+            <ansi-nist:FingerprintImageImpressionCaptureCategoryCode>2</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
+            <!--FGP 14.013-->
+            <ansi-nist:FingerPositionCode>19</ansi-nist:FingerPositionCode>
+            <!--PPD 14.014, Optional. Required when FGP 14.013 is equal to "19"-->
+            <ansi-nist:FingerprintImageMajorCasePrint>
+                <ansi-nist:FingerPositionCode>8</ansi-nist:FingerPositionCode>
+                <ansi-nist:MajorCasePrintCode>EJI</ansi-nist:MajorCasePrintCode>
+                <!--PPC 14.015, Optional. Required when FGP 14.013 is equal to "19"-->
+                <ansi-nist:MajorCasePrintSegmentOffset>
+                    <ansi-nist:SegmentBottomVerticalCoordinateValue>85</ansi-nist:SegmentBottomVerticalCoordinateValue>
+                    <ansi-nist:SegmentLocationCode>DST</ansi-nist:SegmentLocationCode>
+                    <ansi-nist:SegmentFingerViewCode>FV3</ansi-nist:SegmentFingerViewCode>
+                    <ansi-nist:SegmentLeftHorizontalCoordinateValue>115</ansi-nist:SegmentLeftHorizontalCoordinateValue>
+                    <ansi-nist:SegmentRightHorizontalCoordinateValue>188</ansi-nist:SegmentRightHorizontalCoordinateValue>
+                    <ansi-nist:SegmentTopVerticalCoordinateValue>55</ansi-nist:SegmentTopVerticalCoordinateValue>
+                </ansi-nist:MajorCasePrintSegmentOffset>
+                <ansi-nist:MajorCasePrintSegmentOffset>
+                    <ansi-nist:SegmentBottomVerticalCoordinateValue>126</ansi-nist:SegmentBottomVerticalCoordinateValue>
+                    <ansi-nist:SegmentLocationCode>MED</ansi-nist:SegmentLocationCode>
+                    <ansi-nist:SegmentFingerViewCode>FV3</ansi-nist:SegmentFingerViewCode>
+                    <ansi-nist:SegmentLeftHorizontalCoordinateValue>115</ansi-nist:SegmentLeftHorizontalCoordinateValue>
+                    <ansi-nist:SegmentRightHorizontalCoordinateValue>188</ansi-nist:SegmentRightHorizontalCoordinateValue>
+                    <ansi-nist:SegmentTopVerticalCoordinateValue>92</ansi-nist:SegmentTopVerticalCoordinateValue>
+                </ansi-nist:MajorCasePrintSegmentOffset>
+            </ansi-nist:FingerprintImageMajorCasePrint>
+            <!--AMP 14.018, Optional-->
+            <itl:FingerprintImageFingerMissing>
+                <ansi-nist:FingerPositionCode>10</ansi-nist:FingerPositionCode>
+                <itl:FingerMissingCode>XX</itl:FingerMissingCode>
+            </itl:FingerprintImageFingerMissing>
+            <!--SEG 14.021, Optional. Mandatory for Identification Flats -->
+            <itl:FingerprintImageSegmentPositionSquare>
+                <ansi-nist:FingerPositionCode>8</ansi-nist:FingerPositionCode>
+                <ansi-nist:SegmentBottomVerticalCoordinateValue>50</ansi-nist:SegmentBottomVerticalCoordinateValue>
+                <ansi-nist:SegmentLeftHorizontalCoordinateValue>10</ansi-nist:SegmentLeftHorizontalCoordinateValue>
+                <ansi-nist:SegmentRightHorizontalCoordinateValue>30</ansi-nist:SegmentRightHorizontalCoordinateValue>
+                <ansi-nist:SegmentTopVerticalCoordinateValue>10</ansi-nist:SegmentTopVerticalCoordinateValue>
+            </itl:FingerprintImageSegmentPositionSquare>
+           <!-- SQM 14.023, Optional. Provides a measure of estimated correctness regarding the accuracy of the location of the segmented finger within the right or left four fingers or two thumbs slap image.  -->
+            <ansi-nist:FingerprintImageSegmentationQuality>
+                <ansi-nist:FingerPositionCode>1</ansi-nist:FingerPositionCode>
+                <ansi-nist:QualityAlgorithmProductIdentification>
+                    <nc:IdentificationID>28495</nc:IdentificationID>
+                </ansi-nist:QualityAlgorithmProductIdentification>
+                <ansi-nist:QualityAlgorithmVendorIdentification>
+                    <nc:IdentificationID>88</nc:IdentificationID>
+                </ansi-nist:QualityAlgorithmVendorIdentification>
+                <ansi-nist:QualityValue>100</ansi-nist:QualityValue>
+            </ansi-nist:FingerprintImageSegmentationQuality>
+            <!-- FQM 14.024 -->
+            <itl:FingerprintImageQuality>
+                <ansi-nist:FingerPositionCode>8</ansi-nist:FingerPositionCode>
+                <ansi-nist:QualityAlgorithmProductIdentification>
+                    <nc:IdentificationID>28495</nc:IdentificationID>
+                </ansi-nist:QualityAlgorithmProductIdentification>
+                <ansi-nist:QualityAlgorithmVendorIdentification>
+                    <nc:IdentificationID>88</nc:IdentificationID>
+                </ansi-nist:QualityAlgorithmVendorIdentification>
+                <ansi-nist:QualityValue>100</ansi-nist:QualityValue>
+            </itl:FingerprintImageQuality>
+            <!--ASEG 14.025, Optional-->
+            <ansi-nist:FingerprintImageSegmentPositionPolygon>
+                <!--FRAS -->
+                <ansi-nist:FingerPositionCode>8</ansi-nist:FingerPositionCode>
+                <!-- NOP-->
+                <ansi-nist:PositionPolygonVertexQuantity>4</ansi-nist:PositionPolygonVertexQuantity>
+                <ansi-nist:PositionPolygonVertex>
+                    <!-- HPO-->
+                    <ansi-nist:PositionHorizontalCoordinateValue>100</ansi-nist:PositionHorizontalCoordinateValue>
+                    <!-- VPO -->
+                    <ansi-nist:PositionVerticalCoordinateValue>15</ansi-nist:PositionVerticalCoordinateValue>
+                </ansi-nist:PositionPolygonVertex>
+                <ansi-nist:PositionPolygonVertex>
+                    <ansi-nist:PositionHorizontalCoordinateValue>150</ansi-nist:PositionHorizontalCoordinateValue>
+                    <ansi-nist:PositionVerticalCoordinateValue>15</ansi-nist:PositionVerticalCoordinateValue>
+                </ansi-nist:PositionPolygonVertex>
+                <ansi-nist:PositionPolygonVertex>
+                    <ansi-nist:PositionHorizontalCoordinateValue>150</ansi-nist:PositionHorizontalCoordinateValue>
+                    <ansi-nist:PositionVerticalCoordinateValue>85</ansi-nist:PositionVerticalCoordinateValue>
+                </ansi-nist:PositionPolygonVertex>
+                <ansi-nist:PositionPolygonVertex>
+                    <ansi-nist:PositionHorizontalCoordinateValue>100</ansi-nist:PositionHorizontalCoordinateValue>
+                    <ansi-nist:PositionVerticalCoordinateValue>85</ansi-nist:PositionVerticalCoordinateValue>
+                </ansi-nist:PositionPolygonVertex>
+            </ansi-nist:FingerprintImageSegmentPositionPolygon>
+            <ansi-nist:FingerprintImageSegmentPositionPolygon>
+                <!-- FRAS -->
+                <ansi-nist:FingerPositionCode>7</ansi-nist:FingerPositionCode>
+                <!-- NOP-->
+                <ansi-nist:PositionPolygonVertexQuantity>4</ansi-nist:PositionPolygonVertexQuantity>
+                <ansi-nist:PositionPolygonVertex>
+                    <!--HPO-->
+                    <ansi-nist:PositionHorizontalCoordinateValue>160</ansi-nist:PositionHorizontalCoordinateValue>
+                    <!-- VPO -->
+                    <ansi-nist:PositionVerticalCoordinateValue>15</ansi-nist:PositionVerticalCoordinateValue>
+                </ansi-nist:PositionPolygonVertex>
+                <ansi-nist:PositionPolygonVertex>
+                    <ansi-nist:PositionHorizontalCoordinateValue>200</ansi-nist:PositionHorizontalCoordinateValue>
+                    <ansi-nist:PositionVerticalCoordinateValue>15</ansi-nist:PositionVerticalCoordinateValue>
+                </ansi-nist:PositionPolygonVertex>
+                <ansi-nist:PositionPolygonVertex>
+                    <ansi-nist:PositionHorizontalCoordinateValue>200</ansi-nist:PositionHorizontalCoordinateValue>
+                    <ansi-nist:PositionVerticalCoordinateValue>85</ansi-nist:PositionVerticalCoordinateValue>
+                </ansi-nist:PositionPolygonVertex>
+                <ansi-nist:PositionPolygonVertex>
+                    <ansi-nist:PositionHorizontalCoordinateValue>160</ansi-nist:PositionHorizontalCoordinateValue>
+                    <ansi-nist:PositionVerticalCoordinateValue>85</ansi-nist:PositionVerticalCoordinateValue>
+                </ansi-nist:PositionPolygonVertex>
+            </ansi-nist:FingerprintImageSegmentPositionPolygon>
+            <!--FAP 14.031, Optional-->
+            <ansi-nist:FingerprintImageAcquisitionProfileCode>20</ansi-nist:FingerprintImageAcquisitionProfileCode>
+            <!--SIF 14.027, Optional-->
+            <ansi-nist:FingerprintImageStitchedIndicator>false</ansi-nist:FingerprintImageStitchedIndicator>
+        </itl:FingerprintImage>
+    </itl:PackageFingerprintImageRecord>
+</itl:NISTBiometricInformationExchangePackage>
