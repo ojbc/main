@@ -37,7 +37,8 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="cc-filing-ext:VictimRightsAssertionCertificationIndicator"/>
-					<xsd:element ref="j:Case"/>
+					<xsd:element ref="cc-filing-ext:VictimRightsAssertionText"/>
+					<xsd:element ref="cc-filing-ext:Case"/>
 					<xsd:element ref="cc-filing-ext:Arrest"/>
 					<xsd:element ref="cc-filing-ext:Person" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Person" maxOccurs="unbounded"/>
@@ -47,17 +48,74 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="CaseType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an aggregation of information about a set of related activities and events.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:CaseType">
+				<xsd:sequence>
+					<xsd:element ref="cc-filing-ext:CaseAugmentation"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CaseAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a case.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:CaseAugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="cc-filing-ext:CaseCharge"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ChargeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a formal allegation that a specific person has committed a specific offense.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:ChargeType">
+				<xsd:sequence>
+					<xsd:element ref="cc-filing-ext:ChargeDomesticViolenceIndicator" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="OperatorLicenseType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a license to operate a device.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:IdentificationType">
+				<xsd:sequence/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="PersonType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a human being.</xsd:documentation>
-			<xsd:appinfo>
-				<i:Base i:name="PersonType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
-			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:PersonType">
 				<xsd:sequence>
-					<xsd:element ref="cc-filing-ext:AlaskaPublicSafetyInformationNetworkIdentification"/>
+					<xsd:element ref="cc-filing-ext:PersonAugmentation"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional details about a human being.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:PersonAugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="cc-filing-ext:AlaskaPublicSafetyInformationNetworkIdentification" minOccurs="0"/>
+					<xsd:element ref="cc-filing-ext:OperatorLicenseIdentification" minOccurs="0"/>
+					<xsd:element ref="j:CDLHolderCode" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -65,9 +123,6 @@
 	<xsd:complexType name="ArrestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for the apprehension of a subject by a peace official.</xsd:documentation>
-			<xsd:appinfo>
-				<i:Base i:name="ArrestType" i:namespace="http://niem.gov/niem/domains/jxdm/4.1"/>
-			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:ArrestType">
@@ -84,7 +139,10 @@
 	</xsd:element>
 	<xsd:element name="Arrest" type="cc-filing-ext:ArrestType">
 		<xsd:annotation>
-			<xsd:documentation>Details about the apprehension of a subject by a peace official based on an observed or a reported violation of a law or ordinance, an outstanding arrest warrant, or probable cause information.</xsd:documentation>
+			<xsd:documentation>Details about the apprehension of a subject by a
+				peace official based on an observed or a reported violation of a law
+				or ordinance, an outstanding arrest warrant, or probable cause
+				information.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="AlaskaPublicSafetyInformationNetworkIdentification" type="nc:IdentificationType">
@@ -97,9 +155,44 @@
 			<xsd:documentation>True if a victim rights certificate applies; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="VictimRightsAssertionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Victim Rights Assertion text.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="ArrestTrackingNumberIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A tracking number associated with an arrest.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OperatorLicenseIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A license to operate a device (e.g., snowmobile, ATC).</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Case" type="cc-filing-ext:CaseType">
+		<xsd:annotation>
+			<xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseAugmentation" type="cc-filing-ext:CaseAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseCharge" type="cc-filing-ext:ChargeType">
+		<xsd:annotation>
+			<xsd:documentation>Details about a formal allegation that a specific person has committed a specific offense.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeDomesticViolenceIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the charge involves domestic violence; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonAugmentation" type="cc-filing-ext:PersonAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a a human being.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

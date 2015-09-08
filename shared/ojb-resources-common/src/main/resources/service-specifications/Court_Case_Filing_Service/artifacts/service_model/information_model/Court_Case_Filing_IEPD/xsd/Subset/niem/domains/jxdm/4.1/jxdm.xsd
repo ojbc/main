@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema targetNamespace="http://niem.gov/niem/domains/jxdm/4.1" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:ansi_d20="http://niem.gov/niem/ansi_d20/2.0">
+<xsd:schema targetNamespace="http://niem.gov/niem/domains/jxdm/4.1" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:ansi_d20="http://niem.gov/niem/ansi_d20/2.0">
   <xsd:annotation>
     <xsd:documentation>Justice</xsd:documentation>
     <xsd:appinfo>
@@ -28,7 +28,6 @@
   <xsd:import schemaLocation="../../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
   <xsd:import schemaLocation="../../../appinfo/2.1/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.1"/>
   <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
-  <xsd:import schemaLocation="../../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
   <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
   <xsd:complexType name="ArrestType">
     <xsd:annotation>
@@ -48,6 +47,44 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:simpleType name="CDLHolderCodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a code set indicating at the time of the citation, whether the individual holds a Commercial Driver License (CDL) or, in the case of an unlicensed driver, whether the individual's last held license was a CDL.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="1">
+        <xsd:annotation>
+          <xsd:documentation>Yes - The cited driver has a current CDL, or if no valid license, his previous license was a CDL.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="2">
+        <xsd:annotation>
+          <xsd:documentation>No - The cited driver has a current base license, has never held a license, or holds no current license and the previous license was a base license.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="9">
+        <xsd:annotation>
+          <xsd:documentation>Unknown</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="CDLHolderCodeType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a code set indicating at the time of the citation, whether the individual holds a Commercial Driver License (CDL) or, in the case of an unlicensed driver, whether the individual's last held license was a CDL.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="j:CDLHolderCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
   <xsd:complexType name="CaseAugmentationType">
     <xsd:annotation>
       <xsd:documentation>A data type for additional information about a case.</xsd:documentation>
@@ -60,8 +97,8 @@
         <xsd:sequence>
           <xsd:element ref="j:CaseCharge" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CaseCourt" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:CaseCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CaseDefendantParty" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="j:CaseDomesticViolenceIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CaseInitiatingParty" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CaseJudge" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0" maxOccurs="unbounded"/>
@@ -113,6 +150,36 @@
           <xsd:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeText" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CourtAppearanceType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an appearance required of a party in a court of law on a certain date.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="j:CourtAppearanceDate" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CourtEventType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a court occurrence.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ActivityType">
+        <xsd:sequence>
+          <xsd:element ref="j:CourtEventAppearance" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -268,6 +335,11 @@
       <xsd:documentation>An observed or reported violation of a law or ordinance, which can be a sufficient cause to arrest a subject.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="CDLHolderCode" type="j:CDLHolderCodeType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A code indicating at the time of the citation, whether the individual holds a Commercial Driver License (CDL) or, in the case of an unlicensed driver, whether the individual's last held license was a CDL.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="Case" type="j:CaseType" substitutionGroup="nc:Case" nillable="true">
     <xsd:annotation>
       <xsd:documentation>Applied augmentation for type nc:CaseType</xsd:documentation>
@@ -294,14 +366,14 @@
       <xsd:documentation>A court of law in which the case is being tried.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="CaseCourtEvent" type="j:CourtEventType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A court occurrence.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="CaseDefendantParty" type="nc:EntityType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An entity being charged or sued in a court of law.</xsd:documentation>
-    </xsd:annotation>
-  </xsd:element>
-  <xsd:element name="CaseDomesticViolenceIndicator" type="niem-xsd:boolean" nillable="true">
-    <xsd:annotation>
-      <xsd:documentation>True if the case involves domestic violence; false otherwise.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="CaseInitiatingParty" type="nc:EntityType" nillable="true">
@@ -359,9 +431,19 @@
       <xsd:documentation>The text of a charge.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="CourtAppearanceDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A date on which a party must appear in court.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="CourtCategoryCode" type="ansi_d20:CourtCategoryCodeType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A kind of court.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CourtEventAppearance" type="j:CourtAppearanceType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An appearance in court required of a party</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="CourtName" type="nc:TextType" nillable="true">

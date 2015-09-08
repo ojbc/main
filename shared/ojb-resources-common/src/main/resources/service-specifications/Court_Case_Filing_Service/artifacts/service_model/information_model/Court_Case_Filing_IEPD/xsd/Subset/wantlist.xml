@@ -20,9 +20,11 @@
 <w:WantList w:release="2.1" w:product="NIEM" w:nillableDefault="true"
   xmlns:w="http://niem.gov/niem/wantlist/2.2"
   xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+  xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
   xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
   xmlns:twpdes="http://niem.gov/niem/twpdes/2.0" xmlns:ansi_d20="http://niem.gov/niem/ansi_d20/2.0">
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:CDLHolderCode" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Case" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CaseOfficial" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:JudicialOfficial" w:isReference="false" w:nillable="true"/>
@@ -31,6 +33,8 @@
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:EntityOrganization" w:isReference="true" w:nillable="false"/>
   <w:Element w:name="nc:EntityPerson" w:isReference="true" w:nillable="false"/>
+  <w:Element w:name="nc:IdentificationCategoryText"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:IdentificationJurisdictionText"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Organization" w:isReference="false" w:nillable="true"/>
@@ -84,15 +88,21 @@
     <w:ElementInType w:name="j:ArrestProbableCauseText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:CDLHolderCodeSimpleType" w:isRequested="true">
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="9"/>
+  </w:Type>
+  <w:Type w:name="j:CDLHolderCodeType" w:isRequested="true"/>
   <w:Type w:name="j:CaseAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:CaseCharge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseCourt" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CaseCourtEvent" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseDefendantParty" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="j:CaseDomesticViolenceIndicator"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseInitiatingParty"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseJudge" w:isReference="false"
@@ -101,7 +111,7 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CaseOfficialType" w:isRequested="true"/>
-  <w:Type w:name="j:CaseType" w:isRequested="false">
+  <w:Type w:name="j:CaseType" w:isRequested="true">
     <w:ElementInType w:name="j:CaseAugmentation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -120,6 +130,14 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:CourtAppearanceType" w:isRequested="false">
+    <w:ElementInType w:name="j:CourtAppearanceDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:CourtEventType" w:isRequested="false">
+    <w:ElementInType w:name="j:CourtEventAppearance"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CourtType" w:isRequested="false">
     <w:ElementInType w:name="j:CourtName" w:isReference="false"
@@ -166,13 +184,19 @@
   <w:Type w:name="nc:ActivityType" w:isRequested="true">
     <w:ElementInType w:name="nc:ActivityIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ActivityCategoryText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:BinaryType" w:isRequested="true">
     <w:ElementInType w:name="nc:BinaryObject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:CaseType" w:isRequested="false">
+  <w:Type w:name="nc:CaseType" w:isRequested="true">
+    <w:ElementInType w:name="nc:CaseCategoryText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:CaseDocketID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:CaseFiling" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:DateType" w:isRequested="false">
@@ -180,6 +204,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:DocumentType" w:isRequested="true">
+    <w:ElementInType w:name="nc:DocumentCategoryName"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentCategoryText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentCreationDate"
@@ -201,6 +227,8 @@
   <w:Type w:name="nc:IdentificationType" w:isRequested="true">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:IdentificationCategory"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IdentificationJurisdiction"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -235,6 +263,7 @@
     <w:ElementInType w:name="nc:PersonStateIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="niem-xsd:boolean" w:isRequested="true"/>
   <w:Type w:name="twpdes:DateAccuracyIndicatorCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="Circa"/>
     <w:Facet w:facet="enumeration" w:value="Exact"/>
