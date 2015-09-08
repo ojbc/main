@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itl:NISTBiometricInformationExchangePackage xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+	xmlns:itl="http://biometrics.nist.gov/standard/2011"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://cjis.fbi.gov/fbi_ebts/10.0 ../../xsd/fbi_ebts/10.0/fbi_ebts.xsd">
+	<!--******************************************************************-->
+	<!--Type-1 Record (Header Record)-->
+	<!--******************************************************************-->
+	<itl:PackageInformationRecord>
+		<!--RCC 1.001-->
+		<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
+		<ansi-nist:Transaction>
+			<!--DAT 1.005-->
+			<ansi-nist:TransactionDate>
+				<nc:Date>2007-01-01</nc:Date>
+			</ansi-nist:TransactionDate>
+			<ansi-nist:TransactionDestinationOrganization>
+				<!--DAI 1.007-->
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>WI013415Y</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+			</ansi-nist:TransactionDestinationOrganization>
+			<ansi-nist:TransactionOriginatingOrganization>
+				<nc:OrganizationIdentification>
+					<!--ORI 1.008-->
+					<nc:IdentificationID>DCFBIWAA4</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+			</ansi-nist:TransactionOriginatingOrganization>
+			<!--GMT 1.014, Optional-->
+			<ansi-nist:TransactionUTCDate>
+				<nc:DateTime>2007-01-01T00:00:01Z</nc:DateTime>
+			</ansi-nist:TransactionUTCDate>
+			<!--TCN 1.009-->
+			<ansi-nist:TransactionControlIdentification>
+				<nc:IdentificationID>5683956839</nc:IdentificationID>
+			</ansi-nist:TransactionControlIdentification>
+			<!--TCR 1.010, Optional-->
+			<ansi-nist:TransactionControlReferenceIdentification>
+				<nc:IdentificationID>1234567890</nc:IdentificationID>
+			</ansi-nist:TransactionControlReferenceIdentification>
+			<!--DOM 1.013-->
+			<ansi-nist:TransactionDomain>
+				<ansi-nist:DomainVersionNumberIdentification>
+					<nc:IdentificationID>EBTS 10.0</nc:IdentificationID>
+				</ansi-nist:DomainVersionNumberIdentification>
+				<ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
+			</ansi-nist:TransactionDomain>
+			<!--APS 1.016, Optional -->
+			<ansi-nist:TransactionApplicationProfile>
+				<!--APO-->
+				<ansi-nist:ApplicationProfileOrganizationName>DoD</ansi-nist:ApplicationProfileOrganizationName>
+				<!--APN-->
+				<ansi-nist:ApplicationProfileName>EBTS</ansi-nist:ApplicationProfileName>
+				<!--APV-->
+				<ansi-nist:ApplicationProfileVersionIdentification>
+					<nc:IdentificationID>3.0</nc:IdentificationID>
+				</ansi-nist:ApplicationProfileVersionIdentification>
+			</ansi-nist:TransactionApplicationProfile>
+			<ansi-nist:TransactionImageResolutionDetails>
+				<!--NSR 1.011-->
+				<ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
+				<!--NTR 1.012-->
+				<ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
+			</ansi-nist:TransactionImageResolutionDetails>
+			<!--VER 1.002-->
+			<ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
+			<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
+			<!--PRY 1.006, Optional-->
+			<ansi-nist:TransactionPriorityValue>5</ansi-nist:TransactionPriorityValue>
+			<!--TOT 1.004-->
+			<ebts:TransactionCategoryCode>UBM</ebts:TransactionCategoryCode>
+			<!--CNT 1.003-->
+			<ansi-nist:TransactionContentSummary>
+				<ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
+				<ansi-nist:ContentRecordQuantity>02</ansi-nist:ContentRecordQuantity>
+				<ansi-nist:ContentRecordSummary>
+					<ansi-nist:ImageReferenceIdentification>
+						<nc:IdentificationID>00</nc:IdentificationID>
+					</ansi-nist:ImageReferenceIdentification>
+					<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+				</ansi-nist:ContentRecordSummary>
+				<ansi-nist:ContentRecordSummary>
+					<ansi-nist:ImageReferenceIdentification>
+						<nc:IdentificationID>01</nc:IdentificationID>
+					</ansi-nist:ImageReferenceIdentification>
+					<ansi-nist:RecordCategoryCode>10</ansi-nist:RecordCategoryCode>
+				</ansi-nist:ContentRecordSummary>
+			</ansi-nist:TransactionContentSummary>
+			<!--DCS 1.015, Optional -->
+			<ansi-nist:TransactionCharacterSetDirectory>
+				<ansi-nist:CharacterSetCommonNameCode>UTF-8</ansi-nist:CharacterSetCommonNameCode>
+				<ansi-nist:CharacterSetIndexCode>0</ansi-nist:CharacterSetIndexCode>
+				<ansi-nist:CharacterSetVersionIdentification>
+					<nc:IdentificationID>000</nc:IdentificationID>
+				</ansi-nist:CharacterSetVersionIdentification>
+			</ansi-nist:TransactionCharacterSetDirectory>
+		</ansi-nist:Transaction>
+	</itl:PackageInformationRecord>
+	<!--******************************************************************-->
+	<!--Type-2 Record (User Defined Descriptive Text Record)				-->
+	<!--******************************************************************-->
+	<itl:PackageDescriptiveTextRecord>
+		<!--RCC 2.001-->
+		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+		<!--IDC 2.002-->
+		<ansi-nist:ImageReferenceIdentification>
+			<nc:IdentificationID>00</nc:IdentificationID>
+		</ansi-nist:ImageReferenceIdentification>
+		<itl:UserDefinedDescriptiveDetail>
+			<ebts:DomainDefinedDescriptiveFields>
+				<!--ATN 2.006 -->
+				<nc:CaveatText>SA J Q DOE,RM 11867</nc:CaveatText>
+				<!-- IMT 2.062, Optional-->
+				<ebts:RecordBiometricImageCategoryCode>FP</ebts:RecordBiometricImageCategoryCode>
+				<ebts:RecordTransactionData>
+					<ebts:TransactionResponseData>
+						<!--MSG 2.060, Optional-->
+						<ebts:TransactionStatusText>MATCH MADE AGAINST SUBJECTS FINGERPRINTS ON 05/01/94. PLEASE NOTIFY SUBMITTING STATE IF MATCH RESULTS</ebts:TransactionStatusText>
+					</ebts:TransactionResponseData>
+				</ebts:RecordTransactionData>
+				<ebts:RecordTransactionActivity>
+					<!--CRI 2.073 (0..3)-->
+					<ebts:RecordControllingAgency>
+						<nc:OrganizationIdentification>
+							<nc:IdentificationID>NY0303000</nc:IdentificationID>
+						</nc:OrganizationIdentification>
+					</ebts:RecordControllingAgency>
+					<!--SCNA 2.086-->
+					<ebts:AFISSegmentControlID>3124</ebts:AFISSegmentControlID>
+					<!--BSI 2.2029, Optional-->
+					<ebts:BiometricSetID>1234567</ebts:BiometricSetID>
+					<!--CIN 2.010/CIX 2.011-->
+					<ebts:ContributorCaseIdentificationNumber>
+						<!-- CIN_PRE 2.010A-->
+						<ebts:ContributorCasePrefixIdentification>
+							<nc:IdentificationCategoryText>Investigation Number</nc:IdentificationCategoryText>
+						</ebts:ContributorCasePrefixIdentification>
+						<!-- CIN_ID 2.010B-->
+						<ebts:ContributorCaseIdentification>
+							<nc:IdentificationID>1963BRT715</nc:IdentificationID>
+						</ebts:ContributorCaseIdentification>
+						<!--CIX 2.011-->
+						<ebts:ContributorCaseExtensionIdentification>
+							<nc:IdentificationID>0001</nc:IdentificationID>
+						</ebts:ContributorCaseExtensionIdentification>
+					</ebts:ContributorCaseIdentificationNumber>
+				</ebts:RecordTransactionActivity>
+				<ebts:RecordSubject>
+					<!--AKA 2.019 (0..10)-->
+					<ebts:PersonAlternateName>
+						<nc:PersonGivenName>TONY</nc:PersonGivenName>
+						<nc:PersonSurName>JONES</nc:PersonSurName>
+					</ebts:PersonAlternateName>
+					<ebts:PersonAlternateName>
+						<nc:PersonGivenName>A</nc:PersonGivenName>
+						<nc:PersonMiddleName>PAUL</nc:PersonMiddleName>
+						<nc:PersonSurName>JONES</nc:PersonSurName>
+					</ebts:PersonAlternateName>
+					<!--DOB 2.022 (0..5)-->
+					<nc:PersonBirthDate>
+						<nc:Date>1977-08-25</nc:Date>
+					</nc:PersonBirthDate>
+					<!--CTZ 2.021 (0..10)-->
+					<ebts:PersonCitizenshipCode>US</ebts:PersonCitizenshipCode>
+					<!-- EYE 2.031, Optional-->
+					<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+					<!-- HAI 2.032, Optional-->
+					<ebts:PersonHairColorCode>BRO</ebts:PersonHairColorCode>
+					<!-- HGT 2.027, Optional-->
+					<nc:PersonHeightMeasure>
+						<nc:MeasurePointValue>601</nc:MeasurePointValue>
+						<nc:MeasureUnitText>FeetInches</nc:MeasureUnitText>
+					</nc:PersonHeightMeasure>
+					<!--NAM 2.018, Optional-->
+					<ebts:PersonName>
+						<nc:PersonGivenName>ANTHONY</nc:PersonGivenName>
+						<nc:PersonMiddleName>PAUL</nc:PersonMiddleName>
+						<nc:PersonSurName>JONES</nc:PersonSurName>
+					</ebts:PersonName>
+					<ebts:PersonPhysicalFeature>
+						<!-- SMT 2.026 (0..10)-->
+						<nc:PhysicalFeatureCategoryCode>MISS TOE</nc:PhysicalFeatureCategoryCode>
+						<nc:PhysicalFeatureCategoryCode>TAT RF ARM</nc:PhysicalFeatureCategoryCode>
+					</ebts:PersonPhysicalFeature>
+					<!-- RAC 2.025, Optional-->
+					<nc:PersonRaceCode>W</nc:PersonRaceCode>
+					<!-- SEX 2.024, Optional-->
+					<ebts:PersonSexCode>M</ebts:PersonSexCode>
+					<!-- WGT 2.029, Optional-->
+					<nc:PersonWeightMeasure>
+						<nc:MeasurePointValue>182</nc:MeasurePointValue>
+					</nc:PersonWeightMeasure>
+					<!--POB 2.020, Optional-->
+					<ebts:PersonBirthPlaceCode>VA</ebts:PersonBirthPlaceCode>
+					<!-- FBI 2.014, Optional-->
+					<j:PersonFBIIdentification>
+						<nc:IdentificationID>62760NY12</nc:IdentificationID>
+					</j:PersonFBIIdentification>
+					<!-- BIA 2.2031 (0..6)-->
+					<ebts:BiometricImageAvailableCode>FP</ebts:BiometricImageAvailableCode>
+					<ebts:BiometricImageAvailableCode>PP</ebts:BiometricImageAvailableCode>
+					<ebts:BiometricImageAvailableCode>SP</ebts:BiometricImageAvailableCode>
+					<ebts:BiometricImageAvailableCode>PHF</ebts:BiometricImageAvailableCode>
+					<ebts:BiometricImageAvailableCode>PSMT</ebts:BiometricImageAvailableCode>
+					<ebts:BiometricImageAvailableCode>IRIS</ebts:BiometricImageAvailableCode>					
+					<!--POS 2.2036, Optional-->
+					<ansi-nist:FaceImageSubjectPoseCode>F</ansi-nist:FaceImageSubjectPoseCode>
+				</ebts:RecordSubject>
+			</ebts:DomainDefinedDescriptiveFields>
+		</itl:UserDefinedDescriptiveDetail>
+	</itl:PackageDescriptiveTextRecord>
+	
+	<!--******************************************************************-->
+	<!--	BIOMETRIC RECORDS								-->
+	<!--UBM Transactions allow the following biometric record types:			-->
+	<!-- Type 10 (0-2)										-->
+	<!--Please refer to EBTS 10.0 spec for further UBM biometric requirements 	-->
+	<!--******************************************************************-->
+	
+    <!--******************************************************************-->
+    <!--Type-10 Record (Facial And SMTImage Record with SMT Image Record)   -->
+    <!--******************************************************************-->
+    <itl:PackageFacialAndSMTImageRecord>
+        <!-- RCC 10.001 -->
+        <ansi-nist:RecordCategoryCode>10</ansi-nist:RecordCategoryCode>
+        <!--IDC 10.002  -->
+        <ansi-nist:ImageReferenceIdentification>
+            <nc:IdentificationID>01</nc:IdentificationID>
+        </ansi-nist:ImageReferenceIdentification>
+        <ansi-nist:PhysicalFeatureImage>
+            <!--DATA  10.999  -->
+            <nc:BinaryBase64Object>mrHbPdrko3u1s7ahtgPBjtmO1s85tfG2U7bpofY9
+                4Czu2SbY7d7wF9fQ7ZptgGrtkO2a2dsJ7wZbe 8BlzvAmQ7xq+Y94GoHeEsR3ikWd4DIGhzmp3k42
+                d4DRmzs94DKveDTB3hqw6PeBLrtpPep0H/+h</nc:BinaryBase64Object>
+            <ansi-nist:ImageCaptureDetail>
+                <!-- PHD 10.005  -->
+                <ansi-nist:CaptureDate>
+                    <nc:Date>1953-04-23</nc:Date>
+                </ansi-nist:CaptureDate>
+                <!-- SHPS 10.016  -->
+                <ansi-nist:CaptureHorizontalPixelDensityValue>500</ansi-nist:CaptureHorizontalPixelDensityValue>
+                <ansi-nist:CaptureOrganization>
+                    <!-- SRC 10.004  -->
+                    <nc:OrganizationIdentification>
+                        <nc:IdentificationID>WI013415Y</nc:IdentificationID>
+                    </nc:OrganizationIdentification>
+                </ansi-nist:CaptureOrganization>
+                <!-- SVPS 10.017  -->
+                <ansi-nist:CaptureVerticalPixelDensityValue>500</ansi-nist:CaptureVerticalPixelDensityValue>
+            </ansi-nist:ImageCaptureDetail>
+            <!-- CSP 10.012  -->
+            <ansi-nist:ImageColorSpaceCode>YCC</ansi-nist:ImageColorSpaceCode>
+            <!--COM  10.038  -->
+            <ansi-nist:ImageCommentText>Comment</ansi-nist:ImageCommentText>
+            <!--  CGA 10.011  -->
+            <ansi-nist:ImageCompressionAlgorithmText>JPEGB</ansi-nist:ImageCompressionAlgorithmText>
+            <!--HLL  10.006  -->
+            <ansi-nist:ImageHorizontalLineLengthPixelQuantity>80</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
+            <!-- THPS 10.009  -->
+            <ansi-nist:ImageHorizontalPixelDensityValue>1200</ansi-nist:ImageHorizontalPixelDensityValue>
+            <!--SLC  10.008  -->
+            <ansi-nist:ImageScaleUnitsCode>1</ansi-nist:ImageScaleUnitsCode>
+            <!-- IMT 10.003  -->
+            <ansi-nist:ImageCategoryCode>TATTOO</ansi-nist:ImageCategoryCode>
+            <!--VLL  10.007  -->
+            <ansi-nist:ImageVerticalLineLengthPixelQuantity>65</ansi-nist:ImageVerticalLineLengthPixelQuantity>
+            <!-- TVPS 10.010  -->
+            <ansi-nist:ImageVerticalPixelDensityValue>1200</ansi-nist:ImageVerticalPixelDensityValue>
+            <ansi-nist:PhysicalFeatureDescriptionDetail>
+                <!-- COL 10.043  -->
+                <ansi-nist:PhysicalFeatureColorDetail>
+                    <!--  TC1 -->
+                    <ansi-nist:PhysicalFeaturePrimaryColorCode>ORANGE</ansi-nist:PhysicalFeaturePrimaryColorCode>
+                    <!--  TC2 -->
+                    <ansi-nist:PhysicalFeatureSecondaryColorCode>BLACK</ansi-nist:PhysicalFeatureSecondaryColorCode>
+                    <!--  TC3 -->
+                    <ansi-nist:PhysicalFeatureSecondaryColorCode>RED</ansi-nist:PhysicalFeatureSecondaryColorCode>
+                </ansi-nist:PhysicalFeatureColorDetail>
+                <!-- SMD 10.042  -->
+                <!--  SMI -->
+                <ansi-nist:PhysicalFeatureCategoryCode>TATTOO</ansi-nist:PhysicalFeatureCategoryCode>
+                <!--  TAC -->
+                <ansi-nist:PhysicalFeatureClassCode>ANIMAL</ansi-nist:PhysicalFeatureClassCode>
+                <!--  TDS -->
+                <ansi-nist:PhysicalFeatureDescriptionText>Golden retriever with an overbite</ansi-nist:PhysicalFeatureDescriptionText>
+                <!--  TSC -->
+                <ansi-nist:PhysicalFeatureSubClassCode>DOG</ansi-nist:PhysicalFeatureSubClassCode>
+            </ansi-nist:PhysicalFeatureDescriptionDetail>
+            <ansi-nist:PhysicalFeatureDescriptionDetail>
+                <!-- COL 10.043  -->
+                <ansi-nist:PhysicalFeatureColorDetail>
+                    <!--  TC1 -->
+                    <ansi-nist:PhysicalFeaturePrimaryColorCode>YELLOW</ansi-nist:PhysicalFeaturePrimaryColorCode>
+                    <!--  TC2 -->
+                    <ansi-nist:PhysicalFeatureSecondaryColorCode>MULTI</ansi-nist:PhysicalFeatureSecondaryColorCode>
+                </ansi-nist:PhysicalFeatureColorDetail>
+                <!-- SMD 10.042  -->
+                <!--  SMI -->
+                <ansi-nist:PhysicalFeatureCategoryCode>TATTOO</ansi-nist:PhysicalFeatureCategoryCode>
+                <!--  TAC -->
+                <ansi-nist:PhysicalFeatureClassCode>HUMAN</ansi-nist:PhysicalFeatureClassCode>
+                <!--  TDS -->
+                <ansi-nist:PhysicalFeatureDescriptionText>Fist</ansi-nist:PhysicalFeatureDescriptionText>
+                <!--  TSC -->
+                <ansi-nist:PhysicalFeatureSubClassCode>MBPART</ansi-nist:PhysicalFeatureSubClassCode>
+            </ansi-nist:PhysicalFeatureDescriptionDetail>
+            <!-- SMT 10.040  -->
+            <ansi-nist:PhysicalFeatureNCICCode>TAT L TOE</ansi-nist:PhysicalFeatureNCICCode>
+            <ansi-nist:PhysicalFeatureNCICCode>TAT FARM</ansi-nist:PhysicalFeatureNCICCode>
+            <!-- SMS 10.041  -->
+            <ansi-nist:PhysicalFeatureSize>
+                <!--  HGT -->
+                <ansi-nist:PhysicalFeatureHeightMeasure>112</ansi-nist:PhysicalFeatureHeightMeasure>
+                <!--  WID -->
+                <ansi-nist:PhysicalFeatureWidthMeasure>15</ansi-nist:PhysicalFeatureWidthMeasure>
+            </ansi-nist:PhysicalFeatureSize>
+            <!--T10  10.039  -->
+            <ansi-nist:PhysicalFeatureReferenceIdentification>
+                <nc:IdentificationID>0</nc:IdentificationID>
+            </ansi-nist:PhysicalFeatureReferenceIdentification>
+            <!--  ITX 10.044  -->
+            <ansi-nist:ImageTransformationCode>CROP</ansi-nist:ImageTransformationCode>
+            <ansi-nist:ImageTransformationCode>DOWNSAMPLE</ansi-nist:ImageTransformationCode>
+        </ansi-nist:PhysicalFeatureImage>
+    </itl:PackageFacialAndSMTImageRecord>
+</itl:NISTBiometricInformationExchangePackage>
