@@ -14,8 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.util.camel.ndex.util;
-
+package org.ojbc.bundles.intermediaries.ndex.util;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -24,8 +23,6 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.util.camel.helper.NDexUtils;
-import org.ojbc.util.ndex.util.UniqueIDGenerator;
 
 public class TestNDexUtils {
 

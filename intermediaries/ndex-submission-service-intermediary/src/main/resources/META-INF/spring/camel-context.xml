@@ -134,7 +134,7 @@
 			<!-- When attempting to connect with CXF, was receiving exception: Caused by: java.net.SocketTimeoutException: Read timed out -->
 			<!-- Tried to troubleshoot with N-DEx techs.  To get it working switching to posting Soap message over HTTPS with camel HTTP component -->
 			<!-- To do this, wrap message as soap message and send to HTTP endpoint. -->	
-			<camel:to uri="xslt:xslt/SOAPWrapper.xsl?transformerFactory=sFactory"/>	
+			<camel:to uri="xslt:xslt/SOAPWrapper.xsl"/>	
 			
 			<camel:removeHeader headerName="AgencyORI"/>
 			<camel:removeHeader headerName="submittingAgencyName"/>
@@ -188,7 +188,7 @@
 		
 	</camel:camelContext>
 
-	<bean id="uniqueIDGeneratorBean" class="org.ojbc.util.ndex.util.UniqueIDGenerator"/>
+	<bean id="uniqueIDGeneratorBean" class="org.ojbc.bundles.intermediaries.ndex.util.UniqueIDGenerator"/>
 	
 	<bean id ="ndexORIProcessor" class="org.ojbc.processor.NdexORIProcessor">
 		<constructor-arg type="java.lang.String">
@@ -196,7 +196,7 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="NDExUtils" class="org.ojbc.util.camel.helper.NDexUtils">
+	<bean id="NDExUtils" class="org.ojbc.bundles.intermediaries.ndex.util.NDexUtils">
 		<property name="uniqueIDGenerator" ref="uniqueIDGeneratorBean"/>
 	</bean>
 
@@ -211,9 +211,6 @@
 				password="{{NDExSubmission.ndexClientKeystorePassword}}" />
 		</camel:keyManagers>
 		
-	   <camel:cipherSuitesFilter>
-        <camel:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</camel:include>
-      </camel:cipherSuitesFilter>		
 	</camel:sslContextParameters>
 	
     <bean id="https4" class="org.apache.camel.component.http4.HttpComponent">
@@ -222,7 +219,5 @@
         <bean class="org.apache.http.conn.ssl.AllowAllHostnameVerifier"/>
       </property>
     </bean>	
-
-	<bean id="sFactory" class="net.sf.saxon.TransformerFactoryImpl" />
 
 </beans>
