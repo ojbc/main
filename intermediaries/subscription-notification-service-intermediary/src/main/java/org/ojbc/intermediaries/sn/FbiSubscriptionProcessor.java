@@ -17,10 +17,14 @@
 package org.ojbc.intermediaries.sn;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
+import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao;
+import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -32,32 +36,43 @@ public class FbiSubscriptionProcessor {
 	private static final Logger logger = Logger.getLogger(FbiSubscriptionProcessor.class.getName());
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
+
+	@Resource(name="rapbackDao")
+	private FbiRapbackDao rapbackDao;
 	
 	public Document processSubscription(Document subscriptionDoc) throws Exception{
 		
-		logger.info("processSubscription...");
-					
-		boolean fbiSubscriptionExists = isFbiSubscriptionExisting("sid(TODO)", "purpose(TODO)");
+		logger.info("\n\n processSubscription...\n\n");		
 		
-		Document subscriptionMessage = null;
+		String fbiIdUcn = XmlUtils.xPathStringSearch(subscriptionDoc,
+				"/b-2:Subscribe/submsg-exch:SubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");								
 		
-		if(!fbiSubscriptionExists){
+		String subPurposeCategory = XmlUtils.xPathStringSearch(subscriptionDoc,
+				"/b-2:Subscribe/submsg-exch:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");
+						
+		Document rSubscriptionDoc = subscriptionDoc;
 		
-			FbiSubscription fbiSubscription = getFbiSubscriptionFromRapbackDataStore("sid(TODO)", "reasonCode(TODO");
+		if(StringUtils.isNotEmpty(fbiIdUcn) && StringUtils.isNotEmpty(subPurposeCategory)){
 			
-			subscriptionMessage = appendFbiDataToSubscriptionDoc(subscriptionDoc, fbiSubscription);
+			FbiRapbackSubscription fbiRapbackSubscription = getFbiSubscriptionFromRapbackDataStore(fbiIdUcn, subPurposeCategory);
 			
+			//we're editing an existing fbi subscription, so add 'fbi data section' of elements at bottom of doc
+			if(fbiRapbackSubscription != null){
+				
+				// add fbi data to subscription message so a new subscription gets created at the fbi								
+				rSubscriptionDoc = appendFbiDataToSubscriptionDoc(subscriptionDoc, fbiRapbackSubscription);	
+			}					
 		}else{
+			logger.warning("\n\n Not looking up rapback datastore. fbiIdUcn: " 
+					+ fbiIdUcn + ", purposeCategory: " + subPurposeCategory + "\n\n");
 			
-			subscriptionMessage = subscriptionDoc;
 		}
 						
-		return subscriptionMessage;
+		return rSubscriptionDoc;
 	}
 	
 
-	public Document appendFbiDataToSubscriptionDoc(Document subscriptionDoc, FbiSubscription fbiSubscription) throws Exception{
+	public Document appendFbiDataToSubscriptionDoc(Document subscriptionDoc, FbiRapbackSubscription fbiRapbackSubscription) throws Exception{
 				
 		logger.info("appendFbiDataToSubscriptionDoc...");
 		
@@ -70,37 +85,41 @@ public class FbiSubscriptionProcessor {
 				
 		Element dateRangeElement = XmlUtils.appendElement(relatedFBISubscriptionElement, OjbcNamespaceContext.NS_NC, "DateRange");				
 		
-		Date startDate = fbiSubscription.getStartDate();
-		if(startDate != null){
+		DateTime jtStartDate = fbiRapbackSubscription.getRapbackStartDate();
+		
+		if(jtStartDate != null){
 			Element startDateElement = XmlUtils.appendElement(dateRangeElement, OjbcNamespaceContext.NS_NC, "StartDate");		
-			Element startDateValElement = XmlUtils.appendElement(startDateElement, OjbcNamespaceContext.NS_NC, "Date");					
-			String sStartDate = sdf.format(startDate);			
+			Element startDateValElement = XmlUtils.appendElement(startDateElement, OjbcNamespaceContext.NS_NC, "Date");																	
+			String sStartDate = sdf.format(jtStartDate.toDate());			
 			startDateValElement.setTextContent(sStartDate);			
 		}
 						
-		Date endDate = fbiSubscription.getEndDate();
-		if(endDate != null){
+		DateTime jtEndDate = fbiRapbackSubscription.getRapbackExpirationDate();
+		
+		if(jtEndDate != null){
 			Element endDateElement = XmlUtils.appendElement(dateRangeElement, OjbcNamespaceContext.NS_NC, "EndDate");
-			Element endDateValElement = XmlUtils.appendElement(endDateElement, OjbcNamespaceContext.NS_NC, "Date");			
-			String sEndDate = sdf.format(endDate);
+			Element endDateValElement = XmlUtils.appendElement(endDateElement, OjbcNamespaceContext.NS_NC, "Date");								
+			String sEndDate = sdf.format(jtEndDate.toDate());
 			endDateValElement.setTextContent(sEndDate);			
 		}
-							
-		String fbiId = fbiSubscription.getFbiId();
+									
+		String fbiOcaId = fbiRapbackSubscription.getFbiOca();
 		
-		if(StringUtils.isNotEmpty(fbiId)){
+		if(StringUtils.isNotEmpty(fbiOcaId)){
 			Element subFbiIdElement = XmlUtils.appendElement(relatedFBISubscriptionElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionFBIIdentification");
 			Element fbiIdValElement = XmlUtils.appendElement(subFbiIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
-			fbiIdValElement.setTextContent(fbiId);			
+			fbiIdValElement.setTextContent(fbiOcaId);			
 		}		
 				
-		String reasonCode = fbiSubscription.getCrimSubReasonCode();		
+		String reasonCode = fbiRapbackSubscription.getRapbackCategory();
+		
 		if(StringUtils.isNotEmpty(reasonCode)){
 			Element reasonCodeElement = XmlUtils.appendElement(relatedFBISubscriptionElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
 			reasonCodeElement.setTextContent(reasonCode);			
 		}
 				
-		String subTerm = fbiSubscription.getTermDuration();
+		String subTerm = fbiRapbackSubscription.getSubscriptionTerm();
+		
 		if(StringUtils.isNotEmpty(subTerm)){
 			Element subscriptionTermElement = XmlUtils.appendElement(relatedFBISubscriptionElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionTerm");			
 			Element termDurationElement = XmlUtils.appendElement(subscriptionTermElement, OjbcNamespaceContext.NS_JXDM_41, "TermDuration");		
@@ -112,27 +131,29 @@ public class FbiSubscriptionProcessor {
 						
 		return subscriptionDoc;
 	}
-
 	
-	// TODO query rabpack datastore
-	private FbiSubscription getFbiSubscriptionFromRapbackDataStore(String sid, String reasonCode){
+	
 		
-		FbiSubscription fbiSubscription = new FbiSubscription();
+	private FbiRapbackSubscription getFbiSubscriptionFromRapbackDataStore(String fbiIdUcn, String category){				
 		
-		fbiSubscription.setCrimSubReasonCode("CI");
-		fbiSubscription.setFbiId("1234");
-		fbiSubscription.setStartDate(new Date());
-		fbiSubscription.setEndDate(new Date());
-		
-		return fbiSubscription;
+		if(StringUtils.isEmpty(fbiIdUcn) || StringUtils.isEmpty(category)){
+			return null;
+		}
+				
+		FbiRapbackSubscription fbiRapbackSubscription = null;
+				
+		try{
+			fbiRapbackSubscription = rapbackDao.getFbiRapbackSubscription(category, fbiIdUcn);
+			
+			logger.info("\n\n\n Received FbiRapbackSubscription: \n\n" + fbiRapbackSubscription + "\n\n\n");
+			
+		}catch(Exception e){
+			
+			logger.severe("\n\n Unable to get fbi rapback subscription in query! \n\n" + e.getMessage());			
+		}
+								
+		return fbiRapbackSubscription;
 	}
-	
-	
-	private boolean isFbiSubscriptionExisting(String string, String string2) {
-
-		//TODO reference actual sub. msg to see if fbi subscription exists
-		return false;
-	}	
-
+		
 }
 

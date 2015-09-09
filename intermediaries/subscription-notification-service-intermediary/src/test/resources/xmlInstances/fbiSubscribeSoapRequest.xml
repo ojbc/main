@@ -55,10 +55,9 @@
                 <smext:SystemName>{http://demostate.gov/SystemNames/1.0}SystemA</smext:SystemName>
 		        <smext:SubscriptionQualifierIdentification>
 		            <nc:IdentificationID>1234578</nc:IdentificationID>
-		        </smext:SubscriptionQualifierIdentification>                
+		        </smext:SubscriptionQualifierIdentification>     
+		        <smext:CriminalSubscriptionReasonCode>CI</smext:CriminalSubscriptionReasonCode>           
             </sm:SubscriptionMessage>
         </b:Subscribe>
-
-
     </soapenv:Body>
 </soapenv:Envelope>
