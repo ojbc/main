@@ -33,8 +33,9 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/search-query-routes.xml",
 		"classpath:META-INF/spring/subscription-secure-routes.xml",
 		"classpath:META-INF/spring/local-osgi-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
+		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 }) 
 public abstract class AbstractSubscriptionNotificationTest {
 
