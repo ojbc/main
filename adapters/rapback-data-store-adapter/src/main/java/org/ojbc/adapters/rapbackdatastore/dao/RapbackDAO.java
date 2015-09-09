@@ -50,6 +50,7 @@ public interface RapbackDAO {
 	public Subject getSubject(Integer id);
 	public IdentificationTransaction getIdentificationTransaction(String transactionNumber);
 	public List<CivilInitialResults> getCivilInitialResults(String ori);
+	public List<CivilInitialResults> getIdentificationCivilInitialResults(String transactionNumber);
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(String ori);
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(String ori);
 	public FbiRapbackSubscription getFbiRapbackSubscription(String category, String ucn);

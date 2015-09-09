@@ -264,6 +264,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_INTEL = "http://niem.gov/niem/domains/intelligence/2.1";
 	public static final String NS_PREFIX_INTEL = "intel";
 
+	public static final String NS_INTEL_30 = "http://release.niem.gov/niem/domains/intelligence/3.0/";
+	public static final String NS_PREFIX_INTEL_30 = "intel30";
+	
 	public static final String NS_SEARCH_RESULTS_METADATA_EXT = "http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0";
 	public static final String NS_PREFIX_SEARCH_RESULTS_METADATA_EXT = "srm";
 	public static final String NS_SEARCH_REQUEST_ERROR_REPORTING = "http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0";
@@ -524,6 +527,15 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     
     public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT = "oirs-res-ext";
     public static final String NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0";
+    
+    public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST = "oiirq-req-doc";
+    public static final String NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryRequest/1.0";
+
+    public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS = "oiirq-res-doc";
+    public static final String NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryResults/1.0";
+    
+    public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT = "oirq-res-ext";
+    public static final String NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0";
     
     public static final String NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE = "pse-doc";
     public static final String NS_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE ="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0";
@@ -1076,6 +1088,17 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    prefixToUriMap.put(NS_PREFIX_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT, NS_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT);
 	    uriToPrefixMap.put(NS_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT, NS_PREFIX_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT);
 	      
+	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST);
+	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST, NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST);
+	    
+	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS);
+	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS, NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS);
+	    
+	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+
+	    prefixToUriMap.put(NS_PREFIX_INTEL_30, NS_INTEL_30);
+	    uriToPrefixMap.put(NS_INTEL_30, NS_PREFIX_INTEL_30);
 	      
 	}
 

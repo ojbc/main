@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -45,9 +46,11 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -546,18 +549,24 @@ public class RapbackDAOImpl implements RapbackDAO {
 		public CivilInitialResults mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
 
-			CivilInitialResults civilInitialResults = new CivilInitialResults();
-			civilInitialResults.setId(rs.getInt("civil_initial_result_id"));
-			civilInitialResults.setTransactionNumber(rs.getString("transaction_number"));
-			civilInitialResults.setTransactionType(rs.getString("transaction_type"));
-			civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") - 1]);
-			civilInitialResults.setSearchResultFile(rs.getBytes("search_result_file"));
-			civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+			CivilInitialResults civilInitialResults = buildCivilIntialResult(rs);
 			
 			civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs, false));
 
 			return civilInitialResults;
 		}
+
+	}
+	
+	private CivilInitialResults buildCivilIntialResult(ResultSet rs) throws SQLException {
+		CivilInitialResults civilInitialResults = new CivilInitialResults();
+		civilInitialResults.setId(rs.getInt("civil_initial_result_id"));
+		civilInitialResults.setTransactionNumber(rs.getString("transaction_number"));
+		civilInitialResults.setTransactionType(rs.getString("transaction_type"));
+		civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") - 1]);
+		civilInitialResults.setSearchResultFile(rs.getBytes("search_result_file"));
+		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+		return civilInitialResults;
 	}
 
 	private final String CIVIL_INITIAL_RESULTS_ID_SELECT = "SELECT t.civiL_INITIAL_RESULT_ID  "
@@ -638,5 +647,43 @@ public class RapbackDAOImpl implements RapbackDAO {
 		}
 	}
 
+	final static String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.* "
+			+ "FROM civil_initial_results c "
+			+ "LEFT OUTER JOIN CIVIL_INITIAL_RAP_SHEET r ON r.CIVIL_INITIAL_RESULT_ID = c.CIVIL_INITIAL_RESULT_ID "
+			+ "WHERE transaction_number = ?";
+	
+	@Override
+	public List<CivilInitialResults> getIdentificationCivilInitialResults(
+			String transactionNumber) {
+		List<CivilInitialResults> results= 
+				jdbcTemplate.query(CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER, 
+						new CivilInitialResultsResultSetExtractor(), transactionNumber);
+		return results;
+	}
+
+	private class CivilInitialResultsResultSetExtractor implements ResultSetExtractor<List<CivilInitialResults>> {
+
+		@Override
+		public List<CivilInitialResults> extractData(ResultSet rs)
+				throws SQLException, DataAccessException {
+            Map<Integer, CivilInitialResults> map = new HashMap<Integer, CivilInitialResults>();
+            CivilInitialResults civilInitialResults = null;
+            while (rs.next()) {
+                Integer civilIntialResultId = rs.getInt("civil_initial_result_id" ); 
+                civilInitialResults  = map.get( civilIntialResultId );
+                if ( civilInitialResults  == null){
+                	civilInitialResults = buildCivilIntialResult(rs); 
+                	map.put(civilIntialResultId, civilInitialResults); 
+                }
+	              
+               byte[] rapSheet = rs.getBytes("rap_sheet" );
+               if (rapSheet != null){
+            	   civilInitialResults.getRapsheets().add( rapSheet );
+	           }
+            }
+            return (List<CivilInitialResults>) new ArrayList<CivilInitialResults>(map.values());
+		}
+
+	}
 
 }
