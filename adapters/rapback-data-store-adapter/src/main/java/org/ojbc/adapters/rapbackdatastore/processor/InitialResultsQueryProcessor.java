@@ -95,7 +95,7 @@ public class InitialResultsQueryProcessor {
      *         schema.
      * @throws Exception 
      */
-    public Document returnRapbackSearchResponse(
+    public Document returnInitialResultsQueryResponse(
     		Exchange exchange, @Body Document report) throws Exception {
     	
     	String transactionNumber = XmlUtils.xPathStringSearch(report, "/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel30:SystemIdentification/nc30:IdentificationID");
