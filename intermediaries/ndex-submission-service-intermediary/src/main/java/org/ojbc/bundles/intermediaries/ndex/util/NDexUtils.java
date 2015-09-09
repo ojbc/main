@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.util.camel.helper;
+package org.ojbc.bundles.intermediaries.ndex.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,7 +25,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.util.ndex.util.UniqueIDGenerator;
 
 public class NDexUtils {
 

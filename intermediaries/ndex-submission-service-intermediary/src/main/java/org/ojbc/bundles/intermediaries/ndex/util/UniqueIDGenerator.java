@@ -1,3 +1,5 @@
+package org.ojbc.bundles.intermediaries.ndex.util;
+
 /*
  * Unless explicitly acquired and licensed from Licensor under another license, the contents of
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
@@ -14,7 +16,6 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.util.ndex.util;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.commons.lang.StringUtils;
