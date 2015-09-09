@@ -17,6 +17,8 @@
 package org.ojbc.adapters.rapbackdatastore.dao.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -31,6 +33,7 @@ public class CivilInitialResults implements Serializable{
 	private String transactionType; 
 	private ResultSender resultsSender; 
 	private DateTime timestamp;
+	private List<byte[]> rapsheets = new ArrayList<byte[]>();
 	
 	private IdentificationTransaction identificationTransaction;
 	
@@ -101,6 +104,14 @@ public class CivilInitialResults implements Serializable{
 
 	public void setResultsSender(ResultSender resultsSender) {
 		this.resultsSender = resultsSender;
+	}
+
+	public List<byte[]> getRapsheets() {
+		return rapsheets;
+	}
+
+	public void setRapsheets(List<byte[]> rapsheets) {
+		this.rapsheets = rapsheets;
 	}
 
 }

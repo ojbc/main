@@ -16,6 +16,10 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
+import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.SOURCE_SYSTEM_NAME_TEXT;
+import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.SYSTEM_NAME;
+import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.TOPIC_DIALECT;
+import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.YYYY_MM_DD;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_50;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
@@ -67,14 +71,6 @@ import org.w3c.dom.Element;
 
 @Service
 public class RapbackSearchProcessor {
-    private static final String TOPIC_DIALECT = "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete";
-
-	private static final String SYSTEM_NAME = "RapbackDataStore";
-
-	private static final String SOURCE_SYSTEM_NAME_TEXT = 
-    		"http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore";
-
-	private static final String YYYY_MM_DD = "yyyy-MM-dd";
 
 	private final Log log = LogFactory.getLog(this.getClass());
 
@@ -135,7 +131,7 @@ public class RapbackSearchProcessor {
     }
     
     private Document buildRapbackSearchResponse(String employerOri, Document report) throws Exception {
-    	log.info("Get rapback search results");
+    	log.info("Get rapback search request, building the response.");
 
         Document document = documentBuilder.newDocument();
         Element rootElement = createRapbackSearchResponseRootElement(document);

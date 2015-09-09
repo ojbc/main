@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -67,6 +66,7 @@ import org.w3c.dom.Element;
 		})
 public class CamelContextTest {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
 	
 	public static final String CXF_OPERATION_NAME = "ReportPersonIdentificationRequest";

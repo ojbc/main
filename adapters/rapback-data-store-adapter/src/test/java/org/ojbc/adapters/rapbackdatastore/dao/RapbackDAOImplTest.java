@@ -250,7 +250,7 @@ public class RapbackDAOImplTest {
 		Integer civilInitialRapSheetPkId = 
 				rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);  
 		assertNotNull(civilInitialRapSheetPkId);
-		assertEquals(5, civilInitialRapSheetPkId.intValue()); 
+		assertEquals(7, civilInitialRapSheetPkId.intValue()); 
 	}
 	
 	@Test
@@ -273,5 +273,17 @@ public class RapbackDAOImplTest {
 				+ "rapbackOptOutInState=false,rapbackActivityNotificationFormat=email,fbiOca=fbi oca,"
 				+ "ucn=A123457,timestamp=2014-10-19T18:47:52.690-05:00]";
 		assertEquals(expected, fbiSubscription.toString());
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testGetCivilInitialResultsByTransactionNumber() throws Exception {
+		List<CivilInitialResults> civilInitialResults= 
+				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339990");
+		log.info("Civil Intial Results count: " + civilInitialResults.size());
+		assertEquals(2, civilInitialResults.size());
+		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
+		assertEquals(" F o u n d   a   M a t c h", new String(civilInitialResults.get(0).getSearchResultFile()));
+		assertEquals(2, civilInitialResults.get(0).getRapsheets().size());
 	}
 }
