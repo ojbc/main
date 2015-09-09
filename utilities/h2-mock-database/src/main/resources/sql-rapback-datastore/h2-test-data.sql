@@ -118,5 +118,5 @@ insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NU
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category, subscription_term, fbi_oca, rap_back_expiration_date, 
 	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format, ucn, timestamp)
 values
-	('fbiSubscriptionId', 'criminal investigation', 'subscription term', 'fbi oca', '2015-12-19', '2014-10-19', false, 'email', 
-	'A123457', {ts '2014-10-19 18:47:52.69'});			
+	('fbiSubscriptionId', 'CI', 'subscription term', 'fbi oca', '2015-12-19', '2014-10-19', false, 'email', 
+	'123456789', {ts '2014-10-19 18:47:52.69'});			
