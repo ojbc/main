@@ -24,34 +24,23 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import javax.activation.DataHandler;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.mail.util.ByteArrayDataSource;
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.binding.soap.SoapHeader;
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.headers.Header;
-import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,7 +52,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
@@ -138,7 +126,8 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testIdentificationRecordingServiceError() throws Exception
 	{
-    	Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request-civil.xml");
+    	Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+    			"src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request-civil.xml");
 	    
 	    //Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
@@ -168,7 +157,8 @@ public class TestIdentficationRecordingAndResponse {
 
 	private void civilRecordingRequestSuccess() throws Exception, IOException,
 			InterruptedException, SAXException {
-		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request-civil.xml");
+		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request-civil.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
 		
@@ -206,7 +196,8 @@ public class TestIdentficationRecordingAndResponse {
 	
 	public void civilRecordingResultServiceSuccess() throws Exception
 	{
-		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-civil.xml");
+		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-civil.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
 		
@@ -245,7 +236,8 @@ public class TestIdentficationRecordingAndResponse {
 	
 	public void criminalRecordingResultServiceSuccess() throws Exception
 	{
-		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-criminal.xml");
+		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-criminal.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
 		
@@ -266,52 +258,6 @@ public class TestIdentficationRecordingAndResponse {
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
-	}
-	
-	protected Exchange createSenderExchange(String pathToInputFile) throws Exception, IOException {
-		//Create a new exchange
-    	Exchange senderExchange = new DefaultExchange(context);
-
-    	//Set the WS-Address Message ID
-		Map<String, Object> requestContext = OJBUtils.setWSAddressingMessageID("123456789");
-		
-		//Set the operation name and operation namespace for the CXF exchange
-		senderExchange.getIn().setHeader(Client.REQUEST_CONTEXT , requestContext);
-		
-		Document doc = createDocument();
-		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
-		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
-		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
-		
-		org.apache.cxf.message.Message message = new MessageImpl();
-
-		senderExchange.getIn().setHeader(CxfConstants.CAMEL_CXF_MESSAGE, message);
-    	
-	    //Read the firearm search request file from the file system
-	    File inputFile = new File(pathToInputFile);
-	    String inputStr = FileUtils.readFileToString(inputFile);
-
-	    assertNotNull(inputStr);
-	    
-	    //Set it as the message message body
-	    senderExchange.getIn().setBody(inputStr);
-		return senderExchange;
-	}
-	
-	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
-		Element messageId = doc.createElementNS(namespace, localName);
-		messageId.setTextContent(value);
-		SoapHeader soapHeader = new SoapHeader(new QName(namespace, localName), messageId);
-		return soapHeader;
-	}	
-	
-	public static Document createDocument() throws Exception{
-
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		dbf.setNamespaceAware(true);
-		Document doc = dbf.newDocumentBuilder().newDocument();
-
-		return doc;
 	}
 	
 	public byte[] extractImageBytes(String ImageName) throws IOException {
