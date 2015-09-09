@@ -264,6 +264,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_INTEL = "http://niem.gov/niem/domains/intelligence/2.1";
 	public static final String NS_PREFIX_INTEL = "intel";
 
+	public static final String NS_INTEL_30 = "http://release.niem.gov/niem/domains/intelligence/3.0/";
+	public static final String NS_PREFIX_INTEL_30 = "intel30";
+	
 	public static final String NS_SEARCH_RESULTS_METADATA_EXT = "http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0";
 	public static final String NS_PREFIX_SEARCH_RESULTS_METADATA_EXT = "srm";
 	public static final String NS_SEARCH_REQUEST_ERROR_REPORTING = "http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0";
@@ -1093,6 +1096,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    
 	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
 	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+
+	    prefixToUriMap.put(NS_PREFIX_INTEL_30, NS_INTEL_30);
+	    uriToPrefixMap.put(NS_INTEL_30, NS_PREFIX_INTEL_30);
 	      
 	}
 
