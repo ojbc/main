@@ -17,6 +17,7 @@
 package org.ojbc.adapters.rapbackdatastore.processor;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
@@ -24,6 +25,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDEN
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_XOP;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XMIME;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XOP;
@@ -152,7 +154,7 @@ public class InitialResultsQueryProcessor {
 		
 		List<byte[]> rapSheets = civilInitialResult.getRapsheets(); 
 		for (int i=0; i < rapSheets.size(); i++){
-			String documentIdString = documentId.name() + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
+			String documentIdString = documentId.name() + "_" + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
 			addAttachment(exchange, rapSheets.get(i), documentIdString);
 			appendDocumentElement(parentElement, 
 					queryResponseElementName, 
@@ -221,6 +223,8 @@ public class InitialResultsQueryProcessor {
         		NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES_30, NS_STRUCTURES_30);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_NC_30, NS_NC_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_XOP, NS_XOP);
         document.appendChild(rootElement);
 		return rootElement;
