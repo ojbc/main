@@ -26,10 +26,11 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.intermediaries.sn.FbiSubscription;
 import org.ojbc.intermediaries.sn.FbiSubscriptionProcessor;
+import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
@@ -37,8 +38,8 @@ import org.w3c.dom.Document;
 public class FbiSubscriptionProcessorTest {
 	
 	private FbiSubscriptionProcessor fbiSubscriptionProcessor = new FbiSubscriptionProcessor();
-	
-	private FbiSubscription sampleFbiSubscription;
+		
+	private FbiRapbackSubscription fbiRapbackSubscription;
 		
 	@Before
 	public void setup(){		
@@ -48,27 +49,31 @@ public class FbiSubscriptionProcessorTest {
     	XMLUnit.setIgnoreComments(true);
     	XMLUnit.setXSLTVersion("2.0");
     	
-    	sampleFbiSubscription = getSampleFbiSubscription();
+    	fbiRapbackSubscription = getSampleFbiSubscription();
 	}
 		
 	
-	private FbiSubscription getSampleFbiSubscription(){
-		
-		FbiSubscription fbiSubscription = new FbiSubscription();
+	private FbiRapbackSubscription getSampleFbiSubscription(){
+				
+		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription();
 		
 		Calendar startCal = Calendar.getInstance();
-		startCal.set(2015, 0, 1);		
-		fbiSubscription.setStartDate(startCal.getTime());
-		
+		startCal.set(2015, 0, 1);				
+		DateTime startDate = new DateTime(startCal.getTime());						
+		fbiRapbackSubscription.setRapbackStartDate(startDate);
+								
 		Calendar endCal = Calendar.getInstance();
-		endCal.set(2016, 0, 1);				
-		fbiSubscription.setEndDate(endCal.getTime());
+		endCal.set(2016, 0, 1);						
+		DateTime endDate = new DateTime(endCal.getTime());		
+		fbiRapbackSubscription.setRapbackExpirationDate(endDate);
+						
+		fbiRapbackSubscription.setSubscriptionTerm("P1Y");
+			
+		fbiRapbackSubscription.setFbiOca("1234567");
 		
-		fbiSubscription.setTermDuration("P1Y");		
-		fbiSubscription.setFbiId("1234567");		
-		fbiSubscription.setCrimSubReasonCode("CI");	
+		fbiRapbackSubscription.setRapbackCategory("CI");		
 		
-		return fbiSubscription;
+		return fbiRapbackSubscription;
 	}
 	
 	@Test
@@ -76,7 +81,7 @@ public class FbiSubscriptionProcessorTest {
 								
 		Document arrestSubDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/Arrest_Subscription_Document.xml"));		
 		
-		Document subXmlDocWithAppendedFbiData = fbiSubscriptionProcessor.appendFbiDataToSubscriptionDoc(arrestSubDoc, sampleFbiSubscription);						
+		Document subXmlDocWithAppendedFbiData = fbiSubscriptionProcessor.appendFbiDataToSubscriptionDoc(arrestSubDoc, fbiRapbackSubscription);						
 		
 		Document expectedXmlDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/Arrest_Subscription_Document_WithFbiData.xml"));
 		
