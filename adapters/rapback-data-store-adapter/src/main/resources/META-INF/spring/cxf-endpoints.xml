@@ -142,7 +142,8 @@
         xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0"
         >
         <cxf:properties>
-        	<entry key="mtom-enabled" value="true"/>			
+        	<entry key="mtom-enabled" value="true"/>
+        	<entry key="dataFormat" value="PAYLOAD"/>
         </cxf:properties>
         <cxf:features>
             <policy:policies>
