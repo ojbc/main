@@ -54,8 +54,7 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ident-ext:IdentificationApplicantOrganization>
-	<ident-ext:FBIIdentificationSearchResultDocument structures:id="Doc_01">
-		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
+	<ident-ext:FBIIdentificationSearchResultDocument xmime:contentType="text/plain" structures:id="Doc_01">
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
 	</ident-ext:FBIIdentificationSearchResultDocument>
 	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>

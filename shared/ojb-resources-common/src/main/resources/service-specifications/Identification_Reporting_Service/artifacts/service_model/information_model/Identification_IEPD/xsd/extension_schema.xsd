@@ -17,19 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema 
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
-	xmlns:xop="http://www.w3.org/2004/08/xop/include" 
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
-	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
-	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" 
-	xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" 
-	targetNamespace="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" 
-	elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
@@ -78,10 +66,11 @@
 			<xsd:documentation>A data type for a document containing identification information.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:BinaryType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="xop:Include"/>
 				</xsd:sequence>
+				<xsd:attribute ref="xmime:contentType"/>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
@@ -142,11 +131,6 @@
 			<xsd:documentation>A document returned by the State, after doing a fingerprint search, that indicates whether the person has a criminal history in the state. Sometimes this is referred to as a "match/no-match".</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocumentBinary" type="xmime:base64Binary" substitutionGroup="nc:BinaryObject">
-		<xsd:annotation>
-			<xsd:documentation>A binary representation of an identification document.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="LinkedSystems" type="ident-ext:LinkedSystemType">
 		<xsd:annotation>
 			<xsd:documentation>Systems with information about the offender.</xsd:documentation>
@@ -172,22 +156,17 @@
 			<xsd:documentation>A representation of a reason why someone is being identified.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
 	<xsd:element name="TransactionIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A unique identification for transaction where a transaction could consist of multiple messages.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
 	<xsd:element name="TransactionCategoryText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>An additional categorization of the transaction.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
-	
 	<xsd:element name="CivilIdentificationReasonCode" type="ident-ext:CivilIdentificationReasonCodeType" substitutionGroup="ident-ext:IdentificationReasonRepresentation"/>
-	
 	<xsd:complexType name="CivilIdentificationReasonCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="ident-ext:CivilIdentificationReasonCodeSimpleType">
@@ -195,7 +174,6 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	
 	<xsd:simpleType name="CivilIdentificationReasonCodeSimpleType">
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="F">
@@ -220,9 +198,7 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
-	
 	<xsd:element name="CriminalIdentificationReasonCode" type="ident-ext:CriminalIdentificationReasonCodeType" substitutionGroup="ident-ext:IdentificationReasonRepresentation"/>
-	
 	<xsd:complexType name="CriminalIdentificationReasonCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="ident-ext:CriminalIdentificationReasonCodeSimpleType">
@@ -230,7 +206,6 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	
 	<xsd:simpleType name="CriminalIdentificationReasonCodeSimpleType">
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="CAR">
@@ -240,7 +215,6 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
-	
 	<xsd:element name="FingerpringIdentificationIssuedForCivilPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for a civil background check, false otherwise.</xsd:documentation>

@@ -78,10 +78,11 @@
 			<xsd:documentation>A data type for a document containing identification information.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:BinaryType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="xop:Include"/>
 				</xsd:sequence>
+				<xsd:attribute ref="xmime:contentType"/>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
@@ -140,11 +141,6 @@
 	<xsd:element name="StateIdentificationSearchResultDocument" type="ident-ext:IdentificationDocumentType" substitutionGroup="ident-ext:IdentificationResultsRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document returned by the State, after doing a fingerprint search, that indicates whether the person has a criminal history in the state. Sometimes this is referred to as a "match/no-match".</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="DocumentBinary" type="xmime:base64Binary" substitutionGroup="nc:BinaryObject">
-		<xsd:annotation>
-			<xsd:documentation>A binary representation of an identification document.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="LinkedSystems" type="ident-ext:LinkedSystemType">
