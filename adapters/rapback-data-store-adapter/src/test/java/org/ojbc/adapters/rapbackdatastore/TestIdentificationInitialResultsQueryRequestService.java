@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Map;
 
 import org.apache.camel.EndpointInject;
+import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
@@ -28,6 +29,8 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.MessageImpl;
 import org.apache.ws.security.SAMLTokenPrincipal;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
@@ -35,12 +38,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl;
+import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.w3c.dom.Document;
 
 @UseAdviceWith
 // NOTE: this causes Camel contexts to not start up automatically
@@ -51,9 +56,12 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/cxf-endpoints.xml",      
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml",
+        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
 @DirtiesContext
-public class TestRapbackSearchRequestService {
+public class TestIdentificationInitialResultsQueryRequestService {
+	private final Log log = LogFactory.getLog( TestIdentficationRecordingAndResponse.class );
 
     @Autowired
     private ModelCamelContext context;
@@ -76,18 +84,18 @@ public class TestRapbackSearchRequestService {
         // Advise the Request Service endpoint and replace it
         // with a mock endpoint. We then will test this mock endpoint to see 
         // if it gets the proper payload.
-        context.getRouteDefinition("rapbackSearchRequestRoute")
+        context.getRouteDefinition("identificationInitialResultsQueryRequestRoute")
                 .adviceWith(context, new AdviceWithRouteBuilder() {
                     @Override
                     public void configure() throws Exception {
                         // The line below allows us to bypass CXF and send a
                         // message directly into the route
-                        replaceFromWith("direct:rapbackSearchRequest");
+                        replaceFromWith("direct:identificationInitialResultsQueryRequest");
 
                         interceptSendToEndpoint(
-                                "rapbackSearchResponseServiceEndpoint")
+                                "identificationInitialResultsQueryResponseServiceEndpoint")
                                 .to("mock:result")
-                                .log("Called Rapback Search Response Service Endpoint")
+                                .log("Called Identification Initial Results Query Response Service Endpoint")
                                 .stop();
                     }
                 });
@@ -98,6 +106,27 @@ public class TestRapbackSearchRequestService {
     @Test
     @DirtiesContext
     public void testRoute() throws Exception {
+		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/initialResultsQuery/OrganizationIdentificationInitialResultsQueryRequest.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "SubmitOrganizationIdentificationInitialResultsQueryRequest");
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationInitialResultsQueryRequest", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+
+		resultEndpoint.expectedMessageCount(1);
+		resultEndpoint.assertIsSatisfied();
+		
+		Exchange receivedExchange = resultEndpoint.getExchanges().get(0);
+		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		log.info("body: \n" + body);
+		
+
     }
 
     
