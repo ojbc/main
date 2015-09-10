@@ -38,6 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl;
+import org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessorTest;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml2.core.Assertion;
@@ -126,6 +127,8 @@ public class TestIdentificationInitialResultsQueryRequestService {
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		log.info("body: \n" + body);
 		
+        IdentificationReportingResponseProcessorTest.assertAsExpected(
+        		body, "src/test/resources/xmlInstances/initialResultsQuery/OrganizationIdentificationInitialResultsQueryResults.xml");
 
     }
 
