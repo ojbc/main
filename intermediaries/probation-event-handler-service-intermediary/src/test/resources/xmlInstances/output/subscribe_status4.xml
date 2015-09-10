@@ -60,5 +60,6 @@
             <nc20:Date>2013-04-26</nc20:Date>
          </nc20:StartDate>
       </nc20:DateRange>
+      <smext:CriminalSubscriptionReasonCode>CS</smext:CriminalSubscriptionReasonCode>
    </sm:SubscriptionMessage>
 </b:Subscribe>

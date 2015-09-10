@@ -92,7 +92,11 @@
 	<!-- IDC 2.002 -->
 	<xsl:param name="imageReferenceID"/>
 	
-	<xsl:template match="/b-2:Subscribe">
+	<xsl:template match="/">
+		<xsl:apply-templates select="b-2:Subscribe"/>
+	</xsl:template>
+	
+	<xsl:template match="b-2:Subscribe">
 		<xsl:apply-templates select="submsg-doc:SubscriptionMessage"/>
 	</xsl:template>
 	
@@ -101,9 +105,18 @@
 		<itl:NISTBiometricInformationExchangePackage>
 		
 			<!-- Record Type 1 -->
-			<itl:PackageInformationRecord>
-				<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
-				 
+			<xsl:call-template name="createType1Record"/>
+			
+			<!-- Record Type 2 -->
+			<xsl:call-template name="createType2Record"/>
+			
+		</itl:NISTBiometricInformationExchangePackage>
+		
+	</xsl:template>
+	
+	<xsl:template name="createType1Record">
+		<itl:PackageInformationRecord>
+				<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode> 
 				 <ansi-nist:Transaction>
 				 	<ansi-nist:TransactionDate>
 				 		<nc20:Date>
@@ -156,15 +169,16 @@
            			</ansi-nist:TransactionMinorVersionValue>
            			
 				 	<!-- Transaction Category TOT 1.004 -->
+				 	<!-- This determines whether we are requesting a new subscription or modifying an existing one -->
 				 	<xsl:choose>
-				 		<xsl:when test="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription">
+				 		<xsl:when test="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription[*]">
 				 			<ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
 				 		</xsl:when>
 				 		<xsl:otherwise>
+				 			<!-- TODO: we will need to update this once we begin processing civil subscriptions -->
 				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
 				 		</xsl:otherwise>
 				 	</xsl:choose>
-				 	
 				 	 <ansi-nist:TransactionContentSummary>
 				 	 	<ansi-nist:ContentFirstRecordCategoryCode>
 				 	 		<xsl:value-of select="$transactionContentSummaryContentFirstRecordCategoryCode"/>
@@ -179,6 +193,7 @@
 								</xsl:when>
 							</xsl:choose>
 				 	 	</ansi-nist:ContentRecordQuantity>
+				 	 	<!-- TODO: pass these in as params -->
 				 	 	<ansi-nist:ContentRecordSummary>
                     		<ansi-nist:ImageReferenceIdentification>
                         		<nc20:IdentificationID>00</nc20:IdentificationID>
@@ -187,11 +202,11 @@
                 		</ansi-nist:ContentRecordSummary>
 				 	 </ansi-nist:TransactionContentSummary>
 				 </ansi-nist:Transaction>
-				 
 			</itl:PackageInformationRecord>
-			
-			<!-- Record Type 2 -->
-			<itl:PackageDescriptiveTextRecord>
+	</xsl:template>
+	
+	<xsl:template name="createType2Record">
+		<itl:PackageDescriptiveTextRecord>
 			
 				<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
 				<ansi-nist:ImageReferenceIdentification>
@@ -269,7 +284,6 @@
 					</ebts:DomainDefinedDescriptiveFields>
 				</itl:UserDefinedDescriptiveDetail>
 			</itl:PackageDescriptiveTextRecord>
-		</itl:NISTBiometricInformationExchangePackage>
 	</xsl:template>
 	<xsl:template match="submsg-ext:Subject">
 		<ebts:RecordSubject>			

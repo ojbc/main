@@ -280,7 +280,7 @@ public class RapbackDAOImplTest {
 	public void testGetCivilInitialResultsByTransactionNumber() throws Exception {
 		List<CivilInitialResults> civilInitialResults= 
 				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339990");
-		log.info("Civil Intial Results count: " + civilInitialResults.size());
+		log.info("Civil Initial Results count: " + civilInitialResults.size());
 		assertEquals(2, civilInitialResults.size());
 		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
 		assertEquals(" F o u n d   a   M a t c h", new String(civilInitialResults.get(0).getSearchResultFile()));

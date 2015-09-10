@@ -59,6 +59,7 @@ import org.springframework.osgi.context.event.OsgiBundleApplicationContextListen
 
 /**
  * Integration test for Incident Reporting bundles using Pax Exam.
+ * The N-DEx intermediary has been upgrade to Java 8 so references to it are commented out.
  * 
  */
 @RunWith(PaxExam.class)
@@ -83,22 +84,26 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.arrest-reporting-service-intermediary)", timeout = 40000)
 	private ApplicationContext arrestReportingBundleContext;
 
-	@Inject
-	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.ndex-submission-service-intermediary)", timeout = 40000)
-	private ApplicationContext ndexBundleContext;
+	//Upgraded to Java 8, comment out for now
+	//@Inject
+	//@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.intermediaries.ndex-submission-service-intermediary)", timeout = 40000)
+	//private ApplicationContext ndexBundleContext;
 
 	@Inject
     @Filter(value = "(org.springframework.context.service.name=subscription-notification-service-intermediary)", timeout = 20000)
     private ApplicationContext notificationBrokerBundleContext;
 	
 	//Adapters
-	@Inject
-	@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.adapters.n-dex-submission-service-mock-adapter)", timeout = 40000)
-	private ApplicationContext ndexMockAdapterBundleContext;
+	//Upgraded to Java 8, comment out for now
+	//@Inject
+	//@Filter(value = "(org.springframework.context.service.name=org.ojbc.bundles.adapters.n-dex-submission-service-mock-adapter)", timeout = 40000)
+	//private ApplicationContext ndexMockAdapterBundleContext;
 
 	//Camel Contexts
 	private CamelContext incidentReportingConnectorCamelContext;
-	private CamelContext ndexSubmissionServiceCamelContext;
+	
+	//Upgraded to Java 8, comment out for now
+	//private CamelContext ndexSubmissionServiceCamelContext;
 
 	@Configuration
 	public Option[] config() {
@@ -194,8 +199,8 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 		assertNotNull(arrestReportingBundleContext);
 		assertNotNull(incidentReportingBundleContext);
 		assertNotNull(incidentReportingConnectorBundleContext);
-		assertNotNull(ndexBundleContext);
-		assertNotNull(ndexMockAdapterBundleContext);
+		//assertNotNull(ndexBundleContext);
+		//assertNotNull(ndexMockAdapterBundleContext);
 		assertNotNull(notificationBrokerBundleContext);
 		
 		System.err.println(executeCommand("osgi:list -t 1", 20000L, false));
@@ -225,14 +230,14 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 		assertEquals("/intermediary/IncidentReportingService", incidentServiceAddress);
 
 		//Test startup of Ndex Submission Service by getting the web service endpoint
-		CxfEndpoint ndexSubmissionServiceEndpoint = ndexBundleContext.getBean("ndexWebserviceFacadeEndpoint", CxfEndpoint.class);
-		String ndexSubmissionAddress = ndexSubmissionServiceEndpoint.getAddress();
+		//CxfEndpoint ndexSubmissionServiceEndpoint = ndexBundleContext.getBean("ndexWebserviceFacadeEndpoint", CxfEndpoint.class);
+		//String ndexSubmissionAddress = ndexSubmissionServiceEndpoint.getAddress();
 
-		assertNotNull(ndexSubmissionAddress);
+		//assertNotNull(ndexSubmissionAddress);
 		
-		log.info("N-DEx Submission Service Endpoint: " + ndexSubmissionAddress);
+		//log.info("N-DEx Submission Service Endpoint: " + ndexSubmissionAddress);
 
-		assertEquals("/intermediary/N-DexSubmissionService", ndexSubmissionAddress);
+		//assertEquals("/intermediary/N-DexSubmissionService", ndexSubmissionAddress);
 	
 		//Subscription Notification
 		CxfEndpoint notificationBrokerServiceEndpoint = notificationBrokerBundleContext.getBean("notificationBrokerService", CxfEndpoint.class);
@@ -255,22 +260,27 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 
 		//Retrieve camel contexts to get properties from bundle
 		incidentReportingConnectorCamelContext = getOsgiService(CamelContext.class, "(camel.context.name=incident-reporting-service-connector)", 40000);
-		ndexSubmissionServiceCamelContext = getOsgiService(CamelContext.class, "(camel.context.name=ndex-submission-service-intermediary)", 40000);
+		
+		//Upgraded to Java 8, comment out for now
+		//ndexSubmissionServiceCamelContext = getOsgiService(CamelContext.class, "(camel.context.name=ndex-submission-service-intermediary)", 40000);
 		
 		assertNotNull(incidentReportingConnectorCamelContext);
-		assertNotNull(ndexSubmissionServiceCamelContext);
+		
+		//Upgraded to Java 8, comment out for now
+		//assertNotNull(ndexSubmissionServiceCamelContext);
 
 		//Get input directory by resolving property
 		String inputDirectoryString = incidentReportingConnectorCamelContext.resolvePropertyPlaceholders("{{incidentChargeReporting.ConnectorFileDirectory}}") + "/input";
 		log.info("Connector input directory:"+ inputDirectoryString);
 
+		//Upgraded to Java 8, comment out for now
 		//Get intermediary output directory, due to Camel bug, it is retrieved by endpoint
-		Endpoint ndexSuccessEndpoint = ndexSubmissionServiceCamelContext.getEndpoint("ndexSubmissionSuccessDir");
-		assertNotNull(ndexSuccessEndpoint);
+		//Endpoint ndexSuccessEndpoint = ndexSubmissionServiceCamelContext.getEndpoint("ndexSubmissionSuccessDir");
+		//assertNotNull(ndexSuccessEndpoint);
 		
-		log.info("NDEx output directory:"+ ndexSuccessEndpoint.getEndpointUri());
+		//log.info("NDEx output directory:"+ ndexSuccessEndpoint.getEndpointUri());
 		
-		String ndexSuccessEndpointDirectoryString = StringUtils.substringAfter(ndexSuccessEndpoint.getEndpointUri(), "file:///");
+		//String ndexSuccessEndpointDirectoryString = StringUtils.substringAfter(ndexSuccessEndpoint.getEndpointUri(), "file:///");
 		
 		//Clean the input directory up for a clean test
 		File inputDirectory = new File(inputDirectoryString);
@@ -281,12 +291,12 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 		}
 
 		//Clean the ndex directory up for a clean test
-		File ndexDirectory = new File(ndexSuccessEndpointDirectoryString);
+		//File ndexDirectory = new File(ndexSuccessEndpointDirectoryString);
 		
-		if (ndexDirectory.exists())
-		{	
-			FileUtils.cleanDirectory(ndexDirectory);
-		}
+		//if (ndexDirectory.exists())
+		//{	
+		//	FileUtils.cleanDirectory(ndexDirectory);
+		//}
 		
 		DateTime now = new DateTime();
 		
@@ -299,19 +309,19 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 		//Sleep while processing happens
 		Thread.sleep(15000);
 		
-		File ndexDirectoryForToday = new File(ndexSuccessEndpointDirectoryString + "/" +  now.toString("yyyyMMdd") );
+		//File ndexDirectoryForToday = new File(ndexSuccessEndpointDirectoryString + "/" +  now.toString("yyyyMMdd") );
 		
 		//Assert that we get exactly one file in the ndex 'success' directory and then delete it
-		String[] extensions = {"xml"};
-		Collection<File> files = FileUtils.listFiles(ndexDirectoryForToday, extensions, true);
+		//String[] extensions = {"xml"};
+		//Collection<File> files = FileUtils.listFiles(ndexDirectoryForToday, extensions, true);
 		
-		assertEquals(1, files.size());
+		//assertEquals(1, files.size());
 		
-		File theNdexResponseFile = files.iterator().next();
+		//File theNdexResponseFile = files.iterator().next();
 		
 		//Confirm ndex file name is correct in 'success' directory
-		assertTrue(theNdexResponseFile.getName().startsWith("INCIDENT_14BU000056"));
-		assertTrue(theNdexResponseFile.getName().endsWith(".xml"));
+		//assertTrue(theNdexResponseFile.getName().startsWith("INCIDENT_14BU000056"));
+		//assertTrue(theNdexResponseFile.getName().endsWith(".xml"));
 		
 		//TODO: Support Arrest Reporting Service, Charge Referral Service and Notification Broker Service
 		

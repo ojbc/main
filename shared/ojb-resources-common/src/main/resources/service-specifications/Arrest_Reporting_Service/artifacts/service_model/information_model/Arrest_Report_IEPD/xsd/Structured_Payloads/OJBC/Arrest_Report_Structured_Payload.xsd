@@ -168,13 +168,14 @@
 	</xsd:complexType>
 	<xsd:complexType name="ArrestDocumentType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a document containing arrest information.</xsd:documentation>
+			<xsd:documentation>A data type for a document containing identification information.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:BinaryType">
+			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="xop:Include"/>
 				</xsd:sequence>
+				<xsd:attribute ref="xmime:contentType"/>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
@@ -263,11 +264,6 @@
 	<xsd:element name="ArrestDocumentRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for an arrest document.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="DocumentBinary" type="xmime:base64Binary" substitutionGroup="nc:BinaryObject">
-		<xsd:annotation>
-			<xsd:documentation>A binary representation of an arrest document.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
