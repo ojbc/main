@@ -37,7 +37,6 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
@@ -259,20 +258,6 @@ public class RapbackDAOImplTest {
 		List<IdentificationTransaction> transactions = 
 				rapbackDAO.getCivilIdentificationTransactions("68796860");
 		log.info(transactions.get(0).toString());
-	}
-	
-	@Test
-	@DirtiesContext
-	public void testGetFbiSubscription() throws Exception {
-		FbiRapbackSubscription fbiSubscription = 
-				rapbackDAO.getFbiRapbackSubscription("criminal investigation", "A123457");
-		log.info(fbiSubscription.toString());
-		String expected = "FbiRapbackSubscription[fbiSubscriptionId=fbiSubscriptionId,"
-				+ "rapbackCategory=criminal investigation,subscriptionTerm=subscription term,"
-				+ "rapbackExpirationDate=2015-12-19T00:00:00.000-06:00,rapbackStartDate=2014-10-19T00:00:00.000-05:00,"
-				+ "rapbackOptOutInState=false,rapbackActivityNotificationFormat=email,fbiOca=fbi oca,"
-				+ "ucn=A123457,timestamp=2014-10-19T18:47:52.690-05:00]";
-		assertEquals(expected, fbiSubscription.toString());
 	}
 	
 	@Test
