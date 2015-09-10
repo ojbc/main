@@ -20,10 +20,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.logging.Logger;
 
-import org.apache.camel.Exchange;
 import org.apache.commons.io.IOUtils;
-import org.ojbc.util.xml.XmlUtils;
-import org.w3c.dom.Document;
 
 
 public class MockPersonSearchProcessor {
@@ -50,16 +47,4 @@ public class MockPersonSearchProcessor {
 		return personResponse;
 	}
 	  			
-	//	TODO
-	//	make sure person search response has one result and see if it has an fbi id(with processor and xmlutils)
-	//	if more than one, log an error.  
-	public void setFbiIdHeaderFromPersonSearchResponse(Exchange exchange, Document personSearchResponse) throws Exception{
-		
-		String fbiId = XmlUtils.xPathStringSearch(personSearchResponse, 
-				"//psres:PersonSearchResult/emrm-ext:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
-		
-		logger.info("\n\n\n Mock processor returning fbiId:  " + fbiId + "\n\n\n");
-		
-		exchange.getIn().setHeader("fbiId", fbiId);	
-	}
 }
