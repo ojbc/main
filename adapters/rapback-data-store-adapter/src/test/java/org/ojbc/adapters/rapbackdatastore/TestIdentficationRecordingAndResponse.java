@@ -127,7 +127,7 @@ public class TestIdentficationRecordingAndResponse {
 	public void testIdentificationRecordingServiceError() throws Exception
 	{
     	Exchange senderExchange = MessageUtils.createSenderExchange(context, 
-    			"src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request-civil.xml");
+    			"src/test/resources/xmlInstances/identificationReport/person_identification_request_fbi_civil.xml");
 	    
 	    //Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
@@ -158,7 +158,7 @@ public class TestIdentficationRecordingAndResponse {
 	private void civilRecordingRequestSuccess() throws Exception, IOException,
 			InterruptedException, SAXException {
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
-				"src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request-civil.xml");
+				"src/test/resources/xmlInstances/identificationReport/person_identification_request_fbi_civil.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
 		
