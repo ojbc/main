@@ -64,8 +64,7 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ident-ext:IdentificationApplicantOrganization>
-	<ident-ext:StateCriminalHistoryRecordDocument structures:id="Doc_01">
-		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
+	<ident-ext:StateCriminalHistoryRecordDocument xmime:contentType="text/plain" structures:id="Doc_01">
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
 	</ident-ext:StateCriminalHistoryRecordDocument>
 	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>

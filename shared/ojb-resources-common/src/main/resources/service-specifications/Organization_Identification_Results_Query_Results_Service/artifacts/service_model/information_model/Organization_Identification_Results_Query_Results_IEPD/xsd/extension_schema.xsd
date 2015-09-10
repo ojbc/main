@@ -49,13 +49,14 @@
 	</xsd:complexType>
 	<xsd:complexType name="IdentificationResultsDocumentType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a document containing organization identification results.</xsd:documentation>
+			<xsd:documentation>A data type for a document containing identification information.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:BinaryType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="xop:Include"/>
 				</xsd:sequence>
+				<xsd:attribute ref="xmime:contentType"/>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
@@ -87,11 +88,6 @@
 	<xsd:element name="FBIIdentificationSearchResultDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationSearchResultsRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document returned by the FBI, based on a biometric submission, indicating whether a person has a criminal history with the FBI.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="DocumentBinary" type="xmime:base64Binary" substitutionGroup="nc:BinaryObject">
-		<xsd:annotation>
-			<xsd:documentation>A binary representation of an identification document.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
