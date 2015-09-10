@@ -38,13 +38,13 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
+import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
@@ -609,42 +609,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 				jdbcTemplate.query(CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT, 
 						new IdentificationTransactionRowMapper(), ori);
 		return identificationTransactions;
-	}
-
-	final static String FBI_SUBSCRIPTION_SELECT = "SELECT * FROM fbi_rap_back_subscription "
-			+ "WHERE rap_back_category = ? AND ucn=?;";
-	
-	@Override
-	public FbiRapbackSubscription getFbiRapbackSubscription(String category,
-			String ucn) {
-		if (category == null || ucn == null){
-			throw new IllegalArgumentException("category and ucn can not be null."); 
-		}
-		
-		FbiRapbackSubscription fbiSubscription = 
-				jdbcTemplate.queryForObject(FBI_SUBSCRIPTION_SELECT, new FbiSubscriptionRowMapper(), category, ucn);
-		return fbiSubscription;
-	}
-
-	private final class FbiSubscriptionRowMapper implements
-			RowMapper<FbiRapbackSubscription> {
-		public FbiRapbackSubscription mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-
-			FbiRapbackSubscription fbiSubscription = new FbiRapbackSubscription();
-			fbiSubscription.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
-			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category"));
-			fbiSubscription.setSubscriptionTerm(rs.getString("subscription_term"));
-			fbiSubscription.setFbiOca(rs.getString("fbi_oca"));
-			fbiSubscription.setRapbackExpirationDate(toDateTime(rs.getDate("rap_back_expiration_date")));
-			fbiSubscription.setRapbackStartDate(toDateTime(rs.getDate("rap_back_start_date")));
-			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
-			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format"));
-			fbiSubscription.setUcn(rs.getString("ucn"));
-			fbiSubscription.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
-
-			return fbiSubscription;
-		}
 	}
 
 	final static String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.* "

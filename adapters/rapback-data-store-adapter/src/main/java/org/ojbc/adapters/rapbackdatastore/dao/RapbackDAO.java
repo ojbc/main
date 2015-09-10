@@ -24,11 +24,11 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
+import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
 
 
 public interface RapbackDAO {
@@ -53,7 +53,6 @@ public interface RapbackDAO {
 	public List<CivilInitialResults> getIdentificationCivilInitialResults(String transactionNumber);
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(String ori);
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(String ori);
-	public FbiRapbackSubscription getFbiRapbackSubscription(String category, String ucn);
 	
 	public void updateSubject(Subject subject);
 }
