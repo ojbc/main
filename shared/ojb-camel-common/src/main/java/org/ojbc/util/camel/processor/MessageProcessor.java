@@ -178,6 +178,7 @@ public class MessageProcessor {
 		}	
 			
 		exchange.getOut().setBody(exchange.getIn().getBody());
+		exchange.getOut().setAttachments(exchange.getIn().getAttachments());
 	}
 
 
