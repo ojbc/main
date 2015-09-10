@@ -67,7 +67,8 @@
             <exclude>**/jquery-ui/**</exclude>
             <exclude>**/jquery.maskinput.js</exclude>
             <exclude>**/bin/**</exclude>
-            <!-- note including static/js/ojb-web-portal.js -->
+            <!-- note not excluding static/js/ojb-web-portal.js -->            
+            <exclude>**/ebts-10.0-ws-specification/**</exclude>
           </excludes>
           <includes>
             <include>**/*.java</include>

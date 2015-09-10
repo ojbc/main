@@ -44,9 +44,16 @@
 	<bean id="blankEditableEndDateStrategy"
 		class="org.ojbc.web.model.subscription.add.BlankEditableEndDateStrategy" />
 
+	<bean id="oneYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.OneYearEditableEndDateStrategy" />
+
 	<bean id="uneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.edit.UneditableStartDateStrategy" />
 
+	<bean id="arrestSubscriptionAddValidator"
+			class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionAddStrictValidator" />
+
+	<bean id="arrestSubscriptionEditValidator"
+			class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEditStrictValidator" />
 
 	<util:map id="subscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
@@ -57,9 +64,13 @@
 			value-ref="currentEditableStartDateStrategy" />
 	</util:map>
 
+	<util:map id="subscriptionDefaultsMap">
+		<entry key="purpose" value="CI" />
+	</util:map>
+
 	<util:map id="subscriptionEndDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
-			value-ref="blankEditableEndDateStrategy" />
+			value-ref="oneYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
 			value-ref="blankEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
@@ -127,7 +138,7 @@
 	</util:map>
 
 	<util:map id="systemsToQuery_vehicles_disabled" map-class="java.util.LinkedHashMap">
-		<!-- <entry key="Disabled System" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}VehicleDisabled" 
+		<!-- <entry key="Disabled System" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}VehicleDisabled"
 			/> -->
 	</util:map>
 
@@ -157,13 +168,14 @@
 		<entry key="queryLink" value="#" />
 		<entry key="subscriptionsLink" value="#" />
 		<entry key="rapbackLink" value="#" />
-		
+		<entry key="criminalIdLink" value="#" />
+
 		<!-- Use this entry if you are using the provided help templates from ojb-web-external-resource -->
 		<entry key="helpLink" value="#" />
-		
+
 		<!-- Use this entry is you are providing an external help link -->
-		<!--  <entry key="helpLinkExternal" value="https://local.gov/linkToHelpPages" /> -->	
-		
+		<!--  <entry key="helpLinkExternal" value="https://local.gov/linkToHelpPages" /> -->
+
 		<entry key="privacyPolicyLink" value="http://local.gov/privacy-policies/" />
 		<entry key="faqLink" value="#" />
 		<entry key="suggestionFormLink" value="#" />
@@ -179,7 +191,7 @@
 		<entry key="Link1" value="http://local.gov/link1" />
 		<entry key="Link2" value="http://local.gov/link2" />
 	</util:map>
-	
+
 	<!-- People-related maps -->
 
 	<util:map id="races" map-class="java.util.LinkedHashMap">
@@ -508,8 +520,8 @@
 		<entry key="Z" value="All others (must fill in MIS field)" />
 	</util:map>
 
-	<!-- This map is used to map the search details ('DETAILS' link) to the 
-		xsl that will transfrom the data to html. Format is System Name to file name 
+	<!-- This map is used to map the search details ('DETAILS' link) to the
+		xsl that will transfrom the data to html. Format is System Name to file name
 		in the src/main/resources/xsl directory -->
 	<util:map id="searchDetailToXsl">
 		<entry key="Statewide Warrant System" value="warrants.xsl" />
@@ -541,7 +553,7 @@
 		<entry key="Stepfather" value="Stepfather" />
 		<entry key="Stepmother" value="Stepmother" />
 	</util:map>
-	
+
 	<util:map id="states" map-class="java.util.LinkedHashMap">
 		<entry key="" value="State" />
 		<entry key="AK" value="Alaska" />
@@ -606,15 +618,15 @@
 		<entry key="WY" value="Wyoming" />
 	</util:map>
 
-	<!-- This map is used to allow conditional includes into the Velocity templates 
-		based upon state-specific needs. For example, if the value is non-empty for 
-		'preBodyClose', the filename it specifies (relative to "stateSpecific" directory) 
+	<!-- This map is used to allow conditional includes into the Velocity templates
+		based upon state-specific needs. For example, if the value is non-empty for
+		'preBodyClose', the filename it specifies (relative to "stateSpecific" directory)
 		will be sourced in before the </body> tag. -->
 	<util:map id="stateSpecificIncludes">
 		<entry key="preBodyClose" value="" />
 	</util:map>
 
-	<!-- This map will decide which base template is used as the 'home' page 
+	<!-- This map will decide which base template is used as the 'home' page
 		landingPage query -->
 	<util:map id="stateSpecificHomePage">
 			<entry key="thisHomePage" value="landingPage" />
@@ -629,6 +641,11 @@
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value="ATN Assignment" />
 	</util:map>
 
+	<util:map id="subscriptionPurposeValueToLabelMap" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Subscription Purpose" />
+		<entry key="CS" value="Supervision" />
+		<entry key="CI" value="Investigation" />
+	</util:map>
 
 	<!-- for the filter subscription form -->
 	<util:map id="subscriptionFilterValueToLabelMap" map-class="java.util.LinkedHashMap">
@@ -645,5 +662,4 @@
 	</util:map>
 
 
-</beans>                      
-
+</beans>

@@ -27,16 +27,37 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 	
-	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="dataSource" />
+	<bean id="wsAddressReplyToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="wsAddressReplyToEndpointMap" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.organization-identification-results-search-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
-			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
-				<property name="url" value="jdbc:h2:mem:policy-acknowledgement" />
-				<property name="username" value="sa" />
-			</bean>
+			<util:map map-class="java.util.HashMap">
+		        <entry key="${rapbackSearchIntermediary.presentRapbackSearchResultEndpoint}" value="presentRapbackSearchResultServiceEndpoint"/>
+		  	</util:map>
 		</constructor-arg>
-	</bean>
+	</bean>	
+	
+	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.organization-identification-results-search-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
+				<property name="federatedQueryEndpointMap">
+					<util:map >
+						<entry key="Criminal" value="rapbackSearchRequestServiceAdapterEndpoint" />
+						<entry key="Civil" value="rapbackSearchRequestServiceAdapterEndpoint" />
+					</util:map>	
+				</property>
+
+				<property name="adapterURItoAddressMap">
+					<util:map >
+						<entry key="Criminal" value="${rapbackSearchIntermediary.rapbackDataStoreEndpoint}" />
+						<entry key="Civil" value="${rapbackSearchIntermediary.rapbackDataStoreEndpoint}" />
+					</util:map>	
+				</property>
+		  	</bean>
+		</constructor-arg>
+	</bean>		
+
 	
 </beans>

@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -34,18 +36,21 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
+import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -62,13 +67,15 @@ public class RapbackDAOImpl implements RapbackDAO {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Autowired
 	private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private TopicMapValidationDueDateStrategy validationDueDateStrategy;
 	
-	final static String SUBJECT_INSERT="INSERT into FBI_RAP_BACK_SUBJECT "
+	final static String SUBJECT_INSERT="INSERT into IDENTIFICATION_SUBJECT "
 			+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB, SEX_CODE) "
 			+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
 	@Override
 	public Integer saveSubject(final Subject subject) {
-        log.debug("Inserting row into FBI_RAP_BACK_SUBJECT table : " + subject);
+        log.debug("Inserting row into IDENTIFICATION_SUBJECT table : " + subject);
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -92,7 +99,7 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 	
-	final static String SUBJECT_SELECT="SELECT * FROM FBI_RAP_BACK_SUBJECT WHERE SUBJECT_ID = ?";
+	final static String SUBJECT_SELECT="SELECT * FROM IDENTIFICATION_SUBJECT WHERE SUBJECT_ID = ?";
 	@Override
 	public Subject getSubject(Integer id) {
 		List<Subject> subjects = jdbcTemplate.query(SUBJECT_SELECT, new SubjectRowMapper(), id);
@@ -117,8 +124,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String IDENTIFICATION_TRANSACTION_INSERT="INSERT into IDENTIFICATION_TRANSACTION "
-			+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA) "
-			+ "values (?, ?, ?, ?, ?)";
+			+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, ARCHIVED, IDENTIFICATION_CATEGORY) "
+			+ "values (?, ?, ?, ?, ?, ?, ?)";
 	@Override
 	@Transactional
 	public void saveIdentificationTransaction(
@@ -126,9 +133,14 @@ public class RapbackDAOImpl implements RapbackDAO {
         log.debug("Inserting row into IDENTIFICATION_TRANSACTION table : " + identificationTransaction.toString());
         
         Integer subjectId  = null; 
-        if ( identificationTransaction.getSubject() != null){
-	        subjectId = saveSubject(identificationTransaction.getSubject());
-	        identificationTransaction.getSubject().setSubjectId(subjectId);
+        if ( identificationTransaction.getSubject() == null){
+        	throw new IllegalArgumentException("The subject should not be null when saving Identification Transaction :" + 
+        			identificationTransaction.toString()); 
+        }
+        else{
+        	subjectId = saveSubject(identificationTransaction.getSubject());
+        	identificationTransaction.getSubject().setSubjectId(subjectId);
+        	
         }
         
         jdbcTemplate.update(IDENTIFICATION_TRANSACTION_INSERT, 
@@ -136,7 +148,9 @@ public class RapbackDAOImpl implements RapbackDAO {
         		subjectId, 
         		identificationTransaction.getOtn(),
         		identificationTransaction.getOwnerOri(),
-        		identificationTransaction.getOwnerProgramOca()); 
+        		identificationTransaction.getOwnerProgramOca(), 
+        		BooleanUtils.isTrue(identificationTransaction.getArchived()),
+        		identificationTransaction.getIdentificationCategory()); 
 	}
 
 	final static String CIVIL_FBI_SUBSCRIPTION_RECORD_INSERT="INSERT into CIVIL_FBI_SUBSCRIPTION_RECORD "
@@ -180,10 +194,9 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CRIMINAL_FBI_SUBSCRIPTION_RECORD_INSERT, 
-        	                		new String[] {"SUBSCRIPTION_ID", "FBI_SUBSCRIPTION_ID", "FBI_OCA"});
+        	                		new String[] {"SUBSCRIPTION_ID", "FBI_SUBSCRIPTION_ID"});
         	            ps.setInt(1, criminalFbiSubscriptionRecord.getSubscriptionId());
         	            ps.setString(2, criminalFbiSubscriptionRecord.getFbiSubscriptionId());
-        	            ps.setString(3, criminalFbiSubscriptionRecord.getFbiOca());
         	            return ps;
         	        }
         	    },
@@ -193,7 +206,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String CIVIL_FINGER_PRINTS_INSERT="insert into CIVIL_FINGER_PRINTS "
-			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) "
+			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE_ID) "
 			+ "values (?, ?, ?, ?)";
 	@Override
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints) {
@@ -212,7 +225,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            	ps.setBlob(2, new SerialBlob(civilFingerPrints.getFingerPrintsFile()));
         	            }
         	            ps.setString(3, civilFingerPrints.getTransactionType());
-        	            ps.setString(4, civilFingerPrints.getFingerPrintsType());
+        	            ps.setInt(4, civilFingerPrints.getFingerPrintsType().ordinal()+1);
         	            return ps;
         	        }
         	    },
@@ -221,32 +234,33 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
-	final static String CRIMINAL_FINGER_PRINTS_INSERT="insert into CRIMINAL_FINGER_PRINTS "
-			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) "
-			+ "values (?, ?, ?, ?)";
-	@Override
-	public Integer saveCriminalFingerPrints(
-			final CriminalFingerPrints criminalFingerPrints) {
-        log.debug("Inserting row into CRIMINAL_FINGER_PRINTS table : " + criminalFingerPrints.toString());
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(CRIMINAL_FINGER_PRINTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "TRANSACTION_TYPE", "FINGER_PRINTS_TYPE"});
-        	            ps.setString(1, criminalFingerPrints.getTransactionNumber());
-        	            ps.setBlob(2, new SerialBlob(criminalFingerPrints.getFingerPrintsFile()));
-        	            ps.setString(3, criminalFingerPrints.getTransactionType());
-        	            ps.setString(4, criminalFingerPrints.getFingerPrintsType());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();
-	}
+// TODO delete this when we are 100% sure the table is not needed any more. 
+//	final static String CRIMINAL_FINGER_PRINTS_INSERT="insert into CRIMINAL_FINGER_PRINTS "
+//			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) "
+//			+ "values (?, ?, ?, ?)";
+//	@Override
+//	public Integer saveCriminalFingerPrints(
+//			final CriminalFingerPrints criminalFingerPrints) {
+//        log.debug("Inserting row into CRIMINAL_FINGER_PRINTS table : " + criminalFingerPrints.toString());
+//
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        jdbcTemplate.update(
+//        	    new PreparedStatementCreator() {
+//        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//        	            PreparedStatement ps =
+//        	                connection.prepareStatement(CRIMINAL_FINGER_PRINTS_INSERT, 
+//        	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "TRANSACTION_TYPE", "FINGER_PRINTS_TYPE"});
+//        	            ps.setString(1, criminalFingerPrints.getTransactionNumber());
+//        	            ps.setBlob(2, new SerialBlob(criminalFingerPrints.getFingerPrintsFile()));
+//        	            ps.setString(3, criminalFingerPrints.getTransactionType());
+//        	            ps.setString(4, criminalFingerPrints.getFingerPrintsType());
+//        	            return ps;
+//        	        }
+//        	    },
+//        	    keyHolder);
+//
+//         return keyHolder.getKey().intValue();
+//	}
 
 	final static String CIVIL_INITIAL_RAP_SHEET_INSERT="insert into CIVIL_INITIAL_RAP_SHEET "
 			+ "(CIVIL_INITIAL_RESULT_ID, RAP_SHEET, TRANSACTION_TYPE) "
@@ -274,10 +288,11 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
+	//TODO solve the current_state change. 
 	final static String CIVIL_INITIAL_RESULTS_INSERT="insert into CIVIL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, MATCH_NO_MATCH, CURRENT_STATE, TRANSACTION_TYPE, "
-			+ " CIVIL_RAP_BACK_CATEGORY, RESULTS_SENDER) "
-			+ "values (?, ?, ?, ?, ?, ?)";
+			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, TRANSACTION_TYPE, "
+			+ " RESULTS_SENDER_ID) "
+			+ "values (?, ?, ?, ?)";
 	@Override
 	public Integer saveCivilInitialResults(
 			final CivilInitialResults civilInitialResults) {
@@ -289,14 +304,12 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_INITIAL_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH", "CURRENT_STATE", 
-        	                		"TRANSACTION_TYPE", "CIVIL_RAP_BACK_CATEGORY", "RESULTS_SENDER", });
+        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
+        	                		"TRANSACTION_TYPE", "RESULTS_SENDER_ID"});
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
-        	            ps.setBoolean(2, civilInitialResults.getMatch());
-        	            ps.setString(3, civilInitialResults.getCurrentState().toString());
-        	            ps.setString(4, civilInitialResults.getTransactionType());
-        	            ps.setString(5, civilInitialResults.getCivilRapBackCategory());
-        	            ps.setString(6, civilInitialResults.getResultsSender());
+        	            ps.setBlob(2, new SerialBlob(civilInitialResults.getSearchResultFile()));
+        	            ps.setString(3, civilInitialResults.getTransactionType());
+        	            ps.setInt(4, civilInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
         	    },
@@ -306,9 +319,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String CRIMINAL_INITIAL_RESULTS_INSERT="insert into CRIMINAL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, MATCH_NO_MATCH, TRANSACTION_TYPE, "
-			+ " RESULTS_SENDER, RAP_BACK_CATEGORY) "
-			+ "values (?, ?, ?, ?, ?)";
+			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, TRANSACTION_TYPE, "
+			+ " RESULTS_SENDER_ID) "
+			+ "values (?, ?, ?, ?)";
 	@Override
 	public Integer saveCriminalInitialResults(
 			final CriminalInitialResults criminalInitialResults) {
@@ -320,13 +333,12 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CRIMINAL_INITIAL_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
-        	                		"TRANSACTION_TYPE", "RESULTS_SENDER", "RAP_BACK_CATEGORY" });
+        	                		new String[] {"TRANSACTION_NUMBER", "SEARCH_RESULT_FILE",  
+        	                		"TRANSACTION_TYPE", "RESULTS_SENDER_ID"});
         	            ps.setString(1, criminalInitialResults.getTransactionNumber());
-        	            ps.setBoolean(2, criminalInitialResults.getMatch());
+        	            ps.setBlob(2, new SerialBlob(criminalInitialResults.getSearchResultFile()));
         	            ps.setString(3, criminalInitialResults.getTransactionType());
-        	            ps.setString(4, criminalInitialResults.getResultsSender());
-        	            ps.setString(5, criminalInitialResults.getRapBackCategory());
+        	            ps.setInt(4, criminalInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
         	    },
@@ -350,7 +362,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(SUBSEQUENT_RESULTS_INSERT, 
         	                		new String[] {"TRANSACTION_NUMBER", "FBI_SUBSCRIPTION_ID", "SUBJECT_ID", "RAP_BACK_SUBSCRIPTION_IDENTIFIER", 
-        	                		"MATCH_NO_MATCH",  "RAP_SHEET", "TRANSACTION_TYPE"  });
+        	                		"MATCH_NO_MATCH",  "RAP_SHEET", "TRANSACTION_TYPE" });
         	            ps.setString(1, subsequentResults.getTransactionNumber());
         	            ps.setString(2, subsequentResults.getFbiSubscriptionId());
         	            ps.setString(3, subsequentResults.getRapbackSubscriptionIdentifier());
@@ -366,10 +378,10 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String FBI_RAP_BACK_SUBSCRIPTION_INSERT="insert into FBI_RAP_BACK_SUBSCRIPTION "
-			+ "(FBI_SUBSCRIPTION_ID, SUBJECT_ID, RAP_BACK_CATEGORY, SUBSCRIPTION_TERM, "
-			+ " RAP_BACK_SUBSCRIPTION_IDENTIFIER, RAP_BACK_EXPIRATION_DATE, RAP_BACK_START_DATE, "
-			+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT ) "
-			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "(FBI_SUBSCRIPTION_ID, UCN, RAP_BACK_CATEGORY, SUBSCRIPTION_TERM, "
+			+ " RAP_BACK_EXPIRATION_DATE, RAP_BACK_START_DATE, "
+			+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT,FBI_OCA, UCN) "
+			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	@Override
 	public Integer saveFbiRapbackSubscription(
 			final FbiRapbackSubscription fbiRapbackSubscription) {
@@ -381,19 +393,18 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(FBI_RAP_BACK_SUBSCRIPTION_INSERT, 
-        	                		new String[] {"FBI_SUBSCRIPTION_ID", "SUBJECT_ID", "RAP_BACK_CATEGORY", 
-        	                		"SUBSCRIPTION_TERM",  "RAP_BACK_SUBSCRIPTION_IDENTIFIER", "RAP_BACK_EXPIRATION_DATE",
+        	                		new String[] {"FBI_SUBSCRIPTION_ID", "UCN", "RAP_BACK_CATEGORY", 
+        	                		"SUBSCRIPTION_TERM",  "RAP_BACK_EXPIRATION_DATE",
         	                		"RAP_BACK_START_DATE", "RAP_BACK_OPT_OUT_IN_STATE_INDICATOR", 
-        	                		"RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT"});
+        	                		"RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT","FBI_OCA" });
         	            ps.setString(1, fbiRapbackSubscription.getFbiSubscriptionId());
-        	            ps.setInt(2, fbiRapbackSubscription.getSubjectId());
+        	            ps.setString(2, fbiRapbackSubscription.getUcn());
         	            ps.setString(3, fbiRapbackSubscription.getRapbackCategory());
         	            ps.setString(4, fbiRapbackSubscription.getSubscriptionTerm());
-        	            ps.setString(5, fbiRapbackSubscription.getRapbackSubscriptionIdentifier());
-        	            ps.setDate(6, new java.sql.Date(fbiRapbackSubscription.getRapbackExpirationDate().getMillis()));
-        	            ps.setDate(7, new java.sql.Date(fbiRapbackSubscription.getRapbackStartDate().getMillis()));
-        	            ps.setBoolean(8, fbiRapbackSubscription.getRapbackOptOutInState());
-        	            ps.setString(9, fbiRapbackSubscription.getRapbackActivityNotificationFormat());
+        	            ps.setDate(5, new java.sql.Date(fbiRapbackSubscription.getRapbackExpirationDate().getMillis()));
+        	            ps.setDate(6, new java.sql.Date(fbiRapbackSubscription.getRapbackStartDate().getMillis()));
+        	            ps.setBoolean(7, fbiRapbackSubscription.getRapbackOptOutInState());
+        	            ps.setString(8, fbiRapbackSubscription.getRapbackActivityNotificationFormat());
         	            return ps;
         	        }
         	    },
@@ -404,7 +415,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	final static String ID_TRANSACTION_SELECT_BY_TRANSACTION_NUMBER = 
 			" SELECT * FROM identification_transaction i "
-			+ "LEFT JOIN fbi_rap_back_subject s ON s.subject_id = i.subject_id "
+			+ "LEFT JOIN identification_subject s ON s.subject_id = i.subject_id "
 			+ "WHERE transaction_number = ?";
 	
 	@Override
@@ -419,20 +430,32 @@ public class RapbackDAOImpl implements RapbackDAO {
 		implements RowMapper<IdentificationTransaction> {
 		public IdentificationTransaction mapRow(ResultSet rs, int rowNum) throws SQLException {
 			
-			IdentificationTransaction identificationTransaction = buildIdentificationTransaction(rs);
+			IdentificationTransaction identificationTransaction = buildIdentificationTransaction(rs, false);
 			
 			return identificationTransaction;
 		}
 	}
 	
-	private IdentificationTransaction buildIdentificationTransaction(ResultSet rs)
+	private final class FullIdentificationTransactionRowMapper 
+	implements RowMapper<IdentificationTransaction> {
+		public IdentificationTransaction mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			IdentificationTransaction identificationTransaction = buildIdentificationTransaction(rs, true);
+			
+			return identificationTransaction;
+		}
+	}
+	
+	private IdentificationTransaction buildIdentificationTransaction(ResultSet rs, boolean includeSubscription)
 			throws SQLException {
 		IdentificationTransaction identificationTransaction = new IdentificationTransaction();
 		identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
 		identificationTransaction.setOtn(rs.getString("otn"));
-		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp_received")));
+		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
 		identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
 		identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
+		identificationTransaction.setIdentificationCategory(rs.getString("identification_category"));
+		identificationTransaction.setArchived(BooleanUtils.isTrue(rs.getBoolean("archived")));
 
 		Integer subjectId = rs.getInt("subject_id");
 		
@@ -440,9 +463,30 @@ public class RapbackDAOImpl implements RapbackDAO {
 			Subject subject = buildSubject(rs);
 			identificationTransaction.setSubject(subject);
 		}
+		
+		if (includeSubscription){
+			Integer subscriptionId = rs.getInt("id"); 
+			
+			if (subscriptionId != null){
+				Subscription subscription = buildSubscription(rs); 
+				identificationTransaction.setSubscription(subscription);
+			}
+		}
 		return identificationTransaction;
 	}
 	
+	private Subscription buildSubscription(ResultSet rs) throws SQLException {
+		Subscription subscription = new Subscription(); 
+		subscription.setId(rs.getInt("id"));
+		subscription.setStartDate(toDateTime(rs.getDate("startDate")));
+		subscription.setEndDate(toDateTime(rs.getDate("endDate")));
+		subscription.setLastValidationDate(toDateTime(rs.getDate("lastValidationDate")));
+		subscription.setActive(rs.getInt("active"));
+		subscription.setTopic(rs.getString("topic"));
+		subscription.setValidationDueDate(validationDueDateStrategy.getValidationDueDate(subscription));
+		return subscription;
+	}
+
 	private Subject buildSubject(ResultSet rs) throws SQLException {
 		Subject subject = new Subject();
 
@@ -458,7 +502,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return subject;
 	}
 
-	final static String SUBJECT_UPDATE="UPDATE fbi_rap_back_subject SET "
+	final static String SUBJECT_UPDATE="UPDATE identification_subject SET "
 			+ "ucn = :ucn, "
 			+ "criminal_sid = :criminalSid, "
 			+ "civil_sid = :civilSid, "
@@ -485,11 +529,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 		namedParameterJdbcTemplate.update(SUBJECT_UPDATE, paramMap);
 	}
 	
-	final static String CIVIL_INITIAL_RESULTS_SELECT="SELECT c.*, t.timestamp_received, t.otn, t.owner_ori, t.owner_program_oca, s.* "
+	final static String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.timestamp as timestamp_received, "
+			+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
 			+ "FROM civil_initial_results c "
 			+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
-			+ "LEFT OUTER JOIN fbi_rap_back_subject s ON s.subject_id = t.subject_id "
-			+ "WHERE c.match_no_match = true AND t.owner_ori = ?";
+			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+			+ "WHERE t.owner_ori = ?";
 
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
@@ -499,25 +544,146 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return civilIntialResults;
 	}
 
-	private final class CivilInitialResultsRowMapper 
-	implements RowMapper<CivilInitialResults> {
-	public CivilInitialResults mapRow(ResultSet rs, int rowNum) throws SQLException {
-		
+	private final class CivilInitialResultsRowMapper implements
+			RowMapper<CivilInitialResults> {
+		public CivilInitialResults mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+
+			CivilInitialResults civilInitialResults = buildCivilIntialResult(rs);
+			
+			civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs, false));
+
+			return civilInitialResults;
+		}
+
+	}
+	
+	private CivilInitialResults buildCivilIntialResult(ResultSet rs) throws SQLException {
 		CivilInitialResults civilInitialResults = new CivilInitialResults();
 		civilInitialResults.setId(rs.getInt("civil_initial_result_id"));
-		civilInitialResults.setTransactionNumber( rs.getString("transaction_number") );
+		civilInitialResults.setTransactionNumber(rs.getString("transaction_number"));
 		civilInitialResults.setTransactionType(rs.getString("transaction_type"));
-		civilInitialResults.setCivilRapBackCategory(rs.getString("civil_rap_back_category"));
-		civilInitialResults.setResultsSender(rs.getString("results_sender"));
-		civilInitialResults.setMatch(rs.getBoolean("match_no_match"));
-		civilInitialResults.setCurrentState(CivilInitialResultsState.valueOfDesc(rs.getString("current_state")));
+		civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") - 1]);
+		civilInitialResults.setSearchResultFile(rs.getBytes("search_result_file"));
 		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
-
-		civilInitialResults.setIdentificationTransaction(buildIdentificationTransaction(rs));
-		
 		return civilInitialResults;
 	}
-}
 
+	private final String CIVIL_INITIAL_RESULTS_ID_SELECT = "SELECT t.civiL_INITIAL_RESULT_ID  "
+			+ "FROM RAPBACK_DATASTORE.CIVIL_INITIAL_RESULTS t "
+			+ "WHERE t.TRANSACTION_NUMBER  = ? AND RESULTS_SENDER_ID = ?";
+
+	@Override
+	public Integer getCivilIntialResultsId(String transactionNumber,
+			ResultSender resultSender) {
+		return jdbcTemplate.queryForInt(CIVIL_INITIAL_RESULTS_ID_SELECT, transactionNumber, resultSender.ordinal() + 1);
+	}
+
+	final static String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.* "
+			+ "FROM identification_transaction t "
+			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+			+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
+			+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
+			+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
+
+	@Override
+	public List<IdentificationTransaction> getCivilIdentificationTransactions(
+			String ori) {
+		List<IdentificationTransaction> identificationTransactions = 
+				jdbcTemplate.query(CIVIL_IDENTIFICATION_TRANSACTION_SELECT, 
+						new FullIdentificationTransactionRowMapper(), ori);
+		return identificationTransactions;
+	}
+
+	final static String CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
+			+ "FROM identification_transaction t "
+			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+			+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
+			+ "	criminal_initial_results c where c.transaction_number = t.transaction_number)"; 
+	@Override
+	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
+			String ori) {
+		List<IdentificationTransaction> identificationTransactions = 
+				jdbcTemplate.query(CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT, 
+						new IdentificationTransactionRowMapper(), ori);
+		return identificationTransactions;
+	}
+
+	final static String FBI_SUBSCRIPTION_SELECT = "SELECT * FROM fbi_rap_back_subscription "
+			+ "WHERE rap_back_category = ? AND ucn=?;";
+	
+	@Override
+	public FbiRapbackSubscription getFbiRapbackSubscription(String category,
+			String ucn) {
+		if (category == null || ucn == null){
+			throw new IllegalArgumentException("category and ucn can not be null."); 
+		}
+		
+		FbiRapbackSubscription fbiSubscription = 
+				jdbcTemplate.queryForObject(FBI_SUBSCRIPTION_SELECT, new FbiSubscriptionRowMapper(), category, ucn);
+		return fbiSubscription;
+	}
+
+	private final class FbiSubscriptionRowMapper implements
+			RowMapper<FbiRapbackSubscription> {
+		public FbiRapbackSubscription mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+
+			FbiRapbackSubscription fbiSubscription = new FbiRapbackSubscription();
+			fbiSubscription.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
+			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category"));
+			fbiSubscription.setSubscriptionTerm(rs.getString("subscription_term"));
+			fbiSubscription.setFbiOca(rs.getString("fbi_oca"));
+			fbiSubscription.setRapbackExpirationDate(toDateTime(rs.getDate("rap_back_expiration_date")));
+			fbiSubscription.setRapbackStartDate(toDateTime(rs.getDate("rap_back_start_date")));
+			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
+			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format"));
+			fbiSubscription.setUcn(rs.getString("ucn"));
+			fbiSubscription.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+
+			return fbiSubscription;
+		}
+	}
+
+	final static String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.* "
+			+ "FROM civil_initial_results c "
+			+ "LEFT OUTER JOIN CIVIL_INITIAL_RAP_SHEET r ON r.CIVIL_INITIAL_RESULT_ID = c.CIVIL_INITIAL_RESULT_ID "
+			+ "WHERE transaction_number = ?";
+	
+	@Override
+	public List<CivilInitialResults> getIdentificationCivilInitialResults(
+			String transactionNumber) {
+		List<CivilInitialResults> results= 
+				jdbcTemplate.query(CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER, 
+						new CivilInitialResultsResultSetExtractor(), transactionNumber);
+		return results;
+	}
+
+	private class CivilInitialResultsResultSetExtractor implements ResultSetExtractor<List<CivilInitialResults>> {
+
+		@Override
+		public List<CivilInitialResults> extractData(ResultSet rs)
+				throws SQLException, DataAccessException {
+            Map<Integer, CivilInitialResults> map = new HashMap<Integer, CivilInitialResults>();
+            CivilInitialResults civilInitialResults = null;
+            while (rs.next()) {
+                Integer civilIntialResultId = rs.getInt("civil_initial_result_id" ); 
+                civilInitialResults  = map.get( civilIntialResultId );
+                if ( civilInitialResults  == null){
+                	civilInitialResults = buildCivilIntialResult(rs); 
+                	map.put(civilIntialResultId, civilInitialResults); 
+                }
+	              
+               byte[] rapSheet = rs.getBytes("rap_sheet" );
+               if (rapSheet != null){
+            	   civilInitialResults.getRapsheets().add( rapSheet );
+	           }
+            }
+            return (List<CivilInitialResults>) new ArrayList<CivilInitialResults>(map.values());
+		}
+
+	}
 
 }

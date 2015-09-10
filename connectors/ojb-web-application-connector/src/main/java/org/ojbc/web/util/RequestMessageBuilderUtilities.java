@@ -30,6 +30,7 @@ import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.SearchFieldMetadata;
+import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequest;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequestDomUtils;
 import org.ojbc.web.model.incident.search.IncidentSearchRequest;
@@ -42,6 +43,7 @@ import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * This class contains methods to convert POJOs to XML request documents or to 
@@ -415,9 +417,8 @@ public class RequestMessageBuilderUtilities {
 	public static Document createSubscriptionRequest(Subscription subscription) throws Exception{
 
 		SubscriptionDocumentBuilder subscriptionDocumentBuilder = new SubscriptionDocumentBuilder();		
-		Document subAddReqDoc = subscriptionDocumentBuilder.buildSubscribeDoc(subscription);		
-        XmlUtils.printNode(subAddReqDoc);
-        
+		Document subAddReqDoc = subscriptionDocumentBuilder.buildSubscribeDoc(subscription);	
+		
 		return subAddReqDoc;
 	}
 
@@ -616,6 +617,27 @@ public class RequestMessageBuilderUtilities {
 
         log.debug("\nCreated Request:\n" + OJBUtils.getStringFromDocument(document));
         return document;
-    }	
+    }
+
+	public static Document createRapbackSearchRequest(IdentificationResultsCategory category) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();       
+        Element rootElement = document.createElementNS(OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST, 
+                OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST 
+                +":OrganizationIdentificationResultsSearchRequest");
+        document.appendChild(rootElement); 
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST, 
+                OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST);
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+        		OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT);
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30, 
+        		OjbcNamespaceContext.NS_STRUCTURES_30);
+
+        Element identificationResultsCategoryCode  = XmlUtils.appendElement(rootElement, 
+                OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+                "IdentificationResultsCategoryCode"); 
+        identificationResultsCategoryCode.setTextContent(category.name());
+
+		return document;
+	}	
     
 }

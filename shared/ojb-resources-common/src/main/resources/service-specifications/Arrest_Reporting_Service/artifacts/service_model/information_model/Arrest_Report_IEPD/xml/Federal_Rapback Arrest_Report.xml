@@ -70,6 +70,9 @@
 									<j:PersonFBIIdentification>
 										<nc:IdentificationID>FBIID34578</nc:IdentificationID>
 									</j:PersonFBIIdentification>
+									<j:PersonStateFingerprintIdentification>
+										<nc:IdentificationID>A398118900</nc:IdentificationID>
+									</j:PersonStateFingerprintIdentification>
 								</j:PersonAugmentation>
 							</lexsdigest:Person>
 							<j:ArrestSubject s:id="Arrest_Subject_1">

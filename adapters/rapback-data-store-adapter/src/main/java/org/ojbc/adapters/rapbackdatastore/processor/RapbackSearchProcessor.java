@@ -16,15 +16,18 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
+import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.SOURCE_SYSTEM_NAME_TEXT;
+import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.SYSTEM_NAME;
+import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.TOPIC_DIALECT;
+import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.YYYY_MM_DD;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_50;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_JXDM_41;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_JXDM_50;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_SEARCH_REQUEST_ERROR_REPORTING;
@@ -43,16 +46,21 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.camel.Body;
 import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
+import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
+import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
@@ -63,12 +71,6 @@ import org.w3c.dom.Element;
 
 @Service
 public class RapbackSearchProcessor {
-    private static final String SYSTEM_NAME = "RapbackDataStore";
-
-	private static final String SOURCE_SYSTEM_NAME_TEXT = 
-    		"http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore";
-
-	private static final String YYYY_MM_DD = "yyyy-MM-dd";
 
 	private final Log log = LogFactory.getLog(this.getClass());
 
@@ -94,62 +96,97 @@ public class RapbackSearchProcessor {
      * @param federationId
      * @return a XML string response abide by the Access Control Response
      *         schema.
+     * @throws Exception 
      */
-    public Document returnRapbackSearchResponse(@Header(CxfConstants.CAMEL_CXF_MESSAGE) Message cxfMessage) {
+    public Document returnRapbackSearchResponse(
+    		@Header(CxfConstants.CAMEL_CXF_MESSAGE) Message cxfMessage, @Body Document report) throws Exception {
     	
-    	List<CivilInitialResults> civilInitialResults = null; 
     	
-        if (cxfMessage != null) {
-            String federationId = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.FederationId);
-            String employerOri = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.EmployerORI); 
+    	if (cxfMessage == null) {
+    		throw new IllegalArgumentException(
+    				"Invalid request. CXF message is not found.");
+    	}
+    	
+        String federationId = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.FederationId);
+        String employerOri = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.EmployerORI); 
 
-            log.debug("Processing rapback search request for federationId:" + StringUtils.trimToEmpty(federationId));
-            log.debug("Employer ORI : " + StringUtils.trimToEmpty(employerOri)); 
-            
-            if (StringUtils.isNotBlank(federationId)) {
-                //Pass the ORIs in the SAML assertion to the DAO method. 
-                civilInitialResults = rapbackDAO.getCivilInitialResults(employerOri);
-                log.info("Get rapback search results count");
-            } else {
-                throw new IllegalArgumentException(
-                        "Either request is missing SAML assertion or the federation "
-                        + "ID or Employer ORI is missing in the SAML assertion. ");
-            }
-        } else {
-            throw new IllegalArgumentException(
-                    "Invalid request. CXF message is not found.");
-        }
-
-        Document rapbackSearchResponseDocument = buildRapbackSearchResponse(civilInitialResults);
+        log.debug("Processing rapback search request for federationId:" + StringUtils.trimToEmpty(federationId));
+        log.debug("Employer ORI : " + StringUtils.trimToEmpty(employerOri)); 
+        
+        if (StringUtils.isBlank(federationId) || StringUtils.isBlank(employerOri)) {
+        	throw new IllegalArgumentException(
+        			"Either request is missing SAML assertion or the federation "
+        					+ "ID or Employer ORI is missing in the SAML assertion. ");
+        } 
+        
+        Document rapbackSearchResponseDocument;
+		try {
+			rapbackSearchResponseDocument = buildRapbackSearchResponse(employerOri, report);
+		} catch (Exception e) {
+			log.error("Got exception building rapback search response", e);
+			throw e;
+		}
 
         return rapbackSearchResponseDocument;
     }
     
-    private Document buildRapbackSearchResponse(List<CivilInitialResults> civilInitialResults) {
+    private Document buildRapbackSearchResponse(String employerOri, Document report) throws Exception {
+    	log.info("Get rapback search request, building the response.");
 
         Document document = documentBuilder.newDocument();
         Element rootElement = createRapbackSearchResponseRootElement(document);
         
-        for (CivilInitialResults civilInitialResult : civilInitialResults){
-        	Element organizationIdentificationResultsSearchResultElement = 
-        			XmlUtils.appendElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
-        					"OrganizationIdentificationResultsSearchResult");
-        	appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, civilInitialResult);
-        	appdendStatusElement(organizationIdentificationResultsSearchResultElement,
-					civilInitialResult);
-        	//TODO add subscripion info if available. 
-        	
-        	appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
-        	
-        	Element systemIdentifierElement = XmlUtils.appendElement(
-        			organizationIdentificationResultsSearchResultElement, NS_INTEL, "SystemIdentifierElement");
-        	Element identificationIdElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC, "IdentificationID"); 
-        	identificationIdElement.setTextContent("9876543"); //Find out what value should be put here. 
-        	Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, NS_INTEL, "SystemName");
-        	systemNameElement.setTextContent(SYSTEM_NAME);
+        String resultsCategoryCode = XmlUtils.xPathStringSearch(report, 
+        		"/oirs-req-doc:OrganizationIdentificationResultsSearchRequest/oirs-req-ext:IdentificationResultsCategoryCode"); 
+        List<IdentificationTransaction> identificationTransactions = null;
+        if ("Civil".equals(resultsCategoryCode)){
+        	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(employerOri);
         }
+        else if ("Criminal".equals(resultsCategoryCode)){
+        	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(employerOri);
+        }
+        buildSearchResults(identificationTransactions, rootElement);
         return document;
     }
+
+	private void buildSearchResults(
+			List<IdentificationTransaction> identificationTransactions,
+			Element rootElement) {
+		
+		if (identificationTransactions.size() > maxResultCount){
+			buildTooManyResultElement(identificationTransactions.size(), rootElement); 
+		}
+		else{
+			for (IdentificationTransaction identificationTransaction : identificationTransactions){
+				Element organizationIdentificationResultsSearchResultElement = 
+						XmlUtils.appendElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+								"OrganizationIdentificationResultsSearchResult");
+				appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, identificationTransaction);
+				appdendStatusElement(organizationIdentificationResultsSearchResultElement,
+						identificationTransaction);
+				appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
+				
+				Element systemIdentifierElement = XmlUtils.appendElement(
+						organizationIdentificationResultsSearchResultElement, NS_INTEL, "SystemIdentifierElement");
+				Element identificationIdElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC_30, "IdentificationID"); 
+				identificationIdElement.setTextContent(identificationTransaction.getTransactionNumber());  
+				Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, NS_INTEL, "SystemName");
+				systemNameElement.setTextContent(SYSTEM_NAME);
+			}
+		}
+	}
+
+	private void buildTooManyResultElement(int size, Element rootElement) {
+		Element searchResultsMetadata = XmlUtils.appendElement(rootElement, NS_SEARCH_RESULTS_METADATA_EXT, "SearchResultsMetadata"); 
+		Element searchErrors = XmlUtils.appendElement(searchResultsMetadata, NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchErrors"); 
+		Element systemName = XmlUtils.appendElement(searchErrors, NS_NC_30, "SystemName");
+		systemName.setTextContent(SYSTEM_NAME);
+		Element searchResultsExceedThresholdError = 
+				XmlUtils.appendElement(searchErrors, NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchResultsExceedThresholdError");
+		Element searchReultsRecordCount = 
+				XmlUtils.appendElement(searchResultsExceedThresholdError, NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchResultsRecordCount");
+		searchReultsRecordCount.setTextContent(String.valueOf(size));
+	}
 
 	private void appendSourceSystemNameTextElement(
 			Element organizationIdentificationResultsSearchResultElement) {
@@ -160,50 +197,164 @@ public class RapbackSearchProcessor {
 
 	private void appdendStatusElement(
 			Element organizationIdentificationResultsSearchResultElement,
-			CivilInitialResults civilInitialResult) {
+			IdentificationTransaction identificationTransaction) {
 		Element identificationResultStatusCode = XmlUtils.appendElement(
 				organizationIdentificationResultsSearchResultElement, 
 				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentificationResultStatusCode");
-		identificationResultStatusCode.setTextContent(civilInitialResult.getCurrentState().toString());
+		
+		IdentificationTransactionState currentState = getCurrentState(identificationTransaction); 
+		identificationResultStatusCode.setTextContent(currentState.toString());
+		
+		if (currentState == IdentificationTransactionState.Subscribed){
+			appendSubscriptionElement(
+					organizationIdentificationResultsSearchResultElement, identificationTransaction.getSubscription());
+		}
+	}
+
+	private void appendSubscriptionElement(
+			Element organizationIdentificationResultsSearchResultElement,
+			Subscription subscription) {
+		Element subscriptionElement = XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
+				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "Subscription");
+		Element activityDateRange = 
+				XmlUtils.appendElement(subscriptionElement, NS_NC_30, "ActivityDateRange"); 
+		appendDateElement(subscription.getStartDate(), activityDateRange, "StartDate", NS_NC_30);
+		appendDateElement(subscription.getEndDate(), activityDateRange, "EndDate", NS_NC_30);
+		
+		appendTopicElement(subscriptionElement);
+		
+		appendValidationDueDate(subscription.getValidationDueDate(), subscriptionElement);
+		
+	}
+
+	private void appendTopicElement(Element subscriptionElement) {
+		Element topic = XmlUtils.appendElement(subscriptionElement, NS_WSN_BROKERED, "Topic");
+		topic.setAttribute("Dialect", TOPIC_DIALECT);
+		topic.setTextContent("{http://ojbc.org/wsn/topics}:person/civilArrest");
+	}
+
+	private void appendValidationDueDate(DateTime validationDueDate,
+			Element subscriptionElement) {
+		Element subscriptionValidation = XmlUtils.appendElement(
+				subscriptionElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "SubscriptionValidation");
+		appendDateElement(validationDueDate, subscriptionValidation, "SubscriptionValidationDueDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		
+	}
+
+	private void appendDateElement(DateTime dateObject, Element parentElement, 
+			String elementName, String wrapperElementNS) {
+		if (dateObject != null){
+			Element dateWrapperElement = XmlUtils.appendElement(parentElement, wrapperElementNS, elementName);
+			Element date = XmlUtils.appendElement(dateWrapperElement, NS_NC_30, "Date");
+			date.setTextContent(dateObject.toString(YYYY_MM_DD));
+		}
+	}
+
+	private IdentificationTransactionState getCurrentState(
+			IdentificationTransaction identificationTransaction) {
+		if (BooleanUtils.isTrue(identificationTransaction.getArchived())){
+			return IdentificationTransactionState.Archived;
+		}
+		else {
+			
+			Subscription subscription = identificationTransaction.getSubscription(); 
+			if (subscription != null){
+				return IdentificationTransactionState.Subscribed;
+			}
+			else{
+				return IdentificationTransactionState.Available_for_subscription;
+			}
+		}
 	}
 
 	private void appendIdentifiedPersonElement(Element organizationIdentificationResultsSearchResultElement,
-			CivilInitialResults civilInitialResult) {
+			IdentificationTransaction identificationTransaction) {
 		
-		Subject subject = civilInitialResult.getIdentificationTransaction().getSubject();
+		Subject subject = identificationTransaction.getSubject();
 		Element identifiedPerson = XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
 				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPerson");
 		
 		if (subject.getDob() != null){
 			Element personBirthDateElement = 
-					XmlUtils.appendElement(identifiedPerson, NS_NC, "PersonBirthDate");
-			Element dateElement = XmlUtils.appendElement(personBirthDateElement, NS_NC, "Date");
+					XmlUtils.appendElement(identifiedPerson, NS_NC_30, "PersonBirthDate");
+			Element dateElement = XmlUtils.appendElement(personBirthDateElement, NS_NC_30, "Date");
 			dateElement.setTextContent(subject.getDob().toString(YYYY_MM_DD));
 		}
 		
-		Element personNameElement = XmlUtils.appendElement(identifiedPerson, NS_NC, "PersonName"); 
-		Element personFullNameElement = XmlUtils.appendElement(personNameElement, NS_NC, "PersonFullName");
+		Element personNameElement = XmlUtils.appendElement(identifiedPerson, NS_NC_30, "PersonName"); 
+		Element personFirstNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonGivenName");
+		personFirstNameElement.setTextContent(subject.getFirstName());
+		Element personMiddleNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonMiddleName");
+		personMiddleNameElement.setTextContent(subject.getMiddleInitial());
+		Element personSurNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonSurName");
+		personSurNameElement.setTextContent(subject.getLastName());
+		Element personFullNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonFullName");
 		personFullNameElement.setTextContent(subject.getFullName());
 		
+		appendPersonAugmentationElement(subject, identifiedPerson);
+		
 		Element identifiedPersonTrackingIdentification = XmlUtils.appendElement(identifiedPerson, 
-				NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPersonTrackingIdentification");
+				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPersonTrackingIdentification");
 		Element identificationIdElement = XmlUtils.appendElement(
-				identifiedPersonTrackingIdentification, NS_NC, "IdentificationID");
-		identificationIdElement.setTextContent(civilInitialResult.getIdentificationTransaction().getOtn());
+				identifiedPersonTrackingIdentification, NS_NC_30, "IdentificationID");
+		identificationIdElement.setTextContent(identificationTransaction.getOtn());
+	}
+
+	private void appendPersonAugmentationElement(Subject subject, Element identifiedPerson) {
+		
+		if (StringUtils.isNotBlank(subject.getUcn()) 
+				|| StringUtils.isNotBlank(subject.getCivilSid()) 
+				|| StringUtils.isNotBlank(subject.getCriminalSid())){
+			Element personAugmentation = XmlUtils.appendElement(identifiedPerson, NS_JXDM_50, "PersonAugmentation");
+			appendFbiIdElement(subject.getUcn(), personAugmentation);
+			appendSidElement(subject.getCivilSid(), personAugmentation, true);
+			appendSidElement(subject.getCriminalSid(), personAugmentation, false);
+		}
+	}
+
+	private void appendFbiIdElement(String ucn, Element personAugmentation) {
+		if (StringUtils.isNotBlank(ucn)){
+			Element personFBIIdentification = XmlUtils.appendElement(personAugmentation, NS_JXDM_50, "PersonFBIIdentification");
+			Element identificationID = 
+					XmlUtils.appendElement(personFBIIdentification, NS_NC_30, "IdentificationID");
+			identificationID.setTextContent(ucn);
+		}
+		
+	}
+
+	private void appendSidElement(String sid, Element personAugmentation, boolean isCivilSid) {
+		if (StringUtils.isNotBlank(sid)){
+			Element personStateFingerprintIdentification = 
+					XmlUtils.appendElement(personAugmentation, NS_JXDM_50, "PersonStateFingerprintIdentification");
+			Element identificationID = 
+					XmlUtils.appendElement(personStateFingerprintIdentification, NS_NC_30, "IdentificationID");
+			identificationID.setTextContent(sid);
+			if (isCivilSid){
+				Element fingerpringIdentificationIssuedForCivilPurposeIndicator =
+						XmlUtils.appendElement(personStateFingerprintIdentification, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "FingerpringIdentificationIssuedForCivilPurposeIndicator");
+				fingerpringIdentificationIssuedForCivilPurposeIndicator.setTextContent("true");
+			}
+			else{
+				Element fingerpringIdentificationIssuedForCriminalPurposeIndicator =
+						XmlUtils.appendElement(personStateFingerprintIdentification, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "FingerpringIdentificationIssuedForCriminalPurposeIndicator");
+				fingerpringIdentificationIssuedForCriminalPurposeIndicator.setTextContent("true");
+			}
+				
+		}
 	}
 
     private Element createRapbackSearchResponseRootElement(Document document) {
         Element rootElement = document.createElementNS(
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS,
-        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +"OrganizationIdentificationResultsSearchResults");
+        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +":OrganizationIdentificationResultsSearchResults");
         rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES, NS_STRUCTURES);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, 
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_INTEL, NS_INTEL);
-        rootElement.setAttribute("xmlns:"+NS_PREFIX_JXDM_41, NS_JXDM_41);
-        rootElement.setAttribute("xmlns:"+NS_PREFIX_NC, NS_NC);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_JXDM_50, NS_JXDM_50);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_NC_30, NS_NC_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_WSN_BROKERED, NS_WSN_BROKERED);
         document.appendChild(rootElement);
 		return rootElement;
@@ -232,7 +383,7 @@ public class RapbackSearchProcessor {
     private Element createErrorResponseRootElement(Document document) {
         Element rootElement = document.createElementNS(
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS,
-        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +"OrganizationIdentificationResultsSearchResults");
+        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +":OrganizationIdentificationResultsSearchResults");
         rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES, NS_STRUCTURES);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, 
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);

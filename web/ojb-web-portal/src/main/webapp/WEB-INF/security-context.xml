@@ -58,7 +58,6 @@
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationDetailsSource" ref="portalAuthenticationDetailsSource"/>
         <property name="samlService" ref="samlService"/>
-        <property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken:false}"/>
         <property name="checkForPrincipalChanges" value="true"/>
     </bean>
     

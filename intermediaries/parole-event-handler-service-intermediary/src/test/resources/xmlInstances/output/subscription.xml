@@ -50,7 +50,7 @@
             </jxdm41:PersonStateFingerprintIdentification>
          </jxdm41:PersonAugmentation>
       </smext:Subject>
-      <nc20:ContactEmailID>officer_email@local.gov</nc20:ContactEmailID>
+      <nc20:ContactEmailID>test@localhost</nc20:ContactEmailID>
       <smext:SystemName>{http://ojbc.org/ParoleCase/1.0}ParolingAuthority</smext:SystemName>
       <smext:SubscriptionQualifierIdentification>
          <nc20:IdentificationID>A9999999</nc20:IdentificationID>
@@ -60,5 +60,6 @@
             <nc20:Date>2010-09-15</nc20:Date>
          </nc20:StartDate>
       </nc20:DateRange>
+      <smext:CriminalSubscriptionReasonCode>CS</smext:CriminalSubscriptionReasonCode>
    </sm:SubscriptionMessage>
 </b:Subscribe>

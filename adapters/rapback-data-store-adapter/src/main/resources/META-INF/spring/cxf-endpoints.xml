@@ -112,6 +112,49 @@
         </cxf:features>
     </cxf:cxfEndpoint>
     
+    <!-- 
+    	Identification Initial Results Query Request Service 
+    -->
+    <cxf:cxfEndpoint 
+        id="identificationInitialResultsQueryRequestService"
+        address="${rapbackDatastoreAdapter.identificationInitialResultsRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Request_Service.wsdl"
+		serviceName="ojbc:Organization_Identification_Results_Query_Request_Service_Service" 
+		endpointName="ojbc:Organization_Identification_Results_Query_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>
+    
+    
+    <!-- 
+    	Identification Initial Results Response Service 
+    --> 
+    <cxf:cxfEndpoint 
+        id="identificationInitialResultsQueryResponseService"
+		address="${rapbackDatastoreAdapter.identificationInitialResultsQueryResponseEndpoint}"
+        wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Results_Service.wsdl"
+        serviceName="ojbc:Organization_Identification_Results_Query_Results_Service_Service"
+        endpointName="ojbc:Organization_Identification_Results_Query_Results_Secure_Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0"
+        >
+        <cxf:properties>
+        	<entry key="mtom-enabled" value="true"/>			
+        </cxf:properties>
+        <cxf:features>
+            <policy:policies>
+                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+                    <wsam:Addressing>
+                        <wsp:Policy/>
+                    </wsam:Addressing>
+                </wsp:Policy>
+            </policy:policies>
+        </cxf:features>
+    </cxf:cxfEndpoint>
+    
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
@@ -127,5 +170,24 @@
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${rapbackDatastoreAdapter.keystoreCertificateAlias}</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${rapbackDatastoreAdapter.keystoreLocation}</prop>
 	</util:properties>	
+
+	<!-- Used for outbound SSL/TLS Connection. No CCA, just SSL. Client side 
+		SSL connection -->
+	<http:conduit name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${rapbackDatastoreAdapter.truststorePassword}" file="${rapbackDatastoreAdapter.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+				<!-- these filters ensure that a strong ciphersuite will be used -->
+				<sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				<sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				<sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				<sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>
       
 </beans>

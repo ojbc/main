@@ -21,7 +21,12 @@
 <!-- Configures the Camel Context-->
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2" 
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0" 
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -195,9 +200,54 @@
    
 		<camel:route>
 			<camel:from uri="direct:processSubscriptionArrest" />
-			<camel:log message="Processing Subscription (arrest)" />
-			<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+			<camel:log message="Processing Subscription (arrest)" />	
+								
+			<camel:multicast>				
+
+				<camel:choice>
+					<camel:when>
+						<camel:xpath>boolean(//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonFBIIdentification/nc20:IdentificationID/text()[1])</camel:xpath>					
+						
+						<camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription"/>
+				
+						<camel:log message="\n\n\n\n Found FBI ID, Sending subscription to FBI EBTS..., message body:\n\n ${body}\n\n\n\n"/>						
+						
+						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
+						
+						<camel:log message="\n\n\n\n s/n interm. msg body after calling ebts adapter: \n ${body} \n\n\n\n"/>
+						
+					</camel:when>								
+					<camel:otherwise>																					
+						<camel:setHeader headerName="sid">
+							<camel:xpath>//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath>
+						</camel:setHeader>					
+						
+						<!-- rapback logger must be defined in karaf/etc/org.ops4j.pax.logging.cfg  Allows rare important message to go to file where 
+							it's easy to notice, but requires manual monitoring.  The src/test/resources/log4j.properties properties in this project has 
+							sample configuration for setting up the file logger -->
+						<camel:log message="\n\n\n\n There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI.\n\n\n\n" logName="rapback"/>						
+					</camel:otherwise>							
+				</camel:choice>				 				 							 																														 				
+												
+				<!-- this synchronous call is last because it modifies the message -->
+				<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+														
+			</camel:multicast>						
 		</camel:route>
+		
+		<camel:route id="fbiEbtsSubscriptionSecureRoute">					
+			
+			<camel:from uri="direct:callFbiEbtsSubscriptionService" />
+			
+			<camel:log message="Calling fbi ebts service..."/>			
+						
+			<camel:setHeader headerName="operationName"><constant>Subscribe</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
+			
+			<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />	
+			
+		</camel:route>
+
 
 		<camel:route>
 			<camel:from uri="direct:processSubscriptionIncident" />
@@ -384,5 +434,9 @@
 		<property name="transactionManager" ref="txManager" />
 		<property name="propagationBehaviorName" value="PROPAGATION_REQUIRED" />
 	</bean>
+	
+	<bean id="fbiSubscriptionProcessor" class="org.ojbc.intermediaries.sn.FbiSubscriptionProcessor" />
+	
+	<bean id="simpleMsgProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
 
 </beans>

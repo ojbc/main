@@ -147,7 +147,6 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${commonsIo.version}</version>
-			<scope>test</scope>
 		</dependency>
 
 	<dependency>

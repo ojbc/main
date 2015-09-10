@@ -73,7 +73,7 @@ public class TestRapbackSearchRequestService {
 
     @Before
     public void setUp() throws Exception {
-        // Advise the Policy Acknowledgement Recording Request Service endpoint and replace it
+        // Advise the Request Service endpoint and replace it
         // with a mock endpoint. We then will test this mock endpoint to see 
         // if it gets the proper payload.
         context.getRouteDefinition("rapbackSearchRequestRoute")
@@ -82,7 +82,7 @@ public class TestRapbackSearchRequestService {
                     public void configure() throws Exception {
                         // The line below allows us to bypass CXF and send a
                         // message directly into the route
-                        replaceFromWith("direct:acknowlegePolicies");
+                        replaceFromWith("direct:rapbackSearchRequest");
 
                         interceptSendToEndpoint(
                                 "rapbackSearchResponseServiceEndpoint")
@@ -101,7 +101,7 @@ public class TestRapbackSearchRequestService {
     }
 
     
-    private org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(
+    public static org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(
             Map<String, String> customAttributes) throws Exception {
         org.apache.cxf.message.Message message = new MessageImpl();
 

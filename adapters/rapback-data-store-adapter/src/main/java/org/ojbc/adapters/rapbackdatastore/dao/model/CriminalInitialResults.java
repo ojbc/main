@@ -27,11 +27,9 @@ public class CriminalInitialResults implements Serializable{
 	private static final long serialVersionUID = -8697166964476446066L;
 	private Long id; //Criminal Initial Results ID;
 	private String transactionNumber;
-	private Boolean match; 
+	private byte[] searchResultFile; 
 	private String transactionType; 
-	private String resultsSender; 
-	private String rapBackCategory; 
-
+	private ResultSender resultsSender; 
 	
 	private DateTime timestamp;
 	
@@ -82,19 +80,11 @@ public class CriminalInitialResults implements Serializable{
 		this.timestamp = timestamp;
 	}
 
-	public Boolean getMatch() {
-		return match;
-	}
-
-	public void setMatch(Boolean match) {
-		this.match = match;
-	}
-
-	public String getResultsSender() {
+	public ResultSender getResultsSender() {
 		return resultsSender;
 	}
 
-	public void setResultsSender(String resultsSender) {
+	public void setResultsSender(ResultSender resultsSender) {
 		this.resultsSender = resultsSender;
 	}
 
@@ -106,12 +96,12 @@ public class CriminalInitialResults implements Serializable{
 		this.subject = subject;
 	}
 
-	public String getRapBackCategory() {
-		return rapBackCategory;
+	public byte[] getSearchResultFile() {
+		return searchResultFile;
 	}
 
-	public void setRapBackCategory(String rapBackCategory) {
-		this.rapBackCategory = rapBackCategory;
+	public void setSearchResultFile(byte[] searchResultFile) {
+		this.searchResultFile = searchResultFile;
 	}
 
 }

@@ -174,7 +174,7 @@
 					                },
 					                modal:true,
 							        width:240,
-							        height:500,
+							        height:530,
 							        resizable:false,
 							        open:function(event,ui){
 							        	$('#editSubscriptionDialog').html(data);
@@ -213,7 +213,7 @@
 					                },
 					                modal:true,
 							        width:240,
-							        height:500,
+							        height:530,
 							        resizable:false,
 							        open:function(event,ui){							        							        	
 							        	$('#addSubscriptionDialog').html(data);
