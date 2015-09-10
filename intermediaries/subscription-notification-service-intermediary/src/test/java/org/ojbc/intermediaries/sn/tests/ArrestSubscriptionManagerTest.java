@@ -29,6 +29,10 @@ import java.sql.SQLException;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.apache.camel.EndpointInject;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.http.HttpEntity;
@@ -54,6 +58,9 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificationTest {
 	
+	@Resource
+	protected ModelCamelContext context;
+	
     @Resource  
     private DataSource dataSource;  
     
@@ -62,10 +69,21 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
     
     @Value("${publishSubscribe.notificationBrokerEndpoint}")
     private String notificationBrokerUrl;
-
+    
+    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
+    protected MockEndpoint fbiEbtsSubscriptionMockEndpoint; 
     
 	@Before
 	public void setUp() throws Exception {
+		
+    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {    	    
+    	    	
+    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+    	    }              
+    	});   
+    	
         DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet());
 	}
 	

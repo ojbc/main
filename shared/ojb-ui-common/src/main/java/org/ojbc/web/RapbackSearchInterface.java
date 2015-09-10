@@ -16,11 +16,12 @@
  */
 package org.ojbc.web;
 
+import org.ojbc.web.model.IdentificationResultsCategory;
 import org.w3c.dom.Element;
 
 public interface RapbackSearchInterface {
 
-	public String invokeRapbackSearchRequest(String federatedQueryID,
+	public String invokeRapbackSearchRequest(IdentificationResultsCategory category, String federatedQueryID,
 	        Element samlToken) throws Exception;
 
 }

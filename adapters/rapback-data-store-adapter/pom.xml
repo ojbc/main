@@ -40,32 +40,31 @@
 	<camel-version>2.10.7</camel-version>
 	<slf4j-version>1.6.4</slf4j-version>
 	<log4j-version>1.2.16</log4j-version>
-	<cxf-version>2.6.4</cxf-version>
+	<cxf-version>2.6.9</cxf-version>
 	<bouncycastle-version>140</bouncycastle-version>		
 	<ojb-common-version>[2.0.0,)</ojb-common-version>
 	<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
 	<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>			
+	<osgi-core-version>1.4.0</osgi-core-version>
+	<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
+	<intermediary-common-version>1.0.1</intermediary-common-version>
 	<commons-lang-version>2.4</commons-lang-version>
 	<spring-version>3.0.7.RELEASE</spring-version>
 	<jodatime-version>1.6.2</jodatime-version>		 
-	<h2-mock-database-version>1.0.1</h2-mock-database-version>	
+	<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>	
+    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	<xmlunit-version>1.5</xmlunit-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <lucene-version>4.7.2</lucene-version>
   </properties>
 
   <dependencies>
-  
-  	<dependency>
-		<groupId>org.apache.lucene</groupId>
-		<artifactId>lucene-core</artifactId>
-		<version>${lucene-version}</version>
-	</dependency>
 	<dependency>
-		<groupId>org.apache.lucene</groupId>
-		<artifactId>lucene-analyzers-common</artifactId>
-		<version>${lucene-version}</version>
+		<groupId>org.apache.felix</groupId>
+		<artifactId>org.osgi.core</artifactId>
+		<version>${osgi-core-version}</version>
+		<scope>provided</scope>
 	</dependency>
+  
 		<!-- Camel libs -->
     <dependency>
       <groupId>org.apache.camel</groupId>
@@ -147,6 +146,11 @@
 
 	
 	<!-- OJB Shared Bundles -->
+	<dependency>
+		<groupId>org.ojbc.bundles.intermediaries</groupId>
+		<artifactId>subscription-notification-service-intermediary-common</artifactId>
+		<version>${intermediary-common-version}</version>
+	</dependency>
     <dependency>
       <groupId>org.ojbc.bundles.shared</groupId>
       <artifactId>ojb-common</artifactId>
@@ -165,6 +169,12 @@
       <version>${ojb-resources-common-version}</version>
     </dependency>
 	
+	<dependency>
+		<groupId>org.ojbc.bundles.shared</groupId>
+		<artifactId>ojb-osgi-common</artifactId>
+		<version>${ojb-osgi-common-version}</version>
+	</dependency>
+	
 	<!-- for testing -->
 	<dependency>
 		<groupId>org.springframework</groupId>
@@ -172,7 +182,13 @@
 		<version>${spring-version}</version>
 		<scope>test</scope>
 	</dependency>
-	
+<!-- 	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>${apache-commons-io-version}</version>
+		<scope>test</scope>
+	</dependency>
+ -->	
 	<dependency>
 		<groupId>org.apache.camel</groupId>
 		<artifactId>camel-test</artifactId>
@@ -186,12 +202,11 @@
         <version>${camel-version}</version>
 		<scope>test</scope>
     </dependency>
-	
+    	
 	<dependency>
 		<groupId>org.ojbc.bundles.utilities</groupId>
 		<artifactId>h2-mock-database</artifactId>	
 		<version>${h2-mock-database-version}</version>
-		<scope>test</scope>
 	</dependency>
 
 	<dependency>
@@ -228,7 +243,6 @@
 			<includes>
 				<include>META-INF/spring/**</include>
 				<include>**/*</include>
-				<include>db/**</include>
 			</includes>
 		</resource>
 		<resource>
@@ -270,7 +284,7 @@
 				org.h2.jdbcx,
 				*
 			</Import-Package>
-			<Bundle-Name>${pom.name}</Bundle-Name>
+			<Bundle-Name>${project.name}</Bundle-Name>
 	      </instructions>
 	    </configuration>
 	  </plugin>

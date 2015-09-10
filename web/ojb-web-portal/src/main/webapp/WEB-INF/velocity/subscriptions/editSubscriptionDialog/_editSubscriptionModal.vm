@@ -76,19 +76,8 @@
 								    				    			    			    				
   		$.get("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
-  			function(data){	
-  						  						  			
-  				var errorString = '';			
-  				
-  				if(data != null && data != ''){
-					$.each(JSON.parse(data), function( index, value ) {												
-						errorString += '\n ' + value;																											
-					});
-					alert(errorString);				  							  				
-  				}else{
-					refreshAfterSaveSubscription();
-				}
-						  				  				
+  			function(data){	  						  						  			
+				handleDisplayAfterSave(data);						  				  				
   			},
   			"text"
   		).fail(ojbc.displayFailMessage);		
@@ -112,18 +101,7 @@
   		$.get("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
   			function(data){	
-  						  						  			
-  				var errorString = '';			
-  				
-  				if(data != null && data != ''){
-					$.each(JSON.parse(data), function( index, value ) {												
-						errorString += '\n ' + value;																											
-					});
-					alert(errorString);				  							  				
-  				}else{
-					refreshAfterSaveSubscription();
-				}
-						  				  				
+  				handleDisplayAfterSave(data);						  				  				
   			},
   			"text"
   		).fail(ojbc.displayFailMessage);		
@@ -143,25 +121,45 @@
 		    								    					    				
   		$.get("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
-  			function(data){	
-  						  						  			
-  				var errorString = '';			
-  				
-  				if(data != null && data != ''){
-					$.each(JSON.parse(data), function( index, value ) {												
-						errorString += '\n ' + value;																											
-					});
-					alert(errorString);				  							  				
-  				}else{
-					refreshAfterSaveSubscription();
-				}
-						  				  				
+  			function(data){	  						  						  			
+				handleDisplayAfterSave(data);						  				  				
   			},
   			"text"
   		).fail(ojbc.displayFailMessage);			
 	}  
 	 
-	 
+	  function handleDisplayAfterSave(messagesJson){
+	  
+	  		var messagesJsFromSubscribeJson = ''; 
+			var errorsArray = '';
+			var warningsArray = '';
+			var displayMessage = '';  					  		  	
+				  		  	
+			if(messagesJson != null && messagesJson != ''){  				  				
+			  messagesJsFromSubscribeJson = JSON.parse(messagesJson);  					  					  					
+			}				
+			if(messagesJsFromSubscribeJson != null && messagesJsFromSubscribeJson != ''){
+			  errorsArray = messagesJsFromSubscribeJson.errors;
+			  warningsArray = messagesJsFromSubscribeJson.warnings;	
+			}								
+			if(errorsArray != null && errorsArray != ''){
+				$.each(errorsArray, function( index, value ) {												
+				  displayMessage += '\n ' + value;																											
+				});
+				
+				alert(displayMessage);				                            
+			}else{				
+			  if(warningsArray != null && warningsArray != ''){
+				    $.each(warningsArray, function( index, value ) {												
+				    	displayMessage += '\n ' + value;																											
+				  	});
+				  	alert(displayMessage);
+			   }				
+			   refreshAfterSaveSubscription();
+			}		  	  
+	  }
+	  
+	  	 
   	function populateNamesDropDown(){ 
   					
 		var nameHtml = '<option value="">Name</option>';
@@ -202,7 +200,7 @@
 
 
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:230px;height:400px;" id="subFormDiv">
+<div style="width:230px;height:440px;" id="subFormDiv">
 	<form id="subscriptionForm">  	
 							
 		#if(${subscription.subscriptionType}  == '{http://ojbc.org/wsn/topics}:person/arrest')	
@@ -245,4 +243,3 @@
         <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
     </div>            
 </div>	  
-

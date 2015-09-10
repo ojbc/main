@@ -68,6 +68,9 @@ public class SearchResultConverter implements ApplicationContextAware {
 	@Value("classpath:xsl/rapbackSearchResult.xsl")
 	org.springframework.core.io.Resource rapbackSearchResultXsl;
 	
+	@Value("classpath:xsl/criminalIdentificationSearchResult.xsl")
+	org.springframework.core.io.Resource criminalIdentificationSearchResultXsl;
+	
     @Value("classpath:xsl/identityBasedAccessControlResult.xsl")
     org.springframework.core.io.Resource identityBasedAccessControlResultXsl;
     
@@ -95,6 +98,9 @@ public class SearchResultConverter implements ApplicationContextAware {
 	}
 
     public String convertRapbackSearchResult(String searchContent) {
+    	if (StringUtils.isBlank(searchContent)){
+    		return "";
+    	}
         return convertXml(searchContent, rapbackSearchResultXsl, null);
     }
     
@@ -175,6 +181,13 @@ public class SearchResultConverter implements ApplicationContextAware {
 		String filterResult = convertXml(xmlContent, subscriptionFilterXsl, paramsMap);
 		
 		return filterResult;		
+	}
+
+	public String convertCriminalIdentificationSearchResult(String searchContent) {
+    	if (StringUtils.isBlank(searchContent)){
+    		return "";
+    	}
+        return convertXml(searchContent, criminalIdentificationSearchResultXsl, null);
 	}
 
 }

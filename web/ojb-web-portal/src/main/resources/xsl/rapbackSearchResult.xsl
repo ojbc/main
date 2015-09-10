@@ -86,7 +86,7 @@
 				<xsl:apply-templates select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td>
-				<xsl:value-of select="oirsr-ext:IdentificationResultStatusCode"></xsl:value-of>
+				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
 			</td>
 			<td align="right" width="115px">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>

@@ -21,6 +21,7 @@ import java.io.Serializable;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
+import org.ojbc.intermediaries.sn.dao.Subscription;
 
 public class IdentificationTransaction implements Serializable{
 
@@ -30,8 +31,12 @@ public class IdentificationTransaction implements Serializable{
 	private DateTime timestamp;
 	private String ownerOri; 
 	private String ownerProgramOca;
-	
-	private Subject subject; 
+	private String identificationCategory; 
+	private Boolean archived; 
+
+	private Subject subject;
+	private IdentificationTransactionState currentState; 
+	private Subscription subscription;
 
 	public IdentificationTransaction(){
 		super();
@@ -43,7 +48,7 @@ public class IdentificationTransaction implements Serializable{
 	}
 	
 	public String toString(){
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 
 	public String getTransactionNumber() {
@@ -93,4 +98,36 @@ public class IdentificationTransaction implements Serializable{
 	public void setOwnerProgramOca(String ownerProgramOca) {
 		this.ownerProgramOca = ownerProgramOca;
 	}
+
+	public String getIdentificationCategory() {
+		return identificationCategory;
+	}
+
+	public void setIdentificationCategory(String identificationCategory) {
+		this.identificationCategory = identificationCategory;
+	}
+	public IdentificationTransactionState getCurrentState() {
+		return currentState;
+	}
+
+	public void setCurrentState(IdentificationTransactionState currentState) {
+		this.currentState = currentState;
+	}
+
+	public Boolean getArchived() {
+		return archived;
+	}
+
+	public void setArchived(Boolean archived) {
+		this.archived = archived;
+	}
+
+	public Subscription getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(Subscription subscription) {
+		this.subscription = subscription;
+	}
+
 }

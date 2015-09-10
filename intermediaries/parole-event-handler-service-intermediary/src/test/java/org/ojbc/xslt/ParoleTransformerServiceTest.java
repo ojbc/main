@@ -16,31 +16,32 @@
  */
 package org.ojbc.xslt;
 
-//import static org.hamcrest.Matchers.is;
-//import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.io.FileUtils;
+import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.Difference;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.util.xml.XsltTransformer;
 import org.xml.sax.InputSource;
 
 public class ParoleTransformerServiceTest {
 
-	XsltTransformerService unit;
+	private XsltTransformer unit;
 
 	@Before
 	public void setup() {
-		unit = new XsltTransformerService();
+		unit = new XsltTransformer();
 	}
 	
 	@After
@@ -72,6 +73,7 @@ public class ParoleTransformerServiceTest {
 
 	@SuppressWarnings("unchecked")
 	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedHtmlPath, Map<String,Object> params) throws Exception {
+		
 		String expectedXml = FileUtils.readFileToString(new File("src/test/resources/xmlInstances/"+expectedHtmlPath));
 		
 		String convertResult = unit.transform(createSource(inputXmlPath), createSource(xslPath), params);
@@ -79,7 +81,14 @@ public class ParoleTransformerServiceTest {
 		System.out.println("Converted result: " + convertResult);
 		
 		Diff diff = new Diff(expectedXml, convertResult);
-		assertTrue("XML should be identical", diff.identical());
+		
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+		
+		List<Difference> difList = detailedDiff.getAllDifferences();
+		
+		int diffCount = difList == null ? 0 : difList.size();
+		
+		Assert.assertEquals(detailedDiff.toString(), 0, diffCount);
 	}
 
 	private SAXSource createSource(String xml) {

@@ -42,6 +42,9 @@
                 <nc20:PersonFullName>Test Person</nc20:PersonFullName>
             </nc20:PersonName>
             <jxdm41:PersonAugmentation>
+				<jxdm41:PersonFBIIdentification>
+					<nc20:IdentificationID>123456789</nc20:IdentificationID>
+				</jxdm41:PersonFBIIdentification>            
                 <jxdm41:PersonStateFingerprintIdentification>
                     <nc20:IdentificationID>A9999999</nc20:IdentificationID>
                 </jxdm41:PersonStateFingerprintIdentification>

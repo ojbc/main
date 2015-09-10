@@ -36,14 +36,16 @@ import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
+import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
+import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -55,6 +57,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
+@DirtiesContext
 public class RapbackDAOImplTest {
     private static final String TRANSACTION_NUMBER = "000001820140729014008340000";
 
@@ -78,7 +81,7 @@ public class RapbackDAOImplTest {
 		ResultSet rs = conn.createStatement().executeQuery("select * from subscription");
 		assertTrue(rs.next());
 		assertEquals(62720,rs.getInt("id"));
-		rs = conn.createStatement().executeQuery("select * from FBI_RAP_BACK_SUBJECT");
+		rs = conn.createStatement().executeQuery("select * from IDENTIFICATION_SUBJECT");
 	}
 
 	@Test
@@ -123,6 +126,8 @@ public class RapbackDAOImplTest {
 		transaction.setOtn("12345");
 		transaction.setOwnerOri("68796860");
 		transaction.setOwnerProgramOca("ID23457");
+		transaction.setIdentificationCategory("I");
+		transaction.setArchived(Boolean.FALSE);
 		
 		Subject subject = new Subject(); 
 		subject.setUcn("B1234567");
@@ -140,12 +145,15 @@ public class RapbackDAOImplTest {
 
 	@Test
 	@DirtiesContext
+	@ExpectedException(IllegalArgumentException.class)
 	public void testSaveIdentificationTransactionWithoutSubject() throws Exception {
 		IdentificationTransaction transaction = new IdentificationTransaction(); 
 		transaction.setTransactionNumber(TRANSACTION_NUMBER);
 		transaction.setOtn("12345");
 		transaction.setOwnerOri("68796860");
 		transaction.setOwnerProgramOca("ID23457");
+		transaction.setIdentificationCategory("CAR");
+		transaction.setCurrentState(IdentificationTransactionState.Available_for_subscription);
 		
 		rapbackDAO.saveIdentificationTransaction(transaction); 
 		
@@ -161,28 +169,28 @@ public class RapbackDAOImplTest {
 		civilFingerPrints.setTransactionNumber(TRANSACTION_NUMBER);
 		civilFingerPrints.setFingerPrintsFile("FingerPrints".getBytes());
 		civilFingerPrints.setTransactionType("Transaction Type");
-		civilFingerPrints.setFingerPrintsType("FBI");
+		civilFingerPrints.setFingerPrintsType(FingerPrintsType.FBI);
 		
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 		assertNotNull(pkId);
-		assertEquals(3, pkId.intValue()); 
+		assertEquals(5, pkId.intValue()); 
 	}
 	
-	@Test
-	@DirtiesContext
-	public void testSaveCriminalFingerPrints() throws Exception {
-		saveIdentificationTransaction();
-		
-		CriminalFingerPrints criminalFingerPrints = new CriminalFingerPrints(); 
-		criminalFingerPrints.setTransactionNumber(TRANSACTION_NUMBER);
-		criminalFingerPrints.setFingerPrintsFile("FingerPrints".getBytes());
-		criminalFingerPrints.setTransactionType("Transaction Type");
-		criminalFingerPrints.setFingerPrintsType("FBI");
-		
-		Integer pkId = rapbackDAO.saveCriminalFingerPrints(criminalFingerPrints);
-		assertNotNull(pkId);
-		assertEquals(3, pkId.intValue()); 
-	}
+//	@Test
+//	@DirtiesContext
+//	public void testSaveCriminalFingerPrints() throws Exception {
+//		saveIdentificationTransaction();
+//		
+//		CriminalFingerPrints criminalFingerPrints = new CriminalFingerPrints(); 
+//		criminalFingerPrints.setTransactionNumber(TRANSACTION_NUMBER);
+//		criminalFingerPrints.setFingerPrintsFile("FingerPrints".getBytes());
+//		criminalFingerPrints.setTransactionType("Transaction Type");
+//		criminalFingerPrints.setFingerPrintsType("FBI");
+//		
+//		Integer pkId = rapbackDAO.saveCriminalFingerPrints(criminalFingerPrints);
+//		assertNotNull(pkId);
+//		assertEquals(3, pkId.intValue()); 
+//	}
 	
 	@Test
 	@DirtiesContext
@@ -197,15 +205,14 @@ public class RapbackDAOImplTest {
 		
 		CriminalInitialResults criminalInitialResults = new CriminalInitialResults(); 
 		criminalInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
-		criminalInitialResults.setMatch(Boolean.TRUE);
+		criminalInitialResults.setSearchResultFile("Match".getBytes());
 		criminalInitialResults.setTransactionType("Transaction Type");
-		criminalInitialResults.setResultsSender("FBI");
-		criminalInitialResults.setRapBackCategory("CAR");
+		criminalInitialResults.setResultsSender(ResultSender.FBI);
 	
 		criminalInitialResults.setSubject(identificationTransaction.getSubject());
 		Integer pkId = rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
 		assertNotNull(pkId);
-		assertEquals(3, pkId.intValue()); 
+		assertEquals(5, pkId.intValue()); 
 	}
 	
 	@Test
@@ -221,15 +228,14 @@ public class RapbackDAOImplTest {
 		
 		CivilInitialResults civilInitialResults = new CivilInitialResults(); 
 		civilInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
-		civilInitialResults.setMatch(Boolean.TRUE);
-		civilInitialResults.setCurrentState(CivilInitialResultsState.Available);
+		//TODO save either search result file or rap sheet. Should not save both.
+		civilInitialResults.setSearchResultFile("Match".getBytes());
 		civilInitialResults.setTransactionType("Transaction Type");
-		civilInitialResults.setCivilRapBackCategory("I");
-		civilInitialResults.setResultsSender("FBI");
+		civilInitialResults.setResultsSender(ResultSender.FBI);
 		
 		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		assertNotNull(pkId);
-		assertEquals(3, pkId.intValue()); 
+		assertEquals(5, pkId.intValue()); 
 		
 		CivilInitialResults persistedCivilInitialResults = 
 				(rapbackDAO.getCivilInitialResults(identificationTransaction.getOwnerOri())).get(2);
@@ -244,7 +250,40 @@ public class RapbackDAOImplTest {
 		Integer civilInitialRapSheetPkId = 
 				rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);  
 		assertNotNull(civilInitialRapSheetPkId);
-		assertEquals(3, civilInitialRapSheetPkId.intValue()); 
+		assertEquals(7, civilInitialRapSheetPkId.intValue()); 
 	}
 	
+	@Test
+	@DirtiesContext
+	public void testGetCivilIdentificationTransactions() throws Exception {
+		List<IdentificationTransaction> transactions = 
+				rapbackDAO.getCivilIdentificationTransactions("68796860");
+		log.info(transactions.get(0).toString());
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testGetFbiSubscription() throws Exception {
+		FbiRapbackSubscription fbiSubscription = 
+				rapbackDAO.getFbiRapbackSubscription("criminal investigation", "A123457");
+		log.info(fbiSubscription.toString());
+		String expected = "FbiRapbackSubscription[fbiSubscriptionId=fbiSubscriptionId,"
+				+ "rapbackCategory=criminal investigation,subscriptionTerm=subscription term,"
+				+ "rapbackExpirationDate=2015-12-19T00:00:00.000-06:00,rapbackStartDate=2014-10-19T00:00:00.000-05:00,"
+				+ "rapbackOptOutInState=false,rapbackActivityNotificationFormat=email,fbiOca=fbi oca,"
+				+ "ucn=A123457,timestamp=2014-10-19T18:47:52.690-05:00]";
+		assertEquals(expected, fbiSubscription.toString());
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testGetCivilInitialResultsByTransactionNumber() throws Exception {
+		List<CivilInitialResults> civilInitialResults= 
+				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339990");
+		log.info("Civil Initial Results count: " + civilInitialResults.size());
+		assertEquals(2, civilInitialResults.size());
+		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
+		assertEquals(" F o u n d   a   M a t c h", new String(civilInitialResults.get(0).getSearchResultFile()));
+		assertEquals(2, civilInitialResults.get(0).getRapsheets().size());
+	}
 }

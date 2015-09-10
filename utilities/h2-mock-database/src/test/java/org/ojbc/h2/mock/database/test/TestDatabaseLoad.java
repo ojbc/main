@@ -89,11 +89,8 @@ public class TestDatabaseLoad {
 		assertTrue(rs.next());
 		assertEquals(62720,rs.getInt("id"));
 		
-		rs = conn.createStatement().executeQuery("select * from FBI_RAP_BACK_SUBJECT");
+		rs = conn.createStatement().executeQuery("select * from IDENTIFICATION_SUBJECT");
 		assertTrue(rs.next());
-
-
-		
 	}
 	
 	@Test

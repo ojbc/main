@@ -17,6 +17,8 @@
 package org.ojbc.web.portal.controllers;
 
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -65,11 +67,10 @@ import org.ojbc.web.portal.controllers.helpers.SubscriptionQueryResultsProcessor
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
-import org.ojbc.web.portal.validators.ArrestSubscriptionAddValidator;
-import org.ojbc.web.portal.validators.ArrestSubscriptionEditValidator;
 import org.ojbc.web.portal.validators.ChCycleSubscriptionValidator;
 import org.ojbc.web.portal.validators.IncidentSubscriptionAddValidator;
 import org.ojbc.web.portal.validators.IncidentSubscriptionEditValidator;
+import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
@@ -84,6 +85,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -93,6 +95,7 @@ import org.xml.sax.InputSource;
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/*")
+@SessionAttributes("subscription")
 public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
@@ -117,6 +120,9 @@ public class SubscriptionsController {
 	@Resource
 	Map<String, SubscriptionStartDateStrategy> editSubscriptionStartDateStrategyMap;
 	
+	@Resource
+	Map<String, String> subscriptionDefaultsMap;
+	
     @Resource
     Map<String, String> subscriptionFilterProperties;
 		
@@ -126,11 +132,12 @@ public class SubscriptionsController {
 	@Resource
 	SamlService samlService;
 		
-	@Resource
-	ArrestSubscriptionAddValidator arrestSubscriptionAddValidator;
+	//TODO see if edit validator needs injection also
+	@Value("#{getObject('arrestSubscriptionAddValidator')}")
+	ArrestSubscriptionValidatorInterface arrestSubscriptionAddValidator;
 	
 	@Resource
-	ArrestSubscriptionEditValidator arrestSubscriptionEditValidator;
+	ArrestSubscriptionValidatorInterface arrestSubscriptionEditValidator;
 	
 	@Resource
 	IncidentSubscriptionAddValidator incidentSubscriptionAddValidator;
@@ -145,7 +152,10 @@ public class SubscriptionsController {
 	SearchResultConverter searchResultConverter;
 	
 	@Resource
-	Map<String, String> subscriptionTypeValueToLabelMap;	
+	Map<String, String> subscriptionTypeValueToLabelMap;
+	
+	@Resource
+	Map<String, String> subscriptionPurposeValueToLabelMap;
 		
 	@Resource
 	PeopleControllerConfigInterface config;
@@ -332,9 +342,7 @@ public class SubscriptionsController {
 						
 		String systemId = null;
 		
-		if(StringUtils.isNotBlank(personSid)){
-			
-			logger.info("Using personSid: " + personSid);
+		if(StringUtils.isNotBlank(personSid)){			
 			
 			systemId = getSystemIdFromPersonSID(request, detailsRequest);			
 		}
@@ -344,11 +352,52 @@ public class SubscriptionsController {
 			logger.info("using systemId: " + systemId);				
 			
 			Document rapSheetDoc = processDetailQueryCriminalHistory(request, systemId);	
-										
-			rNamesJsonArray = prepareNamesFromRapSheetParsing(rapSheetDoc, model);			
+									
+			loadChDataFromRapsheet(rapSheetDoc, model);
+
+			// consider making UI retrieve names from subscription pojo, since ui already 
+			// retrieves dob and fbi from sub. pojo
+			rNamesJsonArray = prepareNamesFromRapSheetParsing(rapSheetDoc, model);
 		}									
 						
 		return rNamesJsonArray;
+	}
+	
+	
+	private Date parseRapsheetDate(String rapSheetDate){
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date dobDate = null;
+		try {
+			dobDate = sdf.parse(rapSheetDate);
+			
+		} catch (ParseException e) {
+			logger.severe("Couldn't parse date: " + rapSheetDate);
+			e.printStackTrace();
+		}		
+		return dobDate;
+	}
+	
+	
+	private void loadChDataFromRapsheet(Document rapSheetDoc, Map<String, Object> model){
+		
+		Subscription subscription = (Subscription)model.get("subscription");
+		
+		logger.info("\n\n\n * * * * \n Subscription before loading CH data * * * * \n " + subscription + "\n\n\n");
+		
+		String dobString = getDOBFromRapsheet(rapSheetDoc);
+				
+		Date dobDate = parseRapsheetDate(dobString);
+		subscription.setDateOfBirth(dobDate);
+				
+		String fbiId = getFbiIdFromRapsheet(rapSheetDoc);		
+		subscription.setFbiId(fbiId);
+		
+		logger.info("\n\n\n * * * * * \n\n Populated Subscription from Rapsheet \n " + subscription + "* * * * * \n");
+				
+		// see if this is needed, because we already modified the object which is pass-by-reference
+		model.put("subscription", subscription);		
 	}
 	
 	
@@ -363,7 +412,7 @@ public class SubscriptionsController {
 				subscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
 				
 			} catch (Exception e) {
-				logger.severe("Excepting getting names from rapsheet \n" + e);
+				logger.severe("Exception getting names from rapsheet \n" + e);
 			}				
 		}				
 		
@@ -403,6 +452,11 @@ public class SubscriptionsController {
 		String sEmail = userSession.getUserLogonInfo().emailAddress;
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
+		}
+		
+		String purposeSelection = subscriptionDefaultsMap.get("purpose");
+		if(StringUtils.isNotEmpty(purposeSelection)){
+			subscription.setSubscriptionPurpose(purposeSelection);	
 		}		
 				
 		model.put("subscription", subscription);
@@ -430,7 +484,7 @@ public class SubscriptionsController {
 		
 		
 		
-		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
+		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE);
 		
 		Date defaultSubEndDate = endDateStrategy.getDefaultValue();
 		
@@ -588,37 +642,73 @@ public class SubscriptionsController {
 	@RequestMapping(value="saveSubscription", method=RequestMethod.GET)
 	public  @ResponseBody String  saveSubscription(HttpServletRequest request,
 			@ModelAttribute("subscription") Subscription subscription,
-			BindingResult errors,
-			Map<String, Object> model) {
+			BindingResult errors) {
 								
+		logger.info("\n\n\n * * * * \n\n\n inside saveSubscription() * * * * *: " + subscription + "\n\n\n");
+		
 		Element samlElement = samlService.getSamlAssertion(request);
 										
 		validateSubscription(subscription, errors);										
 		
 		// retrieve any spring mvc validation errors from the controller
-		String sErrorsJsonArray = getBindingErrorsAsJsonArray(errors);
+		List<String> errorsList = getValidationBindingErrorsList(errors);
 						
 		// if no spring mvc validation errors were found, call the subscribe operation and see if there are errors 
 		// from the notification broker response
-		if(StringUtils.isBlank(sErrorsJsonArray)){		
+		if(errorsList == null || errorsList.isEmpty()){		
 			
 			try {
-				sErrorsJsonArray = processSubscribeOperation(subscription, samlElement);
+				errorsList = processSubscribeOperation(subscription, samlElement);										
 				
 			} catch (Exception e) {
 
-				List<String> errorsList = Arrays.asList("An error occurred while processing subscription");
-				JSONArray jsonErrorsArray = new JSONArray(errorsList);
-				
-				sErrorsJsonArray = jsonErrorsArray.toString();
-				
+				errorsList = Arrays.asList("An error occurred while processing subscription");				
+								
 				logger.severe("Failed processing subscription: " + e);
 			}									
 		}					
-		return sErrorsJsonArray;
+		
+		List<String> subWarningsList = getSubscriptionWarnings(subscription);
+		
+		String errorMsgsWarnMsgsJson = getErrorsWarningsJson(errorsList, subWarningsList);
+		
+		logger.info("\n\n Returning errors/warnings json:\n\n" + errorMsgsWarnMsgsJson);
+		
+		return errorMsgsWarnMsgsJson;
 	}		 
 	
+	List<String> getSubscriptionWarnings(Subscription subscription){
+		
+		List<String> warningList = new ArrayList<String>();
+			
+		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){			
+			
+			String fbiId = subscription.getFbiId(); 			
+		
+			if(StringUtils.isEmpty(fbiId)){
+				warningList.add("FBI ID missing. Subscription with the FBI is pending.");
+			}				
+		}			
+		
+		return warningList;
+	}
 	
+	String getErrorsWarningsJson(List<String> errorsList, List<String> warningsList){
+		
+		JSONObject errorsWarningsArraysJson = new JSONObject();
+		
+		for(String error : errorsList){
+			errorsWarningsArraysJson.append("errors", error);
+		}
+		
+		for(String warning : warningsList){
+			errorsWarningsArraysJson.append("warnings", warning);
+		}
+		
+		String sErrWarnJson = errorsWarningsArraysJson.toString();
+		
+		return sErrWarnJson;
+	}
 	
 	/**
 	 * @return
@@ -627,7 +717,7 @@ public class SubscriptionsController {
 	 * @throws Exception 
 	 * 		if no response received from subscribe operation
 	 */
-	private String processSubscribeOperation(Subscription subscription, Element samlElement) throws Exception{
+	private List<String> processSubscribeOperation(Subscription subscription, Element samlElement) throws Exception{
 				
 		if(subscription == null){
 			throw new Exception("subscription was null");
@@ -642,45 +732,43 @@ public class SubscriptionsController {
 				
 		logger.info("Subscribe operation returned faultableSoapResponse:  " + faultableSoapResponse);
 		
-		String sSubRespJsonErrorsArray = null;
+		List<String> subRespErrorsList = null;
 		
 		if(faultableSoapResponse != null){
 			
-			sSubRespJsonErrorsArray = getJsonErrorsFromSubscriptionResponse(faultableSoapResponse);		
+			subRespErrorsList = getErrorListFromSubscriptionResponse(faultableSoapResponse);		
 			
 		}else{
 			throw new Exception("FaultableSoapResponse was null(got no response from subscribe operation), which is required");
 		}
 				
-		return sSubRespJsonErrorsArray;				
+		return subRespErrorsList;				
 	}
 	
 	
 	/**
 	 * note default visibility so it can be unit-tested
 	 */
-	String getJsonErrorsFromSubscriptionResponse(FaultableSoapResponse faultableSoapResponse) throws Exception{
-		
-		String rErrorsJsonArray = null; 
-		
+	List<String> getErrorListFromSubscriptionResponse(FaultableSoapResponse faultableSoapResponse) throws Exception{
+				
 		if(faultableSoapResponse == null){
 			throw new Exception("FaultableSoapResponse was null");
 		}		
 				
+		List<String> errorsList = null;
+		
 		Document subResponseDoc = getSubscriptionResponseDoc(faultableSoapResponse);
 						
 		if(subResponseDoc != null){
 			
-			rErrorsJsonArray = getJsonErrorsFromSubscriptionResponse(subResponseDoc);	
+			errorsList = getErrorsFromSubscriptionResponse(subResponseDoc);	
 			
 		}else{
 			
-			List<String> errorsList = Arrays.asList("Did not receive subscription confirmation");
-			
-			rErrorsJsonArray = new JSONArray(errorsList).toString();
+			errorsList = Arrays.asList("Did not receive subscription confirmation");			
 		}	
 		
-		return rErrorsJsonArray;
+		return errorsList;
 	}
 	
 	
@@ -754,13 +842,11 @@ public class SubscriptionsController {
 	}
 	
 		 
-	private String getJsonErrorsFromSubscriptionResponse(Document subResponseDoc) throws Exception{
+	private List<String> getErrorsFromSubscriptionResponse(Document subResponseDoc) throws Exception{
 												
 		if(subResponseDoc == null){
 			throw new Exception("subResponseDoc was null");
 		}
-
-		String rErrorsJsonArray = null;
 		
 		SubscriptionResponseProcessor subResponseProcessor = new SubscriptionResponseProcessor();
 		
@@ -786,19 +872,11 @@ public class SubscriptionsController {
 				
 				responseErrorList.add(sError);
 				
-				logger.info("\n Parsed/received error: " + sError);
-				
+				logger.info("\n Parsed/received error: " + sError);				
 			}
 		}
-				
-		if(responseErrorList != null && !responseErrorList.isEmpty()){
-			
-			rErrorsJsonArray = new JSONArray(responseErrorList).toString();		
-			
-			logger.info("Returning json errors: " + rErrorsJsonArray);
-		}		
-		
-		return rErrorsJsonArray;
+						
+		return responseErrorList;
 	}
 	
 	private String getErrorFromResponse(SubscriptionResponse subResponse) throws Exception{
@@ -905,7 +983,13 @@ public class SubscriptionsController {
 			
 			if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
 				
-				 allNamesList = getNamesListForArrestEdit(request, subscription, model);
+				 ChRapsheetData chRapsheetData = lookupChRapbackDataForArrestEdit(request, subscription, model);
+				
+				 allNamesList = chRapsheetData.formattedAlternateNamesList;				 
+				 subscription.setFbiId(chRapsheetData.fbiNumber);
+
+				 Date rapSheetDob = parseRapsheetDate(chRapsheetData.personDob);				 
+				 subscription.setDateOfBirth(rapSheetDob);
 				
 				 initDatesForEditArrestForm(model);
 				
@@ -937,12 +1021,25 @@ public class SubscriptionsController {
 	}
 	
 	
-	private List<String> getNamesListForArrestEdit(HttpServletRequest request, Subscription subscription, 
+	private class ChRapsheetData{
+		
+		List<String> formattedAlternateNamesList;
+		
+		SubscribedPersonNames subscribedPersonNames;
+		
+		String fbiNumber;
+				
+		String personDob;
+	}
+	
+	private ChRapsheetData lookupChRapbackDataForArrestEdit(HttpServletRequest request, Subscription subscription, 
 			Map<String, Object> model) throws Exception{
 		
 		List<String> allNamesList = new ArrayList<String>();
 		
-		SubscribedPersonNames subscribedNames = lookupNames(request, subscription);
+		ChRapsheetData chRapsheetData = getChRapbackData(request, subscription);
+		
+		SubscribedPersonNames subscribedNames = chRapsheetData.subscribedPersonNames;
 		
 		String originalName = subscribedNames == null ? null : subscribedNames.getOriginalName();
 										
@@ -962,8 +1059,11 @@ public class SubscriptionsController {
 		}else{
 			model.put("originalName", subscribedNames.getOriginalName());
 		}
+				
+		chRapsheetData.formattedAlternateNamesList = allNamesList;
 		
-		return allNamesList;
+		
+		return chRapsheetData;
 	}
 	
 	
@@ -1240,8 +1340,13 @@ public class SubscriptionsController {
 		return subscriptionTypeValueToLabelMap;
 	}
 	
+	
+	@ModelAttribute("subscriptionPurposeValueToLabelMap")
+	public Map<String, String> getSubscriptionPurposeValueToLabelMap() {
+		return subscriptionPurposeValueToLabelMap;
+	}
 
-	private SubscribedPersonNames lookupNames(HttpServletRequest request, Subscription subscription) throws Exception{
+	private ChRapsheetData getChRapbackData(HttpServletRequest request, Subscription subscription) throws Exception{
 						
 		DetailsRequest detailsRequestWithStateId = new DetailsRequest();
 		detailsRequestWithStateId.setIdentificationID(subscription.getStateId());
@@ -1253,16 +1358,21 @@ public class SubscriptionsController {
 		}
 		
 		Document rapSheetDoc = processDetailQueryCriminalHistory(request, crimHistSysIdFromPersonSid);	
-		
+				
 		logger.info("Rapsheet doc for alt names: \n");		
 		XmlUtils.printNode(rapSheetDoc);
 		
-		SubscribedPersonNames rSubscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
+		SubscribedPersonNames subscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
 				
-		logger.info("Subscription person names: \n"+ rSubscribedPersonNames.getOriginalName() + " + " 
-				+ Arrays.toString(rSubscribedPersonNames.getAlternateNamesList().toArray()));	
+		logger.info("Subscription person names: \n"+ subscribedPersonNames.getOriginalName() + " + " 
+				+ Arrays.toString(subscribedPersonNames.getAlternateNamesList().toArray()));	
+				
+		ChRapsheetData chRapsheetData = new ChRapsheetData();		
+		chRapsheetData.subscribedPersonNames = subscribedPersonNames;		
+		chRapsheetData.fbiNumber = getFbiIdFromRapsheet(rapSheetDoc);
+		chRapsheetData.personDob = getDOBFromRapsheet(rapSheetDoc);
 		
-		return rSubscribedPersonNames;
+		return chRapsheetData;
 	}
 		
 	
@@ -1290,17 +1400,20 @@ public class SubscriptionsController {
 		// get potential spring mvc controller validation errors from validating UI values
 		validateSubscriptionUpdate(subscription, errors);		
 						
-		String sErrorsJsonArray = getBindingErrorsAsJsonArray(errors);
+		List<String> errorsList = getValidationBindingErrorsList(errors);
 		
-		if(StringUtils.isBlank(sErrorsJsonArray)){
-											
+		if(errorsList == null || errorsList.isEmpty()){											
 			// get potential errors from processing subscribe operation
-			sErrorsJsonArray = processSubscribeOperation(subscription, samlElement);			
+			errorsList = processSubscribeOperation(subscription, samlElement);			
 		}
+						
+		List<String> warningsList = getSubscriptionWarnings(subscription);
 		
-		logger.info("updateSubscription(...) returning: " + sErrorsJsonArray);
+		String errorsWarningsJson = getErrorsWarningsJson(errorsList, warningsList);
 		
-		return sErrorsJsonArray;
+		logger.info("\n\n updateSubscription(...) returning errors/warnings json: \n" + errorsWarningsJson);
+		
+		return errorsWarningsJson;
 	}
 	
 	
@@ -1323,28 +1436,24 @@ public class SubscriptionsController {
 	}
 	
 	
-	private String getBindingErrorsAsJsonArray(BindingResult errors){
+	private List<String> getValidationBindingErrorsList(BindingResult errors){
 		
-		String sErrorsJsonArray = null;
+		List<String> errorMsgList = null;
 		
 		if(errors.hasErrors()){		
 			
 			List<ObjectError> bindingErrorsList = errors.getAllErrors();
 			
-			List<String> errorMsgList = new ArrayList<String>();
+			errorMsgList = new ArrayList<String>();
 			
 			for(ObjectError iObjError : bindingErrorsList){		
 				
 				String errorMsgCode = iObjError.getCode();		
 				
 				errorMsgList.add(errorMsgCode);
-			}
-			
-			JSONArray errorsJsonArray = new JSONArray(errorMsgList);
-			
-			sErrorsJsonArray = errorsJsonArray.toString();						
+			}								
 		}		
-		return sErrorsJsonArray;
+		return errorMsgList;
 	}
 		
 	
@@ -1457,8 +1566,38 @@ public class SubscriptionsController {
 	}
 	
 	
-	SubscribedPersonNames getAllPersonNamesFromRapsheet(Document rapSheetDoc) throws Exception{
+	private String getFbiIdFromRapsheet(Document rapSheetDoc){
+	
+		String fbiId = null;
 		
+		try{			
+			fbiId = XmlUtils.xPathStringSearch(rapSheetDoc, 
+					"/ch-doc:CriminalHistory/ch-ext:RapSheet/ch-ext:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+					
+		}catch(Exception e){
+			logger.severe("Exception while getting fbi id from rapsheet: \n" + e);
+		}		
+		return fbiId;
+	}
+	
+	
+	private String getDOBFromRapsheet(Document rapSheetDoc){
+		
+		String dob = null;
+		
+		try{			
+			dob = XmlUtils.xPathStringSearch(rapSheetDoc, 
+					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonBirthDate/nc:Date");
+			
+		}catch(Exception e){
+			logger.severe("Exception while getting dob from rapsheet \n" + e);
+		}
+		
+		return dob;
+	}	
+	
+	SubscribedPersonNames getAllPersonNamesFromRapsheet(Document rapSheetDoc) throws Exception{
+						
 		SubscribedPersonNames rSubscribedPersonNames = new SubscribedPersonNames();
 						
 		Node rapSheetNode = XmlUtils.xPathNodeSearch(rapSheetDoc, "/ch-doc:CriminalHistory/ch-ext:RapSheet");	

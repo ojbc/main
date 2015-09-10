@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,9 +34,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
-
 public class SubscriptionDocumentBuilder {				
 
+	private static final Logger logger = Logger.getLogger(SubscriptionDocumentBuilder.class.getName());
+	
 	private static final String SYSTEM_NAME = "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB";
 	
 	private static final String CONSUMER_REF_ADDRESS = "http://www.ojbc.org/OJB/SubscribeNotify";
@@ -63,6 +65,8 @@ public class SubscriptionDocumentBuilder {
 		XmlUtils.appendElement(rootSubscribeElement, OjbcNamespaceContext.NS_B2, "SubscriptionPolicy");
 				
 		buildSubscriptionMessageNode(rootSubscribeElement);
+		
+		OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(rootSubscribeElement);
 		
 		return subMsgDoc;
 	}
@@ -111,12 +115,13 @@ public class SubscriptionDocumentBuilder {
 		idNode.setTextContent( getFederatedQueryId());
 	}
 	
-
 	
 	private void buildSubscriptionMessageNode(Element parentNode){
 		
 		Element subMsgNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXCHANGE, "SubscriptionMessage");
 		
+		buildCaseIdElement(subMsgNode);
+												
 		buildSubjectElement(subMsgNode);	
 		
 		buildEmailElements(subMsgNode, subscription.getEmailList());
@@ -129,6 +134,33 @@ public class SubscriptionDocumentBuilder {
 		buildDateRangeNode(subMsgNode);		
 		
 		buildSubscriptionIdNode(subMsgNode);
+		
+		buildSubscriptionReasonCodeElement(subMsgNode);
+	}
+	
+	private void buildCaseIdElement(Element parentNode){
+		
+		String caseId = subscription.getCaseId();
+		
+		if(StringUtils.isNotEmpty(caseId)){
+			
+			Element subRelCaseIdElement = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionRelatedCaseIdentification");
+			
+			Element caseIdValElement = XmlUtils.appendElement(subRelCaseIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");		
+			
+			caseIdValElement.setTextContent(caseId);
+		}		
+	}
+		
+	private void buildSubscriptionReasonCodeElement(Element parentElement){
+
+		String subReasonCode = subscription.getSubscriptionPurpose();
+		
+		if(StringUtils.isNotEmpty(subReasonCode)){
+		
+			Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
+			subReasonCodeElement.setTextContent(subReasonCode);
+		}
 	}
 		
 	private void buildSubscriptionIdNode(Element subMsgNode) {
@@ -178,14 +210,35 @@ public class SubscriptionDocumentBuilder {
 		
 		String sid = subscription.getStateId();
 		
-		if(StringUtils.isNotBlank(sid)){
+		String fbiId = subscription.getFbiId();
+		
+		boolean hasSid = StringUtils.isNotEmpty(sid);
+		
+		boolean hasFbiId = StringUtils.isNotEmpty(fbiId);
+		
+		logger.info("\n\n subscription = \n" + subscription + "\n\n\n");
+		
+		if(hasSid || hasFbiId){
 			
 			Element personAugNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
-			
-			Element sidNode = XmlUtils.appendElement(personAugNode, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
-			
-			Element idNode = XmlUtils.appendElement(sidNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
-			idNode.setTextContent(sid);			
+
+			if(hasFbiId){
+				
+				Element fbiIdElement = XmlUtils.appendElement(personAugNode, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
+				
+				Element fbiIdValElement = XmlUtils.appendElement(fbiIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+				
+				fbiIdValElement.setTextContent(fbiId);				
+			}						
+						
+			if(hasSid){
+				
+				Element sidNode = XmlUtils.appendElement(personAugNode, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");				
+				
+				Element idNode = XmlUtils.appendElement(sidNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
+				
+				idNode.setTextContent(sid);			 
+			}			
 		}		
 	}
 	
@@ -253,9 +306,7 @@ public class SubscriptionDocumentBuilder {
 	        
 	        responseDoc.appendChild(root);
 	        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);
-	        
-	        OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);	
-	        
+	        	        
 	        return root;
 	}
 	
