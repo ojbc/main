@@ -113,6 +113,7 @@
 		                </xsl:if>
 	               	</nc20:DateRange>
 				</xsl:if>
+				<smext:CriminalSubscriptionReasonCode>CS</smext:CriminalSubscriptionReasonCode>
 			</sm:SubscriptionMessage>
 		</b:Subscribe>
 	</xsl:template>

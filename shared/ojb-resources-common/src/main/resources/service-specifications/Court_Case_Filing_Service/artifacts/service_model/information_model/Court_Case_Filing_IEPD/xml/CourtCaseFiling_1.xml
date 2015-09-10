@@ -29,42 +29,32 @@
 		<nc:Date>1967-08-13</nc:Date>
 	</nc:DocumentFiledDate>
 	<cc-filing-ext:VictimRightsAssertionCertificationIndicator>true</cc-filing-ext:VictimRightsAssertionCertificationIndicator>
-	<j:Case>
-		<nc:CaseDocketID>CaseID</nc:CaseDocketID>
-		<j:CaseAugmentation>
-			<j:CaseCharge>
-				<j:ChargeApplicabilityText>String</j:ChargeApplicabilityText>
-				<j:ChargeFilingDate>
-					<nc:Date>1967-08-13</nc:Date>
-				</j:ChargeFilingDate>
-				<j:ChargeSequenceID>
-					<nc:IdentificationID>001</nc:IdentificationID>
-				</j:ChargeSequenceID>
-				<j:ChargeSeverityLevel>
-					<j:SeverityLevelDescriptionText>Class A</j:SeverityLevelDescriptionText>
-				</j:ChargeSeverityLevel>
-				<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
-				<j:ChargeStatute>
-					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>AMC</nc:IdentificationID>
-						<nc:IdentificationJurisdictionText/>
-					</j:StatuteCodeIdentification>
-					<j:StatuteCodeSectionIdentification>
-						<nc:IdentificationID>8.10.040.B.7</nc:IdentificationID>
-					</j:StatuteCodeSectionIdentification>
-					<j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
-				</j:ChargeStatute>
-				<j:ChargeText>The Municipality of Anchorage, by and through its undersigned attorney, charges that on or about the 5th day of August, 2013, at or near Anchorage, Alaska, Leann Edna Smith did commit the offense of CHILD NEGLECT, to wit:Leann Edna smith did intentionally, knowingly, or recklessly cause or permit a child, M.P., to be inadequately supervised due to the demonstrated inability or unwillingness of the parent to provide care for the child at the time due to intoxication, addiction, or other circumstance, which is in violation of Anchorage Municipal Code 8.10.040.B.7</j:ChargeText>
-			</j:CaseCharge>
+	<cc-filing-ext:VictimRightsAssertionText>VRA Text</cc-filing-ext:VictimRightsAssertionText>
+	<cc-filing-ext:Case>
+		<nc:ActivityCategoryText>Case Category Text</nc:ActivityCategoryText>
+		<nc:CaseDocketID>Case Docket ID</nc:CaseDocketID>
+		<nc:CaseFiling>
+			<nc:DocumentCategoryName>DCN</nc:DocumentCategoryName>
+			<nc:DocumentFiledDate>
+				<nc:Date>1967-08-13</nc:Date>
+			</nc:DocumentFiledDate>
+		</nc:CaseFiling>
+		<cc-filing-ext:CaseAugmentation>
 			<j:CaseCourt>
 				<nc:OrganizationName>District Court for the State of Alaska</nc:OrganizationName>
 				<j:CourtName>Third Judicial District of Alaska</j:CourtName>
 				<j:CourtCategoryCode>DIS</j:CourtCategoryCode>
 			</j:CaseCourt>
+			<j:CaseCourtEvent>
+				<j:CourtEventAppearance>
+					<j:CourtAppearanceDate>
+						<nc:Date>1967-12-14</nc:Date>
+					</j:CourtAppearanceDate>
+				</j:CourtEventAppearance>
+			</j:CaseCourtEvent>
 			<j:CaseDefendantParty>
 				<nc:EntityPersonReference s:ref="Defendant_01"/>
 			</j:CaseDefendantParty>
-			<j:CaseDomesticViolenceIndicator>false</j:CaseDomesticViolenceIndicator>
 			<j:CaseInitiatingParty>
 				<nc:EntityPersonReference s:ref="Initiating_Party_01"/>
 			</j:CaseInitiatingParty>
@@ -88,8 +78,33 @@
 				</j:JudicialOfficialBarMembership>
 				<j:JudicialOfficialCategoryText>Assistant Municipal Prosecutor</j:JudicialOfficialCategoryText>
 			</j:CaseProsecutionAttorney>
-		</j:CaseAugmentation>
-	</j:Case>
+			<cc-filing-ext:CaseCharge>
+				<j:ChargeApplicabilityText>String</j:ChargeApplicabilityText>
+				<j:ChargeFilingDate>
+					<nc:Date>1967-08-13</nc:Date>
+				</j:ChargeFilingDate>
+				<j:ChargeSequenceID>
+					<nc:IdentificationID>001</nc:IdentificationID>
+				</j:ChargeSequenceID>
+				<j:ChargeSeverityLevel>
+					<j:SeverityLevelDescriptionText>Class A</j:SeverityLevelDescriptionText>
+				</j:ChargeSeverityLevel>
+				<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>AMC</nc:IdentificationID>
+						<nc:IdentificationJurisdictionText/>
+					</j:StatuteCodeIdentification>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>8.10.040.B.7</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
+				</j:ChargeStatute>
+				<j:ChargeText>The Municipality of Anchorage, by and through its undersigned attorney, charges that on or about the 5th day of August, 2013, at or near Anchorage, Alaska, Leann Edna Smith did commit the offense of CHILD NEGLECT, to wit:Leann Edna smith did intentionally, knowingly, or recklessly cause or permit a child, M.P., to be inadequately supervised due to the demonstrated inability or unwillingness of the parent to provide care for the child at the time due to intoxication, addiction, or other circumstance, which is in violation of Anchorage Municipal Code 8.10.040.B.7</j:ChargeText>
+				<cc-filing-ext:ChargeDomesticViolenceIndicator>true</cc-filing-ext:ChargeDomesticViolenceIndicator>
+			</cc-filing-ext:CaseCharge>
+		</cc-filing-ext:CaseAugmentation>
+	</cc-filing-ext:Case>
 	<cc-filing-ext:Arrest>
 		<j:ArrestAgency>
 			<nc:OrganizationName>Alaska Police Department</nc:OrganizationName>
@@ -130,17 +145,22 @@
 			<nc:IdentificationID>String</nc:IdentificationID>
 			<nc:IdentificationJurisdictionText>String</nc:IdentificationJurisdictionText>
 		</nc:PersonStateIdentification>
-		<j:PersonAugmentation>
+		<cc-filing-ext:PersonAugmentation>
 			<nc:DriverLicense>
 				<nc:DriverLicenseIdentification>
 					<nc:IdentificationID>5436789</nc:IdentificationID>
 					<nc:IdentificationJurisdictionText>Alaska</nc:IdentificationJurisdictionText>
 				</nc:DriverLicenseIdentification>
 			</nc:DriverLicense>
-		</j:PersonAugmentation>
-		<cc-filing-ext:AlaskaPublicSafetyInformationNetworkIdentification>
-			<nc:IdentificationID>6418462</nc:IdentificationID>
-		</cc-filing-ext:AlaskaPublicSafetyInformationNetworkIdentification>
+			<cc-filing-ext:AlaskaPublicSafetyInformationNetworkIdentification>
+				<nc:IdentificationID>6418462</nc:IdentificationID>
+			</cc-filing-ext:AlaskaPublicSafetyInformationNetworkIdentification>
+			<cc-filing-ext:OperatorLicenseIdentification>
+				<nc:IdentificationID>OL2345768</nc:IdentificationID>
+				<nc:IdentificationCategoryText>ATV</nc:IdentificationCategoryText>
+			</cc-filing-ext:OperatorLicenseIdentification>
+			<j:CDLHolderCode>9</j:CDLHolderCode>
+		</cc-filing-ext:PersonAugmentation>
 	</cc-filing-ext:Person>
 	<nc:Person s:id="IPP_01">
 		<nc:PersonName>
