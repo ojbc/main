@@ -37,6 +37,9 @@
 			<nc20:PersonFullName>White</nc20:PersonFullName>
 		</nc20:PersonName>
 		<j:PersonAugmentation>
+			<j:PersonFBIIdentification>
+				<nc20:IdentificationID>123456789</nc20:IdentificationID>
+			</j:PersonFBIIdentification>
 			<j:PersonStateFingerprintIdentification>
 				<nc20:IdentificationID>A398118900</nc20:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
