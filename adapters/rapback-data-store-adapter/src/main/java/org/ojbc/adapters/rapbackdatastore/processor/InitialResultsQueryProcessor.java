@@ -25,6 +25,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDEN
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_XOP;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_XMIME;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XMIME;
@@ -60,7 +61,6 @@ public class InitialResultsQueryProcessor {
 		FBIIdentificationSearchResultDocument,
 		StateCriminalHistoryRecordDocument,
 		FBIIdentityHistorySummaryDocument,
-		DocumentBinary,
 		Include,
 	}
 	
@@ -190,13 +190,9 @@ public class InitialResultsQueryProcessor {
 					NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, 
 					elementName.name());
 		XmlUtils.addAttribute(fbiIdentificationSearchResultDocument, NS_STRUCTURES_30, "id", documentId );
-		Element documentBinary = 
-			XmlUtils.appendElement(fbiIdentificationSearchResultDocument, 
-					NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, 
-					QueryResponseElementName.DocumentBinary.name());
-		XmlUtils.addAttribute(documentBinary, NS_XMIME, "contentType", CONTENT_TYPE_TEXT_PLAIN);
+		XmlUtils.addAttribute(fbiIdentificationSearchResultDocument, NS_XMIME, "contentType", CONTENT_TYPE_TEXT_PLAIN);
 		Element include = 
-			XmlUtils.appendElement(documentBinary, NS_NC_30, QueryResponseElementName.Include.name());
+			XmlUtils.appendElement(fbiIdentificationSearchResultDocument, NS_NC_30, QueryResponseElementName.Include.name());
 		String hrefValue = getHrefValue(documentId);
 		XmlUtils.addAttribute(include, NS_XOP, "href", hrefValue);
 	}
@@ -226,6 +222,7 @@ public class InitialResultsQueryProcessor {
         rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES_30, NS_STRUCTURES_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_NC_30, NS_NC_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_XOP, NS_XOP);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_XMIME, NS_XMIME);
         document.appendChild(rootElement);
 		return rootElement;
 	}
