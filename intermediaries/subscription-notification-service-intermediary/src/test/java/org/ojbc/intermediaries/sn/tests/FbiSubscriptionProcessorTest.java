@@ -68,10 +68,10 @@ public class FbiSubscriptionProcessorTest {
 		fbiRapbackSubscription.setRapbackExpirationDate(endDate);
 						
 		fbiRapbackSubscription.setSubscriptionTerm("P1Y");
-			
-		fbiRapbackSubscription.setFbiOca("1234567");
-		
+					
 		fbiRapbackSubscription.setRapbackCategory("CI");		
+		
+		fbiRapbackSubscription.setFbiSubscriptionId("1234567");
 		
 		return fbiRapbackSubscription;
 	}
