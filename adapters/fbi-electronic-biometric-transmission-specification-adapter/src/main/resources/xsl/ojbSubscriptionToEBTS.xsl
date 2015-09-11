@@ -235,10 +235,14 @@
      		   </ansi-nist:ImageReferenceIdentification>
 				<itl:UserDefinedDescriptiveDetail>
 					<ebts:DomainDefinedDescriptiveFields>
-		
-						<ansi-nist:RecordRapSheetRequestIndicator>
-							<xsl:value-of select="$rapSheetRequestIndicator"/>
-						</ansi-nist:RecordRapSheetRequestIndicator>
+						<xsl:choose>
+							<xsl:when test="$purpose = 'maintenance'"/>
+							<xsl:when test="$purpose = 'new'">
+								<ansi-nist:RecordRapSheetRequestIndicator>
+									<xsl:value-of select="$rapSheetRequestIndicator"/>
+								</ansi-nist:RecordRapSheetRequestIndicator>
+							</xsl:when>
+						</xsl:choose>
 						<ebts:RecordRapBackData>
 													
 							<ebts:RecordRapBackActivityNotificationFormatCode>
