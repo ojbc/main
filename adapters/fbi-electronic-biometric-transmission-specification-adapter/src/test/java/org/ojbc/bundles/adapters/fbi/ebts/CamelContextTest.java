@@ -189,7 +189,7 @@ public class CamelContextTest {
 		
 		//assert the transformed xml against expected xml output doc				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Maintenance-Request.xml"));
+				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Maintenance-Replace-Request.xml"));
 							
 		Diff diff = XMLUnit.compareXML(expectedXmlString, transformedReturnMessage);		
 		

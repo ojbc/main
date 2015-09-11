@@ -86,7 +86,7 @@ public class EbtsTransformTest {
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Maintenance-Request.xml"));
+				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Maintenance-Replace-Request.xml"));
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
