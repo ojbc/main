@@ -97,24 +97,42 @@
 	</xsl:template>
 	
 	<xsl:template match="b-2:Subscribe">
-		<xsl:apply-templates select="submsg-doc:SubscriptionMessage"/>
+	
+	<!-- We need to determine up front if we're requesting a modification of an existing subscription or requesting a new subscription. 
+	If the subscription message contains information about a related FBI subscription, that means we need to modify an 
+	existing FBI subscription-->
+	
+		<xsl:variable name="purpose">
+			<xsl:choose>
+				<xsl:when test="submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription">maintenance</xsl:when>
+				<xsl:otherwise>new</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:apply-templates select="submsg-doc:SubscriptionMessage">
+			<xsl:with-param name="purpose" select="$purpose"/>
+		</xsl:apply-templates>
 	</xsl:template>
 	
 	<xsl:template match="submsg-doc:SubscriptionMessage">
-	
+		<xsl:param name="purpose"/>
 		<itl:NISTBiometricInformationExchangePackage>
 		
-			<!-- Record Type 1 -->
-			<xsl:call-template name="createType1Record"/>
+			<!-- EBTS Record Type 1 -->
+			<xsl:call-template name="buildType1Record">
+				<xsl:with-param name="purpose" select="$purpose"/>
+			</xsl:call-template>
 			
-			<!-- Record Type 2 -->
-			<xsl:call-template name="createType2Record"/>
+			<!-- EBTS Record Type 2 -->
+			<xsl:call-template name="buildType2Record">
+				<xsl:with-param name="purpose" select="$purpose"/>
+			</xsl:call-template>
 			
 		</itl:NISTBiometricInformationExchangePackage>
 		
 	</xsl:template>
 	
-	<xsl:template name="createType1Record">
+	<xsl:template name="buildType1Record">
+		<xsl:param name="purpose"/>
 		<itl:PackageInformationRecord>
 				<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode> 
 				 <ansi-nist:Transaction>
@@ -167,15 +185,13 @@
            			<ansi-nist:TransactionMinorVersionValue>
            				<xsl:value-of select="$transactionMinorVersion"/>
            			</ansi-nist:TransactionMinorVersionValue>
-           			
-				 	<!-- Transaction Category TOT 1.004 -->
 				 	<!-- This determines whether we are requesting a new subscription or modifying an existing one -->
+				 	<!-- TODO: we will need to update this once we begin processing civil subscriptions -->
 				 	<xsl:choose>
-				 		<xsl:when test="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription[*]">
+				 		<xsl:when test="$purpose = 'maintenance'">
 				 			<ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
 				 		</xsl:when>
 				 		<xsl:otherwise>
-				 			<!-- TODO: we will need to update this once we begin processing civil subscriptions -->
 				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
 				 		</xsl:otherwise>
 				 	</xsl:choose>
@@ -196,7 +212,9 @@
 				 	 	<!-- TODO: pass these in as params -->
 				 	 	<ansi-nist:ContentRecordSummary>
                     		<ansi-nist:ImageReferenceIdentification>
-                        		<nc20:IdentificationID>00</nc20:IdentificationID>
+                        		<nc20:IdentificationID>
+                        			<xsl:value-of select="$imageReferenceID"/>
+                        		</nc20:IdentificationID>
                    			 </ansi-nist:ImageReferenceIdentification>
                     		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
                 		</ansi-nist:ContentRecordSummary>
@@ -205,7 +223,8 @@
 			</itl:PackageInformationRecord>
 	</xsl:template>
 	
-	<xsl:template name="createType2Record">
+	<xsl:template name="buildType2Record">
+		<xsl:param name="purpose"/>
 		<itl:PackageDescriptiveTextRecord>
 			
 				<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
@@ -227,8 +246,13 @@
 							</ebts:RecordRapBackActivityNotificationFormatCode>
 							
 							<!--Rap Back Category RBC 2.2065-->
-							<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
-							<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
+							<xsl:choose>
+								<xsl:when test="$purpose = 'maintenance'"/>
+								<xsl:when test="$purpose = 'new'">
+									<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
+									<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
+								</xsl:when>
+							</xsl:choose>
 							
 							<!-- RBDI 2.2067, Optional-->
     						<ebts:RecordRapBackDisclosureIndicator>
@@ -264,10 +288,8 @@
 								<xsl:value-of select="$rapBackTriggeringEvent" />
 							</ebts:RecordRapBackTriggeringEventCode>							
 														
-							<xsl:apply-templates select="submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification[nc20:IdentificationID !='']"/>
-																				
-						</ebts:RecordRapBackData>
-						
+							<xsl:apply-templates select="submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification[nc20:IdentificationID !='']"/>																
+						</ebts:RecordRapBackData>	
 						<ebts:RecordTransactionActivity>
 							<nc20:CaseTrackingID>
 								<xsl:value-of select="$originatingAgencyCaseNumber"/>
@@ -285,6 +307,9 @@
 				</itl:UserDefinedDescriptiveDetail>
 			</itl:PackageDescriptiveTextRecord>
 	</xsl:template>
+	
+	
+	
 	<xsl:template match="submsg-ext:Subject">
 		<ebts:RecordSubject>			
 			<xsl:apply-templates select="nc20:PersonBirthDate"/>			
