@@ -70,7 +70,6 @@ public class FbiRapbackDao {
 			fbiSubscription.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
 			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category"));
 			fbiSubscription.setSubscriptionTerm(rs.getString("subscription_term"));
-			fbiSubscription.setFbiOca(rs.getString("fbi_oca"));
 			fbiSubscription.setRapbackExpirationDate(toDateTime(rs.getDate("rap_back_expiration_date")));
 			fbiSubscription.setRapbackStartDate(toDateTime(rs.getDate("rap_back_start_date")));
 			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
