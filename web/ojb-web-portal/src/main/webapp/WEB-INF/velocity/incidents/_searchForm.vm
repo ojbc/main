@@ -45,6 +45,7 @@
                     if(!isValidate){
                         alert("There are errors in your inputs, please correct them and try again");
                     }else {
+                    	ojbc.clearPlaceholders();
                         var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                     
     		  	       	$.post("#springUrl('/incidents/advanceSearch')",formData,function(data) {
