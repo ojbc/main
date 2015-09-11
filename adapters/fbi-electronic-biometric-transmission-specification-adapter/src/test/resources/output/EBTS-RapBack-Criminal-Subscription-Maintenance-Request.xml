@@ -86,16 +86,11 @@
 		<itl:UserDefinedDescriptiveDetail>
 		
 			<ebts:DomainDefinedDescriptiveFields>
-
-				<ansi-nist:RecordRapSheetRequestIndicator>true</ansi-nist:RecordRapSheetRequestIndicator>
 			
 				<ebts:RecordRapBackData>
 				
 					<ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
 			
-				<!-- Not allowed in RBMNT
-					<ebts:RecordRapBackCategoryCode>CI</ebts:RecordRapBackCategoryCode>
-			-->
 					<ebts:RecordRapBackDisclosureIndicator>false</ebts:RecordRapBackDisclosureIndicator>
 					
 					<ebts:RecordRapBackExpirationDate>
