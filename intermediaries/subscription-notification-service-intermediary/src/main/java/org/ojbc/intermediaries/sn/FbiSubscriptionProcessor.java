@@ -103,12 +103,12 @@ public class FbiSubscriptionProcessor {
 			endDateValElement.setTextContent(sEndDate);			
 		}
 									
-		String fbiOcaId = fbiRapbackSubscription.getFbiOca();
+		String fbiId = fbiRapbackSubscription.getFbiSubscriptionId();
 		
-		if(StringUtils.isNotEmpty(fbiOcaId)){
+		if(StringUtils.isNotEmpty(fbiId)){
 			Element subFbiIdElement = XmlUtils.appendElement(relatedFBISubscriptionElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionFBIIdentification");
 			Element fbiIdValElement = XmlUtils.appendElement(subFbiIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
-			fbiIdValElement.setTextContent(fbiOcaId);			
+			fbiIdValElement.setTextContent(fbiId);			
 		}		
 				
 		String reasonCode = fbiRapbackSubscription.getRapbackCategory();
