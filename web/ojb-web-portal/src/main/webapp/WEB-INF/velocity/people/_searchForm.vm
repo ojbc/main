@@ -79,6 +79,7 @@
                 if(!isValidate){
                     alert("There are errors in your inputs, please correct them and try again");
                 }else {
+                	ojbc.clearPlaceholders();
                     var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                 
 		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
@@ -89,6 +90,7 @@
 
     		$('#juvenileSearchSubmitButton').click (
     			function(){
+                	ojbc.clearPlaceholders();
                     var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
                 
 		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
@@ -98,6 +100,7 @@
     		);
     			
     		$('#simpleSearchSubmitButton').click (function(){
+    		    ojbc.clearPlaceholders();
                 var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
 		  		$.post("#springUrl('/people/simpleSearch')",formData,function(data) {
 				      $('#portalContent').html(data);
