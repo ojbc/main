@@ -25,6 +25,7 @@ import org.joda.time.DateTime;
 public class FbiRapbackSubscription implements Serializable{
 
 	private static final long serialVersionUID = 5492996006114314857L;
+	
 	private String fbiSubscriptionId; 
 	private String rapbackCategory;
 	private String subscriptionTerm;
@@ -32,7 +33,6 @@ public class FbiRapbackSubscription implements Serializable{
 	private DateTime rapbackStartDate; 
 	private Boolean rapbackOptOutInState; 
 	private String rapbackActivityNotificationFormat; 
-	private String fbiOca;
 	private String ucn;
 	private DateTime timestamp;
 	
@@ -95,14 +95,6 @@ public class FbiRapbackSubscription implements Serializable{
 	public void setRapbackActivityNotificationFormat(
 			String rapbackActivityNotificationFormat) {
 		this.rapbackActivityNotificationFormat = rapbackActivityNotificationFormat;
-	}
-
-	public String getFbiOca() {
-		return fbiOca;
-	}
-
-	public void setFbiOca(String fbiOca) {
-		this.fbiOca = fbiOca;
 	}
 
 	public String getUcn() {
