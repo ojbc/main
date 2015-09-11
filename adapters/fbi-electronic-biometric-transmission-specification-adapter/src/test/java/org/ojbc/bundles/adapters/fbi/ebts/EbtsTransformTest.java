@@ -140,9 +140,9 @@ public class EbtsTransformTest {
 		xsltParamMap.put("rapBackNotificatonFormat", 3);
 		xsltParamMap.put("rapBackInStateOptOutIndicator", true);
 		xsltParamMap.put("rapBackTriggeringEvent", 1);		
-		xsltParamMap.put("destinationOrganizationORI", "HI002595Y");
+		xsltParamMap.put("destinationOrganizationORI", "WVIAFIS0Z");
 		xsltParamMap.put("originatorOrganizationORI", "HI002595Y");
-		xsltParamMap.put("controlID", "98765");
+		xsltParamMap.put("controlID", "9876500000");
 		xsltParamMap.put("domainVersion", "EBTS 10.0");
 		xsltParamMap.put("domainName", "NORAM");
 		xsltParamMap.put("transactionMajorVersion", "05");

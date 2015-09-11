@@ -36,7 +36,7 @@
 			
 			<ansi-nist:TransactionDestinationOrganization>
             	<nc20:OrganizationIdentification>
-                 	<nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
+                 	<nc20:IdentificationID>WVIAFIS0Z</nc20:IdentificationID>
             	</nc20:OrganizationIdentification>
           	</ansi-nist:TransactionDestinationOrganization>
           	<ansi-nist:TransactionOriginatingOrganization>
@@ -45,7 +45,7 @@
                 </nc20:OrganizationIdentification>
             </ansi-nist:TransactionOriginatingOrganization>
             <ansi-nist:TransactionControlIdentification>
-             	<nc20:IdentificationID>98765</nc20:IdentificationID>
+             	<nc20:IdentificationID>9876500000</nc20:IdentificationID>
             </ansi-nist:TransactionControlIdentification>
             <ansi-nist:TransactionDomain>
                 <ansi-nist:DomainVersionNumberIdentification>
@@ -86,14 +86,10 @@
 		<itl:UserDefinedDescriptiveDetail>
 		
 			<ebts:DomainDefinedDescriptiveFields>
-
-				<ansi-nist:RecordRapSheetRequestIndicator>true</ansi-nist:RecordRapSheetRequestIndicator>
 			
 				<ebts:RecordRapBackData>
 				
 					<ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
-			
-					<ebts:RecordRapBackCategoryCode>CI</ebts:RecordRapBackCategoryCode>
 			
 					<ebts:RecordRapBackDisclosureIndicator>false</ebts:RecordRapBackDisclosureIndicator>
 					
