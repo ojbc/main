@@ -250,6 +250,7 @@
 							</ebts:RecordRapBackActivityNotificationFormatCode>
 							
 							<!--Rap Back Category RBC 2.2065-->
+							<!-- This is not allowed in RBMNT messages -->
 							<xsl:choose>
 								<xsl:when test="$purpose = 'maintenance'"/>
 								<xsl:when test="$purpose = 'new'">
@@ -292,7 +293,14 @@
 								<xsl:value-of select="$rapBackTriggeringEvent" />
 							</ebts:RecordRapBackTriggeringEventCode>							
 														
-							<xsl:apply-templates select="submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification[nc20:IdentificationID !='']"/>																
+							<xsl:apply-templates select="submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification[nc20:IdentificationID !='']" mode="userDefinedElement"/>																
+							<xsl:choose>
+								<!-- This indicates that the maintenance is a "replace" -->
+								<xsl:when test="$purpose = 'maintenance'">
+									<ebts:TransactionRapBackMaintenanceCode>R</ebts:TransactionRapBackMaintenanceCode>
+								</xsl:when>
+								<xsl:when test="$purpose = 'new'"/>
+							</xsl:choose>
 						</ebts:RecordRapBackData>	
 						<ebts:RecordTransactionActivity>
 							<nc20:CaseTrackingID>
@@ -349,7 +357,7 @@
 		<xsl:copy-of select="." copy-namespaces="no" />
 	</xsl:template>
 		
-	<xsl:template match="j:PersonStateFingerprintIdentification">
+	<xsl:template match="j:PersonStateFingerprintIdentification" mode="userDefinedElement">
 		<ebts:RecordRapBackUserDefinedElement>
 			<ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
 			<ebts:UserDefinedElementText>
