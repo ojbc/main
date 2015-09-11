@@ -113,7 +113,7 @@
 						<ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
 						<ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
 					</ebts:RecordRapBackUserDefinedElement>
-					
+					<ebts:TransactionRapBackMaintenanceCode>R</ebts:TransactionRapBackMaintenanceCode>
 				</ebts:RecordRapBackData>
 				
 				<ebts:RecordTransactionActivity>
