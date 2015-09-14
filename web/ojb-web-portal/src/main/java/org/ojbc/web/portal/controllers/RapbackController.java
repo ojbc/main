@@ -61,14 +61,13 @@ public class RapbackController {
 	        Map<String, Object> model) {		
 								
 		Element samlElement = samlService.getSamlAssertion(request);
-		String searchId = getFederatedQueryId();
 		
 		String informationMessage = "";
 		
 		String rawResults = "";
         try {
             rawResults = config.getRapbackSearchBean()
-            		.invokeRapbackSearchRequest(IdentificationResultsCategory.Civil, searchId, samlElement);
+            		.invokeRapbackSearchRequest(IdentificationResultsCategory.Civil, samlElement);
         } catch (Exception e) {
             informationMessage="Failed to process the request.";
             e.printStackTrace();
@@ -114,14 +113,13 @@ public class RapbackController {
 			Map<String, Object> model) {		
 		
 		Element samlElement = samlService.getSamlAssertion(request);
-		String searchId = getFederatedQueryId();
 		
 		String informationMessage = "";
 		
 		String rawResults = "";
 		try {
 			rawResults = config.getRapbackSearchBean()
-					.invokeRapbackSearchRequest(IdentificationResultsCategory.Criminal, searchId, samlElement);
+					.invokeRapbackSearchRequest(IdentificationResultsCategory.Criminal, samlElement);
 		} catch (Exception e) {
 			informationMessage="Failed to process the request.";
 			e.printStackTrace();
@@ -140,9 +138,5 @@ public class RapbackController {
 		return "rapbacks/_criminalIdentificationResults";
 	}
 	
-	public static String getFederatedQueryId() {
-		return UUID.randomUUID().toString();
-	}
-
 }
 
