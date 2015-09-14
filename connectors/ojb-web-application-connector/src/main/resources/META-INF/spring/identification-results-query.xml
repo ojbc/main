@@ -65,8 +65,7 @@
     </cxf:cxfEndpoint>
 
   	<!-- Identification Initial Results Request and Response Endpoints -->
-  	<!-- TODO complete this bean -->
-   <bean id="initialResultsQueryRequestProcessor" class="org.ojbc.processor.initialresults.query.InitialResultsQueryRequestProcessor">
+   <bean id="identificationResultsQueryRequestProcessor" class="org.ojbc.processor.initialresults.query.IdentificationResultsQueryRequestProcessor">
    		<property name="replyToAddress"><value>${webapplication.initialResultsQueryRequestReplyToEndpoint.endpoint}</value></property>
    		<property name="messageProcessor" ref="identificationInitialResultsQueryMessageProcessor"/>
    		<property name="requestResponseMap" ref="identificationInitialResultsQueryRequestResponseMap"/>
