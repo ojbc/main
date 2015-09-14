@@ -38,7 +38,7 @@ public class RapbackSearchMockImpl implements RapbackSearchInterface{
 	SearchResultConverter searchResultConverter;		
 	
     @Override
-    public String invokeRapbackSearchRequest(IdentificationResultsCategory category, String federatedQueryID, Element samlToken)
+    public String invokeRapbackSearchRequest(IdentificationResultsCategory category, Element samlToken)
             throws Exception {
         logger.info("Getting mock rapback search results.");
         

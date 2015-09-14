@@ -16,6 +16,7 @@
  */
 package org.ojbc.processor;
 
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.camel.Body;
@@ -143,6 +144,10 @@ public abstract class RequestResponseProcessor {
 
 	public void setPollingIntervalInMillis(int pollingIntervalInMillis) {
 		this.pollingIntervalInMillis = pollingIntervalInMillis;
+	}
+
+	public String getFederatedQueryId() {
+		return UUID.randomUUID().toString();
 	}
 
 	

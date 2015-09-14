@@ -21,7 +21,7 @@ import org.w3c.dom.Element;
 
 public interface RapbackSearchInterface {
 
-	public String invokeRapbackSearchRequest(IdentificationResultsCategory category, String federatedQueryID,
+	public String invokeRapbackSearchRequest(IdentificationResultsCategory category, 
 	        Element samlToken) throws Exception;
 
 }

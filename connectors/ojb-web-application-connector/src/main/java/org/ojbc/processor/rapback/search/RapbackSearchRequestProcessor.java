@@ -51,7 +51,7 @@ public class RapbackSearchRequestProcessor extends RequestResponseProcessor impl
 	
 	private static final Log log = LogFactory.getLog( RapbackSearchRequestProcessor.class );
 	
-	public String invokeRapbackSearchRequest(IdentificationResultsCategory category, String federatedQueryID, Element samlToken) throws Exception
+	public String invokeRapbackSearchRequest(IdentificationResultsCategory category, Element samlToken) throws Exception
 	{
 		if (allowQueriesWithoutSAMLToken)
 		{	
@@ -77,6 +77,7 @@ public class RapbackSearchRequestProcessor extends RequestResponseProcessor impl
 		senderExchange.getIn().setBody(rapbackSearchRequestPayload);
 		
 		//Set reply to and WS-Addressing message ID
+		String federatedQueryID = getFederatedQueryId();
 		senderExchange.getIn().setHeader("federatedQueryRequestGUID", federatedQueryID);
 		senderExchange.getIn().setHeader("WSAddressingReplyTo", this.getReplyToAddress());
 

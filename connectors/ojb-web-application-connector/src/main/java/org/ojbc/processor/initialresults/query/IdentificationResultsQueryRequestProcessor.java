@@ -18,6 +18,9 @@ package org.ojbc.processor.initialresults.query;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
+import org.apache.camel.Exchange;
+import org.apache.camel.ExchangePattern;
+import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,8 +29,10 @@ import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.web.IdentificationResultsQueryInterface;
+import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 @Service
@@ -63,43 +68,44 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 			}	
 		}
 		log.info("Processing initial results request with transaction number: " + StringUtils.trimToEmpty(transactionNumber) );
-//		Document rapbackSearchRequestPayload = RequestMessageBuilderUtilities.createRapbackSearchRequest(category);
-//		
-//		//Create exchange
-//		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
-//		
-//		//Set exchange body to XML Request message
-//		senderExchange.getIn().setBody(rapbackSearchRequestPayload);
-//		
-//		//Set reply to and WS-Addressing message ID
-//		senderExchange.getIn().setHeader("federatedQueryRequestGUID", federatedQueryID);
-//		senderExchange.getIn().setHeader("WSAddressingReplyTo", this.getReplyToAddress());
-//
-//		//Set the token header so that CXF can retrieve this on the outbound call
-//		String tokenID = senderExchange.getExchangeId();
-//		senderExchange.getIn().setHeader("tokenID", tokenID);
-//
-//		OJBSamlMap.putToken(tokenID, samlToken);
-//
-//		messageProcessor.sendResponseMessage(camelContext, senderExchange);
-//		
-//		//Put message ID and "noResponse" place holder.  
-//		putRequestInMap(federatedQueryID);
-//		
-//		String response = pollMap(federatedQueryID);
-//		
-//		if (response.length() > 500)
-//		{	
-//			log.debug("Here is the response (truncated): " + response.substring(0,500));
-//		}
-//		else
-//		{
-//			log.debug("Here is the response: " + response);
-//		}
-//		
-//		//return response here
-//		return response;
-		return null;
+		Document identificationResultsQueryRequestPayload = RequestMessageBuilderUtilities.createIdentificationResultsQueryRequest(transactionNumber);
+		
+		//Create exchange
+		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
+		
+		//Set exchange body to XML Request message
+		senderExchange.getIn().setBody(identificationResultsQueryRequestPayload);
+		
+		//Set reply to and WS-Addressing message ID
+		
+		String federatedQueryID = getFederatedQueryId();
+		senderExchange.getIn().setHeader("federatedQueryRequestGUID", federatedQueryID );
+		senderExchange.getIn().setHeader("WSAddressingReplyTo", this.getReplyToAddress());
+
+		//Set the token header so that CXF can retrieve this on the outbound call
+		String tokenID = senderExchange.getExchangeId();
+		senderExchange.getIn().setHeader("tokenID", tokenID);
+
+		OJBSamlMap.putToken(tokenID, samlToken);
+
+		messageProcessor.sendResponseMessage(camelContext, senderExchange);
+		
+		//Put message ID and "noResponse" place holder.  
+		putRequestInMap(federatedQueryID);
+		
+		String response = pollMap(federatedQueryID);
+		
+		if (response.length() > 500)
+		{	
+			log.debug("Here is the response (truncated): " + response.substring(0,500));
+		}
+		else
+		{
+			log.debug("Here is the response: " + response);
+		}
+		
+		//return response here
+		return response;
 	}
 
 	public CamelContext getCamelContext() {
