@@ -14,33 +14,13 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.portal.controllers.config;
+package org.ojbc.web;
 
-import javax.annotation.Resource;
+import org.w3c.dom.Element;
 
-import org.ojbc.web.IdentificationResultsQueryInterface;
-import org.ojbc.web.RapbackSearchInterface;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+public interface IdentificationResultsQueryInterface {
 
-@Configuration
-@Profile("standalone")
-public class RapbackConrollerConfigStandalone implements RapbackControllerConfigInterface{
-	
-	@Resource
-	RapbackSearchInterface rapbackSearchInterface;
-	@Resource
-	IdentificationResultsQueryInterface initialResultsQueryInterface;
-	
-    @Override
-    public RapbackSearchInterface getRapbackSearchBean() {
-        return rapbackSearchInterface;
-    }
+	public String invokeIdentificationResultsQueryRequest(String transactionNumber,
+	        Element samlToken) throws Exception;
 
-	@Override
-	public IdentificationResultsQueryInterface getInitialResultsQueryBean() {
-		return initialResultsQueryInterface;
-	}	
-
-    
 }
