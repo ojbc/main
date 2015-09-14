@@ -309,7 +309,7 @@
 			
 	    	<camel:convertBodyTo type="java.lang.String"/>
 	    	
-			<camel:to uri="bean:initialResultsQueryRequestProcessor?method=updateMapWithResponse"/>
+			<camel:to uri="bean:identificationResultsQueryRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>	    
 	    
 	</camel:camelContext>
