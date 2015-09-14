@@ -19,7 +19,7 @@ package org.ojbc.web.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import static org.ojbc.util.xml.OjbcNamespaceContext.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,7 +43,6 @@ import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  * This class contains methods to convert POJOs to XML request documents or to 
@@ -637,6 +636,29 @@ public class RequestMessageBuilderUtilities {
                 "IdentificationResultsCategoryCode"); 
         identificationResultsCategoryCode.setTextContent(category.name());
 
+		return document;
+	}
+
+	public static Document createIdentificationResultsQueryRequest(
+			String transactionNumber) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST, 
+                NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST 
+                +":OrganizationIdentificationInitialResultsQueryRequest");
+        document.appendChild(rootElement);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST, 
+                NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_INTEL_30, NS_INTEL_30);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_30, NS_NC_30);
+        
+        Element systemIdentification = 
+        		XmlUtils.appendElement(rootElement, NS_INTEL_30, "SystemIdentification");
+        Element identificationId = XmlUtils.appendElement(systemIdentification, NS_NC_30, "IdentificationID");
+        identificationId.setTextContent(transactionNumber);
+        
+        Element systemName = XmlUtils.appendElement(systemIdentification, NS_NC_30, "SystemName"); 
+        systemName.setTextContent("rap-back-data-store");
+        
 		return document;
 	}	
     

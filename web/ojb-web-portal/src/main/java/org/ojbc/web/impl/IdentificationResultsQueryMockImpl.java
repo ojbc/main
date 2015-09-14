@@ -38,7 +38,7 @@ public class IdentificationResultsQueryMockImpl implements IdentificationResults
 	
 	@Override
 	public String invokeIdentificationResultsQueryRequest(
-			String transactionNumber, Element samlToken) throws Exception {
+			String transactionNumber,  Element samlToken) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
