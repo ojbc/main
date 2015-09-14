@@ -190,6 +190,12 @@ public class SearchResultConverter implements ApplicationContextAware {
         return convertXml(searchContent, criminalIdentificationSearchResultXsl, null);
 	}
 
+	public String convertIdentificationResultsQueryResult(String searchContent,
+			Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 

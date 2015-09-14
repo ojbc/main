@@ -25,18 +25,21 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.model.IdentificationResultsCategory;
+import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.portal.controllers.config.RapbackControllerConfigInterface;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
 @Controller
-@Profile({"rapback-search","standalone"})
+@Profile({"rapback-search","initial-results-query","standalone"})
 @SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
@@ -84,6 +87,28 @@ public class RapbackController {
 		return "rapbacks/_rapbackResults";
 	}
 
+	@RequestMapping(value = "initialResults", method = RequestMethod.GET)
+	public String searchDetails(HttpServletRequest request, @RequestParam String transactionNumber,
+	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
+		try {
+			processDetailRequest(request, transactionNumber, model);
+			return "people/_searchDetails";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "common/_searchDetailsError";
+		}
+	}
+	
+	private void processDetailRequest(HttpServletRequest request, String transactionNumber, Map<String, Object> model)
+			throws Exception {
+		Element samlAssertion = samlService.getSamlAssertion(request);		
+		
+		String searchContent = config.getInitialResultsQueryBean().invokeIdentificationResultsQueryRequest(transactionNumber, samlAssertion);;
+		String convertedContent = searchResultConverter.convertIdentificationResultsQueryResult(searchContent,null);
+		model.put("searchContent", convertedContent);
+	}
+
+	
 	@RequestMapping(value = "/criminalIdentificationsResults", method = RequestMethod.POST)
 	public String criminalIdentificationResults(HttpServletRequest request,	        
 			Map<String, Object> model) {		

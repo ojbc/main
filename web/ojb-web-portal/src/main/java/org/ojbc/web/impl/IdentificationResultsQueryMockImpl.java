@@ -14,33 +14,34 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.portal.controllers.config;
+package org.ojbc.web.impl;
+
+import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
 import org.ojbc.web.IdentificationResultsQueryInterface;
-import org.ojbc.web.RapbackSearchInterface;
-import org.springframework.context.annotation.Configuration;
+import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
+import org.w3c.dom.Element;
 
-@Configuration
-@Profile("standalone")
-public class RapbackConrollerConfigStandalone implements RapbackControllerConfigInterface{
+@Service
+@Profile({"initial-results-query","standalone"})
+public class IdentificationResultsQueryMockImpl implements IdentificationResultsQueryInterface{
+		
+	@SuppressWarnings("unused")
+	private Logger logger = Logger.getLogger(IdentificationResultsQueryMockImpl.class.getName());
 	
 	@Resource
-	RapbackSearchInterface rapbackSearchInterface;
-	@Resource
-	IdentificationResultsQueryInterface initialResultsQueryInterface;
+	SearchResultConverter searchResultConverter;		
 	
-    @Override
-    public RapbackSearchInterface getRapbackSearchBean() {
-        return rapbackSearchInterface;
-    }
-
 	@Override
-	public IdentificationResultsQueryInterface getInitialResultsQueryBean() {
-		return initialResultsQueryInterface;
-	}	
+	public String invokeIdentificationResultsQueryRequest(
+			String transactionNumber, Element samlToken) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    
+	
 }
