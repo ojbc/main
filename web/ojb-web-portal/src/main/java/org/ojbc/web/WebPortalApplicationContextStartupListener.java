@@ -143,6 +143,11 @@ public class WebPortalApplicationContextStartupListener implements
                     	camelContext.startRoute("rapbackSearchResultsHandlerRoute");
                     	continue;
                     }
+                    if (profile.equals("initial-results-query"))
+                    {   
+                    	camelContext.startRoute("intialResultsQueryResultsHandlerRoute");
+                    	continue;
+                    }
 			    }
 				
 			} catch (Exception e) {

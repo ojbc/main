@@ -87,12 +87,14 @@
 			</td>
 			<td>
 				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
+				<xsl:value-of select="normalize-space(intel:SystemIdentifier/nc:IdentificationID)"></xsl:value-of>
 			</td>
 			<td align="right" width="115px">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed']" mode="subscribed"/>
 				<a href="#" class="blueIcon" style="margin-right:3px" title="Notifications"><i class="fa fa-bell fa-lg"></i></a>
-				<a href="#" class="blueIcon" style="margin-right:3px" title="Rap Sheet"><i class="fa fa-file-text-o fa-lg"></i></a>
+				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentifier/nc:IdentificationID)}" 
+					class="blueIcon" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-text-o fa-lg"></i></a>
 			</td>
 		</tr>
 	</xsl:template>

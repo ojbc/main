@@ -41,6 +41,7 @@
     	    
     		$('#juvenileSearchSubmitButton').click (
     			function(){
+    			    ojbc.clearPlaceholders();
                     var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                 
 		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
