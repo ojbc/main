@@ -85,25 +85,7 @@
 		***********************************************************
 		***********************************************************					
 	 -->
-	   
-   <camel:endpoint id="personMergeSearchResultsHandlerServiceEndpoint"
-		uri="cxf:bean:personSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}&amp;allowStreaming=false" />
-		
-	<!--				
-   <bean id="personSearchRequestProcessor" class="org.ojbc.bundles.intermediaries.parole.event.PersonSearchRequestProcessor">
-   		<property name="replyToAddress"><value>${parole.event.personSearchResultsReplyToEndpoint}</value></property>
-   		<property name="personSearchMessageProcessor" ref="personSearchMessageProcessor"/>
-   		<property name="requestResponseMap" ref="personSearchRequestResponseMap"/>
-   		<property name="maxPolls" value="${parole.event.maxPolls}"/>
-   		<property name="pollingIntervalInMillis" value="${parole.event.pollingIntervalInMillis}"/>
-   </bean>
-   -->
-  
-	<bean id="personSearchMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
-		<property name="operationName"><value>SubmitPersonSearchRequest</value></property>
-		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0</value></property>
-		<property name="destinationEndpoint"><value>personSearchRequestService</value></property>
-	</bean>
+	     
 	
    	<!-- Person Search Request Service, invoked by intermediary  -->
 	<cxf:cxfEndpoint id="personSearchRequestService"
@@ -135,8 +117,7 @@
 			</policy:policies>
 		</cxf:features>
 	</cxf:cxfEndpoint>	
-	
-	<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="personSearchRequestResponseMap"/>      
+	   
       
    	<util:properties id="paroleKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
