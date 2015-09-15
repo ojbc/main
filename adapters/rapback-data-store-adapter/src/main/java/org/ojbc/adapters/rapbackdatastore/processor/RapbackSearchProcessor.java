@@ -167,7 +167,7 @@ public class RapbackSearchProcessor {
 				appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
 				
 				Element systemIdentifierElement = XmlUtils.appendElement(
-						organizationIdentificationResultsSearchResultElement, NS_INTEL, "SystemIdentifierElement");
+						organizationIdentificationResultsSearchResultElement, NS_INTEL, "SystemIdentifier");
 				Element identificationIdElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC_30, "IdentificationID"); 
 				identificationIdElement.setTextContent(identificationTransaction.getTransactionNumber());  
 				Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, NS_INTEL, "SystemName");

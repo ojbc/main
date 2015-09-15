@@ -299,6 +299,19 @@
 			<camel:to uri="bean:rapbackSearchRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>	    
 	    
+	    <!--Initial Results Query Result Listener -->
+	    <camel:route id="intialResultsQueryResultsHandlerRoute" autoStartup="false">
+	    	<from uri="initialResultsQueryResultsHandlerServiceEndpoint"/>
+	    	<camel:log message="Received response message - Initial Results Query Response: ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
+			<camel:to uri="bean:identificationInitialResultsQueryMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	
+			<camel:to uri="bean:identificationResultsQueryRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>	    
+	    
 	</camel:camelContext>
 
 	<!-- SAML map to persist tokens between CXF and Camel -->	
