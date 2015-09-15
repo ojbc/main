@@ -54,9 +54,7 @@ public class PersonSearchEntityResolutionResponseHandlerAggregator {
 			Node caseInitDocFbiNode = XmlUtils.xPathNodeSearch(caseInitMessageDoc, " TODO ");
 			
 			caseInitDocFbiNode.setTextContent(fbiId);
-			
-			logger.info("\n\n\n Returning subscribe doc: \n\n ${body} \n\n\n");
-			
+						
 			groupedExchange.getIn().setBody(caseInitMessageDoc);	
 			
 		}else if(persSrchResDoc == null){
