@@ -105,12 +105,29 @@ public class EbtsTransformTest {
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/RapBackSubscriptionResponse.xml"));
+				new File("src/test/resources/output/RapBackSubscriptionCreationReport.xml"));
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
 	
-	
+	@Test
+	public void RapbackMaintenanceResponseTransform() throws IOException, SAXException{
+		
+		InputStream intputFileStream = new FileInputStream("src/test/resources/input/Template(RBMNTR)RapBackMaintenanceResponse.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+								
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/RapBackSubscriptionUpdateReport.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	}
 	
 	@Test
 	public void ArrestReportTestEbtsTransform() throws IOException, SAXException{
