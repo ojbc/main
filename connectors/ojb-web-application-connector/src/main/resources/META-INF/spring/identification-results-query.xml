@@ -57,6 +57,7 @@
 		endpointName="ojbc:Organization_Identification_Results_Query_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryRequestService/1.0">
 		<cxf:properties>
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
