@@ -29,8 +29,8 @@ import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.SAMLTokenPrincipal;
-import org.apache.ws.security.saml.ext.AssertionWrapper;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.ojbc.util.xml.XmlUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
@@ -92,7 +92,7 @@ public abstract class AbstractLoggingProcessor {
         if (message != null) {
             SAMLTokenPrincipal principal = (SAMLTokenPrincipal) message.get("wss4j.principal.result");
             if (principal != null) {
-                AssertionWrapper aw = principal.getToken();
+                SamlAssertionWrapper aw = principal.getToken();
                 if (aw != null) {
                     Assertion assertion = aw.getSaml2();
 

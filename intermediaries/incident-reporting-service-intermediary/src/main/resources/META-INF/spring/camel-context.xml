@@ -42,7 +42,7 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
 		<camel:routeContextRef ref="errorHandlerRoutes"/>		
 
-		<!-- some CXF endpoints are inline to support testing -->	
+		<!-- Some CXF endpoints are inline to support testing -->	
 		<camel:endpoint id="incidentReportingServiceEndpoint"
 			uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
 
@@ -184,7 +184,7 @@
         
 			<camel:log message="Processing Incident Report Notifications"/>
 						
-			<camel:to uri="xslt:xslt/incidentReportToNotifications.xsl?transformerFactory=sFactory"/>								
+			<camel:to uri="xslt:xslt/incidentReportToNotifications.xsl?saxon=true"/>								
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
@@ -307,8 +307,6 @@
     <bean id="callArrestReportingService" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${incidentReportingService.callArrestReportingService}" />
     </bean>	
-	
-	<bean id="sFactory" class="net.sf.saxon.TransformerFactoryImpl"/>
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	

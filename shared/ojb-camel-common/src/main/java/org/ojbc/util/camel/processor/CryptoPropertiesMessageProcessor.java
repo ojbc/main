@@ -23,7 +23,7 @@ import java.util.Properties;
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.endpoint.Client;
-import org.apache.ws.security.handler.WSHandlerConstants;
+import org.apache.wss4j.dom.handler.WSHandlerConstants;
 
 /**
  * This method will set the Crypto properties for a WSS4J interceptor.  This is for an WSS4J out interceptor that performs encryption and signature.  The reason to do this is so you can dynamically

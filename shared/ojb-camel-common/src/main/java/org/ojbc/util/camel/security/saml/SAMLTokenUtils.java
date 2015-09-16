@@ -25,18 +25,18 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.SAMLTokenPrincipal;
-import org.apache.ws.security.components.crypto.Crypto;
-import org.apache.ws.security.components.crypto.CryptoFactory;
-import org.apache.ws.security.components.crypto.Merlin;
-import org.apache.ws.security.saml.ext.AssertionWrapper;
-import org.apache.ws.security.saml.ext.OpenSAMLBootstrap;
-import org.apache.ws.security.saml.ext.bean.AttributeBean;
-import org.apache.ws.security.saml.ext.bean.AttributeStatementBean;
-import org.apache.ws.security.saml.ext.bean.AuthenticationStatementBean;
-import org.apache.ws.security.saml.ext.bean.SubjectBean;
-import org.apache.ws.security.saml.ext.builder.SAML2ComponentBuilder;
-import org.apache.ws.security.saml.ext.builder.SAML2Constants;
+import org.apache.wss4j.common.crypto.Crypto;
+import org.apache.wss4j.common.crypto.CryptoFactory;
+import org.apache.wss4j.common.crypto.Merlin;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
+import org.apache.wss4j.common.saml.OpenSAMLBootstrap;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
+import org.apache.wss4j.common.saml.bean.AttributeBean;
+import org.apache.wss4j.common.saml.bean.AttributeStatementBean;
+import org.apache.wss4j.common.saml.bean.AuthenticationStatementBean;
+import org.apache.wss4j.common.saml.bean.SubjectBean;
+import org.apache.wss4j.common.saml.builder.SAML2ComponentBuilder;
+import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.joda.time.DateTime;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml2.core.Assertion;
@@ -53,8 +53,8 @@ import org.w3c.dom.Element;
 public class SAMLTokenUtils {
     private final static Log log = LogFactory.getLog(SAMLTokenUtils.class);
     
-    static final String SECURITY_CRYPTO_PROVIDER_KEY = "org.apache.ws.security.crypto.provider";
-    static final String SECURITY_CRYPTO_PROVIDER_VALUE = "org.apache.ws.security.components.crypto.Merlin";
+    static final String SECURITY_CRYPTO_PROVIDER_KEY = "org.apache.wss4j.crypto.merlin.keystore.provider";
+    static final String SECURITY_CRYPTO_PROVIDER_VALUE = "org.apache.wss4j.common.crypto.Merlin";
     static final String MERLIN_KEYSTORE_TYPE_VALUE = "jks";
     static final String USER_HOME=System.getProperty("user.home");
     static final String MERLIN_KEYSTORE_FILE_VALUE = USER_HOME + "/ojb-certs/idp/idp-keystore.jks";
@@ -187,24 +187,24 @@ public class SAMLTokenUtils {
 			
 		//Sign the assertion, we use the AssertionWrapper provides by WSS4J to do the signing
 		//The SAMLTokenProvider shows how to do this
-		AssertionWrapper assertionWrapper = new AssertionWrapper(assertion);
+		SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(assertion);
 	
 		Properties sigProperties = new Properties();
 		
-		sigProperties.put(SECURITY_CRYPTO_PROVIDER_KEY, SECURITY_CRYPTO_PROVIDER_VALUE);
-		sigProperties.put(Merlin.KEYSTORE_TYPE, MERLIN_KEYSTORE_TYPE_VALUE);
-		sigProperties.put(Merlin.KEYSTORE_ALIAS, MERLIN_KEYSTORE_ALIAS_VALUE);
-		sigProperties.put(Merlin.KEYSTORE_PASSWORD, MERLIN_KEYSTORE_PASSWORD_VALUE );
-		sigProperties.put(Merlin.KEYSTORE_FILE, MERLIN_KEYSTORE_FILE_VALUE);
+		sigProperties.put("org.apache.wss4j.crypto.provider", SECURITY_CRYPTO_PROVIDER_VALUE);
+		sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_TYPE, MERLIN_KEYSTORE_TYPE_VALUE);
+		sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS, MERLIN_KEYSTORE_ALIAS_VALUE);
+		sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_PASSWORD, MERLIN_KEYSTORE_PASSWORD_VALUE );
+		sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_FILE, MERLIN_KEYSTORE_FILE_VALUE);
         
 		Crypto signatureCrypto = CryptoFactory.getInstance(sigProperties);
 		
-		String alias = sigProperties.getProperty(Merlin.KEYSTORE_ALIAS);
+		String alias = sigProperties.getProperty(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS);
 
 		String password = KEY_PASSWORD_VALUE;
 		
 		assertionWrapper.signAssertion(
-				alias, password, signatureCrypto, false, defaultCanonicalizationAlgorithm,
+				alias, password, signatureCrypto, true, defaultCanonicalizationAlgorithm,
 	            defaultRSASignatureAlgorithm
 	        );
 		
@@ -243,7 +243,7 @@ public class SAMLTokenUtils {
 		AttributeBean attributeBean = new AttributeBean();
 		attributeBean.setQualifiedName(qualifiedName);
 		
-		List<String> values = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
 		values.add(value);
 		attributeBean.setAttributeValues(values);
 		return attributeBean;

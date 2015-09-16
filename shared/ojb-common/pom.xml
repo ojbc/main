@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-common</artifactId>
-	<version>2.0.5</version>
+	<version>3.0.0</version>
 	<name>OJB :: ojb-common :: Shared</name>
 	<packaging>bundle</packaging>
 	<url>http://www.ojbc.org</url>
@@ -33,19 +33,21 @@
 	</parent>
 
 	<properties>
-		<spring.version>3.0.7.RELEASE</spring.version>
-		<log4j.version>1.2.16</log4j.version>
+		<spring.version>3.2.11.RELEASE</spring.version>	
+		<slf4j-version>1.7.12</slf4j-version>
+		<log4j-version>1.2.17</log4j-version>
 		<commons.lang.version>2.4</commons.lang.version>
 		<junit-version>4.10</junit-version>
-		<wss4j-version>1.6.8</wss4j-version>
+		<wss4j-version>2.0.2</wss4j-version>
 		<apache-commons-codec-version>1.6</apache-commons-codec-version>
-		<cxf-version>2.6.4</cxf-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 		<io-utils-version>1.3.2</io-utils-version>
 		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
 		<httpcomponents.version>4.2.5</httpcomponents.version>
 		<saxon-version>8.7</saxon-version>
+		<java-version>1.8</java-version>
+		<joda-time.version>2.2</joda-time.version>
 	</properties>
 
 	<dependencies>
@@ -84,15 +86,36 @@
 		</dependency>
 		<!-- ws-security -->
 		<dependency>
-			<groupId>org.apache.ws.security</groupId>
-			<artifactId>wss4j</artifactId>
+			<groupId>org.apache.wss4j</groupId>
+			<artifactId>wss4j-policy</artifactId>
 			<version>${wss4j-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.wss4j</groupId>
+			<artifactId>wss4j-policy</artifactId>
+			<version>${wss4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wss4j</groupId>
+			<artifactId>wss4j-ws-security-common</artifactId>
+			<version>${wss4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wss4j</groupId>
+			<artifactId>wss4j-ws-security-dom</artifactId>
+			<version>${wss4j-version}</version>
+		</dependency>		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${joda-time.version}</version>
+		</dependency>		
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -114,6 +137,24 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j-version}</version>
+		</dependency>		
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -133,12 +174,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
-			<version>${cxf-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-resources-common</artifactId>
 			<version>${ojb-resources-common-version}</version>
@@ -155,8 +190,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 				</configuration>
 			</plugin>
 

@@ -25,7 +25,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.SAMLTokenPrincipal;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.util.model.accesscontrol.AccessControlResponse;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
