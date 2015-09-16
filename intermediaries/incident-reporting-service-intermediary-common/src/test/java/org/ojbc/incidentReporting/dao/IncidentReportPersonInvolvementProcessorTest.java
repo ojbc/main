@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
@@ -37,6 +38,7 @@ public class IncidentReportPersonInvolvementProcessorTest {
 	private IncidentReportPersonInvolvementProcessor incidentReportPersonInvolvementProcessor;
 
 	@Test
+	@DirtiesContext
 	public void testHasThisPersonArrestBeenProcessedBefore() throws Exception
 	{
 		Document notificationDocument = null;

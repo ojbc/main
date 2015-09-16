@@ -18,11 +18,11 @@ package org.ojbc.util.validator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.handler.RequestData;
-import org.apache.ws.security.saml.ext.AssertionWrapper;
-import org.apache.ws.security.validate.Credential;
-import org.apache.ws.security.validate.SamlAssertionValidator;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
+import org.apache.wss4j.dom.handler.RequestData;
+import org.apache.wss4j.dom.validate.Credential;
+import org.apache.wss4j.dom.validate.SamlAssertionValidator;
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLVersion;
 
@@ -45,19 +45,19 @@ public class OJBSimpleWSPSamlTokenValidator extends SamlAssertionValidator{
 		
 		log.debug("Entering OJB saml assertion validator");
 		
-		AssertionWrapper assertion = credential.getAssertion();
+		SamlAssertionWrapper assertion = credential.getSamlAssertion();
 		
 		if (assertion == null)
 		{
 			log.error("Error: Unable to find assertion.");
-			throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
+			throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, "invalidSAMLsecurity");
 		}	
 		
 		//Confirm that the assertion is signed, the framework confirms the validity of the signature
 		if (!assertion.isSigned())
 		{
 			log.error("Error: Assertion is not signed.");
-			throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
+			throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, "invalidSAMLsecurity");
 		}
 
 			
@@ -67,7 +67,7 @@ public class OJBSimpleWSPSamlTokenValidator extends SamlAssertionValidator{
     /**
      * Check the Conditions of the Assertion.
      */
-    protected void checkConditions(AssertionWrapper assertion) throws WSSecurityException {
+    protected void checkConditions(SamlAssertionWrapper assertion) throws WSSecurityException {
     	
     	log.info("Entering OJB custom check conditions method.");
     	
@@ -90,7 +90,7 @@ public class OJBSimpleWSPSamlTokenValidator extends SamlAssertionValidator{
             currentTime = currentTime.plusSeconds(60);
             if (validFrom.isAfter(currentTime)) {
                 log.debug("SAML Token condition (Not Before) not met");
-                throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
+                throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, "invalidSAMLsecurity");
             }
         }
 

@@ -16,15 +16,18 @@
  */
 package org.ojbc.util.camel.security.saml;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.common.util.StringUtils;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.saml.ext.bean.SubjectBean;
-import org.apache.ws.security.saml.ext.builder.SAML2ComponentBuilder;
-import org.apache.ws.security.saml.ext.builder.SAML2Constants;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.saml.bean.AudienceRestrictionBean;
+import org.apache.wss4j.common.saml.bean.SubjectBean;
+import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
+import org.apache.wss4j.common.saml.builder.SAML2ComponentBuilder;
+import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObjectBuilder;
@@ -58,7 +61,14 @@ public class GFIPM_SAML2ComponentBuilder {
      */
     public static AudienceRestriction createAudienceRestriction(String audienceURI) {
     	
-    	return SAML2ComponentBuilder.createAudienceRestriction(audienceURI);
+    	AudienceRestrictionBean arBean = new AudienceRestrictionBean();
+    	
+    	List<String> audList = new ArrayList<String>();
+    	
+    	audList.add(audienceURI);
+    	arBean.setAudienceURIs(audList);
+    	
+    	return SAML2ComponentBuilder.createAudienceRestriction(arBean);
     }
     
     /**
@@ -79,14 +89,14 @@ public class GFIPM_SAML2ComponentBuilder {
         //NameID nameID = SAML2ComponentBuilder.createNameID(subjectBean);
         //subject.setNameID(nameID);
         
+        SubjectConfirmationDataBean subjectConfirmationDataBean=new SubjectConfirmationDataBean();
+        subjectConfirmationDataBean.setInResponseTo(inResponseTo);
+        subjectConfirmationDataBean.setRecipient(recipient);
+        subjectConfirmationDataBean.setNotAfter(notOnOrAfter);
+        
         SubjectConfirmationData subjectConfData = null;
             subjectConfData = 
-                SAML2ComponentBuilder.createSubjectConfirmationData(
-                    inResponseTo, 
-                    recipient, 
-                    notOnOrAfter, 
-                    null
-                );
+                SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean, null);
         
         if (confirmationMethodStr == null) {
             confirmationMethodStr = SAML2Constants.CONF_SENDER_VOUCHES;
