@@ -176,6 +176,8 @@
 				<camel:when>
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+					
 					<camel:setHeader headerName="operationName">
 			            <constant>ReportOrganizationIdentificationResultsSearchResults</constant>
 			        </camel:setHeader>
@@ -183,9 +185,6 @@
 			        <camel:setHeader headerName="operationNamespace">
 			            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0</constant>
 			        </camel:setHeader>
-	        
-					
-					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 					
 					<camel:log message="About to send rap back search result response message to ${in.headers.recipientListReplyToEndpoint}" />			
 								
