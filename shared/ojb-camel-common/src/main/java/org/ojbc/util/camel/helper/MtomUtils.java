@@ -47,7 +47,8 @@ public class MtomUtils {
 			attachment = IOUtils.readBytesFromStream(dataHandler.getInputStream());
 		}
 		else{
-			log.error("No valid file found in the attachement for transaction " + transactionNumber);
+			log.error("No valid file found in the attachement for transaction " + 
+					StringUtils.trimToEmpty(transactionNumber));
 			throw new IllegalArgumentException("No file found in the attachement"); 
 		}
 		return attachment;
