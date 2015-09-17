@@ -227,7 +227,6 @@
 	<resources>
 		<resource>
 			<directory>${basedir}/src/main/resources</directory>
-			<filtering>true</filtering>
 			<includes>
 				<include>META-INF/spring/**</include>
 				<include>xslt/**/*.*</include>
@@ -236,7 +235,6 @@
 		</resource>
 		<resource>
 			<directory>${basedir}/src/main/config/dev</directory>
-			<filtering>true</filtering>
 			<includes>
 				<include>*</include>
 			</includes>
