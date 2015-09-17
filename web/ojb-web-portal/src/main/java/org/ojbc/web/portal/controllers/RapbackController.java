@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.model.IdentificationResultsCategory;
+import org.ojbc.web.model.IdentificationResultsQueryResponse;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.portal.controllers.config.RapbackControllerConfigInterface;
 import org.ojbc.web.portal.services.SamlService;
@@ -102,9 +103,8 @@ public class RapbackController {
 			throws Exception {
 		Element samlAssertion = samlService.getSamlAssertion(request);		
 		
-		String searchContent = config.getInitialResultsQueryBean().invokeIdentificationResultsQueryRequest(transactionNumber, samlAssertion);;
-		String convertedContent = searchResultConverter.convertIdentificationResultsQueryResult(searchContent,null);
-		model.put("searchContent", convertedContent);
+		IdentificationResultsQueryResponse identificationResultsQueryResponse = config.getInitialResultsQueryBean().invokeIdentificationResultsQueryRequest(transactionNumber, samlAssertion);;
+		model.put("identificationResultsQueryResponse", identificationResultsQueryResponse);
 	}
 
 	
