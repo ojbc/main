@@ -25,22 +25,21 @@
                                                                     xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
                                                                     xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/">
    <oirq-res-ext:FBIIdentificationSearchResultDocument s30:id="fbiSearchResultDocument" xmime:contentType="text/plain">
-      <nc30:Include xop:href="cid:http://ojbc.org/identification/results/fbiSearchResultDocument"/>
+      <xop:Include href="cid:http://ojbc.org/identification/results/fbiSearchResultDocument"/>
    </oirq-res-ext:FBIIdentificationSearchResultDocument>
    <oirq-res-ext:FBIIdentityHistorySummaryDocument s30:id="fbiIdentityHistorySummaryDocument_001" xmime:contentType="text/plain">
-      <nc30:Include xop:href="cid:http://ojbc.org/identification/results/fbiIdentityHistorySummaryDocument_001"/>
+      <xop:Include href="cid:http://ojbc.org/identification/results/fbiIdentityHistorySummaryDocument_001"/>
    </oirq-res-ext:FBIIdentityHistorySummaryDocument>
    <oirq-res-ext:FBIIdentityHistorySummaryDocument s30:id="fbiIdentityHistorySummaryDocument_002" xmime:contentType="text/plain">
-      <nc30:Include xop:href="cid:http://ojbc.org/identification/results/fbiIdentityHistorySummaryDocument_002"/>
+      <xop:Include href="cid:http://ojbc.org/identification/results/fbiIdentityHistorySummaryDocument_002"/>
    </oirq-res-ext:FBIIdentityHistorySummaryDocument>
    <oirq-res-ext:StateIdentificationSearchResultDocument s30:id="stateSearchResultDocument" xmime:contentType="text/plain">
-      <nc30:Include xop:href="cid:http://ojbc.org/identification/results/stateSearchResultDocument"/>
+      <xop:Include href="cid:http://ojbc.org/identification/results/stateSearchResultDocument"/>
    </oirq-res-ext:StateIdentificationSearchResultDocument>
    <oirq-res-ext:StateCriminalHistoryRecordDocument s30:id="stateCriminalHistoryRecordDocument_001" xmime:contentType="text/plain">
-      <nc30:Include xop:href="cid:http://ojbc.org/identification/results/stateCriminalHistoryRecordDocument_001"/>
+      <xop:Include href="cid:http://ojbc.org/identification/results/stateCriminalHistoryRecordDocument_001"/>
    </oirq-res-ext:StateCriminalHistoryRecordDocument>
    <oirq-res-ext:StateCriminalHistoryRecordDocument s30:id="stateCriminalHistoryRecordDocument_002" xmime:contentType="text/plain">
-      <nc30:Include xop:href="cid:http://ojbc.org/identification/results/stateCriminalHistoryRecordDocument_002"/>
+      <xop:Include href="cid:http://ojbc.org/identification/results/stateCriminalHistoryRecordDocument_002"/>
    </oirq-res-ext:StateCriminalHistoryRecordDocument>
 </oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults>
-
