@@ -18,6 +18,7 @@ package org.ojbc.xslt;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,18 +38,30 @@ import org.xml.sax.InputSource;
 
 public class ParoleTransformerServiceTest {
 
-	private XsltTransformer unit;
+	private XsltTransformer xsltTransformer;
 
 	@Before
 	public void setup() {
-		unit = new XsltTransformer();
+		xsltTransformer = new XsltTransformer();
 	}
 	
 	@After
 	public void tearDown() {
-		unit = null;
+		xsltTransformer = null;
 	}	
 
+	@Test
+	public void personSearchTransformTest() throws Exception{
+
+		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/parole/paroleCaseInitiation.xml"));
+		String xslt = FileUtils.readFileToString(new File("src/main/resources/xslt/personSearchRequest.xsl"));
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sid", "123");
+		
+		transformAndValidate(xslt, xml,"output/PersonSearchRequest.xml", params);		
+	}
+	
 	@Test
 	public void paroleSubscribeTransform() throws Exception{
 		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/parole/paroleCaseInitiation.xml"));
@@ -76,7 +89,7 @@ public class ParoleTransformerServiceTest {
 		
 		String expectedXml = FileUtils.readFileToString(new File("src/test/resources/xmlInstances/"+expectedHtmlPath));
 		
-		String convertResult = unit.transform(createSource(inputXmlPath), createSource(xslPath), params);
+		String convertResult = xsltTransformer.transform(createSource(inputXmlPath), createSource(xslPath), params);
 		
 		System.out.println("Converted result: " + convertResult);
 		
