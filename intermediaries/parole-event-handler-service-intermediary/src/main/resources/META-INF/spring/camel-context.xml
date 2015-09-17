@@ -59,13 +59,25 @@
 
 		<!-- Parole Service, Input File Drop Handler -->
 		<camel:route>
-			<camel:from uri="inputDir" />
+			<from uri="inputDir" />
 			
-			<camel:log message="\n\n\n Received input message: \n\n ${body} \n\n"/>
+			<log message="\n\n\n Received input message: \n\n ${body} \n\n"/>
 						
-			<camel:setHeader headerName="operationName">
-				<camel:constant>Report-Parole-Case-Initiation</camel:constant>
-			</camel:setHeader>
+			<setHeader headerName="operationName">
+				<constant>Report-Parole-Case-Initiation</constant>
+			</setHeader>
+			
+			<!--  
+				NOTE: If you get these working here, they will need to be moved or copied to the 
+					correct place where they'll execute in the production route  
+			
+				Init 2 required soap headers for this input file drop test route 			
+			-->			
+			
+			<setHeader headerName="federatedQueryRequestGUID"><constant>abc123</constant></setHeader>				
+			<setHeader headerName="WSAddressingReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>									
+			<setHeader headerName="{http://www.w3.org/2005/08/addressing}MessageID"><simple>abc123</simple></setHeader>						
+			<setHeader headerName="{http://www.w3.org/2005/08/addressing}ReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>
 			
 			<camel:log message="\n\n\n OPERATION: \n\n ${in.header.operationName}\n\n" />
 			
@@ -157,9 +169,14 @@
 			
 			<log message="\n\n\n  processCaseInitArrestWithPersonSearchFbiId... \n\n\n"/>
 			
+			<camel:convertBodyTo type="String"/> 
+			
 			<camel:setHeader headerName="originalCaseInitArrestMessageBody">
-				<camel:simple>${body}</camel:simple>			
-			</camel:setHeader>				
+				<camel:simple>${body}</camel:simple>				
+			</camel:setHeader>
+			
+			<log message="\n\n\n CASE INIT BODY: \n\n ${body} \n\n\n"/>			
+			
 		
 			<camel:setHeader headerName="sid">
 				<camel:xpath>/pci:ParoleCaseInitiation/pcext:ParoleCase/jxdm41:Supervision/nc20:SupervisionPerson/nc20:PersonStateIdentification/nc20:IdentificationID/text()</camel:xpath>						
@@ -169,7 +186,7 @@
 													
 			<camel:to uri="xslt:xslt/personSearchRequest.xsl"/>			
 			
-			<log message="\n\n\n Person Search Body: \n ${body} \n\n\n"/>
+			<log message="\n\n\n Person Search Request Body: \n ${body}"/>												
 						
 			<to uri="direct:callPersonSearch"/>			
 				
@@ -182,9 +199,22 @@
 			
 			<setHeader headerName="operationName"><constant>SubmitPersonSearchRequest</constant></setHeader>			
 			<setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0</constant></setHeader>			
-			
-			<setHeader headerName="personSearchGuid"><constant>abc123</constant></setHeader>
-									
+						
+			<!-- 
+				NOTE: throws npe when ws soap headers null (if the 'convenience method' is problematic - just set the headers 
+							yourself without the convenience method				
+				Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID				
+				<camel:to uri="bean:messageProcessor?method=processRequestPayload" /> 				
+			-->									
+						
+			<!-- TODO set in correct place, only those needed -->
+			<setHeader headerName="federatedQueryRequestGUID"><constant>abc123</constant></setHeader>				
+			<setHeader headerName="WSAddressingReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>									
+			<setHeader headerName="{http://www.w3.org/2005/08/addressing}MessageID"><simple>abc123</simple></setHeader>						
+			<setHeader headerName="{http://www.w3.org/2005/08/addressing}ReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>						
+						
+			<log message="\n\n\n PersonSearchRequest using guid: ${header.federatedQueryRequestGUID} \n\n\n"/>						
+															
 			<!-- Note: the original CaseInit body is saved in a header while being sent on a timer message body doc to the aggregator -->
 			<camel:wireTap uri="direct:startPersonSearchTimer"/>
 
@@ -197,15 +227,13 @@
 
 		<route id="personSearchTimerRoute">
 		
-			<from uri="direct:startPersonSearchTimer"/>
-						
-			<setHeader headerName="personSearchGuid">
-				<constant>abc123</constant>
-			</setHeader>
+			<from uri="direct:startPersonSearchTimer"/>						
 			
-			<setBody>						
+			<log message="\n\n\n CaseInit Timer message using guid: ${header.federatedQueryRequestGUID} \n\n\n" />
+						
+			<setBody>
 				<constant>START_PERSON_SEARCH_TIMER</constant>
-			</setBody>
+			</setBody>			
 			
 			<to uri="direct:aggregatePersonSearchResult" />		
 		</route>		
@@ -215,11 +243,12 @@
 		
 			<camel:from uri="personSearchResultsEndpoint"/>
 
-			<!-- TODO (Note: broken) Standard MessageProcessor looks for  'federatedQueryRequestGUID' but I'm using 'personSearchGuid' -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 
-			<log message="\n\n\n Recieved person search EntRes response with message ID: ${in.headers.personSearchGuid} \n\n body: \n\n ${body} \n\n\n" />			
+			<log message="\n\n\n Recieved person search EntRes response with message ID: ${in.headers.federatedQueryRequestGUID} \n\n body: \n\n ${body} \n\n\n" />			
 
+			<log message = "\n\n\n Sending person search response to Aggregator with guid: ${header.federatedQueryRequestGUID} \n\n\n"/>
+			
 			<camel:to uri="direct:aggregatePersonSearchResult"/>						
 
 		</camel:route>
@@ -229,19 +258,21 @@
 		
 			<from uri="direct:aggregatePersonSearchResult" />
 			
-				<log message="\n\n\n Aggregator correlation id: ${in.header.personSearchGuid} \n\n\n"/>
+				<log message="\n\n\n Aggregator correlation id: ${in.header.federatedQueryRequestGUID} \n\n\n"/>
 				
 				<aggregate groupExchanges="true" eagerCheckCompletion="true">
 					
 					<correlationExpression>
-						<camel:header>personSearchGuid</camel:header>
+						<camel:header>federatedQueryRequestGUID</camel:header>
 					</correlationExpression>
 					
 					<completionTimeout>
 						<camel:simple>${properties:parole.event.personSearchTimeout}</camel:simple>
 					</completionTimeout>
 					
-					<!-- Completion size is two because we are calling one endpoint (plus the message to start the timer) -->
+					<!-- Completion size for 2 messages that arrive in this order:
+						1) Timer message with CaseInit doc stored in header
+						2) Person search EntRes results -->					 
 					<completionSize>
 						<constant>2</constant>
 					</completionSize>
@@ -258,31 +289,12 @@
 
 					<log message="\n\n\n Aggregated CaseInit message:\n\n ${body} \n\n\n" />
 					
-					<to uri="direct:handleAggregatedReportWithFbiId" />
+					<to uri="direct:transformAndInvokeSubscriptionProcessor" />	
+					
 				</aggregate>
 				
 		</camel:route>	
-		
-		
-		<route id="handleAggregatedReportWithFbiIdRoute">
-		
-			<from uri="direct:handleAggregatedReportWithFbiId"/>
-			
-			<log message="\n\n\n handleAggregatedReportWithFbiId... \n\n\n"/>
-			
-			<camel:to uri="bean:personSearchResponseProcessor?method=setFbiIdHeaderFromPersonSearchResponse" />
-									
-			<camel:setBody>
-				<!-- TODO confirm header still in scope, coming from the timer exchange message -->
-				<camel:simple>${header.originalCaseInitArrestMessageBody}</camel:simple>
-			</camel:setBody>					
-						
-			<log message="\n\n\n Used header 'originalCaseInitArrestMessageBody' to set Body: \n ${body} \n\n\n"/>						
-															
-			<to uri="direct:transformAndInvokeSubscriptionProcessor" />		
-		
-		</route>
-		
+					
 			    
 	</camel:camelContext>
 	
@@ -314,9 +326,7 @@
 	<bean id="systemNameToTopicExpressionMapper" class="org.ojbc.util.camel.processor.SystemNameToTopicExpressionMapper">
 		<property name="systemNameToTopicMap" ref="systemNameToTopicMap" />
 	</bean>
-		
-	<bean id="personSearchResponseProcessor" class="org.ojbc.bundles.intermediaries.parole.event.PersonSearchResponseProcessor"/>
-	
+			
 	<bean id="personSearchResponseAggregator"
 		class="org.ojbc.bundles.intermediaries.parole.event.PersonSearchEntityResolutionResponseHandlerAggregator"/>
 	

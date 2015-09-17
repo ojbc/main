@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
 import org.ojbc.util.fedquery.error.MergeNotificationErrorProcessor;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 
 public class PersonSearchEntityResolutionResponseHandlerAggregator {
@@ -31,49 +31,86 @@ public class PersonSearchEntityResolutionResponseHandlerAggregator {
 	private static final Logger logger = Logger.getLogger(PersonSearchEntityResolutionResponseHandlerAggregator.class);
 		
 	
-	@SuppressWarnings({ "unchecked" })
-	public void addFbiIdToSubscribeMessage(Exchange groupedExchange) throws Exception{
+	@SuppressWarnings("unchecked")
+	public void addFbiIdToCaseInitMessage(Exchange groupedExchange) throws Exception{
 		
-		List<Exchange> groupedExchangeList = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);				
+		List<Exchange> groupedExchangeList = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);		
+		int groupedExchangesCount = groupedExchangeList.size();
 
-		Exchange caseInitExchange = groupedExchangeList.get(0);		
-		copyInMessageId(groupedExchange, caseInitExchange);		
-		Document caseInitMessageDoc = caseInitExchange == null ? null : caseInitExchange.getIn().getBody(Document.class);
-								
-		Exchange prsnSrchResEntResExchange = groupedExchangeList.get(1);		
-		Document persSrchResDoc = prsnSrchResEntResExchange == null ? null : prsnSrchResEntResExchange.getIn().getBody(Document.class);
+		Exchange caseInitExchange = null;
 		
+		if(groupedExchangesCount > 0){
+			// contract: "always receive this fist at index zero"
+			caseInitExchange = groupedExchangeList.get(0);
+			copyCaseInitExchHeadersToGroupedExchange(groupedExchange, caseInitExchange);	
+		}
 		
-		if(caseInitMessageDoc != null && persSrchResDoc != null){
+		String caseInitMessage = caseInitExchange == null ? null : (String)caseInitExchange.getIn()
+				.getHeader("originalCaseInitArrestMessageBody",String.class);
+		
+		logger.info("\n\n\n Aggregator using case init message:  \n\n " + caseInitMessage + "\n\n\n");
+										
+		Document persSrchResDoc = null;
+		// contract: "receive this second message at index 1"
+		if(groupedExchangesCount > 1){			
+			Exchange prsnSrchResEntResExchange = groupedExchangeList.get(1);		
+			persSrchResDoc = prsnSrchResEntResExchange == null ? null : prsnSrchResEntResExchange.getIn().getBody(Document.class);			
+		}
+		
+		if(caseInitMessage != null && persSrchResDoc != null){
 			
-			String fbiId = XmlUtils.xPathStringSearch(persSrchResDoc, 
-					"//psres:PersonSearchResult/emrm-ext:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+			logger.info("\n\n\n caseInitMessageDoc != null && persSrchResDoc != null.  (Adding fbi id to case init exchange now)... \n\n\n");
+					
+			groupedExchange.getIn().setBody(caseInitMessage);				
 			
-			logger.info("\n\n\n Using fbiId: " + fbiId +"\n\n\n");
-			
-			Node caseInitDocFbiNode = XmlUtils.xPathNodeSearch(caseInitMessageDoc, " TODO ");
-			
-			caseInitDocFbiNode.setTextContent(fbiId);
-						
-			groupedExchange.getIn().setBody(caseInitMessageDoc);	
+			populateGroupExchFbiIdHeaderFromPersonSearchResponse(persSrchResDoc, groupedExchange);
 			
 		}else if(persSrchResDoc == null){
 		
-			logger.warn("\n\n\n Person Search results were NULL!!(down or timed out)  Can't set fbiId on subscription message. \n\n\n");
+			logger.warn("\n\n\n Person Search results were NULL!!(down or timed out)  Can't set fbiId. Forwarding original CaseInit message... \n\n\n");
 			
-			String errorMsgDoc = MergeNotificationErrorProcessor.returnMergeNotificationErrorMessageEntityResolution();
+			groupedExchange.getIn().setBody(caseInitMessage);	
+						
+		}else if(caseInitMessage == null){
+			logger.error("\n\n\n Lost Case Init message!!! It's not being sent. \n\n\n");
 			
+			String errorMsgDoc = MergeNotificationErrorProcessor.returnMergeNotificationErrorMessageEntityResolution();			
 			groupedExchange.getIn().setBody(errorMsgDoc);
 		}				
 											
 	}
 		
-	private void copyInMessageId(Exchange groupedExchange, Exchange subscribeMessageExchange){
+	
+	String populateGroupExchFbiIdHeaderFromPersonSearchResponse(Document personSearchResponse, Exchange groupedExchange) throws Exception{
 		
-		String personSearchGuidMessageId = (String)subscribeMessageExchange.getIn().getHeader("personSearchGuid");
-
-		// The new grouped exchange does not get the message headers from the original exchange so we manually copy the message ID
-		groupedExchange.getIn().setHeader("personSearchGuid", personSearchGuidMessageId);		
+		String fbiId = null;
+		
+		NodeList responseNodeList = XmlUtils.xPathNodeListSearch(personSearchResponse, "//psres:PersonSearchResult");
+				
+		if(responseNodeList != null && responseNodeList.getLength() == 1){
+			
+			fbiId = XmlUtils.xPathStringSearch(personSearchResponse, 
+					"//psres:PersonSearchResult/emrm-ext:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+			
+			logger.info("\n\n\n Using fbiId: " + fbiId + "\n\n\n");		
+			
+			groupedExchange.getIn().setHeader("fbiId", fbiId);
+		
+		}else{			
+			logger.error("\n\n\n WARNING Person Responses NOT = 1, (NOT setting fbi id now)  \n\n\n");
+		}	
+		
+		return fbiId;
+	}
+	
+	// The new grouped exchange does not get the message headers from the original exchange so we manually copy them in
+	private void copyCaseInitExchHeadersToGroupedExchange(Exchange groupedExchange, Exchange caseInitExchange){
+		
+		String personSearchGuidMessageId = (String)caseInitExchange.getIn().getHeader("federatedQueryRequestGUID");
+		groupedExchange.getIn().setHeader("federatedQueryRequestGUID", personSearchGuidMessageId);		
+		
+		String topicExpression = (String)caseInitExchange.getIn().getHeader("topicExpression");		
+		groupedExchange.getIn().setHeader("topicExpression", topicExpression);
 	}
 	
 }
