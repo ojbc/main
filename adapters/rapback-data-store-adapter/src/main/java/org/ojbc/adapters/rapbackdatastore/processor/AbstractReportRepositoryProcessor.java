@@ -16,17 +16,13 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-
-import javax.activation.DataHandler;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.helpers.IOUtils;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
@@ -38,6 +34,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 public abstract class AbstractReportRepositoryProcessor {
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
 	@Autowired
