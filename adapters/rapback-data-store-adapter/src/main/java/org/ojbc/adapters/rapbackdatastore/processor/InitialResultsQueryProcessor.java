@@ -192,9 +192,9 @@ public class InitialResultsQueryProcessor {
 		XmlUtils.addAttribute(fbiIdentificationSearchResultDocument, NS_STRUCTURES_30, "id", documentId );
 		XmlUtils.addAttribute(fbiIdentificationSearchResultDocument, NS_XMIME, "contentType", CONTENT_TYPE_TEXT_PLAIN);
 		Element include = 
-			XmlUtils.appendElement(fbiIdentificationSearchResultDocument, NS_NC_30, QueryResponseElementName.Include.name());
+			XmlUtils.appendElement(fbiIdentificationSearchResultDocument, NS_XOP, QueryResponseElementName.Include.name());
 		String hrefValue = getHrefValue(documentId);
-		XmlUtils.addAttribute(include, NS_XOP, "href", hrefValue);
+		XmlUtils.addAttribute(include, null, "href", hrefValue);
 	}
 
 	private void addAttachment(Exchange exchange,
