@@ -49,21 +49,6 @@ public abstract class AbstractReportRepositoryProcessor {
     @Transactional
 	public abstract void processReport(@Body Document report, Exchange exchange) throws Exception;
 
-	protected byte[] getAttachment(Exchange exchange, String transactionNumber,
-			String attachmentId) throws IOException {
-		byte[] receivedAttachment;
-		DataHandler dataHandler = exchange.getIn().getAttachment(StringUtils.substringAfter(attachmentId, "cid:"));
-		
-		if (dataHandler != null){
-			receivedAttachment = IOUtils.readBytesFromStream(dataHandler.getInputStream());
-		}
-		else{
-			log.error("No valid file found in the attachement for transaction " + transactionNumber);
-			throw new IllegalArgumentException("No file found in the attachement"); 
-		}
-		return receivedAttachment;
-	}
-
 	protected void processIdentificationTransaction(Node rootNode, String transactionNumber)
 			throws Exception {
 		IdentificationTransaction identificationTransaction = new IdentificationTransaction(); 
