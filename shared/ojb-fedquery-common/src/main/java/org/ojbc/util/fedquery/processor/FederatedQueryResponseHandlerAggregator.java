@@ -82,6 +82,7 @@ public class FederatedQueryResponseHandlerAggregator {
 				
 		        String bodyAsString = OJBUtils.getStringFromDocument(elementList.get(0).getOwnerDocument());
 		        sb.append(bodyAsString);
+		        groupedExchange.getIn().getAttachments().putAll(exchange.getIn().getAttachments());
 			}	
 			
 		}	

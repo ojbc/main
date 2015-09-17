@@ -51,7 +51,7 @@
 
 				<property name="adapterURItoAddressMap">
 					<util:map >
-						<entry key="rap-back-data-store" value="${identificationResultsQueryIntermediary.identificationResultsQueryRequestEndpoint}" />
+						<entry key="rap-back-data-store" value="${identificationResultsQueryIntermediary.rapbackDataStoreEndpoint}" />
 					</util:map>	
 				</property>
 		  	</bean>
