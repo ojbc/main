@@ -16,11 +16,12 @@
  */
 package org.ojbc.web;
 
+import org.ojbc.web.model.IdentificationResultsQueryResponse;
 import org.w3c.dom.Element;
 
 public interface IdentificationResultsQueryInterface {
 
-	public String invokeIdentificationResultsQueryRequest(String transactionNumber,
+	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(String transactionNumber,
 	        Element samlToken) throws Exception;
 
 }
