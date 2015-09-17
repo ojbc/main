@@ -104,7 +104,7 @@ public class PersonSearchEntityResolutionResponseHandlerAggregator {
 	}
 	
 	// The new grouped exchange does not get the message headers from the original exchange so we manually copy them in
-	private void copyCaseInitExchHeadersToGroupedExchange(Exchange groupedExchange, Exchange caseInitExchange){
+	void copyCaseInitExchHeadersToGroupedExchange(Exchange groupedExchange, Exchange caseInitExchange){
 		
 		String personSearchGuidMessageId = (String)caseInitExchange.getIn().getHeader("federatedQueryRequestGUID");
 		groupedExchange.getIn().setHeader("federatedQueryRequestGUID", personSearchGuidMessageId);		

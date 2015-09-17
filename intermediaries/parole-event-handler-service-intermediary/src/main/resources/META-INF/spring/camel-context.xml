@@ -67,17 +67,9 @@
 				<constant>Report-Parole-Case-Initiation</constant>
 			</setHeader>
 			
-			<!--  
-				NOTE: If you get these working here, they will need to be moved or copied to the 
-					correct place where they'll execute in the production route  
-			
-				Init 2 required soap headers for this input file drop test route 			
-			-->			
-			
-			<setHeader headerName="federatedQueryRequestGUID"><constant>abc123</constant></setHeader>				
-			<setHeader headerName="WSAddressingReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>									
+			<!-- TODO only set one of these message id headers -->
+			<setHeader headerName="federatedQueryRequestGUID"><constant>abc123</constant></setHeader>												
 			<setHeader headerName="{http://www.w3.org/2005/08/addressing}MessageID"><simple>abc123</simple></setHeader>						
-			<setHeader headerName="{http://www.w3.org/2005/08/addressing}ReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>
 			
 			<camel:log message="\n\n\n OPERATION: \n\n ${in.header.operationName}\n\n" />
 			
@@ -89,8 +81,8 @@
 		<camel:route>
 			<camel:from uri="paroleEventHandlerServiceEndpoint" />
 			
-			<camel:log message="This is the body the service recieved: ${body}" loggingLevel="DEBUG"/>
-			<camel:log message="THIS IS THE OPERATION:, ${in.header.operationName}" />
+			<camel:log message="\n\n Received message body: ${body} \n\n" loggingLevel="DEBUG"/>
+			<camel:log message="\n\n\n Operation: ${in.header.operationName}\n" />
 			
 			<camel:to uri="direct:processParoleDocument" />
 		</camel:route>
@@ -133,36 +125,7 @@
 
 		</camel:route>
 		
-				
-		<camel:route>
-			<camel:from uri="direct:transformAndInvokeUnsubscriptionProcessor" />
-			
-			<camel:convertBodyTo type="java.lang.String"/>
-			
-			<camel:to uri="xslt:xslt/paroleDocumentToUnsubscription.xsl" />
-						
-			<camel:log message="\n\n\n After transform: \n\n ${body} \n\n\n" />
-			<camel:to
-				uri="bean:subscriptionManagerServiceMessageProcessor?method=sendResponseMessage" />
-		</camel:route>
-
-
-		<camel:route>
-			<camel:from uri="direct:transformAndInvokeSubscriptionProcessor" />
-			
-			<camel:log message="\n\n\n transformAndInvokeSubscriptionProcessor...\n\n\n" />
-				
-			<camel:convertBodyTo type="java.lang.String"/>
-																				
-			<camel:to uri="xslt:xslt/paroleDocumentToSubscription.xsl" />
-			
-			<camel:log message="\n\n\n After paroleDocumentToSubscription.xsl, body: \n\n ${body} \n\n\n" />
-			
-			<camel:to uri="bean:notificationBrokerServiceMessageProcessor?method=sendResponseMessage" />
-			
-		</camel:route>
 		
-
 		<camel:route id="processCaseInitArrestWithPersonSearchFbiId_Route">
 		
 			<camel:from uri="direct:processCaseInitArrestWithPersonSearchFbiId" />
@@ -198,27 +161,18 @@
 			<camel:from uri="direct:callPersonSearch" />
 			
 			<setHeader headerName="operationName"><constant>SubmitPersonSearchRequest</constant></setHeader>			
-			<setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0</constant></setHeader>			
-						
-			<!-- 
-				NOTE: throws npe when ws soap headers null (if the 'convenience method' is problematic - just set the headers 
-							yourself without the convenience method				
-				Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID				
-				<camel:to uri="bean:messageProcessor?method=processRequestPayload" /> 				
-			-->									
-						
-			<!-- TODO set in correct place, only those needed -->
-			<setHeader headerName="federatedQueryRequestGUID"><constant>abc123</constant></setHeader>				
-			<setHeader headerName="WSAddressingReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>									
-			<setHeader headerName="{http://www.w3.org/2005/08/addressing}MessageID"><simple>abc123</simple></setHeader>						
-			<setHeader headerName="{http://www.w3.org/2005/08/addressing}ReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>						
-						
+			<setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0</constant></setHeader>
+											
 			<log message="\n\n\n PersonSearchRequest using guid: ${header.federatedQueryRequestGUID} \n\n\n"/>						
 															
 			<!-- Note: the original CaseInit body is saved in a header while being sent on a timer message body doc to the aggregator -->
 			<camel:wireTap uri="direct:startPersonSearchTimer"/>
 
 			<camel:log message="\n\n\n Person Search Timer started... \n\n\n"/>
+
+			<!-- TODO just one of these replyTo headers(not both) Use MessageProcessor to foward MessageId but ensure MessageProcessor doesn't delete other IN headers -->							
+			<setHeader headerName="WSAddressingReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>
+			<setHeader headerName="{http://www.w3.org/2005/08/addressing}ReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>	
 
 			<camel:to uri="personSearchRequestEndpoint"/>
 
@@ -295,7 +249,35 @@
 				
 		</camel:route>	
 					
-			    
+									
+		<camel:route>
+			<camel:from uri="direct:transformAndInvokeUnsubscriptionProcessor" />
+			
+			<camel:convertBodyTo type="java.lang.String"/>
+			
+			<camel:to uri="xslt:xslt/paroleDocumentToUnsubscription.xsl" />
+						
+			<camel:log message="\n\n\n After transform: \n\n ${body} \n\n\n" />
+			<camel:to
+				uri="bean:subscriptionManagerServiceMessageProcessor?method=sendResponseMessage" />
+		</camel:route>
+
+
+		<camel:route>
+			<camel:from uri="direct:transformAndInvokeSubscriptionProcessor" />
+			
+			<camel:log message="\n\n\n transformAndInvokeSubscriptionProcessor...\n\n\n" />
+				
+			<camel:convertBodyTo type="java.lang.String"/>
+																				
+			<camel:to uri="xslt:xslt/paroleDocumentToSubscription.xsl" />
+			
+			<camel:log message="\n\n\n After paroleDocumentToSubscription.xsl, body: \n\n ${body} \n\n\n" />
+			
+			<camel:to uri="bean:notificationBrokerServiceMessageProcessor?method=sendResponseMessage" />
+			
+		</camel:route>
+					    
 	</camel:camelContext>
 	
 	
