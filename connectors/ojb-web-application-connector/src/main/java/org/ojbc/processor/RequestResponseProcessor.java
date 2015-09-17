@@ -20,7 +20,9 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.camel.Body;
+import org.apache.camel.Exchange;
 import org.apache.camel.Header;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -35,7 +37,7 @@ public abstract class RequestResponseProcessor {
 	/**
 	 * This is the map that holds the requests and responses
 	 */
-	private ConcurrentHashMap<String, String> requestResponseMap;
+	private ConcurrentHashMap<String, Object> requestResponseMap;
 	
 	/**
 	 * Maximum polls for a response before timing out
@@ -63,7 +65,7 @@ public abstract class RequestResponseProcessor {
 		
 		if (response.length() > 500)
 		{	
-			log.debug("Here is the response (truncated): " + response.substring(0,500));
+			log.debug("Here is the response (truncated): " + StringUtils.abbreviate(response, 503));
 		}
 		else
 		{
@@ -71,6 +73,28 @@ public abstract class RequestResponseProcessor {
 		}
 		
 		requestResponseMap.put(federatedQueryID, response);
+	}
+	
+	/**
+	 * This method is called by the camel response listener route to update the map with the reply 
+	 * 
+	 * @param response
+	 * @param federatedQueryID
+	 */
+	public final void updateMapWithResponseExchange(Exchange exchange, @Body String response,  @Header("federatedQueryRequestGUID") String federatedQueryID)
+	{
+		log.debug("Messaage ID: " + federatedQueryID);
+		
+		if (response.length() > 500)
+		{	
+			log.debug("Here is the response (truncated): " + StringUtils.abbreviate(response, 503));
+		}
+		else
+		{
+			log.debug("Here is the response: " + response);
+		}
+		
+		requestResponseMap.put(federatedQueryID, exchange);
 	}
 	
 	public final void putRequestInMap(String federatedQueryID) 
@@ -90,7 +114,7 @@ public abstract class RequestResponseProcessor {
 		while(!haveResponse && counter < this.getMaxPolls())
 		{
 			//Get response from map
-			response = requestResponseMap.get(federatedQueryID);
+			response = (String) requestResponseMap.get(federatedQueryID);
 
 			//This means that the key does not exist, this is an error condition
 			if (response == null)
@@ -117,6 +141,41 @@ public abstract class RequestResponseProcessor {
 		return response;
 	}
 	
+	public final Exchange pollMapForResponseExchange(String federatedQueryID) throws Exception
+	{
+		boolean haveResponse = false;
+		int counter = 0;
+		
+		//Polling until we have a response or we get to max polls
+		while(!haveResponse && counter < this.getMaxPolls())
+		{
+			//Get response from map
+			Object response = requestResponseMap.get(federatedQueryID);
+			
+			//This means that the key does not exist, this is an error condition
+			if (response == null)
+			{
+				return null;
+			}	
+			
+			//if we are getting 'noResponse', update the counter and continue
+			if (response.equals(NO_RESPONSE))
+			{
+				counter++;
+				Thread.sleep(this.getPollingIntervalInMillis());
+				log.debug("Sleeping and waiting for response for federated ID: " + federatedQueryID );
+			}
+			else
+			{
+				//We have a response, remove from the key from the map and break
+				requestResponseMap.remove(federatedQueryID);	
+				return (Exchange)response;
+			}	
+		}
+		return null;	
+		
+	}
+	
 	public String getReplyToAddress() {
 		return replyToAddress;
 	}
@@ -126,7 +185,7 @@ public abstract class RequestResponseProcessor {
 	}
 
 	public void setRequestResponseMap(
-			ConcurrentHashMap<String, String> requestResponseMap) {
+			ConcurrentHashMap<String, Object> requestResponseMap) {
 		this.requestResponseMap = requestResponseMap;
 	}
 

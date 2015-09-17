@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 
 import org.ojbc.web.IdentificationResultsQueryInterface;
+import org.ojbc.web.model.IdentificationResultsQueryResponse;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class IdentificationResultsQueryMockImpl implements IdentificationResults
 	SearchResultConverter searchResultConverter;		
 	
 	@Override
-	public String invokeIdentificationResultsQueryRequest(
+	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(
 			String transactionNumber,  Element samlToken) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
