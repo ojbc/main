@@ -92,7 +92,7 @@ public class RapbackController {
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
 		try {
 			processDetailRequest(request, transactionNumber, model);
-			return "people/_searchDetails";
+			return "rapbacks/_initialResultsDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "common/_searchDetailsError";
