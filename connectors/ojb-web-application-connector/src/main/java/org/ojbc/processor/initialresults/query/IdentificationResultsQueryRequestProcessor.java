@@ -16,6 +16,10 @@
  */
 package org.ojbc.processor.initialresults.query;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
@@ -25,15 +29,21 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.processor.RequestResponseProcessor;
+import org.ojbc.util.camel.helper.MtomUtils;
+import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.IdentificationResultsQueryInterface;
+import org.ojbc.web.model.IdentificationResultsQueryResponse;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 @Service
 public class IdentificationResultsQueryRequestProcessor extends RequestResponseProcessor implements CamelContextAware, IdentificationResultsQueryInterface {
@@ -52,7 +62,7 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 	private static final Log log = LogFactory.getLog( IdentificationResultsQueryRequestProcessor.class );
 	
 	@Override
-	public String invokeIdentificationResultsQueryRequest(
+	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(
 			String transactionNumber, Element samlToken) throws Exception {
 		
 		if (StringUtils.isBlank(transactionNumber)){
@@ -93,19 +103,65 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 		//Put message ID and "noResponse" place holder.  
 		putRequestInMap(federatedQueryID);
 		
-		String response = pollMap(federatedQueryID);
+		Exchange responseExchange = pollMapForResponseExchange(federatedQueryID);
 		
-		if (response.length() > 500)
-		{	
-			log.debug("Here is the response (truncated): " + response.substring(0,500));
-		}
-		else
-		{
-			log.debug("Here is the response: " + response);
-		}
+		return retrieveResponse(responseExchange);
+	}
+
+	private IdentificationResultsQueryResponse retrieveResponse(
+			Exchange exchange) throws Exception {
+		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
+				new IdentificationResultsQueryResponse();
+		String stateSearchResultDocument = getDocument(exchange, 
+				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
+				+ "oirq-res-ext:StateIdentificationSearchResultDocument/xop:Include/@href");
+		identificationResultsQueryResponse.setStateSearchResultFile(new String(stateSearchResultDocument));
 		
-		//return response here
-		return response;
+		String fbiSearchResultDocument = getDocument(exchange, 
+				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
+				+ "oirq-res-ext:FBIIdentificationSearchResultDocument/xop:Include/@href");
+		identificationResultsQueryResponse.setFbiSearchResultFile(fbiSearchResultDocument);
+		
+		List<String> stateCriminalHistoryRecordDocuments = getDocuments(exchange,
+				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
+				+ "oirq-res-ext:StateCriminalHistoryRecordDocument/xop:Include");
+		identificationResultsQueryResponse.setStateCriminalHistoryRecordDocument(
+				stateCriminalHistoryRecordDocuments);
+		
+		List<String> fbiIdentityHistorySummaryDocuments = getDocuments(exchange,
+				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
+						+ "oirq-res-ext:FBIIdentityHistorySummaryDocument/xop:Include");
+		identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocument(
+				fbiIdentityHistorySummaryDocuments);
+		log.debug("Identification Results Query Response: " + identificationResultsQueryResponse.toString());
+		return identificationResultsQueryResponse;
+	}
+
+	private List<String> getDocuments(Exchange exchange, String xPath) throws Exception {
+		Document body = OJBUtils.loadXMLFromString( (String) exchange.getIn().getBody()); 
+		NodeList documentIdNodes = XmlUtils.xPathNodeListSearch(body, xPath);
+		
+		List<String> documents = new ArrayList<String>();
+	    if (documentIdNodes != null && documentIdNodes.getLength() > 0) {
+	        for (int i = 0; i < documentIdNodes.getLength(); i++) {
+	            if (documentIdNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+	                Element element = (Element) documentIdNodes.item(i);
+	                String documentId = element.getAttribute("href");
+	                documents.add(new String(MtomUtils.getAttachment(exchange, null, documentId))); 
+	            }
+	        }
+	    }
+		return documents;
+	}
+
+	private String getDocument(Exchange exchange, String xPath)
+			throws Exception, IOException {
+		Document body = OJBUtils.loadXMLFromString((String) exchange.getIn().getBody()); 
+
+		String stateSearchResultDocumentId = 
+				XmlUtils.xPathStringSearch(body, xPath);
+		byte[] stateSearchResultDocument = MtomUtils.getAttachment(exchange, null, stateSearchResultDocumentId);
+		return new String(stateSearchResultDocument);
 	}
 
 	public CamelContext getCamelContext() {

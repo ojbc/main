@@ -64,7 +64,7 @@ public class PersonVehicleToIncidentSearchRequestProcessorTest {
 		unit.setVehicleToIncidentMessageProcessor(mockVehicleToIncidentMessageProcessor);
 		unit.setMaxPolls(1);
 		
-		ConcurrentHashMap<String, String> requestResponseMap = new ConcurrentHashMap<String, String>();
+		ConcurrentHashMap<String, Object> requestResponseMap = new ConcurrentHashMap<String, Object>();
 		unit.setRequestResponseMap(requestResponseMap);
 	}
 
