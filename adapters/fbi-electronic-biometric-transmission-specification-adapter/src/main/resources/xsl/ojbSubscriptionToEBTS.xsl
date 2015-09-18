@@ -26,6 +26,7 @@
     xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
     xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
     xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+    xmlns:unsubmsg-doc="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
     xmlns:b-2="http://docs.oasis-open.org/wsn/b-2">
 	
 	<xsl:output indent="yes" method="xml"/>
@@ -94,6 +95,7 @@
 	
 	<xsl:template match="/">
 		<xsl:apply-templates select="b-2:Subscribe"/>
+		<xsl:apply-templates select="b-2:Unsubscribe"/>
 	</xsl:template>
 	
 	<xsl:template match="b-2:Subscribe">
@@ -104,11 +106,18 @@
 	
 		<xsl:variable name="purpose">
 			<xsl:choose>
-				<xsl:when test="submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription">maintenance</xsl:when>
-				<xsl:otherwise>new</xsl:otherwise>
+				<xsl:when test="submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription">modifySubscription</xsl:when>
+				<xsl:otherwise>newSubscription</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:apply-templates select="submsg-doc:SubscriptionMessage">
+			<xsl:with-param name="purpose" select="$purpose"/>
+		</xsl:apply-templates>
+	</xsl:template>
+	
+	<xsl:template match="b-2:Unsubscribe">
+		<xsl:variable name="purpose">cancelSubscription</xsl:variable>
+		<xsl:apply-templates select="unsubmsg-doc:UnsubscriptionMessage">
 			<xsl:with-param name="purpose" select="$purpose"/>
 		</xsl:apply-templates>
 	</xsl:template>
@@ -129,6 +138,24 @@
 			
 		</itl:NISTBiometricInformationExchangePackage>
 		
+	</xsl:template>
+	
+	
+	<xsl:template match="unsubmsg-doc:UnsubscriptionMessage">
+		<xsl:param name="purpose"/>
+		<itl:NISTBiometricInformationExchangePackage>
+		
+			<!-- EBTS Record Type 1 -->
+			<xsl:call-template name="buildType1Record">
+				<xsl:with-param name="purpose" select="$purpose"/>
+			</xsl:call-template>
+			
+			<!-- EBTS Record Type 2 -->
+			<xsl:call-template name="buildType2Record">
+				<xsl:with-param name="purpose" select="$purpose"/>
+			</xsl:call-template>
+			
+		</itl:NISTBiometricInformationExchangePackage>
 	</xsl:template>
 	
 	<xsl:template name="buildType1Record">
@@ -188,7 +215,7 @@
 				 	<!-- This determines whether we are requesting a new subscription or modifying an existing one -->
 				 	<!-- TODO: we will need to update this once we begin processing civil subscriptions -->
 				 	<xsl:choose>
-				 		<xsl:when test="$purpose = 'maintenance'">
+				 		<xsl:when test="$purpose = 'modifySubscription' or $purpose ='cancelSubscription'">
 				 			<ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
 				 		</xsl:when>
 				 		<xsl:otherwise>
@@ -207,6 +234,7 @@
 								<xsl:when test="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode = 'CS'">
 									<xsl:value-of select="$transactionContentSummaryContentRecordCountCriminal"/>
 								</xsl:when>
+								<xsl:otherwise>01</xsl:otherwise>
 							</xsl:choose>
 				 	 	</ansi-nist:ContentRecordQuantity>
 				 	 	<!-- TODO: pass these in as params -->
@@ -236,8 +264,7 @@
 				<itl:UserDefinedDescriptiveDetail>
 					<ebts:DomainDefinedDescriptiveFields>
 						<xsl:choose>
-							<xsl:when test="$purpose = 'maintenance'"/>
-							<xsl:when test="$purpose = 'new'">
+							<xsl:when test="$purpose = 'newSubscription'">
 								<ansi-nist:RecordRapSheetRequestIndicator>
 									<xsl:value-of select="$rapSheetRequestIndicator"/>
 								</ansi-nist:RecordRapSheetRequestIndicator>
@@ -252,8 +279,7 @@
 							<!--Rap Back Category RBC 2.2065-->
 							<!-- This is not allowed in RBMNT messages -->
 							<xsl:choose>
-								<xsl:when test="$purpose = 'maintenance'"/>
-								<xsl:when test="$purpose = 'new'">
+								<xsl:when test="$purpose = 'newSubscription'">
 									<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
 									<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="rapBackCategory"/>
 								</xsl:when>
@@ -287,7 +313,7 @@
 		                        </nc20:OrganizationIdentification>
 		                     </ansi-nist:RecordForwardOrganizations>
 		                     
-		                     <xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID" mode="fbiSubscriptionID"/>
+		                     <xsl:apply-templates select="/*/*/submsg-ext:RelatedFBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID" mode="fbiSubscriptionID"/>
 														
 							<ebts:RecordRapBackTriggeringEventCode>
 								<xsl:value-of select="$rapBackTriggeringEvent" />
@@ -296,10 +322,13 @@
 							<xsl:apply-templates select="submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification[nc20:IdentificationID !='']" mode="userDefinedElement"/>																
 							<xsl:choose>
 								<!-- This indicates that the maintenance is a "replace" -->
-								<xsl:when test="$purpose = 'maintenance'">
+								<xsl:when test="$purpose = 'modifySubscription'">
 									<ebts:TransactionRapBackMaintenanceCode>R</ebts:TransactionRapBackMaintenanceCode>
 								</xsl:when>
-								<xsl:when test="$purpose = 'new'"/>
+								<xsl:when test="$purpose = 'cancelSubscription'">
+									<ebts:TransactionRapBackMaintenanceCode>C</ebts:TransactionRapBackMaintenanceCode>
+								</xsl:when>
+								<xsl:when test="$purpose = 'newSubscription'"/>
 							</xsl:choose>
 						</ebts:RecordRapBackData>	
 						<ebts:RecordTransactionActivity>
@@ -319,9 +348,7 @@
 				</itl:UserDefinedDescriptiveDetail>
 			</itl:PackageDescriptiveTextRecord>
 	</xsl:template>
-	
-	
-	
+
 	<xsl:template match="submsg-ext:Subject">
 		<ebts:RecordSubject>			
 			<xsl:apply-templates select="nc20:PersonBirthDate"/>			
