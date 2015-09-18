@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
+import org.ojbc.adapters.rapbackdatastore.util.ZipUtils;
 import org.ojbc.util.camel.helper.MtomUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 		byte[] receivedAttachment = MtomUtils.getAttachment(exchange, transactionNumber,
 				attachmentId);
 
-		civilFingerPrints.setFingerPrintsFile(receivedAttachment);
+		civilFingerPrints.setFingerPrintsFile(ZipUtils.zip(receivedAttachment));
 		civilFingerPrints.setTransactionType("Transaction"); //TODO replace the placeholder with real value.
 		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 	}
