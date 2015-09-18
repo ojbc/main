@@ -337,8 +337,8 @@ public class OJBUtils {
 	
 	
 	public String generateUUID() {
-		
-		  return UUID.randomUUID().toString();
+						
+		return UUID.randomUUID().toString().replaceAll("-", "");		  		  
 	}
 			
 }

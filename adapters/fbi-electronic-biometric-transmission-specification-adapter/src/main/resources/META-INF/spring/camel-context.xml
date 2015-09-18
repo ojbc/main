@@ -164,10 +164,12 @@
 		<camel:route id="ojbSubscriptionToFbiNgiSubscriptionRoute">
 						
 			<camel:from uri="direct:transformToFbiNgiSubscription" />			
-			
+							
 			<convertBodyTo type="java.lang.String"/>
 			
 			<camel:log message="\n\n Transforming ojb subscription to FBI NGI subscription format...\n\n using message input: \n ${body} \n\n"/>
+
+			<setHeader headerName="controlID"><camel:simple>bean:uuidGenerator?method=generateUUID</camel:simple></setHeader>	
 			
 			<setHeader headerName="rapBackTransactionDate"><simple>${date:now:yyyy-MM-dd}</simple></setHeader>
 			<setHeader headerName="rapBackNotificatonFormat"><simple>{{fbiEbtsAdapter.rapBackNotificatonFormat}}</simple></setHeader>
@@ -175,7 +177,6 @@
 			<setHeader headerName="rapBackTriggeringEvent"><simple>{{fbiEbtsAdapter.rapBackTriggeringEvent}}</simple></setHeader>
 			<setHeader headerName="destinationOrganizationORI"><simple>{{fbiEbtsAdapter.destinationOrganizationORI}}</simple></setHeader>
 			<setHeader headerName="originatorOrganizationORI"><simple>{{fbiEbtsAdapter.originatorOrganizationORI}}</simple></setHeader>
-			<setHeader headerName="controlID"><simple>{{fbiEbtsAdapter.controlID}}</simple></setHeader>
 			<setHeader headerName="domainVersion"><simple>{{fbiEbtsAdapter.domainVersion}}</simple></setHeader>
 			<setHeader headerName="domainName"><simple>{{fbiEbtsAdapter.domainName}}</simple></setHeader>
 			<setHeader headerName="transactionMajorVersion"><simple>{{fbiEbtsAdapter.transactionMajorVersion}}</simple></setHeader>
@@ -202,5 +203,7 @@
 	<bean id="ngiResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.NgiResponseProcessor"/>
 	
 	<bean id="fbiEbtsResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEbtsResponseProcessor"/>
+	
+	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
 
 </beans>
