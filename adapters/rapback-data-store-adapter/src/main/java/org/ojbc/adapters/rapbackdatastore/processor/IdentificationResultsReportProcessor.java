@@ -29,6 +29,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
+import org.ojbc.adapters.rapbackdatastore.util.ZipUtils;
 import org.ojbc.util.camel.helper.MtomUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Service;
@@ -74,8 +75,8 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		criminalInitialResults.setTransactionNumber(transactionNumber);
 		
 		String attachmentId = getAttachmentId(rootNode);
-		criminalInitialResults.setSearchResultFile(	MtomUtils.getAttachment(exchange, transactionNumber,
-				attachmentId));
+		criminalInitialResults.setSearchResultFile(	ZipUtils.zip(MtomUtils.getAttachment(exchange, transactionNumber,
+				attachmentId)));
 		
 		criminalInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
 		
@@ -119,8 +120,8 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		//TODO set identificationTransaction.currentState;
 		
 		if (initialResultsPkId == null){
-			civilInitialResults.setSearchResultFile(MtomUtils.getAttachment(exchange, transactionNumber,
-					attachmentId));
+			civilInitialResults.setSearchResultFile(ZipUtils.zip(MtomUtils.getAttachment(exchange, transactionNumber,
+					attachmentId)));
 			rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		}
 		else{
@@ -139,7 +140,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		byte[] receivedAttachment = MtomUtils.getAttachment(exchange, transactionNumber,
 				attachmentId);
 
-		civilInitialRapSheet.setRapSheet(receivedAttachment);
+		civilInitialRapSheet.setRapSheet(ZipUtils.zip(receivedAttachment));
 		
 		rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);
 	}
