@@ -16,6 +16,7 @@
  */
 package org.ojbc.web.impl;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -26,6 +27,8 @@ import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
+
+import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 @Service
 @Profile({"initial-results-query","standalone"})
@@ -40,8 +43,14 @@ public class IdentificationResultsQueryMockImpl implements IdentificationResults
 	@Override
 	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(
 			String transactionNumber,  Element samlToken) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
+				new IdentificationResultsQueryResponse();
+		
+		identificationResultsQueryResponse.setFbiSearchResultFile("Match");
+		identificationResultsQueryResponse.setStateSearchResultFile("Match");
+		identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(Arrays.asList("State Rap Sheet"));
+		identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(Arrays.asList("FBI Identity History Summary"));
+		return identificationResultsQueryResponse;
 	}
 
 	
