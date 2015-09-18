@@ -24,21 +24,21 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class IdentificationResultsQueryResponse {
 
 	private String stateSearchResultFile; 
-	private List<String> stateCriminalHistoryRecordDocument;
+	private List<String> stateCriminalHistoryRecordDocuments;
 	private String fbiSearchResultFile; 
-	private List<String> fbiIdentityHistorySummaryDocument;
+	private List<String> fbiIdentityHistorySummaryDocuments;
 	public String getStateSearchResultFile() {
 		return stateSearchResultFile;
 	}
 	public void setStateSearchResultFile(String stateSearchResultFile) {
 		this.stateSearchResultFile = stateSearchResultFile;
 	}
-	public List<String> getStateCriminalHistoryRecordDocument() {
-		return stateCriminalHistoryRecordDocument;
+	public List<String> getStateCriminalHistoryRecordDocuments() {
+		return stateCriminalHistoryRecordDocuments;
 	}
-	public void setStateCriminalHistoryRecordDocument(
-			List<String> stateCriminalHistoryRecordDocument) {
-		this.stateCriminalHistoryRecordDocument = stateCriminalHistoryRecordDocument;
+	public void setStateCriminalHistoryRecordDocuments(
+			List<String> stateCriminalHistoryRecordDocuments) {
+		this.stateCriminalHistoryRecordDocuments = stateCriminalHistoryRecordDocuments;
 	}
 	public String getFbiSearchResultFile() {
 		return fbiSearchResultFile;
@@ -46,12 +46,12 @@ public class IdentificationResultsQueryResponse {
 	public void setFbiSearchResultFile(String fbiSearchResultFile) {
 		this.fbiSearchResultFile = fbiSearchResultFile;
 	}
-	public List<String> getFbiIdentityHistorySummaryDocument() {
-		return fbiIdentityHistorySummaryDocument;
+	public List<String> getFbiIdentityHistorySummaryDocuments() {
+		return fbiIdentityHistorySummaryDocuments;
 	}
-	public void setFbiIdentityHistorySummaryDocument(
-			List<String> fbiIdentityHistorySummaryDocument) {
-		this.fbiIdentityHistorySummaryDocument = fbiIdentityHistorySummaryDocument;
+	public void setFbiIdentityHistorySummaryDocuments(
+			List<String> fbiIdentityHistorySummaryDocuments) {
+		this.fbiIdentityHistorySummaryDocuments = fbiIdentityHistorySummaryDocuments;
 	} 
 	
 	public String toString(){
