@@ -125,13 +125,13 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 		List<String> stateCriminalHistoryRecordDocuments = getDocuments(exchange,
 				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
 				+ "oirq-res-ext:StateCriminalHistoryRecordDocument/xop:Include");
-		identificationResultsQueryResponse.setStateCriminalHistoryRecordDocument(
+		identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(
 				stateCriminalHistoryRecordDocuments);
 		
 		List<String> fbiIdentityHistorySummaryDocuments = getDocuments(exchange,
 				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
 						+ "oirq-res-ext:FBIIdentityHistorySummaryDocument/xop:Include");
-		identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocument(
+		identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(
 				fbiIdentityHistorySummaryDocuments);
 		log.debug("Identification Results Query Response: " + identificationResultsQueryResponse.toString());
 		return identificationResultsQueryResponse;
