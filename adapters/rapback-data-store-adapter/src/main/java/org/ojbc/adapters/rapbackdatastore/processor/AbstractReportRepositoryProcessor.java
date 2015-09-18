@@ -16,7 +16,12 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
@@ -42,7 +47,7 @@ public abstract class AbstractReportRepositoryProcessor {
 	
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-	
+    	
     @Transactional
 	public abstract void processReport(@Body Document report, Exchange exchange) throws Exception;
 

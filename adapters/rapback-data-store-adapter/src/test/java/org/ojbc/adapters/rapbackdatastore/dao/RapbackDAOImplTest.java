@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -42,6 +43,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
+import org.ojbc.adapters.rapbackdatastore.util.ZipUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.ExpectedException;
@@ -243,7 +245,7 @@ public class RapbackDAOImplTest {
 		
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
 		civilInitialRapSheet.setCivilIntitialResultId(3);
-		civilInitialRapSheet.setRapSheet("rapsheet".getBytes());
+		civilInitialRapSheet.setRapSheet(ZipUtils.zip("rapsheet".getBytes()));
 		civilInitialRapSheet.setTransactionType("Transaction Type");
 		
 		Integer civilInitialRapSheetPkId = 
@@ -268,7 +270,6 @@ public class RapbackDAOImplTest {
 		log.info("Civil Initial Results count: " + civilInitialResults.size());
 		assertEquals(2, civilInitialResults.size());
 		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
-		assertEquals(" F o u n d   a   M a t c h", new String(civilInitialResults.get(0).getSearchResultFile()));
-		assertEquals(2, civilInitialResults.get(0).getRapsheets().size());
+		assertTrue(Arrays.equals("Found a Match".getBytes(), civilInitialResults.get(0).getSearchResultFile()));
 	}
 }
