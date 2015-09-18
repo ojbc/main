@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.DataFormatException;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -42,6 +43,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
+import org.ojbc.adapters.rapbackdatastore.util.ZipUtils;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
@@ -564,7 +566,13 @@ public class RapbackDAOImpl implements RapbackDAO {
 		civilInitialResults.setTransactionNumber(rs.getString("transaction_number"));
 		civilInitialResults.setTransactionType(rs.getString("transaction_type"));
 		civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") - 1]);
-		civilInitialResults.setSearchResultFile(rs.getBytes("search_result_file"));
+		try{
+			civilInitialResults.setSearchResultFile(ZipUtils.unzip(rs.getBytes("search_result_file")));
+		}
+		catch(Exception e){
+			log.error("Got exception extracting the search result file for " + 
+					civilInitialResults.getTransactionNumber(), e);
+		}
 		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
 		return civilInitialResults;
 	}
@@ -641,8 +649,15 @@ public class RapbackDAOImpl implements RapbackDAO {
                 }
 	              
                byte[] rapSheet = rs.getBytes("rap_sheet" );
+               
                if (rapSheet != null){
-            	   civilInitialResults.getRapsheets().add( rapSheet );
+            	   try{
+            		   civilInitialResults.getRapsheets().add( ZipUtils.unzip(rapSheet) );
+            	   }
+            	   catch(Exception e){
+            		   log.error("Got exception extracting the rapsheet for " + 
+            			   civilInitialResults.getTransactionNumber(), e);
+            	   }
 	           }
             }
             return (List<CivilInitialResults>) new ArrayList<CivilInitialResults>(map.values());
