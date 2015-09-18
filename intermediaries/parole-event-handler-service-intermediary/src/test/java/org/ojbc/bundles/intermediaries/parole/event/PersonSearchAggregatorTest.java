@@ -17,6 +17,8 @@
 package org.ojbc.bundles.intermediaries.parole.event;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -36,7 +38,6 @@ public class PersonSearchAggregatorTest {
 
 	@Before
 	public void init() {
-
 		personSearchAggregator = new PersonSearchEntityResolutionResponseHandlerAggregator();
 	}
 	
@@ -46,7 +47,7 @@ public class PersonSearchAggregatorTest {
 		CamelContext camelContext = new DefaultCamelContext();		
 		Exchange exchange = new DefaultExchange(camelContext);
 				
-		Document personSearchResponseDoc = XmlUtils.parseFileToDocument(new File("src/main/resources/mock/PersonSearchResults_single.xml"));;
+		Document personSearchResponseDoc = XmlUtils.parseFileToDocument(new File("src/main/resources/mock/PersonSearchResults_single.xml"));
 		
 		String fbiId = personSearchAggregator.populateGroupExchFbiIdHeaderFromPersonSearchResponse(personSearchResponseDoc, exchange);		
 		Assert.assertEquals("12345", fbiId);
@@ -60,19 +61,60 @@ public class PersonSearchAggregatorTest {
 	
 		CamelContext camelContext = new DefaultCamelContext();
 		
-		Exchange exchange = new DefaultExchange(camelContext);
-		exchange.getIn().setHeader("federatedQueryRequestGUID", "123");
-		exchange.getIn().setHeader("topicExpression", "arrest");
+		Exchange caseInitExchange = new DefaultExchange(camelContext);
+		caseInitExchange.getIn().setHeader("federatedQueryRequestGUID", "123");
+		caseInitExchange.getIn().setHeader("topicExpression", "arrest");
 				
 		Exchange groupExchange = new DefaultExchange(camelContext);
 		
-		personSearchAggregator.copyCaseInitExchHeadersToGroupedExchange(groupExchange, exchange);
+		personSearchAggregator.copyCaseInitExchHeadersToGroupedExchange(groupExchange, caseInitExchange);
 		
 		String groupFeqQueryId = (String)groupExchange.getIn().getHeader("federatedQueryRequestGUID");
 		String groupTopic = (String)groupExchange.getIn().getHeader("topicExpression");
 		
 		Assert.assertEquals("123", groupFeqQueryId);
 		Assert.assertEquals("arrest", groupTopic);
+	}
+	
+	
+	@Test
+	public void addFbiIdToCaseInitMessageTest() throws Exception{
+		
+		Exchange groupedExchange = getGroupedExchangeSample();
+		
+		personSearchAggregator.addFbiIdToCaseInitMessage(groupedExchange);
+		
+		String fbiId = (String)groupedExchange.getIn().getHeader("fbiId");
+		
+		Assert.assertEquals("12345", fbiId);		
+	}
+	
+	
+	private Exchange getGroupedExchangeSample() throws Exception{
+		
+		CamelContext camelContext = new DefaultCamelContext();
+		
+		Exchange groupedExchange = new DefaultExchange(camelContext);
+		
+		Exchange caseInitExchange = new DefaultExchange(camelContext);
+		caseInitExchange.getIn().setHeader("federatedQueryRequestGUID", "123");
+		caseInitExchange.getIn().setHeader("topicExpression", "arrest");
+		caseInitExchange.getIn().setHeader("originalCaseInitArrestMessageBody", "case init original message");		
+		caseInitExchange.getIn().setBody("START_TIMER");
+		
+		Exchange personSearchResultsExchange = new DefaultExchange(camelContext);
+		
+		Document personSearchResponseDoc = XmlUtils.parseFileToDocument(new File("src/main/resources/mock/PersonSearchResults_single.xml"));		
+		personSearchResultsExchange.getIn().setBody(personSearchResponseDoc);
+		
+		List<Exchange> exchangeList = new ArrayList<Exchange>();
+		
+		exchangeList.add(caseInitExchange);
+		exchangeList.add(personSearchResultsExchange);
+				
+		groupedExchange.setProperty(Exchange.GROUPED_EXCHANGE, exchangeList);
+		
+		return groupedExchange;
 	}
 	
 }
