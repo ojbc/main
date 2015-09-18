@@ -48,18 +48,15 @@
 					<xsd:element maxOccurs="1" minOccurs="1" ref="submsg-ext:SystemName" />
 					<xsd:element maxOccurs="1" minOccurs="0" ref="nc:Case">
 						<xsd:annotation>
-							<xsd:documentation>An aggrxegation of information about a set of
-								related activities and events.
-							</xsd:documentation>
+							<xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
 					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
 						minOccurs="0" />
 					<xsd:element ref="nc:DateRange" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" minOccurs="0" />
-					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -72,8 +69,7 @@
 				<xsd:choice>
 					<xsd:sequence>
 						<xsd:element maxOccurs="1" minOccurs="0" ref="submsg-ext:Subject" />
-						<xsd:element maxOccurs="unbounded" minOccurs="0"
-							ref="nc:ContactEmailID">
+						<xsd:element maxOccurs="unbounded" minOccurs="0" ref="nc:ContactEmailID">
 							<xsd:annotation>
 								<xsd:documentation>An electronic mailing address by which a
 									person
@@ -89,13 +85,13 @@
 								</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
-						<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
-							minOccurs="0" />
+						<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification" minOccurs="0" />
 						<xsd:element ref="nc:DateRange" minOccurs="0" />
-						<xsd:element ref="submsg-ext:SubscriptionFBIIdentification" minOccurs="0" />
+						<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 					</xsd:sequence>
 					<xsd:sequence>
 						<xsd:element ref="submsg-ext:SubscriptionIdentification" />
+						<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 					</xsd:sequence>
 				</xsd:choice>
 			</xsd:extension>
@@ -219,7 +215,7 @@
 				<xsd:sequence>
 					<xsd:element ref="nc:DateRange" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification"/>
-					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation"/>
+					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionTerm" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
