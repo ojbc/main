@@ -65,11 +65,7 @@
 						
 			<setHeader headerName="operationName">
 				<constant>Report-Parole-Case-Initiation</constant>
-			</setHeader>
-			
-			<!-- TODO only set one of these message id headers -->
-			<setHeader headerName="federatedQueryRequestGUID"><constant>abc123</constant></setHeader>												
-			<setHeader headerName="{http://www.w3.org/2005/08/addressing}MessageID"><simple>abc123</simple></setHeader>						
+			</setHeader>			
 			
 			<camel:log message="\n\n\n OPERATION: \n\n ${in.header.operationName}\n\n" />
 			
@@ -91,8 +87,14 @@
 		<camel:route>
 			<camel:from uri="direct:processParoleDocument" />
 			
-			<camel:log message="\n\n\n processing parole document... \n\n\n" />
-
+			<camel:log message="\n\n\n processing parole document... \n\n\n" />			
+									
+			<setHeader headerName="federatedQueryRequestGUID">				
+				<simple>bean:uuidGenerator?method=generateUUID</simple>
+			</setHeader>
+			
+			<log message="\n\n\n Made UUID: ${header.federatedQueryRequestGUID} \n\n\n"/>
+			
 			<camel:setHeader headerName="systemName">
 				<camel:xpath>//pcext:SystemName/text()</camel:xpath>
 			</camel:setHeader>
@@ -139,8 +141,7 @@
 			</camel:setHeader>
 			
 			<log message="\n\n\n CASE INIT BODY: \n\n ${body} \n\n\n"/>			
-			
-		
+					
 			<camel:setHeader headerName="sid">
 				<camel:xpath>/pci:ParoleCaseInitiation/pcext:ParoleCase/jxdm41:Supervision/nc20:SupervisionPerson/nc20:PersonStateIdentification/nc20:IdentificationID/text()</camel:xpath>						
 			</camel:setHeader>
@@ -169,10 +170,10 @@
 			<camel:wireTap uri="direct:startPersonSearchTimer"/>
 
 			<camel:log message="\n\n\n Person Search Timer started... \n\n\n"/>
-
-			<!-- TODO just one of these replyTo headers(not both) Use MessageProcessor to foward MessageId but ensure MessageProcessor doesn't delete other IN headers -->							
-			<setHeader headerName="WSAddressingReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>
-			<setHeader headerName="{http://www.w3.org/2005/08/addressing}ReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>	
+							
+			<setHeader headerName="WSAddressingReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>			
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
 			<camel:to uri="personSearchRequestEndpoint"/>
 
@@ -313,5 +314,7 @@
 		class="org.ojbc.bundles.intermediaries.parole.event.PersonSearchEntityResolutionResponseHandlerAggregator"/>
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />	
+	
+	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
 	
 </beans>

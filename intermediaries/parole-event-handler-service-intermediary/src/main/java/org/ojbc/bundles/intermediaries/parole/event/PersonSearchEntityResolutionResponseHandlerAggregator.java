@@ -32,7 +32,7 @@ public class PersonSearchEntityResolutionResponseHandlerAggregator {
 		
 	
 	@SuppressWarnings("unchecked")
-	void addFbiIdToCaseInitMessage(Exchange groupedExchange) throws Exception{
+	public void addFbiIdToCaseInitMessage(Exchange groupedExchange) throws Exception{
 		
 		List<Exchange> groupedExchangeList = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);		
 		int groupedExchangesCount = groupedExchangeList.size();
