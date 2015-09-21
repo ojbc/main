@@ -84,40 +84,36 @@
 		</camel:route>
 
 
-		<camel:route>
+		<camel:route id="processParoleDocRoute">
+		
 			<camel:from uri="direct:processParoleDocument" />
 			
 			<camel:log message="\n\n\n processing parole document... \n\n\n" />			
 									
-			<setHeader headerName="federatedQueryRequestGUID">				
-				<simple>bean:uuidGenerator?method=generateUUID</simple>
-			</setHeader>
 			
-			<log message="\n\n\n Made UUID: ${header.federatedQueryRequestGUID} \n\n\n"/>
-			
-			<camel:setHeader headerName="systemName">
-				<camel:xpath>//pcext:SystemName/text()</camel:xpath>
-			</camel:setHeader>
-
-			<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
-
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Parole-Case-Initiation'</camel:simple>
-																								
-				<camel:choice>
-					<camel:when><simple>${header.topicExpression} == 'topics:person/arrest'</simple>	
-					
-						<log message="\n\n\n Found Report Case Init - Arrest ... \n\n\n"/>
-									
-						<to uri="direct:processCaseInitArrestWithPersonSearchFbiId"/>					
-					</camel:when>										
-					<camel:otherwise>					
-						<log message="\n\n\n Found Report Case Init - NON-arrest \n\n\n"/>
-						
-						<to uri="direct:transformAndInvokeSubscriptionProcessor" />						
-					</camel:otherwise>
+								
+				<camel:setHeader headerName="systemName">
+					<camel:xpath>//pcext:SystemName/text()</camel:xpath>
+				</camel:setHeader>
+
+				<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
 				
-				</camel:choice>				
+				<camel:setHeader headerName="derivedRoutes">
+					<simple>{{parole.event.camelEndpointsToCall}}</simple>
+				</camel:setHeader>
+	
+				<camel:filter>
+					<camel:simple>${in.headers.derivedRoutes} != ''</camel:simple>
+					
+					<camel:log message="\n\n\n Calling derived route...: ${in.headers.derivedRoutes} \n\n\n"/>
+					
+					<camel:recipientList>
+						<camel:header>derivedRoutes</camel:header>
+					</camel:recipientList>
+				</camel:filter>					
+															
 			</camel:filter>
 
 			<camel:filter>
@@ -126,131 +122,8 @@
 			</camel:filter>
 
 		</camel:route>
-		
-		
-		<camel:route id="processCaseInitArrestWithPersonSearchFbiId_Route">
-		
-			<camel:from uri="direct:processCaseInitArrestWithPersonSearchFbiId" />
-			
-			<log message="\n\n\n  processCaseInitArrestWithPersonSearchFbiId... \n\n\n"/>
-			
-			<camel:convertBodyTo type="String"/> 
-			
-			<camel:setHeader headerName="originalCaseInitArrestMessageBody">
-				<camel:simple>${body}</camel:simple>				
-			</camel:setHeader>
-			
-			<log message="\n\n\n CASE INIT BODY: \n\n ${body} \n\n\n"/>			
 					
-			<camel:setHeader headerName="sid">
-				<camel:xpath>/pci:ParoleCaseInitiation/pcext:ParoleCase/jxdm41:Supervision/nc20:SupervisionPerson/nc20:PersonStateIdentification/nc20:IdentificationID/text()</camel:xpath>						
-			</camel:setHeader>
-			
-			<camel:log message="\n\n\n Using SID: ${header.sid} \n\n\n"/>					
-													
-			<camel:to uri="xslt:xslt/personSearchRequest.xsl"/>			
-			
-			<log message="\n\n\n Person Search Request Body: \n ${body}"/>												
-						
-			<to uri="direct:callPersonSearch"/>			
-				
-		</camel:route>
-
-
-		<camel:route id="personSearchRequestRoute">
-		
-			<camel:from uri="direct:callPersonSearch" />
-			
-			<setHeader headerName="operationName"><constant>SubmitPersonSearchRequest</constant></setHeader>			
-			<setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0</constant></setHeader>
-											
-			<log message="\n\n\n PersonSearchRequest using guid: ${header.federatedQueryRequestGUID} \n\n\n"/>						
-															
-			<!-- Note: the original CaseInit body is saved in a header while being sent on a timer message body doc to the aggregator -->
-			<camel:wireTap uri="direct:startPersonSearchTimer"/>
-
-			<camel:log message="\n\n\n Person Search Timer started... \n\n\n"/>
-							
-			<setHeader headerName="WSAddressingReplyTo"><simple>{{parole.event.personSearchResultsReplyToEndpoint}}</simple></setHeader>			
-			
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-
-			<camel:to uri="personSearchRequestEndpoint"/>
-
-		</camel:route>
-
-
-		<route id="personSearchTimerRoute">
-		
-			<from uri="direct:startPersonSearchTimer"/>						
-			
-			<log message="\n\n\n CaseInit Timer message using guid: ${header.federatedQueryRequestGUID} \n\n\n" />
-						
-			<setBody>
-				<constant>START_PERSON_SEARCH_TIMER</constant>
-			</setBody>			
-			
-			<to uri="direct:aggregatePersonSearchResult" />		
-		</route>		
-		
-		
-		<camel:route id="personSearchResponseRoute">
-		
-			<camel:from uri="personSearchResultsEndpoint"/>
-
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-
-			<log message="\n\n\n Recieved person search EntRes response with message ID: ${in.headers.federatedQueryRequestGUID} \n\n body: \n\n ${body} \n\n\n" />			
-
-			<log message = "\n\n\n Sending person search response to Aggregator with guid: ${header.federatedQueryRequestGUID} \n\n\n"/>
-			
-			<camel:to uri="direct:aggregatePersonSearchResult"/>						
-
-		</camel:route>
-
-
-		<camel:route id="aggregatePersonSearchResultRoute">
-		
-			<from uri="direct:aggregatePersonSearchResult" />
-			
-				<log message="\n\n\n Aggregator correlation id: ${in.header.federatedQueryRequestGUID} \n\n\n"/>
-				
-				<aggregate groupExchanges="true" eagerCheckCompletion="true">
-					
-					<correlationExpression>
-						<camel:header>federatedQueryRequestGUID</camel:header>
-					</correlationExpression>
-					
-					<completionTimeout>
-						<camel:simple>${properties:parole.event.personSearchTimeout}</camel:simple>
-					</completionTimeout>
-					
-					<!-- Completion size for 2 messages that arrive in this order:
-						1) Timer message with CaseInit doc stored in header
-						2) Person search EntRes results -->					 
-					<completionSize>
-						<constant>2</constant>
-					</completionSize>
-					
-					<log message="\n\n\n Person Search aggregater completed: $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.   Timeout for aggregation set at: {{parole.event.personSearchTimeout}} \n\n\n" /> 
-
-					<camel:filter>
-						<camel:simple>${property.CamelAggregatedSize} == 1 and ${property.CamelAggregatedCompletedBy} == 'timeout'</camel:simple>
-						
-						<camel:log message="\n\n\n Person Search service is down or timed out. \n\n\n" />
-					</camel:filter>
-							
-					<to uri="bean:personSearchResponseAggregator?method=addFbiIdToCaseInitMessage" />
-
-					<log message="\n\n\n Aggregated CaseInit message:\n\n ${body} \n\n\n" />
-					
-					<to uri="direct:transformAndInvokeSubscriptionProcessor" />	
-					
-				</aggregate>
-				
-		</camel:route>	
-					
-									
+										
 		<camel:route>
 			<camel:from uri="direct:transformAndInvokeUnsubscriptionProcessor" />
 			
@@ -277,6 +150,14 @@
 			
 			<camel:to uri="bean:notificationBrokerServiceMessageProcessor?method=sendResponseMessage" />
 			
+		</camel:route>
+		
+		<!-- Can be called by state specific child bundles -->
+		<camel:route id="parentEntryTransformSubRoute">
+		
+			<from uri="direct-vm:transformAndInvokeSubscriptionProcessor"/>
+
+			<to uri="direct:transformAndInvokeSubscriptionProcessor"/>
 		</camel:route>
 					    
 	</camel:camelContext>
@@ -308,13 +189,8 @@
 
 	<bean id="systemNameToTopicExpressionMapper" class="org.ojbc.util.camel.processor.SystemNameToTopicExpressionMapper">
 		<property name="systemNameToTopicMap" ref="systemNameToTopicMap" />
-	</bean>
-			
-	<bean id="personSearchResponseAggregator"
-		class="org.ojbc.bundles.intermediaries.parole.event.PersonSearchEntityResolutionResponseHandlerAggregator"/>
+	</bean>			
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />	
-	
-	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
-	
+		
 </beans>
