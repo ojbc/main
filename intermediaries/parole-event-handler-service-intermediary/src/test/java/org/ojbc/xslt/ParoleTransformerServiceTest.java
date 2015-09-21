@@ -18,7 +18,6 @@ package org.ojbc.xslt;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,18 +48,6 @@ public class ParoleTransformerServiceTest {
 	public void tearDown() {
 		xsltTransformer = null;
 	}	
-
-	@Test
-	public void personSearchTransformTest() throws Exception{
-
-		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/parole/paroleCaseInitiation.xml"));
-		String xslt = FileUtils.readFileToString(new File("src/main/resources/xslt/personSearchRequest.xsl"));
-
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("sid", "123");
-		
-		transformAndValidate(xslt, xml,"output/PersonSearchRequest.xml", params);		
-	}
 	
 	@Test
 	public void paroleSubscribeTransform() throws Exception{
