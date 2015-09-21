@@ -49,14 +49,8 @@
 		
 		<endpoint id="inputDir"
 			uri="file:///${publishSubscribe.paroleIntermediaryDirectory}/input?idempotent=true&amp;moveFailed=${publishSubscribe.paroleIntermediaryDirectory}/error&amp;move=processed/" />
-
-		<endpoint id="personSearchRequestEndpoint"
-			uri="cxf:bean:personSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}" />
 			
- 		<endpoint id="personSearchResultsEndpoint"
-			uri="cxf:bean:personSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}" />
-						
-
+			
 		<!-- Parole Service, Input File Drop Handler -->
 		<camel:route>
 			<from uri="inputDir" />
