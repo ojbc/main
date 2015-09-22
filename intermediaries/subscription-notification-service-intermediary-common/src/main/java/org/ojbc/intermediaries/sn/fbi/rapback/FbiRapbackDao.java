@@ -31,7 +31,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class FbiRapbackDao {
 	
 	private final static String FBI_SUBSCRIPTION_SELECT = "SELECT * FROM fbi_rap_back_subscription "
-			+ "WHERE rap_back_category = ? AND ucn=?;";
+			+ "WHERE rap_back_category_code = ? AND ucn=?;";
 	
 	private static final Logger logger = Logger.getLogger(FbiRapbackDao.class);
 	
@@ -68,12 +68,12 @@ public class FbiRapbackDao {
 		
 			FbiRapbackSubscription fbiSubscription = new FbiRapbackSubscription();
 			fbiSubscription.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
-			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category"));
-			fbiSubscription.setSubscriptionTerm(rs.getString("subscription_term"));
+			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category_code"));
+			fbiSubscription.setSubscriptionTerm(rs.getString("rap_back_subscription_term_code"));
 			fbiSubscription.setRapbackExpirationDate(toDateTime(rs.getDate("rap_back_expiration_date")));
 			fbiSubscription.setRapbackStartDate(toDateTime(rs.getDate("rap_back_start_date")));
 			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
-			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format"));
+			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format_code"));
 			fbiSubscription.setUcn(rs.getString("ucn"));
 			fbiSubscription.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
 		
