@@ -42,11 +42,17 @@
 		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 		id="rapback-data-store-adapter">
 
+		<endpoint id="subscriptionReportingAdapterEndpoint"
+			uri="cxf:bean:subscriptionReportingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{rapbackDatastoreAdapter.cxflogging}}" />
+
 		<endpoint id="identificationRecordingAdapterEndpoint"
 			uri="cxf:bean:identificationRecordingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{rapbackDatastoreAdapter.cxflogging}}" />
 
 		<endpoint id="identificationRecordingFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/input?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/error&amp;move=processed/" />
+
+		<endpoint id="subscriptionReportingFileEndpoint"
+			uri="file://{{rapbackDatastoreAdapter.SubscriptionReportingInputDirectory}}/input?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.SubscriptionReportingInputDirectory}}/error&amp;move=processed/" />
 
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed" />
@@ -234,6 +240,40 @@
 			<to uri="identificationInitialResultsQueryResponseServiceEndpoint" />
 			<log message="Called identification initial results query Intermediary" />
 		</route>
+
+		<!-- Subscription Reporting Route -->
+		<route id="subscription_reporting_service">
+		
+			<from	uri="subscriptionReportingAdapterEndpoint" />
+			
+			<to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<to uri="direct:processSubscriptionReport" />
+			
+		</route>	
+		
+		<route id="subscription_reporting_service_filedrop">
+		
+			<from uri="subscriptionReportingFileEndpoint" />
+			
+			<to uri="direct:processSubscriptionReport" />
+		</route>
+		
+		<route id="subscription_reporting_service_process_report">				
+			<from uri="direct:processSubscriptionReport" />
+
+			<doTry>
+				<log message="Inbound subscription reporting message: ${body}" loggingLevel="DEBUG"/>
+				<to uri="bean:subscriptionReportingProcessor?method=processFbiSubscriptionReport"/>
+				<log message="FBI subscription reporting succeeded." loggingLevel="INFO"/>
+				
+				<doCatch >
+					<exception>java.lang.Exception</exception>
+					<log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>	
+					<to uri="direct:deadLetterChannel"/>
+				</doCatch>
+			</doTry>
+		</route>		
 
 	</camelContext>
 

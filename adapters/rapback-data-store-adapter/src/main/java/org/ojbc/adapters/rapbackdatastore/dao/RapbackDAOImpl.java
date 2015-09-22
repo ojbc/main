@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.DataFormatException;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -123,6 +122,10 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	private java.sql.Date toSqlDate(DateTime date){
 		return date == null? null : new java.sql.Date(date.getMillis()); 
+	}
+	
+	private Date toDate(DateTime date){
+		return date == null? null : date.toDate(); 
 	}
 
 	final static String IDENTIFICATION_TRANSACTION_INSERT="INSERT into IDENTIFICATION_TRANSACTION "
@@ -380,41 +383,27 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String FBI_RAP_BACK_SUBSCRIPTION_INSERT="insert into FBI_RAP_BACK_SUBSCRIPTION "
-			+ "(FBI_SUBSCRIPTION_ID, UCN, RAP_BACK_CATEGORY, SUBSCRIPTION_TERM, "
-			+ " RAP_BACK_EXPIRATION_DATE, RAP_BACK_START_DATE, "
-			+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT,FBI_OCA, UCN) "
+			+ "(FBI_SUBSCRIPTION_ID, UCN, RAP_BACK_CATEGORY_CODE, RAP_BACK_SUBSCRIPTION_TERM_CODE, "
+			+ " RAP_BACK_EXPIRATION_DATE, RAP_BACK_START_DATE, RAP_BACK_TERM_DATE, "
+			+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE) "
 			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	@Override
-	public Integer saveFbiRapbackSubscription(
+	public void saveFbiRapbackSubscription(
 			final FbiRapbackSubscription fbiRapbackSubscription) {
         log.debug("Inserting row into FBI_RAP_BACK_SUBSCRIPTION table : " + fbiRapbackSubscription.toString());
 
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(FBI_RAP_BACK_SUBSCRIPTION_INSERT, 
-        	                		new String[] {"FBI_SUBSCRIPTION_ID", "UCN", "RAP_BACK_CATEGORY", 
-        	                		"SUBSCRIPTION_TERM",  "RAP_BACK_EXPIRATION_DATE",
-        	                		"RAP_BACK_START_DATE", "RAP_BACK_OPT_OUT_IN_STATE_INDICATOR", 
-        	                		"RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT","FBI_OCA" });
-        	            ps.setString(1, fbiRapbackSubscription.getFbiSubscriptionId());
-        	            ps.setString(2, fbiRapbackSubscription.getUcn());
-        	            ps.setString(3, fbiRapbackSubscription.getRapbackCategory());
-        	            ps.setString(4, fbiRapbackSubscription.getSubscriptionTerm());
-        	            ps.setDate(5, new java.sql.Date(fbiRapbackSubscription.getRapbackExpirationDate().getMillis()));
-        	            ps.setDate(6, new java.sql.Date(fbiRapbackSubscription.getRapbackStartDate().getMillis()));
-        	            ps.setBoolean(7, fbiRapbackSubscription.getRapbackOptOutInState());
-        	            ps.setString(8, fbiRapbackSubscription.getRapbackActivityNotificationFormat());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();
+        jdbcTemplate.update(FBI_RAP_BACK_SUBSCRIPTION_INSERT, 
+        				fbiRapbackSubscription.getFbiSubscriptionId(),
+        	            fbiRapbackSubscription.getUcn(),
+        	            fbiRapbackSubscription.getRapbackCategory(),
+        	            fbiRapbackSubscription.getSubscriptionTerm(),
+        	            fbiRapbackSubscription.getRapbackExpirationDate(),
+        	            fbiRapbackSubscription.getRapbackStartDate(),
+        	            fbiRapbackSubscription.getRapbackTermDate(),
+        	            fbiRapbackSubscription.getRapbackOptOutInState(),
+        	            fbiRapbackSubscription.getRapbackActivityNotificationFormat());
 	}
-	
+
 	final static String ID_TRANSACTION_SELECT_BY_TRANSACTION_NUMBER = 
 			" SELECT * FROM identification_transaction i "
 			+ "LEFT JOIN identification_subject s ON s.subject_id = i.subject_id "
@@ -663,6 +652,34 @@ public class RapbackDAOImpl implements RapbackDAO {
             return (List<CivilInitialResults>) new ArrayList<CivilInitialResults>(map.values());
 		}
 
+	}
+
+	final static String FBI_RAP_BACK_SUBSCRIPTION_UPDATE ="update FBI_RAP_BACK_SUBSCRIPTION "
+			+ "set UCN = :ucn , "
+			+ "RAP_BACK_CATEGORY_CODE = :rapbackCategoryCode, "
+			+ "RAP_BACK_SUBSCRIPTION_TERM_CODE = :rapbackSubscriptionTermCode, "
+			+ "RAP_BACK_EXPIRATION_DATE = :rapbackExpirationDate , "
+			+ "RAP_BACK_START_DATE = :rapbackStartDate, "
+			+ "RAP_BACK_TERM_DATE = :rapbackTermDate, "
+			+ "RAP_BACK_OPT_OUT_IN_STATE_INDICATOR = :rapbackOptOutInStateIndicator, "
+			+ "RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE = :rapbackActivityNotificationFormatCode "
+			+ "where FBI_SUBSCRIPTION_ID = :fbiSubscriptionId ";
+
+	@Override
+	public void updateFbiRapbackSubscription(
+			FbiRapbackSubscription fbiRapbackSubscription) {
+		Map<String, Object> paramMap = new HashMap<String, Object>(); 
+		paramMap.put("ucn", fbiRapbackSubscription.getUcn()); 
+		paramMap.put("rapbackCategoryCode", fbiRapbackSubscription.getRapbackCategory()); 
+		paramMap.put("rapbackSubscriptionTermCode", fbiRapbackSubscription.getSubscriptionTerm()); 
+		paramMap.put("rapbackExpirationDate", toDate(fbiRapbackSubscription.getRapbackExpirationDate())); 
+		paramMap.put("rapbackStartDate", toDate(fbiRapbackSubscription.getRapbackStartDate())); 
+		paramMap.put("rapbackTermDate", toDate(fbiRapbackSubscription.getRapbackTermDate())); 
+		paramMap.put("rapbackOptOutInStateIndicator", fbiRapbackSubscription.getRapbackOptOutInState()); 
+		paramMap.put("rapbackActivityNotificationFormatCode", fbiRapbackSubscription.getRapbackActivityNotificationFormat()); 
+		paramMap.put("fbiSubscriptionId", fbiRapbackSubscription.getFbiSubscriptionId()); 
+		
+		namedParameterJdbcTemplate.update(FBI_RAP_BACK_SUBSCRIPTION_UPDATE, paramMap);
 	}
 
 }
