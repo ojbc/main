@@ -16,12 +16,7 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.zip.DataFormatException;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
