@@ -41,9 +41,11 @@
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+	
 		<endpoint id="inputDir"
 			uri="file:///${publishSubscribe.probationIntermediaryDirectory}/input?idempotent=true&amp;moveFailed=${publishSubscribe.probationIntermediaryDirectory}/error&amp;move=processed/" />
 
+			
 		<!-- Probation Service File Handler -->
 		<camel:route>
 			<camel:from uri="inputDir" />
@@ -59,57 +61,87 @@
 			<camel:to uri="direct:processProbationDocument" />
 		</camel:route>
 
+
+
 		<!-- Probation Service Handler -->
 		<camel:route>
 			<camel:from uri="probationEventHandlerServiceEndpoint" />
 			
 			<camel:convertBodyTo type="java.lang.String" />
 			
-			<camel:log message="This is the body the service received: ${body}" loggingLevel="DEBUG"/>
+			<camel:log message="\n\n\n Service received message body:\n ${body} \n\n" loggingLevel="DEBUG"/>
 			
 			<camel:to uri="direct:processProbationDocument" />
 		</camel:route>
 
-		<camel:route>
+
+		<camel:route id="processProbationDocRoute">
+		
 			<camel:from uri="direct:processProbationDocument" />
 			
-			<camel:log message="\n\n\n Processing probation document...\n\n\n" />
+			<camel:log message="\n\n\n Processing Probation document...\n\n\n" />
 
-			<camel:setHeader headerName="officerEmailAddress">
-				<camel:xpath>//nc20:ContactInformation/nc20:ContactEmailID/text()</camel:xpath>
-			</camel:setHeader>
-
-			<camel:setHeader headerName="systemName">
-				<camel:xpath>//pcext:SystemName/text()</camel:xpath>
-			</camel:setHeader>
-
-			<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
-			
-			<camel:choice>
-				<camel:when>
-					<simple>${in.headers.officerEmailAddress} == '' and ${in.header.operationName} == 'Report-Probation-Case-Initiation'</simple>
-					<camel:log message="\n\n\n No email address could be located for record \n\n\n"/>
-				</camel:when>
-				<camel:otherwise>
-					<camel:to uri="direct:processOperation"/>
-				</camel:otherwise>
-			</camel:choice>
-
-		</camel:route>
-
-		<camel:route>
-			<camel:from uri="direct:processOperation"/>
-			
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Probation-Case-Initiation'</camel:simple>
-				<camel:to uri="direct:transformAndInvokeSubscriptionProcessor" />
+								
+				<camel:setHeader headerName="systemName">
+					<camel:xpath>//pcext:SystemName/text()</camel:xpath>
+				</camel:setHeader>
+
+				<log message="\n\n\n System Name: ${header.systemName} \n\n\n"/>
+
+				<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
+				
+				<log message="\n\n\n TOPIC: ${in.header.topicExpression} \n\n\n"/>
+				
+				
+				<camel:setHeader headerName="officerEmailAddress">
+					<camel:xpath>//nc20:ContactInformation/nc20:ContactEmailID/text()</camel:xpath>
+				</camel:setHeader>
+										
+				<camel:choice>								
+					<camel:when>
+						<simple>${in.headers.officerEmailAddress} != ''</simple>
+
+							<camel:setHeader headerName="derivedRoutes">
+								<simple>{{probation.event.camelEndpointsToCall}}</simple>
+							</camel:setHeader>
+				
+							<camel:filter>
+								<camel:simple>${in.headers.derivedRoutes} != ''</camel:simple>
+								
+								<camel:log message="\n\n\n Calling derived route...: ${in.headers.derivedRoutes} \n\n\n"/>
+								
+								<camel:recipientList>
+									<camel:header>derivedRoutes</camel:header>
+								</camel:recipientList>
+							</camel:filter>							
+					</camel:when>
+					
+					<camel:otherwise>
+						<camel:log message="\n\n\n No email address could be located for record \n\n\n"/>
+					</camel:otherwise>				
+				</camel:choice>
+																
 			</camel:filter>
 
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Probation-Case-Termination'</camel:simple>
-				<camel:to uri="direct:transformAndInvokeUnsubscriptionProcessor" />
+				<camel:wireTap uri="direct:transformAndInvokeUnsubscriptionProcessor" />
 			</camel:filter>
+
 		</camel:route>
+
+
+		<!-- Allows parent bundle to call child bundle derived route for state specific project -->
+		<camel:route>		
+			<from uri="direct-vm:parentEntryTransformSubscription"/>
+			
+			<log message="\n\n\n direct-vm:parentEntryTransformSubscription... \n\n\n"/>
+			
+			<to uri="direct:transformAndInvokeSubscriptionProcessor"/>
+		</camel:route>
+
 
 
 		<camel:route>
@@ -117,15 +149,7 @@
 			<camel:from uri="direct:transformAndInvokeSubscriptionProcessor" />
 			
 			<camel:log message="\n\n\n transformAndInvokeSubscriptionProcessor...\n\n\n"/>
-			
-			<camel:filter>
-				<camel:simple>${header.topicExpression} == 'topics:person/arrest'</camel:simple>
-				
-				<camel:log message="\n\n\n Arrest topic, setting fbi id \n\n\n"/>
-						
-				<camel:to uri="direct:setFbiId"/>		
-			</camel:filter>				
-												
+															
 			<camel:to uri="xslt:xslt/probationDocumentToSubscription.xsl" />
 			
 			<camel:log message="\n\n\n After transform subscription: \n\n ${body} \n\n\n" />
@@ -138,7 +162,9 @@
 			<camel:to uri="notificationBrokerServiceEndpoint" />
 		</camel:route>
 
+
 		<camel:route>
+		
 			<camel:from uri="direct:transformAndInvokeUnsubscriptionProcessor" />
 			<camel:to uri="xslt:xslt/probationDocumentToUnsubscription.xsl" />
 			<camel:log message="After transform unsubscription: ${body}" />
@@ -148,43 +174,11 @@
 			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
 			<camel:setHeader headerName="operationName"><constant>Unsubscribe</constant></camel:setHeader>	
 			
-			<camel:to
-				uri="subscriptionManagerServiceEndpoint" />
+			<camel:to uri="subscriptionManagerServiceEndpoint" />
 		</camel:route>
-		
-		
-		<camel:route id="setFbiIdRoute">
-		
-			<camel:from uri="direct:setFbiId" />
-			
-			<camel:setHeader headerName="originalMessageBody">
-				<camel:simple>${body}</camel:simple>			
-			</camel:setHeader>				
-		
-			<camel:setHeader headerName="sid">
-				<camel:xpath>/pci:ProbationCaseInitiation/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath> 
-			</camel:setHeader>
-			
-			<camel:log message="\n\n\n Using SID: ${header.sid} \n\n\n"/>					
-													
-			<camel:to uri="xslt:xslt/personSearchRequest.xsl"/>			
-			
-			<!-- TODO send person search request to real ws endpoint -->
-			<camel:to uri="bean:mockPersonSearchProcessor?method=mockPersonSearch"/>
-			
-			<camel:to uri="bean:personSearchResponseProcessor?method=setFbiIdHeaderFromPersonSearchResponse" />
-						
-			<camel:setBody>
-				<camel:simple>${header.originalMessageBody}</camel:simple>
-			</camel:setBody>		
-				
-		</camel:route>				
 		
 	</camel:camelContext>
 
-	<bean id="mockPersonSearchProcessor" class="org.ojbc.bundles.intermediaries.probation.event.MockPersonSearchProcessor"/>
-	
-	<bean id="personSearchResponseProcessor" class="org.ojbc.bundles.intermediaries.probation.event.PersonSearchResponseProcessor"/>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
 	
