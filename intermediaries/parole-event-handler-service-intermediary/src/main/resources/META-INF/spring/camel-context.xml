@@ -150,6 +150,8 @@
 		<camel:route id="parentEntryTransformSubRoute">
 		
 			<from uri="direct-vm:transformAndInvokeSubscriptionProcessor"/>
+			
+			<log message="\n\n\n parentEntryTransformSubRoute... \n\n\n"/> 
 
 			<to uri="direct:transformAndInvokeSubscriptionProcessor"/>
 		</camel:route>
