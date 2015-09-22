@@ -45,7 +45,7 @@ public interface RapbackDAO {
 	public Integer getCivilIntialResultsId(String transactionNumber, ResultSender resultSender);
 	public Integer saveCriminalInitialResults(final CriminalInitialResults criminalInitialResults);
 	public Integer saveSubsequentResults(final SubsequentResults subsequentResults);
-	public Integer saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
+	public void saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
 	
 	public Subject getSubject(Integer id);
 	public IdentificationTransaction getIdentificationTransaction(String transactionNumber);
@@ -55,4 +55,6 @@ public interface RapbackDAO {
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(String ori);
 	
 	public void updateSubject(Subject subject);
+	public void updateFbiRapbackSubscription(
+			FbiRapbackSubscription fbiRapbackSubscription);
 }
