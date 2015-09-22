@@ -72,7 +72,7 @@ public class RapbackDAOImplTest {
 		Assert.assertEquals("fbiSubscriptionId", fbiSubId);
 		
 		String format = fbiSubscription.getRapbackActivityNotificationFormat();
-		Assert.assertEquals("email", format);
+		Assert.assertEquals("2", format);
 				
 		String category = fbiSubscription.getRapbackCategory();	
 		Assert.assertEquals("CI", category);
@@ -89,7 +89,7 @@ public class RapbackDAOImplTest {
 		Assert.assertEquals("2014-10-19", sStartDate);
 				
 		String term = fbiSubscription.getSubscriptionTerm();
-		Assert.assertEquals("subscription term", term);
+		Assert.assertEquals("5", term);
 			
 		String ucn = fbiSubscription.getUcn();
 		Assert.assertEquals("123456789", ucn);				

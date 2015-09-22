@@ -66,6 +66,20 @@ insert into rap_back_category(rap_back_category_code, rap_back_category_descript
 insert into rap_back_category(rap_back_category_code, rap_back_category_description) values('CS', 'Criminal Justice - Supervision'); 
 insert into rap_back_category(rap_back_category_code, rap_back_category_description) values('S', 'Security Clearance Information Act'); 
 
+insert into rap_back_activity_notification_format(rap_back_activity_notification_format_code, rap_back_activity_notification_format_desc)
+	values('1', 'Pre-Notification');
+insert into rap_back_activity_notification_format(rap_back_activity_notification_format_code, rap_back_activity_notification_format_desc)
+	values('2', 'Triggering Event');
+insert into rap_back_activity_notification_format(rap_back_activity_notification_format_code, rap_back_activity_notification_format_desc)
+	values('3', 'Identity History Summary to include the triggering event');
+	
+insert into rap_back_subscription_term(rap_back_subscription_term_code, rap_back_subscription_term_desc)
+	values('2', 'Two year subscription term');
+insert into rap_back_subscription_term(rap_back_subscription_term_code, rap_back_subscription_term_desc)
+	values('5', 'Five year subscription term');
+insert into rap_back_subscription_term(rap_back_subscription_term_code, rap_back_subscription_term_desc)
+	values('L', 'Lifetime subscription term');
+	
 insert into IDENTIFICATION_SUBJECT(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
 	values ('1', 'B1234568','A123457', 'C1234567', '1990-10-12', 'Lisa', 'Simpson', 'W','F');
 insert into IDENTIFICATION_SUBJECT(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
@@ -124,15 +138,15 @@ insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NU
 insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NUMBER, SEARCH_RESULT_FILE, TRANSACTION_TYPE, RESULTS_SENDER_ID) 
 			values ('4', '000001820140729014008339994', '78DAF34D2C49CE0000059401EE', 'Transaction', '2');
 			
-insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, subscription_term, rap_back_expiration_date, 
-	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format, ucn, timestamp)
+insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, 
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
 values
-	('fbiSubscriptionId', 'CI', 'subscription term', '2015-12-19', '2014-10-19', false, 'email', 
+	('fbiSubscriptionId', 'CI', '5', '2015-12-19', '2014-10-19', false, '2', 
 	'123456789', {ts '2014-10-19 18:47:52.69'});			
 	
-insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, subscription_term, rap_back_expiration_date, 
-	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format, ucn, timestamp)
+insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, 
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
 values
-	('fbiSubscriptionId_2', 'CI', 'P1Y', '2015-12-19', '2014-10-19', false, 'email', 
+	('fbiSubscriptionId_2', 'CI', '2', '2015-12-19', '2014-10-19', false, '1', 
 	'074644NG0', {ts '2014-10-19 18:47:52.69'});			
 	
