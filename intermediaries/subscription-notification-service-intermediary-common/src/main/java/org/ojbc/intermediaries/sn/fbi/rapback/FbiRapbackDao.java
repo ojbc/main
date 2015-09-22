@@ -31,7 +31,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class FbiRapbackDao {
 	
 	private final static String FBI_SUBSCRIPTION_SELECT = "SELECT * FROM fbi_rap_back_subscription "
-			+ "WHERE rap_back_category = ? AND ucn=?;";
+			+ "WHERE rap_back_category_code = ? AND ucn=?;";
 	
 	private static final Logger logger = Logger.getLogger(FbiRapbackDao.class);
 	
