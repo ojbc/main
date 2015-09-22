@@ -30,6 +30,7 @@ public class FbiRapbackSubscription implements Serializable{
 	private String rapbackCategory;
 	private String subscriptionTerm;
 	private DateTime rapbackExpirationDate;
+	private DateTime rapbackTermDate;
 	private DateTime rapbackStartDate; 
 	private Boolean rapbackOptOutInState; 
 	private String rapbackActivityNotificationFormat; 
@@ -111,6 +112,14 @@ public class FbiRapbackSubscription implements Serializable{
 
 	public void setTimestamp(DateTime timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public DateTime getRapbackTermDate() {
+		return rapbackTermDate;
+	}
+
+	public void setRapbackTermDate(DateTime rapbackTermDate) {
+		this.rapbackTermDate = rapbackTermDate;
 	}
 
 }
