@@ -57,7 +57,14 @@ insert into finger_prints_type(finger_prints_type_id, finger_prints_type) values
 insert into finger_prints_type(finger_prints_type_id, finger_prints_type) values('2', 'State'); 
 
 insert into results_sender(results_sender_id, results_sender) values('1', 'FBI'); 
-insert into results_sender(results_sender_id, results_sender) values('2', 'State'); 
+insert into results_sender(results_sender_id, results_sender) values('2', 'State');
+
+insert into rap_back_category(rap_back_category_code, rap_back_category_description) values('F', 'Firearms'); 
+insert into rap_back_category(rap_back_category_code, rap_back_category_description) values('I', 'Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing'); 
+insert into rap_back_category(rap_back_category_code, rap_back_category_description) values('J', 'Criminal Justice Employment'); 
+insert into rap_back_category(rap_back_category_code, rap_back_category_description) values('CI', 'Criminal Justice Investigative'); 
+insert into rap_back_category(rap_back_category_code, rap_back_category_description) values('CS', 'Criminal Justice - Supervision'); 
+insert into rap_back_category(rap_back_category_code, rap_back_category_description) values('S', 'Security Clearance Information Act'); 
 
 insert into IDENTIFICATION_SUBJECT(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
 	values ('1', 'B1234568','A123457', 'C1234567', '1990-10-12', 'Lisa', 'Simpson', 'W','F');
@@ -117,13 +124,13 @@ insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NU
 insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NUMBER, SEARCH_RESULT_FILE, TRANSACTION_TYPE, RESULTS_SENDER_ID) 
 			values ('4', '000001820140729014008339994', '78DAF34D2C49CE0000059401EE', 'Transaction', '2');
 			
-insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category, subscription_term, rap_back_expiration_date, 
+insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, subscription_term, rap_back_expiration_date, 
 	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format, ucn, timestamp)
 values
 	('fbiSubscriptionId', 'CI', 'subscription term', '2015-12-19', '2014-10-19', false, 'email', 
 	'123456789', {ts '2014-10-19 18:47:52.69'});			
 	
-insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category, subscription_term, rap_back_expiration_date, 
+insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, subscription_term, rap_back_expiration_date, 
 	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format, ucn, timestamp)
 values
 	('fbiSubscriptionId_2', 'CI', 'P1Y', '2015-12-19', '2014-10-19', false, 'email', 
