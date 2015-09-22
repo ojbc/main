@@ -68,7 +68,7 @@ public class FbiRapbackDao {
 		
 			FbiRapbackSubscription fbiSubscription = new FbiRapbackSubscription();
 			fbiSubscription.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
-			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category"));
+			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category_code"));
 			fbiSubscription.setSubscriptionTerm(rs.getString("subscription_term"));
 			fbiSubscription.setRapbackExpirationDate(toDateTime(rs.getDate("rap_back_expiration_date")));
 			fbiSubscription.setRapbackStartDate(toDateTime(rs.getDate("rap_back_start_date")));
