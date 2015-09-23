@@ -45,7 +45,8 @@ import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
 
 public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
-    private static final Log log = LogFactory.getLog(FbiSubscriptionIntegrationTest.class);
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(FbiSubscriptionIntegrationTest.class);
     
     @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
     protected MockEndpoint fbiEbtsSubscriptionMockEndpoint; 
