@@ -654,9 +654,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	}
 
-	final static String FBI_RAP_BACK_SUBSCRIPTION_UPDATE ="update FBI_RAP_BACK_SUBSCRIPTION "
-			+ "set UCN = :ucn , "
-			+ "RAP_BACK_CATEGORY_CODE = :rapbackCategoryCode, "
+	final static String FBI_RAP_BACK_SUBSCRIPTION_UPDATE ="update FBI_RAP_BACK_SUBSCRIPTION SET "
 			+ "RAP_BACK_SUBSCRIPTION_TERM_CODE = :rapbackSubscriptionTermCode, "
 			+ "RAP_BACK_EXPIRATION_DATE = :rapbackExpirationDate , "
 			+ "RAP_BACK_START_DATE = :rapbackStartDate, "
@@ -669,8 +667,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public void updateFbiRapbackSubscription(
 			FbiRapbackSubscription fbiRapbackSubscription) {
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
-		paramMap.put("ucn", fbiRapbackSubscription.getUcn()); 
-		paramMap.put("rapbackCategoryCode", fbiRapbackSubscription.getRapbackCategory()); 
 		paramMap.put("rapbackSubscriptionTermCode", fbiRapbackSubscription.getSubscriptionTerm()); 
 		paramMap.put("rapbackExpirationDate", toDate(fbiRapbackSubscription.getRapbackExpirationDate())); 
 		paramMap.put("rapbackStartDate", toDate(fbiRapbackSubscription.getRapbackStartDate())); 
