@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xs:schema targetNamespace="http://release.niem.gov/niem/codes/ansi_d20/3.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ansi_d20="http://release.niem.gov/niem/codes/ansi_d20/3.1/">
+  <xs:annotation>
+    <xs:documentation>Motor vehicle administration codes from ANSI D20, the Data Dictionary for Traffic Record Systems, maintained by AAMVA, the American Association of Motor Vehicle Administrators.  
+Publication: ANSI-D20 Data Dictionary Release 5.0.0; 
+Version: May 2009; 
+http://www.aamva.org/ANSI-D20-Standard-for-Traffic-Records-Systems</xs:documentation>
+  </xs:annotation>
+  <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:simpleType name="CourtCategoryCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for kinds of courts.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ADM">
+        <xs:annotation>
+          <xs:documentation>Administrative Adjudication</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CHA">
+        <xs:annotation>
+          <xs:documentation>Chancery Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CIR">
+        <xs:annotation>
+          <xs:documentation>Circuit Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CIT">
+        <xs:annotation>
+          <xs:documentation>City Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CIV">
+        <xs:annotation>
+          <xs:documentation>Civil Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COC">
+        <xs:annotation>
+          <xs:documentation>County Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COR">
+        <xs:annotation>
+          <xs:documentation>Corporation Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRI">
+        <xs:annotation>
+          <xs:documentation>Criminal Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DIS">
+        <xs:annotation>
+          <xs:documentation>District Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DOT">
+        <xs:annotation>
+          <xs:documentation>Secretary USDOT</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FED">
+        <xs:annotation>
+          <xs:documentation>U.S. District Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GEN">
+        <xs:annotation>
+          <xs:documentation>General Court Martial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HUS">
+        <xs:annotation>
+          <xs:documentation>Hustings Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="JPC">
+        <xs:annotation>
+          <xs:documentation>Justice of Peace Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="JUS">
+        <xs:annotation>
+          <xs:documentation>Justice Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="JUV">
+        <xs:annotation>
+          <xs:documentation>Juvenile Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LEC">
+        <xs:annotation>
+          <xs:documentation>Law &amp; Equity Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MAG">
+        <xs:annotation>
+          <xs:documentation>Magistrate Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MAY">
+        <xs:annotation>
+          <xs:documentation>Mayor's Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MUN">
+        <xs:annotation>
+          <xs:documentation>Municipal Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OTH">
+        <xs:annotation>
+          <xs:documentation>Other</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="POL">
+        <xs:annotation>
+          <xs:documentation>Police Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SJC">
+        <xs:annotation>
+          <xs:documentation>Special Justice Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SPL">
+        <xs:annotation>
+          <xs:documentation>Special Court Martial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SSP">
+        <xs:annotation>
+          <xs:documentation>State Supreme Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUM">
+        <xs:annotation>
+          <xs:documentation>Summary Court Martial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUP">
+        <xs:annotation>
+          <xs:documentation>Superior Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TJC">
+        <xs:annotation>
+          <xs:documentation>Trial Justice Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TRA">
+        <xs:annotation>
+          <xs:documentation>Traffic Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TRI">
+        <xs:annotation>
+          <xs:documentation>Tribal Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TWN">
+        <xs:annotation>
+          <xs:documentation>Town Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UNK">
+        <xs:annotation>
+          <xs:documentation>Unknown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="USC">
+        <xs:annotation>
+          <xs:documentation>U.S. Commissioner</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="USM">
+        <xs:annotation>
+          <xs:documentation>U.S. Magistrate Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="USS">
+        <xs:annotation>
+          <xs:documentation>U.S. Supreme Court</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CourtCategoryCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for kinds of courts.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ansi_d20:CourtCategoryCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>
