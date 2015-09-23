@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:cc-filing-doc="http://ojbc.org/IEPD/Exchange/CourtCaseFiling/1.0" xmlns:cc-filing-ext="http://ojbc.org/IEPD/Extension/CourtCaseFiling/1.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Exchange/CourtCaseFiling/1.0" elementFormDefault="qualified" version="1">
+<xsd:schema xmlns:cc-filing-doc="http://ojbc.org/IEPD/Exchange/CourtCaseFiling/1.0" xmlns:cc-filing-ext="http://ojbc.org/IEPD/Extension/CourtCaseFiling/1.0" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Exchange/CourtCaseFiling/1.0" elementFormDefault="qualified" version="1">
 	<xsd:import namespace="http://ojbc.org/IEPD/Extension/CourtCaseFiling/1.0" schemaLocation="./CourtCaseFiling_Extension.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./Subset/niem/structures/2.0/structures.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="./Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:element name="CourtCaseFilingDocument" type="cc-filing-ext:CourtCaseFilingDocumentType"/>
 </xsd:schema>
