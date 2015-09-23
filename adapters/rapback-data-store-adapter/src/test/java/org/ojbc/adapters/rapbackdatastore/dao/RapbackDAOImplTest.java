@@ -281,7 +281,7 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	@DirtiesContext
-	public void testSaveFbiSubscription() throws Exception {
+	public void testSaveAndUpdateFbiSubscription() throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
 		fbiRapbackSubscription.setFbiSubscriptionId("12345");
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("2");
@@ -306,6 +306,24 @@ public class RapbackDAOImplTest {
 		assertEquals(Boolean.FALSE, savedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("2", savedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", savedFbiRapbackSubscription.getUcn());
+		
+		fbiRapbackSubscription.setRapbackActivityNotificationFormat("3");
+		fbiRapbackSubscription.setSubscriptionTerm("5");
+		fbiRapbackSubscription.setRapbackTermDate(new DateTime(2019, 5, 12,0,0,0,0));
+		rapbackDAO.updateFbiRapbackSubscription(fbiRapbackSubscription);
+		
+		FbiRapbackSubscription updatedFbiRapbackSubscription = fbiSubscriptionDao.getFbiRapbackSubscription("CI", "LI3456789");
+		log.info("savedFbiRapbackSubscription:  " + savedFbiRapbackSubscription.toString());
+		assertEquals("12345", updatedFbiRapbackSubscription.getFbiSubscriptionId());
+		assertEquals("CI", updatedFbiRapbackSubscription.getRapbackCategory());
+		assertEquals("5", updatedFbiRapbackSubscription.getSubscriptionTerm());
+		assertEquals(new DateTime("2016-05-12T00:00:00.000-05:00"), updatedFbiRapbackSubscription.getRapbackExpirationDate());
+		assertEquals(new DateTime("2019-05-12T00:00:00.000-05:00"), updatedFbiRapbackSubscription.getRapbackTermDate());
+		assertEquals(new DateTime("2014-05-12T00:00:00.000-05:00"), updatedFbiRapbackSubscription.getRapbackStartDate());
+		assertEquals(Boolean.FALSE, updatedFbiRapbackSubscription.getRapbackOptOutInState());
+		assertEquals("3", updatedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
+		assertEquals("LI3456789", updatedFbiRapbackSubscription.getUcn());
+		
 	}
 	
 	@Test
