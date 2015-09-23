@@ -44,7 +44,10 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionSta
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.adapters.rapbackdatastore.util.ZipUtils;
+import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao;
+import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.context.ContextConfiguration;
@@ -67,12 +70,16 @@ public class RapbackDAOImplTest {
 	@Autowired
 	RapbackDAO rapbackDAO;
 	
+	@Resource
+	FbiRapbackDao fbiSubscriptionDao;
+	
     @Resource  
     private DataSource dataSource;  
 
 	@Before
 	public void setUp() throws Exception {
 		assertNotNull(rapbackDAO);
+		assertNotNull(fbiSubscriptionDao);
 	}
 	
 	@Test
@@ -229,7 +236,6 @@ public class RapbackDAOImplTest {
 		
 		CivilInitialResults civilInitialResults = new CivilInitialResults(); 
 		civilInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
-		//TODO save either search result file or rap sheet. Should not save both.
 		civilInitialResults.setSearchResultFile("Match".getBytes());
 		civilInitialResults.setTransactionType("Transaction Type");
 		civilInitialResults.setResultsSender(ResultSender.FBI);
@@ -271,5 +277,53 @@ public class RapbackDAOImplTest {
 		assertEquals(2, civilInitialResults.size());
 		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
 		assertTrue(Arrays.equals("Found a Match".getBytes(), civilInitialResults.get(0).getSearchResultFile()));
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testSaveFbiSubscription() throws Exception {
+		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
+		fbiRapbackSubscription.setFbiSubscriptionId("12345");
+		fbiRapbackSubscription.setRapbackActivityNotificationFormat("2");
+		fbiRapbackSubscription.setRapbackCategory("CI");
+		fbiRapbackSubscription.setRapbackExpirationDate(new DateTime(2016, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackStartDate(new DateTime(2014, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackTermDate(new DateTime(2016, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackOptOutInState(Boolean.FALSE);
+		fbiRapbackSubscription.setSubscriptionTerm("2");
+		fbiRapbackSubscription.setUcn("LI3456789");
+		
+		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
+		
+		FbiRapbackSubscription savedFbiRapbackSubscription = fbiSubscriptionDao.getFbiRapbackSubscription("CI", "LI3456789");
+		log.info("savedFbiRapbackSubscription:  " + savedFbiRapbackSubscription.toString());
+		assertEquals("12345", savedFbiRapbackSubscription.getFbiSubscriptionId());
+		assertEquals("CI", savedFbiRapbackSubscription.getRapbackCategory());
+		assertEquals("2", savedFbiRapbackSubscription.getSubscriptionTerm());
+		assertEquals(new DateTime("2016-05-12T00:00:00.000-05:00"), savedFbiRapbackSubscription.getRapbackExpirationDate());
+		assertEquals(new DateTime("2016-05-12T00:00:00.000-05:00"), savedFbiRapbackSubscription.getRapbackTermDate());
+		assertEquals(new DateTime("2014-05-12T00:00:00.000-05:00"), savedFbiRapbackSubscription.getRapbackStartDate());
+		assertEquals(Boolean.FALSE, savedFbiRapbackSubscription.getRapbackOptOutInState());
+		assertEquals("2", savedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
+		assertEquals("LI3456789", savedFbiRapbackSubscription.getUcn());
+	}
+	
+	@Test
+	@DirtiesContext
+	@ExpectedException(DuplicateKeyException.class)
+	public void testSaveFbiSubscriptionError() throws Exception {
+		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
+		fbiRapbackSubscription.setFbiSubscriptionId("12345");
+		fbiRapbackSubscription.setRapbackActivityNotificationFormat("2");
+		fbiRapbackSubscription.setRapbackCategory("CI");
+		fbiRapbackSubscription.setRapbackExpirationDate(new DateTime(2016, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackStartDate(new DateTime(2014, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackTermDate(new DateTime(2016, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackOptOutInState(Boolean.FALSE);
+		fbiRapbackSubscription.setSubscriptionTerm("2");
+		fbiRapbackSubscription.setUcn("123456789");
+		
+		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
+		
 	}
 }
