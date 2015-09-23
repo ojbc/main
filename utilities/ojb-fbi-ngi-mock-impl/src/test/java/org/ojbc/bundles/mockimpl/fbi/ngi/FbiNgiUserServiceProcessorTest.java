@@ -17,36 +17,58 @@
 package org.ojbc.bundles.mockimpl.fbi.ngi;
 
 import java.io.File;
-import java.io.IOException;
 
-import javax.xml.parsers.ParserConfigurationException;
-
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Test;
-import org.xml.sax.SAXException;
+import org.ojbc.util.xml.XmlUtils;
+import org.w3c.dom.Document;
 
 public class FbiNgiUserServiceProcessorTest {
+			
+	private static final String SAMPLE_INPUT_FILE= "src/test/resources/input/EBTS-RapBack-Criminal-Subscription-Request.xml";
+	
+	private static final String EXPECTED_OUTPUT_FILE  = "src/test/resources/output/FbiNgiUserServiceControlNumber.xml";
 	
 	@Test
-	public void userServiceRequestTest() throws ParserConfigurationException, IOException, SAXException{
+	public void userServiceRequestTest() throws Exception{
 				
 		FbiNgiUserServiceProcessor userServiceProcessor = new FbiNgiUserServiceProcessor();
 		
-		String cnResponse = userServiceProcessor.getControlNumResponseMessage();
+		Exchange sampleExchange = getSampleInputExchange(SAMPLE_INPUT_FILE);
+		
+		String controlNumResponseXml = userServiceProcessor.getControlNumResponseMessage(sampleExchange);
 		
 		//assert the transformed xml against expected xml output doc				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/FbiNgiUserServiceControlNumber.xml"));
+				new File(EXPECTED_OUTPUT_FILE));
 							
-		Diff diff = XMLUnit.compareXML(expectedXmlString, cnResponse);		
+		Diff diff = XMLUnit.compareXML(expectedXmlString, controlNumResponseXml);		
 		
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 		
 		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff.getAllDifferences().size());		
 	}
 
+	
+	private Exchange getSampleInputExchange(String inputFileClasPath) throws Exception{
+		
+		CamelContext sampleContext = new DefaultCamelContext();
+		
+		Exchange sampleExchange = new DefaultExchange(sampleContext);
+		
+		Document sampleFbiNgiSubDoc = XmlUtils.parseFileToDocument(new File(inputFileClasPath));		
+		
+		sampleExchange.getIn().setBody(sampleFbiNgiSubDoc);	
+		
+		return sampleExchange;
+	}
+	
 }

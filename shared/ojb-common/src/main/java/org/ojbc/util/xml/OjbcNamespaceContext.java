@@ -38,6 +38,9 @@ import org.w3c.dom.NodeList;
 public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
+				
+	public static final String NS_NIEM_BIO = "http://niem.gov/niem/biometrics/1.0";
+	public static final String NS_PREFIX_NIEM_BIO = "nbio";
 	
 	public static final String NS_PERSON_IDENTIFICATION_REPORT_RESPONSE = "http://ojbc.org/IEPD/Exchange/PersonIdentificationReportResponse/1.0";
 	public static final String NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE = "pidrepres-doc";
@@ -568,6 +571,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public OjbcNamespaceContext() {
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();
+				
+		prefixToUriMap.put(NS_PREFIX_NIEM_BIO, NS_NIEM_BIO);
+		uriToPrefixMap.put(NS_NIEM_BIO, NS_PREFIX_NIEM_BIO);
 		
 		prefixToUriMap.put(NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT, NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT);
 		uriToPrefixMap.put(NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT, NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT);
