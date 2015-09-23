@@ -40,7 +40,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
-import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportProcessor;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +59,6 @@ import org.springframework.test.context.ContextConfiguration;
 @DirtiesContext
 public class TestSubscriptionReportingService {
 	
-	private static final String CIVIL_RESULTS_ATTACHEMNT_ID = "http://ojbc.org/identification/results/example";
-
-	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( TestSubscriptionReportingService.class );
 
 	@Autowired
@@ -70,9 +66,6 @@ public class TestSubscriptionReportingService {
 
 	@Resource
 	FbiRapbackDao fbiSubscriptionDao;
-	
-	@Autowired
-	IdentificationRequestReportProcessor identificationRequestReportProcessor;
 	
     @Resource
     private ModelCamelContext context;
@@ -83,9 +76,6 @@ public class TestSubscriptionReportingService {
 	@EndpointInject(uri = "mock:failedInvocation")
     protected MockEndpoint failedInvocationEndpoint;
 	
-    @EndpointInject(uri = "mock:bean:identificationReportingResultMessageProcessor")
-    protected MockEndpoint identificationReportingResultMessageProcessor;
-    
 	@Test
 	public void contextStartup() {
 		assertTrue(true);
@@ -94,8 +84,6 @@ public class TestSubscriptionReportingService {
 	@Before
 	public void setUp() throws Exception {
 		
-		assertNotNull(identificationRequestReportProcessor);
-
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
     	context.getRouteDefinition("subscription_reporting_service").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
