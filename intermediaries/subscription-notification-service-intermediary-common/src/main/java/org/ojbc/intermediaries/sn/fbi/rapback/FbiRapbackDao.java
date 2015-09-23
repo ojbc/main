@@ -19,10 +19,12 @@ package org.ojbc.intermediaries.sn.fbi.rapback;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -49,10 +51,10 @@ public class FbiRapbackDao {
 			throw new IllegalArgumentException("category and ucn cannot be null."); 
 		}				
 		
-		FbiRapbackSubscription fbiSubscription = 
-				jdbcTemplate.queryForObject(FBI_SUBSCRIPTION_SELECT, new FbiSubscriptionRowMapper(), category, ucn);
+		List<FbiRapbackSubscription> fbiSubscriptions = 
+				jdbcTemplate.query(FBI_SUBSCRIPTION_SELECT, new FbiSubscriptionRowMapper(), category, ucn);
 		
-		return fbiSubscription;
+		return DataAccessUtils.singleResult(fbiSubscriptions);
 	}
 	
 	
