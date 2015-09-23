@@ -386,7 +386,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			+ "(FBI_SUBSCRIPTION_ID, UCN, RAP_BACK_CATEGORY_CODE, RAP_BACK_SUBSCRIPTION_TERM_CODE, "
 			+ " RAP_BACK_EXPIRATION_DATE, RAP_BACK_START_DATE, RAP_BACK_TERM_DATE, "
 			+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE) "
-			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	@Override
 	public void saveFbiRapbackSubscription(
 			final FbiRapbackSubscription fbiRapbackSubscription) {
@@ -397,9 +397,9 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            fbiRapbackSubscription.getUcn(),
         	            fbiRapbackSubscription.getRapbackCategory(),
         	            fbiRapbackSubscription.getSubscriptionTerm(),
-        	            fbiRapbackSubscription.getRapbackExpirationDate(),
-        	            fbiRapbackSubscription.getRapbackStartDate(),
-        	            fbiRapbackSubscription.getRapbackTermDate(),
+        	            toDate(fbiRapbackSubscription.getRapbackExpirationDate()),
+        	            toDate(fbiRapbackSubscription.getRapbackStartDate()),
+        	            toDate(fbiRapbackSubscription.getRapbackTermDate()),
         	            fbiRapbackSubscription.getRapbackOptOutInState(),
         	            fbiRapbackSubscription.getRapbackActivityNotificationFormat());
 	}
