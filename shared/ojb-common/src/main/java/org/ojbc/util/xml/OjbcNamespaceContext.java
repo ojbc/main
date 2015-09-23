@@ -39,6 +39,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 				
+	public static final String NS_NIST_BIO = "http://biometrics.nist.gov/standard/2011";
+	public static final String NS_NIST_BIO_PREFIX = "nistbio";
+	
 	public static final String NS_NIEM_BIO = "http://niem.gov/niem/biometrics/1.0";
 	public static final String NS_PREFIX_NIEM_BIO = "nbio";
 	
@@ -571,6 +574,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public OjbcNamespaceContext() {
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();
+				
+		prefixToUriMap.put(NS_NIST_BIO_PREFIX, NS_NIST_BIO);
+		uriToPrefixMap.put(NS_NIST_BIO, NS_NIST_BIO_PREFIX);
 				
 		prefixToUriMap.put(NS_PREFIX_NIEM_BIO, NS_NIEM_BIO);
 		uriToPrefixMap.put(NS_NIEM_BIO, NS_PREFIX_NIEM_BIO);
