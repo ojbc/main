@@ -138,15 +138,15 @@ insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NU
 insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NUMBER, SEARCH_RESULT_FILE, TRANSACTION_TYPE, RESULTS_SENDER_ID) 
 			values ('4', '000001820140729014008339994', '78DAF34D2C49CE0000059401EE', 'Transaction', '2');
 			
-insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, 
+insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date, 
 	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
 values
-	('fbiSubscriptionId', 'CI', '5', '2015-12-19', '2014-10-19', false, '2', 
+	('fbiSubscriptionId', 'CI', '5', '2015-12-19', '2019-12-19', '2014-10-19', false, '2', 
 	'123456789', {ts '2014-10-19 18:47:52.69'});			
 	
-insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, 
+insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date,
 	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
 values
-	('fbiSubscriptionId_2', 'CI', '2', '2015-12-19', '2014-10-19', false, '1', 
+	('fbiSubscriptionId_2', 'CI', '2', '2015-12-19','2016-12-19', '2014-10-19', false, '1', 
 	'074644NG0', {ts '2014-10-19 18:47:52.69'});			
 	
