@@ -132,7 +132,7 @@ public class EbtsTransformTest {
 	@Test
 	public void ArrestReportTestEbtsTransform() throws IOException, SAXException{
 		
-		InputStream intputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification.xml");
+		InputStream intputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification_Arrest.xml");
 		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/Federal_To_Arrest_Report_Transform.xsl"); 				
