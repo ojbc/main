@@ -47,12 +47,8 @@ public class FbiNgiUserServiceProcessor {
 		logger.info("\n\n Using input doc: \n\n");
 		XmlUtils.printNode(fbiNgiSubscribeDoc);
 
-		// note: could improve xpath by using fully qualified prefixes from the root
-		// 	"itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ansi-nist:TransactionControlIdentification/nc20:IdentificationID");
 		String controlNumberReceived = XmlUtils.xPathStringSearch(fbiNgiSubscribeDoc,
-				"//nbio:TransactionControlIdentification/nc:IdentificationID"); 				
-		
-		
+				"/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageInformationRecord/nbio:Transaction/nbio:TransactionControlIdentification/nc:IdentificationID");
 				
 		if(StringUtils.isEmpty(controlNumberReceived)){
 			logger.error("\n\n\n ERROR:  FBI Mock Impl did not receive Transaction Control Number!! \n\n\n");
