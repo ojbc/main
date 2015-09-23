@@ -16,12 +16,12 @@
  */
 package org.ojbc.bundles.mockimpl.fbi.ngi;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.camel.Exchange;
+import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.helpers.XMLUtils;
 import org.apache.log4j.Logger;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -30,9 +30,9 @@ public class FbiNgiUserServiceProcessor {
 	private Logger logger = Logger.getLogger(FbiNgiUserServiceProcessor.class);
 	
 	
-	public void handleUserServiceRequest(Exchange exchange) throws ParserConfigurationException{
+	public void handleUserServiceRequest(Exchange exchange) throws Exception{
 		
-		String responseXml = getControlNumResponseMessage();
+		String responseXml = getControlNumResponseMessage(exchange);
 		
 		logger.info("\n\n Returning Control# doc: \n" + responseXml + "\n\n");
 		
@@ -40,12 +40,30 @@ public class FbiNgiUserServiceProcessor {
 	}
 	
 	
-	String getControlNumResponseMessage() throws ParserConfigurationException{
+	String getControlNumResponseMessage(Exchange inputExchange) throws Exception{
+		
+		Document fbiNgiSubscribeDoc = inputExchange.getIn().getBody(Document.class);
+		
+		logger.info("\n\n Using input doc: \n\n");
+		XmlUtils.printNode(fbiNgiSubscribeDoc);
+
+		// note: could improve xpath by using fully qualified prefixes from the root
+		// 	"itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ansi-nist:TransactionControlIdentification/nc20:IdentificationID");
+		String controlNumberReceived = XmlUtils.xPathStringSearch(fbiNgiSubscribeDoc,
+				"//nbio:TransactionControlIdentification/nc:IdentificationID"); 				
+		
+		
+				
+		if(StringUtils.isEmpty(controlNumberReceived)){
+			logger.error("\n\n\n ERROR:  FBI Mock Impl did not receive Transaction Control Number!! \n\n\n");
+		}else{
+			logger.info("\n\n\n FBI Mock Impl: Using Control Number: " + controlNumberReceived + " \n\n\n");				
+		}
 	
 		Document doc = XMLUtils.newDocument();
 		
 		Element root = XMLUtils.createElementNS(doc, "http://ws.cjis.gov/2014/08/01/ngi/core/xsd", "ngi-core:NGIControlNumber");		
-		root.setTextContent("123");		
+		root.setTextContent(controlNumberReceived);		
 		doc.appendChild(root);		
 		
 		String controlNumResponseDoc = OJBUtils.getStringFromDocument(doc);	
