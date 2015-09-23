@@ -51,6 +51,5 @@
 			</util:map>
 		</constructor-arg>
 	</bean>
-
 	
 </beans>
