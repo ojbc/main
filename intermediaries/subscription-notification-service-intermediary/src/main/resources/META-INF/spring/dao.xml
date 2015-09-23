@@ -102,7 +102,6 @@
 	<bean id="rapbackDao" class="org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao">		
 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
 		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>	
-		<property name="validationDueDateStrategy" ref="topicValidationDueDateStrategy"/>	
 	</bean>
 	
 	<bean id="namedParameterJdbcTemplate" 

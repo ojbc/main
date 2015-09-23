@@ -22,7 +22,6 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
-import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -41,10 +40,6 @@ public class FbiRapbackDao {
     @Autowired
 	private JdbcTemplate jdbcTemplate;
     
-    @Autowired
-    private TopicMapValidationDueDateStrategy validationDueDateStrategy;
-    
-
 	public FbiRapbackSubscription getFbiRapbackSubscription(String category,
 			String ucn) {
 		
@@ -72,6 +67,7 @@ public class FbiRapbackDao {
 			fbiSubscription.setSubscriptionTerm(rs.getString("rap_back_subscription_term_code"));
 			fbiSubscription.setRapbackExpirationDate(toDateTime(rs.getDate("rap_back_expiration_date")));
 			fbiSubscription.setRapbackStartDate(toDateTime(rs.getDate("rap_back_start_date")));
+			fbiSubscription.setRapbackTermDate(toDateTime(rs.getDate("rap_back_term_date")));
 			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
 			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format_code"));
 			fbiSubscription.setUcn(rs.getString("ucn"));
@@ -97,10 +93,6 @@ public class FbiRapbackDao {
 		return jdbcTemplate;
 	}
 
-	public TopicMapValidationDueDateStrategy getValidationDueDateStrategy() {
-		return validationDueDateStrategy;
-	}
-
 	public void setNamedParameterJdbcTemplate(
 			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -110,9 +102,4 @@ public class FbiRapbackDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public void setValidationDueDateStrategy(
-			TopicMapValidationDueDateStrategy validationDueDateStrategy) {
-		this.validationDueDateStrategy = validationDueDateStrategy;
-	}
-	
 }
