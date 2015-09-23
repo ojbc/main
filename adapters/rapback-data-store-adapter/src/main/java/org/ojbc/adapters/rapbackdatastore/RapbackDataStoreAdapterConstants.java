@@ -28,4 +28,8 @@ public class RapbackDataStoreAdapterConstants {
     		"http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore";
 
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
+    
+    public static final String REPORT_FEDERAL_SUBSCRIPTION_UPDATE = "ReportFederalSubscriptionUpdate";
+
+    public static final String REPORT_FEDERAL_SUBSCRIPTION_CREATION = "ReportFederalSubscriptionCreation";
 }
