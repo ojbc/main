@@ -87,7 +87,6 @@
 			</td>
 			<td>
 				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
-				<xsl:value-of select="normalize-space(intel:SystemIdentifier/nc:IdentificationID)"></xsl:value-of>
 			</td>
 			<td align="right" width="115px">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
