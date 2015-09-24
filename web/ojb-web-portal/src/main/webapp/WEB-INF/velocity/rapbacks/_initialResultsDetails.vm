@@ -48,15 +48,15 @@
 			</ul>
 
 			<div id="stateInitialResultTab">
-				<p>$identificationResultsQueryResponse.stateSearchResultFile</p>
+				<p styel="font-size:small">$identificationResultsQueryResponse.stateSearchResultFile</p>
 				#foreach($item in $identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments)
-					<p>$item</p>
+					<p><pre>$item</pre></p>
 				#end
 			</div>
 			<div id="fbiInitialResultTab">
 				<p>$identificationResultsQueryResponse.fbiSearchResultFile</p>
 				#foreach($item in $identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments)
-					<p>$item</p>
+					<p><pre>$item</pre></p>
 				#end
 			</div>
 		</div>

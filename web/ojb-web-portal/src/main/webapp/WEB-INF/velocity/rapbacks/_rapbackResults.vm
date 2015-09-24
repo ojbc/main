@@ -63,8 +63,8 @@
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .6;
-			var dlgHeight = $(window).height() * .4;
+			var dlgWidth = $(document).width() * .8;
+			var dlgHeight = $(window).height() * .6;
             dialog.dialog({
                 width: dlgWidth,
                 height: dlgHeight,
