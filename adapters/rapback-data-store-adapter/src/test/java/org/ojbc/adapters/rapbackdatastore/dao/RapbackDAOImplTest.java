@@ -18,6 +18,7 @@ package org.ojbc.adapters.rapbackdatastore.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
@@ -31,6 +32,7 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -98,7 +100,7 @@ public class RapbackDAOImplTest {
 		Subject subject = new Subject(); 
 		subject.setUcn("B1234567");
 		subject.setCivilSid("A123456");
-		subject.setDob(new DateTime(1969, 5, 12,0,0,0,0));
+		subject.setDob(new DateTime(1969, 5, 12,0,0,0,0,DateTimeZone.getDefault()));
 		subject.setFirstName("Homer");
 		subject.setLastName("Simpson");
 		subject.setMiddleInitial("W");
@@ -111,10 +113,16 @@ public class RapbackDAOImplTest {
 		
 		Subject persistedSubject = rapbackDAO.getSubject(subjectId); 
 		log.info(persistedSubject.toString());
+		assertEquals(Integer.valueOf(3), persistedSubject.getSubjectId());
+		assertEquals("1969-05-12", persistedSubject.getDob().toString("yyyy-MM-dd"));
+		assertEquals("B1234567", persistedSubject.getUcn());
+		assertNull(persistedSubject.getCriminalSid());
+		assertEquals("A123456", persistedSubject.getCivilSid());
+		assertEquals("Homer", persistedSubject.getFirstName());
+		assertEquals("Simpson", persistedSubject.getLastName());
+		assertEquals("W", persistedSubject.getMiddleInitial());
+		assertEquals("M", persistedSubject.getSexCode());
 		
-		assertEquals(persistedSubject.toString(), "Subject[subjectId=3,ucn=B1234567,criminalSid=<null>,"
-				+ "civilSid=A123456,firstName=Homer,lastName=Simpson,middleInitial=W,"
-				+ "dob=1969-05-12T00:00:00.000-05:00,sexCode=M]");
 	}
 
 	@Test
@@ -300,9 +308,9 @@ public class RapbackDAOImplTest {
 		assertEquals("12345", savedFbiRapbackSubscription.getFbiSubscriptionId());
 		assertEquals("CI", savedFbiRapbackSubscription.getRapbackCategory());
 		assertEquals("2", savedFbiRapbackSubscription.getSubscriptionTerm());
-		assertEquals(new DateTime("2016-05-12T00:00:00.000-05:00"), savedFbiRapbackSubscription.getRapbackExpirationDate());
-		assertEquals(new DateTime("2016-05-12T00:00:00.000-05:00"), savedFbiRapbackSubscription.getRapbackTermDate());
-		assertEquals(new DateTime("2014-05-12T00:00:00.000-05:00"), savedFbiRapbackSubscription.getRapbackStartDate());
+		assertEquals(new DateTime(2016, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), savedFbiRapbackSubscription.getRapbackExpirationDate());
+		assertEquals(new DateTime(2016, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), savedFbiRapbackSubscription.getRapbackTermDate());
+		assertEquals(new DateTime(2014, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), savedFbiRapbackSubscription.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, savedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("2", savedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", savedFbiRapbackSubscription.getUcn());
@@ -317,9 +325,9 @@ public class RapbackDAOImplTest {
 		assertEquals("12345", updatedFbiRapbackSubscription.getFbiSubscriptionId());
 		assertEquals("CI", updatedFbiRapbackSubscription.getRapbackCategory());
 		assertEquals("5", updatedFbiRapbackSubscription.getSubscriptionTerm());
-		assertEquals(new DateTime("2016-05-12T00:00:00.000-05:00"), updatedFbiRapbackSubscription.getRapbackExpirationDate());
-		assertEquals(new DateTime("2019-05-12T00:00:00.000-05:00"), updatedFbiRapbackSubscription.getRapbackTermDate());
-		assertEquals(new DateTime("2014-05-12T00:00:00.000-05:00"), updatedFbiRapbackSubscription.getRapbackStartDate());
+		assertEquals(new DateTime(2016, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), updatedFbiRapbackSubscription.getRapbackExpirationDate());
+		assertEquals(new DateTime(2019, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), updatedFbiRapbackSubscription.getRapbackTermDate());
+		assertEquals(new DateTime(2014, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), updatedFbiRapbackSubscription.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, updatedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("3", updatedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", updatedFbiRapbackSubscription.getUcn());
