@@ -82,7 +82,7 @@ public class SAMLTokenUtils {
 	}
 	
 	/**
-	 * This function will create/sign an assertion.  You need to make sure you called this method prior to calling this method: OpenSAMLBootstrap.bootstrap();
+	 * This function will create/sign an assertion.
 	 * You can pass in a customAttributes map to set the GFIPM attributes as you wish, NULL is accepted for the map as well.
 	 * 
 	 * @param issuerString

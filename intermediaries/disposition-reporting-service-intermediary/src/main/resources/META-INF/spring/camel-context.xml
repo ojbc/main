@@ -134,6 +134,9 @@
 		<camel:route id="callDispositionReportingServiceRoute"
 			errorHandlerRef="chriDeadLetterErrorHandler">
 			<camel:from uri="direct:callDispositionReportingService" />
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
 			<!-- Core functionality - call Disposition Reporting adapter -->
 			<camel:setHeader headerName="operationName">
 				<constant>ReportDisposition</constant>
