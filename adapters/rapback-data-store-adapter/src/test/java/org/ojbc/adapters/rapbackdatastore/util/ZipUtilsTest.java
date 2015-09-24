@@ -46,18 +46,18 @@ public class ZipUtilsTest {
 	
 	@Test
 	public void test1() throws IOException, DataFormatException {
-		pringCompressedHexString("FBICivilFingerPrints");
-		pringCompressedHexString("StateCivilFingerPrints");
-		pringCompressedHexString("Found a Match");
-		pringCompressedHexString("FBICivilRapSheet");
-		pringCompressedHexString("FBICivilRapSheet2");
-		pringCompressedHexString("StateCivilRapSheet");
-		pringCompressedHexString("StateCivilRapSheet2");
-		pringCompressedHexString("Match");
+		printCompressedHexString("FBICivilFingerPrints");
+		printCompressedHexString("StateCivilFingerPrints");
+		printCompressedHexString("Found a Match");
+		printCompressedHexString("FBICivilRapSheet");
+		printCompressedHexString("FBICivilRapSheet2");
+		printCompressedHexString("StateCivilRapSheet");
+		printCompressedHexString("StateCivilRapSheet2");
+		printCompressedHexString("Match");
 		
 	}
 
-	private void pringCompressedHexString(String originalData) throws IOException {
+	private void printCompressedHexString(String originalData) throws IOException {
 		byte[] compressedData = ZipUtils.zip(originalData.getBytes());
 		log.info(originalData + " compressed as "+ StringUtils.trimAllWhitespace(bytesToHexString(compressedData)));
 	}
