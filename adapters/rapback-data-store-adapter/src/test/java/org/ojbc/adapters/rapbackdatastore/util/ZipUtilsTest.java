@@ -16,11 +16,13 @@
  */
 package org.ojbc.adapters.rapbackdatastore.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
@@ -46,6 +48,7 @@ public class ZipUtilsTest {
 	
 	@Test
 	public void test1() throws IOException, DataFormatException {
+		
 		printCompressedHexString("FBICivilFingerPrints");
 		printCompressedHexString("StateCivilFingerPrints");
 		printCompressedHexString("Found a Match");
@@ -54,6 +57,16 @@ public class ZipUtilsTest {
 		printCompressedHexString("StateCivilRapSheet");
 		printCompressedHexString("StateCivilRapSheet2");
 		printCompressedHexString("Match");
+		
+//		String fbiCriminalHistory = FileUtils.readFileToString(new File("src/test/resources/testData/fbi_criminal_history.txt"));
+//		printCompressedHexString(fbiCriminalHistory);
+//		
+//		String fbiSearchResultFile = FileUtils.readFileToString(new File("src/test/resources/testData/fbi_initial_result_match-no-match.html"));
+//		printCompressedHexString(fbiSearchResultFile);
+//
+//		String stateSearchResultFile = FileUtils.readFileToString(new File("src/test/resources/testData/state_initial_result_match-no-match.html"));
+//		printCompressedHexString(stateSearchResultFile);
+		
 		
 	}
 
