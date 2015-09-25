@@ -59,7 +59,7 @@
     
 	<!-- Rapback Data Store Adapter, called by the intermediary -->
 	<cxf:cxfEndpoint id="identificationResultsQueryRequestAdapter"
-        address="${identificationResultsQueryIntermediary.identificationResultsQueryRequestEndpoint}"
+        address="${identificationResultsQueryIntermediary.rapbackDataStoreEndpoint}"
 		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Request_Service.wsdl"
 		serviceName="ojbc:Organization_Identification_Results_Query_Request_Service_Service" 
 		endpointName="ojbc:Organization_Identification_Results_Query_Request_Secure_Service"
