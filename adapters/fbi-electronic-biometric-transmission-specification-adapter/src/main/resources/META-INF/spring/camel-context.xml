@@ -23,6 +23,9 @@
 	xmlns:ctx="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd" 
+	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
+	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -66,8 +69,11 @@
 			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
 		<!-- Endpoint we expose to FBI so they can send us asynchronous Subscription Acknowledgement responses --> 
-		<endpoint id="ngiSubAckResponseServiceEndpoint" 
+		<endpoint id="ngiResponseServiceEndpoint" 
 			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+		
+		<endpoint id="arrestReportingServiceEndpoint" 
+			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
 		<!-- 
 			#########################################################################################
@@ -138,29 +144,80 @@
 		</camel:route>
 		
 		
-		<!-- Receives Subscription Acknowledgments from FBI NGI, saves them to disk 
-			and sends back a synchronous VOID response message to FBI -->
-		<camel:route id="ngiSubAckResponseRoute">
+		<!-- 
+			Receives from FBI NGI - either Subscription Acknowledgments or arrest notifications  			 
+			* Subscription Acknowledgments from FBI NGI, saves them to disk and sends back a synchronous VOID response message to FBI
+			* Arrest Notifications: transforms and sends to Arrest Intermediary			
+		-->
+		<camel:route id="ngiResponseServiceRoute">
 		
-			<camel:from uri="ngiSubAckResponseServiceEndpoint"/>
+			<camel:from uri="ngiResponseServiceEndpoint"/>
 			
-			<camel:log message="\n\n Received NGI Sub. Ack. response: \n ${body} \n\n"/>						
-			
-			<camel:setHeader headerName="CamelFileName">
-				<camel:simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
+			<camel:log message="\n\n ngiResponseService... body: \n\n ${body} \n\n"/>
+
+			<camel:setHeader headerName="trxCatCode">
+				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode/text()</xpath>
 			</camel:setHeader>
+
+			<camel:setHeader headerName="rapBackTriggerCode">
+			 	<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData/ebts:TransactionRapBackTriggeringEvent/ebts:RapBackTriggeringEventCode/text()</xpath>
+			</camel:setHeader>
+			
+			<log message="\n\n\n trxCatCode: ${header.trxCatCode}, rapBackTriggerCode: ${header.rapBackTriggerCode} \n\n\n" loggingLevel="INFO"/>
+
+			<choice>
+				<when>
+					<simple>${header.trxCatCode} == 'RBN' and ${header.rapBackTriggerCode} == '1'</simple>
+					
+					<log message="\n\n\n  Detected Arrest Message \n\n\n" loggingLevel="INFO"/>
+					
+					<to uri="direct:processArrestNotification"/>				
+				</when>
+				<when>
+					<xpath>/itl:NISTBiometricInformationExchangePackage</xpath>
+					<log message="\n\n\n Handling message as Subscription Acknowledgment Response \n\n\n" loggingLevel="INFO"/>	
+									
+					<to uri="direct:processSubscriptionResponse"/>																				
+				</when>				
+				<otherwise>
+					  <log message="\n\n\n Unrecognized Message!! \n\n\n" loggingLevel="WARN"/> 
+				</otherwise>						
+			</choice>
+											
+		</camel:route>		
+		
+		
+		<route id="arrestNotificationRoute">
+			<from uri="direct:processArrestNotification"/>
+		
+			<log message="\n\n\n Transforming Federal_To_Arrest_Report_Transform.xsl... \n\n\n" loggingLevel="INFO"/>
+			
+			<to uri="xslt:xsl/Federal_To_Arrest_Report_Transform.xsl"/>
+			
+			<log message="\n\n\n Body after Federal_To_Arrest_Report_Transform.xsl: \n\n ${body} \n\n  Sending to Arrest Reporting Service... \n\n" loggingLevel="INFO"/>
+			
+			<to uri="arrestReportingServiceEndpoint" />
+		</route>
+		
+				
+		<route id="processSubscriptionResponseRoute">
+		
+			<from uri="direct:processSubscriptionResponse"/>
+		
+			<setHeader headerName="CamelFileName">
+				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
+			</setHeader>
 						
-			<camel:log message="\n\n Saving Sub. Ack. response to disk... \n\n"/>
+			<log message="\n\n Saving Sub. Ack. response to disk... \n\n"/>
 			
-			<camel:to uri="ngiSubAcknowledgeAsynchResponseDir"/>	
+			<to uri="ngiSubAcknowledgeAsynchResponseDir"/>	
 			
-			<camel:log message="\n\n Sending synchronous VOID response to FBI...\n\n"/>
+			<log message="\n\n Sending synchronous VOID response to FBI...\n\n"/>
 				
-			<camel:to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>							
+			<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>		
+		</route>
+		
 				
-		</camel:route>
-		
-		
 		<camel:route id="ojbSubscriptionToFbiNgiSubscriptionRoute">
 						
 			<camel:from uri="direct:transformToFbiNgiSubscription" />			

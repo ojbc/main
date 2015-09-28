@@ -91,12 +91,19 @@ public class CamelContextTest {
     	    }              
     	});
     	
-    	context.getRouteDefinition("ngiSubAckResponseRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("ngiResponseServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {    	    	
     	    	mockEndpointsAndSkip("cxf:bean:ngiResponseService*");
     	    }              
-    	});        	
+    	});      
+    	
+    	context.getRouteDefinition("arrestNotificationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {    	    	
+    	    	mockEndpointsAndSkip("cxf:bean:arrestReportingService*");    	    	
+    	    }              
+    	});       	    	
     	
     	context.start();	
     }

@@ -68,6 +68,25 @@
     	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/services/risc">
     </cxf:cxfEndpoint>      
     
+    
+	<cxf:cxfEndpoint id="arrestReportingService"
+		address="${fbiEbtsAdapter.arrestReportingServiceEndpoint}"
+		wsdlURL="classpath:service-specifications/Arrest_Reporting_Service/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
+		serviceName="ojbc:Arrest-Reporting-ServiceService"  
+		endpointName="ojbc:Arrest-Reporting-Service" 
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
+		 <cxf:features> 
+ 			<policy:policies> 
+ 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+ 					<wsam:Addressing> 
+ 						<wsp:Policy /> 
+ 					</wsam:Addressing> 
+ 				</wsp:Policy> 
+ 			</policy:policies> 
+ 		</cxf:features>	 
+	</cxf:cxfEndpoint>
+	
+    
 	<!-- 
 		Used for OUTBOUND SSL/TLS Connection. No CCA, just SSL. Client side SSL connection 
 	-->
