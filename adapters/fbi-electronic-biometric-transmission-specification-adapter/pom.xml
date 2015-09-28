@@ -166,13 +166,16 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven-surefire-plugin-version}</version>
-			</plugin>
-
+			
+		      <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <version>${maven-surefire-plugin-version}</version>
+		        <!-- Extra memory needed for camel context test to reference large arrest reporting wsdl -->
+		        <configuration>
+		            <argLine>-Xmx1048m</argLine>
+		        </configuration>
+		      </plugin>
 
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -182,6 +185,7 @@
 				<configuration>
 					<instructions>
 						<Import-Package>
+							service-specifications.*,
 							*
 						</Import-Package>
 						<Export-Package>
