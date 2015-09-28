@@ -48,12 +48,16 @@
 			<endpoint id="inputMessageDirEndpoint" 
 				uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />			
 
+			<!-- Test sending in sample fbi ngi response messages -->
+			<endpoint id="ngiResponseTestInputDirEndpoint" 
+				uri="file://{{fbiEbtsAdapter.ngiResponseMessageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />
+						
 			<!-- Our directory to store synchronous FBI responses with 'control number' information -->
 			<endpoint id="ngiControlNumberSynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>
 
 			<!-- Our directory to store FBI asynchronous Subscription Acknowledgement responses -->
 			<endpoint id="ngiSubAcknowledgeAsynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_SubAcknowledge_AsynchResponse"/>
-
+			
 		<!-- 
 			#########################################################################################
 					Web Service Endpoints
@@ -143,6 +147,25 @@
 									
 		</camel:route>
 		
+				
+		<route id="fbiNgiResponseTestInputRoute">
+				 
+		  <from uri="ngiResponseTestInputDirEndpoint"/>
+		  
+		  <log message="\n\n\n Using fbi ngi response TestInput route \n\n\n" loggingLevel="INFO"/>
+		  		  
+		  <to uri="direct:processFbiNgiResponse"/>		 
+		</route>
+						
+		<route id="fbiNgiResponseWebServiceRoute">		
+			
+			<from uri="ngiResponseServiceEndpoint"/>	
+			
+			<log message="Using fbi ngi response Webservice route \n\n\n" loggingLevel="INFO"/>
+				
+			<to uri="direct:processFbiNgiResponse"/>
+		</route>
+				
 		
 		<!-- 
 			Receives from FBI NGI - either Subscription Acknowledgments or arrest notifications  			 
@@ -151,7 +174,7 @@
 		-->
 		<camel:route id="ngiResponseServiceRoute">
 		
-			<camel:from uri="ngiResponseServiceEndpoint"/>
+			<camel:from uri="direct:processFbiNgiResponse"/>
 			
 			<camel:log message="\n\n ngiResponseService... body: \n\n ${body} \n\n"/>
 
@@ -196,6 +219,10 @@
 			
 			<log message="\n\n\n Body after Federal_To_Arrest_Report_Transform.xsl: \n\n ${body} \n\n  Sending to Arrest Reporting Service... \n\n" loggingLevel="INFO"/>
 			
+			<camel:setHeader headerName="operationName"><constant>ReportArrest</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>			
+			
+			<!-- TODO see if we're still supposed to send a VOID message back to FBI -->
 			<to uri="arrestReportingServiceEndpoint" />
 		</route>
 		
