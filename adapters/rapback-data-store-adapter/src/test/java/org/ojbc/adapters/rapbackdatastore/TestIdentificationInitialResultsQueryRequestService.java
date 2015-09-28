@@ -46,6 +46,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl;
 import org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessorTest;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,7 +151,7 @@ public class TestIdentificationInitialResultsQueryRequestService {
 
     
     public static org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(
-            Map<String, String> customAttributes) throws Exception {
+            Map<SamlAttribute, String> customAttributes) throws Exception {
         org.apache.cxf.message.Message message = new MessageImpl();
 
         Assertion samlToken = SAMLTokenUtils
