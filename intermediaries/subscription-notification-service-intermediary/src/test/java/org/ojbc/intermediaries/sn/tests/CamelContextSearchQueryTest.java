@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
@@ -223,9 +225,16 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
     }
 
 	private SAMLTokenPrincipal createSAMLToken() throws Exception {
+		
+		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "OJBC:IDP:OJBC");
+		customAttributes.put(SamlAttribute.FederationId, "OJBC:IDP:OJBC:USER:admin");
+		customAttributes.put(SamlAttribute.IdentityProviderId, "OJBC");
+		
 		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth",
-				SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, null,
-				"OJBC:IDP:OJBC", "OJBC:IDP:OJBC:USER:admin", "OJBC");
+				SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+		
 		SAMLTokenPrincipal principal = new SAMLTokenPrincipal(new AssertionWrapper(samlToken));
 		return principal;
 	}
