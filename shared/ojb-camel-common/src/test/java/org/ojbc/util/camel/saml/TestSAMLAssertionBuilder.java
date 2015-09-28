@@ -22,120 +22,54 @@ import static junit.framework.Assert.assertNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.cxf.helpers.XMLUtils;
+import org.apache.ws.security.saml.ext.builder.SAML2Constants;
 import org.junit.Test;
-import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.camel.security.saml.SAMLAssertionBuilder;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.xml.signature.SignatureConstants;
 
-public class TestSAMLTokenUtils {
+public class TestSAMLAssertionBuilder {
 
+    private static final String USER_HOME=System.getProperty("user.home");
+    private static final String MERLIN_KEYSTORE_FILE_VALUE = USER_HOME + "/ojb-certs/idp/idp-keystore.jks";
+    private static final String MERLIN_KEYSTORE_PASSWORD_VALUE = "idp-keystore";
+    private static final String MERLIN_KEYSTORE_ALIAS_VALUE = "idp-key";
+    private static final String KEY_PASSWORD_VALUE = "idp-key";
+    
 	@Test
-	public void testCreateAssertionWithCustomAttributesWithNull() throws Exception
+	public void testCreateAssertionWithNullCustomAttributes() throws Exception
 	{
-		//Add SAML token to request call
-		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth", SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, null);
+		SAMLAssertionBuilder sab = new SAMLAssertionBuilder();
 		
-		assertNotNull(samlToken);
+		sab.setKeyPassword(KEY_PASSWORD_VALUE);
+		sab.setKeyAlias(MERLIN_KEYSTORE_ALIAS_VALUE);
+		sab.setKeystoreLocation(MERLIN_KEYSTORE_FILE_VALUE);
+		sab.setKeystorePassword(MERLIN_KEYSTORE_PASSWORD_VALUE);
 		
-		assertEquals(16, samlToken.getAttributeStatements().get(0).getAttributes().size());
+		Assertion assertion = sab.createSamlAssertion("https://idp.ojbc-local.org:9443/idp/shibboleth", "_408184603d310905303442e592991adc", "https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST", "http://ojbc.org/ADS/WebServiceConsumer", 
+				SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD_PROTECTED_TRANSPORT, SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, null);
+
+		assertNotNull(assertion);
 		
-		for (Attribute attributes : samlToken.getAttributeStatements().get(0).getAttributes())
-		{
-			//System.out.println(attributes.getName());
-			//System.out.println(attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			
-			if (attributes.getName().equals("gfipm:2.0:user:EmployeePositionName"))
-			{
-				assertEquals("Sergeant", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:2.0:user:SurName"))
-			{
-				assertEquals("owen", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:ext:user:FederatedQueryUserIndicator"))
-			{
-				assertEquals("true", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:2.0:user:EmployerName"))
-			{
-				assertEquals("Department of Attorney General", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:2.0:user:GivenName"))
-			{
-				assertEquals("andrew", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:2.0:user:CommonName"))
-			{
-				assertEquals("Andrew Owen", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:ext:user:CriminalJusticeEmployerIndicator"))
-			{
-				assertEquals("true", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:ext:user:LawEnforcementEmployerIndicator"))
-			{
-				assertEquals("true", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals(SamlAttribute.SupervisoryRoleIndicator.getAttibuteName()))
-			{
-			    assertEquals("false", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-			
-			if (attributes.getName().equals(SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator.getAttibuteName()))
-			{
-			    assertEquals("false", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-			
-			if (attributes.getName().equals("gfipm:2.0:user:FederationId"))
-			{
-				assertEquals("HIJIS:IDP:HCJDC:USER:admin", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:2.0:user:TelephoneNumber"))
-			{
-				assertEquals("916-215-3933", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:2.0:user:EmployerSubUnitName"))
-			{
-				assertEquals("HCJDC ISDI", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:2.0:user:EmailAddressText"))
-			{
-				assertEquals("andrew@search.org", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:2.0:user:EmployerORI"))
-			{
-				assertEquals("002015Y", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-
-			if (attributes.getName().equals("gfipm:2.0:user:IdentityProviderId"))
-			{
-				assertEquals("HIJIS:IDP:HCJDC", attributes.getAttributeValues().get(0).getDOM().getTextContent());
-			}	
-		}
-
-		//XMLUtils.printDOM(samlToken.getDOM());
+		assertEquals(0,assertion.getAttributeStatements().size());
+		
+		confirmAssertionInfo(assertion);
 	}
 
 	@Test
 	public void testCreateAssertionWithCustomAttributes() throws Exception
 	{
-        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
-        
+		SAMLAssertionBuilder sab = new SAMLAssertionBuilder();
+		
+		sab.setKeyPassword(KEY_PASSWORD_VALUE);
+		sab.setKeyAlias(MERLIN_KEYSTORE_ALIAS_VALUE);
+		sab.setKeystoreLocation(MERLIN_KEYSTORE_FILE_VALUE);
+		sab.setKeystorePassword(MERLIN_KEYSTORE_PASSWORD_VALUE);
+		
+		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		
         customAttributes.put(SamlAttribute.EmployeePositionName, "detective");
         customAttributes.put(SamlAttribute.SurName, "smith");
         customAttributes.put(SamlAttribute.FederatedQueryUserIndicator, "false");
@@ -153,15 +87,17 @@ public class TestSAMLTokenUtils {
         customAttributes.put(SamlAttribute.EmailAddressText,"1@1.com");
         customAttributes.put(SamlAttribute.EmployerORI,"ORI");
         customAttributes.put(SamlAttribute.IdentityProviderId,"HIJIS");
+		
+		Assertion assertion = sab.createSamlAssertion("https://idp.ojbc-local.org:9443/idp/shibboleth", "_408184603d310905303442e592991adc", "https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST", "http://ojbc.org/ADS/WebServiceConsumer", 
+				SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD_PROTECTED_TRANSPORT, SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, customAttributes);
 
-		//Add SAML token to request call
-		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth", SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+		assertNotNull(assertion);
 		
-		assertNotNull(samlToken);
+		confirmAssertionInfo(assertion);
 		
-		assertEquals(16, samlToken.getAttributeStatements().get(0).getAttributes().size());
+		assertEquals(16, assertion.getAttributeStatements().get(0).getAttributes().size());
 		
-		for (Attribute attributes : samlToken.getAttributeStatements().get(0).getAttributes())
+		for (Attribute attributes : assertion.getAttributeStatements().get(0).getAttributes())
 		{
 			//System.out.println(attributes.getName());
 			//System.out.println(attributes.getAttributeValues().get(0).getDOM().getTextContent());
@@ -245,9 +181,18 @@ public class TestSAMLTokenUtils {
 			{
 				assertEquals("HIJIS", attributes.getAttributeValues().get(0).getDOM().getTextContent());
 			}	
-		}
-
-		//XMLUtils.printDOM(samlToken.getDOM());
+		}		
 	}
 
+
+	protected void confirmAssertionInfo(Assertion assertion) {
+		assertEquals("https://idp.ojbc-local.org:9443/idp/shibboleth", assertion.getIssuer().getValue());
+		assertEquals("_408184603d310905303442e592991adc", assertion.getSubject().getSubjectConfirmations().get(0).getSubjectConfirmationData().getInResponseTo());
+		assertEquals("https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST", assertion.getSubject().getSubjectConfirmations().get(0).getSubjectConfirmationData().getRecipient());
+		assertEquals("http://ojbc.org/ADS/WebServiceConsumer", assertion.getConditions().getAudienceRestrictions().get(0).getAudiences().get(0).getAudienceURI());
+		assertEquals(SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD_PROTECTED_TRANSPORT, assertion.getAuthnStatements().get(0).getAuthnContext().getAuthnContextClassRef().getDOM().getTextContent());
+		assertEquals(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, assertion.getSignature().getSignatureAlgorithm());
+		assertEquals(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, assertion.getSignature().getCanonicalizationAlgorithm());
+	}
+	
 }

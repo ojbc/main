@@ -54,7 +54,7 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
     }
 
     private Element extractSAMLAssertion(HttpServletRequest request) {
-        return samlService.getSamlAssertion(request);
+        return samlService.getSamlAssertion(request); 
     }
 
     public SamlService getSamlService() {
