@@ -62,6 +62,14 @@
 
 		<camel:route errorHandlerRef="subscriptionReportErrorHandler" id="CallSubscriptionRecortingServiceAdapterRoute">
 			<camel:from uri="direct:callSubscriptionReportingAdapter" />
+			<camel:setOutHeader headerName="operationName">
+				<camel:simple>${in.headers.operationName}</camel:simple>
+			</camel:setOutHeader>
+			<camel:setOutHeader headerName="operationNamespace">
+				<camel:simple>${in.headers.operationNamespace}</camel:simple>
+			</camel:setOutHeader>
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 			
 			<camel:log message="Inside route to call Subscription Reporting Adapter"/>
 			
@@ -84,5 +92,6 @@
     <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
         <property name="name" value="default" />
         <property name="queueSize" value="2048" />
-    </bean>	
+    </bean>
+    	 
 </beans>
