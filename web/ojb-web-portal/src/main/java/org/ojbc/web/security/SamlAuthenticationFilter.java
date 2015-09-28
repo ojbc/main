@@ -80,11 +80,11 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
 
     private Element createDemoUserSamlAssertion(Element samlAssertion) {
         try {
-            Map<String, String> customAttributes = new HashMap<String, String>();
-            customAttributes.put("gfipm:2.0:user:FederationId", "HIJIS:IDP:HCJDC:USER:demouser");
-//                customAttributes.put(SamlAttribute.FederationId.getAttibuteName(), "HIJIS:IDP:HCJDC:USER:demouser4");
-            customAttributes.put(SamlAttribute.EmployerORI.getAttibuteName(), "1234567890");
-//                customAttributes.put("gfipm:2.0:user:EmployerORI", "H00000001");
+            Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+            customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+//                customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser4");
+            customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+//                customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
             
             samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                     SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 

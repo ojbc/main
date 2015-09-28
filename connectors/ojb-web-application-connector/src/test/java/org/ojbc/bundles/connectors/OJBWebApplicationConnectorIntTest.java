@@ -37,6 +37,7 @@ import org.ojbc.processor.subscription.search.SubscriptionSearchRequestProcessor
 import org.ojbc.processor.subscription.subscribe.SubscriptionRequestProcessor;
 import org.ojbc.processor.subscription.unsubscribe.UnsubscriptionRequestProcessor;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.impl.DetailQueryDispatcher;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
@@ -399,12 +400,10 @@ public class OJBWebApplicationConnectorIntTest{
 
     @Test
     public void testIdentityBasedAccessControl() throws Exception {
-        Map<String, String> customAttributes = new HashMap<String, String>();
-//        customAttributes.put("gfipm:2.0:user:FederationId", "");
 
         //Add SAML token to request call
         Element samlToken = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
-                SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+                SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, null);
 
         String federatedQueryID = returnFederatedQueryGUID();
         
@@ -418,8 +417,8 @@ public class OJBWebApplicationConnectorIntTest{
     
     @Test
     public void testPolicyAcknowledgementRecordingService() throws Exception {
-        Map<String, String> customAttributes = new HashMap<String, String>();
-        customAttributes.put("gfipm:2.0:user:FederationId", "");
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+        customAttributes.put(SamlAttribute.FederationId, "");
         
         //Add SAML token to request call
         Element samlToken = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 

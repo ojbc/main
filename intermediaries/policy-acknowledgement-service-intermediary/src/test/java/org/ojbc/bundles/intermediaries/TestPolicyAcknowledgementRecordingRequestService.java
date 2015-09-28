@@ -151,8 +151,8 @@ public class TestPolicyAcknowledgementRecordingRequestService {
                 "src/test/resources/xml/acknowlegePolicies/AcknowledgementRecordingRequestForAllPolicies.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        Map<String, String> customAttributes = new HashMap<String, String>();
-        customAttributes.put("gfipm:2.0:user:FederationId", "");
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+        customAttributes.put(SamlAttribute.FederationId, "");
 
         org.apache.cxf.message.Message message = createSamlAssertionMessageWithAttributes(customAttributes);
 
@@ -176,9 +176,9 @@ public class TestPolicyAcknowledgementRecordingRequestService {
                 "src/test/resources/xml/acknowlegePolicies/AcknowledgementRecordingRequestForAllPolicies.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        Map<String, String> customAttributes = new HashMap<String, String>();
-        customAttributes.put(SamlAttribute.FederationId.getAttibuteName(), "HIJIS:IDP:HCJDC:USER:aowen");
-        customAttributes.put(SamlAttribute.EmployerORI.getAttibuteName(), "H00000001");
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:aowen");
+        customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
 
         org.apache.cxf.message.Message message = createSamlAssertionMessageWithAttributes(customAttributes);
         
@@ -212,9 +212,9 @@ public class TestPolicyAcknowledgementRecordingRequestService {
                 "src/test/resources/xml/acknowlegePolicies/AcknowledgementRecordingRequestWithFalseIndicator.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        Map<String, String> customAttributes = new HashMap<String, String>();
-        customAttributes.put(SamlAttribute.FederationId.getAttibuteName(), "HIJIS:IDP:HCJDC:USER:aowen");
-        customAttributes.put(SamlAttribute.EmployerORI.getAttibuteName(), "H00000001");
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:aowen");
+        customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
 
         org.apache.cxf.message.Message message = createSamlAssertionMessageWithAttributes(customAttributes);
         
@@ -244,7 +244,7 @@ public class TestPolicyAcknowledgementRecordingRequestService {
     }
     
     private org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(
-            Map<String, String> customAttributes) throws Exception {
+            Map<SamlAttribute, String> customAttributes) throws Exception {
         org.apache.cxf.message.Message message = new MessageImpl();
 
         Assertion samlToken = SAMLTokenUtils
