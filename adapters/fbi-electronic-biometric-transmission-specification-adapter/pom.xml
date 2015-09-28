@@ -24,7 +24,6 @@
 
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>fbi-electronic-biometric-transmission-specification-adapter</artifactId>
-	<version>1.0.0</version>
 	<packaging>bundle</packaging>
 
 	<name>OJB :: fbi-electronic-biometric-transmission-specification-adapter :: adapter</name>
