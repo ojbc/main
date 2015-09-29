@@ -79,6 +79,9 @@
 		<endpoint id="arrestReportingServiceEndpoint" 
 			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
+		<endpoint id="subscriptionReportingServiceEndpoint" 
+			uri="cxf:bean:subscriptionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+		
 		<!-- 
 			#########################################################################################
 					Routes
@@ -197,10 +200,16 @@
 					<to uri="direct:processArrestNotification"/>				
 				</when>
 				<when>
-					<xpath>/itl:NISTBiometricInformationExchangePackage</xpath>
-					<log message="\n\n\n Handling message as Subscription Acknowledgment Response \n\n\n" loggingLevel="INFO"/>	
+					<xpath>${header.trxCatCode} == 'RBSR'</xpath>
+					<log message="\n\n\n Handling message as Rapback Subscription Response \n\n\n" loggingLevel="INFO"/>	
 									
-					<to uri="direct:processSubscriptionResponse"/>																				
+					<to uri="direct:processRapbackSubscriptionResponse"/>																				
+				</when>				
+				<when>
+					<xpath>${header.trxCatCode} == 'RBMNTR'</xpath>
+					<log message="\n\n\n Handling message as Rapback Subscription Maintenance Response \n\n\n" loggingLevel="INFO"/>	
+									
+					<to uri="direct:processRapBackSubscriptionMaintenanceResponse"/>																				
 				</when>				
 				<otherwise>
 					  <log message="\n\n\n Unrecognized Message!! \n\n\n" loggingLevel="WARN"/> 
@@ -227,23 +236,37 @@
 		</route>
 		
 				
-		<route id="processSubscriptionResponseRoute">
+		<route id="processRapbackSubscriptionResponseRoute">
 		
-			<from uri="direct:processSubscriptionResponse"/>
+			<from uri="direct:processRapbackSubscriptionResponse"/>
 		
 			<setHeader headerName="CamelFileName">
 				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
 			</setHeader>
-						
-			<log message="\n\n Saving Sub. Ack. response to disk... \n\n"/>
-			
-			<to uri="ngiSubAcknowledgeAsynchResponseDir"/>	
-			
-			<log message="\n\n Sending synchronous VOID response to FBI...\n\n"/>
+			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
+			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionCreation</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>			
 				
-			<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>		
+			<to uri="subscriptionReportingServiceEndpoint" />					
+			<!-- <to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>	 -->	
 		</route>
 		
+		<route id="processRapbackSubscriptionMaintenanceResponseRoute">
+		
+			<from uri="direct:processRapBackSubscriptionMaintenanceResponse"/>
+		
+			<setHeader headerName="CamelFileName">
+				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
+			</setHeader>
+			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
+			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
+						
+			<log message="\n\n Sending synchronous VOID response to FBI...\n\n"/>
+			<to uri="subscriptionReportingServiceEndpoint" />					
+			
+<!-- 			<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>		 -->		
+ 		</route>
 				
 		<camel:route id="ojbSubscriptionToFbiNgiSubscriptionRoute">
 						
