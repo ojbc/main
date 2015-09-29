@@ -34,6 +34,7 @@ import org.xml.sax.SAXException;
 
 public class NgiResponseProcessorTest {
 	
+	@SuppressWarnings("unused")
 	private Logger logger = Logger.getLogger(NgiResponseProcessorTest.class);
 	
 	@Before
