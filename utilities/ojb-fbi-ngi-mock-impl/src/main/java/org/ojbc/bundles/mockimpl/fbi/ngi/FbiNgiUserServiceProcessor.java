@@ -52,6 +52,10 @@ public class FbiNgiUserServiceProcessor {
 				
 		if(StringUtils.isEmpty(controlNumberReceived)){
 			logger.error("\n\n\n ERROR:  FBI Mock Impl did not receive Transaction Control Number!! \n\n\n");
+			
+		}else if(controlNumberReceived.length() > 40){
+			logger.error("\n\n\n ERROR: FBI Mock Impl received Transaction Control Number of length exceeding 40(max allowed)! \n\n\n");
+			
 		}else{
 			logger.info("\n\n\n FBI Mock Impl: Using Control Number: " + controlNumberReceived + " \n\n\n");				
 		}
