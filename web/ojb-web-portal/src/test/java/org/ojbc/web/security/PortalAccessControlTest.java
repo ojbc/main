@@ -103,9 +103,9 @@ public class PortalAccessControlTest {
     @Test
     @DirtiesContext
     public void allowAccessToPortalAndSubscription() throws Exception {
-        Map<String, String> customAttributes = new HashMap<String, String>();
-        customAttributes.put("gfipm:2.0:user:FederationId", "HIJIS:IDP:HCJDC:USER:demouser");
-        customAttributes.put(SamlAttribute.EmployerORI.getAttibuteName(), "H00000001");
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+        customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
         
         Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                 SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
@@ -121,9 +121,9 @@ public class PortalAccessControlTest {
     @Test
     @DirtiesContext
     public void allowAccessToPortalButNoSubscription() throws Exception {
-        Map<String, String> customAttributes = new HashMap<String, String>();
-        customAttributes.put("gfipm:2.0:user:FederationId", "HIJIS:IDP:HCJDC:USER:demouser1");
-        customAttributes.put(SamlAttribute.EmployerORI.getAttibuteName(), "H00000001");
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser1");
+        customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
         
         Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                 SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
@@ -139,9 +139,9 @@ public class PortalAccessControlTest {
     @Test
     @DirtiesContext
     public void denyAccessToNonCurrentUser() throws Exception {
-        Map<String, String> customAttributes = new HashMap<String, String>();
-        customAttributes.put("gfipm:2.0:user:FederationId", "HIJIS:IDP:HCJDC:USER:aowen");
-        customAttributes.put(SamlAttribute.EmployerORI.getAttibuteName(), "H00000001");
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:aowen");
+        customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
         
         Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                 SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
@@ -168,9 +168,9 @@ public class PortalAccessControlTest {
     @Test
     @DirtiesContext
     public void denyAccessToInvalidUser() throws Exception {
-        Map<String, String> customAttributes = new HashMap<String, String>();
-        customAttributes.put("gfipm:2.0:user:FederationId", "HIJIS:IDP:HCJDC:USER:demouser3");
-        customAttributes.put(SamlAttribute.EmployerORI.getAttibuteName(), "H0000000");
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser3");
+        customAttributes.put(SamlAttribute.EmployerORI, "H0000000");
         
         Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                 SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 

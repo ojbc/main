@@ -169,18 +169,18 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 				mavenBundle().groupId("org.ojbc.bundles.utilities").artifactId("h2-mock-database").start(),
 				
 				// intermediaries
-				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("ndex-submission-service-intermediary").start(),
+				//mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("ndex-submission-service-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("arrest-reporting-service-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("incident-reporting-service-intermediary-common").start(),
-				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("incident-reporting-service-intermediary").start(),
-				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary-common").start(),
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("incident-reporting-service-intermediary").version("1.0.2").start(),
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary-common").version("1.0.0").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary").start(),
 
 				//Connector
 				mavenBundle().groupId("org.ojbc.bundles.connectors").artifactId("incident-reporting-service-connector").start(),
 				
 				//Adapters
-				mavenBundle().groupId("org.ojbc.bundles.adapters").artifactId("n-dex-submission-service-mock-adapter").start(),
+				//mavenBundle().groupId("org.ojbc.bundles.adapters").artifactId("n-dex-submission-service-mock-adapter").start(),
 		};
 	}
 

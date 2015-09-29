@@ -35,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,20 +98,4 @@ public class TestRapbackSearchRequestService {
     }
 
     
-    private org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(
-            Map<String, String> customAttributes) throws Exception {
-        org.apache.cxf.message.Message message = new MessageImpl();
-
-        Assertion samlToken = SAMLTokenUtils
-                .createStaticAssertionWithCustomAttributes(
-                        "https://idp.ojbc-local.org:9443/idp/shibboleth",
-                        SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS,
-                        SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true,
-                        true, customAttributes);
-        SAMLTokenPrincipal principal = new SAMLTokenPrincipal(
-                new AssertionWrapper(samlToken));
-        message.put("wss4j.principal.result", principal);
-        return message;
-    }
-
 }
