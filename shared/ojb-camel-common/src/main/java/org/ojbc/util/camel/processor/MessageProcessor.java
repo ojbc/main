@@ -176,7 +176,11 @@ public class MessageProcessor {
 		{	
 			exchange.getOut().setHeader("recipientListReplyToEndpoint", recipientListReplyTo);
 		}	
-			
+		
+		//preserve the destination override URL so we can override a URL in an cxf endpoint
+		//This is used to set reply to addresses.
+		exchange.getOut().setHeader(Exchange.DESTINATION_OVERRIDE_URL, exchange.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
+		
 		exchange.getOut().setBody(exchange.getIn().getBody());
 		exchange.getOut().setAttachments(exchange.getIn().getAttachments());
 	}
