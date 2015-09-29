@@ -16,6 +16,9 @@
  */
 package org.ojbc.bundles.mockimpl.fbi.ngi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.helpers.XMLUtils;
@@ -47,28 +50,50 @@ public class FbiNgiUserServiceProcessor {
 		logger.info("\n\n Using input doc: \n\n");
 		XmlUtils.printNode(fbiNgiSubscribeDoc);
 
+		String controlNumResponseDoc = null;
+		
 		String controlNumberReceived = XmlUtils.xPathStringSearch(fbiNgiSubscribeDoc,
 				"/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageInformationRecord/nbio:Transaction/nbio:TransactionControlIdentification/nc:IdentificationID");
+						
+		List<String> errorList = getValidationErrors(controlNumberReceived);
 				
-		if(StringUtils.isEmpty(controlNumberReceived)){
-			logger.error("\n\n\n ERROR:  FBI Mock Impl did not receive Transaction Control Number!! \n\n\n");
+		if(errorList != null && errorList.size() > 0){
 			
-		}else if(controlNumberReceived.length() > 40){
-			logger.error("\n\n\n ERROR: FBI Mock Impl received Transaction Control Number of length exceeding 40(max allowed)! \n\n\n");
+			for(String errorMsg : errorList){
+				logger.error(errorMsg);
+			}
 			
 		}else{
-			logger.info("\n\n\n FBI Mock Impl: Using Control Number: " + controlNumberReceived + " \n\n\n");				
-		}
-	
-		Document doc = XMLUtils.newDocument();
-		
-		Element root = XMLUtils.createElementNS(doc, "http://ws.cjis.gov/2014/08/01/ngi/core/xsd", "ngi-core:NGIControlNumber");		
-		root.setTextContent(controlNumberReceived);		
-		doc.appendChild(root);		
-		
-		String controlNumResponseDoc = OJBUtils.getStringFromDocument(doc);	
+			
+			logger.info("\n\n\n FBI Mock Impl: Using Control Number: " + controlNumberReceived + " \n\n\n");
+			
+			Document doc = XMLUtils.newDocument();
+			
+			Element root = XMLUtils.createElementNS(doc, "http://ws.cjis.gov/2014/08/01/ngi/core/xsd", "ngi-core:NGIControlNumber");		
+			root.setTextContent(controlNumberReceived);		
+			doc.appendChild(root);		
+			
+			controlNumResponseDoc = OJBUtils.getStringFromDocument(doc);				
+		}		
 		
 		return controlNumResponseDoc;
+	}
+	
+	List<String> getValidationErrors(String controlNumber){
+		
+		List<String> errorList = new ArrayList<String>();
+		
+		if(StringUtils.isEmpty(controlNumber)){			
+			errorList.add("\n\n\n ERROR:  FBI Mock Impl did not receive Transaction Control Number!! \n\n\n");			
+		
+		}else if(controlNumber.length() > 40){
+			errorList.add("\n\n\n ERROR: FBI Mock Impl received Transaction Control Number of length exceeding 40(max allowed)! \n\n\n");
+		
+		}else if(controlNumber.length() < 10){
+			errorList.add("\n\n\n ERROR: FBI Mock Impl received Transaction Control Number of length less than 10(min allowed)! \n\n\n");
+		}
+		
+		return errorList;
 	}
 	
 }
