@@ -284,7 +284,7 @@ public class RapbackDAOImplTest {
 		log.info("Civil Initial Results count: " + civilInitialResults.size());
 		assertEquals(2, civilInitialResults.size());
 		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
-		assertTrue(Arrays.equals("Found a Match".getBytes(), civilInitialResults.get(0).getSearchResultFile()));
+		assertEquals(2110, civilInitialResults.get(0).getSearchResultFile().length);
 	}
 	
 	@Test
