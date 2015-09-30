@@ -195,7 +195,7 @@
 				<when>
 					<simple>${header.trxCatCode} == 'RBN' and ${header.rapBackTriggerCode} == '1'</simple>
 					
-					<log message="\n\n\n  Detected Arrest Message \n\n\n" loggingLevel="INFO"/>
+					<log message="\n\n\n  Detected Arrest Message, processing... \n\n\n" loggingLevel="INFO"/>
 					
 					<to uri="direct:processArrestNotification"/>				
 				</when>
@@ -220,7 +220,16 @@
 		
 		
 		<route id="arrestNotificationRoute">
+		
 			<from uri="direct:processArrestNotification"/>
+			
+			<log message="\n\n\n processArrestNotification... \n\n\n" loggingLevel="INFO" />	
+						
+			<setHeader headerName="rapsheet">			
+				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText/text()</xpath>			
+			</setHeader>				
+			
+			<to uri="bean:rapsheetMtomProcessor?method=attachMtomRapsheet"/>		
 		
 			<log message="\n\n\n Transforming Federal_To_Arrest_Report_Transform.xsl... \n\n\n" loggingLevel="INFO"/>
 			
@@ -312,5 +321,7 @@
 	<bean id="fbiEbtsResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEbtsResponseProcessor"/>
 	
 	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
+	
+	<bean id="rapsheetMtomProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapsheetMtomProcessor"/>
 
 </beans>
