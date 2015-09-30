@@ -244,11 +244,11 @@
 				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
 			</setHeader>
 			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionCreation</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>			
-				
-			<to uri="subscriptionReportingServiceEndpoint" />					
-			<!-- <to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>	 -->	
+
+			<to uri="direct:sendRapbackSubscriptionReport" />				
 		</route>
 		
 		<route id="processRapbackSubscriptionMaintenanceResponseRoute">
@@ -259,13 +259,24 @@
 				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
 			</setHeader>
 			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
-						
-			<log message="\n\n Sending synchronous VOID response to FBI...\n\n"/>
-			<to uri="subscriptionReportingServiceEndpoint" />					
 			
-<!-- 			<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>		 -->		
+			<camel:to uri="direct:sendRapbackSubscriptionReport"/>
+ 		</route>
+ 		
+ 		<route id="sendRapbackSubscriptionReport">
+ 			<camel:from uri="direct:sendRapbackSubscriptionReport"/>
+			<camel:multicast>
+				<to uri="subscriptionReportingServiceEndpoint" />
+				
+				<camel:pipeline>					
+					<log message="\n\n Sending synchronous VOID response to FBI...\n\n"/>
+					<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>
+				</camel:pipeline>				
+			</camel:multicast>			
  		</route>
 				
 		<camel:route id="ojbSubscriptionToFbiNgiSubscriptionRoute">
