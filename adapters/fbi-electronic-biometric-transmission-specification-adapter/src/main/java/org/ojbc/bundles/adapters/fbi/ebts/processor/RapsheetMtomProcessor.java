@@ -40,10 +40,8 @@ public class RapsheetMtomProcessor {
 		DataSource rapsheetDataSource = new ByteArrayDataSource(rapsheetXmlBytes, "application/octet-stream");
 		
 		DataHandler rapsheetDataHandler = new DataHandler(rapsheetDataSource);
-				
-		String messageId = exhange.getIn().getHeader("federatedQueryRequestGUID", String.class);
-		
-		exhange.getIn().addAttachment(messageId, rapsheetDataHandler);
+						
+		exhange.getIn().addAttachment("http://ojbc.org/arrest/document", rapsheetDataHandler);
 	}
 
 }
