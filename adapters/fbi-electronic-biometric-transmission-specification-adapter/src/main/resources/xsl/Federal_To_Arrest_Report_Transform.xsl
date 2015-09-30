@@ -71,7 +71,7 @@
 							</lexs:StructuredPayloadMetadata>
 							<ojbc:ArrestReport xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include">
 								<ojbc:FederalCriminalHistoryRecordDocument xmime:contentType="text/plain">
-									<xop:Include href="cid:http://ojbc.org/arrest/document/example"/>
+									<xop:Include href="cid:http://ojbc.org/arrest/document"/>
 								</ojbc:FederalCriminalHistoryRecordDocument>
 							</ojbc:ArrestReport>
 						</lexs:StructuredPayload>
