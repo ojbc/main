@@ -146,7 +146,7 @@ public class TestIdentificationInitialResultsQueryRequestService {
 		assertEquals("text/plain", dataHandler.getContentType());
 		
 		byte[] receivedData = IOUtils.readBytesFromStream(dataHandler.getInputStream());
-		assertTrue(Arrays.equals("Found a Match".getBytes(), receivedData));
+		assertEquals(2110, receivedData.length);
     }
 
     
