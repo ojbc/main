@@ -46,9 +46,9 @@
 		serviceName="ojbc:Identification-Recording-ServiceService" endpointName="ojbc:Identification-Recording-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0">
 		<cxf:properties>
-<!--          	<entry key="mtom-enabled" value="true"/>			
+         	<entry key="mtom-enabled" value="true"/>			
 			<entry key="dataFormat" value="PAYLOAD"/>
- -->			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
 		</cxf:properties> 
