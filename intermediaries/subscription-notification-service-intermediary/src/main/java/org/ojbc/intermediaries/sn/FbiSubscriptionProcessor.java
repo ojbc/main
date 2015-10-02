@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
+import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao;
@@ -39,6 +40,24 @@ public class FbiSubscriptionProcessor {
 
 	@Resource(name="rapbackDao")
 	private FbiRapbackDao rapbackDao;
+	
+	
+	public boolean hasStateSubscriptionsForFbiUcnId(Exchange exchange) throws Exception{
+		
+		logger.info("\n\n\n Process Unsubscribe... \n\n\n");
+		
+		Document unsubscribeDoc = exchange.getIn().getHeader("unsubscribeBody", Document.class);
+		
+		String personfbiUcnId = null; // TODO XmlUtils.xPathStringSearch(unsubscribeDoc, "TODO");
+		
+		int countStateSubscriptionsWithFbiUcnId = rapbackDao.countStateSubscriptionsHavingFbiUcnId(personfbiUcnId);
+		
+		// TODO enable when query works off fbi id or something else 
+		boolean hasStateSubscriptionsForFbiUcnId = true; //countStateSubscriptionsWithFbiUcnId > 0;
+		
+		return hasStateSubscriptionsForFbiUcnId;
+	}
+	
 	
 	public Document processSubscription(Document subscriptionDoc) throws Exception{
 		

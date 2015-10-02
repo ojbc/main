@@ -47,7 +47,9 @@
     <camel:endpoint id="notificationBrokerServiceEndpoint" uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>    
 	<camel:endpoint id="notificationBrokerServiceSecureEndpoint" uri="cxf:bean:notificationBrokerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>
 
-	<camel:endpoint id="subscriptionManagerServiceEndpoint" uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>
+	<camel:endpoint id="subscriptionManagerServiceEndpoint" uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy"/>
+	
+	
 	<camel:endpoint id="subscriptionManagerServiceSecureEndpoint" uri="cxf:bean:subscriptionManagerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>                        
 
 	<!-- Search Endpoints, the results endpoints are inline in the route to support camel testing -->
@@ -60,6 +62,10 @@
         
     <camel:endpoint id="fbiEbtsSubscriptionRequestServiceEndpoint"  
 		uri="cxf:bean:fbiEbtsSubscriptionRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
+
+	<camel:endpoint id="fbiEbtsUnsubscribeServiceEndpoint" 
+		uri="cxf:bean:fbiEbtsUnsubscribeService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}" />
+
 
 	<!-- OJB Notification Broker Service -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
@@ -94,6 +100,15 @@
 		endpointName="ojbc:NotificationBrokerService"
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
     </cxf:cxfEndpoint>
+
+	<!-- FBI EBTS Adapter endpoint for unsubscribe, called by this s/n intermediary -->
+	<cxf:cxfEndpoint id="fbiEbtsUnsubscribeService"
+		address="${publishSubscribe.fbiEbtsUnsubscribeServiceEndpoint}" 
+		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
+		serviceName="ojb-sm:SubscriptionManagerServiceService"
+		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+	</cxf:cxfEndpoint>     
+
 
 	<!-- OJB Subscription Manager Service -->
 	<cxf:cxfEndpoint id="subscriptionManagerService"
@@ -209,6 +224,12 @@
             </map>
         </property>
 	</bean>
+
+	
+	<bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">	 
+	    <!--  Set relayHeaders to false to drop all SOAP headers -->
+	    <property name="relayHeaders" value="false"/>	     
+	</bean>	
 
 	<util:properties id= "subscriptionSearchQueryKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
