@@ -47,6 +47,15 @@
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
     </cxf:cxfEndpoint>   
         
+
+	<cxf:cxfEndpoint id="fbiEbtsUnsubscribeService"
+		address="${fbiEbtsAdapter.unsubscribeServiceEndpoint}" 
+		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
+		serviceName="ojb-sm:SubscriptionManagerServiceService"
+		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+	</cxf:cxfEndpoint>        
+        
+        
     <cxf:cxfEndpoint
     	id="ngiUserService"
     	address="${fbiEbtsAdapter.ngiUserServiceEndpoint}"

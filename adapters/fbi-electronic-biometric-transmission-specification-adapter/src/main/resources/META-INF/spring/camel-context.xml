@@ -67,8 +67,11 @@
 		<!-- called by s/n intermediary -->
 		<endpoint id="fbiEbtsWebServiceInputEndpoint"
 			uri="cxf:bean:fbiEbtsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+										
+		<!-- called by s/n intermediary -->
+		<endpoint id="fbiEbtsUnsubscribeEndpoint" uri="cxf:bean:fbiEbtsUnsubscribeService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />									
 							
-		<!-- hosted at FBI, receives our subscription requests -->		
+		<!-- hosted at FBI, receives our subscription requests from this ebts adapter -->		
 		<endpoint id="ngiUserServiceRequestEndpoint" 
 			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
@@ -87,6 +90,19 @@
 					Routes
 			#########################################################################################		
 		 -->
+				
+		<camel:route id="ebtsUnsubscribeRoute">
+		
+			<from uri="fbiEbtsUnsubscribeEndpoint"/>
+		
+			<log message="\n\n\n EBTS adapter received Unsubscribe request..., body= \n\n ${body} \n\n\n"/>
+			
+			<to uri="direct:processFbiEbtsRequest"/>
+								
+			<to uri="bean:unsubscribeProcessor?method=sendResponse"/>
+			
+		</camel:route>
+		
 		
 		<!--  for testing by dropping message into adapter input directory -->
 		<camel:route id="fbiEbtsInputFileDropRoute">
@@ -95,7 +111,7 @@
 			
 			<camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message: \n\n ${body} \n\n" />
 		
-			<camel:to uri="direct:processFbiEbtsSubscription"/>
+			<camel:to uri="direct:processFbiEbtsRequest"/>
 		
 			<!-- Save the fbi synchronous response(control number) to a file -->
 			<camel:setHeader headerName="CamelFileName">
@@ -119,7 +135,7 @@
 			
 			<camel:log message="\n\n Fbi Adapter service received inbound message: \n\n ${body} \n\n" />													 						
 			
-			<camel:to uri="direct:processFbiEbtsSubscription" />									   			   
+			<camel:to uri="direct:processFbiEbtsRequest" />									   			   
 												   			  
 			<camel:to uri="bean:fbiEbtsResponseProcessor?method=sendFbiSubscribeResponse" />
 						
@@ -128,11 +144,11 @@
 
 		<camel:route id="fbiEbtsProcessingRoute">
 		
-			<camel:from uri="direct:processFbiEbtsSubscription"/>
+			<camel:from uri="direct:processFbiEbtsRequest"/>
 			
-			<camel:log message="\n\n Processing ojb subscription...\n\n" />
+			<camel:log message="\n\n Processing OJB Request...\n\n" />
 						
-			<camel:to uri="direct:transformToFbiNgiSubscription" />
+			<camel:to uri="direct:transformToFbiNgiMessage" />
 		
 			<camel:log message="\n\n Calling FBI NGI service...\n\n"/>			
 
@@ -200,13 +216,13 @@
 					<to uri="direct:processArrestNotification"/>				
 				</when>
 				<when>
-					<xpath>${header.trxCatCode} == 'RBSR'</xpath>
+					<simple>${header.trxCatCode} == 'RBSR'</simple>
 					<log message="\n\n\n Handling message as Rapback Subscription Response \n\n\n" loggingLevel="INFO"/>	
 									
 					<to uri="direct:processRapbackSubscriptionResponse"/>																				
 				</when>				
 				<when>
-					<xpath>${header.trxCatCode} == 'RBMNTR'</xpath>
+					<simple>${header.trxCatCode} == 'RBMNTR'</simple>
 					<log message="\n\n\n Handling message as Rapback Subscription Maintenance Response \n\n\n" loggingLevel="INFO"/>	
 									
 					<to uri="direct:processRapBackSubscriptionMaintenanceResponse"/>																				
@@ -290,7 +306,7 @@
 				
 		<camel:route id="ojbSubscriptionToFbiNgiSubscriptionRoute">
 						
-			<camel:from uri="direct:transformToFbiNgiSubscription" />			
+			<camel:from uri="direct:transformToFbiNgiMessage" />			
 							
 			<convertBodyTo type="java.lang.String"/>
 			
@@ -334,5 +350,6 @@
 	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
 	
 	<bean id="rapsheetMtomProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapsheetMtomProcessor"/>
-
+	
+	<bean id="unsubscribeProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEbtsUnsubscribeProcessor"/>
 </beans>
