@@ -264,12 +264,59 @@
 			<camel:to uri="bean:chCycleSubscriptionProcessor?method=unsubscribe" />
 		</camel:route>
 	
-		
+	
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeArrest" />
+			
 			<camel:log message="Processing Unsubscription (arrest)" />
-			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />
-		</camel:route>		
+			
+			<!-- save original unsubscribe message so it can be used later to unsubscribe with the fbi if necessary.
+				Note "Camel" prefix in spelling required for cxf "drop headers" hack which only removes http headers 
+				beginning with "Camel" -->  			
+			<setHeader headerName="CamelUnsubscribeRequestMessage">
+				<simple>${body}</simple>
+			</setHeader>	
+						
+			<!-- this call sets the exchange body to the unsubscribe response message -->
+			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />									
+			
+			<camel:wireTap uri="direct:processFbiUnsubscription">
+				<camel:body>
+					<simple>${in.header.CamelUnsubscribeRequestMessage}</simple>
+				</camel:body>						
+			</camel:wireTap>			
+		</camel:route>
+		
+				
+		<camel:route id="processFbiUnsubscribeRoute">
+		
+			<from uri="direct:processFbiUnsubscription"/>								
+			
+			<log message="\n\n\n FBI Unsubscribe Message Body:\n\n ${body} \n\n\n" loggingLevel="INFO" />	
+			
+			<setHeader headerName="hasStateSubscriptionsForFbiUcnId">			
+				<simple>bean:fbiSubscriptionProcessor?method=hasStateSubscriptionsForFbiUcnId</simple>			
+			</setHeader>	
+			
+			<log message="\n\n\n hasStateSubscriptionsForFbiUcnId = ${header.hasStateSubscriptionsForFbiUcnId} \n\n\n" loggingLevel="INFO"/>
+			
+			<camel:choice>
+				<camel:when>
+					<simple>${header.hasStateSubscriptionsForFbiUcnId} == 'false'</simple>
+
+					<camel:log message="\n\n\n No more state subscriptions, so - Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>			
+						
+					<convertBodyTo type="java.lang.String"/>
+									
+					<camel:to uri="fbiEbtsUnsubscribeServiceEndpoint" />														
+				</camel:when>	
+				<camel:otherwise>			
+					<log message="\n\n\n NOT sending unsubscription to FBI EBTS Adapter! (Still has state subscriptions remaining) \n\n\n" loggingLevel="WARN"/>							
+				</camel:otherwise>			
+			</camel:choice>			
+			
+		</camel:route>
+			
 			
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeIncident" />

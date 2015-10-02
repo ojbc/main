@@ -19,9 +19,9 @@ package org.ojbc.intermediaries.sn.subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.util.FaultMessageBuilderUtil;
 import org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil;
-
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
+import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.LocalDate;
@@ -85,9 +85,17 @@ public abstract class SubscriptionProcessor {
      */
     public void unsubscribe(Exchange exchange) throws Exception {
         Message incomingMsg = exchange.getIn();
-        UnSubscriptionRequest request = makeUnSubscriptionRequestFromIncomingMessage(incomingMsg);
+        UnSubscriptionRequest request = makeUnSubscriptionRequestFromIncomingMessage(incomingMsg);        
+                
+        Message out = exchange.getOut();
+        
+//		Note "Camel" prefix in spelling required for cxf "drop headers" hack which only removes http headers 
+//		beginning with "Camel"
+        out.setHeader("CamelUnsubscribeRequestMessage", incomingMsg.getHeader("CamelUnsubscribeRequestMessage"));        
+                
         String subscriptionOwner = (String) incomingMsg.getHeader("subscriptionOwner");
-        processUnSubscriptionRequest(request, exchange.getOut(), subscriptionOwner);
+        
+        processUnSubscriptionRequest(request, out, subscriptionOwner);
     }
 
     public FaultMessageProcessor getFaultMessageProcessor() {
