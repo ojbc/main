@@ -33,6 +33,9 @@ public class FbiRapbackDao {
 	
 	private final static String FBI_SUBSCRIPTION_SELECT = "SELECT * FROM fbi_rap_back_subscription "
 			+ "WHERE rap_back_category_code = ? AND ucn=?;";
+		
+	private final static String STATE_SUB_COUNT = "select count(subscription_id) from identification_transaction i "
+			+ "left join identification_subject s on s.subject_id = i.subject_id where s.ucn =?;";	
 	
 	private static final Logger logger = Logger.getLogger(FbiRapbackDao.class);
 	
@@ -41,6 +44,17 @@ public class FbiRapbackDao {
     
     @Autowired
 	private JdbcTemplate jdbcTemplate;
+    
+    
+    public int countStateSubscriptionsHavingFbiUcnId(String fbiUcnId){
+    	
+    	int stateSubCount = jdbcTemplate.queryForObject(STATE_SUB_COUNT, new Object[] {fbiUcnId}, Integer.class);
+    	
+    	logger.info("\n\n\n fbidao, stateSubCount = " + stateSubCount + "\n\n\n");
+    	    	
+    	return stateSubCount;
+    }
+        
     
 	public FbiRapbackSubscription getFbiRapbackSubscription(String category,
 			String ucn) {
