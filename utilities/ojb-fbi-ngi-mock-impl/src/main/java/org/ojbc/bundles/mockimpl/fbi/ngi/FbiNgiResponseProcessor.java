@@ -16,23 +16,32 @@
  */
 package org.ojbc.bundles.mockimpl.fbi.ngi;
 
-import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 
+import org.apache.camel.Body;
 import org.apache.camel.Exchange;
-import org.apache.cxf.helpers.XMLUtils;
+import org.apache.camel.Header;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 public class FbiNgiResponseProcessor {
+	
+	public static final String RAP_BACK_MAITENANCE_RESPONSE = "RBMNT";
+	public static final String RAP_BACK_SCRIPTION_RESPONSE = "RBSCRM";
 	
 	private Logger logger = Logger.getLogger(FbiNgiResponseProcessor.class);
 	
 	
-	public String createResponse(Exchange exchange) throws ParserConfigurationException{
+	public String createResponse(Exchange exchange, @Body Document report, @Header("transactionCategoryCode") String transactionCategoryCode) throws Exception{
 		
-		String subAckResponse = getSubAckResponse();
+		if (StringUtils.isBlank(transactionCategoryCode)){
+			throw new IllegalArgumentException("The transactionCategoryCode is missing."); 
+		}
+		
+		String subAckResponse = getSubAckResponse(transactionCategoryCode);
 		
 		logger.info("\n\n Processor returning subsription aknowledgement response: \n\n" + subAckResponse + "\n\n");
 				
@@ -40,18 +49,26 @@ public class FbiNgiResponseProcessor {
 	}
 	
 	
-	String getSubAckResponse() throws ParserConfigurationException{
+	String getSubAckResponse(String transactionCategoryCode) throws Exception{
+		Document responseDoc = null;
 		
-		Document doc = XMLUtils.newDocument();
+		if (transactionCategoryCode.equals(RAP_BACK_SCRIPTION_RESPONSE)){
+			responseDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/output/"
+    				+ "Template(RBSR)RapBackSubscriptionResponse.xml"));
+    	
+		}
+		else if (transactionCategoryCode.equals(RAP_BACK_MAITENANCE_RESPONSE)){
+			responseDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/output/"
+    				+ "Template(RBMNTR)RapBackMaintenanceResponse.xml"));
+		}
 		
-		Element rootElement = XMLUtils.createElementNS(doc, 
-				"http://biometrics.nist.gov/standard/2011", "NISTBiometricInformationExchangePackage");
+		if (responseDoc != null){
+			String response = OJBUtils.getStringFromDocument(responseDoc);		
+			
+			return response;
+		}
 		
-		doc.appendChild(rootElement);
-		
-		String response = OJBUtils.getStringFromDocument(doc);		
-		
-		return response;
+		return null;
 	}
 
 }
