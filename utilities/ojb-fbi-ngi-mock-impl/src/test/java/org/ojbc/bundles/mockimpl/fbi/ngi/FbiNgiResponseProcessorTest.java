@@ -17,9 +17,6 @@
 package org.ojbc.bundles.mockimpl.fbi.ngi;
 
 import java.io.File;
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.DetailedDiff;
@@ -27,20 +24,19 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
 public class FbiNgiResponseProcessorTest {
 
 	@Test
-	public void responseProcessorTest() throws IOException, SAXException, ParserConfigurationException{
+	public void responseProcessorTest() throws Exception{
 		
 		FbiNgiResponseProcessor responseProcessor = new FbiNgiResponseProcessor();
 		
-		String subAckResponse = responseProcessor.getSubAckResponse();
+		String subAckResponse = responseProcessor.getSubAckResponse(FbiNgiResponseProcessor.RAP_BACK_MAITENANCE_RESPONSE);
 		
 		//assert the transformed xml against expected xml output doc				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/FbiNgiResponseSubAck.xml"));
+				new File("src/test/resources/output/Template(RBMNTR)RapBackMaintenanceResponse.xml"));
 							
 		Diff diff = XMLUnit.compareXML(expectedXmlString, subAckResponse);		
 		
