@@ -173,7 +173,7 @@ public class IncidentReportingIntegrationTest extends AbstractPaxExamIntegration
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("arrest-reporting-service-intermediary").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("incident-reporting-service-intermediary-common").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("incident-reporting-service-intermediary").version("1.0.2").start(),
-				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary-common").version("1.0.0").start(),
+				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary-common").version("1.0.1").start(),
 				mavenBundle().groupId("org.ojbc.bundles.intermediaries").artifactId("subscription-notification-service-intermediary").start(),
 
 				//Connector

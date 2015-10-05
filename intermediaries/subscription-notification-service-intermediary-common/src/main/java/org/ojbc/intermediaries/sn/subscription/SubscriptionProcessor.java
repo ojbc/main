@@ -91,7 +91,7 @@ public abstract class SubscriptionProcessor {
         
 //		Note "Camel" prefix in spelling required for cxf "drop headers" hack which only removes http headers 
 //		beginning with "Camel"
-        out.setHeader("CamelUnsubscribeRequestMessage", incomingMsg.getHeader("CamelUnsubscribeRequestMessage"));        
+        out.setHeader("OJBCunsubscribeRequestMessage", incomingMsg.getHeader("OJBCunsubscribeRequestMessage"));        
                 
         String subscriptionOwner = (String) incomingMsg.getHeader("subscriptionOwner");
         
