@@ -273,7 +273,7 @@
 			<!-- save original unsubscribe message so it can be used later to unsubscribe with the fbi if necessary.
 				Note "Camel" prefix in spelling required for cxf "drop headers" hack which only removes http headers 
 				beginning with "Camel" -->  			
-			<setHeader headerName="CamelUnsubscribeRequestMessage">
+			<setHeader headerName="OJBCunsubscribeRequestMessage">
 				<simple>${body}</simple>
 			</setHeader>	
 						
@@ -282,7 +282,7 @@
 			
 			<camel:wireTap uri="direct:processFbiUnsubscription">
 				<camel:body>
-					<simple>${in.header.CamelUnsubscribeRequestMessage}</simple>
+					<simple>${in.header.OJBCunsubscribeRequestMessage}</simple>
 				</camel:body>						
 			</camel:wireTap>			
 		</camel:route>
