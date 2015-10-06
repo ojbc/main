@@ -109,8 +109,7 @@
 	</xsd:complexType>
 	<xsd:element name="SubscriptionIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identifier assigned to a subscription.
-			</xsd:documentation>
+			<xsd:documentation>A unique identifier assigned to a subscription by the system that manages subscriptions.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionFBIIdentification" type="nc:IdentificationType">
@@ -120,12 +119,9 @@
 	</xsd:element>
 	<xsd:element name="Subject" type="j:PersonType" />
 	<xsd:element name="SystemName" type="nc:TextType" />
-	<xsd:element name="SubscriptionQualifierIdentification"
-		type="nc:IdentificationType">
+	<xsd:element name="SubscriptionQualifierIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>An identifier for a subscription, provided by the
-				subscribing system.
-			</xsd:documentation>
+			<xsd:documentation>An identifier for a subscription, provided by the entity requesting a subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionReasonRepresentation" abstract="true">
