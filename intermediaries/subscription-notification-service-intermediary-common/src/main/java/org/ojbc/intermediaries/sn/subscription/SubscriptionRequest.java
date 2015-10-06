@@ -25,7 +25,6 @@ import java.util.Set;
 import org.ojbc.intermediaries.sn.exception.InvalidEmailAddressesException;
 import org.ojbc.intermediaries.sn.util.EmailAddressValidatorResponse;
 import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -62,6 +61,7 @@ public abstract class SubscriptionRequest {
 	protected String subscriptionQualifier;
 	protected String subscriptionSystemId;
 	protected Map<String, String> subjectIdentifiers;
+	private String agencyCaseNumber; 
 	
 	public SubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception{
 		//Get the message body as DOM
@@ -134,6 +134,7 @@ public abstract class SubscriptionRequest {
 		subjectName = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:Subject/nc:PersonName/nc:PersonFullName");
 		subscriptionQualifier = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
 		subscriptionSystemId = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionIdentification/nc:IdentificationID");
+		agencyCaseNumber = XmlUtils.xPathStringSearch(subscriptionMsg, "submsg-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
 		// subjectIdentifiers intentionally left out - should be populated by derived class 
 	}
 	
@@ -182,5 +183,13 @@ public abstract class SubscriptionRequest {
 	
 	public String getSubscriptionSystemId() {
 		return subscriptionSystemId;
+	}
+
+	public String getAgencyCaseNumber() {
+		return agencyCaseNumber;
+	}
+
+	public void setAgencyCaseNumber(String agencyCaseNumber) {
+		this.agencyCaseNumber = agencyCaseNumber;
 	}	
 }

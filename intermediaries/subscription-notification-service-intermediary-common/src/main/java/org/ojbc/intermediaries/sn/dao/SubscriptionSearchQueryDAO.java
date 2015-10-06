@@ -300,7 +300,7 @@ public class SubscriptionSearchQueryDAO {
      * @return the ID of the created (or updated) subscription
      */
     public Number subscribe(String subscriptionSystemId, String topic, String startDateString, String endDateString, Map<String, String> subjectIds, Set<String> emailAddresses, String offenderName,
-            String subscribingSystemId, String subscriptionQualifier, String subscriptionOwner, LocalDate creationDateTime) {
+            String subscribingSystemId, String subscriptionQualifier, String subscriptionOwner, LocalDate creationDateTime, String agencyCaseNumber) {
 
         Number ret = null;
 
@@ -360,8 +360,8 @@ public class SubscriptionSearchQueryDAO {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             this.jdbcTemplate.update(
                     buildPreparedInsertStatementCreator(
-                            "insert into subscription (topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active, lastValidationDate) values (?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
-                                fullyQualifiedTopic.trim(), startDate, endDate, subscribingSystemId.trim(), subscriptionOwner, offenderName.trim(), 1, creationDate
+                            "insert into subscription (topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active, lastValidationDate, agency_case_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
+                                fullyQualifiedTopic.trim(), startDate, endDate, subscribingSystemId.trim(), subscriptionOwner, offenderName.trim(), 1, creationDate, agencyCaseNumber
                             }), keyHolder);
 
             ret = keyHolder.getKey();
