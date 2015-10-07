@@ -59,6 +59,21 @@ public class ParoleTransformerServiceTest {
 		
 		transformAndValidate(xslt, xml,"output/subscription.xml", params);
 	}
+
+	
+	@Test
+	public void paroleFbiUnsubscribeTransform() throws Exception{
+		
+		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/parole/paroleCaseTermination.xml"));
+		String xslt = FileUtils.readFileToString(new File("src/main/resources/xslt/paroleDocumentToUnsubscription.xsl"));
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("fbiId", "1234");
+		params.put("topicExpression","topics:person/arrest");
+		
+		
+		transformAndValidate(xslt, xml,"output/fbiUnsubscription.xml", params);
+	}	
 	
 	@Test
 	public void paroleUnsubscribeTransform() throws Exception{
