@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:hawaii-ext="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0" xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0" xmlns:pdu="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0" xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" targetNamespace="http://ojbc.org/IEPD/Extensions/Notification/1.0" elementFormDefault="qualified" attributeFormDefault="qualified" version="1">
+<xsd:schema xmlns:hawaii-ext="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0" xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0" xmlns:pdu="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0" xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/Notification/1.0" elementFormDefault="qualified" attributeFormDefault="qualified" version="1">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../Subset/niem/structures/2.0/structures.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd"/>
@@ -27,6 +27,8 @@
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0" schemaLocation="CourtDispositionUpdate.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0" schemaLocation="ProsecutionDecisionUpdate.xsd"/>
 	<xsd:import namespace="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" schemaLocation="FBI_NDEx_Codes.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd"/>
 	<xsd:complexType name="NotifyingActivityType" abstract="true" mixed="false">
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="s:ComplexObjectType">
@@ -34,6 +36,7 @@
 					<xsd:element ref="notfm-ext:NotifyingActivityExtensions" minOccurs="0"/>
 					<xsd:element ref="notfm-ext:NotifyingActivityReportingSystemNameText" minOccurs="0"/>
 					<xsd:element ref="notfm-ext:NotifyingActivityReportingSystemURI" minOccurs="0"/>
+					<xsd:element ref="notfm-ext:CriminalHistoryDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -96,6 +99,19 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="CriminalHistoryDocumentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a criminal history document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="xop:Include"/>
+				</xsd:sequence>
+				<xsd:attribute ref="xmime:contentType"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:element name="NotifyingCriminalHistoryUpdate" type="notfm-ext:NotifyingCriminalHistoryUpdateType" abstract="false" substitutionGroup="notfm-ext:NotifyingActivity" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>An incident that results in notification.</xsd:documentation>
@@ -139,6 +155,16 @@
 	<xsd:element name="OffenseFBINDEXCode" type="ndexiacodes:OffenseCodeType" substitutionGroup="j:OffenseCategory">
 		<xsd:annotation>
 			<xsd:documentation>An offense as defined by the FBI N-DEX program</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryRecordDocument" type="notfm-ext:CriminalHistoryDocumentType" substitutionGroup="notfm-ext:CriminalHistoryDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document that contains the person's criminal history. Sometimes this is referred to as a rap sheet.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryDocumentRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for a criminal history document.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
