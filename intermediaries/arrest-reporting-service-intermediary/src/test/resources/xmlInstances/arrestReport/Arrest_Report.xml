@@ -605,6 +605,11 @@
 							                    <lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
 							                    <lexs:CommunityVersion>1.0</lexs:CommunityVersion>
                         </lexs:StructuredPayloadMetadata>
+                         <oar:ArrestReport xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include">
+                             <oar:FederalCriminalHistoryRecordDocument xmime:contentType="text/plain">
+                                 <xop:Include href="cid:http://ojbc.org/arrest/document"/>
+                             </oar:FederalCriminalHistoryRecordDocument>
+                         </oar:ArrestReport>
                         <oar:ArrestReport>
                            <oar:Offense>
                               <oar:OffenseCodeText>Driving Under Influence</oar:OffenseCodeText>
