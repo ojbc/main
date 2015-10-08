@@ -32,6 +32,7 @@
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="topicExpression"/>
+	<xsl:param name="fbiId"/>
 	
 	<xsl:template match="pct:ParoleCaseTermination">
 		<b:Unsubscribe>
@@ -39,8 +40,15 @@
 			<um:UnsubscriptionMessage>
 				<smext:Subject>
 					<xsl:apply-templates select="parole:ParoleCase/jxdm41:Supervision/nc20:SupervisionPerson/nc20:PersonBirthDate"/>
-					<xsl:apply-templates select="parole:ParoleCase/jxdm41:Supervision/nc20:SupervisionPerson/nc20:PersonName" />
-					<xsl:apply-templates select="parole:ParoleCase/jxdm41:Supervision/nc20:SupervisionPerson/nc20:PersonStateIdentification" />
+					<xsl:apply-templates select="parole:ParoleCase/jxdm41:Supervision/nc20:SupervisionPerson/nc20:PersonName" />					
+					<jxdm41:PersonAugmentation>
+						<xsl:if test="$fbiId and $fbiId != ''">
+							<jxdm41:PersonFBIIdentification>
+								<nc20:IdentificationID><xsl:value-of select="$fbiId" /></nc20:IdentificationID>
+							</jxdm41:PersonFBIIdentification>						
+						</xsl:if>						
+						<xsl:apply-templates select="parole:ParoleCase/jxdm41:Supervision/nc20:SupervisionPerson/nc20:PersonStateIdentification" />
+					</jxdm41:PersonAugmentation>	
 				</smext:Subject>
 				<nc20:ContactEmailID><xsl:value-of select="normalize-space(parole:ParoleCase/nc20:ContactInformation[@s:id='paroleOfficerEmail1']/nc20:ContactEmailID)"/></nc20:ContactEmailID>
 				<smext:SystemName><xsl:value-of select="parole:SystemName"/></smext:SystemName>
@@ -64,11 +72,9 @@
 			<nc20:PersonGivenName><xsl:value-of select="nc20:PersonGivenName"/></nc20:PersonGivenName>
 			<nc20:PersonSurName><xsl:value-of select="nc20:PersonSurName"/></nc20:PersonSurName>
 		</nc20:PersonName>
-	</xsl:template>
+	</xsl:template>			
 	<xsl:template match="nc20:PersonStateIdentification">
-		<jxdm41:PersonAugmentation>
-			<jxdm41:PersonStateFingerprintIdentification><nc20:IdentificationID><xsl:value-of select="normalize-space(nc20:IdentificationID)"/></nc20:IdentificationID></jxdm41:PersonStateFingerprintIdentification>
-		</jxdm41:PersonAugmentation>
+		<jxdm41:PersonStateFingerprintIdentification><nc20:IdentificationID><xsl:value-of select="normalize-space(nc20:IdentificationID)"/></nc20:IdentificationID></jxdm41:PersonStateFingerprintIdentification>
 	</xsl:template>
 	
 </xsl:stylesheet>
