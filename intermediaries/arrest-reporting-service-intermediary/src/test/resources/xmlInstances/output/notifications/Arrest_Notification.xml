@@ -18,7 +18,9 @@
 
 -->
 <b:Notify xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+          xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
           xmlns:s="http://niem.gov/niem/structures/2.0"
+          xmlns:xop="http://www.w3.org/2004/08/xop/include"
           xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
           xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
           xmlns:b="http://docs.oasis-open.org/wsn/b-2"
@@ -44,6 +46,9 @@
          <notification:NotificationMessage>
             <notificationExt:NotifyingArrest s:id="A001">
                <notificationExt:NotifyingActivityReportingSystemNameText>LCL</notificationExt:NotifyingActivityReportingSystemNameText>
+               <notificationExt:CriminalHistoryRecordDocument xmime:contentType="text/plain">
+                  <xop:Include href="cid:http://ojbc.org/arrest/document"/>
+               </notificationExt:CriminalHistoryRecordDocument>
                <j:Arrest>
                   <nc:ActivityDate>
                      <nc:DateTime>2014-01-01T08:06:02Z</nc:DateTime>
