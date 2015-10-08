@@ -67,15 +67,7 @@
 			
 			<camel:filter>
 				<camel:simple>${in.header.callIdentificationRecordingService} == 'true'</camel:simple>
-				<camel:setOutHeader headerName="operationName">
-					<camel:simple>${in.headers.operationName}</camel:simple>
-				</camel:setOutHeader>
-				<camel:setOutHeader headerName="operationNamespace">
-					<camel:simple>${in.headers.operationNamespace}</camel:simple>
-				</camel:setOutHeader>
-			
-				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
-			
+				<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace|CamelDestinationOverrideUrl"></camel:removeHeaders>
 				<camel:to uri="direct:callIdentificationRecordingService" />
 			</camel:filter>
 			
