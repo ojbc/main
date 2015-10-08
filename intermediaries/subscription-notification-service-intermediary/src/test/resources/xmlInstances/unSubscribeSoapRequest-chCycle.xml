@@ -31,6 +31,9 @@
 			xmlns:topics="http://ojbc.org/wsn/topics"
 			xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
 			<um:UnsubscriptionMessage>
+            	<smext:SubscriptionRelatedCaseIdentification>
+            		<nc20:IdentificationID>0123ABG</nc20:IdentificationID>
+            	</smext:SubscriptionRelatedCaseIdentification>
 				<smext:Subject>
 					<nc20:PersonBirthDate>
 						<nc20:Date>1980-01-01</nc20:Date>

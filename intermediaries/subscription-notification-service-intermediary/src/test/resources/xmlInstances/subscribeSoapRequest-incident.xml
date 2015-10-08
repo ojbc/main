@@ -37,6 +37,9 @@
 			<b:InitialTerminationTime />
 			<b:SubscriptionPolicy />
 			<sm:SubscriptionMessage>
+            	<smext:SubscriptionRelatedCaseIdentification>
+            		<nc20:IdentificationID>0123ABG</nc20:IdentificationID>
+            	</smext:SubscriptionRelatedCaseIdentification>
 				<smext:Subject>
 					<nc20:PersonBirthDate>
 						<nc20:Date>1980-01-01</nc20:Date>
