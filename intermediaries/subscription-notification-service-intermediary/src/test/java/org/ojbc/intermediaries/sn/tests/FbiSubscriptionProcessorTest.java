@@ -95,5 +95,17 @@ public class FbiSubscriptionProcessorTest {
 		Assert.assertEquals(detailedDiff.toString(), 0, diffCount);
 	}
 
+	@Test
+	public void testFbiUnsubscription() throws Exception{
+		
+		FbiSubscriptionProcessor fbiSubscriptionProcessor = new FbiSubscriptionProcessor();
+		
+		Document unsubscribeDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/Unsubscription_FBI_Document2.xml"));	
+		
+		String fbiId = fbiSubscriptionProcessor.getFbiIdFromUnsubscribeDoc(unsubscribeDoc);
+		
+		Assert.assertEquals("074644NG0", fbiId);
+	}
+	
 }
 

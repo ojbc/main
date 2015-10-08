@@ -46,16 +46,52 @@ public class FbiSubscriptionProcessor {
 		
 		logger.info("\n\n\n Process Unsubscribe... \n\n\n");
 		
-		Document unsubscribeDoc = exchange.getIn().getHeader("unsubscribeBody", Document.class);
+		Document unsubscribeDoc = exchange.getIn().getHeader("unsubscribeBody", Document.class);	
 		
-		String personfbiUcnId = null; // TODO XmlUtils.xPathStringSearch(unsubscribeDoc, "TODO");
+		String personFbiUcnId = getFbiIdFromUnsubscribeDoc(unsubscribeDoc);
+				
+		if(StringUtils.isEmpty(personFbiUcnId)){
 		
-		int countStateSubscriptionsWithFbiUcnId = rapbackDao.countStateSubscriptionsHavingFbiUcnId(personfbiUcnId);
+			logger.info("\n\n\n Fbi Id not provided.  Looking it up now...  \n\n\n");
+						
+			String unsubscribeQualId = XmlUtils.xPathStringSearch(unsubscribeDoc, 
+					"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");
+			
+			personFbiUcnId = rapbackDao.getFbiUcnIdFromUnsubscriptionQualif(unsubscribeQualId);
+		}
 		
-		// TODO enable when query works off fbi id or something else 
-		boolean hasStateSubscriptionsForFbiUcnId = true; //countStateSubscriptionsWithFbiUcnId > 0;
+		//default to Not remove FBI subscription(unless flag gets set below)
+		boolean hasStateSubscriptionsForFbiUcnId = true;
+		
+		if(StringUtils.isNotEmpty(personFbiUcnId)){
+			
+			logger.info("\n\n\n Using FBI Id: " + personFbiUcnId + "\n\n\n");
+		
+			int countStateSubscriptionsWithFbiUcnId = rapbackDao.countStateSubscriptionsHavingFbiUcnId(personFbiUcnId);
+			
+			logger.info("\n\n\n State Subscription Count: " + countStateSubscriptionsWithFbiUcnId + " \n\n\n");
+			
+			hasStateSubscriptionsForFbiUcnId = countStateSubscriptionsWithFbiUcnId > 0;
+		}				
 		
 		return hasStateSubscriptionsForFbiUcnId;
+	}
+	
+	
+	public String getFbiIdFromUnsubscribeDoc(Document unsubscribeDoc) throws Exception{
+		
+		String personfbiUcnId = null;
+		
+		try{		
+			personfbiUcnId = XmlUtils.xPathStringSearch(unsubscribeDoc, 
+					"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+		
+		}catch(Exception e){
+			logger.severe("\n\n\n Exception: " + e.getMessage() + "\n\n from doc: \n\n ");
+			
+			XmlUtils.printNode(unsubscribeDoc);
+		}				
+		return personfbiUcnId;
 	}
 	
 	
