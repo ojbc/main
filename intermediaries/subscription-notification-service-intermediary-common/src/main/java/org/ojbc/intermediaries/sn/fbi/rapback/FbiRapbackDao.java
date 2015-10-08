@@ -46,6 +46,12 @@ public class FbiRapbackDao {
 	private JdbcTemplate jdbcTemplate;
     
     
+    
+    public String getFbiUcnIdFromUnsubscriptionQualif(String unsubscriptionQualifier){
+    	
+    	return null;
+    }
+    
     public int countStateSubscriptionsHavingFbiUcnId(String fbiUcnId){
     	
     	int stateSubCount = jdbcTemplate.queryForObject(STATE_SUB_COUNT, new Object[] {fbiUcnId}, Integer.class);

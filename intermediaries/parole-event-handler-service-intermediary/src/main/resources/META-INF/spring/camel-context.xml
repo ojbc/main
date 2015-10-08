@@ -102,18 +102,18 @@
 			
 			<camel:log message="\n\n\n processing parole document... \n\n\n" />			
 									
+			<camel:setHeader headerName="systemName">
+				<camel:xpath>//pcext:SystemName/text()</camel:xpath>
+			</camel:setHeader>
+
+			<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
+			
+			<log message="\n\n\n systemName=${header.systemName}, topicExpression=${header.topicExpression}" />
+
 			
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Parole-Case-Initiation'</camel:simple>
-								
-				<camel:setHeader headerName="systemName">
-					<camel:xpath>//pcext:SystemName/text()</camel:xpath>
-				</camel:setHeader>
-
-				<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
-				
-				<log message="\n\n\n systemName=${header.systemName}, topicExpression=${header.topicExpression}" />
-				
+												
 				<camel:setHeader headerName="derivedRoutes">
 					<simple>{{parole.event.camelEndpointsToCall}}</simple>
 				</camel:setHeader>
