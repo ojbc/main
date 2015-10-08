@@ -43,7 +43,6 @@ import org.dbunit.operation.DatabaseOperation;
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.notification.filter.DuplicateNotificationFilterStrategy;
