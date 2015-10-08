@@ -35,6 +35,9 @@
     xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" 
     xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
     xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+    xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0"
+    xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
+    xmlns:xop="http://www.w3.org/2004/08/xop/include"
     xmlns:oar="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0"
     exclude-result-prefixes="xs ar lexs lexspd lexsdigest j40 oar"
     version="2.0">
@@ -115,6 +118,7 @@
                             	<notificationExt:NotifyingActivityReportingSystemNameText>
                             		<xsl:value-of select="/*/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataSubmitterMetadata/lexs:SystemIdentifier/lexs:SystemID"/>
                             	</notificationExt:NotifyingActivityReportingSystemNameText>
+                            	<xsl:apply-templates select="$lexsDataItemPackage/lexs:StructuredPayload/ojbc:ArrestReport[oar:FederalCriminalHistoryRecordDocument]"/>
                                 <xsl:apply-templates select="$lexsDigest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Arrest']" mode="arrest"/>
                                 <xsl:apply-templates select="$lexsDigest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Incident']" mode="incident"/>
                                 <xsl:apply-templates select="/*/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Offense']" mode="Offense"/>
@@ -220,6 +224,16 @@
     <xsl:template match="oar:OffenseCodeText">
     	<j:OffenseCategoryText><xsl:value-of select="."/></j:OffenseCategoryText>
     </xsl:template>
+	<xsl:template match="ojbc:ArrestReport">
+		<notificationExt:CriminalHistoryRecordDocument>
+			<xsl:attribute name="xmime:contentType"><xsl:value-of select="ojbc:FederalCriminalHistoryRecordDocument/@xmime:contentType"/></xsl:attribute>
+			<xop:Include>
+				<xsl:attribute name="href">
+					<xsl:value-of select="ojbc:FederalCriminalHistoryRecordDocument/xop:Include/@href"></xsl:value-of>
+				</xsl:attribute>	
+			</xop:Include>
+      	</notificationExt:CriminalHistoryRecordDocument>
+	</xsl:template>
     <xsl:template match="j40:EnforcementOfficial" mode="enforcementOfficialUnit"> 
         <xsl:variable name="enforcementOfficialID" select="preceding-sibling::lexsdigest:Person/@s:id" />
         <xsl:variable name="enforcementOfficialOrganizationID" select="$lexsDigest/lexsdigest:Associations/nc:PersonAssignedUnitAssociation/nc:OrganizationReference/@s:ref" />
