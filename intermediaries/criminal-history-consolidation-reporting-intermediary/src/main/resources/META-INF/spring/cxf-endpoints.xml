@@ -43,10 +43,10 @@
        ">
        
     <camel:endpoint id="chConsolidateServiceEndpoint" 
-    	uri="cxf:bean:chConsolidateService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.logging}"/>                        
+    	uri="cxf:bean:chConsolidateService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.cxfLogging}"/>                        
     
     <camel:endpoint id="rapbackDataStoreEndpoint" 
-    	uri="cxf:bean:identificationInitialResultsQueryRequestService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.logging}" />
+    	uri="cxf:bean:identificationInitialResultsQueryRequestService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.cxfLogging}" />
         
 	<cxf:cxfEndpoint id="chConsolidateService"
 		address="${chConsolidate.endpoint}"
