@@ -155,6 +155,20 @@ public class ProbationTransformerServiceTest {
 		transformAndValidate(xslt, xml,"output/unsubscription.xml", getParams());
 	}
 	
+	
+	@Test
+	public void probationFbiUnsubscribeTransform() throws Exception{
+		
+		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/probation/probationCaseTermination.xml"));
+		String xslt = FileUtils.readFileToString(new File("src/main/resources/xslt/probationDocumentToUnsubscription.xsl"));
+
+		Map<String,Object> paramMap = getParams();
+		paramMap.put("fbiId", "abc123");
+		
+		transformAndValidate(xslt, xml,"output/fbiUnsubscription.xml", paramMap);
+	}	
+	
+		
 	@SuppressWarnings("unchecked")
 	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedHtmlPath, Map<String,Object> params) throws IOException, SAXException {
 
