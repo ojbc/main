@@ -45,7 +45,9 @@
 		<endpoint id="inputDir"
 			uri="file:///${publishSubscribe.probationIntermediaryDirectory}/input?idempotent=true&amp;moveFailed=${publishSubscribe.probationIntermediaryDirectory}/error&amp;move=processed/" />
 
-			
+		<endpoint id="caseTerminateInputDir"
+			uri="file:///${publishSubscribe.probationIntermediaryDirectory}/CaseTerminate/input?idempotent=true&amp;moveFailed=${publishSubscribe.probationIntermediaryDirectory}/error&amp;move=processed/" />			
+						
 		<!-- Probation Service File Handler -->
 		<camel:route>
 			<camel:from uri="inputDir" />
@@ -60,6 +62,22 @@
 			
 			<camel:to uri="direct:processProbationDocument" />
 		</camel:route>
+
+		
+		<camel:route>
+			<from uri="caseTerminateInputDir"/>
+			
+			<log message="\n\n\n Received in caseTerminateInputDir: \n\n ${body}  \n\n\n" loggingLevel="INFO"/>
+			
+			<setHeader headerName="operationName">
+				<constant>Report-Probation-Case-Termination</constant>
+			</setHeader>
+			
+			<log message="\n\n\n Operation:  ${header.operationName} \n\n\n" loggingLevel="INFO"/>
+				
+			<to uri="direct:processProbationDocument"/>
+		</camel:route>
+
 
 
 
@@ -88,11 +106,10 @@
 					<camel:xpath>//pcext:SystemName/text()</camel:xpath>
 				</camel:setHeader>
 
-				<log message="\n\n\n System Name: ${header.systemName} \n\n\n"/>
 
 				<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
 				
-				<log message="\n\n\n TOPIC: ${in.header.topicExpression} \n\n\n"/>
+				<log message="\n\n\n System Name: ${header.systemName}, TOPIC: ${in.header.topicExpression} \n\n\n"/>
 				
 				
 				<camel:setHeader headerName="officerEmailAddress">
@@ -125,9 +142,25 @@
 																
 			</camel:filter>
 
+
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Probation-Case-Termination'</camel:simple>
-				<camel:wireTap uri="direct:transformAndInvokeUnsubscriptionProcessor" />
+								
+				<setHeader headerName="derivedUnsubscribeEndpoint">
+					<simple>{{probation.event.terminationUnsubscribeEndpoint}}</simple>
+				</setHeader>				
+				
+				<filter>
+					<simple>${header.derivedUnsubscribeEndpoint} != ''</simple>
+					
+					<log message="\n\n\n Calling Derived Unsubscribe Endpoint...: ${header.derivedUnsubscribeEndpoint} \n\n\n" 
+						loggingLevel="INFO" />
+					
+					<camel:recipientList>
+						<camel:header>derivedUnsubscribeEndpoint</camel:header>
+					</camel:recipientList>				
+				</filter>										
+								
 			</camel:filter>
 
 		</camel:route>
@@ -141,7 +174,6 @@
 			
 			<to uri="direct:transformAndInvokeSubscriptionProcessor"/>
 		</camel:route>
-
 
 
 		<camel:route>
@@ -165,9 +197,11 @@
 
 		<camel:route>
 		
-			<camel:from uri="direct:transformAndInvokeUnsubscriptionProcessor" />
+			<camel:from uri="direct:transformAndInvokeUnsubscriptionProbationProcessor" />
+			
 			<camel:to uri="xslt:xslt/probationDocumentToUnsubscription.xsl" />
-			<camel:log message="After transform unsubscription: ${body}" />
+			
+			<camel:log message="\n\n\n After transform unsubscription: ${body} \n\n\n" />
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewSimpleExchangeResponseMessage"/>
 			
@@ -176,6 +210,16 @@
 			
 			<camel:to uri="subscriptionManagerServiceEndpoint" />
 		</camel:route>
+		
+		
+		<camel:route id="unsubXsltRouteForDerivedChildBundlesToCall">
+		
+			<from uri="direct-vm:transformAndInvokeProbationUnsubscriptionProcessor"/>
+		
+			<log message="\n\n\n Called by derived bundle: Transforming Unsubscription... \n\n\n" loggingLevel="INFO"/>
+			
+			<to uri="direct:transformAndInvokeUnsubscriptionProbationProcessor"/>
+		</camel:route>		
 		
 	</camel:camelContext>
 
