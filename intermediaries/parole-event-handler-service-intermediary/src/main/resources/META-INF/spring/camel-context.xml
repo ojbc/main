@@ -143,7 +143,6 @@
 					<log message="\n\n\n Calling Derived Unsubscribe Endpoint...: \n\n ${in.headers.derivedUnsubscribeEndpoint} \n\n\n" 
 						loggingLevel="INFO" />
 					
-					<!-- Destination used to be called via wireTap(not now, so confirm nothing was broken) -->
 					<camel:recipientList>
 						<camel:header>derivedUnsubscribeEndpoint</camel:header>
 					</camel:recipientList>				
