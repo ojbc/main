@@ -30,27 +30,24 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 	
-	<util:properties id="classpathProperties" location="classpath:organization_identification_results_search_service_intermediary.cfg" />
-
-	<util:properties id="contextProperties"/>
-
-	<bean id="derivedBundleOsgiProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	<bean id="bridgePropertyPlaceholder"
+		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
-			<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-				<property name="targetObject">
-					<ref bean="org.ojbc.bundles.intermediaries.organization-identification-results-search-service-intermediary-context" />
-				</property>
-				<property name="targetMethod">
-					<value>getPropertiesList</value>
-				</property>
-			</bean>
+			<array>
+				<!-- We put default values for the properties here and they can be overriden in subsquent entries below -->
+				<!-- This allows implementers to skip setting these properties if their instance does not use them -->
+				<util:properties>
+				</util:properties>
+				<!-- The .cfg file from the classpath will be consulted first, followed 
+					by the optional .cfg file under $KARAF_HOME/etc -->
+				<util:properties
+					location="classpath:organization_identification_results_search_service_intermediary.cfg" />
+				<osgix:cm-properties id="osgiProperties"
+					persistent-id="organization_identification_results_search_service_intermediary" />
+			</array>
 		</property>
 	</bean>
 
-	<bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
-		<property name="propertiesArray" ref="propertiesList" />
-	</bean>	
-	
 </beans>
 
 
