@@ -41,7 +41,6 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
-import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
 import org.ojbc.adapters.rapbackdatastore.util.ZipUtils;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
@@ -344,36 +343,6 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            ps.setBlob(2, new SerialBlob(criminalInitialResults.getSearchResultFile()));
         	            ps.setString(3, criminalInitialResults.getTransactionType());
         	            ps.setInt(4, criminalInitialResults.getResultsSender().ordinal()+1);
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();
-	}
-
-	final static String SUBSEQUENT_RESULTS_INSERT="insert into SUBSEQUENT_RESULTS "
-			+ "(TRANSACTION_NUMBER, FBI_SUBSCRIPTION_ID, RAP_BACK_SUBSCRIPTION_IDENTIFIER, "
-			+ " MATCH_NO_MATCH, RAPSHEET, TRANSACTION_TYPE ) "
-			+ "values (?, ?, ?, ?, ?, ?)";
-	@Override
-	public Integer saveSubsequentResults(final SubsequentResults subsequentResults) {
-        log.debug("Inserting row into SUBSEQUENT_RESULTS table : " + subsequentResults.toString());
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(SUBSEQUENT_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "FBI_SUBSCRIPTION_ID", "SUBJECT_ID", "RAP_BACK_SUBSCRIPTION_IDENTIFIER", 
-        	                		"MATCH_NO_MATCH",  "RAP_SHEET", "TRANSACTION_TYPE" });
-        	            ps.setString(1, subsequentResults.getTransactionNumber());
-        	            ps.setString(2, subsequentResults.getFbiSubscriptionId());
-        	            ps.setString(3, subsequentResults.getRapbackSubscriptionIdentifier());
-        	            ps.setBoolean(4, subsequentResults.getMatch());
-        	            ps.setBlob(5, new SerialBlob(subsequentResults.getRapSheet()));
-        	            ps.setString(6, subsequentResults.getTransactionType());
         	            return ps;
         	        }
         	    },
