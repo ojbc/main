@@ -242,6 +242,26 @@
 	 
 	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
 	
+	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
+		<property name="federatedQueryEndpointMap">
+			<util:map >
+				<entry key="Criminal" value="rapbackSearchRequestServiceAdapterEndpoint" />
+				<entry key="Civil" value="rapbackSearchRequestServiceAdapterEndpoint" />
+			</util:map>	
+		</property>
+
+		<property name="adapterURItoAddressMap">
+			<util:map >
+				<entry key="Criminal" value="${rapbackSearchIntermediary.rapbackDataStoreEndpoint}" />
+				<entry key="Civil" value="${rapbackSearchIntermediary.rapbackDataStoreEndpoint}" />
+			</util:map>	
+		</property>
+  	</bean>
+	
+	<util:map map-class="java.util.HashMap"  id="wsAddressReplyToEndpointMap" >
+        <entry key="${rapbackSearchIntermediary.presentRapbackSearchResultEndpoint}" value="presentRapbackSearchResultServiceEndpoint"/>
+  	</util:map>
+	
 	
 </beans>
 
