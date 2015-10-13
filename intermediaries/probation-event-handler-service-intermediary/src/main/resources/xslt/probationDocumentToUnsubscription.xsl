@@ -61,7 +61,8 @@
 				<smext:SystemName><xsl:value-of select="pcext:SystemName"/></smext:SystemName>
 				<smext:SubscriptionQualifierIdentification>
 					<nc20:IdentificationID><xsl:value-of select="pcext:ProbationCase/pcext:Supervision/pcext:SupervisionIdentification/nc20:IdentificationID"/></nc20:IdentificationID>
-				</smext:SubscriptionQualifierIdentification>				
+				</smext:SubscriptionQualifierIdentification>	
+				<smext:CriminalSubscriptionReasonCode>CS</smext:CriminalSubscriptionReasonCode>			
 			</um:UnsubscriptionMessage>
 			<b:TopicExpression
 				Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"

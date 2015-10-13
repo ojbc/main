@@ -48,6 +48,7 @@
       <smext:SubscriptionQualifierIdentification>
          <nc20:IdentificationID>9999999</nc20:IdentificationID>
       </smext:SubscriptionQualifierIdentification>
+      <smext:CriminalSubscriptionReasonCode>CS</smext:CriminalSubscriptionReasonCode>	
    </um:UnsubscriptionMessage>
    <b:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">theTopic</b:TopicExpression>
 </b:Unsubscribe>
