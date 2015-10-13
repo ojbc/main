@@ -36,6 +36,7 @@
 					<xsd:element ref="notfm-ext:NotifyingActivityExtensions" minOccurs="0"/>
 					<xsd:element ref="notfm-ext:NotifyingActivityReportingSystemNameText" minOccurs="0"/>
 					<xsd:element ref="notfm-ext:NotifyingActivityReportingSystemURI" minOccurs="0"/>
+					<xsd:element ref="notfm-ext:RecordRapBackSubscriptionIdentification" minOccurs="0"/>
 					<xsd:element ref="notfm-ext:CriminalHistoryDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -165,6 +166,11 @@
 	<xsd:element name="CriminalHistoryDocumentRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for a criminal history document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RecordRapBackSubscriptionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identification associated with a rap back subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
