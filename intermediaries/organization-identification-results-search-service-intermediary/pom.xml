@@ -48,7 +48,6 @@
 		<ojb-camel-common>[1.0.0,)</ojb-camel-common>
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
-		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 		<ojb-common-version>[2.0.1,)</ojb-common-version>
 		<commons-lang-version>2.4</commons-lang-version>
 		<spring-version>3.0.7.RELEASE</spring-version>
@@ -156,12 +155,6 @@
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-resources-common</artifactId>
 			<version>${ojb-resources-common-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-osgi-common</artifactId>
-			<version>${ojb-osgi-common-version}</version>
 		</dependency>
 
 		<!-- for testing -->
