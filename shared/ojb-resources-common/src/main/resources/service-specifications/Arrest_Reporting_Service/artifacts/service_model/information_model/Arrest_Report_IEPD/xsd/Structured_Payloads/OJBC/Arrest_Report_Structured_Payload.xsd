@@ -37,6 +37,7 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="ojbc:RecordCategoryText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ojbc:RecordRapBackSubscriptionIdentification" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ojbc:DocumentRequestorDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ojbc:Person" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ojbc:Location" minOccurs="0" maxOccurs="unbounded"/>
@@ -261,9 +262,15 @@
 			<xsd:documentation>A document sent by the FBI that contains the person's criminal history. Sometimes this is referred to as a federal rap sheet.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
 	<xsd:element name="ArrestDocumentRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for an arrest document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RecordRapBackSubscriptionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identification associated with a rap back subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
