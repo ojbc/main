@@ -16,6 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.fbi.rapback;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
+import org.ojbc.util.helper.ZipUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -111,7 +113,7 @@ public class FbiRapbackDao {
 	}
 	
 	final static String SUBSEQUENT_RESULTS_INSERT="insert into SUBSEQUENT_RESULTS "
-			+ "(FBI_SUBSCRIPTION_ID, RAPSHEET, TRANSACTION_TYPE ) "
+			+ "(FBI_SUBSCRIPTION_ID, RAP_SHEET, TRANSACTION_TYPE ) "
 			+ "values (?, ?, ?)";
 	public Integer saveSubsequentResults(final SubsequentResults subsequentResults) {
         log.debug("Inserting row into SUBSEQUENT_RESULTS table : " + subsequentResults.toString());
@@ -124,7 +126,12 @@ public class FbiRapbackDao {
         	                connection.prepareStatement(SUBSEQUENT_RESULTS_INSERT, 
         	                		new String[] {"FBI_SUBSCRIPTION_ID", "RAP_SHEET", "TRANSACTION_TYPE" });
         	            ps.setString(1, subsequentResults.getFbiSubscriptionId());
-        	            ps.setBlob(2, new SerialBlob(subsequentResults.getRapSheet()));
+        	            try {
+							ps.setBlob(2, new SerialBlob(ZipUtils.zip(subsequentResults.getRapSheet())));
+						} catch (IOException e) {
+							log.error("Got IOException while zipping the rapsheet: \n" + 
+									subsequentResults.getRapSheet());
+						}
         	            ps.setString(3, subsequentResults.getTransactionType());
         	            return ps;
         	        }

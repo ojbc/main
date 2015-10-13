@@ -16,6 +16,7 @@
  */
 package org.ojbc.adapters.rapbackdatastore.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,10 +42,10 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
-import org.ojbc.adapters.rapbackdatastore.util.ZipUtils;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
+import org.ojbc.util.helper.ZipUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
@@ -226,7 +227,12 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            ps.setString(1, civilFingerPrints.getTransactionNumber());
         	            
         	            if (civilFingerPrints.getFingerPrintsFile() != null){
-        	            	ps.setBlob(2, new SerialBlob(civilFingerPrints.getFingerPrintsFile()));
+        	            	try {
+								ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilFingerPrints.getFingerPrintsFile())));
+							} catch (IOException e) {
+								e.printStackTrace();
+								log.error("Got IOException when zipping fingerPrintFile: \n" + civilFingerPrints.getFingerPrintsFile());
+							}
         	            }
         	            ps.setString(3, civilFingerPrints.getTransactionType());
         	            ps.setInt(4, civilFingerPrints.getFingerPrintsType().ordinal()+1);
@@ -282,7 +288,11 @@ public class RapbackDAOImpl implements RapbackDAO {
         	                connection.prepareStatement(CIVIL_INITIAL_RAP_SHEET_INSERT, 
         	                		new String[] {"CIVIL_INITIAL_RESULT_ID", "RAP_SHEET", "TRANSACTION_TYPE"});
         	            ps.setInt(1, civilInitialRapSheet.getCivilIntitialResultId());
-        	            ps.setBlob(2, new SerialBlob(civilInitialRapSheet.getRapSheet()));
+        	            try {
+							ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilInitialRapSheet.getRapSheet())));
+						} catch (IOException e) {
+							log.error("Got IO exception while trying to zip the rapsheet :\n" + civilInitialRapSheet.getRapSheet());
+						}
         	            ps.setString(3, civilInitialRapSheet.getTransactionType());
         	            return ps;
         	        }
@@ -311,7 +321,12 @@ public class RapbackDAOImpl implements RapbackDAO {
         	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
         	                		"TRANSACTION_TYPE", "RESULTS_SENDER_ID"});
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
-        	            ps.setBlob(2, new SerialBlob(civilInitialResults.getSearchResultFile()));
+        	            try {
+							ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilInitialResults.getSearchResultFile())));
+						} catch (IOException e) {
+							e.printStackTrace();
+							log.error("Got IOExeption while zipping the searchResultFile:\n" + civilInitialResults.getSearchResultFile() );
+						}
         	            ps.setString(3, civilInitialResults.getTransactionType());
         	            ps.setInt(4, civilInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
@@ -340,7 +355,12 @@ public class RapbackDAOImpl implements RapbackDAO {
         	                		new String[] {"TRANSACTION_NUMBER", "SEARCH_RESULT_FILE",  
         	                		"TRANSACTION_TYPE", "RESULTS_SENDER_ID"});
         	            ps.setString(1, criminalInitialResults.getTransactionNumber());
-        	            ps.setBlob(2, new SerialBlob(criminalInitialResults.getSearchResultFile()));
+        	            try {
+							ps.setBlob(2, new SerialBlob(ZipUtils.zip(criminalInitialResults.getSearchResultFile())));
+						} catch (IOException e) {
+							e.printStackTrace();
+							log.error("Got IOException when zipping the searchResultFile:\n" + criminalInitialResults.getSearchResultFile());
+						}
         	            ps.setString(3, criminalInitialResults.getTransactionType());
         	            ps.setInt(4, criminalInitialResults.getResultsSender().ordinal()+1);
         	            return ps;

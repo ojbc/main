@@ -16,6 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Resource;
@@ -30,6 +31,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.fbi.rapback.SubsequentResults;
+import org.ojbc.util.helper.ZipUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -94,5 +97,21 @@ public class RapbackDAOImplTest {
 		String ucn = fbiSubscription.getUcn();
 		Assert.assertEquals("123456789", ucn);				
 	}	
+	
+	@Test
+	@DirtiesContext
+	public void testSaveSubsequentResults() throws Exception {
+		
+		SubsequentResults subsequentResults = new SubsequentResults();
+		subsequentResults.setFbiSubscriptionId("fbiSubscriptionId");
+		subsequentResults.setRapSheet("rapsheet".getBytes());
+		subsequentResults.setTransactionType("Transaction Type");
+		
+		
+		Integer pkId = rapbackDao.saveSubsequentResults(subsequentResults);
+		assertNotNull(pkId);
+		assertEquals(1, pkId.intValue()); 
+		
+	}
 	
 }
