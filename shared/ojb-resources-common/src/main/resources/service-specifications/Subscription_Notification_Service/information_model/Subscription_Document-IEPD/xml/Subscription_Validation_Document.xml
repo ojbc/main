@@ -26,4 +26,5 @@
 	<submsg-ext:SubscriptionIdentification>
 		<nc20:IdentificationID>1234567</nc20:IdentificationID>
 	</submsg-ext:SubscriptionIdentification>
+	<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
 </svm:SubscriptionValidationMessage>
