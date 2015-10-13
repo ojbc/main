@@ -80,17 +80,17 @@
 						<xsd:element maxOccurs="1" minOccurs="0" ref="submsg-ext:SystemName" />
 						<xsd:element maxOccurs="1" minOccurs="0" ref="nc:Case">
 							<xsd:annotation>
-								<xsd:documentation>An aggregation of information about a set of
-									related activities and events.
-								</xsd:documentation>
+								<xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification" minOccurs="0" />
+						<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 						<xsd:element ref="nc:DateRange" minOccurs="0" />
 						<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 					</xsd:sequence>
 					<xsd:sequence>
 						<xsd:element ref="submsg-ext:SubscriptionIdentification" />
+						<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 						<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 					</xsd:sequence>
 				</xsd:choice>
@@ -102,6 +102,7 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" />
+					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
