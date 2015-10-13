@@ -31,7 +31,7 @@ CREATE TABLE `subscription` (
   subjectName varchar(100) NOT NULL,
   active tinyint(4) NOT NULL,
   timestamp TIMESTAMP AS CURRENT_TIMESTAMP(), 
-  AGENCY_CASE_NUMBER VARCHAR(100)
+  agency_case_number VARCHAR(100)
 );
 
 CREATE TABLE `notification_mechanism` (
