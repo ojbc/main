@@ -45,4 +45,5 @@
 	<submsg-ext:SubscriptionQualifierIdentification>
 		<nc20:IdentificationID>302593</nc20:IdentificationID>
 	</submsg-ext:SubscriptionQualifierIdentification>
+	<submsg-ext:CriminalSubscriptionReasonCode>CS</submsg-ext:CriminalSubscriptionReasonCode>
 </unsubmsg-doc:UnsubscriptionMessage>

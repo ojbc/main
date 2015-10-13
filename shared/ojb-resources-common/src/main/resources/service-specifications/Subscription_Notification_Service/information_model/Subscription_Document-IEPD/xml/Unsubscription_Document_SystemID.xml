@@ -27,4 +27,5 @@
    		 <nc20:IdentificationID>19ec7fb5-4e29-4657-a86d-1a9711330e10,A109918642-HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc20:IdentificationID>
     	<nc20:IdentificationSourceText>Subscriptions</nc20:IdentificationSourceText>
   	</submsg-ext:SubscriptionIdentification>
+  	<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
 </unsubmsg-doc:UnsubscriptionMessage>
