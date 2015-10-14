@@ -16,22 +16,35 @@
  */
 package org.ojbc.intermediaries.sn.fbi.rapback;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
+import org.ojbc.util.helper.ZipUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 public class FbiRapbackDao {
 	
+	private final Log log = LogFactory.getLog(this.getClass());
+    
 	private final static String FBI_SUBSCRIPTION_SELECT = "SELECT * FROM fbi_rap_back_subscription "
 			+ "WHERE rap_back_category_code = ? AND ucn=?;";
 		
@@ -108,6 +121,35 @@ public class FbiRapbackDao {
 		}
 	}
 	
+	final static String SUBSEQUENT_RESULTS_INSERT="insert into SUBSEQUENT_RESULTS "
+			+ "(FBI_SUBSCRIPTION_ID, RAP_SHEET, TRANSACTION_TYPE ) "
+			+ "values (?, ?, ?)";
+	public Integer saveSubsequentResults(final SubsequentResults subsequentResults) {
+        log.debug("Inserting row into SUBSEQUENT_RESULTS table : " + subsequentResults.toString());
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(SUBSEQUENT_RESULTS_INSERT, 
+        	                		new String[] {"FBI_SUBSCRIPTION_ID", "RAP_SHEET", "TRANSACTION_TYPE" });
+        	            ps.setString(1, subsequentResults.getFbiSubscriptionId());
+        	            try {
+							ps.setBlob(2, new SerialBlob(ZipUtils.zip(subsequentResults.getRapSheet())));
+						} catch (IOException e) {
+							log.error("Got IOException while zipping the rapsheet: \n" + 
+									subsequentResults.getRapSheet());
+						}
+        	            ps.setString(3, subsequentResults.getTransactionType());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+
 	private DateTime toDateTime(Date date){
 		return date == null? null : new DateTime(date); 
 	}

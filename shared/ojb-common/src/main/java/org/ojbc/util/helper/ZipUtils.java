@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.rapbackdatastore.util;
+package org.ojbc.util.helper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

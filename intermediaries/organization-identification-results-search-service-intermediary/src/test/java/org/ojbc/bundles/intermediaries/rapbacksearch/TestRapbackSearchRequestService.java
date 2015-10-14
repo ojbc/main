@@ -18,8 +18,6 @@ package org.ojbc.bundles.intermediaries.rapbacksearch;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Map;
-
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -28,16 +26,9 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
-import org.apache.cxf.message.MessageImpl;
-import org.apache.ws.security.SAMLTokenPrincipal;
-import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
-import org.ojbc.util.model.saml.SamlAttribute;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -48,9 +39,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
         "classpath:META-INF/spring/cxf-endpoints.xml",
-        "classpath:META-INF/spring/extensible-beans.xml",
-        "classpath:META-INF/spring/local-osgi-context.xml",
-        "classpath:META-INF/spring/properties-context.xml",
+        "classpath:META-INF/spring/properties-context.xml"
 		})
 @DirtiesContext
 public class TestRapbackSearchRequestService {

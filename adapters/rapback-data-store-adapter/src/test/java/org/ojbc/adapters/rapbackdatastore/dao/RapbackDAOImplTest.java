@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -45,7 +44,6 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
-import org.ojbc.adapters.rapbackdatastore.util.ZipUtils;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -259,7 +257,7 @@ public class RapbackDAOImplTest {
 		
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
 		civilInitialRapSheet.setCivilIntitialResultId(3);
-		civilInitialRapSheet.setRapSheet(ZipUtils.zip("rapsheet".getBytes()));
+		civilInitialRapSheet.setRapSheet("rapsheet".getBytes());
 		civilInitialRapSheet.setTransactionType("Transaction Type");
 		
 		Integer civilInitialRapSheetPkId = 
