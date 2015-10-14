@@ -69,6 +69,7 @@
       		</nc:EndDate>
       	</sqr-ext:SubscriptionGracePeriodDateRange>
       </sqr-ext:SubscriptionGracePeriod>
+      <sqr-ext:CriminalSubscriptionReasonCode>CI</sqr-ext:CriminalSubscriptionReasonCode>
     </sqr-ext:Subscription>
     <sqr-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</sqr-ext:SourceSystemNameText>
 	<intel:SystemIdentifier>
