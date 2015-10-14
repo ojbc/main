@@ -38,7 +38,7 @@
 				<j:PersonFBIIdentification>
 					<nc20:IdentificationID>12345678</nc20:IdentificationID>
 				</j:PersonFBIIdentification>
-		</j:PersonAugmentation>
+			</j:PersonAugmentation>
 		</submsg-ext:Subject>
 		<submsg-ext:RelatedFBISubscription>
 			<submsg-ext:SubscriptionFBIIdentification>
