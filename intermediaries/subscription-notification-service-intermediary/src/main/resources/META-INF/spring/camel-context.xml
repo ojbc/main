@@ -17,14 +17,15 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:util="http://www.springframework.org/schema/util" 
-	xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2" 
-	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0" 
-	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" 
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -336,6 +337,12 @@
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
+					<camel:choice>
+						<camel:when>
+							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/xop:Include/@href!=''</camel:xpath>
+							<camel:to uri="bean:fbiArrestNotificationProcessor?method=processMtomAttachment"></camel:to>
+						</camel:when>
+					</camel:choice>
 					<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
 				</camel:when>
 				<camel:when>
@@ -484,6 +491,8 @@
 	</bean>
 	
 	<bean id="fbiSubscriptionProcessor" class="org.ojbc.intermediaries.sn.FbiSubscriptionProcessor" />
+	
+	<bean id="fbiArrestNotificationProcessor" class="org.ojbc.intermediaries.sn.FbiArrestNotificationProcessor" />
 	
 	<bean id="simpleMsgProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
 

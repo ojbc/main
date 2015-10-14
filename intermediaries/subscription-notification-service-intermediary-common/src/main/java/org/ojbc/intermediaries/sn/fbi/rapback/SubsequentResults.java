@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.rapbackdatastore.dao.model;
+package org.ojbc.intermediaries.sn.fbi.rapback;
 
 import java.io.Serializable;
 
@@ -26,37 +26,17 @@ public class SubsequentResults implements Serializable{
 
 	private static final long serialVersionUID = -8697166964476446066L;
 	private Long id; //Subsequent Results ID;
-	private String transactionNumber;
 	private String fbiSubscriptionId;
-	private String rapbackSubscriptionIdentifier; 
-	private Boolean match;
 	private byte[] rapSheet;
 	private String transactionType; 
-	private String resultsSender; 
-	
 	private DateTime timestamp;
-	
-	private Subject subject; 
 	
 	public SubsequentResults(){
 		super();
 	}
 	
-	public SubsequentResults(String transactionNumber){
-		this();
-		this.setTransactionNumber(transactionNumber); 
-	}
-	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-	}
-
-	public String getTransactionNumber() {
-		return transactionNumber;
-	}
-
-	public void setTransactionNumber(String transactionNumber) {
-		this.transactionNumber = transactionNumber;
 	}
 
 	public Long getId() {
@@ -83,45 +63,12 @@ public class SubsequentResults implements Serializable{
 		this.timestamp = timestamp;
 	}
 
-	public Boolean getMatch() {
-		return match;
-	}
-
-	public void setMatch(Boolean match) {
-		this.match = match;
-	}
-
-	public String getResultsSender() {
-		return resultsSender;
-	}
-
-	public void setResultsSender(String resultsSender) {
-		this.resultsSender = resultsSender;
-	}
-
-	public Subject getSubject() {
-		return subject;
-	}
-
-	public void setSubject(Subject subject) {
-		this.subject = subject;
-	}
-
 	public String getFbiSubscriptionId() {
 		return fbiSubscriptionId;
 	}
 
 	public void setFbiSubscriptionId(String fbiSubscriptionId) {
 		this.fbiSubscriptionId = fbiSubscriptionId;
-	}
-
-	public String getRapbackSubscriptionIdentifier() {
-		return rapbackSubscriptionIdentifier;
-	}
-
-	public void setRapbackSubscriptionIdentifier(
-			String rapbackSubscriptionIdentifier) {
-		this.rapbackSubscriptionIdentifier = rapbackSubscriptionIdentifier;
 	}
 
 	public byte[] getRapSheet() {
