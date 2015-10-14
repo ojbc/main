@@ -204,9 +204,12 @@
 					<camel:when>
 						<camel:xpath>boolean(//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonFBIIdentification/nc20:IdentificationID/text()[1])</camel:xpath>					
 						
+						<camel:log message="\n\n\n\n Found FBI ID, Sending subscription to FBI EBTS..., message body:\n\n ${body}\n\n\n\n"/>
+						
 						<camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription"/>
 				
-						<camel:log message="\n\n\n\n Found FBI ID, Sending subscription to FBI EBTS..., message body:\n\n ${body}\n\n\n\n"/>						
+						<!--  Note there could have been no fbi data returned from rapback datastore and we will still continue 
+							to send the subscribe to the fbi ebts adapter while interpreting this as a new fbi subscription add -->										
 						
 						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
 						
@@ -294,17 +297,19 @@
 			
 			<log message="\n\n\n FBI Unsubscribe Message Body:\n\n ${body} \n\n\n" loggingLevel="INFO" />	
 			
-			<setHeader headerName="hasStateSubscriptionsForFbiUcnId">			
-				<simple>bean:fbiSubscriptionProcessor?method=hasStateSubscriptionsForFbiUcnId</simple>			
+			<setHeader headerName="shouldDeleteFbiSubscription">			
+				<simple>bean:fbiSubscriptionProcessor?method=shouldDeleteFbiSubscription</simple>			
 			</setHeader>	
 			
 			<log message="\n\n\n hasStateSubscriptionsForFbiUcnId = ${header.hasStateSubscriptionsForFbiUcnId} \n\n\n" loggingLevel="INFO"/>
 			
 			<camel:choice>
 				<camel:when>
-					<simple>${header.hasStateSubscriptionsForFbiUcnId} == 'false'</simple>
-
-					<camel:log message="\n\n\n No more state subscriptions, so - Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>			
+					<simple>${header.shouldDeleteFbiSubscription}</simple>
+					
+					<camel:log message="\n\n\n No more state subscriptions, so - Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>
+																				
+					<to uri="bean:fbiSubscriptionProcessor?method=prepareUnsubscribeMessageForFbiEbts"/>
 						
 					<convertBodyTo type="java.lang.String"/>
 									
