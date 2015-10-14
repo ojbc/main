@@ -67,16 +67,10 @@
 				<xsd:sequence>
 					<xsd:element ref="ssr-ext:SubscriptionFBIIdentification"/>
 					<xsd:element ref="ssr-ext:SubscriptionReasonRepresentation"/>
-					<xsd:element ref="ssr-ext:SubscriptionTerm" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="SubscriptionTerm" type="j:TermType">
-		<xsd:annotation>
-			<xsd:documentation>The term for which a subscription is active.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="SubscriptionFBIIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A unique identifier assigned to a subscription with the Federal Bureau of Investigation (FBI).</xsd:documentation>
@@ -309,8 +303,6 @@
   		<xsd:documentation>An identifier for a subscription, provided by the subscribing system - this is not guaranteed 100% unique.</xsd:documentation>
   	</xsd:annotation>
   </xsd:element>
-  
-  
   <xsd:element name="SubscriptionReasonRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>The reason for creating a subscription</xsd:documentation>
