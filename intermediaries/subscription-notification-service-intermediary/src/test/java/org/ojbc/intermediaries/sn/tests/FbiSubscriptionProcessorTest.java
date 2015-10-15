@@ -102,7 +102,7 @@ public class FbiSubscriptionProcessorTest {
 		
 		Document unsubscribeDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/Unsubscription_FBI_Document2.xml"));	
 		
-		String fbiId = fbiSubscriptionProcessor.getFbiIdFromUnsubscribeDoc(unsubscribeDoc);
+		String fbiId = fbiSubscriptionProcessor.getPersonFbiUcnIdFromUnsubscribeDoc(unsubscribeDoc);
 		
 		Assert.assertEquals("074644NG0", fbiId);
 	}

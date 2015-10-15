@@ -37,7 +37,7 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="ojbc:RecordCategoryText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:RecordRapBackSubscriptionIdentification" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ojbc:RelatedFBISubscription" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ojbc:DocumentRequestorDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ojbc:Person" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ojbc:Location" minOccurs="0" maxOccurs="unbounded"/>
@@ -180,6 +180,18 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="RelatedFBISubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional details regarding an FBI subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ojbc:RecordRapBackSubscriptionIdentification" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:element name="ArrestReport" type="ojbc:ArrestReportType">
 		<xsd:annotation>
 			<xsd:documentation>A report of an Arrest.</xsd:documentation>
@@ -230,8 +242,15 @@
 			<xsd:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred during an incident.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RecordCategoryText" type="nc:TextType"/>
+	<xsd:element name="RecordCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A type of record.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="DocumentRequestorDescriptionText" type="nc:TextType"/>
+		<xsd:annotation>
+			<xsd:documentation>A description of the entity requesting a document.</xsd:documentation>
+		</xsd:annotation>
 	<xsd:element name="OffenseModifierRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>An abstract representation of sub-category for an offense </xsd:documentation>
@@ -262,10 +281,14 @@
 			<xsd:documentation>A document sent by the FBI that contains the person's criminal history. Sometimes this is referred to as a federal rap sheet.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
 	<xsd:element name="ArrestDocumentRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for an arrest document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RelatedFBISubscription" type="ojbc:RelatedFBISubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>Additional details regarding an FBI subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RecordRapBackSubscriptionIdentification" type="nc:IdentificationType">

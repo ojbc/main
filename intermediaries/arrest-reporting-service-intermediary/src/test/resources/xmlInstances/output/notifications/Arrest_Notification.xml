@@ -34,9 +34,11 @@
 			<notification:NotificationMessage>
 				<notificationExt:NotifyingArrest s:id="A001">
 					<notificationExt:NotifyingActivityReportingSystemNameText>LCL</notificationExt:NotifyingActivityReportingSystemNameText>
-					<notificationExt:RecordRapBackSubscriptionIdentification>
-						<nc:IdentificationID>7689808</nc:IdentificationID>
-					</notificationExt:RecordRapBackSubscriptionIdentification>
+					<notificationExt:RelatedFBISubscription>
+						<notificationExt:RecordRapBackSubscriptionIdentification>
+							<nc:IdentificationID>7689808</nc:IdentificationID>
+						</notificationExt:RecordRapBackSubscriptionIdentification>
+					</notificationExt:RelatedFBISubscription>
 					<notificationExt:CriminalHistoryRecordDocument xmime:contentType="text/plain">
 						<xop:Include href="cid:http://ojbc.org/arrest/document"/>
 					</notificationExt:CriminalHistoryRecordDocument>
