@@ -330,7 +330,7 @@
 			<camel:to uri="bean:incidentSubscriptionProcessor?method=unsubscribe" />
 		</camel:route>
 
-		<camel:route>
+		<camel:route id="processNotificationRoute">
 
 			<camel:from uri="direct:processNotification" />
 
