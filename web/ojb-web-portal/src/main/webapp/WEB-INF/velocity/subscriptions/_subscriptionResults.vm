@@ -146,7 +146,9 @@
 			    			        															
 					subscriptionCheckboxSelectionMap[subValJson.id] = true;
 					
-					subscriptionCheckboxTopicMap[subValJson.id] = subValJson.topic;		 
+					subscriptionCheckboxTopicMap[subValJson.id] = subValJson.topic;
+					
+					// TODO =subValJson.reasonCode		 
 			        
 			    }else{			    
 			    	subscriptionCheckboxSelectionMap[subValJson.id] = false;
