@@ -46,37 +46,25 @@
 	  		
 	  		$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
 	  		
-	  		function getIdToTopicMap(){
+	  		
+	  		function isSubscriptionSelected(){
 	  		
 				var hasRowSelection = false;
-											
-				var idToTopicMap = {};
-												
-				for (var subIdKey in subscriptionCheckboxSelectionMap) {
+																						
+				for (var subIdKey in subscriptionCheckboxIdToValueJsonMap) {
 				    					    					    					    
-				    if(subscriptionCheckboxSelectionMap[subIdKey] == true){
+				    if(subscriptionCheckboxSelectionMap[subIdKey] != null){
 				    
-				    	hasRowSelection = true;
-				    
-				    	var subTopic = subscriptionCheckboxIdToValueJsonMap[subIdKey].topic;
-				    			
-				    	idToTopicMap[subIdKey] = subTopic;					    						    			    					  
+				    	hasRowSelection = true;				    				    						    			    					  
 				    }					    				    						
-				}	
-				
-				if(hasRowSelection == false){
-					return false;
-				}
-														
-				return idToTopicMap;	  			  		
+				}																			
+				return hasRowSelection;	  			  		
 	  		}
 	  		
 	  		
 			$('#validateLink').click (function() {
-																											
-				var idToTopicMap = getIdToTopicMap();
-				
-				if(idToTopicMap == false || idToTopicMap == null || idToTopicMap == undefined){
+																																			
+				if( !isSubscriptionSelected() ){
 					alert('No subscriptions selected');
 					return false;
 				}
@@ -86,10 +74,10 @@
 				if(!confirmValidate){
 					return false;
 				}				    				    
-				    
-				var idToTopicJson = JSON.stringify(idToTopicMap);
+				    				    
+				var subIdToSubDataJsonString = JSON.stringify(subscriptionCheckboxIdToValueJsonMap);				    				
 								    					
-				var urlRequest = '../subscriptions/validate?idToTopicJsonProps=' + idToTopicJson;
+				var urlRequest = '../subscriptions/validate?subIdToSubDataJson=' + subIdToSubDataJsonString;
 				
 				//call spring controller and refresh the current page with the subscription search results returned				 
 				$.post(urlRequest, function(data) {										
@@ -104,10 +92,8 @@
 	  
 	  		 
 			$('#unsubscribeLink').click (function() {
-															
-				var idToTopicMap = getIdToTopicMap();
-				
-				if(idToTopicMap == false || idToTopicMap == null || idToTopicMap == undefined){
+																			
+				if(!isSubscriptionSelected()){
 					alert('No subscriptions selected');
 					return false;
 				}
