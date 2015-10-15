@@ -73,6 +73,10 @@
 		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" 
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+        <cxf:properties>
+        	<entry key="mtom-enabled" value="true"/>
+        	<entry key="dataFormat" value="PAYLOAD"/>
+        </cxf:properties>
 	</cxf:cxfEndpoint>
 
 	<!-- OJB Notification Broker Secure Service -->
