@@ -43,16 +43,15 @@ public class FbiArrestNotificationProcessor {
 		Node notificationMessageNode = XmlUtils.xPathNodeSearch(report, "//b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage");
 		
 		String attachmentHref = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/xop:Include/@href");
-		String attachmentId = attachmentHref.substring(4); //Remove "cid:"
 		
 		SubsequentResults subsequentResult = new SubsequentResults(); 
-		subsequentResult.setRapSheet(MtomUtils.getAttachment(exchange, null, attachmentId));
+		subsequentResult.setRapSheet(MtomUtils.getAttachment(exchange, null, attachmentHref));
 		
-		String fbiSubscriptionId = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:RecordRapBackSubscriptionIdentification/nc:IdentificationID");
+		String fbiSubscriptionId = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:RelatedFBISubscription/notfm-ext:RecordRapBackSubscriptionIdentification/nc:IdentificationID");
 		subsequentResult.setFbiSubscriptionId(fbiSubscriptionId);
 		
 		//TODO what about the transaction Type? 
-		
+		subsequentResult.setTransactionType("Transaction Type");
 		rapbackDao.saveSubsequentResults(subsequentResult);
 	}
 
