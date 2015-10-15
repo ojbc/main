@@ -93,7 +93,7 @@
 							<notificationExt:NotifyingActivityReportingSystemNameText>
 								<xsl:value-of select="/*/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataSubmitterMetadata/lexs:SystemIdentifier/lexs:SystemID"/>
 							</notificationExt:NotifyingActivityReportingSystemNameText>
-							<xsl:apply-templates select="$lexsDataItemPackage/lexs:StructuredPayload/ojbc:ArrestReport[oar:RecordRapBackSubscriptionIdentification]" mode="SubID"/>
+							<xsl:apply-templates select="$lexsDataItemPackage/lexs:StructuredPayload/ojbc:ArrestReport/oar:RelatedFBISubscription/oar:RecordRapBackSubscriptionIdentification[nc:IdentificationID]"/>
 							<xsl:apply-templates select="$lexsDataItemPackage/lexs:StructuredPayload/ojbc:ArrestReport[oar:FederalCriminalHistoryRecordDocument]"/>
 							<xsl:apply-templates select="$lexsDigest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Arrest']" mode="arrest"/>
 							<xsl:apply-templates select="$lexsDigest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Incident']" mode="incident"/>
@@ -191,12 +191,14 @@
 			<xsl:value-of select="."/>
 		</j:OffenseCategoryText>
 	</xsl:template>
-	<xsl:template match="ojbc:ArrestReport" mode="SubID">
-		<notificationExt:RecordRapBackSubscriptionIdentification>
-			<nc:IdentificationID>
-				<xsl:value-of select="."/>
-			</nc:IdentificationID>
-		</notificationExt:RecordRapBackSubscriptionIdentification>
+	<xsl:template match="oar:RecordRapBackSubscriptionIdentification">
+		<notificationExt:RelatedFBISubscription>
+			<notificationExt:RecordRapBackSubscriptionIdentification>
+				<nc:IdentificationID>
+					<xsl:value-of select="."/>
+				</nc:IdentificationID>
+			</notificationExt:RecordRapBackSubscriptionIdentification>
+		</notificationExt:RelatedFBISubscription>
 	</xsl:template>
 	<xsl:template match="ojbc:ArrestReport">
 		<notificationExt:CriminalHistoryRecordDocument>

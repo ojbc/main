@@ -105,11 +105,13 @@
 		</lexs:Digest>
 	</xsl:template>
 	<xsl:template match="itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData/ebts:RecordRapBackSubscriptionID">
-		<ojbc:RecordRapBackSubscriptionIdentification>
+		<ojbc:RelatedFBISubscription>
+			<ojbc:RecordRapBackSubscriptionIdentification>
 			<nc:IdentificationID>
 				<xsl:value-of select="."/>
 			</nc:IdentificationID>
-		</ojbc:RecordRapBackSubscriptionIdentification>
+			</ojbc:RecordRapBackSubscriptionIdentification>
+		</ojbc:RelatedFBISubscription>
 	</xsl:template>
 	<xsl:template match="nc:PersonBirthDate/nc:Date">
 		<nc:PersonBirthDate>

@@ -64,9 +64,6 @@
 							<nc:IdentificationID>fbiSubscriptionId</nc:IdentificationID>
 						</notfm-ext:RecordRapBackSubscriptionIdentification>
 					</notfm-ext:RelatedFBISubscription>
-					<notfm-ext:CriminalHistoryRecordDocument xmime:contentType="text/plain">
-						<xop:Include href="cid:http://ojbc.org/criminal_history/document/example"/>
-					</notfm-ext:CriminalHistoryRecordDocument>
 					<j:Arrest>
 						<nc:ActivityDate>
 							<nc:Date>2013-09-06</nc:Date>
