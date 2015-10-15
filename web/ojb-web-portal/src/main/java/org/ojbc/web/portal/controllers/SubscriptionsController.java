@@ -1253,24 +1253,31 @@ public class SubscriptionsController {
 
 
 	@RequestMapping(value = "unsubscribe", method = RequestMethod.GET)
-	public String unsubscribe(HttpServletRequest request, @RequestParam String idToTopicJsonProps, 
+	public String unsubscribe(HttpServletRequest request, @RequestParam String subIdToSubDataJson, 
 			Map<String, Object> model) {
 					
 		Element samlAssertion = samlService.getSamlAssertion(request);	
 					
-		logger.info("* Unsubscribe using json param: " + idToTopicJsonProps);
+		logger.info("* Unsubscribe using json param: " + subIdToSubDataJson);
 		
-		JSONObject idToTopicJsonObj = new JSONObject(idToTopicJsonProps);
+		JSONObject subIdToSubDataJsonObj = new JSONObject(subIdToSubDataJson);
 		
-		String[] idJsonNames = JSONObject.getNames(idToTopicJsonObj);
+		String[] subIdJsonNames = JSONObject.getNames(subIdToSubDataJsonObj);
 		
 		// collections for status message
 		List<String> successfulUnsubIdlist = new ArrayList<String>();		
 		List<String> failedUnsubIdList = new ArrayList<String>();
 		
-		for(String iId : idJsonNames){
+		for(String iId : subIdJsonNames){
+								
+			JSONObject iSubDataJson = subIdToSubDataJsonObj.getJSONObject(iId);
 			
-			String iTopic = idToTopicJsonObj.getString(iId);
+			String iTopic = iSubDataJson.getString("topic");
+			
+			// TODO send reasonCode to dao
+			String reasonCode = iSubDataJson.getString("reasonCode");
+			
+			logger.info("\n\n\n TOPIC: " + iTopic +", reasonCode = " + reasonCode + "\n\n\n");			
 			
 			try{
 				subConfig.getUnsubscriptionBean().unsubscribe(iId, iTopic, getFederatedQueryId(), samlAssertion);
