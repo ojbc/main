@@ -18,6 +18,10 @@ package org.ojbc.intermediaries.sn.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -25,6 +29,8 @@ import javax.sql.DataSource;
 import junit.framework.Assert;
 
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +59,7 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 }) 
 public class RapbackDAOImplTest {
+	private final Log log = LogFactory.getLog(this.getClass());
 	    
 	@Resource
 	private FbiRapbackDao rapbackDao;
@@ -112,6 +119,14 @@ public class RapbackDAOImplTest {
 		assertNotNull(pkId);
 		assertEquals(1, pkId.intValue()); 
 		
+		Connection conn = rapbackDataSource.getConnection();
+		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = 1");
+		assertTrue(rs.next());
+		assertEquals("fbiSubscriptionId", rs.getString("FBI_SUBSCRIPTION_ID"));
+		
+		String rapsheetContent = new String(ZipUtils.unzip(rs.getBytes("RAP_SHEET")));
+		log.info("Rap sheet content: " + rapsheetContent);
+		assertEquals("rapsheet", rapsheetContent);
 	}
 	
 }
