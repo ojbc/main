@@ -48,23 +48,23 @@
             </jxdm50:PersonStateFingerprintIdentification>
          </jxdm50:PersonAugmentation>
          <oirs-res-ext:IdentifiedPersonTrackingIdentification>
-            <nc30:IdentificationID>12343</nc30:IdentificationID>
+            <nc30:IdentificationID>0400024</nc30:IdentificationID>
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
       <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:Subscription>
          <nc30:ActivityDateRange>
             <nc30:StartDate>
-               <nc30:Date>2014-10-19</nc30:Date>
+               <nc30:Date>2014-10-15</nc30:Date>
             </nc30:StartDate>
             <nc30:EndDate>
-               <nc30:Date>2015-10-19</nc30:Date>
+               <nc30:Date>2015-10-15</nc30:Date>
             </nc30:EndDate>
          </nc30:ActivityDateRange>
          <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/civilArrest</wsn-br:Topic>
          <oirs-res-ext:SubscriptionValidation>
             <oirs-res-ext:SubscriptionValidationDueDate>
-               <nc30:Date>2015-10-19</nc30:Date>
+               <nc30:Date>2015-10-15</nc30:Date>
             </oirs-res-ext:SubscriptionValidationDueDate>
          </oirs-res-ext:SubscriptionValidation>
       </oirs-res-ext:Subscription>
