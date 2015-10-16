@@ -69,23 +69,6 @@
 				<nc20:Date>2015-06-20</nc20:Date>
 			</nc20:EndDate>
 		</nc20:DateRange>
-		<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
-		<submsg-ext:RelatedFBISubscription>
-			<nc20:DateRange>
-				<nc20:StartDate>
-					<nc20:Date>2014-01-01</nc20:Date>
-				</nc20:StartDate>
-				<nc20:EndDate>
-					<nc20:Date>2015-01-01</nc20:Date>
-				</nc20:EndDate>
-			</nc20:DateRange>
-			<submsg-ext:SubscriptionFBIIdentification>
-				<nc20:IdentificationID>1234567</nc20:IdentificationID>
-			</submsg-ext:SubscriptionFBIIdentification>
-			<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
-			<submsg-ext:SubscriptionTerm>
-				<j:TermDuration>P1Y</j:TermDuration>
-			</submsg-ext:SubscriptionTerm>
-		</submsg-ext:RelatedFBISubscription>
+		<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
 	</submsg-doc:SubscriptionMessage>
 </b-2:Subscribe>

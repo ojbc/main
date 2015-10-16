@@ -220,6 +220,7 @@
 				 		</xsl:when>
 				 		<xsl:otherwise>
 				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
+				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
 				 		</xsl:otherwise>
 				 	</xsl:choose>
 				 	 <ansi-nist:TransactionContentSummary>
@@ -400,6 +401,13 @@
 			<xsl:choose>
 				<xsl:when test=". = 'CI'">RBSCRM</xsl:when>
 				<xsl:when test=". = 'CS'">RBSCRM</xsl:when>
+			</xsl:choose>
+		</ebts:TransactionCategoryCode>
+	</xsl:template>
+	<xsl:template match="submsg-ext:CivilSubscriptionReasonCode" mode="transactionCategory">
+		<ebts:TransactionCategoryCode>
+			<xsl:choose>
+				<xsl:when test=". = 'I'">RBSCVL</xsl:when>
 			</xsl:choose>
 		</ebts:TransactionCategoryCode>
 	</xsl:template>
