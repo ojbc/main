@@ -16,23 +16,47 @@
  */
 package org.ojbc.processor.subscription.unsubscribe;
 
-import static org.junit.Assert.assertEquals;
+import java.io.File;
+import java.util.List;
 
+import org.custommonkey.xmlunit.DetailedDiff;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.Difference;
+import org.custommonkey.xmlunit.XMLUnit;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.model.subscription.Unsubscription;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.w3c.dom.Document;
 
 public class UnsubscriptionMessageProcessorTest {
-
-	@Test
 	
-	public void testCreateUnsubscriptionMessage() throws Exception
-	{
-		Document doc = RequestMessageBuilderUtilities.createUnubscriptionRequest("123456", "topic");
+	@Before
+	public void init(){		
 		
-		String subscriptionIdentificationId = XmlUtils.xPathStringSearch(doc, "b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");
-		assertEquals("123456", subscriptionIdentificationId);
+		XMLUnit.setIgnoreAttributeOrder(true);
+		XMLUnit.setIgnoreComments(true);
+		XMLUnit.setIgnoreWhitespace(true);
+		XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
+	}
+
+	@Test	
+	public void testCreateUnsubscriptionMessage() throws Exception{
+		
+		Unsubscription unsubscription = new Unsubscription("123456", "topic", "CI");
+		
+		Document unsubscribeDoc = RequestMessageBuilderUtilities.createUnubscriptionRequest(unsubscription);		
+		
+		Document expectedUnsubDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xml/output/unsubscribe/Unsubscribe.xml"));
+				
+		Diff diff = new Diff(expectedUnsubDoc, unsubscribeDoc);	
+		
+		DetailedDiff detailedDiff = new DetailedDiff(diff);		
+		List<Difference> differenceList = detailedDiff.getAllDifferences();
+		
+		Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());		
 	}
 	
 }
