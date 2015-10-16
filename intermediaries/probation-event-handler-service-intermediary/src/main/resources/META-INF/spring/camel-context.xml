@@ -168,7 +168,7 @@
 
 		<!-- Allows parent bundle to call child bundle derived route for state specific project -->
 		<camel:route>		
-			<from uri="direct-vm:parentEntryTransformSubscription"/>
+			<from uri="direct-vm:transformAndInvokeProbationSubscriptionProcessor"/>
 			
 			<log message="\n\n\n direct-vm:parentEntryTransformSubscription... \n\n\n"/>
 			
@@ -217,6 +217,8 @@
 			<from uri="direct-vm:transformAndInvokeProbationUnsubscriptionProcessor"/>
 		
 			<log message="\n\n\n Called by derived bundle: Transforming Unsubscription... \n\n\n" loggingLevel="INFO"/>
+			
+			<camel:convertBodyTo type="java.lang.String" />
 			
 			<to uri="direct:transformAndInvokeUnsubscriptionProbationProcessor"/>
 		</camel:route>		
