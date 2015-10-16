@@ -220,6 +220,7 @@
 				 		</xsl:when>
 				 		<xsl:otherwise>
 				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
+				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
 				 		</xsl:otherwise>
 				 	</xsl:choose>
 				 	 <ansi-nist:TransactionContentSummary>
@@ -290,8 +291,10 @@
     							<xsl:value-of select="$rapBackDisclosureIndicator"/>
    							 </ebts:RecordRapBackDisclosureIndicator>		
 							
-							<!-- This is important, this is where we determine the proper end date for a subscription -->
-							<!-- TODO: should we even call the XSLT if the new end date is less than existing end date? -->
+							<!-- This is important, this is where we determine the proper end date for a subscription.  The rule here is that if an existing FBI subscription already exists for a given
+							UCN and purpose, we don't want to create a new FBI subscription.  Instead, we want to extend the expiration date, assuming the new State subscription has an end date that is greater
+							than the expiration date on the existing FBI subscription. -->
+							<!-- TODO: should we even call the XSLT if the new subscription end date is less than existing end date on the related FBI subscription? -->
 							<xsl:choose>
 								<xsl:when test=" /b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription/nc20:DateRange/nc20:EndDate/nc20:Date >  /b-2:Subscribe/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date">
 									<xsl:apply-templates select=" /b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription/nc20:DateRange/nc20:EndDate/nc20:Date" mode="extendExpirationDate"/>
@@ -398,6 +401,13 @@
 			<xsl:choose>
 				<xsl:when test=". = 'CI'">RBSCRM</xsl:when>
 				<xsl:when test=". = 'CS'">RBSCRM</xsl:when>
+			</xsl:choose>
+		</ebts:TransactionCategoryCode>
+	</xsl:template>
+	<xsl:template match="submsg-ext:CivilSubscriptionReasonCode" mode="transactionCategory">
+		<ebts:TransactionCategoryCode>
+			<xsl:choose>
+				<xsl:when test=". = 'I'">RBSCVL</xsl:when>
 			</xsl:choose>
 		</ebts:TransactionCategoryCode>
 	</xsl:template>
