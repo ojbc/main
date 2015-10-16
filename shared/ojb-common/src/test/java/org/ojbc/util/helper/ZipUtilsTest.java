@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.rapbackdatastore.util;
+package org.ojbc.util.helper;
 
 import static org.junit.Assert.assertArrayEquals;
 
@@ -62,10 +62,10 @@ public class ZipUtilsTest {
 //		String fbiCriminalHistory = FileUtils.readFileToString(new File("src/test/resources/testData/fbi_criminal_history.txt"));
 //		printCompressedHexString(fbiCriminalHistory);
 //		
-//		String fbiSearchResultFile = FileUtils.readFileToString(new File("src/test/resources/testData/fbi_initial_result_match-no-match.html"));
+//		String fbiSearchResultFile = FileUtils.readFileToString(new File("src/test/resources/fbi_initial_result_match-no-match-bart.html"));
 //		printCompressedHexString(fbiSearchResultFile);
 //
-//		String stateSearchResultFile = FileUtils.readFileToString(new File("src/test/resources/testData/state_initial_result_match-no-match.html"));
+//		String stateSearchResultFile = FileUtils.readFileToString(new File("src/test/resources/state_initial_result_match-no-match-bart.html"));
 //		printCompressedHexString(stateSearchResultFile);
 		
 		
@@ -73,7 +73,7 @@ public class ZipUtilsTest {
 
 	private void printCompressedHexString(String originalData) throws IOException {
 		byte[] compressedData = ZipUtils.zip(originalData.getBytes());
-		log.info(originalData + " compressed as "+ StringUtils.trimAllWhitespace(bytesToHexString(compressedData)));
+		System.out.println(originalData + " compressed as "+ StringUtils.trimAllWhitespace(bytesToHexString(compressedData)));
 	}
 
 	private String bytesToHexString(byte[] compressedData) {
