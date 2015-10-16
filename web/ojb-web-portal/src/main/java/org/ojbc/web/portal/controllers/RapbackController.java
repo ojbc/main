@@ -54,8 +54,7 @@ public class RapbackController {
 	
 	@Resource
 	RapbackControllerConfigInterface config;
-		
-		
+
 	@RequestMapping(value = "/rapbackResults", method = RequestMethod.POST)
 	public String searchForm(HttpServletRequest request,	        
 	        Map<String, Object> model) {		
