@@ -107,11 +107,11 @@ public class RapbackDAOImplTest {
 		Integer subjectId = rapbackDAO.saveSubject(subject); 
 		
 		assertNotNull(subjectId);
-		assertEquals(3, subjectId.intValue()); 
+		assertEquals(4, subjectId.intValue()); 
 		
 		Subject persistedSubject = rapbackDAO.getSubject(subjectId); 
 		log.info(persistedSubject.toString());
-		assertEquals(Integer.valueOf(3), persistedSubject.getSubjectId());
+		assertEquals(Integer.valueOf(4), persistedSubject.getSubjectId());
 		assertEquals("1969-05-12", persistedSubject.getDob().toString("yyyy-MM-dd"));
 		assertEquals("B1234567", persistedSubject.getUcn());
 		assertNull(persistedSubject.getCriminalSid());
@@ -187,7 +187,7 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 		assertNotNull(pkId);
-		assertEquals(5, pkId.intValue()); 
+		assertEquals(9, pkId.intValue()); 
 	}
 	
 //	@Test
@@ -248,7 +248,7 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		assertNotNull(pkId);
-		assertEquals(5, pkId.intValue()); 
+		assertEquals(9, pkId.intValue()); 
 		
 		CivilInitialResults persistedCivilInitialResults = 
 				(rapbackDAO.getCivilInitialResults(identificationTransaction.getOwnerOri())).get(2);
@@ -283,6 +283,17 @@ public class RapbackDAOImplTest {
 		assertEquals(2, civilInitialResults.size());
 		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
 		assertEquals(2110, civilInitialResults.get(0).getSearchResultFile().length);
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testGetCivilInitialResults() throws Exception {
+		List<CivilInitialResults> civilInitialResults= 
+				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339995");
+		log.info("Civil Initial Results count: " + civilInitialResults.size());
+		assertEquals(2, civilInitialResults.size());
+		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
+		assertEquals(1832, civilInitialResults.get(0).getSearchResultFile().length);
 	}
 	
 	@Test
