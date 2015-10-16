@@ -6,7 +6,7 @@
     xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
     xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://cjis.fbi.gov/fbi_ebts/10.0 ../../xsd/fbi_ebts/10.0/fbi_ebts.xsd">
+    xsi:schemaLocation="http://biometrics.nist.gov/standard/2011 ../../../xsd/ebts/10.0/itl/2011/itl.xsd">
     <!--******************************************************************-->
     <!--Type-1 Record (Header Record) -->
     <!--******************************************************************-->
