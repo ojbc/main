@@ -46,6 +46,7 @@ import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.web.model.subscription.Unsubscription;
 import org.ojbc.web.model.subscription.add.SubscriptionEndDateStrategy;
 import org.ojbc.web.model.subscription.add.SubscriptionStartDateStrategy;
 import org.ojbc.web.model.subscription.response.SubscriptionAccessDenialResponse;
@@ -1274,15 +1275,13 @@ public class SubscriptionsController {
 								
 			JSONObject iSubDataJson = subIdToSubDataJsonObj.getJSONObject(iId);
 			
-			String iTopic = iSubDataJson.getString("topic");
-			
-			// TODO send reasonCode to dao
+			String iTopic = iSubDataJson.getString("topic");			
 			String reasonCode = iSubDataJson.getString("reasonCode");
 			
-			logger.info("\n\n\n TOPIC: " + iTopic +", reasonCode = " + reasonCode + "\n\n\n");			
+			Unsubscription unsubscription = new Unsubscription(iId, iTopic, reasonCode);
 			
 			try{
-				subConfig.getUnsubscriptionBean().unsubscribe(iId, iTopic, getFederatedQueryId(), samlAssertion);
+				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlAssertion);
 				
 				successfulUnsubIdlist.add(iId);				
 				

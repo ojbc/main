@@ -43,6 +43,7 @@ import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestTestUtils;
 import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.web.model.subscription.Unsubscription;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -379,8 +380,10 @@ public class OJBWebApplicationConnectorIntTest{
 
 		String federatedQueryID = returnFederatedQueryGUID();
 		
+		Unsubscription unsubscription = new Unsubscription("123466", "topic", "reasonCode");
+		
 		//Invoke the service
-		unsubscriptionRequestProcessor.unsubscribe("123466", "topic", federatedQueryID, samlToken);
+		unsubscriptionRequestProcessor.unsubscribe(unsubscription, federatedQueryID, samlToken);
     			
     }	
 
