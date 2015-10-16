@@ -30,10 +30,13 @@
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
 	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	exclude-result-prefixes="#all">
 
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
+	
+	<xsl:param name="rapbackValidationButtonShowingPeriod" select="30"/>
 	
 	<xsl:template match="/oirsr:OrganizationIdentificationResultsSearchResults">
 		<xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />
@@ -81,9 +84,13 @@
 			</td>
 			<td>
 				<xsl:apply-templates select="oirsr-ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
-			</td>					
+			</td>	
+			<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>				
 			<td>
-				<xsl:apply-templates select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				<xsl:if test="$validationDueDate &lt; current-date()">
+					<xsl:attribute name="style">color:red</xsl:attribute>
+				</xsl:if>
+				<xsl:apply-templates select="$validationDueDate" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td>
 				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
@@ -104,7 +111,10 @@
 	</xsl:template>
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="subscribed">
-		<a href="#" class="blueIcon" style="margin-right:3px" title="Validate"><i class="fa fa-check-circle fa-lg"/></a>
+		<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>
+		<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">				
+			<a href="#" class="blueIcon" style="margin-right:3px" title="Validate"><i class="fa fa-check-circle fa-lg"/></a>
+		</xsl:if>
 		<a href="#" class="blueIcon" style="margin-right:3px" title="Unsubscribe"><i class="fa fa-times-circle fa-lg"></i></a>
 	</xsl:template>
 	

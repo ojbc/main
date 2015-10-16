@@ -73,7 +73,10 @@ public class SearchResultConverter implements ApplicationContextAware {
 	
     @Value("classpath:xsl/identityBasedAccessControlResult.xsl")
     org.springframework.core.io.Resource identityBasedAccessControlResultXsl;
-    
+
+	@Value("${rapbackValidationButtonShowingPeriod:30}")
+	Integer rapbackValidationButtonShowingPeriod;
+		
 	@Resource
 	Map<String,String> searchDetailToXsl;
 	
@@ -101,7 +104,9 @@ public class SearchResultConverter implements ApplicationContextAware {
     	if (StringUtils.isBlank(searchContent)){
     		return "";
     	}
-        return convertXml(searchContent, rapbackSearchResultXsl, null);
+        Map<String, Object> params = new HashMap<String, Object>(); 
+        params.put("rapbackValidationButtonShowingPeriod", rapbackValidationButtonShowingPeriod);
+        return convertXml(searchContent, rapbackSearchResultXsl, params);
     }
     
 	public String convertDetailSearchResult(String searchContent, String systemName, String activeAccordionId) {
