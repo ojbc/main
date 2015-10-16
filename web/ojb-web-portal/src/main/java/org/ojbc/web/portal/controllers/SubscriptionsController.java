@@ -1118,60 +1118,62 @@ public class SubscriptionsController {
 	 */
 	@RequestMapping(value="validate", method = RequestMethod.POST)
 	public String  validate(HttpServletRequest request, 
-			@RequestParam String idToTopicJsonProps, 
+			@RequestParam String subIdToSubDataJson, 
 			Map<String, Object> model) {
 		
-		logger.info("Received idToTopicJsonProps: " + idToTopicJsonProps);
+		logger.info("Received subIdToSubDataJson: " + subIdToSubDataJson);
 		
 		Element samlAssertion = samlService.getSamlAssertion(request);
 						
-		processValidateSubscription(request, idToTopicJsonProps, model, samlAssertion);
+		processValidateSubscription(request, subIdToSubDataJson, model, samlAssertion);
 			
 		return "subscriptions/_subscriptionResults";
 	}
 	
 	
 
-	private void processValidateSubscription(HttpServletRequest request, String idToTopicJsonProps, 
+	private void processValidateSubscription(HttpServletRequest request, String subIdToSubDataJson, 
 			Map<String, Object> model, Element samlAssertion) {		
 		
-		JSONObject idToTopicJsonObj = new JSONObject(idToTopicJsonProps);
+		JSONObject subIdToSubDataJsonObjMap = new JSONObject(subIdToSubDataJson);
 		
-		String[] idJsonNames = JSONObject.getNames(idToTopicJsonObj);
+		String[] idJsonNames = JSONObject.getNames(subIdToSubDataJsonObjMap);
 		
 		// used to generated status message
 		List<String> validatedIdList = new ArrayList<String>();		
 		List<String> failedIdList = new ArrayList<String>();
 		
 		// call the validate operation for each id/topic parameter
-		for(String iId : idJsonNames){
+		for(String iSubId : idJsonNames){
 			
-			String iTopic = idToTopicJsonObj.getString(iId);
+			JSONObject subIdToSubDataJsonObj = subIdToSubDataJsonObjMap.getJSONObject(iSubId);
 			
+			String iTopic = subIdToSubDataJsonObj.getString("topic");
+						
 			try{
-				FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(iId, iTopic, getFederatedQueryId(), samlAssertion);
+				FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(iSubId, iTopic, getFederatedQueryId(), samlAssertion);
 				
 				//TODO see if we should check faultableSoapResponse exception attribute(if there is one)
 				if(faultableSoapResponse == null){
 					
-					failedIdList.add(iId);
-					logger.severe("FAILED! to validate id: " + iId);
+					failedIdList.add(iSubId);
+					logger.severe("FAILED! to validate id: " + iSubId);
 					continue;
 				}
 				
 				boolean isValidated = getValidIndicatorFromValidateResponse(faultableSoapResponse);
 				
-				logger.info("isValidated: " + isValidated + " - for id: " + iId);
+				logger.info("isValidated: " + isValidated + " - for id: " + iSubId);
 
 				if(isValidated){
-					validatedIdList.add(iId);	
+					validatedIdList.add(iSubId);	
 				}else{
-					failedIdList.add(iId);
+					failedIdList.add(iSubId);
 				}														
 				
 			}catch(Exception e){				
-				failedIdList.add(iId);
-				logger.severe("FAILED! to validate id: " + iId + ", " + e);
+				failedIdList.add(iSubId);
+				logger.severe("FAILED! to validate id: " + iSubId + ", " + e);
 			}														
 		}
 				
@@ -1253,24 +1255,31 @@ public class SubscriptionsController {
 
 
 	@RequestMapping(value = "unsubscribe", method = RequestMethod.GET)
-	public String unsubscribe(HttpServletRequest request, @RequestParam String idToTopicJsonProps, 
+	public String unsubscribe(HttpServletRequest request, @RequestParam String subIdToSubDataJson, 
 			Map<String, Object> model) {
 					
 		Element samlAssertion = samlService.getSamlAssertion(request);	
 					
-		logger.info("* Unsubscribe using json param: " + idToTopicJsonProps);
+		logger.info("* Unsubscribe using json param: " + subIdToSubDataJson);
 		
-		JSONObject idToTopicJsonObj = new JSONObject(idToTopicJsonProps);
+		JSONObject subIdToSubDataJsonObj = new JSONObject(subIdToSubDataJson);
 		
-		String[] idJsonNames = JSONObject.getNames(idToTopicJsonObj);
+		String[] subIdJsonNames = JSONObject.getNames(subIdToSubDataJsonObj);
 		
 		// collections for status message
 		List<String> successfulUnsubIdlist = new ArrayList<String>();		
 		List<String> failedUnsubIdList = new ArrayList<String>();
 		
-		for(String iId : idJsonNames){
+		for(String iId : subIdJsonNames){
+								
+			JSONObject iSubDataJson = subIdToSubDataJsonObj.getJSONObject(iId);
 			
-			String iTopic = idToTopicJsonObj.getString(iId);
+			String iTopic = iSubDataJson.getString("topic");
+			
+			// TODO send reasonCode to dao
+			String reasonCode = iSubDataJson.getString("reasonCode");
+			
+			logger.info("\n\n\n TOPIC: " + iTopic +", reasonCode = " + reasonCode + "\n\n\n");			
 			
 			try{
 				subConfig.getUnsubscriptionBean().unsubscribe(iId, iTopic, getFederatedQueryId(), samlAssertion);
