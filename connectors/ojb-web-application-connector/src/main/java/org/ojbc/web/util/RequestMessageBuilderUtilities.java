@@ -19,7 +19,9 @@ package org.ojbc.web.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import static org.ojbc.util.xml.OjbcNamespaceContext.*;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,6 +41,7 @@ import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestDomUtils;
 import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.web.model.subscription.Unsubscription;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.w3c.dom.Document;
@@ -366,7 +369,11 @@ public class RequestMessageBuilderUtilities {
 		return doc;
 	}
 
-	public static Document createUnubscriptionRequest(String subscriptionIdentificationId, String topic) throws Exception{
+	public static Document createUnubscriptionRequest(Unsubscription unsubscription) throws Exception{
+		
+		String subscriptionIdentificationId = unsubscription.getSubscriptionId();
+		String reasonCode = unsubscription.getReasonCode();
+		String topic = unsubscription.getTopic();
 		
 		Document doc = OJBCXMLUtils.createDocument();
         Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Unsubscribe");
@@ -379,12 +386,17 @@ public class RequestMessageBuilderUtilities {
         
         Element identificationID = XmlUtils.appendElement(subscriptionIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
         identificationID.setTextContent(subscriptionIdentificationId);
+                
+        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
+        reasonCodeElement.setTextContent(reasonCode);        
         
 		Element topicExpNode = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_B2, "TopicExpression");		
-		XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);
-		
+		XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);		
 		topicExpNode.setTextContent(topic);
-                
+		
+		OjbcNamespaceContext ojbNamespaceCtxt = new OjbcNamespaceContext();
+		ojbNamespaceCtxt.populateRootNamespaceDeclarations(doc.getDocumentElement());
+		
 		return doc;
 	}
 	

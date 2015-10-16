@@ -69,11 +69,8 @@ public class UnsubscriptionRequestProcessor implements CamelContextAware, Unsubs
 			{
 				throw new Exception("No SAML token provided. Unable to perform query.");
 			}	
-			
-			String subscriptionIdentificationId = unsubscription.getSubscriptionId();
-			String topic = unsubscription.getTopic();
-			
-			Document requestMessage = RequestMessageBuilderUtilities.createUnubscriptionRequest(subscriptionIdentificationId, topic);
+						
+			Document requestMessage = RequestMessageBuilderUtilities.createUnubscriptionRequest(unsubscription);
 			
 			log.info("Unsubscribe Message:");
 			XmlUtils.printNode(requestMessage);
