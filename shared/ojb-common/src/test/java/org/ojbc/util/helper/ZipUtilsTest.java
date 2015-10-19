@@ -18,20 +18,15 @@ package org.ojbc.util.helper;
 
 import static org.junit.Assert.assertArrayEquals;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.util.helper.ZipUtils;
 import org.springframework.util.StringUtils;
 
 public class ZipUtilsTest {
-	private static final Log log = LogFactory.getLog( ZipUtilsTest.class );
+//	private static final Log log = LogFactory.getLog( ZipUtilsTest.class );
 
 	@Before
 	public void setUp() throws Exception {

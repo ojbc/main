@@ -62,6 +62,7 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 	@Before
 	public void setUp() throws Exception {
 		
+        DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
 		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/fbiSubscriptionDataSet.xml"));
 		
     	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
