@@ -16,26 +16,41 @@
  */
 package org.ojbc.bundles.mockimpl.fbi.ngi;
 
-import java.io.File;
+import java.io.InputStream;
 
-import org.apache.camel.Body;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.ojbc.util.camel.helper.OJBUtils;
-import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
 public class FbiNgiResponseProcessor {
+	
 	
 	public static final String RAP_BACK_MAITENANCE_RESPONSE = "RBMNT";
 	public static final String RAP_BACK_SCRIPTION_RESPONSE = "RBSCRM";
 	
 	private Logger logger = Logger.getLogger(FbiNgiResponseProcessor.class);
 	
+	private DocumentBuilder docBuilder;
 	
-	public String createResponse(Exchange exchange, @Body Document report, @Header("transactionCategoryCode") String transactionCategoryCode) throws Exception{
+	
+	public FbiNgiResponseProcessor() throws Exception {
+	
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		docBuilder = dbf.newDocumentBuilder();		
+	}
+	
+	
+	public String createResponse(Exchange exchange, @Header("transactionCategoryCode") String transactionCategoryCode) throws Exception{
+				
+		String trxCatCode = exchange.getIn().getHeader("transactionCategoryCode", String.class);
+		logger.info("\n\n\n trxCatCode: " + trxCatCode + "\n\n\n");
+		
 		
 		if (StringUtils.isBlank(transactionCategoryCode)){
 			throw new IllegalArgumentException("The transactionCategoryCode is missing."); 
@@ -50,25 +65,27 @@ public class FbiNgiResponseProcessor {
 	
 	
 	String getSubAckResponse(String transactionCategoryCode) throws Exception{
-		Document responseDoc = null;
+				
+		String sResponseDoc = null;
+		
+		InputStream inStreamSubResp = null;
 		
 		if (transactionCategoryCode.equals(RAP_BACK_SCRIPTION_RESPONSE)){
-			responseDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/output/"
-    				+ "Template(RBSR)RapBackSubscriptionResponse.xml"));
-    	
-		}
-		else if (transactionCategoryCode.equals(RAP_BACK_MAITENANCE_RESPONSE)){
-			responseDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/output/"
-    				+ "Template(RBMNTR)RapBackMaintenanceResponse.xml"));
-		}
+						
+			inStreamSubResp = getClass().getClassLoader().getResourceAsStream("mockXml/Template(RBSR)RapBackSubscriptionResponse.xml");														    	
 		
-		if (responseDoc != null){
-			String response = OJBUtils.getStringFromDocument(responseDoc);		
+		}else if (transactionCategoryCode.equals(RAP_BACK_MAITENANCE_RESPONSE)){
 			
-			return response;
+			inStreamSubResp = getClass().getClassLoader().getResourceAsStream("mockXml/Template(RBMNTR)RapBackMaintenanceResponse.xml"); 									
 		}
 		
-		return null;
+		if (inStreamSubResp != null){
+			
+			Document responseDoc = docBuilder.parse(inStreamSubResp);	
+			
+			sResponseDoc = OJBUtils.getStringFromDocument(responseDoc);					
+		}		
+		return sResponseDoc;
 	}
 
 }
