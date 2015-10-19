@@ -39,16 +39,19 @@ public class FbiNgiUserServiceProcessor {
 		
 		logger.info("\n\n Returning Control# doc: \n" + responseXml + "\n\n");
 		
+		//TODO see how to avoid copying header like this
+		String oJBCfbiUserRequest =  exchange.getIn().getHeader("OJBCfbiUserRequest", String.class);		
+		exchange.getOut().setHeader("OJBCfbiUserRequest", oJBCfbiUserRequest);
+		
+		exchange.getIn().removeHeader("OJBCfbiUserRequest");
+		
 		exchange.getOut().setBody(responseXml);
 	}
 	
 	
 	String getControlNumResponseMessage(Exchange inputExchange) throws Exception{
 		
-		Document fbiNgiSubscribeDoc = inputExchange.getIn().getBody(Document.class);
-		
-		logger.info("\n\n Using input doc: \n\n");
-		XmlUtils.printNode(fbiNgiSubscribeDoc);
+		Document fbiNgiSubscribeDoc = inputExchange.getIn().getBody(Document.class);		
 
 		String controlNumResponseDoc = null;
 		
@@ -78,6 +81,7 @@ public class FbiNgiUserServiceProcessor {
 		
 		return controlNumResponseDoc;
 	}
+	
 	
 	List<String> getValidationErrors(String controlNumber){
 		
