@@ -21,7 +21,10 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.MalformedURLException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -49,13 +52,16 @@ import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
+import org.dbunit.dataset.xml.FlatDtdWriter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.annotation.DirtiesContext;
 
+@DirtiesContext
 public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificationTest {
 	
 	@Resource
@@ -83,8 +89,8 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
     	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
     	    }              
     	});   
-    	
-        DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet());
+    	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
+        DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
 	}
 	
 	@After
@@ -193,10 +199,16 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 		return IOUtils.readStringFromStream(reply.getContent());
 	}
 	
-//	@Test
-//    public void getDTDFile() throws Exception
-//    {
-//        // write DTD file
-//        FlatDtdDataSet.write(getDataSet(), new FileOutputStream("src/test/resources/xmlInstances/dbUnit/test.dtd"));
-//    }
+	@Test
+    public void getDTDFile() throws Exception
+    {
+        // write DTD file
+//        FlatDtdDataSet.write(getConnection().createDataSet(), new FileOutputStream("src/test/resources/xmlInstances/dbUnit/rapback.dtd"));
+        Writer out = new OutputStreamWriter(new FileOutputStream("src/test/resources/xmlInstances/dbUnit/rapback.dtd"));
+        FlatDtdWriter datasetWriter = new FlatDtdWriter(out);
+        datasetWriter.setContentModel(FlatDtdWriter.CHOICE);
+        // You could also use the sequence model which is the default
+        // datasetWriter.setContentModel(FlatDtdWriter.SEQUENCE);
+        datasetWriter.write(getConnection().createDataSet());
+    }
 }
