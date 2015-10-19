@@ -55,6 +55,7 @@ public class Subscription {
 	private Boolean active; 
 	
 	private String agencyCaseNumber; 
+	private String subscriptionCategoryCode; 
 
     public DateTime getValidationDueDate() {
 	    return validationDueDate;
@@ -182,6 +183,14 @@ public class Subscription {
 
 	public void setAgencyCaseNumber(String agencyCaseNumber) {
 		this.agencyCaseNumber = agencyCaseNumber;
+	}
+
+	public String getSubscriptionCategoryCode() {
+		return subscriptionCategoryCode;
+	}
+
+	public void setSubscriptionCategoryCode(String subscriptionCategoryCode) {
+		this.subscriptionCategoryCode = subscriptionCategoryCode;
 	}
 
 
