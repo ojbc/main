@@ -192,4 +192,11 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 		HttpEntity reply = response.getEntity();
 		return IOUtils.readStringFromStream(reply.getContent());
 	}
+	
+//	@Test
+//    public void getDTDFile() throws Exception
+//    {
+//        // write DTD file
+//        FlatDtdDataSet.write(getDataSet(), new FileOutputStream("src/test/resources/xmlInstances/dbUnit/test.dtd"));
+//    }
 }
