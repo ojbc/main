@@ -57,6 +57,7 @@ public class IncidentSubscriptionManagerServiceTest  extends AbstractSubscriptio
     
 	@Before
 	public void setUp() throws Exception {
+        DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet());
 	}
 	
