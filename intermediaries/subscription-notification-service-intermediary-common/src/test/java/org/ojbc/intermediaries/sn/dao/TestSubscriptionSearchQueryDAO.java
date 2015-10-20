@@ -80,7 +80,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml", })
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml", })
 @DirtiesContext
 public class TestSubscriptionSearchQueryDAO {
 
@@ -141,6 +141,9 @@ public class TestSubscriptionSearchQueryDAO {
 		FileInputStream manualTestFile = new FileInputStream(manualTestFileName);
 		IDatabaseConnection connection = new DatabaseConnection(
 				dataSource.getConnection());
+		
+		FileInputStream emptyDataSetFile = new FileInputStream("src/test/resources/xmlInstances/dbUnit/emptyDataSet.xml");
+		DatabaseOperation.DELETE_ALL.execute(connection, new FlatXmlDataSetBuilder().build(emptyDataSetFile));
 		DatabaseOperation.CLEAN_INSERT.execute(connection,
 				new FlatXmlDataSetBuilder().build(manualTestFile));
 	}

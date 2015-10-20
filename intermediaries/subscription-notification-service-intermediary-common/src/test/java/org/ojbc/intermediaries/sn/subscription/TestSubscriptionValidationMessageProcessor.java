@@ -47,7 +47,8 @@ import org.w3c.dom.Node;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/spring/test-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-application-context.xml", "classpath:META-INF/spring/h2-mock-database-context-subscription.xml", })
+		"classpath:META-INF/spring/h2-mock-database-application-context.xml", 
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml", })
 @DirtiesContext
 public class TestSubscriptionValidationMessageProcessor {
 

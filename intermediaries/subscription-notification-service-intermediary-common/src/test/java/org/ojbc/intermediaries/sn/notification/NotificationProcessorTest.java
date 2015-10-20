@@ -63,7 +63,7 @@ import org.w3c.dom.Node;
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		})
 @DirtiesContext
 public class NotificationProcessorTest {
@@ -93,13 +93,14 @@ public class NotificationProcessorTest {
 
         notificationProcessor.setSubscriptionSearchQueryDAO(subscriptionSearchQueryDAO);
 
+        DatabaseOperation.DELETE_ALL.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/emptyDataSet.xml"));
         DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet.xml"));
     }
 
     private IDataSet getDataSet(String fileName) throws Exception {
         return new FlatXmlDataSetBuilder().build(new FileInputStream(fileName));
     }
-
+    
     private IDatabaseConnection getConnection() throws Exception {
         Connection con = dataSource.getConnection();
         IDatabaseConnection connection = new DatabaseConnection(con);
