@@ -42,7 +42,7 @@
 			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiNgiMockImpl.cxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy"/>
 
 		<endpoint id="ngiResponseServiceEndpoint"
-			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiNgiMockImpl.cxflogging}" />
+			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiNgiMockImpl.cxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy" />
 
 
 		<camel:route id="ngiUserServiceRoute">
