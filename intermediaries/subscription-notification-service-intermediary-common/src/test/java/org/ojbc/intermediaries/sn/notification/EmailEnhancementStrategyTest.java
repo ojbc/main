@@ -27,16 +27,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 
 public class EmailEnhancementStrategyTest {
     
-    private static final Log log = LogFactory.getLog(EmailEnhancementStrategyTest.class);
-
     @Test
     public void testTopicMapEmailEnhancementStrategy() throws Exception {
     	
