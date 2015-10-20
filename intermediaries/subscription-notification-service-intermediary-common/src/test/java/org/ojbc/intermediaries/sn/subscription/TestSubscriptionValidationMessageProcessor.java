@@ -32,8 +32,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,11 +45,10 @@ import org.w3c.dom.Node;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/spring/test-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-application-context.xml", "classpath:META-INF/spring/h2-mock-database-context-subscription.xml", })
+		"classpath:META-INF/spring/h2-mock-database-application-context.xml", 
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml", })
 @DirtiesContext
 public class TestSubscriptionValidationMessageProcessor {
-
-	private static final Log log = LogFactory.getLog(TestSubscriptionValidationMessageProcessor.class);
 
 	@Resource
 	private DataSource dataSource;

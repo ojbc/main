@@ -61,6 +61,4 @@
   <subscription_subject_identifier id="20" subscriptionId="8" identifierName="SID" identifierValue="A5008305"/>
   <subscription_subject_identifier id="21" subscriptionId="9" identifierName="lastName" identifierValue="*"/>
   
-  <notifications_sent/>	
-
 </dataset>
