@@ -149,6 +149,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSearchForSubscriptionsBySubscriptionOwner()
 			throws Exception {
 		loadManualTestData();
@@ -159,6 +160,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSubscriptionBuildWithNoValidationDate() throws Exception {
 		loadValidationDateTestData();
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -171,6 +173,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSearchForSubscriptionsBySubscriptionOwnerWithValidationDate()
 			throws Exception {
 		loadValidationDateTestData();
@@ -187,6 +190,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testMultipleTopicsForSubject() throws Exception {
 
 		loadMultiTopicTestData();
@@ -202,6 +206,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testValidationDueDateExemption() throws Exception {
 
 		loadValidationDateTestData();
@@ -249,6 +254,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testValidationDueDateAndGracePeriod() throws Exception {
 		loadValidationDateTestData();
 		// normally you would configure these via Spring, but don't want to muck
@@ -283,6 +289,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testValidationDueDateAndGracePeriodEndDateBeforeValidationDueDate()
 			throws Exception {
 		loadValidationDateTestData();
@@ -318,6 +325,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSubscriptionCount() throws Exception {
 		loadManualTestData();
 		int subscriptionCount = subscriptionSearchQueryDAO
@@ -326,6 +334,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testQueryForSubscriptionsByOwnerAndId() throws Exception {
 		loadManualTestData();
 		Subscription subscription = subscriptionSearchQueryDAO
@@ -337,6 +346,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSearchForSubscriptionsMatchingNotificationRequestByEventDateAndSubject()
 			throws Exception {
 		loadBasicTestData();
@@ -360,6 +370,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSearchForSubscriptionsMatchingNotificationRequestWithStaticValidationDueDate()
 			throws Exception {
 
@@ -411,6 +422,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSearchForSubscriptionsMatchingNotificationRequestByEventDateAndSubjectInactive()
 			throws Exception {
 		loadBasicTestData();
@@ -425,6 +437,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testQueryForSubscriptionById() throws Exception {
 		loadBasicTestData();
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -433,6 +446,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testQueryForSubscriptionBySystemAndOwner() throws Exception {
 		loadBasicTestData();
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -444,6 +458,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test(expected = IllegalStateException.class)
+	@DirtiesContext
 	public void testSearchForSubscriptionsWithNullValidationDate()
 			throws Exception {
 		loadNullLastValidationDateTestData();
@@ -456,6 +471,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testUnsubscribeBySystemId() throws Exception {
 
 		loadBasicTestData();
@@ -484,6 +500,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testUnsubscribeBySubject() throws Exception {
 
 		loadBasicTestData();
@@ -529,6 +546,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testWildcardSubscription() throws Exception {
 
 		loadWildcardTestData();
@@ -564,6 +582,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSubscribe_noExistingSubscriptions() throws Exception {
 
 		Statement s = dataSource.getConnection().createStatement();
@@ -665,6 +684,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSubscribe_multipleEmails() throws Exception {
 
 		loadBasicTestData();
@@ -708,6 +728,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSubscribe_existingSubscriptions() throws Exception {
 
 		loadBasicTestData();
@@ -782,6 +803,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testSubscribe_noExistingSubscriptionsForTopic()
 			throws Exception {
 
@@ -826,6 +848,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testBuildWhereClause_single() {
 		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and identifierValue=?)";
 
@@ -835,6 +858,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testBuildWhereClause_multiple() {
 		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and identifierValue=?)"
 				+ " and s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and identifierValue=?)";
@@ -845,6 +869,7 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testBuildCriteriaArray() {
 		Object[] expectedResult = new Object[] { "SID", "1234",
 				"subscriptionQualifier", "ABCDE" };
