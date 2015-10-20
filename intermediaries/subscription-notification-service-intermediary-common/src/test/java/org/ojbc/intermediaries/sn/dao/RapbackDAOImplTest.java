@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.tests;
+package org.ojbc.intermediaries.sn.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -28,7 +28,6 @@ import javax.sql.DataSource;
 
 import junit.framework.Assert;
 
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -41,23 +40,15 @@ import org.ojbc.intermediaries.sn.fbi.rapback.SubsequentResults;
 import org.ojbc.util.helper.ZipUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@DirtiesContext
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/email-formatters.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/extensible-beans.xml",
-		"classpath:META-INF/spring/properties-context.xml",
-		"classpath:META-INF/spring/search-query-routes.xml",
-		"classpath:META-INF/spring/subscription-secure-routes.xml",
-		"classpath:META-INF/spring/local-osgi-context.xml",
+		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
-		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 }) 
+@DirtiesContext
 public class RapbackDAOImplTest {
 	private final Log log = LogFactory.getLog(this.getClass());
 	    
@@ -65,7 +56,7 @@ public class RapbackDAOImplTest {
 	private FbiRapbackDao rapbackDao;
 	
     @Resource  
-    private DataSource rapbackDataSource;  
+    private DataSource dataSource;  
 
 	@Before
 	public void setUp() throws Exception {
@@ -119,7 +110,7 @@ public class RapbackDAOImplTest {
 		assertNotNull(pkId);
 		assertEquals(1, pkId.intValue()); 
 		
-		Connection conn = rapbackDataSource.getConnection();
+		Connection conn = dataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = 1");
 		assertTrue(rs.next());
 		assertEquals("fbiSubscriptionId", rs.getString("FBI_SUBSCRIPTION_ID"));
