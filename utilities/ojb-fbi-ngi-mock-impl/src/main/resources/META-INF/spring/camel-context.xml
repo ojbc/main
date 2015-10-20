@@ -39,7 +39,7 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="ojb-fbi-ngi-mock-impl">
 
 		<endpoint id="ngiUserServiceEndpoint"
-			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiNgiMockImpl.cxflogging}" />
+			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiNgiMockImpl.cxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy"/>
 
 		<endpoint id="ngiResponseServiceEndpoint"
 			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiNgiMockImpl.cxflogging}" />
@@ -51,22 +51,31 @@
 
 			<camel:log message="\n\nNGI-MOCK: Handling FbiNgiUserServiceRequest(responding control #)...\n\n" />			
 
+			<camel:setHeader headerName="OJBCfbiUserRequest">
+				<simple>${body}</simple>
+			</camel:setHeader>
+
+			<camel:to uri="bean:fbiNgiUserServiceProcessor?method=handleUserServiceRequest" />			
+
 			<!-- Create additional Asynchronous "Subscription Acknowledgement" response -->		
-			<camel:wireTap uri="direct:sendSubAckResponse" />
-			
-			<camel:to uri="bean:fbiNgiUserServiceProcessor?method=handleUserServiceRequest" />
-				
+			<camel:wireTap uri="direct:sendSubAckResponse">			
+				<camel:body>
+					<simple>${in.header.OJBCfbiUserRequest}</simple>
+				</camel:body>
+			</camel:wireTap>
 			
 		</camel:route>
 
 
 		<camel:route id="ngiResponseServiceRoute">		
 		
-			<camel:from uri="direct:sendSubAckResponse"/>								
-
+			<camel:from uri="direct:sendSubAckResponse"/>																				
+												
 			<camel:setHeader headerName="transactionCategoryCode">
 				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode/text()</xpath>
 			</camel:setHeader>
+			
+			<log message="\n\n\n transactionCategoryCode = ${header.transactionCategoryCode} \n\n\n" loggingLevel="WARN"/>
 			
 			<camel:to uri="bean:fbiNgiResponseProcessor?method=createResponse"/>
 			
@@ -78,17 +87,16 @@
 				<constant>receiveResponse</constant>
 			</camel:setHeader>
 			
-			<camel:log message="\n\nNGI-MOCK: Sending Sub. Ack. Response:\n\n ${body} \n\n"/>			
+			<camel:log message="\n\nNGI-MOCK: Sending Sub. Ack. Response... \n\n"/>			
 			
-			<camel:to uri="ngiResponseServiceEndpoint"/>
-			
-			<camel:log message="\n\nNGI-MOCK: Body after ngiResponseService:\n ${body} \n\n"/>
+			<camel:to uri="ngiResponseServiceEndpoint"/>			
 			
 		</camel:route>
 
 	</camel:camelContext>
 	
-
+	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>
+	
 	<bean id="fbiNgiUserServiceProcessor"
 		class="org.ojbc.bundles.mockimpl.fbi.ngi.FbiNgiUserServiceProcessor" />
 
