@@ -182,7 +182,6 @@ public class RapbackDAOImplTest {
 		CivilFingerPrints civilFingerPrints = new CivilFingerPrints(); 
 		civilFingerPrints.setTransactionNumber(TRANSACTION_NUMBER);
 		civilFingerPrints.setFingerPrintsFile("FingerPrints".getBytes());
-		civilFingerPrints.setTransactionType("Transaction Type");
 		civilFingerPrints.setFingerPrintsType(FingerPrintsType.FBI);
 		
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
@@ -220,7 +219,6 @@ public class RapbackDAOImplTest {
 		CriminalInitialResults criminalInitialResults = new CriminalInitialResults(); 
 		criminalInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
 		criminalInitialResults.setSearchResultFile("Match".getBytes());
-		criminalInitialResults.setTransactionType("Transaction Type");
 		criminalInitialResults.setResultsSender(ResultSender.FBI);
 	
 		criminalInitialResults.setSubject(identificationTransaction.getSubject());
@@ -243,7 +241,6 @@ public class RapbackDAOImplTest {
 		CivilInitialResults civilInitialResults = new CivilInitialResults(); 
 		civilInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
 		civilInitialResults.setSearchResultFile("Match".getBytes());
-		civilInitialResults.setTransactionType("Transaction Type");
 		civilInitialResults.setResultsSender(ResultSender.FBI);
 		
 		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
@@ -256,9 +253,8 @@ public class RapbackDAOImplTest {
 		
 		
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
-		civilInitialRapSheet.setCivilIntitialResultId(3);
+		civilInitialRapSheet.setCivilIntitialResultId(9);
 		civilInitialRapSheet.setRapSheet("rapsheet".getBytes());
-		civilInitialRapSheet.setTransactionType("Transaction Type");
 		
 		Integer civilInitialRapSheetPkId = 
 				rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);  

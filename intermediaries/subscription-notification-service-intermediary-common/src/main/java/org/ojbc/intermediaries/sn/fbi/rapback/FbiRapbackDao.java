@@ -122,8 +122,8 @@ public class FbiRapbackDao {
 	}
 	
 	final static String SUBSEQUENT_RESULTS_INSERT="insert into SUBSEQUENT_RESULTS "
-			+ "(FBI_SUBSCRIPTION_ID, RAP_SHEET, TRANSACTION_TYPE ) "
-			+ "values (?, ?, ?)";
+			+ "(FBI_SUBSCRIPTION_ID, RAP_SHEET) "
+			+ "values (?, ?)";
 	public Integer saveSubsequentResults(final SubsequentResults subsequentResults) {
         log.debug("Inserting row into SUBSEQUENT_RESULTS table : " + subsequentResults.toString());
 
@@ -133,7 +133,7 @@ public class FbiRapbackDao {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(SUBSEQUENT_RESULTS_INSERT, 
-        	                		new String[] {"FBI_SUBSCRIPTION_ID", "RAP_SHEET", "TRANSACTION_TYPE" });
+        	                		new String[] {"FBI_SUBSCRIPTION_ID", "RAP_SHEET" });
         	            ps.setString(1, subsequentResults.getFbiSubscriptionId());
         	            try {
 							ps.setBlob(2, new SerialBlob(ZipUtils.zip(subsequentResults.getRapSheet())));
@@ -141,7 +141,6 @@ public class FbiRapbackDao {
 							log.error("Got IOException while zipping the rapsheet: \n" + 
 									subsequentResults.getRapSheet());
 						}
-        	            ps.setString(3, subsequentResults.getTransactionType());
         	            return ps;
         	        }
         	    },

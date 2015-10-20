@@ -28,7 +28,6 @@ public class SubsequentResults implements Serializable{
 	private Long id; //Subsequent Results ID;
 	private String fbiSubscriptionId;
 	private byte[] rapSheet;
-	private String transactionType; 
 	private DateTime timestamp;
 	
 	public SubsequentResults(){
@@ -45,14 +44,6 @@ public class SubsequentResults implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getTransactionType() {
-		return transactionType;
-	}
-
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
 	}
 
 	public DateTime getTimestamp() {

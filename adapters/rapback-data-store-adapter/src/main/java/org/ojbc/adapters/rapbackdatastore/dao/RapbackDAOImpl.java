@@ -211,8 +211,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String CIVIL_FINGER_PRINTS_INSERT="insert into CIVIL_FINGER_PRINTS "
-			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE_ID) "
-			+ "values (?, ?, ?, ?)";
+			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, FINGER_PRINTS_TYPE_ID) "
+			+ "values (?, ?, ?)";
 	@Override
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints) {
         log.debug("Inserting row into CIVIL_FINGER_PRINTS table : " + civilFingerPrints.toString());
@@ -223,7 +223,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_FINGER_PRINTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "TRANSACTION_TYPE", "FINGER_PRINTS_TYPE"});
+        	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "FINGER_PRINTS_TYPE"});
         	            ps.setString(1, civilFingerPrints.getTransactionNumber());
         	            
         	            if (civilFingerPrints.getFingerPrintsFile() != null){
@@ -234,8 +234,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 								log.error("Got IOException when zipping fingerPrintFile: \n" + civilFingerPrints.getFingerPrintsFile());
 							}
         	            }
-        	            ps.setString(3, civilFingerPrints.getTransactionType());
-        	            ps.setInt(4, civilFingerPrints.getFingerPrintsType().ordinal()+1);
+        	            ps.setInt(3, civilFingerPrints.getFingerPrintsType().ordinal()+1);
         	            return ps;
         	        }
         	    },
@@ -273,8 +272,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 //	}
 
 	final static String CIVIL_INITIAL_RAP_SHEET_INSERT="insert into CIVIL_INITIAL_RAP_SHEET "
-			+ "(CIVIL_INITIAL_RESULT_ID, RAP_SHEET, TRANSACTION_TYPE) "
-			+ "values (?, ?, ?)";
+			+ "(CIVIL_INITIAL_RESULT_ID, RAP_SHEET) "
+			+ "values (?, ?)";
 	@Override
 	public Integer saveCivilInitialRapSheet(
 			final CivilInitialRapSheet civilInitialRapSheet) {
@@ -286,14 +285,13 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_INITIAL_RAP_SHEET_INSERT, 
-        	                		new String[] {"CIVIL_INITIAL_RESULT_ID", "RAP_SHEET", "TRANSACTION_TYPE"});
+        	                		new String[] {"CIVIL_INITIAL_RESULT_ID", "RAP_SHEET"});
         	            ps.setInt(1, civilInitialRapSheet.getCivilIntitialResultId());
         	            try {
 							ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilInitialRapSheet.getRapSheet())));
 						} catch (IOException e) {
 							log.error("Got IO exception while trying to zip the rapsheet :\n" + civilInitialRapSheet.getRapSheet());
 						}
-        	            ps.setString(3, civilInitialRapSheet.getTransactionType());
         	            return ps;
         	        }
         	    },
@@ -302,11 +300,10 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
-	//TODO solve the current_state change. 
 	final static String CIVIL_INITIAL_RESULTS_INSERT="insert into CIVIL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, TRANSACTION_TYPE, "
+			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, "
 			+ " RESULTS_SENDER_ID) "
-			+ "values (?, ?, ?, ?)";
+			+ "values (?, ?, ?)";
 	@Override
 	public Integer saveCivilInitialResults(
 			final CivilInitialResults civilInitialResults) {
@@ -319,7 +316,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_INITIAL_RESULTS_INSERT, 
         	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
-        	                		"TRANSACTION_TYPE", "RESULTS_SENDER_ID"});
+        	                			"RESULTS_SENDER_ID"});
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
         	            try {
 							ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilInitialResults.getSearchResultFile())));
@@ -327,8 +324,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 							e.printStackTrace();
 							log.error("Got IOExeption while zipping the searchResultFile:\n" + civilInitialResults.getSearchResultFile() );
 						}
-        	            ps.setString(3, civilInitialResults.getTransactionType());
-        	            ps.setInt(4, civilInitialResults.getResultsSender().ordinal()+1);
+        	            ps.setInt(3, civilInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
         	    },
@@ -338,9 +334,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	final static String CRIMINAL_INITIAL_RESULTS_INSERT="insert into CRIMINAL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, TRANSACTION_TYPE, "
-			+ " RESULTS_SENDER_ID) "
-			+ "values (?, ?, ?, ?)";
+			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, RESULTS_SENDER_ID) "
+			+ "values (?, ?, ?)";
 	@Override
 	public Integer saveCriminalInitialResults(
 			final CriminalInitialResults criminalInitialResults) {
@@ -353,7 +348,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CRIMINAL_INITIAL_RESULTS_INSERT, 
         	                		new String[] {"TRANSACTION_NUMBER", "SEARCH_RESULT_FILE",  
-        	                		"TRANSACTION_TYPE", "RESULTS_SENDER_ID"});
+        	                			"RESULTS_SENDER_ID"});
         	            ps.setString(1, criminalInitialResults.getTransactionNumber());
         	            try {
 							ps.setBlob(2, new SerialBlob(ZipUtils.zip(criminalInitialResults.getSearchResultFile())));
@@ -361,8 +356,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 							e.printStackTrace();
 							log.error("Got IOException when zipping the searchResultFile:\n" + criminalInitialResults.getSearchResultFile());
 						}
-        	            ps.setString(3, criminalInitialResults.getTransactionType());
-        	            ps.setInt(4, criminalInitialResults.getResultsSender().ordinal()+1);
+        	            ps.setInt(3, criminalInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
         	    },
@@ -542,7 +536,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 		CivilInitialResults civilInitialResults = new CivilInitialResults();
 		civilInitialResults.setId(rs.getInt("civil_initial_result_id"));
 		civilInitialResults.setTransactionNumber(rs.getString("transaction_number"));
-		civilInitialResults.setTransactionType(rs.getString("transaction_type"));
 		civilInitialResults.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") - 1]);
 		try{
 			civilInitialResults.setSearchResultFile(ZipUtils.unzip(rs.getBytes("search_result_file")));

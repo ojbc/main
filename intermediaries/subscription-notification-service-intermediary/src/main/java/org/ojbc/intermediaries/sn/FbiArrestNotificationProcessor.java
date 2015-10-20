@@ -50,8 +50,6 @@ public class FbiArrestNotificationProcessor {
 		String fbiSubscriptionId = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:RelatedFBISubscription/notfm-ext:RecordRapBackSubscriptionIdentification/nc:IdentificationID");
 		subsequentResult.setFbiSubscriptionId(fbiSubscriptionId);
 		
-		//TODO what about the transaction Type? 
-		subsequentResult.setTransactionType("Transaction Type");
 		rapbackDao.saveSubsequentResults(subsequentResult);
 	}
 

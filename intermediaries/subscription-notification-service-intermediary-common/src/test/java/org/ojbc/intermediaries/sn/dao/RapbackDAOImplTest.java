@@ -103,8 +103,6 @@ public class RapbackDAOImplTest {
 		SubsequentResults subsequentResults = new SubsequentResults();
 		subsequentResults.setFbiSubscriptionId("fbiSubscriptionId");
 		subsequentResults.setRapSheet("rapsheet".getBytes());
-		subsequentResults.setTransactionType("Transaction Type");
-		
 		
 		Integer pkId = rapbackDao.saveSubsequentResults(subsequentResults);
 		assertNotNull(pkId);

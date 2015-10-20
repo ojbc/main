@@ -73,7 +73,6 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 				attachmentId);
 
 		civilFingerPrints.setFingerPrintsFile(ZipUtils.zip(receivedAttachment));
-		civilFingerPrints.setTransactionType("Transaction"); //TODO replace the placeholder with real value.
 		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 	}
 
