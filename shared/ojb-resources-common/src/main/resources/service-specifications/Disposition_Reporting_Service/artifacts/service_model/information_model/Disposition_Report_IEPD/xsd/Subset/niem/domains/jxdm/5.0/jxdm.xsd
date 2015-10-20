@@ -163,6 +163,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ChargeEnhancingFactorType">
+    <xs:annotation>
+      <xs:documentation>A data type for a factor or reason that makes a charge more serious.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:ChargeEnhancingFactorAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ChargeType">
     <xs:annotation>
       <xs:documentation>A data type for a formal allegation that a specific person has committed a specific offense.</xs:documentation>
@@ -174,6 +186,7 @@
           <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeEnhancingFactor" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeOriginatorEntity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargePlea" minOccurs="0" maxOccurs="unbounded"/>
@@ -639,6 +652,16 @@
   <xs:element name="ChargeDispositionAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for ChargeDispositionType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeEnhancingFactor" type="j:ChargeEnhancingFactorType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A factor or reason that makes a charge more serious.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeEnhancingFactorAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ChargeEnhancingFactorType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeIdentification" type="nc:IdentificationType" nillable="true">
