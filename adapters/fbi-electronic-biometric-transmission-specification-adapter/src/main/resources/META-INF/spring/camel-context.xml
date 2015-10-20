@@ -268,13 +268,21 @@
 			<setHeader headerName="CamelFileName">
 				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
 			</setHeader>
+			
+			<convertBodyTo type="java.lang.String"/>
+			
 			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
+			
+			<!-- TODO Confirm we don't need this, or fix exceptions before using it 
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+			-->
+			
 			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionCreation</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>			
 
 			<to uri="direct:sendRapbackSubscriptionReport" />				
 		</route>
+		
 		
 		<route id="processRapbackSubscriptionMaintenanceResponseRoute">
 		
@@ -286,11 +294,13 @@
 			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+			
 			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
 			
 			<camel:to uri="direct:sendRapbackSubscriptionReport"/>
  		</route>
+ 		
  		
  		<route id="sendRapbackSubscriptionReport">
  			<camel:from uri="direct:sendRapbackSubscriptionReport"/>
@@ -354,4 +364,6 @@
 	<bean id="unsubscribeProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEbtsUnsubscribeProcessor"/>
 	
 	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>
+	
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 </beans>

@@ -102,7 +102,8 @@
 	<cxf:cxfEndpoint id="subscriptionReportingService"
 		address="${fbiEbtsAdapter.subscriptionReportingServiceEndpoint}"
 		wsdlURL="classpath:service-specifications/Subscription_Reporting_Service/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
-		serviceName="ojbc:Subscription-Reporting-ServiceService" endpointName="ojbc:Subscription-Reporting-Secure-Service"
+		serviceName="ojbc:Subscription-Reporting-ServiceService" 
+		endpointName="ojbc:Subscription-Reporting-Secure-Service" 
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
@@ -114,7 +115,7 @@
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
-                <entry key="${fbiEbtsAdapter.keystoreCertificateAlias}" value="${fbiEbtsAdapter.keystorePassword}"/>
+                <entry key="${fbiEbtsAdapter.keystoreCertificateAlias}" value="${fbiEbtsAdapter.keyPassword}"/>
             </map>
         </property>
 	</bean>
