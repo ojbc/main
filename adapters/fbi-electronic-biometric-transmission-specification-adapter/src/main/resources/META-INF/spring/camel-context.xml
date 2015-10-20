@@ -73,7 +73,7 @@
 							
 		<!-- hosted at FBI, receives our subscription requests from this ebts adapter -->		
 		<endpoint id="ngiUserServiceRequestEndpoint" 
-			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy" />
 		
 		<!-- Endpoint we expose to FBI so they can send us asynchronous Subscription Acknowledgement responses --> 
 		<endpoint id="ngiResponseServiceEndpoint" 
@@ -95,7 +95,7 @@
 		
 			<from uri="fbiEbtsUnsubscribeEndpoint"/>
 		
-			<log message="\n\n\n EBTS adapter received Unsubscribe request..., body= \n\n ${body} \n\n\n"/>
+			<log message="\n\n\n EBTS adapter received Unsubscribe request \n\n\n"/>
 			
 			<to uri="direct:processFbiEbtsRequest"/>
 								
@@ -109,7 +109,7 @@
 		
 			<camel:from uri="inputMessageDirEndpoint"/>
 			
-			<camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message: \n\n ${body} \n\n" />
+			<camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message \n\n" />
 		
 			<camel:to uri="direct:processFbiEbtsRequest"/>
 		
@@ -133,7 +133,7 @@
 	
 			<camel:from uri="fbiEbtsWebServiceInputEndpoint" />
 			
-			<camel:log message="\n\n Fbi Adapter service received inbound message: \n\n ${body} \n\n" />													 						
+			<camel:log message="\n\n Fbi Adapter service received inbound message. \n\n" />													 						
 			
 			<camel:to uri="direct:processFbiEbtsRequest" />									   			   
 												   			  
@@ -162,7 +162,7 @@
 		
 			<camel:to uri="ngiUserServiceRequestEndpoint"/>
 						
-			<camel:log message="\n\n Received FBI NGI ControlNumber synchronous response: \n ${body} \n\n"/>
+			<camel:log message="\n\n\n Received FBI NGI ControlNumber synchronous response \n\n\n"/>
 									
 		</camel:route>
 		
@@ -352,4 +352,6 @@
 	<bean id="rapsheetMtomProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapsheetMtomProcessor"/>
 	
 	<bean id="unsubscribeProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEbtsUnsubscribeProcessor"/>
+	
+	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>
 </beans>
