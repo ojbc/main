@@ -78,8 +78,6 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		criminalInitialResults.setSearchResultFile(	ZipUtils.zip(MtomUtils.getAttachment(exchange, transactionNumber,
 				attachmentId)));
 		
-		criminalInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
-		
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
 			criminalInitialResults.setResultsSender(ResultSender.FBI);
 		}
@@ -106,8 +104,6 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		String attachmentId = getAttachmentId(rootNode);
 		
 			
-		civilInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
-
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
 			civilInitialResults.setResultsSender(ResultSender.FBI);
 		}
@@ -135,7 +131,6 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 			String attachmentId, Integer initialResultsPkId) throws IOException {
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
 		civilInitialRapSheet.setCivilIntitialResultId(initialResultsPkId);
-		civilInitialRapSheet.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value.
 		
 		byte[] receivedAttachment = MtomUtils.getAttachment(exchange, transactionNumber,
 				attachmentId);

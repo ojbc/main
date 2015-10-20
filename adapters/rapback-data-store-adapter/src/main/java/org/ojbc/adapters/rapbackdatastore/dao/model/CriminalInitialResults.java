@@ -28,7 +28,6 @@ public class CriminalInitialResults implements Serializable{
 	private Long id; //Criminal Initial Results ID;
 	private String transactionNumber;
 	private byte[] searchResultFile; 
-	private String transactionType; 
 	private ResultSender resultsSender; 
 	
 	private DateTime timestamp;
@@ -62,14 +61,6 @@ public class CriminalInitialResults implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getTransactionType() {
-		return transactionType;
-	}
-
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
 	}
 
 	public DateTime getTimestamp() {

@@ -30,7 +30,6 @@ public class CivilInitialResults implements Serializable{
 	private Integer id; //Civil Initial Results ID;
 	private String transactionNumber;
 	private byte[] searchResultFile; 
-	private String transactionType; 
 	private ResultSender resultsSender; 
 	private DateTime timestamp;
 	private List<byte[]> rapsheets = new ArrayList<byte[]>();
@@ -64,14 +63,6 @@ public class CivilInitialResults implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getTransactionType() {
-		return transactionType;
-	}
-
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
 	}
 
 	public DateTime getTimestamp() {

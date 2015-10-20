@@ -33,7 +33,6 @@ public class CriminalFingerPrints implements Serializable{
 	private Long id; //Finger prints ID;
 	private String transactionNumber;
 	private byte[] fingerPrintsFile; 
-	private String transactionType; 
 	private String fingerPrintsType; 
 	private DateTime timestamp;
 	
@@ -72,14 +71,6 @@ public class CriminalFingerPrints implements Serializable{
 
 	public void setFingerPrintsFile(byte[] fingerPrintsFile) {
 		this.fingerPrintsFile = fingerPrintsFile;
-	}
-
-	public String getTransactionType() {
-		return transactionType;
-	}
-
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
 	}
 
 	public String getFingerPrintsType() {
