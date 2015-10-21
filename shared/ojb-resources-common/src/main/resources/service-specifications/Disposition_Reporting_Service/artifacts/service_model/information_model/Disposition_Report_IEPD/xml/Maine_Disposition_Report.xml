@@ -55,6 +55,9 @@
 				<nc:CaseDocketID>String</nc:CaseDocketID>
 			</disp-ext:ChargeDispositionAugmentation>
 		</j:ChargeDisposition>
+		<j:ChargeEnhancingFactor>
+			<me_codes:EnhancementCode>FIREARM OR DANGEROUS WEAPON</me_codes:EnhancementCode>
+		</j:ChargeEnhancingFactor>
 		<j:ChargeSentence>
 			<nc:ActivityDate>
 				<nc:Date>1967-08-13</nc:Date>
