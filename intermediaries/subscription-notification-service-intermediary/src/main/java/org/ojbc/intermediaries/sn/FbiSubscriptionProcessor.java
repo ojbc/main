@@ -76,7 +76,7 @@ public class FbiSubscriptionProcessor {
 		
 		logger.info("\n\n\n Process Unsubscribe... \n\n\n");
 		
-		Document unsubscribeDoc = exchange.getIn().getHeader("unsubscribeBody", Document.class);	
+		Document unsubscribeDoc = exchange.getIn().getBody(Document.class);
 		
 		String personFbiUcnId = getPersonFbiUcnIdFromUnsubscribeDoc(unsubscribeDoc);
 				
