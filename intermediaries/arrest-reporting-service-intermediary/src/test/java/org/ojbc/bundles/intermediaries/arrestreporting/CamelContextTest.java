@@ -82,6 +82,7 @@ public class CamelContextTest {
 	public void setUp() throws Exception {
 		
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
+		//We mock the 'log' endpoint to test against.
     	context.getRouteDefinition("ArrestReportingServiceHandlerRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
@@ -120,20 +121,22 @@ public class CamelContextTest {
 	public void testContextRoutes() throws Exception
 	{
 		
-    	//We should get two message
+    	//Notification Broker will get one message
 		notificationBrokerServiceMockEndpoint.expectedMessageCount(1);
-		loggingEndpoint.expectedMessageCount(1);
+		
+		//logging endpoint will get two messages, one from content enricher and one from derived routes.
+		loggingEndpoint.expectedMessageCount(2);
 		
     	//Create a new exchange
     	Exchange senderExchange = new DefaultExchange(context);
     	
-    	//Test the entire web service route by sending through an Incident Report
+    	//Test the entire web service route by sending through an Arrest Report
 		Document doc = createDocument();
 		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
 		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
 		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
 
-	    //Read the arrest report from teh file system
+	    //Read the arrest report from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/arrestReport/Arrest_Report.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 	    
