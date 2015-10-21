@@ -272,10 +272,10 @@
 			<convertBodyTo type="java.lang.String"/>
 			
 			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
-			
-			<!-- TODO Confirm we don't need this, or fix exceptions before using it 
+						
+			<!-- TODO Confirm this is correct technique -->								
+			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-			-->
 			
 			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionCreation</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>			
@@ -293,6 +293,8 @@
 			</setHeader>
 			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
 			
+			<!-- TODO Confirm this is correct technique -->								
+			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 			
 			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
