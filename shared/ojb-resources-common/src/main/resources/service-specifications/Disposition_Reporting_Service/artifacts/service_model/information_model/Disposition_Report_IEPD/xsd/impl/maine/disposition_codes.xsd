@@ -547,7 +547,7 @@
 			<xsd:documentation>A code that describes the class or level of a charge.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="EnhancementCode" type="me_disp_codes:EnhancementCodeType" substitutionGroup="j:ChargeCategory">
+	<xsd:element name="EnhancementCode" type="me_disp_codes:EnhancementCodeType" substitutionGroup="j:ChargeEnhancingFactorAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a charge enhancement.</xsd:documentation>
 		</xsd:annotation>

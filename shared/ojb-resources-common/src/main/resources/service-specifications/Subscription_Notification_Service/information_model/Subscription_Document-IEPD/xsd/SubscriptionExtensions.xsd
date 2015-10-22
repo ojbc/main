@@ -21,7 +21,8 @@
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
 		schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1"
@@ -30,7 +31,10 @@
 		schemaLocation="../../Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
 		schemaLocation="../../Subset/niem/structures/2.0/structures.xsd" />
-
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include"
+		schemaLocation="./include_schema.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime"
+		schemaLocation="./xmime_schema.xsd"/>
 	<xsd:complexType name="SubscriptionType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
@@ -57,6 +61,7 @@
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -105,6 +110,19 @@
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification" minOccurs="0" />
 				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FingerprintDocumentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a fingerprint document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="xop:Include"/>
+				</xsd:sequence>
+				<xsd:attribute ref="xmime:contentType"/>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
@@ -221,6 +239,16 @@
 	<xsd:element name="SubscriptionTerm" type="j:TermType">
 		<xsd:annotation>
 			<xsd:documentation>The term for which a subscription is active.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintDocumentRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for a fingerprint document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintDocument" type="submsg-ext:FingerprintDocumentType" substitutionGroup="submsg-ext:FingerprintDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document that contains a person's fingerprint.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
