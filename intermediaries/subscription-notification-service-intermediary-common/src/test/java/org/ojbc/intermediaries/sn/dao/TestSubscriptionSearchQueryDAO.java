@@ -23,8 +23,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,10 +55,14 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dbunit.Assertion;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DataSetException;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.joda.time.DateTime;
@@ -883,6 +890,16 @@ public class TestSubscriptionSearchQueryDAO {
 		assertThat(result, is(expectedResult));
 	}
 
+	@Test
+	@DirtiesContext
+	public void testSidConsolidation()
+			throws Exception {
+		loadManualTestData();
+		subscriptionSearchQueryDAO
+				.consolidateSid("A5008305", "A5008306");
+		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSidConsolidation.xml");
+	}
+
 	private ArrestNotificationRequest returnArrestNotificationRequest(
 			String pathToNotificationRequest) throws Exception {
 		CamelContext ctx = new DefaultCamelContext();
@@ -915,6 +932,41 @@ public class TestSubscriptionSearchQueryDAO {
 				message);
 
 		return request;
+	}
+
+	private void compareDatabaseWithExpectedDataset(String expectedDatasetFileName) throws SQLException,
+		Exception, MalformedURLException, DataSetException, DatabaseUnitException {
+	
+		// Fetch database data after executing your code
+		IDataSet databaseDataSet = getConnection().createDataSet();
+		ITable filteredActualSubscriptionTable = getFilteredTableFromDataset(databaseDataSet, "subscription");
+		ITable filteredActualNotficationMechanismTable = getFilteredTableFromDataset(databaseDataSet, "notification_mechanism");
+		ITable filteredActualSubjectIdentiferTable = getFilteredTableFromDataset(databaseDataSet, "subscription_subject_identifier");
+		
+		// Load expected data from an XML dataset
+		IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/test/resources/xmlInstances/dbUnit/" + expectedDatasetFileName));
+		ITable filteredExpectedSubscriptionTable = getFilteredTableFromDataset(expectedDataSet, "subscription");
+		ITable filteredExpectedNotficationMechanismTable = getFilteredTableFromDataset(expectedDataSet, "notification_mechanism");
+		ITable filteredExpectedSubjectIdentiferTable = getFilteredTableFromDataset(expectedDataSet, "subscription_subject_identifier");
+		
+		// Assert actual database table match expected table
+		Assertion.assertEquals(filteredExpectedSubscriptionTable, filteredActualSubscriptionTable);
+		Assertion.assertEquals(filteredExpectedNotficationMechanismTable, filteredActualNotficationMechanismTable);
+		Assertion.assertEquals(filteredExpectedSubjectIdentiferTable, filteredActualSubjectIdentiferTable);
+	}
+
+	private ITable getFilteredTableFromDataset(IDataSet dataSet, String tableName) throws Exception {
+        ITable table = dataSet.getTable(tableName);
+        ITable filteredTable = DefaultColumnFilter.excludedColumnsTable(table, new String[]{"id*", "subscriptionId", "*date", "timestamp"});
+        
+        return filteredTable;
+	}
+	
+	private IDatabaseConnection getConnection() throws Exception {
+        Connection con = dataSource.getConnection();  
+        IDatabaseConnection connection = new DatabaseConnection(con);
+
+        return connection;  
 	}
 
 }
