@@ -55,8 +55,8 @@ public class SubscriptionSearchQueryProcessor {
 
         Element subscriptionSearchResultElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT, "SubscriptionQueryResult");
 
-        appendSubscriptionParentResponse(subscriptionSearchResponse, doc, subscriptionSearchResultElement, 0, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT
-                );
+        appendSubscriptionParentResponse(subscriptionSearchResponse, doc, subscriptionSearchResultElement, 0, 
+        		OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
 
         List<Subscription> searchResponse = new ArrayList<Subscription>();
         searchResponse.add(subscriptionSearchResponse);
@@ -108,8 +108,8 @@ public class SubscriptionSearchQueryProcessor {
 
     private static final String SUBSCRIPTION_SEARCH_RESPONSE_SYSTEM_NAME = "Subscriptions";
 
-    private static Element appendSubscriptionParentResponse(Subscription subscriptionSearchResponse, Document doc, Element subscriptionSearchResultElement, int searchResponseIndex,
-            String extensionSchema) {
+    private static Element appendSubscriptionParentResponse(Subscription subscriptionSearchResponse, Document doc, 
+    		Element subscriptionSearchResultElement, int searchResponseIndex, String extensionSchema) {
 
         Element subscriptionElement = XmlUtils.appendElement(subscriptionSearchResultElement, extensionSchema, "Subscription");
 
@@ -192,8 +192,14 @@ public class SubscriptionSearchQueryProcessor {
             e.setTextContent(gracePeriodInterval.getEnd().toString("yyyy-MM-dd"));
         }
 
+        String categoryReasonCode = subscriptionSearchResponse.getSubscriptionCategoryCode();
+        
+        if(StringUtils.isNotEmpty(categoryReasonCode)){
+        	
+            Element reasonCodeElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "CriminalSubscriptionReasonCode");
+            reasonCodeElement.setTextContent(categoryReasonCode);        	
+        }        
         return subscriptionElement;
-
     }
 
     private static void createSubscriptionEmails(List<Subscription> subscriptionSearchResponseList, Document doc, Element root, String extensionSchema) {

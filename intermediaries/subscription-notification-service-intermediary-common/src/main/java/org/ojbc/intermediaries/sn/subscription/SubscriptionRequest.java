@@ -61,7 +61,8 @@ public abstract class SubscriptionRequest {
 	protected String subscriptionQualifier;
 	protected String subscriptionSystemId;
 	protected Map<String, String> subjectIdentifiers;
-	private String agencyCaseNumber; 
+	private String agencyCaseNumber; 	
+	private String reasonCategoryCode;
 	
 	public SubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception{
 		//Get the message body as DOM
@@ -191,5 +192,15 @@ public abstract class SubscriptionRequest {
 
 	public void setAgencyCaseNumber(String agencyCaseNumber) {
 		this.agencyCaseNumber = agencyCaseNumber;
+	}
+
+	public String getReasonCategoryCode() {
+		return reasonCategoryCode;
+	}
+
+	public void setReasonCategoryCode(String reasonCategoryCode) {
+		this.reasonCategoryCode = reasonCategoryCode;
 	}	
+	
+	
 }
