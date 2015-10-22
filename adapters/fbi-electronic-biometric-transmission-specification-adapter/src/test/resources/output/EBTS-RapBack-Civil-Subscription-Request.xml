@@ -149,4 +149,32 @@
 
 	</itl:PackageDescriptiveTextRecord>
 	
+	<itl:PackageHighResolutionGrayscaleImageRecord>
+       	 <!-- RCC -->
+       	 <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
+       	  <!-- IDC -->
+       	 <ansi-nist:ImageReferenceIdentification>
+            <nc20:IdentificationID>01</nc20:IdentificationID>
+        </ansi-nist:ImageReferenceIdentification>
+        <ansi-nist:FingerprintImage>
+          <!--IMG -->
+          <nc20:BinaryBase64Object>XXX</nc20:BinaryBase64Object>
+          <ansi-nist:ImageCaptureDetail>
+              <!--ISR -->
+              <ansi-nist:CaptureResolutionCode>1</ansi-nist:CaptureResolutionCode>
+          </ansi-nist:ImageCaptureDetail>
+          <!--GCA -->
+          <ansi-nist:ImageCompressionAlgorithmCode>2</ansi-nist:ImageCompressionAlgorithmCode>
+          <!--HLL -->
+          <ansi-nist:ImageHorizontalLineLengthPixelQuantity>80</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
+          <!--VLL -->
+          <ansi-nist:ImageVerticalLineLengthPixelQuantity>65</ansi-nist:ImageVerticalLineLengthPixelQuantity>
+          <!--FGP -->
+          <ansi-nist:FingerprintImagePosition>
+              <ansi-nist:FingerPositionCode>2</ansi-nist:FingerPositionCode>
+          </ansi-nist:FingerprintImagePosition>
+          <!--IMP -->
+          <ansi-nist:FingerprintImageImpressionCaptureCategoryCode>3</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
+      </ansi-nist:FingerprintImage>
+    </itl:PackageHighResolutionGrayscaleImageRecord>
 </itl:NISTBiometricInformationExchangePackage>
