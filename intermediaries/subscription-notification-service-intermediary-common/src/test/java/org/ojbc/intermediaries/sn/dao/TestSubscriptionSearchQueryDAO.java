@@ -604,7 +604,7 @@ public class TestSubscriptionSearchQueryDAO {
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
 				"topic", "2013-01-01", "2013-01-01", subjectIds,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "SYSTEM", currentDate,
+				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", currentDate,
 				"0123ABC").intValue();
 
 		rs = s.executeQuery("select * from subscription");
@@ -704,7 +704,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
 				"topic", "2013-01-01", "2013-01-01", subjectIds, emailAddyList,
-				"offenderName", "systemName", "ABCDE", "SYSTEM",
+				"offenderName", "systemName", "ABCDE", "CS", "SYSTEM",
 				new LocalDate(), "0123ABC").intValue();
 
 		rs = s.executeQuery("select * from notification_mechanism where subscriptionid="
@@ -749,7 +749,7 @@ public class TestSubscriptionSearchQueryDAO {
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
 				"topic", "2013-01-01", "2013-01-01", subjectIds,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "SYSTEM", originalDate, "0123ABC")
+				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", originalDate, "0123ABC")
 				.intValue();
 
 		rs = s.executeQuery("select * from subscription where id="
@@ -770,7 +770,7 @@ public class TestSubscriptionSearchQueryDAO {
 				.subscribe(null, "topic", "2013-01-01", "2013-01-02",
 						subjectIds,
 						new HashSet<String>(Arrays.asList("none@none.com")),
-						"offenderName", "systemName", "ABCDE", "SYSTEM",
+						"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", 
 						subsequentDate, "0123ABC").intValue();
 
 		assertEquals(oldSubscriptionId, subscriptionId); // same id, must have
@@ -821,7 +821,7 @@ public class TestSubscriptionSearchQueryDAO {
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
 				"topic1", "2013-01-01", "2013-01-01", subjectIds,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "SYSTEM", originalDate, "0123ABC")
+				"offenderName", "systemName", "ABCDE", null, "SYSTEM", originalDate, "0123ABC")
 				.intValue();
 
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -834,7 +834,7 @@ public class TestSubscriptionSearchQueryDAO {
 				.subscribe(null, "topic2", "2013-01-01", "2013-01-02",
 						subjectIds,
 						new HashSet<String>(Arrays.asList("none@none.com")),
-						"offenderName", "systemName", "ABCDE", "SYSTEM",
+						"offenderName", "systemName", "ABCDE", null, "SYSTEM",
 						subsequentDate, "0123ABC").intValue();
 
 		assertFalse(secondSubscriptionId == subscriptionId); // because topic1
