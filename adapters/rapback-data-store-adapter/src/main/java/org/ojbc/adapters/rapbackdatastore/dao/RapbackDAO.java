@@ -55,4 +55,7 @@ public interface RapbackDAO {
 	public void updateSubject(Subject subject);
 	public void updateFbiRapbackSubscription(
 			FbiRapbackSubscription fbiRapbackSubscription);
+	
+	public void consolidateSid(String currentSid, String newSid);
+	public void consolidateUcn(String currentUcn, String newUcn);
 }
