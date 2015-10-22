@@ -83,6 +83,10 @@
 		<property name="emailFormatter" ref="emailFormatter"/>
 	</bean>	
 	
+	<bean id="sidConsolidationProcessor" class="org.ojbc.intermediaries.sn.subscription.SidConsolidationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+	</bean>
+	
 	<bean id="subscriptionSearchQueryProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchQueryProcessor"/>
 
 	<bean id="faultMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor"/>

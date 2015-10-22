@@ -240,7 +240,7 @@ public class SubscriptionSearchQueryDAO {
     }
 
     /**
-     * Retreieve a list of subscriptions for the specified subscription ID.  The list will have one item if there is a match for that ID, or zero
+     * Retrieve a list of subscriptions for the specified subscription ID.  The list will have one item if there is a match for that ID, or zero
      * items if there is no match.
      * @param id the unique subscription ID
      * @return the list of subscriptions for that ID
@@ -454,6 +454,17 @@ public class SubscriptionSearchQueryDAO {
         return returnCount;
     }
 
+    private final String SID_CONSOLIDATE = "UPDATE subscription_subject_identifier SET identifierValue = ? "
+    		+ "WHERE identifierName = 'SID' and identifierValue = ?"; 
+    /**
+     * Replace the currentSid in the subscripiton_subject_identifier with the newSid
+     * @param currentSid
+     * @param newSid
+     */
+    public void consolidateSid(String currentSid, String newSid){
+    	this.jdbcTemplate.update(SID_CONSOLIDATE, newSid, currentSid);
+    }
+    
     static Object[] buildCriteriaArray(Map<String, String> subjectIdentifiers) {
     	List<String> entryList = new ArrayList<String>();
     	for (Map.Entry<String, String> entry : subjectIdentifiers.entrySet()) {
