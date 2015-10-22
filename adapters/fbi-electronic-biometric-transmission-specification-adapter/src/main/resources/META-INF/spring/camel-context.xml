@@ -291,7 +291,12 @@
 			<setHeader headerName="CamelFileName">
 				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
 			</setHeader>
+			
+			<convertBodyTo type="java.lang.String"/>
+			
 			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
+			
+			<log message="\n\n\n ran RapBackSubscriptionResponseToSubscriptionCreationReport.xsl to get: \n\n ${body} \n\n\n" />
 			
 			<!-- TODO Confirm this is correct technique -->								
 			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>			
@@ -307,6 +312,12 @@
  		<route id="sendRapbackSubscriptionReport">
  			<camel:from uri="direct:sendRapbackSubscriptionReport"/>
 			<camel:multicast>
+
+			<!--Sending to endpoint below gives this:
+				Exhausted after delivery attempt: 1 caught: java.lang.IllegalArgumentException: 
+				The PayLoad elements cannot fit with the message parts of the BindingOperation. 
+				Please check the BindingOperation and PayLoadMessage. -->
+			
 				<to uri="subscriptionReportingServiceEndpoint" />
 				
 				<camel:pipeline>					

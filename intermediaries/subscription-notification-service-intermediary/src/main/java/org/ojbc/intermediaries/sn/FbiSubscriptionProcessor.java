@@ -117,9 +117,9 @@ public class FbiSubscriptionProcessor {
 		if(StringUtils.isNotEmpty(unsubscribeSubId)){
 			iSubId = Integer.parseInt(unsubscribeSubId);
 		}			
-					
+
 		String categoryReasonCode = XmlUtils.xPathStringSearch(unsubscribeDoc, 
-				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/smext:CriminalSubscriptionReasonCode");
+				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");
 		
 		String personFbiUcnId = null;
 		

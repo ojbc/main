@@ -18,6 +18,8 @@
 
 -->
 <dataset>
+  <subscription_category subscription_category_code="CI" subscription_category_description="Criminal Justice Investigative"/>
+  <subscription_category subscription_category_code="CS" subscription_category_description="Criminal Justice - Supervision"/>
   <subscription id="1" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2012-09-27" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA"  subscriptionOwner="SYSTEM" subjectName="Woe K Fatt" lastValidationDate="2013-08-27" timestamp="2013-08-27 15:08:33.0" active="1"/>
   <subscription id="2" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-04-27" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM"  subjectName="Susan R Soe" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:06:25.0" active="0"/>
   <subscription id="3" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-06-02" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM"  subjectName="Woe K Fatt" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1"/>

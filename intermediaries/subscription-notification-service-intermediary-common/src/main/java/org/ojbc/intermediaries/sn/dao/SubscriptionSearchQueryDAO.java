@@ -55,7 +55,7 @@ import org.springframework.jdbc.support.KeyHolder;
 public class SubscriptionSearchQueryDAO {
 
     private static final String BASE_QUERY_STRING = "select s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subjectName, "
-                    + " si.identifierName, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType "
+                    + " si.identifierName, s.subscription_category_code, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType "
                     + " from subscription s, notification_mechanism nm, subscription_subject_identifier si where nm.subscriptionId = s.id and si.subscriptionId = s.id ";
 
     private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
@@ -296,11 +296,12 @@ public class SubscriptionSearchQueryDAO {
      * @param offenderName
      * @param subscribingSystemId
      * @param subscriptionQualifier
+     * @param reasonCategoryCode
      * @param subscriptionOwner
      * @return the ID of the created (or updated) subscription
      */
     public Number subscribe(String subscriptionSystemId, String topic, String startDateString, String endDateString, Map<String, String> subjectIds, Set<String> emailAddresses, String offenderName,
-            String subscribingSystemId, String subscriptionQualifier, String subscriptionOwner, LocalDate creationDateTime, String agencyCaseNumber) {
+            String subscribingSystemId, String subscriptionQualifier, String reasonCategoryCode, String subscriptionOwner, LocalDate creationDateTime, String agencyCaseNumber) {
 
         Number ret = null;
 
@@ -360,8 +361,8 @@ public class SubscriptionSearchQueryDAO {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             this.jdbcTemplate.update(
                     buildPreparedInsertStatementCreator(
-                            "insert into subscription (topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active, lastValidationDate, agency_case_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
-                                fullyQualifiedTopic.trim(), startDate, endDate, subscribingSystemId.trim(), subscriptionOwner, offenderName.trim(), 1, creationDate, agencyCaseNumber
+                            "insert into subscription (topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active, subscription_category_code, lastValidationDate, agency_case_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
+                                fullyQualifiedTopic.trim(), startDate, endDate, subscribingSystemId.trim(), subscriptionOwner, offenderName.trim(), 1, reasonCategoryCode, creationDate, agencyCaseNumber
                             }), keyHolder);
 
             ret = keyHolder.getKey();
