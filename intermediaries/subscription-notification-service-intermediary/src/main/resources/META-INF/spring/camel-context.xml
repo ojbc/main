@@ -317,7 +317,7 @@
 					<camel:to uri="fbiEbtsUnsubscribeServiceEndpoint" />														
 				</camel:when>	
 				<camel:otherwise>			
-					<log message="\n\n\n NOT sending unsubscription to FBI EBTS Adapter! (Still has state subscriptions remaining) \n\n\n" loggingLevel="WARN"/>							
+					<log message="\n\n\n NOT sending unsubscription to FBI EBTS Adapter!  \n\n\n" loggingLevel="WARN"/>							
 				</camel:otherwise>			
 			</camel:choice>			
 			
