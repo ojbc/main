@@ -63,7 +63,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		})
 @DirtiesContext
 public class RapbackDAOImplTest {
-    private static final String TRANSACTION_NUMBER = "000001820140729014008340000";
+    private static final String COUNT_SID_A123457 = "select count(*) as rowcount from identification_subject "
+    		+ "where civil_sid = 'A123457' or criminal_Sid = 'A123457'";
+
+	private static final String COUNT_SID_A123458 = "select count(*) as rowcount from identification_subject "
+    		+ "where civil_sid = 'A123458' or criminal_Sid = 'A123458'";
+
+	private static final String TRANSACTION_NUMBER = "000001820140729014008340000";
 
 	private final Log log = LogFactory.getLog(this.getClass());
     
@@ -357,4 +363,64 @@ public class RapbackDAOImplTest {
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
 		
 	}
+
+	@Test
+	@DirtiesContext
+	public void testConsolidateSid() throws Exception {
+		Connection conn = dataSource.getConnection();
+		ResultSet rs = conn.createStatement().executeQuery(COUNT_SID_A123458);
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));
+		rs = conn.createStatement().executeQuery(COUNT_SID_A123457);
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));
+
+		rapbackDAO.consolidateSid("A123457", "A123458");
+		rs = conn.createStatement().executeQuery(COUNT_SID_A123457);
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+		rs = conn.createStatement().executeQuery(COUNT_SID_A123458);
+		assertTrue(rs.next());
+		assertEquals(2,rs.getInt("rowcount"));
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testConsolidateUcn() throws Exception {
+		Connection conn = dataSource.getConnection();
+		String countSubjectUcn9222201 = "select count(*) as rowcount from identification_subject where ucn = '9222201'";
+		ResultSet rs = conn.createStatement().executeQuery(countSubjectUcn9222201);
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));
+		
+		String countSubjectUcn9222202 = "select count(*) as rowcount from identification_subject where ucn = '9222202'";
+		rs = conn.createStatement().executeQuery(countSubjectUcn9222202);
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+
+		String countFbiSubscriptionUcn9222201 = "select count(*) as rowcount from fbi_rap_back_subscription where ucn = '9222201'";
+		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222201);
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));
+		String countFbiSubscriptionUcn9222202 = "select count(*) as rowcount from fbi_rap_back_subscription where ucn = '9222202'";
+		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222202);
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+		
+		rapbackDAO.consolidateUcn("9222201", "9222202");
+		rs = conn.createStatement().executeQuery(countSubjectUcn9222201);
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+		rs = conn.createStatement().executeQuery(countSubjectUcn9222202);
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));
+
+		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222201);
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222202);
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));
+	}
+
 }

@@ -660,4 +660,33 @@ public class RapbackDAOImpl implements RapbackDAO {
 		namedParameterJdbcTemplate.update(FBI_RAP_BACK_SUBSCRIPTION_UPDATE, paramMap);
 	}
 
+	private final String SID_CONSOLIDATION = "UPDATE identification_subject "
+			+ "SET criminal_sid =(CASE WHEN criminal_sid = :currentSid THEN :newSid ELSE criminal_sid END), "
+			+ "	   civil_sid = (CASE WHEN civil_sid=:currentSid THEN :newSid ELSE civil_sid END)";
+	@Override
+	public void consolidateSid(String currentSid, String newSid) {
+		Map<String, String> paramMap = new HashMap<String, String>(); 
+		paramMap.put("currentSid", currentSid);
+		paramMap.put("newSid", newSid);
+		
+		this.namedParameterJdbcTemplate.update(SID_CONSOLIDATION, paramMap);
+	}
+
+	private final String FBI_SUBSCRIPTION_UCN_CONSOLIDATION = "UPDATE fbi_rap_back_subscription "
+			+ "SET ucn = :newUcn "
+			+ "WHERE ucn = :currentUcn";
+	private final String IDENTIFICATION_SUBJECT_UCN_CONSOLIDATION = "UPDATE identification_subject "
+			+ "SET ucn = :newUcn "
+			+ "WHERE ucn = :currentUcn";
+	@Override
+	@Transactional
+	public void consolidateUcn(String currentUcn, String newUcn) {
+		Map<String, String> paramMap = new HashMap<String, String>(); 
+		paramMap.put("currentUcn", currentUcn);
+		paramMap.put("newUcn", newUcn);
+		
+		this.namedParameterJdbcTemplate.update(FBI_SUBSCRIPTION_UCN_CONSOLIDATION, paramMap); 
+		this.namedParameterJdbcTemplate.update(IDENTIFICATION_SUBJECT_UCN_CONSOLIDATION, paramMap); 
+	}
+
 }
