@@ -40,6 +40,9 @@
 		xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
 		xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
 		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+		xmlns:CHcr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+		xmlns:CHcr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
 		id="rapback-data-store-adapter">
 
 		<endpoint id="subscriptionReportingAdapterEndpoint"
@@ -71,6 +74,9 @@
 		<endpoint id="identificationInitialResultsQueryResponseServiceEndpoint"
 			uri="cxf:bean:identificationInitialResultsQueryResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
 
+		<!-- Criminal History Consolidation Request Endpoint -->
+		<endpoint id="criminalHistoryConsolidationReportingServiceEndpoint"
+			uri="cxf:bean:criminalHistoryConsolidationReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
 
 		<!-- Incident Reporting Route -->
 		<route id="identification_recording_service">
@@ -273,7 +279,33 @@
 					<to uri="direct:deadLetterChannel"/>
 				</doCatch>
 			</doTry>
-		</route>		
+		</route>	
+			
+		<!-- Criminal History Consolidation Request flow -->
+		<route id="criminalHistoryConsolidationRequestRoute">
+			<from uri="criminalHistoryConsolidationReportingServiceEndpoint" />
+			<onException>
+				<exception>java.lang.Exception</exception>
+				<handled><constant>true</constant></handled>
+				<camel:log message="An exception was thrown: ${exception.cause.message}"
+					loggingLevel="WARN" />
+			</onException>
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			<camel:setHeader headerName="currentSid">
+				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PreConsolidationIdentifiers/nc:PersonStateIdentification/nc:IdentificationID</camel:xpath>
+			</camel:setHeader>
+			<camel:setHeader headerName="newSid">
+				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PostConsolidationIdentifiers/nc:PersonStateIdentification/nc:IdentificationID</camel:xpath>
+			</camel:setHeader>
+			<camel:setHeader headerName="currentUcn">
+				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PreConsolidationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+			</camel:setHeader>
+			<camel:setHeader headerName="newUcn">
+				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PostConsolidationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+			</camel:setHeader>
+			<to uri="bean:criminalHistoryConsolidationProcessor?method=consolidateCriminalHistory" />
+			<log message="Criminal History consolidated"></log>
+		</route>
 
 	</camelContext>
 
