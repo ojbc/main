@@ -130,6 +130,8 @@ public class FbiSubscriptionProcessor {
 			
 			personFbiUcnId = rapbackDao.getFbiUcnIdFromSubIdAndReasonCode(iSubId, categoryReasonCode);
 			
+			logger.info("\n\n\n Using personFbiUcnId: " + personFbiUcnId + "\n\n\n");
+			
 		}else{
 			logger.severe("\n\n\n\n Don't have both sub. id and reason code.  Not looking up fbi ucn id! \n\n\n");
 		}
