@@ -109,6 +109,43 @@ public class EbtsTransformTest {
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
+	
+	@Test
+	public void cancelSubscriptionTestEbtsTransform() throws IOException, SAXException{
+		
+		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_unsubscribe.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+								
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Cancel-Request.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	}
+	
+	public void modifyCivilSubscriptionTestEbtsTransform() throws IOException, SAXException{
+		
+		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_Civil_Subscription_Modify_Document.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+								
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/EBTS-RapBack-Civil-Subscription-Maintenance-Replace-Request.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	}
 		
 	@Test
 	public void RapbackSubscriptionResponseTransform() throws IOException, SAXException{
@@ -191,8 +228,7 @@ public class EbtsTransformTest {
 		xsltParamMap.put("nominalTransmittingResolution", "00.00");
 		xsltParamMap.put("transactionContentSummaryContentFirstRecordCategoryCode", "1");
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCriminal", "01");					
-		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");		
-		xsltParamMap.put("imageReferenceID", "00");				
+		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");				
 		xsltParamMap.put("rapBackDisclosureIndicator", "false");	
 		
 		return xsltParamMap;

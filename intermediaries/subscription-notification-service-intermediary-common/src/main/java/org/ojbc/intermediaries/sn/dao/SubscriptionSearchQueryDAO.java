@@ -347,6 +347,12 @@ public class SubscriptionSearchQueryDAO {
         log.debug("System Name: " + subscribingSystemId);
         log.debug("Subscription System ID: " + subscriptionSystemId);
         
+        log.info("\n\n\n reasonCategoryCode = " + reasonCategoryCode + "\n\n\n");
+        if(StringUtils.isEmpty(reasonCategoryCode)){
+        	log.warn("\n\n\n reasonCategoryCode empty, so inserting null into db \n\n\n");
+        	reasonCategoryCode = null;
+        }
+        
         String fullyQualifiedTopic = NotificationBrokerUtils.getFullyQualifiedTopic(topic);
 
         List<Subscription> subscriptions = getSubscriptions(subscriptionSystemId, fullyQualifiedTopic, subjectIds, subscribingSystemId, subscriptionOwner);

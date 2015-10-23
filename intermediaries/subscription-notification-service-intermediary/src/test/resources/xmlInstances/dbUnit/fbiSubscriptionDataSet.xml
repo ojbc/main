@@ -18,6 +18,9 @@
 
 -->
 <dataset>
+
+  <subscription_category subscription_category_code="CI" subscription_category_description="Criminal Justice Investigative"/>
+  <subscription_category subscription_category_code="CS" subscription_category_description="Criminal Justice - Supervision"/>	
   
   <fbi_rap_back_subscription fbi_subscription_id="123456789" rap_back_category_code="CI" rap_back_subscription_term_code="2" rap_back_expiration_date="2010-01-01"  
    rap_back_start_date="2009-01-01" rap_back_opt_out_in_state_indicator="0" rap_back_activity_notification_format_code="1" UCN="123456789"/>
