@@ -42,5 +42,12 @@
 		<submsg-ext:SubscriptionFBIIdentification>
 			<nc20:IdentificationID>987654321</nc20:IdentificationID>
 		</submsg-ext:SubscriptionFBIIdentification>
+		<submsg-ext:SubscriptionModification>
+			<nc20:DateRange>
+				<nc20:EndDate>
+					<nc20:Date>2015-06-20</nc20:Date>
+				</nc20:EndDate>
+			</nc20:DateRange>
+		</submsg-ext:SubscriptionModification>
 	</submsg-ext:RelatedFBISubscription>
 </unsubmsg-doc:UnsubscriptionMessage>
