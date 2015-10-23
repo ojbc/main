@@ -60,6 +60,12 @@
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed" />
 			
+		<endpoint id="criminalHistoryConsolidationFileEndpoint"
+			uri="file://{{rapbackDatastoreAdapter.CriminalHistoryConsolidationInputDirectory}}/input?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/error&amp;move=processed/" />
+			
+		<endpoint id="criminalHistoryConsolidationFailedFileEndpoint"
+			uri="file://{{rapbackDatastoreAdapter.CriminalHistoryConsolidationInputDirectory}}/failed" />
+			
 		<!-- Rapback Search Request Endpoints -->
 		<endpoint id="rapbackSearchRequestServiceEndpoint"
 			uri="cxf:bean:rapbackSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
@@ -289,6 +295,10 @@
 				<handled><constant>true</constant></handled>
 				<camel:log message="An exception was thrown: ${exception.cause.message}"
 					loggingLevel="WARN" />
+				<setHeader headerName="CamelFileName">
+					<simple>FailedCriminalHistoryConsolidationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+				</setHeader>	
+				<to uri="criminalHistoryConsolidationFailedFileEndpoint"/>
 			</onException>
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			<camel:setHeader headerName="currentSid">
