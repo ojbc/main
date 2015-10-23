@@ -90,9 +90,7 @@
 	<xsl:param name="transactionContentSummaryContentRecordCountCriminal"/>
 	<xsl:param name="transactionContentSummaryContentRecordCountCivil"/>
 	
-	<!-- IDC 2.002 -->
-	<xsl:param name="imageReferenceID"/>
-	
+	<!-- TODO: These are pending feedback from HCJDC and FBI -->
 	<xsl:param name="fingerprintImage">XXX</xsl:param>
 	<xsl:param name="captureResolutionCode">1</xsl:param>
 	<xsl:param name="imageCompressionAlgorithmCode">2</xsl:param>
@@ -245,15 +243,17 @@
            			<ansi-nist:TransactionMinorVersionValue>
            				<xsl:value-of select="$transactionMinorVersion"/>
            			</ansi-nist:TransactionMinorVersionValue>
-				 	<!-- This determines whether we are requesting a new subscription or modifying an existing one -->
+				 	<!-- This determines whether we are requesting a new subscription or modifying an existing one and whether it is civil or criminal -->
 				 	<xsl:choose>
 				 		<xsl:when test="$action = 'modifySubscription' or $action ='cancelSubscription'">
 				 			<ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
 				 		</xsl:when>
-				 		<xsl:otherwise>
-				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
-				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
-				 		</xsl:otherwise>
+				 		<xsl:when test="$subscriptionCategory = 'civil'">
+				 			<ebts:TransactionCategoryCode>RBSCVL</ebts:TransactionCategoryCode>
+				 		</xsl:when>
+				 		<xsl:when test="$subscriptionCategory = 'criminal'">
+				 			<ebts:TransactionCategoryCode>RBSCRM</ebts:TransactionCategoryCode>
+				 		</xsl:when>
 				 	</xsl:choose>
 				 	 <xsl:call-template name="buildTransactionContentSummary">
 				 	 	<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory"/>
@@ -269,9 +269,7 @@
 			
 				<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
 				<ansi-nist:ImageReferenceIdentification>
-            		<nc20:IdentificationID>
-            			<xsl:value-of select="$imageReferenceID"/>
-            		</nc20:IdentificationID>
+            		<nc20:IdentificationID>00</nc20:IdentificationID>
      		   </ansi-nist:ImageReferenceIdentification>
 				<itl:UserDefinedDescriptiveDetail>
 					<ebts:DomainDefinedDescriptiveFields>
@@ -429,9 +427,7 @@
 	 	 	</ansi-nist:ContentRecordQuantity>
 	 	 	<ansi-nist:ContentRecordSummary>
              		<ansi-nist:ImageReferenceIdentification>
-                 		<nc20:IdentificationID>
-                 			<xsl:value-of select="$imageReferenceID"/>
-                 		</nc20:IdentificationID>
+                 		<nc20:IdentificationID>00</nc20:IdentificationID>
             			 </ansi-nist:ImageReferenceIdentification>
              		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
          		</ansi-nist:ContentRecordSummary>
@@ -488,22 +484,6 @@
 				<xsl:value-of select="normalize-space(.)"/>
 			</ebts:UserDefinedElementText>
 		</ebts:RecordRapBackUserDefinedElement>
-	</xsl:template>
-	
-	<xsl:template match="submsg-ext:CriminalSubscriptionReasonCode" mode="transactionCategory">
-		<ebts:TransactionCategoryCode>
-			<xsl:choose>
-				<xsl:when test=". = 'CI'">RBSCRM</xsl:when>
-				<xsl:when test=". = 'CS'">RBSCRM</xsl:when>
-			</xsl:choose>
-		</ebts:TransactionCategoryCode>
-	</xsl:template>
-	<xsl:template match="submsg-ext:CivilSubscriptionReasonCode" mode="transactionCategory">
-		<ebts:TransactionCategoryCode>
-			<xsl:choose>
-				<xsl:when test=". = 'I'">RBSCVL</xsl:when>
-			</xsl:choose>
-		</ebts:TransactionCategoryCode>
 	</xsl:template>
 	<xsl:template match="submsg-ext:CriminalSubscriptionReasonCode" mode="rapBackCategory">
 		<ebts:RecordRapBackCategoryCode>

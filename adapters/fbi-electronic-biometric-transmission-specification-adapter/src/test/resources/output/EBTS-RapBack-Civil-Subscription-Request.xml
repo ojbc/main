@@ -108,8 +108,6 @@
 						<nc20:Date>2015-06-20</nc20:Date>
 					</ebts:RecordRapBackExpirationDate>
 			
-					
-					
 					<ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
 					
 					<ansi-nist:RecordForwardOrganizations>
