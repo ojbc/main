@@ -229,6 +229,7 @@
                			 	<xsl:value-of select="$domainName"/>
                			 </ansi-nist:TransactionDomainName>
            			</ansi-nist:TransactionDomain>
+           			<!-- TODO: need to determine these values for civil submissions -->
            			<ansi-nist:TransactionImageResolutionDetails>
            				 <ansi-nist:NativeScanningResolutionValue>
            				 	<xsl:value-of select="$nativeScanningResolution"/>
@@ -325,6 +326,8 @@
 		                        </nc20:OrganizationIdentification>
 		                     </ansi-nist:RecordForwardOrganizations>
 		                     
+		                     <!-- TODO: civil sample shows "RecordRapBackSubscriptionTerm", but documentation shows this as optional -->
+		                     
 		                     <xsl:apply-templates select="/*/*/submsg-ext:RelatedFBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID" mode="fbiSubscriptionID"/>
 														
 							<ebts:RecordRapBackTriggeringEventCode>
@@ -368,7 +371,6 @@
 			<itl:PackageHighResolutionGrayscaleImageRecord>
 		       	 <!-- RCC -->
 		       	 <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
-		       	 <!-- TODO: Determine whether we pass this via config, or remove this concept from config -->
 		       	 <ansi-nist:ImageReferenceIdentification>
 	           		<nc20:IdentificationID>01</nc20:IdentificationID>
 	     		 </ansi-nist:ImageReferenceIdentification>
