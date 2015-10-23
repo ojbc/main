@@ -65,9 +65,12 @@ public abstract class SubscriptionRequest {
 	private String reasonCategoryCode;
 	
 	public SubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception{
+		
 		//Get the message body as DOM
 		document = message.getBody(Document.class);
-
+		
+		reasonCategoryCode = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");		
+		
 		topic = XmlUtils.xPathStringSearch(document, "//b-2:Subscribe/b-2:Filter/b-2:TopicExpression");
 		topic = StringUtils.replace(topic, "topics:", "{http://ojbc.org/wsn/topics}:");
 		

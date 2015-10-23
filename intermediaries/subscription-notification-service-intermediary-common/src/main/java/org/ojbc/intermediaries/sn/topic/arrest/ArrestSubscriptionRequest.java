@@ -29,6 +29,7 @@ public class ArrestSubscriptionRequest extends SubscriptionRequest {
 
 	public ArrestSubscriptionRequest(Message message,
 			String allowedEmailAddressPatterns) throws Exception{
+		
 		super(message, allowedEmailAddressPatterns);
 
 		String sid = XmlUtils.xPathStringSearch(document,"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
@@ -37,9 +38,11 @@ public class ArrestSubscriptionRequest extends SubscriptionRequest {
 	}
 	
 	public ArrestSubscriptionRequest(String topic, String startDateString, String endDateString, Set<String> emailAddresses, String systemName, 
-			String subjectName, String subscriptionQualifier, String subjectIdentifier) {
+			String subjectName, String subscriptionQualifier, String subjectIdentifier, String reasonCategoryCode) {
 		
 		super(topic, startDateString, endDateString, emailAddresses, systemName, subjectName, subscriptionQualifier);
+		
+		setReasonCategoryCode(reasonCategoryCode);
 		
 		buildSubjectIdMap(subjectIdentifier);
 	}

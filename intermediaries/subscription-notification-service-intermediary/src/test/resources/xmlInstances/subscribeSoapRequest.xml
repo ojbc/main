@@ -55,7 +55,10 @@
                 <smext:SystemName>{http://demostate.gov/SystemNames/1.0}SystemA</smext:SystemName>
 		        <smext:SubscriptionQualifierIdentification>
 		            <nc20:IdentificationID>1234578</nc20:IdentificationID>
-		        </smext:SubscriptionQualifierIdentification>                
+		        </smext:SubscriptionQualifierIdentification>     
+		        
+		        <!-- REASON CATEGORY CODE? -->
+		                   
             </sm:SubscriptionMessage>
         </b:Subscribe>
 

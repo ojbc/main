@@ -39,6 +39,8 @@ public class ArrestUnSubscriptionRequest extends UnSubscriptionRequest {
 		
 		super(topic, emailAddresses, systemName, subscriptionQualifier);
 		
+		
+		
 		buildSubjectIdMap(subjectIdentifier);
 	}
 

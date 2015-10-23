@@ -645,7 +645,7 @@ public class SubscriptionsController {
 			@ModelAttribute("subscription") Subscription subscription,
 			BindingResult errors) {
 								
-		logger.info("\n\n\n * * * * \n\n\n inside saveSubscription() * * * * *: " + subscription + "\n\n\n");
+		logger.info("\n\n\n * * * * inside saveSubscription() * * * * *\n\n: " + subscription + "\n\n\n");
 		
 		Element samlElement = samlService.getSamlAssertion(request);
 										
