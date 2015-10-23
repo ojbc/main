@@ -51,11 +51,11 @@ public class FbiRapbackDao {
 	private final static String STATE_SUB_COUNT = "select count(subscription_id) from identification_transaction i "
 			+ "left join identification_subject s on s.subject_id = i.subject_id where s.ucn =?;";	
 	
-	private final static String FBI_UCN_ID_SELECT = "select frs.ucn from " 
-	 + "criminal_fbi_subscription_record cfc inner join identification_transaction it on cfc.subscription_id = it.subscription_id " 
-	 + "inner join fbi_rap_back_subscription frs on frs.fbi_subscription_id = cfc.fbi_subscription_id "
-	 + "where it.subscription_id=?"
-	 + "and frs.rap_back_category_code=?;";
+	private final static String FBI_UCN_ID_SELECT = "select fbidsub.ucn " +
+	  "from fbi_rap_back_subscription fbidsub inner join identification_subject idsub on idsub.ucn = fbidsub.ucn " + 
+	  "inner join identification_transaction idtrx on idtrx.subject_id = idsub.subject_id " +
+	  "where idtrx.subscription_id=? " +
+	  "and fbidsub.rap_back_category_code=?;";
 	
 
 	private static final Logger logger = Logger.getLogger(FbiRapbackDao.class);
@@ -69,7 +69,13 @@ public class FbiRapbackDao {
         
     public String getFbiUcnIdFromSubIdAndReasonCode(int subscriptionId, String reasonCode){
     	    	
-    	String fbiUcnId = jdbcTemplate.queryForObject(FBI_UCN_ID_SELECT, new Object[]{subscriptionId, reasonCode}, String.class);
+    	String fbiUcnId = null;
+    	
+    	try{
+    		fbiUcnId = jdbcTemplate.queryForObject(FBI_UCN_ID_SELECT, new Object[]{subscriptionId, reasonCode}, String.class);
+    	}catch(Exception e){
+    		logger.error("\n\n\n Exception while querying to get ucn: " + e.getMessage() + "\n\n\n");
+    	}
     	
     	return fbiUcnId;
     }
