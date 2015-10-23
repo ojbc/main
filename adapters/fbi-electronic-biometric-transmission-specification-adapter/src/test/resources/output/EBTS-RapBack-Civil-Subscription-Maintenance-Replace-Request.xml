@@ -60,21 +60,15 @@
             <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
            	<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
 			
-			<ebts:TransactionCategoryCode>RBSCVL</ebts:TransactionCategoryCode>
+			<ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
 			<ansi-nist:TransactionContentSummary>
             	<ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
-            	<ansi-nist:ContentRecordQuantity>03</ansi-nist:ContentRecordQuantity>
+            	<ansi-nist:ContentRecordQuantity>01</ansi-nist:ContentRecordQuantity>
             	 <ansi-nist:ContentRecordSummary>
                     <ansi-nist:ImageReferenceIdentification>
                         <nc20:IdentificationID>00</nc20:IdentificationID>
                     </ansi-nist:ImageReferenceIdentification>
                     <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
-                </ansi-nist:ContentRecordSummary>
-                <ansi-nist:ContentRecordSummary>
-	                    <ansi-nist:ImageReferenceIdentification>
-	                        <nc20:IdentificationID>01</nc20:IdentificationID>
-	                    </ansi-nist:ImageReferenceIdentification>
-	                    <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
                 </ansi-nist:ContentRecordSummary>
             </ansi-nist:TransactionContentSummary>
 		</ansi-nist:Transaction>
@@ -85,7 +79,6 @@
 	<itl:PackageDescriptiveTextRecord>
 	
 		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
-
 		<ansi-nist:ImageReferenceIdentification>
             <nc20:IdentificationID>00</nc20:IdentificationID>
         </ansi-nist:ImageReferenceIdentification>
@@ -93,21 +86,17 @@
 		<itl:UserDefinedDescriptiveDetail>
 		
 			<ebts:DomainDefinedDescriptiveFields>
-
-				<ansi-nist:RecordRapSheetRequestIndicator>true</ansi-nist:RecordRapSheetRequestIndicator>
 			
 				<ebts:RecordRapBackData>
 				
 					<ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
 			
-					<ebts:RecordRapBackCategoryCode>I</ebts:RecordRapBackCategoryCode>
-				
 					<ebts:RecordRapBackDisclosureIndicator>false</ebts:RecordRapBackDisclosureIndicator>
 					
 					<ebts:RecordRapBackExpirationDate>
 						<nc20:Date>2015-06-20</nc20:Date>
 					</ebts:RecordRapBackExpirationDate>
-			
+
 					<ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
 					
 					<ansi-nist:RecordForwardOrganizations>
@@ -115,14 +104,16 @@
                           <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
                       </nc20:OrganizationIdentification>
 		         	</ansi-nist:RecordForwardOrganizations>
-			
+				
+					<ebts:RecordRapBackSubscriptionID>1234567</ebts:RecordRapBackSubscriptionID>
+					
 					<ebts:RecordRapBackTriggeringEventCode>1</ebts:RecordRapBackTriggeringEventCode>
 					
 					<ebts:RecordRapBackUserDefinedElement>
 						<ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
 						<ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
 					</ebts:RecordRapBackUserDefinedElement>
-					
+					<ebts:TransactionRapBackMaintenanceCode>R</ebts:TransactionRapBackMaintenanceCode>
 				</ebts:RecordRapBackData>
 				
 				<ebts:RecordTransactionActivity>
@@ -150,35 +141,7 @@
 				</ebts:RecordSubject>
 			</ebts:DomainDefinedDescriptiveFields>
 		</itl:UserDefinedDescriptiveDetail>
-
+		
 	</itl:PackageDescriptiveTextRecord>
 	
-	<itl:PackageHighResolutionGrayscaleImageRecord>
-       	 <!-- RCC -->
-       	 <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
-       	  <!-- IDC -->
-       	 <ansi-nist:ImageReferenceIdentification>
-            <nc20:IdentificationID>01</nc20:IdentificationID>
-        </ansi-nist:ImageReferenceIdentification>
-        <ansi-nist:FingerprintImage>
-          <!--IMG -->
-          <nc20:BinaryBase64Object>XXX</nc20:BinaryBase64Object>
-          <ansi-nist:ImageCaptureDetail>
-              <!--ISR -->
-              <ansi-nist:CaptureResolutionCode>1</ansi-nist:CaptureResolutionCode>
-          </ansi-nist:ImageCaptureDetail>
-          <!--GCA -->
-          <ansi-nist:ImageCompressionAlgorithmCode>2</ansi-nist:ImageCompressionAlgorithmCode>
-          <!--HLL -->
-          <ansi-nist:ImageHorizontalLineLengthPixelQuantity>80</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
-          <!--VLL -->
-          <ansi-nist:ImageVerticalLineLengthPixelQuantity>65</ansi-nist:ImageVerticalLineLengthPixelQuantity>
-          <!--FGP -->
-          <ansi-nist:FingerprintImagePosition>
-              <ansi-nist:FingerPositionCode>2</ansi-nist:FingerPositionCode>
-          </ansi-nist:FingerprintImagePosition>
-          <!--IMP -->
-          <ansi-nist:FingerprintImageImpressionCaptureCategoryCode>3</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
-      </ansi-nist:FingerprintImage>
-    </itl:PackageHighResolutionGrayscaleImageRecord>
 </itl:NISTBiometricInformationExchangePackage>

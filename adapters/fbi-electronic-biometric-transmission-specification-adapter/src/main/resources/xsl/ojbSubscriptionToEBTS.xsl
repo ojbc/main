@@ -90,9 +90,7 @@
 	<xsl:param name="transactionContentSummaryContentRecordCountCriminal"/>
 	<xsl:param name="transactionContentSummaryContentRecordCountCivil"/>
 	
-	<!-- IDC 2.002 -->
-	<xsl:param name="imageReferenceID"/>
-	
+	<!-- TODO: These are pending feedback from HCJDC and FBI -->
 	<xsl:param name="fingerprintImage">XXX</xsl:param>
 	<xsl:param name="captureResolutionCode">1</xsl:param>
 	<xsl:param name="imageCompressionAlgorithmCode">2</xsl:param>
@@ -131,6 +129,12 @@
 	
 	<xsl:template match="b-2:Unsubscribe">
 		<xsl:variable name="action">cancelSubscription</xsl:variable>
+		<xsl:variable name="subscriptionCategory">
+			<xsl:choose>	
+				<xsl:when test="submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode">civil</xsl:when>
+				<xsl:when test="submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode">criminal</xsl:when>
+			</xsl:choose>
+		</xsl:variable>
 		<xsl:apply-templates select="unsubmsg-doc:UnsubscriptionMessage">
 			<xsl:with-param name="action" select="$action"/>
 		</xsl:apply-templates>
@@ -144,19 +148,21 @@
 			<!-- EBTS Record Type 1 -->
 			<xsl:call-template name="buildType1Record">
 				<xsl:with-param name="action" select="$action"/>
+				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory"/>
 			</xsl:call-template>
 			
 			<!-- EBTS Record Type 2 -->
 			<xsl:call-template name="buildType2Record">
 				<xsl:with-param name="action" select="$action"/>
+				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory"/>
 			</xsl:call-template>
 			
 			<!-- EBTS Record Type 4 -->
-			<xsl:if test="$subscriptionCategory = 'civil'">
-				<xsl:call-template name="buildType4Record">
-					<xsl:with-param name="action" select="$action"/>
-				</xsl:call-template>
-			</xsl:if>
+			<xsl:call-template name="buildType4Record">
+				<xsl:with-param name="action" select="$action"/>
+				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory"/>
+			</xsl:call-template>
+
 		</itl:NISTBiometricInformationExchangePackage>
 		
 	</xsl:template>
@@ -164,16 +170,19 @@
 	
 	<xsl:template match="unsubmsg-doc:UnsubscriptionMessage">
 		<xsl:param name="action"/>
+		<xsl:param name="subscriptionCategory"/>
 		<itl:NISTBiometricInformationExchangePackage>
 		
 			<!-- EBTS Record Type 1 -->
 			<xsl:call-template name="buildType1Record">
 				<xsl:with-param name="action" select="$action"/>
+				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory"/>
 			</xsl:call-template>
 			
 			<!-- EBTS Record Type 2 -->
 			<xsl:call-template name="buildType2Record">
 				<xsl:with-param name="action" select="$action"/>
+				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory"/>
 			</xsl:call-template>
 			
 		</itl:NISTBiometricInformationExchangePackage>
@@ -181,6 +190,7 @@
 	
 	<xsl:template name="buildType1Record">
 		<xsl:param name="action"/>
+		<xsl:param name="subscriptionCategory"/>
 		<itl:PackageInformationRecord>
 				<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode> 
 				 <ansi-nist:Transaction>
@@ -219,6 +229,7 @@
                			 	<xsl:value-of select="$domainName"/>
                			 </ansi-nist:TransactionDomainName>
            			</ansi-nist:TransactionDomain>
+           			<!-- TODO: need to determine these values for civil submissions -->
            			<ansi-nist:TransactionImageResolutionDetails>
            				 <ansi-nist:NativeScanningResolutionValue>
            				 	<xsl:value-of select="$nativeScanningResolution"/>
@@ -233,54 +244,33 @@
            			<ansi-nist:TransactionMinorVersionValue>
            				<xsl:value-of select="$transactionMinorVersion"/>
            			</ansi-nist:TransactionMinorVersionValue>
-				 	<!-- This determines whether we are requesting a new subscription or modifying an existing one -->
+				 	<!-- This determines whether we are requesting a new subscription or modifying an existing one and whether it is civil or criminal -->
 				 	<xsl:choose>
 				 		<xsl:when test="$action = 'modifySubscription' or $action ='cancelSubscription'">
 				 			<ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
 				 		</xsl:when>
-				 		<xsl:otherwise>
-				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
-				 			<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode[. != '']" mode="transactionCategory"/>
-				 		</xsl:otherwise>
+				 		<xsl:when test="$subscriptionCategory = 'civil'">
+				 			<ebts:TransactionCategoryCode>RBSCVL</ebts:TransactionCategoryCode>
+				 		</xsl:when>
+				 		<xsl:when test="$subscriptionCategory = 'criminal'">
+				 			<ebts:TransactionCategoryCode>RBSCRM</ebts:TransactionCategoryCode>
+				 		</xsl:when>
 				 	</xsl:choose>
-				 	 <ansi-nist:TransactionContentSummary>
-				 	 	<ansi-nist:ContentFirstRecordCategoryCode>
-				 	 		<xsl:value-of select="$transactionContentSummaryContentFirstRecordCategoryCode"/>
-				 	 	</ansi-nist:ContentFirstRecordCategoryCode>
-				 	 	<ansi-nist:ContentRecordQuantity>
-				 	 		<xsl:choose>
-								<xsl:when test="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode = 'CI'">
-									<xsl:value-of select="$transactionContentSummaryContentRecordCountCriminal"/>
-								</xsl:when>
-								<xsl:when test="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode = 'CS'">
-									<xsl:value-of select="$transactionContentSummaryContentRecordCountCriminal"/>
-								</xsl:when>
-								<xsl:otherwise>01</xsl:otherwise>
-							</xsl:choose>
-				 	 	</ansi-nist:ContentRecordQuantity>
-				 	 	<!-- TODO: pass these in as params -->
-				 	 	<ansi-nist:ContentRecordSummary>
-                    		<ansi-nist:ImageReferenceIdentification>
-                        		<nc20:IdentificationID>
-                        			<xsl:value-of select="$imageReferenceID"/>
-                        		</nc20:IdentificationID>
-                   			 </ansi-nist:ImageReferenceIdentification>
-                    		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
-                		</ansi-nist:ContentRecordSummary>
-				 	 </ansi-nist:TransactionContentSummary>
+				 	 <xsl:call-template name="buildTransactionContentSummary">
+				 	 	<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory"/>
+				 	 </xsl:call-template>
 				 </ansi-nist:Transaction>
 			</itl:PackageInformationRecord>
 	</xsl:template>
 	
 	<xsl:template name="buildType2Record">
 		<xsl:param name="action"/>
+		<xsl:param name="subscriptionCategory"/>
 		<itl:PackageDescriptiveTextRecord>
 			
 				<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
 				<ansi-nist:ImageReferenceIdentification>
-            		<nc20:IdentificationID>
-            			<xsl:value-of select="$imageReferenceID"/>
-            		</nc20:IdentificationID>
+            		<nc20:IdentificationID>00</nc20:IdentificationID>
      		   </ansi-nist:ImageReferenceIdentification>
 				<itl:UserDefinedDescriptiveDetail>
 					<ebts:DomainDefinedDescriptiveFields>
@@ -336,6 +326,8 @@
 		                        </nc20:OrganizationIdentification>
 		                     </ansi-nist:RecordForwardOrganizations>
 		                     
+		                     <!-- TODO: civil sample shows "RecordRapBackSubscriptionTerm", but documentation shows this as optional -->
+		                     
 		                     <xsl:apply-templates select="/*/*/submsg-ext:RelatedFBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID" mode="fbiSubscriptionID"/>
 														
 							<ebts:RecordRapBackTriggeringEventCode>
@@ -374,48 +366,84 @@
 	
 	<xsl:template name="buildType4Record">
 		<xsl:param name="action"/>
-		<itl:PackageHighResolutionGrayscaleImageRecord>
-	       	 <!-- RCC -->
-	       	 <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
-	       	 <!-- TODO: Determine whether we pass this via config, or remove this concept from config -->
-	       	 <ansi-nist:ImageReferenceIdentification>
-           		<nc20:IdentificationID>01</nc20:IdentificationID>
-     		 </ansi-nist:ImageReferenceIdentification>
-     		 <ansi-nist:FingerprintImage>
-		          <!--IMG -->
-		          <nc20:BinaryBase64Object>
-		          	<xsl:value-of select="$fingerprintImage"/>
-		          </nc20:BinaryBase64Object>
-		          <ansi-nist:ImageCaptureDetail>
-		              <!--ISR -->
-		              <ansi-nist:CaptureResolutionCode>
-		              	<xsl:value-of select="$captureResolutionCode"/>
-		              </ansi-nist:CaptureResolutionCode>
-		          </ansi-nist:ImageCaptureDetail>
-		          <!--GCA -->
-		          <ansi-nist:ImageCompressionAlgorithmCode>
-		          	<xsl:value-of select="$imageCompressionAlgorithmCode"/>
-		          </ansi-nist:ImageCompressionAlgorithmCode>
-		          <!--HLL -->
-		          <ansi-nist:ImageHorizontalLineLengthPixelQuantity>
-		          	<xsl:value-of select="$imageHorizontalLineLengthPixelQuantity"/>
-		          </ansi-nist:ImageHorizontalLineLengthPixelQuantity>
-		          <!--VLL -->
-		          <ansi-nist:ImageVerticalLineLengthPixelQuantity>
-		          	<xsl:value-of select="$imageVertialLineLengthPixelQuantity"/>
-		          </ansi-nist:ImageVerticalLineLengthPixelQuantity>
-		          <!--FGP -->
-		          <ansi-nist:FingerprintImagePosition>
-		              <ansi-nist:FingerPositionCode>
-		              	<xsl:value-of select="$fingerPositionCode"/>
-		              </ansi-nist:FingerPositionCode>
-		          </ansi-nist:FingerprintImagePosition>
-		          <!--IMP -->
-		          <ansi-nist:FingerprintImageImpressionCaptureCategoryCode>3</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
-      </ansi-nist:FingerprintImage>
-      </itl:PackageHighResolutionGrayscaleImageRecord>
+		<xsl:param name="subscriptionCategory"/>
+		<xsl:if test="$subscriptionCategory = 'civil'">
+			<itl:PackageHighResolutionGrayscaleImageRecord>
+		       	 <!-- RCC -->
+		       	 <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
+		       	 <ansi-nist:ImageReferenceIdentification>
+	           		<nc20:IdentificationID>01</nc20:IdentificationID>
+	     		 </ansi-nist:ImageReferenceIdentification>
+	     		 <ansi-nist:FingerprintImage>
+			          <!--IMG -->
+			          <nc20:BinaryBase64Object>
+			          	<xsl:value-of select="$fingerprintImage"/>
+			          </nc20:BinaryBase64Object>
+			          <ansi-nist:ImageCaptureDetail>
+			              <!--ISR -->
+			              <ansi-nist:CaptureResolutionCode>
+			              	<xsl:value-of select="$captureResolutionCode"/>
+			              </ansi-nist:CaptureResolutionCode>
+			          </ansi-nist:ImageCaptureDetail>
+			          <!--GCA -->
+			          <ansi-nist:ImageCompressionAlgorithmCode>
+			          	<xsl:value-of select="$imageCompressionAlgorithmCode"/>
+			          </ansi-nist:ImageCompressionAlgorithmCode>
+			          <!--HLL -->
+			          <ansi-nist:ImageHorizontalLineLengthPixelQuantity>
+			          	<xsl:value-of select="$imageHorizontalLineLengthPixelQuantity"/>
+			          </ansi-nist:ImageHorizontalLineLengthPixelQuantity>
+			          <!--VLL -->
+			          <ansi-nist:ImageVerticalLineLengthPixelQuantity>
+			          	<xsl:value-of select="$imageVertialLineLengthPixelQuantity"/>
+			          </ansi-nist:ImageVerticalLineLengthPixelQuantity>
+			          <!--FGP -->
+			          <ansi-nist:FingerprintImagePosition>
+			              <ansi-nist:FingerPositionCode>
+			              	<xsl:value-of select="$fingerPositionCode"/>
+			              </ansi-nist:FingerPositionCode>
+			          </ansi-nist:FingerprintImagePosition>
+			          <!--IMP -->
+			          <ansi-nist:FingerprintImageImpressionCaptureCategoryCode>3</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
+	      </ansi-nist:FingerprintImage>
+	      </itl:PackageHighResolutionGrayscaleImageRecord>
+	     </xsl:if>
 	</xsl:template>
 
+	<xsl:template name="buildTransactionContentSummary">
+		<xsl:param name="subscriptionCategory"/>
+		<ansi-nist:TransactionContentSummary>
+	 	 	<ansi-nist:ContentFirstRecordCategoryCode>
+	 	 		<xsl:value-of select="$transactionContentSummaryContentFirstRecordCategoryCode"/>
+	 	 	</ansi-nist:ContentFirstRecordCategoryCode>
+	 	 	<ansi-nist:ContentRecordQuantity>
+	 	 		<xsl:choose>
+					<xsl:when test="$subscriptionCategory = 'civil'">
+						<xsl:value-of select="$transactionContentSummaryContentRecordCountCivil"/>
+					</xsl:when>
+					<xsl:when test="$subscriptionCategory = 'criminal'">
+						<xsl:value-of select="$transactionContentSummaryContentRecordCountCriminal"/>
+					</xsl:when>
+					<xsl:otherwise>01</xsl:otherwise>
+				</xsl:choose>
+	 	 	</ansi-nist:ContentRecordQuantity>
+	 	 	<ansi-nist:ContentRecordSummary>
+             		<ansi-nist:ImageReferenceIdentification>
+                 		<nc20:IdentificationID>00</nc20:IdentificationID>
+            			 </ansi-nist:ImageReferenceIdentification>
+             		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+         		</ansi-nist:ContentRecordSummary>
+         		<xsl:if test="$subscriptionCategory = 'civil'">
+         			<ansi-nist:ContentRecordSummary>
+	                    <ansi-nist:ImageReferenceIdentification>
+	                        <nc20:IdentificationID>01</nc20:IdentificationID>
+	                    </ansi-nist:ImageReferenceIdentification>
+	                    <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
+                	</ansi-nist:ContentRecordSummary>
+         		</xsl:if>
+	 	 </ansi-nist:TransactionContentSummary>
+	</xsl:template>
+	
 	<xsl:template match="submsg-ext:Subject">
 		<ebts:RecordSubject>			
 			<xsl:apply-templates select="nc20:PersonBirthDate"/>			
@@ -458,22 +486,6 @@
 				<xsl:value-of select="normalize-space(.)"/>
 			</ebts:UserDefinedElementText>
 		</ebts:RecordRapBackUserDefinedElement>
-	</xsl:template>
-	
-	<xsl:template match="submsg-ext:CriminalSubscriptionReasonCode" mode="transactionCategory">
-		<ebts:TransactionCategoryCode>
-			<xsl:choose>
-				<xsl:when test=". = 'CI'">RBSCRM</xsl:when>
-				<xsl:when test=". = 'CS'">RBSCRM</xsl:when>
-			</xsl:choose>
-		</ebts:TransactionCategoryCode>
-	</xsl:template>
-	<xsl:template match="submsg-ext:CivilSubscriptionReasonCode" mode="transactionCategory">
-		<ebts:TransactionCategoryCode>
-			<xsl:choose>
-				<xsl:when test=". = 'I'">RBSCVL</xsl:when>
-			</xsl:choose>
-		</ebts:TransactionCategoryCode>
 	</xsl:template>
 	<xsl:template match="submsg-ext:CriminalSubscriptionReasonCode" mode="rapBackCategory">
 		<ebts:RecordRapBackCategoryCode>
