@@ -27,4 +27,16 @@
 		<nc20:IdentificationID>1234567</nc20:IdentificationID>
 	</submsg-ext:SubscriptionIdentification>
 	<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
+	<submsg-ext:RelatedFBISubscription>
+		<submsg-ext:SubscriptionFBIIdentification>
+			<nc20:IdentificationID>987654321</nc20:IdentificationID>
+		</submsg-ext:SubscriptionFBIIdentification>
+		<submsg-ext:SubscriptionModification>
+			<nc20:DateRange>
+				<nc20:EndDate>
+					<nc20:Date>2015-06-20</nc20:Date>
+				</nc20:EndDate>
+			</nc20:DateRange>
+		</submsg-ext:SubscriptionModification>
+	</submsg-ext:RelatedFBISubscription>
 </svm:SubscriptionValidationMessage>
