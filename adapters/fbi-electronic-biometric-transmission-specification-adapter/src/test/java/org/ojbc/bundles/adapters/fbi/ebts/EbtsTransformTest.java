@@ -191,8 +191,7 @@ public class EbtsTransformTest {
 		xsltParamMap.put("nominalTransmittingResolution", "00.00");
 		xsltParamMap.put("transactionContentSummaryContentFirstRecordCategoryCode", "1");
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCriminal", "01");					
-		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");		
-		xsltParamMap.put("imageReferenceID", "00");				
+		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");				
 		xsltParamMap.put("rapBackDisclosureIndicator", "false");	
 		
 		return xsltParamMap;
