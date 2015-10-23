@@ -43,6 +43,7 @@
 		<endpoint id="smtpEndpoint"
 			uri="${publishSubscribe.smtpServerProtocol}://${publishSubscribe.smtpServerName}:${publishSubscribe.smtpServerPort}/?password=${publishSubscribe.emailPassword}&amp;from=${publishSubscribe.emailFromAddress}&amp;username=${publishSubscribe.emailUserID}&amp;contentType=text/html" />
 		<endpoint id="notificationNonwhitelistFileDrop" uri="file:///${publishSubscribe.notificationNonwhitelistDrop}" />
+		<endpoint id="criminalHistoryConsolidationFailedFileEndpoint" uri="file:///${publishSubscribe.criminalHistoryConsolidationFileDrop}/failed" />
         
 		<camel:route>
     
@@ -466,7 +467,11 @@
 				<exception>java.lang.Exception</exception>
 				<handled><constant>true</constant></handled>
 				<camel:log message="An exception was thrown: ${exception.cause.message}"
-					loggingLevel="WARN" />
+					loggingLevel="ERROR" />
+				<setHeader headerName="CamelFileName">
+					<simple>FailedCriminalHistoryConsolidationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+				</setHeader>	
+				<to uri="criminalHistoryConsolidationFailedFileEndpoint"/>
 			</onException>
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			<camel:setHeader headerName="currentSid">
