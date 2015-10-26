@@ -17,9 +17,13 @@
 package org.ojbc.web.portal.controllers;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +36,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.FirearmSearchInterface;
 import org.ojbc.web.SearchFieldMetadata;
@@ -212,9 +217,8 @@ public class FirearmControllerTest {
 
 	@Test
 	public void getFederatedQueryId() {
-		VehiclesController unit = new VehiclesController();
-		String federatedQueryId1 = unit.getFederatedQueryId();
-		String federatedQueryId2 = unit.getFederatedQueryId();
+		String federatedQueryId1 = UniqueIdUtils.getFederatedQueryId();
+		String federatedQueryId2 = UniqueIdUtils.getFederatedQueryId();
 		assertThat(federatedQueryId1, Matchers.notNullValue());
 
 		assertThat(federatedQueryId1.equals(federatedQueryId2), is(false));

@@ -74,7 +74,7 @@ public class RapbackDAOImplTest {
 	private final Log log = LogFactory.getLog(this.getClass());
     
 	@Autowired
-	RapbackDAO rapbackDAO;
+	RapbackDAOImpl rapbackDAO;
 	
 	@Resource
 	FbiRapbackDao fbiSubscriptionDao;
@@ -113,11 +113,11 @@ public class RapbackDAOImplTest {
 		Integer subjectId = rapbackDAO.saveSubject(subject); 
 		
 		assertNotNull(subjectId);
-		assertEquals(4, subjectId.intValue()); 
+		assertEquals(5, subjectId.intValue()); 
 		
 		Subject persistedSubject = rapbackDAO.getSubject(subjectId); 
 		log.info(persistedSubject.toString());
-		assertEquals(Integer.valueOf(4), persistedSubject.getSubjectId());
+		assertEquals(Integer.valueOf(5), persistedSubject.getSubjectId());
 		assertEquals("1969-05-12", persistedSubject.getDob().toString("yyyy-MM-dd"));
 		assertEquals("B1234567", persistedSubject.getUcn());
 		assertNull(persistedSubject.getCriminalSid());
@@ -192,7 +192,7 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 		assertNotNull(pkId);
-		assertEquals(9, pkId.intValue()); 
+		assertEquals(11, pkId.intValue()); 
 	}
 	
 //	@Test
@@ -251,7 +251,7 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		assertNotNull(pkId);
-		assertEquals(9, pkId.intValue()); 
+		assertEquals(11, pkId.intValue()); 
 		
 		CivilInitialResults persistedCivilInitialResults = 
 				(rapbackDAO.getCivilInitialResults(identificationTransaction.getOwnerOri())).get(2);
@@ -259,7 +259,7 @@ public class RapbackDAOImplTest {
 		
 		
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
-		civilInitialRapSheet.setCivilIntitialResultId(9);
+		civilInitialRapSheet.setCivilIntitialResultId(11);
 		civilInitialRapSheet.setRapSheet("rapsheet".getBytes());
 		
 		Integer civilInitialRapSheetPkId = 
@@ -272,8 +272,8 @@ public class RapbackDAOImplTest {
 	@DirtiesContext
 	public void testGetCivilIdentificationTransactions() throws Exception {
 		List<IdentificationTransaction> transactions = 
-				rapbackDAO.getCivilIdentificationTransactions("68796860");
-		log.info(transactions.get(0).toString());
+				rapbackDAO.getCivilIdentificationTransactions("1234567890");
+		assertEquals(4, transactions.size());
 	}
 	
 	@Test
@@ -396,7 +396,7 @@ public class RapbackDAOImplTest {
 		String countSubjectUcn9222202 = "select count(*) as rowcount from identification_subject where ucn = '9222202'";
 		rs = conn.createStatement().executeQuery(countSubjectUcn9222202);
 		assertTrue(rs.next());
-		assertEquals(0,rs.getInt("rowcount"));
+		assertEquals(1,rs.getInt("rowcount"));
 
 		String countFbiSubscriptionUcn9222201 = "select count(*) as rowcount from fbi_rap_back_subscription where ucn = '9222201'";
 		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222201);
@@ -413,7 +413,7 @@ public class RapbackDAOImplTest {
 		assertEquals(0,rs.getInt("rowcount"));
 		rs = conn.createStatement().executeQuery(countSubjectUcn9222202);
 		assertTrue(rs.next());
-		assertEquals(1,rs.getInt("rowcount"));
+		assertEquals(2,rs.getInt("rowcount"));
 
 		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222201);
 		assertTrue(rs.next());

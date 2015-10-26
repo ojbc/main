@@ -16,6 +16,8 @@
  */
 package org.ojbc.processor.rapback.search;
 
+import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
