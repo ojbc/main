@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
+
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +27,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -1673,9 +1674,5 @@ public class SubscriptionsController {
 		return docBuilder;
 	}	
 	
-	public static String getFederatedQueryId() {
-		return UUID.randomUUID().toString();
-	}
-
 }
 
