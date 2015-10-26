@@ -306,7 +306,7 @@
 				<simple>bean:fbiSubscriptionProcessor?method=shouldDeleteFbiSubscription</simple>			
 			</setHeader>	
 			
-			<log message="\n\n\n hasStateSubscriptionsForFbiUcnId = ${header.hasStateSubscriptionsForFbiUcnId} \n\n\n" loggingLevel="INFO"/>
+			<log message="\n\n\n shouldDeleteFbiSubscription = ${header.shouldDeleteFbiSubscription} \n\n\n" loggingLevel="INFO"/>
 			
 			<camel:choice>
 				<camel:when>

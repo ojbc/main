@@ -60,15 +60,22 @@ public class FbiSubscriptionProcessor {
 		if(StringUtils.isNotEmpty(personFbiUcnId)){
 			
 			String categoryPurposeReason = XmlUtils.xPathStringSearch(unsubscribeDoc, 
-					"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/submsg-ext:CriminalSubscriptionReasonCode");			
+					"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");			
 						
 			FbiRapbackSubscription fbiRapbackSubscription = getFbiSubscriptionFromRapbackDataStore(personFbiUcnId, categoryPurposeReason);			
 			
-			appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, fbiRapbackSubscription);		
+			if(fbiRapbackSubscription != null){
+				appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, fbiRapbackSubscription);	
+			}else{
+				
+				XmlUtils.printNode(unsubscribeDoc);
+				
+				throw new Exception("Was not able to get related fbi data to add to unsubscribe message");
+			}
+			
 		}else{
 			throw new Exception("Unable to set Unsubscribe FBI fields required to send to FBI EBTS adapter");
-		}
-				
+		}			
 	}
 	
 
@@ -107,6 +114,16 @@ public class FbiSubscriptionProcessor {
 	}
 	
 	
+	
+	public String getReasonCodeFromUnsubscribeDoc(Document unsubscribeDoc) throws Exception{
+
+		String categoryReasonCode = XmlUtils.xPathStringSearch(unsubscribeDoc, 
+				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");		
+		
+		return categoryReasonCode;
+	}
+	
+	
 	private String lookupFbiUcnId(Document unsubscribeDoc) throws Exception{
 		
 		String unsubscribeSubId = XmlUtils.xPathStringSearch(unsubscribeDoc, 
@@ -118,8 +135,7 @@ public class FbiSubscriptionProcessor {
 			iSubId = Integer.parseInt(unsubscribeSubId);
 		}			
 
-		String categoryReasonCode = XmlUtils.xPathStringSearch(unsubscribeDoc, 
-				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");
+		String categoryReasonCode = getReasonCodeFromUnsubscribeDoc(unsubscribeDoc);
 		
 		String personFbiUcnId = null;
 		
@@ -195,29 +211,24 @@ public class FbiSubscriptionProcessor {
 	public Document appendFbiUcnIdToUnsubscribeDoc(Document unsubscribeDoc, String fbiUcnId) throws Exception{
 		
 		logger.info("\n\n\n appendFbiUcnIdToUnsubscribeDoc... \n\n\n");
-										
-		Element unsubscribeMessageElement = unsubscribeDoc.createElementNS(OjbcNamespaceContext.NS_UNBSUB_MSG_EXCHANGE, "UnsubscriptionMessage");
-		unsubscribeMessageElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_UNSUB_MSG_EXCHANGE);
-		
-		Node unsubscribeRootNode = XmlUtils.xPathNodeSearch(unsubscribeDoc, "//b-2:Unsubscribe");		
-		unsubscribeRootNode.appendChild(unsubscribeMessageElement);								
-
-		//		<b-2:Unsubscribe 
-		//		<unsubmsg-doc:UnsubscriptionMessage>
-		//		<submsg-ext:Subject>				
-		//		<j:PersonAugmentation>				
-		//		<j:PersonFBIIdentification>
-		//			<nc20:IdentificationID>12345678</nc20:IdentificationID>
-		//		</j:PersonFBIIdentification>
-		//	</j:PersonAugmentation>				
-		
+																
+		Node  unsubMsgElement = XmlUtils.xPathNodeSearch(unsubscribeDoc, "/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage");
+						
+		Node subjNode = XmlUtils.xPathNodeSearch(unsubMsgElement, "submsg-ext:Subject");
+		if(subjNode != null){
+			throw new Exception("Unexpected existance of Subject node.  Appending fbi data would have created duplicate subject node"
+					+ "(corrupting doc). Requirements must have changed to arrive here.");
+		}
+															
 		if(StringUtils.isNotEmpty(fbiUcnId)){
 			
-			Element subjectElement = XmlUtils.appendElement(unsubscribeMessageElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "Subject");
+			Element subjectElement = unsubscribeDoc.createElementNS(OjbcNamespaceContext.NS_SUB_MSG_EXT, "Subject");
+			subjectElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_SUB_MSG_EXT);
+			unsubMsgElement.appendChild(subjectElement);			
 		
-			Element personAugmentElement = XmlUtils.appendElement(subjectElement, OjbcNamespaceContext.NS_PREFIX_JXDM_41, "PersonAugmentation");
+			Element personAugmentElement = XmlUtils.appendElement(subjectElement, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
 			
-			Element personFbiIdElement = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_PREFIX_JXDM_41, "PersonFBIIdentification");
+			Element personFbiIdElement = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
 			
 			Element personFbiIdValElement = XmlUtils.appendElement(personFbiIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
 		

@@ -49,7 +49,10 @@ public class FbiRapbackDao {
 			+ "WHERE rap_back_category_code = ? AND ucn=?;";
 		
 	private final static String STATE_SUB_COUNT = "select count(subscription_id) from identification_transaction i "
-			+ "left join identification_subject s on s.subject_id = i.subject_id where s.ucn =?;";	
+			+ "left join identification_subject s on s.subject_id = i.subject_id "
+			+ "inner join subscription s on s.id = i.subscription_id "			
+			+ "where s.active = 1 "
+			+ "and s.ucn =?;";	
 	
 	private final static String FBI_UCN_ID_SELECT = "select fbidsub.ucn " +
 	  "from fbi_rap_back_subscription fbidsub inner join identification_subject idsub on idsub.ucn = fbidsub.ucn " + 

@@ -107,5 +107,17 @@ public class FbiSubscriptionProcessorTest {
 		Assert.assertEquals("074644NG0", fbiId);
 	}
 	
+	@Test
+	public void reasonCodeUnsubscribeTest() throws Exception{
+		
+		FbiSubscriptionProcessor fbiSubscriptionProcessor = new FbiSubscriptionProcessor();
+						
+		Document unsubscribeDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/UnsubscriptionWithReasonCode.xml"));
+		
+		String categoryReasonCode = fbiSubscriptionProcessor.getReasonCodeFromUnsubscribeDoc(unsubscribeDoc);
+						
+		Assert.assertEquals("CI", categoryReasonCode);		
+	}
+	
 }
 
