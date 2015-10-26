@@ -79,10 +79,18 @@ public class EntityResolutionResponseHandlerAggregator {
 			 if (errorResponseNodeCount > 0)
 			 {
 				 responseHasErrors = true;
-				 String aggregatedResponse = (String)exchange.getIn().getBody();
+				 
+				 if (exchange.getIn().getBody().getClass().equals("java.lang.String"))
+				 {
+					 String aggregatedResponse = (String)exchange.getIn().getBody();
+					 
+					 //Load up the aggregated results into a document
+					 psResultsBeforeER = OJBUtils.loadXMLFromString(aggregatedResponse);
+					 
+				 }	 
 				 
 				 //Load up the aggregated results into a document
-				 psResultsBeforeER = OJBUtils.loadXMLFromString(aggregatedResponse);
+				 psResultsBeforeER = exchange.getIn().getBody(Document.class);
 			 }	 
 			 
 			}

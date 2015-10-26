@@ -1,0 +1,42 @@
+<OJBAggregateResponseWrapper>
+    <psres-doc:PersonSearchResults xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+        xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+        xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+        xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+        xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0">
+        <psres:PersonSearchResult>
+            <psres:Person>
+                <nc:PersonAgeMeasure>
+                    <nc:MeasurePointValue>84</nc:MeasurePointValue>
+                </nc:PersonAgeMeasure>
+                <nc:PersonBirthDate>
+                    <nc:Date>1931-03-11</nc:Date>
+                </nc:PersonBirthDate>
+                <nc:PersonName>
+                    <nc:PersonGivenName>Joey</nc:PersonGivenName>
+                    <nc:PersonMiddleName>R</nc:PersonMiddleName>
+                    <nc:PersonSurName>Matthews</nc:PersonSurName>
+                </nc:PersonName>
+                <nc:PersonRaceCode>W</nc:PersonRaceCode>
+                <nc:PersonSexCode>M</nc:PersonSexCode>
+                <nc:PersonSSNIdentification>
+                    <nc:IdentificationID>988-16-8772</nc:IdentificationID>
+                </nc:PersonSSNIdentification>
+                <jxdm41:PersonAugmentation>
+                    <jxdm41:PersonFBIIdentification>
+                        <nc:IdentificationID>181953HX5</nc:IdentificationID>
+                    </jxdm41:PersonFBIIdentification>
+                    <jxdm41:PersonStateFingerprintIdentification>
+                        <nc:IdentificationID>A1764096</nc:IdentificationID>
+                    </jxdm41:PersonStateFingerprintIdentification>
+                </jxdm41:PersonAugmentation>
+            </psres:Person>
+            <psres:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History</psres:SourceSystemNameText>
+            <intel:SystemIdentifier>
+                <nc:IdentificationID>sample-5234100668017296985.xml</nc:IdentificationID>
+                <intel:SystemName>Criminal History</intel:SystemName>
+            </intel:SystemIdentifier>
+            <psres:SearchResultCategoryText>Criminal History</psres:SearchResultCategoryText>
+        </psres:PersonSearchResult>
+    </psres-doc:PersonSearchResults>
+</OJBAggregateResponseWrapper>
