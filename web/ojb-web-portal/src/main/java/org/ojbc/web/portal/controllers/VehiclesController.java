@@ -18,11 +18,11 @@ package org.ojbc.web.portal.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.portal.controllers.config.VehiclesControllerConfigInterface;
@@ -174,10 +174,6 @@ public class VehiclesController {
 		return systemsToQuery_vehicles_disabled;
 	}
 
-	String getFederatedQueryId() {
-		return UUID.randomUUID().toString();
-	}
-
 	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
 			throws Exception {
 		Element samlAssertion = samlService.getSamlAssertion(request);
@@ -210,5 +206,8 @@ public class VehiclesController {
 		return "vehicles/_searchResult";
 	}
 	
-	
+	String getFederatedQueryId() {
+		return UniqueIdUtils.getFederatedQueryId();
+	}
+
 }

@@ -18,11 +18,11 @@ package org.ojbc.web.portal.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
@@ -99,7 +99,7 @@ public abstract class AbstractBaseController {
 	}
 
 	String getFederatedQueryId() {
-		return UUID.randomUUID().toString();
+		return UniqueIdUtils.getFederatedQueryId();
 	}
 
 	protected Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
