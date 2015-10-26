@@ -16,6 +16,8 @@
  */
 package org.ojbc.processor.initialresults.query;
 
+import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

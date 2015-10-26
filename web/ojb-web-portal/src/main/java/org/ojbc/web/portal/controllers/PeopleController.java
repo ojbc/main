@@ -15,16 +15,15 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal.controllers;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
@@ -51,7 +50,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 
 @Controller
 @RequestMapping("/people/*")
@@ -318,10 +316,6 @@ public class PeopleController {
 		return systemsToQuery_people_disabled;
 	}
 
-	String getFederatedQueryId() {
-		return UUID.randomUUID().toString();
-	}
-
 	private void setInitialState(PersonSearchCommand personSearchCommand) {
 		personSearchCommand.getAdvanceSearch().setPersonGivenNameMetaData(SearchFieldMetadata.StartsWith);
 		personSearchCommand.getAdvanceSearch().setPersonSurNameMetaData(SearchFieldMetadata.StartsWith);
@@ -390,4 +384,9 @@ public class PeopleController {
 		
 		return personSearchResultPage;
 	}
+	
+	String getFederatedQueryId() {
+		return UniqueIdUtils.getFederatedQueryId();
+	}
+
 }

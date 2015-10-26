@@ -18,13 +18,13 @@ package org.ojbc.web.portal.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.model.incident.search.IncidentSearchRequest;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.portal.controllers.config.IncidentsControllerConfigInterface;
@@ -179,10 +179,6 @@ public class IncidentsController {
 		return systemsToQuery_incidents_disabled;
 	}
 
-	String getFederatedQueryId() {
-		return UUID.randomUUID().toString();
-	}
-	
 	String getMostRecentSearchPurpose() {
 		return userSession.getMostRecentIncidentSearch().getAdvanceSearch().getPurpose();
 	}
@@ -228,4 +224,9 @@ public class IncidentsController {
 		
 		return "incidents/_searchResult";
 	}
+	
+	String getFederatedQueryId() {
+		return UniqueIdUtils.getFederatedQueryId();
+	}
+
 }

@@ -16,10 +16,11 @@
  */
 package org.ojbc.web.util;
 
+import static org.ojbc.util.helper.UniqueIdUtils.getUniqueId;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -112,7 +113,7 @@ public class SubscriptionDocumentBuilder {
 		
 		Element idNode = XmlUtils.appendElement(subQualIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
 				
-		idNode.setTextContent( getFederatedQueryId());
+		idNode.setTextContent( getUniqueId());
 	}
 	
 	
@@ -317,11 +318,6 @@ public class SubscriptionDocumentBuilder {
         DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
         
         return docBuilder.newDocument();
-	}
-
-	
-	public static String getFederatedQueryId() {
-		return UUID.randomUUID().toString();
 	}
 
 }
