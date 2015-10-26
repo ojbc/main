@@ -134,7 +134,7 @@ public class TestCriminalHistoryConsolidationService {
 		String countSubjectUcn9222202 = "select count(*) as rowcount from identification_subject where ucn = '9222202'";
 		rs = conn.createStatement().executeQuery(countSubjectUcn9222202);
 		assertTrue(rs.next());
-		assertEquals(0,rs.getInt("rowcount"));
+		assertEquals(1,rs.getInt("rowcount"));
 
 		String countFbiSubscriptionUcn9222201 = "select count(*) as rowcount from fbi_rap_back_subscription where ucn = '9222201'";
 		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222201);
@@ -181,7 +181,7 @@ public class TestCriminalHistoryConsolidationService {
 		assertEquals(0,rs.getInt("rowcount"));
 		rs = conn.createStatement().executeQuery(countSubjectUcn9222202);
 		assertTrue(rs.next());
-		assertEquals(1,rs.getInt("rowcount"));
+		assertEquals(2,rs.getInt("rowcount"));
 
 		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222201);
 		assertTrue(rs.next());
