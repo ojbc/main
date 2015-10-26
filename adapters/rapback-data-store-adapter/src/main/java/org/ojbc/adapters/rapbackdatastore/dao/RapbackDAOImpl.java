@@ -441,7 +441,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		if (includeSubscription){
 			Integer subscriptionId = rs.getInt("id"); 
 			
-			if (subscriptionId != null){
+			if (subscriptionId != null && subscriptionId > 0){
 				Subscription subscription = buildSubscription(rs); 
 				identificationTransaction.setSubscription(subscription);
 			}
