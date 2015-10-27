@@ -18,15 +18,13 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	targetNamespace="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0" 
-	xmlns:subfltrsp-exch="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0" 
-	xmlns:subfltrsp-ext="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" 
+	targetNamespace="http://ojbc.org/IEPD/Exchange/Subscription_Modification_Response/1.0" 
+	xmlns:submresp-exch="http://ojbc.org/IEPD/Exchange/Subscription_Modification_Response/1.0" 
+	xmlns:subresp-ext="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0" 
 	elementFormDefault="qualified">
 	
-	<xsd:import namespace="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" schemaLocation="Subscription_Fault_Response_Extension.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0" schemaLocation="Subscription_Response_Extension.xsd"/>
 	
-	<xsd:element name="SubscriptionFaultResponseMessage" type="subfltrsp-ext:SubscriptionFaultResponseMessageType"/>
-	<xsd:element name="SubscriptionValidationFaultResponseMessage" type="subfltrsp-ext:SubscriptionValidationFaultResponseMessageType"/>
-	<xsd:element name="SubscriptionModificationFaultResponseMessage" type="subfltrsp-ext:SubscriptionValidationFaultResponseMessageType"/>
+	<xsd:element name="SubscriptionModificationResponseMessage" type="subresp-ext:SubscriptionResponseMessageType"/>
 	
 </xsd:schema>

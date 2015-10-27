@@ -563,7 +563,24 @@
     </xsd:complexType>
   </xsd:element>
   
-    <xsd:element name="Validate">
+  <xsd:element name="Modify">
+    <xsd:complexType>
+
+      <xsd:sequence>
+        <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="ModifyResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+   <xsd:element name="Validate">
     <xsd:complexType>
 
       <xsd:sequence>
@@ -588,7 +605,7 @@
   <xsd:element name="UnableToDestroySubscriptionFault" 
                type="wsnt:UnableToDestroySubscriptionFaultType"/>
        
-  <!-- Unable to Validate Subscription components are OJBC extensions -->        
+  <!-- Unable to Validate and Modify Subscription components are OJBC extensions -->        
   <xsd:complexType name="UnableToValidateSubscriptionFaultType">
     <xsd:complexContent>
       <xsd:extension base="wsrf-bf:BaseFaultType"/>
@@ -596,6 +613,14 @@
   </xsd:complexType>
   <xsd:element name="UnableToValidateSubscriptionFault" 
                type="wsnt:UnableToValidateSubscriptionFaultType"/>
+               
+  <xsd:complexType name="UnableToModifySubscriptionFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="UnableToModifySubscriptionFault" 
+               type="wsnt:UnableToModifySubscriptionFaultType"/>
                
 
 <!-- ====== Message Types for Pausable SubscriptionManager  ======= -->

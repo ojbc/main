@@ -44,6 +44,19 @@
       <xs:extension base="structures:AssociationType"/>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ContactInformationAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between contact information and a an entity.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Contact" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ContactInformationType">
     <xs:annotation>
       <xs:documentation>A data type for how to contact a person or an organization.</xs:documentation>
@@ -81,6 +94,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EntityType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person, organization, or thing capable of bearing legal rights and responsibilities.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:EntityRepresentation" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="IdentificationType">
     <xs:annotation>
       <xs:documentation>A data type for a representation of an identity.</xs:documentation>
@@ -90,6 +115,20 @@
         <xs:sequence>
           <xs:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:IdentificationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OrganizationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a body of people organized for a particular purpose.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -173,14 +212,29 @@
       <xs:documentation>An identification that references an activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Contact" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a person or organization to contact.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ContactEmailID" type="niem-xs:string" substitutionGroup="nc:ContactMeans" nillable="true">
     <xs:annotation>
       <xs:documentation>An electronic mailing address by which a person or organization may be contacted.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ContactEntity" type="nc:EntityType" substitutionGroup="nc:Contact">
+    <xs:annotation>
+      <xs:documentation>An entity that may be contacted by using the given contact information.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ContactInformation" type="nc:ContactInformationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A set of details about how to contact a person or an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ContactInformationAssociation" type="nc:ContactInformationAssociationType">
+    <xs:annotation>
+      <xs:documentation>An association between contact information and an entity.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ContactMeans" abstract="true">
@@ -203,6 +257,16 @@
       <xs:documentation>An end date.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="EntityOrganization" type="nc:OrganizationType" substitutionGroup="nc:EntityRepresentation">
+    <xs:annotation>
+      <xs:documentation>An organization capable of bearing legal rights and responsibilities.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EntityRepresentation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a person, organization, or thing capable of bearing legal rights and responsibilities.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="IdentificationAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for IdentificationType.</xs:documentation>
@@ -211,6 +275,21 @@
   <xs:element name="IdentificationID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for OrganizationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification that references an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationName" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of an organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonAugmentationPoint" abstract="true">
