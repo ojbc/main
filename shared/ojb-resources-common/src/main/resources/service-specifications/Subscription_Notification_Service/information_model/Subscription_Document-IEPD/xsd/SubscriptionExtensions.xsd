@@ -41,7 +41,7 @@
 				<xsd:choice>
 					<xsd:sequence>
 						<xsd:element ref="submsg-ext:SubscriptionRelatedCaseIdentification" minOccurs="0"/>
-						<xsd:element maxOccurs="1" minOccurs="1" ref="submsg-ext:Subject" />
+						<xsd:element ref="submsg-ext:Subject" />
 						<xsd:element maxOccurs="unbounded" minOccurs="1" ref="nc:ContactEmailID">
 							<xsd:annotation>
 								<xsd:documentation>An electronic mailing address by which a person or organization may be contacted.</xsd:documentation>
@@ -61,7 +61,7 @@
 						<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 					</xsd:sequence>
 					<xsd:sequence>
-						<xsd:element ref="submsg-ext:FBISubscription"/>
+						<xsd:element ref="submsg-ext:FBISubscriptionModification"/>
 					</xsd:sequence>
 				</xsd:choice>
 			</xsd:extension>
@@ -237,12 +237,25 @@
 					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification"/>
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionTerm" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:SubscriptionModification" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	
+	<xsd:complexType name="FBISubscriptionModificationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a modification to an existing subscription created by the Federal Bureau of Investigation.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="submsg-ext:Subject"/>
+					<xsd:element ref="submsg-ext:FBISubscription"/>
+					<xsd:element ref="submsg-ext:SubscriptionModification"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="SubscriptionModificationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for modifications that are to be applied to an existing subscription.</xsd:documentation>
@@ -255,6 +268,11 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:element name="FBISubscriptionModification" type="submsg-ext:FBISubscriptionModificationType">
+		<xsd:annotation>
+			<xsd:documentation>A modification to a FBI subscription</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	
 	<xsd:element name="SubscriptionModification" type="submsg-ext:SubscriptionModificationType">
 		<xsd:annotation>

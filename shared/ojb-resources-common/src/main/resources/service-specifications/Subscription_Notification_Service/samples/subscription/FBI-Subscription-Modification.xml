@@ -36,27 +36,34 @@
 	</b-2:Filter>
 	<b-2:SubscriptionPolicy />
 	<submsg-doc:SubscriptionMessage>
-		<submsg-ext:FBISubscription>
-			<nc20:DateRange>
-				<nc20:StartDate>
-					<nc20:Date>2015-01-01</nc20:Date>
-				</nc20:StartDate>
-				<nc20:EndDate>
-					<nc20:Date>2016-01-01</nc20:Date>
-				</nc20:EndDate>
-			</nc20:DateRange>
-			<submsg-ext:SubscriptionFBIIdentification>
-				<nc20:IdentificationID>1234567</nc20:IdentificationID>
-			</submsg-ext:SubscriptionFBIIdentification>
-			<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
-			<submsg-ext:SubscriptionTerm>
-				<j:TermDuration>P1Y</j:TermDuration>
-			</submsg-ext:SubscriptionTerm>
+		<submsg-ext:FBISubscriptionModification>
+			<submsg-ext:Subject>
+				<nc20:PersonBirthDate>
+					<nc20:Date>1972-08-02</nc20:Date>
+				</nc20:PersonBirthDate>
+				<nc20:PersonName>
+					<nc20:PersonGivenName>John</nc20:PersonGivenName>
+					<nc20:PersonSurName>Doe</nc20:PersonSurName>
+				</nc20:PersonName>
+				<j:PersonAugmentation>
+					<j:PersonFBIIdentification>
+						<nc20:IdentificationID>123456789</nc20:IdentificationID>
+					</j:PersonFBIIdentification>
+				</j:PersonAugmentation>
+			</submsg-ext:Subject>
+			<submsg-ext:FBISubscription>
+				<submsg-ext:SubscriptionFBIIdentification>
+					<nc20:IdentificationID>1234567</nc20:IdentificationID>
+				</submsg-ext:SubscriptionFBIIdentification>
+				<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
+			</submsg-ext:FBISubscription>
 			<submsg-ext:SubscriptionModification>
 				<nc20:DateRange>
-					<nc20:EndDate>2015-04-01</nc20:EndDate>
+					<nc20:EndDate>
+						<nc20:Date>2015-04-01</nc20:Date>	
+					</nc20:EndDate>
 				</nc20:DateRange>
 			</submsg-ext:SubscriptionModification>
-		</submsg-ext:FBISubscription>
+		</submsg-ext:FBISubscriptionModification>
 	</submsg-doc:SubscriptionMessage>
 </b-2:Subscribe>
