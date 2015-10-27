@@ -195,7 +195,7 @@
 		
 			<camel:from uri="direct:processFbiNgiResponse"/>
 			
-			<camel:log message="\n\n ngiResponseService... body: \n\n ${body} \n\n"/>
+			<camel:log message="\n\n ngiResponseService... \n\n"/>
 
 			<camel:setHeader headerName="trxCatCode">
 				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode/text()</xpath>
@@ -294,17 +294,17 @@
 			
 			<convertBodyTo type="java.lang.String"/>
 			
-			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
+			<to uri="xslt:xsl/RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl"/>
 			
-			<log message="\n\n\n ran RapBackSubscriptionResponseToSubscriptionCreationReport.xsl to get: \n\n ${body} \n\n\n" />
-			
+			<log message="\n\n\n ran RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl \n\n\n" />		
+						
 			<!-- TODO Confirm this is correct technique -->								
 			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-			
+						
 			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
-			
+									
 			<camel:to uri="direct:sendRapbackSubscriptionReport"/>
  		</route>
  		

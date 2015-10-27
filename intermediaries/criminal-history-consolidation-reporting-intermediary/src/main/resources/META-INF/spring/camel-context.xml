@@ -51,9 +51,11 @@
 			
 			<log message="\n\n\n CH Consolidation route... \n\n\n" loggingLevel="INFO" />
 			
-			<to uri="rapbackDataStoreEndpoint"/>		
-		</route>					 					  
-					    
+			<camel:multicast>			
+				<camel:to uri=""/>
+				<to uri="rapbackDataStoreEndpoint"/>
+			</camel:multicast>								
+		</route>					 					  					    
 	</camel:camelContext>	
 				
 </beans>
