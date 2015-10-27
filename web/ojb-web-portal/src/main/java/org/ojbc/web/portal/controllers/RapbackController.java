@@ -16,6 +16,10 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
+
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -23,24 +27,35 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
+import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.model.IdentificationResultsQueryResponse;
 import org.ojbc.web.model.person.query.DetailsRequest;
+import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.portal.controllers.config.RapbackControllerConfigInterface;
+import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
+import org.ojbc.web.security.DocumentUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 @Controller
 @Profile({"rapback-search","initial-results-query","standalone"})
-@SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults"})
+@SessionAttributes({"rapbackSearchResults", "rapbackSearchContent", "criminalIdentificationSearchResults"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
 	
@@ -54,7 +69,13 @@ public class RapbackController {
 	
 	@Resource
 	RapbackControllerConfigInterface config;
+	
+	@Resource
+	SubscriptionsControllerConfigInterface subConfig;
 
+    @Value("${rapbackSubscriptionPeriod:1}")
+    Integer rapbackSubscriptionPeriod;
+    
 	@RequestMapping(value = "/rapbackResults", method = RequestMethod.POST)
 	public String searchForm(HttpServletRequest request,	        
 	        Map<String, Object> model) {		
@@ -68,7 +89,7 @@ public class RapbackController {
             rawResults = config.getRapbackSearchBean()
             		.invokeRapbackSearchRequest(IdentificationResultsCategory.Civil, samlElement);
         } catch (Exception e) {
-            informationMessage="Failed to process the request.";
+            informationMessage="Failed to get the rapback search result.";
             e.printStackTrace();
         }
 												
@@ -78,7 +99,7 @@ public class RapbackController {
     	String transformedResults = searchResultConverter.convertRapbackSearchResult(rawResults);
 		logger.debug("Rapback Results HTML:\n" + transformedResults);
 		
-		model.put("searchContent", transformedResults);
+		model.put("rapbackSearchContent", transformedResults);
 		
 		model.put("informationMessages", informationMessage);
 		
@@ -97,6 +118,84 @@ public class RapbackController {
 		}
 	}
 	
+	@RequestMapping(value = "subscribe", method = RequestMethod.GET)
+	public @ResponseBody String subscribe(HttpServletRequest request, @RequestParam String transactionNumber,
+			Map<String, Object> model) {
+		try {
+			Subscription subscription = getSubscription(transactionNumber, model);
+			FaultableSoapResponse faultableSoapResponse = callSubscribeService(subscription, samlService.getSamlAssertion(request));
+			
+			if (faultableSoapResponse.isSuccess()){
+				return "success";
+			}
+			else{
+				model.put("informationMessages", faultableSoapResponse.getException().getMessage());
+				return faultableSoapResponse.getException().getMessage() + ", please report the error try again later.";
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return ex.getMessage() + ", please report the error and try again later.";
+		}
+	}
+	
+	/**
+	 * @return
+	 * 	 FaultableSoapResponse web service response
+	 */
+	private FaultableSoapResponse callSubscribeService(Subscription subscription, Element samlElement) throws Exception{
+				
+		logger.info("Calling subscribe operation...");
+		
+		SubscriptionInterface subscribeBean = subConfig.getSubscriptionSubscribeBean();
+		
+		FaultableSoapResponse faultableSoapResponse = subscribeBean.subscribe(subscription, 
+					getFederatedQueryId(), samlElement);
+				
+		logger.info("Subscribe operation returned faultableSoapResponse:  " + faultableSoapResponse);
+		
+		return faultableSoapResponse;				
+	}
+	
+
+	private Subscription getSubscription(String transactionNumber, Map<String, Object> model) throws Exception {
+		String rapbackSearchResults = (String) model.get("rapbackSearchResults");
+		Document rapbackSearchResultsDoc = DocumentUtils.getDocumentFromXmlString(rapbackSearchResults); 
+		Node organizationIdentificationResultsSearchResult = 
+				XmlUtils.xPathNodeSearch(rapbackSearchResultsDoc, "/oirs-res-doc:OrganizationIdentificationResultsSearchResults"
+						+ "/oirs-res-ext:OrganizationIdentificationResultsSearchResult[intel:SystemIdentification"
+						+ "/nc30:IdentificationID='" + transactionNumber + "']");
+		Node identifiedPerson = XmlUtils.xPathNodeSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:IdentifiedPerson");
+		Subscription subscription = new Subscription(); 
+		subscription.setCaseId(transactionNumber);
+		
+		DateTime dob = XmlUtils.parseXmlDate(XmlUtils.xPathStringSearch(identifiedPerson, "nc30:PersonBirthDate/nc30:Date"));
+		subscription.setDateOfBirth(dob.toDate());
+		
+		subscription.setFirstName(XmlUtils.xPathStringSearch(identifiedPerson, "nc30:PersonName/nc30:PersonGivenName"));
+		subscription.setLastName(XmlUtils.xPathStringSearch(identifiedPerson, "nc30:PersonName/nc30:PersonSurName"));
+		subscription.setFullName(XmlUtils.xPathStringSearch(identifiedPerson, "nc30:PersonName/nc30:PersonFullName"));
+		
+		subscription.setFbiId(XmlUtils.xPathStringSearch(identifiedPerson, "jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID"));
+		subscription.setStateId(XmlUtils.xPathStringSearch(identifiedPerson, "jxdm50:PersonAugmentation"
+				+ "/jxdm50:PersonStateFingerprintIdentification[oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator='true']"
+				+ "/nc30:IdentificationID"));
+		
+		setStartDateAndEndDate(subscription);
+		
+		//TODO pass real emailAddresses. 
+		subscription.setEmailList(Arrays.asList(new String[]{"test@localhost"}));
+		
+		subscription.setSubscriptionType("topics:person/civilArrest");
+		return subscription;
+	}
+
+	private void setStartDateAndEndDate(Subscription subscription) {
+		Calendar cal = Calendar.getInstance(); 
+		subscription.setSubscriptionStartDate(cal.getTime());
+		cal.add(Calendar.YEAR, rapbackSubscriptionPeriod);
+		subscription.setSubscriptionEndDate(cal.getTime());
+	}
+
 	private void processDetailRequest(HttpServletRequest request, String transactionNumber, Map<String, Object> model)
 			throws Exception {
 		Element samlAssertion = samlService.getSamlAssertion(request);		
