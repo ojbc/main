@@ -120,7 +120,12 @@
 		<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">				
 			<a href="#" class="blueIcon" style="margin-right:3px" title="Validate"><i class="fa fa-check-circle fa-lg"/></a>
 		</xsl:if>
-		<a href="{concat('../rapbacks/unsubscribe?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" class="blueIcon" style="margin-right:3px" title="Unsubscribe"><i class="fa fa-times-circle fa-lg"></i></a>
+		<a href="#" class="blueIcon unsubscribe" style="margin-right:3px" title="Unsubscribe">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-times-circle fa-lg"></i>
+		</a>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
