@@ -38,32 +38,27 @@
 	<xsd:complexType name="SubscriptionType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
-				<xsd:choice>
-					<xsd:sequence>
-						<xsd:element ref="submsg-ext:SubscriptionRelatedCaseIdentification" minOccurs="0"/>
-						<xsd:element ref="submsg-ext:Subject" />
-						<xsd:element maxOccurs="unbounded" minOccurs="1" ref="nc:ContactEmailID">
-							<xsd:annotation>
-								<xsd:documentation>An electronic mailing address by which a person or organization may be contacted.</xsd:documentation>
-							</xsd:annotation>
-						</xsd:element>
-						<xsd:element maxOccurs="1" minOccurs="1" ref="submsg-ext:SystemName" />
-						<xsd:element maxOccurs="1" minOccurs="0" ref="nc:Case">
-							<xsd:annotation>
-								<xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
-							</xsd:annotation>
-						</xsd:element>
-						<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification" minOccurs="0" />
-						<xsd:element ref="nc:DateRange" minOccurs="0" />
-						<xsd:element ref="submsg-ext:SubscriptionIdentification" minOccurs="0" />
-						<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
-						<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
-						<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
-					</xsd:sequence>
-<!-- 					<xsd:sequence> -->
-<!-- 						<xsd:element ref="submsg-ext:SubscriptionModificationRequest" maxOccurs="unbounded"/> -->
-<!-- 					</xsd:sequence> -->
-				</xsd:choice>
+				<xsd:sequence>
+					<xsd:element ref="submsg-ext:SubscriptionRelatedCaseIdentification" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:Subject" />
+					<xsd:element maxOccurs="unbounded" minOccurs="1" ref="nc:ContactEmailID">
+						<xsd:annotation>
+							<xsd:documentation>An electronic mailing address by which a person or organization may be contacted.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" ref="submsg-ext:SystemName" />
+					<xsd:element maxOccurs="1" minOccurs="0" ref="nc:Case">
+						<xsd:annotation>
+							<xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification" minOccurs="0" />
+					<xsd:element ref="nc:DateRange" minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionIdentification" minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
