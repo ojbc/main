@@ -61,7 +61,7 @@
 						<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 					</xsd:sequence>
 					<xsd:sequence>
-						<xsd:element ref="submsg-ext:FBISubscriptionModification"/>
+						<xsd:element ref="submsg-ext:SubscriptionModificationRequest" maxOccurs="unbounded"/>
 					</xsd:sequence>
 				</xsd:choice>
 			</xsd:extension>
@@ -242,16 +242,27 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 	
-	<xsd:complexType name="FBISubscriptionModificationType">
+	<xsd:complexType name="SubscriptionModificationRequestType" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a modification to an existing subscription created by the Federal Bureau of Investigation.</xsd:documentation>
+			<xsd:documentation>A data type for a request to modify an existing subscription.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="submsg-ext:Subject"/>
-					<xsd:element ref="submsg-ext:FBISubscription"/>
 					<xsd:element ref="submsg-ext:SubscriptionModification"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FBISubscriptionModificationRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a request to modify an existing subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="submsg-ext:SubscriptionModificationRequestType">
+				<xsd:sequence>
+					<xsd:element ref="submsg-ext:FBISubscription"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -268,17 +279,24 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="FBISubscriptionModification" type="submsg-ext:FBISubscriptionModificationType">
+	<xsd:element name="SubscriptionModification" type="submsg-ext:SubscriptionModificationType">
 		<xsd:annotation>
-			<xsd:documentation>A modification to a FBI subscription</xsd:documentation>
+			<xsd:documentation>A modification to a subscription</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	
-	<xsd:element name="SubscriptionModification" type="submsg-ext:SubscriptionModificationType">
+	<xsd:element name="SubscriptionModificationRequest" type="submsg-ext:SubscriptionModificationRequestType" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>Modifications that are to be applied to an existing subscription.</xsd:documentation>
+			<xsd:documentation>A request to modify an existing subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
+	<xsd:element name="FBISubscriptionModificationRequest" type="submsg-ext:FBISubscriptionModificationRequestType" substitutionGroup="submsg-ext:SubscriptionModificationRequest">
+		<xsd:annotation>
+			<xsd:documentation>A request to modify an existing subscription with the federal bureau of investigation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
 	<xsd:element name="SubscriptionTerm" type="j:TermType">
 		<xsd:annotation>
 			<xsd:documentation>The term for which a subscription is active.</xsd:documentation>
