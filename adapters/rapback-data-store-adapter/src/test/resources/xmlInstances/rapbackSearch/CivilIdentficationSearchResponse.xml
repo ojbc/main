@@ -69,9 +69,9 @@
          </oirs-res-ext:SubscriptionValidation>
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
-      <intel:SystemIdentifier>
+      <intel:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339990</nc30:IdentificationID>
          <intel:SystemName>RapbackDataStore</intel:SystemName>
-      </intel:SystemIdentifier>
+      </intel:SystemIdentification>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
 </oirs-res-doc:OrganizationIdentificationResultsSearchResults>
