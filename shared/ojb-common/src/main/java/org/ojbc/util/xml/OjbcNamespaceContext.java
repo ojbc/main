@@ -68,6 +68,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_SUB_VALID_MESSAGE = "http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0";
 	public static final String NS_SUB_VALID_MESSAGE_PREFIX = "svm";
+	
+	public static final String NS_SUB_MODIFY_MESSAGE = "http://ojbc.org/IEPD/Exchange/SubscriptionModificationMessage/1.0";
+	public static final String NS_SUB_MODIFY_MESSAGE_PREFIX = "smm";
 
 	public static final String NS_SAML_ASSERTION = "urn:oasis:names:tc:SAML:2.0:assertion";
 	public static final String NS_PREFIX_SAML_ASSERTION = "saml2";
@@ -454,6 +457,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH = "http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0";
     public static final String NS_PREFIX_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH = "subvresp-exch";
     
+    public static final String NS_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH = "http://ojbc.org/IEPD/Exchange/Subscription_Modification_Response/1.0";
+    public static final String NS_PREFIX_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH = "submresp-exch";
+    
     public static final String NS_SUBSCRIPTION_SEARCH_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0";
     public static final String NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT = "ssreq-ext";
     
@@ -708,6 +714,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_SUB_VALID_MESSAGE_PREFIX, NS_SUB_VALID_MESSAGE);
 		uriToPrefixMap.put(NS_SUB_VALID_MESSAGE, NS_SUB_VALID_MESSAGE_PREFIX);
+		
+		prefixToUriMap.put(NS_SUB_MODIFY_MESSAGE_PREFIX, NS_SUB_MODIFY_MESSAGE);
+		uriToPrefixMap.put(NS_SUB_MODIFY_MESSAGE, NS_SUB_MODIFY_MESSAGE_PREFIX);
 
 		prefixToUriMap.put(NS_PREFIX_INCIDENT_QUERY_REQUEST_DOC, NS_INCIDENT_QUERY_REQUEST_DOC);
 		uriToPrefixMap.put(NS_INCIDENT_QUERY_REQUEST_DOC, NS_PREFIX_INCIDENT_QUERY_REQUEST_DOC);
@@ -990,6 +999,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    
 		prefixToUriMap.put(NS_PREFIX_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH, NS_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH);
 	    uriToPrefixMap.put(NS_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH, NS_PREFIX_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH);
+	    
+	    prefixToUriMap.put(NS_PREFIX_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH, NS_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH);
+	    uriToPrefixMap.put(NS_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH, NS_PREFIX_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH);
 	    
 		prefixToUriMap.put(NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT, NS_SUBSCRIPTION_SEARCH_REQUEST_EXT);
 	    uriToPrefixMap.put(NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT);
