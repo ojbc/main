@@ -58,6 +58,36 @@
 		</constructor-arg>
 	</bean>	
 	
+	<bean id="defaultFederatedSearchTimeoutProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-search-request-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.util.fedquery.processor.DefaultFederatedSearchTimeoutProcessor">
+				<property name="uriToErrorMessageMap">
+					<util:map>
+						<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History" value="Criminal History search timed out or had an error." />
+						<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants" value="Warrants  search timed out or had an error." />
+						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" value="RMS search timed out or had an error." />
+						<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms" value="Firearms search timed out or had an error" />
+						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" value="Juvenile search timed out or had an error" />
+					</util:map>				
+				</property>
+				<property name="uriToErrorSystemNameMap">
+					<util:map>
+						<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History" value="Criminal History Repository" />
+						<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants" value="Warrants Repository" />
+						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" value="RMS" />
+						<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms" value="Firearms Repository" />
+						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" value="Juvenile History Repository" />
+					</util:map>				
+				</property>
+				<property name="parentElementName" value="PersonSearchResults"/>
+				<property name="parentElementNamespace" value="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"/>
+		  	</bean>
+		</constructor-arg>
+	</bean>
+	
+	
 	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-search-request-service-intermediary-context" />
