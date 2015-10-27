@@ -48,13 +48,23 @@
     <camel:endpoint id="rapbackDataStoreEndpoint" 
     	uri="cxf:bean:identificationInitialResultsQueryRequestService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.cxfLogging}" />
         
-	<cxf:cxfEndpoint id="chConsolidateService"
-		address="${chConsolidate.endpoint}"
+        
+	<!-- OJB Criminal History Consolidation Reporting Secure Service -->
+    <cxf:cxfEndpoint 
+        id="criminalHistoryConsolidationReportingService"
+        address="${rapbackDatastoreAdapter.criminalHistoryConsolidationReportingSecureEndpoint}" 
 		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
-		serviceName="ojb:Criminal-History-Consolidation-Reporting-ServiceService" 
-		endpointName="ojb:Criminal-History-Consolidation-Reporting-Secure-Service"
-		xmlns:ojb="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
-	</cxf:cxfEndpoint>
+		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="chConsolidateKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>
+    
 	
     <cxf:cxfEndpoint 
         id="identificationInitialResultsQueryRequestService"
@@ -67,6 +77,7 @@
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="chConsolidateKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${chConsolidate.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 		</cxf:properties>
     </cxf:cxfEndpoint>			
 	
@@ -78,6 +89,8 @@
             </map>
         </property>
 	</bean>   
+   
+   <bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator" />
    
 	<util:properties id="chConsolidateKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
