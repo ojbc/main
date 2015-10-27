@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -195,7 +194,7 @@
 		
 			<camel:from uri="direct:processFbiNgiResponse"/>
 			
-			<camel:log message="\n\n ngiResponseService... body: \n\n ${body} \n\n"/>
+			<camel:log message="\n\n ngiResponseService... \n\n"/>
 
 			<camel:setHeader headerName="trxCatCode">
 				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode/text()</xpath>
@@ -251,7 +250,7 @@
 			
 			<to uri="xslt:xsl/Federal_To_Arrest_Report_Transform.xsl"/>
 			
-			<log message="\n\n\n Body after Federal_To_Arrest_Report_Transform.xsl: \n\n ${body} \n\n  Sending to Arrest Reporting Service... \n\n" loggingLevel="INFO"/>
+			<log message="\n\n\n ran Federal_To_Arrest_Report_Transform.xsl.  Sending to Arrest Reporting Service... \n\n" loggingLevel="INFO"/>
 			
 			<camel:setHeader headerName="operationName"><constant>ReportArrest</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>			
@@ -294,17 +293,17 @@
 			
 			<convertBodyTo type="java.lang.String"/>
 			
-			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
+			<to uri="xslt:xsl/RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl"/>
 			
-			<log message="\n\n\n ran RapBackSubscriptionResponseToSubscriptionCreationReport.xsl to get: \n\n ${body} \n\n\n" />
-			
+			<log message="\n\n\n ran RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl \n\n\n" />		
+						
 			<!-- TODO Confirm this is correct technique -->								
 			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-			
+						
 			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
-			
+									
 			<camel:to uri="direct:sendRapbackSubscriptionReport"/>
  		</route>
  		
@@ -333,7 +332,7 @@
 							
 			<convertBodyTo type="java.lang.String"/>
 			
-			<camel:log message="\n\n Transforming ojb subscription to FBI NGI subscription format...\n\n using message input: \n ${body} \n\n"/>
+			<camel:log message="\n\n Transforming ojb subscription to FBI NGI subscription format... \n\n"/>
 
 			<setHeader headerName="controlID"><camel:simple>bean:uuidGenerator?method=generateUUID</camel:simple></setHeader>	
 			
@@ -360,7 +359,7 @@
 						
 			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
 			
-			<camel:log message="\n\n Transformed ojb subscription to FBI EBTS NGI format: \n\n ${body} \n\n" />		
+			<camel:log message="\n\n Transformed ojb subscription to FBI EBTS NGI format \n\n" />		
 		</camel:route>				
 
 	</camel:camelContext>
