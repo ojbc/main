@@ -18,8 +18,6 @@
 
 -->
 
-<!-- Configures the Camel Context -->
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
@@ -48,39 +46,18 @@
 		<endpoint id="subscriptionReportingRequestAdapterEndpoint"
 			uri="cxf:bean:subscriptionReportingRequestAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionReportingService.cxflogging}" />
 
+
 		<!-- Subscription Reporting Service -->
-		<camel:route id="subscriptionReportingServiceRoute">
+		<camel:route errorHandlerRef="subscriptionReportErrorHandler" id="CallSubscriptionRecortingServiceAdapterRoute">
+			
 			<camel:from uri="subscriptionReportingRequestServiceEndpoint" />
 			
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-
-			<convertBodyTo type="java.lang.String" />
-
-			<camel:to uri="direct:callSubscriptionReportingAdapter" />
+			<camel:to uri="subscriptionReportingRequestAdapterEndpoint" />
 			
-		</camel:route>
-
-		<camel:route errorHandlerRef="subscriptionReportErrorHandler" id="CallSubscriptionRecortingServiceAdapterRoute">
-			<camel:from uri="direct:callSubscriptionReportingAdapter" />
-			<camel:setOutHeader headerName="operationName">
-				<camel:simple>${in.headers.operationName}</camel:simple>
-			</camel:setOutHeader>
-			<camel:setOutHeader headerName="operationNamespace">
-				<camel:simple>${in.headers.operationNamespace}</camel:simple>
-			</camel:setOutHeader>
-			
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
-			
-			<camel:log message="Inside route to call Subscription Reporting Adapter"/>
-			
-			<camel:to
-				uri="subscriptionReportingRequestAdapterEndpoint" />
-			<log message="Called subscription reporting adapter." />
 		</camel:route>
 		
 	</camel:camelContext>
-	
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
 	
 	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
 	
