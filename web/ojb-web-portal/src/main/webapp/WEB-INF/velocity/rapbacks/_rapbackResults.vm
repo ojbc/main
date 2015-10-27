@@ -60,6 +60,31 @@
         	oTable.draw();
     	} );
     	
+    	$('#searchResultsTable').on('click', 'a.subscribe',function() {
+    		$.get("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
+    		
+				if (data === 'success'){
+		    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+		    		
+						$('#portalContent').html(data);	
+						$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
+							    	
+			    			$('#filterColumn').html(data);
+			    			$('#filterColumn').css('visibility', 'visible');
+			    			 
+			    		}).fail(ojbc.displayFailMessage);
+													
+					}).fail(ojbc.displayFailMessage);
+									    
+					return false;
+				}
+				else{
+					$( "#searchResultsTable_wrapper" ).prepend( '<span class="error" id="informationMessages" >'+data+'</span>' );
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+    	});
+    	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
@@ -115,11 +140,11 @@
     
     <div style="padding:10px">
 		#if($informationMessages && $informationMessages!='')
-			<span class="error">
+			<span class="error" id="informationMessages" >
 				$informationMessages
 			</span><br/>
 		#end
-		$searchContent								
+		$rapbackSearchContent								
     </div>
     
 </div>

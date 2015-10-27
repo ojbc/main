@@ -347,9 +347,15 @@
 							</xsl:choose>
 						</ebts:RecordRapBackData>	
 						<ebts:RecordTransactionActivity>
-							<nc20:CaseTrackingID>
-								<xsl:value-of select="$originatingAgencyCaseNumber"/>
-							</nc20:CaseTrackingID>
+							<xsl:choose>
+								<xsl:when test="$action = 'cancelSubscription'"/>
+								<xsl:when test="$action = 'modifySubscription'"/>
+								<xsl:when test="$action = 'newSubscription'">
+									<nc20:CaseTrackingID>
+										<xsl:value-of select="$originatingAgencyCaseNumber"/>
+									</nc20:CaseTrackingID>
+								</xsl:when>
+							</xsl:choose>
 							<ebts:RecordControllingAgency>
                        			 <nc20:OrganizationIdentification>
                             			<nc20:IdentificationID>
