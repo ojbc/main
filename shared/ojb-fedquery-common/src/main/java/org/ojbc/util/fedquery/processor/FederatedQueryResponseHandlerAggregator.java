@@ -144,6 +144,10 @@ public class FederatedQueryResponseHandlerAggregator {
 				  }	  
 			}
 			
+			if (!endpointsThatDidNotRespond.isEmpty())
+			{
+				groupedExchange.getIn().setHeader("endpointsThatDidNotRespond", endpointsThatDidNotRespond);
+			}	
 			
 		}
 			
@@ -157,18 +161,12 @@ public class FederatedQueryResponseHandlerAggregator {
 			Exchange lastExchange = grouped.get(grouped.size() -1);
 			groupedExchange.getIn().setHeader("operationName", lastExchange.getIn().getHeader("operationName"));
 
-			if (!endpointsThatDidNotRespond.isEmpty())
-			{
-				groupedExchange.getIn().setHeader("endpointsThatDidNotRespond", endpointsThatDidNotRespond);
-			}	
-
 		}	
 		else
 		{
 			groupedExchange.getIn().setBody("<OJBAggregateResponseWrapper></OJBAggregateResponseWrapper>");
 		}	
-	    
-		
+
 	}
 
 	/**

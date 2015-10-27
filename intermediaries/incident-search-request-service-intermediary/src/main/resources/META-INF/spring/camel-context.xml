@@ -191,6 +191,10 @@
 
 				<log message="This is the completed aggregated body: ${body}" loggingLevel="DEBUG"/>
 				
+				<log message="This is the list of endpoints that did not respond: ${in.headers.endpointsThatDidNotRespond}"/>
+				
+				<to uri="bean:incidentSearchTimeoutProcessor?method=createErrorMessagesForEndpointsThatTimedOut"/>
+				
 				<camel:to uri="direct:processFederatedResponse"/>
 
 			</aggregate>
