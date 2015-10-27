@@ -47,15 +47,27 @@
 		
 		<route id="chConsolidateRoute">
 		
-			<from uri="chConsolidateServiceEndpoint"/>
+			<from uri="hostedChConsolidateServiceEndpoint"/>
 			
 			<log message="\n\n\n CH Consolidation route... \n\n\n" loggingLevel="INFO" />
-			
-			<camel:multicast>			
-				<camel:to uri=""/>
-				<to uri="rapbackDataStoreEndpoint"/>
+						
+			<camel:multicast>
+
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCriminalHistoryConsolidation</constant>
+				</camel:setHeader>
+				
+				<camel:setHeader headerName="operationNamespace">
+					<constant>http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0</constant>
+				</camel:setHeader>
+						
+				<to uri="subNotifyChConsolidateEndpoint" />
+										
+				<to uri="rapbackDataStoreChConsolidateEndpoint"/>
+				
 			</camel:multicast>								
-		</route>					 					  					    
+		</route>					 		
+					  					    
 	</camel:camelContext>	
 				
 </beans>
