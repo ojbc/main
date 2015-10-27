@@ -17,14 +17,13 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<submsg-doc:SubscriptionMessage 
+<svm:SubscriptionModificationMessage 
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
 	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
-	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xmlns:svm="http://ojbc.org/IEPD/Exchange/SubscriptionModificationMessage/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
-	<submsg-ext:FBISubscriptionModificationRequest>
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionModificationMessage/1.0 ../xsd/Subscription_Modification_Document.xsd">
 		<submsg-ext:Subject>
 			<j:PersonAugmentation>
 				<!-- sometimes called UCN -->
@@ -33,6 +32,12 @@
 				</j:PersonFBIIdentification>
 			</j:PersonAugmentation>
 		</submsg-ext:Subject>
+		<submsg-ext:FBISubscription>
+			<submsg-ext:SubscriptionFBIIdentification>
+				<nc20:IdentificationID>1234567</nc20:IdentificationID>
+			</submsg-ext:SubscriptionFBIIdentification>
+			<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
+		</submsg-ext:FBISubscription>
 		<submsg-ext:SubscriptionModification>
 			<nc20:DateRange>
 				<nc20:EndDate>
@@ -40,11 +45,4 @@
 				</nc20:EndDate>
 			</nc20:DateRange>
 		</submsg-ext:SubscriptionModification>
-		<submsg-ext:FBISubscription>
-			<submsg-ext:SubscriptionFBIIdentification>
-				<nc20:IdentificationID>1234567</nc20:IdentificationID>
-			</submsg-ext:SubscriptionFBIIdentification>
-			<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
-		</submsg-ext:FBISubscription>
-	</submsg-ext:FBISubscriptionModificationRequest>
-</submsg-doc:SubscriptionMessage>
+</svm:SubscriptionModificationMessage>
