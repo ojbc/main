@@ -117,7 +117,6 @@
 				</ebts:RecordRapBackData>
 				
 				<ebts:RecordTransactionActivity>
-					<nc20:CaseTrackingID>HCJDC-CASE</nc20:CaseTrackingID>
 					<ebts:RecordControllingAgency>
 		                <nc20:OrganizationIdentification>
 		                    <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
