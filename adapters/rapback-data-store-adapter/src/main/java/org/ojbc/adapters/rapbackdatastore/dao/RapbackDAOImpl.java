@@ -563,7 +563,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			+ "FROM identification_transaction t "
 			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 			+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
-			+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
+			+ "WHERE t.owner_ori = ? AND (select count(*)>0 from "
 			+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
 
 	@Override
