@@ -17,7 +17,8 @@
 package org.ojbc.web.portal.controllers;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
-import static org.ojbc.web.OjbcWebConstants.TOPICS_PERSON_CIVIL_ARREST;
+import static org.ojbc.web.OjbcWebConstants.TOPIC_PERSON_ARREST;
+import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -144,7 +145,7 @@ public class RapbackController {
 	public @ResponseBody String unsubscribe(HttpServletRequest request, @RequestParam String subscriptionId,
 			Map<String, Object> model) {
 		try {
-			Unsubscription unsubscription = new Unsubscription(subscriptionId, TOPICS_PERSON_CIVIL_ARREST, "I");
+			Unsubscription unsubscription = new Unsubscription(subscriptionId, TOPIC_PERSON_ARREST, CIVIL_SUBSCRIPTION_REASON_CODE);
 			try{
 				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlService.getSamlAssertion(request));
 				return "success";
@@ -205,8 +206,8 @@ public class RapbackController {
 		//TODO pass real emailAddresses. 
 		subscription.setEmailList(Arrays.asList(new String[]{"test@localhost"}));
 		
-		subscription.setSubscriptionType(TOPICS_PERSON_CIVIL_ARREST);
-		subscription.setSubscriptionPurpose("I");
+		subscription.setSubscriptionType(TOPIC_PERSON_ARREST);
+		subscription.setSubscriptionPurpose(CIVIL_SUBSCRIPTION_REASON_CODE);
 		
 		return subscription;
 	}

@@ -22,7 +22,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICAT
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
-import static org.ojbc.web.OjbcWebConstants.TOPICS_PERSON_CIVIL_ARREST;
+import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -377,7 +377,6 @@ public class RequestMessageBuilderUtilities {
 	public static Document createUnubscriptionRequest(Unsubscription unsubscription) throws Exception{
 		
 		String subscriptionIdentificationId = unsubscription.getSubscriptionId();
-		String reasonCode = unsubscription.getReasonCode();
 		
 		Document doc = OJBCXMLUtils.createDocument();
         Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Unsubscribe");
@@ -391,7 +390,8 @@ public class RequestMessageBuilderUtilities {
         Element identificationID = XmlUtils.appendElement(subscriptionIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
         identificationID.setTextContent(subscriptionIdentificationId);
                 
-        if (TOPICS_PERSON_CIVIL_ARREST.equals(unsubscription.getTopic())){
+		String reasonCode = unsubscription.getReasonCode();
+        if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
 	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
 	        reasonCodeElement.setTextContent(reasonCode);
         }

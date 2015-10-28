@@ -266,7 +266,7 @@ public class RapbackSearchProcessor {
 		else {
 			
 			Subscription subscription = identificationTransaction.getSubscription(); 
-			if (subscription != null){
+			if (subscription != null && subscription.getActive() == Boolean.TRUE){
 				return IdentificationTransactionState.Subscribed;
 			}
 			else{
