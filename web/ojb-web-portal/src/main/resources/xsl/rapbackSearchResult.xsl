@@ -96,17 +96,22 @@
 				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
 			</td>
 			<td align="right" width="115px">
-				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
+				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for subscription']" mode="unsubscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed']" mode="subscribed"/>
 				<a href="#" class="blueIcon" style="margin-right:3px" title="Notifications"><i class="fa fa-bell fa-lg"></i></a>
-				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentifier/nc:IdentificationID)}" 
+				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
 					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-text-o fa-lg"></i></a>
 			</td>
 		</tr>
 	</xsl:template>
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
-		<a href="#" class="blueIcon" style="margin-right:3px" title="Subscribe"><i class="fa fa-rss fa-lg"/></a>
+		<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-rss fa-lg"/>
+		</a>
 		<a href="#" class="blueIcon" style="margin-right:3px" title="Archive"><i class="fa fa-archive fa-lg"></i></a>
 	</xsl:template>
 	
@@ -115,7 +120,12 @@
 		<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">				
 			<a href="#" class="blueIcon" style="margin-right:3px" title="Validate"><i class="fa fa-check-circle fa-lg"/></a>
 		</xsl:if>
-		<a href="#" class="blueIcon" style="margin-right:3px" title="Unsubscribe"><i class="fa fa-times-circle fa-lg"></i></a>
+		<a href="#" class="blueIcon unsubscribe" style="margin-right:3px" title="Unsubscribe">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-times-circle fa-lg"></i>
+		</a>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">

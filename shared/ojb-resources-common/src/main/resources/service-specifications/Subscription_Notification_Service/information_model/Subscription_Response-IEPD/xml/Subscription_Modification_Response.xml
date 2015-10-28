@@ -17,16 +17,12 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	targetNamespace="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0" 
-	xmlns:subfltrsp-exch="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0" 
-	xmlns:subfltrsp-ext="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" 
-	elementFormDefault="qualified">
-	
-	<xsd:import namespace="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0" schemaLocation="Subscription_Fault_Response_Extension.xsd"/>
-	
-	<xsd:element name="SubscriptionFaultResponseMessage" type="subfltrsp-ext:SubscriptionFaultResponseMessageType"/>
-	<xsd:element name="SubscriptionValidationFaultResponseMessage" type="subfltrsp-ext:SubscriptionValidationFaultResponseMessageType"/>
-	<xsd:element name="SubscriptionModificationFaultResponseMessage" type="subfltrsp-ext:SubscriptionValidationFaultResponseMessageType"/>
-	
-</xsd:schema>
+<submresp-exch:SubscriptionModificationResponseMessage 
+	xmlns:submresp-exch="http://ojbc.org/IEPD/Exchange/Subscription_Modification_Response/1.0" 
+	xmlns:subresp-ext="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/Subscription_Modification_Response/1.0 ../xsd/Subscription_Modification_Response.xsd ">
+  <subresp-ext:SubscriptionValidatedIndicator>true</subresp-ext:SubscriptionValidatedIndicator>
+</submresp-exch:SubscriptionModificationResponseMessage>

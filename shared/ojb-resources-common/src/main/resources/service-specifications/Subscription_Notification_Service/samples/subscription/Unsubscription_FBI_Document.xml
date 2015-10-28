@@ -41,10 +41,10 @@
 			</j:PersonAugmentation>
 		</submsg-ext:Subject>
 		<submsg-ext:RelatedFBISubscription>
-			<submsg-ext:SubscriptionFBIIdentification>
-				<nc20:IdentificationID>987654321</nc20:IdentificationID>
-			</submsg-ext:SubscriptionFBIIdentification>
-		</submsg-ext:RelatedFBISubscription>
+		<submsg-ext:SubscriptionFBIIdentification>
+			<nc20:IdentificationID>987654321</nc20:IdentificationID>
+		</submsg-ext:SubscriptionFBIIdentification>
+	</submsg-ext:RelatedFBISubscription>
 	</unsubmsg-doc:UnsubscriptionMessage>
 	<b-2:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b-2:TopicExpression>
 </b-2:Unsubscribe>

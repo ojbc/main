@@ -123,6 +123,13 @@
    <wsdl:message name="ValidateResponse" >
      <wsdl:part name="ValidateResponse" element="wsnt:ValidateResponse"/>
    </wsdl:message>
+   
+   <wsdl:message name="ModifyRequest" >
+     <wsdl:part name="ModifyRequest" element="wsnt:Modify"/>
+   </wsdl:message>
+   <wsdl:message name="ModifyResponse" >
+     <wsdl:part name="ModifyResponse" element="wsnt:ModifyResponse"/>
+   </wsdl:message>
 
 <!-- ========== NotificationProducer::GetCurrentMessage =========== 
   GetCurrentMessage(topicExpression)
@@ -254,11 +261,16 @@
             element="wsnt:UnableToDestroySubscriptionFault" />
    </wsdl:message>
    
-   <!-- OJBC-specific message -->
+   <!-- OJBC-specific messages -->
    
    <wsdl:message name="UnableToValidateSubscriptionFault">
       <wsdl:part name="UnableToValidateSubscriptionFault"
             element="wsnt:UnableToValidateSubscriptionFault" />
+   </wsdl:message>
+   
+   <wsdl:message name="UnableToModifySubscriptionFault">
+      <wsdl:part name="UnableToValidateSubscriptionFault"
+            element="wsnt:UnableToModifySubscriptionFault" />
    </wsdl:message>
 
 <!-- ========== SubscriptionManager::PauseSubscription ============
@@ -458,6 +470,13 @@
                       message="wsrf-rw:ResourceUnknownFault" />
          <wsdl:fault  name="UnableToValidateSubscriptionFault" message="wsntw:UnableToValidateSubscriptionFault" />        
       </wsdl:operation> 
+      <wsdl:operation name="Modify">
+         <wsdl:input  message="wsntw:ModifyRequest"/>
+         <wsdl:output message="wsntw:ModifyResponse"/>
+         <wsdl:fault  name="ResourceUnknownFault" 
+                      message="wsrf-rw:ResourceUnknownFault" />
+         <wsdl:fault  name="UnableToModifySubscriptionFault" message="wsntw:UnableToModifySubscriptionFault" />        
+      </wsdl:operation>
    </wsdl:portType>
 
 

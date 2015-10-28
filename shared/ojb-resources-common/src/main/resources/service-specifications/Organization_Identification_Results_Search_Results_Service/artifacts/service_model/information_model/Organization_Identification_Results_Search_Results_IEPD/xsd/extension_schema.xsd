@@ -35,6 +35,8 @@
 				<xsd:sequence>
 					<xsd:element ref="oirs-res-ext:OrganizationIdentificationResultsSearchResult" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
+					<xsd:element ref="nc:EntityOrganization" minOccurs="0"/>
+					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -72,6 +74,7 @@
 					<xsd:element ref="wsn-br:Topic"/>
 					<xsd:element ref="oirs-res-ext:SubscriptionValidation" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SubscriptionGracePeriod" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:SubscriptionIdentification"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -79,6 +82,11 @@
 	<xsd:element name="Subscription" type="oirs-res-ext:SubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>A subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier for a subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionValidation" type="oirs-res-ext:SubscriptionValidationType">
@@ -202,24 +210,6 @@
 	<xsd:element name="SubscriptionOriginator">
 		<xsd:annotation>
 			<xsd:documentation>An entity that created the subscription.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:complexType name="SubscribedEntityContactInformationAssociationType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a relationship between a subscribed entity and contact information.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="nc:AssociationType">
-				<xsd:sequence>
-					<xsd:element ref="oirs-res-ext:SubscribedEntity"/>
-					<xsd:element ref="nc:ContactInformation"/>
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:element name="SubscribedEntityContactInformationAssociation">
-		<xsd:annotation>
-			<xsd:documentation>A relationship between a subscribed entity and contact information.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IdentificationResultStatusRepresentation" abstract="true">

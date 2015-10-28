@@ -24,10 +24,10 @@ import org.w3c.dom.Document;
 public class FaultableSoapResponse {
 	
 	private Exception exception;
-	
 	private String soapResponse;
-	
 	private Document soapBodyDoc;
+	private boolean success;
+	private String errorMessage;
 	
 	public FaultableSoapResponse() {	
 	}
@@ -44,6 +44,8 @@ public class FaultableSoapResponse {
 		this.exception = exception;
 		this.soapResponse = soapResponse;
 		this.soapBodyDoc = soapBodyDoc;
+		this.success = (exception == null);
+		
 	}
 
 	public Exception getException() {
@@ -75,6 +77,22 @@ public class FaultableSoapResponse {
 		return "FaultableSoapResponse [exception=" + exception
 				+ ", soapResponse=" + soapResponse + ", soapBodyDoc="
 				+ soapBodyDoc + "]";
+	}
+
+	public boolean isSuccess() {
+		return success;
+	}
+
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 }
