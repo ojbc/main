@@ -54,7 +54,9 @@ import org.springframework.jdbc.support.KeyHolder;
  */
 public class SubscriptionSearchQueryDAO {
 
-    private static final String BASE_QUERY_STRING = "select s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subjectName, "
+    private static final String CIVIL_SUBSCRIPTION_REASON_CODE = "I";
+
+	private static final String BASE_QUERY_STRING = "select s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subjectName, "
                     + " si.identifierName, s.subscription_category_code, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType "
                     + " from subscription s, notification_mechanism nm, subscription_subject_identifier si where nm.subscriptionId = s.id and si.subscriptionId = s.id ";
 
@@ -417,9 +419,15 @@ public class SubscriptionSearchQueryDAO {
 
         }
 
+        if (ret != null && CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCategoryCode)){
+        	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_SUBSCRIPTION_ID_UPDATE, ret, agencyCaseNumber);
+        }
         return ret;
 
     }
+    
+    private final String IDENTIFICATION_TRANSACTION_SUBSCRIPTION_ID_UPDATE = "UPDATE identification_transaction "
+    		+ "SET subscription_id = ? WHERE transaction_number = ? ";
     
     public int unsubscribe(String subscriptionSystemId, String topic, Map<String, String> subjectIds, String systemName, String subscriptionOwner) {
 

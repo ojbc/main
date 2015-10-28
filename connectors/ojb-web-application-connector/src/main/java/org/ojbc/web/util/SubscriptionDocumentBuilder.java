@@ -17,7 +17,7 @@
 package org.ojbc.web.util;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getUniqueId;
-import static org.ojbc.web.OjbcWebConstants.TOPICS_PERSON_CIVIL_ARREST;
+import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -156,17 +156,17 @@ public class SubscriptionDocumentBuilder {
 		
 	private void buildSubscriptionReasonCodeElement(Element parentElement){
 
-		String subReasonCode = subscription.getSubscriptionPurpose();
+		String subscriptionReasonCode = subscription.getSubscriptionPurpose();
 		
-		if(StringUtils.isNotEmpty(subReasonCode)){
+		if(StringUtils.isNotEmpty(subscriptionReasonCode)){
 		
-			if (TOPICS_PERSON_CIVIL_ARREST.equals(subscription.getSubscriptionType())){
+			if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(subscriptionReasonCode)){
 				Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
-				subReasonCodeElement.setTextContent(subReasonCode);
+				subReasonCodeElement.setTextContent(subscriptionReasonCode);
 			}
 			else{
 				Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
-				subReasonCodeElement.setTextContent(subReasonCode);
+				subReasonCodeElement.setTextContent(subscriptionReasonCode);
 			}
 		}
 	}
