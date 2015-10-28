@@ -30,6 +30,8 @@ insert into subscription(id, topic, startDate, endDate, lastValidationDate, subs
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62725','{http://ojbc.org/wsn/topics}:person/civilArrest', '2015-09-19', '2016-10-19', '2015-09-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'Lisa W Simpson', '1');
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62726','{http://ojbc.org/wsn/topics}:person/civilArrest', '2015-10-16', '2016-10-19', '2015-10-16', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'Bart Simpson', '1');
 
+insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62727','{http://ojbc.org/wsn/topics}:person/civilArrest', '2015-10-16', '2016-10-19', '2015-10-16', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'PortalUnsubscribe FbiUcnTest', '1');
+
 insert into notification_mechanism(subscriptionId,notificationMechanismType,notificationAddress) values('62721', 'email', 'email4@email.com');
 insert into notification_mechanism(subscriptionId,notificationMechanismType,notificationAddress) values('62721', 'email', 'email101@email.com');
 
@@ -113,6 +115,10 @@ insert into IDENTIFICATION_SUBJECT(subject_id, ucn, civil_sid, criminal_sid, dob
 	values ('3', '9222201','A123459', 'C1234569', '1989-10-12', 'Lisa', 'Simpson', 'W','F');
 insert into IDENTIFICATION_SUBJECT(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
 	values ('4', '9222202','A023460', 'C0234569', '1960-10-12', 'Homer', 'Simpson', '','M');
+	
+insert into IDENTIFICATION_SUBJECT(subject_id, ucn, civil_sid, criminal_sid, dob, first_name, last_name, middle_initial, sex_code) 
+	values ('5', '1234','A123459', 'C1234569', '1989-10-12', 'Unsubscribe', 'FbiUcnTest', 'W','F');	
+	
 
 insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID) 
 	values ('000001820140729014008339990', '1', '0400024', '68796860', 'ID12345', 'I', 'false', '62724');
@@ -128,6 +134,9 @@ insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWN
 	values ('000001820140729014008339996', '2', '12344', '1234567890', 'ID12345', 'I', 'false', '62726');
 insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED) 
 	values ('000001820140729014008339997', '4', '0400026', '1234567890', 'ID12345', 'I', 'false');
+	
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID) 
+	values ('000001820140729014008339998', '5', '0400025', '1234567890', 'ID12345', 'I', 'false', '62727');	
 
 /*http://stackoverflow.com/questions/2607326/insert-a-blob-via-a-sql-script*/
 insert into CIVIL_FINGER_PRINTS (TRANSACTION_NUMBER, FINGER_PRINTS_FILE, FINGER_PRINTS_TYPE_ID) 
@@ -213,10 +222,16 @@ insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_cod
 	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
 values
 	('fbiSubscriptionId_2', 'CI', '2', '2015-12-19','2016-12-19', '2014-10-19', false, '1', 
-	'074644NG0', {ts '2014-10-19 18:47:52.69'});			
+	'074644NG0', {ts '2014-10-19 18:47:52.69'});	
+	
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date, 
 	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
 values
 	('fbiSubscriptionId_3', 'CI', '5', '2015-12-19', '2019-12-19', '2014-10-19', false, '2', 
 	'9222201', {ts '2014-10-19 18:47:52.69'});			
 	
+insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date,
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
+values
+	('UnsubscribeFbiUcnIdTest', 'CI', '2', '2015-12-19','2016-12-19', '2014-10-19', false, '1', 
+	'1234', {ts '2014-10-19 18:47:52.69'});		

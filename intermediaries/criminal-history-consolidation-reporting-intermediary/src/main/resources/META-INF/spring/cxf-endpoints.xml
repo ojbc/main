@@ -42,35 +42,66 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        ">
        
-    <camel:endpoint id="chConsolidateServiceEndpoint" 
-    	uri="cxf:bean:chConsolidateService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.cxfLogging}"/>                        
+    <camel:endpoint id="hostedChConsolidateServiceEndpoint" 
+    	uri="cxf:bean:hostedChConsolidateService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.cxfLogging}"/>                        
     
-    <camel:endpoint id="rapbackDataStoreEndpoint" 
-    	uri="cxf:bean:identificationInitialResultsQueryRequestService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.cxfLogging}" />
-        
-	<cxf:cxfEndpoint id="chConsolidateService"
-		address="${chConsolidate.endpoint}"
-		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
-		serviceName="ojb:Criminal-History-Consolidation-Reporting-ServiceService" 
-		endpointName="ojb:Criminal-History-Consolidation-Reporting-Secure-Service"
-		xmlns:ojb="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
-	</cxf:cxfEndpoint>
-	
+    <camel:endpoint id="subNotifyChConsolidateEndpoint" 
+    	uri="cxf:bean:subNotifyChConsolidateReportService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.cxfLogging}" />
+    
+    <camel:endpoint id="rapbackDataStoreChConsolidateEndpoint" 
+    	uri="cxf:bean:rapBackChConsolidateReportService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.cxfLogging}" />
+             
+             
+    <!-- Hosted by this intermediary - called by a requester -->            
     <cxf:cxfEndpoint 
-        id="identificationInitialResultsQueryRequestService"
-        address="${chConsolidate.rabackDatastore.endpoint}"
-		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Request_Service.wsdl"
-		serviceName="ojbc:Organization_Identification_Results_Query_Request_Service_Service" 
-		endpointName="ojbc:Organization_Identification_Results_Query_Request_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryRequestService/1.0">
+        id="hostedChConsolidateService"
+        address="${chConsolidate.hostedchConsolidateServiceEndpoint}" 
+		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="chConsolidateKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${chConsolidate.keystoreCertificateAlias}" /> 
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>	        
+        
+        
+	<!-- Hosted by s/n intermediary.  Called by this Consolidation Reporting intermediary -->        
+    <cxf:cxfEndpoint 
+        id="subNotifyChConsolidateReportService"
+        address="${chConsolidate.subNotifyChConsolidateReportEndpoint}" 
+		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="chConsolidateKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${chConsolidate.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 		</cxf:properties>
-    </cxf:cxfEndpoint>			
+    </cxf:cxfEndpoint>
+
+    <!-- Hosted by Rapback Adapter.  Called by this Consolidation Reporting intermediary -->
+    <cxf:cxfEndpoint 
+        id="rapBackChConsolidateReportService"
+        address="${chConsolidate.rapBackChConsolidateReportSecureEndpoint}" 
+		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="chConsolidateKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${chConsolidate.keystoreCertificateAlias}" /> 
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>	
 	
-	
+		
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
@@ -78,6 +109,8 @@
             </map>
         </property>
 	</bean>   
+   
+   <bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator" />
    
 	<util:properties id="chConsolidateKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
