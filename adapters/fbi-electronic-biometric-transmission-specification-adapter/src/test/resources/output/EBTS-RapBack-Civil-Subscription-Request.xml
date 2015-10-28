@@ -115,6 +115,8 @@
                           <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
                       </nc20:OrganizationIdentification>
 		         	</ansi-nist:RecordForwardOrganizations>
+		         	
+		         	<ebts:RecordRapBackSubscriptionTerm>L</ebts:RecordRapBackSubscriptionTerm>
 			
 					<ebts:RecordRapBackTriggeringEventCode>1</ebts:RecordRapBackTriggeringEventCode>
 					

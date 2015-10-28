@@ -90,6 +90,8 @@
 	<xsl:param name="transactionContentSummaryContentRecordCountCriminal"/>
 	<xsl:param name="transactionContentSummaryContentRecordCountCivil"/>
 	
+	<xsl:param name="civilRapBackSubscriptionTerm"/>
+	
 	<!-- TODO: These are pending feedback from HCJDC and FBI -->
 	<xsl:param name="fingerprintImage">XXX</xsl:param>
 	<xsl:param name="captureResolutionCode">1</xsl:param>
@@ -327,6 +329,12 @@
 		                     </ansi-nist:RecordForwardOrganizations>
 		                     
 		                     <!-- TODO: civil sample shows "RecordRapBackSubscriptionTerm", but documentation shows this as optional -->
+		                     
+		                     <xsl:if test="$action = 'newSubscription' and $subscriptionCategory='civil'">
+		                     	<ebts:RecordRapBackSubscriptionTerm>
+		                     		<xsl:value-of select="$civilRapBackSubscriptionTerm"/>
+		                     	</ebts:RecordRapBackSubscriptionTerm>
+		                     </xsl:if>
 		                     
 		                     <xsl:apply-templates select="/*/*/submsg-ext:RelatedFBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID" mode="fbiSubscriptionID"/>
 														

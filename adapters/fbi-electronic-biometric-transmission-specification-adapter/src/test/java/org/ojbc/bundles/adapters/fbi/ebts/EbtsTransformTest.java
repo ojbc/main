@@ -229,7 +229,8 @@ public class EbtsTransformTest {
 		xsltParamMap.put("transactionContentSummaryContentFirstRecordCategoryCode", "1");
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCriminal", "01");					
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");				
-		xsltParamMap.put("rapBackDisclosureIndicator", "false");	
+		xsltParamMap.put("rapBackDisclosureIndicator", "false");
+		xsltParamMap.put("civilRapBackSubscriptionTerm", "L");
 		
 		return xsltParamMap;
 	}
