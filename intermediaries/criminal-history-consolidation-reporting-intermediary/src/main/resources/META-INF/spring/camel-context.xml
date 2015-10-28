@@ -40,33 +40,54 @@
        http://www.springframework.org/schema/util
 	   http://www.springframework.org/schema/util/spring-util.xsd
        ">
+       
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" streamCache="true">
 		
-		<route id="chConsolidateRoute">
+		
+		<route id="testProcessChConsolidation_route">
+				
+			<from uri="chConsolidateInputMessageDirEndpoint"/>
+			
+			<log message="\n\n\n File Drop test route... \n\n\n" />
+			
+			<to uri="direct:processChConsolidation"/>			
+		</route>
+		
+		
+		<route id="webservice_processChConsolidation_route">
 		
 			<from uri="hostedChConsolidateServiceEndpoint"/>
 			
+			<log message="\n\n\n testProcessChConsolidation_route...  \n\n\n" />
+			
+			<to uri="direct:processChConsolidation"/>		
+		</route>
+		
+		
+		
+		<route id="processChConsolidation_route">
+		
+			<from uri="direct:processChConsolidation" />
+			
 			<log message="\n\n\n CH Consolidation route... \n\n\n" loggingLevel="INFO" />
+			
+			<camel:setHeader headerName="operationName">
+				<constant>ReportCriminalHistoryConsolidation</constant>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0</constant>
+			</camel:setHeader>
 						
-			<camel:multicast>
-
-				<camel:setHeader headerName="operationName">
-					<constant>ReportCriminalHistoryConsolidation</constant>
-				</camel:setHeader>
-				
-				<camel:setHeader headerName="operationNamespace">
-					<constant>http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0</constant>
-				</camel:setHeader>
+			<camel:multicast>						
+				<to uri="subNotifyChConsolidateEndpoint" />										
+				<to uri="rapbackDataStoreChConsolidateEndpoint"/>				
+			</camel:multicast>					
 						
-				<to uri="subNotifyChConsolidateEndpoint" />
-										
-				<to uri="rapbackDataStoreChConsolidateEndpoint"/>
-				
-			</camel:multicast>								
-		</route>					 		
+		</route>
 					  					    
 	</camel:camelContext>	
 				

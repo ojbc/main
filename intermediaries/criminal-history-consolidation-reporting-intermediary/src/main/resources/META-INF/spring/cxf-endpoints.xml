@@ -42,6 +42,11 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        ">
        
+       
+	<!-- alternative endpoint for testing: file system message input directory -->
+	<camel:endpoint id="chConsolidateInputMessageDirEndpoint" 
+		uri="file://{{chConsolidate.messageDirectory}}/input?idempotent=true&amp;moveFailed={{chConsolidate.messageDirectory}}/error&amp;move={{chConsolidate.messageDirectory}}/processed/" />       
+       
     <camel:endpoint id="hostedChConsolidateServiceEndpoint" 
     	uri="cxf:bean:hostedChConsolidateService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidate.cxfLogging}"/>                        
     
