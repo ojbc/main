@@ -17,6 +17,7 @@
 package org.ojbc.web.portal.controllers;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
+import static org.ojbc.web.OjbcWebConstants.TOPICS_PERSON_CIVIL_ARREST;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -34,6 +35,7 @@ import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.model.IdentificationResultsQueryResponse;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.web.model.subscription.Unsubscription;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.portal.controllers.config.RapbackControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
@@ -55,7 +57,7 @@ import org.w3c.dom.Node;
 
 @Controller
 @Profile({"rapback-search","initial-results-query","standalone"})
-@SessionAttributes({"rapbackSearchResults", "rapbackSearchContent", "criminalIdentificationSearchResults"})
+@SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
 	
@@ -122,7 +124,7 @@ public class RapbackController {
 	public @ResponseBody String subscribe(HttpServletRequest request, @RequestParam String transactionNumber,
 			Map<String, Object> model) {
 		try {
-			Subscription subscription = getSubscription(transactionNumber, model);
+			Subscription subscription = buildSubscription(transactionNumber, model);
 			FaultableSoapResponse faultableSoapResponse = callSubscribeService(subscription, samlService.getSamlAssertion(request));
 			
 			if (faultableSoapResponse.isSuccess()){
@@ -132,6 +134,24 @@ public class RapbackController {
 				model.put("informationMessages", faultableSoapResponse.getException().getMessage());
 				return faultableSoapResponse.getException().getMessage() + ", please report the error try again later.";
 			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return ex.getMessage() + ", please report the error and try again later.";
+		}
+	}
+	
+	@RequestMapping(value = "unsubscribe", method = RequestMethod.GET)
+	public @ResponseBody String unsubscribe(HttpServletRequest request, @RequestParam String subscriptionId,
+			Map<String, Object> model) {
+		try {
+			Unsubscription unsubscription = new Unsubscription(subscriptionId, TOPICS_PERSON_CIVIL_ARREST, "I");
+			try{
+				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlService.getSamlAssertion(request));
+				return "success";
+			}catch(Exception e){
+				e.printStackTrace();
+				return (e.getMessage() + ", please report the error and try again later. ");
+			}														
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return ex.getMessage() + ", please report the error and try again later.";
@@ -157,7 +177,7 @@ public class RapbackController {
 	}
 	
 
-	private Subscription getSubscription(String transactionNumber, Map<String, Object> model) throws Exception {
+	private Subscription buildSubscription(String transactionNumber, Map<String, Object> model) throws Exception {
 		String rapbackSearchResults = (String) model.get("rapbackSearchResults");
 		Document rapbackSearchResultsDoc = DocumentUtils.getDocumentFromXmlString(rapbackSearchResults); 
 		Node organizationIdentificationResultsSearchResult = 
@@ -185,7 +205,9 @@ public class RapbackController {
 		//TODO pass real emailAddresses. 
 		subscription.setEmailList(Arrays.asList(new String[]{"test@localhost"}));
 		
-		subscription.setSubscriptionType("topics:person/civilArrest");
+		subscription.setSubscriptionType(TOPICS_PERSON_CIVIL_ARREST);
+		subscription.setSubscriptionPurpose("I");
+		
 		return subscription;
 	}
 

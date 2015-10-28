@@ -16,11 +16,16 @@
  */
 package org.ojbc.web.util;
 
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
+import static org.ojbc.web.OjbcWebConstants.TOPICS_PERSON_CIVIL_ARREST;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static org.ojbc.util.xml.OjbcNamespaceContext.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -373,7 +378,6 @@ public class RequestMessageBuilderUtilities {
 		
 		String subscriptionIdentificationId = unsubscription.getSubscriptionId();
 		String reasonCode = unsubscription.getReasonCode();
-		String topic = unsubscription.getTopic();
 		
 		Document doc = OJBCXMLUtils.createDocument();
         Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Unsubscribe");
@@ -387,12 +391,18 @@ public class RequestMessageBuilderUtilities {
         Element identificationID = XmlUtils.appendElement(subscriptionIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
         identificationID.setTextContent(subscriptionIdentificationId);
                 
-        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
-        reasonCodeElement.setTextContent(reasonCode);        
+        if (TOPICS_PERSON_CIVIL_ARREST.equals(unsubscription.getTopic())){
+	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
+	        reasonCodeElement.setTextContent(reasonCode);
+        }
+        else{
+	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
+	        reasonCodeElement.setTextContent(reasonCode);
+        }
         
 		Element topicExpNode = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_B2, "TopicExpression");		
 		XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);		
-		topicExpNode.setTextContent(topic);
+		topicExpNode.setTextContent(unsubscription.getTopic());
 		
 		OjbcNamespaceContext ojbNamespaceCtxt = new OjbcNamespaceContext();
 		ojbNamespaceCtxt.populateRootNamespaceDeclarations(doc.getDocumentElement());

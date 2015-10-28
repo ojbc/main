@@ -122,7 +122,7 @@
 		</xsl:if>
 		<a href="#" class="blueIcon unsubscribe" style="margin-right:3px" title="Unsubscribe">
 			<xsl:attribute name="id">
-				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
 			<i class="fa fa-times-circle fa-lg"></i>
 		</a>
