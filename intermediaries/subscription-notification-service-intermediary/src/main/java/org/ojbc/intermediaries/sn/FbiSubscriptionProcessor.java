@@ -181,7 +181,7 @@ public class FbiSubscriptionProcessor {
 				"/b-2:Subscribe/submsg-exch:SubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");								
 		
 		String subPurposeCategory = XmlUtils.xPathStringSearch(subscriptionDoc,
-				"/b-2:Subscribe/submsg-exch:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");
+				"/b-2:Subscribe/submsg-exch:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode|/b-2:Subscribe/submsg-exch:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode");
 						
 		Document rSubscriptionDoc = subscriptionDoc;
 		
