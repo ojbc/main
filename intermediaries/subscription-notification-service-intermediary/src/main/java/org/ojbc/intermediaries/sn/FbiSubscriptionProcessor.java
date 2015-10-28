@@ -85,6 +85,12 @@ public class FbiSubscriptionProcessor {
 		
 		Document unsubscribeDoc = exchange.getIn().getBody(Document.class);
 		
+		String reasonCode = getReasonCodeFromUnsubscribeDoc(unsubscribeDoc);
+		
+		if(StringUtils.isEmpty(reasonCode)){
+			throw new Exception("Reason Code not specified. Can't determine if shouldDeleteFbiSubscription.");
+		}
+		
 		String personFbiUcnId = getPersonFbiUcnIdFromUnsubscribeDoc(unsubscribeDoc);
 				
 		if(StringUtils.isEmpty(personFbiUcnId)){
@@ -100,7 +106,7 @@ public class FbiSubscriptionProcessor {
 			
 			logger.info("\n\n\n Using FBI Id: " + personFbiUcnId + "\n\n\n");
 		
-			int countStateSubscriptionsWithFbiUcnId = rapbackDao.countStateSubscriptionsHavingFbiUcnId(personFbiUcnId);
+			int countStateSubscriptionsWithFbiUcnId = rapbackDao.countStateSubscriptions(personFbiUcnId, reasonCode);
 			
 			logger.info("\n\n\n State Subscription Count: " + countStateSubscriptionsWithFbiUcnId + " \n\n\n");
 			
