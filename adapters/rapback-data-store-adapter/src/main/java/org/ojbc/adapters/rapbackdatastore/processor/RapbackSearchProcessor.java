@@ -221,7 +221,7 @@ public class RapbackSearchProcessor {
 		appendDateElement(subscription.getStartDate(), activityDateRange, "StartDate", NS_NC_30);
 		appendDateElement(subscription.getEndDate(), activityDateRange, "EndDate", NS_NC_30);
 		
-		appendTopicElement(subscriptionElement);
+		appendTopicElement(subscription.getTopic(), subscriptionElement);
 		
 		appendValidationDueDate(subscription.getValidationDueDate(), subscriptionElement);
 		appendSubscriptionId(subscription.getId(), subscriptionElement);
@@ -235,10 +235,10 @@ public class RapbackSearchProcessor {
 		identificationId.setTextContent(String.valueOf(id));
 	}
 
-	private void appendTopicElement(Element subscriptionElement) {
+	private void appendTopicElement(String topicValue, Element subscriptionElement) {
 		Element topic = XmlUtils.appendElement(subscriptionElement, NS_WSN_BROKERED, "Topic");
 		topic.setAttribute("Dialect", TOPIC_DIALECT);
-		topic.setTextContent("{http://ojbc.org/wsn/topics}:person/civilArrest");
+		topic.setTextContent(topicValue);
 	}
 
 	private void appendValidationDueDate(DateTime validationDueDate,
