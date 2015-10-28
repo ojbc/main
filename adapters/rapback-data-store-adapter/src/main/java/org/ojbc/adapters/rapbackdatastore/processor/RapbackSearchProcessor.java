@@ -224,7 +224,15 @@ public class RapbackSearchProcessor {
 		appendTopicElement(subscriptionElement);
 		
 		appendValidationDueDate(subscription.getValidationDueDate(), subscriptionElement);
+		appendSubscriptionId(subscription.getId(), subscriptionElement);
 		
+	}
+
+	private void appendSubscriptionId(long id, Element subscriptionElement) {
+		Element subscriptionIdentification = 
+				XmlUtils.appendElement(subscriptionElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "SubscriptionIdentification");
+		Element identificationId = XmlUtils.appendElement(subscriptionIdentification, NS_NC_30, "IdentificationID");
+		identificationId.setTextContent(String.valueOf(id));
 	}
 
 	private void appendTopicElement(Element subscriptionElement) {
