@@ -79,11 +79,20 @@
 					return false;
 				}
 				else{
-					$( "#searchResultsTable_wrapper" ).prepend( '<span class="error" id="informationMessages" >'+data+'</span>' );
+					showErrorMessage(data);
 				}	
 																      
 			}).fail(ojbc.displayFailMessage);
     	});
+    	
+    	function showErrorMessage(data){
+			if ( $( "#informationMessages" ).length ) {
+			    $( "#informationMessages" ).html(data);
+			}
+			else {
+				$( "#searchResultsTable_wrapper" ).prepend( '<span class="error" id="informationMessages" >'+data+'</span>' );
+			}
+    	}
     	
     	$('#searchResultsTable').on('click', 'a.unsubscribe',function() {
     		$.get("#springUrl('/rapbacks/unsubscribe')", {subscriptionId: $(this).attr("id")}, function(data) {
@@ -104,7 +113,7 @@
 					return false;
 				}
 				else{
-					$( "#searchResultsTable_wrapper" ).prepend( '<span class="error" id="informationMessages" >'+data+'</span>' );
+					showErrorMessage(data);
 				}	
 																      
 			}).fail(ojbc.displayFailMessage);
