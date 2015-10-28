@@ -17,5 +17,5 @@ package org.ojbc.web;
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 public class OjbcWebConstants {
-	public static final String TOPICS_PERSON_CIVIL_ARREST = "topics:person/civilArrest";
+	public static final String TOPICS_PERSON_CIVIL_ARREST = "{http://ojbc.org/wsn/topics}:person/civilArrest";
 }
