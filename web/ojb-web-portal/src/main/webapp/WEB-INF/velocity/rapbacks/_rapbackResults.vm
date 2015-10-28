@@ -21,7 +21,7 @@
 	$.fn.dataTable.ext.search.push(
 	    function( settings, data, dataIndex ) {
 	        var filter = $('#rapbacksFilter').val();
-	        var status = data[5] ; // use data for the age column
+	        var status = data[5] ; // use data for the status column
 	 
 	        if ( ( !filter || filter ==='') ||
 	             ( filter != status ))
