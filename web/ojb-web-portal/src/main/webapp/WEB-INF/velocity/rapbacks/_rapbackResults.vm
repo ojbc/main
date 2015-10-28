@@ -86,7 +86,7 @@
     	});
     	
     	$('#searchResultsTable').on('click', 'a.unsubscribe',function() {
-    		$.get("#springUrl('/rapbacks/unsubscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
+    		$.get("#springUrl('/rapbacks/unsubscribe')", {subscriptionId: $(this).attr("id")}, function(data) {
     		
 				if (data === 'success'){
 		    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
