@@ -113,11 +113,11 @@ public class RapbackDAOImplTest {
 		Integer subjectId = rapbackDAO.saveSubject(subject); 
 		
 		assertNotNull(subjectId);
-		assertEquals(5, subjectId.intValue()); 
+		assertEquals(6, subjectId.intValue()); 
 		
 		Subject persistedSubject = rapbackDAO.getSubject(subjectId); 
 		log.info(persistedSubject.toString());
-		assertEquals(Integer.valueOf(5), persistedSubject.getSubjectId());
+		assertEquals(Integer.valueOf(6), persistedSubject.getSubjectId());
 		assertEquals("1969-05-12", persistedSubject.getDob().toString("yyyy-MM-dd"));
 		assertEquals("B1234567", persistedSubject.getUcn());
 		assertNull(persistedSubject.getCriminalSid());
