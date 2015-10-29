@@ -237,6 +237,9 @@ values
 	'1234', {ts '2014-10-19 18:47:52.69'});	
 	
 insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION ) values ('1', '1234567890', 'Demo Agency', 'true'); 
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION ) values ('2', '68796860', 'Test Agency', 'true'); 
 
 insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('1', '1', 'demo.agency@localhost'); 
 insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('2', '1', 'demo.agency2@localhost'); 	
+insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('3', '2', 'test.agency@localhost'); 
+insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('4', '2', 'test.agency2@localhost'); 	
