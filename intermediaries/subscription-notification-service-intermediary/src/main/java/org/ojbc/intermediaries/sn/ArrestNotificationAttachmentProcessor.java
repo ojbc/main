@@ -16,6 +16,8 @@
  */
 package org.ojbc.intermediaries.sn;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.camel.Body;
@@ -47,11 +49,19 @@ public class ArrestNotificationAttachmentProcessor {
 		SubsequentResults subsequentResult = new SubsequentResults(); 
 		subsequentResult.setRapSheet(MtomUtils.getAttachment(exchange, null, attachmentHref));
 		
-		String fbiSubscriptionId = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:RelatedFBISubscription/notfm-ext:RecordRapBackSubscriptionIdentification/nc:IdentificationID");
-		subsequentResult.setFbiSubscriptionId(fbiSubscriptionId);
+		String civilSid = XmlUtils.xPathStringSearch(notificationMessageNode, "jxdm41:Person[@s:id = ../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]"
+				+ "/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+		List<String> fbiSubscriptionIds = rapbackDao.getFbiSubscriptionIds(civilSid);
 		
-		//TODO persist the attachment only when there is at least one active state subscription. -hw. 
-		rapbackDao.saveSubsequentResults(subsequentResult);
+		if (fbiSubscriptionIds.size() > 0){
+			for (String fbiSubscriptionId : fbiSubscriptionIds ){
+				subsequentResult.setFbiSubscriptionId(fbiSubscriptionId);
+				rapbackDao.saveSubsequentResults(subsequentResult);
+			}
+		}
+		else{
+			log.info("No valid FBI subscription found for the civil SID, the arrest notification attachment is not persisted");
+		}
 	}
 
 }
