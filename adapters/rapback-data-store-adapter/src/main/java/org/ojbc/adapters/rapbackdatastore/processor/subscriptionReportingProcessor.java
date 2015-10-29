@@ -25,7 +25,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
-import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

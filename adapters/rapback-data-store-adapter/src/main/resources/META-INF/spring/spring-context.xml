@@ -51,7 +51,7 @@
  	   <constructor-arg ref="dataSource"/>
 	</bean>
 	
-	<bean id="fbiSubscriptionDao" class="org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao">		
+	<bean id="fbiSubscriptionDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">		
 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
 		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>	
 	</bean>
