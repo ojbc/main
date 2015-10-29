@@ -17,11 +17,12 @@
 package org.ojbc.web.portal.controllers;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
-import static org.ojbc.web.OjbcWebConstants.TOPIC_PERSON_ARREST;
 import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
+import static org.ojbc.web.OjbcWebConstants.TOPIC_PERSON_ARREST;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -55,6 +56,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 @Controller
 @Profile({"rapback-search","initial-results-query","standalone"})
@@ -203,13 +205,30 @@ public class RapbackController {
 		
 		setStartDateAndEndDate(subscription);
 		
-		//TODO pass real emailAddresses. 
-		subscription.setEmailList(Arrays.asList(new String[]{"test@localhost"}));
+		setSubscripitonContactEmails(rapbackSearchResultsDoc, subscription);
 		
 		subscription.setSubscriptionType(TOPIC_PERSON_ARREST);
 		subscription.setSubscriptionPurpose(CIVIL_SUBSCRIPTION_REASON_CODE);
 		
 		return subscription;
+	}
+
+	private void setSubscripitonContactEmails(Document rapbackSearchResultsDoc, Subscription subscription) throws Exception {
+		NodeList emailNodeList = XmlUtils.xPathNodeListSearch(rapbackSearchResultsDoc, 
+				"/oirs-res-doc:OrganizationIdentificationResultsSearchResults/nc30:ContactInformationAssociation"
+				+ "/nc30:ContactInformation/nc30:ContactEmailID");
+		
+		if (emailNodeList != null && emailNodeList.getLength() > 0){
+			List<String> emailList = new ArrayList<String>();
+			for (int i = 0; i < emailNodeList.getLength(); i++) {
+	            if (emailNodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+	                Element emailElement = (Element) emailNodeList.item(i);
+	                emailList.add(emailElement.getTextContent());
+	            }
+	        }
+			
+			subscription.setEmailList(emailList);
+		}
 	}
 
 	private void setStartDateAndEndDate(Subscription subscription) {
