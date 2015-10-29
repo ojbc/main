@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.fbi.rapback;
+package org.ojbc.intermediaries.sn.dao.rapback;
 
 import java.io.IOException;
 import java.sql.Connection;
