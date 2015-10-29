@@ -18,25 +18,16 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
 
-  <groupId>org.ojbc.build</groupId>
-  <artifactId>ojb-connectors-aggregate</artifactId>
-  <version>1.0.0</version>
-  <packaging>pom</packaging>
-
-  <parent>
-    <groupId>org.ojbc.build</groupId>
-    <artifactId>ojb-main-aggregate</artifactId>
-    <version>1.0.0</version>
-  </parent>
-
-  <modules>
-    <module>disposition-reporting-service-connector</module>
-    <module>incident-reporting-service-connector</module>
-    <module>ojb-web-application-connector-extension</module>
-    <module>ojb-web-application-connector</module>
-    <module>criminal-history-consolidation-mock-connector</module>
-  </modules>
-</project>
+    <ctx:property-placeholder location="classpath:criminal_history_consolidation_mock_connector.cfg"/>
+    
+</beans>
