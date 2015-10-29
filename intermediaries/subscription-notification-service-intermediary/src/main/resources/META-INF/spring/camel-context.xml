@@ -344,7 +344,7 @@
 					<camel:choice>
 						<camel:when>
 							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/xop:Include/@href!=''</camel:xpath>
-							<camel:to uri="bean:fbiArrestNotificationProcessor?method=processMtomAttachment"></camel:to>
+							<camel:to uri="bean:arrestNotificationAttachmentProcessor?method=processMtomAttachment"></camel:to>
 						</camel:when>
 					</camel:choice>
 					<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
@@ -520,7 +520,7 @@
 	
 	<bean id="fbiSubscriptionProcessor" class="org.ojbc.intermediaries.sn.FbiSubscriptionProcessor" />
 	
-	<bean id="fbiArrestNotificationProcessor" class="org.ojbc.intermediaries.sn.FbiArrestNotificationProcessor" />
+	<bean id="arrestNotificationAttachmentProcessor" class="org.ojbc.intermediaries.sn.ArrestNotificationAttachmentProcessor" />
 	
 	<bean id="simpleMsgProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
 
