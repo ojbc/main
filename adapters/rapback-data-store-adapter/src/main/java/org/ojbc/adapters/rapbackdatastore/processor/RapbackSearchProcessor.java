@@ -141,11 +141,12 @@ public class RapbackSearchProcessor {
         List<IdentificationTransaction> identificationTransactions = null;
         if ("Civil".equals(resultsCategoryCode)){
         	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(employerOri);
+        	buildSearchResults(identificationTransactions, rootElement);
         }
         else if ("Criminal".equals(resultsCategoryCode)){
         	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(employerOri);
+        	buildSearchResults(identificationTransactions, rootElement);
         }
-        buildSearchResults(identificationTransactions, rootElement);
         return document;
     }
 

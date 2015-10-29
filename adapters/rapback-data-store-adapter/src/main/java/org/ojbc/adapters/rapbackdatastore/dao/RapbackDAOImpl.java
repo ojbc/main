@@ -30,9 +30,11 @@ import java.util.Map;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
@@ -687,6 +689,53 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		this.namedParameterJdbcTemplate.update(FBI_SUBSCRIPTION_UCN_CONSOLIDATION, paramMap); 
 		this.namedParameterJdbcTemplate.update(IDENTIFICATION_SUBJECT_UCN_CONSOLIDATION, paramMap); 
+	}
+
+	private final String AGENCY_PROFILE_SELECT_BY_ORI = "SELECT * FROM agency_profile a "
+			+ "LEFT JOIN agency_contact_email e ON e.agency_id = a.agency_id "
+			+ "WHERE agency_ori = ?";
+	@Override
+	public AgencyProfile getAgencyProfile(String ori) {
+		AgencyProfile agencyProfile = jdbcTemplate.query(AGENCY_PROFILE_SELECT_BY_ORI, new AgencyProfileResultSetExtractor(), ori);
+		return agencyProfile;
+	}
+
+	private class AgencyProfileResultSetExtractor implements ResultSetExtractor<AgencyProfile> {
+
+		@Override
+		public AgencyProfile extractData(ResultSet rs)
+				throws SQLException, DataAccessException {
+            Map<Integer, AgencyProfile> map = new HashMap<Integer, AgencyProfile>();
+            AgencyProfile agencyProfile = null;
+            while (rs.next()) {
+                Integer agencyProfileId = rs.getInt("agency_id" ); 
+                agencyProfile  = map.get( agencyProfileId );
+                if ( agencyProfile  == null){
+                	agencyProfile = new AgencyProfile();
+                	agencyProfile.setId(agencyProfileId);
+                	agencyProfile.setAgencyName(rs.getString("agency_name"));
+                	agencyProfile.setAgencyOri(rs.getString("agency_ori"));
+                	agencyProfile.setFbiSubscriptionQualified(rs.getBoolean("fbi_subscription_qualification"));
+
+                	List<String> emails = new ArrayList<String>();
+                	String email = rs.getString("agency_email");
+                	if (StringUtils.isNotBlank(email)){
+                		emails.add(email);
+                	}
+                	agencyProfile.setEmails(emails);
+                	map.put(agencyProfileId, agencyProfile);
+                }
+                else{
+                	String email = rs.getString("agency_email");
+                	if (StringUtils.isNotBlank(email)){
+                		agencyProfile.getEmails().add(email);
+                	}
+                }
+	              
+            }
+            return agencyProfile;
+		}
+
 	}
 
 }
