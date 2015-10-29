@@ -22,14 +22,14 @@ import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao;
-import org.ojbc.intermediaries.sn.fbi.rapback.SubsequentResults;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
+import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.camel.helper.MtomUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-public class FbiArrestNotificationProcessor {
+public class ArrestNotificationAttachmentProcessor {
 	
 	private final Log log = LogFactory.getLog(this.getClass());
 	
@@ -50,6 +50,7 @@ public class FbiArrestNotificationProcessor {
 		String fbiSubscriptionId = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:RelatedFBISubscription/notfm-ext:RecordRapBackSubscriptionIdentification/nc:IdentificationID");
 		subsequentResult.setFbiSubscriptionId(fbiSubscriptionId);
 		
+		//TODO persist the attachment only when there is at least one active state subscription. -hw. 
 		rapbackDao.saveSubsequentResults(subsequentResult);
 	}
 
