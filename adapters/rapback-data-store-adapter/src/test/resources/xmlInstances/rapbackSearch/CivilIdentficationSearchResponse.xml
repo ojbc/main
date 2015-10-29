@@ -20,7 +20,7 @@
                                                              xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
                                                              xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
                                                              xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
-                                                             xmlns:s="http://niem.gov/niem/structures/2.0"
+                                                             xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
                                                              xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
                                                              xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/">
    <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
@@ -77,4 +77,19 @@
          <intel:SystemName>RapbackDataStore</intel:SystemName>
       </intel:SystemIdentification>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+   <nc30:EntityOrganization s30:id="ORG1">
+      <nc30:OrganizationName>Test Agency</nc30:OrganizationName>
+      <jxdm50:OrganizationAugmentation>
+         <jxdm50:OrganizationORIIdentification>
+            <nc30:IdentificationID>68796860</nc30:IdentificationID>
+         </jxdm50:OrganizationORIIdentification>
+      </jxdm50:OrganizationAugmentation>
+   </nc30:EntityOrganization>
+   <nc30:ContactInformationAssociation>
+      <nc30:ContactEntity s30:ref="ORG1"/>
+      <nc30:ContactInformation>
+         <nc30:ContactEmailID>test.agency@localhost</nc30:ContactEmailID>
+         <nc30:ContactEmailID>test.agency2@localhost</nc30:ContactEmailID>
+      </nc30:ContactInformation>
+   </nc30:ContactInformationAssociation>
 </oirs-res-doc:OrganizationIdentificationResultsSearchResults>
