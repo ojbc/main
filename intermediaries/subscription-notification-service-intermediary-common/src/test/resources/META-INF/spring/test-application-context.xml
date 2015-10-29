@@ -193,7 +193,7 @@ To follow up on this incident, please call $emailNotification.notificationReques
 		<entry key="{http://ojbc.org}ProbationChCyleTrackingID" value="Probation Cycle Information" />
 	</util:map>
 
-	<bean id="rapbackDao" class="org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao">		
+	<bean id="rapbackDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">		
 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
 		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>	
 	</bean>
