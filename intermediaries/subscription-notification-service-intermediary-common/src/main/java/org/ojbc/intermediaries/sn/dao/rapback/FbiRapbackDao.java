@@ -162,7 +162,24 @@ public class FbiRapbackDao {
 
          return keyHolder.getKey().intValue();
 	}
+	
+	/**
+	 * Takes a civilSid from the arresting notification, check if there is active state subscription(s) with 
+	 * the SID. If yes, return the related FBI subscription Id(s);
+	 * @param civilSid
+	 * @return
+	 */
+	public List<String> getFbiSubscriptionIds(String civilSid){
+		List<String> fbiSubscriptionIds = jdbcTemplate.queryForList(FBI_SUBSCIPTION_ID_BY_CIVIL_SID, String.class, civilSid); 
+		return fbiSubscriptionIds;
+	}
 
+	private final String FBI_SUBSCIPTION_ID_BY_CIVIL_SID = "SELECT f.fbi_subscription_id FROM fbi_rap_back_subscription f "
+			+ "LEFT JOIN identification_subject s ON s.ucn = f.ucn AND s.civil_sid = ? "
+			+ "LEFT JOIN identification_transaction t ON t.subject_id = s.subject_id "
+			+ "LEFT JOIN subscription  r on r.id = t.subscription_id "
+			+ "WHERE r.active = 1 ";
+	
 	private DateTime toDateTime(Date date){
 		return date == null? null : new DateTime(date); 
 	}

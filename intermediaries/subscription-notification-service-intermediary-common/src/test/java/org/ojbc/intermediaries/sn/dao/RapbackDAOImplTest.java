@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -118,4 +119,14 @@ public class RapbackDAOImplTest {
 		assertEquals("rapsheet", rapsheetContent);
 	}
 	
+	@Test
+	@DirtiesContext
+	public void testGetFbiSubscriptionIds() throws Exception {
+		List<String> fbiSubscriptionIds = rapbackDao.getFbiSubscriptionIds("A123459"); 
+		assertEquals(1, fbiSubscriptionIds.size());
+		assertEquals("fbiSubscriptionId_3", fbiSubscriptionIds.get(0));
+		
+		List<String> fbiSubscriptionIdsEmpty = rapbackDao.getFbiSubscriptionIds("9222202");
+		assertTrue(fbiSubscriptionIdsEmpty.isEmpty());
+	}
 }
