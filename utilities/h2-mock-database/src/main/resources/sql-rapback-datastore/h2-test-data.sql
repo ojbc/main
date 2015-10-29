@@ -234,4 +234,9 @@ insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_cod
 	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
 values
 	('UnsubscribeFbiUcnIdTest', 'CI', '2', '2015-12-19','2016-12-19', '2014-10-19', false, '1', 
-	'1234', {ts '2014-10-19 18:47:52.69'});		
+	'1234', {ts '2014-10-19 18:47:52.69'});	
+	
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION ) values ('1', '1234567890', 'Demo Agency', 'true'); 
+
+insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('1', '1', 'demo.agency@localhost'); 
+insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('2', '1', 'demo.agency2@localhost'); 	
