@@ -18,6 +18,7 @@ package org.ojbc.adapters.rapbackdatastore.dao;
 
 import java.util.List;
 
+import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
@@ -58,4 +59,6 @@ public interface RapbackDAO {
 	
 	public void consolidateSid(String currentSid, String newSid);
 	public void consolidateUcn(String currentUcn, String newUcn);
+	
+	public AgencyProfile getAgencyProfile(String ori);
 }

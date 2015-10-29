@@ -35,6 +35,7 @@ import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
@@ -423,4 +424,19 @@ public class RapbackDAOImplTest {
 		assertEquals(1,rs.getInt("rowcount"));
 	}
 
+	@Test
+	@DirtiesContext
+	public void testGetAgencyProfile() throws Exception {
+		AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile("1234567890");
+		log.info(agencyProfile.toString());
+		assertEquals(Integer.valueOf(1), agencyProfile.getId());
+		assertEquals("1234567890", agencyProfile.getAgencyOri());
+		assertEquals("Demo Agency", agencyProfile.getAgencyName());
+		assertEquals(Boolean.TRUE, agencyProfile.getFbiSubscriptionQualified());
+		assertEquals("demo.agency@localhost", agencyProfile.getEmails().get(0));
+		assertEquals("demo.agency2@localhost", agencyProfile.getEmails().get(1));
+		
+		AgencyProfile agencyProfileNull = rapbackDAO.getAgencyProfile("123456789");
+		assertNull(agencyProfileNull);
+	}
 }
