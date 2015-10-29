@@ -28,7 +28,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.ResultSender;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
-import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 
 
 public interface RapbackDAO {
