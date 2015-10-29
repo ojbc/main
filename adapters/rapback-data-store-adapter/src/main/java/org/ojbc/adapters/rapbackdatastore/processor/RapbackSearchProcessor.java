@@ -32,11 +32,11 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDEN
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_SEARCH_REQUEST_ERROR_REPORTING;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_SEARCH_RESULTS_METADATA_EXT;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_WSN_BROKERED;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SEARCH_REQUEST_ERROR_REPORTING;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_EXT;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_WSN_BROKERED;
 
 import java.util.List;
@@ -57,6 +57,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
 import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
+import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
@@ -141,13 +142,47 @@ public class RapbackSearchProcessor {
         List<IdentificationTransaction> identificationTransactions = null;
         if ("Civil".equals(resultsCategoryCode)){
         	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(employerOri);
+        	buildSearchResults(identificationTransactions, rootElement);
+        	
+        	AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile(employerOri);
+        	appendOrganizationInfo(rootElement, agencyProfile);
         }
         else if ("Criminal".equals(resultsCategoryCode)){
         	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(employerOri);
+        	buildSearchResults(identificationTransactions, rootElement);
         }
-        buildSearchResults(identificationTransactions, rootElement);
         return document;
     }
+
+	private void appendOrganizationInfo(Element rootElement,
+			AgencyProfile agencyProfile) {
+		
+		if (agencyProfile == null) return;
+		
+		Element entityOrganization = XmlUtils.appendElement(rootElement, NS_NC_30, "EntityOrganization");
+		XmlUtils.addAttribute(entityOrganization, NS_STRUCTURES_30, "id", "ORG1");
+		
+		Element organizationName = XmlUtils.appendElement(entityOrganization, NS_NC_30, "OrganizationName");
+		organizationName.setTextContent(agencyProfile.getAgencyName());
+		Element organizationAugmentation = XmlUtils.appendElement(entityOrganization, NS_JXDM_50, "OrganizationAugmentation");
+		Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_50, "OrganizationORIIdentification");
+		Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC_30, "IdentificationID");
+		identificationID.setTextContent(agencyProfile.getAgencyOri());
+		
+		Element contactInformationAssociation = XmlUtils.appendElement(rootElement, NS_NC_30, "ContactInformationAssociation");
+		Element contactEntity = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactEntity");
+		XmlUtils.addAttribute(contactEntity, NS_STRUCTURES_30, "ref", "ORG1");
+
+		if (agencyProfile.getEmails().size() > 0){
+			Element contactInformation = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactInformation");
+			
+			for (String email : agencyProfile.getEmails()){
+				Element contactEmailID = XmlUtils.appendElement(contactInformation, NS_NC_30, "ContactEmailID");
+				contactEmailID.setTextContent(email);
+			}
+		}
+		
+	}
 
 	private void buildSearchResults(
 			List<IdentificationTransaction> identificationTransactions,
@@ -355,7 +390,7 @@ public class RapbackSearchProcessor {
         Element rootElement = document.createElementNS(
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS,
         		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +":OrganizationIdentificationResultsSearchResults");
-        rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES, NS_STRUCTURES);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES_30, NS_STRUCTURES_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, 
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
@@ -392,7 +427,7 @@ public class RapbackSearchProcessor {
         Element rootElement = document.createElementNS(
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS,
         		NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS +":OrganizationIdentificationResultsSearchResults");
-        rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES, NS_STRUCTURES);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES_30, NS_STRUCTURES_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, 
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_INTEL, NS_INTEL);
