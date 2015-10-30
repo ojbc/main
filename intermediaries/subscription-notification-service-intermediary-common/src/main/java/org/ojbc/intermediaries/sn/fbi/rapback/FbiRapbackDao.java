@@ -31,6 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
+import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.helper.ZipUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -55,8 +56,19 @@ public class FbiRapbackDao {
 		+ "inner join fbi_rap_back_subscription fbisub on fbisub.ucn = idsubj.ucn " 
 		+ "where sub.active = 1" 
 		+ "and idsubj.ucn=?" 
+		+ "and fbisub.rap_back_category_code=?;";
+		
+	// TODO add dbunit test coverage
+	private final static String STATE_SUBSCRIPTION_QUERY = "sub.id, sub.enddate, fbisub.ucn, fbisub.rap_back_category_code  "
+		+ "from identification_transaction idtrx "
+		+ "left join identification_subject idsubj on idsubj.subject_id = idtrx.subject_id " 
+		+ "inner join subscription sub on sub.id = idtrx.subscription_id " 	
+		+ "inner join fbi_rap_back_subscription fbisub on fbisub.ucn = idsubj.ucn " 
+		+ "where sub.active = 1" 
+		+ "and idsubj.ucn=?" 
 		+ "and fbisub.rap_back_category_code=?;";	
 	
+		
 	// TODO add dbunit test coverage
 	private final static String FBI_UCN_ID_SELECT = "select fbidsub.ucn " +
 	  "from fbi_rap_back_subscription fbidsub inner join identification_subject idsub on idsub.ucn = fbidsub.ucn " + 
@@ -64,7 +76,12 @@ public class FbiRapbackDao {
 	  "where idtrx.subscription_id=? " +
 	  "and fbidsub.rap_back_category_code=?;";
 	
-
+	
+	final static String SUBSEQUENT_RESULTS_INSERT="insert into SUBSEQUENT_RESULTS "
+			+ "(FBI_SUBSCRIPTION_ID, RAP_SHEET) "
+			+ "values (?, ?)";
+	
+	
 	private static final Logger logger = Logger.getLogger(FbiRapbackDao.class);
 	
     @Autowired
@@ -73,7 +90,22 @@ public class FbiRapbackDao {
     @Autowired
 	private JdbcTemplate jdbcTemplate;
     
-        
+    
+    
+    public List<Subscription> getStateSubscriptions(String fbiUcnId, String reasonCode){
+    	
+    	List<Subscription> subscriptionList = null;
+    	
+    	try{
+    		subscriptionList = jdbcTemplate.query(STATE_SUBSCRIPTION_QUERY, new StateSubscriptionRowMapper(), List.class);
+    		
+    	}catch(Exception e){
+    		logger.error("Exception occurred querying state subscriptions: " + e.getMessage());
+    	}    	
+    	return subscriptionList;    	
+    }
+    
+    
     public String getFbiUcnIdFromSubIdAndReasonCode(int subscriptionId, String reasonCode){
     	    	
     	String fbiUcnId = null;
@@ -114,30 +146,7 @@ public class FbiRapbackDao {
 	}
 	
 	
-	private final class FbiSubscriptionRowMapper implements RowMapper<FbiRapbackSubscription> {
-		
-		public FbiRapbackSubscription mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-		
-			FbiRapbackSubscription fbiSubscription = new FbiRapbackSubscription();
-			fbiSubscription.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
-			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category_code"));
-			fbiSubscription.setSubscriptionTerm(rs.getString("rap_back_subscription_term_code"));
-			fbiSubscription.setRapbackExpirationDate(toDateTime(rs.getDate("rap_back_expiration_date")));
-			fbiSubscription.setRapbackStartDate(toDateTime(rs.getDate("rap_back_start_date")));
-			fbiSubscription.setRapbackTermDate(toDateTime(rs.getDate("rap_back_term_date")));
-			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
-			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format_code"));
-			fbiSubscription.setUcn(rs.getString("ucn"));
-			fbiSubscription.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
-		
-			return fbiSubscription;
-		}
-	}
-	
-	final static String SUBSEQUENT_RESULTS_INSERT="insert into SUBSEQUENT_RESULTS "
-			+ "(FBI_SUBSCRIPTION_ID, RAP_SHEET) "
-			+ "values (?, ?)";
+
 	public Integer saveSubsequentResults(final SubsequentResults subsequentResults) {
         log.debug("Inserting row into SUBSEQUENT_RESULTS table : " + subsequentResults.toString());
 
@@ -162,7 +171,52 @@ public class FbiRapbackDao {
 
          return keyHolder.getKey().intValue();
 	}
+	
+	
+	private final class FbiSubscriptionRowMapper implements RowMapper<FbiRapbackSubscription> {
+		
+		public FbiRapbackSubscription mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+		
+			FbiRapbackSubscription fbiSubscription = new FbiRapbackSubscription();
+			fbiSubscription.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
+			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category_code"));
+			fbiSubscription.setSubscriptionTerm(rs.getString("rap_back_subscription_term_code"));
+			fbiSubscription.setRapbackExpirationDate(toDateTime(rs.getDate("rap_back_expiration_date")));
+			fbiSubscription.setRapbackStartDate(toDateTime(rs.getDate("rap_back_start_date")));
+			fbiSubscription.setRapbackTermDate(toDateTime(rs.getDate("rap_back_term_date")));
+			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
+			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format_code"));
+			fbiSubscription.setUcn(rs.getString("ucn"));
+			fbiSubscription.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+		
+			return fbiSubscription;
+		}
+	}
+	
+	
+	private final class StateSubscriptionRowMapper implements RowMapper<Subscription>{
 
+		@Override
+		public Subscription mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			Subscription stateSubscription = new Subscription();
+			
+			stateSubscription.setId(-1);
+			
+			stateSubscription.setSubscriptionCategoryCode(rs.getString("rap_back_category_code"));
+						
+			Date endDate = rs.getDate("enddate");
+			DateTime jtEndDate = new DateTime(endDate);
+			
+			stateSubscription.setEndDate(jtEndDate);			
+			
+			return stateSubscription;
+		}
+		
+	}		
+	
+	
 	private DateTime toDateTime(Date date){
 		return date == null? null : new DateTime(date); 
 	}
