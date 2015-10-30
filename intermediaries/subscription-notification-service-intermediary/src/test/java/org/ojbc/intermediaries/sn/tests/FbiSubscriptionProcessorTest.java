@@ -30,7 +30,7 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.FbiSubscriptionProcessor;
-import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 

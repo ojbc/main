@@ -103,7 +103,7 @@
 		</constructor-arg>
 	</bean>	
 			
-	<bean id="rapbackDao" class="org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao">		
+	<bean id="rapbackDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">		
 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
 		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>	
 	</bean>

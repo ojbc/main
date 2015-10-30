@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -34,9 +35,9 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao;
-import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
-import org.ojbc.intermediaries.sn.fbi.rapback.SubsequentResults;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.helper.ZipUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -118,4 +119,14 @@ public class RapbackDAOImplTest {
 		assertEquals("rapsheet", rapsheetContent);
 	}
 	
+	@Test
+	@DirtiesContext
+	public void testGetFbiSubscriptionIds() throws Exception {
+		List<String> fbiSubscriptionIds = rapbackDao.getFbiSubscriptionIds("A123459"); 
+		assertEquals(1, fbiSubscriptionIds.size());
+		assertEquals("fbiSubscriptionId_3", fbiSubscriptionIds.get(0));
+		
+		List<String> fbiSubscriptionIdsEmpty = rapbackDao.getFbiSubscriptionIds("9222202");
+		assertTrue(fbiSubscriptionIdsEmpty.isEmpty());
+	}
 }
