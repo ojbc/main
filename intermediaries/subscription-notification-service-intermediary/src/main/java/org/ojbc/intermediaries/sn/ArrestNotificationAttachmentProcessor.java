@@ -16,20 +16,22 @@
  */
 package org.ojbc.intermediaries.sn;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao;
-import org.ojbc.intermediaries.sn.fbi.rapback.SubsequentResults;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
+import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.camel.helper.MtomUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-public class FbiArrestNotificationProcessor {
+public class ArrestNotificationAttachmentProcessor {
 	
 	private final Log log = LogFactory.getLog(this.getClass());
 	
@@ -47,10 +49,19 @@ public class FbiArrestNotificationProcessor {
 		SubsequentResults subsequentResult = new SubsequentResults(); 
 		subsequentResult.setRapSheet(MtomUtils.getAttachment(exchange, null, attachmentHref));
 		
-		String fbiSubscriptionId = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:RelatedFBISubscription/notfm-ext:RecordRapBackSubscriptionIdentification/nc:IdentificationID");
-		subsequentResult.setFbiSubscriptionId(fbiSubscriptionId);
+		String civilSid = XmlUtils.xPathStringSearch(notificationMessageNode, "jxdm41:Person[@s:id = ../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]"
+				+ "/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+		List<String> fbiSubscriptionIds = rapbackDao.getFbiSubscriptionIds(civilSid);
 		
-		rapbackDao.saveSubsequentResults(subsequentResult);
+		if (fbiSubscriptionIds.size() > 0){
+			for (String fbiSubscriptionId : fbiSubscriptionIds ){
+				subsequentResult.setFbiSubscriptionId(fbiSubscriptionId);
+				rapbackDao.saveSubsequentResults(subsequentResult);
+			}
+		}
+		else{
+			log.info("No valid FBI subscription found for the civil SID, the arrest notification attachment is not persisted");
+		}
 	}
 
 }

@@ -59,7 +59,7 @@ import org.opensaml.xml.signature.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class CamelContextFbiArrestNotificationTest extends AbstractSubscriptionNotificationTest {
+public class CamelContextArrestNotificationWithAttachmentTest extends AbstractSubscriptionNotificationTest {
 
 	private static final Object CXF_OPERATION_NAME_NOTIFICATION = "Notify";
 	private static final Object CXF_OPERATION_NAMESPACE_NOTIFICATION = "http://www.ojbc.org/SubscribeNotify/NotificationBroker";
@@ -73,8 +73,8 @@ public class CamelContextFbiArrestNotificationTest extends AbstractSubscriptionN
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:bean:fbiArrestNotificationProcessor")
-    protected MockEndpoint fbiArrestNotificationProcessorMock;
+    @EndpointInject(uri = "mock:bean:arrestNotificationAttachmentProcessor")
+    protected MockEndpoint arrestNotificationAttachmentProcessorMock;
     @EndpointInject(uri = "mock:bean:arrestNotificationProcessor")
     protected MockEndpoint arrestNotificationProcessorMock;
     
@@ -89,7 +89,7 @@ public class CamelContextFbiArrestNotificationTest extends AbstractSubscriptionN
     	    @Override
     	    public void configure() throws Exception {
     	    	
-    	    	mockEndpoints("bean:fbiArrestNotificationProcessor*");
+    	    	mockEndpoints("bean:arrestNotificationAttachmentProcessor*");
     	    	mockEndpoints("bean:arrestNotificationProcessor*");
     	    }              
     	});
@@ -106,7 +106,7 @@ public class CamelContextFbiArrestNotificationTest extends AbstractSubscriptionN
     @Test
     public void testFbiArrestNotification() throws Exception {
     
-    	fbiArrestNotificationProcessorMock.setExpectedMessageCount(1);
+    	arrestNotificationAttachmentProcessorMock.setExpectedMessageCount(1);
     	arrestNotificationProcessorMock.setExpectedMessageCount(2);
     	//Create a new exchange
     	Exchange senderExchange = createSenderExchangeNotification();
@@ -154,7 +154,7 @@ public class CamelContextFbiArrestNotificationTest extends AbstractSubscriptionN
 	    
 		returnExchange = template.send("direct:processNotification", sender2Exchange);
 		
-		fbiArrestNotificationProcessorMock.assertIsSatisfied();
+		arrestNotificationAttachmentProcessorMock.assertIsSatisfied();
 		arrestNotificationProcessorMock.assertIsSatisfied();
 
     }
