@@ -17,6 +17,7 @@
 package org.ojbc.intermediaries.sn;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -24,6 +25,7 @@ import javax.annotation.Resource;
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.fbi.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.OjbcNamespaceContext;
@@ -41,8 +43,67 @@ public class FbiSubscriptionProcessor {
 	@Resource(name="rapbackDao")
 	private FbiRapbackDao rapbackDao;	
 	
+			
+	public void prepareSubscriptionMaintenanceMessage(Exchange exchange){
 		
- 
+		Document unsubscribeDoc = exchange.getIn().getBody(Document.class);		
+		
+		Document subscribeMaintenanceDoc = null; 
+				
+		exchange.getIn().setBody(subscribeMaintenanceDoc);		
+	}
+	
+
+    public void determineStateSubsEndDateLessThanFbiSubEndDate(Exchange exchange) throws Exception{
+    	
+    	Document unsubscribeDoc = exchange.getIn().getBody(Document.class);
+    	
+    	String fbiUcnId = getPersonFbiUcnIdFromUnsubscribeDoc(unsubscribeDoc);
+    	
+    	String reasonCode = getReasonCodeFromUnsubscribeDoc(unsubscribeDoc);
+    	
+    	// -------------------------------------------
+    	
+    	List<Subscription> subscriptionList = rapbackDao.getStateSubscriptions(fbiUcnId, reasonCode);
+    	
+    	DateTime greatestStateSubscriptionEndDate = getGreatestEndDate(subscriptionList);
+    	
+    	//------------------------------------
+    	
+    	FbiRapbackSubscription fbiRapbackSubscription = rapbackDao.getFbiRapbackSubscription(reasonCode, fbiUcnId);
+    	
+    	DateTime fbiRapBackExpDate = fbiRapbackSubscription.getRapbackExpirationDate();
+    	
+    	//---------------------------------------------
+    	
+    	boolean stateSubsEndDateLessThanFbiSubEndDate = greatestStateSubscriptionEndDate.isBefore(fbiRapBackExpDate);
+    	
+    	// TODO enable real code when working
+    	exchange.getIn().setHeader("stateSubsEndDateLessThanFbiSubEndDate", false);//stateSubsEndDateLessThanFbiSubEndDate);    	
+    }
+	
+    
+    public DateTime getGreatestEndDate(List<Subscription> subscriptionList){
+    	
+    	if(subscriptionList == null || subscriptionList.isEmpty()){
+    		throw new IllegalArgumentException("subscriptionList was null");
+    	}
+    	
+    	DateTime greatestEndDate = subscriptionList.get(0).getEndDate();
+    		
+		for(Subscription iSubscription : subscriptionList){
+		
+			DateTime iSubDate = iSubscription.getEndDate();
+			
+			if(iSubDate != null && iSubDate.isAfter(greatestEndDate)){
+			
+				greatestEndDate = iSubDate;
+			}    		
+		}    		    		    	    	    		
+    	return greatestEndDate;
+    }
+    
+	
 	public void prepareUnsubscribeMessageForFbiEbts(Exchange exchange) throws Exception{
 				
 		Document unsubscribeDoc = exchange.getIn().getBody(Document.class);

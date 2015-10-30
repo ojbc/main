@@ -321,7 +321,27 @@
 					<camel:to uri="fbiEbtsUnsubscribeServiceEndpoint" />														
 				</camel:when>	
 				<camel:otherwise>			
-					<log message="\n\n\n NOT sending unsubscription to FBI EBTS Adapter!  \n\n\n" loggingLevel="WARN"/>							
+					<log message="\n\n\n NOT sending unsubscription to FBI EBTS Adapter!  \n\n\n" loggingLevel="WARN"/>		
+							
+					<!-- TODO enable when working
+					<to uri="bean:fbiSubscriptionProcessor?method=determineStateSubsEndDateLessThanFbiSubEndDate"/>
+					
+					<choice>
+						<when>
+							<simple>${header.stateSubsEndDateLessThanFbiSubEndDate}</simple>
+							
+							<log message="\n\n\n stateSubsEndDateLessThanFbiSubEndDate - so preparing maintenance subscription \n\n\n" />
+							
+							<to uri="bean:fbiSubscriptionProcessor?method=prepareSubscriptionMaintenanceMessage"/>
+							
+							<to uri="direct:processSubscription"/>
+						</when>	
+						<camel:otherwise>
+							<log message="\n\n\n !stateSubsEndDateLessThanFbiSubEndDate \n\n\n" />
+						</camel:otherwise>				
+					</choice>
+					-->
+																				
 				</camel:otherwise>			
 			</camel:choice>			
 			
