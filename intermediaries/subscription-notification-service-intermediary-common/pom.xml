@@ -34,6 +34,7 @@
 	</parent>
 
 	<properties>
+		<xmlunit.version>1.5</xmlunit.version>
 		<jodatime-version>1.6.2</jodatime-version>
 		<commons-lang-version>2.4</commons-lang-version>
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
@@ -56,6 +57,12 @@
 
 	<dependencies>
 
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>${xmlunit.version}</version>
+		</dependency>		
+				
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
