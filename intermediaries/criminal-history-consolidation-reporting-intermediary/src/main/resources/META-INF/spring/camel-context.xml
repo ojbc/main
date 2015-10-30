@@ -61,7 +61,7 @@
 		
 			<from uri="hostedChConsolidateServiceEndpoint"/>
 			
-			<log message="\n\n\n testProcessChConsolidation_route...  \n\n\n" />
+			<log message="\n\n\n webservice_processChConsolidation_route...  \n\n\n" />
 			
 			<to uri="direct:processChConsolidation"/>		
 		</route>
