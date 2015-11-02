@@ -119,6 +119,31 @@
 			}).fail(ojbc.displayFailMessage);
     	});
     	
+    	$('#searchResultsTable').on('click', 'a.validate',function() {
+    		$.get("#springUrl('/rapbacks/validate')", {subscriptionId: $(this).attr("id")}, function(data) {
+    		
+				if (data === 'success'){
+		    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+		    		
+						$('#portalContent').html(data);	
+						$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
+							    	
+			    			$('#filterColumn').html(data);
+			    			$('#filterColumn').css('visibility', 'visible');
+			    			 
+			    		}).fail(ojbc.displayFailMessage);
+													
+					}).fail(ojbc.displayFailMessage);
+									    
+					return false;
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+    	});
+    	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');

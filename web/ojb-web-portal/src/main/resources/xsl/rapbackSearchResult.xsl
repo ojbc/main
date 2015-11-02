@@ -118,7 +118,12 @@
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="subscribed">
 		<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>
 		<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">				
-			<a href="#" class="blueIcon" style="margin-right:3px" title="Validate"><i class="fa fa-check-circle fa-lg"/></a>
+			<a href="#" class="blueIcon validate" style="margin-right:3px" title="Validate">
+				<xsl:attribute name="id">
+					<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+				</xsl:attribute>
+				<i class="fa fa-check-circle fa-lg"/>
+			</a>
 		</xsl:if>
 		<a href="#" class="blueIcon unsubscribe" style="margin-right:3px" title="Unsubscribe">
 			<xsl:attribute name="id">
