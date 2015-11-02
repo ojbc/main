@@ -21,7 +21,7 @@ import org.w3c.dom.Element;
 
 public interface SubscriptionValidationInterface {
 	
-	public FaultableSoapResponse validate(String subscriptionIdentificationId, String topic, String federatedQueryID, 
+	public FaultableSoapResponse validate(String subscriptionIdentificationId, String topic, String reasonCode, String federatedQueryID, 
 			Element samlToken) throws Exception;
 
 }
