@@ -18,10 +18,6 @@
 
 -->
 
-<!-- 
-	Camel context configuration file.  The main purpose is to define the 
-	Camel routes. 
--->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
@@ -40,7 +36,7 @@
 	
 		<!-- Connector reads an input file from a directory in the file system -->
 		<endpoint id="inputDirectory"
-			uri="file:///${chConsolidateConnector.fileDirectory}/input?idempotent=true&amp;moveFailed=${chConsolidateConnector.fileDirectory}/error&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${chConsolidateConnector.deleteInputFiles}" />
+			uri="file:///${chConsolidateConnector.fileDirectory}/input?idempotent=true&amp;moveFailed=${chConsolidateConnector.fileDirectory}/error&amp;move=${chConsolidateConnector.fileDirectory}/processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
 			
 		<camel:endpoint id="chConsolidationServiceEndpoint"
 			uri="cxf:bean:chConsolidationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chConsolidateConnector.cxfLogging}" />			

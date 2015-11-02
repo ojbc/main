@@ -74,21 +74,49 @@
 			
 			<log message="\n\n\n CH Consolidation route... \n\n\n" loggingLevel="INFO" />
 			
-			<camel:setHeader headerName="operationName">
-				<constant>ReportCriminalHistoryConsolidation</constant>
-			</camel:setHeader>
 			
-			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0</constant>
-			</camel:setHeader>
+			<to uri="bean:messageProcessor?method=processRequestPayload" />
+									
+			<camel:multicast parallelProcessing="false">	
 						
-			<camel:multicast>						
-				<to uri="subNotifyChConsolidateEndpoint" />										
-				<to uri="rapbackDataStoreChConsolidateEndpoint"/>				
+				<pipeline>			
+					<log message="\n\n\n Sending ${header.operationName} to subNotifyChConsolidateEndpoint: \n\n ${body} \n\n\n"/>		
+					
+					<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />			
+					
+					<camel:setHeader headerName="operationName">
+						<constant>ReportCriminalHistoryConsolidation</constant>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="operationNamespace">
+						<constant>http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0</constant>
+					</camel:setHeader>
+														
+					<to uri="subNotifyChConsolidateEndpoint" />				
+				</pipeline>				
+				
+				<pipeline>					
+					<log message="\n\n\n Sending ${header.operationName} to rapbackDataStoreChConsolidateEndpoint: \n\n ${body} \n\n\n"/>
+					
+					<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />			
+					
+					<camel:setHeader headerName="operationName">
+						<constant>ReportCriminalHistoryConsolidation</constant>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="operationNamespace">
+						<constant>http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0</constant>
+					</camel:setHeader>					
+																								
+					<to uri="rapbackDataStoreChConsolidateEndpoint"/>
+				</pipeline>
+				
 			</camel:multicast>					
 						
 		</route>
 					  					    
 	</camel:camelContext>	
+	
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 				
 </beans>
