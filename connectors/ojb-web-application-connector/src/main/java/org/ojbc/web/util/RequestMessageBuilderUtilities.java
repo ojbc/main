@@ -36,6 +36,7 @@ import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.OJBCWebServiceURIs;
+import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequest;
@@ -411,7 +412,7 @@ public class RequestMessageBuilderUtilities {
 	}
 	
 	
-	public static Document createValidateSubscriptionRequest(String subscriptionId, String topic) throws Exception{
+	public static Document createValidateSubscriptionRequest(String subscriptionId, String topic, String reasonCode) throws Exception{
 		
 		Document doc = OJBCXMLUtils.createDocument();		
 		Element rootElement = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Validate");
@@ -425,6 +426,17 @@ public class RequestMessageBuilderUtilities {
 		Element identificationIDElement = XmlUtils.appendElement(subIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
 		
 		identificationIDElement.setTextContent(subscriptionId);
+		
+		if (StringUtils.isNotBlank(reasonCode)){
+			if (OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
+				Element civilSubscriptionReasonCode = XmlUtils.appendElement(subValidMsgElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
+				civilSubscriptionReasonCode.setTextContent(reasonCode);
+			}
+			else{
+				Element criminalSubscriptionReasonCode = XmlUtils.appendElement(subValidMsgElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
+				criminalSubscriptionReasonCode.setTextContent(reasonCode);
+			}
+		}
 						
 		Element topicElement = XmlUtils.appendElement(rootElement, OjbcNamespaceContext.NS_B2, "TopicExpression");
 		XmlUtils.addAttribute(topicElement, null, "Dialect", TOPIC_EXPRESSION_DIALECT);
