@@ -1151,9 +1151,11 @@ public class SubscriptionsController {
 			JSONObject subIdToSubDataJsonObj = subIdToSubDataJsonObjMap.getJSONObject(iSubId);
 			
 			String iTopic = subIdToSubDataJsonObj.getString("topic");
+			String reasonCode = subIdToSubDataJsonObj.getString("");
 						
 			try{
-				FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(iSubId, iTopic, getFederatedQueryId(), samlAssertion);
+				FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(
+						iSubId, iTopic, reasonCode, getFederatedQueryId(), samlAssertion);
 				
 				//TODO see if we should check faultableSoapResponse exception attribute(if there is one)
 				if(faultableSoapResponse == null){

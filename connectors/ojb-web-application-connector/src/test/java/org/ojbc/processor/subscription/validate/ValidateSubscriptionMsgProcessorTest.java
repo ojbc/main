@@ -28,7 +28,7 @@ public class ValidateSubscriptionMsgProcessorTest {
 	@Test	
 	public void testCreateUnsubscriptionMessage() throws Exception{
 		
-		Document doc = RequestMessageBuilderUtilities.createValidateSubscriptionRequest("123456", "topic");
+		Document doc = RequestMessageBuilderUtilities.createValidateSubscriptionRequest("123456", "topic", "CI");
 		
 		String subscriptionIdentificationId = XmlUtils.xPathStringSearch(doc, 
 				"b-2:Validate/svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");
@@ -37,7 +37,18 @@ public class ValidateSubscriptionMsgProcessorTest {
 		
 		String topic = XmlUtils.xPathStringSearch(doc, "b-2:Validate/b-2:TopicExpression[@Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete']");  
 		
-		assertEquals("topic", topic);	
+		assertEquals("topic", topic);
+		
+		String subscriptionReasonCode = XmlUtils.xPathStringSearch(doc, 
+				"b-2:Validate/svm:SubscriptionValidationMessage/submsg-ext:CriminalSubscriptionReasonCode");
+		assertEquals("CI", subscriptionReasonCode);
+
+		Document civilDoc = RequestMessageBuilderUtilities.createValidateSubscriptionRequest("123456", "topic", "I");
+		String civilSubscriptionReasonCode = XmlUtils.xPathStringSearch(civilDoc, 
+				"b-2:Validate/svm:SubscriptionValidationMessage/submsg-ext:CivilSubscriptionReasonCode");
+		assertEquals("I", civilSubscriptionReasonCode);
+
+
 	}
 		
 }

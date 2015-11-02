@@ -64,19 +64,7 @@
     		$.get("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
     		
 				if (data === 'success'){
-		    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
-		    		
-						$('#portalContent').html(data);	
-						$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
-							    	
-			    			$('#filterColumn').html(data);
-			    			$('#filterColumn').css('visibility', 'visible');
-			    			 
-			    		}).fail(ojbc.displayFailMessage);
-													
-					}).fail(ojbc.displayFailMessage);
-									    
-					return false;
+					refreshSearchResultsTable();
 				}
 				else{
 					showErrorMessage(data);
@@ -94,23 +82,40 @@
 			}
     	}
     	
+    	function refreshSearchResultsTable(){
+    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+    		
+				$('#portalContent').html(data);	
+				$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
+					    	
+	    			$('#filterColumn').html(data);
+	    			$('#filterColumn').css('visibility', 'visible');
+	    			 
+	    		}).fail(ojbc.displayFailMessage);
+											
+			}).fail(ojbc.displayFailMessage);
+							    
+			return false;
+    	}
+    	
     	$('#searchResultsTable').on('click', 'a.unsubscribe',function() {
     		$.get("#springUrl('/rapbacks/unsubscribe')", {subscriptionId: $(this).attr("id")}, function(data) {
     		
 				if (data === 'success'){
-		    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
-		    		
-						$('#portalContent').html(data);	
-						$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
-							    	
-			    			$('#filterColumn').html(data);
-			    			$('#filterColumn').css('visibility', 'visible');
-			    			 
-			    		}).fail(ojbc.displayFailMessage);
-													
-					}).fail(ojbc.displayFailMessage);
-									    
-					return false;
+					refreshSearchResultsTable();
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+    	});
+    	
+    	$('#searchResultsTable').on('click', 'a.validate',function() {
+    		$.get("#springUrl('/rapbacks/validate')", {subscriptionId: $(this).attr("id")}, function(data) {
+    		
+				if (data === 'success'){
+					refreshSearchResultsTable();				
 				}
 				else{
 					showErrorMessage(data);
