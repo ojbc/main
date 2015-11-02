@@ -77,7 +77,7 @@ public class RapbackController {
 	
 	@Resource
 	SubscriptionsControllerConfigInterface subConfig;
-
+	
     @Value("${rapbackSubscriptionPeriod:1}")
     Integer rapbackSubscriptionPeriod;
     
@@ -161,6 +161,25 @@ public class RapbackController {
 		}
 	}
 	
+	@RequestMapping(value = "validate", method = RequestMethod.GET)
+	public @ResponseBody String validate(HttpServletRequest request, @RequestParam String subscriptionId,
+			Map<String, Object> model) {
+		try{
+			FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(
+					subscriptionId, TOPIC_PERSON_ARREST, CIVIL_SUBSCRIPTION_REASON_CODE, 
+					getFederatedQueryId(), samlService.getSamlAssertion(request));
+			if (faultableSoapResponse.isSuccess()){
+				return "success";
+			}
+			else{
+				model.put("informationMessages", faultableSoapResponse.getException().getMessage());
+				return faultableSoapResponse.getException().getMessage() + ", please report the error try again later.";
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return (e.getMessage() + ", please report the error and try again later. ");
+		}														
+	}	
 	/**
 	 * @return
 	 * 	 FaultableSoapResponse web service response
