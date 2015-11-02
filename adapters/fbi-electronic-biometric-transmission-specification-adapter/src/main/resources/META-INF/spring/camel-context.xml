@@ -103,12 +103,16 @@
 		</camel:route>
 		
 		
-		<!--  for testing by dropping message into adapter input directory -->
-		<camel:route id="fbiEbtsInputFileDropRoute">
+		<!--  for testing SUBSCRIBE by dropping message into adapter input directory -->
+		<camel:route id="fbiEbtsInputFileSubscribeDropRoute">
 		
 			<camel:from uri="inputMessageDirEndpoint"/>
 			
 			<camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message \n\n" />
+			
+			<camel:setHeader headerName="operationName">
+				<constant>Subscribe</constant>
+			</camel:setHeader>		
 		
 			<camel:to uri="direct:processFbiEbtsRequest"/>
 		
@@ -144,9 +148,35 @@
 		<camel:route id="fbiEbtsProcessingRoute">
 		
 			<camel:from uri="direct:processFbiEbtsRequest"/>
-			
-			<camel:log message="\n\n Processing OJB Request...\n\n" />
 						
+			<camel:choice>
+			  <camel:when>
+			    <simple>${header.operationName == 'Modify'}</simple>  			    
+			    <log message="\n\n\n Processing operation:  Modify \n\n\n" />    			    
+			    <to uri="direct:processOperation"/>    
+			  </camel:when>
+			  <when>
+			    <simple>${header.operationName} == 'Subscribe'</simple>			    
+			    <log message="\n\n\n Processing operation:  Subscribe \n\n\n" />  			    
+			    <to uri="direct:processOperation"/>
+			  </when>
+			  <when>
+			  	<simple>${header.operationName} == 'Unsubscribe'</simple>			  	
+			  	<log message="\n\n\n Processing operation:  Unsubscribe \n\n\n" />			  	
+			  	<to uri="direct:processOperation"/>
+			  </when>
+			  <otherwise>
+			  	<log message="\n\n\n Unknown operation.  Not processing!  \n\n\n" loggingLevel="ERROR"/>
+			  </otherwise>			  
+			</camel:choice>			
+												
+		</camel:route>
+		
+		
+		<route id="processOperationRoute">
+		
+			<from uri="direct:processOperation" />
+			
 			<camel:to uri="direct:transformToFbiNgiMessage" />
 		
 			<camel:log message="\n\n Calling FBI NGI service...\n\n"/>			
@@ -161,9 +191,9 @@
 		
 			<camel:to uri="ngiUserServiceRequestEndpoint"/>
 						
-			<camel:log message="\n\n\n Received FBI NGI ControlNumber synchronous response \n\n\n"/>
-									
-		</camel:route>
+			<camel:log message="\n\n\n Received FBI NGI ControlNumber synchronous response \n\n\n"/>					
+		
+		</route>
 		
 				
 		<route id="fbiNgiResponseTestInputRoute">
