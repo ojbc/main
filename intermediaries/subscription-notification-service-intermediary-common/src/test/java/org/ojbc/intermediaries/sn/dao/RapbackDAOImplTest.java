@@ -120,10 +120,7 @@ public class RapbackDAOImplTest {
 		assertEquals("rapsheet", rapsheetContent);
 	}
 	
-	//TODO enable when passing 10/30/15
-	//	Failed tests: 
-	//		  RapbackDAOImplTest.testGetFbiSubscriptionIds:126 expected:<1> but was:<2>
-	@Ignore
+
 	@Test
 	@DirtiesContext
 	public void testGetFbiSubscriptionIds() throws Exception {
