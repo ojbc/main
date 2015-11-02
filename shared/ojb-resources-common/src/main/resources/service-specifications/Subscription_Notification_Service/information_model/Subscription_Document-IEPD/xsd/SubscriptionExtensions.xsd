@@ -101,7 +101,6 @@
 				<xsd:sequence>
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" />
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
