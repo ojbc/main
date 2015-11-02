@@ -69,7 +69,6 @@
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="chConsolidateKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${chConsolidate.keystoreCertificateAlias}" /> 
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 		</cxf:properties>
     </cxf:cxfEndpoint>	        
         
@@ -86,7 +85,6 @@
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="chConsolidateKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${chConsolidate.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
 
@@ -102,7 +100,6 @@
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="chConsolidateKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${chConsolidate.keystoreCertificateAlias}" /> 
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 		</cxf:properties>
     </cxf:cxfEndpoint>	
 	
