@@ -185,7 +185,8 @@ public class FbiSubscriptionProcessor {
 	public String getReasonCodeFromUnsubscribeDoc(Document unsubscribeDoc) throws Exception{
 
 		String categoryReasonCode = XmlUtils.xPathStringSearch(unsubscribeDoc, 
-				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");		
+				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode|"
+				+ "/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode");		
 		
 		return categoryReasonCode;
 	}
