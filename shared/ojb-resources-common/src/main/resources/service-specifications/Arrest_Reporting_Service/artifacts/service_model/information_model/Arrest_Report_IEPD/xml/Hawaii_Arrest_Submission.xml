@@ -205,8 +205,11 @@
 									<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
 								</nc:PersonWeightMeasure>
 								<j:PersonAugmentation>
-									<j:PersonStateFingerprintIdentification>
-										<nc:IdentificationID>32847</nc:IdentificationID>
+									<j:PersonStateFingerprintIdentification s:id="PSFI_001">
+										<nc:IdentificationID>A32847</nc:IdentificationID>
+									</j:PersonStateFingerprintIdentification >
+									<j:PersonStateFingerprintIdentification s:id="PSFI_002">
+										<nc:IdentificationID>L32847</nc:IdentificationID>
 									</j:PersonStateFingerprintIdentification>
 								</j:PersonAugmentation>
 							</lexsdigest:Person>
@@ -891,6 +894,14 @@
 								<nc:ActivityReference s:ref="Booking_1"/>
 								<j:ArrestReference s:ref="Arrest_1"/>
 							</j:ActivityArrestAssociation>
+							<ojbc:PersonStateFingerprintIdentification>
+							 	<ojbc:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</ojbc:FingerpringIdentificationIssuedForCivilPurposeIndicator>	
+								<lexslib:SameAsDigestReference lexslib:ref="PSFI_001"/>
+							</ojbc:PersonStateFingerprintIdentification>
+							<ojbc:PersonStateFingerprintIdentification>
+							 	<ojbc:FingerpringIdentificationIssuedForCriminalPurposeIndicator>true</ojbc:FingerpringIdentificationIssuedForCriminalPurposeIndicator>
+								<lexslib:SameAsDigestReference lexslib:ref="PSFI_002"/>
+							</ojbc:PersonStateFingerprintIdentification>
 						</ojbc:ArrestReport>
 					</lexs:StructuredPayload>
 					<!-- HAWAII ARREST STRUCTURED PAYLOAD -->
