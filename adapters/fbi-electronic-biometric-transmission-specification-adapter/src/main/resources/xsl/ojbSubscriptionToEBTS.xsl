@@ -27,6 +27,7 @@
     xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
     xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
     xmlns:unsubmsg-doc="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+    xmlns:smm="http://ojbc.org/IEPD/Exchange/SubscriptionModificationMessage/1.0"
     xmlns:b-2="http://docs.oasis-open.org/wsn/b-2">
 	
 	<xsl:output indent="yes" method="xml"/>
@@ -103,20 +104,11 @@
 	<xsl:template match="/">
 		<xsl:apply-templates select="b-2:Subscribe"/>
 		<xsl:apply-templates select="b-2:Unsubscribe"/>
+		<xsl:apply-templates select="b-2:Modify"/>
 	</xsl:template>
 	
 	<xsl:template match="b-2:Subscribe">
-	
-	<!-- We need to determine up front if we're requesting a modification of an existing subscription or requesting a new subscription. 
-	If the subscription message contains information about a related FBI subscription, that means we need to modify an 
-	existing FBI subscription-->
-	
-		<xsl:variable name="action">
-			<xsl:choose>
-				<xsl:when test="submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription">modifySubscription</xsl:when>
-				<xsl:otherwise>newSubscription</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
+		<xsl:variable name="action">newSubscription</xsl:variable>
 		<xsl:variable name="subscriptionCategory">
 			<xsl:choose>	
 				<xsl:when test="submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode">civil</xsl:when>
@@ -131,13 +123,14 @@
 	
 	<xsl:template match="b-2:Unsubscribe">
 		<xsl:variable name="action">cancelSubscription</xsl:variable>
-		<xsl:variable name="subscriptionCategory">
-			<xsl:choose>	
-				<xsl:when test="submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode">civil</xsl:when>
-				<xsl:when test="submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode">criminal</xsl:when>
-			</xsl:choose>
-		</xsl:variable>
 		<xsl:apply-templates select="unsubmsg-doc:UnsubscriptionMessage">
+			<xsl:with-param name="action" select="$action"/>
+		</xsl:apply-templates>
+	</xsl:template>
+	
+	<xsl:template match="b-2:Modify">
+		<xsl:variable name="action">modifySubscription</xsl:variable>
+		<xsl:apply-templates select="smm:SubscriptionModificationMessage">
 			<xsl:with-param name="action" select="$action"/>
 		</xsl:apply-templates>
 	</xsl:template>
@@ -187,6 +180,24 @@
 				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory"/>
 			</xsl:call-template>
 			
+		</itl:NISTBiometricInformationExchangePackage>
+	</xsl:template>
+	
+	<xsl:template match="smm:SubscriptionModificationMessage">
+		<xsl:param name="action"/>
+		<xsl:param name="subscriptionCategory"/>
+		<itl:NISTBiometricInformationExchangePackage>
+			<!-- EBTS Record Type 1 -->
+			<xsl:call-template name="buildType1Record">
+				<xsl:with-param name="action" select="$action"/>
+				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory"/>
+			</xsl:call-template>
+			
+			<!-- EBTS Record Type 2 -->
+			<xsl:call-template name="buildType2Record">
+				<xsl:with-param name="action" select="$action"/>
+				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory"/>
+			</xsl:call-template>
 		</itl:NISTBiometricInformationExchangePackage>
 	</xsl:template>
 	
@@ -303,19 +314,16 @@
     							<xsl:value-of select="$rapBackDisclosureIndicator"/>
    							 </ebts:RecordRapBackDisclosureIndicator>		
 							
-							<!-- This is important, this is where we determine the proper end date for a subscription.  The rule here is that if an existing FBI subscription already exists for a given
-							UCN and purpose, we don't want to create a new FBI subscription.  Instead, we want to extend the expiration date, assuming the new State subscription has an end date that is greater
-							than the expiration date on the existing FBI subscription. -->
-							<!-- TODO: should we even call the XSLT if the new subscription end date is less than existing end date on the related FBI subscription? -->
+							 <!-- RBXD 2.2015-->
 							<xsl:choose>
-								<xsl:when test=" /b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription/nc20:DateRange/nc20:EndDate/nc20:Date >  /b-2:Subscribe/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date">
-									<xsl:apply-templates select=" /b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:RelatedFBISubscription/nc20:DateRange/nc20:EndDate/nc20:Date" mode="extendExpirationDate"/>
-								</xsl:when>
-								<xsl:otherwise>
+								<xsl:when test="$action ='newSubscription'">
 									<xsl:apply-templates select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date" mode="expirationDate"/>
-								</xsl:otherwise>
+								</xsl:when>
+								<xsl:when test="$action = 'modifySubscription'">
+									<xsl:apply-templates select="/b-2:Modify/smm:SubscriptionModificationMessage/submsg-ext:SubscriptionModification/nc20:DateRange/nc20:EndDate/nc20:Date" mode="expirationDate"/>
+								</xsl:when>
 							</xsl:choose>
-								
+							
 							<ebts:RecordRapBackInStateOptOutIndicator>
 								<xsl:value-of select="$rapBackInStateOptOutIndicator" />
 							</ebts:RecordRapBackInStateOptOutIndicator>
@@ -327,16 +335,21 @@
 		                            </nc20:IdentificationID>
 		                        </nc20:OrganizationIdentification>
 		                     </ansi-nist:RecordForwardOrganizations>
-		                     
-		                     <!-- TODO: civil sample shows "RecordRapBackSubscriptionTerm", but documentation shows this as optional -->
-		                     
+		                     		                     
 		                     <xsl:if test="$action = 'newSubscription' and $subscriptionCategory='civil'">
 		                     	<ebts:RecordRapBackSubscriptionTerm>
 		                     		<xsl:value-of select="$civilRapBackSubscriptionTerm"/>
 		                     	</ebts:RecordRapBackSubscriptionTerm>
 		                     </xsl:if>
-		                     
-		                     <xsl:apply-templates select="/*/*/submsg-ext:RelatedFBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID" mode="fbiSubscriptionID"/>
+		                     <!-- TODO: Remove wildcards -->
+		                     <xsl:choose>
+		                     	<xsl:when test="$action = 'cancelSubscription'">
+		                     		<xsl:apply-templates select="/*/*/submsg-ext:RelatedFBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID" mode="fbiSubscriptionID"/>	
+		                     	</xsl:when>
+		                     	<xsl:when test="$action = 'modifySubscription'">
+		                     		<xsl:apply-templates select="/b-2:Modify/smm:SubscriptionModificationMessage/submsg-ext:FBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID" mode="fbiSubscriptionID"/>
+		                     	</xsl:when>
+		                     </xsl:choose>
 														
 							<ebts:RecordRapBackTriggeringEventCode>
 								<xsl:value-of select="$rapBackTriggeringEvent" />
@@ -519,14 +532,7 @@
 			</nc20:Date>
 		</ebts:RecordRapBackExpirationDate>		
 	</xsl:template>
-	
-	<xsl:template match="nc20:Date" mode="extendExpirationDate">
-		<ebts:RecordRapBackExpirationDate>
-			<nc20:Date>								
-				<xsl:value-of select="." />
-			</nc20:Date>
-		</ebts:RecordRapBackExpirationDate>		
-	</xsl:template>
+
 	
 	<xsl:template match="nc20:IdentificationID" mode="fbiSubscriptionID">
 		 <ebts:RecordRapBackSubscriptionID>

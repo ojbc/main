@@ -165,7 +165,7 @@ public class CamelContextTest {
 		
     	Exchange senderExchange = new DefaultExchange(context);
 
-	    File inputFile = new File("src/test/resources/input/OJBC_Criminal_Subscription_Modify_Document.xml");
+	    File inputFile = new File("src/test/resources/input/OJBC_Subscription_Modify_Document.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 	    
 	    Assert.assertNotNull(inputStr);
@@ -196,7 +196,7 @@ public class CamelContextTest {
 		
 		//assert the transformed xml against expected xml output doc				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Maintenance-Replace-Request.xml"));
+				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Replace-Request.xml"));
 							
 		Diff diff = XMLUnit.compareXML(expectedXmlString, transformedReturnMessage);		
 		
