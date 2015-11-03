@@ -33,6 +33,7 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 import org.xml.sax.SAXException;
@@ -94,7 +95,7 @@ public class EbtsTransformTest {
 	@Test
 	public void modifyCriminalSubscriptionTestEbtsTransform() throws IOException, SAXException{
 		
-		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_Criminal_Subscription_Modify_Document.xml");
+		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_Subscription_Modify_Document.xml");
 		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
@@ -105,7 +106,7 @@ public class EbtsTransformTest {
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Maintenance-Replace-Request.xml"));
+				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Replace-Request.xml"));
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
@@ -125,24 +126,6 @@ public class EbtsTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Cancel-Request.xml"));
-							
-		compareXml(expectedXmlString, actualTransformedXml);							
-	}
-	
-	public void modifyCivilSubscriptionTestEbtsTransform() throws IOException, SAXException{
-		
-		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_Civil_Subscription_Modify_Document.xml");
-		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
-								
-		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
-		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
-		
-		Map<String, Object> xsltParamMap = getXsltParamMap();
-			
-		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
-				
-		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/EBTS-RapBack-Civil-Subscription-Maintenance-Replace-Request.xml"));
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}

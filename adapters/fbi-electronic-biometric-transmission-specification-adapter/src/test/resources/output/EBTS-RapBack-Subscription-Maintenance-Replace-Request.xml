@@ -94,7 +94,7 @@
 					<ebts:RecordRapBackDisclosureIndicator>false</ebts:RecordRapBackDisclosureIndicator>
 					
 					<ebts:RecordRapBackExpirationDate>
-						<nc20:Date>2015-06-20</nc20:Date>
+						<nc20:Date>2015-04-01</nc20:Date>
 					</ebts:RecordRapBackExpirationDate>
 
 					<ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
@@ -109,10 +109,6 @@
 					
 					<ebts:RecordRapBackTriggeringEventCode>1</ebts:RecordRapBackTriggeringEventCode>
 					
-					<ebts:RecordRapBackUserDefinedElement>
-						<ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
-						<ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
-					</ebts:RecordRapBackUserDefinedElement>
 					<ebts:TransactionRapBackMaintenanceCode>R</ebts:TransactionRapBackMaintenanceCode>
 				</ebts:RecordRapBackData>
 				
@@ -125,14 +121,7 @@
                	</ebts:RecordTransactionActivity>
 				
 				<ebts:RecordSubject>
-					<nc20:PersonBirthDate>
-						<nc20:Date>1972-08-02</nc20:Date>
-					</nc20:PersonBirthDate>
-					<ebts:PersonName>
-						<nc20:PersonGivenName>John</nc20:PersonGivenName>
-						<nc20:PersonSurName>Doe</nc20:PersonSurName>
-					</ebts:PersonName>
-					
+									
 					<j:PersonFBIIdentification>
                         <nc20:IdentificationID>123456789</nc20:IdentificationID>
                     </j:PersonFBIIdentification>
