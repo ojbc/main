@@ -43,8 +43,9 @@
 	<saxon-version>8.7</saxon-version>
 	<servlet-api-version>2.5</servlet-api-version>
 	<bouncycastle-version>140</bouncycastle-version>
-	<ojb-fedquery-common>1.0.2</ojb-fedquery-common>
-	<ojb-camel-common>1.0.0</ojb-camel-common>
+	<ojb-fedquery-common-version>[1.0.3,)</ojb-fedquery-common-version>
+	<ojb-camel-common>[1.0.0,)</ojb-camel-common>
+	<ojb-common-version>[2.0.5,)</ojb-common-version>
 	<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 	<commons-lang-version>2.4</commons-lang-version>
 	<spring-version>3.0.7.RELEASE</spring-version>
@@ -142,7 +143,7 @@
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
 	      <artifactId>ojb-fedquery-common</artifactId>
-	      <version>${ojb-fedquery-common}</version>
+	      <version>${ojb-fedquery-common-version}</version>
 	    </dependency>
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
