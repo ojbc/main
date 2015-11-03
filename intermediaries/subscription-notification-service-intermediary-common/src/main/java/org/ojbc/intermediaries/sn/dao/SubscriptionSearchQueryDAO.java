@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,6 +33,7 @@ import javax.sql.DataSource;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.Header;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -420,14 +422,29 @@ public class SubscriptionSearchQueryDAO {
         }
 
         if (ret != null && CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCategoryCode)){
-        	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_SUBSCRIPTION_ID_UPDATE, ret, agencyCaseNumber);
+        	subscribeIdentificationTransaction(ret, agencyCaseNumber, endDateString);
         }
+        
         return ret;
 
     }
     
-    private final String IDENTIFICATION_TRANSACTION_SUBSCRIPTION_ID_UPDATE = "UPDATE identification_transaction "
-    		+ "SET subscription_id = ? WHERE transaction_number = ? ";
+    
+    private void subscribeIdentificationTransaction(Number subscriptionId, String transactionNumber, String endDateString ){
+    	final String IDENTIFICATION_TRANSACTION_SUBSCRIBE = "UPDATE identification_transaction "
+    			+ "SET subscription_id = ?, available_for_subscripiton_start_date = ? WHERE transaction_number = ? ";
+    	
+    	DateTime endDate = XmlUtils.parseXmlDate(endDateString);
+    	endDate = endDate.plusDays(1);
+    	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_SUBSCRIBE, subscriptionId, endDate.toDate(), transactionNumber);
+    }
+    
+    private void unsubscribeIdentificationTransaction(Integer subscriptionId){
+    	final String IDENTIFICATION_TRANSACTION_UNSUBSCRIBE = "UPDATE identification_transaction "
+    			+ "SET available_for_subscripiton_start_date = ? WHERE subscription_id = ? ";
+    	
+    	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
+    }
     
     public int unsubscribe(String subscriptionSystemId, String topic, Map<String, String> subjectIds, String systemName, String subscriptionOwner) {
 
@@ -445,6 +462,7 @@ public class SubscriptionSearchQueryDAO {
             String queryString = "update subscription s set s.active=0 where s.topic=? and s.id=?";
             returnCount = this.jdbcTemplate.update(queryString, criteriaArray);
 
+            unsubscribeIdentificationTransaction(Integer.valueOf(subscriptionSystemId));
             return returnCount;
 
         }

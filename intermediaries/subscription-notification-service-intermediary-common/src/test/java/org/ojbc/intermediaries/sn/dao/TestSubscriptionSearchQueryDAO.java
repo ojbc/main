@@ -33,6 +33,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -48,11 +49,13 @@ import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
+import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.Assertion;
@@ -898,6 +901,70 @@ public class TestSubscriptionSearchQueryDAO {
 		subscriptionSearchQueryDAO
 				.consolidateSid("A5008305", "A5008306");
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSidConsolidation.xml");
+	}
+
+	@Test
+	@DirtiesContext
+	public void testUnsubscribeCivilSubscription()
+			throws Exception {
+		
+		Statement statement = dataSource.getConnection().createStatement();
+		ResultSet rs = statement.executeQuery("select * from identification_transaction where subscription_id = '62724'");
+		assertTrue(rs.next());
+		Date availableForSubscriptionStartDate = rs.getDate("AVAILABLE_FOR_SUBSCRIPITON_START_DATE");
+		log.info("availableForSubscriptionStartDate before unsubscribe: " + availableForSubscriptionStartDate);
+		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDate, XmlUtils.parseXmlDate("2015-10-16").toDate()));
+		
+		subscriptionSearchQueryDAO
+			.unsubscribe("62724","{http://ojbc.org/wsn/topics}:person/arrest", null, null, null);
+		
+		ResultSet rsAfter = statement.executeQuery("select * from identification_transaction where subscription_id = '62724'");
+		assertTrue(rsAfter.next());
+		Date availableForSubscriptionStartDateAfter = rsAfter.getDate("AVAILABLE_FOR_SUBSCRIPITON_START_DATE");
+		log.info("availableForSubscriptionStartDate after unsubscribe: " + availableForSubscriptionStartDateAfter);
+		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDateAfter, Calendar.getInstance().getTime()));
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testSubscribe_noExistingCivilSubscriptions() throws Exception {
+
+		Statement s = dataSource.getConnection().createStatement();
+		ResultSet rs = s.executeQuery("select * from identification_transaction where TRANSACTION_NUMBER = '000001820140729014008339997'");
+		assertTrue(rs.next());
+		Date availableForSubscriptionStartDate = rs.getDate("AVAILABLE_FOR_SUBSCRIPITON_START_DATE");
+		log.info("availableForSubscriptionStartDate before subscribe: " + availableForSubscriptionStartDate);
+		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDate, Calendar.getInstance().getTime()));
+
+		Map<String, String> subjectIds = new HashMap<String, String>();
+		subjectIds.put(SubscriptionNotificationConstants.SID, "A023460");
+		subjectIds.put(
+				SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER,
+				"ABCDE");
+
+		ResultSet rsCountBefore = s.executeQuery("select count(*) as count from subscription");
+		assertTrue(rsCountBefore.next());
+		int recordCount = rsCountBefore.getInt("count");
+
+		LocalDate currentDate = new LocalDate();
+		subscriptionSearchQueryDAO.subscribe(null,
+				"{http://ojbc.org/wsn/topics}:person/arrest", "2015-11-03", "2016-11-02", subjectIds,
+				new HashSet<String>(Arrays.asList("none@none.com")),
+				"offenderName", "systemName", "ABCDE", "I", "SYSTEM", currentDate,
+				"000001820140729014008339997").intValue();
+
+		ResultSet rsCountAfter = s.executeQuery("select count(*) as count from subscription");
+		assertTrue(rsCountAfter.next());
+
+		int postRecordCount = rsCountAfter.getInt("count");
+		assertEquals(1, postRecordCount - recordCount);
+		rs.close();
+		
+		ResultSet rsAvalibaleDateAfterSubscribe = s.executeQuery("select * from identification_transaction where TRANSACTION_NUMBER = '000001820140729014008339997'");
+		assertTrue(rsAvalibaleDateAfterSubscribe.next());
+		Date availableForSubscriptionStartDateAfter = rsAvalibaleDateAfterSubscribe.getDate("AVAILABLE_FOR_SUBSCRIPITON_START_DATE");
+		log.info("availableForSubscriptionStartDate after subscribe: " + availableForSubscriptionStartDateAfter);
+		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDateAfter, XmlUtils.parseXmlDate("2016-11-03").toDate()));
 	}
 
 	private ArrestNotificationRequest returnArrestNotificationRequest(
