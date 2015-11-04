@@ -49,6 +49,7 @@ import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.util.helper.ZipUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -73,12 +74,16 @@ public class RapbackDAOImpl implements RapbackDAO {
     @Autowired
     private TopicMapValidationDueDateStrategy validationDueDateStrategy;
 	
-	final static String SUBJECT_INSERT="INSERT into IDENTIFICATION_SUBJECT "
-			+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB, SEX_CODE) "
-			+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+    @Value("${rapbackDatastoreAdapter.idlePeriod:60}")
+    private Integer idlePeriod;
+
 	@Override
 	public Integer saveSubject(final Subject subject) {
         log.debug("Inserting row into IDENTIFICATION_SUBJECT table : " + subject);
+        
+        final String SUBJECT_INSERT="INSERT into IDENTIFICATION_SUBJECT "
+        		+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB, SEX_CODE) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -102,9 +107,10 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 	
-	final static String SUBJECT_SELECT="SELECT * FROM IDENTIFICATION_SUBJECT WHERE SUBJECT_ID = ?";
 	@Override
 	public Subject getSubject(Integer id) {
+		final String SUBJECT_SELECT="SELECT * FROM IDENTIFICATION_SUBJECT WHERE SUBJECT_ID = ?";
+		
 		List<Subject> subjects = jdbcTemplate.query(SUBJECT_SELECT, new SubjectRowMapper(), id);
 		return DataAccessUtils.singleResult(subjects);
 	} 
@@ -130,14 +136,15 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return date == null? null : date.toDate(); 
 	}
 
-	final static String IDENTIFICATION_TRANSACTION_INSERT="INSERT into IDENTIFICATION_TRANSACTION "
-			+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, ARCHIVED, IDENTIFICATION_CATEGORY) "
-			+ "values (?, ?, ?, ?, ?, ?, ?)";
 	@Override
 	@Transactional
 	public void saveIdentificationTransaction(
 			IdentificationTransaction identificationTransaction) {
         log.debug("Inserting row into IDENTIFICATION_TRANSACTION table : " + identificationTransaction.toString());
+        
+        final String IDENTIFICATION_TRANSACTION_INSERT="INSERT into IDENTIFICATION_TRANSACTION "
+        		+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, ARCHIVED, IDENTIFICATION_CATEGORY) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?)";
         
         Integer subjectId  = null; 
         if ( identificationTransaction.getSubject() == null){
@@ -160,14 +167,15 @@ public class RapbackDAOImpl implements RapbackDAO {
         		identificationTransaction.getIdentificationCategory()); 
 	}
 
-	final static String CIVIL_FBI_SUBSCRIPTION_RECORD_INSERT="INSERT into CIVIL_FBI_SUBSCRIPTION_RECORD "
-			+ "(SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID, CIVIL_INITIAL_RESULT_ID, LAST_MODIFIED_BY) "
-			+ "values (?, ?, ?, ?)";
 	@Override
 	public Integer saveCivilFbiSubscriptionRecord(
 			final CivilFbiSubscriptionRecord civilFbiSubscriptionRecord) {
         log.debug("Inserting row into CIVIL_FBI_SUBSCRIPTION_RECORD table : " + civilFbiSubscriptionRecord.toString());
 
+        final String CIVIL_FBI_SUBSCRIPTION_RECORD_INSERT="INSERT into CIVIL_FBI_SUBSCRIPTION_RECORD "
+        		+ "(SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID, CIVIL_INITIAL_RESULT_ID, LAST_MODIFIED_BY) "
+        		+ "values (?, ?, ?, ?)";
+        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
@@ -187,13 +195,14 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
-	final static String CRIMINAL_FBI_SUBSCRIPTION_RECORD_INSERT="insert into CRIMINAL_FBI_SUBSCRIPTION_RECORD "
-			+ "(SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID, FBI_OCA) "
-			+ "values (?, ?, ?)";
 	@Override
 	public Integer saveCriminalFbiSubscriptionRecord(
 			final CriminalFbiSubscriptionRecord criminalFbiSubscriptionRecord) {
         log.debug("Inserting row into CRIMINAL_FBI_SUBSCRIPTION_RECORD table : " + criminalFbiSubscriptionRecord.toString());
+        
+        final String CRIMINAL_FBI_SUBSCRIPTION_RECORD_INSERT="insert into CRIMINAL_FBI_SUBSCRIPTION_RECORD "
+        		+ "(SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID, FBI_OCA) "
+        		+ "values (?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -212,13 +221,14 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
-	final static String CIVIL_FINGER_PRINTS_INSERT="insert into CIVIL_FINGER_PRINTS "
-			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, FINGER_PRINTS_TYPE_ID) "
-			+ "values (?, ?, ?)";
 	@Override
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints) {
         log.debug("Inserting row into CIVIL_FINGER_PRINTS table : " + civilFingerPrints.toString());
 
+        final String CIVIL_FINGER_PRINTS_INSERT="insert into CIVIL_FINGER_PRINTS "
+        		+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, FINGER_PRINTS_TYPE_ID) "
+        		+ "values (?, ?, ?)";
+        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
@@ -246,7 +256,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 // TODO delete this when we are 100% sure the table is not needed any more. 
-//	final static String CRIMINAL_FINGER_PRINTS_INSERT="insert into CRIMINAL_FINGER_PRINTS "
+//	final String CRIMINAL_FINGER_PRINTS_INSERT="insert into CRIMINAL_FINGER_PRINTS "
 //			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) "
 //			+ "values (?, ?, ?, ?)";
 //	@Override
@@ -273,14 +283,15 @@ public class RapbackDAOImpl implements RapbackDAO {
 //         return keyHolder.getKey().intValue();
 //	}
 
-	final static String CIVIL_INITIAL_RAP_SHEET_INSERT="insert into CIVIL_INITIAL_RAP_SHEET "
-			+ "(CIVIL_INITIAL_RESULT_ID, RAP_SHEET) "
-			+ "values (?, ?)";
 	@Override
 	public Integer saveCivilInitialRapSheet(
 			final CivilInitialRapSheet civilInitialRapSheet) {
         log.debug("Inserting row into CIVIL_INITIAL_RAP_SHEET table : " + civilInitialRapSheet.toString());
 
+        final String CIVIL_INITIAL_RAP_SHEET_INSERT="insert into CIVIL_INITIAL_RAP_SHEET "
+        		+ "(CIVIL_INITIAL_RESULT_ID, RAP_SHEET) "
+        		+ "values (?, ?)";
+        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
@@ -302,14 +313,15 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
-	final static String CIVIL_INITIAL_RESULTS_INSERT="insert into CIVIL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, "
-			+ " RESULTS_SENDER_ID) "
-			+ "values (?, ?, ?)";
 	@Override
 	public Integer saveCivilInitialResults(
 			final CivilInitialResults civilInitialResults) {
         log.debug("Inserting row into CIVIL_INITIAL_RESULTS table : " + civilInitialResults.toString());
+
+        final String CIVIL_INITIAL_RESULTS_INSERT="insert into CIVIL_INITIAL_RESULTS "
+        		+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, "
+        		+ " RESULTS_SENDER_ID) "
+        		+ "values (?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -335,14 +347,15 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
-	final static String CRIMINAL_INITIAL_RESULTS_INSERT="insert into CRIMINAL_INITIAL_RESULTS "
-			+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, RESULTS_SENDER_ID) "
-			+ "values (?, ?, ?)";
 	@Override
 	public Integer saveCriminalInitialResults(
 			final CriminalInitialResults criminalInitialResults) {
         log.debug("Inserting row into CRIMINAL_INITIAL_RESULTS table : " + criminalInitialResults.toString());
 
+        final String CRIMINAL_INITIAL_RESULTS_INSERT="insert into CRIMINAL_INITIAL_RESULTS "
+        		+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, RESULTS_SENDER_ID) "
+        		+ "values (?, ?, ?)";
+        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
@@ -367,15 +380,16 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
-	final static String FBI_RAP_BACK_SUBSCRIPTION_INSERT="insert into FBI_RAP_BACK_SUBSCRIPTION "
-			+ "(FBI_SUBSCRIPTION_ID, UCN, RAP_BACK_CATEGORY_CODE, RAP_BACK_SUBSCRIPTION_TERM_CODE, "
-			+ " RAP_BACK_EXPIRATION_DATE, RAP_BACK_START_DATE, RAP_BACK_TERM_DATE, "
-			+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE) "
-			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	@Override
 	public void saveFbiRapbackSubscription(
 			final FbiRapbackSubscription fbiRapbackSubscription) {
         log.debug("Inserting row into FBI_RAP_BACK_SUBSCRIPTION table : " + fbiRapbackSubscription.toString());
+
+        final String FBI_RAP_BACK_SUBSCRIPTION_INSERT="insert into FBI_RAP_BACK_SUBSCRIPTION "
+        		+ "(FBI_SUBSCRIPTION_ID, UCN, RAP_BACK_CATEGORY_CODE, RAP_BACK_SUBSCRIPTION_TERM_CODE, "
+        		+ " RAP_BACK_EXPIRATION_DATE, RAP_BACK_START_DATE, RAP_BACK_TERM_DATE, "
+        		+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(FBI_RAP_BACK_SUBSCRIPTION_INSERT, 
         				fbiRapbackSubscription.getFbiSubscriptionId(),
@@ -389,19 +403,21 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            fbiRapbackSubscription.getRapbackActivityNotificationFormat());
 	}
 
-	final static String ID_TRANSACTION_SELECT_BY_TRANSACTION_NUMBER = 
-			" SELECT * FROM identification_transaction i "
-			+ "LEFT JOIN identification_subject s ON s.subject_id = i.subject_id "
-			+ "WHERE transaction_number = ?";
 	
 	@Override
 	public IdentificationTransaction getIdentificationTransaction(
 			String transactionNumber) {
+		final String ID_TRANSACTION_SELECT_BY_TRANSACTION_NUMBER = 
+				" SELECT * FROM identification_transaction i "
+						+ "LEFT JOIN identification_subject s ON s.subject_id = i.subject_id "
+						+ "WHERE transaction_number = ?";
+
 		List<IdentificationTransaction> transactions = 
 				jdbcTemplate.query(ID_TRANSACTION_SELECT_BY_TRANSACTION_NUMBER, 
 						new IdentificationTransactionRowMapper(), transactionNumber);
 		return DataAccessUtils.singleResult(transactions);
 	}
+	
 	private final class IdentificationTransactionRowMapper 
 		implements RowMapper<IdentificationTransaction> {
 		public IdentificationTransaction mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -478,20 +494,21 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return subject;
 	}
 
-	final static String SUBJECT_UPDATE="UPDATE identification_subject SET "
-			+ "ucn = :ucn, "
-			+ "criminal_sid = :criminalSid, "
-			+ "civil_sid = :civilSid, "
-			+ "first_name = :firstName, "
-			+ "last_name = :lastName, "
-			+ "middle_initial = :middelInitial, "
-			+ "dob = :dob, "
-			+ "sex_code = :sexCode "
-			+ "WHERE subject_id = :subjectId";
 	@Override
 	public void updateSubject(Subject subject) {
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
 		
+		final String SUBJECT_UPDATE="UPDATE identification_subject SET "
+				+ "ucn = :ucn, "
+				+ "criminal_sid = :criminalSid, "
+				+ "civil_sid = :civilSid, "
+				+ "first_name = :firstName, "
+				+ "last_name = :lastName, "
+				+ "middle_initial = :middelInitial, "
+				+ "dob = :dob, "
+				+ "sex_code = :sexCode "
+				+ "WHERE subject_id = :subjectId";
+
 		paramMap.put("ucn", subject.getUcn()); 
 		paramMap.put("criminalSid", subject.getCriminalSid()); 
 		paramMap.put("civilSid", subject.getCivilSid()); 
@@ -505,15 +522,15 @@ public class RapbackDAOImpl implements RapbackDAO {
 		namedParameterJdbcTemplate.update(SUBJECT_UPDATE, paramMap);
 	}
 	
-	final static String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.timestamp as timestamp_received, "
-			+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
-			+ "FROM civil_initial_results c "
-			+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
-			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
-			+ "WHERE t.owner_ori = ?";
-
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.timestamp as timestamp_received, "
+				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
+				+ "FROM civil_initial_results c "
+				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
+				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+				+ "WHERE t.owner_ori = ?";
+		
 		List<CivilInitialResults> civilIntialResults = 
 				jdbcTemplate.query(CIVIL_INITIAL_RESULTS_SELECT, 
 						new CivilInitialResultsRowMapper(), ownerOri);
@@ -550,56 +567,56 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return civilInitialResults;
 	}
 
-	private final String CIVIL_INITIAL_RESULTS_ID_SELECT = "SELECT t.civiL_INITIAL_RESULT_ID  "
-			+ "FROM RAPBACK_DATASTORE.CIVIL_INITIAL_RESULTS t "
-			+ "WHERE t.TRANSACTION_NUMBER  = ? AND RESULTS_SENDER_ID = ?";
-
 	@Override
 	public Integer getCivilIntialResultsId(String transactionNumber,
 			ResultSender resultSender) {
+		final String CIVIL_INITIAL_RESULTS_ID_SELECT = "SELECT t.civiL_INITIAL_RESULT_ID  "
+				+ "FROM RAPBACK_DATASTORE.CIVIL_INITIAL_RESULTS t "
+				+ "WHERE t.TRANSACTION_NUMBER  = ? AND RESULTS_SENDER_ID = ?";
+		
 		return jdbcTemplate.queryForInt(CIVIL_INITIAL_RESULTS_ID_SELECT, transactionNumber, resultSender.ordinal() + 1);
 	}
-
-	final static String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
-			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.* "
-			+ "FROM identification_transaction t "
-			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
-			+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
-			+ "WHERE t.owner_ori = ? AND (select count(*)>0 from "
-			+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
 
 	@Override
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(
 			String ori) {
+		final String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+				+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.* "
+				+ "FROM identification_transaction t "
+				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
+				+ "WHERE t.owner_ori = ? AND (select count(*)>0 from "
+				+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
+		
 		List<IdentificationTransaction> identificationTransactions = 
 				jdbcTemplate.query(CIVIL_IDENTIFICATION_TRANSACTION_SELECT, 
 						new FullIdentificationTransactionRowMapper(), ori);
 		return identificationTransactions;
 	}
 
-	final static String CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
-			+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
-			+ "FROM identification_transaction t "
-			+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
-			+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
-			+ "	criminal_initial_results c where c.transaction_number = t.transaction_number)"; 
 	@Override
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
 			String ori) {
+		final String CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+				+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
+				+ "FROM identification_transaction t "
+				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+				+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
+				+ "	criminal_initial_results c where c.transaction_number = t.transaction_number)"; 
 		List<IdentificationTransaction> identificationTransactions = 
 				jdbcTemplate.query(CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT, 
 						new IdentificationTransactionRowMapper(), ori);
 		return identificationTransactions;
 	}
 
-	final static String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.* "
-			+ "FROM civil_initial_results c "
-			+ "LEFT OUTER JOIN CIVIL_INITIAL_RAP_SHEET r ON r.CIVIL_INITIAL_RESULT_ID = c.CIVIL_INITIAL_RESULT_ID "
-			+ "WHERE transaction_number = ?";
-	
 	@Override
 	public List<CivilInitialResults> getIdentificationCivilInitialResults(
 			String transactionNumber) {
+		final String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.* "
+				+ "FROM civil_initial_results c "
+				+ "LEFT OUTER JOIN CIVIL_INITIAL_RAP_SHEET r ON r.CIVIL_INITIAL_RESULT_ID = c.CIVIL_INITIAL_RESULT_ID "
+				+ "WHERE transaction_number = ?";
+		
 		List<CivilInitialResults> results= 
 				jdbcTemplate.query(CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER, 
 						new CivilInitialResultsResultSetExtractor(), transactionNumber);
@@ -638,18 +655,18 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	}
 
-	final static String FBI_RAP_BACK_SUBSCRIPTION_UPDATE ="update FBI_RAP_BACK_SUBSCRIPTION SET "
-			+ "RAP_BACK_SUBSCRIPTION_TERM_CODE = :rapbackSubscriptionTermCode, "
-			+ "RAP_BACK_EXPIRATION_DATE = :rapbackExpirationDate , "
-			+ "RAP_BACK_START_DATE = :rapbackStartDate, "
-			+ "RAP_BACK_TERM_DATE = :rapbackTermDate, "
-			+ "RAP_BACK_OPT_OUT_IN_STATE_INDICATOR = :rapbackOptOutInStateIndicator, "
-			+ "RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE = :rapbackActivityNotificationFormatCode "
-			+ "where FBI_SUBSCRIPTION_ID = :fbiSubscriptionId ";
-
 	@Override
 	public void updateFbiRapbackSubscription(
 			FbiRapbackSubscription fbiRapbackSubscription) {
+		final String FBI_RAP_BACK_SUBSCRIPTION_UPDATE ="update FBI_RAP_BACK_SUBSCRIPTION SET "
+				+ "RAP_BACK_SUBSCRIPTION_TERM_CODE = :rapbackSubscriptionTermCode, "
+				+ "RAP_BACK_EXPIRATION_DATE = :rapbackExpirationDate , "
+				+ "RAP_BACK_START_DATE = :rapbackStartDate, "
+				+ "RAP_BACK_TERM_DATE = :rapbackTermDate, "
+				+ "RAP_BACK_OPT_OUT_IN_STATE_INDICATOR = :rapbackOptOutInStateIndicator, "
+				+ "RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE = :rapbackActivityNotificationFormatCode "
+				+ "where FBI_SUBSCRIPTION_ID = :fbiSubscriptionId ";
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
 		paramMap.put("rapbackSubscriptionTermCode", fbiRapbackSubscription.getSubscriptionTerm()); 
 		paramMap.put("rapbackExpirationDate", toDate(fbiRapbackSubscription.getRapbackExpirationDate())); 
@@ -662,11 +679,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 		namedParameterJdbcTemplate.update(FBI_RAP_BACK_SUBSCRIPTION_UPDATE, paramMap);
 	}
 
-	private final String SID_CONSOLIDATION = "UPDATE identification_subject "
-			+ "SET criminal_sid =(CASE WHEN criminal_sid = :currentSid THEN :newSid ELSE criminal_sid END), "
-			+ "	   civil_sid = (CASE WHEN civil_sid=:currentSid THEN :newSid ELSE civil_sid END)";
 	@Override
 	public void consolidateSid(String currentSid, String newSid) {
+		final String SID_CONSOLIDATION = "UPDATE identification_subject "
+				+ "SET criminal_sid =(CASE WHEN criminal_sid = :currentSid THEN :newSid ELSE criminal_sid END), "
+				+ "	   civil_sid = (CASE WHEN civil_sid=:currentSid THEN :newSid ELSE civil_sid END)";
+		
 		Map<String, String> paramMap = new HashMap<String, String>(); 
 		paramMap.put("currentSid", currentSid);
 		paramMap.put("newSid", newSid);
@@ -674,15 +692,16 @@ public class RapbackDAOImpl implements RapbackDAO {
 		this.namedParameterJdbcTemplate.update(SID_CONSOLIDATION, paramMap);
 	}
 
-	private final String FBI_SUBSCRIPTION_UCN_CONSOLIDATION = "UPDATE fbi_rap_back_subscription "
-			+ "SET ucn = :newUcn "
-			+ "WHERE ucn = :currentUcn";
-	private final String IDENTIFICATION_SUBJECT_UCN_CONSOLIDATION = "UPDATE identification_subject "
-			+ "SET ucn = :newUcn "
-			+ "WHERE ucn = :currentUcn";
 	@Override
 	@Transactional
 	public void consolidateUcn(String currentUcn, String newUcn) {
+		final String FBI_SUBSCRIPTION_UCN_CONSOLIDATION = "UPDATE fbi_rap_back_subscription "
+				+ "SET ucn = :newUcn "
+				+ "WHERE ucn = :currentUcn";
+		final String IDENTIFICATION_SUBJECT_UCN_CONSOLIDATION = "UPDATE identification_subject "
+				+ "SET ucn = :newUcn "
+				+ "WHERE ucn = :currentUcn";
+		
 		Map<String, String> paramMap = new HashMap<String, String>(); 
 		paramMap.put("currentUcn", currentUcn);
 		paramMap.put("newUcn", newUcn);
@@ -691,11 +710,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 		this.namedParameterJdbcTemplate.update(IDENTIFICATION_SUBJECT_UCN_CONSOLIDATION, paramMap); 
 	}
 
-	private final String AGENCY_PROFILE_SELECT_BY_ORI = "SELECT * FROM agency_profile a "
-			+ "LEFT JOIN agency_contact_email e ON e.agency_id = a.agency_id "
-			+ "WHERE agency_ori = ?";
 	@Override
 	public AgencyProfile getAgencyProfile(String ori) {
+		final String AGENCY_PROFILE_SELECT_BY_ORI = "SELECT * FROM agency_profile a "
+				+ "LEFT JOIN agency_contact_email e ON e.agency_id = a.agency_id "
+				+ "WHERE agency_ori = ?";
+		
 		AgencyProfile agencyProfile = jdbcTemplate.query(AGENCY_PROFILE_SELECT_BY_ORI, new AgencyProfileResultSetExtractor(), ori);
 		return agencyProfile;
 	}
