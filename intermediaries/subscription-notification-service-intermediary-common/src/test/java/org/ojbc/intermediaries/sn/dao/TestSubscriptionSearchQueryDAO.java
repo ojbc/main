@@ -911,7 +911,7 @@ public class TestSubscriptionSearchQueryDAO {
 		Statement statement = dataSource.getConnection().createStatement();
 		ResultSet rs = statement.executeQuery("select * from identification_transaction where subscription_id = '62724'");
 		assertTrue(rs.next());
-		Date availableForSubscriptionStartDate = rs.getDate("AVAILABLE_FOR_SUBSCRIPITON_START_DATE");
+		Date availableForSubscriptionStartDate = rs.getDate("AVAILABLE_FOR_SUBSCRIPTION_START_DATE");
 		log.info("availableForSubscriptionStartDate before unsubscribe: " + availableForSubscriptionStartDate);
 		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDate, XmlUtils.parseXmlDate("2015-10-16").toDate()));
 		
@@ -920,7 +920,7 @@ public class TestSubscriptionSearchQueryDAO {
 		
 		ResultSet rsAfter = statement.executeQuery("select * from identification_transaction where subscription_id = '62724'");
 		assertTrue(rsAfter.next());
-		Date availableForSubscriptionStartDateAfter = rsAfter.getDate("AVAILABLE_FOR_SUBSCRIPITON_START_DATE");
+		Date availableForSubscriptionStartDateAfter = rsAfter.getDate("AVAILABLE_FOR_SUBSCRIPTION_START_DATE");
 		log.info("availableForSubscriptionStartDate after unsubscribe: " + availableForSubscriptionStartDateAfter);
 		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDateAfter, Calendar.getInstance().getTime()));
 	}
@@ -932,7 +932,7 @@ public class TestSubscriptionSearchQueryDAO {
 		Statement s = dataSource.getConnection().createStatement();
 		ResultSet rs = s.executeQuery("select * from identification_transaction where TRANSACTION_NUMBER = '000001820140729014008339997'");
 		assertTrue(rs.next());
-		Date availableForSubscriptionStartDate = rs.getDate("AVAILABLE_FOR_SUBSCRIPITON_START_DATE");
+		Date availableForSubscriptionStartDate = rs.getDate("AVAILABLE_FOR_SUBSCRIPTION_START_DATE");
 		log.info("availableForSubscriptionStartDate before subscribe: " + availableForSubscriptionStartDate);
 		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDate, Calendar.getInstance().getTime()));
 
@@ -962,7 +962,7 @@ public class TestSubscriptionSearchQueryDAO {
 		
 		ResultSet rsAvalibaleDateAfterSubscribe = s.executeQuery("select * from identification_transaction where TRANSACTION_NUMBER = '000001820140729014008339997'");
 		assertTrue(rsAvalibaleDateAfterSubscribe.next());
-		Date availableForSubscriptionStartDateAfter = rsAvalibaleDateAfterSubscribe.getDate("AVAILABLE_FOR_SUBSCRIPITON_START_DATE");
+		Date availableForSubscriptionStartDateAfter = rsAvalibaleDateAfterSubscribe.getDate("AVAILABLE_FOR_SUBSCRIPTION_START_DATE");
 		log.info("availableForSubscriptionStartDate after subscribe: " + availableForSubscriptionStartDateAfter);
 		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDateAfter, XmlUtils.parseXmlDate("2016-11-03").toDate()));
 	}
