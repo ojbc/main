@@ -40,11 +40,11 @@
             </jxdm50:PersonFBIIdentification>
             <jxdm50:PersonStateFingerprintIdentification>
                <nc30:IdentificationID>A123457</nc30:IdentificationID>
-               <oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
             </jxdm50:PersonStateFingerprintIdentification>
             <jxdm50:PersonStateFingerprintIdentification>
                <nc30:IdentificationID>C1234567</nc30:IdentificationID>
-               <oirs-res-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
             </jxdm50:PersonStateFingerprintIdentification>
          </jxdm50:PersonAugmentation>
          <oirs-res-ext:IdentifiedPersonTrackingIdentification>

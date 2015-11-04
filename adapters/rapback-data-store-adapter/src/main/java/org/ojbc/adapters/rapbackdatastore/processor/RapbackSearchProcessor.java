@@ -373,14 +373,14 @@ public class RapbackSearchProcessor {
 					XmlUtils.appendElement(personStateFingerprintIdentification, NS_NC_30, "IdentificationID");
 			identificationID.setTextContent(sid);
 			if (isCivilSid){
-				Element fingerpringIdentificationIssuedForCivilPurposeIndicator =
-						XmlUtils.appendElement(personStateFingerprintIdentification, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "FingerpringIdentificationIssuedForCivilPurposeIndicator");
-				fingerpringIdentificationIssuedForCivilPurposeIndicator.setTextContent("true");
+				Element fingerprintIdentificationIssuedForCivilPurposeIndicator =
+						XmlUtils.appendElement(personStateFingerprintIdentification, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "FingerprintIdentificationIssuedForCivilPurposeIndicator");
+				fingerprintIdentificationIssuedForCivilPurposeIndicator.setTextContent("true");
 			}
 			else{
-				Element fingerpringIdentificationIssuedForCriminalPurposeIndicator =
-						XmlUtils.appendElement(personStateFingerprintIdentification, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "FingerpringIdentificationIssuedForCriminalPurposeIndicator");
-				fingerpringIdentificationIssuedForCriminalPurposeIndicator.setTextContent("true");
+				Element fingerprintIdentificationIssuedForCriminalPurposeIndicator =
+						XmlUtils.appendElement(personStateFingerprintIdentification, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "FingerprintIdentificationIssuedForCriminalPurposeIndicator");
+				fingerprintIdentificationIssuedForCriminalPurposeIndicator.setTextContent("true");
 			}
 				
 		}
