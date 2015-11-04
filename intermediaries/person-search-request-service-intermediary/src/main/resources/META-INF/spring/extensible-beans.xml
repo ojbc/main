@@ -59,7 +59,7 @@
 	</bean>	
 	
 	<bean id="defaultFederatedSearchTimeoutProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
+		<constructor-arg name="beanName" value="defaultFederatedSearchTimeoutProcessor" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-search-request-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<bean class="org.ojbc.util.fedquery.processor.DefaultFederatedSearchTimeoutProcessor">
