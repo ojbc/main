@@ -57,6 +57,7 @@
 					<xsd:element ref="oirs-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="oirs-res-ext:IdentificationResultStatusRepresentation"/>
 					<xsd:element ref="oirs-res-ext:Subscription" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:SubsequentResultsAvailableIndicator"/>
 					<xsd:element ref="oirs-res-ext:SourceSystemNameText" minOccurs="0"/>
 					<xsd:element ref="intel:SystemIdentification" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SearchResultCategoryText" minOccurs="0"/>
@@ -245,6 +246,11 @@
 	<xsd:element name="FingerpringIdentificationIssuedForCriminalPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for an arrest, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubsequentResultsAvailableIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a given identification result has one or more subsequent results related to it, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
