@@ -432,7 +432,7 @@ public class SubscriptionSearchQueryDAO {
     
     private void subscribeIdentificationTransaction(Number subscriptionId, String transactionNumber, String endDateString ){
     	final String IDENTIFICATION_TRANSACTION_SUBSCRIBE = "UPDATE identification_transaction "
-    			+ "SET subscription_id = ?, available_for_subscripiton_start_date = ? WHERE transaction_number = ? ";
+    			+ "SET subscription_id = ?, available_for_subscription_start_date = ? WHERE transaction_number = ? ";
     	
     	DateTime endDate = XmlUtils.parseXmlDate(endDateString);
     	endDate = endDate.plusDays(1);
@@ -441,7 +441,7 @@ public class SubscriptionSearchQueryDAO {
     
     private void unsubscribeIdentificationTransaction(Integer subscriptionId){
     	final String IDENTIFICATION_TRANSACTION_UNSUBSCRIBE = "UPDATE identification_transaction "
-    			+ "SET available_for_subscripiton_start_date = ? WHERE subscription_id = ? ";
+    			+ "SET available_for_subscription_start_date = ? WHERE subscription_id = ? ";
     	
     	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
     }
