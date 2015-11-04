@@ -238,12 +238,12 @@
 		</xsd:restriction>
 	</xsd:simpleType>
 	
-	<xsd:element name="FingerpringIdentificationIssuedForCivilPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
+	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for a civil background check, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FingerpringIdentificationIssuedForCriminalPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
+	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for an arrest, false otherwise.</xsd:documentation>
 		</xsd:annotation>

@@ -46,7 +46,7 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 				</j:PersonFBIIdentification>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A123456</nc:IdentificationID>
-					<oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<!-- This is sometimes called the OTN -->
@@ -94,7 +94,7 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A9000000</nc:IdentificationID>
-					<oirs-res-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<!-- This is sometimes called the OTN -->
@@ -122,7 +122,7 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A81771818</nc:IdentificationID>
-					<oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<!-- This is sometimes called the OTN -->
