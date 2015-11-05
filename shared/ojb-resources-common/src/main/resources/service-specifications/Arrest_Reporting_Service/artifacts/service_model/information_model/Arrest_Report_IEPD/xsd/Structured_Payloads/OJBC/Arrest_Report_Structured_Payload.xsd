@@ -58,7 +58,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:IdentificationType">
 				<xsd:sequence>
-					<xsd:element ref="ojbc:FingerpringIdentificationIssuedPurposeRepresentation"/>
+					<xsd:element ref="ojbc:FingerprintIdentificationIssuedPurposeRepresentation"/>
 					<xsd:element ref="lexslib:SameAsDigestReference"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -69,17 +69,17 @@
 			<xsd:documentation>An identifier assigned to a fingerprint by the state.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FingerpringIdentificationIssuedPurposeRepresentation" abstract="true">
+	<xsd:element name="FingerprintIdentificationIssuedPurposeRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A purpose for assigning a fingerprint ID.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FingerpringIdentificationIssuedForCivilPurposeIndicator" type="niem-xsd:boolean" substitutionGroup="ojbc:FingerpringIdentificationIssuedPurposeRepresentation">
+	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xsd:boolean" substitutionGroup="ojbc:FingerprintIdentificationIssuedPurposeRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for a civil background check, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FingerpringIdentificationIssuedForCriminalPurposeIndicator" type="niem-xsd:boolean" substitutionGroup="ojbc:FingerpringIdentificationIssuedPurposeRepresentation">
+	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xsd:boolean" substitutionGroup="ojbc:FingerprintIdentificationIssuedPurposeRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for an arrest, false otherwise.</xsd:documentation>
 		</xsd:annotation>
