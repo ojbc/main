@@ -457,6 +457,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		}
 		
 		if (includeSubscription){
+			identificationTransaction.setHavingSubsequentResults(rs.getBoolean("having_subsequent_result"));
 			Integer subscriptionId = rs.getInt("id"); 
 			
 			if (subscriptionId != null && subscriptionId > 0){
@@ -581,10 +582,15 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(
 			String ori) {
 		final String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
-				+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.* "
+				+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
+				+ "(f.fbi_subscription_id is not null) as having_subsequent_result "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
+				+ "LEFT OUTER JOIN fbi_rap_back_subscription f on f.ucn = s.ucn "
+				+ "		AND f.fbi_subscription_id = "
+				+ "			(SELECT DISTINCT fbi_subscription_id FROM subsequent_results subs "
+				+ "			WHERE subs. fbi_subscription_id = f. fbi_subscription_id)"
 				+ "WHERE t.owner_ori = ? AND (select count(*)>0 from "
 				+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
 		
