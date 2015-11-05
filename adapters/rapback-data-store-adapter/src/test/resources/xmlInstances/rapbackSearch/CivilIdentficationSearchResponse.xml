@@ -71,6 +71,7 @@
             <nc30:IdentificationID>62724</nc30:IdentificationID>
          </oirs-res-ext:SubscriptionIdentification>
       </oirs-res-ext:Subscription>
+      <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
       <intel:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339990</nc30:IdentificationID>
