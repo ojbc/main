@@ -439,4 +439,20 @@ public class RapbackDAOImplTest {
 		AgencyProfile agencyProfileNull = rapbackDAO.getAgencyProfile("123456789");
 		assertNull(agencyProfileNull);
 	}
+	
+	@Test
+	@DirtiesContext
+	public void testArchive() throws Exception {
+		Connection conn = dataSource.getConnection();
+		String countQualifiedToArchiveSql = "SELECT count(*) as rowcount "
+				+ "FROM identification_transaction "
+				+ "WHERE archived = 'false' "
+				+ "AND available_for_subscription_start_date < '2015-09-05'";
+		ResultSet rs = conn.createStatement().executeQuery(countQualifiedToArchiveSql);
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));
+
+		int count = rapbackDAO.archive();
+		assertEquals(1, count);
+	}
 }

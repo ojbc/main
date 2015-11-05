@@ -758,4 +758,21 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	}
 
+	@Override
+	public int archive() {
+		log.info("Archiving records that have been available "
+				+ "for subscription for over " + idlePeriod + " days.");
+		final String sql = "UPDATE identification_transaction t "
+				+ "SET t.archived = 'true' "
+				+ "WHERE t.archived = 'false' AND t.available_for_subscription_start_date < ?";
+		
+		DateTime currentDate = new DateTime(); 
+		DateTime comparableDate = currentDate.minusDays(idlePeriod);
+		log.info("Comparable Date:" + comparableDate);
+		
+		int updatedRows = jdbcTemplate.update(sql, comparableDate.toDate());
+		log.info("Archived " + updatedRows + " rows that have been idle for over " + idlePeriod + " days ");
+		return updatedRows;
+	}
+
 }
