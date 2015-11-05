@@ -455,4 +455,23 @@ public class RapbackDAOImplTest {
 		int count = rapbackDAO.archive();
 		assertEquals(1, count);
 	}
+	
+	@Test
+	@DirtiesContext
+	public void testArchiveIdentificationResult() throws Exception {
+		Connection conn = dataSource.getConnection();
+		String sql = "SELECT * "
+				+ "FROM identification_transaction "
+				+ "WHERE transaction_number = '000001820140729014008339997' ";
+		
+		ResultSet rs = conn.createStatement().executeQuery(sql);
+		assertTrue(rs.next());
+		assertEquals(false,rs.getBoolean("archived"));
+
+		rapbackDAO.archiveIdentificationResult("000001820140729014008339997");
+		
+		ResultSet rsAfter = conn.createStatement().executeQuery(sql);
+		assertTrue(rsAfter.next());
+		assertEquals(true, rsAfter.getBoolean("archived"));
+	}
 }

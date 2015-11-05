@@ -775,4 +775,14 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return updatedRows;
 	}
 
+	@Override
+	public void archiveIdentificationResult(String transactionNumber) {
+		log.info("Archiving record with transaction number " + transactionNumber);
+		
+		final String sql = "UPDATE identification_transaction t "
+				+ "SET t.archived = 'true' "
+				+ "WHERE t.transaction_number = ?";
+		jdbcTemplate.update(sql, transactionNumber);
+	}
+
 }
