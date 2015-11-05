@@ -17,21 +17,17 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ira-resp-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveResponse/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveResponse/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:irm-rm="http://ojbc.org/IEPD/Extensions/IdentificationResultsModificationResponseMetadata/1.0" xmlns:irm-rep="http://ojbc.org/IEPD/Extensions/IdentificationResultsModificationRequestErrorReporting/1.0" xmlns:tns="http://www.example.org/search-result-metadata" targetNamespace="http://ojbc.org/IEPD/Extensions/IdentificationResultsModificationResponseMetadata/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:complexType name="IdentificationResultsArchiveResponseType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a message to submit an archive modification response for identification results.</xsd:documentation>
-		</xsd:annotation>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/IdentificationResultsModificationRequestErrorReporting/1.0" schemaLocation="identification-results-modification-request-error-reporting.xsd"/>
+	<xsd:complexType name="IdentificationResultsModificationResponseMetadataType">
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence/>
+				<xsd:sequence>
+					<xsd:element ref="irm-rep:IdentificationResultsModificationRequestError" minOccurs="0"/>
+				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="IdentificationResultsArchiveResponse" type="ira-resp-doc:IdentificationResultsArchiveResponseType">
-		<xsd:annotation>
-			<xsd:documentation>An archive modification response for identification results.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
+	<xsd:element name="IdentificationResultsModificationResponseMetadata" type="irm-rm:IdentificationResultsModificationResponseMetadataType"/>
 </xsd:schema>
