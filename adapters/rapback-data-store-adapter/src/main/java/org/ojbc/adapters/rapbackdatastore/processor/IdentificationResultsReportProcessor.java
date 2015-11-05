@@ -159,13 +159,13 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		}
 		
 		String civilSid = XmlUtils.xPathStringSearch(rootNode, 
-				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator='true']/nc30:IdentificationID");
+				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc30:IdentificationID");
 		if (StringUtils.isNotBlank(civilSid)){
 			subject.setCivilSid(civilSid);
 		}
 		
 		String criminalSid = XmlUtils.xPathStringSearch(rootNode, 
-				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator='true']/nc30:IdentificationID");
+				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true']/nc30:IdentificationID");
 		if (StringUtils.isNotBlank(criminalSid)){
 			subject.setCriminalSid(criminalSid);
 		}
