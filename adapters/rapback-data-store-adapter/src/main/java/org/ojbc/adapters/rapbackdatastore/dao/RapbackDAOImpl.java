@@ -747,7 +747,7 @@ public class RapbackDAOImpl implements RapbackDAO {
                 }
                 else{
                 	String email = rs.getString("agency_email");
-                	if (StringUtils.isNotBlank(email)){
+                	if (StringUtils.isNotBlank(email) && !agencyProfile.getEmails().contains(email)){
                 		agencyProfile.getEmails().add(email);
                 	}
                 }
