@@ -90,16 +90,21 @@
 			#########################################################################################		
 		 -->
 				
-		<camel:route id="ebtsUnsubscribeRoute">
+		<camel:route id="fbiEbtsSubscriptionManager_Route">
 		
 			<from uri="fbiEbtsSubscriptionManagerEndpoint"/>
 		
 			<log message="\n\n\n EBTS adapter received request on: fbiEbtsSubscriptionManagerEndpoint \n\n\n"/>
+
+			<setHeader headerName="originalSubscriptionOperation">
+				<simple>${header.operationName}</simple>
+			</setHeader>
 			
 			<to uri="direct:processFbiEbtsRequest"/>
+										
+			<log message="\n\n\n Getting ready to send response for operation: ${header.originalSubscriptionOperation}  \n\n\n"/>			
 								
-			<!--  TODO confirm if different processor should be used for modify message  -->
-			<to uri="bean:unsubscribeProcessor?method=sendResponse"/>
+			<to uri="bean:fbiEbtsResponseProcessor?method=sendFbiSubscribeManagerResponse"/>
 			
 		</camel:route>
 		
@@ -139,7 +144,7 @@
 			
 			<camel:log message="\n\n Fbi Adapter service received inbound message. \n\n" />													 						
 			
-			<camel:to uri="direct:processFbiEbtsRequest" />									   			   
+			<camel:to uri="direct:processFbiEbtsRequest" />														   			  
 												   			  
 			<camel:to uri="bean:fbiEbtsResponseProcessor?method=sendFbiSubscribeResponse" />
 						
@@ -148,11 +153,11 @@
 
 		<camel:route id="fbiEbtsProcessingRoute">
 		
-			<camel:from uri="direct:processFbiEbtsRequest"/>
+			<camel:from uri="direct:processFbiEbtsRequest"/>			
 						
 			<camel:choice>
 			  <camel:when>
-			    <simple>${header.operationName == 'Modify'}</simple>  			    
+			    <simple>${header.operationName} == 'Modify'</simple>  			    
 			    <log message="\n\n\n Processing operation:  Modify \n\n\n" />    			    
 			    <to uri="direct:processOperation"/>    
 			  </camel:when>
@@ -167,7 +172,7 @@
 			  	<to uri="direct:processOperation"/>
 			  </when>
 			  <otherwise>
-			  	<log message="\n\n\n Unknown operation.  Not processing!  \n\n\n" loggingLevel="ERROR"/>
+			  	<log message="\n\n\n Unknown operation: ${header.operationName}  - Not processing!  \n\n\n" loggingLevel="ERROR"/>
 			  </otherwise>			  
 			</camel:choice>			
 												
@@ -401,9 +406,7 @@
 	
 	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
 	
-	<bean id="rapsheetMtomProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapsheetMtomProcessor"/>
-	
-	<bean id="unsubscribeProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEbtsUnsubscribeProcessor"/>
+	<bean id="rapsheetMtomProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapsheetMtomProcessor"/>	
 	
 	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>
 	
