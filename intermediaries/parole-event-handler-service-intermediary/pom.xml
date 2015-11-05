@@ -52,7 +52,7 @@
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
 	    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-	    <ojb-fedquery-common-version>1.0.2</ojb-fedquery-common-version>
+	    <ojb-fedquery-common-version>[1.0.2,)</ojb-fedquery-common-version>
 	    <er-resources-version>1.0.2</er-resources-version>
 	</properties>
 
