@@ -59,9 +59,10 @@ public class RapbackSearchProcessorTest {
 	}
 
 	@Test
+	@DirtiesContext
 	public void test() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
-        customAttributes.put(SamlAttribute.EmployerORI, "68796860");
+        customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
 
         org.apache.cxf.message.Message message = 
         		TestRapbackSearchRequestService.createSamlAssertionMessageWithAttributes(customAttributes);
