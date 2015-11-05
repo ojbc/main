@@ -17,17 +17,24 @@
 package org.ojbc.intermediaries.sn;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Message;
+import org.apache.camel.impl.DefaultMessage;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiSubModDocBuilder;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiSubscriptionModification;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -44,13 +51,61 @@ public class FbiSubscriptionProcessor {
 	private FbiRapbackDao rapbackDao;	
 	
 			
-	public void prepareSubscriptionMaintenanceMessage(Exchange exchange){
+	
+	public Document prepareSubscriptionModificationFromUnsubscribe(Exchange unsubscribeExchange) throws Exception{
 		
-		Document unsubscribeDoc = exchange.getIn().getBody(Document.class);		
+		Document unsubscribeDoc = unsubscribeExchange.getIn().getBody(Document.class);
 		
-		Document subscribeMaintenanceDoc = null; 
+		String personFbiUcnId = XmlUtils.xPathStringSearch(unsubscribeDoc, 
+				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");				
 				
-		exchange.getIn().setBody(subscribeMaintenanceDoc);		
+		if(StringUtils.isEmpty(personFbiUcnId)){
+			
+			personFbiUcnId = lookupFbiUcnId(unsubscribeDoc);						
+		}
+						
+		if(StringUtils.isEmpty(personFbiUcnId)){
+			throw new Exception("Could not lookup personFbiUcnId. Can't constuct Modify message.");
+		}
+		
+					
+		String categoryPurposeReason = XmlUtils.xPathStringSearch(unsubscribeDoc, 
+				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");		
+		
+		if(StringUtils.isEmpty(categoryPurposeReason)){
+			throw new Exception("Couldn't lookup categoryPurposeReason.  Can't construct Modify message.");
+		}
+		
+					
+		FbiRapbackSubscription fbiRapbackSubscription = lookupFbiSubscriptionFromRapbackDataStore(personFbiUcnId, categoryPurposeReason);			
+		
+		if(fbiRapbackSubscription == null){
+
+			XmlUtils.printNode(unsubscribeDoc);
+			
+			throw new Exception("Was not able to lookup FbiRapbackSubscription to get related fbi data to add to Modify message");				
+		}						
+
+		FbiSubscriptionModification fbiSubMod = new FbiSubscriptionModification();
+		
+		fbiSubMod.setPersonFbiUcnId(personFbiUcnId);
+		fbiSubMod.setReasonCode(categoryPurposeReason);
+		fbiSubMod.setSubModEndDate(fbiRapbackSubscription.getRapbackTermDate().toDate());
+		fbiSubMod.setSubscriptionFbiId(fbiRapbackSubscription.getFbiSubscriptionId());	
+		
+		Document subModDoc = prepareSubscriptionMaintenanceMessage(fbiSubMod);
+	
+		return subModDoc;
+	}
+	
+	
+	private Document prepareSubscriptionMaintenanceMessage(FbiSubscriptionModification fbiSubMod) throws Exception{
+									
+		FbiSubModDocBuilder fbiSubModDocBuilder = new FbiSubModDocBuilder();
+		
+		Document subscribeMaintenanceDoc = fbiSubModDocBuilder.buildFbiSubModDoc(fbiSubMod);		 				
+		
+		return subscribeMaintenanceDoc;
 	}
 	
 
@@ -78,8 +133,7 @@ public class FbiSubscriptionProcessor {
     	
     	boolean stateSubsEndDateLessThanFbiSubEndDate = greatestStateSubscriptionEndDate.isBefore(fbiRapBackExpDate);
     	
-    	// TODO enable real code when working
-    	exchange.getIn().setHeader("stateSubsEndDateLessThanFbiSubEndDate", false);//stateSubsEndDateLessThanFbiSubEndDate);    	
+    	exchange.getIn().setHeader("stateSubsEndDateLessThanFbiSubEndDate", stateSubsEndDateLessThanFbiSubEndDate);    	
     }
 	
     
@@ -123,7 +177,7 @@ public class FbiSubscriptionProcessor {
 			String categoryPurposeReason = XmlUtils.xPathStringSearch(unsubscribeDoc, 
 					"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");			
 						
-			FbiRapbackSubscription fbiRapbackSubscription = getFbiSubscriptionFromRapbackDataStore(personFbiUcnId, categoryPurposeReason);			
+			FbiRapbackSubscription fbiRapbackSubscription = lookupFbiSubscriptionFromRapbackDataStore(personFbiUcnId, categoryPurposeReason);			
 			
 			if(fbiRapbackSubscription != null){
 				appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, fbiRapbackSubscription);	
@@ -241,7 +295,48 @@ public class FbiSubscriptionProcessor {
 	}
 	
 	
-	public Document processSubscription(Document subscriptionDoc) throws Exception{
+	private SubscriptionRequest getSubReqFromSubDoc(Document subDoc) throws Exception{
+		
+		// create a sub-optimal Message wrapper so the doc-creation constructor can be reused below 
+		Message msg = new DefaultMessage();		
+		msg.setBody(subDoc);
+		
+		SubscriptionRequest subRequest = new ArrestSubscriptionRequest(msg, null);
+				
+		return subRequest;
+	}
+	
+	private Date getSubReqEndDate(Document subscriptionDoc) throws Exception{
+		
+		SubscriptionRequest subReq = getSubReqFromSubDoc(subscriptionDoc);
+		
+		String stateSubEndDate = subReq.getEndDateString();
+		
+		Date subEndDate = null;
+		
+		try{
+			subEndDate = sdf.parse(stateSubEndDate);
+			
+		}catch(Exception e){
+			
+			logger.severe("Could not parse end date format! for: " + stateSubEndDate + " -> " + e.getMessage());
+		}		
+		return subEndDate;
+	}
+	
+	private Date getFbiSubReqEndDate(FbiRapbackSubscription fbiRapbackSubscription) throws Exception{
+		
+		DateTime jtFbiSubEndDate = fbiRapbackSubscription.getRapbackExpirationDate();	
+		
+		Date fbiSubEndDate = jtFbiSubEndDate == null ? null : jtFbiSubEndDate.toDate();
+		
+		return fbiSubEndDate;		
+	}
+	
+	
+	// design: multiple returns were cleaner than nested conditionals
+	//
+	public Document processSubscription(Exchange exchange, Document subscriptionDoc) throws Exception{
 		
 		logger.info("\n\n processSubscription...\n\n");		
 		
@@ -251,27 +346,67 @@ public class FbiSubscriptionProcessor {
 		String subPurposeCategory = XmlUtils.xPathStringSearch(subscriptionDoc,
 				"/b-2:Subscribe/submsg-exch:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode|/b-2:Subscribe/submsg-exch:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode");
 						
-		Document rSubscriptionDoc = subscriptionDoc;
+		
+		FbiRapbackSubscription fbiRapbackSubscription = null;
 		
 		if(StringUtils.isNotEmpty(fbiIdUcn) && StringUtils.isNotEmpty(subPurposeCategory)){
 			
-			FbiRapbackSubscription fbiRapbackSubscription = getFbiSubscriptionFromRapbackDataStore(fbiIdUcn, subPurposeCategory);
+			fbiRapbackSubscription = lookupFbiSubscriptionFromRapbackDataStore(fbiIdUcn, subPurposeCategory);							
+		}else{								
+			logger.warning("\n\n\n Can't lookup FbiRapbackSubscription because don't have both: fbiIdUcn and subPurposeCategory. Not sending to FBI EBTS!  \n\n\n");
 			
-			//we're editing an existing fbi subscription, so add 'fbi data section' of elements at bottom of doc
-			if(fbiRapbackSubscription != null){
-												
-				rSubscriptionDoc = appendFbiDataToSubscriptionDoc(subscriptionDoc, fbiRapbackSubscription);	
-			}else{
-				
-				logger.warning("\n\n\n Extra FBI Elements Not added to subscribe message because Rapback "
-						+ "Datastore returned Nothing for fbi Id: " + fbiIdUcn + " (Interpreting as new FBI subscription) \n\n\n");				
-			}
-		}else{
-			logger.warning("\n\n Not looking up rapback datastore. fbiIdUcn: " 
-					+ fbiIdUcn + ", purposeCategory: " + subPurposeCategory + "\n\n");			
+			exchange.getIn().setHeader("sendSubToFbiEbtsAdapter", false);
+			
+			return subscriptionDoc;
 		}
+
+				
+		if(fbiRapbackSubscription == null){
+			
+			logger.warning("\n\n\n Rapback Datastore returned Nothing for fbi Id: " + fbiIdUcn + " and category: " + subPurposeCategory 
+					+ ".  So - Interpreting this as an Add (new FBI subscription) \n\n\n");	
 						
-		return rSubscriptionDoc;
+			exchange.getIn().setHeader("sendSubToFbiEbtsAdapter", true);
+			
+			// negative coupling, but lets the caller know what endpoint to send to
+			exchange.getIn().setHeader("operationName", "Subscribe");
+			
+			return subscriptionDoc;			
+		}
+
+					
+		logger.info("\n\n\n Looked up/found existing fbiRapbackSubscription, Handling... \n\n\n");				
+		
+		Date fbiSubscriptionEndDate = getFbiSubReqEndDate(fbiRapbackSubscription);
+		
+		Date stateSubscriptionEndDate = getSubReqEndDate(subscriptionDoc);		
+																
+		if(fbiSubscriptionEndDate != null && stateSubscriptionEndDate != null && stateSubscriptionEndDate.after(fbiSubscriptionEndDate)){		
+			
+			logger.info("\n\n\n State Subscription End Date Greater than FBI Sub. End Date. Preparing MODIFY message... \n\n\n");
+			
+			FbiSubscriptionModification fbiSubMod = new FbiSubscriptionModification();	
+			
+			fbiSubMod.setPersonFbiUcnId(fbiIdUcn);
+			fbiSubMod.setReasonCode(subPurposeCategory);			
+			fbiSubMod.setSubModEndDate(stateSubscriptionEndDate);
+			fbiSubMod.setSubscriptionFbiId(fbiRapbackSubscription.getFbiSubscriptionId());					
+			
+			Document subscriptionModifyDoc = prepareSubscriptionMaintenanceMessage(fbiSubMod);
+			
+			exchange.getIn().setHeader("sendSubToFbiEbtsAdapter", true);			
+			exchange.getIn().setHeader("operationName", "Modify");
+			
+			return subscriptionModifyDoc;
+			
+		}else{			
+			logger.warning("\n\n\n FBI subscription end date is greater than end date on new state subscription, or It just can't be determined."
+					+ "  Not sending to EBTS adapter! \n\n\n");
+			
+			exchange.getIn().setHeader("sendSubToFbiEbtsAdapter", false);
+		}
+				
+		return subscriptionDoc;
 	}
 	
 
@@ -398,7 +533,7 @@ public class FbiSubscriptionProcessor {
 	
 	
 		
-	private FbiRapbackSubscription getFbiSubscriptionFromRapbackDataStore(String fbiIdUcn, String category){				
+	private FbiRapbackSubscription lookupFbiSubscriptionFromRapbackDataStore(String fbiIdUcn, String category){				
 		
 		if(StringUtils.isEmpty(fbiIdUcn) || StringUtils.isEmpty(category)){
 			logger.severe("\n\n\n Not looking up fbi subscription from rapback datastore.  Don't have both fbiUcnId and categoryReason \n\n\n");

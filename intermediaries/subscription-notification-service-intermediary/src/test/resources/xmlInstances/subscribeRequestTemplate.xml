@@ -63,5 +63,6 @@
 	            <nc:Date>END_DATE_TOKEN</nc:Date>
 	         </nc:EndDate>
       	 </nc:DateRange>
+      	 <smext:CriminalSubscriptionReasonCode>CI</smext:CriminalSubscriptionReasonCode>
     </sm:SubscriptionMessage>
 </b:Subscribe>
