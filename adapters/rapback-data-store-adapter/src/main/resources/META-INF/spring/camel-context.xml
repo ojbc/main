@@ -84,10 +84,14 @@
 		<endpoint id="criminalHistoryConsolidationReportingServiceEndpoint"
 			uri="cxf:bean:criminalHistoryConsolidationReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
 
+		<!-- Automatic Archiving Timer Endpoint -->
+		<endpoint id="automaticArchivingTimerEndpoint"
+			uri="quartz://rapbackDataStore/archiveTimer?cron={{rapbackDatastoreAdapter.archiveTimerCronExpression}}" />
+
 		<!-- Incident Reporting Route -->
 		<route id="identification_recording_service">
 		
-			<from	uri="identificationRecordingAdapterEndpoint" />
+			<from uri="identificationRecordingAdapterEndpoint" />
 			
 			<to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
@@ -317,6 +321,13 @@
 			<log message="Criminal History consolidated"></log>
 		</route>
 
+		<!-- Automaticly Archive idled records flow -->
+		<route id="automaticArchivingRoute">
+			<from uri="automaticArchivingTimerEndpoint" />
+			<to uri="bean:rapbackDAO?method=archive" />
+			<log message="Automatic archiving completed"></log>
+		</route>
+		
 	</camelContext>
 
 	<bean id="opertaionNameNotSupported" class="java.lang.IllegalArgumentException">
