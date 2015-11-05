@@ -199,29 +199,54 @@
 			</camel:choice>
 		</camel:route>
    
-		<camel:route>
+   
+		<camel:route id="processSubscriptionArrest_route">
+		
 			<camel:from uri="direct:processSubscriptionArrest" />
+			
 			<camel:log message="Processing Subscription (arrest)" />	
 								
 			<camel:multicast>				
 
+				<to uri="direct:processPotentialFbiSubscription"/>			 				 							 																														 				
+												
+				<!-- this synchronous call is last because it modifies the message -->
+				<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+														
+			</camel:multicast>						
+		</camel:route>
+		
+		
+		<route id="processPotentialFbiSubscription_Route">
+		
+			<from uri="direct:processPotentialFbiSubscription"/>
+		
 				<camel:choice>
 					<camel:when>
 						<camel:xpath>boolean(//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonFBIIdentification/nc20:IdentificationID/text()[1])</camel:xpath>					
 						
-						<camel:log message="\n\n\n\n Found FBI ID, Sending subscription to FBI EBTS..., message body:\n\n ${body}\n\n\n\n"/>
+						<camel:log message="\n\n\n\n Found FBI ID in message, processing... \n\n\n\n"/>
 						
 						<camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription"/>
-				
-						<!--  Note there could have been no fbi data returned from rapback datastore and we will still continue 
-							to send the subscribe to the fbi ebts adapter while interpreting this as a new fbi subscription add -->										
+																																				
+						<camel:choice>
+							<camel:when>
+								<camel:simple>${header.sendSubToFbiEbtsAdapter} == true</camel:simple>
+								
+								<log message ="\n\n\n sendSubToFbiEbtsAdapter} == true ...\n\n\n"/>
+																
+								<to uri="direct:sendToCorrectEbtsEndpoint" />
+																																
+							</camel:when>
+							
+							<camel:otherwise>
+								<log message="\n\n\n Not sending to fbi ebts adapter! \n\n\n" loggingLevel="WARN" />
+							</camel:otherwise>
+						</camel:choice>																			
 						
-						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
-						
-						<camel:log message="\n\n\n\n s/n interm. msg body after calling ebts adapter: \n ${body} \n\n\n\n"/>
-						
-					</camel:when>								
-					<camel:otherwise>																					
+					</camel:when>													
+					<camel:otherwise>	
+																									
 						<camel:setHeader headerName="sid">
 							<camel:xpath>//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath>
 						</camel:setHeader>					
@@ -231,13 +256,38 @@
 							sample configuration for setting up the file logger -->
 						<camel:log message="\n\n\n\n There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI.\n\n\n\n" logName="rapback"/>						
 					</camel:otherwise>							
-				</camel:choice>				 				 							 																														 				
-												
-				<!-- this synchronous call is last because it modifies the message -->
-				<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+				</camel:choice>			
+		
+		</route>
+		
+		
+				
+		<route id="sendToCorrectEbtsEndpoint_Route">
+		
+			<from uri="direct:sendToCorrectEbtsEndpoint"/>
+		
+			<camel:choice>
+					<when>
+						<simple>${header.operationName} == 'Subscribe'</simple>
+								
+						<log message="\n\n\n operationName == 'Subscribe \n\n\n"/>
 														
-			</camel:multicast>						
-		</camel:route>
+						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
+					</when>
+					<camel:when>
+						<simple>${header.operationName} == 'Modify'</simple>
+						
+						<log message="\n\n\n operationName == 'Modify' \n\n\n" />
+															
+						<to uri="direct:callFbiEbtsModify" />
+					</camel:when>
+					<otherwise>
+						<log message="\n\n\n Fbi Operation not set. Not sending to ebts adapter! \n\n\n" loggingLevel="WARN" />
+					</otherwise>								
+			</camel:choice>
+										
+		</route>
+						
 		
 		<camel:route id="fbiEbtsSubscriptionSecureRoute">					
 			
@@ -251,7 +301,20 @@
 			<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />	
 			
 		</camel:route>
-
+		
+		
+		<route id="callFbiEbtsModify_Route">
+		
+			<from uri="direct:callFbiEbtsModify" />
+		
+			<log message="\n\n\n direct:callFbiEbtsModifyService... \n\n\n" />
+		
+			<setHeader headerName="operationName"><constant>Modify</constant></setHeader>			
+			<setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></setHeader>
+		
+			<to uri="fbiEbtsSubscriptionManagerEndpoint" />
+		</route>
+		
 
 		<camel:route>
 			<camel:from uri="direct:processSubscriptionIncident" />
@@ -279,13 +342,13 @@
 			<camel:log message="Processing Unsubscription (arrest)" />
 			
 			<!-- save original unsubscribe message so it can be used later to unsubscribe with the fbi if necessary.
-				Note "Camel" prefix in spelling required for cxf "drop headers" hack which only removes http headers 
-				beginning with "Camel" -->  			
+				Note "OJBC" prefix in spelling required for cxf "drop headers" filter strategy which only removes http headers 
+				beginning with "OJBC" -->  			
 			<setHeader headerName="OJBCunsubscribeRequestMessage">
 				<simple>${body}</simple>
 			</setHeader>	
 						
-			<!-- this call sets the exchange body to the unsubscribe response message -->
+			<!-- side effect: at end, this call sets exchange body to the unsubscribe response message -->
 			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />									
 			
 			<camel:wireTap uri="direct:processFbiUnsubscription">
@@ -318,12 +381,14 @@
 						
 					<convertBodyTo type="java.lang.String"/>
 									
-					<camel:to uri="fbiEbtsUnsubscribeServiceEndpoint" />														
+					<camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />														
+				
 				</camel:when>	
+				
 				<camel:otherwise>			
-					<log message="\n\n\n NOT sending unsubscription to FBI EBTS Adapter!  \n\n\n" loggingLevel="WARN"/>		
+				
+					<log message="\n\n\n NOT DeleteFbiSubscription! (possible State Subscriptions remaining) \n\n\n" loggingLevel="WARN"/>		
 							
-					<!-- TODO enable when working
 					<to uri="bean:fbiSubscriptionProcessor?method=determineStateSubsEndDateLessThanFbiSubEndDate"/>
 					
 					<choice>
@@ -331,16 +396,16 @@
 							<simple>${header.stateSubsEndDateLessThanFbiSubEndDate}</simple>
 							
 							<log message="\n\n\n stateSubsEndDateLessThanFbiSubEndDate - so preparing maintenance subscription \n\n\n" />
-							
-							<to uri="bean:fbiSubscriptionProcessor?method=prepareSubscriptionMaintenanceMessage"/>
-							
-							<to uri="direct:processSubscription"/>
+																																
+							<to uri="bean:fbiSubscriptionProcessor?method=prepareSubscriptionModificationFromUnsubscribe"/>
+																											
+							<to uri="fbiEbtsSubscriptionManagerEndpoint"/>
 						</when>	
+						
 						<camel:otherwise>
 							<log message="\n\n\n !stateSubsEndDateLessThanFbiSubEndDate \n\n\n" />
 						</camel:otherwise>				
 					</choice>
-					-->
 																				
 				</camel:otherwise>			
 			</camel:choice>			

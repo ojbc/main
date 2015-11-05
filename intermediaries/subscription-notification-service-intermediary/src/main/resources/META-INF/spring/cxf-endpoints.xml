@@ -49,6 +49,7 @@
 	
 	<camel:endpoint id="criminalHistoryConsolidationReportingServiceEndpoint" uri="cxf:bean:criminalHistoryConsolidationReportingService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>
 
+	<!-- Hosted by s/n intermediary -->
 	<camel:endpoint id="subscriptionManagerServiceEndpoint" uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy"/>
 	
 	
@@ -65,8 +66,9 @@
     <camel:endpoint id="fbiEbtsSubscriptionRequestServiceEndpoint"  
 		uri="cxf:bean:fbiEbtsSubscriptionRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
 
-	<camel:endpoint id="fbiEbtsUnsubscribeServiceEndpoint" 
-		uri="cxf:bean:fbiEbtsUnsubscribeService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}" />
+	<!-- hosted by fbi ebts adapter for Unsubscribe/Modify operations -->
+	<camel:endpoint id="fbiEbtsSubscriptionManagerEndpoint" 
+		uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}" />
 
 
 	<!-- OJB Notification Broker Service -->
@@ -123,9 +125,9 @@
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
     </cxf:cxfEndpoint>
 
-	<!-- FBI EBTS Adapter endpoint for unsubscribe, called by this s/n intermediary -->
-	<cxf:cxfEndpoint id="fbiEbtsUnsubscribeService"
-		address="${publishSubscribe.fbiEbtsUnsubscribeServiceEndpoint}" 
+	<!-- FBI EBTS Adapter endpoint for Unsubscribe/Modify, called by this s/n intermediary -->
+	<cxf:cxfEndpoint id="fbiEbtsSubscriptionManagerService"
+		address="${publishSubscribe.fbiEbtsSubscriptionManagerEndpoint}" 
 		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
 		serviceName="ojb-sm:SubscriptionManagerServiceService"
 		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
