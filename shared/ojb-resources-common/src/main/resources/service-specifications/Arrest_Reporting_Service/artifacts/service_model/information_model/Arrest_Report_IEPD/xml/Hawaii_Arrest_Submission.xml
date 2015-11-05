@@ -895,11 +895,11 @@
 								<j:ArrestReference s:ref="Arrest_1"/>
 							</j:ActivityArrestAssociation>
 							<ojbc:PersonStateFingerprintIdentification>
-							 	<ojbc:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</ojbc:FingerpringIdentificationIssuedForCivilPurposeIndicator>	
+							 	<ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>	
 								<lexslib:SameAsDigestReference lexslib:ref="PSFI_001"/>
 							</ojbc:PersonStateFingerprintIdentification>
 							<ojbc:PersonStateFingerprintIdentification>
-							 	<ojbc:FingerpringIdentificationIssuedForCriminalPurposeIndicator>true</ojbc:FingerpringIdentificationIssuedForCriminalPurposeIndicator>
+							 	<ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
 								<lexslib:SameAsDigestReference lexslib:ref="PSFI_002"/>
 							</ojbc:PersonStateFingerprintIdentification>
 						</ojbc:ArrestReport>

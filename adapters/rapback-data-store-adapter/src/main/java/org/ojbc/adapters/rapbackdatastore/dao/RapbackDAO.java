@@ -61,4 +61,6 @@ public interface RapbackDAO {
 	public void consolidateUcn(String currentUcn, String newUcn);
 	
 	public AgencyProfile getAgencyProfile(String ori);
+	
+	public int archive();
 }

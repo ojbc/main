@@ -80,8 +80,8 @@
              <wsdl:fault  name="ResourceUnknownFault">
              	<soap:fault name="ResourceUnknownFault" use="literal" /> 
              </wsdl:fault>
-             <wsdl:fault  name="UnableToValidateSubscriptionFault">
-	         	<soap:fault name="UnableToValidateSubscriptionFault" use="literal" /> 
+             <wsdl:fault  name="UnableToModifySubscriptionFault">
+	         	<soap:fault name="UnableToModifySubscriptionFault" use="literal" /> 
 	         </wsdl:fault> 
         </wsdl:operation>
     </wsdl:binding>    

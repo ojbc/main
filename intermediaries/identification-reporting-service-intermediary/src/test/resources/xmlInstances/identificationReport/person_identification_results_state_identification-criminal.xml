@@ -42,7 +42,7 @@
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A123456</nc:IdentificationID>
-					<ident-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>true</ident-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator>
+					<ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<ident-ext:PersonTrackingIdentidication>

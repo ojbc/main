@@ -45,7 +45,7 @@
 				</j:PersonFBIIdentification>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A123456</nc:IdentificationID>
-					<oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 	  	<!-- This is sometimes called the OTN -->
@@ -73,6 +73,7 @@
 				<nc:IdentificationID>12345</nc:IdentificationID>
 			</oirs-res-ext:SubscriptionIdentification>
     </oirs-res-ext:Subscription>
+     <oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
     <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
 	<intel:SystemIdentification>
 		<nc:IdentificationID>123456</nc:IdentificationID>
@@ -90,7 +91,7 @@
 		  	<j:PersonAugmentation>
 		  		<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A123456</nc:IdentificationID>
-					<oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 		  	<!-- This is sometimes called the OTN -->
@@ -99,6 +100,7 @@
 		  	</oirs-res-ext:IdentifiedPersonTrackingIdentification>
 		  </oirs-res-ext:IdentifiedPerson>
 		  <oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
+		   <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
 	    <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>9876543</nc:IdentificationID>

@@ -93,12 +93,12 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		String civilSid = XmlUtils.xPathStringSearch(subjectNode, 
 				"jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification"
-				+ "[ident-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator = 'true']/nc30:IdentificationID");
+				+ "[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator = 'true']/nc30:IdentificationID");
 		subject .setCivilSid(StringUtils.trimToNull(civilSid));
 		
 		String criminalSid = XmlUtils.xPathStringSearch(subjectNode, 
 				"jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification"
-						+ "[ident-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator = 'true']/nc30:IdentificationID");
+						+ "[ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator = 'true']/nc30:IdentificationID");
 		subject .setCriminalSid(criminalSid);
 		 
 		return subject;

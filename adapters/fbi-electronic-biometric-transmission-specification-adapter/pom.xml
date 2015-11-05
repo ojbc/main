@@ -48,6 +48,8 @@
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>		
 		<xmlunit.version>1.5</xmlunit.version>
 		<sn-interm-cmn-version>1.0.1</sn-interm-cmn-version>
+		<junit-version>4.8.1</junit-version>
+		<java-version>1.6</java-version>
 	</properties>
 
 	<dependencies>
@@ -164,8 +166,8 @@
 					<fork>true</fork>
 					<meminitial>1024m</meminitial>
 					<maxmem>2024m</maxmem>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 				</configuration>
 			</plugin>
 			
@@ -186,20 +188,19 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<DynamicImport-Package>*</DynamicImport-Package>
 						<Import-Package>
+							META-INF.cxf,
+							META-INF.cxf.osgi,
+							org.springframework.beans.factory.config,
+							javax.xml.namespace,
 							service-specifications.*,
+							org.ojbc.*,
 							*
 						</Import-Package>
 						<Export-Package>
 						</Export-Package>
-						<Require-Bundle>
-							org.apache.cxf.bundle,
-							org.ojbc.bundles.shared.ojb-common,
-							org.ojbc.bundles.shared.ojb-camel-common,
-							org.ojbc.bundles.shared.ojb-resources-common
-						</Require-Bundle>
-						<Bundle-Activator>org.apache.camel.impl.osgi.Activator</Bundle-Activator>
-						<Bundle-Name>${pom.name}</Bundle-Name>
+				        <Bundle-Name>${pom.name}</Bundle-Name>
 					</instructions>
 				</configuration>
 			</plugin>
