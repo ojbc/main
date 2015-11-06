@@ -47,6 +47,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
+import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.DirtiesContext;
@@ -368,6 +369,80 @@ public class RapbackDAOImplTest {
 
 	@Test
 	@DirtiesContext
+	public void testGetAgencyProfile() throws Exception {
+		AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile("1234567890");
+		log.info(agencyProfile.toString());
+		assertEquals(Integer.valueOf(1), agencyProfile.getId());
+		assertEquals("1234567890", agencyProfile.getAgencyOri());
+		assertEquals("Demo Agency", agencyProfile.getAgencyName());
+		assertEquals(Boolean.TRUE, agencyProfile.getFbiSubscriptionQualified());
+		assertEquals("demo.agency@localhost", agencyProfile.getEmails().get(0));
+		assertEquals("demo.agency2@localhost", agencyProfile.getEmails().get(1));
+		
+		AgencyProfile agencyProfileNull = rapbackDAO.getAgencyProfile("123456789");
+		assertNull(agencyProfileNull);
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testArchive() throws Exception {
+		Connection conn = dataSource.getConnection();
+		String countQualifiedToArchiveSql = "SELECT count(*) as rowcount "
+				+ "FROM identification_transaction "
+				+ "WHERE archived = 'false' "
+				+ "AND available_for_subscription_start_date < '2015-09-05'";
+		ResultSet rs = conn.createStatement().executeQuery(countQualifiedToArchiveSql);
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));
+
+		int count = rapbackDAO.archive();
+		assertEquals(1, count);
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testArchiveIdentificationResult() throws Exception {
+		Connection conn = dataSource.getConnection();
+		String sql = "SELECT * "
+				+ "FROM identification_transaction "
+				+ "WHERE transaction_number = '000001820140729014008339997' ";
+		
+		ResultSet rs = conn.createStatement().executeQuery(sql);
+		assertTrue(rs.next());
+		assertEquals(false,rs.getBoolean("archived"));
+
+		rapbackDAO.archiveIdentificationResult("000001820140729014008339997");
+		
+		ResultSet rsAfter = conn.createStatement().executeQuery(sql);
+		assertTrue(rsAfter.next());
+		assertEquals(true, rsAfter.getBoolean("archived"));
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testGetSubsequentResults() throws Exception {
+		
+		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339995");
+		assertEquals(2, subsequentResults.size());
+		SubsequentResults result1 = subsequentResults.get(0);
+		assertEquals(Long.valueOf(1), result1.getId());
+		assertEquals("fbiSubscriptionId_3", result1.getFbiSubscriptionId());
+		assertEquals(ResultSender.FBI, result1.getResultsSender());
+		
+		SubsequentResults result2 = subsequentResults.get(1);
+		assertEquals(Long.valueOf(2), result2.getId());
+		assertEquals("fbiSubscriptionId_3", result2.getFbiSubscriptionId());
+		assertEquals(ResultSender.State, result2.getResultsSender());
+		assertEquals(25, result2.getRapSheet().length);
+		log.info("result2 result:" + new String(result2.getRapSheet()));
+		log.info("result2 result size:" + result2.getRapSheet().length);
+		
+		List<SubsequentResults> emptySubsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339999");
+		assertEquals(0, emptySubsequentResults.size());
+	}
+
+	@Test
+	@DirtiesContext
 	public void testConsolidateSid() throws Exception {
 		Connection conn = dataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery(COUNT_SID_A123458);
@@ -425,54 +500,5 @@ public class RapbackDAOImplTest {
 		assertEquals(1,rs.getInt("rowcount"));
 	}
 
-	@Test
-	@DirtiesContext
-	public void testGetAgencyProfile() throws Exception {
-		AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile("1234567890");
-		log.info(agencyProfile.toString());
-		assertEquals(Integer.valueOf(1), agencyProfile.getId());
-		assertEquals("1234567890", agencyProfile.getAgencyOri());
-		assertEquals("Demo Agency", agencyProfile.getAgencyName());
-		assertEquals(Boolean.TRUE, agencyProfile.getFbiSubscriptionQualified());
-		assertEquals("demo.agency@localhost", agencyProfile.getEmails().get(0));
-		assertEquals("demo.agency2@localhost", agencyProfile.getEmails().get(1));
-		
-		AgencyProfile agencyProfileNull = rapbackDAO.getAgencyProfile("123456789");
-		assertNull(agencyProfileNull);
-	}
-	
-	@Test
-	@DirtiesContext
-	public void testArchive() throws Exception {
-		Connection conn = dataSource.getConnection();
-		String countQualifiedToArchiveSql = "SELECT count(*) as rowcount "
-				+ "FROM identification_transaction "
-				+ "WHERE archived = 'false' "
-				+ "AND available_for_subscription_start_date < '2015-09-05'";
-		ResultSet rs = conn.createStatement().executeQuery(countQualifiedToArchiveSql);
-		assertTrue(rs.next());
-		assertEquals(1,rs.getInt("rowcount"));
 
-		int count = rapbackDAO.archive();
-		assertEquals(1, count);
-	}
-	
-	@Test
-	@DirtiesContext
-	public void testArchiveIdentificationResult() throws Exception {
-		Connection conn = dataSource.getConnection();
-		String sql = "SELECT * "
-				+ "FROM identification_transaction "
-				+ "WHERE transaction_number = '000001820140729014008339997' ";
-		
-		ResultSet rs = conn.createStatement().executeQuery(sql);
-		assertTrue(rs.next());
-		assertEquals(false,rs.getBoolean("archived"));
-
-		rapbackDAO.archiveIdentificationResult("000001820140729014008339997");
-		
-		ResultSet rsAfter = conn.createStatement().executeQuery(sql);
-		assertTrue(rsAfter.next());
-		assertEquals(true, rsAfter.getBoolean("archived"));
-	}
 }

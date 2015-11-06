@@ -33,6 +33,9 @@
 		<b:Message>
 			<notification:NotificationMessage>
 				<notificationExt:NotifyingArrest s:id="A001">
+					<notificationExt:NotifyingActivityReportingOrganization>
+						<nc:OrganizationName>Local Police Department</nc:OrganizationName>
+					</notificationExt:NotifyingActivityReportingOrganization>
 					<notificationExt:NotifyingActivityReportingSystemNameText>LCL</notificationExt:NotifyingActivityReportingSystemNameText>
 					<notificationExt:RelatedFBISubscription>
 						<notificationExt:RecordRapBackSubscriptionIdentification>

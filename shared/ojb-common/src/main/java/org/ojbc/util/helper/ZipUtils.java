@@ -34,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
 public class ZipUtils {
 	private static final Log log = LogFactory.getLog( ZipUtils.class );
 	
-	public static byte[] zip(byte[] originalData) throws IOException{
+	public static byte[] zip(byte[] originalData){
     	Deflater compressor = new Deflater();
     	compressor.setLevel(Deflater.BEST_COMPRESSION);
 	    compressor.setInput(originalData);
@@ -47,7 +47,12 @@ public class ZipUtils {
 	      int count = compressor.deflate(buf);
 	      bos.write(buf, 0, count);
 	    }
-	    bos.close();
+	    
+	    try {
+			bos.close();
+		} catch (IOException e) {
+			log.error("Failed to zip data " + originalData, e );
+		}
 	    byte[] compressedData = bos.toByteArray();
 	    
 	    log.debug("Orignal data:" + originalData.length + " bytes");
@@ -55,17 +60,23 @@ public class ZipUtils {
 		return compressedData;
 	}
 	
-	public static byte[] unzip(byte[] data) throws IOException, DataFormatException {
+	public static byte[] unzip(byte[] data) {
 		Inflater inflater = new Inflater();
 		inflater.setInput(data);
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(
 				data.length);
 		byte[] buffer = new byte[1024];
-		while (!inflater.finished()) {
-			int count = inflater.inflate(buffer);
-			outputStream.write(buffer, 0, count);
+		try {
+			while (!inflater.finished()) {
+				int count;
+					count = inflater.inflate(buffer);
+				outputStream.write(buffer, 0, count);
+			}
+			outputStream.close();
+		} catch (Exception e) {
+			log.error("Failed to unzip data", e);
 		}
-		outputStream.close();
+
 		byte[] output = outputStream.toByteArray();
 		log.debug("Original: " + data.length + " bytes");
 		log.debug("Decompressed: " + output.length + " bytes");

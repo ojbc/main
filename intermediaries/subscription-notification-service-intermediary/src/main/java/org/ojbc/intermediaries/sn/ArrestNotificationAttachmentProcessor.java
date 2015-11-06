@@ -50,8 +50,13 @@ public class ArrestNotificationAttachmentProcessor {
 		SubsequentResults subsequentResult = new SubsequentResults(); 
 		subsequentResult.setRapSheet(MtomUtils.getAttachment(exchange, null, attachmentHref));
 		
-		//TODO need to get the real sender info from the notification message. 
-		subsequentResult.setResultsSender(ResultSender.FBI);
+		String resultSenderString = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:NotifyingActivityReportingOrganization/nc:OrganizationName");
+		if (ResultSender.FBI.name().equals(resultSenderString)){
+			subsequentResult.setResultsSender(ResultSender.FBI);
+		}
+		else{
+			subsequentResult.setResultsSender(ResultSender.State);
+		}
 		
 		String civilSid = XmlUtils.xPathStringSearch(notificationMessageNode, "jxdm41:Person[@s:id = ../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]"
 				+ "/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");

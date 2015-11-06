@@ -43,6 +43,9 @@
       <b:Message>
          <notification:NotificationMessage>
             <notificationExt:NotifyingArrest s:id="A001">
+            	<notificationExt:NotifyingActivityReportingOrganization>
+						<nc:OrganizationName>CJIS</nc:OrganizationName>
+					</notificationExt:NotifyingActivityReportingOrganization>
                <notificationExt:NotifyingActivityReportingSystemNameText>CJIS</notificationExt:NotifyingActivityReportingSystemNameText>
                <j:Arrest>
                   <ActivityDate xmlns="http://niem.gov/niem/niem-core/2.0">
