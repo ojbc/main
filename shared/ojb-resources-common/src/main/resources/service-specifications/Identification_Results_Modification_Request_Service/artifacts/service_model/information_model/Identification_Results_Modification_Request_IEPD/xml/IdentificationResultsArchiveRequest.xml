@@ -21,4 +21,5 @@
 	<ira-req-doc:IdentificationResultsIdentification>
 		<nc:IdentificationID>XXXX-4556-X</nc:IdentificationID>
 	</ira-req-doc:IdentificationResultsIdentification>
+	<nc:SystemName>SYSTEM_NAME</nc:SystemName>
 </ira-req-doc:IdentificationResultsArchiveRequest>
