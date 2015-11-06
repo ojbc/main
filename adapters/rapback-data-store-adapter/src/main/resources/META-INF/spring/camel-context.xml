@@ -264,8 +264,6 @@
 			
 			<to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
-			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-			
 			<to uri="direct:processSubscriptionReport" />
 			
 		</route>	
