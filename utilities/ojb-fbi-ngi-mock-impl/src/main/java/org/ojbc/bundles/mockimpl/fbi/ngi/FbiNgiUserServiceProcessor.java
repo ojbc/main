@@ -37,7 +37,7 @@ public class FbiNgiUserServiceProcessor {
 		
 		String responseXml = getControlNumResponseMessage(exchange);
 		
-		logger.info("\n\n Returning Control# doc: \n" + responseXml + "\n\n");
+		logger.info("\n\n Returning Control# doc...\n\n");
 		
 		//TODO see how to avoid copying header like this
 		String oJBCfbiUserRequest =  exchange.getIn().getHeader("OJBCfbiUserRequest", String.class);		

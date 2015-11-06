@@ -58,7 +58,7 @@ public class FbiNgiResponseProcessor {
 		
 		String subAckResponse = getSubAckResponse(transactionCategoryCode);
 		
-		logger.info("\n\n Processor returning subsription aknowledgement response: \n\n" + subAckResponse + "\n\n");
+		logger.info("\n\n Processor returning subsription aknowledgement response:... \n\n");
 				
 		return subAckResponse;
 	}

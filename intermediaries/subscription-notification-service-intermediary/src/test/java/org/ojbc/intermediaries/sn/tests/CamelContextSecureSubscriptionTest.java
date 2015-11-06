@@ -50,7 +50,6 @@ import org.apache.ws.security.SAMLTokenPrincipal;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.joda.time.DateTime;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
@@ -84,9 +83,6 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     
     @EndpointInject(uri = "mock:direct:processSubscription")
     protected MockEndpoint subscriptionProcessorMock;
-    
-    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
-    protected MockEndpoint fbiEbtsSubscriptionMockEndpoint;    
 
     @EndpointInject(uri = "mock:direct:processUnsubscription")
     protected MockEndpoint unsubscriptionProcessorMock;
@@ -133,7 +129,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
     	
     	
-    	context.getRouteDefinition("processSubscriptions").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("subscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	interceptSendToEndpoint("direct:processSubscription").to("mock:direct:processSubscription");
@@ -568,15 +564,12 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 		assertTrue(subscriptionOfInterest.getEmailAddressesToNotify().contains("po8@localhost"));
     }
     
-    // TODO reenable when passing	
-    @Ignore
+    
+    @Test
     public void testSubscriptionSingleEmailCustomDate() throws Exception {
     
     	subscriptionProcessorMock.reset();
     	subscriptionProcessorMock.expectedMessageCount(1);
-    	
-    	fbiEbtsSubscriptionMockEndpoint.reset();
-    	fbiEbtsSubscriptionMockEndpoint.expectedMessageCount(1);
     	
     	Exchange senderExchange = createSenderExchangeSubscription();
     	
@@ -586,7 +579,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 
 	    DateTime today = new DateTime();
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
-	    inputStr = inputStr.replace("END_DATE_TOKEN", today.plusMonths(24).toString("yyyy-MM-dd"));
+	    inputStr = inputStr.replace("END_DATE_TOKEN", today.plusMonths(12).toString("yyyy-MM-dd"));
 	    
 	    assertNotNull(inputStr);
 	    
@@ -633,7 +626,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 		
 		//Verify start and end dates
 		assertEquals(today.toString("yyyy-MM-dd"), subscriptionOfInterest.getStartDate().toString("yyyy-MM-dd"));
-		assertEquals(today.plusMonths(24).toString("yyyy-MM-dd"), subscriptionOfInterest.getEndDate().toString("yyyy-MM-dd"));
+		assertEquals(today.plusMonths(12).toString("yyyy-MM-dd"), subscriptionOfInterest.getEndDate().toString("yyyy-MM-dd"));
 		
 		//Assert that the mock endpoint expectations are satisfied
 		subscriptionProcessorMock.assertIsSatisfied();		
@@ -649,7 +642,6 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 		log.info("Subscription Owner is: " + subscriptionOwner);
 		assertEquals("OJBC:IDP:OJBC:USER:admin", subscriptionOwner);
 		
-		fbiEbtsSubscriptionMockEndpoint.assertIsSatisfied();
     }
 
     

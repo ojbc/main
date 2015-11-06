@@ -211,7 +211,7 @@
 				<to uri="direct:processPotentialFbiSubscription"/>			 				 							 																														 				
 												
 				<!-- this synchronous call is last because it modifies the message -->
-				<camel:to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+				<to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
 														
 			</camel:multicast>						
 		</camel:route>
@@ -363,7 +363,7 @@
 		
 			<from uri="direct:processFbiUnsubscription"/>								
 			
-			<log message="\n\n\n FBI Unsubscribe Message Body:\n\n ${body} \n\n\n" loggingLevel="INFO" />	
+			<log message="\n\n\n direct:processFbiUnsubscription... \n\n\n" loggingLevel="INFO" />	
 			
 			<setHeader headerName="shouldDeleteFbiSubscription">			
 				<simple>bean:fbiSubscriptionProcessor?method=shouldDeleteFbiSubscription</simple>			
