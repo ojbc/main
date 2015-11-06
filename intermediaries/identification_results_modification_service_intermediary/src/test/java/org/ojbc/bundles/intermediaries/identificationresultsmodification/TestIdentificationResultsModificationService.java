@@ -29,9 +29,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/camel-context.xml", 
 		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/extensible-beans.xml",	
 		"classpath:META-INF/spring/jetty-server.xml",
-		"classpath:META-INF/spring/local-osgi-context.xml",
 		"classpath:META-INF/spring/properties-context.xml"}) 
 public class TestIdentificationResultsModificationService {
 

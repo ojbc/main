@@ -237,7 +237,22 @@
 		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
 	</bean>
 
-	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
-	
-	
+	<bean class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy" id="exchangeDestinationLookupStrategy">
+		<property name="federatedQueryEndpointMap">
+			<util:map map-class="java.util.HashMap">
+				<entry key="{http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0}SubmitIdentificationResultsArchiveRequest" value="identificationResultsModificationRequestServiceAdapterEndpoint" />
+			</util:map>	
+		</property>
+
+		<property name="adapterURItoAddressMap">
+			<util:map>
+				<entry key="{http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0}SubmitIdentificationResultsArchiveRequest" value="${identificationModification.identificationResultsModificationRequestServiceAdapterEndpoint}" />
+			</util:map>
+		</property>
+  	</bean>	
+  	
+	<util:map map-class="java.util.HashMap" id="wsAddressReplyToEndpointMap">
+        <entry key="${identificationModification.presentIdentificationResultsModificationResponseServiceEndpoint}" value="presentIdentificationResultsModificationResponseServiceEndpoint"/>
+  	</util:map>
+  	
 </beans>
