@@ -108,10 +108,10 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDao.saveSubsequentResults(subsequentResults);
 		assertNotNull(pkId);
-		assertEquals(1, pkId.intValue()); 
+		assertEquals(2, pkId.intValue()); 
 		
 		Connection conn = dataSource.getConnection();
-		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = 1");
+		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = 2");
 		assertTrue(rs.next());
 		assertEquals("fbiSubscriptionId", rs.getString("FBI_SUBSCRIPTION_ID"));
 		
