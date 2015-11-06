@@ -20,8 +20,11 @@ import java.util.logging.Logger;
 
 import org.apache.camel.Exchange;
 import org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil;
+import org.ojbc.util.helper.OJBCXMLUtils;
+import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class FbiEbtsResponseProcessor {
 	
@@ -37,5 +40,42 @@ public class FbiEbtsResponseProcessor {
 		
 		exchange.getOut().setBody(responseDoc);		
 	}
+	
+	
+	public void sendFbiSubscribeManagerResponse(Exchange exchange) throws Exception{
+		
+		Document responseDoc = null;
+		
+		String operation = exchange.getIn().getHeader("originalSubscriptionOperation", String.class);
+		
+		if("Modify".equals(operation)){
+			
+			responseDoc = getModifyResponseDoc();
+			
+		}else if("Unsubscribe".equals(operation)){
+			
+			responseDoc = SubscriptionResponseBuilderUtil.createUnsubscribeResponse();
+			
+		}else{
+			logger.severe("Unknown operation, can't send correct response");
+		}
+		
+		exchange.getOut().setBody(responseDoc);
+	}
 
+	
+	private Document getModifyResponseDoc() throws Exception{
+		
+		Document doc = OJBCXMLUtils.createDocument();
+		
+		Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "ModifyResponse");
+		root.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);
+		
+		//TODO build rest of doc
+		
+		doc.appendChild(root);		
+		
+		return doc;
+	}
+	
 }

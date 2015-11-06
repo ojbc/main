@@ -236,6 +236,8 @@ values
 	('UnsubscribeFbiUcnIdTest', 'CI', '2', '2015-12-19','2016-12-19', '2014-10-19', false, '1', 
 	'1234', {ts '2014-10-19 18:47:52.69'});	
 	
+insert into subsequent_results(fbi_subscription_id, rap_sheet) values('fbiSubscriptionId_3', '78DA0B2E4D2A4E2D2C4DCD2B51284A2D2ECD2929D603004CBE0790');
+
 insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION ) values ('1', '1234567890', 'Demo Agency', 'true'); 
 insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION ) values ('2', '68796860', 'Test Agency', 'true'); 
 
