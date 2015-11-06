@@ -49,10 +49,41 @@
 					<xsd:element ref="nc:LocationContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ojbc:ArrestDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ojbc:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="StateFingerprintIdentificationType">
+		<xsd:complexContent>
+			<xsd:extension base="nc:IdentificationType">
+				<xsd:sequence>
+					<xsd:element ref="ojbc:FingerprintIdentificationIssuedPurposeRepresentation"/>
+					<xsd:element ref="lexslib:SameAsDigestReference"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="PersonStateFingerprintIdentification" type="ojbc:StateFingerprintIdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identifier assigned to a fingerprint by the state.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationIssuedPurposeRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A purpose for assigning a fingerprint ID.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xsd:boolean" substitutionGroup="ojbc:FingerprintIdentificationIssuedPurposeRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for a civil background check, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xsd:boolean" substitutionGroup="ojbc:FingerprintIdentificationIssuedPurposeRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for an arrest, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:complexType name="PersonType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a human being.</xsd:documentation>

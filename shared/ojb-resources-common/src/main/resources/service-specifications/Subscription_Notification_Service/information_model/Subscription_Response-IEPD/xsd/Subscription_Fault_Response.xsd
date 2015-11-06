@@ -27,4 +27,6 @@
 	
 	<xsd:element name="SubscriptionFaultResponseMessage" type="subfltrsp-ext:SubscriptionFaultResponseMessageType"/>
 	<xsd:element name="SubscriptionValidationFaultResponseMessage" type="subfltrsp-ext:SubscriptionValidationFaultResponseMessageType"/>
+	<xsd:element name="SubscriptionModificationFaultResponseMessage" type="subfltrsp-ext:SubscriptionValidationFaultResponseMessageType"/>
+	
 </xsd:schema>

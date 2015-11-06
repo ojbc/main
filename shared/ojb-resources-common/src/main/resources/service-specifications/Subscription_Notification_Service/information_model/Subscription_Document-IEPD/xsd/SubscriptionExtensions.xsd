@@ -40,13 +40,10 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="submsg-ext:SubscriptionRelatedCaseIdentification" minOccurs="0"/>
-					<xsd:element maxOccurs="1" minOccurs="1" ref="submsg-ext:Subject" />
-					<xsd:element maxOccurs="unbounded" minOccurs="1"
-						ref="nc:ContactEmailID">
+					<xsd:element ref="submsg-ext:Subject" />
+					<xsd:element maxOccurs="unbounded" minOccurs="1" ref="nc:ContactEmailID">
 						<xsd:annotation>
-							<xsd:documentation>An electronic mailing address by which a
-								person or organization may be contacted.
-							</xsd:documentation>
+							<xsd:documentation>An electronic mailing address by which a person or organization may be contacted.</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
 					<xsd:element maxOccurs="1" minOccurs="1" ref="submsg-ext:SystemName" />
@@ -55,8 +52,7 @@
 							<xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
-						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification" minOccurs="0" />
 					<xsd:element ref="nc:DateRange" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
@@ -69,16 +65,13 @@
 	<xsd:complexType name="UnsubscriptionType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
-				<!-- We need the choice here because unsubscriptions happen differently 
-					for automatic and manual subscriptions -->
+				<!-- We need the choice here because unsubscriptions happen differently for automatic and manual subscriptions -->
 				<xsd:choice>
 					<xsd:sequence>
 						<xsd:element maxOccurs="1" minOccurs="0" ref="submsg-ext:Subject" />
 						<xsd:element maxOccurs="unbounded" minOccurs="0" ref="nc:ContactEmailID">
 							<xsd:annotation>
-								<xsd:documentation>An electronic mailing address by which a
-									person
-									or organization may be contacted.
+								<xsd:documentation>An electronic mailing address by which a person or organization may be contacted.
 								</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
@@ -108,7 +101,7 @@
 				<xsd:sequence>
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" />
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification" minOccurs="0" />
+					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -221,6 +214,13 @@
 			<xsd:documentation>A subscription created by the Federal Bureau of Investigation that is related to a specific State subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
+	<xsd:element name="FBISubscription" type="submsg-ext:FBISubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A subscription with the FBI.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
 	<xsd:complexType name="FBISubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a subscription created by the Federal Bureau of Investigation.</xsd:documentation>
@@ -236,6 +236,39 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	
+	<xsd:complexType name="SubscriptionModificationMessageType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a request to modify an existing subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="submsg-ext:Subject"/>
+					<xsd:element ref="submsg-ext:FBISubscription" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:SubscriptionModification"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SubscriptionModificationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for modifications that are to be applied to an existing subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="nc:DateRange" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscriptionModification" type="submsg-ext:SubscriptionModificationType">
+		<xsd:annotation>
+			<xsd:documentation>A modification to a subscription</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		
 	<xsd:element name="SubscriptionTerm" type="j:TermType">
 		<xsd:annotation>
 			<xsd:documentation>The term for which a subscription is active.</xsd:documentation>
