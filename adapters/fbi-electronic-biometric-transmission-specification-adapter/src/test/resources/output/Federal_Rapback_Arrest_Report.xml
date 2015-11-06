@@ -29,38 +29,22 @@
 		<lexs:PublishMessageContainer>
 			<lexs:PublishMessage>
 				<lexs:PDMessageMetadata>
-					<lexs:LEXSVersion/>
+					<lexs:LEXSVersion>3.1</lexs:LEXSVersion>
 					<lexs:MessageDateTime>2007-01-01T00:00:01Z</lexs:MessageDateTime>
 					<lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
 				</lexs:PDMessageMetadata>
 				<lexs:DataSubmitterMetadata>
 					<lexs:SystemIdentifier>
 						<nc:OrganizationName>FBI</nc:OrganizationName>
-						<lexs:SystemID/>
 					</lexs:SystemIdentifier>
-					<lexs:SystemContact>
-						<nc:PersonSurName/>
-					</lexs:SystemContact>
 				</lexs:DataSubmitterMetadata>
 				<lexs:DataItemPackage>
 					<lexs:PackageMetadata>
-						<lexs:DataItemID/>
-						<lexs:DataItemReferenceID/>
-						<lexs:DataItemStatus/>
 						<lexs:DataOwnerMetadata>
 							<lexs:DataOwnerIdentifier>
 								<lexs:ORI>NY0303000</lexs:ORI>
-								<nc:OrganizationName/>
-								<lexs:SystemID/>
 							</lexs:DataOwnerIdentifier>
-							<lexs:DataOwnerContact>
-								<nc:PersonSurName/>
-							</lexs:DataOwnerContact>
 						</lexs:DataOwnerMetadata>
-						<lexs:DisseminationCriteriaValue>
-							<lexs:DisseminationCriteriaDomainText/>
-							<lexs:DisseminationCriteriaText/>
-						</lexs:DisseminationCriteriaValue>
 					</lexs:PackageMetadata>
 					<lexs:Digest>
 						<lexsdigest:EntityPerson>
