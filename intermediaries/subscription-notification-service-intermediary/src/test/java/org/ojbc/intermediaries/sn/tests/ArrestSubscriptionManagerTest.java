@@ -57,6 +57,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.annotation.DirtiesContext;
@@ -200,6 +201,7 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 	}
 	
 	@Test
+	@Ignore
     public void getDTDFile() throws Exception
     {
         // write DTD file
