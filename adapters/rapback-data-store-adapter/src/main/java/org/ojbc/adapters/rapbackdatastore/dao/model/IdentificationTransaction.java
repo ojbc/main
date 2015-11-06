@@ -37,6 +37,7 @@ public class IdentificationTransaction implements Serializable{
 	private Subject subject;
 	private IdentificationTransactionState currentState; 
 	private Subscription subscription;
+	private Boolean havingSubsequentResults; 
 
 	public IdentificationTransaction(){
 		super();
@@ -128,6 +129,14 @@ public class IdentificationTransaction implements Serializable{
 
 	public void setSubscription(Subscription subscription) {
 		this.subscription = subscription;
+	}
+
+	public Boolean getHavingSubsequentResults() {
+		return havingSubsequentResults;
+	}
+
+	public void setHavingSubsequentResults(Boolean havingSubsequentResults) {
+		this.havingSubsequentResults = havingSubsequentResults;
 	}
 
 }

@@ -50,6 +50,7 @@ import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -62,7 +63,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
-@DirtiesContext
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class RapbackDAOImplTest {
     private static final String COUNT_SID_A123457 = "select count(*) as rowcount from identification_subject "
     		+ "where civil_sid = 'A123457' or criminal_Sid = 'A123457'";
@@ -386,7 +387,7 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	@DirtiesContext
+	@DirtiesContext 
 	public void testConsolidateUcn() throws Exception {
 		Connection conn = dataSource.getConnection();
 		String countSubjectUcn9222201 = "select count(*) as rowcount from identification_subject where ucn = '9222201'";
@@ -454,5 +455,24 @@ public class RapbackDAOImplTest {
 
 		int count = rapbackDAO.archive();
 		assertEquals(1, count);
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testArchiveIdentificationResult() throws Exception {
+		Connection conn = dataSource.getConnection();
+		String sql = "SELECT * "
+				+ "FROM identification_transaction "
+				+ "WHERE transaction_number = '000001820140729014008339997' ";
+		
+		ResultSet rs = conn.createStatement().executeQuery(sql);
+		assertTrue(rs.next());
+		assertEquals(false,rs.getBoolean("archived"));
+
+		rapbackDAO.archiveIdentificationResult("000001820140729014008339997");
+		
+		ResultSet rsAfter = conn.createStatement().executeQuery(sql);
+		assertTrue(rsAfter.next());
+		assertEquals(true, rsAfter.getBoolean("archived"));
 	}
 }
