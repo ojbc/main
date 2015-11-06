@@ -306,14 +306,7 @@
 			
 			<convertBodyTo type="java.lang.String"/>
 			
-			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>
-						
-			<!-- TODO Confirm this is correct technique -->								
-			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>			
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-			
-			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionCreation</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>			
+			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>			
 
 			<to uri="direct:sendRapbackSubscriptionReport" />				
 		</route>
@@ -332,35 +325,38 @@
 			<to uri="xslt:xsl/RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl"/>
 			
 			<log message="\n\n\n ran RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl \n\n\n" />		
-						
-			<!-- TODO Confirm this is correct technique -->								
-			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>			
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-						
-			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
 									
 			<camel:to uri="direct:sendRapbackSubscriptionReport"/>
  		</route>
  		
  		
  		<route id="sendRapbackSubscriptionReport">
+ 		
  			<camel:from uri="direct:sendRapbackSubscriptionReport"/>
-			<camel:multicast>
-
-			<!--Sending to endpoint below gives this:
-				Exhausted after delivery attempt: 1 caught: java.lang.IllegalArgumentException: 
-				The PayLoad elements cannot fit with the message parts of the BindingOperation. 
-				Please check the BindingOperation and PayLoadMessage. -->
+ 			
+ 			<log message="\n\n\n sendRapbackSubscriptionReport... \n\n\n" />
+ 						 								
+			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>												 		 			 								
 			
-				<to uri="subscriptionReportingServiceEndpoint" />
-				
+			<camel:multicast parallelProcessing="false">						
+
+				<pipeline>															
+					<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+					
+					<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
+					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
+															
+					<to uri="subscriptionReportingServiceEndpoint" />
+				</pipeline>
+																				
 				<camel:pipeline>					
 					<log message="\n\n Sending synchronous VOID response to FBI...\n\n"/>
 					<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>
 				</camel:pipeline>				
-			</camel:multicast>			
+				
+			</camel:multicast>						
  		</route>
+ 		
 				
 		<camel:route id="ojbSubscriptionToFbiNgiSubscriptionRoute">
 						

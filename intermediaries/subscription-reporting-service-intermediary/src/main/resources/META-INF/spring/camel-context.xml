@@ -51,6 +51,13 @@
 		<camel:route errorHandlerRef="subscriptionReportErrorHandler" id="CallSubscriptionRecortingServiceAdapterRoute">
 			
 			<camel:from uri="subscriptionReportingRequestServiceEndpoint" />
+						
+			<to uri="bean:messageProcessor?method=processRequestPayload"/>
+									  
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+			
+			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
 			
 			<camel:to uri="subscriptionReportingRequestAdapterEndpoint" />
 			
@@ -70,5 +77,7 @@
         <property name="name" value="default" />
         <property name="queueSize" value="2048" />
     </bean>
+    
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />    
     	 
 </beans>
