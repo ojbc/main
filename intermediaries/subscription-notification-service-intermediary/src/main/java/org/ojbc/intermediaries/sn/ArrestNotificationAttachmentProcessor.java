@@ -25,6 +25,7 @@ import org.apache.camel.Exchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
+import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.camel.helper.MtomUtils;
 import org.ojbc.util.xml.XmlUtils;
@@ -48,6 +49,9 @@ public class ArrestNotificationAttachmentProcessor {
 		
 		SubsequentResults subsequentResult = new SubsequentResults(); 
 		subsequentResult.setRapSheet(MtomUtils.getAttachment(exchange, null, attachmentHref));
+		
+		//TODO need to get the real sender info from the notification message. 
+		subsequentResult.setResultsSender(ResultSender.FBI);
 		
 		String civilSid = XmlUtils.xPathStringSearch(notificationMessageNode, "jxdm41:Person[@s:id = ../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]"
 				+ "/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
