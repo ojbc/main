@@ -29,38 +29,22 @@
 			<lexs:PublishMessageContainer>
 				<lexs:PublishMessage>
 					<lexs:PDMessageMetadata>
-						<lexs:LEXSVersion/>
+						<lexs:LEXSVersion>3.1</lexs:LEXSVersion>
 						<xsl:apply-templates select="itl:PackageInformationRecord/ansi-nist:Transaction/ansi-nist:TransactionUTCDate/nc:DateTime"/>
 						<lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
 					</lexs:PDMessageMetadata>
 					<lexs:DataSubmitterMetadata>
 						<lexs:SystemIdentifier>
 							<nc:OrganizationName>FBI</nc:OrganizationName>
-							<lexs:SystemID/>
 						</lexs:SystemIdentifier>
-						<lexs:SystemContact>
-							<nc:PersonSurName/>
-						</lexs:SystemContact>
 					</lexs:DataSubmitterMetadata>
 					<lexs:DataItemPackage>
 						<lexs:PackageMetadata>
-							<lexs:DataItemID/>
-							<lexs:DataItemReferenceID/>
-							<lexs:DataItemStatus/>
 							<lexs:DataOwnerMetadata>
 								<lexs:DataOwnerIdentifier>
 									<xsl:apply-templates select="itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordTransactionActivity/ebts:RecordControllingAgency/nc:OrganizationIdentification/nc:IdentificationID"/>
-									<nc:OrganizationName/>
-									<lexs:SystemID/>
 								</lexs:DataOwnerIdentifier>
-								<lexs:DataOwnerContact>
-									<nc:PersonSurName/>
-								</lexs:DataOwnerContact>
 							</lexs:DataOwnerMetadata>
-							<lexs:DisseminationCriteriaValue>
-								<lexs:DisseminationCriteriaDomainText/>
-								<lexs:DisseminationCriteriaText/>
-							</lexs:DisseminationCriteriaValue>
 						</lexs:PackageMetadata>
 						<xsl:apply-templates select="itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordSubject"/>
 						<lexs:StructuredPayload>
