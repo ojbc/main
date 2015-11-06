@@ -18,7 +18,16 @@
 
 -->
 <!-- create arrestee ID then make sure only her residence appears -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:j40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:oar="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" exclude-result-prefixes="xs ar lexs lexspd lexsdigest j40 oar" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b="http://docs.oasis-open.org/wsn/b-2" 
+	xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:j40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" 
+	xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" 
+	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" 
+	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:oar="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" exclude-result-prefixes="xs ar lexs lexspd lexsdigest j40 oar" version="2.0">
 	<xsl:output indent="yes" method="xml"/>
 	<xsl:strip-space elements="*"/>
 	<xsl:variable name="lexsDataItemPackage" select="/*/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage"/>
@@ -90,6 +99,7 @@
 					<notification:NotificationMessage>
 						<notificationExt:NotifyingArrest>
 							<xsl:attribute name="s:id"><xsl:value-of select="$activityID"/></xsl:attribute>
+							<xsl:apply-templates select="/*/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataSubmitterMetadata" mode="reportingOrganization"/>
 							<notificationExt:NotifyingActivityReportingSystemNameText>
 								<xsl:value-of select="/*/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataSubmitterMetadata/lexs:SystemIdentifier/lexs:SystemID"/>
 							</notificationExt:NotifyingActivityReportingSystemNameText>
@@ -356,5 +366,14 @@
 		<nc:IncidentLocation>
 			<xsl:apply-templates select="$lexsDigest/lexsdigest:EntityLocation/nc:Location[@s:id=$locationID]" mode="incidentLocation"/>
 		</nc:IncidentLocation>
+	</xsl:template>
+	<xsl:template match="lexs:DataSubmitterMetadata" mode="reportingOrganization">
+		<notificationExt:NotifyingActivityReportingOrganization>
+			<xsl:apply-templates select="lexs:SystemIdentifier" mode="reportingOrganization"/>
+		</notificationExt:NotifyingActivityReportingOrganization>
+	</xsl:template>
+	
+	<xsl:template match="lexs:SystemIdentifier" mode="reportingOrganization">
+		<xsl:copy-of select="nc:OrganizationName" copy-namespaces="no"/>
 	</xsl:template>
 </xsl:stylesheet>
