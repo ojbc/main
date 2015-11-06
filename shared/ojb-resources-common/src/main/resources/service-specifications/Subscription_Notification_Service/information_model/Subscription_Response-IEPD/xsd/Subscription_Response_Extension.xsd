@@ -33,8 +33,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="subresp-ext:SubscriptionCreatedIndicator" minOccurs="0"/>
-					<xsd:element ref="subresp-ext:SubscriptionValidatedIndicator" minOccurs="0"/>
+					<xsd:choice>
+						<xsd:element ref="subresp-ext:SubscriptionCreatedIndicator" minOccurs="0"/>
+						<xsd:element ref="subresp-ext:SubscriptionValidatedIndicator" minOccurs="0"/>
+						<xsd:element ref="subresp-ext:SubscriptionModifiedIndicator" minOccurs="0"/>
+					</xsd:choice>
+					
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -43,6 +47,12 @@
 	<xsd:element name="SubscriptionCreatedIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if a subscription has been created, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="SubscriptionModifiedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a subscription has been modified, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	
