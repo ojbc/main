@@ -53,6 +53,8 @@ public class ZipUtilsTest {
 		printCompressedHexString("StateCivilRapSheet");
 		printCompressedHexString("StateCivilRapSheet2");
 		printCompressedHexString("Match");
+		printCompressedHexString("FBI Subsequent results.");
+		printCompressedHexString("State Subsequent results.");
 		
 //		String fbiCriminalHistory = FileUtils.readFileToString(new File("src/test/resources/testData/fbi_criminal_history.txt"));
 //		printCompressedHexString(fbiCriminalHistory);
