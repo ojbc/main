@@ -38,6 +38,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.helper.ZipUtils;
 import org.springframework.test.annotation.DirtiesContext;
@@ -105,13 +106,14 @@ public class RapbackDAOImplTest {
 		SubsequentResults subsequentResults = new SubsequentResults();
 		subsequentResults.setFbiSubscriptionId("fbiSubscriptionId");
 		subsequentResults.setRapSheet("rapsheet".getBytes());
+		subsequentResults.setResultsSender(ResultSender.FBI);
 		
 		Integer pkId = rapbackDao.saveSubsequentResults(subsequentResults);
 		assertNotNull(pkId);
-		assertEquals(2, pkId.intValue()); 
+		assertEquals(3, pkId.intValue()); 
 		
 		Connection conn = dataSource.getConnection();
-		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = 2");
+		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = 3");
 		assertTrue(rs.next());
 		assertEquals("fbiSubscriptionId", rs.getString("FBI_SUBSCRIPTION_ID"));
 		

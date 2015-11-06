@@ -29,6 +29,7 @@ public class SubsequentResults implements Serializable{
 	private String fbiSubscriptionId;
 	private byte[] rapSheet;
 	private DateTime timestamp;
+	private ResultSender resultsSender; 
 	
 	public SubsequentResults(){
 		super();
@@ -68,6 +69,14 @@ public class SubsequentResults implements Serializable{
 
 	public void setRapSheet(byte[] rapSheet) {
 		this.rapSheet = rapSheet;
+	}
+
+	public ResultSender getResultsSender() {
+		return resultsSender;
+	}
+
+	public void setResultsSender(ResultSender resultsSender) {
+		this.resultsSender = resultsSender;
 	}
 
 }
