@@ -47,6 +47,7 @@ import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
+import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.helper.ZipUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -121,7 +122,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 		Subject subject = buildSubject(rs);
 	    return subject;
 		}
-
 	}
 
 	private DateTime toDateTime(Date date){
@@ -239,12 +239,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            ps.setString(1, civilFingerPrints.getTransactionNumber());
         	            
         	            if (civilFingerPrints.getFingerPrintsFile() != null){
-        	            	try {
-								ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilFingerPrints.getFingerPrintsFile())));
-							} catch (IOException e) {
-								e.printStackTrace();
-								log.error("Got IOException when zipping fingerPrintFile: \n" + civilFingerPrints.getFingerPrintsFile());
-							}
+							ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilFingerPrints.getFingerPrintsFile())));
         	            }
         	            ps.setInt(3, civilFingerPrints.getFingerPrintsType().ordinal()+1);
         	            return ps;
@@ -300,11 +295,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	                connection.prepareStatement(CIVIL_INITIAL_RAP_SHEET_INSERT, 
         	                		new String[] {"CIVIL_INITIAL_RESULT_ID", "RAP_SHEET"});
         	            ps.setInt(1, civilInitialRapSheet.getCivilIntitialResultId());
-        	            try {
-							ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilInitialRapSheet.getRapSheet())));
-						} catch (IOException e) {
-							log.error("Got IO exception while trying to zip the rapsheet :\n" + civilInitialRapSheet.getRapSheet());
-						}
+						ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilInitialRapSheet.getRapSheet())));
         	            return ps;
         	        }
         	    },
@@ -332,12 +323,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
         	                			"RESULTS_SENDER_ID"});
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
-        	            try {
-							ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilInitialResults.getSearchResultFile())));
-						} catch (IOException e) {
-							e.printStackTrace();
-							log.error("Got IOExeption while zipping the searchResultFile:\n" + civilInitialResults.getSearchResultFile() );
-						}
+						ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilInitialResults.getSearchResultFile())));
         	            ps.setInt(3, civilInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
@@ -365,12 +351,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	                		new String[] {"TRANSACTION_NUMBER", "SEARCH_RESULT_FILE",  
         	                			"RESULTS_SENDER_ID"});
         	            ps.setString(1, criminalInitialResults.getTransactionNumber());
-        	            try {
-							ps.setBlob(2, new SerialBlob(ZipUtils.zip(criminalInitialResults.getSearchResultFile())));
-						} catch (IOException e) {
-							e.printStackTrace();
-							log.error("Got IOException when zipping the searchResultFile:\n" + criminalInitialResults.getSearchResultFile());
-						}
+						ps.setBlob(2, new SerialBlob(ZipUtils.zip(criminalInitialResults.getSearchResultFile())));
         	            ps.setInt(3, criminalInitialResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
@@ -790,5 +771,33 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "WHERE t.transaction_number = ?";
 		jdbcTemplate.update(sql, transactionNumber);
 	}
+
+	@Override
+	public List<SubsequentResults> getSubsequentResults(String transactionNumber) {
+		log.info("Retreiving subsequent results by transaction number " + transactionNumber);
+		
+		final String sql ="SELECT subs.* FROM subsequent_results subs "
+				+ "LEFT JOIN fbi_rap_back_subscription f ON f.fbi_subscription_id = subs.fbi_subscription_id "
+				+ "LEFT JOIN identification_subject s ON s.ucn = f.ucn "
+				+ "LEFT JOIN identification_transaction t ON t.subject_id = s.subject_id "
+				+ "WHERE t.transaction_number = ?";
+		
+		List<SubsequentResults> subsequentResults = 
+				jdbcTemplate.query(sql, new SubsequentResultRowMapper(), transactionNumber);
+		return subsequentResults;
+	}
+
+	private final class SubsequentResultRowMapper implements RowMapper<SubsequentResults> {
+		public SubsequentResults mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			SubsequentResults subsequentResult = new SubsequentResults();
+			subsequentResult.setId(rs.getLong("subsequent_result_id"));
+			subsequentResult.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
+			subsequentResult.setRapSheet(ZipUtils.unzip(rs.getBytes("rap_sheet")));
+			subsequentResult.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") -1]);
+			return subsequentResult;
+		}
+	}
+
 
 }

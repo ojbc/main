@@ -29,6 +29,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
+import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 
 
 public interface RapbackDAO {
@@ -64,4 +65,6 @@ public interface RapbackDAO {
 	
 	public int archive();
 	public void archiveIdentificationResult(String transactionNumber);
+	
+	public List<SubsequentResults> getSubsequentResults(String transactionNumber);
 }
