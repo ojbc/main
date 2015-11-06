@@ -1,0 +1,60 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<OJBAggregateResponseWrapper>
+    <psres-doc:PersonSearchResults xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+        xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+        xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+        xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+        xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0">
+        <psres:PersonSearchResult>
+            <psres:Person>
+                <nc:PersonAgeMeasure>
+                    <nc:MeasurePointValue>84</nc:MeasurePointValue>
+                </nc:PersonAgeMeasure>
+                <nc:PersonBirthDate>
+                    <nc:Date>1931-03-11</nc:Date>
+                </nc:PersonBirthDate>
+                <nc:PersonName>
+                    <nc:PersonGivenName>Joey</nc:PersonGivenName>
+                    <nc:PersonMiddleName>R</nc:PersonMiddleName>
+                    <nc:PersonSurName>Matthews</nc:PersonSurName>
+                </nc:PersonName>
+                <nc:PersonRaceCode>W</nc:PersonRaceCode>
+                <nc:PersonSexCode>M</nc:PersonSexCode>
+                <nc:PersonSSNIdentification>
+                    <nc:IdentificationID>988-16-8772</nc:IdentificationID>
+                </nc:PersonSSNIdentification>
+                <jxdm41:PersonAugmentation>
+                    <jxdm41:PersonFBIIdentification>
+                        <nc:IdentificationID>181953HX5</nc:IdentificationID>
+                    </jxdm41:PersonFBIIdentification>
+                    <jxdm41:PersonStateFingerprintIdentification>
+                        <nc:IdentificationID>A1764096</nc:IdentificationID>
+                    </jxdm41:PersonStateFingerprintIdentification>
+                </jxdm41:PersonAugmentation>
+            </psres:Person>
+            <psres:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History</psres:SourceSystemNameText>
+            <intel:SystemIdentifier>
+                <nc:IdentificationID>sample-5234100668017296985.xml</nc:IdentificationID>
+                <intel:SystemName>Criminal History</intel:SystemName>
+            </intel:SystemIdentifier>
+            <psres:SearchResultCategoryText>Criminal History</psres:SearchResultCategoryText>
+        </psres:PersonSearchResult>
+    </psres-doc:PersonSearchResults>
+</OJBAggregateResponseWrapper>

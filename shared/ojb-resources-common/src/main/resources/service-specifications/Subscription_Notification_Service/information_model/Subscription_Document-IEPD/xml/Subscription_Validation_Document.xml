@@ -27,4 +27,9 @@
 		<nc20:IdentificationID>1234567</nc20:IdentificationID>
 	</submsg-ext:SubscriptionIdentification>
 	<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
+	<submsg-ext:RelatedFBISubscription>
+		<submsg-ext:SubscriptionFBIIdentification>
+			<nc20:IdentificationID>987654321</nc20:IdentificationID>
+		</submsg-ext:SubscriptionFBIIdentification>
+	</submsg-ext:RelatedFBISubscription>
 </svm:SubscriptionValidationMessage>
