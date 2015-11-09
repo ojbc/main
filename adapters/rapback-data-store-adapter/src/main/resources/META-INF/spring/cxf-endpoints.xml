@@ -210,7 +210,7 @@
         address="${rapbackDatastoreAdapter.identificationResultsModificationResponseServiceEndpoint}"
         wsdlURL="classpath:service-specifications/Identification_Results_Modification_Response_Service/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
         serviceName="ojbc:Identification_Results_Modification_Response_Service_Service"
-		endpointName="ojbc:Identification_Results_Modification_Response_Secure_Service"
+		endpointName="ojbc:Identification_Results_Modification_Response_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0"
     >
      <cxf:features>
