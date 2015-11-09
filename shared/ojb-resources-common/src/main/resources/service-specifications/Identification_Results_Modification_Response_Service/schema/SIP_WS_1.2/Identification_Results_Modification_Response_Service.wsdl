@@ -19,11 +19,9 @@
 -->
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:ira-resp-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsModificationResponse/1.0"
-	name="Identification_Results_Modification_Response_Service"
-	targetNamespace="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:irm-resp-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsModificationResponse/1.0"
+	name="Identification_Results_Modification_Response_Service" targetNamespace="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
 	<wsdl:import
@@ -37,28 +35,45 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Identification-Results-Modification-Response">
-		<wsdl:part element="ira-resp-doc:IdentificationResultsModificationResponse" name="Identification-Results-Modification-Response" />
+		<wsdl:part element="irm-resp-doc:IdentificationResultsModificationResponse" name="Identification-Results-Modification-Response" />
 	</wsdl:message>
 	<wsdl:portType name="Identification_Results_Modification_Response_Service">
 		<wsdl:operation name="SubmitIdentificationResultsModificationResponse">
-			<wsdl:input message="tns:Identification-Results-Modification-Response" />
+			<wsdl:input message="tns:Identification-Results-Modification-Response" name="Identification-Results-Modification-Response"/>
 		</wsdl:operation>
 	</wsdl:portType>
+	<wsdl:binding name="Identification_Results_Modification_Response_ServiceSOAPBinding"
+		type="tns:Identification_Results_Modification_Response_Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsaw:UsingAddressing wsdl:required="true" />
+		<wsdl:operation name="SubmitIdentificationResultsModificationResponse">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0/SubmitIdentificationResultsModificationResponse" />
+			<wsdl:input name="Identification-Results-Modification-Response">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
 	<!-- Secure, GFIPM-conformant binding -->
 	<wsdl:binding name="Identification_Results_Modification_Response_Secure_ServiceSOAPBinding"
 		type="tns:Identification_Results_Modification_Response_Service">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
-		<wsp:PolicyReference URI="#GFIPMUserSystemToSystem" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
 		<wsdl:operation name="SubmitIdentificationResultsModificationResponse">
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0/SubmitIdentificationResultsModificationResponse" />
-			<wsdl:input>
+			<wsdl:input name="Identification-Results-Modification-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="Identification_Results_Modification_Response_Service_Service">
+		<wsdl:port binding="tns:Identification_Results_Modification_Response_ServiceSOAPBinding"
+			name="Identification_Results_Modification_Response_Service">
+			<soap:address location="http://localhost" />
+		</wsdl:port>
 		<wsdl:port binding="tns:Identification_Results_Modification_Response_Secure_ServiceSOAPBinding"
 			name="Identification_Results_Modification_Response_Secure_Service">
 			<soap:address location="http://localhost/secure" />
