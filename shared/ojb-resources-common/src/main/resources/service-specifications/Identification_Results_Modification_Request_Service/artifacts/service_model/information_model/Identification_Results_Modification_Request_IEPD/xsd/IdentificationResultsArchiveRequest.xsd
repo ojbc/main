@@ -28,6 +28,7 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="ira-req-doc:IdentificationResultsIdentification"/>
+					<xsd:element ref="nc:SystemName" minOccurs="0" maxOccurs="1"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
