@@ -17,7 +17,10 @@
 package org.ojbc.intermediaries.sn.tests;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -30,7 +33,10 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.FbiSubscriptionProcessor;
+import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiSubscriptionModification;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
@@ -52,6 +58,67 @@ public class FbiSubscriptionProcessorTest {
     	fbiRapbackSubscription = getSampleFbiSubscription();
 	}
 		
+	
+	@Test
+	public void prepareSubscriptionMaintenanceMessageTest() throws Exception{
+		
+		FbiSubscriptionProcessor fbiSubProcessor = new FbiSubscriptionProcessor();
+		
+		FbiSubscriptionModification fbiSubMod = new FbiSubscriptionModification();		
+		fbiSubMod.setPersonFbiUcnId("789");
+		fbiSubMod.setReasonCode("CS");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date subModEndDate = sdf.parse("2015-11-09");
+				
+		fbiSubMod.setSubModEndDate(subModEndDate);
+		fbiSubMod.setSubscriptionFbiId("456");		
+		
+		Document subMaintMsgDoc = fbiSubProcessor.prepareSubscriptionMaintenanceMessage(fbiSubMod);
+								
+		XmlUtils.compareDocs("src/test/resources/xmlInstances/fbi/SubModifyMessageDoc.xml", subMaintMsgDoc);				
+	}
+	
+	
+	@Test
+	public void getSubReqFromSubDocTest() throws Exception{
+		
+		FbiSubscriptionProcessor  fbiSubProcessor = new FbiSubscriptionProcessor();
+		
+		Document subDoc = XmlUtils.parseFileToDocument(
+				new File("src/test/resources/xmlInstances/fbi/Arrest_Subscription_Document_WithFbiData.xml"));
+		
+		SubscriptionRequest subReq = fbiSubProcessor.getSubReqFromSubDoc(subDoc);
+						
+		String catCode = subReq.getReasonCategoryCode();
+		Assert.assertEquals("CI", catCode);
+		
+		String subjName = subReq.getSubjectName();		
+		Assert.assertEquals("John Doe", subjName);					
+	}
+	
+	
+	@Test
+	public void getGreatestEndDateTest(){
+		
+		Subscription sub1 = new Subscription();
+		
+		DateTime sub1DateTime = new DateTime(new Date());
+		sub1.setEndDate(sub1DateTime);
+		
+		Subscription sub2 = new Subscription();
+		DateTime sub2DateTime = sub1DateTime.plusMillis(1);
+		sub2.setEndDate(sub2DateTime);
+		
+		List<Subscription> subList = Arrays.asList(sub1, sub2);
+		
+		FbiSubscriptionProcessor  fbiSubProcessor = new FbiSubscriptionProcessor();
+		
+		DateTime greatestDate = fbiSubProcessor.getGreatestEndDate(subList);
+				
+		Assert.assertEquals(greatestDate, sub2DateTime);				
+	}
+	
 	
 	private FbiRapbackSubscription getSampleFbiSubscription(){
 				
