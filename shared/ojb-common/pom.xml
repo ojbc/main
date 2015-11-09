@@ -46,6 +46,7 @@
 		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
 		<httpcomponents.version>4.2.5</httpcomponents.version>
 		<saxon-version>8.7</saxon-version>
+		<xmlunit.version>1.5</xmlunit.version>		
 	</properties>
 
 	<dependencies>
@@ -118,7 +119,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit-version}</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -144,6 +144,11 @@
 			<version>${ojb-resources-common-version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>${xmlunit.version}</version>
+		</dependency>		
 	</dependencies>
 
 	<build>
