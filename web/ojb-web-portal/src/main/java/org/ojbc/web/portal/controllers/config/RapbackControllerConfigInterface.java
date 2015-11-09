@@ -21,5 +21,5 @@ import org.ojbc.web.RapbackSearchInterface;
 
 public interface RapbackControllerConfigInterface {
 	RapbackSearchInterface getRapbackSearchBean();
-	IdentificationResultsQueryInterface getInitialResultsQueryBean();
+	IdentificationResultsQueryInterface getIdentificationResultsQueryBean();
 }

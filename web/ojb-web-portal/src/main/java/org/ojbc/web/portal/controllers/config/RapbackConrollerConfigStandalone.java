@@ -38,7 +38,7 @@ public class RapbackConrollerConfigStandalone implements RapbackControllerConfig
     }
 
 	@Override
-	public IdentificationResultsQueryInterface getInitialResultsQueryBean() {
+	public IdentificationResultsQueryInterface getIdentificationResultsQueryBean() {
 		return initialResultsQueryInterface;
 	}	
 
