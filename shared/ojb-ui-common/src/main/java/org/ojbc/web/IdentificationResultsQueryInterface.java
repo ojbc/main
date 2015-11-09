@@ -21,7 +21,8 @@ import org.w3c.dom.Element;
 
 public interface IdentificationResultsQueryInterface {
 
-	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(String transactionNumber,
-	        Element samlToken) throws Exception;
+	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(
+			String transactionNumber, boolean initialResultsQuery,
+			Element samlToken) throws Exception;
 
 }

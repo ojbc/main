@@ -19,9 +19,11 @@ package org.ojbc.web.util;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
 import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 
 import java.text.SimpleDateFormat;
@@ -673,7 +675,7 @@ public class RequestMessageBuilderUtilities {
 		return document;
 	}
 
-	public static Document createIdentificationResultsQueryRequest(
+	public static Document createIdentificationInitialResultsQueryRequest(
 			String transactionNumber) throws Exception {
         Document document = OJBCXMLUtils.createDocument();  
         Element rootElement = document.createElementNS(NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST, 
@@ -682,7 +684,13 @@ public class RequestMessageBuilderUtilities {
         document.appendChild(rootElement);
         rootElement.setAttribute("xmlns:" + NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST, 
                 NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST);
-        rootElement.setAttribute("xmlns:" + NS_PREFIX_INTEL_30, NS_INTEL_30);
+        buildIdentificationResultsQueryRequest(transactionNumber, rootElement);
+        
+		return document;
+	}
+
+	private static void buildIdentificationResultsQueryRequest(String transactionNumber, Element rootElement) {
+		rootElement.setAttribute("xmlns:" + NS_PREFIX_INTEL_30, NS_INTEL_30);
         rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_30, NS_NC_30);
         
         Element systemIdentification = 
@@ -692,6 +700,18 @@ public class RequestMessageBuilderUtilities {
         
         Element systemName = XmlUtils.appendElement(systemIdentification, NS_NC_30, "SystemName"); 
         systemName.setTextContent("rap-back-data-store");
+	}
+
+	public static Document createIdentificationSubsequentResultsQueryRequest(
+			String transactionNumber) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST, 
+                NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST 
+                +":OrganizationIdentificationSubsequentResultsQueryRequest");
+        document.appendChild(rootElement);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST, 
+                NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST);
+        buildIdentificationResultsQueryRequest(transactionNumber, rootElement);
         
 		return document;
 	}	

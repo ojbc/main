@@ -66,10 +66,10 @@
     </cxf:cxfEndpoint>
 
   	<!-- Identification Initial Results Request and Response Endpoints -->
-   <bean id="identificationResultsQueryRequestProcessor" class="org.ojbc.processor.initialresults.query.IdentificationResultsQueryRequestProcessor">
-   		<property name="replyToAddress"><value>${webapplication.initialResultsQueryRequestReplyToEndpoint.endpoint}</value></property>
+   <bean id="identificationResultsQueryRequestProcessor" class="org.ojbc.processor.identificationresults.query.IdentificationResultsQueryRequestProcessor">
+   		<property name="replyToAddress"><value>${webapplication.identificationResultsQueryRequestReplyToEndpoint.endpoint}</value></property>
    		<property name="messageProcessor" ref="identificationInitialResultsQueryMessageProcessor"/>
-   		<property name="requestResponseMap" ref="identificationInitialResultsQueryRequestResponseMap"/>
+   		<property name="requestResponseMap" ref="identificationResultsQueryRequestResponseMap"/>
    		<property name="maxPolls" value="${webapplication.maxPolls}"/>
    		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
    		<property name="OJBSamlMap" ref="ojbSamlMap"/>
@@ -82,6 +82,6 @@
 		<property name="destinationEndpoint"><value>identificationInitialResultsQueryRequestService</value></property>
 	</bean>
 
-	<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="identificationInitialResultsQueryRequestResponseMap"/>
+	<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="identificationResultsQueryRequestResponseMap"/>
 
 </beans>
