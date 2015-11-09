@@ -66,7 +66,7 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
 @DirtiesContext
-public class TestIdentificationInitialResultsQueryRequestService {
+public class TestIdentificationResultsQueryRequestService {
 	private final Log log = LogFactory.getLog( TestIdentficationRecordingAndResponse.class );
 
     @Autowired
@@ -74,7 +74,7 @@ public class TestIdentificationInitialResultsQueryRequestService {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:identificationInitialResultsQueryResponseService")
+    @EndpointInject(uri = "mock:cxf:bean:identificationResultsQueryResponseService")
     protected MockEndpoint identificationInitialResultsQueryResponseServiceMock;
 
     @Autowired
@@ -91,38 +91,38 @@ public class TestIdentificationInitialResultsQueryRequestService {
         // Advise the Request Service endpoint and replace it
         // with a mock endpoint. We then will test this mock endpoint to see 
         // if it gets the proper payload.
-        context.getRouteDefinition("identificationInitialResultsQueryRequestRoute")
+        context.getRouteDefinition("identificationResultsQueryRequestRoute")
                 .adviceWith(context, new AdviceWithRouteBuilder() {
                     @Override
                     public void configure() throws Exception {
                         // The line below allows us to bypass CXF and send a
                         // message directly into the route
-                        replaceFromWith("direct:identificationInitialResultsQueryRequest");
+                        replaceFromWith("direct:identificationResultsQueryRequest");
                     }
                 });
 
-        context.getRouteDefinition("identificationInitialResultsQueryResponseRoute")
-        .adviceWith(context, new AdviceWithRouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-            	mockEndpointsAndSkip("cxf:bean:identificationInitialResultsQueryResponseService*");
-            }
-        });
+		context.getRouteDefinition("identificationInitialResultsQueryResponseRoute").adviceWith(
+				context, new AdviceWithRouteBuilder() {
+					@Override
+					public void configure() throws Exception {
+						mockEndpointsAndSkip("cxf:bean:identificationResultsQueryResponseService*");
+					}
+				});
 
         context.start();
     }
 
     @Test
     @DirtiesContext
-    public void testRoute() throws Exception {
+    public void testInitialResultsRoute() throws Exception {
     	
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
-				"src/test/resources/xmlInstances/initialResultsQuery/OrganizationIdentificationInitialResultsQueryRequest.xml");
+				"src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationInitialResultsQueryRequest.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "SubmitOrganizationIdentificationInitialResultsQueryRequest");
 
 		//Send the one-way exchange.  Using template.send will send an one way message
-		Exchange returnExchange = template.send("direct:identificationInitialResultsQueryRequest", senderExchange);
+		Exchange returnExchange = template.send("direct:identificationResultsQueryRequest", senderExchange);
 		
 		//Use getException to see if we received an exception
 		if (returnExchange.getException() != null)
@@ -139,7 +139,7 @@ public class TestIdentificationInitialResultsQueryRequestService {
 		log.info("body: \n" + bodyString);
 		
         IdentificationReportingResponseProcessorTest.assertAsExpected(
-        		bodyString, "src/test/resources/xmlInstances/initialResultsQuery/OrganizationIdentificationInitialResultsQueryResults.xml");
+        		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationInitialResultsQueryResults.xml");
 
 		DataHandler dataHandler = receivedExchange.getIn().getAttachment("http://ojbc.org/identification/results/fbiSearchResultDocument");
 		assertEquals("text/plain", dataHandler.getContentType());
@@ -148,7 +148,43 @@ public class TestIdentificationInitialResultsQueryRequestService {
 		assertEquals(2110, receivedData.length);
     }
 
-    
+    @Test
+    @DirtiesContext
+    public void testSubsequentResultsRoute() throws Exception {
+    	
+		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationSubsequentResultsQueryRequest.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "SubmitOrganizationIdentificationSubsequentResultsQueryRequest");
+
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationResultsQueryRequest", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+
+		identificationInitialResultsQueryResponseServiceMock.expectedMessageCount(1);
+		identificationInitialResultsQueryResponseServiceMock.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationInitialResultsQueryResponseServiceMock.getExchanges().get(0);
+		Document bodyDocument = receivedExchange.getIn().getBody(Document.class);
+		String bodyString = OJBUtils.getStringFromDocument(bodyDocument);
+		log.info("body: \n" + bodyString);
+		
+        IdentificationReportingResponseProcessorTest.assertAsExpected(
+        		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationSubsequentResultsQueryResults.xml");
+
+		DataHandler dataHandler = receivedExchange.getIn().getAttachment("http://ojbc.org/identification/results/fbiIdentityHistorySummaryDocument_00000001");
+		assertEquals("text/plain", dataHandler.getContentType());
+		
+		byte[] receivedData = IOUtils.readBytesFromStream(dataHandler.getInputStream());
+		log.info("Attachment Fbi rap sheet: " + new String(receivedData));
+		assertEquals(23, receivedData.length);
+    }
+
     public static org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(
             Map<SamlAttribute, String> customAttributes) throws Exception {
         org.apache.cxf.message.Message message = new MessageImpl();

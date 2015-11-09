@@ -301,8 +301,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="lexs:RequestMessageType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataItemID"/>
-					<xsd:element ref="lexs:StructuredPayloadsRequestedAbstract"/>
+					<xsd:element ref="lexs:DataItemID" minOccurs="0"/>
+					<xsd:element ref="lexs:StructuredPayloadsRequestedAbstract" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -335,9 +335,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:AgencyIDAbstract"/>
-					<xsd:element ref="nc:OrganizationName"/>
-					<xsd:element ref="lexs:SystemID"/>
+					<xsd:element ref="lexs:AgencyIDAbstract" minOccurs="0"/>
+					<xsd:element ref="nc:OrganizationName" minOccurs="0"/>
+					<xsd:element ref="lexs:SystemID" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -367,8 +367,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataOwnerIdentifier"/>
-					<xsd:element ref="lexs:DataOwnerContact"/>
+					<xsd:element ref="lexs:DataOwnerIdentifier" minOccurs="0"/>
+					<xsd:element ref="lexs:DataOwnerContact" minOccurs="0"/>
 					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -585,7 +585,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:PackageMetadata"/>
+					<xsd:element ref="lexs:PackageMetadata" minOccurs="0"/>
 					<!-- BusinessRule: Digest is not optional everywhere except SearchResultPackage -->
 					<xsd:element ref="lexs:Digest" minOccurs="0"/>
 					<xsd:element ref="lexs:StructuredPayload" minOccurs="0" maxOccurs="unbounded"/>
@@ -605,16 +605,16 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:DataItemID"/>
+					<xsd:element ref="lexs:DataItemID" minOccurs="0"/>
 					<xsd:element ref="lexs:DataItemCompleteIndicator" minOccurs="0"/>
 					<xsd:element ref="lexs:DataItemContact" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="lexs:DataItemDate" minOccurs="0"/>
 					<xsd:element ref="lexs:DataItemLEXSVersion" minOccurs="0"/>
-					<xsd:element ref="lexs:DataItemReferenceID"/>
+					<xsd:element ref="lexs:DataItemReferenceID" minOccurs="0"/>
 					<xsd:element ref="lexs:DataItemPublishInstruction" minOccurs="0"/>
-					<xsd:element ref="lexs:DataItemStatus"/>
-					<xsd:element ref="lexs:DataOwnerMetadata"/>
-					<xsd:element ref="lexs:DisseminationCriteriaAbstract"/>
+					<xsd:element ref="lexs:DataItemStatus" minOccurs="0"/>
+					<xsd:element ref="lexs:DataOwnerMetadata" minOccurs="0"/>
+					<xsd:element ref="lexs:DisseminationCriteriaAbstract" minOccurs="0"/>
 					<xsd:element ref="lexs:DataItemCategory" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
@@ -1072,8 +1072,8 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="lexs:AgencyIDAbstract" minOccurs="0"/>
-					<xsd:element ref="nc:OrganizationName"/>
-					<xsd:element ref="lexs:SystemID"/>
+					<xsd:element ref="nc:OrganizationName" minOccurs="0"/>
+					<xsd:element ref="lexs:SystemID" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1090,8 +1090,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:MetadataType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:SystemIdentifier"/>
-					<xsd:element ref="lexs:SystemContact"/>
+					<xsd:element ref="lexs:SystemIdentifier" minOccurs="0"/>
+					<xsd:element ref="lexs:SystemContact" minOccurs="0"/>
 					<xsd:element ref="lexs:DomainAttribute" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
