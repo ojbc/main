@@ -186,5 +186,49 @@ public class FbiSubscriptionProcessorTest {
 		Assert.assertEquals("CI", categoryReasonCode);		
 	}
 	
+	@Test
+	public void getSubReqEndDateTest() throws Exception{
+		
+		FbiSubscriptionProcessor fbiSubscriptionProcessor = new FbiSubscriptionProcessor();
+		
+		Document subDoc = XmlUtils.parseFileToDocument(
+				new File("src/test/resources/xmlInstances/fbi/Arrest_Subscription_Document_WithFbiData.xml"));
+		
+		Date dEndDate = fbiSubscriptionProcessor.getSubReqEndDate(subDoc);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		String sEndDate = sdf.format(dEndDate);
+		
+		Assert.assertEquals("2015-06-20", sEndDate);		
+	}
+	
+	@Test
+	public void appendFbiUcnIdToUnsubscribeDocTest() throws Exception{
+		
+		Document unsubscribeDoc = XmlUtils.parseFileToDocument(
+				new File("src/test/resources/xmlInstances/fbi/input/UnsubscribeHasReasonCodeButNoFbiUcn.xml"));
+		
+		FbiSubscriptionProcessor fbiSubProcessor = new FbiSubscriptionProcessor();
+		
+		Document unsubDocWithFbiData = fbiSubProcessor.appendFbiUcnIdToUnsubscribeDoc(unsubscribeDoc, "987");			
+		
+		XmlUtils.compareDocs(unsubscribeDoc, unsubDocWithFbiData);
+	}
+	
+	@Test
+	public void appendFbiSubscriptionIdToUnsubscribeDocTest() throws Exception{
+		
+		Document unsubscribeDoc = XmlUtils.parseFileToDocument(
+				new File("src/test/resources/xmlInstances/fbi/input/UnsubscribeHasReasonCodeButNoFbiUcn.xml"));		
+		
+		FbiSubscriptionProcessor fbiSubProcessor = new FbiSubscriptionProcessor();
+		
+		Document unsubDocWithFbiId = fbiSubProcessor.appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, "789");		
+		
+		XmlUtils.compareDocs("src/test/resources/xmlInstances/fbi/output/UnsubscribeWithFbiId.xml", 
+				unsubDocWithFbiId);
+	}
+	
 }
 
