@@ -21,6 +21,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
 	xmlns:oiirq-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryRequest/1.0"
+	xmlns:oisrq-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryRequest/1.0" 
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/"
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" 
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -72,19 +73,16 @@
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 
 			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
-				<camel:xpath>/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel:SystemIdentification/nc30:SystemName</camel:xpath>
+				<camel:xpath>/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel:SystemIdentification/nc30:SystemName|/oisrq-req-doc:OrganizationIdentificationSubsequentResultsQueryRequest/intel:SystemIdentification/nc30:SystemName</camel:xpath>
 			</camel:setHeader>
 
-			<camel:setHeader headerName="operationName">
-	            <constant>SubmitOrganizationIdentificationInitialResultsQueryRequest</constant>
-	        </camel:setHeader>
-	        <camel:setHeader headerName="operationNamespace">
-	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryRequestService/1.0</constant>
+ 			<camel:setHeader headerName="operationNamespace">
+            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryRequestService/1.0</constant>
 	        </camel:setHeader>
 	        
 			<!-- We only call one endpoint -->						
 			<camel:setHeader headerName="adapterURI">
-				<camel:xpath resultType="java.lang.String">/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel:SystemIdentification/nc30:SystemName</camel:xpath>
+				<camel:xpath resultType="java.lang.String">/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel:SystemIdentification/nc30:SystemName|/oisrq-req-doc:OrganizationIdentificationSubsequentResultsQueryRequest/intel:SystemIdentification/nc30:SystemName</camel:xpath>
 			</camel:setHeader>
 			
 			<!-- Add the reply to address to the map using the federated query guid as the key -->
@@ -106,7 +104,7 @@
 			<camel:log message="Timer started"/>
 
 			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
-				<camel:xpath>/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel:SystemIdentification/nc30:SystemName</camel:xpath>
+				<camel:xpath>/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel:SystemIdentification/nc30:SystemName|/oisrq-req-doc:OrganizationIdentificationSubsequentResultsQueryRequest/intel:SystemIdentification/nc30:SystemName</camel:xpath>
 				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
 				
 				<camel:recipientList>
@@ -160,7 +158,7 @@
 		<camel:route>
 			<camel:from uri="direct:processFederatedResponse"/>
 				
-			<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
+			<!-- This line removes the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
 			<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
 			
 			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
@@ -173,11 +171,21 @@
 				<camel:when>
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 					
-					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-								
-					<camel:setHeader headerName="operationName">
-			            <constant>SubmitOrganizationIdentificationInitialResultsQueryResults</constant>
-			        </camel:setHeader>
+					<camel:choice>
+						<camel:when>
+							<camel:simple>${in.headers.operationName} == 'SubmitOrganizationIdentificationInitialResultsQueryResults'</camel:simple>
+							<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+							<camel:setHeader headerName="operationName">
+					            <constant>SubmitOrganizationIdentificationInitialResultsQueryResults</constant>
+					        </camel:setHeader>
+						</camel:when>
+						<camel:otherwise>
+							<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+							<camel:setHeader headerName="operationName">
+					            <constant>SubmitOrganizationIdentificationSubsequentResultsQueryResults</constant>
+					        </camel:setHeader>
+						</camel:otherwise>
+					</camel:choice>
 			        
 			        <camel:setHeader headerName="operationNamespace">
 			            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0</constant>
