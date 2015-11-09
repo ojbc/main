@@ -28,8 +28,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 @Service
 @Profile({"initial-results-query","standalone"})
 public class IdentificationResultsQueryMockImpl implements IdentificationResultsQueryInterface{
@@ -42,14 +40,21 @@ public class IdentificationResultsQueryMockImpl implements IdentificationResults
 	
 	@Override
 	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(
-			String transactionNumber,  Element samlToken) throws Exception {
+			String transactionNumber,  boolean initialResultsQuery, Element samlToken) throws Exception {
+		
 		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
 				new IdentificationResultsQueryResponse();
-		
-		identificationResultsQueryResponse.setFbiSearchResultFile("Match");
-		identificationResultsQueryResponse.setStateSearchResultFile("Match");
-		identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(Arrays.asList("State Rap Sheet"));
-		identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(Arrays.asList("FBI Identity History Summary"));
+
+		if (initialResultsQuery){
+			identificationResultsQueryResponse.setFbiSearchResultFile("Match");
+			identificationResultsQueryResponse.setStateSearchResultFile("Match");
+			identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(Arrays.asList("State Rap Sheet"));
+			identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(Arrays.asList("FBI Identity History Summary"));
+		}
+		else {
+			identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(Arrays.asList("State Subsequent Results"));
+			identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(Arrays.asList("FBI Subsequent Results"));
+		}
 		return identificationResultsQueryResponse;
 	}
 

@@ -30,7 +30,7 @@ public class RapbackControllerConfigBrokered implements RapbackControllerConfigI
     RapbackSearchInterface rapbackSearchInterface;
     
     @Resource(name="${identificationResultsQueryRequestProcessorBean:identificationResultsQueryRequestProcessor}")
-    IdentificationResultsQueryInterface initialResultsQueryInterface;
+    IdentificationResultsQueryInterface identificationResultsQueryInterface;
     
     @Override
     public RapbackSearchInterface getRapbackSearchBean() {
@@ -38,8 +38,8 @@ public class RapbackControllerConfigBrokered implements RapbackControllerConfigI
     }
 
 	@Override
-	public IdentificationResultsQueryInterface getInitialResultsQueryBean() {
-		return initialResultsQueryInterface;
+	public IdentificationResultsQueryInterface getIdentificationResultsQueryBean() {
+		return identificationResultsQueryInterface;
 	}   
 
 }
