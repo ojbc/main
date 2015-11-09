@@ -28,32 +28,16 @@
 				</lexs:PDMessageMetadata>
 				<lexs:DataSubmitterMetadata>
 					<lexs:SystemIdentifier>
-						<nc:OrganizationName/>
-						<lexs:SystemID/>
+						<nc:OrganizationName>FBI</nc:OrganizationName>
 					</lexs:SystemIdentifier>
-					<lexs:SystemContact>
-						<nc:PersonSurName/>
-					</lexs:SystemContact>
 				</lexs:DataSubmitterMetadata>
 				<lexs:DataItemPackage>
 					<lexs:PackageMetadata>
-						<lexs:DataItemID/>
-						<lexs:DataItemReferenceID/>
-						<lexs:DataItemStatus/>
 						<lexs:DataOwnerMetadata>
 							<lexs:DataOwnerIdentifier>
 								<lexs:ORI>Arresting Agency ORI</lexs:ORI>
-								<nc:OrganizationName/>
-								<lexs:SystemID/>
 							</lexs:DataOwnerIdentifier>
-							<lexs:DataOwnerContact>
-								<nc:PersonSurName/>
-							</lexs:DataOwnerContact>
 						</lexs:DataOwnerMetadata>
-						<lexs:DisseminationCriteriaValue>
-							<lexs:DisseminationCriteriaDomainText/>
-							<lexs:DisseminationCriteriaText/>
-						</lexs:DisseminationCriteriaValue>
 					</lexs:PackageMetadata>
 					<lexs:Digest>
 						<lexsdigest:EntityPerson>

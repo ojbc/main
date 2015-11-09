@@ -34,6 +34,7 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="notfm-ext:NotifyingActivityExtensions" minOccurs="0"/>
+					<xsd:element ref="notfm-ext:NotifyingActivityReportingOrganization" minOccurs="0"/>
 					<xsd:element ref="notfm-ext:NotifyingActivityReportingSystemNameText" minOccurs="0"/>
 					<xsd:element ref="notfm-ext:NotifyingActivityReportingSystemURI" minOccurs="0"/>
 					<xsd:element ref="notfm-ext:RelatedFBISubscription" minOccurs="0"/>
@@ -188,6 +189,11 @@
 	<xsd:element name="RecordRapBackSubscriptionIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>An identification associated with a rap back subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NotifyingActivityReportingOrganization" type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The organization that originally reported an event which resulted in a notification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
