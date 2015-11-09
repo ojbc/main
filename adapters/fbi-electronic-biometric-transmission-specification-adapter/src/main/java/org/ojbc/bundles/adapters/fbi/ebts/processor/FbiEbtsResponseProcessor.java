@@ -22,7 +22,6 @@ import org.apache.camel.Exchange;
 import org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
-import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -33,10 +32,8 @@ public class FbiEbtsResponseProcessor {
 	public void sendFbiSubscribeResponse(Exchange exchange) throws Exception{
 		
 		Document responseDoc = SubscriptionResponseBuilderUtil.createSubscribeResponse();
-		
-		String resp = XmlUtils.getStringFromNode(responseDoc);
-		
-		logger.info("\n\n\n Returning response: \n" + resp);
+				
+		logger.info("\n\n\n Returning response:... \n");
 		
 		exchange.getOut().setBody(responseDoc);		
 	}
