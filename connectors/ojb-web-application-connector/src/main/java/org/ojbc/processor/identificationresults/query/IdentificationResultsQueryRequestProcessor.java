@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.processor.initialresults.query;
+package org.ojbc.processor.identificationresults.query;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
@@ -65,7 +65,7 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 	
 	@Override
 	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(
-			String transactionNumber, Element samlToken) throws Exception {
+			String transactionNumber, boolean initialResultsQuery, Element samlToken) throws Exception {
 		
 		if (StringUtils.isBlank(transactionNumber)){
 			throw new IllegalArgumentException("Transaction number should not be null or empty to perform initial results query."); 
@@ -80,16 +80,11 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 			}	
 		}
 		log.info("Processing initial results request with transaction number: " + StringUtils.trimToEmpty(transactionNumber) );
-		Document identificationResultsQueryRequestPayload = RequestMessageBuilderUtilities.createIdentificationResultsQueryRequest(transactionNumber);
 		
-		//Create exchange
-		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
-		
-		//Set exchange body to XML Request message
-		senderExchange.getIn().setBody(identificationResultsQueryRequestPayload);
+		Exchange senderExchange = setRequestPayloadAndOperationName(transactionNumber,
+				initialResultsQuery);
 		
 		//Set reply to and WS-Addressing message ID
-		
 		String federatedQueryID = getFederatedQueryId();
 		senderExchange.getIn().setHeader("federatedQueryRequestGUID", federatedQueryID );
 		senderExchange.getIn().setHeader("WSAddressingReplyTo", this.getReplyToAddress());
@@ -107,10 +102,63 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 		
 		Exchange responseExchange = pollMapForResponseExchange(federatedQueryID);
 		
-		return retrieveResponse(responseExchange);
+		return retrieveResponse(responseExchange, initialResultsQuery);
 	}
 
 	private IdentificationResultsQueryResponse retrieveResponse(
+			Exchange exchange, boolean initialResultsQuery) throws Exception {
+		if (initialResultsQuery){
+			return retrieveInitialResultsQueryResponse(exchange);
+		}
+		
+		return retrieveSubsequentResultsQueryResponse(exchange);
+	}
+	
+	private IdentificationResultsQueryResponse retrieveSubsequentResultsQueryResponse(
+			Exchange exchange) throws Exception {
+		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
+				new IdentificationResultsQueryResponse();
+		
+		List<String> stateCriminalHistoryRecordDocuments = getDocuments(exchange,
+				"/oisrq-res-doc:OrganizationIdentificationSubsequentResultsQueryResults/"
+				+ "oirq-res-ext:StateCriminalHistoryRecordDocument/xop:Include");
+		identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(
+				stateCriminalHistoryRecordDocuments);
+		
+		List<String> fbiIdentityHistorySummaryDocuments = getDocuments(exchange,
+				"/oisrq-res-doc:OrganizationIdentificationSubsequentResultsQueryResults/"
+						+ "oirq-res-ext:FBIIdentityHistorySummaryDocument/xop:Include");
+		identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(
+				fbiIdentityHistorySummaryDocuments);
+		log.debug("Identification Results Query Response: " + identificationResultsQueryResponse.toString());
+		return identificationResultsQueryResponse;
+	}
+
+
+	private Exchange setRequestPayloadAndOperationName(String transactionNumber,
+			boolean initialResultsQuery) throws Exception {
+		
+		Document identificationResultsQueryRequestPayload;
+		if (initialResultsQuery){
+			identificationResultsQueryRequestPayload = RequestMessageBuilderUtilities.createIdentificationInitialResultsQueryRequest(transactionNumber);
+			messageProcessor.setOperationName("SubmitOrganizationIdentificationInitialResultsQueryRequest");
+		}
+		else{
+			identificationResultsQueryRequestPayload = RequestMessageBuilderUtilities.createIdentificationSubsequentResultsQueryRequest(transactionNumber);
+			messageProcessor.setOperationName("SubmitOrganizationIdentificationSubsequentResultsQueryRequest");
+		}
+		
+		//Create exchange
+		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
+		
+		//Set exchange body to XML Request message
+		senderExchange.getIn().setBody(identificationResultsQueryRequestPayload);
+		
+
+		return senderExchange;
+	}
+
+	private IdentificationResultsQueryResponse retrieveInitialResultsQueryResponse(
 			Exchange exchange) throws Exception {
 		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
 				new IdentificationResultsQueryResponse();
