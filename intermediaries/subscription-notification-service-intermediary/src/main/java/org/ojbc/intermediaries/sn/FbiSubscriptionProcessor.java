@@ -179,15 +179,16 @@ public class FbiSubscriptionProcessor {
 						
 			FbiRapbackSubscription fbiRapbackSubscription = lookupFbiSubscriptionFromRapbackDataStore(personFbiUcnId, categoryPurposeReason);			
 			
-			if(fbiRapbackSubscription != null){
-				appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, fbiRapbackSubscription);	
-			}else{
+			if(fbiRapbackSubscription != null && StringUtils.isNotEmpty(fbiRapbackSubscription.getFbiSubscriptionId())){
 				
+				String fbiSubId = fbiRapbackSubscription.getFbiSubscriptionId();
+				
+				appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, fbiSubId);	
+			}else{				
 				XmlUtils.printNode(unsubscribeDoc);
 				
 				throw new Exception("Was not able to get related fbi data to add to unsubscribe message");
-			}
-			
+			}			
 		}else{
 			throw new Exception("Unable to set Unsubscribe FBI fields required to send to FBI EBTS adapter");
 		}			
@@ -306,7 +307,7 @@ public class FbiSubscriptionProcessor {
 		return subRequest;
 	}
 	
-	private Date getSubReqEndDate(Document subscriptionDoc) throws Exception{
+	public Date getSubReqEndDate(Document subscriptionDoc) throws Exception{
 		
 		SubscriptionRequest subReq = getSubReqFromSubDoc(subscriptionDoc);
 		
@@ -410,7 +411,9 @@ public class FbiSubscriptionProcessor {
 	}
 	
 
-	
+	/**
+	 * Anticipated to be received from the portal manual subscriptions (not from intermediary auto subscriptions)
+	 */
 	public Document appendFbiUcnIdToUnsubscribeDoc(Document unsubscribeDoc, String fbiUcnId) throws Exception{
 		
 		logger.info("\n\n\n appendFbiUcnIdToUnsubscribeDoc... \n\n\n");
@@ -446,7 +449,7 @@ public class FbiSubscriptionProcessor {
 	
 	
 	
-	public Document appendFbiSubscriptionIdToUnsubscribeDoc(Document unsubscribeDoc, FbiRapbackSubscription fbiRapbackSubscription) throws Exception{
+	public Document appendFbiSubscriptionIdToUnsubscribeDoc(Document unsubscribeDoc, String fbiSubId) throws Exception{
 		
 		logger.info("\n\n\n appendFbiDataToFbiUnSubscribeDoc... \n\n\n");
 		
@@ -456,12 +459,15 @@ public class FbiSubscriptionProcessor {
 		Node unsubMsgNode = XmlUtils.xPathNodeSearch(unsubscribeDoc, "//unsubmsg-exch:UnsubscriptionMessage");		
 		unsubMsgNode.appendChild(relatedFBISubscriptionElement);								
 									
-		String fbiId = fbiRapbackSubscription.getFbiSubscriptionId();
 		
-		if(StringUtils.isNotEmpty(fbiId)){
-			Element subFbiIdElement = XmlUtils.appendElement(relatedFBISubscriptionElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionFBIIdentification");
+		if(StringUtils.isNotEmpty(fbiSubId)){
+			
+			Element subFbiIdElement = XmlUtils.appendElement(relatedFBISubscriptionElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, 
+					"SubscriptionFBIIdentification");
+			
 			Element fbiIdValElement = XmlUtils.appendElement(subFbiIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
-			fbiIdValElement.setTextContent(fbiId);			
+			
+			fbiIdValElement.setTextContent(fbiSubId);			
 		}		
 												
 		OjbcNamespaceContext ojbNsCtxt = new OjbcNamespaceContext();

@@ -21,7 +21,7 @@
         <submsg-ext:SubscriptionIdentification>
             <nc:IdentificationID>62727</nc:IdentificationID>
         </submsg-ext:SubscriptionIdentification>
-        <submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>        
+        <submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
     </unsubmsg-exch:UnsubscriptionMessage>
     <b-2:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</b-2:TopicExpression>
 </b-2:Unsubscribe>
