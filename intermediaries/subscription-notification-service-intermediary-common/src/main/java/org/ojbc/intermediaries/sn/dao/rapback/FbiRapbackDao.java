@@ -153,12 +153,7 @@ public class FbiRapbackDao {
         	                connection.prepareStatement(SUBSEQUENT_RESULTS_INSERT, 
         	                		new String[] {"FBI_SUBSCRIPTION_ID", "RAP_SHEET", "RESULTS_SENDER_ID" });
         	            ps.setString(1, subsequentResults.getFbiSubscriptionId());
-        	            try {
-							ps.setBlob(2, new SerialBlob(ZipUtils.zip(subsequentResults.getRapSheet())));
-						} catch (IOException e) {
-							log.error("Got IOException while zipping the rapsheet: \n" + 
-									subsequentResults.getRapSheet());
-						}
+						ps.setBlob(2, new SerialBlob(ZipUtils.zip(subsequentResults.getRapSheet())));
         	            ps.setInt(3, subsequentResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
