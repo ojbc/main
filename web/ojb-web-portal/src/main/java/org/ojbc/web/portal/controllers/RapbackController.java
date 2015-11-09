@@ -112,11 +112,23 @@ public class RapbackController {
 	}
 
 	@RequestMapping(value = "initialResults", method = RequestMethod.GET)
-	public String searchDetails(HttpServletRequest request, @RequestParam String transactionNumber,
+	public String initialResults(HttpServletRequest request, @RequestParam String transactionNumber,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
 		try {
-			processDetailRequest(request, transactionNumber, model);
+			processDetailRequest(request, transactionNumber, true, model);
 			return "rapbacks/_initialResultsDetails";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "common/_searchDetailsError";
+		}
+	}
+	
+	@RequestMapping(value = "subsequentResults", method = RequestMethod.GET)
+	public String subsequentResults(HttpServletRequest request, @RequestParam String transactionNumber,
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
+		try {
+			processDetailRequest(request, transactionNumber, false, model);
+			return "rapbacks/_subsequentResultsDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "common/_searchDetailsError";
@@ -257,11 +269,14 @@ public class RapbackController {
 		subscription.setSubscriptionEndDate(cal.getTime());
 	}
 
-	private void processDetailRequest(HttpServletRequest request, String transactionNumber, Map<String, Object> model)
+	private void processDetailRequest(HttpServletRequest request, String transactionNumber,
+			boolean initialResultsQuery, Map<String, Object> model)
 			throws Exception {
 		Element samlAssertion = samlService.getSamlAssertion(request);		
 		
-		IdentificationResultsQueryResponse identificationResultsQueryResponse = config.getInitialResultsQueryBean().invokeIdentificationResultsQueryRequest(transactionNumber, samlAssertion);;
+		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
+				config.getIdentificationResultsQueryBean().invokeIdentificationResultsQueryRequest(
+						transactionNumber, initialResultsQuery, samlAssertion);;
 		model.put("identificationResultsQueryResponse", identificationResultsQueryResponse);
 	}
 
