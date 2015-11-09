@@ -114,10 +114,10 @@ public class TestIdentificationResultsQueryRequestService {
 
     @Test
     @DirtiesContext
-    public void testRoute() throws Exception {
+    public void testInitialResultsRoute() throws Exception {
     	
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
-				"src/test/resources/xmlInstances/initialResultsQuery/OrganizationIdentificationInitialResultsQueryRequest.xml");
+				"src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationInitialResultsQueryRequest.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "SubmitOrganizationIdentificationInitialResultsQueryRequest");
 
@@ -139,7 +139,7 @@ public class TestIdentificationResultsQueryRequestService {
 		log.info("body: \n" + bodyString);
 		
         IdentificationReportingResponseProcessorTest.assertAsExpected(
-        		bodyString, "src/test/resources/xmlInstances/initialResultsQuery/OrganizationIdentificationInitialResultsQueryResults.xml");
+        		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationInitialResultsQueryResults.xml");
 
 		DataHandler dataHandler = receivedExchange.getIn().getAttachment("http://ojbc.org/identification/results/fbiSearchResultDocument");
 		assertEquals("text/plain", dataHandler.getContentType());
@@ -148,7 +148,43 @@ public class TestIdentificationResultsQueryRequestService {
 		assertEquals(2110, receivedData.length);
     }
 
-    
+    @Test
+    @DirtiesContext
+    public void testSubsequentResultsRoute() throws Exception {
+    	
+		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationSubsequentResultsQueryRequest.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "SubmitOrganizationIdentificationSubsequentResultsQueryRequest");
+
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationResultsQueryRequest", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+
+		identificationInitialResultsQueryResponseServiceMock.expectedMessageCount(1);
+		identificationInitialResultsQueryResponseServiceMock.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationInitialResultsQueryResponseServiceMock.getExchanges().get(0);
+		Document bodyDocument = receivedExchange.getIn().getBody(Document.class);
+		String bodyString = OJBUtils.getStringFromDocument(bodyDocument);
+		log.info("body: \n" + bodyString);
+		
+        IdentificationReportingResponseProcessorTest.assertAsExpected(
+        		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationSubsequentResultsQueryResults.xml");
+
+		DataHandler dataHandler = receivedExchange.getIn().getAttachment("http://ojbc.org/identification/results/fbiIdentityHistorySummaryDocument_00000001");
+		assertEquals("text/plain", dataHandler.getContentType());
+		
+		byte[] receivedData = IOUtils.readBytesFromStream(dataHandler.getInputStream());
+		log.info("Attachment Fbi rap sheet: " + new String(receivedData));
+		assertEquals(23, receivedData.length);
+    }
+
     public static org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(
             Map<SamlAttribute, String> customAttributes) throws Exception {
         org.apache.cxf.message.Message message = new MessageImpl();

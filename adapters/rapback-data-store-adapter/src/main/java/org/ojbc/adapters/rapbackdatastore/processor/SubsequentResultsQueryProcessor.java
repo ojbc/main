@@ -17,13 +17,11 @@
 package org.ojbc.adapters.rapbackdatastore.processor;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_XMIME;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_XOP;
@@ -40,18 +38,18 @@ import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 @Service
-public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQueryProcessor{
+public class SubsequentResultsQueryProcessor extends AbstractIdentificationResultsQueryProcessor{
 	
 	private final Log log = LogFactory.getLog(this.getClass());
 
-    public InitialResultsQueryProcessor() throws ParserConfigurationException {
+    public SubsequentResultsQueryProcessor() throws ParserConfigurationException {
     	super();
     }
 
@@ -62,51 +60,49 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
      *         schema.
      * @throws Exception 
      */
-    public Document returnInitialResultsQueryResponse(
+    public Document returnSubsequentResultsQueryResponse(
     		Exchange exchange, @Body Document report) throws Exception {
     	
-    	String transactionNumber = XmlUtils.xPathStringSearch(report, "/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel30:SystemIdentification/nc30:IdentificationID");
+    	String transactionNumber = XmlUtils.xPathStringSearch(report, "/oisrq-req-doc:OrganizationIdentificationSubsequentResultsQueryRequest/intel30:SystemIdentification/nc30:IdentificationID");
     	
     	if (StringUtils.isBlank(transactionNumber)){
         	throw new IllegalArgumentException(
-        			"The transaction number can not be null to query the initial results. ");
+        			"The transaction number can not be null to query the subsequent results. ");
     	}
     	
-        Document initialResultsQueryResponseDocument;
+        Document subseqentResultsQueryResponseDocument;
 		try {
-			initialResultsQueryResponseDocument = buildInitialResultsQueryResponse(exchange, transactionNumber);
+			subseqentResultsQueryResponseDocument = buildSubsequentResultsQueryResponse(exchange, transactionNumber);
 		} catch (Exception e) {
 			log.error("Got exception building initial results query response", e);
 			throw e;
 		}
 
-        return initialResultsQueryResponseDocument;
+        return subseqentResultsQueryResponseDocument;
     }
     
-    private Document buildInitialResultsQueryResponse(Exchange exchange, String transactionNumber) throws Exception {
-    	log.info("Get initial results query request, building the response");
+    private Document buildSubsequentResultsQueryResponse(Exchange exchange, String transactionNumber) throws Exception {
+    	log.info("Get subsequent results query request, building the response");
     	
-    	List<CivilInitialResults> civilInitialResults = 
-    			rapbackDAO.getIdentificationCivilInitialResults(transactionNumber); 
+    	List<SubsequentResults> subsequentResults = 
+    			rapbackDAO.getSubsequentResults(transactionNumber); 
         Document document = documentBuilder.newDocument();
-        Element rootElement = createInitialResultsQueryResponseRootElement(exchange, document);
+        Element rootElement = createSubsequentResultsQueryResponseRootElement(exchange, document);
         
-        for (CivilInitialResults civilInitialResult: civilInitialResults){
-        	createSearchResultDocumentElement(exchange, civilInitialResult, rootElement);
-        	createHistorySummaryDocumentElement(exchange, civilInitialResult, rootElement);
+        for (SubsequentResults subsequentResult: subsequentResults){
+        	createHistorySummaryDocumentElement(exchange, subsequentResult, rootElement);
         }
         return document;
     }
 
 
 	private void createHistorySummaryDocumentElement(Exchange exchange,
-			CivilInitialResults civilInitialResult, Element parentElement) {
-		if (civilInitialResult.getRapsheets().size() ==0)
-			return; 
+			SubsequentResults subsequentResult, Element parentElement) {
 
 		QueryResponseElementName queryResponseElementName;
 		DocumentId documentId;
-		switch(civilInitialResult.getResultsSender()){
+		
+		switch(subsequentResult.getResultsSender()){
 		case FBI:
 			queryResponseElementName = QueryResponseElementName.FBIIdentityHistorySummaryDocument; 
 			documentId = DocumentId.fbiIdentityHistorySummaryDocument;
@@ -117,49 +113,23 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 			documentId = DocumentId.stateCriminalHistoryRecordDocument;
 		}
 		
-		List<byte[]> rapSheets = civilInitialResult.getRapsheets(); 
-		for (int i=0; i < rapSheets.size(); i++){
-			String documentIdString = documentId.name() + "_" + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
-			addAttachment(exchange, rapSheets.get(i), documentIdString);
-			appendDocumentElement(parentElement, 
-					queryResponseElementName, 
-					documentIdString);
-		}
-		
+		byte[] rapSheet = subsequentResult.getRapSheet(); 
+		String documentIdString = documentId.name() + "_" + StringUtils.leftPad(subsequentResult.getId().toString(), 8,'0');
+		addAttachment(exchange, rapSheet, documentIdString);
+		appendDocumentElement(parentElement, 
+				queryResponseElementName, 
+				documentIdString);
 	}
 
-	private void createSearchResultDocumentElement(Exchange exchange,
-			CivilInitialResults civilIntialResult, Element parentElement) {
-		switch (civilIntialResult.getResultsSender()){
-		case FBI:
-			
-			addAttachment(exchange, civilIntialResult.getSearchResultFile(), 
-					DocumentId.fbiSearchResultDocument.name());
-			appendDocumentElement(parentElement, 
-					QueryResponseElementName.FBIIdentificationSearchResultDocument, 
-					DocumentId.fbiSearchResultDocument.name());
-			break; 
-		case State: 
-			addAttachment(exchange, civilIntialResult.getSearchResultFile(), 
-					DocumentId.stateSearchResultDocument.name());
-			appendDocumentElement(parentElement, 
-					QueryResponseElementName.StateIdentificationSearchResultDocument, 
-					DocumentId.stateSearchResultDocument.name());
-			break;
-		}
-	}
-
-	private Element createInitialResultsQueryResponseRootElement(
+	private Element createSubsequentResultsQueryResponseRootElement(
 			Exchange exchange, Document document) {
         Element rootElement = document.createElementNS(
-        		NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS,
-        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS +":" 
-        		+ QueryResponseElementName.OrganizationIdentificationInitialResultsQueryResults.name());
-        rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS);
+        		NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS,
+        		NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS +":" 
+        		+ QueryResponseElementName.OrganizationIdentificationSubsequentResultsQueryResults.name());
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS, NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, 
         		NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
-        rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
-        		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES_30, NS_STRUCTURES_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_NC_30, NS_NC_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_XOP, NS_XOP);
