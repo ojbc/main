@@ -21,6 +21,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.util.xml.OjbcNamespaceContext;
@@ -50,10 +51,12 @@ public class ArchiveProcessor {
 	//<irm-resp-doc:IdentificationResultsModificationResponse 
 	//	xmlns:irm-resp-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsModificationResponse/1.0" 
 	//  xmlns:irm-resp-ext="http://ojbc.org/IEPD/Extensions/IdentificationResultsModificationResponse/1.0"
+	//  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 	
 	//	>
 	//	<irm-resp-ext:IdentificationResultsModificationIndicator>true</irm-resp-ext:IdentificationResultsModificationIndicator>
+	//  <nc:SystemName>System_1</nc:SystemName>
 	//</irm-resp-doc:IdentificationResultsModifi
-	public Document processArchiveResult(@Header(value="archiveTransactionNumber") String transactionNumber) throws Exception
+	public Document processArchiveResult(@Header(value="archiveTransactionNumber") String transactionNumber, @Header(value="systemName") String systemName) throws Exception
 	{
 		int result = rapbackDAO.archiveIdentificationResult(transactionNumber);
 		
@@ -80,6 +83,8 @@ public class ArchiveProcessor {
         	identificationResultsModificationIndicator.setTextContent("true");
         }	
 
+        Element systemNameElement = XmlUtils.appendElement(rootElement, OjbcNamespaceContext.NS_NC_30, "SystemName");
+        systemNameElement.setTextContent(systemName);
         
 		return document;
 	}
@@ -97,7 +102,7 @@ public class ArchiveProcessor {
 	//	</irm-rm:IdentificationResultsModificationResponseMetadata>
 	//</irm-resp-doc:IdentificationResultsModificationResponse>
 	
-	public Document processArchiveError(String errorText, String systemName) throws Exception
+	public Document processArchiveError(@ExchangeException Exception exception, @Header(value="systemName") String systemName) throws Exception
 	{
 		Document document = documentBuilder.newDocument();
 		
@@ -118,7 +123,7 @@ public class ArchiveProcessor {
         Element identificationResultsModificationRequestError = XmlUtils.appendElement(identificationResultsModificationResponseMetadata, OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST_ERROR_REPORTING, "IdentificationResultsModificationRequestError");
         
         Element errorTextElement = XmlUtils.appendElement(identificationResultsModificationRequestError, OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST_ERROR_REPORTING, "ErrorText");
-        errorTextElement.setTextContent(errorText);
+        errorTextElement.setTextContent(exception.getMessage());
         
         Element systemNameElement = XmlUtils.appendElement(identificationResultsModificationRequestError, OjbcNamespaceContext.NS_NC_30, "SystemName");
         systemNameElement.setTextContent(systemName);

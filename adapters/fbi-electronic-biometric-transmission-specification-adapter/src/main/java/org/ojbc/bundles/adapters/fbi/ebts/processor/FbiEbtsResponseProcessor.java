@@ -22,12 +22,14 @@ import org.apache.camel.Exchange;
 import org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class FbiEbtsResponseProcessor {
 	
 	private static final Logger logger = Logger.getLogger(FbiEbtsResponseProcessor.class.getName());
+	
 	
 	public void sendFbiSubscribeResponse(Exchange exchange) throws Exception{
 		
@@ -37,8 +39,7 @@ public class FbiEbtsResponseProcessor {
 		
 		exchange.getOut().setBody(responseDoc);		
 	}
-	
-	
+		
 	public void sendFbiSubscribeManagerResponse(Exchange exchange) throws Exception{
 		
 		Document responseDoc = null;
@@ -61,16 +62,22 @@ public class FbiEbtsResponseProcessor {
 	}
 
 	
-	private Document getModifyResponseDoc() throws Exception{
+	public Document getModifyResponseDoc() throws Exception{
 		
 		Document doc = OJBCXMLUtils.createDocument();
 		
 		Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "ModifyResponse");
 		root.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);
-		
-		//TODO build rest of doc
-		
 		doc.appendChild(root);		
+				
+		Element subModRespMsgElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH, 
+				"SubscriptionModificationResponseMessage");
+						
+		Element subModIndElement = XmlUtils.appendElement(subModRespMsgElement, 
+				OjbcNamespaceContext.NS_SUBSCRIPTION_RESPONSE_EXT, "SubscriptionModifiedIndicator");
+		
+		//TODO make value dynamic
+		subModIndElement.setTextContent("true");		
 		
 		return doc;
 	}
