@@ -167,7 +167,13 @@
 					<groupId>net.sf.saxon</groupId>
 					<artifactId>saxon-dom</artifactId>
 				</exclusion>
-			</exclusions>
+				
+				<!-- Transitive junit somehow hides CoreMatchers class that's needed by this ojb connector -->
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>				
+			</exclusions>			
 	    </dependency>
 
 	    <dependency>
@@ -199,7 +205,9 @@
 			<artifactId>xml-apis</artifactId>
 			<version>${xml-apis-version}</version>
 		</dependency>
+		
 		<!-- for testing -->
+		
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-test</artifactId>
