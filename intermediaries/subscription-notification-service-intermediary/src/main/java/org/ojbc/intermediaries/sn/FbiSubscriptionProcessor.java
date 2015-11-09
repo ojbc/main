@@ -99,7 +99,7 @@ public class FbiSubscriptionProcessor {
 	}
 	
 	
-	private Document prepareSubscriptionMaintenanceMessage(FbiSubscriptionModification fbiSubMod) throws Exception{
+	public Document prepareSubscriptionMaintenanceMessage(FbiSubscriptionModification fbiSubMod) throws Exception{
 									
 		FbiSubModDocBuilder fbiSubModDocBuilder = new FbiSubModDocBuilder();
 		
@@ -295,7 +295,7 @@ public class FbiSubscriptionProcessor {
 	}
 	
 	
-	private SubscriptionRequest getSubReqFromSubDoc(Document subDoc) throws Exception{
+	public SubscriptionRequest getSubReqFromSubDoc(Document subDoc) throws Exception{
 		
 		// create a sub-optimal Message wrapper so the doc-creation constructor can be reused below 
 		Message msg = new DefaultMessage();		

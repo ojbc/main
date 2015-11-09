@@ -61,11 +61,12 @@ public class TestArchiveProcessor {
 		
 		archiveProcessor.setRapbackDAO(rapbackDAO);
 		
-		Document result = archiveProcessor.processArchiveResult("000001820140729014008339997");
+		Document result = archiveProcessor.processArchiveResult("000001820140729014008339997", "System Name");
 		
 		XmlUtils.printNode(result);
 		
 		assertEquals("true",XmlUtils.xPathStringSearch(result, "/irm-resp-doc:IdentificationResultsModificationResponse/irm-resp-ext:IdentificationResultsModificationIndicator"));
+		assertEquals("System Name",XmlUtils.xPathStringSearch(result, "/irm-resp-doc:IdentificationResultsModificationResponse/nc30:SystemName"));
 	}
 	
 	@Test
@@ -75,7 +76,7 @@ public class TestArchiveProcessor {
 		
 		archiveProcessor.setRapbackDAO(rapbackDAO);
 		
-		Document result = archiveProcessor.processArchiveError("Error Text", "System Name");
+		Document result = archiveProcessor.processArchiveError(new Exception("Error Text"), "System Name");
 		
 		XmlUtils.printNode(result);
 		
