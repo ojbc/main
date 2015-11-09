@@ -117,8 +117,8 @@
     	Identification Initial Results Query Request Service 
     -->
     <cxf:cxfEndpoint 
-        id="identificationInitialResultsQueryRequestService"
-        address="${rapbackDatastoreAdapter.identificationInitialResultsRequestEndpoint}"
+        id="identificationResultsQueryRequestService"
+        address="${rapbackDatastoreAdapter.identificationResultsRequestEndpoint}"
 		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Request_Service.wsdl"
 		serviceName="ojbc:Organization_Identification_Results_Query_Request_Service_Service" 
 		endpointName="ojbc:Organization_Identification_Results_Query_Request_Secure_Service"
@@ -136,8 +136,8 @@
     	Identification Initial Results Response Service 
     --> 
     <cxf:cxfEndpoint 
-        id="identificationInitialResultsQueryResponseService"
-		address="${rapbackDatastoreAdapter.identificationInitialResultsQueryResponseEndpoint}"
+        id="identificationResultsQueryResponseService"
+		address="${rapbackDatastoreAdapter.identificationResultsQueryResponseEndpoint}"
         wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Results_Service.wsdl"
         serviceName="ojbc:Organization_Identification_Results_Query_Results_Service_Service"
         endpointName="ojbc:Organization_Identification_Results_Query_Results_Secure_Service"
