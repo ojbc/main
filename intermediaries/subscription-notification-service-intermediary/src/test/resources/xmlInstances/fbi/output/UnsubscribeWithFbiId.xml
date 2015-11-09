@@ -16,12 +16,21 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<b-2:Unsubscribe xmlns:b-2="http://docs.oasis-open.org/wsn/b-2" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0">
+<b-2:Unsubscribe xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
+                 xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+                 xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                 xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+                 xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
     <unsubmsg-exch:UnsubscriptionMessage>
         <submsg-ext:SubscriptionIdentification>
             <nc:IdentificationID>62727</nc:IdentificationID>
         </submsg-ext:SubscriptionIdentification>
-        <submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>        
-    </unsubmsg-exch:UnsubscriptionMessage>
+        <submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
+      <submsg-ext:RelatedFBISubscription>
+         <submsg-ext:SubscriptionFBIIdentification>
+            <nc:IdentificationID>789</nc:IdentificationID>
+         </submsg-ext:SubscriptionFBIIdentification>
+      </submsg-ext:RelatedFBISubscription>
+   </unsubmsg-exch:UnsubscriptionMessage>
     <b-2:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</b-2:TopicExpression>
 </b-2:Unsubscribe>
