@@ -16,7 +16,6 @@
  */
 package org.ojbc.adapters.rapbackdatastore.dao;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +28,7 @@ import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.apache.camel.Header;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -763,13 +763,14 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	@Override
-	public void archiveIdentificationResult(String transactionNumber) {
+	public int archiveIdentificationResult(String transactionNumber) {
 		log.info("Archiving record with transaction number " + transactionNumber);
 		
 		final String sql = "UPDATE identification_transaction t "
 				+ "SET t.archived = 'true' "
 				+ "WHERE t.transaction_number = ?";
-		jdbcTemplate.update(sql, transactionNumber);
+		int result = jdbcTemplate.update(sql, transactionNumber);
+		return result;
 	}
 
 	@Override
