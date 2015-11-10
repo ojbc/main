@@ -30,6 +30,7 @@ public class IdentificationResultsModificationMockImpl implements Identification
 	public SimpleServiceResponse handleIdentificationResultsModificationRequest(
 			String transactionNumber, Element samlToken) throws Exception {
 		SimpleServiceResponse simpleServiceResponse = new SimpleServiceResponse();
+		simpleServiceResponse.setSuccess(Boolean.FALSE);
 		simpleServiceResponse.setErrorMessage("Failed to archive the record");
 		return simpleServiceResponse;
 	}
