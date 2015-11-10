@@ -35,6 +35,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.model.IdentificationResultsQueryResponse;
+import org.ojbc.web.model.SimpleServiceResponse;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.subscription.Subscription;
 import org.ojbc.web.model.subscription.Unsubscription;
@@ -148,6 +149,27 @@ public class RapbackController {
 			else{
 				model.put("informationMessages", faultableSoapResponse.getException().getMessage());
 				return faultableSoapResponse.getException().getMessage() + ", please report the error try again later.";
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return ex.getMessage() + ", please report the error and try again later.";
+		}
+	}
+	
+	@RequestMapping(value = "archive", method = RequestMethod.GET)
+	public @ResponseBody String archive(HttpServletRequest request, @RequestParam String transactionNumber,
+			Map<String, Object> model) {
+		try {
+			SimpleServiceResponse simpleServiceResponse = 
+					config.getIdentificationResultsModificationBean().handleIdentificationResultsModificationRequest(
+							transactionNumber, samlService.getSamlAssertion(request));
+			
+			if (simpleServiceResponse.getSuccess()){
+				return "success";
+			}
+			else{
+				model.put("informationMessages", simpleServiceResponse.getErrorMessage());
+				return simpleServiceResponse.getErrorMessage() + ", please report the error try again later.";
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
