@@ -48,19 +48,7 @@
 			<xsl:apply-templates select="." mode="MMDA"/>
 		</ulex:SRMessageMetadata>
 		<!-- Required UserAssertionSAML from SOAP message needs to be transformed an inserted hereas shown -->
-		<ulex:UserAssertionSAML>
-			<saml:Assertion ID="_c0594b43e28a2f94311d395d57d4ae5a" IssueInstant="2011-10-16T15:16:19.938Z" Version="2.0" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
-				<saml:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">https://rhelidp.ref.gfipm.net/shibboleth</saml:Issuer>
-				<saml:AttributeStatement>
-					<saml:Attribute Name="gfipm:2.0:user:ProviderId" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
-						<saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">NDEX:FED:IDP:ExampleIDP</saml:AttributeValue>
-					</saml:Attribute>
-					<saml:Attribute Name="gfipm:2.0:user:NDExPrivilegeIndicator" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
-						<saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">true</saml:AttributeValue>
-					</saml:Attribute>
-				</saml:AttributeStatement>
-			</saml:Assertion>
-		</ulex:UserAssertionSAML>
+		<ulex:UserAssertionSAML/>
 	</xsl:template>
 	<xsl:template match="psr-doc:PersonSearchRequest" mode="framework">
 		<ulex:ULEXFrameworkVersionText>2.0</ulex:ULEXFrameworkVersionText>
