@@ -16,10 +16,12 @@
  */
 package org.ojbc.web.portal.controllers.config;
 
+import org.ojbc.web.IdentificationResultsModificationInterface;
 import org.ojbc.web.IdentificationResultsQueryInterface;
 import org.ojbc.web.RapbackSearchInterface;
 
 public interface RapbackControllerConfigInterface {
 	RapbackSearchInterface getRapbackSearchBean();
 	IdentificationResultsQueryInterface getIdentificationResultsQueryBean();
+	IdentificationResultsModificationInterface getIdentificationResultsModificationBean();
 }
