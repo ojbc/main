@@ -340,13 +340,13 @@
 			
 			<camel:multicast parallelProcessing="false">						
 
-				<pipeline>															
-					<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
-					
+				<pipeline>				
 					<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
 					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
-															
-					<to uri="subscriptionReportingServiceEndpoint" />
+																																					
+					<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />																																							
+																		 		
+					<to uri="subscriptionReportingServiceEndpoint" />								
 				</pipeline>
 																				
 				<camel:pipeline>					
