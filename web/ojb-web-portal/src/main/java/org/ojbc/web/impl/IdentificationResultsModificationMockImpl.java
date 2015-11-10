@@ -14,40 +14,26 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.portal.controllers.config;
-
-import javax.annotation.Resource;
+package org.ojbc.web.impl;
 
 import org.ojbc.web.IdentificationResultsModificationInterface;
-import org.ojbc.web.IdentificationResultsQueryInterface;
-import org.ojbc.web.RapbackSearchInterface;
-import org.springframework.context.annotation.Configuration;
+import org.ojbc.web.model.SimpleServiceResponse;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
+import org.w3c.dom.Element;
 
-@Configuration
-@Profile("standalone")
-public class RapbackConrollerConfigStandalone implements RapbackControllerConfigInterface{
-	
-	@Resource
-	RapbackSearchInterface rapbackSearchInterface;
-	@Resource
-	IdentificationResultsQueryInterface initialResultsQueryInterface;
-	@Resource
-	IdentificationResultsModificationInterface identificationResultsModificationInterface;
-	
-    @Override
-    public RapbackSearchInterface getRapbackSearchBean() {
-        return rapbackSearchInterface;
-    }
-
+@Service
+@Profile({"identification-results-modification","standalone"})
+public class IdentificationResultsModificationMockImpl implements IdentificationResultsModificationInterface{
+		
 	@Override
-	public IdentificationResultsQueryInterface getIdentificationResultsQueryBean() {
-		return initialResultsQueryInterface;
+	public SimpleServiceResponse handleIdentificationResultsModificationRequest(
+			String transactionNumber, Element samlToken) throws Exception {
+		SimpleServiceResponse simpleServiceResponse = new SimpleServiceResponse();
+		simpleServiceResponse.setSuccess(Boolean.FALSE);
+		simpleServiceResponse.setErrorMessage("Failed to archive the record");
+		return simpleServiceResponse;
 	}
+
 	
-	@Override
-	public IdentificationResultsModificationInterface getIdentificationResultsModificationBean() {
-		return identificationResultsModificationInterface;
-	}	
-    
 }
