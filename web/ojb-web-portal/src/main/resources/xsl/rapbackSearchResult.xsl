@@ -115,7 +115,12 @@
 			</xsl:attribute>
 			<i class="fa fa-rss fa-lg"/>
 		</a>
-		<a href="#" class="blueIcon" style="margin-right:3px" title="Archive"><i class="fa fa-archive fa-lg"></i></a>
+		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-archive fa-lg"></i>
+		</a>
 	</xsl:template>
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="subscribed">

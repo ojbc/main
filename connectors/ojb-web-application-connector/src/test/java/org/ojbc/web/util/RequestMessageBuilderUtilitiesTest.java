@@ -118,6 +118,25 @@ public class RequestMessageBuilderUtilitiesTest {
     }
     
     @Test
+    public void testCreateIdentificationResultsModificationRequest() throws Exception {
+    	Document document = RequestMessageBuilderUtilities.createIdentificationResultsModificationRequest("000001820140729014008339993");
+    	
+    	String documentInString = OJBUtils.getStringFromDocument(document);
+    	log.debug("\nIdentification Results Modification Request:\n"+ StringUtils.trimToEmpty(documentInString));
+    	
+    	Assert.assertNotNull(document);
+    	
+    	File expectedReponseFile = new File("src/test/resources/xml/identificationResultsModification/identificationResultsModificationRequest.xml");
+    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+    	
+    	//Use XML Unit to compare these files
+    	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
+    	Assert.assertTrue("XML identical " + myDiff.toString(),
+    			myDiff.identical());     
+    	
+    }
+    
+    @Test
     public void testCreatePolicyBasedAccessControlRequest() throws Exception {
         //Create Default SAML Token Element. 
         Element samlToken = SAMLTokenUtils.createStaticAssertionAsElement("https://idp.ojbc-local.org:9443/idp/shibboleth", 
