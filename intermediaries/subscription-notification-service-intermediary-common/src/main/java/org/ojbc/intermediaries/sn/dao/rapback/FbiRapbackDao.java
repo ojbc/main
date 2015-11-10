@@ -16,7 +16,6 @@
  */
 package org.ojbc.intermediaries.sn.dao.rapback;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,13 +58,13 @@ public class FbiRapbackDao {
 		+ "and fbisub.rap_back_category_code=?;";
 		
 	// TODO add dbunit test coverage
-	private final static String STATE_SUBSCRIPTION_QUERY = "sub.id, sub.enddate, fbisub.ucn, fbisub.rap_back_category_code  "
+	private final static String STATE_SUBSCRIPTION_QUERY = "select sub.id, sub.enddate, fbisub.ucn, fbisub.rap_back_category_code "
 		+ "from identification_transaction idtrx "
 		+ "left join identification_subject idsubj on idsubj.subject_id = idtrx.subject_id " 
 		+ "inner join subscription sub on sub.id = idtrx.subscription_id " 	
 		+ "inner join fbi_rap_back_subscription fbisub on fbisub.ucn = idsubj.ucn " 
-		+ "where sub.active = 1" 
-		+ "and idsubj.ucn=?" 
+		+ "where sub.active = 1 " 
+		+ "and idsubj.ucn=? " 
 		+ "and fbisub.rap_back_category_code=?;";	
 	
 	// TODO add dbunit test coverage
@@ -90,7 +89,7 @@ public class FbiRapbackDao {
     	List<Subscription> subscriptionList = null;
     	
     	try{
-    		subscriptionList = jdbcTemplate.query(STATE_SUBSCRIPTION_QUERY, new StateSubscriptionRowMapper(), List.class);
+    		subscriptionList = jdbcTemplate.query(STATE_SUBSCRIPTION_QUERY, new StateSubscriptionRowMapper(), fbiUcnId, reasonCode);
     		
     	}catch(Exception e){
     		logger.error("Exception occurred querying state subscriptions: " + e.getMessage());
