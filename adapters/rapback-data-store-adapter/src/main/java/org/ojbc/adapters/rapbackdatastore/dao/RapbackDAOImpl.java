@@ -28,7 +28,6 @@ import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
 
-import org.apache.camel.Header;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
