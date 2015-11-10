@@ -23,10 +23,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.ojbc.bundles.intermediaries</groupId>
-  <artifactId>identification_results_modification_service_intermediary</artifactId>
+  <artifactId>identification-results-modification-service-intermediary</artifactId>
   <packaging>bundle</packaging>
   <version>1.0.0</version>
-  <name>OJB :: identification_results_modification_service_intermediary :: intermediary</name>
+  <name>OJB :: identification-results-modification-service-intermediary :: intermediary</name>
   <url>http://www.search.org</url>
 
   <parent>
