@@ -67,7 +67,8 @@
 
 
   	<!-- Identification Results Modification Request and Response Endpoints -->
-   <bean id="identificationResultsModificationRequestProcessor" class="org.ojbc.processor.identificationresults.query.IdentificationResultsModificationRequestProcessor">
+   <bean id="identificationResultsModificationRequestProcessor" 
+   		class="org.ojbc.processor.identificationresults.modification.IdentificationResultsModificationRequestProcessor">
    		<property name="replyToAddress"><value>${webapplication.identificationResultsModificationRequestReplyToEndpoint.endpoint}</value></property>
    		<property name="messageProcessor" ref="identificationResultsModificationMessageProcessor"/>
    		<property name="requestResponseMap" ref="identificationResultsModificationRequestResponseMap"/>
