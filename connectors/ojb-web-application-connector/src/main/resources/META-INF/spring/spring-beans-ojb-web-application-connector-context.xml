@@ -57,6 +57,7 @@
 	<import resource="access-control.xml"/>
 	<import resource="rapback-search.xml"/>
 	<import resource="identification-results-query.xml"/>
+	<import resource="identification-results-modification.xml"/>
 	
 	<import resource="camel-context.xml"/>
 	

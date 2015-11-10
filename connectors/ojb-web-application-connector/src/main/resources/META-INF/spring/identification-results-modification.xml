@@ -45,42 +45,44 @@
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        "
-		profile="initial-results-query"       
+		profile="identification-results-modification"       
        >
        
-   <!-- Identification Initial Results Query Request Service, hosted by OJB -->
+   <!-- Identification Results Modification Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint 
-	        id="identificationInitialResultsQueryRequestService"
-	        address="${webapplication.identificationResultsQueryRequestEndpoint}"
-			wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Request_Service.wsdl"
-		serviceName="ojbc:Organization_Identification_Results_Query_Request_Service_Service" 
-		endpointName="ojbc:Organization_Identification_Results_Query_Request_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryRequestService/1.0">
+	        id="identificationResultsModificationRequestService"
+	        address="${webapplication.identificationResultsModificationRequestEndpoint}"
+	        wsdlURL="classpath:service-specifications/Identification_Results_Modification_Request_Service/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
+	        serviceName="ojbc:Identification_Results_Modification_Request_Service_Service"
+			endpointName="ojbc:Identification_Results_Modification_Request_Secure_Service"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0"
+	    >
 		<cxf:properties>
 			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
 		</cxf:properties>
-
     </cxf:cxfEndpoint>
 
-  	<!-- Identification Initial Results Request and Response Endpoints -->
-   <bean id="identificationResultsQueryRequestProcessor" class="org.ojbc.processor.identificationresults.query.IdentificationResultsQueryRequestProcessor">
-   		<property name="replyToAddress"><value>${webapplication.identificationResultsQueryRequestReplyToEndpoint.endpoint}</value></property>
-   		<property name="messageProcessor" ref="identificationResultsQueryMessageProcessor"/>
-   		<property name="requestResponseMap" ref="identificationResultsQueryRequestResponseMap"/>
+
+  	<!-- Identification Results Modification Request and Response Endpoints -->
+   <bean id="identificationResultsModificationRequestProcessor" class="org.ojbc.processor.identificationresults.query.IdentificationResultsModificationRequestProcessor">
+   		<property name="replyToAddress"><value>${webapplication.identificationResultsModificationRequestReplyToEndpoint.endpoint}</value></property>
+   		<property name="messageProcessor" ref="identificationResultsModificationMessageProcessor"/>
+   		<property name="requestResponseMap" ref="identificationResultsModificationRequestResponseMap"/>
    		<property name="maxPolls" value="${webapplication.maxPolls}"/>
    		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
    		<property name="OJBSamlMap" ref="ojbSamlMap"/>
    		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
    </bean>
   
-	<bean id="identificationResultsQueryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
-		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryRequestService/1.0</value></property>
-		<property name="destinationEndpoint"><value>identificationInitialResultsQueryRequestService</value></property>
+	<bean id="identificationResultsModificationMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+		<property name="operationName"><value>SubmitIdentificationResultsArchiveRequest</value></property>
+		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0</value></property>
+		<property name="destinationEndpoint"><value>identificationResultsModificationRequestService</value></property>
 	</bean>
 
-	<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="identificationResultsQueryRequestResponseMap"/>
+	<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="identificationResultsModificationRequestResponseMap"/>
 
 </beans>
