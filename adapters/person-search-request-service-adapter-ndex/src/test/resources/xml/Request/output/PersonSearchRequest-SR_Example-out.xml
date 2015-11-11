@@ -24,7 +24,7 @@
 				<ulex:ULEXImplementationVersionText>4.0</ulex:ULEXImplementationVersionText>
 				<ulex:ULEXImplementationName>LEXS</ulex:ULEXImplementationName>
 			</ulex:ULEXImplementation>
-			<ulex:MessageDateTime>2006-12-17T09:30:47.0Z</ulex:MessageDateTime>
+			<ulex:MessageDateTime>2015-11-11T10:52:01-05:00</ulex:MessageDateTime>
 			<wsa:MessageID>uuid:1e647974-237e-11e2-b87b-f23c91aec05e</wsa:MessageID>
 			<ulex:MessageOriginMetadata>
 				<lexs:SystemIdentifier>
