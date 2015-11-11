@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
 <xsl:stylesheet version="2.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psr-ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ulex="http://ulex.gov/ulex/2.0" xmlns:ulexsr="http://ulex.gov/searchretrieve/2.0" xmlns:ulexcodes="http://ulex.gov/codes/2.0" xmlns:ulexlib="http://ulex.gov/library/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:em="http://niem.gov/niem/domains/emergencyManagement/2.0" xmlns:im="http://niem.gov/niem/domains/immigration/2.0" xmlns:scr="http://niem.gov/niem/domains/screening/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:lexs="http://lexs.gov/lexs/4.0" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:lexsdigest="http://lexs.gov/digest/4.0">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
+	<!-- The following are default values for the params that need to be replaced-->
+	<xsl:param name="mdt" select="'2006-12-17T09:30:47.0Z'"/>
+	<xsl:param name="fbiWSAddressingMessageID" select="'uuid:1e647974-237e-11e2-b87b-f23c91aec05e'"/>
 	<xsl:template match="/psr-doc:PersonSearchRequest">
 		<ulexsr:doStructuredSearchRequest>
-			<!--xsl:attribute name="xsi:schemaLocation">http://gralab.org/IEPD/Exchange/ArrestWarrant/1.0/ ../xsd/Arrest_Warrant.xsd</xsl:attribute-->
 			<xsl:apply-templates select="." mode="SSRM"/>
 		</ulexsr:doStructuredSearchRequest>
 	</xsl:template>
@@ -40,15 +24,15 @@
 		<ulex:SRMessageMetadata>
 			<xsl:apply-templates select="." mode="framework"/>
 			<xsl:apply-templates select="." mode="impl"/>
-			<!-- Required elements MessageDateTime and Message ID from SOAP message needs to be transformed an inserted hereas shown -->
-			<ulex:MessageDateTime>2006-12-17T09:30:47.0Z</ulex:MessageDateTime>
-			<wsa:MessageID>uuid:1e647974-237e-11e2-b87b-f23c91aec05e</wsa:MessageID>
+			<xsl:apply-templates select="." mode="MDT"/>
+			<xsl:apply-templates select="." mode="MID"/>
 			<xsl:apply-templates select="." mode="MOM"/>
 			<xsl:apply-templates select="." mode="MDI"/>
 			<xsl:apply-templates select="." mode="MMDA"/>
 		</ulex:SRMessageMetadata>
-		<!-- Required UserAssertionSAML from SOAP message needs to be transformed an inserted hereas shown -->
-		<ulex:UserAssertionSAML/>
+		<ulex:UserAssertionSAML>
+			<!-- INSERT SAML ASSERTION HERE -->
+		</ulex:UserAssertionSAML>
 	</xsl:template>
 	<xsl:template match="psr-doc:PersonSearchRequest" mode="framework">
 		<ulex:ULEXFrameworkVersionText>2.0</ulex:ULEXFrameworkVersionText>
@@ -58,6 +42,16 @@
 			<ulex:ULEXImplementationVersionText>4.0</ulex:ULEXImplementationVersionText>
 			<ulex:ULEXImplementationName>LEXS</ulex:ULEXImplementationName>
 		</ulex:ULEXImplementation>
+	</xsl:template>
+	<xsl:template match="psr-doc:PersonSearchRequest" mode="MDT">
+		<ulex:MessageDateTime>
+			<xsl:value-of select="$mdt"/>
+		</ulex:MessageDateTime>
+	</xsl:template>
+	<xsl:template match="psr-doc:PersonSearchRequest" mode="MID">
+		<wsa:MessageID>
+			<xsl:value-of select="$fbiWSAddressingMessageID"/>
+		</wsa:MessageID>
 	</xsl:template>
 	<xsl:template match="psr-doc:PersonSearchRequest" mode="MOM">
 		<ulex:MessageOriginMetadata>
