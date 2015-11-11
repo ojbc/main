@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
 <xsl:stylesheet version="2.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psr-ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ulex="http://ulex.gov/ulex/2.0" xmlns:ulexsr="http://ulex.gov/searchretrieve/2.0" xmlns:ulexcodes="http://ulex.gov/codes/2.0" xmlns:ulexlib="http://ulex.gov/library/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:em="http://niem.gov/niem/domains/emergencyManagement/2.0" xmlns:im="http://niem.gov/niem/domains/immigration/2.0" xmlns:scr="http://niem.gov/niem/domains/screening/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:lexs="http://lexs.gov/lexs/4.0" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:lexsdigest="http://lexs.gov/digest/4.0">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
 	<!-- The following are default values for the params that need to be replaced-->
