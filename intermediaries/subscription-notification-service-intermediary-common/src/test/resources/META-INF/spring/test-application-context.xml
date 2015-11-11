@@ -108,23 +108,43 @@
 		<property name="topicSystemTemplateMap">
 			<util:map>
 				<entry key="{http://ojbc.org/wsn/topics}:person/arrest">
-					<util:map>
-						<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultArrestEmailFormatter"/>
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultArrestEmailFormatter"/>
+						<entry key-ref="nonCriminalJusticeSystemNotificationFormatKey" value-ref="nonCriminalJusticeEmailFormatter"/>
 					</util:map>
 				</entry>
 				<entry key="{http://ojbc.org/wsn/topics}:person/incident">
-					<util:map>
-						<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultIncidentEmailFormatter"/>
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultIncidentEmailFormatter"/>
 					</util:map>
 				</entry>
 				<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment">
-					<util:map>
-						<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultChCycleEmailFormatter"/>
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultChCycleEmailFormatter"/>
 					</util:map>
 				</entry>
 			</util:map>
 		</property>
 	</bean>
+	
+	<bean id="defaultSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+		<property name="subscribingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
+		<property name="subscriptionCategoryCode" value="default"/>
+	</bean>
+
+	<bean id="nonCriminalJusticeSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+		<property name="subscribingSystemName" value="{http://demostate.gov/SystemNames/1.0}SystemA"/>
+		<property name="subscriptionCategoryCode" value="I"/>
+	</bean>
+	
+	<bean id="nonCriminalJusticeEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+		<property name="emailSubjectTemplate">
+			<value>Non Criminal Justice Notification [Subject $emailNotification.subjectName]</value>
+		</property>
+		<property name="emailBodyTemplate">
+			<value>An event occurred for [Subject $emailNotification.subjectName]. Contact their employer.</value>
+		</property>
+	</bean>	
 	
 	<bean id="defaultArrestEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">

@@ -35,6 +35,7 @@ public final class EmailNotification {
     private String subjectName;
     private String subscribingSystemIdentifier;
     private String subjectIdentifier;
+    private String subscriptionCategoryCode;
     private Set<String> toAddressees = new HashSet<String>();
     private Set<String> ccAddressees = new HashSet<String>();
     private Set<String> bccAddressees = new HashSet<String>();
@@ -147,7 +148,7 @@ public final class EmailNotification {
         boolean ret = false;
         if (comp instanceof EmailNotification) {
             EmailNotification n = (EmailNotification) comp;
-            ret = n.subjectName.equals(subjectName) && n.subscribingSystemIdentifier.equals(subscribingSystemIdentifier) && n.toAddressees.equals(toAddressees) && n.ccAddressees.equals(ccAddressees) && n.bccAddressees.equals(bccAddressees);
+            ret = n.subjectName.equals(subjectName) && n.subscribingSystemIdentifier.equals(subscribingSystemIdentifier) && n.toAddressees.equals(toAddressees) && n.ccAddressees.equals(ccAddressees) && n.bccAddressees.equals(bccAddressees) && n.subscriptionCategoryCode.equals(subscriptionCategoryCode);
         }
         return ret;
     }
@@ -163,6 +164,7 @@ public final class EmailNotification {
         copy.toAddressees.addAll(toAddressees);
         copy.blockedAddressees.addAll(blockedAddressees);
         copy.notificationRequest = notificationRequest;
+        copy.subscriptionCategoryCode=subscriptionCategoryCode;
         return copy;
     }
 
@@ -174,14 +176,24 @@ public final class EmailNotification {
         return subjectIdentifier;
     }
 
+	public String getSubscriptionCategoryCode() {
+		return subscriptionCategoryCode;
+	}
+
+	public void setSubscriptionCategoryCode(String subscriptionCategoryCode) {
+		this.subscriptionCategoryCode = subscriptionCategoryCode;
+	}
+
 	@Override
 	public String toString() {
 		return "EmailNotification [subjectName=" + subjectName
-				+ ", subscribingSystemName=" + subscribingSystemIdentifier
-				+ ", subjectIdentifier=" + subjectIdentifier
-				+ ", toAddressees=" + toAddressees + ", ccAddressees="
-				+ ccAddressees + ", bccAddressees=" + bccAddressees
-				+ ", blockedAddressees=" + blockedAddressees + "]";
+				+ ", subscribingSystemIdentifier="
+				+ subscribingSystemIdentifier + ", subjectIdentifier="
+				+ subjectIdentifier + ", subscriptionCategoryCode="
+				+ subscriptionCategoryCode + ", toAddressees=" + toAddressees
+				+ ", ccAddressees=" + ccAddressees + ", bccAddressees="
+				+ bccAddressees + ", blockedAddressees=" + blockedAddressees
+				+ ", notificationRequest=" + notificationRequest + "]";
 	}
 
 }

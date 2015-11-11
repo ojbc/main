@@ -61,10 +61,17 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
         public void setEmailBodyTemplate(String emailBodyTemplate) {
             this.emailBodyTemplate = emailBodyTemplate;
         }
+
+		@Override
+		public String toString() {
+			return "EmailTemplate [emailSubjectTemplate="
+					+ emailSubjectTemplate + ", emailBodyTemplate="
+					+ emailBodyTemplate + "]";
+		}
     }
 
     private EmailTemplate defaultEmailTemplate;
-    private Map<String, Map<String, EmailTemplate>> topicSystemTemplateMap = new HashMap<String, Map<String, EmailTemplate>>();
+    private Map<String, Map<NotificationFormatKey, EmailTemplate>> topicSystemTemplateMap = new HashMap<String, Map<NotificationFormatKey, EmailTemplate>>();
     private Map<String, String> systemIdentifierToDescriptorMap = new HashMap<String, String>();
 
     public Map<String, String> getSystemIdentifierToDescriptorMap() {
@@ -75,11 +82,11 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
         this.systemIdentifierToDescriptorMap = systemIdentifierToDescriptorMap;
     }
 
-    public Map<String, Map<String, EmailTemplate>> getTopicSystemTemplateMap() {
+    public Map<String, Map<NotificationFormatKey, EmailTemplate>> getTopicSystemTemplateMap() {
         return topicSystemTemplateMap;
     }
 
-    public void setTopicSystemTemplateMap(Map<String, Map<String, EmailTemplate>> topicSystemTemplateMap) {
+    public void setTopicSystemTemplateMap(Map<String, Map<NotificationFormatKey, EmailTemplate>> topicSystemTemplateMap) {
         this.topicSystemTemplateMap = topicSystemTemplateMap;
     }
 
@@ -108,12 +115,28 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
     private EmailTemplate getEmailTemplateForNotification(EmailNotification emailNotification) {
         String topic = emailNotification.getNotificationRequest().getTopic();
         String subscribingSystem = emailNotification.getSubscribingSystemIdentifier();
+        String subscriptionCategoryCode = emailNotification.getSubscriptionCategoryCode();
+        
         EmailTemplate ret = defaultEmailTemplate;
-        Map<String, EmailTemplate> systemTemplateMap = topicSystemTemplateMap.get(topic);
+        Map<NotificationFormatKey, EmailTemplate> systemTemplateMap = topicSystemTemplateMap.get(topic);
         if (systemTemplateMap != null) {
-            EmailTemplate mappedTemplate = systemTemplateMap.get(subscribingSystem);
+        	
+        	NotificationFormatKey emailNotificationIdentifierKeyWrapper = new NotificationFormatKey();
+        	
+        	emailNotificationIdentifierKeyWrapper.setSubscribingSystemName(subscribingSystem);
+        	emailNotificationIdentifierKeyWrapper.setSubscriptionCategoryCode(subscriptionCategoryCode);
+        	
+            EmailTemplate mappedTemplate = systemTemplateMap.get(emailNotificationIdentifierKeyWrapper);
             if (mappedTemplate == null) {
-                mappedTemplate = systemTemplateMap.get("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem");
+            	
+            	NotificationFormatKey emailNotificationIdentifierKeyWrapperDefault = new NotificationFormatKey();
+            	
+            	emailNotificationIdentifierKeyWrapperDefault.setSubscribingSystemName("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem");
+            	
+            	emailNotificationIdentifierKeyWrapperDefault.setSubscribingSystemName("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem");
+            	emailNotificationIdentifierKeyWrapperDefault.setSubscriptionCategoryCode("default");
+            	
+                mappedTemplate = systemTemplateMap.get(emailNotificationIdentifierKeyWrapperDefault);
             }
             if (mappedTemplate != null) {
                 ret = mappedTemplate;
