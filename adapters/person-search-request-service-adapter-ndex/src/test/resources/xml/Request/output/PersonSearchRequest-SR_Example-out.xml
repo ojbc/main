@@ -1,21 +1,3 @@
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
 <ulexsr:doStructuredSearchRequest xmlns:em="http://niem.gov/niem/domains/emergencyManagement/2.0" xmlns:im="http://niem.gov/niem/domains/immigration/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:lexs="http://lexs.gov/lexs/4.0" xmlns:lexsdigest="http://lexs.gov/digest/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psr-ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:scr="http://niem.gov/niem/domains/screening/2.0" xmlns:ulex="http://ulex.gov/ulex/2.0" xmlns:ulexcodes="http://ulex.gov/codes/2.0" xmlns:ulexlib="http://ulex.gov/library/2.0" xmlns:ulexsr="http://ulex.gov/searchretrieve/2.0" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ulex:StructuredSearchRequestMessage>
 		<ulex:SRMessageMetadata>
@@ -43,19 +25,7 @@
 				<ulex:DomainName>N-DEx</ulex:DomainName>
 			</ulex:SRMessageMetadataDomainAttribute>
 		</ulex:SRMessageMetadata>
-		<ulex:UserAssertionSAML>
-			<saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="_c0594b43e28a2f94311d395d57d4ae5a" IssueInstant="2011-10-16T15:16:19.938Z" Version="2.0">
-				<saml:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">https://rhelidp.ref.gfipm.net/shibboleth</saml:Issuer>
-				<saml:AttributeStatement>
-					<saml:Attribute Name="gfipm:2.0:user:ProviderId" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
-						<saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">NDEX:FED:IDP:ExampleIDP</saml:AttributeValue>
-					</saml:Attribute>
-					<saml:Attribute Name="gfipm:2.0:user:NDExPrivilegeIndicator" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
-						<saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">true</saml:AttributeValue>
-					</saml:Attribute>
-				</saml:AttributeStatement>
-			</saml:Assertion>
-		</ulex:UserAssertionSAML>
+		<ulex:UserAssertionSAML/>
 		<ulex:SearchRequestMetadata>
 			<lexs:RequestedDataCategoryCode>Person</lexs:RequestedDataCategoryCode>
 			<ulex:MaxItemMatchesNumeric>100</ulex:MaxItemMatchesNumeric>
