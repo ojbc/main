@@ -29,7 +29,6 @@ import org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter.Em
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
 import org.ojbc.util.xml.XmlUtils;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -50,38 +49,74 @@ public class VelocityTemplateEmailFormatterTest {
                 + "Something from notification request: $emailNotification.notificationRequest.personLastName");
         formatter.setDefaultEmailTemplate(defaultTemplate);
 
-        Map<String, Map<String, VelocityTemplateEmailFormatter.EmailTemplate>> topicSystemTemplateMap = new HashMap<String, Map<String, VelocityTemplateEmailFormatter.EmailTemplate>>();
+        Map<String, Map<NotificationFormatKey, VelocityTemplateEmailFormatter.EmailTemplate>> topicSystemTemplateMap = new HashMap<String, Map<NotificationFormatKey, VelocityTemplateEmailFormatter.EmailTemplate>>();
 
-        Map<String, EmailTemplate> arrestMap = new HashMap<String, VelocityTemplateEmailFormatter.EmailTemplate>();
-
+        Map<NotificationFormatKey, EmailTemplate> arrestMap = new HashMap<NotificationFormatKey, VelocityTemplateEmailFormatter.EmailTemplate>();
+        
         VelocityTemplateEmailFormatter.EmailTemplate template = new VelocityTemplateEmailFormatter.EmailTemplate();
         template.setEmailSubjectTemplate("Notification subject is $emailNotification.subjectName for arrest, parole, subject");
         template.setEmailBodyTemplate("Notification body is $emailNotification.subjectName for arrest, parole, body");
-        arrestMap.put("{http://demostate.gov/SystemNames/1.0}SystemA", template);
+        
+        NotificationFormatKey emailNotificationIdentifierKeyWrapperA = new NotificationFormatKey();
+        emailNotificationIdentifierKeyWrapperA.setSubscribingSystemName("{http://demostate.gov/SystemNames/1.0}SystemA");
+        emailNotificationIdentifierKeyWrapperA.setSubscriptionCategoryCode("default");
+        
+        arrestMap.put(emailNotificationIdentifierKeyWrapperA, template);
 
+        //Non Criminal Justice
+        template = new VelocityTemplateEmailFormatter.EmailTemplate();
+        template.setEmailSubjectTemplate("Notification subject is $emailNotification.subjectName for non criminal justice");
+        template.setEmailBodyTemplate("Notification body is $emailNotification.subjectName for non criminal justice");
+        
+        NotificationFormatKey emailNotificationIdentifierKeyWrapperNonCJ = new NotificationFormatKey();
+        emailNotificationIdentifierKeyWrapperNonCJ.setSubscribingSystemName("{http://demostate.gov/SystemNames/1.0}SystemA");
+        emailNotificationIdentifierKeyWrapperNonCJ.setSubscriptionCategoryCode("I");
+        
+        arrestMap.put(emailNotificationIdentifierKeyWrapperNonCJ, template);
+        
         template = new VelocityTemplateEmailFormatter.EmailTemplate();
         template.setEmailSubjectTemplate("Notification subject is $emailNotification.subjectName for arrest, probation, subject");
         template.setEmailBodyTemplate("Notification body is $emailNotification.subjectName for arrest, probation, body");
-        arrestMap.put("{http://demostate.gov/SystemNames/1.0}SystemB", template);
+        
+        NotificationFormatKey emailNotificationIdentifierKeyWrapperB = new NotificationFormatKey();
+        emailNotificationIdentifierKeyWrapperB.setSubscribingSystemName("{http://demostate.gov/SystemNames/1.0}SystemB");
+        emailNotificationIdentifierKeyWrapperB.setSubscriptionCategoryCode("default");
+        
+        arrestMap.put(emailNotificationIdentifierKeyWrapperB, template);
 
         template = new VelocityTemplateEmailFormatter.EmailTemplate();
         template.setEmailSubjectTemplate("Notification subject is $emailNotification.subjectName for arrest, default arrest system, subject");
         template.setEmailBodyTemplate("Notification body is $emailNotification.subjectName for arrest, default arrest system, body");
-        arrestMap.put("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem", template);
+        
+        NotificationFormatKey emailNotificationIdentifierKeyWrapperDefault = new NotificationFormatKey();
+        emailNotificationIdentifierKeyWrapperDefault.setSubscribingSystemName("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem");
+        emailNotificationIdentifierKeyWrapperDefault.setSubscriptionCategoryCode("default");
+        
+        arrestMap.put(emailNotificationIdentifierKeyWrapperDefault, template);
 
         topicSystemTemplateMap.put("{http://ojbc.org/wsn/topics}:person/arrest", arrestMap);
 
-        Map<String, EmailTemplate> incidentMap = new HashMap<String, VelocityTemplateEmailFormatter.EmailTemplate>();
+        Map<NotificationFormatKey, EmailTemplate> incidentMap = new HashMap<NotificationFormatKey, VelocityTemplateEmailFormatter.EmailTemplate>();
 
         template = new VelocityTemplateEmailFormatter.EmailTemplate();
         template.setEmailSubjectTemplate("Notification subject is $emailNotification.subjectName for incident, parole, subject");
         template.setEmailBodyTemplate("Notification body is $emailNotification.subjectName for incident, parole, body");
-        incidentMap.put("{http://demostate.gov/SystemNames/1.0}SystemA", template);
+        
+        NotificationFormatKey emailNotificationIdentifierKeyWrapperAIncident = new NotificationFormatKey();
+        emailNotificationIdentifierKeyWrapperAIncident.setSubscribingSystemName("{http://demostate.gov/SystemNames/1.0}SystemA");
+        emailNotificationIdentifierKeyWrapperAIncident.setSubscriptionCategoryCode("default");
+        
+        incidentMap.put(emailNotificationIdentifierKeyWrapperAIncident, template);
 
         template = new VelocityTemplateEmailFormatter.EmailTemplate();
         template.setEmailSubjectTemplate("Notification subject is $emailNotification.subjectName for incident, probation, subject");
         template.setEmailBodyTemplate("Notification body is $emailNotification.subjectName for incident, probation, body");
-        incidentMap.put("{http://demostate.gov/SystemNames/1.0}SystemB", template);
+        
+        NotificationFormatKey emailNotificationIdentifierKeyWrapperBIncident = new NotificationFormatKey();
+        emailNotificationIdentifierKeyWrapperBIncident.setSubscribingSystemName("{http://demostate.gov/SystemNames/1.0}SystemB");
+        emailNotificationIdentifierKeyWrapperBIncident.setSubscriptionCategoryCode("default");
+        
+        incidentMap.put(emailNotificationIdentifierKeyWrapperBIncident, template);
 
         topicSystemTemplateMap.put("{http://ojbc.org/wsn/topics}:person/incident", incidentMap);
 
@@ -92,7 +127,7 @@ public class VelocityTemplateEmailFormatterTest {
     @Test
     public void testDefaultTemplates() throws Exception {
         // this scenario tests an unknown topic...you get the default template then
-        EmailNotification email = buildArrestEmailNotification(getUnknownTopicParoleSystemNotificationMessage(), "{http://demostate.gov/SystemNames/1.0}SystemA");
+        EmailNotification email = buildArrestEmailNotification(getUnknownTopicParoleSystemNotificationMessage(), "{http://demostate.gov/SystemNames/1.0}SystemA", "default");
         String emailSubject = formatter.getEmailSubject(email);
         assertEquals("Default notification subject is offenderName", emailSubject);
         String emailBody = formatter.getEmailBody(email);
@@ -101,7 +136,7 @@ public class VelocityTemplateEmailFormatterTest {
 
     @Test
     public void testArrestParoleTemplates() throws Exception {
-        EmailNotification email = buildArrestEmailNotification(getArrestTopicParoleSystemNotificationMessage(), "{http://demostate.gov/SystemNames/1.0}SystemA");
+        EmailNotification email = buildArrestEmailNotification(getArrestTopicParoleSystemNotificationMessage(), "{http://demostate.gov/SystemNames/1.0}SystemA", "default");
         String emailSubject = formatter.getEmailSubject(email);
         assertEquals("Notification subject is offenderName for arrest, parole, subject", emailSubject);
         String emailBody = formatter.getEmailBody(email);
@@ -109,9 +144,18 @@ public class VelocityTemplateEmailFormatterTest {
     }
 
     @Test
+    public void testArrestNonCriminalJusticeTemplates() throws Exception {
+        EmailNotification email = buildArrestEmailNotification(getArrestTopicParoleSystemNotificationMessage(), "{http://demostate.gov/SystemNames/1.0}SystemA", "I");
+        String emailSubject = formatter.getEmailSubject(email);
+        assertEquals("Notification subject is offenderName for non criminal justice", emailSubject);
+        String emailBody = formatter.getEmailBody(email);
+        assertEquals("Notification body is offenderName for non criminal justice", emailBody);
+    }
+
+    @Test
     public void testArrestDefaultSystemTemplates() throws Exception {
         // the arrest topic is configured with a default system template, so that will be used
-        EmailNotification email = buildArrestEmailNotification(getArrestTopicParoleSystemNotificationMessage(), "{http://ojbc.org/Dummy/1.0}UnkownSystem");
+        EmailNotification email = buildArrestEmailNotification(getArrestTopicParoleSystemNotificationMessage(), "{http://ojbc.org/Dummy/1.0}UnkownSystem", "default");
         String emailSubject = formatter.getEmailSubject(email);
         assertEquals("Notification subject is offenderName for arrest, default arrest system, subject", emailSubject);
         String emailBody = formatter.getEmailBody(email);
@@ -120,7 +164,7 @@ public class VelocityTemplateEmailFormatterTest {
 
     @Test
     public void testIncidentParoleTemplates() throws Exception {
-        EmailNotification email = buildIncidentEmailNotification(getIncidentTopicParoleSystemNotificationMessage(), "{http://demostate.gov/SystemNames/1.0}SystemA");
+        EmailNotification email = buildIncidentEmailNotification(getIncidentTopicParoleSystemNotificationMessage(), "{http://demostate.gov/SystemNames/1.0}SystemA", "default");
         String emailSubject = formatter.getEmailSubject(email);
         assertEquals("Notification subject is offenderName for incident, parole, subject", emailSubject);
         String emailBody = formatter.getEmailBody(email);
@@ -130,27 +174,29 @@ public class VelocityTemplateEmailFormatterTest {
     @Test
     public void testIncidentNoDefaultSystemTemplates() throws Exception {
         // the incident topic is not configured with a default system template, so the overall default is used (same as if an unknown topic is provided)
-        EmailNotification email = buildIncidentEmailNotification(getIncidentTopicParoleSystemNotificationMessage(), "{http://ojbc.org/Dummy/1.0}UnkownSystem");
+        EmailNotification email = buildIncidentEmailNotification(getIncidentTopicParoleSystemNotificationMessage(), "{http://ojbc.org/Dummy/1.0}UnkownSystem", "default");
         String emailSubject = formatter.getEmailSubject(email);
         assertEquals("Default notification subject is offenderName", emailSubject);
         String emailBody = formatter.getEmailBody(email);
         assertEquals("Default email body:\nSomething from email notification: offenderName\nSomething from notification request: Doe", emailBody);
     }
 
-    private EmailNotification buildArrestEmailNotification(Document notificationMessage, String systemName) throws Exception {
+    private EmailNotification buildArrestEmailNotification(Document notificationMessage, String systemName, String subscriptionCategoryCode) throws Exception {
         EmailNotification email = new EmailNotification();
         email.addToAddressee("email@address");
         email.setSubjectName("offenderName");
         email.setSubscribingSystemIdentifier(systemName);
+        email.setSubscriptionCategoryCode(subscriptionCategoryCode);
         email.setNotificationRequest(new ArrestNotificationRequest(notificationMessage));
         return email;
     }
 
-    private EmailNotification buildIncidentEmailNotification(Document notificationMessage, String systemName) throws Exception {
+    private EmailNotification buildIncidentEmailNotification(Document notificationMessage, String systemName, String subscriptionCategoryCode) throws Exception {
         EmailNotification email = new EmailNotification();
         email.addToAddressee("email@address");
         email.setSubjectName("offenderName");
         email.setSubscribingSystemIdentifier(systemName);
+        email.setSubscriptionCategoryCode(subscriptionCategoryCode);
         email.setNotificationRequest(new IncidentNotificationRequest(notificationMessage));
         return email;
     }

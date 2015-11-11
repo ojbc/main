@@ -73,6 +73,7 @@ public class IncidentNotificationProcessorTest {
         email.addToAddressee("po1@localhost");
         email.setSubjectName("offenderName");
         email.setSubscribingSystemIdentifier("{http://hijis.hawaii.gov/ParoleCase/1.0}HawaiiParolingAuthority");
+        email.setSubscriptionCategoryCode("default");
         email.setNotificationRequest(new IncidentNotificationRequest(getNotificationMessage()));
         
         Exchange e = new DefaultExchange((CamelContext) null);

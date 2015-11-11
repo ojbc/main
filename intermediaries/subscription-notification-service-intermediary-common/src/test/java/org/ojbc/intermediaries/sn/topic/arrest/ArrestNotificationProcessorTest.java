@@ -69,6 +69,7 @@ public class ArrestNotificationProcessorTest {
         email.addToAddressee("po1@localhost");
         email.setSubjectName("offenderName");
         email.setSubscribingSystemIdentifier("{http://demostate.gov/SystemNames/1.0}SystemA");
+        email.setSubscriptionCategoryCode("default");
         email.setNotificationRequest(new ArrestNotificationRequest(getNotificationMessage()));
         
         Exchange e = new DefaultExchange((CamelContext) null);
@@ -85,6 +86,31 @@ public class ArrestNotificationProcessorTest {
     }
     
     @Test
+    public void testCreateNotificationWithSpecifiedEmailTemplate() throws Exception {
+
+        String expectedEmailBody = "An event occurred for [Subject offenderName]. Contact their employer.";
+
+        EmailNotification email = new EmailNotification();
+        email.addToAddressee("po1@localhost");
+        email.setSubjectName("offenderName");
+        email.setSubscribingSystemIdentifier("{http://demostate.gov/SystemNames/1.0}SystemA");
+        email.setSubscriptionCategoryCode("I");
+        email.setNotificationRequest(new ArrestNotificationRequest(getNotificationMessage()));
+        
+        Exchange e = new DefaultExchange((CamelContext) null);
+        Message inMessage = e.getIn();
+        inMessage.setHeader("notificationTopic", "arrest");
+        inMessage.setBody(email);
+
+        arrestNotificationProcessor.createNotificationEmail(e);
+        
+        Object receivedEmailBody = e.getOut().getBody();
+        assertEquals(expectedEmailBody, receivedEmailBody);
+        assertEquals("po1@localhost", e.getOut().getHeader(NotificationConstants.HEADER_TO));
+        
+    }    
+    
+    @Test
     public void testCreateNotificationEmailManualSubscription() throws Exception {
 
         String expectedEmailBody = "Booking Name: Simpson, Homer<br/>Name in Subscription: offenderName<br/>\n" +
@@ -99,6 +125,7 @@ public class ArrestNotificationProcessorTest {
         email.addToAddressee("po1@localhost");
         email.setSubjectName("offenderName");
         email.setSubscribingSystemIdentifier("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
+        email.setSubscriptionCategoryCode("default");
         email.setNotificationRequest(new ArrestNotificationRequest(getNotificationMessage()));
 
         Exchange e = new DefaultExchange((CamelContext) null);
@@ -128,6 +155,7 @@ public class ArrestNotificationProcessorTest {
         email.addToAddressee("po1@localhost");
         email.setSubjectName("offenderName");
         email.setSubscribingSystemIdentifier("{http://demostate.gov/SystemNames/1.0}SystemA");
+        email.setSubscriptionCategoryCode("default");
         email.setNotificationRequest(new ArrestNotificationRequest(getNotificationMessage()));
 
         Exchange e = new DefaultExchange((CamelContext) null);

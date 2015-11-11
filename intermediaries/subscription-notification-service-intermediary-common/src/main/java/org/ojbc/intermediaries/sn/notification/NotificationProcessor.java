@@ -245,6 +245,8 @@ public abstract class NotificationProcessor {
                     }
                     en.setSubjectName(subscription.getPersonFullName());
                     en.setSubscribingSystemIdentifier(subscriptionSubscribingSystemName);
+                    
+                    en.setSubscriptionCategoryCode(subscription.getSubscriptionCategoryCode());
                     en.addToAddressee(emailAddress);
                     en.setNotificationRequest(request);
                 }
