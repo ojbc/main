@@ -34,6 +34,9 @@
 	<ident-ext:TransactionCategoryText>Task ID</ident-ext:TransactionCategoryText>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
+			<nc:PersonBirthDate>
+				<nc:Date>1950-01-02</nc:Date>
+			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>Joe</nc:PersonGivenName>
 				<nc:PersonMiddleName>D</nc:PersonMiddleName>
@@ -45,9 +48,9 @@
 					<ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
-			<ident-ext:PersonTrackingIdentidication>
+			<ident-ext:PersonTrackingIdentification>
 				<nc:IdentificationID>12345</nc:IdentificationID>
-			</ident-ext:PersonTrackingIdentidication>
+			</ident-ext:PersonTrackingIdentification>
 		</nc:RoleOfPerson>
 	</j:Subject>
 	<ident-ext:IdentificationApplicantOrganization>
@@ -61,8 +64,7 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ident-ext:IdentificationApplicantOrganization>
-	<ident-ext:StateCriminalHistoryRecordDocument structures:id="Doc_01">
-		<ident-ext:DocumentBinary xmime:contentType="text/plain"/>
+	<ident-ext:StateCriminalHistoryRecordDocument xmime:contentType="text/plain" structures:id="Doc_01">
 				<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
 	</ident-ext:StateCriminalHistoryRecordDocument>
 	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>

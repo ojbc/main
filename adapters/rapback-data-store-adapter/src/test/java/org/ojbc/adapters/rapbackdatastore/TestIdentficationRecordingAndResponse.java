@@ -197,7 +197,7 @@ public class TestIdentficationRecordingAndResponse {
 	public void civilRecordingResultServiceSuccess() throws Exception
 	{
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
-				"src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-civil.xml");
+				"src/test/resources/xmlInstances/identificationReport/person_identification_rapsheet_results_fbi_civil.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
 		
@@ -237,7 +237,7 @@ public class TestIdentficationRecordingAndResponse {
 	public void criminalRecordingResultServiceSuccess() throws Exception
 	{
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
-				"src/test/resources/xmlInstances/identificationReport/person_identification_results_fbi_identification-criminal.xml");
+				"src/test/resources/xmlInstances/identificationReport/person_identification_rapsheet_results_fbi_criminal.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
 		
