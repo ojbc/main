@@ -250,14 +250,7 @@
 
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<id>jdk${java.version}</id>
-			<activation>
-				<jdk>${java.version}</jdk>
-			</activation>
-		</profile>
-	</profiles>
+
 	<reporting>
 		<plugins>
 			<plugin>
