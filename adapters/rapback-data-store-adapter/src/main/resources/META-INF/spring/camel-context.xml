@@ -378,7 +378,7 @@
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
 			<camel:setHeader headerName="archiveTransactionNumber">
-				<camel:xpath>/ira-req-doc:IdentificationResultsArchiveRequest/ira-req-doc:IdentificationResultsIdentification/nc:IdentificationID</camel:xpath>
+				<camel:xpath resultType="java.lang.String">/ira-req-doc:IdentificationResultsArchiveRequest/ira-req-doc:IdentificationResultsIdentification/nc:IdentificationID</camel:xpath>
 			</camel:setHeader>
 
 			<camel:setHeader headerName="systemName">
