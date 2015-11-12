@@ -135,7 +135,7 @@ public class RapbackDAOImplTest {
 	public void testSaveSubsequentResults() throws Exception {
 		
 		SubsequentResults subsequentResults = new SubsequentResults();
-		subsequentResults.setFbiSubscriptionId("fbiSubscriptionId");
+		subsequentResults.setUcn("9222201");
 		subsequentResults.setRapSheet("rapsheet".getBytes());
 		subsequentResults.setResultsSender(ResultSender.FBI);
 		
@@ -146,7 +146,7 @@ public class RapbackDAOImplTest {
 		Connection conn = dataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = 3");
 		assertTrue(rs.next());
-		assertEquals("fbiSubscriptionId", rs.getString("FBI_SUBSCRIPTION_ID"));
+		assertEquals("9222201", rs.getString("ucn"));
 		
 		String rapsheetContent = new String(ZipUtils.unzip(rs.getBytes("RAP_SHEET")));
 		log.info("Rap sheet content: " + rapsheetContent);
@@ -156,12 +156,12 @@ public class RapbackDAOImplTest {
 
 	@Test
 	@DirtiesContext
-	public void testGetFbiSubscriptionIds() throws Exception {
-		List<String> fbiSubscriptionIds = rapbackDao.getFbiSubscriptionIds("A123459"); 
-		assertEquals(1, fbiSubscriptionIds.size());
-		assertEquals("fbiSubscriptionId_3", fbiSubscriptionIds.get(0));
+	public void testGetFbiIds() throws Exception {
+		List<String> fbiIds = rapbackDao.getFbiIds("A123459"); 
+		assertEquals(1, fbiIds.size());
+		assertEquals("9222201", fbiIds.get(0));
 		
-		List<String> fbiSubscriptionIdsEmpty = rapbackDao.getFbiSubscriptionIds("9222202");
+		List<String> fbiSubscriptionIdsEmpty = rapbackDao.getFbiIds("9222202");
 		assertTrue(fbiSubscriptionIdsEmpty.isEmpty());
 	}
 }
