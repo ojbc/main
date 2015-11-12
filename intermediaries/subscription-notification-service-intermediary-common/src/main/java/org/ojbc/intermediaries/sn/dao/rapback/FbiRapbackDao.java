@@ -98,7 +98,7 @@ public class FbiRapbackDao {
     }
     
     
-    public String getFbiUcnIdFromSubIdAndReasonCode(int subscriptionId, String reasonCode){
+    public String getFbiUcnIdFromSubIdAndReasonCode(String subscriptionId, String reasonCode){
     	    	
     	String fbiUcnId = null;
     	
