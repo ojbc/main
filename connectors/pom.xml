@@ -37,6 +37,5 @@
     <module>incident-reporting-service-connector</module>
     <module>ojb-web-application-connector-extension</module>
     <module>ojb-web-application-connector</module>
-    <module>criminal-history-consolidation-mock-connector</module>
   </modules>
 </project>

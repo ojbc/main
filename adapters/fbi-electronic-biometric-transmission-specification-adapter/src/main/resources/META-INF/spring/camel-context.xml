@@ -208,8 +208,12 @@
 		  
 		  <log message="\n\n\n Using fbi ngi response TestInput route \n\n\n" loggingLevel="INFO"/>
 		  		  
-		  <to uri="direct:processFbiNgiResponse"/>		 
+			<multicast parallelProcessing="false" >
+				<to uri="direct:processFbiNgiResponse"/>				
+				<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>			
+			</multicast>				
 		</route>
+			
 						
 		<route id="fbiNgiResponseWebServiceRoute">		
 			
@@ -217,7 +221,10 @@
 			
 			<log message="Using fbi ngi response Webservice route \n\n\n" loggingLevel="INFO"/>
 				
-			<to uri="direct:processFbiNgiResponse"/>
+			<multicast parallelProcessing="false" >
+				<to uri="direct:processFbiNgiResponse"/>				
+				<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>			
+			</multicast>				
 		</route>
 				
 		
@@ -291,7 +298,6 @@
 			<camel:setHeader headerName="operationName"><constant>ReportArrest</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>			
 			
-			<!-- TODO see if we're still supposed to send a VOID message back to FBI -->
 			<to uri="arrestReportingServiceEndpoint" />
 		</route>
 		
@@ -306,9 +312,19 @@
 			
 			<convertBodyTo type="java.lang.String"/>
 			
-			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>			
+			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>	
+			
+			<log message="\n\n\n Just called RapBackSubscriptionResponseToSubscriptionCreationReport.xsl \n\n\n" />	
+			
+			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />																																							
+						
+			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionCreation</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>					
 
-			<to uri="direct:sendRapbackSubscriptionReport" />				
+			<to uri="subscriptionReportingServiceEndpoint" />	
+			
 		</route>
 		
 		
@@ -324,39 +340,20 @@
 			
 			<to uri="xslt:xsl/RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl"/>
 			
-			<log message="\n\n\n ran RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl \n\n\n" />		
-									
-			<camel:to uri="direct:sendRapbackSubscriptionReport"/>
- 		</route>
- 		
- 		
- 		<route id="sendRapbackSubscriptionReport">
- 		
- 			<camel:from uri="direct:sendRapbackSubscriptionReport"/>
- 			
- 			<log message="\n\n\n sendRapbackSubscriptionReport... \n\n\n" />
- 						 								
-			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>												 		 			 								
+			<log message="\n\n\n ran RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl \n\n\n" />	
 			
-			<camel:multicast parallelProcessing="false">						
+			
+			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />			
+			
+			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>				
 
-				<pipeline>				
-					<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
-					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
-																																					
-					<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />																																							
-																		 		
-					<to uri="subscriptionReportingServiceEndpoint" />								
-				</pipeline>
-																				
-				<camel:pipeline>					
-					<log message="\n\n Sending synchronous VOID response to FBI...\n\n"/>
-					<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>
-				</camel:pipeline>				
-				
-			</camel:multicast>						
+			<to uri="subscriptionReportingServiceEndpoint" />
+									
  		</route>
- 		
+ 		 		
 				
 		<camel:route id="ojbSubscriptionToFbiNgiSubscriptionRoute">
 						
