@@ -143,7 +143,7 @@ public class CamelContextTest {
 		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
 
 	    //Read the Identification report file from the file system
-	    File inputFile = new File("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request.xml");
+	    File inputFile = new File("src/test/resources/xmlInstances/identificationReport/person_identification_request_fbi_civil.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 
 	    assertNotNull(inputStr);
