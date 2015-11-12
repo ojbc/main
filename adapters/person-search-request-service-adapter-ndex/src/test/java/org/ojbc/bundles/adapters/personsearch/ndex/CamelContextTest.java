@@ -174,7 +174,7 @@ public class CamelContextTest {
             public void configure() throws Exception {
                 weaveByToString("To[" + p.resultsHandlerEndpointName + "]").replace().to("mock:" + p.resultsHandlerEndpointName);
                 replaceFromWith("direct:" + p.requestEndpointName);
-                mockEndpoints("direct:callFbiWebService");
+                mockEndpointsAndSkip("direct:callFbiWebService");
             }
         });
 
