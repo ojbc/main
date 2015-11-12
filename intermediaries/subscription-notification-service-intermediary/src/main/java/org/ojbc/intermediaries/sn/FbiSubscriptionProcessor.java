@@ -250,13 +250,7 @@ public class FbiSubscriptionProcessor {
 	private String lookupFbiUcnId(Document unsubscribeDoc) throws Exception{
 		
 		String unsubscribeSubId = XmlUtils.xPathStringSearch(unsubscribeDoc, 
-				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");
-		
-		Integer iSubId = null;
-		
-		if(StringUtils.isNotEmpty(unsubscribeSubId)){
-			iSubId = Integer.parseInt(unsubscribeSubId);
-		}			
+				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");								
 
 		String categoryReasonCode = getReasonCodeFromUnsubscribeDoc(unsubscribeDoc);
 		
@@ -267,7 +261,7 @@ public class FbiSubscriptionProcessor {
 			logger.info("\n\n\n Calling fbi rapback dao to get person fbi ucn id for sub. id: " + unsubscribeSubId + 
 					" and categoryReasonCode: " + categoryReasonCode + " \n\n\n");
 			
-			personFbiUcnId = rapbackDao.getFbiUcnIdFromSubIdAndReasonCode(iSubId, categoryReasonCode);
+			personFbiUcnId = rapbackDao.getFbiUcnIdFromSubIdAndReasonCode(unsubscribeSubId, categoryReasonCode);
 			
 			logger.info("\n\n\n Using personFbiUcnId: " + personFbiUcnId + "\n\n\n");
 			
@@ -275,9 +269,9 @@ public class FbiSubscriptionProcessor {
 			logger.severe("\n\n\n\n Don't have both sub. id and reason code.  Not looking up fbi ucn id! \n\n\n");
 		}
 		
-		return personFbiUcnId;
-		
+		return personFbiUcnId;		
 	}
+	
 	
 	public String getPersonFbiUcnIdFromUnsubscribeDoc(Document unsubscribeDoc) throws Exception{
 		

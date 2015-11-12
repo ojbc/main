@@ -33,7 +33,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
@@ -65,6 +64,38 @@ public class RapbackDAOImplTest {
 	public void setUp() throws Exception {
 		assertNotNull(rapbackDao);
 	}
+	
+	
+	@Test
+	@DirtiesContext
+	public void testGetStateSubscriptions(){
+	
+		List<Subscription> stateSubList = rapbackDao.getStateSubscriptions("1234", "CI");
+		
+		Assert.assertNotNull(stateSubList);		
+		
+		Assert.assertFalse(stateSubList.isEmpty());		
+	}
+	
+	
+	@Test
+	@DirtiesContext	
+	public void testGetFbiUcnIdFromSubIdAndReasonCode(){
+		
+		String personFbiUcnId = rapbackDao.getFbiUcnIdFromSubIdAndReasonCode("62727", "CI");
+		
+		Assert.assertEquals("1234", personFbiUcnId);
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testCountStateSubscriptions(){
+		
+		int stateSubCount = rapbackDao.countStateSubscriptions("1234", "CI");
+		
+		Assert.assertEquals(1, stateSubCount);
+	}
+	
 	
 	@Test
 	@DirtiesContext
