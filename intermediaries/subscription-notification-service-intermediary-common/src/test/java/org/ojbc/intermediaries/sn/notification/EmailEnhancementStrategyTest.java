@@ -91,6 +91,7 @@ public class EmailEnhancementStrategyTest {
         n.setSubjectName("subjectName");
         n.setSubscribingSystemIdentifier("subscribingSystemName");
         n.addToAddressee("foo@localhost");
+        n.setSubscriptionCategoryCode("default");
 
         EmailNotification d = new DefaultEmailEnhancementStrategy().enhanceEmail(n);
         assertEquals(n, d);
