@@ -63,6 +63,7 @@ public class ChCycleNotificationProcessorTest {
         email.addToAddressee("po1@localhost");
         email.setSubjectName("offenderName");
         email.setSubscribingSystemIdentifier("{http://ojbc.org}ProbationChCyleTrackingID");
+        email.setSubscriptionCategoryCode("default");
         email.setNotificationRequest(new ChCycleNotificationRequest(getNotificationMessage()));
         
         Exchange e = new DefaultExchange((CamelContext) null);
