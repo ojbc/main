@@ -124,12 +124,12 @@ public class RapbackDAOImplTest {
 
 	@Test
 	@DirtiesContext
-	public void testGetFbiSubscriptionIds() throws Exception {
-		List<String> fbiSubscriptionIds = rapbackDao.getFbiSubscriptionIds("A123459"); 
-		assertEquals(1, fbiSubscriptionIds.size());
-		assertEquals("fbiSubscriptionId_3", fbiSubscriptionIds.get(0));
+	public void testGetFbiIds() throws Exception {
+		List<String> fbiIds = rapbackDao.getFbiIds("A123459"); 
+		assertEquals(1, fbiIds.size());
+		assertEquals("9222201", fbiIds.get(0));
 		
-		List<String> fbiSubscriptionIdsEmpty = rapbackDao.getFbiSubscriptionIds("9222202");
+		List<String> fbiSubscriptionIdsEmpty = rapbackDao.getFbiIds("9222202");
 		assertTrue(fbiSubscriptionIdsEmpty.isEmpty());
 	}
 }
