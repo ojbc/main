@@ -428,12 +428,12 @@ public class RapbackDAOImplTest {
 		assertEquals(2, subsequentResults.size());
 		SubsequentResults result1 = subsequentResults.get(0);
 		assertEquals(Long.valueOf(1), result1.getId());
-		assertEquals("fbiSubscriptionId_3", result1.getFbiSubscriptionId());
+		assertEquals("9222201", result1.getUcn());
 		assertEquals(ResultSender.FBI, result1.getResultsSender());
 		
 		SubsequentResults result2 = subsequentResults.get(1);
 		assertEquals(Long.valueOf(2), result2.getId());
-		assertEquals("fbiSubscriptionId_3", result2.getFbiSubscriptionId());
+		assertEquals("9222201", result2.getUcn());
 		assertEquals(ResultSender.State, result2.getResultsSender());
 		assertEquals(25, result2.getRapSheet().length);
 		log.info("result2 result:" + new String(result2.getRapSheet()));

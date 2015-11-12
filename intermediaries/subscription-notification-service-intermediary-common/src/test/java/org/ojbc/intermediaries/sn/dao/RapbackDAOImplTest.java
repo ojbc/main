@@ -33,7 +33,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
@@ -104,7 +103,7 @@ public class RapbackDAOImplTest {
 	public void testSaveSubsequentResults() throws Exception {
 		
 		SubsequentResults subsequentResults = new SubsequentResults();
-		subsequentResults.setFbiSubscriptionId("fbiSubscriptionId");
+		subsequentResults.setUcn("9222201");
 		subsequentResults.setRapSheet("rapsheet".getBytes());
 		subsequentResults.setResultsSender(ResultSender.FBI);
 		
@@ -115,7 +114,7 @@ public class RapbackDAOImplTest {
 		Connection conn = dataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = 3");
 		assertTrue(rs.next());
-		assertEquals("fbiSubscriptionId", rs.getString("FBI_SUBSCRIPTION_ID"));
+		assertEquals("9222201", rs.getString("ucn"));
 		
 		String rapsheetContent = new String(ZipUtils.unzip(rs.getBytes("RAP_SHEET")));
 		log.info("Rap sheet content: " + rapsheetContent);

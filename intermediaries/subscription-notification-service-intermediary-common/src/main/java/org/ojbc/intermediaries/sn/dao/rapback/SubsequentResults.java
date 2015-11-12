@@ -26,7 +26,7 @@ public class SubsequentResults implements Serializable{
 
 	private static final long serialVersionUID = -8697166964476446066L;
 	private Long id; //Subsequent Results ID;
-	private String fbiSubscriptionId;
+	private String ucn;
 	private byte[] rapSheet;
 	private DateTime timestamp;
 	private ResultSender resultsSender; 
@@ -55,14 +55,6 @@ public class SubsequentResults implements Serializable{
 		this.timestamp = timestamp;
 	}
 
-	public String getFbiSubscriptionId() {
-		return fbiSubscriptionId;
-	}
-
-	public void setFbiSubscriptionId(String fbiSubscriptionId) {
-		this.fbiSubscriptionId = fbiSubscriptionId;
-	}
-
 	public byte[] getRapSheet() {
 		return rapSheet;
 	}
@@ -77,6 +69,14 @@ public class SubsequentResults implements Serializable{
 
 	public void setResultsSender(ResultSender resultsSender) {
 		this.resultsSender = resultsSender;
+	}
+
+	public String getUcn() {
+		return ucn;
+	}
+
+	public void setUcn(String ucn) {
+		this.ucn = ucn;
 	}
 
 }
