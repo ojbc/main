@@ -60,11 +60,11 @@ public class ArrestNotificationAttachmentProcessor {
 		
 		String civilSid = XmlUtils.xPathStringSearch(notificationMessageNode, "jxdm41:Person[@s:id = ../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]"
 				+ "/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
-		List<String> fbiSubscriptionIds = rapbackDao.getFbiSubscriptionIds(civilSid);
+		List<String> fbiIds = rapbackDao.getFbiIds(civilSid);
 		
-		if (fbiSubscriptionIds.size() > 0){
-			for (String fbiSubscriptionId : fbiSubscriptionIds ){
-				subsequentResult.setFbiSubscriptionId(fbiSubscriptionId);
+		if (fbiIds.size() > 0){
+			for (String fbiId : fbiIds ){
+				subsequentResult.setUcn(fbiId);
 				rapbackDao.saveSubsequentResults(subsequentResult);
 			}
 		}

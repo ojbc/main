@@ -142,7 +142,7 @@ public class FbiRapbackDao {
         log.debug("Inserting row into SUBSEQUENT_RESULTS table : " + subsequentResults.toString());
 
         final String SUBSEQUENT_RESULTS_INSERT="insert into SUBSEQUENT_RESULTS "
-    			+ "(FBI_SUBSCRIPTION_ID, RAP_SHEET, RESULTS_SENDER_ID) "
+    			+ "(ucn, RAP_SHEET, RESULTS_SENDER_ID) "
     			+ "values (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -150,8 +150,8 @@ public class FbiRapbackDao {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(SUBSEQUENT_RESULTS_INSERT, 
-        	                		new String[] {"FBI_SUBSCRIPTION_ID", "RAP_SHEET", "RESULTS_SENDER_ID" });
-        	            ps.setString(1, subsequentResults.getFbiSubscriptionId());
+        	                		new String[] {"ucn", "RAP_SHEET", "RESULTS_SENDER_ID" });
+        	            ps.setString(1, subsequentResults.getUcn());
 						ps.setBlob(2, new SerialBlob(ZipUtils.zip(subsequentResults.getRapSheet())));
         	            ps.setInt(3, subsequentResults.getResultsSender().ordinal()+1);
         	            return ps;
@@ -208,17 +208,16 @@ public class FbiRapbackDao {
 
 	/**
 	 * Takes a civilSid from the arresting notification, check if there is active state subscription(s) with 
-	 * the SID. If yes, return the related FBI subscription Id(s);
+	 * the SID. If yes, return the related FBI Id(s);
 	 * @param civilSid
 	 * @return
 	 */
-	public List<String> getFbiSubscriptionIds(String civilSid){
-		final String FBI_SUBSCIPTION_ID_BY_CIVIL_SID = "SELECT f.fbi_subscription_id FROM fbi_rap_back_subscription f "
-				+ "LEFT JOIN identification_subject s ON s.ucn = f.ucn AND s.civil_sid = ? "
+	public List<String> getFbiIds(String civilSid){
+		final String FBI_ID_BY_CIVIL_SID = "SELECT s.ucn FROM identification_subject s "
 				+ "LEFT JOIN identification_transaction t ON t.subject_id = s.subject_id "
 				+ "LEFT JOIN subscription  r on r.id = t.subscription_id "
-				+ "WHERE r.active = 1 ";	
-		List<String> fbiSubscriptionIds = jdbcTemplate.queryForList(FBI_SUBSCIPTION_ID_BY_CIVIL_SID, String.class, civilSid); 
+				+ "WHERE r.active = 1 AND s.civil_sid = ? ;";	
+		List<String> fbiSubscriptionIds = jdbcTemplate.queryForList(FBI_ID_BY_CIVIL_SID, String.class, civilSid); 
 		return fbiSubscriptionIds;
 	}
 
