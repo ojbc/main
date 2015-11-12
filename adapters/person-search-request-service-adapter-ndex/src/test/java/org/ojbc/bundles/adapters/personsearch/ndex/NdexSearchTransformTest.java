@@ -26,12 +26,15 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Difference;
+import org.custommonkey.xmlunit.DifferenceConstants;
+import org.custommonkey.xmlunit.DifferenceListener;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
+import org.w3c.dom.Node;
 
 public class NdexSearchTransformTest {
 			
@@ -47,10 +50,11 @@ public class NdexSearchTransformTest {
 		
 		xsltTransformer = new XsltTransformer();		
 	}
-			
+
+	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void searchTranformTest() throws Exception{
+	public void searchRequestTranformTest() throws Exception{
 		
 		DetailedDiff detailedDiff = runTransform("src/test/resources/xml/Request/PersonSearchRequest-SR_Example.xml",
 				"src/main/resources/xsl/NDEX_Search_Request_Transform.xsl",
@@ -62,9 +66,26 @@ public class NdexSearchTransformTest {
         
         Difference difference=differenceList.get(0);
         
-        System.out.println("Difference xpath: " + difference.getControlNodeDetail().getXpathLocation());
+        //The only difference we should see is in the message date time node since that is set dynamically
+        Assert.assertEquals("/doStructuredSearchRequest[1]/StructuredSearchRequestMessage[1]/SRMessageMetadata[1]/MessageDateTime[1]/text()[1]", difference.getControlNodeDetail().getXpathLocation());
 	}	
-	
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void searchResultsTranformTest() throws Exception{
+		
+		DetailedDiff detailedDiff = runTransform("src/test/resources/xml/Response/a-doSearchResponse-structured-brokered.xml",
+				"src/main/resources/xsl/NDEX_Search_Results_Transform.xsl",
+				"src/test/resources/xml/Response/output/a-doSearchResponse-structured-brokered-out.xml");
+		
+		detailedDiff.overrideDifferenceListener(new IgnoreIDsDifferenceListener());
+		
+		List<Difference> differenceList = detailedDiff.getAllDifferences();
+        
+        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());
+        
+	}	
+
 	private DetailedDiff runTransform(String inputFileClasspath, String xsltClasspath, String expectedOutputFileClasspath) throws Exception{
 
 		File inputFile = new File(inputFileClasspath);		
@@ -79,13 +100,15 @@ public class NdexSearchTransformTest {
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
 		
-		System.out.println(actualTransformedResultXml);
+		//System.out.println(actualTransformedResultXml);
 				
 		DetailedDiff detailedDiff = new DetailedDiff(XMLUnit.compareXML(expectedXml, actualTransformedResultXml));	
 		
 		return detailedDiff;
 		
 	}
+	
+	
 	
 }
 
