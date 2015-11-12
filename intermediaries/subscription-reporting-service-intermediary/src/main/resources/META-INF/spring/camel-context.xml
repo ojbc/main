@@ -50,14 +50,7 @@
 		<!-- Subscription Reporting Service -->
 		<camel:route errorHandlerRef="subscriptionReportErrorHandler" id="CallSubscriptionRecortingServiceAdapterRoute">
 			
-			<camel:from uri="subscriptionReportingRequestServiceEndpoint" />
-						
-			<to uri="bean:messageProcessor?method=processRequestPayload"/>
-
-			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionUpdate</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>
-									  
-			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+			<camel:from uri="subscriptionReportingRequestServiceEndpoint" />												
 						
 			<camel:to uri="subscriptionReportingRequestAdapterEndpoint" />
 			
@@ -70,13 +63,7 @@
 	
 	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
 		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	
-	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
-    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
-        <property name="name" value="default" />
-        <property name="queueSize" value="2048" />
-    </bean>
+	</bean>		
     
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />    
     	 
