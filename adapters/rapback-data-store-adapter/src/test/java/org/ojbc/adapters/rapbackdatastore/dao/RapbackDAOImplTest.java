@@ -411,7 +411,9 @@ public class RapbackDAOImplTest {
 		assertTrue(rs.next());
 		assertEquals(false,rs.getBoolean("archived"));
 
-		rapbackDAO.archiveIdentificationResult("000001820140729014008339997");
+		int count = rapbackDAO.archiveIdentificationResult("000001820140729014008339997");
+		
+		assertEquals(1, count);
 		
 		ResultSet rsAfter = conn.createStatement().executeQuery(sql);
 		assertTrue(rsAfter.next());

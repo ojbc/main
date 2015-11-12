@@ -23,6 +23,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -36,6 +38,7 @@ import org.w3c.dom.Element;
 
 @Service
 public class ArchiveProcessor {
+    private final Log log = LogFactory.getLog(this.getClass());
 
 	@Resource
     private RapbackDAO rapbackDAO;
@@ -59,6 +62,7 @@ public class ArchiveProcessor {
 	public Document processArchiveResult(@Header(value="archiveTransactionNumber") String transactionNumber, @Header(value="systemName") String systemName) throws Exception
 	{
 		int result = rapbackDAO.archiveIdentificationResult(transactionNumber);
+		log.info("archive result: " + result);
 		
         Document document = documentBuilder.newDocument();
 
