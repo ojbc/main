@@ -55,11 +55,24 @@
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 
 			<camel:log message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}"/>
-
-			<!-- XSLT GOES HERE -->
 			
-			<!-- NDEx web service call goes here -->
+			<camel:setHeader headerName="fbiWSAddressingMessageID">
+				<camel:simple>${in.headers.federatedQueryRequestGUID}</camel:simple>
+			</camel:setHeader>
 
+			<!-- Request XSLT GOES HERE -->
+			<camel:to uri="xslt:xsl/NDEX_Search_Request_Transform.xsl"/>
+			
+			<!-- Extract SAML token and put into body of message -->			
+			<camel:to uri="bean:fbiSAMLTokenProcessor?method=insertFBISamlToken"/>
+
+			<!-- NDEx web service call goes here -->
+			<camel:to uri="direct:callFbiWebService"/>
+
+			<!-- Response XSLT GOES HERE -->
+			<camel:to uri="xslt:xsl/NDEX_Search_Results_Transform.xsl"/>
+			
+			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 					
            	<camel:setHeader headerName="operationName"><constant>ReportPersonSearchResults</constant></camel:setHeader>	
@@ -67,6 +80,11 @@
 			
 			<camel:to uri="personSearchResultsHandlerServiceEndpoint"/>
 		</camel:route>	
+		
+		<camel:route id="callFbiWebServiceRoute">
+			<camel:from uri="direct:callFbiWebService"/>
+			<camel:log message="FBI web service placeholder route: ${body}"/>
+		</camel:route>
 
 	</camel:camelContext>
 
@@ -75,4 +93,6 @@
 	
 	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
 	
+	<bean id="fbiSAMLTokenProcessor" class="org.ojbc.bundles.adapters.personsearch.ndex.FbiSAMLTokenProcessor"/>
+		
 </beans>
