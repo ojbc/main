@@ -145,7 +145,12 @@ public class WebPortalApplicationContextStartupListener implements
                     }
                     if (profile.equals("initial-results-query"))
                     {   
-                    	camelContext.startRoute("intialResultsQueryResultsHandlerRoute");
+                    	camelContext.startRoute("identificationResultsQueryResultsHandlerRoute");
+                    	continue;
+                    }
+                    if (profile.equals("identification-results-modification"))
+                    {   
+                    	camelContext.startRoute("identificationResultsModificationResultsHandlerRoute");
                     	continue;
                     }
 			    }
