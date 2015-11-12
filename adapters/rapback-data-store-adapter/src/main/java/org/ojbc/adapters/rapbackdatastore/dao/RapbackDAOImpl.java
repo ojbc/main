@@ -563,14 +563,10 @@ public class RapbackDAOImpl implements RapbackDAO {
 			String ori) {
 		final String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
 				+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
-				+ "(f.fbi_subscription_id is not null) as having_subsequent_result "
+				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
-				+ "LEFT OUTER JOIN fbi_rap_back_subscription f on f.ucn = s.ucn "
-				+ "		AND f.fbi_subscription_id = "
-				+ "			(SELECT DISTINCT fbi_subscription_id FROM subsequent_results subs "
-				+ "			WHERE subs. fbi_subscription_id = f. fbi_subscription_id)"
 				+ "WHERE t.owner_ori = ? AND (select count(*)>0 from "
 				+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
 		
@@ -777,8 +773,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		log.info("Retreiving subsequent results by transaction number " + transactionNumber);
 		
 		final String sql ="SELECT subs.* FROM subsequent_results subs "
-				+ "LEFT JOIN fbi_rap_back_subscription f ON f.fbi_subscription_id = subs.fbi_subscription_id "
-				+ "LEFT JOIN identification_subject s ON s.ucn = f.ucn "
+				+ "LEFT JOIN identification_subject s ON s.ucn = subs.ucn "
 				+ "LEFT JOIN identification_transaction t ON t.subject_id = s.subject_id "
 				+ "WHERE t.transaction_number = ?";
 		
@@ -792,7 +787,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				throws SQLException {
 			SubsequentResults subsequentResult = new SubsequentResults();
 			subsequentResult.setId(rs.getLong("subsequent_result_id"));
-			subsequentResult.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
+			subsequentResult.setUcn(rs.getString("ucn"));
 			subsequentResult.setRapSheet(ZipUtils.unzip(rs.getBytes("rap_sheet")));
 			subsequentResult.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") -1]);
 			return subsequentResult;
