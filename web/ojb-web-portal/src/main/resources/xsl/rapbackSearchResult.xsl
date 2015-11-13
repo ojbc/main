@@ -92,7 +92,7 @@
 				</xsl:if>
 				<xsl:apply-templates select="$validationDueDate" mode="formatDateAsMMDDYYYY"/>
 			</td>
-			<td class="status">
+			<td>
 				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
 			</td>
 			<td align="right" width="115px">
