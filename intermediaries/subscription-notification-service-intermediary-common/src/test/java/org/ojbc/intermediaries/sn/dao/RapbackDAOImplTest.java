@@ -65,6 +65,38 @@ public class RapbackDAOImplTest {
 		assertNotNull(rapbackDao);
 	}
 	
+	
+	@Test
+	@DirtiesContext
+	public void testGetStateSubscriptions(){
+	
+		List<Subscription> stateSubList = rapbackDao.getStateSubscriptions("1234", "CI");
+		
+		Assert.assertNotNull(stateSubList);		
+		
+		Assert.assertFalse(stateSubList.isEmpty());		
+	}
+	
+	
+	@Test
+	@DirtiesContext	
+	public void testGetFbiUcnIdFromSubIdAndReasonCode(){
+		
+		String personFbiUcnId = rapbackDao.getFbiUcnIdFromSubIdAndReasonCode("62727", "CI");
+		
+		Assert.assertEquals("1234", personFbiUcnId);
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testCountStateSubscriptions(){
+		
+		int stateSubCount = rapbackDao.countStateSubscriptions("1234", "CI");
+		
+		Assert.assertEquals(1, stateSubCount);
+	}
+	
+	
 	@Test
 	@DirtiesContext
 	public void testGetFbiSubscription() throws Exception {
