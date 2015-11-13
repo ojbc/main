@@ -111,14 +111,20 @@
 		</camel:route>		
 		
 		<route id="callNotificationBrokerRoute">
+            
             <from uri="direct:callNotificationBroker"/>
+            
             <log message="In notification broker route" />
 
 			<!-- Send to notification intermediary -->
 
 			<camel:log message="Processing Arrest Report Notifications"/>
+
+			<convertBodyTo type="java.lang.String"/>
 						
-			<camel:to uri="xslt:xslt/arrestReportToNotifications.xsl?transformerFactory=sFactory"/>								
+			<camel:to uri="xslt:xslt/arrestReportToNotifications.xsl?transformerFactory=sFactory"/>	
+			
+			<log message="\n\n\n Called:  arrestReportToNotifications.xsl  \n\n\n"/>							
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
