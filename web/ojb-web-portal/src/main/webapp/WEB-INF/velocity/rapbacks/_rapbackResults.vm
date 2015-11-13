@@ -111,16 +111,7 @@
     	}
     	
     	$('#searchResultsTable').on('click', 'a.unsubscribe',function() {
-    		$.get("#springUrl('/rapbacks/unsubscribe')", {subscriptionId: $(this).attr("id")}, function(data) {
-    		
-				if (data === 'success'){
-					refreshSearchResultsTable();
-				}
-				else{
-					showErrorMessage(data);
-				}	
-																      
-			}).fail(ojbc.displayFailMessage);
+			unsubscribe($(this).attr("id")) ;
     	});
     	
     	$('#searchResultsTable').on('click', 'a.validate',function() {
@@ -174,43 +165,76 @@
         });
     	
     	$('#searchResultsTable').on('click', 'a.subsequentResults',function() {
-            var url = this.href;
-            var dialog = $('<div style="display:none"  title="Identification Subsequent Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .8;
-			var dlgHeight = $(window).height() * .6;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-						$(this).css('height', $(this).contents().find("body").height() + 16);
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-
-            return false;
+    		var status = $(this).parent().prev().text();
+    		var authorized = confirm("Are you still authorized to view criminal history details for this individual? ");
+    		
+    		if (authorized){
+	            var url = this.href;
+	            var dialog = $('<div style="display:none"  title="Identification Subsequent Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
+				var dlgWidth = $(document).width() * .8;
+				var dlgHeight = $(window).height() * .6;
+	            dialog.dialog({
+	                width: dlgWidth,
+	                height: dlgHeight,
+	                close: function(event, ui) {
+	                    $('#modalIframe').attr('src', '');
+	                    dialog.remove();
+	                },
+	                open: function(event,ui){
+						$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
+						$("#modalIframeSpinner").width($("#modalIframe").width());
+						$("#modalIframeSpinner").show();
+	
+			     		$("#modalIframe").load( function() {
+			     			//alert("Load event fired");
+							$("#modalIframeSpinner").hide();				
+													
+							$(this).css('height', $(this).contents().find("body").height() + 16);
+						});
+			     		
+	                 	$('#modalIframe').attr('src', url);		     		
+	
+	                },
+	                position: {
+	                           my: "center",
+	                           at: "center",
+	                           of: window
+	                          },
+	                modal: true
+	            });
+	
+	            return false;
+            }
+            else {
+            	if (status === "Archived" || status ==="Available for subscription"){
+            		return false; 
+            	}
+            	else{
+            		var unsubscribeConfirmation = confirm("You have indicated that you are no longer authorized to "
+            			+ "view criminal history for this individual, your subscription will now be cancelled");
+            		if (unsubscribeConfirmation){
+            			unsubscribe($(this).attr("id"));
+						return false;
+            		}
+            		else{
+            			return false; 
+            		} 
+            	}
+    		}
         });
-    	
+
+		function unsubscribe(id){
+    		$.get("#springUrl('/rapbacks/unsubscribe')", {subscriptionId: id}, function(data) {
+    		
+				if (data === 'success'){
+					refreshSearchResultsTable();
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+		}
 	});
 </script>
 	
