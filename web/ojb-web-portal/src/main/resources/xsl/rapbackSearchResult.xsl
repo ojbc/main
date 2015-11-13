@@ -92,7 +92,7 @@
 				</xsl:if>
 				<xsl:apply-templates select="$validationDueDate" mode="formatDateAsMMDDYYYY"/>
 			</td>
-			<td>
+			<td class="status">
 				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
 			</td>
 			<td align="right" width="115px">
@@ -100,7 +100,12 @@
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed']" mode="subscribed"/>
 				<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
 					<a href="{concat('../rapbacks/subsequentResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
-						class="blueIcon subsequentResults" style="margin-right:3px" title="Subsequent Results"><i class="fa fa-bell fa-lg"></i></a>
+						class="blueIcon subsequentResults" style="margin-right:3px" title="Subsequent Results">
+						<xsl:attribute name="id">
+							<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+						</xsl:attribute>
+						<i class="fa fa-bell fa-lg"></i>
+					</a>
 				</xsl:if>
 				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
 					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-text-o fa-lg"></i></a>
