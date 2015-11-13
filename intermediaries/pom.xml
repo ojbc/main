@@ -41,12 +41,12 @@
     <module>incident-reporting-service-intermediary</module>
     <module>incident-search-request-service-intermediary</module>
     <module>juvenile-history-service-intermediary</module>
-    
+
     <!--
       Upgraded to Java 8 so it will need to be tested separately.
     <module>ndex-submission-service-intermediary</module>
     -->
-    
+
     <module>parole-event-handler-service-intermediary</module>
     <module>person-query-service-criminal-history-intermediary</module>
     <module>person-query-service-warrants-intermediary</module>
@@ -57,9 +57,5 @@
     <module>subscription-notification-service-intermediary-common</module>
     <module>subscription-notification-service-intermediary</module>
     <module>vehicle-search-request-service-intermediary</module>
-    <module>arrest-reporting-service-intermediary-tests</module>
-    <module>disposition-reporting-service-intermediary-tests</module>
-    <module>incident-reporting-integration-tests</module>
-    <module>federated-query-integration-tests</module>
   </modules>
 </project>
