@@ -683,6 +683,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 		final String IDENTIFICATION_SUBJECT_UCN_CONSOLIDATION = "UPDATE identification_subject "
 				+ "SET ucn = :newUcn "
 				+ "WHERE ucn = :currentUcn";
+		final String SUBSEQUENT_RESULTS_UCN_CONSOLIDATION = "UPDATE subsequent_results "
+				+ "SET ucn = :newUcn "
+				+ "WHERE ucn = :currentUcn";
 		
 		Map<String, String> paramMap = new HashMap<String, String>(); 
 		paramMap.put("currentUcn", currentUcn);
@@ -690,6 +693,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		this.namedParameterJdbcTemplate.update(FBI_SUBSCRIPTION_UCN_CONSOLIDATION, paramMap); 
 		this.namedParameterJdbcTemplate.update(IDENTIFICATION_SUBJECT_UCN_CONSOLIDATION, paramMap); 
+		this.namedParameterJdbcTemplate.update(SUBSEQUENT_RESULTS_UCN_CONSOLIDATION, paramMap); 
 	}
 
 	@Override

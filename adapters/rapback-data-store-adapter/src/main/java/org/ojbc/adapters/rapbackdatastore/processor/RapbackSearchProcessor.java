@@ -243,20 +243,21 @@ public class RapbackSearchProcessor {
 		if (currentState == IdentificationTransactionState.Subscribed){
 			appendSubscriptionElement(
 					organizationIdentificationResultsSearchResultElement, identificationTransaction.getSubscription());
-			appendSubsequentResultsAvailableIndicator(
-					organizationIdentificationResultsSearchResultElement,
-					identificationTransaction.getHavingSubsequentResults());
 		}
+		appendSubsequentResultsAvailableIndicator(
+				organizationIdentificationResultsSearchResultElement,
+				identificationTransaction.getHavingSubsequentResults());
 	}
 
 	private void appendSubsequentResultsAvailableIndicator(
 			Element organizationIdentificationResultsSearchResultElement,
 			Boolean havingSubsequentResults) {
-		Element subsequentResultsAvailableIndicator = 
-				XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
-						NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
-						"SubsequentResultsAvailableIndicator");
-		subsequentResultsAvailableIndicator.setTextContent(havingSubsequentResults.toString());
+		
+			Element subsequentResultsAvailableIndicator = 
+					XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
+							NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+							"SubsequentResultsAvailableIndicator");
+			subsequentResultsAvailableIndicator.setTextContent(havingSubsequentResults.toString());
 	}
 
 	private void appendSubscriptionElement(
