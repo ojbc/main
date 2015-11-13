@@ -763,6 +763,9 @@ a.grayButton:hover {
 	font-size: 11px;
 }
 
+.ui-widget {
+	font-size:small;
+}
 /**************************** Tabs *********************************/
 #searchTabs #simpleSearchTab p {
 	font-size: 12px;

@@ -164,63 +164,87 @@
             return false;
         });
     	
+    	$('#searchResultsTable').on('click', 'a.subsequentResultConfirmation',function() {
+    		var recordStatus = $(this).parent().prev().text();
+    		var subsequentResultButton = $(this).next();
+    		var subscriptionId = $(this).attr("id");
+    		var row = $(this).parent().parent();
+		    $( "#dialog-confirm-authorization" ).dialog({
+		    	  position: { my: "center center", at: "center center", of: row },
+			      resizable: true,
+			      width:400,
+			      height:150,
+			      modal: true,
+			      buttons: {
+			        "Yes": function() {
+			        	subsequentResultButton.click();
+				        $( this ).dialog( "close" );
+			        },
+			        "No": function() {
+		            	if (recordStatus === "Archived" || recordStatus ==="Available for subscription"){
+		            		 $( this ).dialog( "close" );
+		            	}
+		            	else{
+						    $( "#dialog-confirm-unsubscribe" ).dialog({
+						    	 position: { my: "center center", at: "center center", of: row },
+							     resizable: true,
+							     width:500,
+							     height:150,
+							     modal: true,
+							     buttons: {
+							         "Continue": function() {
+							              unsubscribe(subscriptionId);
+								          $( this ).dialog( "close" );
+							         },
+		            				 "Cancel" : function(){
+		            					  $( this ).dialog( "close" );
+		            				 }
+		            			 }
+							});		            		
+	            			$( this ).dialog( "close" );
+		            	}
+			        }
+			     }
+		    });   		
+    	});
+    	
+    	
     	$('#searchResultsTable').on('click', 'a.subsequentResults',function() {
-    		var status = $(this).parent().prev().text();
-    		var authorized = confirm("Are you still authorized to view criminal history details for this individual? ");
-    		
-    		if (authorized){
-	            var url = this.href;
-	            var dialog = $('<div style="display:none"  title="Identification Subsequent Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-				var dlgWidth = $(document).width() * .8;
-				var dlgHeight = $(window).height() * .6;
-	            dialog.dialog({
-	                width: dlgWidth,
-	                height: dlgHeight,
-	                close: function(event, ui) {
-	                    $('#modalIframe').attr('src', '');
-	                    dialog.remove();
-	                },
-	                open: function(event,ui){
-						$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-						$("#modalIframeSpinner").width($("#modalIframe").width());
-						$("#modalIframeSpinner").show();
-	
-			     		$("#modalIframe").load( function() {
-			     			//alert("Load event fired");
-							$("#modalIframeSpinner").hide();				
-													
-							$(this).css('height', $(this).contents().find("body").height() + 16);
-						});
-			     		
-	                 	$('#modalIframe').attr('src', url);		     		
-	
-	                },
-	                position: {
-	                           my: "center",
-	                           at: "center",
-	                           of: window
-	                          },
-	                modal: true
-	            });
-	
-	            return false;
-            }
-            else {
-            	if (status === "Archived" || status ==="Available for subscription"){
-            		return false; 
-            	}
-            	else{
-            		var unsubscribeConfirmation = confirm("You have indicated that you are no longer authorized to "
-            			+ "view criminal history for this individual, your subscription will now be cancelled");
-            		if (unsubscribeConfirmation){
-            			unsubscribe($(this).attr("id"));
-						return false;
-            		}
-            		else{
-            			return false; 
-            		} 
-            	}
-    		}
+            var url = this.href;
+            var dialog = $('<div style="display:none"  title="Identification Subsequent Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
+			var dlgWidth = $(document).width() * .8;
+			var dlgHeight = $(window).height() * .6;
+            dialog.dialog({
+                width: dlgWidth,
+                height: dlgHeight,
+                close: function(event, ui) {
+                    $('#modalIframe').attr('src', '');
+                    dialog.remove();
+                },
+                open: function(event,ui){
+					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
+					$("#modalIframeSpinner").width($("#modalIframe").width());
+					$("#modalIframeSpinner").show();
+
+		     		$("#modalIframe").load( function() {
+		     			//alert("Load event fired");
+						$("#modalIframeSpinner").hide();				
+												
+						$(this).css('height', $(this).contents().find("body").height() + 16);
+					});
+		     		
+                 	$('#modalIframe').attr('src', url);		     		
+
+                },
+                position: {
+                           my: "center",
+                           at: "center",
+                           of: window
+                          },
+                modal: true
+            });
+
+            return false;
         });
 
 		function unsubscribe(id){
@@ -256,6 +280,12 @@
     
 </div>
 
-
+<div id="dialog-confirm-authorization" title="Are you authorized?" class="hidden">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you still authorized to view criminal history details for this individual?</p>
+</div>
+<div id="dialog-confirm-unsubscribe" title="Unsubsribe?" class="hidden">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+  You have indicated that you are no longer authorized to view criminal history for this individual, your subscription will now be cancelled.</p>
+</div>
 
 
