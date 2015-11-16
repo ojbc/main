@@ -32,5 +32,9 @@
 		</div>					
 	</form>
 	<input type="button" id="clearFilterButton" style="margin:4px 0" class="blueButton" value="CLEAR"></input>
+	<div class="horizontalDivide"/>
 	
+	<p id="checkbox-subsequentReuslts">
+		<input type="checkbox" name="hasSubsequentResults" id="hasSubsequentResults" value="hasSubsequentResults"><span class="fieldText" >Has Subsequent Results</span>
+	</p>
 </div>

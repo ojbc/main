@@ -75,6 +75,9 @@
 		<xsl:variable name="systemID" select="intel:SystemIdentifier"/>
 		<xsl:variable name="rapbackId" select="intel:SystemIdentifier/nc:IdentificationID"/>
 		<tr>
+			<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
+				<xsl:attribute name="class">subsequentResults</xsl:attribute>
+			</xsl:if>
 			<td><xsl:apply-templates select="child::oirsr-ext:IdentifiedPerson/nc:PersonName" mode="primaryName"></xsl:apply-templates></td>
 			<td>
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
