@@ -17,12 +17,15 @@
 <!DOCTYPE html>
 <script type="text/javascript">
  
-	/* Custom filtering function which will search data in column four between two values */
+	/* Custom filtering function which will search data in column 5 among filtered values */
 	$.fn.dataTable.ext.search.push(
 	    function( settings, data, dataIndex ) {
+	    	//console.log(settings.aoData[dataIndex].nTr.className);
+	    	//console.log(data);
 	        var filter = $('#rapbacksFilter').val();
 	        var status = data[5] ; // use data for the status column
-	 
+	 		
+	 		//console.log(filter);
 	        if ( ( !filter || filter ==='') ||
 	             ( filter != status ))
 	        {
@@ -33,7 +36,6 @@
 	);
 	
 	$(function() {
-	  
 		$( document ).tooltip();
 		
 		optTable = {
@@ -44,13 +46,13 @@
    			 },
 			"columnDefs": [{
 				targets: [ 6 ],
-			    searchable: false, 
+				type: "html",
+				searchable: true, 
 			    sortable: false
 			} ]
         };
 		
 		var oTable = $("#searchResultsTable").DataTable( optTable);
-		
 		$('#filterColumn').on("change", '#rapbacksFilter', function() {
         	oTable.draw();
     	} );
@@ -96,15 +98,7 @@
     	
     	function refreshSearchResultsTable(){
     		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
-    		
 				$('#portalContent').html(data);	
-				$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
-					    	
-	    			$('#filterColumn').html(data);
-	    			$('#filterColumn').css('visibility', 'visible');
-	    			 
-	    		}).fail(ojbc.displayFailMessage);
-											
 			}).fail(ojbc.displayFailMessage);
 							    
 			return false;
