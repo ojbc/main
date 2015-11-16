@@ -20,15 +20,16 @@
 	/* Custom filtering function which will search data in column 5 among filtered values */
 	$.fn.dataTable.ext.search.push(
 	    function( settings, data, dataIndex ) {
-	    	//console.log(settings.aoData[dataIndex].nTr.className);
-	    	//console.log(data);
+	    	var hasSubsequentResultsChecked = $('#hasSubsequentResults').is(":checked");
+	 		var className = settings.aoData[dataIndex].nTr.className;
+	 		if (hasSubsequentResultsChecked && className.indexOf("subsequentResults") === -1) {
+	 			return false;
+	 		}
+	 		
 	        var filter = $('#rapbacksFilter').val();
 	        var status = data[5] ; // use data for the status column
-	 		
-	 		//console.log(filter);
 	        if ( ( !filter || filter ==='') ||
-	             ( filter != status ))
-	        {
+	             ( filter != status )){
 	            return true;
 	        }
 	        return false;
@@ -46,19 +47,23 @@
    			 },
 			"columnDefs": [{
 				targets: [ 6 ],
-				type: "html",
-				searchable: true, 
+			    searchable: false, 
 			    sortable: false
 			} ]
         };
 		
 		var oTable = $("#searchResultsTable").DataTable( optTable);
+		
 		$('#filterColumn').on("change", '#rapbacksFilter', function() {
         	oTable.draw();
     	} );
 	  		
 		$('#filterColumn').on("click", '#clearFilterButton', function() {
 			$('#rapbacksFilter').val('');
+        	oTable.draw();
+    	} );
+    	
+		$('#filterColumn').on("change", '#hasSubsequentResults', function() {
         	oTable.draw();
     	} );
     	
