@@ -35,7 +35,9 @@ xmlns:j50="http://release.niem.gov/niem/domains/jxdm/5.0/"
 xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
 xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" 
 xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1">
-	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
+	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>	
+	<xsl:variable name="currentDateTime" select="current-dateTime()"/>
+	<xsl:variable name="currentDateTimeString" select="format-dateTime($currentDateTime, '[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]')" />	 		
 	<xsl:template match="/">
 		<arrest-exch:ArrestReport>
 			<xsl:apply-templates select="pidres-doc:PersonStateIdentificationResults"/>
@@ -47,9 +49,9 @@ xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1">
 				<lexs:PublishMessage>
 					<lexs:PDMessageMetadata>
 						<lexs:LEXSVersion>3.1</lexs:LEXSVersion>
-<!-- 						<lexs:MessageDateTime> -->
-<!-- 							<xsl:value-of select="current-dateTime()"/> -->
-<!-- 						</lexs:MessageDateTime> -->
+  						<lexs:MessageDateTime> 
+  							<xsl:value-of select="$currentDateTimeString"/> 
+  						</lexs:MessageDateTime> 
 						<lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
 					</lexs:PDMessageMetadata>
 					<lexs:DataSubmitterMetadata>
