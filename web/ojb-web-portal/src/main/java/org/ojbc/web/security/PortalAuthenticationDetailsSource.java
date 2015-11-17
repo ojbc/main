@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojb.web.portal.WebPortalConstants;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.security.config.AccessControlServicesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +67,10 @@ public class PortalAuthenticationDetailsSource implements
         Element samlAssertion = (Element)context.getAttribute("samlAssertion");
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
         
+        String principal = (String) context.getAttribute("principal");
         log.info("requireIdentityBasedAccessControl:" + requireIdentityBasedAccessControl);
-        if (requireIdentityBasedAccessControl) {
+        if (requireIdentityBasedAccessControl && !WebPortalConstants.EMPTY_FEDERATION_ID.equals(principal)) {
+        	
             String accessControlResponseString = accessControlServicesConfig
                     .getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
                             UUID.randomUUID().toString(), samlAssertion, policyAccessControlResourceURI);
@@ -85,7 +88,7 @@ public class PortalAuthenticationDetailsSource implements
                 context.setAttribute("accessControlResponse", accessControlResponseString);
             }
         }
-        else {
+        else if (!requireIdentityBasedAccessControl){
             grantedAuthorities.add(rolePortalUser); 
         }
 
