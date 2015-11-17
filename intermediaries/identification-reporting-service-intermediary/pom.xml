@@ -240,6 +240,7 @@
 			<includes>
 				<include>META-INF/spring/**</include>
 				<include>*.*</include>
+				<include>xsl/**.*</include>
 			</includes>
 		</resource>
 		<resource>

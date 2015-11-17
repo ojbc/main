@@ -20,6 +20,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +36,6 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 import org.xml.sax.SAXException;
@@ -54,7 +56,7 @@ public class ArrestReportTransformTest {
 	}	
 	
 	@Test
-	public void arrestReportTransform() throws IOException, SAXException{
+	public void arrestReportTransform() throws IOException, SAXException, ParseException{
 		
 		InputStream intputFileStream = new FileInputStream("src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_criminal.xml");
 		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
@@ -63,7 +65,7 @@ public class ArrestReportTransformTest {
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
 		
 		Map<String, Object> xsltParamMap = getXsltParamMap();
-			
+							
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
 		String expectedXmlString = FileUtils.readFileToString(
@@ -73,32 +75,14 @@ public class ArrestReportTransformTest {
 	}
 	
 	
-	private Map<String, Object> getXsltParamMap(){
+	private Map<String, Object> getXsltParamMap() throws ParseException{
 	
 		Map<String, Object> xsltParamMap = new HashMap<String, Object>();
 		
-//		xsltParamMap.put("rapBackTransactionDate", "2015-07-14");		
-//		xsltParamMap.put("rapBackNotificatonFormat", 3);
-//		xsltParamMap.put("rapBackInStateOptOutIndicator", true);
-//		xsltParamMap.put("rapBackTriggeringEvent", 1);		
-//		xsltParamMap.put("destinationOrganizationORI", "WVIAFIS0Z");
-//		xsltParamMap.put("originatorOrganizationORI", "HI002595Y");
-//		xsltParamMap.put("controlID", "9876500000");
-//		xsltParamMap.put("domainVersion", "EBTS 10.0");
-//		xsltParamMap.put("domainName", "NORAM");
-//		xsltParamMap.put("transactionMajorVersion", "05");
-//		xsltParamMap.put("transactionMinorVersion", "00");
-//		xsltParamMap.put("rapSheetRequestIndicator", "true");
-//		xsltParamMap.put("rapBackRecipient", "HI002595Y");
-//		xsltParamMap.put("controllingAgencyID", "HI002595Y");
-//		xsltParamMap.put("originatingAgencyCaseNumber", "HCJDC-CASE");
-//		xsltParamMap.put("nativeScanningResolution", "00.00");
-//		xsltParamMap.put("nominalTransmittingResolution", "00.00");
-//		xsltParamMap.put("transactionContentSummaryContentFirstRecordCategoryCode", "1");
-//		xsltParamMap.put("transactionContentSummaryContentRecordCountCriminal", "01");					
-//		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");				
-//		xsltParamMap.put("rapBackDisclosureIndicator", "false");
-//		xsltParamMap.put("civilRapBackSubscriptionTerm", "L");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Date dCurrentDate = sdf.parse("0001-12-25T04:30:07");
+		String sCurrentDate = sdf.format(dCurrentDate);				
+		xsltParamMap.put("currentDate", sCurrentDate);
 		
 		return xsltParamMap;
 	}
