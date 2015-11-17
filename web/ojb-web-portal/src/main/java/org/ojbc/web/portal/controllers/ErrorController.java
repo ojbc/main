@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojb.web.portal.WebPortalConstants;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.security.config.AccessControlServicesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class ErrorController {
 	    if (authentication != null) {
 	        model.put("samlAssertion", authentication.getCredentials());
 	    }
+	    
 		SecurityContextHolder.getContext().setAuthentication(null);
 		
 		Map<String, Object> params = new HashMap<String, Object>(); 
@@ -82,20 +84,28 @@ public class ErrorController {
             model.put("accessControlResponse", convertPersonSearchResult);
 		}
 		else {
-		    model.put("accessControlResponse", getErrorMessage());
+		    model.put("accessControlResponse", getErrorMessage(user));
 		}
 		
 		return "/error/403";
  
 	}
 
-    private String getErrorMessage() {
+    private String getErrorMessage(Principal user) {
         StringBuilder sb = new StringBuilder(128); 
-        sb.append( "LOGIN ERROR: Failed to get access control response. Please contact your Network Administrator or Help Desk"); 
+        
+        if (user!= null && WebPortalConstants.EMPTY_FEDERATION_ID.equals(user.getName())){
+        	sb.append( "Login Error: One or more required user attributes are missing or not valid,  ");
+        }
+        else {
+        	sb.append( "LOGIN ERROR: Failed to get access control response. ");
+        }
+        sb.append("Please contact your Network Administrator or Help Desk ");
         if (StringUtils.isNotBlank(helpDeskContactInfo)) {
             sb.append(" at " + helpDeskContactInfo ); 
         }
-        sb.append(" .");
+        
+        sb.append(" and provide this error message.");
         return sb.toString();
     }
 	

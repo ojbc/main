@@ -18,6 +18,8 @@ package org.ojbc.web.security;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
+import org.ojb.web.portal.WebPortalConstants;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
@@ -25,7 +27,7 @@ import org.w3c.dom.Element;
 
 public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter {
     
-    private SamlService samlService;
+	private SamlService samlService;
     
     @Override
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
@@ -37,12 +39,17 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
             federationId = XmlUtils.xPathStringSearch(samlAssertion,
                         "/saml2:Assertion/saml2:AttributeStatement[1]/"
                         + "saml2:Attribute[@Name='gfipm:2.0:user:FederationId']/saml2:AttributeValue");
+            
             } catch (Exception e) {
                 e.printStackTrace();
             } 
 
         }
-        return federationId;
+        
+        String principal = StringUtils.isNotBlank(federationId)? federationId:WebPortalConstants.EMPTY_FEDERATION_ID;
+        
+        request.setAttribute("principal", principal);
+        return principal; 
     }
 
     protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
