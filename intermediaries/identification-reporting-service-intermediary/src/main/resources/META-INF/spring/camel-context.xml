@@ -73,36 +73,18 @@
 			
 		</camel:route>
 
-		
 		<camel:route errorHandlerRef="identifcationReportErrorHandler" id="CallIdentificationRecordingServiceRoute">
-		
 			<camel:from uri="direct:callIdentificationRecordingService" />
 			
 			<camel:log message="Inside route to call Identification Recording service"/>
 			
-			<camel:to uri="identificationRecordingServiceEndpoint" />
-			
+			<camel:to
+				uri="identificationRecordingServiceEndpoint" />
 			<log message="Called Identification Recording service" />
-			
 		</camel:route>
 		
-		
-		<!-- TODO call this transformation from the appropriate place -->
-		<route id="arrestReportTransform_Route">
-		
-			<from uri="direct:arrestReportTransform"/>
-			
-			<to uri="bean:identificationReportProcessor?method=setCurrentDate"/>
-			
-			<log message = "\n\n\n Transforming with arrestReportTransform.xsl... \n\n\n"/>
-		
-			<to uri="xslt:xsl/arrestReportTransform.xsl"/>
-		</route>						
-		
-						
 		<!-- Identification Reporting Service Handler -->
 		<camel:route id="identificationReportingResponseHandlerRoute">
-		
 			<camel:from uri="identificationReportingResponseServiceEndpoint" />
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
