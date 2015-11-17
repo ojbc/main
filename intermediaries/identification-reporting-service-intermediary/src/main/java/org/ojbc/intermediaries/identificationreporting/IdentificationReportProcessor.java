@@ -16,7 +16,9 @@
  */
 package org.ojbc.intermediaries.identificationreporting;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.camel.Exchange;
@@ -32,6 +34,7 @@ public class IdentificationReportProcessor {
 
 	private static final String IDENTIFICATION_RECORDING_OPERATION_NAMESPACE=
 			"http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0";
+	
 	private static final List<String> operationNames = 
 			Arrays.asList(new String[]{"ReportPersonStateIdentificationRequest","ReportPersonStateIdentificationResults", "ReportPersonFederalIdentificationRequest", "ReportPersonFederalIdentificationResults"});
 	
@@ -48,8 +51,19 @@ public class IdentificationReportProcessor {
 			log.info("The operation Name '" +StringUtils.trimToEmpty(operationName) +  "' is not correct, the message will not be forwarded." );
 		}	
 
-		exchange.getIn().setHeader("callIdentificationRecordingService", result);
-			
+		exchange.getIn().setHeader("callIdentificationRecordingService", result);			
+	}
+	
+	
+	public void setCurrentDate(Exchange exchange){
+		
+		Date dCurrentDate = new Date();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		
+		String sCurrentDate = sdf.format(dCurrentDate);
+		
+		exchange.getIn().setHeader("currentDate", sCurrentDate);
 	}
 	
 }
