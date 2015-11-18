@@ -50,7 +50,7 @@
 	<jodatime-version>1.6.2</jodatime-version>
 	<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
-	<ojb-fedquery-common-version>[1.0.2,)</ojb-fedquery-common-version>
+	<ojb-fedquery-common-version>[1.0.3,)</ojb-fedquery-common-version>
 	<ojb-camel-common>1.0.0</ojb-camel-common>
 	<ojb-common-version>[2.0.1,)</ojb-common-version>
 	<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
@@ -233,10 +233,7 @@
 		<resource>
 			<directory>${basedir}/src/main/resources</directory>
 			<includes>
-				<include>META-INF/spring/**</include>
-				<include>xslt/**/*.*</include>
-				<include>erConfig/**</include>
-				<include>*.*</include>
+				<include>**/*.*</include>
 			</includes>
 		</resource>
 		<resource>

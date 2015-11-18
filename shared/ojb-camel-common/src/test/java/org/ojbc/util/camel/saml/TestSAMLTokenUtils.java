@@ -133,25 +133,25 @@ public class TestSAMLTokenUtils {
 	@Test
 	public void testCreateAssertionWithCustomAttributes() throws Exception
 	{
-        Map<String, String> customAttributes = new HashMap<String, String>();
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
         
-        customAttributes.put("gfipm:2.0:user:EmployeePositionName", "detective");
-        customAttributes.put("gfipm:2.0:user:SurName", "smith");
-        customAttributes.put("gfipm:ext:user:FederatedQueryUserIndicator", "false");
-        customAttributes.put("gfipm:2.0:user:EmployerName", "DOJ");
-        customAttributes.put("gfipm:2.0:user:GivenName","Joe");
-        customAttributes.put("gfipm:2.0:user:CommonName","Joe Smith");
+        customAttributes.put(SamlAttribute.EmployeePositionName, "detective");
+        customAttributes.put(SamlAttribute.SurName, "smith");
+        customAttributes.put(SamlAttribute.FederatedQueryUserIndicator, "false");
+        customAttributes.put(SamlAttribute.EmployerName, "DOJ");
+        customAttributes.put(SamlAttribute.GivenName,"Joe");
+        customAttributes.put(SamlAttribute.CommonName,"Joe Smith");
         
-        customAttributes.put("gfipm:ext:user:CriminalJusticeEmployerIndicator","false");
-        customAttributes.put("gfipm:ext:user:LawEnforcementEmployerIndicator","false");
-        customAttributes.put(SamlAttribute.SupervisoryRoleIndicator.getAttibuteName(),"true");
-        customAttributes.put(SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator.getAttibuteName(),"true");
-        customAttributes.put("gfipm:2.0:user:FederationId","FedID");
-        customAttributes.put("gfipm:2.0:user:TelephoneNumber","999 999-9999");
-        customAttributes.put("gfipm:2.0:user:EmployerSubUnitName","sub");
-        customAttributes.put("gfipm:2.0:user:EmailAddressText","1@1.com");
-        customAttributes.put("gfipm:2.0:user:EmployerORI","ORI");
-        customAttributes.put("gfipm:2.0:user:IdentityProviderId","HIJIS");
+        customAttributes.put(SamlAttribute.CriminalJusticeEmployerIndicator,"false");
+        customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator,"false");
+        customAttributes.put(SamlAttribute.SupervisoryRoleIndicator,"true");
+        customAttributes.put(SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator,"true");
+        customAttributes.put(SamlAttribute.FederationId,"FedID");
+        customAttributes.put(SamlAttribute.TelephoneNumber,"999 999-9999");
+        customAttributes.put(SamlAttribute.EmployerSubUnitName,"sub");
+        customAttributes.put(SamlAttribute.EmailAddressText,"1@1.com");
+        customAttributes.put(SamlAttribute.EmployerORI,"ORI");
+        customAttributes.put(SamlAttribute.IdentityProviderId,"HIJIS");
 
 		//Add SAML token to request call
 		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth", SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);

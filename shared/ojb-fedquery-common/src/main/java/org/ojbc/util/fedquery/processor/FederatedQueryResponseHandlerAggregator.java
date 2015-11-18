@@ -16,8 +16,11 @@
  */
 package org.ojbc.util.fedquery.processor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.CxfPayload;
@@ -26,6 +29,8 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.fedquery.FederatedQueryProfile;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class FederatedQueryResponseHandlerAggregator {
 
@@ -38,6 +43,8 @@ public class FederatedQueryResponseHandlerAggregator {
 		List<Exchange> grouped = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);
 		
         StringBuffer sb = null;
+        
+        List<String> endpointsThatDidNotRespond = new ArrayList<String>();
         
 		for (Exchange exchange : grouped)
 		{
@@ -86,6 +93,64 @@ public class FederatedQueryResponseHandlerAggregator {
 			
 		}	
 		
+		String aggregatedCompletedBy = (String)groupedExchange.getProperty(Exchange.AGGREGATED_COMPLETED_BY);
+		
+		//When there is a timeout, find out which endpoint timed out
+		if (aggregatedCompletedBy != null && aggregatedCompletedBy.equals("timeout"))
+		{
+			log.info("Federated Query Completed by timeout.");
+			
+			Map<String, Boolean> endpointsCalled = null;
+			
+			Exchange timerExchange = grouped.get(0);
+			
+			//Look in the timer exchange for the original endpoints called
+			if (timerExchange.getIn().getBody().getClass().getName().equals("java.lang.String") && timerExchange.getIn().getBody().equals("START_QUERY_TIMER"))
+			{
+				endpointsCalled = returnEndpointsCalled(timerExchange);   
+			}	
+			
+			//Iterate through the exchanges and mark in the map which queries returned a response
+			if (endpointsCalled != null)
+			{
+				for (Exchange exchange : grouped)
+				{
+					if (exchange.getIn().getBody().getClass().getName().equals("org.apache.camel.component.cxf.CxfPayload"))
+					{
+						String searchProfileInResponseExchange = (String) exchange.getIn().getHeader("searchProfile");
+						
+						log.info("Response Recieved from: " + searchProfileInResponseExchange);
+						
+						//We put the key/value in the hashmap and it will indicate that we received a response
+						//It will overwrite the existing entry in the map
+						endpointsCalled.put(searchProfileInResponseExchange, true);
+					}	
+				}	
+			}
+			
+			//We add the endpoints that did not respond to a list
+			//The list is then available as a Camel header
+			for(Entry entry: endpointsCalled.entrySet()) 
+			{
+				  // get key
+				  String searchProfileInResponseExchange = (String)entry.getKey();
+				  // get value
+				  Boolean responseReceived = (Boolean) entry.getValue();
+				  
+				  if (!responseReceived)
+				  {
+					  log.info(searchProfileInResponseExchange + " did not return a response.");
+					  endpointsThatDidNotRespond.add(searchProfileInResponseExchange);
+				  }	  
+			}
+			
+			if (!endpointsThatDidNotRespond.isEmpty())
+			{
+				groupedExchange.getIn().setHeader("endpointsThatDidNotRespond", endpointsThatDidNotRespond);
+			}	
+			
+		}
+			
 		if (sb != null)
 		{
 			sb.append("</OJBAggregateResponseWrapper>");
@@ -95,13 +160,44 @@ public class FederatedQueryResponseHandlerAggregator {
 			//We can copy the operation name from any exchange but the first exchange is the 'start timer' message.
 			Exchange lastExchange = grouped.get(grouped.size() -1);
 			groupedExchange.getIn().setHeader("operationName", lastExchange.getIn().getHeader("operationName"));
+
 		}	
 		else
 		{
 			groupedExchange.getIn().setBody("<OJBAggregateResponseWrapper></OJBAggregateResponseWrapper>");
 		}	
-	    
+
+	}
+
+	/**
+	 * This method will return a map containing the endpoints called.  It will set the boolean value
+	 * to false indicating that a response has not been received for them.  We will later iterate
+	 * through the response exchanges to see which endpoints did return responses.
+	 * 
+	 * @param exchange
+	 * @return
+	 */
+
+	protected Map<String, Boolean> returnEndpointsCalled(Exchange exchange) {
+		NodeList federatedQueryEndpointsNodeList = (NodeList)exchange.getIn().getHeader("federatedQueryEndpointsNodeList");
 		
+		Map<String, Boolean> endpointsCalled = new HashMap<String, Boolean>();
+		
+		if (federatedQueryEndpointsNodeList != null && federatedQueryEndpointsNodeList.getLength() > 0) 
+		{
+		    for (int i = 0; i < federatedQueryEndpointsNodeList.getLength(); i++) 
+		    {
+		        if (federatedQueryEndpointsNodeList.item(i).getNodeType() == Node.ELEMENT_NODE) 
+		        {
+		            Element el = (Element) federatedQueryEndpointsNodeList.item(i);
+		            log.info("Endpoint in original request: " + el.getTextContent());
+		            
+		            endpointsCalled.put(el.getTextContent(), false);
+		        }
+		    }
+		}
+		
+		return endpointsCalled;
 	}
 	
 

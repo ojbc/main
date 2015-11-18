@@ -36,6 +36,9 @@
 	</b-2:Filter>
 	<b-2:SubscriptionPolicy />
 	<submsg-doc:SubscriptionMessage>
+		<submsg-ext:SubscriptionRelatedCaseIdentification>
+			<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
+		</submsg-ext:SubscriptionRelatedCaseIdentification>
 		<submsg-ext:Subject>
 			<nc20:PersonName>
 				<nc20:PersonGivenName>John</nc20:PersonGivenName>
@@ -63,5 +66,6 @@
 				<nc20:Date>2015-06-20</nc20:Date>
 			</nc20:EndDate>
 		</nc20:DateRange>
+		<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
 	</submsg-doc:SubscriptionMessage>
 </b-2:Subscribe>

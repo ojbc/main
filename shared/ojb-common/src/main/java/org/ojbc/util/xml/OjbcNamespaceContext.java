@@ -68,6 +68,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_SUB_VALID_MESSAGE = "http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0";
 	public static final String NS_SUB_VALID_MESSAGE_PREFIX = "svm";
+	
+	public static final String NS_SUB_MODIFY_MESSAGE = "http://ojbc.org/IEPD/Exchange/SubscriptionModificationMessage/1.0";
+	public static final String NS_SUB_MODIFY_MESSAGE_PREFIX = "smm";
 
 	public static final String NS_SAML_ASSERTION = "urn:oasis:names:tc:SAML:2.0:assertion";
 	public static final String NS_PREFIX_SAML_ASSERTION = "saml2";
@@ -281,8 +284,16 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PREFIX_LEXSDIGEST = "lexsdigest";
 	public static final String NS_LEXSDIGEST = "http://usdoj.gov/leisp/lexs/digest/3.1";
 	public static final String NS_PREFIX_LEXSLIB = "lexslib";
+	
+	public static final String NS_ULEX = "http://ulex.gov/ulex/2.0";
+	public static final String NS_PREFIX_ULEX = "ulex";
+
+	public static final String NS_ULEX_SR = "http://ulex.gov/searchretrieve/2.0";
+	public static final String NS_PREFIX_ULEX_SR = "ulexsr";
+	
 	public static final String NS_LEXSLIB = "http://usdoj.gov/leisp/lexs/library/3.1";
 	public static final String NS_PREFIX_NDEXIA = "ndexia";
+	
 	public static final String NS_NDEXIA = "http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1";
 	public static final String NS_PREFIX_INC_EXT = "inc-ext";
 	public static final String NS_INC_EXT = "http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0";
@@ -453,6 +464,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     
     public static final String NS_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH = "http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0";
     public static final String NS_PREFIX_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH = "subvresp-exch";
+    
+    public static final String NS_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH = "http://ojbc.org/IEPD/Exchange/Subscription_Modification_Response/1.0";
+    public static final String NS_PREFIX_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH = "submresp-exch";
     
     public static final String NS_SUBSCRIPTION_SEARCH_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0";
     public static final String NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT = "ssreq-ext";
@@ -708,6 +722,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_SUB_VALID_MESSAGE_PREFIX, NS_SUB_VALID_MESSAGE);
 		uriToPrefixMap.put(NS_SUB_VALID_MESSAGE, NS_SUB_VALID_MESSAGE_PREFIX);
+		
+		prefixToUriMap.put(NS_SUB_MODIFY_MESSAGE_PREFIX, NS_SUB_MODIFY_MESSAGE);
+		uriToPrefixMap.put(NS_SUB_MODIFY_MESSAGE, NS_SUB_MODIFY_MESSAGE_PREFIX);
 
 		prefixToUriMap.put(NS_PREFIX_INCIDENT_QUERY_REQUEST_DOC, NS_INCIDENT_QUERY_REQUEST_DOC);
 		uriToPrefixMap.put(NS_INCIDENT_QUERY_REQUEST_DOC, NS_PREFIX_INCIDENT_QUERY_REQUEST_DOC);
@@ -736,6 +753,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_LEXSDIGEST, NS_PREFIX_LEXSDIGEST);
 		prefixToUriMap.put(NS_PREFIX_LEXSLIB, NS_LEXSLIB);
 		uriToPrefixMap.put(NS_LEXSLIB, NS_PREFIX_LEXSLIB);
+
+		prefixToUriMap.put(NS_PREFIX_ULEX, NS_ULEX);
+		uriToPrefixMap.put(NS_ULEX, NS_PREFIX_ULEX);
+
+		prefixToUriMap.put(NS_PREFIX_ULEX_SR, NS_ULEX_SR);
+		uriToPrefixMap.put(NS_ULEX_SR, NS_PREFIX_ULEX_SR);
+		
 		prefixToUriMap.put(NS_PREFIX_NDEXIA, NS_NDEXIA);
 		uriToPrefixMap.put(NS_NDEXIA, NS_PREFIX_NDEXIA);
 		prefixToUriMap.put(NS_PREFIX_INC_EXT, NS_INC_EXT);
@@ -990,6 +1014,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    
 		prefixToUriMap.put(NS_PREFIX_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH, NS_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH);
 	    uriToPrefixMap.put(NS_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH, NS_PREFIX_SUBSCRIPTION_VALIDATION_RESPONSE_EXCH);
+	    
+	    prefixToUriMap.put(NS_PREFIX_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH, NS_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH);
+	    uriToPrefixMap.put(NS_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH, NS_PREFIX_SUBSCRIPTION_MODIFICATION_RESPONSE_EXCH);
 	    
 		prefixToUriMap.put(NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT, NS_SUBSCRIPTION_SEARCH_REQUEST_EXT);
 	    uriToPrefixMap.put(NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT);

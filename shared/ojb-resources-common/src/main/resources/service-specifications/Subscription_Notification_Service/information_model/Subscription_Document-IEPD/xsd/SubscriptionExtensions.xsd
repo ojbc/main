@@ -21,7 +21,8 @@
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
 		schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1"
@@ -30,36 +31,33 @@
 		schemaLocation="../../Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
 		schemaLocation="../../Subset/niem/structures/2.0/structures.xsd" />
-
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include"
+		schemaLocation="./include_schema.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime"
+		schemaLocation="./xmime_schema.xsd"/>
 	<xsd:complexType name="SubscriptionType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="submsg-ext:SubscriptionRelatedCaseIdentification" minOccurs="0"/>
-					<xsd:element maxOccurs="1" minOccurs="1" ref="submsg-ext:Subject" />
-					<xsd:element maxOccurs="unbounded" minOccurs="1"
-						ref="nc:ContactEmailID">
+					<xsd:element ref="submsg-ext:Subject" />
+					<xsd:element maxOccurs="unbounded" minOccurs="1" ref="nc:ContactEmailID">
 						<xsd:annotation>
-							<xsd:documentation>An electronic mailing address by which a
-								person or organization may be contacted.
-							</xsd:documentation>
+							<xsd:documentation>An electronic mailing address by which a person or organization may be contacted.</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
 					<xsd:element maxOccurs="1" minOccurs="1" ref="submsg-ext:SystemName" />
 					<xsd:element maxOccurs="1" minOccurs="0" ref="nc:Case">
 						<xsd:annotation>
-							<xsd:documentation>An aggrxegation of information about a set of
-								related activities and events.
-							</xsd:documentation>
+							<xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
-						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification" minOccurs="0" />
 					<xsd:element ref="nc:DateRange" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" minOccurs="0" />
-					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -67,35 +65,31 @@
 	<xsd:complexType name="UnsubscriptionType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
-				<!-- We need the choice here because unsubscriptions happen differently 
-					for automatic and manual subscriptions -->
+				<!-- We need the choice here because unsubscriptions happen differently for automatic and manual subscriptions -->
 				<xsd:choice>
 					<xsd:sequence>
 						<xsd:element maxOccurs="1" minOccurs="0" ref="submsg-ext:Subject" />
-						<xsd:element maxOccurs="unbounded" minOccurs="0"
-							ref="nc:ContactEmailID">
+						<xsd:element maxOccurs="unbounded" minOccurs="0" ref="nc:ContactEmailID">
 							<xsd:annotation>
-								<xsd:documentation>An electronic mailing address by which a
-									person
-									or organization may be contacted.
+								<xsd:documentation>An electronic mailing address by which a person or organization may be contacted.
 								</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element maxOccurs="1" minOccurs="0" ref="submsg-ext:SystemName" />
 						<xsd:element maxOccurs="1" minOccurs="0" ref="nc:Case">
 							<xsd:annotation>
-								<xsd:documentation>An aggregation of information about a set of
-									related activities and events.
-								</xsd:documentation>
+								<xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
-						<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
-							minOccurs="0" />
+						<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification" minOccurs="0" />
+						<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 						<xsd:element ref="nc:DateRange" minOccurs="0" />
-						<xsd:element ref="submsg-ext:SubscriptionFBIIdentification" minOccurs="0" />
+						<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 					</xsd:sequence>
 					<xsd:sequence>
 						<xsd:element ref="submsg-ext:SubscriptionIdentification" />
+						<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
+						<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 					</xsd:sequence>
 				</xsd:choice>
 			</xsd:extension>
@@ -106,15 +100,28 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" />
-					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification" minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FingerprintDocumentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a fingerprint document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="xop:Include"/>
+				</xsd:sequence>
+				<xsd:attribute ref="xmime:contentType"/>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="SubscriptionIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identifier assigned to a subscription.
-			</xsd:documentation>
+			<xsd:documentation>A unique identifier assigned to a subscription by the system that manages subscriptions.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionFBIIdentification" type="nc:IdentificationType">
@@ -124,12 +131,9 @@
 	</xsd:element>
 	<xsd:element name="Subject" type="j:PersonType" />
 	<xsd:element name="SystemName" type="nc:TextType" />
-	<xsd:element name="SubscriptionQualifierIdentification"
-		type="nc:IdentificationType">
+	<xsd:element name="SubscriptionQualifierIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>An identifier for a subscription, provided by the
-				subscribing system.
-			</xsd:documentation>
+			<xsd:documentation>An identifier for a subscription, provided by the entity requesting a subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionReasonRepresentation" abstract="true">
@@ -210,6 +214,13 @@
 			<xsd:documentation>A subscription created by the Federal Bureau of Investigation that is related to a specific State subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
+	<xsd:element name="FBISubscription" type="submsg-ext:FBISubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A subscription with the FBI.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
 	<xsd:complexType name="FBISubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a subscription created by the Federal Bureau of Investigation.</xsd:documentation>
@@ -219,15 +230,58 @@
 				<xsd:sequence>
 					<xsd:element ref="nc:DateRange" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification"/>
-					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation"/>
+					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionTerm" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	
+	<xsd:complexType name="SubscriptionModificationMessageType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a request to modify an existing subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="submsg-ext:Subject"/>
+					<xsd:element ref="submsg-ext:FBISubscription" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:SubscriptionModification"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SubscriptionModificationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for modifications that are to be applied to an existing subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="nc:DateRange" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscriptionModification" type="submsg-ext:SubscriptionModificationType">
+		<xsd:annotation>
+			<xsd:documentation>A modification to a subscription</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		
 	<xsd:element name="SubscriptionTerm" type="j:TermType">
 		<xsd:annotation>
 			<xsd:documentation>The term for which a subscription is active.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintDocumentRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for a fingerprint document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintDocument" type="submsg-ext:FingerprintDocumentType" substitutionGroup="submsg-ext:FingerprintDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document that contains a person's fingerprint.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
