@@ -38,6 +38,22 @@
   <xsd:import schemaLocation="../../unece_rec20-misc/2.0/unece_rec20-misc.xsd" namespace="http://niem.gov/niem/unece_rec20-misc/2.0"/>
   <xsd:import schemaLocation="../../usps_states/2.0/usps_states.xsd" namespace="http://niem.gov/niem/usps_states/2.0"/>
   <xsd:import schemaLocation="../../ut_offender-tracking-misc/2.0/ut_offender-tracking-misc.xsd" namespace="http://niem.gov/niem/ut_offender-tracking-misc/2.0"/>
+  <xsd:complexType name="ActivityDocumentAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between an activity and a document.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:ActivityReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="ActivityInvolvedPersonAssociationType">
     <xsd:annotation>
       <xsd:documentation>A data type for an association between an activity and a person involved in that activity.</xsd:documentation>
@@ -1141,6 +1157,7 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:MeasureValue" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:MeasureUnitText" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -1364,6 +1381,7 @@
     <xsd:complexContent>
       <xsd:extension base="nc:AssociationType">
         <xsd:sequence>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:ConveyanceReference" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
@@ -2055,6 +2073,11 @@
   <xsd:element name="ActivityDisposition" type="nc:DispositionType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A result or outcome of an activity.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ActivityDocumentAssociation" type="nc:ActivityDocumentAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between an activity and a document.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
@@ -3678,6 +3701,11 @@
       <xsd:appinfo>
         <i:Base i:name="MeasureValue"/>
       </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="MeasureUnitText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A unit that qualifies the measurement value.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="MeasureValue" abstract="true">

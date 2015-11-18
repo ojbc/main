@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -18,8 +19,9 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>org.ojbc.build</groupId>
-  <artifactId>ojb-shared-aggregate</artifactId>
+  <artifactId>ojb-adapters-integration-tests-aggregate</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
 
@@ -30,14 +32,7 @@
   </parent>
 
   <modules>
-    <module>ojb-build-common</module>
-    <module>ojb-common</module>
-    <module>ojb-camel-common</module>
-    <module>ojb-fedquery-common</module>
-    <module>ojb-osgi-common</module>
-    <module>ojb-osgi-test-common</module>
-    <module>ojb-policy-decision-point-service</module>
-    <module>ojb-resources-common</module>
-    <module>ojb-ui-common</module>
+    <module>../ojb-adapter-integration-tests</module>
   </modules>
+
 </project>
