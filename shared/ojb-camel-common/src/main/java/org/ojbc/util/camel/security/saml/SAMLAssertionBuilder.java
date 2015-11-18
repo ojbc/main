@@ -297,6 +297,4 @@ public class SAMLAssertionBuilder {
 	public void setKeyPassword(String keyPassword) {
 		this.keyPassword = keyPassword;
 	}
-
-	
 }
