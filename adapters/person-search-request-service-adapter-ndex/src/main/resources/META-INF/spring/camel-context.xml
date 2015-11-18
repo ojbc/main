@@ -37,6 +37,9 @@
 		<endpoint id="personSearchResultsHandlerServiceEndpoint"
 			uri="cxf:bean:personSearchResultsHandlerService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${personSearch.ndex.personSearchServiceEnableCxflogging}"/>
 
+		<endpoint id="ndexSearchServiceEndpoint"
+			uri="cxf:bean:ndexSearchService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${personSearch.ndex.personSearchServiceEnableCxflogging}"/>
+
 		<camel:route id="personSearchRequestService">
 			<camel:from uri="personSearchRequestServiceEndpoint" />
 			
@@ -84,6 +87,12 @@
 		<camel:route id="callFbiWebServiceRoute">
 			<camel:from uri="direct:callFbiWebService"/>
 			<camel:log message="FBI web service placeholder route: ${body}"/>
+			
+           	<camel:setHeader headerName="operationName"><constant>doStructuredSearch</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://usdoj.gov/leisp/lexs/searchretrieve/3.1/ws</constant></camel:setHeader>
+			
+			<camel:to uri="ndexSearchServiceEndpoint"/>
+			
 		</camel:route>
 
 	</camel:camelContext>
