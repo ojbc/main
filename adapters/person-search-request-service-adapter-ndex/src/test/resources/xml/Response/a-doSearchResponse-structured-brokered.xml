@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<?xml-stylesheet type="text/xsl" href="./xsl/XMLviewer-gif.xsl"?>
+<!--
+    Document: $Id: doSearchResponse-structured-brokered.xml 46263 2015-07-22 14:47:55Z jw7 $
+    Original : 9/17/2014
+    LEXS version  : 4.0
+    ULEX version : 2.0
+    N-DEX version : 3.0
+    Description   : 
+        A sample XML instance for a search response message that illustrates to a brokered request, where the original request was
+		sent to N-DEx with the message destination sent to DHS.  In this scenario, N-DEx would forward the request to DHS, which 
+		would generate a response. Therefore, in this sample response to that request, the destination is set to New Mexico DPS, 
+		and the response sent to N-DEx to broker (forward).
+-->
+<ulexsr:doSearchResponse xmlns:ulex="http://ulex.gov/ulex/2.0" xmlns:ulexsr="http://ulex.gov/searchretrieve/2.0" xmlns:ulexcodes="http://ulex.gov/codes/2.0" xmlns:ulexlib="http://ulex.gov/library/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:em="http://niem.gov/niem/domains/emergencyManagement/2.0" xmlns:im="http://niem.gov/niem/domains/immigration/2.0" xmlns:scr="http://niem.gov/niem/domains/screening/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:lexs="http://lexs.gov/lexs/4.0" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:lexsdigest="http://lexs.gov/digest/4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ulex.gov/searchretrieve/2.0 ../XMLschemas/lexs/ulex.gov/ulex-search-retrieve/2.0/ulex-search-retrieve.xsd">
+	<!-- START -->
+	<ulex:SearchResponseMessage>
+		<ulex:SRMessageMetadata>
+			<ulex:ULEXFrameworkVersionText>2.0</ulex:ULEXFrameworkVersionText>
+			<ulex:ULEXImplementation>
+				<ulex:ULEXImplementationVersionText>4.0</ulex:ULEXImplementationVersionText>
+				<ulex:ULEXImplementationName>LEXS</ulex:ULEXImplementationName>
+			</ulex:ULEXImplementation>
+			<ulex:MessageDateTime>2013-12-17T09:30:48.0Z</ulex:MessageDateTime>
+			<wsa:MessageID>uuid:c546993c-1360-457f-9b20-76213e43d636</wsa:MessageID>
+			<!-- wsa:RelatesTo>uuid:1e647974-237e-11e2-b87b-f23c91aec05f</wsa:RelatesTo - NOT REQUIRED -->
+			<!--=======================  Message Origin  =======================-->
+			<ulex:MessageOriginMetadata>
+				<lexs:SystemIdentifier>
+					<!--lexs:OriginatingAgencyID>VTICE0900</lexs:OriginatingAgencyID - NOT REQUIRED -->
+					<nc:OrganizationName>Department of Homeland Security</nc:OrganizationName>
+					<lexs:SystemID>ICEPIC</lexs:SystemID>
+				</lexs:SystemIdentifier>
+				<lexs:SystemContact>
+					<!--nc:PersonGivenName>James</nc:PersonGivenName>
+					<nc:PersonSurName>Brown</nc:PersonSurName>
+					<nc:ContactTelephoneNumber>
+						<nc:FullTelephoneNumber>
+							<nc:TelephoneNumberFullID>111-222-3333</nc:TelephoneNumberFullID>
+						</nc:FullTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+					<nc:ContactEmailID>james.brown@leo.gov</nc:ContactEmailID>
+					<nc:OrganizationName>Department of Homeland Security</nc:OrganizationName - NOT REQUIRED -->
+				</lexs:SystemContact>
+			</ulex:MessageOriginMetadata>
+			<!--====================== Message Destination ==========================-->
+			<lexs:MessageDestinationIdentifier>
+				<!--lexs:OriginatingAgencyID>NMNSP0000</lexs:OriginatingAgencyID - NOT REQUIRED -->
+				<nc:OrganizationName>New Mexico Department of Public Safety</nc:OrganizationName>
+				<lexs:SystemID>DPS1234444</lexs:SystemID>
+			</lexs:MessageDestinationIdentifier>
+		</ulex:SRMessageMetadata>
+		<!-- STOP -->
+		<ulex:ResponseMetadata>
+			<!-- ulex:ResultCode>Success</ulex:ResultCode - NOT REQUIRED -->
+		</ulex:ResponseMetadata>
+		<ulex:SearchResponseMetadata>
+			<ulex:MaxItemMatchesRequestedNumeric>10</ulex:MaxItemMatchesRequestedNumeric>
+			<ulex:NumberItemMatchesText>1</ulex:NumberItemMatchesText>
+			<ulex:ServerLimitIndicator>false</ulex:ServerLimitIndicator>
+		</ulex:SearchResponseMetadata>
+		<!--=========================================================-->
+		<!--=======================  Package #1 =======================-->
+		<!--=========================================================-->
+		<ulex:SearchResultPackage>
+			<ulex:PackageMetadata>
+				<ulex:DataItemID>bbeb9901-f0a4-4cc1-8eda-3b978195db98</ulex:DataItemID>
+				<lexs:DataItemContact>
+					<!-- PersonName may be a split out name, or both a split out name and a full name.  Last name is required. -->
+					<nc:PersonSurName>Jackson</nc:PersonSurName>
+					<nc:PersonFullName>David Jackson</nc:PersonFullName>
+					<!-- Contact telephone number is required, other kinds of numbers optional -->
+					<nc:ContactTelephoneNumber>
+						<nc:FullTelephoneNumber>
+							<!-- Full phone number listed here, although the phone number could be split into parts -->
+							<nc:TelephoneNumberFullID>333-444-5555</nc:TelephoneNumberFullID>
+						</nc:FullTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+				</lexs:DataItemContact>
+				<ulex:DataItemDate>2009-08-17</ulex:DataItemDate>
+				<ulex:DataItemReferenceID>TRB_7005263</ulex:DataItemReferenceID>
+				<lexs:DataItemStatusText>Closed</lexs:DataItemStatusText>
+				<ulex:DataOwnerMetadata>
+					<lexs:DataOwnerIdentifier>
+						<lexs:OriginatingAgencyID>VTICE0900</lexs:OriginatingAgencyID>
+						<nc:OrganizationName>Department of Homeland Security</nc:OrganizationName>
+						<lexs:SystemID>ICEPIC</lexs:SystemID>
+					</lexs:DataOwnerIdentifier>
+					<lexs:DataOwnerContact>
+						<nc:PersonGivenName>Bob</nc:PersonGivenName>
+						<nc:PersonSurName>Smith</nc:PersonSurName>
+						<nc:ContactTelephoneNumber>
+							<nc:FullTelephoneNumber>
+								<nc:TelephoneNumberFullID>333-444-6666</nc:TelephoneNumberFullID>
+							</nc:FullTelephoneNumber>
+						</nc:ContactTelephoneNumber>
+					</lexs:DataOwnerContact>
+				</ulex:DataOwnerMetadata>
+				<lexs:DisseminationCriteria>
+					<lexs:DisseminationCriteriaDomainName>N-DEx</lexs:DisseminationCriteriaDomainName>
+					<lexs:DisseminationCriteriaText>Green</lexs:DisseminationCriteriaText>
+				</lexs:DisseminationCriteria>
+			</ulex:PackageMetadata>
+			<lexs:Digest>
+				<lexsdigest:EntityPerson s:id="EPerson1">
+					<lexsdigest:Person s:id="Sub1">
+						<nc:PersonAgeMeasure s:id="e1">
+							<nc:MeasurePointValue>424575485568585858548</nc:MeasurePointValue>
+							<nc:TimeUnitCode>D42</nc:TimeUnitCode>
+						</nc:PersonAgeMeasure>
+						<nc:PersonAlternateName>
+							<nc:PersonGivenName s:id="e2">Tommy</nc:PersonGivenName>
+							<nc:PersonMiddleName s:id="e3">M</nc:PersonMiddleName>
+							<nc:PersonSurName s:id="e4">Jones</nc:PersonSurName>
+							<nc:PersonFullName>Full</nc:PersonFullName>
+						</nc:PersonAlternateName>
+						<nc:PersonBirthDate>
+							<nc:Date s:id="e5">1959-02-23</nc:Date>
+						</nc:PersonBirthDate>
+						<nc:PersonEyeColorCode s:id="e6">HAZ</nc:PersonEyeColorCode>
+						<nc:PersonHairColorCode s:id="e7">BRO</nc:PersonHairColorCode>
+						<nc:PersonHeightMeasure s:id="e8">
+							<nc:MeasurePointValue>06011</nc:MeasurePointValue>
+							<nc:LengthUnitCode>A11</nc:LengthUnitCode>
+						</nc:PersonHeightMeasure>
+						<nc:PersonName>
+							<nc:PersonGivenName s:id="e9">Tommy</nc:PersonGivenName>
+							<nc:PersonMiddleName s:id="e10">M</nc:PersonMiddleName>
+							<nc:PersonSurName s:id="e11">Jones</nc:PersonSurName>
+						</nc:PersonName>
+						<nc:PersonRaceCode s:id="e12">I</nc:PersonRaceCode>
+						<nc:PersonSexCode s:id="e13">U</nc:PersonSexCode>
+						<nc:PersonSSNIdentification s:id="e14">
+							<nc:IdentificationID>333-44-5555</nc:IdentificationID>
+						</nc:PersonSSNIdentification>
+						<nc:PersonWeightMeasure s:id="e15">
+							<nc:MeasurePointValue>200</nc:MeasurePointValue>
+							<nc:WeightUnitCode>DJ</nc:WeightUnitCode>
+						</nc:PersonWeightMeasure>
+						<j:PersonAugmentation>
+							<nc:DriverLicense>
+								<nc:DriverLicenseIdentification s:id="e16">
+									<nc:IdentificationID>DLID</nc:IdentificationID>
+									<nc:IdentificationSourceText>Text</nc:IdentificationSourceText>
+								</nc:DriverLicenseIdentification>
+							</nc:DriverLicense>
+							<j:PersonFBIIdentification s:id="e17">
+								<nc:IdentificationID>FBIID</nc:IdentificationID>
+							</j:PersonFBIIdentification>
+							<j:PersonStateFingerprintIdentification s:id="e18">
+								<nc:IdentificationID>SID</nc:IdentificationID>
+								<nc:IdentificationSourceText>String</nc:IdentificationSourceText>
+							</j:PersonStateFingerprintIdentification>
+						</j:PersonAugmentation>
+					</lexsdigest:Person>
+				</lexsdigest:EntityPerson>
+				<lexsdigest:EntityLocation>
+					<nc:Location>
+						<nc:LocationAddress>
+							<nc:StructuredAddress>
+								<nc:LocationStreet>
+									<nc:StreetFullText>String</nc:StreetFullText>
+									<nc:StreetNumberText>String</nc:StreetNumberText>
+									<nc:StreetName>String</nc:StreetName>
+								</nc:LocationStreet>
+								<nc:LocationCityName>String</nc:LocationCityName>
+								<nc:LocationStateName>State</nc:LocationStateName>
+								<nc:LocationCountryName>Country</nc:LocationCountryName>
+								<nc:LocationPostalCode>String</nc:LocationPostalCode>
+							</nc:StructuredAddress>
+						</nc:LocationAddress>
+					</nc:Location>
+				</lexsdigest:EntityLocation>
+				<lexsdigest:Associations>
+					<nc:ResidenceAssociation>
+						<nc:PersonReference/>
+						<nc:LocationReference/>
+					</nc:ResidenceAssociation>
+				</lexsdigest:Associations>
+			</lexs:Digest>
+		</ulex:SearchResultPackage>
+	</ulex:SearchResponseMessage>
+</ulexsr:doSearchResponse>

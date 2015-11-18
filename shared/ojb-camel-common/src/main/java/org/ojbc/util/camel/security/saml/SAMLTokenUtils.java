@@ -16,74 +16,65 @@
  */
 package org.ojbc.util.camel.security.saml;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.wss4j.common.crypto.Crypto;
-import org.apache.wss4j.common.crypto.CryptoFactory;
-import org.apache.wss4j.common.crypto.Merlin;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
-import org.apache.wss4j.common.saml.OpenSAMLBootstrap;
-import org.apache.wss4j.common.saml.SamlAssertionWrapper;
-import org.apache.wss4j.common.saml.bean.AttributeBean;
-import org.apache.wss4j.common.saml.bean.AttributeStatementBean;
-import org.apache.wss4j.common.saml.bean.AuthenticationStatementBean;
-import org.apache.wss4j.common.saml.bean.SubjectBean;
-import org.apache.wss4j.common.saml.builder.SAML2ComponentBuilder;
 import org.apache.wss4j.common.saml.builder.SAML2Constants;
-import org.joda.time.DateTime;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
-import org.opensaml.saml2.core.AuthnStatement;
-import org.opensaml.saml2.core.Conditions;
-import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.NameID;
-import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.w3c.dom.Element;
 
 public class SAMLTokenUtils {
     private final static Log log = LogFactory.getLog(SAMLTokenUtils.class);
     
-    static final String SECURITY_CRYPTO_PROVIDER_KEY = "org.apache.wss4j.crypto.merlin.keystore.provider";
-    static final String SECURITY_CRYPTO_PROVIDER_VALUE = "org.apache.wss4j.common.crypto.Merlin";
+    //Constants, static can not be overriden
+    static final String SECURITY_CRYPTO_PROVIDER_KEY = "org.apache.ws.security.crypto.provider";
+    static final String SECURITY_CRYPTO_PROVIDER_VALUE = "org.apache.ws.security.components.crypto.Merlin";
     static final String MERLIN_KEYSTORE_TYPE_VALUE = "jks";
+    
+    //Defaults, can be overriden
     static final String USER_HOME=System.getProperty("user.home");
     static final String MERLIN_KEYSTORE_FILE_VALUE = USER_HOME + "/ojb-certs/idp/idp-keystore.jks";
     static final String MERLIN_KEYSTORE_PASSWORD_VALUE = "idp-keystore";
     static final String MERLIN_KEYSTORE_ALIAS_VALUE = "idp-key";
     static final String KEY_PASSWORD_VALUE = "idp-key";
 	
+    //SAML Token defaults
+    static final String DEFAULT_TOKEN_IDP="HIJIS:IDP:HCJDC";
+    static final String DEFAULT_FEDERATION_ID="HIJIS:IDP:HCJDC:USER:admin";
+    static final String DEFAULT_EMPLOYER_ID="HCJDC ISDI";
+    static final String DEFAULT_SURNAME="owen";
+    static final String DEFAULT_FEDERATED_QUERY_USER_INDICATOR="true";
+    static final String DEFAULT_EMPLOYER_NAME = "Department of Attorney General";
+    static final String DEFAULT_EMPLOYER_POSITION = "Sergeant";
+    static final String DEFAULT_GIVEN_NAME ="andrew"; 
+    static final String DEFAULT_COMMON_NAME ="Andrew Owen";
+    static final String DEFAULT_CRIMINAL_JUSTICE_EMPLOYER_INDICATOR="true";
+    static final String DEFAULT_LAW_ENFORCEMENT_EMPLOYER_INDICATOR="true";
+    static final String DEFAULT_TELEPHONE_NUMBER="916-215-3933";
+    static final String DEFAULT_EMAIL_ADDRESS="andrew@search.org";
+    static final String DEFAULT_EMPLOYER_ORI="002015Y";
+    static final String DEFAULT_FIREARMS_REGISTRATION_RECORDS_PERSONNEL_INDICATOR="false";
+    static final String DEFAULT_SUPERVISORY_ROLE_INDICATOR="false";
+    
+    static final String DEFAULT_IN_RESPONSE_TO="_408184603d310905303442e592991adc";
+    static final String DEFAULT_RECIPIENT="https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST";
+    static final String DEFAULT_AUDIENCE_RESTRICTION="http://ojbc.org/ADS/WebServiceConsumer";
+    
 	/**
 	 * This method is used to create a static SAML assertion as an element.  It will contain hard coded data and is typically used for testing
 	 * or for creating a token in a mock connector or adapter where an IDP or token is unavailable.
 	 * 
-	 * @param issuerString
-	 * @param defaultCanonicalizationAlgorithm
-	 * @param defaultRSASignatureAlgorithm
-	 * @param createAuthnStatements
-	 * @param createAttributeStatements
-	 * @param customAttributes
-	 * @return
-	 * @throws Exception
-	 */
-	public static Element createStaticAssertionAsElement(String issuerString, String defaultCanonicalizationAlgorithm, String defaultRSASignatureAlgorithm, boolean createAuthnStatements, boolean createAttributeStatements, Map<String, String> customAttributes) throws Exception
-	{
-		Assertion assertion = createStaticAssertionWithCustomAttributes(issuerString, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, createAuthnStatements, createAttributeStatements, customAttributes);
-		return assertion.getDOM();
-	}
-	
-	/**
-	 * This function will create/sign an assertion.  You need to make sure you called this method prior to calling this method: OpenSAMLBootstrap.bootstrap();
-	 * You can pass in a customAttributes map to set the GFIPM attributes as you wish, NULL is accepted for the map as well.
+	 * This is a thin wrapper around createStaticAssertionWithCustomAttributes so users don't need to be aware of OpenSAML
+	 * 
 	 * 
 	 * @param issuerString
 	 * @param defaultCanonicalizationAlgorithm
@@ -94,162 +85,147 @@ public class SAMLTokenUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Assertion createStaticAssertionWithCustomAttributes(String issuerString, String defaultCanonicalizationAlgorithm, String defaultRSASignatureAlgorithm, boolean createAuthnStatements, boolean createAttributeStatements, Map<String, String> customAttributes) throws Exception
+	public static Element createStaticAssertionAsElement(String issuerString, String defaultCanonicalizationAlgorithm, String defaultRSASignatureAlgorithm, boolean createAuthnStatements, boolean createAttributeStatements, Map<SamlAttribute, String> customAttributes) throws Exception
 	{
-		return createStaticAssertionWithCustomAttributes(issuerString, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm,
-				createAuthnStatements, createAttributeStatements, customAttributes, "HIJIS:IDP:HCJDC", "HIJIS:IDP:HCJDC:USER:admin", "HCJDC ISDI");
+		Assertion assertion = SAMLTokenUtils.createStaticAssertionWithCustomAttributes(issuerString, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, createAuthnStatements, createAttributeStatements, customAttributes);
+		return assertion.getDOM();
 	}
 	
-	public static Assertion createStaticAssertionWithCustomAttributes(String issuerString, String defaultCanonicalizationAlgorithm, String defaultRSASignatureAlgorithm,
-			boolean createAuthnStatements, boolean createAttributeStatements, Map<String, String> customAttributes, String idpID, String federationID, String employerID) throws Exception {
-	
-		OpenSAMLBootstrap.bootstrap();
+	/**
+	 * This function will create/sign an assertion.
+	 * You can pass in a customAttributes map to set the GFIPM attributes as you wish, NULL is accepted for the map as well.
+	 * If you don't set any custom attributes, you can set createAttributeStatements to true and default attribute will
+	 * be created.
+	 * 
+	 * @param issuerString
+	 * @param defaultCanonicalizationAlgorithm
+	 * @param defaultRSASignatureAlgorithm
+	 * @param createAuthnStatements
+	 * @param createAttributeStatements
+	 * @param customAttributes
+	 * @return
+	 * @throws Exception
+	 */
+	public static Assertion createStaticAssertionWithCustomAttributes(String issuerString, String defaultCanonicalizationAlgorithm, String defaultRSASignatureAlgorithm, boolean createAuthnStatements, boolean createAttributeStatements, Map<SamlAttribute, String> customAttributes) throws Exception
+	{
 		
-		//Defensive check to allow for nulls and still produce attributes
-		if (customAttributes == null)
-		{
-			customAttributes = new HashMap<String, String>();
-		}	
+		SAMLAssertionBuilder samlAssertionBuilder = new SAMLAssertionBuilder();
 		
-		//Create assertion
-		Assertion assertion = SAML2ComponentBuilder.createAssertion();
+		samlAssertionBuilder.setKeyPassword(KEY_PASSWORD_VALUE);
+		samlAssertionBuilder.setKeyAlias(MERLIN_KEYSTORE_ALIAS_VALUE);
+		samlAssertionBuilder.setKeystoreLocation(MERLIN_KEYSTORE_FILE_VALUE);
+		samlAssertionBuilder.setKeystorePassword(MERLIN_KEYSTORE_PASSWORD_VALUE);
 		
-		//create issuer
-		Issuer issuer = SAML2ComponentBuilder.createIssuer(issuerString);
-		assertion.setIssuer(issuer);
-		
-		//create subject
-		DateTime currentDateTime = new DateTime();
-		
-		Subject subject = GFIPM_SAML2ComponentBuilder.createSaml2Subject("_408184603d310905303442e592991adc", "https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST", currentDateTime, SAML2Constants.CONF_BEARER);
-        SubjectBean subjectBean = new SubjectBean();
-        
-        subjectBean.setSubjectNameIDFormat("urn:oasis:names:tc:SAML:2.0:nameid-format:transient");
-        subjectBean.setSubjectNameQualifier("https://idp.ojbc-local.org:9443/idp/shibboleth");
-        subjectBean.setSubjectName("_387c25449c33c64f8fef276365872728");
-        
-		NameID nameID = SAML2ComponentBuilder.createNameID(subjectBean);
-        subject.setNameID(nameID);
-
-		assertion.setSubject(subject);
-	
-		//create conditions
-		Conditions conditions = GFIPM_SAML2ComponentBuilder.createConditions("http://ojbc.org/ADS/WebServiceConsumer", "https://sp.ojbc-local.org/shibboleth", null);
-		assertion.setConditions(conditions);
-		
-		//create attribute statements and attributes
-		if (createAttributeStatements)
-		{	
-			List<AttributeBean> attributes = new ArrayList<AttributeBean>();
-			
-			addAttributeToList(customAttributes, "owen", SamlAttribute.SurName, attributes);	
-			addAttributeToList(customAttributes, "true", SamlAttribute.FederatedQueryUserIndicator,attributes);	
-			addAttributeToList(customAttributes, "Department of Attorney General", SamlAttribute.EmployerName,attributes);	
-			addAttributeToList(customAttributes, "Sergeant", SamlAttribute.EmployeePositionName,attributes);	
-			addAttributeToList(customAttributes, "andrew", SamlAttribute.GivenName,attributes);	
-			addAttributeToList(customAttributes, "Andrew Owen", SamlAttribute.CommonName,attributes);	
-			addAttributeToList(customAttributes, "true", SamlAttribute.CriminalJusticeEmployerIndicator,attributes);	
-			addAttributeToList(customAttributes, "true", SamlAttribute.LawEnforcementEmployerIndicator,attributes);	
-			addAttributeToList(customAttributes, federationID, SamlAttribute.FederationId,attributes);	
-			addAttributeToList(customAttributes, "916-215-3933", SamlAttribute.TelephoneNumber,attributes);	
-			addAttributeToList(customAttributes, employerID, SamlAttribute.EmployerSubUnitName,attributes);	
-			addAttributeToList(customAttributes, "andrew@search.org", SamlAttribute.EmailAddressText,attributes);	
-			addAttributeToList(customAttributes, "002015Y", SamlAttribute.EmployerORI,attributes);	
-			addAttributeToList(customAttributes, idpID, SamlAttribute.IdentityProviderId,attributes);	
-			addAttributeToList(customAttributes, "false", SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator,attributes);	
-			addAttributeToList(customAttributes, "false", SamlAttribute.SupervisoryRoleIndicator,attributes);	
-			
-			List<AttributeStatementBean> attributeStatementBeans = new ArrayList<AttributeStatementBean>();
-			
-			AttributeStatementBean attributeStatementBean = new AttributeStatementBean();
-			attributeStatementBean.setSamlAttributes(attributes);
-			
-			attributeStatementBeans.add(attributeStatementBean);
-			
-			List<AttributeStatement> attributeStatements = SAML2ComponentBuilder.createAttributeStatement(attributeStatementBeans);
-			
-			assertion.getAttributeStatements().addAll(attributeStatements);
-		}	
+		String authenticationMethod="";
 		
 		if (createAuthnStatements)
 		{	
-			//create authn statements with a AuthnContextClassRef of PasswordProtectedTransport
-			List<AuthenticationStatementBean> authBeans = new ArrayList<AuthenticationStatementBean>();
+			//if Custom attributes is null, declare map
+			if (customAttributes == null)
+			{
+				customAttributes = new HashMap<SamlAttribute, String>();
+			}	
 			
-			AuthenticationStatementBean authenticationStatementBean = new AuthenticationStatementBean();
-			authenticationStatementBean.setAuthenticationMethod(SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD_PROTECTED_TRANSPORT);
-			
-			authBeans.add(authenticationStatementBean);
-			
-			List<AuthnStatement> authnStatments = SAML2ComponentBuilder.createAuthnStatement(authBeans);
-			assertion.getAuthnStatements().addAll(authnStatments);
+			populateEmptyCustomAttributesWithDefaultValues(customAttributes);
 		}	
-			
-		//Sign the assertion, we use the AssertionWrapper provides by WSS4J to do the signing
-		//The SAMLTokenProvider shows how to do this
-		SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(assertion);
-	
-		Properties sigProperties = new Properties();
 		
-		sigProperties.put("org.apache.wss4j.crypto.provider", SECURITY_CRYPTO_PROVIDER_VALUE);
-		sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_TYPE, MERLIN_KEYSTORE_TYPE_VALUE);
-		sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS, MERLIN_KEYSTORE_ALIAS_VALUE);
-		sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_PASSWORD, MERLIN_KEYSTORE_PASSWORD_VALUE );
-		sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_FILE, MERLIN_KEYSTORE_FILE_VALUE);
-        
-		Crypto signatureCrypto = CryptoFactory.getInstance(sigProperties);
+		if (createAttributeStatements)
+		{
+			authenticationMethod = SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD_PROTECTED_TRANSPORT;
+		}	
 		
-		String alias = sigProperties.getProperty(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS);
-
-		String password = KEY_PASSWORD_VALUE;
+		Assertion assertion = samlAssertionBuilder.createSamlAssertion(issuerString, "_408184603d310905303442e592991adc", "https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST", "http://ojbc.org/ADS/WebServiceConsumer", 
+				authenticationMethod, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, customAttributes);
 		
-		assertionWrapper.signAssertion(
-				alias, password, signatureCrypto, true, defaultCanonicalizationAlgorithm,
-	            defaultRSASignatureAlgorithm
-	        );
-		
-		// if you don't do this, it appears that the assertion object does not get fully created. uncomment the second line if you want to display it to stdout
-		assertionWrapper.assertionToString();
-		//System.out.println(assertionWrapper.assertionToString());
-		
-		return assertionWrapper.getSaml2();
+		return assertion;
 	}
 
-	/**
-	 * Create new AttributeBean instance based customeAttributes, defaultValue and samlAttribute, 
-	 * and add it to the the attributes List. 
-	 * @param customAttributes
-	 * @param defaultValue
-	 * @param samlAttribute
-	 * @param attributes
-	 */
-    private static void addAttributeToList(Map<String, String> customAttributes,
-            String defaultValue, SamlAttribute samlAttribute, List<AttributeBean> attributes) {
-        AttributeBean attributeBean = getNewAttributeBean(customAttributes, defaultValue, samlAttribute);  
-        attributes.add(attributeBean);
-    }
+    private static void populateEmptyCustomAttributesWithDefaultValues(
+			Map<SamlAttribute, String> customAttributes) {
 
-    private static AttributeBean getNewAttributeBean(Map<String, String> customAttributes, String defaultValue, SamlAttribute samlAttribute) {
-        if (customAttributes.containsKey(samlAttribute.getAttibuteName())){	
-        	return createAttributeBean(samlAttribute.getAttibuteName(), customAttributes.get(samlAttribute.getAttibuteName()));
-        }
-        else{
-        	return createAttributeBean(samlAttribute.getAttibuteName(), defaultValue);
-        }
-    }
+    	if (!customAttributes.containsKey(SamlAttribute.SurName))
+    	{
+    		customAttributes.put(SamlAttribute.SurName, "owen");
+    	}
 
-	
-	private static AttributeBean createAttributeBean(String qualifiedName, String value) {
-		AttributeBean attributeBean = new AttributeBean();
-		attributeBean.setQualifiedName(qualifiedName);
-		
-		List<Object> values = new ArrayList<Object>();
-		values.add(value);
-		attributeBean.setAttributeValues(values);
-		return attributeBean;
-	}	
-	
-    public static String getSamlAttributeFromCxfMessage(Message cxfMessage,
+    	if (!customAttributes.containsKey(SamlAttribute.FederatedQueryUserIndicator))
+    	{
+    		customAttributes.put(SamlAttribute.FederatedQueryUserIndicator, "true");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.EmployerName))
+    	{
+    		customAttributes.put(SamlAttribute.EmployerName, "Department of Attorney General");
+    	}
+    	
+    	if (!customAttributes.containsKey(SamlAttribute.EmployeePositionName))
+    	{
+    		customAttributes.put(SamlAttribute.EmployeePositionName, "Sergeant");
+    	}
+    	
+    	if (!customAttributes.containsKey(SamlAttribute.GivenName))
+    	{
+    		customAttributes.put(SamlAttribute.GivenName, "andrew");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.CommonName))
+    	{
+    		customAttributes.put(SamlAttribute.CommonName, "Andrew Owen");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.CriminalJusticeEmployerIndicator))
+    	{
+    		customAttributes.put(SamlAttribute.CriminalJusticeEmployerIndicator, "true");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.LawEnforcementEmployerIndicator))
+    	{
+    		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "true");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.FederationId))
+    	{
+    		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:admin");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.TelephoneNumber))
+    	{
+    		customAttributes.put(SamlAttribute.TelephoneNumber, "916-215-3933");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.EmployerSubUnitName))
+    	{
+    		customAttributes.put(SamlAttribute.EmployerSubUnitName, "HCJDC ISDI");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.EmailAddressText))
+    	{
+    		customAttributes.put(SamlAttribute.EmailAddressText, "andrew@search.org");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.EmployerORI))
+    	{
+    		customAttributes.put(SamlAttribute.EmployerORI, "002015Y");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.IdentityProviderId))
+    	{
+    		customAttributes.put(SamlAttribute.IdentityProviderId, "HIJIS:IDP:HCJDC");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator))
+    	{
+    		customAttributes.put(SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator, "false");
+    	}
+
+    	if (!customAttributes.containsKey(SamlAttribute.SupervisoryRoleIndicator))
+    	{
+    		customAttributes.put(SamlAttribute.SupervisoryRoleIndicator, "false");
+    	}
+
+	}
+
+	public static String getSamlAttributeFromCxfMessage(Message cxfMessage,
             SamlAttribute samlAttribute) {
 
         if (cxfMessage != null) {

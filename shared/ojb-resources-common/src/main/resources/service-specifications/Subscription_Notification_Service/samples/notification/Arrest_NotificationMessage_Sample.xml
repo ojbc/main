@@ -64,6 +64,9 @@
 			  			<hawaii-ext:AttorneyGeneralCaseIndicator>false</hawaii-ext:AttorneyGeneralCaseIndicator>
 			  		</hawaii-ext:AttorneyGeneralCaseDetails>
 			  	</notfm-ext:NotifyingActivityExtensions>
+			  	<notfm-ext:NotifyingActivityReportingOrganization>
+					<nc:OrganizationName>FBI</nc:OrganizationName>
+				</notfm-ext:NotifyingActivityReportingOrganization>
 			  	<j:Arrest>
 			  		<nc:ActivityDate>
 			  			<nc:Date>2013-09-06</nc:Date>

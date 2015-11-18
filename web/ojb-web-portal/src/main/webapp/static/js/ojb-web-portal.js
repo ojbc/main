@@ -74,9 +74,7 @@ ojbc = {
     * Deal with the browsers that does not support placeholder. 
     */	
 	handlePlaceholders: function(){
-	   console.log("Support placeholder: " + $.support.placeholder);
 	   if(!$.support.placeholder) { 
-		   console.log("anything");
 	      var active = document.activeElement;
 	      $(':text').focus(function () {
 	         if ( $(this).attr('placeholder') && $(this).val() == $(this).attr('placeholder')) {
@@ -90,14 +88,12 @@ ojbc = {
 	      $(':text').blur();
 	      $(active).focus();
 	      $('form').submit(function () {
-	    	  console("clear placehoders");
 	         $(':text.hasPlaceholder').val('');
 	      });
 	   }
 	},
 	
 	clearPlaceholders: function(){
-		   console.log("Clear placeholders ");
 		   if(!$.support.placeholder) { 
 		         $(':text.hasPlaceholder').val('');
 		   }

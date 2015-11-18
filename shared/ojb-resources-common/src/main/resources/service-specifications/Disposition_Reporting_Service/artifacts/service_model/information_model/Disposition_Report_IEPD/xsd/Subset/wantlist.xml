@@ -189,6 +189,10 @@
     <w:ElementInType w:name="j:ChargeDispositionAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:ChargeEnhancingFactorType" w:isRequested="false">
+    <w:ElementInType w:name="j:ChargeEnhancingFactorAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ChargeType" w:isRequested="true">
     <w:ElementInType w:name="j:ChargeCategoryDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -198,6 +202,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeDisposition" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeEnhancingFactor"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeOriginatorEntity"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeIdentification"
