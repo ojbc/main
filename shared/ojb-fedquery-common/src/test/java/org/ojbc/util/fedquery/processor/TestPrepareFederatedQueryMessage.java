@@ -19,24 +19,18 @@ package org.ojbc.util.fedquery.processor;
 import static junit.framework.Assert.assertNotNull;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import javax.xml.transform.Source;
-import javax.xml.transform.dom.DOMSource;
 
 import junit.framework.Assert;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
-import org.apache.camel.component.cxf.CxfPayload;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
-import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -107,7 +101,7 @@ public class TestPrepareFederatedQueryMessage {
 		
 		HashMap<String, Object> requestContextMap = (HashMap<String, Object>)exchange.getIn().getHeader(Client.REQUEST_CONTEXT);
 
-		AddressingPropertiesImpl clientAddressingpProps = (AddressingPropertiesImpl)requestContextMap.get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
+		AddressingProperties clientAddressingpProps = (AddressingProperties)requestContextMap.get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
 		
 		Assert.assertEquals("12345", clientAddressingpProps.getMessageID().getValue());
 		Assert.assertEquals("http://myReplyToAddress", clientAddressingpProps.getReplyTo().getAddress().getValue());
