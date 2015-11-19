@@ -39,7 +39,7 @@
 		<spring.version>3.0.7.RELEASE</spring.version>
 		<junit-version>4.10</junit-version>
 		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
-		<ojb-common-version>[2.0.1,)</ojb-common-version>
+		<ojb-common-version>[2.0.1,2.0.5]</ojb-common-version>
 	</properties>
 
 	<dependencies>
