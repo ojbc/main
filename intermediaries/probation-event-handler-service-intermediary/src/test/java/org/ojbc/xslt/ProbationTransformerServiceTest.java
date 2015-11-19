@@ -16,38 +16,44 @@
  */
 package org.ojbc.xslt;
 
-//import static org.hamcrest.Matchers.is;
-//import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.io.FileUtils;
+import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.Difference;
+import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class ProbationTransformerServiceTest {
-
-	XsltTransformerService unit;
+	
+	private XsltTransformerService xsltTransformerService;
 
 	@Before
 	public void setup() {
-		unit = new XsltTransformerService();		
+		
+		xsltTransformerService = new XsltTransformerService();	
+		
+		XMLUnit.setIgnoreAttributeOrder(true);
+		XMLUnit.setIgnoreComments(true);
+		XMLUnit.setIgnoreWhitespace(true);
 	}
 	
 	@After
 	public void tearDown() {
-		unit = null;
+		xsltTransformerService = null;
 	}	
 
 	@Test
@@ -63,7 +69,10 @@ public class ProbationTransformerServiceTest {
 		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/probation/ProbationCase_nonBiometric.xml"));
 		String xslt = FileUtils.readFileToString(new File("src/main/resources/xslt/probationDocumentToSubscription.xsl"));
 
-		transformAndValidate(xslt, xml,"output/subscribe_nonBiometric.xml", getParams());
+		Map<String, Object> paramMap = getParams();
+		paramMap.put("fbiId", "123");
+		
+		transformAndValidate(xslt, xml,"output/subscribe_nonBiometric.xml", paramMap);
 	}
 	
 	@Test
@@ -146,24 +155,37 @@ public class ProbationTransformerServiceTest {
 		transformAndValidate(xslt, xml,"output/unsubscription.xml", getParams());
 	}
 	
+	
+	@Test
+	public void probationFbiUnsubscribeTransform() throws Exception{
+		
+		String xml = FileUtils.readFileToString(new File( "src/test/resources/xmlInstances/probation/probationCaseTermination.xml"));
+		String xslt = FileUtils.readFileToString(new File("src/main/resources/xslt/probationDocumentToUnsubscription.xsl"));
+
+		Map<String,Object> paramMap = getParams();
+		paramMap.put("fbiId", "abc123");
+		
+		transformAndValidate(xslt, xml,"output/fbiUnsubscription.xml", paramMap);
+	}	
+	
+		
 	@SuppressWarnings("unchecked")
-	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedHtmlPath, Map<String,Object> params) throws IOException {
+	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedHtmlPath, Map<String,Object> params) throws IOException, SAXException {
 
 		String expectedXml = FileUtils.readFileToString(new File("src/test/resources/xmlInstances/"+expectedHtmlPath));
-		String convertResult = unit.transform(createSource(inputXmlPath), createSource(xslPath),params);
 		
-		System.out.println(convertResult);
+		String transformedResult = xsltTransformerService.transform(createSource(inputXmlPath), createSource(xslPath),params);		
+				
+		Diff diff = new Diff(expectedXml, transformedResult);
 		
-		// XMLUnit comparison: 	
-		Diff myDiff = null;		
-		try {
-			myDiff = new Diff(expectedXml, convertResult);
-		} catch (SAXException e) {
-			e.printStackTrace();
-		}
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
 		
-		assertTrue("XML similar " + myDiff.toString(), myDiff.similar());
-		assertTrue("XML identical " + myDiff.toString(), myDiff.identical());		
+		List<Difference> difList = detailedDiff.getAllDifferences();
+		
+		int diffCount = difList == null ? 0 : difList.size();
+		
+		Assert.assertEquals(detailedDiff.toString() + 
+				"\n\n transformed result: \n\n" + transformedResult, 0, diffCount);		
 	}
 
 	private SAXSource createSource(String xml) {

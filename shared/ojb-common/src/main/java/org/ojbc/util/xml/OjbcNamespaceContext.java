@@ -38,6 +38,12 @@ import org.w3c.dom.NodeList;
 public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
+				
+	public static final String NS_NIST_BIO = "http://biometrics.nist.gov/standard/2011";
+	public static final String NS_NIST_BIO_PREFIX = "nistbio";
+	
+	public static final String NS_NIEM_BIO = "http://niem.gov/niem/biometrics/1.0";
+	public static final String NS_PREFIX_NIEM_BIO = "nbio";
 	
 	public static final String NS_PERSON_IDENTIFICATION_REPORT_RESPONSE = "http://ojbc.org/IEPD/Exchange/PersonIdentificationReportResponse/1.0";
 	public static final String NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE = "pidrepres-doc";
@@ -530,6 +536,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PREFIX_CHARGE_REFERRAL_DOC = "cr-doc";
     public static final String NS_CHARGE_REFERRAL_DOC ="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0";
     
+    public static final String NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST = "ira-req-doc";
+    public static final String NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST ="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0";
+    
     public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST = "oirs-req-doc";
     public static final String NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0";
     
@@ -545,12 +554,30 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST = "oiirq-req-doc";
     public static final String NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryRequest/1.0";
 
+    public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST = "oisrq-req-doc";
+    public static final String NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryRequest/1.0";
+    
     public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS = "oiirq-res-doc";
     public static final String NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryResults/1.0";
     
     public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT = "oirq-res-ext";
     public static final String NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0";
     
+    public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS = "oisrq-res-doc";
+    public static final String NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0";
+
+    public static final String NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE = "irm-resp-doc";
+    public static final String NS_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE ="http://ojbc.org/IEPD/Exchange/IdentificationResultsModificationResponse/1.0";
+
+    public static final String NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE_EXT = "irm-resp-ext";
+    public static final String NS_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE_EXT ="http://ojbc.org/IEPD/Extensions/IdentificationResultsModificationResponse/1.0";
+
+    public static final String NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST_ERROR_REPORTING = "irm-err-rep";
+    public static final String NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST_ERROR_REPORTING ="http://ojbc.org/IEPD/Extensions/IdentificationResultsModificationRequestErrorReporting/1.0";
+
+    public static final String NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_METADATA = "irm-rm";
+    public static final String NS_IDENTIFICATION_RESULTS_MODIFICATION_METADATA ="http://ojbc.org/IEPD/Extensions/IdentificationResultsModificationResponseMetadata/1.0";
+
     public static final String NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE = "pse-doc";
     public static final String NS_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE ="http://ojbc.org/IEPD/Exchange/PretrialServiceEnrollment/1.0";
     
@@ -575,6 +602,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PREFIX_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT = "fed_subcr-ext";
     public static final String NS_FEDERAL_SUBSCRIPTION_CREATION_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0";
     
+    public static final String NS_PREFIX_FEDERAL_SUBSCRIPTION_UPDATE_REPORT = "fed_subcr_upd-doc";
+    public static final String NS_FEDERAL_SUBSCRIPTION_UPDATE_REPORT ="http://ojbc.org/IEPD/Exchange/FederalSubscriptionUpdateReport/1.0";
+    
+    public static final String NS_PREFIX_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT = "fed_subcr_upd-ext";
+    public static final String NS_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/FederalSubscriptionUpdateReportExtension/1.0";
     
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -582,6 +614,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public OjbcNamespaceContext() {
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();
+				
+		prefixToUriMap.put(NS_NIST_BIO_PREFIX, NS_NIST_BIO);
+		uriToPrefixMap.put(NS_NIST_BIO, NS_NIST_BIO_PREFIX);
+				
+		prefixToUriMap.put(NS_PREFIX_NIEM_BIO, NS_NIEM_BIO);
+		uriToPrefixMap.put(NS_NIEM_BIO, NS_PREFIX_NIEM_BIO);
 		
 		prefixToUriMap.put(NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT, NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT);
 		uriToPrefixMap.put(NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT, NS_PREFIX_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT);
@@ -1090,7 +1128,19 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	   
 	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
-	 
+
+	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE, NS_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE);
+	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE);
+
+	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE_EXT, NS_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE_EXT);
+	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE_EXT, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_RESPONSE_EXT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST_ERROR_REPORTING, NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST_ERROR_REPORTING);
+	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST_ERROR_REPORTING, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST_ERROR_REPORTING);
+
+	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_METADATA, NS_IDENTIFICATION_RESULTS_MODIFICATION_METADATA);
+	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_METADATA, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_METADATA);
+	    
 	    prefixToUriMap.put(NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE, NS_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE);
 	    uriToPrefixMap.put(NS_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE, NS_PREFIX_PRETRIAL_SERVICE_ENROLLMENT_EXCHANGE);
 	    
@@ -1118,8 +1168,14 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST);
 	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST, NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST);
 	    
+	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST, NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST);
+	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST, NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST);
+	    
 	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS);
 	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS, NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS);
+	    
+	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS, NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS);
+	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS, NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_RESULTS);
 	    
 	    prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
 	    uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
@@ -1127,6 +1183,14 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    prefixToUriMap.put(NS_PREFIX_INTEL_30, NS_INTEL_30);
 	    uriToPrefixMap.put(NS_INTEL_30, NS_PREFIX_INTEL_30);
 	      
+	    prefixToUriMap.put(NS_PREFIX_FEDERAL_SUBSCRIPTION_UPDATE_REPORT, NS_FEDERAL_SUBSCRIPTION_UPDATE_REPORT);
+	    uriToPrefixMap.put(NS_FEDERAL_SUBSCRIPTION_UPDATE_REPORT, NS_PREFIX_FEDERAL_SUBSCRIPTION_UPDATE_REPORT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT, NS_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT);
+	    uriToPrefixMap.put(NS_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT, NS_PREFIX_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
+	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
 	}
 
 	@Override

@@ -16,17 +16,11 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-
-import javax.activation.DataHandler;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.helpers.IOUtils;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
@@ -38,31 +32,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 public abstract class AbstractReportRepositoryProcessor {
-	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
 	@Autowired
 	protected RapbackDAO rapbackDAO;
 	
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-	
+    	
     @Transactional
 	public abstract void processReport(@Body Document report, Exchange exchange) throws Exception;
-
-	protected byte[] getAttachment(Exchange exchange, String transactionNumber,
-			String attachmentId) throws IOException {
-		byte[] receivedAttachment;
-		DataHandler dataHandler = exchange.getIn().getAttachment(StringUtils.substringAfter(attachmentId, "cid:"));
-		
-		if (dataHandler != null){
-			receivedAttachment = IOUtils.readBytesFromStream(dataHandler.getInputStream());
-		}
-		else{
-			log.error("No valid file found in the attachement for transaction " + transactionNumber);
-			throw new IllegalArgumentException("No file found in the attachement"); 
-		}
-		return receivedAttachment;
-	}
 
 	protected void processIdentificationTransaction(Node rootNode, String transactionNumber)
 			throws Exception {
@@ -85,6 +63,9 @@ public abstract class AbstractReportRepositoryProcessor {
 		String ownerProgramOca = XmlUtils.xPathStringSearch(rootNode, "//ident-ext:IdentificationApplicantOrganization/"
 				+ "nc30:OrganizationIdentification/nc30:IdentificationID");
 		identificationTransaction.setOwnerProgramOca(ownerProgramOca);
+		
+		String identificationCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CivilIdentificationReasonCode|ident-ext:CriminalIdentificationReasonCode");
+		identificationTransaction.setIdentificationCategory(identificationCategory);
 		
 		rapbackDAO.saveIdentificationTransaction(identificationTransaction);
 	}
@@ -112,12 +93,12 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		String civilSid = XmlUtils.xPathStringSearch(subjectNode, 
 				"jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification"
-				+ "[ident-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator = 'true']/nc30:IdentificationID");
+				+ "[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator = 'true']/nc30:IdentificationID");
 		subject .setCivilSid(StringUtils.trimToNull(civilSid));
 		
 		String criminalSid = XmlUtils.xPathStringSearch(subjectNode, 
 				"jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification"
-						+ "[ident-ext:FingerpringIdentificationIssuedForCriminalPurposeIndicator = 'true']/nc30:IdentificationID");
+						+ "[ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator = 'true']/nc30:IdentificationID");
 		subject .setCriminalSid(criminalSid);
 		 
 		return subject;

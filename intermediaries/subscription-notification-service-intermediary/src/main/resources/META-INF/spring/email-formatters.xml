@@ -79,6 +79,11 @@ To follow up on this incident, please call $emailNotification.notificationReques
 		</property>
 	</bean>
 
+	<bean id="defaultSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+		<property name="subscribingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
+		<property name="subscriptionCategoryCode" value="default"/>
+	</bean>
+
 	<bean id="defaultEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
 			<value>Default Notification [Subject $emailNotification.subjectName]</value>

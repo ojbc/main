@@ -128,6 +128,18 @@
 		<!--  Juvenile Query Referral -->
 		<camel:endpoint id="juvenileReferralHistoryResultsHandlerServiceEndpoint"
 			uri="cxf:bean:juvenileReferralHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+			
+		<!--  Rapback Search Results Handler-->
+		<camel:endpoint id="rapbackSearchResultsHandlerServiceEndpoint"
+			uri="cxf:bean:rapbackSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+		<!--  Identification Results Query Results Handler-->
+		<camel:endpoint id="identificationResultsQueryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:identificationResultsQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+		<!--  Identification Results Modification Results Handler-->
+		<camel:endpoint id="identificationResultsModificationResultsHandlerServiceEndpoint"
+			uri="cxf:bean:identificationResultsModificationResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 
 		<!-- In all of the endpoints below, the 'address' field uses the ':' notation to set a default value -->
 		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
@@ -519,7 +531,69 @@
 	        </wsp:Policy>
 	       </policy:policies>
 	    </cxf:features>
-	   </cxf:cxfEndpoint>      
+	   </cxf:cxfEndpoint>
+
+	<!-- Rapback Search Result handler, hosted by Web Application -->
+	<cxf:cxfEndpoint id="rapbackSearchResultsHandlerService"
+		address="${webapplication.rapbackSearch.rapbackSearchResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Results_Service.wsdl"
+		serviceName="ojbc:OrganizationIdentificationResults_Search_Results_Service_Service"
+		endpointName="ojbc:OrganizationIdentificationResults_Search_Results_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
+       
+    <!-- Identificaiton Results Query Result handler, hosted by Web Application -->
+	<cxf:cxfEndpoint id="identificationResultsQueryResultsHandlerService"
+		address="${webapplication.identificationResultsQueryResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Results_Service.wsdl"
+		serviceName="ojbc:Organization_Identification_Results_Query_Results_Service_Service"
+		endpointName="ojbc:Organization_Identification_Results_Query_Results_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0">
+		<cxf:properties>
+			<entry key="mtom-enabled" value="true" />
+			<entry key="dataFormat" value="PAYLOAD" />
+		</cxf:properties>
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
+       
+    <!-- Identificaiton Results Modification Result handler, hosted by Web Application -->
+	<cxf:cxfEndpoint id="identificationResultsModificationResultsHandlerService"
+		address="${webapplication.identificationResultsModificationResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Identification_Results_Modification_Response_Service/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
+        serviceName="ojbc:Identification_Results_Modification_Response_Service_Service"
+		endpointName="ojbc:Identification_Results_Modification_Response_Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0">
+		<cxf:properties>
+			<entry key="mtom-enabled" value="true" />
+			<entry key="dataFormat" value="PAYLOAD" />
+		</cxf:properties>
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>      
        
        	
 	<util:properties id="portalKeystoreProperties">

@@ -15,18 +15,15 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal.controllers;
-
-import static org.ojbc.web.security.SecurityContextUtils.getSamlToken;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
@@ -53,8 +50,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.w3c.dom.Element;
-
 
 @Controller
 @RequestMapping("/people/*")
@@ -148,7 +143,7 @@ public class PeopleController {
 
 
 	@RequestMapping(value = "simpleSearch", method = RequestMethod.POST)
-	public String simpleSearch(@ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
+	public String simpleSearch(HttpServletRequest request, @ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		
 		userSession.setMostRecentSearch(personSearchCommand);
@@ -165,7 +160,7 @@ public class PeopleController {
 			return personSearchForm;
 		}
 
-		return performSearchAndReturnResults(model, personSearchRequest); 
+		return performSearchAndReturnResults(model, personSearchRequest, request); 
 	}
 
 	private void populateModelActiveSearchTabFromSession(Map<String, Object> model) {
@@ -243,7 +238,7 @@ public class PeopleController {
     }
 	
 	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
-	public String advanceSearch(@ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
+	public String advanceSearch(HttpServletRequest request, @ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentSearch(personSearchCommand);
 		userSession.setMostRecentSearchType(personSearchCommand.getSearchType());
@@ -260,7 +255,7 @@ public class PeopleController {
 
 		PersonSearchRequest personSearchRequest = personSearchCommandUtils.getPersonSearchRequest(personSearchCommand);
 
-		return performSearchAndReturnResults(model, personSearchRequest);
+		return performSearchAndReturnResults(model, personSearchRequest, request);
 	}
 
 	@RequestMapping(value = "searchDetails", method = RequestMethod.GET)
@@ -321,10 +316,6 @@ public class PeopleController {
 		return systemsToQuery_people_disabled;
 	}
 
-	String getFederatedQueryId() {
-		return UUID.randomUUID().toString();
-	}
-
 	private void setInitialState(PersonSearchCommand personSearchCommand) {
 		personSearchCommand.getAdvanceSearch().setPersonGivenNameMetaData(SearchFieldMetadata.StartsWith);
 		personSearchCommand.getAdvanceSearch().setPersonSurNameMetaData(SearchFieldMetadata.StartsWith);
@@ -345,14 +336,14 @@ public class PeopleController {
 		    }
 		    
 		    if (searchContent == null) {
-		        searchContent = getDetailResultViaWebService(systemName, detailsRequest); 
+		        searchContent = getDetailResultViaWebService(systemName, detailsRequest, request); 
 		        juvenileHistoryDetailResponses.cacheDetailResponse(detailsRequest, searchContent);
 		        model.put("juvenileHistoryDetailResponses", juvenileHistoryDetailResponses);
 		    }
 		    
 		}
 		else {
-            searchContent = getDetailResultViaWebService(systemName, detailsRequest); 
+            searchContent = getDetailResultViaWebService(systemName, detailsRequest, request); 
 		}
 		
 	     String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName, detailsRequest.getActiveAccordionId());
@@ -361,9 +352,9 @@ public class PeopleController {
 	}
 
 
-    private String getDetailResultViaWebService(String systemName, DetailsRequest detailsRequest) throws Exception {
+    private String getDetailResultViaWebService(String systemName, DetailsRequest detailsRequest, HttpServletRequest request) throws Exception {
         String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), 
-		        (Element)getSamlToken());
+		        samlService.getSamlAssertion(request));
         return searchContent;
     }
 
@@ -376,7 +367,7 @@ public class PeopleController {
 		return params;
 	}
 
-	private String performSearchAndReturnResults(Map<String, Object> model, PersonSearchRequest personSearchRequest)
+	private String performSearchAndReturnResults(Map<String, Object> model, PersonSearchRequest personSearchRequest, HttpServletRequest request)
 			throws Exception {
 		
 		if ("On behalf of".equals(personSearchRequest.getOnBehalfOf())) {
@@ -384,7 +375,7 @@ public class PeopleController {
 		}
 		
 		String searchContent = config.getPersonSearchBean().invokePersonSearchRequest(personSearchRequest,
-				getFederatedQueryId(), getSamlToken());
+				getFederatedQueryId(), samlService.getSamlAssertion(request));
 		
 		userSession.setMostRecentSearchResult(searchContent);
 		userSession.setSavedMostRecentSearchResult(null);
@@ -393,4 +384,9 @@ public class PeopleController {
 		
 		return personSearchResultPage;
 	}
+	
+	String getFederatedQueryId() {
+		return UniqueIdUtils.getFederatedQueryId();
+	}
+
 }

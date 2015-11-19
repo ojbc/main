@@ -18,17 +18,18 @@ package org.ojbc.adapters.rapbackdatastore.dao;
 
 import java.util.List;
 
+import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.FbiRapbackSubscription;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
-import org.ojbc.adapters.rapbackdatastore.dao.model.SubsequentResults;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
+import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 
 
 public interface RapbackDAO {
@@ -38,16 +39,32 @@ public interface RapbackDAO {
 	public Integer saveCivilFbiSubscriptionRecord(final CivilFbiSubscriptionRecord civilFbiSubscriptionRecord);
 	public Integer saveCriminalFbiSubscriptionRecord(final CriminalFbiSubscriptionRecord criminalFbiSubscriptionRecord);
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints);
-	public Integer saveCriminalFingerPrints(final CriminalFingerPrints criminalFingerPrints);
+	//TODO remove this method when we are 100% certain the table is not needed. 
+//	public Integer saveCriminalFingerPrints(final CriminalFingerPrints criminalFingerPrints);
 	public Integer saveCivilInitialRapSheet(final CivilInitialRapSheet civilInitialRapSheet);
 	public Integer saveCivilInitialResults(final CivilInitialResults civilInitialResults);
+	public Integer getCivilIntialResultsId(String transactionNumber, ResultSender resultSender);
 	public Integer saveCriminalInitialResults(final CriminalInitialResults criminalInitialResults);
-	public Integer saveSubsequentResults(final SubsequentResults subsequentResults);
-	public Integer saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
+	public void saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
 	
 	public Subject getSubject(Integer id);
 	public IdentificationTransaction getIdentificationTransaction(String transactionNumber);
 	public List<CivilInitialResults> getCivilInitialResults(String ori);
+	public List<CivilInitialResults> getIdentificationCivilInitialResults(String transactionNumber);
+	public List<IdentificationTransaction> getCivilIdentificationTransactions(String ori);
+	public List<IdentificationTransaction> getCriminalIdentificationTransactions(String ori);
 	
 	public void updateSubject(Subject subject);
+	public void updateFbiRapbackSubscription(
+			FbiRapbackSubscription fbiRapbackSubscription);
+	
+	public void consolidateSid(String currentSid, String newSid);
+	public void consolidateUcn(String currentUcn, String newUcn);
+	
+	public AgencyProfile getAgencyProfile(String ori);
+	
+	public int archive();
+	public int archiveIdentificationResult(String transactionNumber);
+	
+	public List<SubsequentResults> getSubsequentResults(String transactionNumber);
 }

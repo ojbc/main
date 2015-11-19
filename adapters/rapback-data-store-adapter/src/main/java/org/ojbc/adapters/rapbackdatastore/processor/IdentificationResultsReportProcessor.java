@@ -25,10 +25,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResultsState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
+import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
+import org.ojbc.util.camel.helper.MtomUtils;
+import org.ojbc.util.helper.ZipUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,18 +75,14 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		criminalInitialResults.setTransactionNumber(transactionNumber);
 		
 		String attachmentId = getAttachmentId(rootNode);
-		criminalInitialResults.setMatch(StringUtils.isNotBlank(attachmentId));
-		
-		criminalInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
-		
-		String rapBackCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CriminalIdentificationReasonCode");
-		criminalInitialResults.setRapBackCategory(rapBackCategory);
+		criminalInitialResults.setSearchResultFile(	ZipUtils.zip(MtomUtils.getAttachment(exchange, transactionNumber,
+				attachmentId)));
 		
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
-			criminalInitialResults.setResultsSender("FBI");
+			criminalInitialResults.setResultsSender(ResultSender.FBI);
 		}
 		else{
-			criminalInitialResults.setResultsSender("STATE");
+			criminalInitialResults.setResultsSender(ResultSender.State);
 		}
 		
 		rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
@@ -105,31 +103,39 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		String attachmentId = getAttachmentId(rootNode);
 		
-		civilInitialResults.setMatch(StringUtils.isNotBlank(attachmentId));
 			
-		civilInitialResults.setCurrentState(CivilInitialResultsState.Available); //TODO replace the placeholder with real value
-		civilInitialResults.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value
-		
-		String rapBackCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CivilIdentificationReasonCode");
-		civilInitialResults.setCivilRapBackCategory(rapBackCategory);
-		
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
-			civilInitialResults.setResultsSender("FBI");
+			civilInitialResults.setResultsSender(ResultSender.FBI);
 		}
 		else{
-			civilInitialResults.setResultsSender("STATE");
+			civilInitialResults.setResultsSender(ResultSender.State);
 		}
 		
-		Integer initalResultsPkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
+		Integer initialResultsPkId = rapbackDAO.getCivilIntialResultsId(transactionNumber, civilInitialResults.getResultsSender());
 		
+		//TODO set identificationTransaction.currentState;
+		
+		if (initialResultsPkId == null){
+			civilInitialResults.setSearchResultFile(ZipUtils.zip(MtomUtils.getAttachment(exchange, transactionNumber,
+					attachmentId)));
+			rapbackDAO.saveCivilInitialResults(civilInitialResults);
+		}
+		else{
+		
+			saveCivilRapSheet(exchange, transactionNumber, attachmentId,
+					initialResultsPkId);
+		}
+	}
+
+	private void saveCivilRapSheet(Exchange exchange, String transactionNumber,
+			String attachmentId, Integer initialResultsPkId) throws IOException {
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
-		civilInitialRapSheet.setCivilIntitialResultId(initalResultsPkId);
-		civilInitialRapSheet.setTransactionType("Transaction Type"); //TODO replace the placeholder with real value.
+		civilInitialRapSheet.setCivilIntitialResultId(initialResultsPkId);
 		
-		byte[] receivedAttachment = getAttachment(exchange, transactionNumber,
+		byte[] receivedAttachment = MtomUtils.getAttachment(exchange, transactionNumber,
 				attachmentId);
 
-		civilInitialRapSheet.setRapSheet(receivedAttachment);
+		civilInitialRapSheet.setRapSheet(ZipUtils.zip(receivedAttachment));
 		
 		rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);
 	}
@@ -145,13 +151,25 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 				rapbackDAO.getIdentificationTransaction(transactionNumber); 
 		
 		Subject subject = identificationTransaction.getSubject(); 
+		
 		String fbiId = XmlUtils.xPathStringSearch(rootNode, 
 				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
-		subject.setUcn(fbiId);
+		if (StringUtils.isNotBlank(fbiId)){
+			subject.setUcn(fbiId);
+		}
 		
 		String civilSid = XmlUtils.xPathStringSearch(rootNode, 
-				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification/nc30:IdentificationID");
-		subject.setCivilSid(civilSid);
+				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc30:IdentificationID");
+		if (StringUtils.isNotBlank(civilSid)){
+			subject.setCivilSid(civilSid);
+		}
+		
+		String criminalSid = XmlUtils.xPathStringSearch(rootNode, 
+				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true']/nc30:IdentificationID");
+		if (StringUtils.isNotBlank(criminalSid)){
+			subject.setCriminalSid(criminalSid);
+		}
+		
 		rapbackDAO.updateSubject(subject);
 	}
 

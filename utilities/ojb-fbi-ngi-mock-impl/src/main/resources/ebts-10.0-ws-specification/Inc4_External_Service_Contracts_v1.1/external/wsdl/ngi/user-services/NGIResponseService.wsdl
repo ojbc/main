@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name="NGIResponseService"
+	targetNamespace="http://ws.cjis.gov/2014/08/01/ngi/services/risc"
+	xmlns:tns="http://ws.cjis.gov/2014/08/01/ngi/services/risc"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:itl="http://biometrics.nist.gov/standard/2011"	
+	xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd">
+	<wsdl:documentation>
+		The Authorized Contributor must implement this service to receive a corresponding service response for
+		a previous request to NGI, or to receive an unsolicited hit notification from NGI.
+	</wsdl:documentation>	
+	<types>	    
+		<xsd:schema>
+ 			<xsd:import namespace="http://biometrics.nist.gov/standard/2011" schemaLocation="../../../xsd/ebts/10.0/itl/2011/itl.xsd"/>		
+			<xsd:import namespace="http://ws.cjis.gov/2014/08/01/ngi/core/xsd" schemaLocation="../../../xsd/ngi/fbi_ngi_core.xsd"/>
+		</xsd:schema>
+	</types>
+	
+ 	<message name="NGIResponseInput">
+  		<part name="NISTBiometricInformation" element="itl:NISTBiometricInformationExchangePackage" ></part>
+ 	</message> 
+ 	<message name="NGIResponseOutput">
+  		<part name="VOID" element="ngi-core:VOID"> </part>
+ 	</message>
+ 	<message name="NGIResponseFault">
+  		<part name="NGIResponseFault" element="ngi-core:DeliveryServicesFault"></part>
+ 	</message>
+ 	
+ 	<portType name="NGIResponsePortType">
+  		<operation name="receiveResponse">
+			<input name="NISTBiometricInformation" message="tns:NGIResponseInput"/>
+			<output name="NGIResponseOutput" message="tns:NGIResponseOutput"/>
+   			<fault  name="NGIResponseFault" message="tns:NGIResponseFault"></fault>			
+  		</operation>
+ 	</portType>	
+ 	
+	<binding name="NGIResponseBinding" type="tns:NGIResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="receiveResponse">
+			<soap:operation soapAction="receiveResponse"/>
+			<input name="NISTBiometricInformation">
+				<soap:body use="literal"/>
+			</input>
+			<output name="NGIResponseOutput">
+				<soap:body use="literal"/>
+			</output>
+			<fault name="NGIResponseFault">
+				<soap:fault name="NGIResponseFault" use="literal"/>
+			</fault>		
+		</operation>
+	</binding>	
+	<!-- Note: The CSA endpoint will need to be provided to NGI to deliver the Rapid Print Image Search Response. -->
+ 	<service name="NGIResponseService">
+  		<port binding="tns:NGIResponseBinding" name="NGIResponsePort">
+   			<soap:address location="address"/>
+  		</port>
+ 	</service>
+</definitions>

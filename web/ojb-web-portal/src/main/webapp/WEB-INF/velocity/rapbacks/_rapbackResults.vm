@@ -17,15 +17,19 @@
 <!DOCTYPE html>
 <script type="text/javascript">
  
-	/* Custom filtering function which will search data in column four between two values */
+	/* Custom filtering function which will search data in column 5 among filtered values */
 	$.fn.dataTable.ext.search.push(
 	    function( settings, data, dataIndex ) {
+	    	var hasSubsequentResultsChecked = $('#hasSubsequentResults').is(":checked");
+	 		var className = settings.aoData[dataIndex].nTr.className;
+	 		if (hasSubsequentResultsChecked && className.indexOf("subsequentResults") === -1) {
+	 			return false;
+	 		}
+	 		
 	        var filter = $('#rapbacksFilter').val();
-	        var status = data[5] ; // use data for the age column
-	 
+	        var status = data[5] ; // use data for the status column
 	        if ( ( !filter || filter ==='') ||
-	             ( filter != status ))
-	        {
+	             ( filter != status )){
 	            return true;
 	        }
 	        return false;
@@ -33,7 +37,6 @@
 	);
 	
 	$(function() {
-	  
 		$( document ).tooltip();
 		
 		optTable = {
@@ -59,6 +62,202 @@
 			$('#rapbacksFilter').val('');
         	oTable.draw();
     	} );
+    	
+		$('#filterColumn').on("change", '#hasSubsequentResults', function() {
+        	oTable.draw();
+    	} );
+    	
+    	$('#searchResultsTable').on('click', 'a.subscribe',function() {
+    		$.get("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
+    		
+				if (data === 'success'){
+					refreshSearchResultsTable();
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+    	});
+    	
+    	$('#searchResultsTable').on('click', 'a.archive',function() {
+    		$.get("#springUrl('/rapbacks/archive')", {transactionNumber: $(this).attr("id")}, function(data) {
+				if (data === 'success'){
+					refreshSearchResultsTable();
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+    	});
+    	
+    	function showErrorMessage(data){
+			if ( $( "#informationMessages" ).length ) {
+			    $( "#informationMessages" ).html(data);
+			}
+			else {
+				$( "#searchResultsTable_wrapper" ).prepend( '<span class="error" id="informationMessages" >'+data+'</span>' );
+			}
+    	}
+    	
+    	function refreshSearchResultsTable(){
+    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+				$('#portalContent').html(data);	
+			}).fail(ojbc.displayFailMessage);
+							    
+			return false;
+    	}
+    	
+    	$('#searchResultsTable').on('click', 'a.unsubscribe',function() {
+			unsubscribe($(this).attr("id")) ;
+    	});
+    	
+    	$('#searchResultsTable').on('click', 'a.validate',function() {
+    		$.get("#springUrl('/rapbacks/validate')", {subscriptionId: $(this).attr("id")}, function(data) {
+    		
+				if (data === 'success'){
+					refreshSearchResultsTable();				
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+    	});
+    	
+    	$('#searchResultsTable').on('click', 'a.initialResults',function() {
+            var url = this.href;
+            var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
+			var dlgWidth = $(document).width() * .8;
+			var dlgHeight = $(window).height() * .8;
+            dialog.dialog({
+                width: dlgWidth,
+                height: dlgHeight,
+                close: function(event, ui) {
+                    $('#modalIframe').attr('src', '');
+                    dialog.remove();
+                },
+                open: function(event,ui){
+					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
+					$("#modalIframeSpinner").width($("#modalIframe").width());
+					$("#modalIframeSpinner").show();
+
+		     		$("#modalIframe").load( function() {
+		     			//alert("Load event fired");
+						$("#modalIframeSpinner").hide();				
+												
+					});
+		     		
+                 	$('#modalIframe').attr('src', url);		     		
+
+                },
+                position: {
+                           my: "center",
+                           at: "center",
+                           of: window
+                          },
+                modal: true
+            });
+
+            return false;
+        });
+    	
+    	$('#searchResultsTable').on('click', 'a.subsequentResultConfirmation',function() {
+    		var recordStatus = $(this).parent().prev().text();
+    		var subsequentResultButton = $(this).next();
+    		var subscriptionId = $(this).attr("id");
+    		var row = $(this).parent().parent();
+		    $( "#dialog-confirm-authorization" ).dialog({
+		    	  position: { my: "center center", at: "center center", of: row },
+			      resizable: true,
+			      width:400,
+			      height:150,
+			      modal: true,
+			      buttons: {
+			        "Yes": function() {
+			        	subsequentResultButton.click();
+				        $( this ).dialog( "close" );
+			        },
+			        "No": function() {
+		            	if (recordStatus === "Archived" || recordStatus ==="Available for subscription"){
+		            		 $( this ).dialog( "close" );
+		            	}
+		            	else{
+						    $( "#dialog-confirm-unsubscribe" ).dialog({
+						    	 position: { my: "center center", at: "center center", of: row },
+							     resizable: true,
+							     width:500,
+							     height:150,
+							     modal: true,
+							     buttons: {
+							         "Continue": function() {
+							              unsubscribe(subscriptionId);
+								          $( this ).dialog( "close" );
+							         },
+		            				 "Cancel" : function(){
+		            					  $( this ).dialog( "close" );
+		            				 }
+		            			 }
+							});		            		
+	            			$( this ).dialog( "close" );
+		            	}
+			        }
+			     }
+		    });   		
+    	});
+    	
+    	
+    	$('#searchResultsTable').on('click', 'a.subsequentResults',function() {
+            var url = this.href;
+            var dialog = $('<div style="display:none"  title="Identification Subsequent Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
+			var dlgWidth = $(document).width() * .8;
+			var dlgHeight = $(window).height() * .6;
+            dialog.dialog({
+                width: dlgWidth,
+                height: dlgHeight,
+                close: function(event, ui) {
+                    $('#modalIframe').attr('src', '');
+                    dialog.remove();
+                },
+                open: function(event,ui){
+					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
+					$("#modalIframeSpinner").width($("#modalIframe").width());
+					$("#modalIframeSpinner").show();
+
+		     		$("#modalIframe").load( function() {
+		     			//alert("Load event fired");
+						$("#modalIframeSpinner").hide();				
+												
+						$(this).css('height', $(this).contents().find("body").height() + 16);
+					});
+		     		
+                 	$('#modalIframe').attr('src', url);		     		
+
+                },
+                position: {
+                           my: "center",
+                           at: "center",
+                           of: window
+                          },
+                modal: true
+            });
+
+            return false;
+        });
+
+		function unsubscribe(id){
+    		$.get("#springUrl('/rapbacks/unsubscribe')", {subscriptionId: id}, function(data) {
+    		
+				if (data === 'success'){
+					refreshSearchResultsTable();
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+		}
 	});
 </script>
 	
@@ -71,15 +270,21 @@
     
     <div style="padding:10px">
 		#if($informationMessages && $informationMessages!='')
-			<span class="error">
+			<span class="error" id="informationMessages" >
 				$informationMessages
 			</span><br/>
 		#end
-		$searchContent								
+		$rapbackSearchContent								
     </div>
     
 </div>
 
-
+<div id="dialog-confirm-authorization" title="Are you authorized?" class="hidden">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you still authorized to view criminal history details for this individual?</p>
+</div>
+<div id="dialog-confirm-unsubscribe" title="Unsubsribe?" class="hidden">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+  You have indicated that you are no longer authorized to view criminal history for this individual, your subscription will now be cancelled.</p>
+</div>
 
 

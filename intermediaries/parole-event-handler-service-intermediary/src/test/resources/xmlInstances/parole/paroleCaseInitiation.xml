@@ -151,7 +151,7 @@
 					<IdentificationID>999999999</IdentificationID>
 				</PersonSSNIdentification>
 				<PersonStateIdentification>
-					<IdentificationID>A9999999</IdentificationID>
+					<IdentificationID>A8666767</IdentificationID>
 				</PersonStateIdentification>
 			</SupervisionPerson>
 			
@@ -215,7 +215,7 @@
 		</PersonAliasIdentityAssociation>
 		<ContactInformation xmlns="http://niem.gov/niem/niem-core/2.0"
 			xmlns:NS1="http://niem.gov/niem/structures/2.0" NS1:id="paroleOfficerEmail1">
-			<ContactEmailID>officer_email@local.gov</ContactEmailID>
+			<ContactEmailID>test@localhost</ContactEmailID>
 		</ContactInformation>
 		<PersonContactInformationAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
 			<PersonReference xmlns:NS1="http://niem.gov/niem/structures/2.0"

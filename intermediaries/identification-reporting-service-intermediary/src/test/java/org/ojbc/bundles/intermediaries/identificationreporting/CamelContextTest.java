@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -67,6 +66,7 @@ import org.w3c.dom.Element;
 		})
 public class CamelContextTest {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
 	
 	public static final String CXF_OPERATION_NAME = "ReportPersonIdentificationRequest";
@@ -143,7 +143,7 @@ public class CamelContextTest {
 		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
 
 	    //Read the Identification report file from the file system
-	    File inputFile = new File("src/test/resources/xmlInstances/identificationReport/person_identification_fbi_request.xml");
+	    File inputFile = new File("src/test/resources/xmlInstances/identificationReport/person_identification_request_fbi_civil.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 
 	    assertNotNull(inputStr);

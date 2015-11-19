@@ -1,0 +1,1196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itl:NISTBiometricInformationExchangePackage xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+	xmlns:itl="http://biometrics.nist.gov/standard/2011"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://cjis.fbi.gov/fbi_ebts/10.0 ../../xsd/fbi_ebts/10.0/fbi_ebts.xsd">
+	<!--******************************************************************-->
+	<!--Type-1 Record (Header Record)-->
+	<!--******************************************************************-->
+	<itl:PackageInformationRecord>
+		<!--RCC 1.001-->
+		<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
+		<ansi-nist:Transaction>
+			<!--DAT 1.005-->
+			<ansi-nist:TransactionDate>
+				<nc:Date>2007-01-01</nc:Date>
+			</ansi-nist:TransactionDate>
+			<ansi-nist:TransactionDestinationOrganization>
+				<!--DAI 1.007-->
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>DCFBIWAA4</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+			</ansi-nist:TransactionDestinationOrganization>
+			<ansi-nist:TransactionOriginatingOrganization>
+				<nc:OrganizationIdentification>
+					<!--ORI 1.008-->
+					<nc:IdentificationID>WI013415Y</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+			</ansi-nist:TransactionOriginatingOrganization>
+			<!--GMT 1.014, Optional-->
+			<ansi-nist:TransactionUTCDate>
+				<nc:DateTime>2007-01-01T00:00:01Z</nc:DateTime>
+			</ansi-nist:TransactionUTCDate>
+			<!--TCN 1.009-->
+			<ansi-nist:TransactionControlIdentification>
+				<nc:IdentificationID>5683956839</nc:IdentificationID>
+			</ansi-nist:TransactionControlIdentification>
+			<!--DOM 1.013-->
+			<ansi-nist:TransactionDomain>
+				<ansi-nist:DomainVersionNumberIdentification>
+					<nc:IdentificationID>EBTS 10.0</nc:IdentificationID>
+				</ansi-nist:DomainVersionNumberIdentification>
+				<ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
+			</ansi-nist:TransactionDomain>
+			<!--APS 1.016, Optional -->
+			<ansi-nist:TransactionApplicationProfile>
+				<!--APO-->
+				<ansi-nist:ApplicationProfileOrganizationName>DoD</ansi-nist:ApplicationProfileOrganizationName>
+				<!--APN-->
+				<ansi-nist:ApplicationProfileName>EBTS</ansi-nist:ApplicationProfileName>
+				<!--APV-->
+				<ansi-nist:ApplicationProfileVersionIdentification>
+					<nc:IdentificationID>3.0</nc:IdentificationID>
+				</ansi-nist:ApplicationProfileVersionIdentification>
+			</ansi-nist:TransactionApplicationProfile>
+			<ansi-nist:TransactionImageResolutionDetails>
+				<!--NSR 1.011 Non-zero values apply to Type-4 and Type-7 fingerprint records only.-->
+				<ansi-nist:NativeScanningResolutionValue>19.69</ansi-nist:NativeScanningResolutionValue>
+				<!--NTR 1.012  Non-zero values apply to Type-4 and Type-7 fingerprint records only.-->
+				<ansi-nist:NominalTransmittingResolutionValue>19.69</ansi-nist:NominalTransmittingResolutionValue>
+			</ansi-nist:TransactionImageResolutionDetails>
+			<!--VER 1.002-->
+			<ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
+			<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
+			<!--PRY 1.006, Optional-->
+			<ansi-nist:TransactionPriorityValue>5</ansi-nist:TransactionPriorityValue>
+			<!--TOT 1.004-->
+			<ebts:TransactionCategoryCode>LFFS</ebts:TransactionCategoryCode>
+			<!--CNT 1.003-->
+			<ansi-nist:TransactionContentSummary>
+				<ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
+				<ansi-nist:ContentRecordQuantity>5</ansi-nist:ContentRecordQuantity>
+				<ansi-nist:ContentRecordSummary>
+					<ansi-nist:ImageReferenceIdentification>
+						<nc:IdentificationID>00</nc:IdentificationID>
+					</ansi-nist:ImageReferenceIdentification>
+					<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+				</ansi-nist:ContentRecordSummary>
+				<ansi-nist:ContentRecordSummary>
+					<ansi-nist:ImageReferenceIdentification>
+						<nc:IdentificationID>01</nc:IdentificationID>
+					</ansi-nist:ImageReferenceIdentification>
+					<ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
+				</ansi-nist:ContentRecordSummary>
+				<ansi-nist:ContentRecordSummary>
+					<ansi-nist:ImageReferenceIdentification>
+						<nc:IdentificationID>02</nc:IdentificationID>
+					</ansi-nist:ImageReferenceIdentification>
+					<ansi-nist:RecordCategoryCode>07</ansi-nist:RecordCategoryCode>
+				</ansi-nist:ContentRecordSummary>
+				<ansi-nist:ContentRecordSummary>
+					<ansi-nist:ImageReferenceIdentification>
+						<nc:IdentificationID>03</nc:IdentificationID>
+					</ansi-nist:ImageReferenceIdentification>
+					<ansi-nist:RecordCategoryCode>09</ansi-nist:RecordCategoryCode>
+				</ansi-nist:ContentRecordSummary>
+				<ansi-nist:ContentRecordSummary>
+					<ansi-nist:ImageReferenceIdentification>
+						<nc:IdentificationID>04</nc:IdentificationID>
+					</ansi-nist:ImageReferenceIdentification>
+					<ansi-nist:RecordCategoryCode>13</ansi-nist:RecordCategoryCode>
+				</ansi-nist:ContentRecordSummary>
+			</ansi-nist:TransactionContentSummary>
+			<!--DCS 1.015, Optional -->
+			<ansi-nist:TransactionCharacterSetDirectory>
+				<ansi-nist:CharacterSetCommonNameCode>UTF-8</ansi-nist:CharacterSetCommonNameCode>
+				<ansi-nist:CharacterSetIndexCode>0</ansi-nist:CharacterSetIndexCode>
+				<ansi-nist:CharacterSetVersionIdentification>
+					<nc:IdentificationID>000</nc:IdentificationID>
+				</ansi-nist:CharacterSetVersionIdentification>
+			</ansi-nist:TransactionCharacterSetDirectory>
+		</ansi-nist:Transaction>
+	</itl:PackageInformationRecord>
+	<!--******************************************************************-->
+	<!--Type-2 Record (1..2 Type-2 User Defined Descriptive Text Record)-->
+	<!--******************************************************************-->
+	<itl:PackageDescriptiveTextRecord>
+		<!--RCC 2.001-->
+		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+		<!-- IDC 2.002-->
+		<ansi-nist:ImageReferenceIdentification>
+			<nc:IdentificationID>00</nc:IdentificationID>
+		</ansi-nist:ImageReferenceIdentification>
+		<itl:UserDefinedDescriptiveDetail>
+			<ebts:DomainDefinedDescriptiveFields>
+				<!-- SCO 2.007 (0..9)-->
+				<ansi-nist:RecordForwardOrganizations>
+					<nc:OrganizationIdentification>
+						<nc:IdentificationID>WV1000000</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+					<nc:OrganizationIdentification>
+						<nc:IdentificationID>NY030025P</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+				</ansi-nist:RecordForwardOrganizations>
+				<!--ATN 2.006-->
+				<nc:CaveatText>SA J Q DOE,RM 11867</nc:CaveatText>
+				<!--IMA 2.067, Optional-->
+				<ebts:RecordImageCaptureDetail>
+					<!--MAK 2.067A-->
+					<ansi-nist:CaptureDeviceMakeText>DBI</ansi-nist:CaptureDeviceMakeText>
+					<!--MODL 2.067B-->
+					<ansi-nist:CaptureDeviceModelText>1134</ansi-nist:CaptureDeviceModelText>
+					<!--SERNO 2.067C-->
+					<ansi-nist:CaptureDeviceSerialNumberText>2838590029395784-4</ansi-nist:CaptureDeviceSerialNumberText>
+				</ebts:RecordImageCaptureDetail>
+				<!-- NDR 2.098  (0..10)-->
+				<ebts:RecordFBIRepositoryCode>1</ebts:RecordFBIRepositoryCode>
+				<!-- NIR 2.2010, Optional -->
+				<ebts:RecordImagesRequestedQuantity>1</ebts:RecordImagesRequestedQuantity>
+				<!-- RFR 2.095, Optional -->
+				<ebts:RecordFeaturesRequestIndicator>true</ebts:RecordFeaturesRequestIndicator>
+				<ebts:RecordTransactionData>
+					<!--NOT 2.088, Optional-->
+					<ebts:TransactionDescriptionText>THIS FREE-TEXT FIELD IS USED TO PROVIDE ADDITIONAL INFORMATION REGARDING ELECTRONIC LATENT SUBMISSIONS</ebts:TransactionDescriptionText>
+					<!-- PPD 2.2030 (0..10)-->
+					<ebts:TransactionPrintPositionDescriptors>
+						<ansi-nist:FingerPositionCode>10</ansi-nist:FingerPositionCode>
+						<ebts:FingerImageCode>EJI</ebts:FingerImageCode>
+					</ebts:TransactionPrintPositionDescriptors>
+					<!--NCR 2.079, Optional-->
+					<ebts:TransactionImagesRequestedQuantity>20</ebts:TransactionImagesRequestedQuantity>
+					<!--GEO 2.044 (0..5)-->
+					<ebts:TransactionSearchAreaCode>WV</ebts:TransactionSearchAreaCode>
+					<!-- ULF 2.083, Optional  -->
+					<ebts:TransactionUnsolvedLatentFileIndicator>true</ebts:TransactionUnsolvedLatentFileIndicator>
+				</ebts:RecordTransactionData>
+				<ebts:RecordTransactionActivity>
+					<!--CRI 2.073 (0..3)-->
+					<ebts:RecordControllingAgency>
+						<nc:OrganizationIdentification>
+							<nc:IdentificationID>NY0303000</nc:IdentificationID>
+						</nc:OrganizationIdentification>
+					</ebts:RecordControllingAgency>
+					<!--CIN 2.010 / CIX 2.011-->
+					<ebts:ContributorCaseIdentificationNumber>
+						<!-- CIN_PRE 2.010A-->
+						<ebts:ContributorCasePrefixIdentification>
+							<nc:IdentificationCategoryText>Investigation Number</nc:IdentificationCategoryText>
+						</ebts:ContributorCasePrefixIdentification>
+						<!-- CIN_ID 2.010B-->
+						<ebts:ContributorCaseIdentification>
+							<nc:IdentificationID>1963BRT715</nc:IdentificationID>
+						</ebts:ContributorCaseIdentification>
+						<!--CIX 2.011-->
+						<ebts:ContributorCaseExtensionIdentification>
+							<nc:IdentificationID>0001</nc:IdentificationID>
+						</ebts:ContributorCaseExtensionIdentification>
+					</ebts:ContributorCaseIdentificationNumber>
+				</ebts:RecordTransactionActivity>
+				<ebts:RecordSubject>
+					<!-- AGR 2.023, Optional -->
+					<nc:PersonAgeMeasure>
+						<nc:MeasureRangeValue>
+							<nc:RangeMinimumValue>25</nc:RangeMinimumValue>
+							<nc:RangeMaximumValue>30</nc:RangeMaximumValue>
+						</nc:MeasureRangeValue>
+					</nc:PersonAgeMeasure>
+					<!-- EYE 2.031, Optional-->
+					<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+					<!-- HAI 2.032, Optional-->
+					<ebts:PersonHairColorCode>BRO</ebts:PersonHairColorCode>
+					<!-- HTR 2.028, Optional -->
+					<nc:PersonHeightMeasure>
+						<nc:MeasureRangeValue>
+							<nc:RangeMinimumValue>600</nc:RangeMinimumValue>
+							<nc:RangeMaximumValue>603</nc:RangeMaximumValue>
+						</nc:MeasureRangeValue>
+						<nc:MeasureUnitText>FeetInches</nc:MeasureUnitText>
+					</nc:PersonHeightMeasure>
+					<ebts:PersonPhysicalFeature>
+						<!-- SMT 2.026 (0..10)-->
+						<nc:PhysicalFeatureCategoryCode>MISS TOE</nc:PhysicalFeatureCategoryCode>
+						<nc:PhysicalFeatureCategoryCode>TAT RF ARM</nc:PhysicalFeatureCategoryCode>
+					</ebts:PersonPhysicalFeature>
+					<!-- RAC 2.025, Optional-->
+					<nc:PersonRaceCode>W</nc:PersonRaceCode>
+					<!-- SEX 2.024, Optional-->
+					<ebts:PersonSexCode>M</ebts:PersonSexCode>
+					<!-- WTR 2.030, Optional -->
+					<nc:PersonWeightMeasure>
+						<nc:MeasureRangeValue>
+							<nc:RangeMinimumValue>175</nc:RangeMinimumValue>
+							<nc:RangeMaximumValue>185</nc:RangeMaximumValue>
+						</nc:MeasureRangeValue>
+					</nc:PersonWeightMeasure>
+					<!--POB 2.020, Optional-->
+					<ebts:PersonBirthPlaceCode>VA</ebts:PersonBirthPlaceCode>
+					<ebts:PersonGeneralizedFrictionRidgePositions>
+						<!-- FGP 2.074 (0..10) -->
+						<ansi-nist:FrictionRidgePositionCode>36</ansi-nist:FrictionRidgePositionCode>
+					</ebts:PersonGeneralizedFrictionRidgePositions>
+					<ebts:PersonFingerprintSet>
+						<!--FGP 2.074  /PAT 2.034/RCD1 2.091/RCD2 2.092-->
+						<!--(0..10) i.e., 1 <ebts:FingerprintImageFinger> element per actual finger-->
+						<ebts:FingerprintImageFinger>
+							<!--FGP -->
+							<ansi-nist:FingerPositionCode>1</ansi-nist:FingerPositionCode>
+							<ebts:RidgeCoreDelta>
+								<!--PATCL 2.034A -->
+								<ebts:FingerprintPatternClassificationCode>WU</ebts:FingerprintPatternClassificationCode>
+								<!--RCN1 2.091B, Optional-->
+								<ansi-nist:RidgeCountValue>13</ansi-nist:RidgeCountValue>
+								<!--RCN2 2.092B, Optional-->
+								<ansi-nist:RidgeCountValue>10</ansi-nist:RidgeCountValue>
+							</ebts:RidgeCoreDelta>
+						</ebts:FingerprintImageFinger>
+					</ebts:PersonFingerprintSet>
+				</ebts:RecordSubject>				
+			</ebts:DomainDefinedDescriptiveFields>
+		</itl:UserDefinedDescriptiveDetail>
+	</itl:PackageDescriptiveTextRecord>
+	<!--******************************************************************-->
+	<!--	BIOMETRIC RECORDS-->
+	<!--LFFS Transactions allow the following biometric record types:		-->
+	<!-- Type 4 (0-10)								-->
+	<!-- Type 7 (0-10)								-->
+	<!--Type 9 (1-10)								-->
+	<!--Type 13 (0-10)								-->
+	<!--Please refer to EBTS 10.0 spec for further LFFS biometric requirements -->
+	<!--******************************************************************-->
+
+	<!--******************************************************************-->
+	<!--Type 4 Record Example-->
+	<!--******************************************************************-->
+	<itl:PackageHighResolutionGrayscaleImageRecord>
+		<ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
+		<!-- IDC -->
+		<ansi-nist:ImageReferenceIdentification>
+			<nc:IdentificationID>01</nc:IdentificationID>
+		</ansi-nist:ImageReferenceIdentification>
+		<ansi-nist:FingerprintImage>
+			<!--IMG -->
+			<nc:BinaryBase64Object>mrHbPdrko3u1s7ahtgPBjtmO1s85tfG2U7bpofY9
+				4Czu2SbY7d7wF9fQ7ZptgGrtkO2a2dsJ7wZbe 8BlzvAmQ7xq+Y94GoHeEsR3ikWd4DIGhzmp3k42
+				d4DRmzs94DKveDTB3hqw6PeBLrtpPep0H/+h </nc:BinaryBase64Object>
+			<ansi-nist:ImageCaptureDetail>
+				<!--ISR -->
+				<ansi-nist:CaptureResolutionCode>1</ansi-nist:CaptureResolutionCode>
+			</ansi-nist:ImageCaptureDetail>
+			<!--GCA -->
+			<ansi-nist:ImageCompressionAlgorithmCode>2</ansi-nist:ImageCompressionAlgorithmCode>
+			<!--HLL -->
+			<ansi-nist:ImageHorizontalLineLengthPixelQuantity>80</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
+			<!--VLL -->
+			<ansi-nist:ImageVerticalLineLengthPixelQuantity>65</ansi-nist:ImageVerticalLineLengthPixelQuantity>
+			<!--FGP -->
+			<ansi-nist:FingerprintImagePosition>
+				<ansi-nist:FingerPositionCode>2</ansi-nist:FingerPositionCode>
+			</ansi-nist:FingerprintImagePosition>
+			<!--IMP -->
+			<ansi-nist:FingerprintImageImpressionCaptureCategoryCode>3</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
+		</ansi-nist:FingerprintImage>
+	</itl:PackageHighResolutionGrayscaleImageRecord>
+	<!--******************************************************************-->
+	<!--Type-7 Record Example-->
+	<!--******************************************************************-->
+	<itl:PackageUserDefinedImageRecord>
+		<ansi-nist:RecordCategoryCode>07</ansi-nist:RecordCategoryCode>
+		<!-- IDC -->
+		<ansi-nist:ImageReferenceIdentification>
+			<nc:IdentificationID>02</nc:IdentificationID>
+		</ansi-nist:ImageReferenceIdentification>
+		<ansi-nist:FingerprintImage>
+			<!--IMG -->
+			<nc:BinaryBase64Object>mrHbPdrko3u1s7ahtgPBjtmO1s85tfG2U7bpofY9
+				4Czu2SbY7d7wF9fQ7ZptgGrtkO2a2dsJ7wZbe 8BlzvAmQ7xq+Y94GoHeEsR3ikWd4DIGhzmp3k42
+				d4DRmzs94DKveDTB3hqw6PeBLrtpPep0H/+h </nc:BinaryBase64Object>
+			<ansi-nist:ImageCaptureDetail>
+				<!--ISR-->
+				<ansi-nist:CaptureResolutionCode>1</ansi-nist:CaptureResolutionCode>
+			</ansi-nist:ImageCaptureDetail>
+			<!--GCA-->
+			<ansi-nist:ImageCompressionAlgorithmCode>2</ansi-nist:ImageCompressionAlgorithmCode>
+			<!--HLL -->
+			<ansi-nist:ImageHorizontalLineLengthPixelQuantity>80</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
+			<!--VLL -->
+			<ansi-nist:ImageVerticalLineLengthPixelQuantity>65</ansi-nist:ImageVerticalLineLengthPixelQuantity>
+			<!--FGP -->
+			<ansi-nist:FingerprintImagePosition>
+				<ansi-nist:FingerPositionCode>2</ansi-nist:FingerPositionCode>
+				<ansi-nist:FingerPositionCode>3</ansi-nist:FingerPositionCode>
+				<ansi-nist:FingerPositionCode>255</ansi-nist:FingerPositionCode>
+				<ansi-nist:FingerPositionCode>255</ansi-nist:FingerPositionCode>
+				<ansi-nist:FingerPositionCode>255</ansi-nist:FingerPositionCode>
+			</ansi-nist:FingerprintImagePosition>
+			<!--IMP -->
+			<ansi-nist:FingerprintImageImpressionCaptureCategoryCode>3</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
+		</ansi-nist:FingerprintImage>
+	</itl:PackageUserDefinedImageRecord>
+	<!--******************************************************************-->
+	<!--Type-9 Record Example (INBOUND Fingerprint Minutiae Record with EFS)-->
+	<!--******************************************************************-->
+	<itl:PackageMinutiaeRecord>
+		<!-- RCC 9.001-->
+		<ansi-nist:RecordCategoryCode>09</ansi-nist:RecordCategoryCode>
+		<!-- IDC 9.002 -->
+		<ansi-nist:ImageReferenceIdentification>
+			<nc:IdentificationID>03</nc:IdentificationID>
+		</ansi-nist:ImageReferenceIdentification>
+		<!-- ANN 9.902 -->
+		<ansi-nist:ProcessAnnotation>
+			<!-- GMT -->
+			<ansi-nist:ProcessUTCDate>
+				<nc:DateTime>2011-11-05T05:25:00Z</nc:DateTime>
+			</ansi-nist:ProcessUTCDate>
+			<!-- NAV-->
+			<ansi-nist:ProcessName>A process name</ansi-nist:ProcessName>
+			<!-- OWN -->
+			<ansi-nist:ProcessOwnerText>A process owner</ansi-nist:ProcessOwnerText>
+			<!-- PRO -->
+			<ansi-nist:ProcessDescriptionText>A process description</ansi-nist:ProcessDescriptionText>
+		</ansi-nist:ProcessAnnotation>
+		<!-- IMP 9.003 -->
+		<ansi-nist:MinutiaeImpressionCaptureCategoryCode>4</ansi-nist:MinutiaeImpressionCaptureCategoryCode>
+		<!-- FMT 9.004-->
+		<ansi-nist:MinutiaeFormatNISTStandardIndicator>false</ansi-nist:MinutiaeFormatNISTStandardIndicator>
+		<!-- ULA 9.901-->
+		<ansi-nist:MinutiaeUniversalLatentWorkstationAnnotationText>ULW Annotation A</ansi-nist:MinutiaeUniversalLatentWorkstationAnnotationText>
+		<ansi-nist:BiometricCaptureDetail>
+			<!-- DUI 9.903-->
+			<ansi-nist:CaptureDeviceIdentification>
+				<nc:IdentificationID>P270NEIS67830000</nc:IdentificationID>
+			</ansi-nist:CaptureDeviceIdentification>
+			<!-- MMS 9.904-->
+			<!-- MAK -->
+			<ansi-nist:CaptureDeviceMakeText>RGT88</ansi-nist:CaptureDeviceMakeText>
+			<!-- MOD -->
+			<ansi-nist:CaptureDeviceModelText>PEARL</ansi-nist:CaptureDeviceModelText>
+			<!--SER -->
+			<ansi-nist:CaptureDeviceSerialNumberText>2838590029395784-4</ansi-nist:CaptureDeviceSerialNumberText>
+		</ansi-nist:BiometricCaptureDetail>
+		<ansi-nist:ExtendedFeatureSetMinutiae>
+			<!-- FSP 9.303  -->
+			<ansi-nist:ExtendedFeatureSetProfileIdentification>
+				<nc:IdentificationID>30</nc:IdentificationID>
+			</ansi-nist:ExtendedFeatureSetProfileIdentification>
+			<ansi-nist:ExtendedFeatureSetProfileIdentification>
+				<nc:IdentificationID>32</nc:IdentificationID>
+			</ansi-nist:ExtendedFeatureSetProfileIdentification>
+			<!-- ROI 9.300  -->
+			<ansi-nist:FrictionRidgeImageRegionOfInterest>
+				<!-- EWI -->
+				<ansi-nist:ImageSegmentWidthMeasure>2540</ansi-nist:ImageSegmentWidthMeasure>
+				<!-- EHI -->
+				<ansi-nist:ImageSegmentHeightMeasure>2540</ansi-nist:ImageSegmentHeightMeasure>
+				<!-- EHO -->
+				<ansi-nist:ImageSegmentHorizontalOffsetMeasure>0</ansi-nist:ImageSegmentHorizontalOffsetMeasure>
+				<!-- EVO -->
+				<ansi-nist:ImageSegmentVerticalOffsetMeasure>0</ansi-nist:ImageSegmentVerticalOffsetMeasure>
+				<!-- ROP -->
+				<ansi-nist:ImageSegmentPolygon>
+					<ansi-nist:ImageSegmentVertex>
+						<!-- HPO -->
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>130</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<!-- VPO -->
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>275</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2130</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>6</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2510</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1290</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1530</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>2530</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+				</ansi-nist:ImageSegmentPolygon>
+			</ansi-nist:FrictionRidgeImageRegionOfInterest>
+			<!-- ORT 9.301  -->
+			<ansi-nist:FingerprintImageFingerprintOrientation>
+				<!-- EOD -->
+				<ansi-nist:OrientationAngleValue>-179</ansi-nist:OrientationAngleValue>
+				<!-- EUC -->
+				<ansi-nist:OrientationAngleUncertaintyValue>0</ansi-nist:OrientationAngleUncertaintyValue>
+			</ansi-nist:FingerprintImageFingerprintOrientation>
+			<!-- FPP 9.302  -->
+			<ansi-nist:MinutiaeFingerLocation>
+				<!-- FGP -->
+				<ansi-nist:FingerPositionCode>6</ansi-nist:FingerPositionCode>
+				<!-- FSM -->
+				<ansi-nist:SegmentLocationCode>DST</ansi-nist:SegmentLocationCode>
+				<!-- OCF -->
+				<ansi-nist:FingerprintOffCenterCode>L</ansi-nist:FingerprintOffCenterCode>
+				<!-- SGP -->
+				<ansi-nist:ImageSegmentPolygon>
+					<ansi-nist:ImageSegmentVertex>
+						<!-- HPO -->
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1330</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<!-- VPO -->
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1220</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2003</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>106</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2210</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1291</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+				</ansi-nist:ImageSegmentPolygon>
+			</ansi-nist:MinutiaeFingerLocation>
+
+			<!-- PAT 9.307  -->
+			<ansi-nist:FingerprintPatternClassification>
+				<!-- GCF -->
+				<ansi-nist:FingerprintPatternGeneralClassCode>WU</ansi-nist:FingerprintPatternGeneralClassCode>
+				<!-- SUB -->
+				<ansi-nist:FingerprintPatternSubClassCode>AW</ansi-nist:FingerprintPatternSubClassCode>
+				<!-- WDR -->
+				<ansi-nist:FingerprintPatternWhorlDeltaRelationshipCode>M</ansi-nist:FingerprintPatternWhorlDeltaRelationshipCode>
+			</ansi-nist:FingerprintPatternClassification>
+			<ansi-nist:FingerprintPatternClassification>
+				<!-- GCF -->
+				<ansi-nist:FingerprintPatternGeneralClassCode>RS</ansi-nist:FingerprintPatternGeneralClassCode>
+			</ansi-nist:FingerprintPatternClassification>
+			<!-- RQF 9.309  -->
+			<ansi-nist:MinutiaeRidgeQualityMap>
+				<!-- GSZ -->
+				<ansi-nist:MinutiaeRidgeQualityMapCellSizeValue>41</ansi-nist:MinutiaeRidgeQualityMapCellSizeValue>
+				<!-- RDF -->
+				<ansi-nist:MinutiaeRidgeQualityMapFormatCode>UNC</ansi-nist:MinutiaeRidgeQualityMapFormatCode>
+				<!--  RQM 9.308  -->
+				<ansi-nist:MinutiaeRidgeQualityMapRowText>33333333343333344444444455555554444444444433333322222111100000</ansi-nist:MinutiaeRidgeQualityMapRowText>
+				<ansi-nist:MinutiaeRidgeQualityMapRowText>33333333343333344444444455555554444444444433333322222111100000</ansi-nist:MinutiaeRidgeQualityMapRowText>
+			</ansi-nist:MinutiaeRidgeQualityMap>
+			<!-- RFF 9.311  -->
+			<ansi-nist:MinutiaeRidgeFlowMap>
+				<!-- SFQ -->
+				<ansi-nist:MinutiaeRidgeFlowMapSamplingFrequencyValue>41</ansi-nist:MinutiaeRidgeFlowMapSamplingFrequencyValue>
+				<!-- RDF -->
+				<ansi-nist:MinutiaeRidgeFlowMapFormatCode>UNC</ansi-nist:MinutiaeRidgeFlowMapFormatCode>
+				<!--  RFM 9.310  -->
+				<ansi-nist:MinutiaeRidgeFlowMapRowText>112233445566778899AAXXB3112233445566778899AAXXB311223344556</ansi-nist:MinutiaeRidgeFlowMapRowText>
+				<ansi-nist:MinutiaeRidgeFlowMapRowText>112233445566778899AAXXB3112233445566778899AAXXB311223344556</ansi-nist:MinutiaeRidgeFlowMapRowText>
+			</ansi-nist:MinutiaeRidgeFlowMap>
+			<!-- RWF 9.313  -->
+			<ansi-nist:MinutiaeRidgeWavelengthMap>
+				<!-- FWS -->
+				<ansi-nist:MinutiaeRidgeWavelengthMapSamplingFrequencyValue>41</ansi-nist:MinutiaeRidgeWavelengthMapSamplingFrequencyValue>
+				<!-- FDF -->
+				<ansi-nist:MinutiaeRidgeWavelengthMapFormatCode>UNC</ansi-nist:MinutiaeRidgeWavelengthMapFormatCode>
+				<!-- RWM  9.312  -->
+				<ansi-nist:MinutiaeRidgeWavelengthMapRowText>11223344556677889900XX11223344556677889900XX</ansi-nist:MinutiaeRidgeWavelengthMapRowText>
+				<ansi-nist:MinutiaeRidgeWavelengthMapRowText>11223344556677889900XX11223344556677889900XX</ansi-nist:MinutiaeRidgeWavelengthMapRowText>
+			</ansi-nist:MinutiaeRidgeWavelengthMap>
+			<!-- TRV 9.314  -->
+			<ansi-nist:FrictionRidgeImageTonalReversalCode>N</ansi-nist:FrictionRidgeImageTonalReversalCode>
+			<!-- PLR 9.315  -->
+			<ansi-nist:FrictionRidgeImageLateralReversalCode>L</ansi-nist:FrictionRidgeImageLateralReversalCode>
+			<!-- PGS 9.317  -->
+			<ansi-nist:MinutiaeGrowthOrShrinkage>
+				<!-- TGS -->
+				<ansi-nist:MinutiaeGrowthOrShrinkageCode>B</ansi-nist:MinutiaeGrowthOrShrinkageCode>
+				<!-- CGS -->
+				<ansi-nist:MinutiaeCommentText>Substrate wrinkled</ansi-nist:MinutiaeCommentText>
+			</ansi-nist:MinutiaeGrowthOrShrinkage>
+			<!-- NCOR 9.325  -->
+			<ansi-nist:MinutiaeNoCoresPresentIndicator>false</ansi-nist:MinutiaeNoCoresPresentIndicator>
+			<!-- COR 9.320  -->
+			<ansi-nist:MinutiaeCore>
+				<!-- CXC -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1270</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- CYC -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>1270</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				<!-- CDI -->
+				<ansi-nist:MinutiaeCoreDirectionMeasure>45</ansi-nist:MinutiaeCoreDirectionMeasure>
+				<!-- RPU -->
+				<ansi-nist:ImageLocationUncertaintyRadiusMeasure>5</ansi-nist:ImageLocationUncertaintyRadiusMeasure>
+				<!-- DUY -->
+				<ansi-nist:MinutiaeCoreDirectionUncertaintyValue>5</ansi-nist:MinutiaeCoreDirectionUncertaintyValue>
+			</ansi-nist:MinutiaeCore>
+			<ansi-nist:MinutiaeCore>
+				<!-- CXC -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1290</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- CYC -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>1375</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+			</ansi-nist:MinutiaeCore>
+			<!-- NDEL 9.326  -->
+			<ansi-nist:MinutiaeNoDeltasPresentIndicator>false</ansi-nist:MinutiaeNoDeltasPresentIndicator>
+			<!-- DEL 9.321  -->
+			<ansi-nist:MinutiaeDelta>
+				<!-- DXC -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>635</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- DYC -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>1270</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				<!-- DUP -->
+				<ansi-nist:MinutiaeDeltaDirectionUpMeasure>90</ansi-nist:MinutiaeDeltaDirectionUpMeasure>
+				<!-- DLF -->
+				<ansi-nist:MinutiaeDeltaDirectionLeftMeasure>179</ansi-nist:MinutiaeDeltaDirectionLeftMeasure>
+				<!-- DRT -->
+				<ansi-nist:MinutiaeDeltaDirectionRightMeasure>45</ansi-nist:MinutiaeDeltaDirectionRightMeasure>
+				<!-- DTP -->
+				<ansi-nist:MinutiaeDeltaCategoryCode>L</ansi-nist:MinutiaeDeltaCategoryCode>
+				<!-- RPU -->
+				<ansi-nist:ImageLocationUncertaintyRadiusMeasure>5</ansi-nist:ImageLocationUncertaintyRadiusMeasure>
+				<!-- DUU -->
+				<ansi-nist:MinutiaeDeltaDirectionUpUncertaintyValue>0</ansi-nist:MinutiaeDeltaDirectionUpUncertaintyValue>
+				<!-- DUL -->
+				<ansi-nist:MinutiaeDeltaDirectionLeftUncertaintyValue>0</ansi-nist:MinutiaeDeltaDirectionLeftUncertaintyValue>
+				<!-- DUR -->
+				<ansi-nist:MinutiaeDeltaDirectionRightUncertaintyValue>0</ansi-nist:MinutiaeDeltaDirectionRightUncertaintyValue>
+			</ansi-nist:MinutiaeDelta>
+			<ansi-nist:MinutiaeDelta>
+				<!-- DXC -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1905</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- DYC -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>1270</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				<!-- DTP -->
+				<ansi-nist:MinutiaeDeltaCategoryCode>R</ansi-nist:MinutiaeDeltaCategoryCode>
+			</ansi-nist:MinutiaeDelta>
+			<!-- CDR 9.322  -->
+			<ansi-nist:MinutiaeRidgeCountCoreToDelta>
+				<!-- CIX -->
+				<ansi-nist:MinutiaeCoreIdentification>
+					<nc:IdentificationID>U</nc:IdentificationID>
+				</ansi-nist:MinutiaeCoreIdentification>
+				<!-- DIX -->
+				<ansi-nist:MinutiaeDeltaIdentification>
+					<nc:IdentificationID>L</nc:IdentificationID>
+				</ansi-nist:MinutiaeDeltaIdentification>
+				<!-- MNRC -->
+				<ansi-nist:RidgeCountMinimumValue>2</ansi-nist:RidgeCountMinimumValue>
+				<!-- MXRC -->
+				<ansi-nist:RidgeCountMaximumValue>3</ansi-nist:RidgeCountMaximumValue>
+			</ansi-nist:MinutiaeRidgeCountCoreToDelta>
+			<ansi-nist:MinutiaeRidgeCountCoreToDelta>
+				<!-- CIX -->
+				<ansi-nist:MinutiaeCoreIdentification>
+					<nc:IdentificationID>L</nc:IdentificationID>
+				</ansi-nist:MinutiaeCoreIdentification>
+				<!-- DIX -->
+				<ansi-nist:MinutiaeDeltaIdentification>
+					<nc:IdentificationID>R</nc:IdentificationID>
+				</ansi-nist:MinutiaeDeltaIdentification>
+				<!-- MNRC -->
+				<ansi-nist:RidgeCountMinimumValue>5</ansi-nist:RidgeCountMinimumValue>
+			</ansi-nist:MinutiaeRidgeCountCoreToDelta>
+			<!-- CPR 9.323  -->
+			<ansi-nist:FrictionRidgeImageCenter>
+				<!-- CPM -->
+				<ansi-nist:FrictionRidgeImageCenterLocationMethodCode>1</ansi-nist:FrictionRidgeImageCenterLocationMethodCode>
+				<!-- PXC -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1270</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- PYC -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>1270</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				<!-- RPU -->
+				<ansi-nist:ImageLocationUncertaintyRadiusMeasure>5</ansi-nist:ImageLocationUncertaintyRadiusMeasure>
+			</ansi-nist:FrictionRidgeImageCenter>
+			<ansi-nist:FrictionRidgeImageCenter>
+				<!-- CPM -->
+				<ansi-nist:FrictionRidgeImageCenterLocationMethodCode>0</ansi-nist:FrictionRidgeImageCenterLocationMethodCode>
+				<!-- PXC -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1280</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- PYC -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>1270</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+			</ansi-nist:FrictionRidgeImageCenter>
+			<!-- NDIS 9.327  -->
+			<ansi-nist:MinutiaeNoDistinctiveFeaturesPresentIndicator>false</ansi-nist:MinutiaeNoDistinctiveFeaturesPresentIndicator>
+			<!-- DIS 9.324  -->
+			<ansi-nist:MinutiaeDistinctiveFeature>
+				<!-- DIT -->
+				<ansi-nist:MinutiaeDistinctiveFeatureCategoryCode>SCAR</ansi-nist:MinutiaeDistinctiveFeatureCategoryCode>
+				<!-- DFP -->
+				<ansi-nist:ImageSegmentPolygon>
+					<ansi-nist:ImageSegmentVertex>
+						<!-- HPO -->
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1330</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<!-- VPO -->
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1220</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2003</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>106</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2210</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1291</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+				</ansi-nist:ImageSegmentPolygon>
+				<!-- DFC -->
+				<ansi-nist:MinutiaeCommentText>Knife cut scar</ansi-nist:MinutiaeCommentText>
+			</ansi-nist:MinutiaeDistinctiveFeature>
+			<ansi-nist:MinutiaeDistinctiveFeature>
+				<!-- DIT -->
+				<ansi-nist:MinutiaeDistinctiveFeatureCategoryCode>CLEAR</ansi-nist:MinutiaeDistinctiveFeatureCategoryCode>
+				<!-- DFP -->
+				<ansi-nist:ImageSegmentPolygon>
+					<ansi-nist:ImageSegmentVertex>
+						<!-- HPO -->
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1330</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<!-- VPO -->
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1220</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2003</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>106</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2210</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1291</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+				</ansi-nist:ImageSegmentPolygon>
+			</ansi-nist:MinutiaeDistinctiveFeature>
+			<!-- NMIN 9.334  -->
+			<ansi-nist:MinutiaeNoMinutiaePresentIndicator>false</ansi-nist:MinutiaeNoMinutiaePresentIndicator>
+			<!-- MIN 9.331  -->
+			<ansi-nist:EFSMinutia>
+				<!-- MXC -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>10</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- MYC -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>13</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				<!-- MTD -->
+				<ansi-nist:ImageLocationThetaAngleMeasure>88</ansi-nist:ImageLocationThetaAngleMeasure>
+				<!-- MTY -->
+				<ansi-nist:EFSMinutiaCategoryCode>B</ansi-nist:EFSMinutiaCategoryCode>
+				<!-- MRU -->
+				<ansi-nist:ImageLocationUncertaintyRadiusMeasure>5</ansi-nist:ImageLocationUncertaintyRadiusMeasure>
+				<!-- MDU -->
+				<ansi-nist:MinutiaDirectionUncertaintyValue>135</ansi-nist:MinutiaDirectionUncertaintyValue>
+			</ansi-nist:EFSMinutia>
+			<ansi-nist:EFSMinutia>
+				<!-- MXC -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>10</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- MYC -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>26</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				<!-- MTD -->
+				<ansi-nist:ImageLocationThetaAngleMeasure>88</ansi-nist:ImageLocationThetaAngleMeasure>
+				<!-- MTY -->
+				<ansi-nist:EFSMinutiaCategoryCode>E</ansi-nist:EFSMinutiaCategoryCode>
+			</ansi-nist:EFSMinutia>
+			<!-- MRA 9.332  -->
+			<ansi-nist:EFSRidgeCountAlgorithmCode>OCTANT</ansi-nist:EFSRidgeCountAlgorithmCode>
+			<!-- MRC 9.333  -->
+			<ansi-nist:EFSRidgeCountItem>
+				<!-- MIA -->
+				<ansi-nist:MinutiaIdentification>
+					<nc:IdentificationID>1</nc:IdentificationID>
+				</ansi-nist:MinutiaIdentification>
+				<!-- MIB -->
+				<ansi-nist:MinutiaReferenceIdentification>
+					<nc:IdentificationID>2</nc:IdentificationID>
+				</ansi-nist:MinutiaReferenceIdentification>
+				<!-- MIR -->
+				<ansi-nist:RidgeCountValue>4</ansi-nist:RidgeCountValue>
+				<!-- MRN -->
+				<ansi-nist:MinutiaeRidgeCountOctantNumeric>7</ansi-nist:MinutiaeRidgeCountOctantNumeric>
+				<!-- MRS -->
+				<ansi-nist:MinutiaeRidgeCountResidualCode>0</ansi-nist:MinutiaeRidgeCountResidualCode>
+			</ansi-nist:EFSRidgeCountItem>
+			<ansi-nist:EFSRidgeCountItem>
+				<!-- MIA -->
+				<ansi-nist:MinutiaIdentification>
+					<nc:IdentificationID>1</nc:IdentificationID>
+				</ansi-nist:MinutiaIdentification>
+				<!-- MIB -->
+				<ansi-nist:MinutiaReferenceIdentification>
+					<nc:IdentificationID>3</nc:IdentificationID>
+				</ansi-nist:MinutiaReferenceIdentification>
+				<!-- MIR -->
+				<ansi-nist:RidgeCountValue>3</ansi-nist:RidgeCountValue>
+			</ansi-nist:EFSRidgeCountItem>
+			<!-- RCC 9.335  -->
+			<ansi-nist:MinutiaeRidgeCountConfidence>
+				<ansi-nist:MinutiaLocationPoint>
+					<!-- ACX -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>10</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- ACY -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>13</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationPoint>
+				<ansi-nist:MinutiaLocationReferencePoint>
+					<!-- BCX -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>10</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- BCY -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>26</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationReferencePoint>
+				<!-- MORC -->
+				<ansi-nist:MinutiaeRidgeCountMethodCode>A</ansi-nist:MinutiaeRidgeCountMethodCode>
+				<!-- MCV -->
+				<ansi-nist:MinutiaeRidgeCountConfidenceValue>99</ansi-nist:MinutiaeRidgeCountConfidenceValue>
+			</ansi-nist:MinutiaeRidgeCountConfidence>
+			<ansi-nist:MinutiaeRidgeCountConfidence>
+				<ansi-nist:MinutiaLocationPoint>
+					<!-- ACX -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>10</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- ACY -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>13</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationPoint>
+				<ansi-nist:MinutiaLocationReferencePoint>
+					<!-- BCX -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>10</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- BCY -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>26</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationReferencePoint>
+				<!-- MORC -->
+				<ansi-nist:MinutiaeRidgeCountMethodCode>A</ansi-nist:MinutiaeRidgeCountMethodCode>
+				<!-- MCV -->
+				<ansi-nist:MinutiaeRidgeCountConfidenceValue>0</ansi-nist:MinutiaeRidgeCountConfidenceValue>
+			</ansi-nist:MinutiaeRidgeCountConfidence>
+			<!-- NDOT 9.346  -->
+			<ansi-nist:MinutiaeNoDotsPresentIndicator>false</ansi-nist:MinutiaeNoDotsPresentIndicator>
+			<!-- DOT 9.340  -->
+			<ansi-nist:MinutiaeDot>
+				<!-- DOX -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2042</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- DOY -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>1869</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				<!-- DOL -->
+				<ansi-nist:MinutiaeDotLengthMeasure>2</ansi-nist:MinutiaeDotLengthMeasure>
+			</ansi-nist:MinutiaeDot>
+			<ansi-nist:MinutiaeDot>
+				<!-- DOX -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>55</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- DOY -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>66</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+			</ansi-nist:MinutiaeDot>
+			<!-- NINR 9.347  -->
+			<ansi-nist:MinutiaeNoIncipientRidgesPresentIndicator>false</ansi-nist:MinutiaeNoIncipientRidgesPresentIndicator>
+			<!-- INR 9.341  -->
+			<ansi-nist:MinutiaeIncipientRidge>
+				<ansi-nist:MinutiaLocationPoint>
+					<!-- X1C -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>846</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- Y1C -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>1270</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationPoint>
+				<ansi-nist:MinutiaLocationReferencePoint>
+					<!-- X2C -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>846</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- Y2C -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>1770</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationReferencePoint>
+			</ansi-nist:MinutiaeIncipientRidge>
+			<ansi-nist:MinutiaeIncipientRidge>
+				<ansi-nist:MinutiaLocationPoint>
+					<!-- X1C -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1694</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- Y1C -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>1270</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationPoint>
+				<ansi-nist:MinutiaLocationReferencePoint>
+					<!-- X2C -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1694</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- Y2C -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>1770</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationReferencePoint>
+			</ansi-nist:MinutiaeIncipientRidge>
+			<!-- NCLD 9.348  -->
+			<ansi-nist:MinutiaeNoCreasesPresentIndicator>false</ansi-nist:MinutiaeNoCreasesPresentIndicator>
+			<!-- CLD 9.342  -->
+			<ansi-nist:MinutiaeFlexionCrease>
+				<ansi-nist:MinutiaLocationPoint>
+					<!-- X1D -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>846</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- Y1D -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>2510</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationPoint>
+				<ansi-nist:MinutiaLocationReferencePoint>
+					<!-- X2D -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1846</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- Y2D -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>2480</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationReferencePoint>
+				<!-- TPD -->
+				<ansi-nist:MinutiaeFlexionCreaseCategoryCode>PIP</ansi-nist:MinutiaeFlexionCreaseCategoryCode>
+			</ansi-nist:MinutiaeFlexionCrease>
+			<ansi-nist:MinutiaeFlexionCrease>
+				<ansi-nist:MinutiaLocationPoint>
+					<!-- X1D -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>846</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- Y1D -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>2310</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationPoint>
+				<ansi-nist:MinutiaLocationReferencePoint>
+					<!-- X2D -->
+					<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1846</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+					<!-- Y2D -->
+					<ansi-nist:ImageLocationVerticalCoordinateMeasure>2280</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				</ansi-nist:MinutiaLocationReferencePoint>
+				<!-- TPD -->
+				<ansi-nist:MinutiaeFlexionCreaseCategoryCode>PDC06</ansi-nist:MinutiaeFlexionCreaseCategoryCode>
+			</ansi-nist:MinutiaeFlexionCrease>
+			<!-- NREF 9.349  -->
+			<ansi-nist:MinutiaeNoRidgeEdgeFeaturesPresentIndicator>false</ansi-nist:MinutiaeNoRidgeEdgeFeaturesPresentIndicator>
+			<!-- REF 9.343  -->
+			<ansi-nist:MinutiaeRidgeEdgeOrDiscontinuity>
+				<!-- CLX -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1524</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- CLY -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>1016</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				<!-- CLT -->
+				<ansi-nist:MinutiaeRidgeEdgeOrDiscontinuityCategoryCode>D</ansi-nist:MinutiaeRidgeEdgeOrDiscontinuityCategoryCode>
+			</ansi-nist:MinutiaeRidgeEdgeOrDiscontinuity>
+			<ansi-nist:MinutiaeRidgeEdgeOrDiscontinuity>
+				<!-- CLX -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>848</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- CLY -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>385</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+				<!-- CLT -->
+				<ansi-nist:MinutiaeRidgeEdgeOrDiscontinuityCategoryCode>D</ansi-nist:MinutiaeRidgeEdgeOrDiscontinuityCategoryCode>
+			</ansi-nist:MinutiaeRidgeEdgeOrDiscontinuity>
+			<!-- NPOR 9.344  -->
+			<ansi-nist:MinutiaeNoPoresPresentIndicator>false</ansi-nist:MinutiaeNoPoresPresentIndicator>
+			<!-- POR 9.345  -->
+			<ansi-nist:MinutiaePore>
+				<!-- POX -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1348</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- POY -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>97</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+			</ansi-nist:MinutiaePore>
+			<ansi-nist:MinutiaePore>
+				<!-- POX -->
+				<ansi-nist:ImageLocationHorizontalCoordinateMeasure>22</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+				<!-- POY -->
+				<ansi-nist:ImageLocationVerticalCoordinateMeasure>15</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+			</ansi-nist:MinutiaePore>
+			<!-- LPM 9.352  -->
+			<ansi-nist:LatentProcessingCategoryCode>SGF</ansi-nist:LatentProcessingCategoryCode>
+			<ansi-nist:LatentProcessingCategoryCode>DAB</ansi-nist:LatentProcessingCategoryCode>
+			<!-- EAA 9.353  -->
+			<ansi-nist:MinutiaeValueAssessment>
+				<!-- AAV -->
+				<ansi-nist:MinutiaeValueAssessmentResultCode>VALUE</ansi-nist:MinutiaeValueAssessmentResultCode>
+				<ansi-nist:MinutiaeExaminer>
+					<nc:PersonName>
+						<!-- AFN -->
+						<nc:PersonGivenName>Diane</nc:PersonGivenName>
+						<!-- ALN -->
+						<nc:PersonSurName>Larson</nc:PersonSurName>
+					</nc:PersonName>
+				</ansi-nist:MinutiaeExaminer>
+				<ansi-nist:MinutiaeExaminerAffiliation>
+					<!-- AAF -->
+					<nc:OrganizationName>WIDOJ Madison Crime Laboratory</nc:OrganizationName>
+				</ansi-nist:MinutiaeExaminerAffiliation>
+				<!-- AMT -->
+				<ansi-nist:MinutiaeValueAssessmentDateTime>
+					<nc:DateTime>2011-11-05T05:25:00Z</nc:DateTime>
+				</ansi-nist:MinutiaeValueAssessmentDateTime>
+				<!-- CXF -->
+				<ansi-nist:MinutiaeAnalysisComplexityCode>COMPLEX</ansi-nist:MinutiaeAnalysisComplexityCode>
+				<!-- ACM -->
+				<ansi-nist:MinutiaeCommentText>Comment</ansi-nist:MinutiaeCommentText>
+			</ansi-nist:MinutiaeValueAssessment>
+			<!-- EOF 9.354  -->
+			<ansi-nist:MinutiaeFraudEvidence>
+				<!-- FRA -->
+				<ansi-nist:MinutiaeFraudEvidenceCategoryCode>EVA</ansi-nist:MinutiaeFraudEvidenceCategoryCode>
+				<!-- CFD -->
+				<ansi-nist:MinutiaeCommentText>Mutilated finger</ansi-nist:MinutiaeCommentText>
+			</ansi-nist:MinutiaeFraudEvidence>
+			<ansi-nist:MinutiaeFraudEvidence>
+				<!-- FRA -->
+				<ansi-nist:MinutiaeFraudEvidenceCategoryCode>SPO</ansi-nist:MinutiaeFraudEvidenceCategoryCode>
+			</ansi-nist:MinutiaeFraudEvidence>
+			<!-- LSB 9.355  -->
+			<ansi-nist:MinutiaeLatentSubstrate>
+				<!-- CLS -->
+				<ansi-nist:MinutiaeLatentSubstrateCategoryCode>2H</ansi-nist:MinutiaeLatentSubstrateCategoryCode>
+				<!-- OSD -->
+				<ansi-nist:MinutiaeLatentSubstrateDescriptionText>Wrinkled</ansi-nist:MinutiaeLatentSubstrateDescriptionText>
+			</ansi-nist:MinutiaeLatentSubstrate>
+			<ansi-nist:MinutiaeLatentSubstrate>
+				<!-- CLS -->
+				<ansi-nist:MinutiaeLatentSubstrateCategoryCode>4B</ansi-nist:MinutiaeLatentSubstrateCategoryCode>
+			</ansi-nist:MinutiaeLatentSubstrate>
+			<!-- LMT 9.356  -->
+			<ansi-nist:MinutiaeLatentMatrix>
+				<!-- TOM -->
+				<ansi-nist:MinutiaeLatentMatrixCategoryCode>8</ansi-nist:MinutiaeLatentMatrixCategoryCode>
+				<!-- CLA -->
+				<ansi-nist:MinutiaeCommentText>Mixed substances</ansi-nist:MinutiaeCommentText>
+			</ansi-nist:MinutiaeLatentMatrix>
+			<ansi-nist:MinutiaeLatentMatrix>
+				<!-- TOM -->
+				<ansi-nist:MinutiaeLatentMatrixCategoryCode>1</ansi-nist:MinutiaeLatentMatrixCategoryCode>
+			</ansi-nist:MinutiaeLatentMatrix>
+			<!-- LQI 9.357  -->
+			<ansi-nist:MinutiaeLocalQualityIssues>
+				<!-- LQT -->
+				<ansi-nist:MinutiaeLocalQualityIssuesCategoryCode>COMPRESSED</ansi-nist:MinutiaeLocalQualityIssuesCategoryCode>
+				<!-- LQP -->
+				<ansi-nist:ImageSegmentPolygon>
+					<ansi-nist:ImageSegmentVertex>
+						<!-- HPO -->
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1330</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<!-- VPO -->
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1220</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2003</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>106</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2210</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1291</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+				</ansi-nist:ImageSegmentPolygon>
+				<!-- LQC -->
+				<ansi-nist:MinutiaeCommentText>Substrate wrinkled</ansi-nist:MinutiaeCommentText>
+			</ansi-nist:MinutiaeLocalQualityIssues>
+			<ansi-nist:MinutiaeLocalQualityIssues>
+				<!-- LQT -->
+				<ansi-nist:MinutiaeLocalQualityIssuesCategoryCode>STRETCHED</ansi-nist:MinutiaeLocalQualityIssuesCategoryCode>
+				<ansi-nist:ImageSegmentPolygon>
+					<ansi-nist:ImageSegmentVertex>
+						<!-- HPO -->
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1330</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<!-- VPO -->
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1220</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2003</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>106</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2210</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1291</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+				</ansi-nist:ImageSegmentPolygon>
+			</ansi-nist:MinutiaeLocalQualityIssues>
+			<!-- AOC 9.360  -->
+			<ansi-nist:FrictionRidgeImageAreaOfCorrespondence>
+				<!-- CIR -->
+				<ansi-nist:ImageReferenceIdentification>
+					<nc:IdentificationID>11</nc:IdentificationID>
+				</ansi-nist:ImageReferenceIdentification>
+				<!-- AOP -->
+				<ansi-nist:ImageSegmentPolygon>
+					<ansi-nist:ImageSegmentVertex>
+						<!-- HPO -->
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1330</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<!-- VPO -->
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1220</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2003</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>106</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2210</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1291</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+				</ansi-nist:ImageSegmentPolygon>
+				<!-- CAC -->
+				<ansi-nist:MinutiaeCommentText>Comment</ansi-nist:MinutiaeCommentText>
+			</ansi-nist:FrictionRidgeImageAreaOfCorrespondence>
+			<ansi-nist:FrictionRidgeImageAreaOfCorrespondence>
+				<!-- CIR -->
+				<ansi-nist:ImageReferenceIdentification>
+					<nc:IdentificationID>12</nc:IdentificationID>
+				</ansi-nist:ImageReferenceIdentification>
+				<ansi-nist:ImageSegmentPolygon>
+					<ansi-nist:ImageSegmentVertex>
+						<!-- HPO -->
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1330</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<!-- VPO -->
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1220</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2003</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>106</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>2210</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1291</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+				</ansi-nist:ImageSegmentPolygon>
+			</ansi-nist:FrictionRidgeImageAreaOfCorrespondence>
+			<!-- ECD 9.362  -->
+			<ansi-nist:MinutiaeExaminerComparisonDetermination>
+				<!-- EDC -->
+				<ansi-nist:ImageReferenceIdentification>
+					<nc:IdentificationID>11</nc:IdentificationID>
+				</ansi-nist:ImageReferenceIdentification>
+				<!-- EDE -->
+				<ansi-nist:MinutiaeExaminerComparisonDeterminationResultCode>INDIV</ansi-nist:MinutiaeExaminerComparisonDeterminationResultCode>
+				<!-- WIP -->
+				<ansi-nist:MinutiaeExaminerProgressCode>PRELIMINARY</ansi-nist:MinutiaeExaminerProgressCode>
+				<ansi-nist:MinutiaeExaminer>
+					<nc:PersonName>
+						<!-- EFN -->
+						<nc:PersonGivenName>Diane</nc:PersonGivenName>
+						<!-- ELN -->
+						<nc:PersonSurName>Larson</nc:PersonSurName>
+					</nc:PersonName>
+				</ansi-nist:MinutiaeExaminer>
+				<ansi-nist:MinutiaeExaminerAffiliation>
+					<!-- EAF -->
+					<nc:OrganizationName>WIDOJ Madison Crime Laboratory</nc:OrganizationName>
+				</ansi-nist:MinutiaeExaminerAffiliation>
+				<!-- DTG -->
+				<ansi-nist:MinutiaeExaminerComparisonDeterminationDateTime>
+					<nc:DateTime>2011-11-05T05:25:00Z</nc:DateTime>
+				</ansi-nist:MinutiaeExaminerComparisonDeterminationDateTime>
+				<!-- CCF -->
+				<ansi-nist:MinutiaeComparisonComplexityCode>COMPLEX</ansi-nist:MinutiaeComparisonComplexityCode>
+				<!-- CZZ -->
+				<ansi-nist:MinutiaeCommentText>Comment</ansi-nist:MinutiaeCommentText>
+			</ansi-nist:MinutiaeExaminerComparisonDetermination>
+			<ansi-nist:MinutiaeExaminerComparisonDetermination>
+				<!-- EDC -->
+				<ansi-nist:ImageReferenceIdentification>
+					<nc:IdentificationID>11</nc:IdentificationID>
+				</ansi-nist:ImageReferenceIdentification>
+				<!-- EDE -->
+				<ansi-nist:MinutiaeExaminerComparisonDeterminationResultCode>INDIV</ansi-nist:MinutiaeExaminerComparisonDeterminationResultCode>
+				<!-- WIP -->
+				<ansi-nist:MinutiaeExaminerProgressCode>FINAL</ansi-nist:MinutiaeExaminerProgressCode>
+				<ansi-nist:MinutiaeExaminer>
+					<nc:PersonName>
+						<!-- EFN -->
+						<nc:PersonGivenName>Diane</nc:PersonGivenName>
+						<!-- ELN -->
+						<nc:PersonSurName>Larson</nc:PersonSurName>
+					</nc:PersonName>
+				</ansi-nist:MinutiaeExaminer>
+				<ansi-nist:MinutiaeExaminerAffiliation>
+					<!-- EAF -->
+					<nc:OrganizationName>WIDOJ Madison Crime Laboratory</nc:OrganizationName>
+				</ansi-nist:MinutiaeExaminerAffiliation>
+				<!-- DTG -->
+				<ansi-nist:MinutiaeExaminerComparisonDeterminationDateTime>
+					<nc:DateTime>2011-11-05T05:25:00Z</nc:DateTime>
+				</ansi-nist:MinutiaeExaminerComparisonDeterminationDateTime>
+			</ansi-nist:MinutiaeExaminerComparisonDetermination>
+			<!-- SIM 9.372   -->
+			<ansi-nist:FrictionRidgeSkeletonizedImageBinaryObject>mrHbPdrko3u1s7ahtgPBjtmO1s85tfG2U7bpofY9
+				4Czu2SbY7d7wF9fQ7ZptgGrtkO2a2dsJ7wZbe 8BlzvAmQ7xq+Y94GoHeEsR3ikWd4DIGhzmp3k42
+				d4DRmzs94DKveDTB3hqw6PeBLrtpPep0H/+h</ansi-nist:FrictionRidgeSkeletonizedImageBinaryObject>
+			<!-- RPS 9.373  -->
+			<ansi-nist:MinutiaeImageRidgePathRepresentation>
+				<!-- RPS -->
+				<ansi-nist:MinutiaeRidgePathSegment>
+					<ansi-nist:ImageSegmentVertex>
+						<!-- HPO -->
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>385</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<!-- VPO -->
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1259</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>583</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>1489</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+				</ansi-nist:MinutiaeRidgePathSegment>
+				<!-- RPS -->
+				<ansi-nist:MinutiaeRidgePathSegment>
+					<ansi-nist:ImageSegmentVertex>
+						<!-- HPO -->
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>538</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<!-- VPO -->
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>52</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+					<ansi-nist:ImageSegmentVertex>
+						<ansi-nist:ImageLocationHorizontalCoordinateMeasure>1583</ansi-nist:ImageLocationHorizontalCoordinateMeasure>
+						<ansi-nist:ImageLocationVerticalCoordinateMeasure>158</ansi-nist:ImageLocationVerticalCoordinateMeasure>
+					</ansi-nist:ImageSegmentVertex>
+				</ansi-nist:MinutiaeRidgePathSegment>
+			</ansi-nist:MinutiaeImageRidgePathRepresentation>
+		</ansi-nist:ExtendedFeatureSetMinutiae>
+	</itl:PackageMinutiaeRecord>
+
+	<!--******************************************************************-->
+	<!--Type-13 Record Example-->
+	<!--******************************************************************-->
+	<itl:PackageLatentImageRecord>
+		<!--RCC 13.001-->
+		<ansi-nist:RecordCategoryCode>13</ansi-nist:RecordCategoryCode>
+		<!-- IDC 13.002-->
+		<ansi-nist:ImageReferenceIdentification>
+			<nc:IdentificationID>04</nc:IdentificationID>
+		</ansi-nist:ImageReferenceIdentification>
+		<ansi-nist:FrictionRidgeImage>
+			<!--DAT 13.999-->
+			<nc:BinaryBase64Object>mrHbPdrko3u1s7ahtgPBjtmO1s85tfG2U7bpofY9
+				4Czu2SbY7d7wF9fQ7ZptgGrtkO2a2dsJ7wZbe 8BlzvAmQ7xq+Y94GoHeEsR3ikWd4DIGhzmp3k42
+				d4DRmzs94DKveDTB3hqw6PeBLrtpPep0H/+h </nc:BinaryBase64Object>
+			<!-- BPX 13.012-->
+			<ansi-nist:ImageBitsPerPixelQuantity>8</ansi-nist:ImageBitsPerPixelQuantity>
+			<ansi-nist:ImageCaptureDetail>
+				<!-- LCD 13.005-->
+				<ansi-nist:CaptureDate>
+					<nc:Date>2007-01-01</nc:Date>
+				</ansi-nist:CaptureDate>
+				<!-- SHPS 13.016, Optional-->
+				<ansi-nist:CaptureHorizontalPixelDensityValue>500</ansi-nist:CaptureHorizontalPixelDensityValue>
+				<!-- SRC 13.004-->
+				<ansi-nist:CaptureOrganization>
+					<nc:OrganizationIdentification>
+						<nc:IdentificationID>WI013415Y</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+					<nc:OrganizationName>WI CRIME INFORMATION BUREAU</nc:OrganizationName>
+				</ansi-nist:CaptureOrganization>
+				<!-- SVPS 13.017, Optional-->
+				<ansi-nist:CaptureVerticalPixelDensityValue>500</ansi-nist:CaptureVerticalPixelDensityValue>
+			</ansi-nist:ImageCaptureDetail>
+			<!--COM 13.020, Optional-->
+			<ansi-nist:ImageCommentText>A comment</ansi-nist:ImageCommentText>
+			<!--CGA 13.011-->
+			<ansi-nist:ImageCompressionAlgorithmText>WSQ20</ansi-nist:ImageCompressionAlgorithmText>
+			<!--HLL 13.006-->
+			<ansi-nist:ImageHorizontalLineLengthPixelQuantity>80</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
+			<!-- HPS 13.009-->
+			<ansi-nist:ImageHorizontalPixelDensityValue>500</ansi-nist:ImageHorizontalPixelDensityValue>
+			<!-- SLC 13.008-->
+			<ansi-nist:ImageScaleUnitsCode>1</ansi-nist:ImageScaleUnitsCode>
+			<!--VLL 13.007-->
+			<ansi-nist:ImageVerticalLineLengthPixelQuantity>65</ansi-nist:ImageVerticalLineLengthPixelQuantity>
+			<!-- VPS 13.010-->
+			<ansi-nist:ImageVerticalPixelDensityValue>500</ansi-nist:ImageVerticalPixelDensityValue>
+			<!--IMP 13.003-->
+			<ansi-nist:FingerprintImageImpressionCaptureCategoryCode>7</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
+			<!--FGP 13.013 (1..6)-->
+			<ansi-nist:FrictionRidgePositionCode>4</ansi-nist:FrictionRidgePositionCode>
+			<ansi-nist:FrictionRidgePositionCode>5</ansi-nist:FrictionRidgePositionCode>
+			<!--SPD 13.014, Optional-->
+			<ansi-nist:FingerprintImageMajorCasePrint>
+				<ansi-nist:FingerPositionCode>8</ansi-nist:FingerPositionCode>
+				<!--(0..9)-->
+				<ansi-nist:MajorCasePrintCode>EJI</ansi-nist:MajorCasePrintCode>
+				<!--(0..9)-->
+				<!--PPC 13.015 (0..12)-->
+				<ansi-nist:MajorCasePrintSegmentOffset>
+					<ansi-nist:SegmentBottomVerticalCoordinateValue>85</ansi-nist:SegmentBottomVerticalCoordinateValue>
+					<ansi-nist:SegmentLocationCode>DST</ansi-nist:SegmentLocationCode>
+					<ansi-nist:SegmentFingerViewCode>FV3</ansi-nist:SegmentFingerViewCode>
+					<ansi-nist:SegmentLeftHorizontalCoordinateValue>115</ansi-nist:SegmentLeftHorizontalCoordinateValue>
+					<ansi-nist:SegmentRightHorizontalCoordinateValue>188</ansi-nist:SegmentRightHorizontalCoordinateValue>
+					<ansi-nist:SegmentTopVerticalCoordinateValue>55</ansi-nist:SegmentTopVerticalCoordinateValue>
+				</ansi-nist:MajorCasePrintSegmentOffset>
+				<ansi-nist:MajorCasePrintSegmentOffset>
+					<ansi-nist:SegmentBottomVerticalCoordinateValue>126</ansi-nist:SegmentBottomVerticalCoordinateValue>
+					<ansi-nist:SegmentLocationCode>MED</ansi-nist:SegmentLocationCode>
+					<ansi-nist:SegmentFingerViewCode>FV3</ansi-nist:SegmentFingerViewCode>
+					<ansi-nist:SegmentLeftHorizontalCoordinateValue>115</ansi-nist:SegmentLeftHorizontalCoordinateValue>
+					<ansi-nist:SegmentRightHorizontalCoordinateValue>188</ansi-nist:SegmentRightHorizontalCoordinateValue>
+					<ansi-nist:SegmentTopVerticalCoordinateValue>92</ansi-nist:SegmentTopVerticalCoordinateValue>
+				</ansi-nist:MajorCasePrintSegmentOffset>
+			</ansi-nist:FingerprintImageMajorCasePrint>
+			<!--LQM 13.024, (0..4)-->
+			<ansi-nist:FrictionRidgeImageQuality>
+				<ansi-nist:FrictionRidgePositionCode>19</ansi-nist:FrictionRidgePositionCode>
+				<ansi-nist:QualityAlgorithmProductIdentification>
+					<nc:IdentificationID>28495</nc:IdentificationID>
+				</ansi-nist:QualityAlgorithmProductIdentification>
+				<ansi-nist:QualityAlgorithmVendorIdentification>
+					<nc:IdentificationID>88</nc:IdentificationID>
+				</ansi-nist:QualityAlgorithmVendorIdentification>
+				<ansi-nist:QualityValue>100</ansi-nist:QualityValue>
+			</ansi-nist:FrictionRidgeImageQuality>
+		</ansi-nist:FrictionRidgeImage>
+	</itl:PackageLatentImageRecord>
+</itl:NISTBiometricInformationExchangePackage>

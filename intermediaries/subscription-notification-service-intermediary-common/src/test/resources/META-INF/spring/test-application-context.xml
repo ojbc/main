@@ -38,7 +38,7 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
-		<property name="url" value="jdbc:h2:mem:subscription" />
+		<property name="url" value="jdbc:h2:mem:rapback-datastore" />
 		<property name="username" value="sa" />
 	</bean>
     
@@ -108,23 +108,43 @@
 		<property name="topicSystemTemplateMap">
 			<util:map>
 				<entry key="{http://ojbc.org/wsn/topics}:person/arrest">
-					<util:map>
-						<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultArrestEmailFormatter"/>
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultArrestEmailFormatter"/>
+						<entry key-ref="nonCriminalJusticeSystemNotificationFormatKey" value-ref="nonCriminalJusticeEmailFormatter"/>
 					</util:map>
 				</entry>
 				<entry key="{http://ojbc.org/wsn/topics}:person/incident">
-					<util:map>
-						<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultIncidentEmailFormatter"/>
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultIncidentEmailFormatter"/>
 					</util:map>
 				</entry>
 				<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment">
-					<util:map>
-						<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultChCycleEmailFormatter"/>
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultChCycleEmailFormatter"/>
 					</util:map>
 				</entry>
 			</util:map>
 		</property>
 	</bean>
+	
+	<bean id="defaultSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+		<property name="subscribingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
+		<property name="subscriptionCategoryCode" value="default"/>
+	</bean>
+
+	<bean id="nonCriminalJusticeSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+		<property name="subscribingSystemName" value="{http://demostate.gov/SystemNames/1.0}SystemA"/>
+		<property name="subscriptionCategoryCode" value="I"/>
+	</bean>
+	
+	<bean id="nonCriminalJusticeEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+		<property name="emailSubjectTemplate">
+			<value>Non Criminal Justice Notification [Subject $emailNotification.subjectName]</value>
+		</property>
+		<property name="emailBodyTemplate">
+			<value>An event occurred for [Subject $emailNotification.subjectName]. Contact their employer.</value>
+		</property>
+	</bean>	
 	
 	<bean id="defaultArrestEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
@@ -192,5 +212,20 @@ To follow up on this incident, please call $emailNotification.notificationReques
 		<entry key="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB" value="Subscription" />
 		<entry key="{http://ojbc.org}ProbationChCyleTrackingID" value="Probation Cycle Information" />
 	</util:map>
+
+	<bean id="rapbackDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">		
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>	
+	</bean>
+	
+	<bean id="namedParameterJdbcTemplate" 
+      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+			
 
 </beans>

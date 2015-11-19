@@ -50,7 +50,8 @@ public class SubscriptionValidationRequestProcessor implements CamelContextAware
 	private boolean allowQueriesWithoutSAMLToken;
 	
 	@Override
-	public FaultableSoapResponse validate(String subscriptionIdentificationId, String topic, String federatedQueryID,
+	public FaultableSoapResponse validate(String subscriptionIdentificationId,
+			String topic, String reasonCode, String federatedQueryID,
 			Element samlToken) throws Exception {
 		
 		FaultableSoapResponse rFaultableSoapResponse = null;
@@ -73,7 +74,7 @@ public class SubscriptionValidationRequestProcessor implements CamelContextAware
 				throw new Exception("No SAML token provided. Unable to perform query.");
 			}	
 			
-			Document validateRequestDoc = RequestMessageBuilderUtilities.createValidateSubscriptionRequest(subscriptionIdentificationId, topic);
+			Document validateRequestDoc = RequestMessageBuilderUtilities.createValidateSubscriptionRequest(subscriptionIdentificationId, topic, reasonCode);
 			
 			log.info("validateRequestDoc:  ");
 			XmlUtils.printNode(validateRequestDoc);

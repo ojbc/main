@@ -29,12 +29,15 @@ public class Subscription implements Serializable {
 	
 	private String stateId;	
 	
+	private String fbiId;
+	
 	private String systemId;
 	
 	private String fullName;
 	
 	//note f/l name only used for incident(not arrest)
 	private String firstName;	
+	
 	private String lastName;
 	
 	private Date dateOfBirth;
@@ -44,6 +47,10 @@ public class Subscription implements Serializable {
 	private Date subscriptionEndDate;
 	
 	private List<String> emailList = new ArrayList<String>();
+	
+	private String subscriptionPurpose;
+	
+	private String caseId;
 
 	private String personNamesJsonArray;
 
@@ -53,6 +60,10 @@ public class Subscription implements Serializable {
 
 	public String getStateId() {
 		return stateId;
+	}
+
+	public String getFbiId() {
+		return fbiId;
 	}
 
 	public String getSystemId() {
@@ -87,6 +98,14 @@ public class Subscription implements Serializable {
 		return emailList;
 	}
 
+	public String getSubscriptionPurpose() {
+		return subscriptionPurpose;
+	}
+
+	public String getCaseId() {
+		return caseId;
+	}
+
 	public String getPersonNamesJsonArray() {
 		return personNamesJsonArray;
 	}
@@ -97,6 +116,10 @@ public class Subscription implements Serializable {
 
 	public void setStateId(String stateId) {
 		this.stateId = stateId;
+	}
+
+	public void setFbiId(String fbiId) {
+		this.fbiId = fbiId;
 	}
 
 	public void setSystemId(String systemId) {
@@ -131,6 +154,14 @@ public class Subscription implements Serializable {
 		this.emailList = emailList;
 	}
 
+	public void setSubscriptionPurpose(String subscriptionPurpose) {
+		this.subscriptionPurpose = subscriptionPurpose;
+	}
+
+	public void setCaseId(String caseId) {
+		this.caseId = caseId;
+	}
+
 	public void setPersonNamesJsonArray(String personNamesJsonArray) {
 		this.personNamesJsonArray = personNamesJsonArray;
 	}
@@ -138,15 +169,15 @@ public class Subscription implements Serializable {
 	@Override
 	public String toString() {
 		return "Subscription [subscriptionType=" + subscriptionType
-				+ ", stateId=" + stateId + ", systemId=" + systemId
-				+ ", fullName=" + fullName + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
-				+ ", subscriptionStartDate=" + subscriptionStartDate
-				+ ", subscriptionEndDate=" + subscriptionEndDate
-				+ ", emailList=" + emailList + ", personNamesJsonArray="
-				+ personNamesJsonArray + "]";
-	}		
+				+ ", stateId=" + stateId + ", fbiId=" + fbiId + ", systemId="
+				+ systemId + ", fullName=" + fullName + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", dateOfBirth="
+				+ dateOfBirth + ", subscriptionStartDate="
+				+ subscriptionStartDate + ", subscriptionEndDate="
+				+ subscriptionEndDate + ", emailList=" + emailList
+				+ ", subscriptionPurpose=" + subscriptionPurpose + ", caseId="
+				+ caseId + ", personNamesJsonArray=" + personNamesJsonArray
+				+ "]";
+	}
 	
 }
-
-

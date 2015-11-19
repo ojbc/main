@@ -38,6 +38,9 @@
             <b:InitialTerminationTime/>
             <b:SubscriptionPolicy/>
             <sm:SubscriptionMessage>
+            	<smext:SubscriptionRelatedCaseIdentification>
+            		<nc20:IdentificationID>0123ABG</nc20:IdentificationID>
+            	</smext:SubscriptionRelatedCaseIdentification>
                 <smext:Subject>
                     <nc20:PersonName>
                         <nc20:PersonFullName>Al Capone</nc20:PersonFullName>

@@ -19,22 +19,38 @@
 -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:cxf="http://camel.apache.org/schema/cxf"
-    xmlns:camel="http://camel.apache.org/schema/spring"
-    xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
-    xmlns:sec="http://cxf.apache.org/configuration/security"    
-    xsi:schemaLocation="
-    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-    http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-    http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
-    http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
-    ">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"     
+       xmlns:util="http://www.springframework.org/schema/util"  
+       xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       ">
+       
+    <camel:endpoint id="paroleEventHandlerServiceEndpoint" 
+    	uri="cxf:bean:paroleEventHandlerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}"/>                        
     
-    <camel:endpoint id="paroleEventHandlerServiceEndpoint" uri="cxf:bean:paroleEventHandlerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.parole.paroleEventHandlerServiceIntermediaryCxflogging}"/>                        
-    <camel:endpoint id="notificationBrokerServiceEndpoint" uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.parole.paroleEventHandlerServiceIntermediaryCxflogging}"/>                
-    <camel:endpoint id="subscriptionManagerServiceEndpoint" uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.parole.paroleEventHandlerServiceIntermediaryCxflogging}"/>                
+    <camel:endpoint id="notificationBrokerServiceEndpoint" 
+    	uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}"/>                
+    
+    <camel:endpoint id="subscriptionManagerServiceEndpoint" 
+    	uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}"/>                
+
     
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
@@ -61,5 +77,46 @@
 		xmlns:ojbcParole="http://ojbc.org/Services/WSDL/Parole_Event_Handler_Service/1.0">
 	</cxf:cxfEndpoint>
 
-
+	
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${parole.event.truststorePassword}"
+					file="${parole.event.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>
+	
+   	<!-- Used for SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection -->
+	<httpj:engine-factory id="ClientAuthHttpsSettings"
+		bus="cxf">
+		<httpj:engine port="${parole.event.portNumber}">
+			<httpj:tlsServerParameters>
+				<sec:keyManagers keyPassword="${publishSubscribe.keyPassword}">
+					<sec:keyStore type="jks" password="${publishSubscribe.keystorePassword}" file="${publishSubscribe.keystoreLocation}" />
+				</sec:keyManagers>
+				<sec:cipherSuitesFilter>
+					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				</sec:cipherSuitesFilter>
+				<sec:clientAuthentication want="false"
+					required="false" />
+			</httpj:tlsServerParameters>
+		</httpj:engine>
+	</httpj:engine-factory> 		
+	   
 </beans>
+

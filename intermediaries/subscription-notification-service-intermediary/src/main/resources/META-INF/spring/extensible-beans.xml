@@ -54,18 +54,18 @@
 				<property name="topicSystemTemplateMap">
 					<util:map>
 						<entry key="{http://ojbc.org/wsn/topics}:person/arrest">
-							<util:map>
-								<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultArrestEmailFormatter" />
+							<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultArrestEmailFormatter"/>
 							</util:map>
 						</entry>
 						<entry key="{http://ojbc.org/wsn/topics}:person/incident">
-							<util:map>
-								<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultIncidentEmailFormatter" />
+							<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultIncidentEmailFormatter"/>
 							</util:map>
 						</entry>
 						<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment">
-							<util:map>
-								<entry key="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" value-ref="defaultChCycleEmailFormatter" />
+							<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultChCycleEmailFormatter"/>
 							</util:map>
 						</entry>
 					</util:map>
@@ -73,19 +73,19 @@
 			</bean>
 		</constructor-arg>
 	</bean>
-
+	
 	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="dataSource" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
-				<property name="url" value="jdbc:h2:mem:subscription" />
+				<property name="url" value="jdbc:h2:mem:rapback-datastore" />
 				<property name="username" value="sa" />
 			</bean>
 		</constructor-arg>
 	</bean>
-	
+		
 	<bean id="systemIdentifierToDescriptorMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="systemIdentifierToDescriptorMap" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />

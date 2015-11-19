@@ -16,6 +16,17 @@
  */
 package org.ojbc.web.util;
 
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
+import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +40,9 @@ import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.OJBCWebServiceURIs;
+import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SearchFieldMetadata;
+import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequest;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequestDomUtils;
 import org.ojbc.web.model.incident.search.IncidentSearchRequest;
@@ -38,6 +51,7 @@ import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestDomUtils;
 import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.web.model.subscription.Unsubscription;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.w3c.dom.Document;
@@ -49,6 +63,9 @@ import org.w3c.dom.Element;
  *
  */
 public class RequestMessageBuilderUtilities {
+
+	private static final String IDENTIFICATION_RESULTS_ARCHIVE_REQUEST_SYSTEM_NAME = 
+			"{http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0}SubmitIdentificationResultsArchiveRequest";
 
 	private static final Log log = LogFactory.getLog( RequestMessageBuilderUtilities.class );
 	
@@ -365,7 +382,9 @@ public class RequestMessageBuilderUtilities {
 		return doc;
 	}
 
-	public static Document createUnubscriptionRequest(String subscriptionIdentificationId, String topic) throws Exception{
+	public static Document createUnubscriptionRequest(Unsubscription unsubscription) throws Exception{
+		
+		String subscriptionIdentificationId = unsubscription.getSubscriptionId();
 		
 		Document doc = OJBCXMLUtils.createDocument();
         Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Unsubscribe");
@@ -378,17 +397,29 @@ public class RequestMessageBuilderUtilities {
         
         Element identificationID = XmlUtils.appendElement(subscriptionIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
         identificationID.setTextContent(subscriptionIdentificationId);
+                
+		String reasonCode = unsubscription.getReasonCode();
+        if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
+	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
+	        reasonCodeElement.setTextContent(reasonCode);
+        }
+        else{
+	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
+	        reasonCodeElement.setTextContent(reasonCode);
+        }
         
 		Element topicExpNode = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_B2, "TopicExpression");		
-		XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);
+		XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);		
+		topicExpNode.setTextContent(unsubscription.getTopic());
 		
-		topicExpNode.setTextContent(topic);
-                
+		OjbcNamespaceContext ojbNamespaceCtxt = new OjbcNamespaceContext();
+		ojbNamespaceCtxt.populateRootNamespaceDeclarations(doc.getDocumentElement());
+		
 		return doc;
 	}
 	
 	
-	public static Document createValidateSubscriptionRequest(String subscriptionId, String topic) throws Exception{
+	public static Document createValidateSubscriptionRequest(String subscriptionId, String topic, String reasonCode) throws Exception{
 		
 		Document doc = OJBCXMLUtils.createDocument();		
 		Element rootElement = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Validate");
@@ -402,6 +433,17 @@ public class RequestMessageBuilderUtilities {
 		Element identificationIDElement = XmlUtils.appendElement(subIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
 		
 		identificationIDElement.setTextContent(subscriptionId);
+		
+		if (StringUtils.isNotBlank(reasonCode)){
+			if (OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
+				Element civilSubscriptionReasonCode = XmlUtils.appendElement(subValidMsgElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
+				civilSubscriptionReasonCode.setTextContent(reasonCode);
+			}
+			else{
+				Element criminalSubscriptionReasonCode = XmlUtils.appendElement(subValidMsgElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
+				criminalSubscriptionReasonCode.setTextContent(reasonCode);
+			}
+		}
 						
 		Element topicElement = XmlUtils.appendElement(rootElement, OjbcNamespaceContext.NS_B2, "TopicExpression");
 		XmlUtils.addAttribute(topicElement, null, "Dialect", TOPIC_EXPRESSION_DIALECT);
@@ -415,9 +457,8 @@ public class RequestMessageBuilderUtilities {
 	public static Document createSubscriptionRequest(Subscription subscription) throws Exception{
 
 		SubscriptionDocumentBuilder subscriptionDocumentBuilder = new SubscriptionDocumentBuilder();		
-		Document subAddReqDoc = subscriptionDocumentBuilder.buildSubscribeDoc(subscription);		
-        XmlUtils.printNode(subAddReqDoc);
-        
+		Document subAddReqDoc = subscriptionDocumentBuilder.buildSubscribeDoc(subscription);	
+		
 		return subAddReqDoc;
 	}
 
@@ -616,6 +657,90 @@ public class RequestMessageBuilderUtilities {
 
         log.debug("\nCreated Request:\n" + OJBUtils.getStringFromDocument(document));
         return document;
-    }	
+    }
+
+	public static Document createRapbackSearchRequest(IdentificationResultsCategory category) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();       
+        Element rootElement = document.createElementNS(OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST, 
+                OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST 
+                +":OrganizationIdentificationResultsSearchRequest");
+        document.appendChild(rootElement); 
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST, 
+                OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST);
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+        		OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT);
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30, 
+        		OjbcNamespaceContext.NS_STRUCTURES_30);
+
+        Element identificationResultsCategoryCode  = XmlUtils.appendElement(rootElement, 
+                OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+                "IdentificationResultsCategoryCode"); 
+        identificationResultsCategoryCode.setTextContent(category.name());
+
+		return document;
+	}
+
+	public static Document createIdentificationInitialResultsQueryRequest(
+			String transactionNumber) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST, 
+                NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST 
+                +":OrganizationIdentificationInitialResultsQueryRequest");
+        document.appendChild(rootElement);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST, 
+                NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST);
+        buildIdentificationResultsQueryRequest(transactionNumber, rootElement);
+        
+		return document;
+	}
+
+	private static void buildIdentificationResultsQueryRequest(String transactionNumber, Element rootElement) {
+		rootElement.setAttribute("xmlns:" + NS_PREFIX_INTEL_30, NS_INTEL_30);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_30, NS_NC_30);
+        
+        Element systemIdentification = 
+        		XmlUtils.appendElement(rootElement, NS_INTEL_30, "SystemIdentification");
+        Element identificationId = XmlUtils.appendElement(systemIdentification, NS_NC_30, "IdentificationID");
+        identificationId.setTextContent(transactionNumber);
+        
+        Element systemName = XmlUtils.appendElement(systemIdentification, NS_NC_30, "SystemName"); 
+        systemName.setTextContent("rap-back-data-store");
+	}
+
+	public static Document createIdentificationSubsequentResultsQueryRequest(
+			String transactionNumber) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST, 
+                NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST 
+                +":OrganizationIdentificationSubsequentResultsQueryRequest");
+        document.appendChild(rootElement);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST, 
+                NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST);
+        buildIdentificationResultsQueryRequest(transactionNumber, rootElement);
+        
+		return document;
+	}
+
+	public static Document createIdentificationResultsModificationRequest(
+			String transactionNumber) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, 
+        		NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST 
+                +":IdentificationResultsArchiveRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, 
+        		NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_30, NS_NC_30);
+        document.appendChild(rootElement);
+
+        Element identificationResultsIdentification = 
+        		XmlUtils.appendElement(rootElement, NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, "IdentificationResultsIdentification");
+        Element identificationId = XmlUtils.appendElement(identificationResultsIdentification, NS_NC_30, "IdentificationID");
+        identificationId.setTextContent(transactionNumber);
+        
+        Element systemName = XmlUtils.appendElement(rootElement, NS_NC_30, "SystemName"); 
+        systemName.setTextContent(IDENTIFICATION_RESULTS_ARCHIVE_REQUEST_SYSTEM_NAME);
+        
+		return document;
+	}	
     
 }

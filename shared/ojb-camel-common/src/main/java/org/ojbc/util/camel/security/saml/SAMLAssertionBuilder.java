@@ -99,8 +99,7 @@ public class SAMLAssertionBuilder {
 	public Element createSamlAssertionElement(String issuerString, String inResponseTo, String recipient, String audienceRestriction, String authenticationMethod, String defaultCanonicalizationAlgorithm,
             String defaultRSASignatureAlgorithm, Map<SamlAttribute, String> customAttributes) throws Exception
 	{
-		Assertion assertion = createSamlAssertion(issuerString, "_408184603d310905303442e592991adc", "https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST", "http://ojbc.org/ADS/WebServiceConsumer", 
-				SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD_PROTECTED_TRANSPORT, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, customAttributes);
+		Assertion assertion = createSamlAssertion(issuerString, inResponseTo, recipient, audienceRestriction, authenticationMethod, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, customAttributes);
 		
 		return assertion.getDOM();
 
@@ -185,21 +184,23 @@ public class SAMLAssertionBuilder {
 			assertion.getAttributeStatements().addAll(attributeStatements);
 		}	
 		
-		if (StringUtils.isNotEmpty(authenticationMethod))
+		if (StringUtils.isEmpty(authenticationMethod))
 		{	
-			//create authn statements with a AuthnContextClassRef of PasswordProtectedTransport
-			List<AuthenticationStatementBean> authBeans = new ArrayList<AuthenticationStatementBean>();
-			
-			AuthenticationStatementBean authenticationStatementBean = new AuthenticationStatementBean();
-			
-			//Maybe allow this to be configurable
-			authenticationStatementBean.setAuthenticationMethod(authenticationMethod);
-			
-			authBeans.add(authenticationStatementBean);
-			
-			List<AuthnStatement> authnStatments = SAML2ComponentBuilder.createAuthnStatement(authBeans);
-			assertion.getAuthnStatements().addAll(authnStatments);
+			authenticationMethod = SAML2Constants.AUTH_CONTEXT_CLASS_REF_UNSPECIFIED;
 		}	
+
+		//create authn statements with a AuthnContextClassRef of PasswordProtectedTransport
+		List<AuthenticationStatementBean> authBeans = new ArrayList<AuthenticationStatementBean>();
+		
+		AuthenticationStatementBean authenticationStatementBean = new AuthenticationStatementBean();
+		
+		//Maybe allow this to be configurable
+		authenticationStatementBean.setAuthenticationMethod(authenticationMethod);
+		
+		authBeans.add(authenticationStatementBean);
+		
+		List<AuthnStatement> authnStatments = SAML2ComponentBuilder.createAuthnStatement(authBeans);
+		assertion.getAuthnStatements().addAll(authnStatments);
 			
 		//Sign the assertion, we use the AssertionWrapper provides by WSS4J to do the signing
 		//The SAMLTokenProvider shows how to do this

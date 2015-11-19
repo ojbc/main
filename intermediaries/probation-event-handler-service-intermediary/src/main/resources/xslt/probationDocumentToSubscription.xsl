@@ -29,10 +29,17 @@
 	xmlns:smext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 	exclude-result-prefixes="pci pcext s"
 	>
+	
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+	
 	<xsl:param name="topicExpression"/>
+	
+	<xsl:param name="fbiId"/>
+	
 	<xsl:variable name="supervisionSupervisorPersonID" select="/pci:ProbationCaseInitiation/pcext:ProbationCase/pcext:Supervision/nc20:SupervisionSupervisor/nc20:EntityPerson/@s:id"/>
+	
 	<xsl:variable name="officerID">
+	
 		<xsl:choose>
 			<xsl:when test="/pci:ProbationCaseInitiation/pcext:ProbationCase/nc20:Person[@s:id=/pci:ProbationCaseInitiation/pcext:ProbationCase/jxdm41:EnforcementOfficial/nc20:RoleOfPersonReference/@s:ref]/@s:id">
 				<xsl:value-of select="/pci:ProbationCaseInitiation/pcext:ProbationCase/nc20:Person[@s:id=/pci:ProbationCaseInitiation/pcext:ProbationCase/jxdm41:EnforcementOfficial/nc20:RoleOfPersonReference/@s:ref]/@s:id"/>
@@ -78,8 +85,15 @@
 						<nc20:PersonGivenName><xsl:value-of select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc20:PersonName/nc20:PersonGivenName"/></nc20:PersonGivenName>
 						<nc20:PersonSurName><xsl:value-of select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc20:PersonName/nc20:PersonSurName"/></nc20:PersonSurName>
 						<nc20:PersonFullName><xsl:value-of select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc20:PersonName/nc20:PersonGivenName"/><xsl:text> </xsl:text><xsl:value-of select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc20:PersonName/nc20:PersonSurName"/></nc20:PersonFullName>
-					</nc20:PersonName>
-					<xsl:apply-templates select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification" />
+					</nc20:PersonName>					
+					<jxdm41:PersonAugmentation>
+						<xsl:if test="$fbiId and $fbiId != ''">
+							<jxdm41:PersonFBIIdentification>
+								<nc20:IdentificationID><xsl:value-of select="$fbiId" /></nc20:IdentificationID>
+							</jxdm41:PersonFBIIdentification>						
+						</xsl:if>
+						<xsl:apply-templates select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification" />
+					</jxdm41:PersonAugmentation>																									
 				</smext:Subject>
 				<xsl:apply-templates select="pcext:ProbationCase/nc20:PersonContactInformationAssociation[nc20:PersonReference/@s:ref=$supervisionSupervisorPersonID or $officerID]"/>
 				<xsl:apply-templates select="pcext:ProbationCase/nc20:OrganizationContactInformationAssociation[nc20:OrganizationReference/@s:ref=$supervisionSupervisorOrganizationID]"/>
@@ -99,6 +113,7 @@
 		                </xsl:if>
 	               	</nc20:DateRange>
 				</xsl:if>
+				<smext:CriminalSubscriptionReasonCode>CS</smext:CriminalSubscriptionReasonCode>
 			</sm:SubscriptionMessage>
 		</b:Subscribe>
 	</xsl:template>
@@ -122,10 +137,8 @@
 		<nc20:PersonBirthDate>
 			<nc20:Date><xsl:value-of select="nc20:Date"/></nc20:Date>
 		</nc20:PersonBirthDate>
-	</xsl:template>
+	</xsl:template>		
 	<xsl:template match="jxdm41:PersonStateFingerprintIdentification">
-		<jxdm41:PersonAugmentation>
-			<jxdm41:PersonStateFingerprintIdentification><nc20:IdentificationID><xsl:value-of select="normalize-space(nc20:IdentificationID)"/></nc20:IdentificationID></jxdm41:PersonStateFingerprintIdentification>
-		</jxdm41:PersonAugmentation>
-	</xsl:template>
+		<jxdm41:PersonStateFingerprintIdentification><nc20:IdentificationID><xsl:value-of select="normalize-space(nc20:IdentificationID)"/></nc20:IdentificationID></jxdm41:PersonStateFingerprintIdentification>
+	</xsl:template>		
 </xsl:stylesheet>

@@ -30,7 +30,10 @@
 	exclude-result-prefixes="pct pcext s"
 	>
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+	
 	<xsl:param name="topicExpression"/>
+	<xsl:param name="fbiId"/>
+	
 	<xsl:variable name="supervisionSupervisorPersonID" select="/pct:ProbationCaseTermination/pcext:ProbationCase/pcext:Supervision/nc20:SupervisionSupervisor/nc20:EntityPerson/@s:id"/>
 	<xsl:variable name="officerID">
 		<xsl:choose>
@@ -50,15 +53,16 @@
 			<um:UnsubscriptionMessage>
 				<smext:Subject>
 					<xsl:apply-templates select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc20:PersonBirthDate"/>
-					<xsl:apply-templates select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc20:PersonName" />
-					<xsl:apply-templates select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification" />
+					<xsl:apply-templates select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc20:PersonName" />									
+					<xsl:apply-templates select="pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation"/>															
 				</smext:Subject>
 				<xsl:apply-templates select="pcext:ProbationCase/nc20:PersonContactInformationAssociation[nc20:PersonReference/@s:ref=$supervisionSupervisorPersonID or nc20:PersonReference/@s:ref=$officerID]"/>
 				<xsl:apply-templates select="pcext:ProbationCase/nc20:OrganizationContactInformationAssociation[nc20:OrganizationReference/@s:ref=$supervisionSupervisorOrganizationID]"/>
 				<smext:SystemName><xsl:value-of select="pcext:SystemName"/></smext:SystemName>
 				<smext:SubscriptionQualifierIdentification>
 					<nc20:IdentificationID><xsl:value-of select="pcext:ProbationCase/pcext:Supervision/pcext:SupervisionIdentification/nc20:IdentificationID"/></nc20:IdentificationID>
-				</smext:SubscriptionQualifierIdentification>				
+				</smext:SubscriptionQualifierIdentification>	
+				<smext:CriminalSubscriptionReasonCode>CS</smext:CriminalSubscriptionReasonCode>			
 			</um:UnsubscriptionMessage>
 			<b:TopicExpression
 				Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"
@@ -92,10 +96,18 @@
 			<nc20:PersonGivenName><xsl:value-of select="nc20:PersonGivenName"/></nc20:PersonGivenName>
 			<nc20:PersonSurName><xsl:value-of select="nc20:PersonSurName"/></nc20:PersonSurName>
 		</nc20:PersonName>
+	</xsl:template>		
+	<xsl:template match="jxdm41:PersonAugmentation">
+		<jxdm41:PersonAugmentation>
+			<xsl:if test="$fbiId and $fbiId != ''">
+				<jxdm41:PersonFBIIdentification>
+					<nc20:IdentificationID><xsl:value-of select="$fbiId" /></nc20:IdentificationID>
+				</jxdm41:PersonFBIIdentification>						
+			</xsl:if>						
+			<xsl:apply-templates select="jxdm41:PersonStateFingerprintIdentification" />
+		</jxdm41:PersonAugmentation>		
 	</xsl:template>
 	<xsl:template match="jxdm41:PersonStateFingerprintIdentification">
-		<jxdm41:PersonAugmentation>
 			<jxdm41:PersonStateFingerprintIdentification><nc20:IdentificationID><xsl:value-of select="normalize-space(nc20:IdentificationID)"/></nc20:IdentificationID></jxdm41:PersonStateFingerprintIdentification>
-		</jxdm41:PersonAugmentation>
-	</xsl:template>
+	</xsl:template>	
 </xsl:stylesheet>

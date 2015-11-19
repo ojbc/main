@@ -68,9 +68,15 @@ public class SearchResultConverter implements ApplicationContextAware {
 	@Value("classpath:xsl/rapbackSearchResult.xsl")
 	org.springframework.core.io.Resource rapbackSearchResultXsl;
 	
+	@Value("classpath:xsl/criminalIdentificationSearchResult.xsl")
+	org.springframework.core.io.Resource criminalIdentificationSearchResultXsl;
+	
     @Value("classpath:xsl/identityBasedAccessControlResult.xsl")
     org.springframework.core.io.Resource identityBasedAccessControlResultXsl;
-    
+
+	@Value("${rapbackValidationButtonShowingPeriod:30}")
+	Integer rapbackValidationButtonShowingPeriod;
+		
 	@Resource
 	Map<String,String> searchDetailToXsl;
 	
@@ -95,7 +101,12 @@ public class SearchResultConverter implements ApplicationContextAware {
 	}
 
     public String convertRapbackSearchResult(String searchContent) {
-        return convertXml(searchContent, rapbackSearchResultXsl, null);
+    	if (StringUtils.isBlank(searchContent)){
+    		return "";
+    	}
+        Map<String, Object> params = new HashMap<String, Object>(); 
+        params.put("rapbackValidationButtonShowingPeriod", rapbackValidationButtonShowingPeriod);
+        return convertXml(searchContent, rapbackSearchResultXsl, params);
     }
     
 	public String convertDetailSearchResult(String searchContent, String systemName, String activeAccordionId) {
@@ -175,6 +186,19 @@ public class SearchResultConverter implements ApplicationContextAware {
 		String filterResult = convertXml(xmlContent, subscriptionFilterXsl, paramsMap);
 		
 		return filterResult;		
+	}
+
+	public String convertCriminalIdentificationSearchResult(String searchContent) {
+    	if (StringUtils.isBlank(searchContent)){
+    		return "";
+    	}
+        return convertXml(searchContent, criminalIdentificationSearchResultXsl, null);
+	}
+
+	public String convertIdentificationResultsQueryResult(String searchContent,
+			Object object) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

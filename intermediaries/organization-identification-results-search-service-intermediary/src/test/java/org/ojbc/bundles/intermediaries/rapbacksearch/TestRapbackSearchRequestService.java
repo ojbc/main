@@ -18,8 +18,6 @@ package org.ojbc.bundles.intermediaries.rapbacksearch;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Map;
-
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -28,16 +26,9 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
-import org.apache.cxf.message.MessageImpl;
-import org.apache.ws.security.SAMLTokenPrincipal;
-import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.rapbacksearch.dao.RapbackDAOImpl;
-import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -48,11 +39,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
         "classpath:META-INF/spring/cxf-endpoints.xml",
-        "classpath:META-INF/spring/extensible-beans.xml",
-        "classpath:META-INF/spring/local-osgi-context.xml",
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
+        "classpath:META-INF/spring/properties-context.xml"
 		})
 @DirtiesContext
 public class TestRapbackSearchRequestService {
@@ -64,9 +51,6 @@ public class TestRapbackSearchRequestService {
     
     @EndpointInject(uri = "mock:result")
     protected MockEndpoint resultEndpoint;
-
-    @Autowired
-    private RapbackDAOImpl rapbackDAO;
 
     @Test
     public void testApplicationStartup() {
@@ -103,20 +87,4 @@ public class TestRapbackSearchRequestService {
     }
 
     
-    private org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(
-            Map<String, String> customAttributes) throws Exception {
-        org.apache.cxf.message.Message message = new MessageImpl();
-
-        Assertion samlToken = SAMLTokenUtils
-                .createStaticAssertionWithCustomAttributes(
-                        "https://idp.ojbc-local.org:9443/idp/shibboleth",
-                        SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS,
-                        SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true,
-                        true, customAttributes);
-        SAMLTokenPrincipal principal = new SAMLTokenPrincipal(
-                new AssertionWrapper(samlToken));
-        message.put("wss4j.principal.result", principal);
-        return message;
-    }
-
 }

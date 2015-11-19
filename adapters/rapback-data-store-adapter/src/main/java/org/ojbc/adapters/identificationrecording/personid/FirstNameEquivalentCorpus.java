@@ -25,7 +25,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Class that maintains a mapping of "diminutive" names to a canonical form.  For example, Bob and Bobby would map to Robert.  This is based upon a corpus originally downloaded
  * from https://github.com/dtrebbien/diminutives.db.
- *
+ * @deprecated Not used. 
  */
 class FirstNameEquivalentCorpus {
 	

@@ -78,7 +78,64 @@ public class RequestMessageBuilderUtilitiesTest {
                        myDiff.identical());     
 
     }
+    
+    @Test
+    public void testCreateIdentificationInitialResultsQueryRequest() throws Exception {
+    	Document document = RequestMessageBuilderUtilities.createIdentificationInitialResultsQueryRequest("000001820140729014008339993");
+    	
+    	String documentInString = OJBUtils.getStringFromDocument(document);
+    	log.debug("\nIdentification Results Query Request:\n"+ StringUtils.trimToEmpty(documentInString));
+    	
+    	Assert.assertNotNull(document);
+    	
+    	File expectedReponseFile = new File("src/test/resources/xml/identificationResultsQuery/identificationResultsQueryRequest.xml");
+    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+    	
+    	//Use XML Unit to compare these files
+    	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
+    	Assert.assertTrue("XML identical " + myDiff.toString(),
+    			myDiff.identical());     
+    	
+    }
 
+    @Test
+    public void testCreateIdentificationSubsequentResultsQueryRequest() throws Exception {
+    	Document document = RequestMessageBuilderUtilities.createIdentificationSubsequentResultsQueryRequest("000001820140729014008339993");
+    	
+    	String documentInString = OJBUtils.getStringFromDocument(document);
+    	log.debug("\nIdentification Results Query Request:\n"+ StringUtils.trimToEmpty(documentInString));
+    	
+    	Assert.assertNotNull(document);
+    	
+    	File expectedReponseFile = new File("src/test/resources/xml/identificationResultsQuery/identificationSubsequentResultsQueryRequest.xml");
+    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+    	
+    	//Use XML Unit to compare these files
+    	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
+    	Assert.assertTrue("XML identical " + myDiff.toString(),
+    			myDiff.identical());     
+    	
+    }
+    
+    @Test
+    public void testCreateIdentificationResultsModificationRequest() throws Exception {
+    	Document document = RequestMessageBuilderUtilities.createIdentificationResultsModificationRequest("000001820140729014008339993");
+    	
+    	String documentInString = OJBUtils.getStringFromDocument(document);
+    	log.debug("\nIdentification Results Modification Request:\n"+ StringUtils.trimToEmpty(documentInString));
+    	
+    	Assert.assertNotNull(document);
+    	
+    	File expectedReponseFile = new File("src/test/resources/xml/identificationResultsModification/identificationResultsModificationRequest.xml");
+    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+    	
+    	//Use XML Unit to compare these files
+    	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
+    	Assert.assertTrue("XML identical " + myDiff.toString(),
+    			myDiff.identical());     
+    	
+    }
+    
     @Test
     public void testCreatePolicyBasedAccessControlRequest() throws Exception {
         //Create Default SAML Token Element. 

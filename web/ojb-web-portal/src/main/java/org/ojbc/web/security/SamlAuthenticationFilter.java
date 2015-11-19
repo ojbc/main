@@ -16,25 +16,19 @@
  */
 package org.ojbc.web.security;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
-import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
-import org.ojbc.util.model.saml.SamlAttribute;
+import org.apache.commons.lang3.StringUtils;
+import org.ojb.web.portal.WebPortalConstants;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.portal.services.SamlService;
-import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.w3c.dom.Element;
 
 public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter {
     
-    private SamlService samlService;
+	private SamlService samlService;
     
-    private Boolean allowQueriesWithoutSAMLToken;
-
     @Override
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
         Element samlAssertion = this.extractSAMLAssertion(request);
@@ -45,12 +39,17 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
             federationId = XmlUtils.xPathStringSearch(samlAssertion,
                         "/saml2:Assertion/saml2:AttributeStatement[1]/"
                         + "saml2:Attribute[@Name='gfipm:2.0:user:FederationId']/saml2:AttributeValue");
+            
             } catch (Exception e) {
                 e.printStackTrace();
             } 
 
         }
-        return federationId;
+        
+        String principal = StringUtils.isNotBlank(federationId)? federationId:WebPortalConstants.EMPTY_FEDERATION_ID;
+        
+        request.setAttribute("principal", principal);
+        return principal; 
     }
 
     protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
@@ -62,45 +61,7 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
     }
 
     private Element extractSAMLAssertion(HttpServletRequest request) {
-        
-        Element samlAssertion = null; 
-        
-        try {
-            samlAssertion = getSamlService().getSamlAssertion(request);
-        }
-        catch(Exception e) {
-            e.printStackTrace(); 
-        }
-        
-        if (samlAssertion == null && isAllowQueriesWithoutSAMLToken()) {
-            samlAssertion = createDemoUserSamlAssertion(samlAssertion);
-        }
-        return samlAssertion;
-    }
-
-    private Element createDemoUserSamlAssertion(Element samlAssertion) {
-        try {
-            Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
-            customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
-//                customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser4");
-            customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
-//                customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
-            
-            samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
-                    SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
-                    SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return samlAssertion;
-    }
-
-    public Boolean isAllowQueriesWithoutSAMLToken() {
-        return allowQueriesWithoutSAMLToken;
-    }
-
-    public void setAllowQueriesWithoutSAMLToken(Boolean allowQueriesWithoutSAMLToken) {
-        this.allowQueriesWithoutSAMLToken = allowQueriesWithoutSAMLToken;
+        return samlService.getSamlAssertion(request); 
     }
 
     public SamlService getSamlService() {

@@ -18,17 +18,15 @@ package org.ojbc.web.portal.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.joda.time.DateTime;
+import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.portal.controllers.config.VehiclesControllerConfigInterface;
 import org.ojbc.web.portal.controllers.dto.VehicleSearchCommand;
-import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.controllers.helpers.VehicleSearchCommandUtils;
 import org.ojbc.web.portal.services.SamlService;
@@ -37,8 +35,6 @@ import org.ojbc.web.portal.validators.VehicleSearchCommandValidator;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -178,10 +174,6 @@ public class VehiclesController {
 		return systemsToQuery_vehicles_disabled;
 	}
 
-	String getFederatedQueryId() {
-		return UUID.randomUUID().toString();
-	}
-
 	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
 			throws Exception {
 		Element samlAssertion = samlService.getSamlAssertion(request);
@@ -214,5 +206,8 @@ public class VehiclesController {
 		return "vehicles/_searchResult";
 	}
 	
-	
+	String getFederatedQueryId() {
+		return UniqueIdUtils.getFederatedQueryId();
+	}
+
 }

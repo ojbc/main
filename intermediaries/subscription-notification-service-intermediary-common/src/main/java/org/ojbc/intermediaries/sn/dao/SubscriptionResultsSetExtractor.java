@@ -78,10 +78,15 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            if (subscription == null)
 	            {
 	            	subscription = new Subscription();
+	            	
 	            	subscription.setId(id);
 	            	
 	            	subscription.setTopic(rs.getString("topic"));
+	            		            	
+	            	subscription.setSubscriptionCategoryCode(rs.getString("subscription_category_code"));	            	
+	            	
 	            	subscription.setSubscribingSystemIdentifier(rs.getString("subscribingSystemIdentifier"));
+	            	
 	            	subscription.setStartDate(new DateTime(rs.getDate("startDate")));
 	            	
                     Date endDate = rs.getDate("endDate");

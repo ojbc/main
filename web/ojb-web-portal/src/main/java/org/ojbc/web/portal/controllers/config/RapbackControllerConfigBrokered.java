@@ -18,19 +18,37 @@ package org.ojbc.web.portal.controllers.config;
 
 import javax.annotation.Resource;
 
+import org.ojbc.web.IdentificationResultsModificationInterface;
+import org.ojbc.web.IdentificationResultsQueryInterface;
 import org.ojbc.web.RapbackSearchInterface;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("rapbacks")
+@Profile("rapback-search")
 public class RapbackControllerConfigBrokered implements RapbackControllerConfigInterface {
     @Resource(name="${rapbackSearchRequestProcessorBean:rapbackSearchRequestProcessor}")
     RapbackSearchInterface rapbackSearchInterface;
     
+    @Resource(name="${identificationResultsQueryRequestProcessorBean:identificationResultsQueryRequestProcessor}")
+    IdentificationResultsQueryInterface identificationResultsQueryInterface;
+    
+    @Resource(name="${identificationResultsModificationRequestProcessorBean:identificationResultsModificationRequestProcessor}")
+    IdentificationResultsModificationInterface identificationResultsModificationInterface;
+    
     @Override
     public RapbackSearchInterface getRapbackSearchBean() {
         return rapbackSearchInterface;
-    }   
+    }
+
+	@Override
+	public IdentificationResultsQueryInterface getIdentificationResultsQueryBean() {
+		return identificationResultsQueryInterface;
+	}   
+
+	@Override
+	public IdentificationResultsModificationInterface getIdentificationResultsModificationBean() {
+		return identificationResultsModificationInterface;
+	}	
 
 }
