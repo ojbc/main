@@ -123,8 +123,8 @@
 			<artifactId>commons-io</artifactId>
 			<version>${apache-commons-io-version}</version>
 		</dependency>
-		<!-- OJB Shared Bundles -->
 
+		<!-- OJB Shared Bundles -->
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-camel-common</artifactId>
