@@ -21,7 +21,10 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.MalformedURLException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -29,6 +32,10 @@ import java.sql.SQLException;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.apache.camel.EndpointInject;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.http.HttpEntity;
@@ -45,14 +52,21 @@ import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
+import org.dbunit.dataset.xml.FlatDtdWriter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.annotation.DirtiesContext;
 
+@DirtiesContext
 public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificationTest {
+	
+	@Resource
+	protected ModelCamelContext context;
 	
     @Resource  
     private DataSource dataSource;  
@@ -62,11 +76,22 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
     
     @Value("${publishSubscribe.notificationBrokerEndpoint}")
     private String notificationBrokerUrl;
-
+    
+    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
+    protected MockEndpoint fbiEbtsSubscriptionMockEndpoint; 
     
 	@Before
 	public void setUp() throws Exception {
-        DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet());
+		
+    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {    	    
+    	    	
+    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+    	    }              
+    	});   
+    	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
+        DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
 	}
 	
 	@After
@@ -174,4 +199,18 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 		HttpEntity reply = response.getEntity();
 		return IOUtils.readStringFromStream(reply.getContent());
 	}
+	
+	@Test
+	@Ignore
+    public void getDTDFile() throws Exception
+    {
+        // write DTD file
+//        FlatDtdDataSet.write(getConnection().createDataSet(), new FileOutputStream("src/test/resources/xmlInstances/dbUnit/rapback.dtd"));
+        Writer out = new OutputStreamWriter(new FileOutputStream("src/test/resources/xmlInstances/dbUnit/rapback.dtd"));
+        FlatDtdWriter datasetWriter = new FlatDtdWriter(out);
+        datasetWriter.setContentModel(FlatDtdWriter.CHOICE);
+        // You could also use the sequence model which is the default
+        // datasetWriter.setContentModel(FlatDtdWriter.SEQUENCE);
+        datasetWriter.write(getConnection().createDataSet());
+    }
 }

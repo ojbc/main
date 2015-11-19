@@ -25,7 +25,6 @@ import java.util.Set;
 import org.ojbc.intermediaries.sn.exception.InvalidEmailAddressesException;
 import org.ojbc.intermediaries.sn.util.EmailAddressValidatorResponse;
 import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -62,11 +61,16 @@ public abstract class SubscriptionRequest {
 	protected String subscriptionQualifier;
 	protected String subscriptionSystemId;
 	protected Map<String, String> subjectIdentifiers;
+	private String agencyCaseNumber; 	
+	private String reasonCategoryCode;
 	
 	public SubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception{
+		
 		//Get the message body as DOM
 		document = message.getBody(Document.class);
-
+		
+		reasonCategoryCode = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode|//submsg-exch:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode");		
+		
 		topic = XmlUtils.xPathStringSearch(document, "//b-2:Subscribe/b-2:Filter/b-2:TopicExpression");
 		topic = StringUtils.replace(topic, "topics:", "{http://ojbc.org/wsn/topics}:");
 		
@@ -134,6 +138,7 @@ public abstract class SubscriptionRequest {
 		subjectName = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:Subject/nc:PersonName/nc:PersonFullName");
 		subscriptionQualifier = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
 		subscriptionSystemId = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionIdentification/nc:IdentificationID");
+		agencyCaseNumber = XmlUtils.xPathStringSearch(subscriptionMsg, "submsg-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
 		// subjectIdentifiers intentionally left out - should be populated by derived class 
 	}
 	
@@ -182,5 +187,23 @@ public abstract class SubscriptionRequest {
 	
 	public String getSubscriptionSystemId() {
 		return subscriptionSystemId;
+	}
+
+	public String getAgencyCaseNumber() {
+		return agencyCaseNumber;
+	}
+
+	public void setAgencyCaseNumber(String agencyCaseNumber) {
+		this.agencyCaseNumber = agencyCaseNumber;
+	}
+
+	public String getReasonCategoryCode() {
+		return reasonCategoryCode;
+	}
+
+	public void setReasonCategoryCode(String reasonCategoryCode) {
+		this.reasonCategoryCode = reasonCategoryCode;
 	}	
+	
+	
 }

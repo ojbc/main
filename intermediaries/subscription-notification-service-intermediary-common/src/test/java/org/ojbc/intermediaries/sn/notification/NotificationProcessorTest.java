@@ -32,18 +32,10 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.ojbc.intermediaries.sn.dao.Subscription;
-import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
-import org.ojbc.intermediaries.sn.notification.filter.NotificationFilterStrategy;
-import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
-import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultExchange;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
@@ -53,6 +45,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.intermediaries.sn.notification.filter.NotificationFilterStrategy;
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -63,12 +60,10 @@ import org.w3c.dom.Node;
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		})
 @DirtiesContext
 public class NotificationProcessorTest {
-
-    private static final Log log = LogFactory.getLog(NotificationProcessorTest.class);
 
     @Resource
     DataSource dataSource;
@@ -93,13 +88,14 @@ public class NotificationProcessorTest {
 
         notificationProcessor.setSubscriptionSearchQueryDAO(subscriptionSearchQueryDAO);
 
+        DatabaseOperation.DELETE_ALL.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/emptyDataSet.xml"));
         DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet.xml"));
     }
 
     private IDataSet getDataSet(String fileName) throws Exception {
         return new FlatXmlDataSetBuilder().build(new FileInputStream(fileName));
     }
-
+    
     private IDatabaseConnection getConnection() throws Exception {
         Connection con = dataSource.getConnection();
         IDatabaseConnection connection = new DatabaseConnection(con);

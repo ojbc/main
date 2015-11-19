@@ -28,6 +28,7 @@ import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.UnsubscriptionInterface;
+import org.ojbc.web.model.subscription.Unsubscription;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.w3c.dom.Document;
@@ -49,7 +50,7 @@ public class UnsubscriptionRequestProcessor implements CamelContextAware, Unsubs
 	private boolean allowQueriesWithoutSAMLToken;
 	
 	@Override
-	public void unsubscribe(String subscriptionIdentificationId, String topic, String federatedQueryID,
+	public void unsubscribe(Unsubscription unsubscription, String federatedQueryID,
 			Element samlToken) throws Exception {
 		
 		try
@@ -68,8 +69,8 @@ public class UnsubscriptionRequestProcessor implements CamelContextAware, Unsubs
 			{
 				throw new Exception("No SAML token provided. Unable to perform query.");
 			}	
-			
-			Document requestMessage = RequestMessageBuilderUtilities.createUnubscriptionRequest(subscriptionIdentificationId, topic);
+						
+			Document requestMessage = RequestMessageBuilderUtilities.createUnubscriptionRequest(unsubscription);
 			
 			log.info("Unsubscribe Message:");
 			XmlUtils.printNode(requestMessage);

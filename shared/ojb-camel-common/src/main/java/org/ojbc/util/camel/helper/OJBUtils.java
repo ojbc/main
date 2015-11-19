@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -312,6 +313,12 @@ public class OJBUtils {
 		inputSource.setEncoding(CharEncoding.UTF_8);
 		
 		return new SAXSource(inputSource);
+	}
+	
+	
+	public String generateUUID() {
+						
+		return UUID.randomUUID().toString().replaceAll("-", "");		  		  
 	}
 			
 }

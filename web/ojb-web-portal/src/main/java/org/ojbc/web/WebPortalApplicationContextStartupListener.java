@@ -42,7 +42,7 @@ public class WebPortalApplicationContextStartupListener implements
 		
 		Environment environment = event.getApplicationContext().getEnvironment();
 		
-		String defaultProfilesAsString = StringUtils.join(environment.getDefaultProfiles());
+		String defaultProfilesAsString = StringUtils.join(environment.getDefaultProfiles(), ',');
 		
 		LOG.debug("Current default profiles: "  + defaultProfilesAsString);
 		
@@ -137,6 +137,21 @@ public class WebPortalApplicationContextStartupListener implements
                         camelContext.startRoute("juvenileIntakeHistoryResultsHandlerRoute");
                         camelContext.startRoute("juvenileHearingHistoryResultsHandlerRoute");
                         continue;
+                    }
+                    if (profile.equals("rapback-search"))
+                    {   
+                    	camelContext.startRoute("rapbackSearchResultsHandlerRoute");
+                    	continue;
+                    }
+                    if (profile.equals("initial-results-query"))
+                    {   
+                    	camelContext.startRoute("identificationResultsQueryResultsHandlerRoute");
+                    	continue;
+                    }
+                    if (profile.equals("identification-results-modification"))
+                    {   
+                    	camelContext.startRoute("identificationResultsModificationResultsHandlerRoute");
+                    	continue;
                     }
 			    }
 				

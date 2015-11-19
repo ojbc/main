@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+    elementFormDefault="qualified"
+    targetNamespace="http://niem.gov/niem/metadata/1"
+    version="beta1"
+    xmlns:m="http://niem.gov/niem/metadata/1"
+    xmlns="http://www.w3.org/2001/XMLSchema">
+
+  <element name="Metadata" type="m:MetadataType"/>
+
+  <complexType name="MetadataType">
+    <sequence>
+      <element name="URI" type="anyURI" minOccurs="0"/>
+      <element name="Name" type="string" minOccurs="0"/>
+      <element name="Summary" type="string" minOccurs="0"/>
+      <element name="Description" type="string" minOccurs="0"/>
+      <element name="Version" type="string" minOccurs="0"/>
+      <element name="URL" type="anyURI" minOccurs="0"/>
+      <element name="CreationDate" type="string" minOccurs="0"/>
+      <element name="LastRevisionDate" type="string" minOccurs="0"/>
+      <element name="NextRevisionDate" type="string" minOccurs="0"/>
+      <element name="NIEMVersion" type="string" minOccurs="0"/>
+      <element name="Security" type="string" minOccurs="0"/>
+      <element name="Maturity" type="m:MaturityType" minOccurs="0"/>
+      <element name="Status" type="string" minOccurs="0"/>
+      <element name="Schedule" type="string" minOccurs="0"/>
+      <element name="Lineage" type="string" minOccurs="0"/>
+      <element name="Relationships" type="string" minOccurs="0"/>
+      <element name="Keywords" type="string" minOccurs="0"/>
+      <element name="Domain" type="string" minOccurs="0"/>
+      <element name="ExchangePartners" type="string" minOccurs="0"/>
+      <element name="Process" type="string" minOccurs="0"/>
+      <element name="TriggeringEvent" type="string" minOccurs="0"/>
+      <element name="Conditions" type="string" minOccurs="0"/>
+      <element name="Endorsements" type="string" minOccurs="0"/>
+      <element name="Sponsors" type="string" minOccurs="0"/>
+      <element name="Purpose" type="string" minOccurs="0"/>
+      <element name="MessageExchangePatterns" type="string" minOccurs="0"/>
+      <element name="CommunicationsEnvironment" type="string" minOccurs="0"/>
+      <element name="ExchangePartnerCategories" type="string" minOccurs="0"/>
+      <element name="AuthoritativeSource" type="m:AuthoritativeSourceType" minOccurs="0"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="AuthoritativeSourceType">
+    <sequence>
+        <element name="Category" type="string" minOccurs="0"/>
+        <element name="Organization" type="m:OrganizationType" minOccurs="0"/>
+        <element name="PointOfContact" type="m:PointOfContactType" minOccurs="0"/>
+    </sequence>
+  </complexType>
+
+  <group name="AddressGroup">
+    <sequence>
+      <element name="Address1" type="string" minOccurs="0"/>
+      <element name="Address2" type="string" minOccurs="0"/>
+      <element name="City" type="string" minOccurs="0"/>
+      <element name="State" type="string" minOccurs="0"/>
+      <element name="Zip" type="string" minOccurs="0"/>
+      <element name="Country" type="string" minOccurs="0"/>
+    </sequence>
+  </group>
+
+  <complexType name="OrganizationType">
+    <sequence>
+      <element name="Name" type="string" minOccurs="0"/>
+      <group ref="m:AddressGroup"/>
+      <element name="URL" type="string" minOccurs="0"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="PointOfContactType">
+    <sequence>
+      <element name="Name" type="string" minOccurs="0"/>
+      <group ref="m:AddressGroup"/>
+      <element name="Phone" type="string" minOccurs="0"/>
+      <element name="Fax" type="string" minOccurs="0"/>
+      <element name="Email" type="string" minOccurs="0"/>
+    </sequence>
+  </complexType>
+
+  <simpleType name="MaturityType">
+    <restriction base="token">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+    </restriction>
+  </simpleType>
+</schema>

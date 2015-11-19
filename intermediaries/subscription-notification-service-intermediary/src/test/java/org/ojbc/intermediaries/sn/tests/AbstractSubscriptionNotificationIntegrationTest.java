@@ -84,6 +84,7 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 	private Integer mailPort;
 
 	public void setUp() throws Exception {
+        DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
 		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet.xml"));
 	}
 

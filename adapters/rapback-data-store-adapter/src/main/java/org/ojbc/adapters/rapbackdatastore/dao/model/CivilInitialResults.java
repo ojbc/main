@@ -17,22 +17,23 @@
 package org.ojbc.adapters.rapbackdatastore.dao.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
+import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 
 public class CivilInitialResults implements Serializable{
 
 	private static final long serialVersionUID = -8697166964476446066L;
 	private Integer id; //Civil Initial Results ID;
 	private String transactionNumber;
-	private Boolean match; 
-	private CivilInitialResultsState currentState;
-	private String transactionType; 
-	private String civilRapBackCategory; 
-	private String resultsSender; 
+	private byte[] searchResultFile; 
+	private ResultSender resultsSender; 
 	private DateTime timestamp;
+	private List<byte[]> rapsheets = new ArrayList<byte[]>();
 	
 	private IdentificationTransaction identificationTransaction;
 	
@@ -65,14 +66,6 @@ public class CivilInitialResults implements Serializable{
 		this.id = id;
 	}
 
-	public String getTransactionType() {
-		return transactionType;
-	}
-
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
-	}
-
 	public DateTime getTimestamp() {
 		return timestamp;
 	}
@@ -81,44 +74,36 @@ public class CivilInitialResults implements Serializable{
 		this.timestamp = timestamp;
 	}
 
-	public Boolean getMatch() {
-		return match;
-	}
-
-	public void setMatch(Boolean match) {
-		this.match = match;
-	}
-
-	public String getResultsSender() {
-		return resultsSender;
-	}
-
-	public void setResultsSender(String resultsSender) {
-		this.resultsSender = resultsSender;
-	}
-
-	public CivilInitialResultsState getCurrentState() {
-		return currentState;
-	}
-
-	public void setCurrentState(CivilInitialResultsState currentState) {
-		this.currentState = currentState;
-	}
-
-	public String getCivilRapBackCategory() {
-		return civilRapBackCategory;
-	}
-
-	public void setCivilRapBackCategory(String civilRapBackCategory) {
-		this.civilRapBackCategory = civilRapBackCategory;
-	}
-
 	public IdentificationTransaction getIdentificationTransaction() {
 		return identificationTransaction;
 	}
 
 	public void setIdentificationTransaction(IdentificationTransaction identificationTransaction) {
 		this.identificationTransaction = identificationTransaction;
+	}
+
+	public byte[] getSearchResultFile() {
+		return searchResultFile;
+	}
+
+	public void setSearchResultFile(byte[] searchResultFile){
+		this.searchResultFile = searchResultFile; 
+	}
+	
+	public ResultSender getResultsSender() {
+		return resultsSender;
+	}
+
+	public void setResultsSender(ResultSender resultsSender) {
+		this.resultsSender = resultsSender;
+	}
+
+	public List<byte[]> getRapsheets() {
+		return rapsheets;
+	}
+
+	public void setRapsheets(List<byte[]> rapsheets) {
+		this.rapsheets = rapsheets;
 	}
 
 }

@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * The interface for objects that generate a unique and consistent identifier for an entity with a set of attributes.
- *
+ * @deprecated Not used.
  */
 public interface IdentifierGenerationStrategy {
 	

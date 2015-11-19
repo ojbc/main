@@ -19,6 +19,8 @@ package org.ojbc.web.portal.controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -28,6 +30,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.web.WebUtils;
+import org.ojbc.web.model.subscription.Subscription;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.portal.controllers.helpers.SubscribedPersonNames;
 import org.w3c.dom.Document;
@@ -43,6 +46,34 @@ public class SubscriptionsControllerTest {
 		subController = new SubscriptionsController();		
 	}
 	
+	
+	@Test
+	public void testSubscriptionWarnings(){
+		
+		Subscription sub = new Subscription();
+		
+		sub.setSubscriptionType("{http://ojbc.org/wsn/topics}:person/arrest");
+		
+		List<String> warningList = subController.getSubscriptionWarnings(sub);
+		
+		String warning0 = warningList.get(0);
+		
+		Assert.assertEquals("FBI ID missing. Subscription with the FBI is pending.", warning0);
+	}
+	
+	@Test
+	public void testSubscriptionJsonErrors(){
+		
+		List<String> errorList = Arrays.asList("Error1", "Error2");
+		
+		List<String> warningList = Arrays.asList("Warn1", "Warn2");
+		
+		String jsonMsgs = subController.getErrorsWarningsJson(errorList, warningList);
+		
+		Assert.assertEquals("{\"errors\":[\"Error1\",\"Error2\"],\"warnings\":[\"Warn1\",\"Warn2\"]}", jsonMsgs);
+		
+		logger.info("json errors:\n" + jsonMsgs);
+	}
 	
 	@Test
 	public void testGetValidIndicatorFromValidateResponse() throws Exception{
@@ -84,9 +115,9 @@ public class SubscriptionsControllerTest {
 		
 		sampleSoapResponse.setSoapResponse(sFileContents);
 		
-		String sErrorsJsonArray = subController.getJsonErrorsFromSubscriptionResponse(sampleSoapResponse);
+		List<String> errorsList = subController.getErrorListFromSubscriptionResponse(sampleSoapResponse);
 		
-		JSONArray jsA = new JSONArray(sErrorsJsonArray);
+		JSONArray jsA = new JSONArray(errorsList);
 		
 		Assert.assertEquals(4, jsA.length());
 		
@@ -98,7 +129,7 @@ public class SubscriptionsControllerTest {
 
 	
 	@Test
-	public void testGetJsonErrorsFromSubscriptionResponse_SubscriptionSuccess() throws Exception{
+	public void testGetErrorsFromSubscriptionResponse_SubscriptionSuccess() throws Exception{
 		
 		FaultableSoapResponse sampleSoapResponse = new FaultableSoapResponse();
 						
@@ -106,14 +137,16 @@ public class SubscriptionsControllerTest {
 		
 		sampleSoapResponse.setSoapResponse(sFileContents);
 		
-		String sErrorsJsonArray = subController.getJsonErrorsFromSubscriptionResponse(sampleSoapResponse);
-						
-		Assert.assertNull(sErrorsJsonArray);					
+		List<String> errorsList = subController.getErrorListFromSubscriptionResponse(sampleSoapResponse);
+				
+		boolean noErrors = errorsList == null || errorsList.isEmpty();
+		
+		Assert.assertTrue(noErrors);					
 	}		
 	
 	
 	@Test
-	public void testGetJsonErrorsFromSubscriptionResponse_UnsubscriptionAccessDenial() throws Exception{
+	public void testGetErrorsFromSubscriptionResponse_UnsubscriptionAccessDenial() throws Exception{
 		
 		FaultableSoapResponse sampleSoapResponse = new FaultableSoapResponse();
 						
@@ -121,9 +154,11 @@ public class SubscriptionsControllerTest {
 		
 		sampleSoapResponse.setSoapResponse(sFileContents);
 		
-		String sErrorsJsonArray = subController.getJsonErrorsFromSubscriptionResponse(sampleSoapResponse);
+		List<String> errorsList = subController.getErrorListFromSubscriptionResponse(sampleSoapResponse);
 						
-		Assert.assertTrue(sErrorsJsonArray.contains("The user is not privileged to delete this subscription"));					
+		String errorMsg = errorsList.get(0);
+		
+		Assert.assertTrue(errorMsg.contains("The user is not privileged to delete this subscription"));					
 	}	
 	
 	
@@ -136,15 +171,17 @@ public class SubscriptionsControllerTest {
 		
 		sampleSoapResponse.setSoapResponse(sFileContents);
 		
-		String sErrorsJsonArray = subController.getJsonErrorsFromSubscriptionResponse(sampleSoapResponse);
+		List<String> errorsList = subController.getErrorListFromSubscriptionResponse(sampleSoapResponse);
+		
+		String error0 = errorsList.get(0);
 						
-		Assert.assertTrue(sErrorsJsonArray.contains("subscription doesn't contain a start date"));					
+		Assert.assertTrue(error0.contains("subscription doesn't contain a start date"));					
 	}
 	
 	
 	
 	@Test
-	public void testGetJsonErrorsFromSubscriptionResponse_InvalidEmail() throws Exception{
+	public void testGetErrorsFromSubscriptionResponse_InvalidEmail() throws Exception{
 		
 		FaultableSoapResponse sampleSoapResponse = new FaultableSoapResponse();
 						
@@ -152,14 +189,16 @@ public class SubscriptionsControllerTest {
 		
 		sampleSoapResponse.setSoapResponse(sFileContents);
 		
-		String sErrorsJsonArray = subController.getJsonErrorsFromSubscriptionResponse(sampleSoapResponse);
+		List<String> errorsList = subController.getErrorListFromSubscriptionResponse(sampleSoapResponse);
 				
+		String error0 = errorsList.get(0);
+		
 		// note the brackets are json syntax
-		Assert.assertEquals("[\"Invalid Email(s): chris@gmail.com\"]", sErrorsJsonArray);				
+		Assert.assertEquals("Invalid Email(s): chris@gmail.com", error0);				
 	}
 	
 	@Test
-	public void testGetJsonErrorsFromSubscriptionResponse_InvalidToken() throws Exception{
+	public void testGetErrorsFromSubscriptionResponse_InvalidToken() throws Exception{
 		
 		FaultableSoapResponse sampleSoapResponse = new FaultableSoapResponse();
 		
@@ -167,20 +206,22 @@ public class SubscriptionsControllerTest {
 		
 		sampleSoapResponse.setSoapResponse(sFileContents);
 		
-		String sErrorsJsonArray = subController.getJsonErrorsFromSubscriptionResponse(sampleSoapResponse);	
+		List<String> errorsList = subController.getErrorListFromSubscriptionResponse(sampleSoapResponse);	
+		
+		String error0 = errorsList.get(0);
 				
-		boolean hasTitle = sErrorsJsonArray.contains("Invalid Security Token");
+		boolean hasTitle = error0.contains("Invalid Security Token");
 		
 		Assert.assertTrue(hasTitle);
 		
-		boolean hasDesc = sErrorsJsonArray.contains("Token is missing required information: Federation Identifier");
+		boolean hasDesc = error0.contains("Token is missing required information: Federation Identifier");
 						
 		Assert.assertTrue(hasDesc);
 	}
 	
 	
 	@Test
-	public void testGetJsonErrorsFromSubscriptionResponse_AccessDenied() throws Exception{
+	public void testGetErrorsFromSubscriptionResponse_AccessDenied() throws Exception{
 		
 		FaultableSoapResponse sampleSoapResponse = new FaultableSoapResponse();
 		
@@ -188,11 +229,13 @@ public class SubscriptionsControllerTest {
 		
 		sampleSoapResponse.setSoapResponse(sFileContents);
 		
-		String sErrorsJsonArray = subController.getJsonErrorsFromSubscriptionResponse(sampleSoapResponse);
+		List<String> errorsList = subController.getErrorListFromSubscriptionResponse(sampleSoapResponse);
 		
-		boolean hasAccessSring = sErrorsJsonArray.contains("Access Denied");
+		String error0 = errorsList.get(0);
 		
-		boolean hasDescString = sErrorsJsonArray.contains("The user is not privileged to create subscriptions");
+		boolean hasAccessSring = error0.contains("Access Denied");
+		
+		boolean hasDescString = error0.contains("The user is not privileged to create subscriptions");
 		
 		Assert.assertTrue(hasAccessSring);
 		

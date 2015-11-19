@@ -46,8 +46,13 @@
 
     <camel:endpoint id="notificationBrokerServiceEndpoint" uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>    
 	<camel:endpoint id="notificationBrokerServiceSecureEndpoint" uri="cxf:bean:notificationBrokerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>
+	
+	<camel:endpoint id="criminalHistoryConsolidationReportingServiceEndpoint" uri="cxf:bean:criminalHistoryConsolidationReportingService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>
 
-	<camel:endpoint id="subscriptionManagerServiceEndpoint" uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>
+	<!-- Hosted by s/n intermediary -->
+	<camel:endpoint id="subscriptionManagerServiceEndpoint" uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy"/>
+	
+	
 	<camel:endpoint id="subscriptionManagerServiceSecureEndpoint" uri="cxf:bean:subscriptionManagerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>                        
 
 	<!-- Search Endpoints, the results endpoints are inline in the route to support camel testing -->
@@ -57,6 +62,14 @@
 	<!-- Query Endpoints, the results endpoints are inline in the route to support camel testing -->
     <camel:endpoint id="subscriptionQueryRequestServiceEndpoint"
         uri="cxf:bean:subscriptionQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
+        
+    <camel:endpoint id="fbiEbtsSubscriptionRequestServiceEndpoint"  
+		uri="cxf:bean:fbiEbtsSubscriptionRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
+
+	<!-- hosted by fbi ebts adapter for Unsubscribe/Modify operations -->
+	<camel:endpoint id="fbiEbtsSubscriptionManagerEndpoint" 
+		uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}" />
+
 
 	<!-- OJB Notification Broker Service -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
@@ -64,6 +77,10 @@
 		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" 
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+        <cxf:properties>
+        	<entry key="mtom-enabled" value="true"/>
+        	<entry key="dataFormat" value="PAYLOAD"/>
+        </cxf:properties>
 	</cxf:cxfEndpoint>
 
 	<!-- OJB Notification Broker Secure Service -->
@@ -81,6 +98,40 @@
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
+        
+	<!-- OJB Criminal History Consolidation Reporting Secure Service -->
+    <cxf:cxfEndpoint 
+        id="criminalHistoryConsolidationReportingService"
+        address="${publishSubscribe.criminalHistoryConsolidationReportingSecureEndpoint}" 
+		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>
+        
+    <!-- FBI EBTS Adapter endpoint, called by this intermediary  -->
+     <cxf:cxfEndpoint 
+        id="fbiEbtsSubscriptionRequestService"
+        address="${publishSubscribe.fbiEbtsSubscriptionRequestSecureEndpoint}" 
+		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		serviceName="ojbc:NotificationBrokerServiceService" 
+		endpointName="ojbc:NotificationBrokerService"
+		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+    </cxf:cxfEndpoint>
+
+	<!-- FBI EBTS Adapter endpoint for Unsubscribe/Modify, called by this s/n intermediary -->
+	<cxf:cxfEndpoint id="fbiEbtsSubscriptionManagerService"
+		address="${publishSubscribe.fbiEbtsSubscriptionManagerEndpoint}" 
+		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
+		serviceName="ojb-sm:SubscriptionManagerServiceService"
+		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+	</cxf:cxfEndpoint>     
 
 
 	<!-- OJB Subscription Manager Service -->
@@ -197,6 +248,9 @@
             </map>
         </property>
 	</bean>
+
+	
+	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>	 
 
 	<util:properties id= "subscriptionSearchQueryKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>

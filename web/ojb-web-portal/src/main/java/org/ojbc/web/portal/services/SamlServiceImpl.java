@@ -16,11 +16,11 @@
  */
 package org.ojbc.web.portal.services;
 
-import static org.ojbc.web.security.SecurityContextUtils.getSamlToken;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -34,6 +34,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
+import org.opensaml.xml.signature.SignatureConstants;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -43,17 +47,23 @@ import org.w3c.dom.Element;
 public class SamlServiceImpl implements SamlService{
 	
 	private static final Log LOG = LogFactory.getLog(SamlServiceImpl.class);
-	
+
+    @Value("${webapplication.allowQueriesWithoutSAMLToken:false}")
+    private Boolean allowQueriesWithoutSAMLToken;
+
 	public Element getSamlAssertion(HttpServletRequest request) {
-		Element assertion = getSamlToken();
+
+		Element assertion = null;
+		try {
+			assertion = retrieveAssertionFromShibboleth(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-	    if (assertion == null) {
-    		try {
-    			assertion = retrieveAssertionFromShibboleth(request);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-	    }
+		if (assertion == null && getAllowQueriesWithoutSAMLToken()){
+			assertion = createDemoUserSamlAssertion();
+		}
+		
 		return assertion;
 	}
 	
@@ -118,4 +128,35 @@ public class SamlServiceImpl implements SamlService{
 		return assertionDoc.getDocumentElement();
 		
 	}
+	
+    private Element createDemoUserSamlAssertion() {
+    	
+    	Element samlAssertion = null;
+        try {
+            Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+            customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+//                customAttributes.put(SamlAttribute.FederationId.getAttibuteName(), "HIJIS:IDP:HCJDC:USER:demouser4");
+            customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+//                customAttributes.put("gfipm:2.0:user:EmployerORI", "H00000001");
+            
+            samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
+                    SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
+                    SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return samlAssertion;
+    }
+
+	public Boolean getAllowQueriesWithoutSAMLToken() {
+		return allowQueriesWithoutSAMLToken;
+	}
+
+	public void setAllowQueriesWithoutSAMLToken(
+			Boolean allowQueriesWithoutSAMLToken) {
+		this.allowQueriesWithoutSAMLToken = allowQueriesWithoutSAMLToken;
+	}
+
 }

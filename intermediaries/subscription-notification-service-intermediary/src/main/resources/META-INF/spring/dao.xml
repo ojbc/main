@@ -83,8 +83,38 @@
 		<property name="emailFormatter" ref="emailFormatter"/>
 	</bean>	
 	
+	<bean id="sidConsolidationProcessor" class="org.ojbc.intermediaries.sn.subscription.SidConsolidationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+	</bean>
+	
 	<bean id="subscriptionSearchQueryProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchQueryProcessor"/>
 
 	<bean id="faultMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor"/>
+		
+	<bean id="staticValidationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.StaticValidationDueDateStrategy">
+		<property name="validDays" value="365"/>
+	</bean>
 	
+	<bean id="topicValidationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy">
+		<constructor-arg name="map">
+			<util:map>
+				<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="staticValidationDueDateStrategy" />
+			</util:map>
+		</constructor-arg>
+	</bean>	
+			
+	<bean id="rapbackDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">		
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>	
+	</bean>
+	
+	<bean id="namedParameterJdbcTemplate" 
+      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+			
 </beans>

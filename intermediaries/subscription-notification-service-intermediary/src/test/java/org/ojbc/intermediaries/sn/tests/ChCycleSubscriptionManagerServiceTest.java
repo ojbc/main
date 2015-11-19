@@ -57,7 +57,8 @@ public class ChCycleSubscriptionManagerServiceTest extends AbstractSubscriptionN
     
 	@Before
 	public void setUp() throws Exception {
-        DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet());
+        DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
+        DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
 	}
 	
 	@After

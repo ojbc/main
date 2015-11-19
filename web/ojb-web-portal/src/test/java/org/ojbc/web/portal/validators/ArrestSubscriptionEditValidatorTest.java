@@ -25,17 +25,19 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
+import org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEditStrictValidator;
 
 public class ArrestSubscriptionEditValidatorTest {
 	
-	private ArrestSubscriptionEditValidator validator = new ArrestSubscriptionEditValidator();
+	private ArrestSubscriptionValidatorInterface strictEditValidator = new ArrestSubscriptionEditStrictValidator();
 	
 	@Test
 	public void testValidatorErrors(){
 						
 		Subscription subscription = new Subscription();
 									
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);	
+		Map<String, String> fieldToErrorMap = strictEditValidator.getValidationErrorsList(subscription);	
 				
 		String subTypeError = fieldToErrorMap.get("subscriptionType");		
 		assertEquals("Subscription type must be specified", subTypeError);
@@ -50,7 +52,13 @@ public class ArrestSubscriptionEditValidatorTest {
 		assertEquals("Start date must be specified", startDateError);		
 								
 		String emailListError = fieldToErrorMap.get("emailList");
-		assertEquals("Email Address must be specified", emailListError);				
+		assertEquals("Email Address must be specified", emailListError);			
+		
+		String purposeError = fieldToErrorMap.get("subscriptionPurpose");
+		assertEquals("Purpose must be specified", purposeError);
+		
+		String caseIdError = fieldToErrorMap.get("caseId");
+		assertEquals("Case Id must be specified", caseIdError);		
 	}
 	
 	@Test
@@ -63,8 +71,11 @@ public class ArrestSubscriptionEditValidatorTest {
 		subscription.setFullName("Homer Simpson");	
 		subscription.setSubscriptionStartDate(new Date());
 		subscription.getEmailList().add("hsimpson@gmail.com");
+		subscription.setFbiId(null);
+		subscription.setSubscriptionPurpose("CS");
+		subscription.setCaseId("6789");
 		
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
+		Map<String, String> fieldToErrorMap = strictEditValidator.getValidationErrorsList(subscription);
 		
 		String subTypeError = fieldToErrorMap.get("subscriptionType");		
 		boolean hasSubTypeError = StringUtils.isNotBlank(subTypeError);				
@@ -85,6 +96,14 @@ public class ArrestSubscriptionEditValidatorTest {
 		String emailListError = fieldToErrorMap.get("emailList");
 		boolean hasEmailError = StringUtils.isNotBlank(emailListError);
 		assertEquals(false, hasEmailError);
+				
+		String purposeError = fieldToErrorMap.get("subscriptionPurpose");
+		boolean hasPurposeError = StringUtils.isNotBlank(purposeError);		
+		assertEquals(false, hasPurposeError);
+		
+		String caseIdError = fieldToErrorMap.get("caseId");
+		boolean hasCaseIdError = StringUtils.isNotBlank(caseIdError);
+		assertEquals(false, hasCaseIdError);		
 	}
 		
 	
@@ -104,11 +123,32 @@ public class ArrestSubscriptionEditValidatorTest {
 		subscription.setSubscriptionStartDate(startDate);		
 		subscription.setSubscriptionEndDate(endDate);			
 
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
+		Map<String, String> fieldToErrorMap = strictEditValidator.getValidationErrorsList(subscription);
 		
 		String endDateError = fieldToErrorMap.get("subscriptionEndDate");
 		assertEquals("End date may not occur before start date", endDateError);		
 	}
+	
+	@Test
+	public void testSubGreaterThanOneYear(){
+		
+		Subscription subscription = new Subscription();
+								
+		Calendar oneYearPlus1DayCal = Calendar.getInstance();
+		oneYearPlus1DayCal.add(Calendar.YEAR, 1);
+		oneYearPlus1DayCal.add(Calendar.DAY_OF_MONTH, 1);
+		Date oneYearPlusOneDayDate = oneYearPlus1DayCal.getTime();
+		
+		subscription.setSubscriptionStartDate(new Date());
+		
+		subscription.setSubscriptionEndDate(oneYearPlusOneDayDate);
+		
+		Map<String, String> fieldToErrorMap = strictEditValidator.getValidationErrorsList(subscription);
+		
+		String oneYearError = fieldToErrorMap.get("subscriptionEndDate");
+		
+		assertEquals("End date may not occur more than one year after the start date", oneYearError);				
+	}	
 	
 	
 	@Test
@@ -127,7 +167,7 @@ public class ArrestSubscriptionEditValidatorTest {
 		subscription.setSubscriptionStartDate(startDate);		
 		subscription.setSubscriptionEndDate(endDate);			
 
-		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);
+		Map<String, String> fieldToErrorMap = strictEditValidator.getValidationErrorsList(subscription);
 		
 		String endDateError = fieldToErrorMap.get("subscriptionEndDate");
 		boolean hasEndDateError = StringUtils.isNotBlank(endDateError);

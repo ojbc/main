@@ -29,16 +29,27 @@
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" init-method="createDataSource">
+		<property name="driverClassName" value="${rapbackDatastoreAdapter.dataSource.driverClass}" />
+		<property name="url" value="${rapbackDatastoreAdapter.dataSource.jdbcUrl}" />
+		<property name="username" value="${rapbackDatastoreAdapter.dataSource.user}" />
+		<property name="password" value="${rapbackDatastoreAdapter.dataSource.password}" />
+		<property name="initialSize" value="${rapbackDatastoreAdapter.dataSource.minPoolSize}" />
+		<property name="maxActive" value="${rapbackDatastoreAdapter.dataSource.maxPoolSize}" />
+		<property name="validationQuery" value="select 1" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
 	
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-			<property name="driverClassName" value="${rapbackDatastoreAdapter.dataSource.driverClass}" />
-			<property name="url" value="${rapbackDatastoreAdapter.dataSource.jdbcUrl}" />
-			<property name="username" value="${rapbackDatastoreAdapter.dataSource.user}" />
-			<property name="password" value="${rapbackDatastoreAdapter.dataSource.password}" />
-			<property name="initialSize" value="${rapbackDatastoreAdapter.dataSource.minPoolSize}" />
-			<property name="maxActive" value="${rapbackDatastoreAdapter.dataSource.maxPoolSize}" />
-			<property name="validationQuery" value="select 1" />
-			<property name="testOnBorrow" value="true" />
-		</bean>
+	<bean id="staticValidationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.StaticValidationDueDateStrategy">
+		<property name="validDays" value="365"/>
+	</bean>
+	
+	<bean id="validationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy">
+		<constructor-arg name="map">
+			<util:map>
+				<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="staticValidationDueDateStrategy" />
+			</util:map>
+		</constructor-arg>
+	</bean>
 	
 </beans>

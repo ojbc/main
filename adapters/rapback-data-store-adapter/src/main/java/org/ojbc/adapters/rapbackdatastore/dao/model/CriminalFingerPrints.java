@@ -22,13 +22,17 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
 
+/**
+ * Might not need this model any more. Will remove it when 100% sure.  
+ */
+@Deprecated 
+
 public class CriminalFingerPrints implements Serializable{
 
 	private static final long serialVersionUID = -8933466115916742922L;
 	private Long id; //Finger prints ID;
 	private String transactionNumber;
 	private byte[] fingerPrintsFile; 
-	private String transactionType; 
 	private String fingerPrintsType; 
 	private DateTime timestamp;
 	
@@ -67,14 +71,6 @@ public class CriminalFingerPrints implements Serializable{
 
 	public void setFingerPrintsFile(byte[] fingerPrintsFile) {
 		this.fingerPrintsFile = fingerPrintsFile;
-	}
-
-	public String getTransactionType() {
-		return transactionType;
-	}
-
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
 	}
 
 	public String getFingerPrintsType() {

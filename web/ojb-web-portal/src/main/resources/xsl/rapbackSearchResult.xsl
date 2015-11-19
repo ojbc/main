@@ -30,10 +30,13 @@
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
 	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	exclude-result-prefixes="#all">
 
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
+	
+	<xsl:param name="rapbackValidationButtonShowingPeriod" select="30"/>
 	
 	<xsl:template match="/oirsr:OrganizationIdentificationResultsSearchResults">
 		<xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />
@@ -72,6 +75,9 @@
 		<xsl:variable name="systemID" select="intel:SystemIdentifier"/>
 		<xsl:variable name="rapbackId" select="intel:SystemIdentifier/nc:IdentificationID"/>
 		<tr>
+			<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
+				<xsl:attribute name="class">subsequentResults</xsl:attribute>
+			</xsl:if>
 			<td><xsl:apply-templates select="child::oirsr-ext:IdentifiedPerson/nc:PersonName" mode="primaryName"></xsl:apply-templates></td>
 			<td>
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
@@ -81,30 +87,68 @@
 			</td>
 			<td>
 				<xsl:apply-templates select="oirsr-ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
-			</td>					
+			</td>	
+			<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>				
 			<td>
-				<xsl:apply-templates select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				<xsl:if test="$validationDueDate &lt; current-date()">
+					<xsl:attribute name="style">color:red</xsl:attribute>
+				</xsl:if>
+				<xsl:apply-templates select="$validationDueDate" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td>
-				<xsl:value-of select="oirsr-ext:IdentificationResultStatusCode"></xsl:value-of>
+				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
 			</td>
 			<td align="right" width="115px">
-				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
+				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for subscription']" mode="unsubscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed']" mode="subscribed"/>
-				<a href="#" class="blueIcon" style="margin-right:3px" title="Notifications"><i class="fa fa-bell fa-lg"></i></a>
-				<a href="#" class="blueIcon" style="margin-right:3px" title="Rap Sheet"><i class="fa fa-file-text-o fa-lg"></i></a>
+				<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
+					<a href="#" class="blueIcon subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results">
+						<xsl:attribute name="id">
+							<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+						</xsl:attribute>
+						<i class="fa fa-bell fa-lg"></i>
+					</a>
+					<a href="{concat('../rapbacks/subsequentResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
+						class="blueIcon subsequentResults hidden">
+					</a>
+				</xsl:if>
+				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
+					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-text-o fa-lg"></i></a>
 			</td>
 		</tr>
 	</xsl:template>
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
-		<a href="#" class="blueIcon" style="margin-right:3px" title="Subscribe"><i class="fa fa-rss fa-lg"/></a>
-		<a href="#" class="blueIcon" style="margin-right:3px" title="Archive"><i class="fa fa-archive fa-lg"></i></a>
+		<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-rss fa-lg"/>
+		</a>
+		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-archive fa-lg"></i>
+		</a>
 	</xsl:template>
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="subscribed">
-		<a href="#" class="blueIcon" style="margin-right:3px" title="Validate"><i class="fa fa-check-circle fa-lg"/></a>
-		<a href="#" class="blueIcon" style="margin-right:3px" title="Unsubscribe"><i class="fa fa-times-circle fa-lg"></i></a>
+		<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>
+		<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">				
+			<a href="#" class="blueIcon validate" style="margin-right:3px" title="Validate">
+				<xsl:attribute name="id">
+					<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+				</xsl:attribute>
+				<i class="fa fa-check-circle fa-lg"/>
+			</a>
+		</xsl:if>
+		<a href="#" class="blueIcon unsubscribe" style="margin-right:3px" title="Unsubscribe">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-times-circle fa-lg"></i>
+		</a>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">

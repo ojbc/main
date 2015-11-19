@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<xsd:schema 
+	targetNamespace="http://ws.cjis.gov/2014/08/01/ngi/core/xsd"
+	xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+	xmlns:itl="http://biometrics.nist.gov/standard/2011">
+	<xsd:annotation> 
+		<xsd:documentation>This is an NGI schema that defines NGI specific data structures that are used by the NGI Services.</xsd:documentation>
+	</xsd:annotation>
+	<!-- Import NIST, NIEM, EBTS schema -->
+	<xsd:import namespace="http://cjis.fbi.gov/fbi_ebts/10.0" schemaLocation="../ebts/10.0/fbi_ebts/10.0/fbi_ebts.xsd"/>
+	<xsd:import namespace="http://biometrics.nist.gov/standard/2011" schemaLocation="../ebts/10.0/itl/2011/itl.xsd"/>
+	
+	<!-- NGI Services Fault -->
+	<xsd:simpleType name="FaultErrorCode">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="SERVICE_NOT_AVAILABLE" />
+			<xsd:enumeration value="SEARCH_ERROR" />
+			<xsd:enumeration value="INVALID_REQUEST" />
+			<xsd:enumeration value="INTERNAL_PROCESSING_ERROR" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="FaultType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="NGI_SERVICE_ERROR" />
+			<xsd:enumeration value="CSA_ERROR" />
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	<xsd:complexType name="NGIServicesFaultType">
+		<xsd:annotation>
+			<xsd:documentation>
+				All NGI Services operations will throw a NGIServicesFault as SOAP fault to signal a problem with the operation. 
+				A detailed message will be included in fault.
+      		</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+			<xsd:element name="faultMessage" type="xsd:string"/>
+			<xsd:element name="faultErrorCode" type="ngi-core:FaultErrorCode"/>
+			<xsd:element name="faultType" type="ngi-core:FaultType"/>
+			<xsd:any namespace="##any" processContents="lax" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="NGIServicesFault" type="ngi-core:NGIServicesFaultType"/>
+
+	<!-- Asynchronous Response/Notification Services Fault -->
+	<xsd:simpleType name="DSFaultErrorCode">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="SERVICE_NOT_AVAILABLE"/>
+			<xsd:enumeration value="INVALID_MESSAGE"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="DeliveryServicesFaultType">
+		<xsd:annotation>
+			<xsd:documentation>
+				All NGI delivery (response/unsolicited notification) services operations will throw a DeliveryServicesFault as SOAP fault to 
+				signal a problem with the operation. A detailed message will be included in fault.
+      		</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="faultMessage" type="xsd:string"/>
+			<xsd:element name="faultErrorCode" type="ngi-core:DSFaultErrorCode"/>
+			<xsd:element name="faultType" type="ngi-core:FaultType"/>
+			<xsd:any namespace="##any" processContents="lax" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="DeliveryServicesFault" type="ngi-core:DeliveryServicesFaultType"/>
+
+	<!-- Notification Information Fault -->
+	<xsd:complexType name="NotificationFaultType">
+		<xsd:annotation>
+			<xsd:documentation>
+				NotificationFaultType is a fault type that CJIS System Agency (CSA) throws in case there 
+				is any error in receiving the unsolicited notification from NGI's delivery.
+			</xsd:documentation>
+		</xsd:annotation>
+       <xsd:complexContent>
+           <xsd:extension base="ngi-core:DeliveryServicesFaultType"/>
+       </xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="NotificationFault" type="ngi-core:NotificationFaultType"/>
+	
+	<!-- Return Type -->
+	<xsd:simpleType name="VOIDType">
+		<xsd:annotation>
+			<xsd:documentation>
+				VOID type
+			</xsd:documentation>
+		</xsd:annotation>
+	    <xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<xsd:element name="VOID" type="ngi-core:VOIDType"/>	
+
+	<!-- NGI Control Number -->
+	<xsd:simpleType name="NGIControlNumberType">
+		<xsd:annotation>
+			<xsd:documentation>
+				NGIControlNumberType is an NGI control number.
+			</xsd:documentation>
+		</xsd:annotation>
+	    <xsd:restriction base="xsd:string">
+				<xsd:pattern value="^[A-Z](([2-9]\\d(0[48]|[2468][048]|[13579][26]))|(([2468][048]|[3579][26])00))366\\d{12}$"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="NGIControlNumber" type="ngi-core:NGIControlNumberType"/>
+
+	<!-- DataManagement Service Operation Request Message Types -->	
+	<xsd:element name="DeleteFingerprintRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="DeleteUnsolvedLatentFileRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="GetLatentDecisionRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="EnrollDirectPalmprintRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="DeletePalmprintRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="EnrollDirectSupplementalFingerprintAndPalmprintRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="DeleteSupplementalFingerprintAndPalmprintRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	
+	<!-- Identification Service Operation Request Message Types --> 	
+  	<xsd:element name="IdentifyTenprintFingerprintRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="IdentifyLatentFingerprintRequest"  type="itl:NISTBiometricInformationExchangePackageType"/>	
+	
+	<!-- Information Service Operation Request Message Types -->
+	<xsd:element name="RetrieveFingerprintImageRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="RetrievePalmprintFeaturesRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+ 	<xsd:element name="RetrievePalmprintImageRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+ 	<xsd:element name="RetrievePalmprintAuditTrailRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+ 	<xsd:element name="RetrieveUnsolvedLatentAuditTrailRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+ 	
+	<!-- Investigation Service Operation Request Message Types --> 	
+	<xsd:element name="QueryLatentPenetrationRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="SearchLatentPrintImageRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="SearchLatentPrintFeatureRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="SearchUnsolvedLatentRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	<xsd:element name="QueryLatentRepositoryStatisticsRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+
+	<xsd:element name="ReceiveResponseRequest" type="itl:NISTBiometricInformationExchangePackageType"/>
+	
+		
+</xsd:schema>

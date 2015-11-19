@@ -22,6 +22,9 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 
 import java.util.List;
 
+import org.apache.camel.EndpointInject;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -38,6 +41,9 @@ import org.subethamail.wiser.WiserMessage;
 public class SubscriptionNotificationStaticValidationDateTest extends AbstractSubscriptionNotificationIntegrationTest {
     
     private static final Log log = LogFactory.getLog(SubscriptionNotificationStaticValidationDateTest.class);
+    
+    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
+    protected MockEndpoint fbiEbtsSubscriptionMockEndpoint;
 	
     //This is used to update database to achieve desired state for test
     private JdbcTemplate jdbcTemplate;
@@ -46,6 +52,14 @@ public class SubscriptionNotificationStaticValidationDateTest extends AbstractSu
 	public void setUp() throws Exception {
 		
 		super.setUp();
+		
+    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {    	    
+    	    	
+    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+    	    }              
+    	});    	    	
         
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
         

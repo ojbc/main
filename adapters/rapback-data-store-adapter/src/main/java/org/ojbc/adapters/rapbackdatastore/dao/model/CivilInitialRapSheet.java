@@ -28,7 +28,6 @@ public class CivilInitialRapSheet implements Serializable{
 	private Long id; //Civil Rap Sheet ID;
 	private Integer civilIntitialResultId; 
 	private byte[] rapSheet; 
-	private String transactionType; 
 	private DateTime timestamp;
 	
 	public String toString(){
@@ -41,14 +40,6 @@ public class CivilInitialRapSheet implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getTransactionType() {
-		return transactionType;
-	}
-
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
 	}
 
 	public DateTime getTimestamp() {

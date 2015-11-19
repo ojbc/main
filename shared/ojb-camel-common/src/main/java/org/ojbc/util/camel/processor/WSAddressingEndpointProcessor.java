@@ -49,6 +49,7 @@ public class WSAddressingEndpointProcessor {
 		if (StringUtils.isNotEmpty(endpointNameFromReplyToAddress))
 		{
 			exchange.getIn().setHeader("recipientListReplyToEndpoint", endpointNameFromReplyToAddress);
+    		exchange.getIn().setHeader(Exchange.DESTINATION_OVERRIDE_URL,replyTo);
 		}	
 
 	}

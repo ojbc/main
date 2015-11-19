@@ -18,8 +18,6 @@
 
 -->
 
-<!-- Configures the Camel Context -->
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
@@ -29,7 +27,8 @@
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0"
-	xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:pci="http://ojbc.org/IEPD/Exchange/ProbationCaseInitiation/1.0"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -42,93 +41,188 @@
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+	
 		<endpoint id="inputDir"
 			uri="file:///${publishSubscribe.probationIntermediaryDirectory}/input?idempotent=true&amp;moveFailed=${publishSubscribe.probationIntermediaryDirectory}/error&amp;move=processed/" />
 
+		<endpoint id="caseTerminateInputDir"
+			uri="file:///${publishSubscribe.probationIntermediaryDirectory}/CaseTerminate/input?idempotent=true&amp;moveFailed=${publishSubscribe.probationIntermediaryDirectory}/error&amp;move=processed/" />			
+						
 		<!-- Probation Service File Handler -->
 		<camel:route>
 			<camel:from uri="inputDir" />
-			<camel:log message="This is the body the service received: ${body}" />
-			<camel:log message="THIS IS THE OPERATION:, ${in.header.operationName}" />
+			
+			<camel:log message="\n\n\n Received File Drop doc: \n\n ${body} \n\n\n" />
+						
+			<camel:setHeader headerName="operationName">			
+				<camel:constant>Report-Probation-Case-Initiation</camel:constant>
+			</camel:setHeader>
+			
+			<camel:log message="\n\n\n Operation name: ${in.header.operationName} \n\n\n" />
+			
 			<camel:to uri="direct:processProbationDocument" />
 		</camel:route>
+
+		
+		<camel:route>
+			<from uri="caseTerminateInputDir"/>
+			
+			<log message="\n\n\n Received in caseTerminateInputDir: \n\n ${body}  \n\n\n" loggingLevel="INFO"/>
+			
+			<setHeader headerName="operationName">
+				<constant>Report-Probation-Case-Termination</constant>
+			</setHeader>
+			
+			<log message="\n\n\n Operation:  ${header.operationName} \n\n\n" loggingLevel="INFO"/>
+				
+			<to uri="direct:processProbationDocument"/>
+		</camel:route>
+
+
+
 
 		<!-- Probation Service Handler -->
 		<camel:route>
-			<camel:from
-				uri="probationEventHandlerServiceEndpoint" />
+			<camel:from uri="probationEventHandlerServiceEndpoint" />
+			
 			<camel:convertBodyTo type="java.lang.String" />
-			<camel:log message="This is the body the service received: ${body}" loggingLevel="DEBUG"/>
+			
+			<camel:log message="\n\n\n Service received message body:\n ${body} \n\n" loggingLevel="DEBUG"/>
+			
 			<camel:to uri="direct:processProbationDocument" />
 		</camel:route>
 
-		<camel:route>
+
+		<camel:route id="processProbationDocRoute">
+		
 			<camel:from uri="direct:processProbationDocument" />
-			<camel:log message="processing probation document" />
-
-			<camel:setHeader headerName="officerEmailAddress">
-				<camel:xpath>//nc20:ContactInformation/nc20:ContactEmailID/text()</camel:xpath>
-			</camel:setHeader>
-
-			<camel:setHeader headerName="systemName">
-				<camel:xpath>//pcext:SystemName/text()</camel:xpath>
-			</camel:setHeader>
-
-			<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
 			
-			<camel:choice>
-				<camel:when>
-					<simple>${in.headers.officerEmailAddress} == '' and ${in.header.operationName} == 'Report-Probation-Case-Initiation'</simple>
-					<camel:log message="No email address could be located for record"/>
-				</camel:when>
-				<camel:otherwise>
-					<camel:to uri="direct:processOperation"/>
-				</camel:otherwise>
-			</camel:choice>
+			<camel:log message="\n\n\n Processing Probation document...\n\n\n" />
 
-		</camel:route>
-
-		<camel:route>
-			<camel:from uri="direct:processOperation"/>
-			
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Probation-Case-Initiation'</camel:simple>
-				<camel:to uri="direct:transformAndInvokeSubscriptionProcessor" />
+								
+				<camel:setHeader headerName="systemName">
+					<camel:xpath>//pcext:SystemName/text()</camel:xpath>
+				</camel:setHeader>
+
+
+				<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
+				
+				<log message="\n\n\n System Name: ${header.systemName}, TOPIC: ${in.header.topicExpression} \n\n\n"/>
+				
+				
+				<camel:setHeader headerName="officerEmailAddress">
+					<camel:xpath>//nc20:ContactInformation/nc20:ContactEmailID/text()</camel:xpath>
+				</camel:setHeader>
+										
+				<camel:choice>								
+					<camel:when>
+						<simple>${in.headers.officerEmailAddress} != ''</simple>
+
+							<camel:setHeader headerName="derivedRoutes">
+								<simple>{{probation.event.camelEndpointsToCall}}</simple>
+							</camel:setHeader>
+				
+							<camel:filter>
+								<camel:simple>${in.headers.derivedRoutes} != ''</camel:simple>
+								
+								<camel:log message="\n\n\n Calling derived route...: ${in.headers.derivedRoutes} \n\n\n"/>
+								
+								<camel:recipientList>
+									<camel:header>derivedRoutes</camel:header>
+								</camel:recipientList>
+							</camel:filter>							
+					</camel:when>
+					
+					<camel:otherwise>
+						<camel:log message="\n\n\n No email address could be located for record \n\n\n"/>
+					</camel:otherwise>				
+				</camel:choice>
+																
 			</camel:filter>
+
 
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Probation-Case-Termination'</camel:simple>
-				<camel:to uri="direct:transformAndInvokeUnsubscriptionProcessor" />
+								
+				<setHeader headerName="derivedUnsubscribeEndpoint">
+					<simple>{{probation.event.terminationUnsubscribeEndpoint}}</simple>
+				</setHeader>				
+				
+				<filter>
+					<simple>${header.derivedUnsubscribeEndpoint} != ''</simple>
+					
+					<log message="\n\n\n Calling Derived Unsubscribe Endpoint...: ${header.derivedUnsubscribeEndpoint} \n\n\n" 
+						loggingLevel="INFO" />
+					
+					<camel:recipientList>
+						<camel:header>derivedUnsubscribeEndpoint</camel:header>
+					</camel:recipientList>				
+				</filter>										
+								
 			</camel:filter>
+
 		</camel:route>
 
+
+		<!-- Allows parent bundle to call child bundle derived route for state specific project -->
+		<camel:route>		
+			<from uri="direct-vm:transformAndInvokeProbationSubscriptionProcessor"/>
+			
+			<log message="\n\n\n direct-vm:parentEntryTransformSubscription... \n\n\n"/>
+			
+			<to uri="direct:transformAndInvokeSubscriptionProcessor"/>
+		</camel:route>
+
+
 		<camel:route>
+			
 			<camel:from uri="direct:transformAndInvokeSubscriptionProcessor" />
+			
+			<camel:log message="\n\n\n transformAndInvokeSubscriptionProcessor...\n\n\n"/>
+															
 			<camel:to uri="xslt:xslt/probationDocumentToSubscription.xsl" />
-			<camel:log message="After transform subscription: ${body}" />
+			
+			<camel:log message="\n\n\n After transform subscription: \n\n ${body} \n\n\n" />
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewSimpleExchangeResponseMessage"/>
 			
 			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
 			<camel:setHeader headerName="operationName"><constant>Subscribe</constant></camel:setHeader>	
 			
-			<camel:to
-				uri="notificationBrokerServiceEndpoint" />
+			<camel:to uri="notificationBrokerServiceEndpoint" />
 		</camel:route>
 
+
 		<camel:route>
-			<camel:from uri="direct:transformAndInvokeUnsubscriptionProcessor" />
+		
+			<camel:from uri="direct:transformAndInvokeUnsubscriptionProbationProcessor" />
+			
 			<camel:to uri="xslt:xslt/probationDocumentToUnsubscription.xsl" />
-			<camel:log message="After transform unsubscription: ${body}" />
+			
+			<camel:log message="\n\n\n After transform unsubscription: ${body} \n\n\n" />
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewSimpleExchangeResponseMessage"/>
 			
 			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
 			<camel:setHeader headerName="operationName"><constant>Unsubscribe</constant></camel:setHeader>	
 			
-			<camel:to
-				uri="subscriptionManagerServiceEndpoint" />
+			<camel:to uri="subscriptionManagerServiceEndpoint" />
 		</camel:route>
+		
+		
+		<camel:route id="unsubXsltRouteForDerivedChildBundlesToCall">
+		
+			<from uri="direct-vm:transformAndInvokeProbationUnsubscriptionProcessor"/>
+		
+			<log message="\n\n\n Called by derived bundle: Transforming Unsubscription... \n\n\n" loggingLevel="INFO"/>
+			
+			<camel:convertBodyTo type="java.lang.String" />
+			
+			<to uri="direct:transformAndInvokeUnsubscriptionProbationProcessor"/>
+		</camel:route>		
+		
 	</camel:camelContext>
 
 

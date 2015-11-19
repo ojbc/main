@@ -44,10 +44,10 @@
 		<saxon-version>8.7</saxon-version>
 		<servlet-api-version>2.5</servlet-api-version>
 		<bouncycastle-version>140</bouncycastle-version>
+		<ojb-fedquery-common>[1.0.2,)</ojb-fedquery-common>
 		<ojb-camel-common>[1.0.0,)</ojb-camel-common>
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
-		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 		<ojb-common-version>[2.0.1,)</ojb-common-version>
 		<commons-lang-version>2.4</commons-lang-version>
 		<spring-version>3.0.7.RELEASE</spring-version>
@@ -55,7 +55,6 @@
 		<commonsCodec.version>1.7</commonsCodec.version>
 		<jodatime-version>1.6.2</jodatime-version>
 	    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
 	</properties>
 
 	<dependencies>
@@ -135,6 +134,11 @@
 		</dependency>
 
 		<!-- OJB Shared Bundles -->
+	    <dependency>
+	      <groupId>org.ojbc.bundles.shared</groupId>
+	      <artifactId>ojb-fedquery-common</artifactId>
+	      <version>${ojb-fedquery-common}</version>
+	    </dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-camel-common</artifactId>
@@ -151,12 +155,6 @@
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-resources-common</artifactId>
 			<version>${ojb-resources-common-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-osgi-common</artifactId>
-			<version>${ojb-osgi-common-version}</version>
 		</dependency>
 
 		<!-- for testing -->
@@ -201,32 +199,6 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j-version}</version>
 		</dependency>
-		 <dependency>
-		 	<groupId>org.ojbc.bundles.utilities</groupId>
-		 	<artifactId>h2-mock-database</artifactId>
-		 	<version>${h2-mock-database-version}</version>
-		 	<scope>test</scope>
-		 </dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>2.2</version>
-		</dependency>
-<!--The following two dependencies are useful to test mySQL configs locally -->
-<!--
-
-<dependency>
-	<groupId>commons-dbcp</groupId>
-	<artifactId>commons-dbcp</artifactId>
-	<version>1.2.2</version>
-</dependency>
-
-<dependency>
-	<groupId>mysql</groupId>
-	<artifactId>mysql-connector-java</artifactId>
-	<version>5.1.16</version>
-</dependency>
- -->
 
 	</dependencies>
 
@@ -281,31 +253,19 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<DynamicImport-Package>*</DynamicImport-Package>
 						<Import-Package>
 							org.apache.commons.dbcp,
-							org.h2.jdbcx;resolution:=optional,
 							META-INF.cxf,
 							META-INF.cxf.osgi,
 							org.springframework.beans.factory.config,
 							javax.xml.namespace,
 							service-specifications.*,
 							org.ojbc.*,
-							com.mysql.jdbc,
-							<!--packages needed to use annotation driven beans  -->
-							org.springframework.aop,
-							org.springframework.aop.framework,
-							net.sf.cglib.proxy,
-							net.sf.cglib.core,
-							net.sf.cglib.reflect,
-							org.aopalliance.aop,
+							org.apache.cxf.bus.spring,
+							org.apache.camel.spring.spi,
 							*
-							</Import-Package>
-						<Require-Bundle>
-							org.apache.cxf.bundle,
-							org.ojbc.bundles.shared.ojb-common,
-							org.ojbc.bundles.shared.ojb-camel-common,
-							org.ojbc.bundles.shared.ojb-resources-common,
-						</Require-Bundle>
+						</Import-Package>
 						<Bundle-Activator>org.apache.camel.impl.osgi.Activator</Bundle-Activator>
 						<Bundle-Name>${project.name}</Bundle-Name>
 					</instructions>

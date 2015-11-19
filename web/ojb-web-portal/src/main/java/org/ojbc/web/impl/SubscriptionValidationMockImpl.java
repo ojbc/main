@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 public class SubscriptionValidationMockImpl implements SubscriptionValidationInterface{
 
     @Override
-    public FaultableSoapResponse validate(String subscriptionIdentificationId, String topic,
+    public FaultableSoapResponse validate(String subscriptionIdentificationId, String topic, String reasonCode,
             String federatedQueryID, Element samlToken) throws Exception {
         throw new UnsupportedOperationException("Method not implemented yet");
     }

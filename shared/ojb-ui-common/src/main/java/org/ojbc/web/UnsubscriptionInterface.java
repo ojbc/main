@@ -16,11 +16,12 @@
  */
 package org.ojbc.web;
 
+import org.ojbc.web.model.subscription.Unsubscription;
 import org.w3c.dom.Element;
 
 public interface UnsubscriptionInterface {
 
-	public void unsubscribe(String subscriptionIdentificationId, String topic, String federatedQueryID, 
+	public void unsubscribe(Unsubscription unsubscription, String federatedQueryID, 
 			Element samlToken) throws Exception;
 	
 }

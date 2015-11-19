@@ -18,16 +18,21 @@
 
 -->
 
-<!-- Configures the Camel Context -->
-
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
-	xmlns:ctx="http://www.springframework.org/schema/context" xmlns:sec="http://cxf.apache.org/configuration/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:sec="http://cxf.apache.org/configuration/security"
 	xmlns:http="http://cxf.apache.org/transports/http/configuration"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:j="http://www.it.ojp.gov/jxdm/3.0.3"
-	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:j="http://www.it.ojp.gov/jxdm/3.0.3"
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:pcext="http://ojbc.org/IEPD/Extensions/ParoleCase/1.0"
+	xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:pci="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
@@ -41,68 +46,163 @@
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" streamCache="true">
+		
 		<endpoint id="inputDir"
 			uri="file:///${publishSubscribe.paroleIntermediaryDirectory}/input?idempotent=true&amp;moveFailed=${publishSubscribe.paroleIntermediaryDirectory}/error&amp;move=processed/" />
-
-		<!-- Parole Service File Handler -->
+			
+		<endpoint id="caseTerminateInputDir"
+			uri="file:///${publishSubscribe.paroleIntermediaryDirectory}/CaseTerminate/input?idempotent=true&amp;moveFailed=${publishSubscribe.paroleIntermediaryDirectory}/error&amp;move=processed/" />			
+			
+			
+		<!-- Parole Service, Input File Drop Handler -->
 		<camel:route>
-			<camel:from uri="inputDir" />
-			<camel:log message="This is the body the service received: ${body}" loggingLevel="DEBUG"/>
+			<from uri="inputDir" />
+			
+			<log message="\n\n\n Received input message: \n\n ${body} \n\n"/>
+						
+			<setHeader headerName="operationName">
+				<constant>Report-Parole-Case-Initiation</constant>
+			</setHeader>			
+			
+			<camel:log message="\n\n\n OPERATION: \n\n ${in.header.operationName}\n\n" />
+			
 			<camel:to uri="direct:processParoleDocument" />
 		</camel:route>
 
-		<!-- Probation Service Handler -->
+		
+		<camel:route>
+			<from uri="caseTerminateInputDir"/>
+			
+			<log message="\n\n\n Received in caseTerminateInputDir: \n\n ${body}  \n\n\n" loggingLevel="INFO"/>
+			
+			<setHeader headerName="operationName">
+				<constant>Report-Parole-Case-Termination</constant>
+			</setHeader>
+			
+			<log message="\n\n\n Operation:  ${header.operationName} \n\n\n" loggingLevel="INFO"/>
+				
+			<to uri="direct:processParoleDocument"/>
+		</camel:route>
+
+
+		<!-- Parole Service Handler -->
 		<camel:route>
 			<camel:from uri="paroleEventHandlerServiceEndpoint" />
-			<camel:log message="This is the body the service recieved: ${body}" loggingLevel="DEBUG"/>
-			<camel:log message="THIS IS THE OPERATION:, ${in.header.operationName}" />
+			
+			<camel:log message="\n\n Received message body: ${body} \n\n" loggingLevel="DEBUG"/>
+			<camel:log message="\n\n\n Operation: ${in.header.operationName}\n" />
+			
 			<camel:to uri="direct:processParoleDocument" />
 		</camel:route>
 
-		<camel:route>
-			<camel:from uri="direct:processParoleDocument" />
-			<camel:log message="processing parole document" />
 
+		<camel:route id="processParoleDocRoute">
+		
+			<camel:from uri="direct:processParoleDocument" />
+			
+			<camel:log message="\n\n\n processing parole document... \n\n\n" />			
+									
 			<camel:setHeader headerName="systemName">
 				<camel:xpath>//pcext:SystemName/text()</camel:xpath>
 			</camel:setHeader>
 
 			<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
+			
+			<log message="\n\n\n systemName=${header.systemName}, topicExpression=${header.topicExpression}" />
 
+			
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Parole-Case-Initiation'</camel:simple>
-				<camel:to uri="direct:transformAndInvokeSubscriptionProcessor" />
-
+												
+				<camel:setHeader headerName="derivedRoutes">
+					<simple>{{parole.event.camelEndpointsToCall}}</simple>
+				</camel:setHeader>
+	
+				<camel:filter>
+					<camel:simple>${in.headers.derivedRoutes} != ''</camel:simple>
+					
+					<camel:log message="\n\n\n Calling derived route...: ${in.headers.derivedRoutes} \n\n\n"/>
+					
+					<camel:recipientList>
+						<camel:header>derivedRoutes</camel:header>
+					</camel:recipientList>
+				</camel:filter>																				
 			</camel:filter>
+
 
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Parole-Case-Termination'</camel:simple>
-				<camel:wireTap uri="direct:transformAndInvokeUnsubscriptionProcessor" />
+				
+				<setHeader headerName="derivedUnsubscribeEndpoint">
+					<simple>{{parole.event.terminationUnsubscribeEndpoint}}</simple>
+				</setHeader>				
+				
+				<filter>
+					<simple>${in.headers.derivedUnsubscribeEndpoint} != ''</simple>
+					
+					<log message="\n\n\n Calling Derived Unsubscribe Endpoint...: \n\n ${in.headers.derivedUnsubscribeEndpoint} \n\n\n" 
+						loggingLevel="INFO" />
+					
+					<camel:recipientList>
+						<camel:header>derivedUnsubscribeEndpoint</camel:header>
+					</camel:recipientList>				
+				</filter>								
 			</camel:filter>
 
 		</camel:route>
-		
+					
+										
 		<camel:route>
 			<camel:from uri="direct:transformAndInvokeUnsubscriptionProcessor" />
+			
 			<camel:convertBodyTo type="java.lang.String"/>
+			
 			<camel:to uri="xslt:xslt/paroleDocumentToUnsubscription.xsl" />
-			<camel:log message="After transform: ${body}" />
-			<camel:to
-				uri="bean:subscriptionManagerServiceMessageProcessor?method=sendResponseMessage" />
+						
+			<camel:log message="\n\n\n After transform: \n\n ${body} \n\n\n" />
+			
+			<camel:to uri="bean:subscriptionManagerServiceMessageProcessor?method=sendResponseMessage" />
 		</camel:route>
+
 
 		<camel:route>
 			<camel:from uri="direct:transformAndInvokeSubscriptionProcessor" />
+			
+			<camel:log message="\n\n\n transformAndInvokeSubscriptionProcessor...\n\n\n" />
+				
 			<camel:convertBodyTo type="java.lang.String"/>
+																				
 			<camel:to uri="xslt:xslt/paroleDocumentToSubscription.xsl" />
-			<camel:log message="After transform: ${body}" />
-			<camel:to
-				uri="bean:notificationBrokerServiceMessageProcessor?method=sendResponseMessage" />
+			
+			<camel:log message="\n\n\n After paroleDocumentToSubscription.xsl, body: \n\n ${body} \n\n\n" />
+			
+			<camel:to uri="bean:notificationBrokerServiceMessageProcessor?method=sendResponseMessage" />
+			
 		</camel:route>
+		
+		<!-- Can be called by state specific child bundles -->
+		<camel:route id="parentEntryTransformSubRoute">
+		
+			<from uri="direct-vm:transformAndInvokeSubscriptionProcessor"/>
+			
+			<log message="\n\n\n parentEntryTransformSubRoute... \n\n\n"/> 
 
-
+			<to uri="direct:transformAndInvokeSubscriptionProcessor"/>
+		</camel:route>
+		
+		
+		<camel:route id="unsubXsltRouteForDerivedChildBundlesToCall">
+		
+			<from uri="direct-vm:transformAndInvokeUnsubscriptionProcessor"/>
+		
+			<log message="\n\n\n Called by derived bundle: Transforming Unsubscription... \n\n\n" loggingLevel="INFO"/>
+			
+			<to uri="direct:transformAndInvokeUnsubscriptionProcessor"/>
+		</camel:route>
+					    
 	</camel:camelContext>
-
+	
+	
 	<bean id="notificationBrokerServiceMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
 		<property name="operationName">
 			<value>Subscribe</value>
@@ -129,6 +229,8 @@
 
 	<bean id="systemNameToTopicExpressionMapper" class="org.ojbc.util.camel.processor.SystemNameToTopicExpressionMapper">
 		<property name="systemNameToTopicMap" ref="systemNameToTopicMap" />
-	</bean>
+	</bean>			
 	
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />	
+		
 </beans>

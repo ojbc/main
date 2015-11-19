@@ -19,6 +19,8 @@ package org.ojbc.intermediaries.sn.dao;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
@@ -50,6 +52,10 @@ public class Subscription {
 	
 	private DateTime validationDueDate;
 	private Interval gracePeriod;
+	private Boolean active; 
+	
+	private String agencyCaseNumber; 
+	private String subscriptionCategoryCode; 
 
     public DateTime getValidationDueDate() {
 	    return validationDueDate;
@@ -153,19 +159,39 @@ public class Subscription {
 	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+	
 	@Override
 	public String toString() {
-		return "Subscription [id=" + id + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", lastValidationDate="
-				+ lastValidationDate + ", topic=" + topic
-				+ ", personFirstName=" + personFirstName + ", personLastName="
-				+ personLastName + ", personFullName=" + personFullName
-				+ ", dateOfBirth=" + dateOfBirth + ", emailAddressesToNotify="
-				+ emailAddressesToNotify + ", subscriptionSubjectIdentifiers="
-				+ subscriptionSubjectIdentifiers + ", subscriptionOwner="
-				+ subscriptionOwner + ", subscriptionIdentifier="
-				+ subscriptionIdentifier + ", subscribingSystemIdentifier="
-				+ subscribingSystemIdentifier + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+	
+	public void setActive(Integer active) {
+		this.active = (active.intValue() == 1);
+	}
+
+	public String getAgencyCaseNumber() {
+		return agencyCaseNumber;
+	}
+
+	public void setAgencyCaseNumber(String agencyCaseNumber) {
+		this.agencyCaseNumber = agencyCaseNumber;
+	}
+
+	public String getSubscriptionCategoryCode() {
+		return subscriptionCategoryCode;
+	}
+
+	public void setSubscriptionCategoryCode(String subscriptionCategoryCode) {
+		this.subscriptionCategoryCode = subscriptionCategoryCode;
+	}
+
 
 }

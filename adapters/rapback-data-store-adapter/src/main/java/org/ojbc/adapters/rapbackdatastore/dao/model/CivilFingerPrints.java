@@ -28,8 +28,7 @@ public class CivilFingerPrints implements Serializable{
 	private Long id; //Finger prints ID;
 	private String transactionNumber;
 	private byte[] fingerPrintsFile; 
-	private String transactionType; 
-	private String fingerPrintsType; 
+	private FingerPrintsType fingerPrintsType; 
 	private DateTime timestamp;
 	
 	public CivilFingerPrints(){
@@ -69,19 +68,11 @@ public class CivilFingerPrints implements Serializable{
 		this.fingerPrintsFile = fingerPrintsFile;
 	}
 
-	public String getTransactionType() {
-		return transactionType;
-	}
-
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
-	}
-
-	public String getFingerPrintsType() {
+	public FingerPrintsType getFingerPrintsType() {
 		return fingerPrintsType;
 	}
 
-	public void setFingerPrintsType(String fingerPrintsType) {
+	public void setFingerPrintsType(FingerPrintsType fingerPrintsType) {
 		this.fingerPrintsType = fingerPrintsType;
 	}
 
