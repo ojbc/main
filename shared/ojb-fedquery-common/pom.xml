@@ -35,7 +35,7 @@
 	<properties>
 		<junit-version>4.10</junit-version>
 		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
-		<ojb-common-version>[2.0.1,)</ojb-common-version>
+		<ojb-common-version>[2.0.1,2.0.5]</ojb-common-version>
 		<xmlunit.version>1.5</xmlunit.version>
 	</properties>
 
