@@ -205,6 +205,12 @@
 								<nc:OrganizationName>ACME</nc:OrganizationName>
 							</nc:Organization>
 						</lexsdigest:EntityOrganization>
+						<!--  CITATION DELIVERY RECIPIENT - ORGANIZATION -->
+						<lexsdigest:EntityOrganization>
+							<nc:Organization s:id="ORGANIZATION_02">
+								<nc:OrganizationName>Morways Moving Company</nc:OrganizationName>
+							</nc:Organization>
+						</lexsdigest:EntityOrganization>
 						<!--  OFFICER AGENCY-->
 						<lexsdigest:EntityOrganization>
 							<nc:Organization s:id="AGENCY_01">
@@ -337,10 +343,6 @@
 								<nc:PersonReference s:ref="PERSON_03"/>
 								<nc:LocationReference s:ref="LOCATION_02"/>
 							</lexsdigest:PersonBirthLocationAssociation>
-							<lexsdigest:PersonContactAssociation>
-								<nc:PersonReference s:ref="PERSON_03"/>
-								<lexsdigest:ContactPersonLocationReference s:ref="LOCATION_01"/>
-							</lexsdigest:PersonContactAssociation>
 							<nc:ActivityInvolvedOrganizationAssociation>
 								<nc:ActivityReference s:ref="INCIDENT_01"/>
 								<nc:OrganizationReference s:ref="ORGANIZATION_01"/>
@@ -499,14 +501,9 @@
 								<inc-ext:CitationServedDate>
 									<nc:Date>2015-10-27</nc:Date>
 								</inc-ext:CitationServedDate>
-								<inc-ext:CitationDeliveredRecipientText>Morways Moving Company</inc-ext:CitationDeliveredRecipientText>
-								<inc-ext:CitationRecipientOrganizationIndicator>true</inc-ext:CitationRecipientOrganizationIndicator>
 								<inc-ext:CitationWaiverAmount>105.00</inc-ext:CitationWaiverAmount>
 								<inc-ext:CitationServedIndicator>true</inc-ext:CitationServedIndicator>
 								<inc-ext:CitationMailedIndicator>false</inc-ext:CitationMailedIndicator>
-								<inc-ext:CitationNotarizedDate>
-									<nc:Date>2015-10-28</nc:Date>
-								</inc-ext:CitationNotarizedDate>
 								<lexslib:SameAsDigestReference lexslib:ref="CITATION_01"/>
 							</inc-ext:Citation>
 							<inc-ext:Vehicle>
@@ -536,6 +533,10 @@
 							<inc-ext:DriverLicense s:id="DL_01">
 								<inc-ext:DriverLicenseCDLIndicator>false</inc-ext:DriverLicenseCDLIndicator>
 							</inc-ext:DriverLicense>
+							<nc:PersonContactInformationAssociation>
+								<nc:PersonReference s:ref="PERSON_03"/>
+								<nc:ContactInformationReference s:ref="LOCATION_01"/>
+							</nc:PersonContactInformationAssociation>
 							<nc:ActivityDocumentAssociation>
 								<nc:ActivityReference s:ref="INCIDENT_01"/>
 								<nc:DocumentReference s:ref="CITATION_01"/>
@@ -556,6 +557,10 @@
 								<nc:DriverLicenseReference s:ref="DL_01"/>
 								<nc:PersonReference s:ref="SUBJECT_01"/>
 							</j:PersonDriverLicenseAssociation>
+							<inc-ext:CitationDeliveryRecipientAssociation>
+								<inc-ext:CitationReference s:ref="CITATION_01"/>
+								<nc:EntityOrganizationReference s:ref="ORGANIZATION_02"/>
+							</inc-ext:CitationDeliveryRecipientAssociation>
 						</inc-ext:IncidentReport>
 					</lexs:StructuredPayload>
 				</lexs:DataItemPackage>
