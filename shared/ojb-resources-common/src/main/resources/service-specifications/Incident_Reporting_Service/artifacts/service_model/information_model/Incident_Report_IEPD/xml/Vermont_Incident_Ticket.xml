@@ -337,6 +337,10 @@
 								<nc:PersonReference s:ref="PERSON_03"/>
 								<nc:LocationReference s:ref="LOCATION_02"/>
 							</lexsdigest:PersonBirthLocationAssociation>
+							<lexsdigest:PersonContactAssociation>
+								<nc:PersonReference s:ref="PERSON_03"/>
+								<lexsdigest:ContactPersonLocationReference s:ref="LOCATION_01"/>
+							</lexsdigest:PersonContactAssociation>
 							<nc:ActivityInvolvedOrganizationAssociation>
 								<nc:ActivityReference s:ref="INCIDENT_01"/>
 								<nc:OrganizationReference s:ref="ORGANIZATION_01"/>
@@ -366,10 +370,6 @@
 								<nc:PersonReference s:ref="PERSON_04"/>
 								<nc:LocationReference s:ref="LOCATION_05"/>
 							</nc:PersonLocationAssociation>
-							<nc:ResidenceAssociation>
-								<nc:PersonReference s:ref="PERSON_03"/>
-								<nc:LocationReference s:ref="LOCATION_01"/>
-							</nc:ResidenceAssociation>
 							<nc:TransportationAssociation>
 								<nc:ConveyanceReference s:ref="VEHICLE_01"/>
 								<nc:ConveyanceOperatorReference s:ref="SUBJECT_01"/>
@@ -540,7 +540,7 @@
 								<nc:ActivityReference s:ref="INCIDENT_01"/>
 								<nc:DocumentReference s:ref="CITATION_01"/>
 							</nc:ActivityDocumentAssociation>
-								<nc:ActivityDocumentAssociation>
+							<nc:ActivityDocumentAssociation>
 								<nc:ActivityReference s:ref="NOTARIZATION_01"/>
 								<nc:DocumentReference s:ref="CITATION_01"/>
 							</nc:ActivityDocumentAssociation>
