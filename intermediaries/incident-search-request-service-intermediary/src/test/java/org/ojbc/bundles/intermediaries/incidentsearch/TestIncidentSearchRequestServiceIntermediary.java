@@ -18,7 +18,7 @@ package org.ojbc.bundles.intermediaries.incidentsearch;
 
 import static org.junit.Assert.assertTrue;
 
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
