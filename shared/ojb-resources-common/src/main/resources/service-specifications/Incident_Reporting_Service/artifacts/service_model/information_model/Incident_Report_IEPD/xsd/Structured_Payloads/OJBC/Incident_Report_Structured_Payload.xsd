@@ -60,11 +60,13 @@
 					<xsd:element ref="inc-ext:Vehicle" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:DrivingIncident" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:LocationContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ActivityDocumentAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:EntityDocumentAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:PersonDriverLicenseAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:CitationDeliveryRecipientAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -173,6 +175,19 @@
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
 					<xsd:element ref="nc:DocumentReference"/>
+					<xsd:element ref="nc:EntityRepresentation"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CitationDeliveryRecipientAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a delivery recipient entity and a citation.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="inc-ext:CitationReference"/>
 					<xsd:element ref="nc:EntityRepresentation"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -387,11 +402,9 @@
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:CitationServedDate" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationDeliveredRecipientText" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CitationRecipientOrganizationIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationWaiverAmount" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationServedIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationMailedIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CitationNotarizedDate" minOccurs="0"/>
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -508,7 +521,12 @@
 	</xsd:element>
 	<xsd:element name="ChargeLocationAssociation" type="inc-ext:ChargeLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a relationship between a charge and a location where activity took place that resulted in the charge.</xsd:documentation>
+			<xsd:documentation>A relationship between a charge and a location where activity took place that resulted in the charge.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationDeliveryRecipientAssociation" type="inc-ext:CitationDeliveryRecipientAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between a delivery recipient entity and a citation.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OfficerSignatureImage" type="nc:ImageType">
@@ -823,11 +841,6 @@
 			<xsd:documentation>True if the citation was mailed to the subject; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CitationNotarizedDate" type="nc:DateType">
-		<xsd:annotation>
-			<xsd:documentation>The date the citation was notarized.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="VehicleHazardousMaterialIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if a vehicle is carrying hazardous material; false otherwise.</xsd:documentation>
@@ -881,6 +894,11 @@
 	<xsd:element name="DriverLicense" type="inc-ext:DriverLicenseType">
 		<xsd:annotation>
 			<xsd:documentation>Details about a license issued to a person granting driving privileges.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A reference to a citation.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
