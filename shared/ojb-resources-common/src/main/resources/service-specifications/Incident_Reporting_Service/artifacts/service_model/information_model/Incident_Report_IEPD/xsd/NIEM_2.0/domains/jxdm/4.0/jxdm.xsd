@@ -1731,6 +1731,11 @@
       <xsd:documentation>Indicates whether dental photos or models are available with a record.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="PersonDriverLicenseAssociation" type="nc:DriverLicenseAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between a person and a driver license.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A number issued by the FBI&amp;apos;s Automated Fingerprint Identification System (AFIS) based on submitted fingerprints.</xsd:documentation>
