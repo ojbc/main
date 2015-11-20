@@ -731,9 +731,13 @@ a.grayButton:hover {
 	height: 37px;
 	margin: 0px;
 	position: relative;
-	left: -28px;
+	left: -21px;
 	bottom: -22px;
 	padding: 13px 0 0 9px;
+}
+
+#simpleSearchForm .searchCancelSection{
+	left: -27px !important;
 }
 
 .ie9 .searchCancelSection {
