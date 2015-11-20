@@ -18,6 +18,7 @@ package org.ojbc.intermediaries.sn.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
@@ -29,6 +30,7 @@ import javax.sql.DataSource;
 
 import junit.framework.Assert;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -163,5 +165,19 @@ public class RapbackDAOImplTest {
 		
 		List<String> fbiSubscriptionIdsEmpty = rapbackDao.getFbiIds("9222202");
 		assertTrue(fbiSubscriptionIdsEmpty.isEmpty());
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testGetFbiSubscriptionQualification() throws Exception {
+		Boolean fbiSubscriptionQualificationByTransactionNumber = rapbackDao.getfbiSubscriptionQualification("000001820140729014008339993"); 
+		assertEquals(Boolean.TRUE, fbiSubscriptionQualificationByTransactionNumber);
+		
+		Boolean fbiSubscriptionQualificationBySubscriptionId = rapbackDao.getfbiSubscriptionQualification(62723); 
+		assertEquals(Boolean.TRUE, fbiSubscriptionQualificationBySubscriptionId);
+		
+		Boolean fbiSubscriptionQualification = rapbackDao.getfbiSubscriptionQualification(99999); 
+		log.info("fbiSubscriptionQualification:" + BooleanUtils.isTrue(fbiSubscriptionQualification));
+		assertNull(fbiSubscriptionQualification);
 	}
 }
