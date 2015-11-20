@@ -70,7 +70,7 @@ public class SubscriptionsControllerTest {
 		
 		String jsonMsgs = subController.getErrorsWarningsJson(errorList, warningList);
 		
-		Assert.assertEquals("{\"errors\":[\"Error1\",\"Error2\"],\"warnings\":[\"Warn1\",\"Warn2\"]}", jsonMsgs);
+		Assert.assertEquals("{\"warnings\":[\"Warn1\",\"Warn2\"],\"errors\":[\"Error1\",\"Error2\"]}", jsonMsgs);
 		
 		logger.info("json errors:\n" + jsonMsgs);
 	}
