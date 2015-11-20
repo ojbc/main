@@ -207,9 +207,12 @@
 			<camel:log message="Processing Subscription (arrest)" />	
 								
 			<camel:multicast>				
-
-				<to uri="direct:processPotentialFbiSubscription"/>			 				 							 																														 				
-												
+				<camel:choice>
+					<camel:when>
+						<camel:simple>bean:fbiSubscriptionProcessor?method=routeToProcessFbiSubscriptionRoute</camel:simple>
+						<to uri="direct:processPotentialFbiSubscription"/>
+					</camel:when>			 				 							 																														 				
+				</camel:choice>				
 				<!-- this synchronous call is last because it modifies the message -->
 				<to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
 														
@@ -341,21 +344,16 @@
 			
 			<camel:log message="Processing Unsubscription (arrest)" />
 			
-			<!-- save original unsubscribe message so it can be used later to unsubscribe with the fbi if necessary.
-				Note "OJBC" prefix in spelling required for cxf "drop headers" filter strategy which only removes http headers 
-				beginning with "OJBC" -->  			
-			<setHeader headerName="OJBCunsubscribeRequestMessage">
-				<simple>${body}</simple>
-			</setHeader>	
-						
+			<camel:choice>
+				<camel:when>
+					<camel:simple>bean:fbiSubscriptionProcessor?method=routeToProcessFbiUnsubscribeRoute</camel:simple>
+					<camel:wireTap uri="direct:processFbiUnsubscription"/>
+				</camel:when>
+			</camel:choice>
+			
 			<!-- side effect: at end, this call sets exchange body to the unsubscribe response message -->
 			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />									
 			
-			<camel:wireTap uri="direct:processFbiUnsubscription">
-				<camel:body>
-					<simple>${in.header.OJBCunsubscribeRequestMessage}</simple>
-				</camel:body>						
-			</camel:wireTap>			
 		</camel:route>
 		
 				

@@ -23,9 +23,11 @@ import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
+import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultMessage;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.dao.Subscription;
@@ -37,6 +39,7 @@ import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -50,8 +53,9 @@ public class FbiSubscriptionProcessor {
 	@Resource(name="rapbackDao")
 	private FbiRapbackDao rapbackDao;	
 	
-			
-	
+    @Value("${publishSubscribe.fbiSubscriptionMember:false}")
+    private Boolean fbiSubscriptionMember;
+
 	public Document prepareSubscriptionModificationFromUnsubscribe(Exchange unsubscribeExchange) throws Exception{
 		
 		Document unsubscribeDoc = unsubscribeExchange.getIn().getBody(Document.class);
@@ -554,6 +558,37 @@ public class FbiSubscriptionProcessor {
 								
 		return fbiRapbackSubscription;
 	}
+
+	public Boolean routeToProcessFbiUnsubscribeRoute(@Body Document document) throws Exception{
 		
+		if (BooleanUtils.isTrue(fbiSubscriptionMember)){
+			String subscriptionIdString = XmlUtils.xPathStringSearch(document, 
+					"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");
+			
+			if (StringUtils.isNotBlank(subscriptionIdString)){
+				Boolean fbiSubscriptionQualification = rapbackDao.getfbiSubscriptionQualification(new Integer(subscriptionIdString));
+				if (BooleanUtils.isTrue(fbiSubscriptionQualification)){
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public Boolean routeToProcessFbiSubscriptionRoute(@Body Document document) throws Exception{
+		
+		if (BooleanUtils.isTrue(fbiSubscriptionMember)){
+			String transactionNumber = XmlUtils.xPathStringSearch(document, 
+					"//submsg-exch:SubscriptionMessage/submsg-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
+			Boolean fbiSubscriptionQualification = rapbackDao.getfbiSubscriptionQualification(transactionNumber);
+			
+			if (BooleanUtils.isTrue(fbiSubscriptionQualification)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }
 
