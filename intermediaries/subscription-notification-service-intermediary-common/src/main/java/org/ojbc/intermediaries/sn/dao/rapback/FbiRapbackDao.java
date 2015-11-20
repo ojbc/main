@@ -221,6 +221,29 @@ public class FbiRapbackDao {
 		return fbiSubscriptionIds;
 	}
 
+	/**
+	 * Decide whether the owner ORI of the transaction with the transaction number has FBI subscription qualification. 
+	 * @param transactionNumber
+	 * @return
+	 */
+	public Boolean getfbiSubscriptionQualification(String transactionNumber){
+		final String sql = "SELECT fbi_subscription_qualification FROM agency_profile "
+				+ "WHERE agency_ori = (SELECT owner_ori FROM identification_transaction t WHERE t.transaction_number= ?)";	
+		List<Boolean> fbiSubscriptionQualifications = jdbcTemplate.queryForList(sql, Boolean.class, transactionNumber); 
+		return DataAccessUtils.singleResult(fbiSubscriptionQualifications);
+	}
+	
+	/**
+	 * Decide whether the owner ORI of the transaction with the subscription ID has FBI subscription qualification. 
+	 * @param subscriptionId
+	 * @return
+	 */
+	public Boolean getfbiSubscriptionQualification(Integer subscriptionId){
+		final String sql = "SELECT fbi_subscription_qualification FROM agency_profile "
+				+ "WHERE agency_ori = (SELECT owner_ori FROM identification_transaction t WHERE t.subscription_id= ?)";	
+		List<Boolean> fbiSubscriptionQualifications = jdbcTemplate.queryForList(sql, Boolean.class, subscriptionId); 
+		return DataAccessUtils.singleResult(fbiSubscriptionQualifications);
+	}
 	
 	private DateTime toDateTime(Date date){
 		return date == null? null : new DateTime(date); 
