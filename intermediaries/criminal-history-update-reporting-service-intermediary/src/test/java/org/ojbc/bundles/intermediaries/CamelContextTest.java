@@ -38,7 +38,7 @@ import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
