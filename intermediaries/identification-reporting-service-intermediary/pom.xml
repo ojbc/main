@@ -26,6 +26,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>identification-reporting-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
+	<version>1.0.0</version>
 	<name>OJB :: identification-reporting-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -48,7 +49,6 @@
 		<spring-version>3.2.11.RELEASE</spring-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
 		<xmlunit-version>1.5</xmlunit-version>
-		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
@@ -193,7 +193,6 @@
 			<version>${log4j-version}</version>
 		</dependency>
 	</dependencies>
-
 
 	<build>
 		<defaultGoal>install</defaultGoal>
