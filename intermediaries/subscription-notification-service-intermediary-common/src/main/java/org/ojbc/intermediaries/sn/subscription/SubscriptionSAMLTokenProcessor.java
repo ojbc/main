@@ -18,15 +18,14 @@ package org.ojbc.intermediaries.sn.subscription;
 
 import java.util.List;
 
-import org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException;
-
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.SAMLTokenPrincipal;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
+import org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
@@ -43,7 +42,7 @@ public class SubscriptionSAMLTokenProcessor {
 		try
 		{
 			Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			SAMLTokenPrincipal token = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
+			SAMLTokenPrincipalImpl token = (SAMLTokenPrincipalImpl)cxfMessage.get("wss4j.principal.result");
 			Assertion assertion = token.getToken().getSaml2();
 			
 			if (assertion != null)
