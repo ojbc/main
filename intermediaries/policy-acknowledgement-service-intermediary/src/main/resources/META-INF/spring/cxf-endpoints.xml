@@ -90,6 +90,7 @@
 			<entry key="ws-security.signature.properties" value-ref="accessControlKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${accessControl.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
 	
