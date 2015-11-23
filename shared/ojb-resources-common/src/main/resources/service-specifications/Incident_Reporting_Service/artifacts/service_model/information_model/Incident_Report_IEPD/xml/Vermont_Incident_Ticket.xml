@@ -173,7 +173,7 @@
 									<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
 								</nc:PersonWeightMeasure>
 								<j:PersonAugmentation>
-									<nc:DriverLicense>
+									<nc:DriverLicense s:id="DL001">
 										<nc:DriverLicenseIdentification>
 											<nc:IdentificationID>41444812</nc:IdentificationID>
 											<j:IdentificationJurisdictionNCICLISCode>VT
@@ -239,6 +239,11 @@
 						<!-- SUBJECT BIRTH LOCATION -->
 						<lexsdigest:EntityLocation>
 							<nc:Location s:id="LOCATION_02">
+							<nc:LocationAddress>
+								<nc:StructuredAddress>
+									<nc:LocationCityName>Buffalo</nc:LocationCityName>
+								</nc:StructuredAddress>
+							</nc:LocationAddress>
 							</nc:Location>
 						</lexsdigest:EntityLocation>
 						<!-- INCIDENT LOCATION -->
@@ -370,12 +375,12 @@
 									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_01"/>
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
-							<ndexia:Location>
-								<nc:LocationDescriptionText>Buffalo, NY</nc:LocationDescriptionText>
-								<ndexia:LocationAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_02"/>
-								</ndexia:LocationAugmentation>
-							</ndexia:Location>
+<!-- 							<ndexia:Location> -->
+<!-- 								<nc:LocationDescriptionText>Buffalo, NY</nc:LocationDescriptionText> -->
+<!-- 								<ndexia:LocationAugmentation> -->
+<!-- 									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_02"/> -->
+<!-- 								</ndexia:LocationAugmentation> -->
+<!-- 							</ndexia:Location> -->
 							<ndexia:Location>
 								<nc:LocationHighway>
 									<nc:HighwayID>Rt. 89</nc:HighwayID>
@@ -492,8 +497,9 @@
 								<inc-ext:CityReliefActOtherText>Text</inc-ext:CityReliefActOtherText>
 								<lexslib:SameAsDigestReference lexslib:ref="INCIDENT_01"/>
 							</inc-ext:DrivingIncident>
-							<inc-ext:DriverLicense s:id="DL_01">
+							<inc-ext:DriverLicense>
 								<inc-ext:DriverLicenseCDLIndicator>false</inc-ext:DriverLicenseCDLIndicator>
+								<lexslib:SameAsDigestReference lexslib:ref="DL001"/>
 							</inc-ext:DriverLicense>
 							<nc:PersonContactInformationAssociation>
 								<nc:PersonReference s:ref="PERSON_03"/>
@@ -515,10 +521,6 @@
 								<nc:DocumentReference s:ref="CITATION_01"/>
 								<nc:EntityOrganizationReference s:ref="ORGANIZATION_01"/>
 							</inc-ext:EntityDocumentAssociation>
-							<j:PersonDriverLicenseAssociation>
-								<nc:DriverLicenseReference s:ref="DL_01"/>
-								<nc:PersonReference s:ref="PERSON_03"/>
-							</j:PersonDriverLicenseAssociation>
 							<inc-ext:CitationDeliveryRecipientAssociation>
 								<inc-ext:CitationReference s:ref="CITATION_01"/>
 								<nc:EntityOrganizationReference s:ref="ORGANIZATION_02"/>
