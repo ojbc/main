@@ -113,17 +113,11 @@
 								<nc:ActivityDescriptionText>No vehicle registration</nc:ActivityDescriptionText>
 							</nc:Activity>
 						</lexsdigest:EntityActivity>
-						<!-- NOTARIZATION -->
-						<lexsdigest:EntityActivity>
-							<nc:Activity s:id="NOTARIZATION_01">
-								<nc:ActivityDate>
-									<nc:Date>2016-01-01</nc:Date>
-								</nc:ActivityDate>
-							</nc:Activity>
-						</lexsdigest:EntityActivity>
 						<!-- OFFENSE -->
 						<lexsdigest:EntityActivity>
-							<nc:Activity s:id="OFFENSE_01"/>
+							<nc:Activity s:id="OFFENSE_01">
+							<nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+							</nc:Activity>
 						</lexsdigest:EntityActivity>
 						<!-- CITATION -->
 						<lexsdigest:EntityDocument>
@@ -192,21 +186,13 @@
 								<nc:RoleOfPersonReference s:ref="PERSON_03"/>
 							</j:IncidentSubject>
 						</lexsdigest:EntityPerson>
-						<!-- NOTARY -->
-						<lexsdigest:EntityPerson>
-							<lexsdigest:Person s:id="PERSON_04">
-								<nc:PersonName>
-									<nc:PersonFullName>Steve Sargeant</nc:PersonFullName>
-								</nc:PersonName>
-							</lexsdigest:Person>
-						</lexsdigest:EntityPerson>
 						<!--  SUBJECT - ORGANIZATION -->
 						<lexsdigest:EntityOrganization>
 							<nc:Organization s:id="ORGANIZATION_01">
 								<nc:OrganizationName>ACME</nc:OrganizationName>
 							</nc:Organization>
-						</lexsdigest:EntityOrganization>
 						<!--  CITATION DELIVERY RECIPIENT - ORGANIZATION -->
+						</lexsdigest:EntityOrganization>
 						<lexsdigest:EntityOrganization>
 							<nc:Organization s:id="ORGANIZATION_02">
 								<nc:OrganizationName>Morways Moving Company</nc:OrganizationName>
@@ -220,8 +206,8 @@
 						</lexsdigest:EntityOrganization>
 						<!-- SUBJECT HOME PHONE -->
 						<lexsdigest:EntityTelephoneNumber>
-							<lexsdigest:TelephoneNumber s:id="TELEPHONE_01">
-								<nc:FullTelephoneNumber>
+							<lexsdigest:TelephoneNumber>
+								<nc:FullTelephoneNumber s:id="TELEPHONE_01">
 									<nc:TelephoneNumberFullID>8023631111
 									</nc:TelephoneNumberFullID>
 								</nc:FullTelephoneNumber>
@@ -229,8 +215,8 @@
 						</lexsdigest:EntityTelephoneNumber>
 						<!-- SUBJECT BUSINESS PHONE -->
 						<lexsdigest:EntityTelephoneNumber>
-							<lexsdigest:TelephoneNumber s:id="TELEPHONE_02">
-								<nc:FullTelephoneNumber>
+							<lexsdigest:TelephoneNumber>
+								<nc:FullTelephoneNumber s:id="TELEPHONE_02">
 									<nc:TelephoneNumberFullID>8023631112
 									</nc:TelephoneNumberFullID>
 								</nc:FullTelephoneNumber>
@@ -259,6 +245,11 @@
 						<!-- INCIDENT LOCATION -->
 						<lexsdigest:EntityLocation>
 							<nc:Location s:id="LOCATION_03">
+							<nc:LocationAddress>
+								<nc:StructuredAddress>
+									<nc:LocationCityName>Burlington</nc:LocationCityName>
+								</nc:StructuredAddress>
+							</nc:LocationAddress>
 							</nc:Location>
 						</lexsdigest:EntityLocation>
 						<!-- PARENY/GAURDIAN LOCATION -->
@@ -274,11 +265,6 @@
 										<nc:LocationPostalCode>05401-2277</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
-							</nc:Location>
-						</lexsdigest:EntityLocation>
-						<!-- NOTARY LOCATION -->
-						<lexsdigest:EntityLocation>
-							<nc:Location s:id="LOCATION_05">
 							</nc:Location>
 						</lexsdigest:EntityLocation>
 						<!-- SUBJECT VEHICLE -->
@@ -348,11 +334,6 @@
 								<nc:ActivityReference s:ref="INCIDENT_01"/>
 								<nc:OrganizationReference s:ref="ORGANIZATION_01"/>
 							</nc:ActivityInvolvedOrganizationAssociation>
-							<nc:ActivityInvolvedPersonAssociation>
-								<nc:ActivityReference s:ref="NOTARIZATION_01"/>
-								<nc:PersonReference s:ref="PERSON_04"/>
-								<nc:PersonActivityInvolvementText>Notary</nc:PersonActivityInvolvementText>
-							</nc:ActivityInvolvedPersonAssociation>
 							<nc:ImmediateFamilyAssociation>
 								<nc:PersonParentReference s:ref="PERSON_01"/>
 								<nc:PersonChildReference s:ref="PERSON_03"/>
@@ -365,14 +346,6 @@
 								<nc:PersonReference s:ref="PERSON_03"/>
 								<nc:ConveyanceReference s:ref="VEHICLE_01"/>
 							</nc:PersonConveyanceAssociation>
-							<nc:PersonLocationAssociation>
-								<nc:PersonReference s:ref="PERSON_01"/>
-								<nc:LocationReference s:ref="LOCATION_04"/>
-							</nc:PersonLocationAssociation>
-							<nc:PersonLocationAssociation>
-								<nc:PersonReference s:ref="PERSON_04"/>
-								<nc:LocationReference s:ref="LOCATION_05"/>
-							</nc:PersonLocationAssociation>
 							<nc:TransportationAssociation>
 								<nc:ConveyanceReference s:ref="VEHICLE_01"/>
 								<nc:ConveyanceOperatorReference s:ref="SUBJECT_01"/>
@@ -424,16 +397,6 @@
 									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_04"/>
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
-							<ndexia:Location>
-								<nc:LocationAddress>
-									<nc:StructuredAddress>
-										<nc:LocationCountyName>Chittenden</nc:LocationCountyName>
-									</nc:StructuredAddress>
-								</nc:LocationAddress>
-								<ndexia:LocationAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_05"/>
-								</ndexia:LocationAugmentation>
-							</ndexia:Location>
 							<ndexia:Offense>
 								<ndexia:ActivityAugmentation>
 									<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_01"/>
@@ -451,7 +414,7 @@
 									</j:OrganizationORIIdentification>
 								</j:OrganizationAugmentation>
 								<ndexia:OrganizationAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="ORGANIZATION_02"/>
+									<lexslib:SameAsDigestReference lexslib:ref="AGENCY_01"/>
 								</ndexia:OrganizationAugmentation>
 							</ndexia:Organization>
 							<ndexia:Vehicle>
@@ -538,12 +501,12 @@
 								<nc:PersonReference s:ref="PERSON_03"/>
 								<nc:ContactInformationReference s:ref="LOCATION_01"/>
 							</nc:PersonContactInformationAssociation>
+							<nc:PersonContactInformationAssociation>
+								<nc:PersonReference s:ref="PERSON_01"/>
+								<nc:ContactInformationReference s:ref="LOCATION_04"/>
+							</nc:PersonContactInformationAssociation>
 							<nc:ActivityDocumentAssociation>
 								<nc:ActivityReference s:ref="INCIDENT_01"/>
-								<nc:DocumentReference s:ref="CITATION_01"/>
-							</nc:ActivityDocumentAssociation>
-							<nc:ActivityDocumentAssociation>
-								<nc:ActivityReference s:ref="NOTARIZATION_01"/>
 								<nc:DocumentReference s:ref="CITATION_01"/>
 							</nc:ActivityDocumentAssociation>
 							<inc-ext:EntityDocumentAssociation>
@@ -556,7 +519,7 @@
 							</inc-ext:EntityDocumentAssociation>
 							<j:PersonDriverLicenseAssociation>
 								<nc:DriverLicenseReference s:ref="DL_01"/>
-								<nc:PersonReference s:ref="SUBJECT_01"/>
+								<nc:PersonReference s:ref="PERSON_03"/>
 							</j:PersonDriverLicenseAssociation>
 							<inc-ext:CitationDeliveryRecipientAssociation>
 								<inc-ext:CitationReference s:ref="CITATION_01"/>
