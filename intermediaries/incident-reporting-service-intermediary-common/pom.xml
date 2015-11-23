@@ -17,14 +17,13 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>incident-reporting-service-intermediary-common</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<name>OJB :: incident-reporting-service-intermediary-common :: intermediary</name>
 	<url>http://www.ojbc.org</url>
@@ -36,9 +35,9 @@
 	</parent>
 
 	<properties>
-		<camel-version>2.14.3</camel-version>
+		<camel-version>2.14.4</camel-version>
 		<jodatime-version>2.2</jodatime-version>
-		<commons-lang-version>2.4</commons-lang-version>
+		<commons-lang-version>2.6</commons-lang-version>
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<slf4j-version>1.7.12</slf4j-version>
@@ -48,10 +47,8 @@
 		<mockito.version>1.9.0</mockito.version>
 		<dbunit.version>2.4.9</dbunit.version>
 		<commonsIo.version>2.4</commonsIo.version>
-		
-		<!-- we use spring 3.2.14 due to this bug: http://stackoverflow.com/questions/22730801/java-se-spring-data-hibernate/30204461#30204461 -->
-		<spring-version>3.2.14.RELEASE</spring-version>	
-		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
+		<spring-version>3.2.11.RELEASE</spring-version>	
+		<h2-mock-database-version>[2.0.0,)</h2-mock-database-version>
 		<java-version>1.8</java-version>
 	</properties>
 
@@ -168,21 +165,10 @@
 			<version>${commonsIo.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-				<includes>
-					<include>META-INF/spring/**</include>
-					<include>**/*.*</include>
-				</includes>
-			</resource>
-		</resources>
 
 		<plugins>
 			<plugin>
