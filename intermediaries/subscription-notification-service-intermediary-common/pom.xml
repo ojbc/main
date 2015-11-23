@@ -205,16 +205,6 @@
 	<build>
 		<defaultGoal>install</defaultGoal>
 
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-				<includes>
-					<include>META-INF/spring/**</include>
-					<include>**/*.*</include>
-				</includes>
-			</resource>
-		</resources>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
