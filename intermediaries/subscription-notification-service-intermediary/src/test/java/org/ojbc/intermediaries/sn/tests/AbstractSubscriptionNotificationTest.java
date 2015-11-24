@@ -18,7 +18,7 @@ package org.ojbc.intermediaries.sn.tests;
 
 import java.io.FileInputStream;
 
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.runner.RunWith;

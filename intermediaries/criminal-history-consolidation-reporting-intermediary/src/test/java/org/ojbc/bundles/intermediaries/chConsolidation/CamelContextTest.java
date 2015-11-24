@@ -19,7 +19,7 @@ package org.ojbc.bundles.intermediaries.chConsolidation;
 import javax.annotation.Resource;
 
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
