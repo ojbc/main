@@ -39,7 +39,7 @@
        http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
        ">
 
-	<bean id="passwordCallbackHandler" class="org.ojbc.bundles.intermediaries.ws.security.ClientCallbackMap">
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
                 <entry key="${NDExSubmission.ndexSigningUserAlias}" value="${NDExSubmission.intermediaryKeyPassword}"/>
