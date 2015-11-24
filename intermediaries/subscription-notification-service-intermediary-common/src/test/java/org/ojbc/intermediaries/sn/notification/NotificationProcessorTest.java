@@ -226,8 +226,9 @@ public class NotificationProcessorTest {
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
         Assert.assertEquals(2, emailNotifications.size());
 
-        Assert.assertEquals("po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
-        Assert.assertEquals("po2@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
+        Assert.assertEquals("po2@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
+        Assert.assertEquals("po1@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
+        
 
     }
 
@@ -267,7 +268,7 @@ public class NotificationProcessorTest {
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
         Assert.assertEquals(2, emailNotifications.size());
 
-        Assert.assertEquals("po1@courts.hawaii.gov,po2@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
+        Assert.assertEquals("po2@courts.hawaii.gov,po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
         Assert.assertEquals("po3@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
 
     }
@@ -311,7 +312,7 @@ public class NotificationProcessorTest {
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
         Assert.assertEquals(1, emailNotifications.size());
 
-        Assert.assertEquals("po1@courts.hawaii.gov,po2@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
+        Assert.assertEquals("po2@courts.hawaii.gov,po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
 
         subscriptions = new ArrayList<Subscription>();
 

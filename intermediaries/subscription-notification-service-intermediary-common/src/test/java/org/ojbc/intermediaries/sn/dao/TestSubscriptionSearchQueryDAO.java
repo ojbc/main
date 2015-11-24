@@ -881,8 +881,7 @@ public class TestSubscriptionSearchQueryDAO {
 	@Test
 	@DirtiesContext
 	public void testBuildCriteriaArray() {
-		Object[] expectedResult = new Object[] { "SID", "1234",
-				"subscriptionQualifier", "ABCDE" };
+		Object[] expectedResult = new Object[] { "subscriptionQualifier", "ABCDE", "SID", "1234" };
 
 		Map<String, String> input = new HashMap<String, String>();
 		input.put("SID", "1234");
