@@ -47,6 +47,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -81,6 +82,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -117,6 +119,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -153,6 +156,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -188,6 +192,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -204,6 +209,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -256,6 +262,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -289,6 +296,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -323,6 +331,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -357,6 +366,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -391,6 +401,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -425,6 +436,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -459,6 +471,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
@@ -494,6 +507,7 @@
 			<entry key="ws-security.signature.username"
 				value="${genericMockAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
