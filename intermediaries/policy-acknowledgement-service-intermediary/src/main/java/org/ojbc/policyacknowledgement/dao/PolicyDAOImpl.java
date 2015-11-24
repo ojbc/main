@@ -177,13 +177,13 @@ public class PolicyDAOImpl implements PolicyDAO {
 		}
 	}
 
-	private final String USER_COUNT_BY_FED_ID = "SELECT count(*) FROM ojbc_user WHERE federation_id = :federationId"; 
+	private final String USER_COUNT_BY_FED_ID = "SELECT count(*)==1 FROM ojbc_user WHERE federation_id = :federationId"; 
     @Override
     public boolean isExistingUser(String federationId) {
         validateFedId(federationId);
         
-        int count = jdbcTemplate.queryForInt(USER_COUNT_BY_FED_ID, federationId);
-        return count == 1;
+        Boolean existing = jdbcTemplate.queryForObject(USER_COUNT_BY_FED_ID, Boolean.class, federationId);
+        return existing;
     }
     
     private final String GET_USER_ID_BY_FED_ID = "SELECT id FROM ojbc_user WHERE federation_id = ?"; 
@@ -202,12 +202,12 @@ public class PolicyDAOImpl implements PolicyDAO {
         return key.longValue(); 
     }
     
-    private final String ORI_COUNT_BY_ORI_LIST = "SELECT count(*) FROM ori t WHERE t.ori = ?; "; 
+    private final String ORI_COUNT_BY_ORI_LIST = "SELECT count(*)>0 FROM ori t WHERE t.ori = ?; "; 
     private boolean isValidOri(String ori){
         
         if (StringUtils.isBlank(ori)) return false; 
         
-        int count = jdbcTemplate.queryForInt(ORI_COUNT_BY_ORI_LIST, ori);
-        return count > 0; 
+        Boolean valid = jdbcTemplate.queryForObject(ORI_COUNT_BY_ORI_LIST, Boolean.class, ori);
+        return valid; 
     }
 }
