@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -95,14 +96,14 @@ public class PolicyDAOImpl implements PolicyDAO {
     /**
      * Make sure there is a privacy policy associated with the ORI. 
      */
-    private final String POLICY_COUNT_BY_ORI = "SELECT count(*) FROM policy p "
+    private final String POLICY_COUNT_BY_ORI = "SELECT count(*) > 0 FROM policy p "
             + "LEFT JOIN policy_ori po ON po.policy_id = p.id "
             + "LEFT JOIN ori o ON o.id = po.ori_id "
             + "WHERE o.ori = ? AND p.active = true "; 
     private void validateOriPolicyCompliance(String ori) {
         
-        int count = jdbcTemplate.queryForInt(POLICY_COUNT_BY_ORI, ori);
-        if (count == 0) {
+        Boolean oriCompliance = jdbcTemplate.queryForObject(POLICY_COUNT_BY_ORI, Boolean.class, ori);
+        if (!oriCompliance) {
             log.error(PRIVACY_COMPLIANCE_ERROR + " :" + ori);
             throw new IllegalArgumentException(PRIVACY_COMPLIANCE_ERROR + " :" + ori); 
         }
