@@ -188,7 +188,7 @@
 		
 	</camel:camelContext>
 
-	<bean id="uniqueIDGeneratorBean" class="org.ojbc.bundles.intermediaries.ndex.util.UniqueIDGenerator"/>
+	<bean id="uniqueIDGeneratorBean" class="org.ojbc.util.ndex.util.UniqueIDGenerator"/>
 	
 	<bean id ="ndexORIProcessor" class="org.ojbc.processor.NdexORIProcessor">
 		<constructor-arg type="java.lang.String">
@@ -196,7 +196,7 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="NDExUtils" class="org.ojbc.bundles.intermediaries.ndex.util.NDexUtils">
+	<bean id="NDExUtils" class="org.ojbc.util.camel.helper.NDexUtils">
 		<property name="uniqueIDGenerator" ref="uniqueIDGeneratorBean"/>
 	</bean>
 
