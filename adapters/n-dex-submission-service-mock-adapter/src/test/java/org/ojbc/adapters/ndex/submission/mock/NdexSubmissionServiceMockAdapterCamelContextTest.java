@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import javax.annotation.Resource;
 
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
