@@ -19,7 +19,7 @@ package org.ojbc.bundles.adapters.personsearch.ndex;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.SAMLTokenPrincipal;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
