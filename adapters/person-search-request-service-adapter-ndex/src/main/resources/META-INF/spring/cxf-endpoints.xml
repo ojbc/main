@@ -74,8 +74,18 @@
             </policy:policies>
         </cxf:features>
     </cxf:cxfEndpoint>
+
+    <!-- Ndex Search Service --> 
+    <cxf:cxfEndpoint 
+        id="ndexSearchService"
+        address="${personSearch.ndex.ndexSearchEndpoint}"
+        wsdlURL="classpath:WSDL/NDEx_OE_LEXSSR.WSDL"
+        serviceName="ndex:SRWebService"
+        endpointName="ndex:SRWebServicePort"
+        xmlns:ndex="http://usdoj.gov/leisp/lexs/searchretrieve/3.1/ws"
+    />
     
-       	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+    <bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
                 <entry key="${personSearch.ndex.keystoreCertificateAlias}" value="${personSearch.ndex.keyPassword}"/>

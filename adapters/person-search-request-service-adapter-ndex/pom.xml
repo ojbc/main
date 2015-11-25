@@ -204,8 +204,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 				</configuration>
 			</plugin>
 
@@ -250,14 +250,7 @@
 
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<id>jdk${java.version}</id>
-			<activation>
-				<jdk>${java.version}</jdk>
-			</activation>
-		</profile>
-	</profiles>
+
 	<reporting>
 		<plugins>
 			<plugin>

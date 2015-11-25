@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<s0:definitions name="SRWebServiceDefinitions" targetNamespace="http://usdoj.gov/leisp/lexs/searchretrieve/3.1/ws" xmlns="" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://usdoj.gov/leisp/lexs/searchretrieve/3.1" xmlns:s2="http://usdoj.gov/leisp/lexs/searchretrieve/3.1/ws" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wssutil="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+  <s0:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://usdoj.gov/leisp/lexs/searchretrieve/3.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="getAttachmentResponse" type="java:GetAttachmentResponseType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="doSearchResponse" type="java:DoSearchResponseType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="getDataItemRequest" type="java:GetDataItemRequestType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="getDataOwnersResponse" type="java:GetDataOwnersResponseType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="getAttachmentRequest" type="java:GetAttachmentRequestType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="getCapabilitiesRequest" type="java:GetCapabilitiesRequestType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="getCapabilitiesResponse" type="java:GetCapabilitiesResponseType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="getAvailabilityResponse" type="java:GetAvailabilityResponseType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="doTextSearchRequest" type="java:DoTextSearchRequestType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="getDataItemResponse" type="java:GetDataItemResponseType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="getAvailabilityRequest" type="java:GetAvailabilityRequestType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="getDataOwnersRequest" type="java:GetDataOwnersRequestType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+      <xs:element name="doStructuredSearchRequest" type="java:DoStructuredSearchRequestType" xmlns:java="java:gov.usdoj.leisp.lexs.searchretrieve.x31"/>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="java:gov.usdoj.leisp.lexs.searchretrieve.x31" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="GetAttachmentResponseType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DoSearchResponseType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetDataItemRequestType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetDataOwnersResponseType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetAttachmentRequestType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetCapabilitiesRequestType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetCapabilitiesResponseType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetAvailabilityResponseType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DoTextSearchRequestType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetDataItemResponseType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetAvailabilityRequestType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetDataOwnersRequestType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DoStructuredSearchRequestType">
+        <xs:sequence>
+          <xs:any minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </s0:types>
+  <s0:message name="getAttachment">
+    <s0:part element="s1:getAttachmentRequest" name="parameters"/>
+  </s0:message>
+  <s0:message name="getAttachmentResponse">
+    <s0:part element="s1:getAttachmentResponse" name="getAttachmentResponse"/>
+  </s0:message>
+  <s0:message name="getCapabilities">
+    <s0:part element="s1:getCapabilitiesRequest" name="parameters"/>
+  </s0:message>
+  <s0:message name="getCapabilitiesResponse">
+    <s0:part element="s1:getCapabilitiesResponse" name="getCapabilitiesResponse"/>
+  </s0:message>
+  <s0:message name="getDataOwners">
+    <s0:part element="s1:getDataOwnersRequest" name="parameters"/>
+  </s0:message>
+  <s0:message name="getDataOwnersResponse">
+    <s0:part element="s1:getDataOwnersResponse" name="getDataOwnersResponse"/>
+  </s0:message>
+  <s0:message name="getDataItem">
+    <s0:part element="s1:getDataItemRequest" name="parameters"/>
+  </s0:message>
+  <s0:message name="getDataItemResponse">
+    <s0:part element="s1:getDataItemResponse" name="getDataItemResponse"/>
+  </s0:message>
+  <s0:message name="doTextSearch">
+    <s0:part element="s1:doTextSearchRequest" name="parameters"/>
+  </s0:message>
+  <s0:message name="doTextSearchResponse">
+    <s0:part element="s1:doSearchResponse" name="doSearchResponse"/>
+  </s0:message>
+  <s0:message name="doStructuredSearch">
+    <s0:part element="s1:doStructuredSearchRequest" name="parameters"/>
+  </s0:message>
+  <s0:message name="doStructuredSearchResponse">
+    <s0:part element="s1:doSearchResponse" name="doSearchResponse"/>
+  </s0:message>
+  <s0:message name="getAvailability">
+    <s0:part element="s1:getAvailabilityRequest" name="parameters"/>
+  </s0:message>
+  <s0:message name="getAvailabilityResponse">
+    <s0:part element="s1:getAvailabilityResponse" name="getAvailabilityResponse"/>
+  </s0:message>
+  <s0:portType name="LEXSSearchRetrievePortType">
+    <s0:operation name="getAttachment" parameterOrder="parameters">
+      <s0:input message="s2:getAttachment"/>
+      <s0:output message="s2:getAttachmentResponse"/>
+    </s0:operation>
+    <s0:operation name="getCapabilities" parameterOrder="parameters">
+      <s0:input message="s2:getCapabilities"/>
+      <s0:output message="s2:getCapabilitiesResponse"/>
+    </s0:operation>
+    <s0:operation name="getDataOwners" parameterOrder="parameters">
+      <s0:input message="s2:getDataOwners"/>
+      <s0:output message="s2:getDataOwnersResponse"/>
+    </s0:operation>
+    <s0:operation name="getDataItem" parameterOrder="parameters">
+      <s0:input message="s2:getDataItem"/>
+      <s0:output message="s2:getDataItemResponse"/>
+    </s0:operation>
+    <s0:operation name="doTextSearch" parameterOrder="parameters">
+      <s0:input message="s2:doTextSearch"/>
+      <s0:output message="s2:doTextSearchResponse"/>
+    </s0:operation>
+    <s0:operation name="doStructuredSearch" parameterOrder="parameters">
+      <s0:input message="s2:doStructuredSearch"/>
+      <s0:output message="s2:doStructuredSearchResponse"/>
+    </s0:operation>
+    <s0:operation name="getAvailability" parameterOrder="parameters">
+      <s0:input message="s2:getAvailability"/>
+      <s0:output message="s2:getAvailabilityResponse"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="SRWebServiceSoapBinding" type="s2:LEXSSearchRetrievePortType">
+    <s3:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="getAttachment">
+      <s3:operation soapAction="http://usdoj.gov/leisp/lexs/publishdiscover/3.1/getAttachment" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="getAttachmentResponse" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getCapabilities">
+      <s3:operation soapAction="http://usdoj.gov/leisp/lexs/publishdiscover/3.1/getCapabilities" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="getCapabilitiesResponse" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getDataOwners">
+      <s3:operation soapAction="http://usdoj.gov/leisp/lexs/publishdiscover/3.1/getDataOwners" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="getDataOwnersResponse" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getDataItem">
+      <s3:operation soapAction="http://usdoj.gov/leisp/lexs/publishdiscover/3.1/getDataItem" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="getDataItemResponse" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="doTextSearch">
+      <s3:operation soapAction="http://usdoj.gov/leisp/lexs/publishdiscover/3.1/doTextSearch" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="doSearchResponse" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="doStructuredSearch">
+      <s3:operation soapAction="http://usdoj.gov/leisp/lexs/publishdiscover/3.1/doStructuredSearch" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="doSearchResponse" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getAvailability">
+      <s3:operation soapAction="http://usdoj.gov/leisp/lexs/publishdiscover/3.1/getAvailability" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="getAvailabilityResponse" use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="SRWebService">
+    <s0:port binding="s2:SRWebServiceSoapBinding" name="SRWebServicePort">
+      <s3:address location="https://services.ndex.fbi.gov/ndexsearch/SRWebService"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

@@ -38,6 +38,22 @@
   <xsd:import schemaLocation="../../unece_rec20-misc/2.0/unece_rec20-misc.xsd" namespace="http://niem.gov/niem/unece_rec20-misc/2.0"/>
   <xsd:import schemaLocation="../../usps_states/2.0/usps_states.xsd" namespace="http://niem.gov/niem/usps_states/2.0"/>
   <xsd:import schemaLocation="../../ut_offender-tracking-misc/2.0/ut_offender-tracking-misc.xsd" namespace="http://niem.gov/niem/ut_offender-tracking-misc/2.0"/>
+  <xsd:complexType name="ActivityDocumentAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between an activity and a document.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:ActivityReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="ActivityInvolvedPersonAssociationType">
     <xsd:annotation>
       <xsd:documentation>A data type for an association between an activity and a person involved in that activity.</xsd:documentation>
@@ -470,6 +486,22 @@
           <xsd:element ref="nc:DocumentTitleText" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:SecurityLevelText" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:DocumentSubmitter" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="DriverLicenseAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between a driver license and a person.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:DriverLicenseReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -1141,6 +1173,7 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:MeasureValue" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:MeasureUnitText" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -1354,6 +1387,22 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="PersonContactInformationAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between a person and contact information.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:ContactInformationReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="PersonConveyanceAssociationType">
     <xsd:annotation>
       <xsd:documentation>A data type for an association between a person and a conveyance.</xsd:documentation>
@@ -1364,6 +1413,7 @@
     <xsd:complexContent>
       <xsd:extension base="nc:AssociationType">
         <xsd:sequence>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:ConveyanceReference" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
@@ -2057,6 +2107,11 @@
       <xsd:documentation>A result or outcome of an activity.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="ActivityDocumentAssociation" type="nc:ActivityDocumentAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between an activity and a document.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An identification that references an activity.</xsd:documentation>
@@ -2368,6 +2423,14 @@
   <xsd:element name="ContactInstantMessenger" type="nc:InstantMessengerType" substitutionGroup="nc:ContactMeans" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A user account for an instant messaging program by which a person or organization may be contacted.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="ContactMeans"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ContactMailingAddress" type="nc:AddressType" substitutionGroup="nc:ContactMeans">
+    <xsd:annotation>
+      <xsd:documentation>A postal address by which a person or organization may be contacted.</xsd:documentation>
       <xsd:appinfo>
         <i:Base i:name="ContactMeans"/>
       </xsd:appinfo>
@@ -3680,6 +3743,11 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="MeasureUnitText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A unit that qualifies the measurement value.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="MeasureValue" abstract="true">
     <xsd:annotation>
       <xsd:documentation>A measurement value.</xsd:documentation>
@@ -3967,6 +4035,11 @@
   <xsd:element name="PersonComprehendsSpokenLanguageIndicator" type="niem-xsd:boolean" nillable="true">
     <xsd:annotation>
       <xsd:documentation>True if a person is able to grasp and understand the meaning of a language being spoken; false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonContactInformationAssociation" type="nc:PersonContactInformationAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between a person and contact information.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonConveyanceAssociation" type="nc:PersonConveyanceAssociationType" nillable="true">
