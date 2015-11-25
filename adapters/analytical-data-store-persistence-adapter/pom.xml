@@ -26,8 +26,7 @@
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>analytical-data-store-persistence-adapter</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
-
+	<version>1.0.1</version>
 	<name>OJB :: analytical-data-store-persistence-adapter :: adapter</name>
 	<url>http://www.ojbc.org</url>
 
@@ -38,25 +37,25 @@
 	</parent>
 
 	<properties>
-		<camel-version>2.10.7</camel-version>
-		<slf4j-version>1.6.4</slf4j-version>
-		<log4j-version>1.2.16</log4j-version>
-		<cxf-version>2.6.4</cxf-version>
-		<bouncycastle-version>140</bouncycastle-version>
-		<ojb-common-version>[2.0.0,)</ojb-common-version>
-		<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
+		<camel-version>2.14.4</camel-version>
+		<slf4j-version>1.7.10</slf4j-version>
+		<log4j-version>1.2.17</log4j-version>
+		<cxf-version>3.0.5</cxf-version>
+		<saxon-version>9.5.1-5</saxon-version>		
+		<commons-lang-version>2.6</commons-lang-version>
+		<spring-version>3.2.11.RELEASE</spring-version>
+		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
+		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
-		<commons-lang-version>2.4</commons-lang-version>
-		<spring-version>3.0.7.RELEASE</spring-version>
-		<jodatime-version>1.6.2</jodatime-version>
-		<h2-mock-database-version>1.0.1</h2-mock-database-version>
+		<h2-mock-database-version>[2.0.0,)</h2-mock-database-version>
+		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<xmlunit-version>1.5</xmlunit-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<lucene-version>4.7.2</lucene-version>
+		<java-version>1.8</java-version>
 	</properties>
 
 	<dependencies>
-
+		<!--Lucene Jars -->
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
@@ -114,12 +113,6 @@
 
 		<!-- ws-security -->
 		<dependency>
-			<groupId>bouncycastle</groupId>
-			<artifactId>bcprov-jdk16</artifactId>
-			<version>${bouncycastle-version}</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-security</artifactId>
 			<version>${cxf-version}</version>
@@ -131,9 +124,9 @@
 			<version>${commons-lang-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${jodatime-version}</version>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>${saxon-version}</version>
 		</dependency>
 
 		<!-- OJB Shared Bundles -->
@@ -155,35 +148,25 @@
 			<version>${ojb-resources-common-version}</version>
 		</dependency>
 
-		<!-- for testing -->
+		<!-- Test Dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring-version}</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test</artifactId>
+			<artifactId>camel-test-spring3</artifactId>
 			<version>${camel-version}</version>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test-spring</artifactId>
-			<version>${camel-version}</version>
-			<scope>test</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>org.ojbc.bundles.utilities</groupId>
 			<artifactId>h2-mock-database</artifactId>
 			<version>${h2-mock-database-version}</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
@@ -212,44 +195,24 @@
 	<build>
 		<defaultGoal>install</defaultGoal>
 
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-				<includes>
-					<include>META-INF/spring/**</include>
-					<include>**/*</include>
-					<include>db/**</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>${basedir}/src/main/config/dev</directory>
-				<includes>
-					<include>*</include>
-				</includes>
-			</resource>
-		</resources>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
+				<version>${maven-bundle-plugin-version}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
 						<DynamicImport-Package>*</DynamicImport-Package>
 						<Import-Package>
-							META-INF.cxf,
-							META-INF.cxf.osgi,
 							org.springframework.beans.factory.config,
 							javax.xml.namespace,
 							service-specifications.*,
@@ -264,7 +227,6 @@
 					</instructions>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 

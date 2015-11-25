@@ -19,15 +19,14 @@ package org.ojbc.adapters.analyticaldatastore.personid;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -206,8 +205,11 @@ public class TestIndexedIdentifierGenerationStrategy {
 
 	}	
 	private Object makeDate(int year, int monthOfYear, int dayOfMonth) {
-		DateTime d = new DateTime(year, monthOfYear, dayOfMonth, 1, 1, 1, 0);
-		return d.toDate();
+		LocalDate today = LocalDate.of(year, monthOfYear, dayOfMonth);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+		String dateTimeStamp = today.format(dtf);
+		
+		return dateTimeStamp;
 	}
 
 }
