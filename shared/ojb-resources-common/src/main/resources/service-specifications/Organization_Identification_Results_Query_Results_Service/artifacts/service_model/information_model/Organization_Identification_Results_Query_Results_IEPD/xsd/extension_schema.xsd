@@ -17,8 +17,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" 
+xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
+xmlns:xop="http://www.w3.org/2004/08/xop/include" 
+xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/"
+targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="http://www.w3.org/2004/08/xop/include"/>
 	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="http://www.w3.org/2005/05/xmlmime"/>
@@ -52,10 +60,7 @@
 			<xsd:documentation>A data type for a document containing identification information.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="xop:Include"/>
-				</xsd:sequence>
+			<xsd:extension base="nc:DocumentType">
 				<xsd:attribute ref="xmime:contentType"/>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -90,4 +95,5 @@
 			<xsd:documentation>A document returned by the FBI, based on a biometric submission, indicating whether a person has a criminal history with the FBI.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain"/>
 </xsd:schema>
