@@ -55,16 +55,6 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="IdentificationResultsDocumentType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a document containing identification information.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="nc:DocumentType">
-				<xsd:attribute ref="xmime:contentType"/>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
 	<xsd:element name="IdentificationSearchResultsRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for an identification request document.</xsd:documentation>
@@ -75,22 +65,22 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 			<xsd:documentation>A placeholder for an identification request document.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StateCriminalHistoryRecordDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
+	<xsd:element name="StateCriminalHistoryRecordDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>State criminal history record for a person.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StateIdentificationSearchResultDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationSearchResultsRepresentation">
+	<xsd:element name="StateIdentificationSearchResultDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:IdentificationSearchResultsRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document usually returned by a State criminal history repository, based on a biometric submission, indicating whether a person has a criminal history with the state..</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FBIIdentityHistorySummaryDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
+	<xsd:element name="FBIIdentityHistorySummaryDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>Federal criminal history record for a person.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FBIIdentificationSearchResultDocument" type="oirq-res-ext:IdentificationResultsDocumentType" substitutionGroup="oirq-res-ext:IdentificationSearchResultsRepresentation">
+	<xsd:element name="FBIIdentificationSearchResultDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:IdentificationSearchResultsRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document returned by the FBI, based on a biometric submission, indicating whether a person has a criminal history with the FBI.</xsd:documentation>
 		</xsd:annotation>
