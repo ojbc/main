@@ -33,6 +33,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
@@ -42,11 +43,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
+import org.apache.cxf.message.MessageImpl;
+import org.apache.ws.security.SAMLTokenPrincipal;
+import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.opensaml.saml2.core.Assertion;
+import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
@@ -76,7 +83,10 @@ public class CamelContextTest {
 
     @EndpointInject(uri = "mock:personSearchResultsHandlerServiceEndpoint")
     private MockEndpoint personSearchResultsMock;
-
+    
+    @EndpointInject(uri = "mock:direct:callFbiWebService")
+    private MockEndpoint callFbiWebService;
+    
     private DocumentBuilder documentBuilder;
 
     @Before
@@ -100,8 +110,9 @@ public class CamelContextTest {
 
     @DirtiesContext
     @Test
-    @Ignore("Add unit when ndex mock processor available along with request and response XSLTs")
     public void testNdexPersonSearch() throws Exception {
+    	callFbiWebService.expectedMessageCount(1);
+    	
         RequestParameter p = new RequestParameter();
         p.endpoint = personSearchResultsMock;
         p.routeId = "personSearchRequestService";
@@ -111,6 +122,15 @@ public class CamelContextTest {
         p.resultObjectXPath = "/psres-doc:PersonSearchResults";
         p.expectedResultCount = 1;
         submitExchange(p);
+        
+        //Assert that FBI message has SAML token inline
+        callFbiWebService.assertIsSatisfied();
+        Exchange fbiWebServiceExchange = callFbiWebService.getReceivedExchanges().get(0);
+        
+        Document fbiWebServiceRequestMessage = fbiWebServiceExchange.getIn().getBody(Document.class);
+        XmlUtils.printNode(fbiWebServiceRequestMessage);
+        assertEquals(1, XmlUtils.xPathNodeListSearch(fbiWebServiceRequestMessage, "/ulexsr:doStructuredSearchRequest/ulex:StructuredSearchRequestMessage/ulex:UserAssertionSAML/saml2:Assertion").getLength());
+        
     }
 
     private Document buildPersonSearchMessage() throws Exception {
@@ -142,7 +162,7 @@ public class CamelContextTest {
             }
         }
         
-        XmlUtils.printNode(personSearchRequestMessage);
+        //XmlUtils.printNode(personSearchRequestMessage);
         return personSearchRequestMessage;
     }    
 
@@ -154,6 +174,7 @@ public class CamelContextTest {
             public void configure() throws Exception {
                 weaveByToString("To[" + p.resultsHandlerEndpointName + "]").replace().to("mock:" + p.resultsHandlerEndpointName);
                 replaceFromWith("direct:" + p.requestEndpointName);
+                mockEndpointsAndSkip("direct:callFbiWebService");
             }
         });
 
@@ -168,6 +189,15 @@ public class CamelContextTest {
         soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
         soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "ReplyTo", "https://reply.to"));
         senderExchange.getIn().setHeader(Header.HEADER_LIST, soapHeaders);
+        
+		org.apache.cxf.message.Message message = new MessageImpl();
+
+		//Add SAML token to request call
+		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth", SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, null);
+		SAMLTokenPrincipal principal = new SAMLTokenPrincipal(new AssertionWrapper(samlToken));
+		message.put("wss4j.principal.result", principal);
+		
+		senderExchange.getIn().setHeader(CxfConstants.CAMEL_CXF_MESSAGE, message);
         
         if (p.operationNameHeader != null) {
             senderExchange.getIn().setHeader("operationName", p.operationNameHeader);
@@ -186,15 +216,7 @@ public class CamelContextTest {
         p.endpoint.assertIsSatisfied();
 
         Exchange ex = p.endpoint.getExchanges().get(0);
-        Object body = ex.getIn().getBody();
-        Document actualResponse = null;
-        if (body instanceof String) {
-        	log.debug("Reply message: " + body);
-            documentBuilder.parse((String) body);
-        } else {
-            actualResponse = (Document) body;
-        }
-        
+        Document actualResponse = ex.getIn().getBody(Document.class);
         log.info("Printing response");
         
         XmlUtils.printNode(actualResponse);

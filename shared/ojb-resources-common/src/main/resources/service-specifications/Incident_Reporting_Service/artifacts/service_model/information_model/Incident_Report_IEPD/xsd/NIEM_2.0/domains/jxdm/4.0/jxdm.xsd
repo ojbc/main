@@ -298,6 +298,23 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="DrivingIncidentType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for details of an incident involving a vehicle.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="IncidentType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:IncidentType">
+        <xsd:sequence>
+          <xsd:element ref="j:DrivingIncidentRecordedSpeedRate" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:DrivingIncidentCollisionIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:DrivingIncidentLegalSpeedRate" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="EnforcementOfficialType">
     <xsd:annotation>
       <xsd:documentation>A data type for a person involved in the enforcement of law.</xsd:documentation>
@@ -1048,7 +1065,7 @@
       <xsd:documentation>A person or entity who is the victim of an offense designated by the charge.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="Citation" type="j:CitationType" nillable="true">
+  <xsd:element name="Citation" type="j:CitationType">
     <xsd:annotation>
       <xsd:documentation>Details about an official summons to appear in court or pay a fine given to a subject from a peace official due to a subjects violation or infraction of a law.</xsd:documentation>
     </xsd:annotation>
@@ -1205,6 +1222,26 @@
       <xsd:appinfo>
         <i:Base i:name="DNACollectionStatus"/>
       </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DrivingIncident" type="j:DrivingIncidentType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Details about an incident involving a vehicle.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DrivingIncidentCollisionIndicator" type="niem-xsd:boolean" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>True if a driving incident involved a collision with another vehicle, person, or object; false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DrivingIncidentLegalSpeedRate" type="nc:MeasureType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A legally designated speed limit in the area where an incident occurred.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DrivingIncidentRecordedSpeedRate" type="nc:MeasureType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A speed a vehicle was moving at when an incident occurred.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="DrugDEACode" type="dea:DrugCategoryCodeType" substitutionGroup="nc:SubstanceCode" nillable="true">
@@ -1692,6 +1729,11 @@
   <xsd:element name="PersonDentalXRayAvailableIndicator" type="niem-xsd:boolean" nillable="true">
     <xsd:annotation>
       <xsd:documentation>Indicates whether dental photos or models are available with a record.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonDriverLicenseAssociation" type="nc:DriverLicenseAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between a person and a driver license.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true">

@@ -1,0 +1,94 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<psres-doc:PersonSearchResults xmlns:em="http://niem.gov/niem/domains/emergencyManagement/2.0" xmlns:im="http://niem.gov/niem/domains/immigration/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:lexs="http://lexs.gov/lexs/4.0" xmlns:lexsdigest="http://lexs.gov/digest/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:psres-ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:scr="http://niem.gov/niem/domains/screening/2.0" xmlns:ulex="http://ulex.gov/ulex/2.0" xmlns:ulexcodes="http://ulex.gov/codes/2.0" xmlns:ulexlib="http://ulex.gov/library/2.0" xmlns:ulexsr="http://ulex.gov/searchretrieve/2.0" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person s:id="idlexsdigest:Person163117280">
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>424575485568585858548</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonAlternateName>
+				<nc:PersonGivenName>Tommy</nc:PersonGivenName>
+				<nc:PersonMiddleName>M</nc:PersonMiddleName>
+				<nc:PersonSurName>Jones</nc:PersonSurName>
+				<nc:PersonFullName>Full</nc:PersonFullName>
+			</nc:PersonAlternateName>
+			<nc:PersonBirthDate>
+				<nc:Date>1959-02-23</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>06011</nc:MeasurePointValue>
+				<nc:LengthUnitCode>A11</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>Tommy</nc:PersonGivenName>
+				<nc:PersonMiddleName>M</nc:PersonMiddleName>
+				<nc:PersonSurName>Jones</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>I</nc:PersonRaceCode>
+			<nc:PersonSexCode>U</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>333-44-5555</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>200</nc:MeasurePointValue>
+				<nc:WeightUnitCode>DJ</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<j:PersonAugmentation>
+				<nc:DriverLicense>
+					<nc:DriverLicenseIdentification>
+						<nc:IdentificationID>DLID</nc:IdentificationID>
+						<nc:IdentificationSourceText>Text</nc:IdentificationSourceText>
+					</nc:DriverLicenseIdentification>
+				</nc:DriverLicense>
+				<j:PersonFBIIdentification>
+					<nc:IdentificationID>FBIID</nc:IdentificationID>
+				</j:PersonFBIIdentification>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>SID</nc:IdentificationID>
+					<nc:IdentificationSourceText>String</nc:IdentificationSourceText>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+		</psres-ext:Person>
+		<nc:Location s:id="idnc:Location163122320">
+			<nc:LocationAddress>
+				<nc:StructuredAddress>
+					<nc:LocationStreet>
+						<nc:StreetFullText>String</nc:StreetFullText>
+						<nc:StreetNumberText>String</nc:StreetNumberText>
+						<nc:StreetName>String</nc:StreetName>
+					</nc:LocationStreet>
+					<nc:LocationCityName>String</nc:LocationCityName>
+					<nc:LocationPostalCode>String</nc:LocationPostalCode>
+				</nc:StructuredAddress>
+			</nc:LocationAddress>
+		</nc:Location>
+		<nc:ResidenceAssociation>
+			<nc:PersonReference s:ref="idlexsdigest:Person163117280"/>
+			<nc:LocationReference s:ref="idnc:Location163122320"/>
+		</nc:ResidenceAssociation>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>ICEPIC</nc:IdentificationID>
+			<intel:SystemName>Department of Homeland Security</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>N-DEx Search/Retrieve</psres-ext:SearchResultCategoryText>
+		<psres-ext:InformationOwningOrganization>
+			<nc:OrganizationName>Department of Homeland Security</nc:OrganizationName>
+		</psres-ext:InformationOwningOrganization>
+	</psres-ext:PersonSearchResult>
+</psres-doc:PersonSearchResults>
