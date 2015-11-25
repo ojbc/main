@@ -17,23 +17,41 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryResults/1.0 ../xsd/InitialResultsQueryResults_schema.xsd" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:oiirq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryResults/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xop="http://www.w3.org/2004/08/xop/include">
+<oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults 
+xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryResults/1.0 ../xsd/InitialResultsQueryResults_schema.xsd" 
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+xmlns:oiirq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryResults/1.0" 
+xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
+xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xop="http://www.w3.org/2004/08/xop/include">
 	<oirq-res-ext:StateIdentificationSearchResultDocument xmime:contentType="text/plain" structures:id="Doc_01">
-		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_1"/>
+		<nc:DocumentBinary>
+				<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 	</oirq-res-ext:StateIdentificationSearchResultDocument>
 	<oirq-res-ext:FBIIdentificationSearchResultDocument xmime:contentType="text/plain" structures:id="Doc_03">
-		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_3"/>
-	</oirq-res-ext:FBIIdentificationSearchResultDocument>
+		<nc:DocumentBinary>
+				<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+		</nc:DocumentBinary>	</oirq-res-ext:FBIIdentificationSearchResultDocument>
 	<oirq-res-ext:StateCriminalHistoryRecordDocument xmime:contentType="text/plain" structures:id="Doc_02">
-		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_2"/>
+		<nc:DocumentBinary>
+			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 	</oirq-res-ext:StateCriminalHistoryRecordDocument>
 	<oirq-res-ext:FBIIdentityHistorySummaryDocument xmime:contentType="text/plain" structures:id="Doc_04">
-		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_4"/>
+		<nc:DocumentBinary>
+				<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 	</oirq-res-ext:FBIIdentityHistorySummaryDocument>
 	<oirq-res-ext:FBIIdentityHistorySummaryDocument xmime:contentType="text/plain" structures:id="Doc_05">
-		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_4"/>
+		<nc:DocumentBinary>
+				<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 	</oirq-res-ext:FBIIdentityHistorySummaryDocument>
 	<oirq-res-ext:FBIIdentityHistorySummaryDocument xmime:contentType="text/plain" structures:id="Doc_06">
-		<xop:Include href="cid:http://ojbc.org/organization_identification_results/query_results/example_4"/>
+		<nc:DocumentBinary>
+				<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 	</oirq-res-ext:FBIIdentityHistorySummaryDocument>
 </oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults>
