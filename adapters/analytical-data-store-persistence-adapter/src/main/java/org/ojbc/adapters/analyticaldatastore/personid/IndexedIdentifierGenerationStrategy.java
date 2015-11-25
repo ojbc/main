@@ -18,6 +18,8 @@ package org.ojbc.adapters.analyticaldatastore.personid;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -51,9 +53,6 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 /**
  * An implementation of the identifier generation strategy that uses Lucene to maintain an index that maps sets of attributes to identifiers.
@@ -207,9 +206,9 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 	    String backupFileDirectory = "";
 	    
 	    try {
-			DateTime now = new DateTime();
-			DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy_MM_dd_HH_mm_ss");
-			String dateTimeStamp = now.toString(dtf);
+	    	LocalDateTime today = LocalDateTime.now();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu_MM_dd_HH_mm_ss");
+			String dateTimeStamp = today.format(dtf);
 			
 			if ( !(indexBackupRoot.endsWith("/") || indexBackupRoot.endsWith("\\")) )
 			{	
