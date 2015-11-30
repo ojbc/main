@@ -51,6 +51,7 @@ import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 
@@ -66,7 +67,7 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
-@DirtiesContext
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestIdentificationResultsQueryRequestService {
 	private final Log log = LogFactory.getLog( TestIdentficationRecordingAndResponse.class );
 

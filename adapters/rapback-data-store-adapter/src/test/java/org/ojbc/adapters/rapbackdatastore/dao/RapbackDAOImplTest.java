@@ -33,6 +33,7 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
@@ -51,7 +52,6 @@ import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -64,7 +64,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext
 public class RapbackDAOImplTest {
     private static final String COUNT_SID_A123457 = "select count(*) as rowcount from identification_subject "
     		+ "where civil_sid = 'A123457' or criminal_Sid = 'A123457'";
@@ -272,7 +272,6 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	@DirtiesContext
 	public void testGetCivilIdentificationTransactions() throws Exception {
 		List<IdentificationTransaction> transactions = 
 				rapbackDAO.getCivilIdentificationTransactions("1234567890");
@@ -280,7 +279,6 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	@DirtiesContext
 	public void testGetCivilInitialResultsByTransactionNumber() throws Exception {
 		List<CivilInitialResults> civilInitialResults= 
 				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339990");
@@ -291,7 +289,6 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	@DirtiesContext
 	public void testGetCivilInitialResults() throws Exception {
 		List<CivilInitialResults> civilInitialResults= 
 				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339995");
@@ -300,6 +297,29 @@ public class RapbackDAOImplTest {
 		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
 		assertEquals(1832, civilInitialResults.get(0).getSearchResultFile().length);
 	}
+	
+	@Test
+	public void testGetSubsequentResults() throws Exception {
+		
+		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339995");
+		assertEquals(2, subsequentResults.size());
+		SubsequentResults result1 = subsequentResults.get(0);
+		assertEquals(Long.valueOf(1), result1.getId());
+		assertEquals("9222201", result1.getUcn());
+		assertEquals(ResultSender.FBI, result1.getResultsSender());
+		
+		SubsequentResults result2 = subsequentResults.get(1);
+		assertEquals(Long.valueOf(2), result2.getId());
+		assertEquals("9222201", result2.getUcn());
+		assertEquals(ResultSender.State, result2.getResultsSender());
+		assertEquals(25, result2.getRapSheet().length);
+		log.info("result2 result:" + new String(result2.getRapSheet()));
+		log.info("result2 result size:" + result2.getRapSheet().length);
+		
+		List<SubsequentResults> emptySubsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339999");
+		assertEquals(0, emptySubsequentResults.size());
+	}
+
 	
 	@Test
 	@DirtiesContext
@@ -349,7 +369,6 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	@DirtiesContext
 	@ExpectedException(DuplicateKeyException.class)
 	public void testSaveFbiSubscriptionError() throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
@@ -368,7 +387,6 @@ public class RapbackDAOImplTest {
 	}
 
 	@Test
-	@DirtiesContext
 	public void testGetAgencyProfile() throws Exception {
 		AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile("1234567890");
 		log.info(agencyProfile.toString());
@@ -385,6 +403,7 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	@DirtiesContext
+	@Ignore
 	public void testArchive() throws Exception {
 		Connection conn = dataSource.getConnection();
 		String countQualifiedToArchiveSql = "SELECT count(*) as rowcount "
@@ -422,29 +441,7 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	@DirtiesContext
-	public void testGetSubsequentResults() throws Exception {
-		
-		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339995");
-		assertEquals(2, subsequentResults.size());
-		SubsequentResults result1 = subsequentResults.get(0);
-		assertEquals(Long.valueOf(1), result1.getId());
-		assertEquals("9222201", result1.getUcn());
-		assertEquals(ResultSender.FBI, result1.getResultsSender());
-		
-		SubsequentResults result2 = subsequentResults.get(1);
-		assertEquals(Long.valueOf(2), result2.getId());
-		assertEquals("9222201", result2.getUcn());
-		assertEquals(ResultSender.State, result2.getResultsSender());
-		assertEquals(25, result2.getRapSheet().length);
-		log.info("result2 result:" + new String(result2.getRapSheet()));
-		log.info("result2 result size:" + result2.getRapSheet().length);
-		
-		List<SubsequentResults> emptySubsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339999");
-		assertEquals(0, emptySubsequentResults.size());
-	}
-
-	@Test
-	@DirtiesContext
+	@Ignore
 	public void testConsolidateSid() throws Exception {
 		Connection conn = dataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery(COUNT_SID_A123458);
@@ -464,7 +461,8 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	@DirtiesContext 
+	@DirtiesContext
+	@Ignore
 	public void testConsolidateUcn() throws Exception {
 		Connection conn = dataSource.getConnection();
 		String countSubjectUcn9222201 = "select count(*) as rowcount from identification_subject where ucn = '9222201'";
