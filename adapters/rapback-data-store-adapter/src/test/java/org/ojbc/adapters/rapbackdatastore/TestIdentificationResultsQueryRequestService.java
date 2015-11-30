@@ -16,12 +16,9 @@
  */
 package org.ojbc.adapters.rapbackdatastore;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
-
-import javax.activation.DataHandler;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
@@ -34,7 +31,6 @@ import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.message.MessageImpl;
 import org.apache.ws.security.SAMLTokenPrincipal;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
@@ -141,11 +137,6 @@ public class TestIdentificationResultsQueryRequestService {
         IdentificationReportingResponseProcessorTest.assertAsExpected(
         		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationInitialResultsQueryResults.xml");
 
-		DataHandler dataHandler = receivedExchange.getIn().getAttachment("http://ojbc.org/identification/results/fbiSearchResultDocument");
-		assertEquals("text/plain", dataHandler.getContentType());
-		
-		byte[] receivedData = IOUtils.readBytesFromStream(dataHandler.getInputStream());
-		assertEquals(2110, receivedData.length);
     }
 
     @Test
@@ -177,12 +168,6 @@ public class TestIdentificationResultsQueryRequestService {
         IdentificationReportingResponseProcessorTest.assertAsExpected(
         		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationSubsequentResultsQueryResults.xml");
 
-		DataHandler dataHandler = receivedExchange.getIn().getAttachment("http://ojbc.org/identification/results/fbiIdentityHistorySummaryDocument_00000001");
-		assertEquals("text/plain", dataHandler.getContentType());
-		
-		byte[] receivedData = IOUtils.readBytesFromStream(dataHandler.getInputStream());
-		log.info("Attachment Fbi rap sheet: " + new String(receivedData));
-		assertEquals(23, receivedData.length);
     }
 
     public static org.apache.cxf.message.Message createSamlAssertionMessageWithAttributes(

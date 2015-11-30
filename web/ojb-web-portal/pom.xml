@@ -51,7 +51,7 @@
 		<commonsIo.version>2.4</commonsIo.version>
 		<ojb-web-application-connector-version>1.0.0</ojb-web-application-connector-version>
 		<velocity-tools-version>2.0</velocity-tools-version>
-		<ojb-ui-common-version>[1.0.2,)</ojb-ui-common-version>
+		<ojb-ui-common-version>1.0.2</ojb-ui-common-version>
 		<json-version>20140107</json-version>
 		<xmlunit.version>1.5</xmlunit.version>
 		<pragmatists.version>1.0.2</pragmatists.version>
