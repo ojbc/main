@@ -42,6 +42,7 @@ import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 
 @UseAdviceWith
@@ -54,7 +55,7 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml",
 		})
-@DirtiesContext
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestRapbackSearchRequestService {
 
     @Autowired
