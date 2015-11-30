@@ -120,10 +120,10 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 		List<byte[]> rapSheets = civilInitialResult.getRapsheets(); 
 		for (int i=0; i < rapSheets.size(); i++){
 			String documentIdString = documentId.name() + "_" + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
-			addAttachment(exchange, rapSheets.get(i), documentIdString);
 			appendDocumentElement(parentElement, 
 					queryResponseElementName, 
-					documentIdString);
+					documentIdString,
+					rapSheets.get(i));
 		}
 		
 	}
@@ -133,18 +133,16 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 		switch (civilIntialResult.getResultsSender()){
 		case FBI:
 			
-			addAttachment(exchange, civilIntialResult.getSearchResultFile(), 
-					DocumentId.fbiSearchResultDocument.name());
 			appendDocumentElement(parentElement, 
 					QueryResponseElementName.FBIIdentificationSearchResultDocument, 
-					DocumentId.fbiSearchResultDocument.name());
+					DocumentId.fbiSearchResultDocument.name(),
+					civilIntialResult.getSearchResultFile());
 			break; 
 		case State: 
-			addAttachment(exchange, civilIntialResult.getSearchResultFile(), 
-					DocumentId.stateSearchResultDocument.name());
 			appendDocumentElement(parentElement, 
 					QueryResponseElementName.StateIdentificationSearchResultDocument, 
-					DocumentId.stateSearchResultDocument.name());
+					DocumentId.stateSearchResultDocument.name(),
+					civilIntialResult.getSearchResultFile());
 			break;
 		}
 	}

@@ -30,6 +30,7 @@ import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.geronimo.mail.util.Base64;
 import org.ojbc.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.helper.MtomUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -118,16 +119,17 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 			Exchange exchange) throws Exception {
 		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
 				new IdentificationResultsQueryResponse();
+		Document body = OJBUtils.loadXMLFromString((String) exchange.getIn().getBody());
 		
-		List<String> stateCriminalHistoryRecordDocuments = getDocuments(exchange,
+		List<String> stateCriminalHistoryRecordDocuments = getDocuments(body,
 				"/oisrq-res-doc:OrganizationIdentificationSubsequentResultsQueryResults/"
-				+ "oirq-res-ext:StateCriminalHistoryRecordDocument/xop:Include");
+				+ "oirq-res-ext:StateCriminalHistoryRecordDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
 		identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(
 				stateCriminalHistoryRecordDocuments);
 		
-		List<String> fbiIdentityHistorySummaryDocuments = getDocuments(exchange,
+		List<String> fbiIdentityHistorySummaryDocuments = getDocuments(body,
 				"/oisrq-res-doc:OrganizationIdentificationSubsequentResultsQueryResults/"
-						+ "oirq-res-ext:FBIIdentityHistorySummaryDocument/xop:Include");
+						+ "oirq-res-ext:FBIIdentityHistorySummaryDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
 		identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(
 				fbiIdentityHistorySummaryDocuments);
 		log.debug("Identification Results Query Response: " + identificationResultsQueryResponse.toString());
@@ -162,56 +164,56 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 			Exchange exchange) throws Exception {
 		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
 				new IdentificationResultsQueryResponse();
-		String stateSearchResultDocument = getDocument(exchange, 
-				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
-				+ "oirq-res-ext:StateIdentificationSearchResultDocument/xop:Include/@href");
-		identificationResultsQueryResponse.setStateSearchResultFile(new String(stateSearchResultDocument));
+		Document body = OJBUtils.loadXMLFromString((String) exchange.getIn().getBody());
 		
-		String fbiSearchResultDocument = getDocument(exchange, 
+		String stateSearchResultDocument = getDocument(body, 
 				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
-				+ "oirq-res-ext:FBIIdentificationSearchResultDocument/xop:Include/@href");
+				+ "oirq-res-ext:StateIdentificationSearchResultDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
+		identificationResultsQueryResponse.setStateSearchResultFile(stateSearchResultDocument);
+		
+		String fbiSearchResultDocument = getDocument(body, 
+				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
+				+ "oirq-res-ext:FBIIdentificationSearchResultDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
 		identificationResultsQueryResponse.setFbiSearchResultFile(fbiSearchResultDocument);
 		
-		List<String> stateCriminalHistoryRecordDocuments = getDocuments(exchange,
+		List<String> stateCriminalHistoryRecordDocuments = getDocuments(body,
 				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
-				+ "oirq-res-ext:StateCriminalHistoryRecordDocument/xop:Include");
+				+ "oirq-res-ext:StateCriminalHistoryRecordDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
 		identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(
 				stateCriminalHistoryRecordDocuments);
 		
-		List<String> fbiIdentityHistorySummaryDocuments = getDocuments(exchange,
+		List<String> fbiIdentityHistorySummaryDocuments = getDocuments(body,
 				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
-						+ "oirq-res-ext:FBIIdentityHistorySummaryDocument/xop:Include");
+						+ "oirq-res-ext:FBIIdentityHistorySummaryDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
 		identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(
 				fbiIdentityHistorySummaryDocuments);
 		log.debug("Identification Results Query Response: " + identificationResultsQueryResponse.toString());
 		return identificationResultsQueryResponse;
 	}
 
-	private List<String> getDocuments(Exchange exchange, String xPath) throws Exception {
-		Document body = OJBUtils.loadXMLFromString( (String) exchange.getIn().getBody()); 
-		NodeList documentIdNodes = XmlUtils.xPathNodeListSearch(body, xPath);
+	private List<String> getDocuments(Document body, String xPath) throws Exception {
+		NodeList base64BinaryNodes = XmlUtils.xPathNodeListSearch(body, xPath);
 		
 		List<String> documents = new ArrayList<String>();
-	    if (documentIdNodes != null && documentIdNodes.getLength() > 0) {
-	        for (int i = 0; i < documentIdNodes.getLength(); i++) {
-	            if (documentIdNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
-	                Element element = (Element) documentIdNodes.item(i);
-	                String documentId = element.getAttribute("href");
-	                documents.add(new String(MtomUtils.getAttachment(exchange, null, documentId))); 
+	    if (base64BinaryNodes != null && base64BinaryNodes.getLength() > 0) {
+	        for (int i = 0; i < base64BinaryNodes.getLength(); i++) {
+	            if (base64BinaryNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+	                Element element = (Element) base64BinaryNodes.item(i);
+	                String base64BinaryData = element.getTextContent();
+	                documents.add(new String(Base64.decode(base64BinaryData))); 
 	            }
 	        }
 	    }
 		return documents;
 	}
 
-	private String getDocument(Exchange exchange, String xPath)
+	private String getDocument(Document body, String xPath)
 			throws Exception, IOException {
-		Document body = OJBUtils.loadXMLFromString((String) exchange.getIn().getBody()); 
 
-		String stateSearchResultDocumentId = 
+		String base64BinaryData = 
 				XmlUtils.xPathStringSearch(body, xPath);
-		byte[] stateSearchResultDocument = MtomUtils.getAttachment(exchange, null, stateSearchResultDocumentId);
-		return new String(stateSearchResultDocument);
+		byte[] binaryData = Base64.decode(base64BinaryData);
+		return new String(binaryData);
 	}
 
 	public CamelContext getCamelContext() {

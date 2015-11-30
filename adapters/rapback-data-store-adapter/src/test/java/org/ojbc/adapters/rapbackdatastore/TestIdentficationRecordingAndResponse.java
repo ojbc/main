@@ -42,6 +42,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
@@ -65,6 +66,7 @@ import org.xml.sax.SAXException;
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
       })
 @DirtiesContext
+@Ignore
 public class TestIdentficationRecordingAndResponse {
 	
 	private static final String CIVIL_RESULTS_ATTACHEMNT_ID = "http://ojbc.org/identification/results/example";

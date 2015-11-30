@@ -49,12 +49,14 @@
 	<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 	<intermediary-common-version>1.0.1</intermediary-common-version>
 	<commons-lang-version>2.4</commons-lang-version>
+	<commons-codec-version>1.6</commons-codec-version>
 	<spring-version>3.0.7.RELEASE</spring-version>
 	<jodatime-version>1.6.2</jodatime-version>		 
 	<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>	
     <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	<xmlunit-version>1.5</xmlunit-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    
   </properties>
 
   <dependencies>
@@ -147,8 +149,12 @@
 		<artifactId>commons-dbcp</artifactId>
 		<version>1.2.2</version>
 	</dependency>
+	<dependency>
+		<groupId>commons-codec</groupId>
+		<artifactId>commons-codec</artifactId>
+		<version>${commons-codec-version}</version>
+	</dependency>
 
-	
 	<!-- OJB Shared Bundles -->
 	<dependency>
 		<groupId>org.ojbc.bundles.intermediaries</groupId>
@@ -186,13 +192,6 @@
 		<version>${spring-version}</version>
 		<scope>test</scope>
 	</dependency>
-<!-- 	<dependency>
-		<groupId>org.apache.commons</groupId>
-		<artifactId>commons-io</artifactId>
-		<version>${apache-commons-io-version}</version>
-		<scope>test</scope>
-	</dependency>
- -->	
 	<dependency>
 		<groupId>org.apache.camel</groupId>
 		<artifactId>camel-test</artifactId>
