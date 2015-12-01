@@ -18,9 +18,12 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 
 import java.text.SimpleDateFormat;
 
+import jline.internal.Log;
+
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
+import org.apache.xml.security.utils.Base64;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
@@ -104,10 +107,21 @@ public abstract class AbstractReportRepositoryProcessor {
 		return subject;
 	}
 
-	protected String getAttachmentId(Node rootNode) throws Exception {
-		return XmlUtils.xPathStringSearch(rootNode, 
-				"ident-ext:FederalFingerprintBasedIdentificationRequestDocument/xop:Include/@href|"
-				+ "ident-ext:FBIIdentityHistorySummaryDocument/xop:Include/@href");
+	protected byte[] getBinaryData(Node rootNode) {
+		String base64BinaryData;
+		try {
+			base64BinaryData = XmlUtils.xPathStringSearch(rootNode, 
+					"ident-ext:FederalFingerprintBasedIdentificationRequestDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
+					+ "ident-ext:FBIIdentityHistorySummaryDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
+					+ "ident-ext:StateFingerprintBasedIdentificationRequestDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
+					+ "ident-ext:StateCriminalHistoryRecordDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
+					+ "ident-ext:StateIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
+					+ "ident-ext:FBIIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject");
+			return Base64.decode(base64BinaryData);
+		} catch (Exception e) {
+			Log.error("Failed to retrieve binary data from the message");
+			return null;
+		}
 	}
 
 }
