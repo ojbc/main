@@ -198,19 +198,6 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="ArrestDocumentType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a document containing identification information.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType">
-				<xsd:sequence>
-					<xsd:element ref="xop:Include"/>
-				</xsd:sequence>
-				<xsd:attribute ref="xmime:contentType"/>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
 	<xsd:complexType name="RelatedFBISubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional details regarding an FBI subscription.</xsd:documentation>
@@ -218,7 +205,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ojbc:RecordRapBackSubscriptionIdentification" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="ojbc:RecordRapBackSubscriptionIdentification" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -279,9 +266,9 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DocumentRequestorDescriptionText" type="nc:TextType"/>
-		<xsd:annotation>
-			<xsd:documentation>A description of the entity requesting a document.</xsd:documentation>
-		</xsd:annotation>
+	<xsd:annotation>
+		<xsd:documentation>A description of the entity requesting a document.</xsd:documentation>
+	</xsd:annotation>
 	<xsd:element name="OffenseModifierRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>An abstract representation of sub-category for an offense </xsd:documentation>
@@ -307,7 +294,7 @@
 			<xsd:documentation>A special classification of an offense. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FederalCriminalHistoryRecordDocument" type="ojbc:ArrestDocumentType" substitutionGroup="ojbc:ArrestDocumentRepresentation">
+	<xsd:element name="FederalCriminalHistoryRecordDocument" type="nc:DocumentType" substitutionGroup="ojbc:ArrestDocumentRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document sent by the FBI that contains the person's criminal history. Sometimes this is referred to as a federal rap sheet.</xsd:documentation>
 		</xsd:annotation>
@@ -327,4 +314,5 @@
 			<xsd:documentation>An identification associated with a rap back subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain"/>
 </xsd:schema>
