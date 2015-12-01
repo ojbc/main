@@ -52,8 +52,10 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ident-ext:IdentificationApplicantOrganization>
-	<ident-ext:FederalFingerprintBasedIdentificationRequestDocument xmime:contentType="text/plain" structures:id="Doc_01">
-				<xop:Include href="cid:http://ojbc.org/identification/request/example"/>
+	<ident-ext:FederalFingerprintBasedIdentificationRequestDocument structures:id="Doc_01">
+		<nc:DocumentBinary>
+			<ident-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ident-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 	</ident-ext:FederalFingerprintBasedIdentificationRequestDocument>
 	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>
 </pidreq-doc:PersonFederalIdentificationRequest>
