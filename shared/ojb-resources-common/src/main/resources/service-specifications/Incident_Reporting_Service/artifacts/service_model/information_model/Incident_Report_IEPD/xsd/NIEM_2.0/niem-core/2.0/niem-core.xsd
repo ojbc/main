@@ -490,6 +490,22 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="DriverLicenseAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between a driver license and a person.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:DriverLicenseReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="DriverLicenseBaseType">
     <xsd:annotation>
       <xsd:documentation>A data type for an authorization issued to a driver granting driving privileges.</xsd:documentation>
@@ -1367,6 +1383,22 @@
       <xsd:extension base="nc:AssociationType">
         <xsd:sequence>
           <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PersonContactInformationAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between a person and contact information.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:ContactInformationReference" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -2391,6 +2423,14 @@
   <xsd:element name="ContactInstantMessenger" type="nc:InstantMessengerType" substitutionGroup="nc:ContactMeans" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A user account for an instant messaging program by which a person or organization may be contacted.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="ContactMeans"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ContactMailingAddress" type="nc:AddressType" substitutionGroup="nc:ContactMeans">
+    <xsd:annotation>
+      <xsd:documentation>A postal address by which a person or organization may be contacted.</xsd:documentation>
       <xsd:appinfo>
         <i:Base i:name="ContactMeans"/>
       </xsd:appinfo>
@@ -3995,6 +4035,11 @@
   <xsd:element name="PersonComprehendsSpokenLanguageIndicator" type="niem-xsd:boolean" nillable="true">
     <xsd:annotation>
       <xsd:documentation>True if a person is able to grasp and understand the meaning of a language being spoken; false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonContactInformationAssociation" type="nc:PersonContactInformationAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between a person and contact information.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonConveyanceAssociation" type="nc:PersonConveyanceAssociationType" nillable="true">
