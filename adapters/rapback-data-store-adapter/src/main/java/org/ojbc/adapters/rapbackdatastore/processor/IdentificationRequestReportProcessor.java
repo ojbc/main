@@ -67,12 +67,9 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 			civilFingerPrints.setFingerPrintsType(FingerPrintsType.State);
 		}
 		
-		String attachmentId = getAttachmentId(rootNode);
+		byte[] binaryData = getBinaryData(rootNode);
 		
-		byte[] receivedAttachment = MtomUtils.getAttachment(exchange, transactionNumber,
-				attachmentId);
-
-		civilFingerPrints.setFingerPrintsFile(ZipUtils.zip(receivedAttachment));
+		civilFingerPrints.setFingerPrintsFile(binaryData);
 		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 	}
 
