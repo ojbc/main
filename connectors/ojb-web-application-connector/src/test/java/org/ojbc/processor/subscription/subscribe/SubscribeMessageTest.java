@@ -16,7 +16,6 @@
  */
 package org.ojbc.processor.subscription.subscribe;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -29,14 +28,12 @@ import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.model.subscription.Subscription;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.w3c.dom.Document;
 
-// TODO enable when passing.  There's a random generated id that can't be asserted. 
-@Ignore
 public class SubscribeMessageTest {
 	
 	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
@@ -50,23 +47,29 @@ public class SubscribeMessageTest {
     	XMLUnit.setXSLTVersion("2.0");    	
 	}	
 	
-	@Ignore
+	
+	@Test
 	public void subscribeMessageTest() throws Exception{
 		
 		Subscription subscription = getSampleSubscriptionPojo();
 		
-		Document generatedSubscriptinDoc = RequestMessageBuilderUtilities.createSubscriptionRequest(subscription);
+		Document generatedSubscriptinDoc = RequestMessageBuilderUtilities.createSubscriptionRequest(subscription);	
 		
-		Document expectedSubDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xml/subscriptionRequest/Arrest_Subscription_Document.xml"));
+		String subQualId = XmlUtils.xPathStringSearch(generatedSubscriptinDoc, "//submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
 		
-		Diff diff = new Diff(expectedSubDoc, generatedSubscriptinDoc);
-		DetailedDiff detailDiff = new DetailedDiff(diff);
-		
+		String sGeneratedSubscriptionDoc = XmlUtils.getStringFromNode(generatedSubscriptinDoc);
+						
+		String sExpectedXmlSubDoc = XmlUtils.getRootNodeAsString("src/test/resources/xml/subscriptionRequest/Arrest_Subscription_Document.xml");				
+		sExpectedXmlSubDoc = sExpectedXmlSubDoc.replace("@SUB_QUAL_ID@", subQualId);
+						
+		Diff diff = new Diff(sExpectedXmlSubDoc, sGeneratedSubscriptionDoc);		
+		DetailedDiff detailDiff = new DetailedDiff(diff);		
 		List<Difference> diffList = detailDiff.getAllDifferences();
 		int diffCount = diffList.size();
 						
 		Assert.assertEquals(detailDiff.toString(), 0, diffCount);
 	}
+	
 	
 	private Subscription getSampleSubscriptionPojo() throws ParseException{
 		
