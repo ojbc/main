@@ -224,7 +224,9 @@
 		<j:Offense structures:ref="Offense_01"/>
 		<nc:Location structures:ref="OL01"/>
 	</j:OffenseLocationAssociation>
-	<cc-filing-ext:CourtCaseFilingAttachment xmime:contentType="text/plain" structures:id="Doc_01">
-		<xop:Include href="cid:http://ojbc.org/court_case_filing/Doc_01" xmlns:xop="http://www.w3.org/2004/08/xop/include"/>
-	</cc-filing-ext:CourtCaseFilingAttachment>
+	<!-- cc-filing-ext:CourtCaseFilingAttachment>
+		<nc:DocumentBinary>
+    		<cc-filing-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cc-filing-ext:Base64BinaryObject>
+        </nc:DocumentBinary>
+	</cc-filing-ext:CourtCaseFilingAttachment-->
 </cc-filing-doc:CourtCaseFilingDocument>
