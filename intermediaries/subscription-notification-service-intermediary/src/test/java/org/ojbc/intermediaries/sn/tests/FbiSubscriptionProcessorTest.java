@@ -76,7 +76,7 @@ public class FbiSubscriptionProcessorTest {
 		
 		Document subMaintMsgDoc = fbiSubProcessor.prepareSubscriptionMaintenanceMessage(fbiSubMod);
 								
-		XmlUtils.compareDocs("src/test/resources/xmlInstances/fbi/SubModifyMessageDoc.xml", subMaintMsgDoc);				
+		compareDocs("src/test/resources/xmlInstances/fbi/SubModifyMessageDoc.xml", subMaintMsgDoc);				
 	}
 	
 	
@@ -213,7 +213,7 @@ public class FbiSubscriptionProcessorTest {
 		
 		Document unsubDocWithFbiData = fbiSubProcessor.appendFbiUcnIdToUnsubscribeDoc(unsubscribeDoc, "987");			
 		
-		XmlUtils.compareDocs(unsubscribeDoc, unsubDocWithFbiData);
+		compareDocs(unsubscribeDoc, unsubDocWithFbiData);
 	}
 	
 	@Test
@@ -226,9 +226,29 @@ public class FbiSubscriptionProcessorTest {
 		
 		Document unsubDocWithFbiId = fbiSubProcessor.appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, "789");		
 		
-		XmlUtils.compareDocs("src/test/resources/xmlInstances/fbi/output/UnsubscribeWithFbiId.xml", 
+		compareDocs("src/test/resources/xmlInstances/fbi/output/UnsubscribeWithFbiId.xml", 
 				unsubDocWithFbiId);
 	}
+	
+	public static void compareDocs(String expectedXmlDocFileClasspath, Document actualXmlDocument) throws Exception{
+		
+		File xmlFile = new File(expectedXmlDocFileClasspath);
+		
+		Document expectedXmlDoc = XmlUtils.parseFileToDocument(xmlFile);
+		
+		compareDocs(expectedXmlDoc, actualXmlDocument);		
+	}
+	
+	public static void compareDocs(Document expectedXmlDoc, Document actualXmlDocument){
+		
+		Diff diff = new Diff(expectedXmlDoc, actualXmlDocument);						
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+		
+		List<Difference> diffList = detailedDiff.getAllDifferences();		
+		int diffCount = diffList == null ? 0 : diffList.size();
+		
+		Assert.assertEquals(detailedDiff.toString(), 0, diffCount);
+	}	
 	
 }
 
