@@ -43,7 +43,7 @@
 		<bundle-a-version>1.0.0</bundle-a-version>
 		<bundle-b-version>1.0.0</bundle-b-version>
 		<bundle-c-version>1.0.0</bundle-c-version>
-		<osgi-common-version>1.0.0</osgi-common-version>
+		<osgi-common-version>[1.0.0,)</osgi-common-version>
 		<osgi-test-common-version>1.0.0</osgi-test-common-version>		
 	</properties>
 
