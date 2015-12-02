@@ -43,9 +43,9 @@
 		<spring-version>3.0.7.RELEASE</spring-version>
 		<cxf-version>2.6.4</cxf-version>
 		<camel-version>2.10.3</camel-version>
-		<ojb-common-version>[2.0.0,)</ojb-common-version>
-		<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
-		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>		
+		<ojb-common-version>2.0.5</ojb-common-version>
+		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
+		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>		
 		<xmlunit.version>1.5</xmlunit.version>
 		<sn-interm-cmn-version>1.0.1</sn-interm-cmn-version>
 		<junit-version>4.8.1</junit-version>
