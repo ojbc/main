@@ -77,25 +77,25 @@
 		<wsp:PolicyReference URI="#MTOMPolicy" wsdl:required="true"/>
 		<wsdl:operation name="ReportPersonStateIdentificationRequest">
 			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0/ReportPersonStateIdentificationRequest" style="document"/>
-			<wsdl:input>
+			<wsdl:input name="PersonStateIdentificationRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
 		</wsdl:operation>
 		<wsdl:operation name="ReportPersonStateIdentificationResults">
 			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0/ReportPersonStateIdentificationResults" style="document"/>
-			<wsdl:input>
+			<wsdl:input name="PersonStateIdentificationResults">
 				<soap:body use="literal"/>
 			</wsdl:input>
 		</wsdl:operation>
 		<wsdl:operation name="ReportPersonFederalIdentificationRequest">
 			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0/ReportPersonFederalIdentificationRequest" style="document"/>
-			<wsdl:input>
+			<wsdl:input name="PersonFederalIdentificationRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
 		</wsdl:operation>
 		<wsdl:operation name="ReportPersonFederalIdentificationResults">
 			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0/ReportPersonFederalIdentificationResults" style="document"/>
-			<wsdl:input>
+			<wsdl:input name="PersonFederalIdentificationResults">
 				<soap:body use="literal"/>
 			</wsdl:input>
 		</wsdl:operation>

@@ -113,19 +113,6 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="CriminalHistoryDocumentType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a criminal history document.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType">
-				<xsd:sequence>
-					<xsd:element ref="xop:Include"/>
-				</xsd:sequence>
-				<xsd:attribute ref="xmime:contentType"/>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
 	<xsd:element name="NotifyingCriminalHistoryUpdate" type="notfm-ext:NotifyingCriminalHistoryUpdateType" abstract="false" substitutionGroup="notfm-ext:NotifyingActivity" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>An incident that results in notification.</xsd:documentation>
@@ -171,7 +158,7 @@
 			<xsd:documentation>An offense as defined by the FBI N-DEX program</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CriminalHistoryRecordDocument" type="notfm-ext:CriminalHistoryDocumentType" substitutionGroup="notfm-ext:CriminalHistoryDocumentRepresentation">
+	<xsd:element name="CriminalHistoryRecordDocument" type="nc:DocumentType" substitutionGroup="notfm-ext:CriminalHistoryDocumentRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document that contains the person's criminal history. Sometimes this is referred to as a rap sheet.</xsd:documentation>
 		</xsd:annotation>
@@ -196,4 +183,5 @@
 			<xsd:documentation>The organization that originally reported an event which resulted in a notification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain"/>
 </xsd:schema>
