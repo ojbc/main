@@ -57,6 +57,7 @@
 			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
 	  
