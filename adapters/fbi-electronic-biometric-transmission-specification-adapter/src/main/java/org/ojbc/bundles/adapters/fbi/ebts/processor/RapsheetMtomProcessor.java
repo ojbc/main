@@ -23,25 +23,22 @@ import javax.activation.DataSource;
 import javax.mail.util.ByteArrayDataSource;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Header;
+import org.apache.commons.lang.StringUtils;
+import org.apache.geronimo.mail.util.Base64;
 
 public class RapsheetMtomProcessor {
 	
-	private Logger logger = Logger.getLogger(RapsheetMtomProcessor.class.getName());
+	private Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	
-	public void attachMtomRapsheet(Exchange exhange){
+	public void convertToBase64Binary(Exchange exhange, @Header("rapsheet") String rapsheet){
 		
-		logger.info("n\n\n attachMtomRapsheet... \n\n\n");
+		logger.info("\n attachMtomRapsheet: " + StringUtils.trimToEmpty(rapsheet));
 				
-		String rapsheetXml = exhange.getIn().getHeader("rapsheet", String.class);
-				
-		byte[] rapsheetXmlBytes = rapsheetXml.getBytes();
+		byte[] rapsheetXmlBytes = rapsheet.getBytes();
 		
-		DataSource rapsheetDataSource = new ByteArrayDataSource(rapsheetXmlBytes, "application/octet-stream");
-		
-		DataHandler rapsheetDataHandler = new DataHandler(rapsheetDataSource);
-						
-		exhange.getIn().addAttachment("http://ojbc.org/arrest/document", rapsheetDataHandler);
+		exhange.getIn().setHeader("base64Rapsheet", Base64.encode(rapsheetXmlBytes));;
 	}
 
 }
