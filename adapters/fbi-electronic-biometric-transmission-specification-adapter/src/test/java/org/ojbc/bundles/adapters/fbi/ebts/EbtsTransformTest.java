@@ -28,7 +28,6 @@ import javax.xml.transform.Source;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.cxf.helpers.XMLUtils;
 import org.apache.ws.security.util.Base64;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
@@ -36,9 +35,7 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
-import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.XsltTransformer;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 public class EbtsTransformTest {

@@ -18,10 +18,6 @@ package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
 import java.util.logging.Logger;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.util.ByteArrayDataSource;
-
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
