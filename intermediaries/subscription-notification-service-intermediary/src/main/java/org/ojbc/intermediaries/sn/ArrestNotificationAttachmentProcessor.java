@@ -21,13 +21,13 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.camel.Body;
-import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.xml.security.utils.Base64;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
-import org.ojbc.util.camel.helper.MtomUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -39,16 +39,14 @@ public class ArrestNotificationAttachmentProcessor {
 	@Resource(name="rapbackDao")
 	private FbiRapbackDao rapbackDao;
 	
-	public void processMtomAttachment(@Body Document report, Exchange exchange) throws Exception {
+	public void processBase64BinaryObject(@Body Document report, @Header("base64BinaryData") String baseb4BinaryData) throws Exception {
 		
 		log.info("Processing Arrest Notification MTOM attachement.");
 		
 		Node notificationMessageNode = XmlUtils.xPathNodeSearch(report, "//b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage");
 		
-		String attachmentHref = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/xop:Include/@href");
-		
 		SubsequentResults subsequentResult = new SubsequentResults(); 
-		subsequentResult.setRapSheet(MtomUtils.getAttachment(exchange, null, attachmentHref));
+		subsequentResult.setRapSheet(Base64.decode(baseb4BinaryData));
 		
 		String resultSenderString = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:NotifyingActivityReportingOrganization/nc:OrganizationName");
 		if (ResultSender.FBI.name().equals(resultSenderString)){
