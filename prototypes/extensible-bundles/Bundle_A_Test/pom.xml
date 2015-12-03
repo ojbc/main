@@ -17,7 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -29,29 +31,31 @@
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
-	  <artifactId>extensible-bundles-aggregate</artifactId>
-	  <version>1.0.0</version>
+		<artifactId>extensible-bundles-aggregate</artifactId>
+		<version>1.0.0</version>
 	</parent>
 
-    <properties>
-        <spring.version>3.0.7.RELEASE</spring.version>
-        <camel.version>2.10.7</camel.version>
-        <java.version>1.6</java.version>
+	<properties>
+		<spring.version>3.2.11.RELEASE</spring.version>
+		<camel.version>2.14.4</camel.version>
+		<java.version>1.8</java.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-    </properties>
+		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
+		<bundle-int-test-common-version>1.0.0</bundle-int-test-common-version>
+	</properties>
 
 	<dependencies>
 
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-osgi-common</artifactId>
-			<version>1.0.0</version>
+			<version>${ojb-osgi-common-version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.ojbc.bundles.prototypes.shared</groupId>
 			<artifactId>Bundle_Integration_Test_Common</artifactId>
-			<version>1.0.0</version>
+			<version>${bundle-int-test-common-version}</version>
 		</dependency>
 
 		<dependency>
@@ -59,6 +63,7 @@
 			<artifactId>camel-core</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
@@ -68,17 +73,6 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>**/*.*</include>
-				</includes>
-			</resource>
-		</resources>
-
 
 		<plugins>
 			<plugin>
