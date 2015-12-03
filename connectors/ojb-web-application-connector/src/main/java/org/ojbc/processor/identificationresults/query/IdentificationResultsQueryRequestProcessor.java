@@ -32,7 +32,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.geronimo.mail.util.Base64;
 import org.ojbc.processor.RequestResponseProcessor;
-import org.ojbc.util.camel.helper.MtomUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
