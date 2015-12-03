@@ -76,8 +76,10 @@
 									<nc:IdentificationID>7689808</nc:IdentificationID>
 								</ojbc:RecordRapBackSubscriptionIdentification>
 							</ojbc:RelatedFBISubscription>
-							<ojbc:FederalCriminalHistoryRecordDocument xmime:contentType="text/plain">
-								<xop:Include href="cid:http://ojbc.org/arrest/document/example"/>
+							<ojbc:FederalCriminalHistoryRecordDocument>
+								<nc:DocumentBinary>
+									<ojbc:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ojbc:Base64BinaryObject>
+								</nc:DocumentBinary>
 							</ojbc:FederalCriminalHistoryRecordDocument>
 						</ojbc:ArrestReport>
 					</lexs:StructuredPayload>

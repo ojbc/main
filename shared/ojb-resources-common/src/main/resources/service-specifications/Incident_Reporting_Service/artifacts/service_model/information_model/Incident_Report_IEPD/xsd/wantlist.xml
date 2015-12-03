@@ -116,7 +116,7 @@
   <w:Element w:name="j:ChargeSubject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ChargeUCRCode" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ChargeVictim" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="j:Citation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Citation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CitationIssuingOfficial" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CitationSubject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ConvictionSubject" w:isReference="false" w:nillable="true"/>
@@ -205,6 +205,8 @@
   <w:Element w:name="j:PassagePointMethodOfAccessCode"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:PersonDriverLicenseAssociation"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonFBIIdentification" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonIDCategoryCode" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonNameAugmentation" w:isReference="false" w:nillable="true"/>
@@ -301,6 +303,7 @@
   <w:Element w:name="nc:ContactFaxNumber" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactInformation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactInstantMessenger" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ContactMailingAddress" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactMobileTelephoneNumber"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactPagerNumber" w:isReference="false" w:nillable="true"/>
@@ -463,6 +466,8 @@
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonCitizenshipFIPS10-4Code"
+    w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonContactInformationAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonConveyanceAssociation"
     w:isReference="false" w:nillable="true"/>
@@ -29451,6 +29456,12 @@
     <w:ElementInType w:name="nc:DocumentSubmitter" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:DriverLicenseAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:DriverLicense" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Person" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:DriverLicenseBaseType" w:isRequested="true">
     <w:ElementInType w:name="nc:DriverLicenseIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
@@ -29786,6 +29797,12 @@
   </w:Type>
   <w:Type w:name="nc:PersonAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Person" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:PersonContactInformationAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Person" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ContactInformation" w:isReference="true"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonConveyanceAssociationType" w:isRequested="false">

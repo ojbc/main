@@ -115,10 +115,10 @@ public class SubsequentResultsQueryProcessor extends AbstractIdentificationResul
 		
 		byte[] rapSheet = subsequentResult.getRapSheet(); 
 		String documentIdString = documentId.name() + "_" + StringUtils.leftPad(subsequentResult.getId().toString(), 8,'0');
-		addAttachment(exchange, rapSheet, documentIdString);
 		appendDocumentElement(parentElement, 
 				queryResponseElementName, 
-				documentIdString);
+				documentIdString,
+				rapSheet);
 	}
 
 	private Element createSubsequentResultsQueryResponseRootElement(

@@ -29,8 +29,6 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
-import org.ojbc.util.camel.helper.MtomUtils;
-import org.ojbc.util.helper.ZipUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,9 +72,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		CriminalInitialResults criminalInitialResults = new CriminalInitialResults(); 
 		criminalInitialResults.setTransactionNumber(transactionNumber);
 		
-		String attachmentId = getAttachmentId(rootNode);
-		criminalInitialResults.setSearchResultFile(	ZipUtils.zip(MtomUtils.getAttachment(exchange, transactionNumber,
-				attachmentId)));
+		criminalInitialResults.setSearchResultFile(	getBinaryData(rootNode));
 		
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
 			criminalInitialResults.setResultsSender(ResultSender.FBI);
@@ -101,9 +97,6 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		CivilInitialResults civilInitialResults = new CivilInitialResults(); 
 		civilInitialResults.setTransactionNumber(transactionNumber);
 		
-		String attachmentId = getAttachmentId(rootNode);
-		
-			
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
 			civilInitialResults.setResultsSender(ResultSender.FBI);
 		}
@@ -116,26 +109,22 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		//TODO set identificationTransaction.currentState;
 		
 		if (initialResultsPkId == null){
-			civilInitialResults.setSearchResultFile(ZipUtils.zip(MtomUtils.getAttachment(exchange, transactionNumber,
-					attachmentId)));
+			civilInitialResults.setSearchResultFile(getBinaryData(rootNode));
 			rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		}
 		else{
 		
-			saveCivilRapSheet(exchange, transactionNumber, attachmentId,
+			saveCivilRapSheet(exchange, transactionNumber, rootNode,
 					initialResultsPkId);
 		}
 	}
 
 	private void saveCivilRapSheet(Exchange exchange, String transactionNumber,
-			String attachmentId, Integer initialResultsPkId) throws IOException {
+			Node rootNode, Integer initialResultsPkId) throws IOException {
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
 		civilInitialRapSheet.setCivilIntitialResultId(initialResultsPkId);
 		
-		byte[] receivedAttachment = MtomUtils.getAttachment(exchange, transactionNumber,
-				attachmentId);
-
-		civilInitialRapSheet.setRapSheet(ZipUtils.zip(receivedAttachment));
+		civilInitialRapSheet.setRapSheet(getBinaryData(rootNode));
 		
 		rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);
 	}
