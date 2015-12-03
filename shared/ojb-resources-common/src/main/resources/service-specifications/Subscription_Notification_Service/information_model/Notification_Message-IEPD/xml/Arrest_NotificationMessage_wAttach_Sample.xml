@@ -33,8 +33,10 @@
 				<nc:IdentificationID>7689808</nc:IdentificationID>
 			</notfm-ext:RecordRapBackSubscriptionIdentification>
 		</notfm-ext:RelatedFBISubscription>
-		<notfm-ext:CriminalHistoryRecordDocument xmime:contentType="text/plain">
-			<xop:Include href="cid:http://ojbc.org/criminal_history/document/example"/>
+		<notfm-ext:CriminalHistoryRecordDocument>
+			<nc:DocumentBinary>
+				<notfm-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</notfm-ext:Base64BinaryObject>
+			</nc:DocumentBinary>
 		</notfm-ext:CriminalHistoryRecordDocument>
 		<j:Arrest>
 			<nc:ActivityDate>

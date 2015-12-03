@@ -57,8 +57,8 @@ public class ArrestReportTransformTest {
 	@Test
 	public void arrestReportTransform() throws IOException, SAXException{
 		
-		InputStream intputFileStream = new FileInputStream("src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_criminal.xml");
-		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+		InputStream inputFileStream = new FileInputStream("src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_criminal.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/arrestReportTransform.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);

@@ -1065,7 +1065,7 @@
       <xsd:documentation>A person or entity who is the victim of an offense designated by the charge.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="Citation" type="j:CitationType" nillable="true">
+  <xsd:element name="Citation" type="j:CitationType">
     <xsd:annotation>
       <xsd:documentation>Details about an official summons to appear in court or pay a fine given to a subject from a peace official due to a subjects violation or infraction of a law.</xsd:documentation>
     </xsd:annotation>
@@ -1729,6 +1729,11 @@
   <xsd:element name="PersonDentalXRayAvailableIndicator" type="niem-xsd:boolean" nillable="true">
     <xsd:annotation>
       <xsd:documentation>Indicates whether dental photos or models are available with a record.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonDriverLicenseAssociation" type="nc:DriverLicenseAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between a person and a driver license.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true">

@@ -466,6 +466,7 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:DocumentApplicationName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentBinary" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentCategoryName" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentCreationDate" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:DocumentDescriptionText" minOccurs="0" maxOccurs="1"/>
@@ -2642,6 +2643,11 @@
   <xsd:element name="DocumentApplicationName" type="nc:ApplicationNameType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A name of an application used to create and/or display an electronic document.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentBinary" type="nc:BinaryType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A binary encoding of the content of a document.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="DocumentCategoryName" type="nc:TextType" nillable="true">
