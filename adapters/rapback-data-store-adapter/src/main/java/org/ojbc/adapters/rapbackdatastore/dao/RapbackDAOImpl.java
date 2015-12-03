@@ -552,10 +552,13 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public Integer getCivilIntialResultsId(String transactionNumber,
 			ResultSender resultSender) {
 		final String CIVIL_INITIAL_RESULTS_ID_SELECT = "SELECT t.civiL_INITIAL_RESULT_ID  "
-				+ "FROM RAPBACK_DATASTORE.CIVIL_INITIAL_RESULTS t "
+				+ "FROM CIVIL_INITIAL_RESULTS t "
 				+ "WHERE t.TRANSACTION_NUMBER  = ? AND RESULTS_SENDER_ID = ?";
 		
-		return jdbcTemplate.queryForInt(CIVIL_INITIAL_RESULTS_ID_SELECT, transactionNumber, resultSender.ordinal() + 1);
+		List<Integer> ids = jdbcTemplate.queryForList(CIVIL_INITIAL_RESULTS_ID_SELECT, 
+				Integer.class, transactionNumber, resultSender.ordinal() + 1);
+		
+		return DataAccessUtils.singleResult(ids);
 	}
 
 	@Override

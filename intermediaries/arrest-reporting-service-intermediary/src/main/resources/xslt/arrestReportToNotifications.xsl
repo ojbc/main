@@ -212,10 +212,9 @@
 	</xsl:template>
 	<xsl:template match="ojbc:ArrestReport">
 		<notificationExt:CriminalHistoryRecordDocument>
-			<xsl:attribute name="xmime:contentType"><xsl:value-of select="ojbc:FederalCriminalHistoryRecordDocument/@xmime:contentType"/></xsl:attribute>
-			<xop:Include>
-				<xsl:attribute name="href"><xsl:value-of select="ojbc:FederalCriminalHistoryRecordDocument/xop:Include/@href"/></xsl:attribute>
-			</xop:Include>
+			<nc:DocumentBinary>
+				<notificationExt:Base64BinaryObject><xsl:value-of select="ojbc:FederalCriminalHistoryRecordDocument/nc:DocumentBinary/ojbc:Base64BinaryObject"/></notificationExt:Base64BinaryObject>
+			</nc:DocumentBinary>
 		</notificationExt:CriminalHistoryRecordDocument>
 	</xsl:template>
 	<xsl:template match="j40:EnforcementOfficial" mode="enforcementOfficialUnit">

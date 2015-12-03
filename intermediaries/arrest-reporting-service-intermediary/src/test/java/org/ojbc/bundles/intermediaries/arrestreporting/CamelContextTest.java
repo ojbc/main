@@ -60,6 +60,7 @@ import org.w3c.dom.Node;
 		"classpath:META-INF/spring/properties-context.xml"}) 
 public class CamelContextTest {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
 	
 	public static final String CXF_OPERATION_NAME = "ReportArrest";

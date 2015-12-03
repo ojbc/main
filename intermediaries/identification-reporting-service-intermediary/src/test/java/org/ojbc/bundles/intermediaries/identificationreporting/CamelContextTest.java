@@ -27,10 +27,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.activation.DataHandler;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
-import javax.mail.util.ByteArrayDataSource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -48,7 +46,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
-import org.apache.cxf.helpers.IOUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,8 +68,6 @@ public class CamelContextTest {
 	
 	public static final String CXF_OPERATION_NAME = "ReportPersonIdentificationRequest";
 	public static final String CXF_OPERATION_NAMESPACE = "http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0";
-	
-	private static final String IMAGE_ID = "http://ojbc.org/identification/request/example";
 	
     @Resource
     private ModelCamelContext context;
@@ -164,13 +159,6 @@ public class CamelContextTest {
 		
 		senderExchange.getIn().setHeader("operationName", "ReportPersonFederalIdentificationRequest");
 		
-		/*
-		 * add MTOM attachment to the exchange.
-		 */
-		byte[] imgData = extractBytes("src/test/resources/mtomAttachment/java.jpg");
-		senderExchange.getIn().addAttachment(IMAGE_ID, 
-			new DataHandler(new ByteArrayDataSource(imgData, "image/jpeg")));
-
 		returnExchange = template.send("direct:IdentificationReportingServiceEndpoint", senderExchange);
 		
 		identificationRecordingServiceMock.assertIsSatisfied();
@@ -178,14 +166,6 @@ public class CamelContextTest {
 		String body = receivedExchange.getIn().getBody(String.class);
 		assertEquals(inputStr, body);
 		
-		DataHandler dataHandler = receivedExchange.getIn().getAttachment(IMAGE_ID);
-		assertEquals("image/jpeg", dataHandler.getContentType());
-		
-		byte[] receivedImageData = IOUtils.readBytesFromStream(dataHandler.getInputStream());
-		assertByteArrayEquals(imgData, receivedImageData);
-		BufferedImage image = ImageIO.read(dataHandler.getInputStream());
-		assertEquals(41, image.getWidth());
-		assertEquals(39, image.getHeight());
 	}
 	
 	@Test

@@ -28,12 +28,12 @@ import javax.xml.transform.Source;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.ws.security.util.Base64;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 import org.xml.sax.SAXException;
@@ -169,15 +169,17 @@ public class EbtsTransformTest {
 	}
 	
 	@Test
-	public void ArrestReportTestEbtsTransform() throws IOException, SAXException{
+	public void ArrestReportTestEbtsTransform() throws Exception{
 		
 		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification_Arrest.xml");
 		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
-								
+		
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/Federal_To_Arrest_Report_Transform.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
 		
 		Map<String, Object> xsltParamMap = getXsltParamMap();
+		String rapsheetString = "Subject's Rap Sheet goes here";
+		xsltParamMap.put("base64Rapsheet", Base64.encode(rapsheetString.getBytes()));
 			
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				

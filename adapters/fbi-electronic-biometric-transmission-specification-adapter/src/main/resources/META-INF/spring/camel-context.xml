@@ -287,7 +287,7 @@
 				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText/text()</xpath>			
 			</setHeader>				
 			
-			<to uri="bean:rapsheetMtomProcessor?method=attachMtomRapsheet"/>		
+			<to uri="bean:rapsheetMtomProcessor?method=convertToBase64Binary"/>		
 		
 			<log message="\n\n\n Transforming Federal_To_Arrest_Report_Transform.xsl... \n\n\n" loggingLevel="INFO"/>
 			
