@@ -77,7 +77,7 @@ public class FbiSubscriptionProcessorTest {
 		
 		Document subMaintMsgDoc = fbiSubProcessor.prepareSubscriptionMaintenanceMessage(fbiSubMod);
 								
-		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/fbi/SubModifyMessageDoc.xml", subMaintMsgDoc);				
+		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/fbi/SubModifyMessageDoc.xml", subMaintMsgDoc);						
 	}
 	
 	
@@ -227,9 +227,7 @@ public class FbiSubscriptionProcessorTest {
 		
 		Document unsubDocWithFbiId = fbiSubProcessor.appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, "789");		
 		
-		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/fbi/output/UnsubscribeWithFbiId.xml", 
-				unsubDocWithFbiId);
+		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/fbi/output/UnsubscribeWithFbiId.xml", unsubDocWithFbiId);
 	}
-	
+			
 }
-

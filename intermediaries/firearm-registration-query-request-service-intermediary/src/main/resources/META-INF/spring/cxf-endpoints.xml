@@ -57,7 +57,8 @@
 			<entry key="ws-security.signature.properties" value-ref="firearmsRequestKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${federatedQuery.firearms.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-		</cxf:properties>
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+ 		</cxf:properties>
     </cxf:cxfEndpoint>
 
     <!-- Firearms Query Results handler, hosted by broker, called by adapter, address is static --> 

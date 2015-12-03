@@ -205,21 +205,6 @@
   <build>
     <defaultGoal>install</defaultGoal>
 
-	<resources>
-		<resource>
-			<directory>${basedir}/src/main/resources</directory>
-			<includes>
-				<include>**/*.*</include>
-			</includes>
-		</resource>
-		<resource>
-			<directory>${basedir}/src/main/config/dev</directory>
-			<includes>
-				<include>*</include>
-			</includes>
-		</resource>
-	</resources>
-
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
