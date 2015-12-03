@@ -20,15 +20,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessorTest.assertAsExpected;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 
-import javax.activation.DataHandler;
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.mail.util.ByteArrayDataSource;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
@@ -38,7 +32,6 @@ import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
@@ -68,9 +61,6 @@ import org.xml.sax.SAXException;
 @DirtiesContext
 public class TestIdentficationRecordingAndResponse {
 	
-	private static final String CIVIL_RESULTS_ATTACHEMNT_ID = "http://ojbc.org/identification/results/example";
-
-	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( TestIdentficationRecordingAndResponse.class );
 
 	private static final String TRANSACTION_NUMBER = "000001820140729014008340000";
@@ -163,14 +153,6 @@ public class TestIdentficationRecordingAndResponse {
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
 		
-		/*
-		 * add MTOM attachment to the exchange.
-		 */
-		
-		byte[] imgData = extractImageBytes("src/test/resources/xmlInstances/mtomAttachment/java.jpg");
-		senderExchange.getIn().addAttachment("http://ojbc.org/identification/request/example", 
-			new DataHandler(new ByteArrayDataSource(imgData, "image/jpeg")));
-
 		//Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
 		
@@ -191,8 +173,10 @@ public class TestIdentficationRecordingAndResponse {
 		IdentificationTransaction identificationTransaction = 
 				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
 		
+		log.info(identificationTransaction.toString());
 		assertNotNull(identificationTransaction); 
 		assertNotNull(identificationTransaction.getSubject());
+		
 	}
 	
 	public void civilRecordingResultServiceSuccess() throws Exception
@@ -201,14 +185,6 @@ public class TestIdentficationRecordingAndResponse {
 				"src/test/resources/xmlInstances/identificationReport/person_identification_rapsheet_results_fbi_civil.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
-		
-		/*
-		 * add MTOM attachment to the exchange.
-		 */
-		
-		byte[] rapsheet = FileUtils.readFileToByteArray(new File("src/test/resources/xmlInstances/mtomAttachment/fbiResultFromLOTC.html"));
-		senderExchange.getIn().addAttachment(CIVIL_RESULTS_ATTACHEMNT_ID, 
-			new DataHandler(new ByteArrayDataSource(rapsheet, "text/plain")));
 		
 		//Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
@@ -260,21 +236,5 @@ public class TestIdentficationRecordingAndResponse {
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
 	}
-	
-	public byte[] extractImageBytes(String ImageName) throws IOException {
-		// open image
-		File imgPath = new File(ImageName);
-		BufferedImage bufferedImage = ImageIO.read(imgPath);
-
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-		ImageIO.write(bufferedImage, "jpg", baos);
-		baos.flush();
-		byte[] imageInByte = baos.toByteArray();
-		baos.close();
-
-		return imageInByte;
-	}
-	
 	
 }

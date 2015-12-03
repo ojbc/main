@@ -54,8 +54,10 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ident-ext:IdentificationApplicantOrganization>
-	<ident-ext:FBIIdentityHistorySummaryDocument xmime:contentType="text/plain" structures:id="Doc_01">
-		<xop:Include href="cid:http://ojbc.org/identification/results/example"/>
+	<ident-ext:FBIIdentityHistorySummaryDocument structures:id="Doc_01">
+		<nc:DocumentBinary>
+			<ident-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ident-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 	</ident-ext:FBIIdentityHistorySummaryDocument>
 	<ident-ext:CriminalIdentificationReasonCode>CAR</ident-ext:CriminalIdentificationReasonCode>
 </pidres-doc:PersonFederalIdentificationResults>

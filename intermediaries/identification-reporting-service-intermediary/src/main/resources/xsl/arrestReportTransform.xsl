@@ -18,23 +18,23 @@
 
 -->
 <xsl:stylesheet version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
-xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" 
-xmlns:arrest-exch="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" 
-xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
-xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" 
-xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" 
-xmlns:s="http://niem.gov/niem/structures/2.0" 
-xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
-xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" 
-xmlns:j40="http://niem.gov/niem/domains/jxdm/4.0" 
-xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1" 
-xmlns:j50="http://release.niem.gov/niem/domains/jxdm/5.0/" 
-xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
-xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" 
-xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1">
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:arrest-exch="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" 
+	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" 
+	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
+	xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" 
+	xmlns:j40="http://niem.gov/niem/domains/jxdm/4.0" 
+	xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:j50="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
+	xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" 
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>	
 	<xsl:variable name="currentDateTime" select="current-dateTime()"/>
 	<xsl:variable name="currentDateTimeString" select="format-dateTime($currentDateTime, '[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]')" />	 		

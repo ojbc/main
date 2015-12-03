@@ -23,12 +23,14 @@
                                                                        xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
                                                                        xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
                                                                        xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/">
-   <oirq-res-ext:FBIIdentityHistorySummaryDocument s30:id="fbiIdentityHistorySummaryDocument_00000001"
-                                                   xmime:contentType="text/plain">
-      <xop:Include href="cid:http://ojbc.org/identification/results/fbiIdentityHistorySummaryDocument_00000001"/>
+   <oirq-res-ext:FBIIdentityHistorySummaryDocument s30:id="fbiIdentityHistorySummaryDocument_00000001">
+      <nc30:DocumentBinary>
+         <oirq-res-ext:Base64BinaryObject>RkJJIFN1YnNlcXVlbnQgcmVzdWx0cy4=</oirq-res-ext:Base64BinaryObject>
+      </nc30:DocumentBinary>
    </oirq-res-ext:FBIIdentityHistorySummaryDocument>
-   <oirq-res-ext:StateCriminalHistoryRecordDocument s30:id="stateCriminalHistoryRecordDocument_00000002"
-                                                    xmime:contentType="text/plain">
-      <xop:Include href="cid:http://ojbc.org/identification/results/stateCriminalHistoryRecordDocument_00000002"/>
+   <oirq-res-ext:StateCriminalHistoryRecordDocument s30:id="stateCriminalHistoryRecordDocument_00000002">
+      <nc30:DocumentBinary>
+         <oirq-res-ext:Base64BinaryObject>U3RhdGUgU3Vic2VxdWVudCByZXN1bHRzLg==</oirq-res-ext:Base64BinaryObject>
+      </nc30:DocumentBinary>
    </oirq-res-ext:StateCriminalHistoryRecordDocument>
 </oisrq-res-doc:OrganizationIdentificationSubsequentResultsQueryResults>

@@ -51,8 +51,9 @@ Content-ID: <identification_request_message@ojbc.org>
 		</j:OrganizationAugmentation>
 	</ext:IdentificationApplicantOrganization>
 	<ext:IdentificationRequestDocument structures:id="Doc_01">
-		<ext:DocumentBinary xmime:contentType="text/plain"/>
-				<xop:Include href="'cid:http://ojbc.org/identification/request/example"/>
+		<nc:DocumentBinary>
+			<ident-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ident-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 	</ext:IdentificationRequestDocument>
 	<nc:PersonDocumentAssociation>
 		<nc:Person structures:ref="Subject01"/>

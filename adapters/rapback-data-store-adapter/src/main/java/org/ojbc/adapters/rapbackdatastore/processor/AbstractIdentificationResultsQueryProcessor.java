@@ -16,19 +16,16 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XMIME;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XOP;
 
-import javax.activation.DataHandler;
 import javax.annotation.Resource;
-import javax.mail.util.ByteArrayDataSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.camel.Exchange;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
@@ -44,7 +41,8 @@ public class AbstractIdentificationResultsQueryProcessor {
 		FBIIdentificationSearchResultDocument,
 		StateCriminalHistoryRecordDocument,
 		FBIIdentityHistorySummaryDocument,
-		Include,
+		DocumentBinary,
+		Base64BinaryObject,
 	}
 	
 	protected enum DocumentId{
@@ -73,28 +71,20 @@ public class AbstractIdentificationResultsQueryProcessor {
         documentBuilder = documentBuilderFactory.newDocumentBuilder();
     }
 
-	protected void appendDocumentElement(Element parentElement, QueryResponseElementName elementName, String documentId) {
-		Element fbiIdentificationSearchResultDocument = 
+	protected void appendDocumentElement(Element parentElement, QueryResponseElementName elementName, String documentId, byte[] binaryData) {
+		Element element = 
 			XmlUtils.appendElement(parentElement, 
 					NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, 
 					elementName.name());
-		XmlUtils.addAttribute(fbiIdentificationSearchResultDocument, NS_STRUCTURES_30, "id", documentId );
-		XmlUtils.addAttribute(fbiIdentificationSearchResultDocument, NS_XMIME, "contentType", CONTENT_TYPE_TEXT_PLAIN);
-		Element include = 
-			XmlUtils.appendElement(fbiIdentificationSearchResultDocument, NS_XOP, QueryResponseElementName.Include.name());
-		String hrefValue = getHrefValue(documentId);
-		XmlUtils.addAttribute(include, null, "href", hrefValue);
-	}
-
-	protected void addAttachment(Exchange exchange,
-			byte[] attachment, String documentId) {
-		String attachmentId = ATTACHMENT_URL_FORE_STRING + documentId;  
-		exchange.getIn().addAttachment(attachmentId, new DataHandler(new ByteArrayDataSource(attachment, CONTENT_TYPE_TEXT_PLAIN)));
-	}
-
-	private String getHrefValue(String documentId) {
-		String attachmentId = CID + ATTACHMENT_URL_FORE_STRING + documentId;
-		return attachmentId;
+		XmlUtils.addAttribute(element, NS_STRUCTURES_30, "id", documentId );
+		Element documentBinary = 
+			XmlUtils.appendElement(element, NS_NC_30, QueryResponseElementName.DocumentBinary.name());
+		Element base64BinaryObject = 
+				XmlUtils.appendElement(documentBinary, 
+						NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, 
+						QueryResponseElementName.Base64BinaryObject.name());
+		
+		base64BinaryObject.setTextContent(Base64.encodeBase64String(binaryData));
 	}
 
 }

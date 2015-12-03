@@ -62,6 +62,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="nc:DocumentType" w:isRequested="true">
+    <w:ElementInType w:name="nc:DocumentBinary" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
