@@ -593,24 +593,6 @@ public class XmlUtils {
 	}
 	
 	
-	public static void compareDocs(String expectedXmlDocFileClasspath, Document actualXmlDocument) throws Exception{
-		
-		File xmlFile = new File(expectedXmlDocFileClasspath);
-		
-		Document expectedXmlDoc = parseFileToDocument(xmlFile);
-		
-		compareDocs(expectedXmlDoc, actualXmlDocument);		
-	}
-	
-	public static void compareDocs(Document expectedXmlDoc, Document actualXmlDocument){
-		
-		Diff diff = new Diff(expectedXmlDoc, actualXmlDocument);						
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-		
-		List<Difference> diffList = detailedDiff.getAllDifferences();		
-		int diffCount = diffList == null ? 0 : diffList.size();
-		
-		Assert.assertEquals(detailedDiff.toString(), 0, diffCount);
-	}
+
     
 }
