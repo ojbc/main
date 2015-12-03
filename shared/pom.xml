@@ -32,6 +32,7 @@
   <modules>
     <module>ojb-build-common</module>
     <module>ojb-common</module>
+    <module>ojb-test-common</module>
     <module>ojb-camel-common</module>
     <module>ojb-fedquery-common</module>
     <module>ojb-osgi-common</module>

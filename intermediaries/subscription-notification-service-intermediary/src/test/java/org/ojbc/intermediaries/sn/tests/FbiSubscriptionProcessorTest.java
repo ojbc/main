@@ -37,6 +37,7 @@ import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiSubscriptionModification;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
@@ -76,7 +77,7 @@ public class FbiSubscriptionProcessorTest {
 		
 		Document subMaintMsgDoc = fbiSubProcessor.prepareSubscriptionMaintenanceMessage(fbiSubMod);
 								
-		XmlUtils.compareDocs("src/test/resources/xmlInstances/fbi/SubModifyMessageDoc.xml", subMaintMsgDoc);				
+		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/fbi/SubModifyMessageDoc.xml", subMaintMsgDoc);						
 	}
 	
 	
@@ -213,7 +214,7 @@ public class FbiSubscriptionProcessorTest {
 		
 		Document unsubDocWithFbiData = fbiSubProcessor.appendFbiUcnIdToUnsubscribeDoc(unsubscribeDoc, "987");			
 		
-		XmlUtils.compareDocs(unsubscribeDoc, unsubDocWithFbiData);
+		XmlTestUtils.compareDocs(unsubscribeDoc, unsubDocWithFbiData);
 	}
 	
 	@Test
@@ -226,9 +227,7 @@ public class FbiSubscriptionProcessorTest {
 		
 		Document unsubDocWithFbiId = fbiSubProcessor.appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, "789");		
 		
-		XmlUtils.compareDocs("src/test/resources/xmlInstances/fbi/output/UnsubscribeWithFbiId.xml", 
-				unsubDocWithFbiId);
+		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/fbi/output/UnsubscribeWithFbiId.xml", unsubDocWithFbiId);
 	}
-	
+			
 }
-

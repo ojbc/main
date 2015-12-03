@@ -52,7 +52,7 @@
 			uri="cxf:bean:personSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
 
 		<endpoint id="searchResultsFederatedServiceEndpoint"
-			uri="cxf:bean:personSearchResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:personSearchResultsFederatedService?dataFormat=PAYLOAD&amp;allowStreaming=false&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
 
  		<endpoint id="entityResolutionRequestServiceEndpoint"
 			uri="cxf:bean:entityResolutionRequestService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
