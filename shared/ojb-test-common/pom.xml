@@ -39,6 +39,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xmlunit-version>1.5</xmlunit-version>
 		<junit-version>4.10</junit-version>
+		<ojb-common-version>[3.0.0,)</ojb-common-version>
 	</properties>
 
 	<dependencies>
@@ -46,7 +47,7 @@
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-common</artifactId>
-			<version>3.0.0</version>
+			<version>${ojb-common-version}</version>
 		</dependency>
 
 		<dependency>
