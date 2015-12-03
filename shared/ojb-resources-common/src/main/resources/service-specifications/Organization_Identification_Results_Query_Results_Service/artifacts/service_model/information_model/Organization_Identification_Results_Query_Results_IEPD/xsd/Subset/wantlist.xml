@@ -18,9 +18,15 @@
 
 -->
 <w:WantList w:release="3.0" w:product="NIEM" w:nillableDefault="true"
+  xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
   xmlns:w="http://niem.gov/niem/wantlist/2.2" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
   <w:Type w:name="nc:BinaryType" w:isRequested="true">
     <w:ElementInType w:name="nc:BinaryObject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:DocumentType" w:isRequested="true">
+    <w:ElementInType w:name="nc:DocumentBinary" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="niem-xs:base64Binary" w:isRequested="true"/>
 </w:WantList>

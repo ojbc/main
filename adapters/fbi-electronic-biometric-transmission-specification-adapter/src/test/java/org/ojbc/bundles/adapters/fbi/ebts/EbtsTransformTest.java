@@ -56,8 +56,8 @@ public class EbtsTransformTest {
 	@Test
 	public void newCriminalSubscriptionTestEbtsTransform() throws Exception{
 								
-		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_Criminal_Subscription_Request_Document.xml");
-		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/OJBC_Criminal_Subscription_Request_Document.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
@@ -75,8 +75,8 @@ public class EbtsTransformTest {
 	@Test
 	public void newCivilSubscriptionTestEbtsTransform() throws Exception{
 								
-		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_Civil_Subscription_Request_Document.xml");
-		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/OJBC_Civil_Subscription_Request_Document.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
@@ -95,8 +95,8 @@ public class EbtsTransformTest {
 	@Test
 	public void modifyCriminalSubscriptionTestEbtsTransform() throws IOException, SAXException{
 		
-		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_Subscription_Modify_Document.xml");
-		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/OJBC_Subscription_Modify_Document.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
@@ -114,8 +114,8 @@ public class EbtsTransformTest {
 	@Test
 	public void cancelSubscriptionTestEbtsTransform() throws IOException, SAXException{
 		
-		InputStream intputFileStream = new FileInputStream("src/test/resources/input/OJBC_unsubscribe.xml");
-		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/OJBC_unsubscribe.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
@@ -133,8 +133,8 @@ public class EbtsTransformTest {
 	@Test
 	public void RapbackSubscriptionResponseTransform() throws IOException, SAXException{
 		
-		InputStream intputFileStream = new FileInputStream("src/test/resources/input/Template(RBSR)RapBackSubscriptionResponse.xml");
-		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/Template(RBSR)RapBackSubscriptionResponse.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
@@ -152,8 +152,8 @@ public class EbtsTransformTest {
 	@Test
 	public void RapbackMaintenanceResponseTransform() throws IOException, SAXException{
 		
-		InputStream intputFileStream = new FileInputStream("src/test/resources/input/Template(RBMNTR)RapBackMaintenanceResponse.xml");
-		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/Template(RBMNTR)RapBackMaintenanceResponse.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
@@ -171,8 +171,8 @@ public class EbtsTransformTest {
 	@Test
 	public void ArrestReportTestEbtsTransform() throws IOException, SAXException{
 		
-		InputStream intputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification_Arrest.xml");
-		Source inputFileSource = OJBUtils.createSaxSource(intputFileStream);
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification_Arrest.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
 								
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/Federal_To_Arrest_Report_Transform.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
