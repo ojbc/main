@@ -54,6 +54,11 @@
 					<prop key="webapplication.accessControl.accessControlResponseEndpoint"/>
 					<prop key="webapplication.accessControl.policyAcknowledgementRecordingResponseEndpoint"/>
 					<prop key="webapplication.personQuery.personQueryResultsHandlerCriminalHistoryEndpoint"/>
+					<prop key="webapplication.rapbackSearch.rapbackSearchResultsHandlerEndpoint"/>
+					<prop key="webapplication.identificationResultsQueryResultsHandlerEndpoint"/>
+					<prop key="webapplication.identificationResultsModificationResultsHandlerEndpoint"/>
+					<prop key="webapplication.subscription.notificationBrokerSecureEndpoint"/>
+					<prop key="webapplication.subscription.subscriptionManagerSecureEndpoint"/>
 				</util:properties>
 				
 				<!-- The config file is located in the ojb-web-external-resource project -->
