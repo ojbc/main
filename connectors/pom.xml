@@ -33,6 +33,7 @@
   </parent>
 
   <modules>
+    <module>criminal-history-consolidation-reporting-service-connector</module>
     <module>disposition-reporting-service-connector</module>
     <module>incident-reporting-service-connector</module>
     <module>ojb-web-application-connector-extension</module>
