@@ -17,8 +17,7 @@
 package org.ojbc.adapters.rapbackdatastore.processor;
 
 import java.text.SimpleDateFormat;
-
-import jline.internal.Log;
+import java.util.logging.Logger;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
@@ -41,6 +40,8 @@ public abstract class AbstractReportRepositoryProcessor {
 	
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    
+    private static final Logger logger = Logger.getLogger(AbstractReportRepositoryProcessor.class.getName());
     	
     @Transactional
 	public abstract void processReport(@Body Document report, Exchange exchange) throws Exception;
@@ -118,8 +119,9 @@ public abstract class AbstractReportRepositoryProcessor {
 					+ "ident-ext:StateIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
 					+ "ident-ext:FBIIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject");
 			return Base64.decode(base64BinaryData);
-		} catch (Exception e) {
-			Log.error("Failed to retrieve binary data from the message");
+			
+		} catch (Exception e) {			
+			logger.severe("Failed to retrieve binary data from the message: " + e.getMessage());			
 			return null;
 		}
 	}
