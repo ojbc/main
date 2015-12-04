@@ -141,7 +141,7 @@
 		<camel:endpoint id="identificationResultsModificationResultsHandlerServiceEndpoint"
 			uri="cxf:bean:identificationResultsModificationResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 
-		<!-- In all of the endpoints below, the 'address' field uses the ':' notation to set a default value -->
+		<!-- In all of the endpoints below, the default value is provided in properties-context.xml -->
 		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
 	
 		<!-- Juvenile Case Plan History Results Service, hosted by Portal -->
@@ -164,7 +164,7 @@
 	   	    
 		<!-- Juvenile Hearing History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenileHearingHistoryResultsHandlerService"
-			address="${webapplication.hearingHistoryResultsService.endpoint:}"
+			address="${webapplication.hearingHistoryResultsService.endpoint}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenileHearingHistoryResultsService"
 			endpointName="ojbc:JuvenileHearingHistoryResultsSOAPPort"
@@ -182,7 +182,7 @@
 	
 		<!-- Juvenile Intake History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenileIntakeHistoryResultsHandlerService"
-			address="${webapplication.intakeHistoryResultsService.endpoint:}"
+			address="${webapplication.intakeHistoryResultsService.endpoint}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenileIntakeHistoryResultsService"
 			endpointName="ojbc:JuvenileIntakeHistoryResultsSOAPPort"
@@ -200,7 +200,7 @@
 	   	   
 		<!-- Juvenile Offense History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenileOffenseHistoryResultsHandlerService"
-			address="${webapplication.offenseHistoryResultsService.endpoint:}"
+			address="${webapplication.offenseHistoryResultsService.endpoint}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenileOffenseHistoryResultsService"
 			endpointName="ojbc:JuvenileOffenseHistoryResultsSOAPPort"
@@ -218,7 +218,7 @@
 				 
 		<!-- Juvenile Placement History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenilePlacementHistoryResultsHandlerService"
-			address="${webapplication.placementHistoryResultsService.endpoint:}"
+			address="${webapplication.placementHistoryResultsService.endpoint}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenilePlacementHistoryResultsService"
 			endpointName="ojbc:JuvenilePlacementHistoryResultsSOAPPort"
@@ -236,7 +236,7 @@
 
 		<!-- Juvenile Referral History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenileReferralHistoryResultsHandlerService"
-			address="${webapplication.referralHistoryResultsService.endpoint:}"
+			address="${webapplication.referralHistoryResultsService.endpoint}"
 			wsdlURL="classpath:service-specifications/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 			serviceName="ojbc:JuvenileReferralHistoryResultsService"
 			endpointName="ojbc:JuvenileReferralHistoryResultsSOAPPort"
@@ -257,7 +257,7 @@
 	    --> 
 	    <cxf:cxfEndpoint 
 	        id="accessControlResponseService"
-			address="${webapplication.accessControl.accessControlResponseEndpoint:}"
+			address="${webapplication.accessControl.accessControlResponseEndpoint}"
 	        wsdlURL="classpath:service-specifications/Access_Control_Response_Service/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
 	        serviceName="ojbc:Access-Control-Response-ServiceService"
 	        endpointName="ojbc:Access-Control-Response-Secure-Service"
@@ -535,7 +535,7 @@
 
 	<!-- Rapback Search Result handler, hosted by Web Application -->
 	<cxf:cxfEndpoint id="rapbackSearchResultsHandlerService"
-		address="${webapplication.rapbackSearch.rapbackSearchResultsHandlerEndpoint:}"
+		address="${webapplication.rapbackSearch.rapbackSearchResultsHandlerEndpoint}"
 		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Results_Service.wsdl"
 		serviceName="ojbc:OrganizationIdentificationResults_Search_Results_Service_Service"
 		endpointName="ojbc:OrganizationIdentificationResults_Search_Results_Secure_Service"
@@ -553,7 +553,7 @@
        
     <!-- Identificaiton Results Query Result handler, hosted by Web Application -->
 	<cxf:cxfEndpoint id="identificationResultsQueryResultsHandlerService"
-		address="${webapplication.identificationResultsQueryResultsHandlerEndpoint:}"
+		address="${webapplication.identificationResultsQueryResultsHandlerEndpoint}"
 		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Results_Service.wsdl"
 		serviceName="ojbc:Organization_Identification_Results_Query_Results_Service_Service"
 		endpointName="ojbc:Organization_Identification_Results_Query_Results_Secure_Service"
@@ -575,7 +575,7 @@
        
     <!-- Identificaiton Results Modification Result handler, hosted by Web Application -->
 	<cxf:cxfEndpoint id="identificationResultsModificationResultsHandlerService"
-		address="${webapplication.identificationResultsModificationResultsHandlerEndpoint:}"
+		address="${webapplication.identificationResultsModificationResultsHandlerEndpoint}"
 		wsdlURL="classpath:service-specifications/Identification_Results_Modification_Response_Service/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
         serviceName="ojbc:Identification_Results_Modification_Response_Service_Service"
 		endpointName="ojbc:Identification_Results_Modification_Response_Service"
