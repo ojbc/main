@@ -28,10 +28,8 @@
     <module>shared/integration-tests</module>
     <module>intermediaries/integration-tests</module>
     <module>adapters/integration-tests</module>
+    <module>prototypes/integration-tests</module>
   </modules>
-
-  <dependencies>
-  </dependencies>
 
   <build>
 

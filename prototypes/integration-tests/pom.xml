@@ -21,23 +21,18 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.ojbc.build</groupId>
-  <artifactId>extensible-bundles-aggregate</artifactId>
+  <artifactId>prototypes-integration-tests-aggregate</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
 
   <parent>
     <groupId>org.ojbc.build</groupId>
-    <artifactId>prototypes-aggregate</artifactId>
+    <artifactId>ojb-main-aggregate</artifactId>
     <version>1.0.0</version>
   </parent>
 
   <modules>
- 	<module>Util_Bundle</module>
-  <module>Bundle_Integration_Test_Common</module>
- 	<module>Bundle_A_Test</module>
- 	<module>Bundle_B_Test</module>
- 	<module>Bundle_C_Test</module>
- 	<module>Bundle_D_Test</module>
+ 	<module>../extensible-bundles/Bundle_Integration_Test</module>
   </modules>
 
 </project>
