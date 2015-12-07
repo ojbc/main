@@ -16,12 +16,10 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.camel.Exchange;
-import org.apache.cxf.helpers.XMLUtils;
 import org.apache.log4j.Logger;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.helper.OJBCXMLUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -30,18 +28,18 @@ public class NgiResponseProcessor {
 	
 	private Logger logger = Logger.getLogger(NgiResponseProcessor.class);
 	
-	public void sendVoidResponse(Exchange camelExchange) throws ParserConfigurationException{
+	public void sendVoidResponse(Exchange camelExchange) throws Exception{
 		
 		String voidResponse = getVoidResponse();
 		
 		camelExchange.getOut().setBody(voidResponse);		
 	}
 	
-	String getVoidResponse() throws ParserConfigurationException{
+	String getVoidResponse() throws Exception{
 				
-		Document doc = XMLUtils.newDocument();
-		
-		Element rootVoidElement = XMLUtils.createElementNS(doc, "http://ws.cjis.gov/2014/08/01/ngi/core/xsd", "VOID");
+		Document doc = OJBCXMLUtils.createDocument();		
+				
+		Element rootVoidElement = doc.createElementNS("http://ws.cjis.gov/2014/08/01/ngi/core/xsd", "VOID");
 		
 		doc.appendChild(rootVoidElement);
 		
