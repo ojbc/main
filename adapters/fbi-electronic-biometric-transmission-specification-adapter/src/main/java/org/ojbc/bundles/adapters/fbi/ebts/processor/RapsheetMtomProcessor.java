@@ -34,7 +34,9 @@ public class RapsheetMtomProcessor {
 				
 		byte[] rapsheetXmlBytes = rapsheet.getBytes();
 		
-		exhange.getIn().setHeader("base64Rapsheet", Base64.encodeBase64String(rapsheetXmlBytes));;
+		String sBase64Rapsheet = Base64.encodeBase64String(rapsheetXmlBytes);
+		
+		exhange.getIn().setHeader("base64Rapsheet", sBase64Rapsheet);
 	}
 
 }
