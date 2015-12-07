@@ -42,6 +42,8 @@
 					<xsd:element ref="ecf:CaseAugmentation"/-->
 					<xsd:element ref="ojb-cit-ext:CaseAugmentation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ojb-cit-ext:CitationCaseAugmentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ojb-cit-ext:CitationDeliveryRecipientAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ImmediateFamilyAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -238,6 +240,19 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="CitationDeliveryRecipientAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a delivery recipient entity and a citation.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-cit-ext:CitationReference"/>
+					<xsd:element ref="nc:EntityRepresentation"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:element name="PersonDriverLicense" type="ojb-cit-ext:DriverLicenseType">
 		<xsd:annotation>
 			<xsd:documentation>Information about a license issued by a state or federal entity authorizing operation of a motor vehicle on public streets and highways.</xsd:documentation>
@@ -385,6 +400,16 @@
 	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if a driver license is a commercial driver's license; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationDeliveryRecipientAssociation" type="ojb-cit-ext:CitationDeliveryRecipientAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between a delivery recipient entity and a citation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A reference to a citation.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

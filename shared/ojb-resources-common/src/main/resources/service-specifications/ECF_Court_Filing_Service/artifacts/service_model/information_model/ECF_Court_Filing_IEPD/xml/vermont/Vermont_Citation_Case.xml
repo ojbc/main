@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ojb-cit-doc:CitationCase xsi:schemaLocation="http://ojbc.org/IEPD/CitationCaseDocument/1.0 ../xsd/Vermont_Citation_Case-ext.xsd" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0" xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0">
+<ojb-cit-doc:CitationCase xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../xsd/Citation_Case-doc.xsd" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0" xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0">
 	<!-- ECF Required elements below -->
 	<j:CaseAugmentation>
 		<j:CaseCourt/>
@@ -28,23 +28,18 @@
 	</ecf-cit:CitationCaseAugmentation>
 	<!-- ECF Required elements above -->
 	<ojb-cit-ext:CaseAugmentation>
-		<!-- CASE PARTICIPANT: Subject Organization -->
-		<ecf:OrganizationAssociation>
-			<nc:OrganizationReference/>
-			<nc:OrganizationReference/>
-			<ecf:EntityAssociationTypeCode>String</ecf:EntityAssociationTypeCode>
-		</ecf:OrganizationAssociation>
 		<ecf:PersonOrganizationAssociation>
 			<nc:PersonReference s:ref="OFFICER_01"/>
 			<nc:OrganizationReference s:ref="AGENCY_01"/>
 			<ecf:EntityAssociationTypeCode>String</ecf:EntityAssociationTypeCode>
 		</ecf:PersonOrganizationAssociation>
-		<ojb-cit-ext:CaseParticipant>
+		<!-- CASE PARTICIPANT: Subject Organization-->
+		<!-- >ojb-cit-ext:CaseParticipant>
 			<ecf:EntityOrganization s:id="ORGANIZATION_01">
 				<nc:OrganizationName>ACME</nc:OrganizationName>
 			</ecf:EntityOrganization>
 			<ecf:CaseParticipantRoleCode/>
-		</ojb-cit-ext:CaseParticipant>
+		</ojb-cit-ext:CaseParticipant-->
 		<!-- CASE PARTICIPANT: Citation Delivery Recipient -->
 		<ojb-cit-ext:CaseParticipant>
 			<ecf:EntityOrganization s:id="ORGANIZATION_02">
@@ -94,7 +89,7 @@
 				<nc:PersonBirthLocation>
 					<nc:LocationAddress>
 						<nc:StructuredAddress>
-							<nc:LocationCityName>Buffallo</nc:LocationCityName>
+							<nc:LocationCityName>Buffalo</nc:LocationCityName>
 						</nc:StructuredAddress>
 					</nc:LocationAddress>
 				</nc:PersonBirthLocation>
@@ -126,17 +121,25 @@
 								<nc:LocationPostalCode>05401-1122</nc:LocationPostalCode>
 							</nc:StructuredAddress>
 						</nc:ContactMailingAddress>
-						<nc:ContactTelephoneNumber s:id="Home_Phone">
+						<nc:ContactTelephoneNumber s:id="PHONE_01">
 							<nc:FullTelephoneNumber>
 								<nc:TelephoneNumberFullID>8023631111</nc:TelephoneNumberFullID>
 							</nc:FullTelephoneNumber>
 						</nc:ContactTelephoneNumber>
-						<nc:ContactTelephoneNumber s:id="Work_Phone">
+						<nc:ContactTelephoneNumber s:id="PHONE_02">
 							<nc:FullTelephoneNumber>
 								<nc:TelephoneNumberFullID>8023631111</nc:TelephoneNumberFullID>
 							</nc:FullTelephoneNumber>
 						</nc:ContactTelephoneNumber>
 					</nc:ContactInformation>
+					<nc:PersonContactInformationAssociation>
+						<nc:ContactInformationReference s:ref="PHONE_01"/>
+						<nc:ContactInformationIsHomeIndicator>true</nc:ContactInformationIsHomeIndicator>
+					</nc:PersonContactInformationAssociation>
+					<nc:PersonContactInformationAssociation>
+						<nc:ContactInformationReference s:ref="PHONE_02"/>
+						<nc:ContactInformationIsWorkIndicator>true</nc:ContactInformationIsWorkIndicator>
+					</nc:PersonContactInformationAssociation>
 					<ojb-cit-ext:PersonDriverLicense>
 						<nc:DriverLicenseIdentification>
 							<nc:IdentificationID>41444812</nc:IdentificationID>
@@ -162,14 +165,9 @@
 				</j:StatuteOffenseIdentification>
 			</j:ChargeStatute>
 		</j:CaseCharge>
-		<j:ViolatedStatuteAssociation>
-			<j:SubjectReference s:ref="SUBJECT_01"/>
-			<nc:IncidentReference s:ref="INCIDENT_01"/>
-			<j:StatuteReference s:ref="CHARGE_01"/>
-		</j:ViolatedStatuteAssociation>
 		<ecf-cit:CitationSubject s:id="SUBJECT_01">
 			<nc:RoleOfPersonReference s:ref="PERSON_03"/>
-			<ecf-cit:PersonBloodAlcoholNumber/>
+			<ecf-cit:PersonBloodAlcoholNumber>0.2</ecf-cit:PersonBloodAlcoholNumber>
 		</ecf-cit:CitationSubject>
 		<ojb-cit-ext:Citation s:id="CITATION_01">
 			<nc:ActivityIdentification>
@@ -287,4 +285,12 @@
 			</ojb-cit-ext:DrivingIncidentAugmentation>
 		</ojb-cit-ext:DrivingIncident>
 	</ojb-cit-ext:CitationCaseAugmentation>
+	<ojb-cit-ext:CitationDeliveryRecipientAssociation>
+		<ojb-cit-ext:CitationReference s:ref="CITATION_01"/>
+		<nc:EntityOrganizationReference s:ref="ORGANIZATION_02"/>
+	</ojb-cit-ext:CitationDeliveryRecipientAssociation>
+	<nc:ImmediateFamilyAssociation>
+		<nc:PersonParentReference s:ref="PERSON_01"/>
+		<nc:PersonChildReference s:ref="PERSON_03"/>
+	</nc:ImmediateFamilyAssociation>
 </ojb-cit-doc:CitationCase>
