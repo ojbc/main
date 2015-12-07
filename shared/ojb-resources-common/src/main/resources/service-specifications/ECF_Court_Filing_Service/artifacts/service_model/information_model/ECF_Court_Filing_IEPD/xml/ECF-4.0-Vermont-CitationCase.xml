@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<ojb-citation:CitationCase xsi:schemaLocation="http://ojbc.org/IEPD/CitationCaseDocument/1.0 ../xsd/OJB-1.0-CitationCase.xsd" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:ojb-citation="http://ojbc.org/IEPD/CitationCaseDocument/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecf-citation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0">
+	<!-- Vermont Citation using OJB-1.0-CitationCase.xsd in ECF 4.0 format without extensions -->
+	<j:CaseAugmentation>
+		<j:CaseCourt/>
+	</j:CaseAugmentation>
+	<ecf:CaseAugmentation>
+		<!-- CASE PARTICIPANT: Subject Organization -->
+		<ecf:CaseParticipant>
+			<ecf:EntityOrganization s:id="ORGANIZATION_01">
+				<nc:OrganizationName>ACME</nc:OrganizationName>
+			</ecf:EntityOrganization>
+			<ecf:CaseParticipantRoleCode/>
+		</ecf:CaseParticipant>
+		<!-- CASE PARTICIPANT: Citation Delivery Recipient -->
+		<ecf:CaseParticipant>
+			<ecf:EntityOrganization s:id="ORGANIZATION_02">
+				<nc:OrganizationName>Morways Moving Company</nc:OrganizationName>
+			</ecf:EntityOrganization>
+			<ecf:CaseParticipantRoleCode/>
+		</ecf:CaseParticipant>
+		<!-- CASE PARTICIPANT: Parent -->
+		<ecf:CaseParticipant>
+			<ecf:EntityPerson s:id="PERSON_01">
+				<nc:PersonName>
+					<nc:PersonGivenName>Jack</nc:PersonGivenName>
+					<nc:PersonSurName>Jones</nc:PersonSurName>
+				</nc:PersonName>
+				<ecf:PersonAugmentation>
+					<nc:ContactInformation>
+						<nc:ContactMailingAddress>
+							<nc:StructuredAddress>
+								<nc:LocationStreet>
+									<nc:StreetFullText>100 State Street</nc:StreetFullText>
+								</nc:LocationStreet>
+								<nc:LocationCityName>Richmond</nc:LocationCityName>
+								<nc:LocationCountryFIPS10-4Code>VT</nc:LocationCountryFIPS10-4Code>
+								<nc:LocationPostalCode>05401-2277</nc:LocationPostalCode>
+							</nc:StructuredAddress>
+						</nc:ContactMailingAddress>
+					</nc:ContactInformation>
+				</ecf:PersonAugmentation>
+			</ecf:EntityPerson>
+			<ecf:CaseParticipantRoleCode/>
+		</ecf:CaseParticipant>
+		<!-- CASE PARTICIPANT: Officer -->
+		<ecf:CaseParticipant>
+			<ecf:EntityPerson s:id="PERSON_02">
+				<nc:PersonName>
+					<nc:PersonFullName>Jesse James</nc:PersonFullName>
+				</nc:PersonName>
+			</ecf:EntityPerson>
+			<ecf:CaseParticipantRoleCode/>
+		</ecf:CaseParticipant>
+		<!-- CASE PARTICIPANT: Subject -->
+		<ecf:CaseParticipant>
+			<ecf:EntityPerson s:id="PERSON_03">
+				<nc:PersonBirthDate>
+					<nc:Date>1965-09-29</nc:Date>
+				</nc:PersonBirthDate>
+				<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
+				<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+				<nc:PersonHeightMeasure>
+					<nc:MeasureText>5'07"</nc:MeasureText>
+					<nc:MeasureUnitText>Unit</nc:MeasureUnitText>
+				</nc:PersonHeightMeasure>
+				<nc:PersonName>
+					<nc:PersonGivenName>Jennifer</nc:PersonGivenName>
+					<nc:PersonMiddleName>J</nc:PersonMiddleName>
+					<nc:PersonSurName>Jones</nc:PersonSurName>
+				</nc:PersonName>
+				<nc:PersonSexCode>F</nc:PersonSexCode>
+				<nc:PersonWeightMeasure>
+					<nc:MeasureText>135</nc:MeasureText>
+					<nc:MeasureUnitText>Unit</nc:MeasureUnitText>
+				</nc:PersonWeightMeasure>
+				<ecf:PersonAugmentation>
+					<ecf:PersonDriverLicense>
+						<nc:DriverLicenseIdentification>
+							<nc:IdentificationID>41444812</nc:IdentificationID>
+							<j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+						</nc:DriverLicenseIdentification>
+					</ecf:PersonDriverLicense>
+					<nc:ContactInformation>
+						<nc:ContactMailingAddress>
+							<nc:StructuredAddress>
+								<nc:LocationStreet>
+									<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+								</nc:LocationStreet>
+								<nc:LocationCityName>Burlington</nc:LocationCityName>
+								<nc:LocationCountryFIPS10-4Code>VT</nc:LocationCountryFIPS10-4Code>
+								<nc:LocationPostalCode>05401-1122</nc:LocationPostalCode>
+							</nc:StructuredAddress>
+						</nc:ContactMailingAddress>
+						<nc:ContactTelephoneNumber s:id="Home_Phone">
+							<nc:FullTelephoneNumber>
+								<nc:TelephoneNumberFullID>8023631111</nc:TelephoneNumberFullID>
+							</nc:FullTelephoneNumber>
+						</nc:ContactTelephoneNumber>
+						<nc:ContactTelephoneNumber s:id="Work_Phone">
+							<nc:FullTelephoneNumber>
+								<nc:TelephoneNumberFullID>8023631111</nc:TelephoneNumberFullID>
+							</nc:FullTelephoneNumber>
+						</nc:ContactTelephoneNumber>
+					</nc:ContactInformation>
+				</ecf:PersonAugmentation>
+			</ecf:EntityPerson>
+			<ecf:CaseParticipantRoleCode/>
+		</ecf:CaseParticipant>
+		<ecf:OrganizationAssociation>
+			<nc:OrganizationReference/>
+			<nc:OrganizationReference/>
+			<ecf:EntityAssociationTypeCode>String</ecf:EntityAssociationTypeCode>
+		</ecf:OrganizationAssociation>
+		<!--  KEEP -->
+		<ecf:PersonOrganizationAssociation>
+			<nc:PersonReference s:ref="OFFICER_01"/>
+			<nc:OrganizationReference s:ref="AGENCY_01"/>
+			<ecf:EntityAssociationTypeCode>String</ecf:EntityAssociationTypeCode>
+			<!-- KEEP -->
+		</ecf:PersonOrganizationAssociation>
+	</ecf:CaseAugmentation>
+	<ecf-citation:CitationCaseAugmentation>
+		<j:Citation s:id="CITATION_01">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>82734800</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:Date>2015-10-27</nc:Date>
+			</nc:ActivityDate>
+			<j:CitationAgency s:id="AGENCY_01">
+				<nc:OrganizationName>Burlington, PD</nc:OrganizationName>
+				<nc:OrganizationPrimaryContactInformation>
+					<nc:ContactEntity>
+						<ecf:EntityOrganization>
+							<j:OrganizationAugmentation>
+								<j:OrganizationORIIdentification>
+									<nc:IdentificationID>VT0040100</nc:IdentificationID>
+								</j:OrganizationORIIdentification>
+							</j:OrganizationAugmentation>
+						</ecf:EntityOrganization>
+					</nc:ContactEntity>
+				</nc:OrganizationPrimaryContactInformation>
+			</j:CitationAgency>
+			<j:CitationIssuingOfficial s:id="OFFICER_01">
+				<nc:RoleOfPersonReference s:ref="PERSON_02"/>
+				<j:EnforcementOfficialBadgeIdentification>
+					<nc:IdentificationID>12345</nc:IdentificationID>
+				</j:EnforcementOfficialBadgeIdentification>
+			</j:CitationIssuingOfficial>
+		</j:Citation>
+		<j:CaseCharge>
+			<j:ChargeStatute s:id="OFFENSE_01">
+				<j:StatuteOffenseIdentification>
+					<nc:IdentificationID>23V1007A</nc:IdentificationID>
+				</j:StatuteOffenseIdentification>
+			</j:ChargeStatute>
+		</j:CaseCharge>
+		<!-- KEEP -->
+		<j:ViolatedStatuteAssociation>
+			<j:SubjectReference s:ref="SUBJECT_01"/>
+			<nc:IncidentReference s:ref="INCIDENT_01"/>
+			<j:StatuteReference s:ref="OFFENSE_01"/>
+		</j:ViolatedStatuteAssociation>
+		<!-- KEEP -->
+		<ecf-citation:CitationSubject s:id="SUBJECT_01">
+			<nc:RoleOfPersonReference s:ref="PERSON_03"/>
+			<ecf-citation:PersonBloodAlcoholNumber/>
+		</ecf-citation:CitationSubject>
+		<ecf-citation:Vehicle s:id="VEHICLE_01">
+			<nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
+			<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
+			<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
+			<nc:ConveyanceRegistrationPlateIdentification>
+				<nc:IdentificationID>ABC1234567</nc:IdentificationID>
+				<j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+			</nc:ConveyanceRegistrationPlateIdentification>
+			<nc:VehicleIdentification>
+				<nc:IdentificationID>VIN</nc:IdentificationID>
+				<nc:IdentificationSourceText>String</nc:IdentificationSourceText>
+			</nc:VehicleIdentification>
+			<nc:VehicleMakeCode>TOYT</nc:VehicleMakeCode>
+		</ecf-citation:Vehicle>
+		<ecf-citation:DrivingIncident s:id="INCIDENT_01">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>Law(15RM00998)</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:DateTime>2016-01-01T01:22:00</nc:DateTime>
+			</nc:ActivityDate>
+			<nc:ActivityDescriptionText>No vehicle registration</nc:ActivityDescriptionText>
+			<nc:IncidentLocation>
+				<nc:LocationAddress>
+					<nc:StructuredAddress>
+						<nc:LocationCityName>Buffalo</nc:LocationCityName>
+					</nc:StructuredAddress>
+				</nc:LocationAddress>
+			</nc:IncidentLocation>
+			<j:DrivingIncidentRecordedSpeedRate>
+				<nc:MeasureText>30</nc:MeasureText>
+				<nc:MeasureUnitText>mph</nc:MeasureUnitText>
+			</j:DrivingIncidentRecordedSpeedRate>
+			<j:DrivingIncidentLegalSpeedRate>
+				<nc:MeasureText>40</nc:MeasureText>
+				<nc:MeasureUnitText>mph</nc:MeasureUnitText>
+			</j:DrivingIncidentLegalSpeedRate>
+			<j:IncidentAugmentation>
+				<j:IncidentTrafficAccidentInvolvedIndicator>false</j:IncidentTrafficAccidentInvolvedIndicator>
+			</j:IncidentAugmentation>
+			<nc:IncidentVehicleAssociation>
+				<nc:ActivityReference s:ref="INCIDENT_01"/>
+				<nc:ConveyanceReference s:ref="VEHICLE_01"/>
+			</nc:IncidentVehicleAssociation>
+		</ecf-citation:DrivingIncident>
+	</ecf-citation:CitationCaseAugmentation>
+</ojb-citation:CitationCase>
