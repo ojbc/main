@@ -31,6 +31,8 @@
     xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
     xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0"
     xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
+    xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+    xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
     xsi:schemaLocation="
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -89,7 +91,8 @@
             
             <camel:choice>
                 <camel:when>
-                    <camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:CriminalIdentificationReasonCode) ='CAR'</camel:xpath>
+                    <camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:CriminalIdentificationReasonCode) ='CAR' 
+                    	and normalize-space(/pidres-doc:PersonStateIdentificationResults/j:Subject/nc:RoleOfPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true']/nc:IdentificationID) != ''</camel:xpath>
                     <camel:log message="CAR state identification results, need to transform it and sent to Arresting Report Service."/>
                     <camel:to uri="xslt:xsl/arrestReportTransform.xsl"/>
                     
