@@ -17,9 +17,6 @@
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
 import java.io.File;
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -29,7 +26,6 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
 
 public class NgiResponseProcessorTest {
@@ -47,7 +43,7 @@ public class NgiResponseProcessorTest {
 	}
 	
 	@Test
-	public void voidResponseTest() throws ParserConfigurationException, IOException, SAXException{
+	public void voidResponseTest() throws Exception{
 		
 		NgiResponseProcessor ngiResponseProcessor = new NgiResponseProcessor();
 		
