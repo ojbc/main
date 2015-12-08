@@ -51,7 +51,6 @@
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 		<sn-intermediary-common-version>2.0.0</sn-intermediary-common-version>
-		<jodatime-version>1.6.2</jodatime-version>
 		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<xmlunit-version>1.5</xmlunit-version>
@@ -128,12 +127,8 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>${commons-lang-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${jodatime-version}</version>
-		</dependency>
+		</dependency>		
+		
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
