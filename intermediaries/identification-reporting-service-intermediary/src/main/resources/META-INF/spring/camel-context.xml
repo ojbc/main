@@ -94,7 +94,7 @@
                     <camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:CriminalIdentificationReasonCode) ='CAR' 
                     	and normalize-space(/pidres-doc:PersonStateIdentificationResults/j:Subject/nc:RoleOfPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true']/nc:IdentificationID) != ''</camel:xpath>
                     <camel:log message="CAR state identification results, need to transform it and sent to Arresting Report Service."/>
-                    <camel:to uri="xslt:xsl/arrestReportTransform.xsl"/>
+                    <camel:to uri="xslt:xsl/arrestReportTransform.xsl?saxon=true"/>
                     
                     <camel:log message="About to call Arrest Report Service: ${body}" loggingLevel="INFO"/>
 		            <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
