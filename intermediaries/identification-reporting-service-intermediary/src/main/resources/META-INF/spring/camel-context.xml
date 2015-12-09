@@ -119,7 +119,10 @@
         
         <!-- Identification Reporting Service Handler -->
         <camel:route id="identificationReportingResponseHandlerRoute">
-            <camel:from uri="identificationReportingResponseServiceEndpoint" />
+        
+            <camel:from uri="identificationReportingResponseServiceEndpoint" />        
+        
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>			        
             
             <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
             
