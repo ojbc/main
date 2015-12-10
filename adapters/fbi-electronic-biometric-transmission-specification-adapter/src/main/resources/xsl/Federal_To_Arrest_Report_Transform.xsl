@@ -17,8 +17,19 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsl:stylesheet version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:arrest-exch="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1">
+<xsl:stylesheet version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+	xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:arrest-exch="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
+	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+	xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0"
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
+	
+	<xsl:param name="base64Rapsheet" />
 	<xsl:template match="/">
 		<arrest-exch:ArrestReport>
 			<xsl:apply-templates select="itl:NISTBiometricInformationExchangePackage"/>
@@ -53,10 +64,12 @@
 								<lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
 								<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
 							</lexs:StructuredPayloadMetadata>
-							<ojbc:ArrestReport xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include">
+							<ojbc:ArrestReport>
 								<xsl:apply-templates select="itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData/ebts:RecordRapBackSubscriptionID"/>
-								<ojbc:FederalCriminalHistoryRecordDocument xmime:contentType="text/plain">
-									<xop:Include href="cid:http://ojbc.org/arrest/document"/>
+								<ojbc:FederalCriminalHistoryRecordDocument>
+									<nc:DocumentBinary>
+										<ojbc:Base64BinaryObject><xsl:value-of select="$base64Rapsheet"/></ojbc:Base64BinaryObject>
+									</nc:DocumentBinary>
 								</ojbc:FederalCriminalHistoryRecordDocument>
 							</ojbc:ArrestReport>
 						</lexs:StructuredPayload>

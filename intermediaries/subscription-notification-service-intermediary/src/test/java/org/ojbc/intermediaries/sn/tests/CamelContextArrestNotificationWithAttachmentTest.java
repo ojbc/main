@@ -63,7 +63,6 @@ public class CamelContextArrestNotificationWithAttachmentTest extends AbstractSu
 
 	private static final Object CXF_OPERATION_NAME_NOTIFICATION = "Notify";
 	private static final Object CXF_OPERATION_NAMESPACE_NOTIFICATION = "http://www.ojbc.org/SubscribeNotify/NotificationBroker";
-	private static final String ATTACHEMNT_ID = "http://ojbc.org/criminal_history/document/example";
 
 	private final Log log = LogFactory.getLog( this.getClass() );
 	
@@ -122,14 +121,6 @@ public class CamelContextArrestNotificationWithAttachmentTest extends AbstractSu
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(inputStr);
 
-		/*
-		 * add MTOM attachment to the exchange.
-		 */
-		
-		byte[] rapsheet = FileUtils.readFileToByteArray(new File("src/test/resources/xmlInstances/fbi/fbiResultFromLOTC.html"));
-		senderExchange.getIn().addAttachment(ATTACHEMNT_ID, 
-			new DataHandler(new ByteArrayDataSource(rapsheet, "text/plain")));
-		
 	    //Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:processNotification", senderExchange);
 		

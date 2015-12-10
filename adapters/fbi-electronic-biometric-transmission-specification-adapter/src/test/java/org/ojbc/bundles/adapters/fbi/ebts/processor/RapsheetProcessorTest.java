@@ -16,12 +16,7 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import javax.activation.DataHandler;
 
 import junit.framework.Assert;
 
@@ -29,13 +24,13 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
-import org.apache.commons.io.IOUtils;
+import org.apache.geronimo.mail.util.Base64;
 import org.junit.Test;
 
 public class RapsheetProcessorTest {
 		
 	@Test
-	public void attachMtomRapsheetTest() throws IOException{
+	public void convertToBase64BinaryTest() throws IOException{
 		
 		RapsheetMtomProcessor rapsheetMtomProcessor = new RapsheetMtomProcessor();
 		
@@ -43,13 +38,12 @@ public class RapsheetProcessorTest {
 		Exchange exchange = new DefaultExchange(camelContext);
 		
 		exchange.getIn().setHeader("rapsheet", "<Fbi></Fbi>");		
-		rapsheetMtomProcessor.attachMtomRapsheet(exchange);
+		rapsheetMtomProcessor.convertToBase64Binary(exchange, "<Fbi></Fbi>");
 				
-		DataHandler rapsheetDataHandler = exchange.getIn().getAttachment("http://ojbc.org/arrest/document");
-		InputStream rapsheetInStream = rapsheetDataHandler.getInputStream();
+		byte[] base64String = (byte[]) exchange.getIn().getHeader("base64Rapsheet");
 		
-		String rapsheetAttached = IOUtils.toString(rapsheetInStream);		
-		Assert.assertEquals("<Fbi></Fbi>", rapsheetAttached);		
+		byte[] rapsheet = Base64.decode(base64String);		
+		Assert.assertEquals("<Fbi></Fbi>", new String(rapsheet));		
 	}
 }
 
