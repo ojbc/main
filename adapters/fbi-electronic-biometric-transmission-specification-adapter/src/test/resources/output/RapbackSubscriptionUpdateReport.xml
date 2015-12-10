@@ -45,7 +45,7 @@
 			</jxdm50:PersonFBIIdentification>
 		</jxdm50:PersonAugmentation>
 	</nc30:Person>
-	<fed_subcr_upd-ext:CriminalHistoryDocument s30:ref="idebts:TransactionElectronicRapSheetText112903000">
+	<fed_subcr_upd-ext:CriminalHistoryDocument s30:ref="d1e346">
 		<nc:DocumentBinary>
 			<fed_subcr_upd-ext:Base64BinaryObject>Subject's Rap Sheet goes here</fed_subcr_upd-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
