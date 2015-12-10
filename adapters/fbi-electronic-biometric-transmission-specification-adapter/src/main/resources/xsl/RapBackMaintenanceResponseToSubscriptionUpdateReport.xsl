@@ -25,6 +25,7 @@
 		<fed_subcr_upd-doc:FederalSubscriptionUpdateReport>
 			<xsl:apply-templates select="ebts:RecordRapBackData"/>
 			<xsl:apply-templates select="ebts:RecordSubject"/>
+			<xsl:apply-templates select="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText" mode="rapsheet"/>
 		</fed_subcr_upd-doc:FederalSubscriptionUpdateReport>
 	</xsl:template>
 	<xsl:template match="ebts:RecordSubject/jxdm50:PersonFBIIdentification/nc:IdentificationID">
@@ -103,6 +104,16 @@
 				</jxdm50:PersonFBIIdentification>
 			</jxdm50:PersonAugmentation>
 		</nc30:Person>
+	</xsl:template>
+	<xsl:template match="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText" mode="rapsheet">
+		<fed_subcr_upd-ext:CriminalHistoryDocument>
+			<xsl:attribute name="s30:ref"><xsl:value-of select="generate-id(.)"/></xsl:attribute>
+			<nc:DocumentBinary>
+				<fed_subcr_upd-ext:Base64BinaryObject>
+					<xsl:value-of select="."/>
+				</fed_subcr_upd-ext:Base64BinaryObject>
+			</nc:DocumentBinary>
+		</fed_subcr_upd-ext:CriminalHistoryDocument>
 	</xsl:template>
 	<xsl:template match="nc:IdentificationID">
 		<nc30:IdentificationID>
