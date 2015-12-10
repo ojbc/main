@@ -1,0 +1,1481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architect-project version="1.0" appversion="1.0.7">
+ <project-name>FC_CourtQueryResponse</project-name>
+ <print-settings printerName="HP Officejet 6700" numCopies="1" zoom="0.38" pageNumbersPrinted="false" orientation="0" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
+ <project-data-sources>
+  <data-source id="DS0">
+   <property key="Logical" value="PlayPen Database" />
+  </data-source>
+ </project-data-sources>
+ <source-databases>
+ </source-databases>
+ <target-database id="ppdb" dbcs-ref="DS0">
+  <table id="TAB1" populated="true" UUID="2312a83e-d8d1-487e-917e-ec2e98e90c2e" name="CourtCase" objectType="TABLE" physicalName="CourtCase" >
+   <remarks></remarks>
+   <folder id="FOLTAB11" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL2" populated="true" UUID="44fe3888-fde1-4aa3-bf80-b7e4a67e631b" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseID_seq" defaultValue="" name="CourtCaseID" nullable="0" physicalName="CourtCaseID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL3" populated="true" UUID="5ca0b37c-4eb3-41b7-b7df-61d237cc44a9" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseNO_seq" defaultValue="" name="CourtCaseNo" nullable="0" physicalName="CourtCaseNo" precision="15" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL4" populated="true" UUID="5bd2f1bd-fcce-4e1d-866f-d484dd92700b" autoIncrement="false" autoIncrementSequenceName="Defendant_CaseTypeCode_seq" defaultValue="" name="CaseTypeCode" nullable="0" physicalName="CaseTypeCode" precision="2" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL5" populated="true" UUID="db141291-d023-4b9b-8c57-9eee102b9167" autoIncrement="false" autoIncrementSequenceName="Defendant_CaseSubTypeCode_seq" defaultValue="" name="CaseSubTypeCode" nullable="0" physicalName="CaseSubTypeCode" precision="2" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL6" populated="true" UUID="83fd52d4-ab18-471d-a8a7-91b5603b8e9d" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtName_seq" defaultValue="" name="CourtName" nullable="0" physicalName="CourtName" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL7" populated="true" UUID="c2fdd80d-db62-477d-967a-af8d21ac9573" autoIncrement="false" autoIncrementSequenceName="CourtCase_DomesticViolence_seq" defaultValue="" name="DomesticViolence" nullable="0" physicalName="DomesticViolence" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL8" populated="true" UUID="3d9bb732-fd4d-41ad-8280-53846944e38d" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtJurisdiction_seq" defaultValue="" name="CourtJurisdiction" nullable="0" physicalName="CourtJurisdiction" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL9" populated="true" UUID="a8336e4f-4252-40eb-8b3d-5018274bdfa3" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseSealed_seq" defaultValue="" name="CourtCaseSealed" nullable="0" physicalName="CourtCaseSealed" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL10" populated="true" UUID="924d87bc-261a-4069-9fe9-a9ebd1b354ca" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseComment_seq" defaultValue="" name="CourtCaseComment" nullable="0" physicalName="CourtCaseComment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL11" populated="true" UUID="c55d4c00-fe1f-4743-894a-75bc544c5184" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseJudgeName_seq" defaultValue="" name="CourtCaseJudgeName" nullable="0" physicalName="CourtCaseJudgeName" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL12" populated="true" UUID="63d9ad87-1e9e-4ce8-9e52-6eae22a79208" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseJudgeID_seq" defaultValue="" name="CourtCaseJudgeID" nullable="0" physicalName="CourtCaseJudgeID" precision="10" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL13" populated="true" UUID="e72b5e3e-213c-4edf-b8b8-8124e3e7d65a" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseCurrentStatus_seq" defaultValue="" name="CourtCaseCurrentStatus" nullable="0" physicalName="CourtCaseCurrentStatus" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL14" populated="true" UUID="a0abebea-cd1e-476b-ae8b-d84f289d27ed" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseCurrentStatusDate_seq" defaultValue="" name="CourtCaseCurrentStatusDate" nullable="0" physicalName="CourtCaseCurrentStatusDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL15" populated="true" UUID="c0f4d5e8-279c-4073-b529-eb31856ee7c8" autoIncrement="false" autoIncrementSequenceName="CourtCase_AppellateCaseNumber_seq" defaultValue="" name="AppellateCaseNumber" nullable="0" physicalName="AppellateCaseNumber" precision="15" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL16" populated="true" UUID="7c76ea02-cf79-441b-b112-e5fd5eec13b9" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseLocation_seq" defaultValue="" name="CourtCaseLocation" nullable="0" physicalName="CourtCaseLocation" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL17" populated="true" UUID="3232340c-f23e-488d-9f63-d88013043704" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseFilingDate_seq" defaultValue="" name="CourtCaseFilingDate" nullable="0" physicalName="CourtCaseFilingDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL18" populated="true" UUID="676525fc-0f29-4893-be01-4491e3eda5ba" autoIncrement="false" autoIncrementSequenceName="CourtCase_AppealDate_seq" defaultValue="" name="AppealDate" nullable="0" physicalName="AppealDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL19" populated="true" UUID="73062069-6165-4160-a313-00d45a1194e2" autoIncrement="false" autoIncrementSequenceName="CourtCase_RemandDate_seq" defaultValue="" name="RemandDate" nullable="0" physicalName="RemandDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL20" populated="true" UUID="93e5f2f3-c911-4c60-8672-6be9b48121ae" autoIncrement="false" autoIncrementSequenceName="CourtCase_UnderAdvisementDate_seq" defaultValue="" name="UnderAdvisementDate" nullable="0" physicalName="UnderAdvisementDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL21" populated="true" UUID="0dc4686a-ebc1-4476-9a5f-578ab954a3b4" autoIncrement="false" autoIncrementSequenceName="CourtCase_PreviousCaseNumber_seq" defaultValue="" name="PreviousCaseNumber" nullable="0" physicalName="PreviousCaseNumber" precision="15" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL22" populated="true" UUID="51d3c3ae-8924-437d-a03f-695119b5124c" autoIncrement="false" autoIncrementSequenceName="CourtCase_OtherAgencyCaseNumber_seq" defaultValue="" name="OtherAgencyCaseNumber" nullable="0" physicalName="OtherAgencyCaseNumber" precision="15" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL23" populated="true" UUID="379c6c81-fc82-4c36-9b5c-0b0ed71b1378" autoIncrement="false" autoIncrementSequenceName="CourtCase_JuryRequested_seq" defaultValue="" name="JuryRequested" nullable="0" physicalName="JuryRequested" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL24" populated="true" UUID="ccf46c4b-dc77-45da-af20-23412fb223dc" autoIncrement="false" autoIncrementSequenceName="CourtCase_JuryVerdict_seq" defaultValue="" name="JuryVerdict" nullable="0" physicalName="JuryVerdict" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL25" populated="true" UUID="fda2c018-17e0-4bd5-bac8-8d9f75b0d095" autoIncrement="false" autoIncrementSequenceName="CourtCase_BatchLabel_seq" defaultValue="" name="BatchLabel" nullable="0" physicalName="BatchLabel" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL26" populated="true" UUID="bcfb5f03-1dbd-48ae-8e42-80fe55fd3bc1" autoIncrement="false" autoIncrementSequenceName="CourtCase_ProbationOfficerName_seq" defaultValue="" name="ProbationOfficerName" nullable="0" physicalName="ProbationOfficerName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL27" populated="true" UUID="139709d0-5ed6-49cc-b297-9e074498de9f" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_FirstApperanceDateTime_seq" defaultValue="" name="FirstApperanceDateTime" nullable="0" physicalName="FirstApperanceDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL28" populated="true" UUID="3fa58cb4-2db6-4fd6-86ae-8e2096b7e785" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_NextAppearanceDateTime_seq" defaultValue="" name="NextAppearanceDateTime" nullable="0" physicalName="NextAppearanceDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL29" populated="true" UUID="264ed5cc-57ae-48d2-b99b-814ea567b642" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_TrialBy_seq" defaultValue="" name="TrialBy" nullable="0" physicalName="TrialBy" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL30" populated="true" UUID="a630957a-99b0-4adf-8f80-23c6543a2727" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_SpeedyTrialDate_seq" defaultValue="" name="SpeedyTrialDate" nullable="0" physicalName="SpeedyTrialDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL31" populated="true" UUID="10e67125-fb9b-49e4-9cbc-1313cad1781a" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_FTPHoldIndefinite_seq" defaultValue="" name="FTPHoldIndefinite" nullable="0" physicalName="FTPHoldIndefinite" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL32" populated="true" UUID="5841af8d-5e30-4c2a-b607-4f93a3004280" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_FTAHoldDate_seq" defaultValue="" name="FTAHoldDate" nullable="0" physicalName="FTAHoldDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL33" populated="true" UUID="55897438-7296-4a40-9c5e-96bd6706a1b3" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_FTPHoldDate_seq" defaultValue="" name="FTPHoldDate" nullable="0" physicalName="FTPHoldDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL34" populated="true" UUID="2cf01c62-6909-4249-a56e-14ae0f7c0235" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_FTCHoldDate_seq" defaultValue="" name="FTCHoldDate" nullable="0" physicalName="FTCHoldDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL35" populated="true" UUID="0439217a-51f3-440a-aac4-fcd9861f6796" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_FTPVHoldDate_seq" defaultValue="" name="FTPVHoldDate" nullable="0" physicalName="FTPVHoldDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL36" populated="true" UUID="d81ef6d4-2eb2-467e-9d65-830367197282" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_LeadAttorney_seq" defaultValue="" name="LeadAttorney" nullable="0" physicalName="LeadAttorney" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL37" populated="true" UUID="da665624-3456-4a39-b451-a7f266385379" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_AttorneyWaived_seq" defaultValue="" name="AttorneyWaived" nullable="0" physicalName="AttorneyWaived" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL38" populated="true" UUID="c642fbc6-2652-49b5-94ee-a7b9b98d03bd" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_FPCNumber_seq" defaultValue="" name="FPCNumber" nullable="0" physicalName="FPCNumber" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL39" populated="true" UUID="8b5a3325-ea26-434c-9e12-ccdfe8f5c5ad" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_BalanceDue_seq" defaultValue="" name="BalanceDue" nullable="0" physicalName="BalanceDue" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL40" populated="true" UUID="a5ca3eb7-d670-4e84-bc27-fa3ce20a3cf2" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_BalanceDueDate_seq" defaultValue="" name="BalanceDueDate" nullable="0" physicalName="BalanceDueDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL41" populated="true" UUID="19b49ed7-b9b6-419a-ab5e-aeda7bc9a3c4" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_ExtensionDate_seq" defaultValue="" name="ExtensionDate" nullable="0" physicalName="ExtensionDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL42" populated="true" UUID="fe1737b1-f115-4e65-a034-063a1e7ce4d6" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_CustodyStatus_seq" defaultValue="" name="CustodyStatus" nullable="0" physicalName="CustodyStatus" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL43" populated="true" UUID="319dfe0e-7001-45e3-b487-060fa2428089" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_DoNotAllowPayments_seq" defaultValue="" name="DoNotAllowEPayments" nullable="0" physicalName="DoNotAllowEPayments" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL44" populated="true" UUID="17374967-ed96-4262-94de-11bdf3a51b60" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_InterestStartDate_seq" defaultValue="" name="InterestStartDate" nullable="0" physicalName="InterestStartDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB13" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB12" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB14" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX45" populated="true" UUID="9844f906-5a90-4305-8598-46b241d5ec33" clustered="false" name="CourtCase_pk" physicalName="CourtCase_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC46" populated="true" UUID="28762c91-cd19-472d-be96-98290b7c41f8" ascendingOrDescending="UNSPECIFIED" column-ref="COL2" name="CourtCaseID" physicalName="CourtCaseID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB47" populated="true" UUID="c016e714-8e1a-4a47-89c0-81656c4127f3" name="Defendant" objectType="TABLE" physicalName="Defendant" >
+   <remarks></remarks>
+   <folder id="FOLTAB471" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL48" populated="true" UUID="88ad6ba9-201d-4aa0-bd1a-6618e417c488" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL49" populated="true" UUID="e95875bd-1a28-40ed-bfd8-dee7b973fbca" autoIncrement="false" autoIncrementSequenceName="Defendant_PartyID_seq" defaultValue="" name="PartyID" nullable="0" physicalName="PartyID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Unique to each jurisdiction</remarks>
+    </column>
+    <column id="COL50" populated="true" UUID="d3705704-9876-48e9-84e5-395aa55a9bd7" autoIncrement="false" autoIncrementSequenceName="CourtCase_New Column_seq" defaultValue="" name="CourtCaseID" nullable="0" physicalName="CourtCaseID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL51" populated="true" UUID="d59da661-a755-4b52-abe0-bf810b1cb520" autoIncrement="false" autoIncrementSequenceName="Defendant_CriminalHistoryID_seq" defaultValue="" name="CriminalHistoryID" nullable="0" physicalName="CriminalHistoryID" precision="20" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL52" populated="true" UUID="b2a30a39-661d-4157-83d3-520fac7048db" autoIncrement="false" autoIncrementSequenceName="Defendant_SocialSecurityNumber_seq" defaultValue="" name="SocialSecurityNumber" nullable="0" physicalName="SocialSecurityNumber" precision="11" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL53" populated="true" UUID="38086a35-e7f0-4ee4-93ea-f2046076a7d0" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantFullName_seq" defaultValue="" name="DefendantFullName" nullable="0" physicalName="DefendantFullName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL54" populated="true" UUID="086e44fc-af28-4aa6-aff8-d4943eb1ae98" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantLastName_seq" defaultValue="" name="DefendantLastName" nullable="0" physicalName="DefendantLastName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL55" populated="true" UUID="f8707fd9-87bf-46d3-b852-a8f5849d506d" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantFirstName_seq" defaultValue="" name="DefendantFirstName" nullable="0" physicalName="DefendantFirstName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL56" populated="true" UUID="7f9ae608-f2a3-4319-bd0c-79eba1028ac7" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantMiddleName_seq" defaultValue="" name="DefendantMiddleName" nullable="0" physicalName="DefendantMiddleName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL57" populated="true" UUID="ecc9bbdd-45df-45ff-9943-2d5d14776fab" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantSuffix_seq" defaultValue="" name="DefendantSuffix" nullable="0" physicalName="DefendantSuffix" precision="4" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL58" populated="true" UUID="9e53363b-8d4c-4e07-b351-5373abf2bccc" autoIncrement="false" autoIncrementSequenceName="Defendant_Company_seq" defaultValue="" name="Company" nullable="0" physicalName="Company" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL59" populated="true" UUID="2b6d1ccf-59d7-4670-aa88-590100c4b6a0" autoIncrement="false" autoIncrementSequenceName="Defendant_DateOfBirth_seq" defaultValue="" name="DateOfBirth" nullable="0" physicalName="DateOfBirth" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL60" populated="true" UUID="cdae2dc7-7422-4cdf-858e-f93176ef6997" autoIncrement="false" autoIncrementSequenceName="Defendant_Race_seq" defaultValue="" name="Race" nullable="0" physicalName="Race" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL61" populated="true" UUID="42be95f0-bb31-465b-9645-68b4f817bcb5" autoIncrement="false" autoIncrementSequenceName="Defendant_Sex_seq" defaultValue="" name="Sex" nullable="0" physicalName="Sex" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL62" populated="true" UUID="0cdf5618-b11b-487e-8dbb-ae6bf623705e" autoIncrement="false" autoIncrementSequenceName="Defendant_Height_seq" defaultValue="" name="Height" nullable="0" physicalName="Height" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL63" populated="true" UUID="5aa22cc0-dc10-4ce6-a9f6-ed142f93816d" autoIncrement="false" autoIncrementSequenceName="Defendant_Weight_seq" defaultValue="" name="Weight" nullable="0" physicalName="Weight" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL64" populated="true" UUID="aa611f48-b2ad-40bb-b6c2-9223248e06c5" autoIncrement="false" autoIncrementSequenceName="Defendant_Eyes_seq" defaultValue="" name="Eyes" nullable="0" physicalName="Eyes" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL65" populated="true" UUID="ac31e1e1-056c-4870-bff6-dcdc6197a72b" autoIncrement="false" autoIncrementSequenceName="Defendant_Hair_seq" defaultValue="" name="Hair" nullable="0" physicalName="Hair" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL66" populated="true" UUID="5d3c7753-8e7e-409b-bee8-068832004c44" autoIncrement="false" autoIncrementSequenceName="Defendant_Language_seq" defaultValue="" name="Language" nullable="0" physicalName="Language" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL67" populated="true" UUID="a2ffff15-30a6-455b-897f-700365e2707e" autoIncrement="false" autoIncrementSequenceName="Defendant_Ethnicity_seq" defaultValue="" name="Ethnicity" nullable="0" physicalName="Ethnicity" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL68" populated="true" UUID="174bbf74-30b6-402c-874a-33ddfd5e3538" autoIncrement="false" autoIncrementSequenceName="Defendant_CustodyStatus_seq" defaultValue="" name="CustodyStatus" nullable="0" physicalName="CustodyStatus" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL69" populated="true" UUID="2061dfbe-687b-4369-999e-af3c7fb1e805" autoIncrement="false" autoIncrementSequenceName="Defendant_Juvenile_seq" defaultValue="" name="Juvenile" nullable="0" physicalName="Juvenile" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL70" populated="true" UUID="401c648d-21a3-4c71-a771-25a4b16560e3" autoIncrement="false" autoIncrementSequenceName="Defendant_DriverLicenseID_seq" defaultValue="" name="DriverLicenseID" nullable="0" physicalName="DriverLicenseID" precision="15" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL71" populated="true" UUID="32ab5bbf-1be3-473f-943a-d9e222e162fb" autoIncrement="false" autoIncrementSequenceName="Defendant_DriverLicenseState_seq" defaultValue="" name="DriverLicenseState" nullable="0" physicalName="DriverLicenseState" precision="2" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL72" populated="true" UUID="69ce1802-984d-4c37-b88d-8b467bb32a0c" autoIncrement="false" autoIncrementSequenceName="Defendant_LicenseClass_seq" defaultValue="" name="LicenseClass" nullable="0" physicalName="LicenseClass" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL73" populated="true" UUID="bdac60b3-0594-48fc-8891-55c971241247" autoIncrement="false" autoIncrementSequenceName="Defendant_LicenseCommercial_seq" defaultValue="" name="LicenseCommercial" nullable="0" physicalName="LicenseCommercial" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL74" populated="true" UUID="3011b606-1960-425e-ae6f-3e5d0a7e6958" autoIncrement="false" autoIncrementSequenceName="Defendant_LicenseIssuedDate_seq" defaultValue="" name="LicenseIssuedDate" nullable="0" physicalName="LicenseIssuedDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL75" populated="true" UUID="d34e37a0-76fd-4776-875a-386621f31c72" autoIncrement="false" autoIncrementSequenceName="Defendant_LicenseExpiresDate_seq" defaultValue="" name="LicenseExpiresDate" nullable="0" physicalName="LicenseExpiresDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL76" populated="true" UUID="fc194ccf-5461-42ff-b50e-a7381f6ca50b" autoIncrement="false" autoIncrementSequenceName="Defendant_JuvenileID_seq" defaultValue="" name="JuvenileID" nullable="0" physicalName="JuvenileID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL77" populated="true" UUID="bfa79c41-e790-46b9-8677-e5b1c40c7f26" autoIncrement="false" autoIncrementSequenceName="Defendant_InmateID_seq" defaultValue="" name="InmateID" nullable="0" physicalName="InmateID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL78" populated="true" UUID="da9a1297-4524-4568-be59-63acb08613b6" autoIncrement="false" autoIncrementSequenceName="Defendant_OtherID_seq" defaultValue="" name="OtherID" nullable="0" physicalName="OtherID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL79" populated="true" UUID="83dc8e6e-828c-4563-b38c-d62062cc8f6e" autoIncrement="false" autoIncrementSequenceName="Defendant_BodyMarks_seq" defaultValue="" name="BodyMarks" nullable="0" physicalName="BodyMarks" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL80" populated="true" UUID="41d702a5-ba1e-429d-b883-17d49ea1ac7d" autoIncrement="false" autoIncrementSequenceName="Defendant_GeneralComment_seq" defaultValue="" name="GeneralComment" nullable="0" physicalName="GeneralComment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL81" populated="true" UUID="f102ee56-61e5-4fbc-bafc-e6d989cf5c61" autoIncrement="false" autoIncrementSequenceName="Defendant_ClerkComment_seq" defaultValue="" name="ClerkComment" nullable="0" physicalName="ClerkComment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB473" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB472" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB474" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX82" populated="true" UUID="8a4f9dab-7081-4ba3-ae34-262d7ff1fc99" clustered="false" name="Defendant_pk" physicalName="Defendant_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC83" populated="true" UUID="44870549-825e-42f8-bf5c-9a0da7c39d83" ascendingOrDescending="UNSPECIFIED" column-ref="COL48" name="DefendantID" physicalName="DefendantID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB84" populated="true" UUID="afa82a26-8576-4e2c-a646-f961be80d746" name="Attorney" objectType="TABLE" physicalName="Attorney" >
+   <remarks></remarks>
+   <folder id="FOLTAB841" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL85" populated="true" UUID="d91d7fe0-44b1-4675-86f1-b44e16ec01e7" autoIncrement="false" autoIncrementSequenceName="Attorney_AttorneyID_seq" defaultValue="" name="AttorneyID" nullable="0" physicalName="AttorneyID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL86" populated="true" UUID="d4f4299b-6a70-4417-9e90-b7d1894747c6" autoIncrement="false" autoIncrementSequenceName="CourtCase_New Column_seq" defaultValue="" name="CourtCaseID" nullable="0" physicalName="CourtCaseID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL87" populated="true" UUID="10bea6ab-ace6-4b9c-aa44-a7b0f3be7c59" autoIncrement="false" autoIncrementSequenceName="Attorney_AttorneyName_seq" defaultValue="" name="AttorneyName" nullable="0" physicalName="AttorneyName" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL88" populated="true" UUID="50e7d44b-9adc-48a3-8767-14465306e09b" autoIncrement="false" autoIncrementSequenceName="Attorney_AttorneyBarNumber_seq" defaultValue="" name="AttorneyBarNumber" nullable="0" physicalName="AttorneyBarNumber" precision="10" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL89" populated="true" UUID="15213af9-8528-4457-bbde-1669a03dd6b9" autoIncrement="false" autoIncrementSequenceName="Attorney_AttorneyType_seq" defaultValue="" name="AttorneyType" nullable="0" physicalName="AttorneyType" precision="20" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB843" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB842" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB844" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX90" populated="true" UUID="b9f2b0a0-b5d7-43a7-bf34-848ea5dbbc5f" clustered="false" name="Attorney_pk" physicalName="Attorney_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC91" populated="true" UUID="17a0d2ec-3600-4ce1-a681-d12cb308c221" ascendingOrDescending="UNSPECIFIED" column-ref="COL85" name="AttorneyID" physicalName="AttorneyID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB92" populated="true" UUID="7aab0b79-cae6-4728-a2b9-9ce7a50f3a8d" name="CaseEvents_ROA" objectType="TABLE" physicalName="CaseEvents_ROA" >
+   <remarks></remarks>
+   <folder id="FOLTAB921" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL93" populated="true" UUID="4fa700e0-6d2d-4c27-93eb-9591eb69d3f8" autoIncrement="false" autoIncrementSequenceName="CaseEvents_ROA_CaseEventsID_seq" defaultValue="" name="CaseEventsID" nullable="0" physicalName="CaseEventsID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL94" populated="true" UUID="aa03ebe8-8d5e-47b2-b323-807bcbd3d7ac" autoIncrement="false" autoIncrementSequenceName="CourtCase_New Column_seq" defaultValue="" name="CourtCaseID" nullable="0" physicalName="CourtCaseID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL95" populated="true" UUID="bf8759d0-7844-49f9-97a3-a87ac70be330" autoIncrement="false" autoIncrementSequenceName="CaseEvents_ROA_ROAId_seq" defaultValue="" name="ROAId" nullable="0" physicalName="ROAId" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL96" populated="true" UUID="084616b9-c6b7-4242-8817-7714b81fec8e" autoIncrement="false" autoIncrementSequenceName="CaseEvents_ROA_CaseEventDate_seq" defaultValue="" name="CaseEventDate" nullable="0" physicalName="CaseEventDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL97" populated="true" UUID="3360a405-3420-4dfb-af25-035e19ba6c70" autoIncrement="false" autoIncrementSequenceName="CaseEvents_ROA_CaseEventTime_seq" defaultValue="" name="CaseEventTime" nullable="0" physicalName="CaseEventTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="92" userDefinedTypeUUID="10d6960f-169d-47c2-860a-37341342b1d5" >
+     <remarks></remarks>
+    </column>
+    <column id="COL98" populated="true" UUID="3c3b100c-0f36-4d8f-9af7-34b125263fb5" autoIncrement="false" autoIncrementSequenceName="CaseEvents_CaseEventAction_seq" defaultValue="" name="CaseEventActionType" nullable="0" physicalName="CaseEventActionType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL99" populated="true" UUID="264f9aac-ffdc-41da-944b-b3393c534083" autoIncrement="false" autoIncrementSequenceName="CaseEvents_ROA_EventDescription_seq" defaultValue="" name="EventDescription" nullable="0" physicalName="EventDescription" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL100" populated="true" UUID="320d0a7c-4750-418f-b58d-48db35b9f7f3" autoIncrement="false" autoIncrementSequenceName="CaseEvents_ROA_JudgeName_seq" defaultValue="" name="JudgeName" nullable="0" physicalName="JudgeName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL101" populated="true" UUID="68df3bb4-3f0d-46a3-8fa1-1261eba9b275" autoIncrement="false" autoIncrementSequenceName="CaseEvents_ROA_JudgementOrder_seq" defaultValue="" name="JudgementOrder" nullable="0" physicalName="JudgementOrder" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB923" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB922" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB924" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX102" populated="true" UUID="c8c3df84-2e74-45b0-be90-4677f1fb89bc" clustered="false" name="CaseEvents_ROA_pk" physicalName="CaseEvents_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC103" populated="true" UUID="568a6fcb-61a8-4ecb-9dc0-78bb1a36a2e1" ascendingOrDescending="UNSPECIFIED" column-ref="COL93" name="CaseEventsID" physicalName="CaseEventsID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB104" populated="true" UUID="36c0a791-9bcb-4a77-9e6e-9d0814366389" name="Hearings" objectType="TABLE" physicalName="Hearings" >
+   <remarks></remarks>
+   <folder id="FOLTAB1041" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL105" populated="true" UUID="64bcab5e-e94a-4386-9ef8-92059a2ddebe" autoIncrement="false" autoIncrementSequenceName="Hearings_HearingsID_seq" defaultValue="" name="HearingsID" nullable="0" physicalName="HearingsID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL106" populated="true" UUID="46f5f8b2-ce3f-4e8a-929c-216512efcd65" autoIncrement="false" autoIncrementSequenceName="CaseEvents_New Column_seq" defaultValue="" name="CaseEventsID" nullable="0" physicalName="CaseEventsID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL107" populated="true" UUID="ff5577fd-4a5c-455b-9885-ccd03c8c809d" autoIncrement="false" autoIncrementSequenceName="Hearings_HearingDateTime_seq" defaultValue="" name="HearingStartDateTime" nullable="0" physicalName="HearingStartDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL108" populated="true" UUID="8c98798d-0bec-4bd1-9107-f37c0c683f98" autoIncrement="false" autoIncrementSequenceName="Hearings_CaseStyle_seq" defaultValue="" name="CaseStyle" nullable="0" physicalName="CaseStyle" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL109" populated="true" UUID="a1b00256-cc29-4a12-afb7-faaa8e595db9" autoIncrement="false" autoIncrementSequenceName="Hearings_HearingEndDateTime_seq" defaultValue="" name="HearingEndDateTime" nullable="0" physicalName="HearingEndDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL110" populated="true" UUID="7dce1e27-7064-4b87-a296-8262dbfce017" autoIncrement="false" autoIncrementSequenceName="Hearings_CourtCaseNo_seq" defaultValue="" name="CourtCaseNo" nullable="0" physicalName="CourtCaseNo" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL111" populated="true" UUID="d11d3eaf-7826-4a2a-a8c9-5afc4c29263f" autoIncrement="false" autoIncrementSequenceName="Hearings_JudgeName_seq" defaultValue="" name="JudgeName" nullable="0" physicalName="JudgeName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL112" populated="true" UUID="25085be3-52d5-4e5d-ad60-dff9a83b90c0" autoIncrement="false" autoIncrementSequenceName="Hearings_HearingType_seq" defaultValue="" name="HearingType" nullable="0" physicalName="HearingType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL113" populated="true" UUID="20afe275-4aca-44d8-acde-2b139f9b1fcb" autoIncrement="false" autoIncrementSequenceName="Hearings_HearingResult_seq" defaultValue="" name="HearingResult" nullable="0" physicalName="HearingResult" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL114" populated="true" UUID="3ff4f251-60d8-4567-a905-e2cbd331e54a" autoIncrement="false" autoIncrementSequenceName="Hearings_CourtRoom_seq" defaultValue="" name="CourtRoom" nullable="0" physicalName="CourtRoom" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL115" populated="true" UUID="276c8786-3998-4cbe-8fda-f628b1c18c3a" autoIncrement="false" autoIncrementSequenceName="Hearings_HearingDescription_seq" defaultValue="" name="HearingComment" nullable="0" physicalName="HearingComment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL116" populated="true" UUID="dc6d432c-dac6-4614-9fb3-0e736f2487b1" autoIncrement="false" autoIncrementSequenceName="Hearings_MinuteOrder_seq" defaultValue="" name="MinuteOrder" nullable="0" physicalName="MinuteOrder" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1043" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1042" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1044" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX117" populated="true" UUID="903c58a9-0529-4785-8997-268c235f9860" clustered="false" name="Hearings_pk" physicalName="Hearings_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC118" populated="true" UUID="5d72815a-b34b-4bb7-ab8c-0a2748389ff2" ascendingOrDescending="UNSPECIFIED" column-ref="COL105" name="HearingsID" physicalName="HearingsID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB119" populated="true" UUID="5fb36c91-d48d-4b52-a1e3-e6bea2158a5a" name="CourtCaseCharges" objectType="TABLE" physicalName="CourtCaseCharges" >
+   <remarks></remarks>
+   <folder id="FOLTAB1191" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL120" populated="true" UUID="cad8fdc4-1b06-4091-b1a2-13589ed4ec20" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_CourtCaseChargesID_seq" defaultValue="" name="CourtCaseChargesID" nullable="0" physicalName="CourtCaseChargesID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL121" populated="true" UUID="0147704e-1d79-433d-b938-429a4f7a9cc1" autoIncrement="false" autoIncrementSequenceName="CourtCase_New Column_seq" defaultValue="" name="CourtCaseID" nullable="0" physicalName="CourtCaseID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL122" populated="true" UUID="69afba7b-8936-473e-8ee8-9c66c7520c8f" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeSequence_seq" defaultValue="" name="ChargeSequence" nullable="0" physicalName="ChargeSequence" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL123" populated="true" UUID="cbcbb80f-1d14-4de6-a863-aa5b6bcc76f6" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeStatuteNumber_seq" defaultValue="" name="ChargeStatuteNumber" nullable="0" physicalName="ChargeStatuteNumber" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL124" populated="true" UUID="15d21931-2aca-44a7-ae04-80f065367b14" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeStatuteDescription_seq" defaultValue="" name="ChargeStatuteDescription" nullable="0" physicalName="ChargeStatuteDescription" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL125" populated="true" UUID="fcf6d63e-1265-43b6-9ed4-32ae0846ac75" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeCount_seq" defaultValue="" name="ChargeCount" nullable="0" physicalName="ChargeCount" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL126" populated="true" UUID="65a0c733-ba79-4938-98c8-2bffdde25468" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeDescriptionText_seq" defaultValue="" name="ChargeDescriptionText" nullable="0" physicalName="ChargeDescriptionText" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL127" populated="true" UUID="6481b23b-393e-435d-bbce-d6c4491ad247" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeDateTime_seq" defaultValue="" name="ChargeDateTime" nullable="0" physicalName="ChargeDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Booking date time</remarks>
+    </column>
+    <column id="COL128" populated="true" UUID="fcba7df6-709c-4049-b16f-7c3c5b1b456a" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeStatuteNumber_seq" defaultValue="" name="AmendedChargeStatuteNumber" nullable="0" physicalName="AmendedChargeStatuteNumber" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL129" populated="true" UUID="ef7f8802-f9c6-4773-b613-a799f01e53e8" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeStatuteDescription_seq" defaultValue="" name="AmendedChargeStatuteDescription" nullable="0" physicalName="AmendedChargeStatuteDescription" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL130" populated="true" UUID="a827e8c7-92e3-4c13-a6b4-4b2908ed8f0d" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeCount_seq" defaultValue="" name="AmendedChargeCount" nullable="0" physicalName="AmendedChargeCount" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL131" populated="true" UUID="697e7507-f3ff-45c4-9d65-2c6a3e9c45ad" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeDescriptionText_seq" defaultValue="" name="AmendedChargeDescriptionText" nullable="0" physicalName="AmendedChargeDescriptionText" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL132" populated="true" UUID="84989875-df6a-4777-8ac4-ffcc77d15f64" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeDateTime_seq" defaultValue="" name="AmendedChargeDateTime" nullable="0" physicalName="AmendedChargeDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Booking date time</remarks>
+    </column>
+    <column id="COL133" populated="true" UUID="dfc567cf-f49c-4729-9be4-1498f446f135" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ChargeDetailComment_seq" defaultValue="" name="ChargeDetailComment" nullable="0" physicalName="ChargeDetailComment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL134" populated="true" UUID="dc3a6a82-2fc8-45b6-86ae-db9e449fcedb" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_LeadOfficer_seq" defaultValue="" name="LeadOfficer" nullable="0" physicalName="LeadOfficer" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL135" populated="true" UUID="b30fc8fd-3025-43cc-a9d1-9c201214087d" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_SecondOfficer_seq" defaultValue="" name="SecondOfficer" nullable="0" physicalName="SecondOfficer" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL136" populated="true" UUID="a38919bc-f330-4fab-9d47-8538900559e9" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_PoliceDistrict_seq" defaultValue="" name="PoliceDistrict" nullable="0" physicalName="PoliceDistrict" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL137" populated="true" UUID="d1292ce9-4367-4307-9c50-93e444e24c09" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_Points_seq" defaultValue="" name="Points" nullable="0" physicalName="Points" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL138" populated="true" UUID="b361f45a-fffc-4b23-be4a-f60bd88e3b35" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ReducePoints_seq" defaultValue="" name="ReducePoints" nullable="0" physicalName="ReducePoints" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL139" populated="true" UUID="8d8bb3fb-ba6f-4735-8893-ad985bc2628e" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_BloodAlcoholContent_seq" defaultValue="" name="BloodAlcoholContent" nullable="0" physicalName="BloodAlcoholContent" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL140" populated="true" UUID="654783aa-6c35-451d-9bf0-72843b3898a9" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_BACRefused_seq" defaultValue="" name="BACRefused" nullable="0" physicalName="BACRefused" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL141" populated="true" UUID="2fdd7077-0ef5-44f6-99f4-7e1f11741fb0" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_ViolationDateTime_seq" defaultValue="" name="ViolationDateTime" nullable="0" physicalName="ViolationDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL142" populated="true" UUID="d168dc42-888a-4cc7-bf7e-e6e3f5fe1de2" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_PoliceReference_seq" defaultValue="" name="PoliceReference" nullable="0" physicalName="PoliceReference" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL143" populated="true" UUID="39e13c95-9164-4dea-acf3-e9fc79c447bf" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_PleaID_seq" defaultValue="" name="PleaID" nullable="0" physicalName="PleaID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL144" populated="true" UUID="b42ac755-f862-4192-bb3f-292530340bc4" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_PleaDateTime_seq" defaultValue="" name="PleaDateTime" nullable="0" physicalName="PleaDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL145" populated="true" UUID="10b5c17e-c7e1-480e-8d7c-df5560a01ad4" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_PleaCharge_seq" defaultValue="" name="PleaCharge" nullable="0" physicalName="PleaCharge" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL146" populated="true" UUID="99038a7c-3afa-4b82-bb27-3fd6984181e2" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_PleaConditions_seq" defaultValue="" name="PleaConditions" nullable="0" physicalName="PleaConditions" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1193" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1192" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1194" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX147" populated="true" UUID="55e1f48d-a1ed-45a0-9215-d0d6d08f39d2" clustered="false" name="CourtCaseCharges_pk" physicalName="CourtCaseCharges_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC148" populated="true" UUID="0bb5839f-1041-496b-8d8d-0db492f22a7c" ascendingOrDescending="UNSPECIFIED" column-ref="COL120" name="CourtCaseChargesID" physicalName="CourtCaseChargesID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB149" populated="true" UUID="250f8c2c-5968-4c7a-b025-6492ea938071" name="Sentence" objectType="TABLE" physicalName="Sentence" >
+   <remarks></remarks>
+   <folder id="FOLTAB1491" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL150" populated="true" UUID="df961d94-519c-4039-a3cd-31abca129565" autoIncrement="false" autoIncrementSequenceName="Sentence_SentenceID_seq" defaultValue="" name="SentenceID" nullable="0" physicalName="SentenceID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL151" populated="true" UUID="b64f625c-c92f-4525-9b90-e46f4d69a23a" autoIncrement="false" autoIncrementSequenceName="Defendant_New Column_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL152" populated="true" UUID="4302abd8-9a3a-40c7-b25f-bb15cb840922" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_CourtCaseChargesID_seq" defaultValue="" name="CourtCaseChargesID" nullable="0" physicalName="CourtCaseChargesID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL153" populated="true" UUID="ab680c89-34c8-46cd-bd09-31aaf718599b" autoIncrement="false" autoIncrementSequenceName="Disposition_DispositionID_seq" defaultValue="" name="DispositionID" nullable="0" physicalName="DispositionID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL154" populated="true" UUID="037dad98-c123-4902-8918-e7c9405d66be" autoIncrement="false" autoIncrementSequenceName="Sentence_SentenceDate_seq" defaultValue="" name="SentenceDate" nullable="0" physicalName="SentenceDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL155" populated="true" UUID="9ce76acf-8d02-4860-b47e-4e50841b4728" autoIncrement="false" autoIncrementSequenceName="Sentence_SentenceDeferredDate_seq" defaultValue="" name="SentenceDeferredDate" nullable="0" physicalName="SentenceDeferredDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL156" populated="true" UUID="a8054960-fcb3-4721-80ee-1a33497d8cb0" autoIncrement="false" autoIncrementSequenceName="Sentence_SentenceStatus_seq" defaultValue="" name="SentenceStatus" nullable="0" physicalName="SentenceStatus" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL157" populated="true" UUID="812bdc7e-0e8d-43da-821b-ed6420794f46" autoIncrement="false" autoIncrementSequenceName="Sentence_ConfinementComment_seq" defaultValue="" name="ConfinementComment" nullable="0" physicalName="ConfinementComment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL158" populated="true" UUID="665e9f79-0425-44d6-9a17-d5746e34562a" autoIncrement="false" autoIncrementSequenceName="Sentence_ConfinementType_seq" defaultValue="" name="ConfinementType" nullable="0" physicalName="ConfinementType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL159" populated="true" UUID="cb1a2c5a-8045-4c4b-89f3-1e716990a504" autoIncrement="false" autoIncrementSequenceName="Sentence_ConcurrentComment_seq" defaultValue="" name="ConcurrentComment" nullable="0" physicalName="ConcurrentComment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL160" populated="true" UUID="3e4e6a3d-3d48-4c71-9755-1615f65e614d" autoIncrement="false" autoIncrementSequenceName="Sentence_WorkReleaseComment_seq" defaultValue="" name="WorkReleaseComment" nullable="0" physicalName="WorkReleaseComment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL161" populated="true" UUID="ad8f9c85-e4fb-4081-88f1-0a09e39136d5" autoIncrement="false" autoIncrementSequenceName="Sentence_FacilityName_seq" defaultValue="" name="FacilityName" nullable="0" physicalName="FacilityName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL162" populated="true" UUID="28adb1e2-d8fa-4a77-b46d-dcd5ff3d8aaa" autoIncrement="false" autoIncrementSequenceName="Sentence_SentenceTermMax_seq" defaultValue="" name="SentenceTermMax" nullable="0" physicalName="SentenceTermMax" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL163" populated="true" UUID="61eb91b8-b4a5-4606-9e7f-b0376a2a229f" autoIncrement="false" autoIncrementSequenceName="Sentence_SentenceTermMin_seq" defaultValue="" name="SentenceTermMin" nullable="0" physicalName="SentenceTermMin" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL164" populated="true" UUID="c92d02bb-33db-4723-a50b-ec3e6faf1702" autoIncrement="false" autoIncrementSequenceName="Sentence_SentenceCharge_seq" defaultValue="" name="SentenceCharge" nullable="0" physicalName="SentenceCharge" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL165" populated="true" UUID="4146d49d-0baa-40d2-a6dd-4e1d2e7c5d47" autoIncrement="false" autoIncrementSequenceName="Sentence_SentenceFineFees_seq" defaultValue="" name="SentenceFineFees" nullable="0" physicalName="SentenceFineFees" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL166" populated="true" UUID="c6d68e04-80f3-4f03-b217-2b80a3081e12" autoIncrement="false" autoIncrementSequenceName="Confinement_ConfinementID_seq" defaultValue="" name="ConfinementID" nullable="0" physicalName="ConfinementID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1493" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1492" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1494" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX167" populated="true" UUID="87340849-078c-4fd5-b219-9dbf69064ef8" clustered="false" name="Sentence_pk" physicalName="Sentence_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC168" populated="true" UUID="08b10d22-70c6-417e-bad8-e5a14f0b85c1" ascendingOrDescending="UNSPECIFIED" column-ref="COL150" name="SentenceID" physicalName="SentenceID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB169" populated="true" UUID="3a31ec72-4df4-4ca7-b260-572373cce89c" name="Confinement" objectType="TABLE" physicalName="Confinement" >
+   <remarks></remarks>
+   <folder id="FOLTAB1691" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL170" populated="true" UUID="7dac446b-384f-4e2d-911d-676d8552de05" autoIncrement="false" autoIncrementSequenceName="Confinement_ConfinementID_seq" defaultValue="" name="ConfinementID" nullable="0" physicalName="ConfinementID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL171" populated="true" UUID="8cc09a18-3086-4ff6-ae55-d75bf721c4ff" autoIncrement="false" autoIncrementSequenceName="Defendant_New Column_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL172" populated="true" UUID="03674646-d6f5-4f87-8f2a-9a0f2f9d5c9f" autoIncrement="false" autoIncrementSequenceName="Confinement_ConfinementType_seq" defaultValue="" name="ConfinementType" nullable="0" physicalName="ConfinementType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL173" populated="true" UUID="14a7e746-4507-4e5d-b2e0-81efb812afa9" autoIncrement="false" autoIncrementSequenceName="Sentence_FacilityName_seq" defaultValue="" name="FacilityName" nullable="0" physicalName="FacilityName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL174" populated="true" UUID="41a30b68-57e1-43c0-8416-d5820f087648" autoIncrement="false" autoIncrementSequenceName="Confinement_StartDate_seq" defaultValue="" name="StartDate" nullable="0" physicalName="StartDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL175" populated="true" UUID="dd2ff5ae-bb0c-4d58-945f-9173ffda2109" autoIncrement="false" autoIncrementSequenceName="Confinement_EndDate_seq" defaultValue="" name="EndDate" nullable="0" physicalName="EndDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL176" populated="true" UUID="3ddf1b76-fbf9-4061-9f54-be3d337375b2" autoIncrement="false" autoIncrementSequenceName="Disposition_DispositionID_seq" defaultValue="" name="DispositionID" nullable="0" physicalName="DispositionID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1693" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1692" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1694" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX177" populated="true" UUID="1f9c9edc-f5da-4240-a3ca-d188408dff6c" clustered="false" name="Confinement_pk" physicalName="Confinement_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC178" populated="true" UUID="fda17d8f-6686-4bf2-9406-362ee3137c6c" ascendingOrDescending="UNSPECIFIED" column-ref="COL170" name="ConfinementID" physicalName="ConfinementID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB179" populated="true" UUID="b8c39c00-43b0-4a96-9f80-d366587b459b" name="BondBail" objectType="TABLE" physicalName="BondBail" >
+   <remarks></remarks>
+   <folder id="FOLTAB1791" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL180" populated="true" UUID="b0f8ea1e-4bca-433e-bde3-03c45e750d79" autoIncrement="false" autoIncrementSequenceName="BondBail_BailBondID_seq" defaultValue="" name="BailBondID" nullable="0" physicalName="BailBondID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL181" populated="true" UUID="2ddc981e-46ce-49ad-bb68-f28706c36b1c" autoIncrement="false" autoIncrementSequenceName="Defendant_New Column_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL182" populated="true" UUID="c5da555a-b0f3-48c6-8cb2-5714aec93a1d" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseID_seq" defaultValue="" name="CourtCaseID" nullable="0" physicalName="CourtCaseID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL183" populated="true" UUID="527e2f7e-b111-444f-8148-6afadf1fa4e6" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_CourtCaseChargesID_seq" defaultValue="" name="CourtCaseChargesID" nullable="0" physicalName="CourtCaseChargesID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL184" populated="true" UUID="cd6176f6-0a24-4853-9809-590b6328f1f2" autoIncrement="false" autoIncrementSequenceName="BondBail_BondType_seq" defaultValue="" name="BondType" nullable="0" physicalName="BondType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL185" populated="true" UUID="38d28380-b151-4973-aae9-9cf7bb3d269c" autoIncrement="false" autoIncrementSequenceName="BondBail_BondNumber_seq" defaultValue="" name="BondNumber" nullable="0" physicalName="BondNumber" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL186" populated="true" UUID="24da1b8f-0334-4e25-98a6-2cd6bac8a1f2" autoIncrement="false" autoIncrementSequenceName="BondBail_BondAmount_seq" defaultValue="" name="BondAmount" nullable="0" physicalName="BondAmount" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL187" populated="true" UUID="181c7635-da81-429d-a9f6-f2849fde58ed" autoIncrement="false" autoIncrementSequenceName="BondBail_BondingAgency_seq" defaultValue="" name="BondingAgency" nullable="0" physicalName="BondingAgency" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1793" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1792" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1794" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX188" populated="true" UUID="c96d7758-545f-41f3-ab43-d45bd8cec2fc" clustered="false" name="BondBail_pk" physicalName="BondBail_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC189" populated="true" UUID="dda4335d-9a0a-4004-bd47-ae3ca59cf935" ascendingOrDescending="UNSPECIFIED" column-ref="COL180" name="BailBondID" physicalName="BailBondID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB190" populated="true" UUID="93ae3aa0-564c-4139-aaa7-821ec724a1b6" name="Arrest" objectType="TABLE" physicalName="Arrest" >
+   <remarks></remarks>
+   <folder id="FOLTAB1901" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL191" populated="true" UUID="81223a7f-b49b-4cd9-bd96-508cd88ba676" autoIncrement="false" autoIncrementSequenceName="Arrest_ArrestID_seq" defaultValue="" name="ArrestID" nullable="0" physicalName="ArrestID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL192" populated="true" UUID="39d91eb9-8853-4391-bc8b-84b4b5140b13" autoIncrement="false" autoIncrementSequenceName="Defendant_New Column_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL193" populated="true" UUID="9915648d-9700-4c00-a664-b2ef4cf6e348" autoIncrement="false" autoIncrementSequenceName="Arrest_PoliceArrestNumber_seq" defaultValue="" name="PoliceCaseNumber" nullable="0" physicalName="PoliceCaseNumber" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL194" populated="true" UUID="7a4a610e-2e17-4fb1-8c23-dd2cb33a6117" autoIncrement="false" autoIncrementSequenceName="Arrest_ArrestDateTime_seq" defaultValue="" name="ArrestDateTime" nullable="0" physicalName="ArrestDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL195" populated="true" UUID="40ee38ac-c4f9-4b62-8e9a-7efe33c090dd" autoIncrement="false" autoIncrementSequenceName="Arrest_ArrestLocation_seq" defaultValue="" name="ArrestLocation" nullable="0" physicalName="ArrestLocation" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL196" populated="true" UUID="854dc0ac-e9be-4061-a189-b7d2cc73baea" autoIncrement="false" autoIncrementSequenceName="Arrest_ArrestingOfficer_seq" defaultValue="" name="ArrestingOfficer" nullable="0" physicalName="ArrestingOfficer" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL197" populated="true" UUID="a8484473-28ac-4719-925b-f2683b45d173" autoIncrement="false" autoIncrementSequenceName="Arrest_ArrestReason_seq" defaultValue="" name="ArrestReason" nullable="0" physicalName="ArrestReason" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1903" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1902" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1904" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX198" populated="true" UUID="0b2dd334-a6d7-456e-874f-b23787771f94" clustered="false" name="Arrest_pk" physicalName="Arrest_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC199" populated="true" UUID="92d85682-1869-4d98-997b-b42ff003091d" ascendingOrDescending="UNSPECIFIED" column-ref="COL191" name="ArrestID" physicalName="ArrestID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB200" populated="true" UUID="350bfaec-f819-4b0f-af8a-a7bc6b151bf8" name="Warrant" objectType="TABLE" physicalName="Warrant" >
+   <remarks></remarks>
+   <folder id="FOLTAB2001" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL201" populated="true" UUID="21acc7e3-dd48-49dd-9e43-efc39e317f8c" autoIncrement="false" autoIncrementSequenceName="Warrant_WarrantID_seq" defaultValue="" name="WarrantID" nullable="0" physicalName="WarrantID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL202" populated="true" UUID="b777ab95-1084-4a18-94a6-eea291c9f782" autoIncrement="false" autoIncrementSequenceName="Defendant_New Column_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL203" populated="true" UUID="e428c475-e285-422e-b46a-b5d3c336ad28" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseID_seq" defaultValue="" name="CourtCaseID" nullable="0" physicalName="CourtCaseID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL204" populated="true" UUID="88a6bb7a-6989-4045-a62b-edb9fd3aa399" autoIncrement="false" autoIncrementSequenceName="Warrant_WarrantNumber_seq" defaultValue="" name="WarrantNumber" nullable="0" physicalName="WarrantNumber" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL205" populated="true" UUID="0af86b58-2f07-4d9b-8635-fea1ef57820d" autoIncrement="false" autoIncrementSequenceName="Warrant_WarrantType_seq" defaultValue="" name="WarrantType" nullable="0" physicalName="WarrantType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL206" populated="true" UUID="d2b75c1e-b500-454d-b812-086a1635468d" autoIncrement="false" autoIncrementSequenceName="Warrant_WarrantIssueDate_seq" defaultValue="" name="WarrantIssueDate" nullable="0" physicalName="WarrantIssueDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL207" populated="true" UUID="e39c4908-69ce-4cc5-b156-c4f0120221e3" autoIncrement="false" autoIncrementSequenceName="Warrant_WarrrantDescription_seq" defaultValue="" name="WarrrantDescription" nullable="0" physicalName="WarrrantDescription" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2003" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2002" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2004" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX208" populated="true" UUID="aa67d258-e5ff-485c-911b-3761c4c1d618" clustered="false" name="Warrant_pk" physicalName="Warrant_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC209" populated="true" UUID="2fbb4363-fba9-46d4-b6cb-96d5724ebfa3" ascendingOrDescending="UNSPECIFIED" column-ref="COL201" name="WarrantID" physicalName="WarrantID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB210" populated="true" UUID="5e1c17b6-7f6b-49d6-8fab-04a5ce60e82f" name="Address" objectType="TABLE" physicalName="Address" >
+   <remarks></remarks>
+   <folder id="FOLTAB2101" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL211" populated="true" UUID="e2b54c0a-360a-45f4-8bea-fe9743871bba" autoIncrement="false" autoIncrementSequenceName="Address_AddressID_seq" defaultValue="" name="AddressID" nullable="0" physicalName="AddressID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL212" populated="true" UUID="5a58c559-2cd0-477f-b2b9-d492c2ea04a0" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL213" populated="true" UUID="9d6c40f8-63a4-4d9e-8a83-4984a109d6e9" autoIncrement="false" autoIncrementSequenceName="Address_AddressType_seq" defaultValue="" name="AddressType" nullable="0" physicalName="AddressType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL214" populated="true" UUID="c5c9458b-6cda-439e-b939-abd94795e1dc" autoIncrement="false" autoIncrementSequenceName="Address_Address1_seq" defaultValue="" name="Address1" nullable="0" physicalName="Address1" precision="25" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL215" populated="true" UUID="65c3826e-b3c8-4a0b-9d8f-a76773334bab" autoIncrement="false" autoIncrementSequenceName="Address_Address2_seq" defaultValue="" name="Address2" nullable="0" physicalName="Address2" precision="25" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL216" populated="true" UUID="52370a3b-2c95-41c0-b9f2-1d32f2860fde" autoIncrement="false" autoIncrementSequenceName="Address_City_seq" defaultValue="" name="City" nullable="0" physicalName="City" precision="25" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL217" populated="true" UUID="b57aea15-f8a2-4e51-98e8-5e8a2b68b3f0" autoIncrement="false" autoIncrementSequenceName="Address_State_seq" defaultValue="" name="State" nullable="0" physicalName="State" precision="2" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL218" populated="true" UUID="a2e1ba27-6dad-416e-a5fa-fd43743e4fcc" autoIncrement="false" autoIncrementSequenceName="Address_ZipCode_seq" defaultValue="" name="ZipCode" nullable="0" physicalName="ZipCode" precision="10" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL219" populated="true" UUID="da2088c4-4d66-40de-831e-de3ff220bf0f" autoIncrement="false" autoIncrementSequenceName="Address_BadAddress_seq" defaultValue="" name="BadAddress" nullable="0" physicalName="BadAddress" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2103" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2102" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2104" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX220" populated="true" UUID="01ac332d-29e9-408a-9b05-9f6ec9d45f8a" clustered="false" name="Address_pk" physicalName="Address_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC221" populated="true" UUID="14e7750e-1ee5-4eb6-977c-03dbb726a91f" ascendingOrDescending="UNSPECIFIED" column-ref="COL211" name="AddressID" physicalName="AddressID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB222" populated="true" UUID="367ea301-af8a-42f0-b9dc-a6828eef6c9c" name="Telephone" objectType="TABLE" physicalName="Telephone" >
+   <remarks></remarks>
+   <folder id="FOLTAB2221" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL223" populated="true" UUID="381b5037-51cb-4d20-a328-67f6ff6c4581" autoIncrement="false" autoIncrementSequenceName="Telephone_TelephoneID_seq" defaultValue="" name="TelephoneID" nullable="0" physicalName="TelephoneID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL224" populated="true" UUID="6f80da84-cc4c-4355-8eda-a63034c5f03b" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL225" populated="true" UUID="605c9f5a-f1e7-4426-99aa-14fd800c25c6" autoIncrement="false" autoIncrementSequenceName="Telephone_TelephoneNumber_seq" defaultValue="" name="TelephoneNumber" nullable="0" physicalName="TelephoneNumber" precision="13" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL226" populated="true" UUID="6fb500fd-6b03-4d64-9a6b-17a8768be209" autoIncrement="false" autoIncrementSequenceName="Telephone_TelephoneType_seq" defaultValue="" name="TelephoneType" nullable="0" physicalName="TelephoneType" precision="5" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2223" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2222" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2224" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX227" populated="true" UUID="1c400b39-b41a-44d9-9115-355c4436336f" clustered="false" name="Telephone_pk" physicalName="Telephone_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC228" populated="true" UUID="7395f752-fd97-4548-9704-b8bd4617f54c" ascendingOrDescending="UNSPECIFIED" column-ref="COL223" name="TelephoneID" physicalName="TelephoneID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB229" populated="true" UUID="045ec215-fefc-415c-b87c-f7fccd3c7fb9" name="Payment" objectType="TABLE" physicalName="Payment" >
+   <remarks></remarks>
+   <folder id="FOLTAB2291" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL230" populated="true" UUID="cbdc0175-e1c3-4a7b-b9a1-83b355ab085f" autoIncrement="false" autoIncrementSequenceName="Payment_PaymentID_seq" defaultValue="" name="PaymentID" nullable="0" physicalName="PaymentID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL231" populated="true" UUID="229eac43-e4ef-4a6e-8bed-d6db1293f530" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL232" populated="true" UUID="ef51d3cb-8fc5-4cba-8e17-844a58719187" autoIncrement="false" autoIncrementSequenceName="Payment_BankruptcyStay_seq" defaultValue="" name="BankruptcyStay" nullable="0" physicalName="BankruptcyStay" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL233" populated="true" UUID="500f39b8-16d4-4878-9860-59350a16ba77" autoIncrement="false" autoIncrementSequenceName="Payment_BadCheck_seq" defaultValue="" name="BadCheck" nullable="0" physicalName="BadCheck" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL234" populated="true" UUID="440b3b38-4147-4f35-9aad-0a1d05a95345" autoIncrement="false" autoIncrementSequenceName="Payment_BadCheckPaid_seq" defaultValue="" name="BadCheckPaid" nullable="0" physicalName="BadCheckPaid" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL235" populated="true" UUID="9fb85c68-0247-47c3-9072-6ee9ab1cb5ae" autoIncrement="false" autoIncrementSequenceName="Payment_BadAddress_seq" defaultValue="" name="BadAddress" nullable="0" physicalName="BadAddress" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL236" populated="true" UUID="9c15a91d-3343-48fa-affc-7f8ae8e6bae4" autoIncrement="false" autoIncrementSequenceName="Payment_LastPaymentDate_seq" defaultValue="" name="LastPaymentDate" nullable="0" physicalName="LastPaymentDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2293" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2292" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2294" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX237" populated="true" UUID="c5b231c7-3bae-4675-a69e-b6eb585efe8c" clustered="false" name="Payment_pk" physicalName="Payment_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC238" populated="true" UUID="fd6325b3-2f99-4632-81d0-d97ab5e7fe4a" ascendingOrDescending="UNSPECIFIED" column-ref="COL230" name="PaymentID" physicalName="PaymentID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB239" populated="true" UUID="85b348ef-71b4-4717-b0ef-19f417238fe9" name="DefendantCourtCaseHistory" objectType="TABLE" physicalName="DefendantCourtCaseHistory" >
+   <remarks></remarks>
+   <folder id="FOLTAB2391" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL240" populated="true" UUID="21d7148e-21d0-4156-8cbc-806bc2cba742" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_DefendantCourtCaseHistoryID_seq" defaultValue="" name="DefendantCourtCaseHistoryID" nullable="0" physicalName="DefendantCourtCaseHistoryID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL241" populated="true" UUID="99b08e23-121e-401d-93f0-0bda3f8e2d04" autoIncrement="false" autoIncrementSequenceName="CourtCase_CourtCaseID_seq" defaultValue="" name="CourtCaseID" nullable="0" physicalName="CourtCaseID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL242" populated="true" UUID="5747b849-3fd4-4083-9f45-24a0b3056ac6" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL243" populated="true" UUID="1b37c2bf-c03e-4ff3-9600-3316ca4dc0fa" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_CourtCaseNo_seq" defaultValue="" name="CourtCaseNo" nullable="0" physicalName="CourtCaseNo" precision="15" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL244" populated="true" UUID="cf7fe7b6-cc2d-4477-8c2e-8c0011d39893" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_PartyRole_seq" defaultValue="" name="PartyRole" nullable="0" physicalName="PartyRole" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL245" populated="true" UUID="82d68135-16a0-4043-8481-7dfb52f71de9" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_CourtCaseCurrentStatus_seq" defaultValue="" name="CourtCaseCurrentStatus" nullable="0" physicalName="CourtCaseCurrentStatus" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL246" populated="true" UUID="b0746844-9a50-416f-8277-2c578cea4869" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_CourtCaseJudgeName_seq" defaultValue="" name="CourtCaseJudgeName" nullable="0" physicalName="CourtCaseJudgeName" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL247" populated="true" UUID="c326d1ba-d9f9-4013-a35c-bf63305838ff" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_BalanceDue_seq" defaultValue="" name="BalanceDue" nullable="0" physicalName="BalanceDue" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL248" populated="true" UUID="988742f4-5dd2-4803-ba73-0cff5dce1332" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_Disposed_seq" defaultValue="" name="DisposedDate" nullable="0" physicalName="DisposedDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL249" populated="true" UUID="2b48438c-d534-41f1-8db6-57147496cc5a" autoIncrement="false" autoIncrementSequenceName="DefendantCourtCaseHistory_ViolationDateTime_seq" defaultValue="" name="ViolationDateTime" nullable="0" physicalName="ViolationDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2393" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2392" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2394" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX250" populated="true" UUID="872d88b0-9991-427d-8743-0e021658eb99" clustered="false" name="DefendantCourtCaseHistory_pk" physicalName="DefendantCourtCaseHistory_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC251" populated="true" UUID="8be122dc-0593-461a-a91f-71dd799af178" ascendingOrDescending="UNSPECIFIED" column-ref="COL240" name="DefendantCourtCaseHistoryID" physicalName="DefendantCourtCaseHistoryID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB252" populated="true" UUID="98dd44c7-2c05-471f-8a51-35439f99e5d3" name="ElectronicContact" objectType="TABLE" physicalName="ElectronicContact" >
+   <remarks></remarks>
+   <folder id="FOLTAB2521" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL253" populated="true" UUID="b6ab96ac-9f02-4d8b-ad07-a6c2a899a9da" autoIncrement="false" autoIncrementSequenceName="ElectronicContact_ElectronicContactID_seq" defaultValue="" name="ElectronicContactID" nullable="0" physicalName="ElectronicContactID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL254" populated="true" UUID="4438ca7a-86cc-40af-8f53-a701d69d0a14" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL255" populated="true" UUID="de72b5d6-c137-416b-8c35-2b18a266603b" autoIncrement="false" autoIncrementSequenceName="ElectronicContact_ElectronicContactType_seq" defaultValue="" name="ElectronicContactType" nullable="0" physicalName="ElectronicContactType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL256" populated="true" UUID="4826bb4c-142f-4cfa-9e89-f0648cdb41bd" autoIncrement="false" autoIncrementSequenceName="ElectronicContact_ElectronicContactDescription_seq" defaultValue="" name="ElectronicContactDescription" nullable="0" physicalName="ElectronicContactDescription" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2523" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2522" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2524" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX257" populated="true" UUID="5dcb47ce-963e-47f7-8251-561c323be5cc" clustered="false" name="ElectronicContact_pk" physicalName="ElectronicContact_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC258" populated="true" UUID="6f62e370-c4ed-49b7-8c70-dcf3da2755c8" ascendingOrDescending="UNSPECIFIED" column-ref="COL253" name="ElectronicContactID" physicalName="ElectronicContactID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB259" populated="true" UUID="fa886f02-c862-4803-bd38-8b87840b9953" name="Citation" objectType="TABLE" physicalName="Citation" >
+   <remarks></remarks>
+   <folder id="FOLTAB2591" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL260" populated="true" UUID="95237cfb-b34c-48f0-9e69-cf4c880546ea" autoIncrement="false" autoIncrementSequenceName="Citation_CitationID_seq" defaultValue="" name="CitationID" nullable="0" physicalName="CitationID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL261" populated="true" UUID="af2b8515-8359-4c60-941e-59e39b9ea302" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_CourtCaseChargesID_seq" defaultValue="" name="CourtCaseChargesID" nullable="0" physicalName="CourtCaseChargesID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL262" populated="true" UUID="da7a5f60-30be-49d6-aabe-108ffe2a68aa" autoIncrement="false" autoIncrementSequenceName="Citation_CitationNumber_seq" defaultValue="" name="CitationNumber" nullable="0" physicalName="CitationNumber" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL263" populated="true" UUID="0056407c-71be-4c65-b36a-35c304b4c5a2" autoIncrement="false" autoIncrementSequenceName="Citation_AppearDateTime_seq" defaultValue="" name="AppearDateTime" nullable="0" physicalName="AppearDateTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL264" populated="true" UUID="6deb8432-f162-494c-8198-2f992c8108e5" autoIncrement="false" autoIncrementSequenceName="Citation_CitedSpeed_seq" defaultValue="" name="CitedSpeed" nullable="0" physicalName="CitedSpeed" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL265" populated="true" UUID="2111d119-c807-4ae9-b1a2-69e5ecda2f86" autoIncrement="false" autoIncrementSequenceName="Citation_PostedSpeed_seq" defaultValue="" name="PostedSpeed" nullable="0" physicalName="PostedSpeed" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL266" populated="true" UUID="37095fea-d82e-4136-8f18-74ea3c436fe9" autoIncrement="false" autoIncrementSequenceName="Citation_PoundsOverWeight_seq" defaultValue="" name="PoundsOverWeight" nullable="0" physicalName="PoundsOverWeight" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL267" populated="true" UUID="3e9d9094-99bd-4425-987f-44dde7c5fc9a" autoIncrement="false" autoIncrementSequenceName="Citation_CitationTypeDescription_seq" defaultValue="" name="CitationTypeDescription" nullable="0" physicalName="CitationTypeDescription" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL268" populated="true" UUID="d3dc0723-384b-4b7d-aa4f-3f268528a519" autoIncrement="false" autoIncrementSequenceName="Citation_Location_seq" defaultValue="" name="Location" nullable="0" physicalName="Location" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL269" populated="true" UUID="56afc028-9c47-40f6-879a-be8af2f3115f" autoIncrement="false" autoIncrementSequenceName="Citation_Intersection_seq" defaultValue="" name="Intersection" nullable="0" physicalName="Intersection" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL270" populated="true" UUID="45033a5c-a123-40b7-beeb-5335ffb27354" autoIncrement="false" autoIncrementSequenceName="Citation_LocationComment_seq" defaultValue="" name="LocationComment" nullable="0" physicalName="LocationComment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL271" populated="true" UUID="8e6027a6-3ed0-47ab-b011-537a343f6b92" autoIncrement="false" autoIncrementSequenceName="Citation_StreetNumber_seq" defaultValue="" name="StreetNumber" nullable="0" physicalName="StreetNumber" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL272" populated="true" UUID="38bf70b8-7c71-4031-882f-e32ef43758ad" autoIncrement="false" autoIncrementSequenceName="Citation_StreetName_seq" defaultValue="" name="StreetName" nullable="0" physicalName="StreetName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL273" populated="true" UUID="18ed1d1d-e23c-4eee-8cb0-dc993a544db2" autoIncrement="false" autoIncrementSequenceName="Citation_StreetType_seq" defaultValue="" name="StreetType" nullable="0" physicalName="StreetType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL274" populated="true" UUID="89ea6044-1fc6-4a23-8a5d-ebcadb112c78" autoIncrement="false" autoIncrementSequenceName="Citation_ApartmentNumber_seq" defaultValue="" name="ApartmentNumber" nullable="0" physicalName="ApartmentNumber" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL275" populated="true" UUID="69390e20-8a0d-4c08-9358-901518876142" autoIncrement="false" autoIncrementSequenceName="Citation_County_seq" defaultValue="" name="County" nullable="0" physicalName="County" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL276" populated="true" UUID="65ec3b74-76c2-49c0-8c4a-7b828a07d188" autoIncrement="false" autoIncrementSequenceName="Citation_MustAppear_seq" defaultValue="" name="MustAppear" nullable="0" physicalName="MustAppear" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL277" populated="true" UUID="927a2d39-9c51-48ec-96de-a8d966d8bcea" autoIncrement="false" autoIncrementSequenceName="Citation_Accident_seq" defaultValue="" name="Accident" nullable="0" physicalName="Accident" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL278" populated="true" UUID="7505ce64-77aa-48e0-b910-3351859aea44" autoIncrement="false" autoIncrementSequenceName="Citation_Injury_seq" defaultValue="" name="Injury" nullable="0" physicalName="Injury" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL279" populated="true" UUID="ad23ef21-751a-4dec-b446-76fb047d564e" autoIncrement="false" autoIncrementSequenceName="Citation_SchoolZone_seq" defaultValue="" name="SchoolZone" nullable="0" physicalName="SchoolZone" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL280" populated="true" UUID="a172697b-8746-444d-97d4-b2837794ef7b" autoIncrement="false" autoIncrementSequenceName="Citation_HazardousMaterial_seq" defaultValue="" name="HazardousMaterial" nullable="0" physicalName="HazardousMaterial" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL281" populated="true" UUID="84a37a6b-9e22-4bd1-a538-85f78335757c" autoIncrement="false" autoIncrementSequenceName="Citation_NuclearMaterial_seq" defaultValue="" name="NuclearMaterial" nullable="0" physicalName="NuclearMaterial" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL282" populated="true" UUID="0581fb11-5ed7-4dc0-b2f5-0d90124775a3" autoIncrement="false" autoIncrementSequenceName="Citation_DomesticViolence_seq" defaultValue="" name="DomesticViolence" nullable="0" physicalName="DomesticViolence" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL283" populated="true" UUID="6f1f6eed-bf4d-4f4b-87e0-af41f25dc8e8" autoIncrement="false" autoIncrementSequenceName="Citation_LicenseSurrendered_seq" defaultValue="" name="LicenseSurrendered" nullable="0" physicalName="LicenseSurrendered" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL284" populated="true" UUID="4bcee4c8-a701-4f3d-a396-efb366628672" autoIncrement="false" autoIncrementSequenceName="Citation_Fatal_seq" defaultValue="" name="Fatal" nullable="0" physicalName="Fatal" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL285" populated="true" UUID="19a59e2e-4bf8-4ca7-8b1d-e16d046939d3" autoIncrement="false" autoIncrementSequenceName="Citation_ConstructionZone_seq" defaultValue="" name="ConstructionZone" nullable="0" physicalName="ConstructionZone" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2593" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2592" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2594" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX286" populated="true" UUID="6c177196-de02-4d03-913b-97e762b76087" clustered="false" name="Citation_pk" physicalName="Citation_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC287" populated="true" UUID="4614cec8-c45b-4aa4-85ac-84dbc4f8e709" ascendingOrDescending="UNSPECIFIED" column-ref="COL260" name="CitationID" physicalName="CitationID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB288" populated="true" UUID="bd7db153-cb96-4fe5-bbbd-e72108aac8bf" name="Vehicle" objectType="TABLE" physicalName="Vehicle" >
+   <remarks></remarks>
+   <folder id="FOLTAB2881" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL289" populated="true" UUID="e492c843-f1d8-4f9e-8afd-e963d2629ec6" autoIncrement="false" autoIncrementSequenceName="Vehicle_VehicleID_seq" defaultValue="" name="VehicleID" nullable="0" physicalName="VehicleID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL290" populated="true" UUID="2b36b411-af71-4fbf-827e-2ef4748d7b47" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL291" populated="true" UUID="edd0310d-1619-4583-b250-4d94a53df63d" autoIncrement="false" autoIncrementSequenceName="Vehicle_VehiclePlate_seq" defaultValue="" name="VehiclePlate" nullable="0" physicalName="VehiclePlate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL292" populated="true" UUID="3bd97fd4-dfd9-424d-a0b0-646bff9ceab9" autoIncrement="false" autoIncrementSequenceName="Vehicle_State_seq" defaultValue="" name="State" nullable="0" physicalName="State" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL293" populated="true" UUID="c9eed9e4-a919-4c2c-86ba-6b6125d17009" autoIncrement="false" autoIncrementSequenceName="Vehicle_VehicleIdentificationNumber_seq" defaultValue="" name="VehicleIdentificationNumber" nullable="0" physicalName="VehicleIdentificationNumber" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>VIN</remarks>
+    </column>
+    <column id="COL294" populated="true" UUID="02aa20ec-f8b3-439e-a0bf-e34478a13eb8" autoIncrement="false" autoIncrementSequenceName="Vehicle_Make_seq" defaultValue="" name="Make" nullable="0" physicalName="Make" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL295" populated="true" UUID="4316eb83-6f4b-461b-bd1e-50f145b905a8" autoIncrement="false" autoIncrementSequenceName="Vehicle_Model_seq" defaultValue="" name="Model" nullable="0" physicalName="Model" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL296" populated="true" UUID="c03d6494-9a9f-4616-a7c4-5a91181f0b02" autoIncrement="false" autoIncrementSequenceName="Vehicle_Color_seq" defaultValue="" name="Color" nullable="0" physicalName="Color" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL297" populated="true" UUID="e42b1c07-c190-472b-83da-2a72755e7728" autoIncrement="false" autoIncrementSequenceName="Vehicle_Type_seq" defaultValue="" name="Type" nullable="0" physicalName="Type" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL298" populated="true" UUID="cdc3d913-67f4-4112-b683-4d021f7aebd8" autoIncrement="false" autoIncrementSequenceName="Vehicle_Year_seq" defaultValue="" name="Year" nullable="0" physicalName="Year" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL299" populated="true" UUID="0450fb5a-5913-42e6-98da-cbda927a63c0" autoIncrement="false" autoIncrementSequenceName="Vehicle_CommercialVehicle_seq" defaultValue="" name="CommercialVehicle" nullable="0" physicalName="CommercialVehicle" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL300" populated="true" UUID="f89a2b72-f4e2-44a1-bbeb-adfa0dd28d95" autoIncrement="false" autoIncrementSequenceName="Vehicle_Style_seq" defaultValue="" name="Style" nullable="0" physicalName="Style" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2883" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2882" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2884" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX301" populated="true" UUID="d8ade433-2a4f-48c4-8ffe-7ac7b7d6bf83" clustered="false" name="Vehicle_pk" physicalName="Vehicle_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC302" populated="true" UUID="fb05af05-5e64-408a-9db6-d2c30f4805aa" ascendingOrDescending="UNSPECIFIED" column-ref="COL289" name="VehicleID" physicalName="VehicleID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB303" populated="true" UUID="3b98f327-4112-404e-9f55-9f8041659456" name="Disposition" objectType="TABLE" physicalName="Disposition" >
+   <remarks></remarks>
+   <folder id="FOLTAB3031" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL304" populated="true" UUID="de5e2710-493e-4f08-b28f-3892692087d1" autoIncrement="false" autoIncrementSequenceName="Disposition_DispositionID_seq" defaultValue="" name="DispositionID" nullable="0" physicalName="DispositionID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL305" populated="true" UUID="77c52a21-7c12-422d-af66-d1cd843cac36" autoIncrement="false" autoIncrementSequenceName="CourtCaseCharges_CourtCaseChargesID_seq" defaultValue="" name="CourtCaseChargesID" nullable="0" physicalName="CourtCaseChargesID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL306" populated="true" UUID="4045a520-2003-4be4-90ac-8298079552e1" autoIncrement="false" autoIncrementSequenceName="Citation_CitationID_seq" defaultValue="" name="CitationID" nullable="0" physicalName="CitationID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL307" populated="true" UUID="5bfc63d6-b9b1-47b4-bc4b-6b635808aa6e" autoIncrement="false" autoIncrementSequenceName="Disposition_Finding_seq" defaultValue="" name="Finding" nullable="0" physicalName="Finding" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL308" populated="true" UUID="cf6439f7-06e6-4e02-b745-bcc787008d5a" autoIncrement="false" autoIncrementSequenceName="Disposition_OtherFinding_seq" defaultValue="" name="OtherFinding" nullable="0" physicalName="OtherFinding" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL309" populated="true" UUID="0d49c5b5-0562-4eb6-83ee-fed75b5d6985" autoIncrement="false" autoIncrementSequenceName="Disposition_Modify_seq" defaultValue="" name="Modify" nullable="0" physicalName="Modify" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL310" populated="true" UUID="0577a186-8a12-445e-982f-8c74dbe8062e" autoIncrement="false" autoIncrementSequenceName="Disposition_DispositionDate_seq" defaultValue="" name="DispositionDate" nullable="0" physicalName="DispositionDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL311" populated="true" UUID="b71c49b1-bc5c-4b0b-81ea-159e7c9ac8f9" autoIncrement="false" autoIncrementSequenceName="Disposition_AssessFineFees_seq" defaultValue="" name="AssessFineFees" nullable="0" physicalName="AssessFineFees" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL312" populated="true" UUID="0084f6aa-53e0-425e-a262-362494a670c2" autoIncrement="false" autoIncrementSequenceName="Disposition_TotalToAssess_seq" defaultValue="" name="TotalToAssess" nullable="0" physicalName="TotalToAssess" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL313" populated="true" UUID="0e53548a-e462-443e-bc0d-b6ce7f79e8b3" autoIncrement="false" autoIncrementSequenceName="Disposition_CostOnlyFees_seq" defaultValue="" name="CostOnlyFees" nullable="0" physicalName="CostOnlyFees" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL314" populated="true" UUID="16fd16c1-ec0c-40d7-8e1b-d7ccb5e3853d" autoIncrement="false" autoIncrementSequenceName="Disposition_Fine_seq" defaultValue="" name="Fine" nullable="0" physicalName="Fine" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL315" populated="true" UUID="b3a5f1b8-8c07-42fa-a20f-f3c84c3c04f5" autoIncrement="false" autoIncrementSequenceName="Disposition_Fees_seq" defaultValue="" name="Fees" nullable="0" physicalName="Fees" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL316" populated="true" UUID="0bbbc1d7-a8b2-4a82-a5b9-3cea2df61e19" autoIncrement="false" autoIncrementSequenceName="Disposition_Total_seq" defaultValue="" name="Total" nullable="0" physicalName="Total" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL317" populated="true" UUID="1c40bb24-1c6b-43aa-8a51-b6ecd38f01ac" autoIncrement="false" autoIncrementSequenceName="Disposition_TotalAssessed_seq" defaultValue="" name="TotalAssessed" nullable="0" physicalName="TotalAssessed" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL318" populated="true" UUID="1345b436-3107-449b-bd3e-eea75afd5dec" autoIncrement="false" autoIncrementSequenceName="Disposition_SuspendedAmount_seq" defaultValue="" name="SuspendedAmount" nullable="0" physicalName="SuspendedAmount" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL319" populated="true" UUID="66a1322e-9acc-4683-ab0b-919afc449316" autoIncrement="false" autoIncrementSequenceName="Disposition_DueDate_seq" defaultValue="" name="DueDate" nullable="0" physicalName="DueDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL320" populated="true" UUID="8ebf934a-87a6-4d9e-ba7a-05935748987c" autoIncrement="false" autoIncrementSequenceName="Disposition_ExtensionDate_seq" defaultValue="" name="ExtensionDate" nullable="0" physicalName="ExtensionDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL321" populated="true" UUID="98e2d9f0-2b0b-417c-a909-18e14243808e" autoIncrement="false" autoIncrementSequenceName="Disposition_InterestStartDate_seq" defaultValue="" name="InterestStartDate" nullable="0" physicalName="InterestStartDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL322" populated="true" UUID="5883a226-bbb2-4d16-b26d-61b18da40ae4" autoIncrement="false" autoIncrementSequenceName="Disposition_Balance_seq" defaultValue="" name="Balance" nullable="0" physicalName="Balance" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL323" populated="true" UUID="107c985e-38e8-41d8-bef4-147ac012476e" autoIncrement="false" autoIncrementSequenceName="Disposition_ResetOverdue_seq" defaultValue="" name="ResetOverdue" nullable="0" physicalName="ResetOverdue" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL324" populated="true" UUID="96df590c-0803-4591-b529-14a0e0eed00d" autoIncrement="false" autoIncrementSequenceName="Disposition_AddEditFees_seq" defaultValue="" name="AddEditFees" nullable="0" physicalName="AddEditFees" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB3033" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB3032" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB3034" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX325" populated="true" UUID="0dc44f1e-b86f-4a71-9e07-5ea4163c1ca2" clustered="false" name="Disposition_pk" physicalName="Disposition_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC326" populated="true" UUID="936e5d1b-3092-4904-88a9-39fb72329bee" ascendingOrDescending="UNSPECIFIED" column-ref="COL304" name="DispositionID" physicalName="DispositionID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB327" populated="true" UUID="b918825e-c40b-488d-b1bd-56e677ab13fd" name="OtherSentence" objectType="TABLE" physicalName="OtherSentence" >
+   <remarks>Programs</remarks>
+   <folder id="FOLTAB3271" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL328" populated="true" UUID="284e5780-1191-4acd-b6ed-22a9a06bfc5d" autoIncrement="false" autoIncrementSequenceName="OtherSentence_OtherSentencesID_seq" defaultValue="" name="OtherSentencesID" nullable="0" physicalName="OtherSentencesID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL329" populated="true" UUID="2cbb8ae8-6034-4755-91be-6bd6bc174e1e" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL330" populated="true" UUID="9d94ff67-3d1b-4457-b840-2d6361cb5d50" autoIncrement="false" autoIncrementSequenceName="Disposition_DispositionID_seq" defaultValue="" name="DispositionID" nullable="0" physicalName="DispositionID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL331" populated="true" UUID="a82dab29-69d5-4805-b57b-bb907d8ec96b" autoIncrement="false" autoIncrementSequenceName="OtherSentence_Program_seq" defaultValue="" name="Program" nullable="0" physicalName="Program" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL332" populated="true" UUID="5a3349a8-b0ee-4381-ac1c-f33a077a8bb2" autoIncrement="false" autoIncrementSequenceName="OtherSentence_DaysToComplete_seq" defaultValue="" name="DaysToComplete" nullable="0" physicalName="DaysToComplete" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL333" populated="true" UUID="c04bd3a9-41cd-486b-81ee-a59f43141655" autoIncrement="false" autoIncrementSequenceName="OtherSentence_CompleteIn_seq" defaultValue="" name="CompleteIn" nullable="0" physicalName="CompleteIn" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL334" populated="true" UUID="f326481c-bb7b-4568-82db-dd11a514d26e" autoIncrement="false" autoIncrementSequenceName="OtherSentence_CompleteByDate_seq" defaultValue="" name="CompleteByDate" nullable="0" physicalName="CompleteByDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL335" populated="true" UUID="9cda47b5-c8ec-4930-a166-22a092b343c5" autoIncrement="false" autoIncrementSequenceName="OtherSentence_HoursAssigned_seq" defaultValue="" name="HoursAssigned" nullable="0" physicalName="HoursAssigned" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL336" populated="true" UUID="da8f13fc-f444-4d1a-ab65-335c3ec8faa4" autoIncrement="false" autoIncrementSequenceName="OtherSentence_Modify_seq" defaultValue="" name="Modify" nullable="0" physicalName="Modify" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    <column id="COL337" populated="true" UUID="1bc42c41-d67c-400d-b084-8d88a78a884c" autoIncrement="false" autoIncrementSequenceName="OtherSentence_HoursTotal_seq" defaultValue="" name="HoursTotal" nullable="0" physicalName="HoursTotal" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL338" populated="true" UUID="d4602ca6-f401-4a3e-95c2-c3b437877a48" autoIncrement="false" autoIncrementSequenceName="OtherSentence_Terms_seq" defaultValue="" name="Terms" nullable="0" physicalName="Terms" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL339" populated="true" UUID="296a2ee9-f562-445f-af0b-f300817cf192" autoIncrement="false" autoIncrementSequenceName="OtherSentence_CostPerHour_seq" defaultValue="" name="CostPerHour" nullable="0" physicalName="CostPerHour" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB3273" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB3272" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB3274" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX340" populated="true" UUID="d8707d2b-4db2-4b15-b7b7-88bb1f360bb5" clustered="false" name="OtherSentence_pk" physicalName="OtherSentence_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC341" populated="true" UUID="3592b835-e49c-49f5-8377-730e7073f242" ascendingOrDescending="UNSPECIFIED" column-ref="COL328" name="OtherSentencesID" physicalName="OtherSentencesID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB342" populated="true" UUID="e384bc73-9d7b-4a56-90fd-3404adda839e" name="ProbationSupervision" objectType="TABLE" physicalName="ProbationSupervision" >
+   <remarks></remarks>
+   <folder id="FOLTAB3421" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL343" populated="true" UUID="fb945266-9bea-4045-ac4c-e713cb1b335f" autoIncrement="false" autoIncrementSequenceName="ProbationSupervision_ProbationSupervisionID_seq" defaultValue="" name="ProbationSupervisionID" nullable="0" physicalName="ProbationSupervisionID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL344" populated="true" UUID="816e82cb-c896-4b7b-a434-44da4749e94f" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL345" populated="true" UUID="9f35ecd9-9a38-40ce-8e6e-2ce373b078de" autoIncrement="false" autoIncrementSequenceName="Disposition_DispositionID_seq" defaultValue="" name="DispositionID" nullable="0" physicalName="DispositionID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL346" populated="true" UUID="92f1b639-edcc-4abf-b524-83810af1eb88" autoIncrement="false" autoIncrementSequenceName="ProbationSupervision_ProbationSupervisionType_seq" defaultValue="" name="ProbationSupervisionType" nullable="0" physicalName="ProbationSupervisionType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL347" populated="true" UUID="f3560f6f-9935-46d7-ad8b-c80c0c6e5195" autoIncrement="false" autoIncrementSequenceName="ProbationSupervision_ProbationSupervisionStatus_seq" defaultValue="" name="ProbationSupervisionStatus" nullable="0" physicalName="ProbationSupervisionStatus" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL348" populated="true" UUID="886cf2af-bcda-4ae2-bd9c-3525d9e80876" autoIncrement="false" autoIncrementSequenceName="ProbationSupervision_ProbationSupervisionYears_seq" defaultValue="" name="ProbationSupervisionYears" nullable="0" physicalName="ProbationSupervisionYears" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL349" populated="true" UUID="a1428320-0b83-416a-afc7-14e983b58ca2" autoIncrement="false" autoIncrementSequenceName="ProbationSupervision_ProbationSupervisionMonths_seq" defaultValue="" name="ProbationSupervisionMonths" nullable="0" physicalName="ProbationSupervisionMonths" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL350" populated="true" UUID="906e9761-2195-40bf-8edf-a70ef6e42245" autoIncrement="false" autoIncrementSequenceName="ProbationSupervision_ProbationSupervisionDays_seq" defaultValue="" name="ProbationSupervisionDays" nullable="0" physicalName="ProbationSupervisionDays" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL351" populated="true" UUID="0810c831-3150-4ea3-a22c-b0ec0fd01d3f" autoIncrement="false" autoIncrementSequenceName="ProbationSupervision_ProbationSupervisionStartDate_seq" defaultValue="" name="ProbationSupervisionStartDate" nullable="0" physicalName="ProbationSupervisionStartDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL352" populated="true" UUID="3386799d-669a-4c89-b415-1ae822a23898" autoIncrement="false" autoIncrementSequenceName="ProbationSupervision_ProbationSupervisionEndDate_seq" defaultValue="" name="ProbationSupervisionEndDate" nullable="0" physicalName="ProbationSupervisionEndDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL353" populated="true" UUID="102f2bfe-c8a4-4609-b3c2-8628aee5f53e" autoIncrement="false" autoIncrementSequenceName="ProbationSupervision_CompleteBy_seq" defaultValue="" name="CompleteBy" nullable="0" physicalName="CompleteBy" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    <column id="COL354" populated="true" UUID="60026241-693b-494f-8dcb-230d2e41f050" autoIncrement="false" autoIncrementSequenceName="ProbationSupervision_ProbationSupervisionConditions_seq" defaultValue="" name="ProbationSupervisionConditions" nullable="0" physicalName="ProbationSupervisionConditions" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB3423" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB3422" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB3424" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX355" populated="true" UUID="fd4b49cf-bea3-4c86-9390-281fab196d41" clustered="false" name="ProbationSupervision_pk" physicalName="ProbationSupervision_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC356" populated="true" UUID="ff3fb4ae-275f-43bc-9b83-6541e4798312" ascendingOrDescending="UNSPECIFIED" column-ref="COL343" name="ProbationSupervisionID" physicalName="ProbationSupervisionID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB357" populated="true" UUID="f5bd0de6-3d90-4f7a-b640-a779a90fea2d" name="Victims" objectType="TABLE" physicalName="Victims" >
+   <remarks></remarks>
+   <folder id="FOLTAB3571" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL358" populated="true" UUID="7fce65c5-7b7f-4845-a4e4-8abb22e7c3ba" autoIncrement="false" autoIncrementSequenceName="Victims_VictimID_seq" defaultValue="" name="VictimID" nullable="0" physicalName="VictimID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL359" populated="true" UUID="071f0ab4-01e8-4800-966a-aa425602f5ef" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL360" populated="true" UUID="ca773cae-5acf-4ad5-96e8-bfe621adbb11" autoIncrement="false" autoIncrementSequenceName="Victims_VictimName_seq" defaultValue="" name="VictimName" nullable="0" physicalName="VictimName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL361" populated="true" UUID="98af7c87-a2bc-41df-88c1-93ec89a130c8" autoIncrement="false" autoIncrementSequenceName="Victims_VictimRestitution_seq" defaultValue="" name="VictimRestitution" nullable="0" physicalName="VictimRestitution" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL362" populated="true" UUID="23198a9f-6dbb-4ee2-9b72-08b6c8060261" autoIncrement="false" autoIncrementSequenceName="Victims_TotalAdjustment_seq" defaultValue="" name="TotalAdjustment" nullable="0" physicalName="TotalAdjustment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL363" populated="true" UUID="cfb20253-e082-4e45-a3c0-31c23755a7da" autoIncrement="false" autoIncrementSequenceName="Victims_TotalPaid_seq" defaultValue="" name="TotalPaid" nullable="0" physicalName="TotalPaid" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL364" populated="true" UUID="1acee857-459d-41ed-8145-d27076d33a6a" autoIncrement="false" autoIncrementSequenceName="Victims_TotalAvailableForDisbursement_seq" defaultValue="" name="TotalAvailableForDisbursement" nullable="0" physicalName="TotalAvailableForDisbursement" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL365" populated="true" UUID="787b14a9-661c-486a-ab34-5a0dbb945b4b" autoIncrement="false" autoIncrementSequenceName="Victims_Balance_seq" defaultValue="" name="Balance" nullable="0" physicalName="Balance" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2" userDefinedTypeUUID="115245ce-612c-4d6a-b559-6dd903dd959a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL366" populated="true" UUID="de28170c-9842-4232-9999-2ec9b6351170" autoIncrement="false" autoIncrementSequenceName="Victims_ManualHoldDate_seq" defaultValue="" name="ManualHoldDate" nullable="0" physicalName="ManualHoldDate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB3573" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB3572" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB3574" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX367" populated="true" UUID="529cbeac-b700-47c2-b506-fabf50ea7961" clustered="false" name="Victims_pk" physicalName="Victims_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC368" populated="true" UUID="65aa81aa-ca18-46b1-8d74-ccf217016685" ascendingOrDescending="UNSPECIFIED" column-ref="COL358" name="VictimID" physicalName="VictimID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB369" populated="true" UUID="bb5200ac-6ebc-4a76-96bf-3fbf009f976e" name="DefendantAlias" objectType="TABLE" physicalName="DefendantAlias" >
+   <remarks></remarks>
+   <folder id="FOLTAB3691" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL370" populated="true" UUID="abfda886-e016-4847-9a5e-60ea8e620d7f" autoIncrement="false" autoIncrementSequenceName="DefendantAlias_AliasID_seq" defaultValue="" name="AliasID" nullable="0" physicalName="AliasID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL371" populated="true" UUID="35e35321-d4c1-45f6-96a3-f91b728d3694" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantID_seq" defaultValue="" name="DefendantID" nullable="0" physicalName="DefendantID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL372" populated="true" UUID="587ae026-f4a5-443d-83dc-ad923ccffa02" autoIncrement="false" autoIncrementSequenceName="Defendant_SocialSecurityNumber_seq" defaultValue="" name="SocialSecurityNumber" nullable="0" physicalName="SocialSecurityNumber" precision="11" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL373" populated="true" UUID="b2a3538f-f77d-488d-8bcc-cde85f82fd27" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantLastName_seq" defaultValue="" name="DefendantLastName" nullable="0" physicalName="DefendantLastName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL374" populated="true" UUID="84a5fb81-0059-43bf-88c9-6a65b948e8a9" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantFirstName_seq" defaultValue="" name="DefendantFirstName" nullable="0" physicalName="DefendantFirstName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL375" populated="true" UUID="f9b75062-c54d-49b2-8085-713904b18e32" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantMiddleName_seq" defaultValue="" name="DefendantMiddleName" nullable="0" physicalName="DefendantMiddleName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL376" populated="true" UUID="7bf584d6-2a71-4272-b2da-67de7b3fe48a" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantFullName_seq" defaultValue="" name="DefendantFullName" nullable="0" physicalName="DefendantFullName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL377" populated="true" UUID="ce70a5f3-13d8-444b-8df0-d85cd1af56b2" autoIncrement="false" autoIncrementSequenceName="Defendant_DefendantSuffix_seq" defaultValue="" name="DefendantSuffix" nullable="0" physicalName="DefendantSuffix" precision="4" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL378" populated="true" UUID="4dbca581-925a-4768-b641-b5be43f8ee8f" autoIncrement="false" autoIncrementSequenceName="Defendant_DateOfBirth_seq" defaultValue="" name="DateOfBirth" nullable="0" physicalName="DateOfBirth" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB3693" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB3692" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB3694" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX379" populated="true" UUID="4909d7d4-356e-4c82-9397-b5513fc38f0b" clustered="false" name="DefendantAlias_pk" physicalName="DefendantAlias_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC380" populated="true" UUID="29b07bb7-535d-4717-a2de-1abe0bba76c5" ascendingOrDescending="UNSPECIFIED" column-ref="COL370" name="AliasID" physicalName="AliasID" />
+    </index>
+   </folder>
+  </table>
+  <relationships>
+   <relationship id="REL381" populated="true" UUID="f0e28361-4fe4-497d-bd84-02d0a5689ba3" deferrability="7" deleteRule="3" fk-table-ref="TAB119" fkCardinality="7" identifying="false" name="CourtCase_CourtCaseCharges_fk" physicalName="CourtCase_CourtCaseCharges_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP382" populated="true" UUID="ab876e32-627b-49c6-bb07-cf46128a868a" fk-column-ref="COL121" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
+   </relationship>
+   <relationship id="REL383" populated="true" UUID="3e34a4db-5e53-481a-af67-f9d57584f9af" deferrability="7" deleteRule="3" fk-table-ref="TAB47" fkCardinality="7" identifying="false" name="CourtCase_Defendant_fk" physicalName="CourtCase_Defendant_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
+    <column-mapping id="CMP384" populated="true" UUID="054d438a-af38-4f10-bb7c-b1f4a5b8a0f6" fk-column-ref="COL50" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
+   </relationship>
+   <relationship id="REL385" populated="true" UUID="9479d165-b161-4a98-a930-2951632ed6d3" deferrability="7" deleteRule="3" fk-table-ref="TAB84" fkCardinality="7" identifying="false" name="CourtCase_Attorney_fk" physicalName="CourtCase_Attorney_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP386" populated="true" UUID="19d370df-6066-4cd1-ab5d-643294a91d32" fk-column-ref="COL86" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
+   </relationship>
+   <relationship id="REL387" populated="true" UUID="215d3091-264f-4c4e-b804-b3ad53830f5b" deferrability="7" deleteRule="3" fk-table-ref="TAB92" fkCardinality="7" identifying="false" name="CourtCase_CaseEvents_fk" physicalName="CourtCase_CaseEvents_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP388" populated="true" UUID="5a95aad2-3166-4c64-81f7-d91f9b4e9690" fk-column-ref="COL94" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
+   </relationship>
+   <relationship id="REL389" populated="true" UUID="9c1f7e8d-9ef7-4347-a006-642790215e97" deferrability="7" deleteRule="3" fk-table-ref="TAB239" fkCardinality="7" identifying="false" name="CourtCase_DefendantCourtCaseHistory_fk" physicalName="CourtCase_DefendantCourtCaseHistory_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
+    <column-mapping id="CMP390" populated="true" UUID="7e680241-6e60-4b38-9534-9b69a04336d8" fk-column-ref="COL241" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
+   </relationship>
+   <relationship id="REL391" populated="true" UUID="e5b98b37-1190-4243-ae6e-7218ef528bee" deferrability="7" deleteRule="3" fk-table-ref="TAB179" fkCardinality="6" identifying="false" name="CourtCase_BondBail_fk" physicalName="CourtCase_BondBail_fk" pk-table-ref="TAB1" pkCardinality="6" updateRule="3" >
+    <column-mapping id="CMP392" populated="true" UUID="1f48b002-b894-4a95-a355-430a34b7812b" fk-column-ref="COL182" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
+   </relationship>
+   <relationship id="REL393" populated="true" UUID="e0850fa4-a7e6-4ef3-a6f2-1a88efaf1cc9" deferrability="7" deleteRule="3" fk-table-ref="TAB200" fkCardinality="6" identifying="false" name="CourtCase_Warrant_fk" physicalName="CourtCase_Warrant_fk" pk-table-ref="TAB1" pkCardinality="6" updateRule="3" >
+    <column-mapping id="CMP394" populated="true" UUID="7a365605-d712-49ad-9540-55c86f88a8ab" fk-column-ref="COL203" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
+   </relationship>
+   <relationship id="REL395" populated="true" UUID="2f44557e-4729-440a-b13d-365faf3cd980" deferrability="7" deleteRule="3" fk-table-ref="TAB190" fkCardinality="7" identifying="false" name="Defendant_Arrest_fk" physicalName="Defendant_Arrest_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP396" populated="true" UUID="c7c25fb0-ed96-4208-a9b8-4e46aeb32153" fk-column-ref="COL192" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL397" populated="true" UUID="1bc180a1-c62b-46a8-b6d9-20b15f0ffb55" deferrability="7" deleteRule="3" fk-table-ref="TAB179" fkCardinality="7" identifying="false" name="Defendant_BondBail_fk" physicalName="Defendant_BondBail_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP398" populated="true" UUID="c67f20e9-006f-4af3-9a6f-668bc75ba675" fk-column-ref="COL181" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL399" populated="true" UUID="52521172-3228-4e8b-a1da-72aff02ef136" deferrability="7" deleteRule="3" fk-table-ref="TAB149" fkCardinality="7" identifying="false" name="Defendant_Sentence_fk" physicalName="Defendant_Sentence_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP400" populated="true" UUID="b5f1d479-97d1-44c4-af3a-765d6d776749" fk-column-ref="COL151" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL401" populated="true" UUID="b4f1a392-77af-481c-98c9-fd63861310d5" deferrability="7" deleteRule="3" fk-table-ref="TAB169" fkCardinality="7" identifying="false" name="Defendant_Confinement_fk" physicalName="Defendant_Confinement_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP402" populated="true" UUID="961c19e8-0731-497a-9276-8b0722cfb445" fk-column-ref="COL171" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL403" populated="true" UUID="c1b5b74f-66d0-4241-addc-103039c75ade" deferrability="7" deleteRule="3" fk-table-ref="TAB200" fkCardinality="7" identifying="false" name="Defendant_Warrant_fk" physicalName="Defendant_Warrant_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP404" populated="true" UUID="e0cbef35-be52-4271-a9ab-057fba138c21" fk-column-ref="COL202" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL405" populated="true" UUID="42bd2285-5366-4e1a-9b11-27c28c48aeeb" deferrability="7" deleteRule="3" fk-table-ref="TAB210" fkCardinality="7" identifying="false" name="Defendant_Address_fk" physicalName="Defendant_Address_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP406" populated="true" UUID="d8ec15c9-3500-49ab-99a7-40a6d61d935b" fk-column-ref="COL212" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL407" populated="true" UUID="751b3b24-f6cd-43ae-9bc5-5e3effe90f72" deferrability="7" deleteRule="3" fk-table-ref="TAB222" fkCardinality="7" identifying="false" name="Defendant_Telephone_fk" physicalName="Defendant_Telephone_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP408" populated="true" UUID="ea982b3e-9408-49dc-b6f6-9c0ff1e4c181" fk-column-ref="COL224" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL409" populated="true" UUID="52b39b02-4fe8-4ae2-bb1d-bf2e8fe652fc" deferrability="7" deleteRule="3" fk-table-ref="TAB229" fkCardinality="7" identifying="false" name="Defendant_Payment_fk" physicalName="Defendant_Payment_fk" pk-table-ref="TAB47" pkCardinality="3" updateRule="3" >
+    <column-mapping id="CMP410" populated="true" UUID="66e4399f-d209-48e4-9a8b-649c3d068e86" fk-column-ref="COL231" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL411" populated="true" UUID="fdaff494-0330-405c-bc59-692fe17c79ca" deferrability="7" deleteRule="3" fk-table-ref="TAB239" fkCardinality="7" identifying="false" name="Defendant_DefendantCourtCaseHistory_fk" physicalName="Defendant_DefendantCourtCaseHistory_fk" pk-table-ref="TAB47" pkCardinality="7" updateRule="3" >
+    <column-mapping id="CMP412" populated="true" UUID="f4e0f646-0b11-46fe-98af-54e305b1ca18" fk-column-ref="COL242" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL413" populated="true" UUID="d4a303b6-4e1a-4c66-ab4e-56f63010b890" deferrability="7" deleteRule="3" fk-table-ref="TAB252" fkCardinality="7" identifying="false" name="Defendant_ElectronicContact_fk" physicalName="Defendant_ElectronicContact_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP414" populated="true" UUID="dcf81afa-fef1-4e4b-a9f4-9564e096bf1b" fk-column-ref="COL254" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL415" populated="true" UUID="441a2cab-ad97-4742-ad24-0053ed038d54" deferrability="7" deleteRule="3" fk-table-ref="TAB288" fkCardinality="7" identifying="false" name="Defendant_Vehicle_fk" physicalName="Defendant_Vehicle_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP416" populated="true" UUID="6f4dbc2d-5d28-4913-921f-000d23e729cc" fk-column-ref="COL290" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL417" populated="true" UUID="2141115b-06bb-47a6-bd70-c99c29d21c28" deferrability="7" deleteRule="3" fk-table-ref="TAB327" fkCardinality="7" identifying="false" name="Defendant_OtherSentence_fk" physicalName="Defendant_OtherSentence_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP418" populated="true" UUID="8a5dab89-5550-4dee-85eb-d893f50e7f36" fk-column-ref="COL329" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL419" populated="true" UUID="93063dce-dde0-40b7-8c30-cdb0ca247ade" deferrability="7" deleteRule="3" fk-table-ref="TAB342" fkCardinality="7" identifying="false" name="Defendant_ProbationSupervision_fk" physicalName="Defendant_ProbationSupervision_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP420" populated="true" UUID="1ba42beb-83f2-4e75-86f1-733e17649b4d" fk-column-ref="COL344" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL421" populated="true" UUID="620ae544-a8f4-491c-a550-dd8ed8664631" deferrability="7" deleteRule="3" fk-table-ref="TAB357" fkCardinality="7" identifying="false" name="Defendant_Victims_fk" physicalName="Defendant_Victims_fk" pk-table-ref="TAB47" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP422" populated="true" UUID="f627dcd9-b58a-4287-abf1-d64ede09e216" fk-column-ref="COL359" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL423" populated="true" UUID="29938d27-7ac3-4b71-8277-7e8d6e03ac6b" deferrability="7" deleteRule="3" fk-table-ref="TAB369" fkCardinality="7" identifying="false" name="Defendant_DefendantAlias_fk" physicalName="Defendant_DefendantAlias_fk" pk-table-ref="TAB47" pkCardinality="3" updateRule="3" >
+    <column-mapping id="CMP424" populated="true" UUID="51ea4258-e053-49fe-af73-89f644d655a1" fk-column-ref="COL371" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL48" />
+   </relationship>
+   <relationship id="REL425" populated="true" UUID="2d766b8b-fa5b-4eef-929d-655446bac844" deferrability="7" deleteRule="3" fk-table-ref="TAB104" fkCardinality="7" identifying="false" name="CaseEvents_Hearings_fk" physicalName="CaseEvents_Hearings_fk" pk-table-ref="TAB92" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP426" populated="true" UUID="cd02812e-9f0e-406b-bac3-d51f8fad23d0" fk-column-ref="COL106" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL93" />
+   </relationship>
+   <relationship id="REL427" populated="true" UUID="dafe27f9-d2fd-4bff-a852-f9a1c04597c6" deferrability="7" deleteRule="3" fk-table-ref="TAB179" fkCardinality="3" identifying="false" name="CourtCaseCharges_BondBail_fk" physicalName="CourtCaseCharges_BondBail_fk" pk-table-ref="TAB119" pkCardinality="3" updateRule="3" >
+    <column-mapping id="CMP428" populated="true" UUID="318ed51d-70a1-46dd-8bde-ab00fb23739e" fk-column-ref="COL183" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL120" />
+   </relationship>
+   <relationship id="REL429" populated="true" UUID="7fd961ed-09f4-48e0-9954-363c53876b4f" deferrability="7" deleteRule="3" fk-table-ref="TAB259" fkCardinality="3" identifying="false" name="CourtCaseCharges_Citation_fk" physicalName="CourtCaseCharges_Citation_fk" pk-table-ref="TAB119" pkCardinality="6" updateRule="3" >
+    <column-mapping id="CMP430" populated="true" UUID="fe5ce863-3794-494e-864c-1e5cd1034612" fk-column-ref="COL261" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL120" />
+   </relationship>
+   <relationship id="REL431" populated="true" UUID="8ec0a138-4005-4324-a0c1-19dbb97739f5" deferrability="7" deleteRule="3" fk-table-ref="TAB303" fkCardinality="6" identifying="false" name="CourtCaseCharges_Disposition_fk" physicalName="CourtCaseCharges_Disposition_fk" pk-table-ref="TAB119" pkCardinality="6" updateRule="3" >
+    <column-mapping id="CMP432" populated="true" UUID="beb65ff1-91ea-46e3-86c4-bd9ff67dd5c8" fk-column-ref="COL305" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL120" />
+   </relationship>
+   <relationship id="REL433" populated="true" UUID="08dd2c27-7ecb-4682-aac8-3cf67b1777e8" deferrability="7" deleteRule="3" fk-table-ref="TAB149" fkCardinality="6" identifying="false" name="CourtCaseCharges_Sentence_fk" physicalName="CourtCaseCharges_Sentence_fk" pk-table-ref="TAB119" pkCardinality="6" updateRule="3" >
+    <column-mapping id="CMP434" populated="true" UUID="d978789d-6ab0-4af3-af4e-9a3dfbe39408" fk-column-ref="COL152" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL120" />
+   </relationship>
+   <relationship id="REL435" populated="true" UUID="8d67d04a-ffa8-4bd0-817b-057a584d5ee6" deferrability="7" deleteRule="3" fk-table-ref="TAB149" fkCardinality="6" identifying="false" name="Confinement_Sentence_fk" physicalName="Confinement_Sentence_fk" pk-table-ref="TAB169" pkCardinality="6" updateRule="3" >
+    <column-mapping id="CMP436" populated="true" UUID="8b913385-cffc-44fa-be3d-3ebd23e433f8" fk-column-ref="COL166" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL170" />
+   </relationship>
+   <relationship id="REL437" populated="true" UUID="9e476708-7d1e-4654-b65a-a7107129d268" deferrability="7" deleteRule="3" fk-table-ref="TAB303" fkCardinality="6" identifying="false" name="Citation_Disposition_fk" physicalName="Citation_Disposition_fk" pk-table-ref="TAB259" pkCardinality="6" updateRule="3" >
+    <column-mapping id="CMP438" populated="true" UUID="3492312e-8924-4208-bfca-c8c5f89c766b" fk-column-ref="COL306" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL260" />
+   </relationship>
+   <relationship id="REL439" populated="true" UUID="e2467cec-342e-43c7-9bc1-948760e1c831" deferrability="7" deleteRule="3" fk-table-ref="TAB149" fkCardinality="7" identifying="false" name="Disposition_Sentence_fk" physicalName="Disposition_Sentence_fk" pk-table-ref="TAB303" pkCardinality="6" updateRule="3" >
+    <column-mapping id="CMP440" populated="true" UUID="29c3588b-5de4-47e6-bade-faf7935aaebf" fk-column-ref="COL153" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL304" />
+   </relationship>
+   <relationship id="REL441" populated="true" UUID="5e3c3ea5-d746-4413-89bc-8e93f914730a" deferrability="7" deleteRule="3" fk-table-ref="TAB327" fkCardinality="7" identifying="false" name="Disposition_OtherSentence_fk" physicalName="Disposition_OtherSentence_fk" pk-table-ref="TAB303" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP442" populated="true" UUID="77bfda69-7c9c-4b96-9e3c-c8a2b7f28f38" fk-column-ref="COL330" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL304" />
+   </relationship>
+   <relationship id="REL443" populated="true" UUID="60cdb2a3-5a22-43fa-aacc-97939319b262" deferrability="7" deleteRule="3" fk-table-ref="TAB169" fkCardinality="3" identifying="false" name="Disposition_Confinement_fk" physicalName="Disposition_Confinement_fk" pk-table-ref="TAB303" pkCardinality="6" updateRule="3" >
+    <column-mapping id="CMP444" populated="true" UUID="7db89ebb-d13e-46a8-b5d9-b9fae1e6094e" fk-column-ref="COL176" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL304" />
+   </relationship>
+   <relationship id="REL445" populated="true" UUID="03951519-153d-4270-8c5a-2837a1e2e2f2" deferrability="7" deleteRule="3" fk-table-ref="TAB342" fkCardinality="7" identifying="false" name="Disposition_ProbationSupervision_fk" physicalName="Disposition_ProbationSupervision_fk" pk-table-ref="TAB303" pkCardinality="7" updateRule="3" >
+    <column-mapping id="CMP446" populated="true" UUID="55118d51-a3a2-40ff-95b0-7c85cc55c400" fk-column-ref="COL345" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL304" />
+   </relationship>
+  </relationships>
+ </target-database>
+ <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
+ <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
+ <play-pen zoom="0.7071067811865477" viewportX="0" viewportY="24" relationship-style="direct" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+  <table-pane table-ref="TAB1" x="27" y="24" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB47" x="924" y="20" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB84" x="321" y="750" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB92" x="26" y="818" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB104" x="292" y="888" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB119" x="321" y="29" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB149" x="1480" y="52" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB169" x="1220" y="724" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB179" x="1217" y="388" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB190" x="1213" y="554" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB200" x="1220" y="222" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB210" x="937" y="646" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB222" x="933" y="851" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB229" x="1219" y="56" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB239" x="313" y="530" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB252" x="931" y="980" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB259" x="653" y="42" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB288" x="1491" y="633" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB303" x="650" y="523" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB327" x="588" y="909" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB342" x="1490" y="376" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB357" x="1234" y="890" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB369" x="1537" y="881" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-link relationship-ref="REL381" pkConnection="0.1303780964797914" fkConnection="0.20179372197309417" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL383" pkConnection="0.047516198704103674" fkConnection="0.08695652173913043" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL385" pkConnection="0.810077519379845" fkConnection="0.4594594594594595" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="36"/>
+  <table-link relationship-ref="REL387" pkConnection="0.4806201550387597" fkConnection="0.14903846153846154" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL425" pkConnection="0.6643356643356644" fkConnection="0.3356643356643357" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL395" pkConnection="0.8121739130434783" fkConnection="0.26573426573426573" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL397" pkConnection="0.6052173913043478" fkConnection="0.2283464566929134" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL399" pkConnection="0.3130434782608696" fkConnection="0.19607843137254902" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL401" pkConnection="0.9547826086956521" fkConnection="0.3779527559055118" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL403" pkConnection="0.4330434782608696" fkConnection="0.18110236220472442" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL405" pkConnection="0.6153846153846154" fkConnection="0.8415300546448088" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL407" pkConnection="0.4829059829059829" fkConnection="0.5" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL409" pkConnection="0.06072106261859583" fkConnection="0.3916083916083916" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL389" pkConnection="0.6205059920106525" fkConnection="0.2670157068062827" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL411" pkConnection="0.6939130434782609" fkConnection="0.7185430463576159" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="130"/>
+  <table-link relationship-ref="REL413" pkConnection="0.8247863247863247" fkConnection="0.9416342412451362" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL427" pkConnection="0.28052805280528054" fkConnection="0.5511811023622047" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL429" pkConnection="0.6371490280777538" fkConnection="0.38478747203579416" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL415" pkConnection="0.6678260869565218" fkConnection="0.04484304932735426" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL431" pkConnection="0.8873720136518771" fkConnection="0.3333333333333333" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="36"/>
+  <table-link relationship-ref="REL437" pkConnection="0.6752136752136753" fkConnection="0.21367521367521367" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL439" pkConnection="0.08446866485013624" fkConnection="0.28044280442804426" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL417" pkConnection="0.10256410256410256" fkConnection="0.7142857142857143" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="20"/>
+  <table-link relationship-ref="REL441" pkConnection="0.9073569482288828" fkConnection="0.1111111111111111" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="130"/>
+  <table-link relationship-ref="REL419" pkConnection="0.542608695652174" fkConnection="0.357487922705314" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL435" pkConnection="0.2283464566929134" fkConnection="0.975609756097561" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL421" pkConnection="0.9358974358974359" fkConnection="0.3314285714285714" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="36"/>
+  <table-link relationship-ref="REL391" pkConnection="0.21171770972037285" fkConnection="0.4528301886792453" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL393" pkConnection="0.29161118508655126" fkConnection="0.5594405594405595" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL433" pkConnection="0.1468682505399568" fkConnection="0.5181518151815182" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL443" pkConnection="0.2997275204359673" fkConnection="0.38461538461538464" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL445" pkConnection="0.41689373297002724" fkConnection="0.6547085201793722" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL423" pkConnection="0.7078260869565217" fkConnection="0.2" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+ </play-pen>
+ <critic-manager>
+  <critic-grouping platformType="Generic" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PrimaryKeyCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.RelationshipMappingTypeCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.EmptyRelationshipCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericSequenceNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetDefaultOnColumnWithNoDefaultCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetNullOnNonNullableColumnCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DuplicateNameCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="DB2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DB2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="H2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.H2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="HSQLDB" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.HSQLDBUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="MySQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLCommentCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="Oracle" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OraclePhysicalNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="PostgreSQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PostgreSQLReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerUnsupportedFeaturesCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2000" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2000UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2005" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2005UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+ </critic-manager>
+ <profiles topNCount="10">
+  </profiles>
+  <olap>
+  </olap>
+  <olap-gui>
+  </olap-gui>
+</architect-project>
