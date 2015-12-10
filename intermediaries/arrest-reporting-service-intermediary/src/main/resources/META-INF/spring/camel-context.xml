@@ -48,7 +48,7 @@
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 
-			<!-- This will alter the original message to enrich is a URI property is set in the configuration file -->
+			<!-- This will alter the original message to enrich if a URI property is set in the configuration file -->
 			<camel:to uri="direct:enrichContent"/>
 
 			<!-- Multicast to the core services and derived bundle specific routes so each route gets original message -->

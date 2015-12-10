@@ -106,6 +106,7 @@
 								<nc:ActivityIdentification>
 									<nc:IdentificationID>Law(15RM00998)</nc:IdentificationID>
 								</nc:ActivityIdentification>
+								<nc:ActivityCategoryText>Incident</nc:ActivityCategoryText>
 								<nc:ActivityDate>
 									<nc:DateTime>2016-01-01T01:22:00</nc:DateTime>
 								</nc:ActivityDate>
@@ -114,11 +115,13 @@
 						</lexsdigest:EntityActivity>
 						<!-- OFFENSE -->
 						<lexsdigest:EntityActivity>
-							<nc:Activity s:id="OFFENSE_01"/>
+							<nc:Activity s:id="OFFENSE_01">
+							<nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+							</nc:Activity>
 						</lexsdigest:EntityActivity>
-						<!-- TICKET -->
+						<!-- CITATION -->
 						<lexsdigest:EntityDocument>
-							<nc:Document s:id="TICKET_01">
+							<nc:Document s:id="CITATION_01">
 								<nc:DocumentIdentification>
 									<nc:IdentificationID>82734800</nc:IdentificationID>
 								</nc:DocumentIdentification>
@@ -170,7 +173,7 @@
 									<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
 								</nc:PersonWeightMeasure>
 								<j:PersonAugmentation>
-									<nc:DriverLicense>
+									<nc:DriverLicense s:id="DL001">
 										<nc:DriverLicenseIdentification>
 											<nc:IdentificationID>41444812</nc:IdentificationID>
 											<j:IdentificationJurisdictionNCICLISCode>VT
@@ -183,18 +186,16 @@
 								<nc:RoleOfPersonReference s:ref="PERSON_03"/>
 							</j:IncidentSubject>
 						</lexsdigest:EntityPerson>
-						<!-- NOTARY -->
-						<lexsdigest:EntityPerson>
-							<lexsdigest:Person s:id="PERSON_04">
-								<nc:PersonName>
-									<nc:PersonFullName>Steve Sargeant</nc:PersonFullName>
-								</nc:PersonName>
-							</lexsdigest:Person>
-						</lexsdigest:EntityPerson>
 						<!--  SUBJECT - ORGANIZATION -->
 						<lexsdigest:EntityOrganization>
 							<nc:Organization s:id="ORGANIZATION_01">
 								<nc:OrganizationName>ACME</nc:OrganizationName>
+							</nc:Organization>
+						<!--  CITATION DELIVERY RECIPIENT - ORGANIZATION -->
+						</lexsdigest:EntityOrganization>
+						<lexsdigest:EntityOrganization>
+							<nc:Organization s:id="ORGANIZATION_02">
+								<nc:OrganizationName>Morways Moving Company</nc:OrganizationName>
 							</nc:Organization>
 						</lexsdigest:EntityOrganization>
 						<!--  OFFICER AGENCY-->
@@ -205,8 +206,8 @@
 						</lexsdigest:EntityOrganization>
 						<!-- SUBJECT HOME PHONE -->
 						<lexsdigest:EntityTelephoneNumber>
-							<lexsdigest:TelephoneNumber s:id="TELEPHONE_01">
-								<nc:FullTelephoneNumber>
+							<lexsdigest:TelephoneNumber>
+								<nc:FullTelephoneNumber s:id="TELEPHONE_01">
 									<nc:TelephoneNumberFullID>8023631111
 									</nc:TelephoneNumberFullID>
 								</nc:FullTelephoneNumber>
@@ -214,8 +215,8 @@
 						</lexsdigest:EntityTelephoneNumber>
 						<!-- SUBJECT BUSINESS PHONE -->
 						<lexsdigest:EntityTelephoneNumber>
-							<lexsdigest:TelephoneNumber s:id="TELEPHONE_02">
-								<nc:FullTelephoneNumber>
+							<lexsdigest:TelephoneNumber>
+								<nc:FullTelephoneNumber s:id="TELEPHONE_02">
 									<nc:TelephoneNumberFullID>8023631112
 									</nc:TelephoneNumberFullID>
 								</nc:FullTelephoneNumber>
@@ -238,11 +239,21 @@
 						<!-- SUBJECT BIRTH LOCATION -->
 						<lexsdigest:EntityLocation>
 							<nc:Location s:id="LOCATION_02">
+							<nc:LocationAddress>
+								<nc:StructuredAddress>
+									<nc:LocationCityName>Buffalo</nc:LocationCityName>
+								</nc:StructuredAddress>
+							</nc:LocationAddress>
 							</nc:Location>
 						</lexsdigest:EntityLocation>
 						<!-- INCIDENT LOCATION -->
 						<lexsdigest:EntityLocation>
 							<nc:Location s:id="LOCATION_03">
+							<nc:LocationAddress>
+								<nc:StructuredAddress>
+									<nc:LocationCityName>Burlington</nc:LocationCityName>
+								</nc:StructuredAddress>
+							</nc:LocationAddress>
 							</nc:Location>
 						</lexsdigest:EntityLocation>
 						<!-- PARENY/GAURDIAN LOCATION -->
@@ -257,11 +268,6 @@
 										<nc:LocationPostalCode>05401-2277</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
-							</nc:Location>
-						</lexsdigest:EntityLocation>
-						<!-- NOTARY LOCATION -->
-						<lexsdigest:EntityLocation>
-							<nc:Location s:id="LOCATION_05">
 							</nc:Location>
 						</lexsdigest:EntityLocation>
 						<!-- SUBJECT VEHICLE -->
@@ -331,11 +337,6 @@
 								<nc:ActivityReference s:ref="INCIDENT_01"/>
 								<nc:OrganizationReference s:ref="ORGANIZATION_01"/>
 							</nc:ActivityInvolvedOrganizationAssociation>
-							<nc:ActivityInvolvedPersonAssociation>
-								<nc:ActivityReference s:ref="INCIDENT_01"/>
-								<nc:PersonReference s:ref="PERSON_04"/>
-								<nc:PersonActivityInvolvementText>Notary</nc:PersonActivityInvolvementText>
-							</nc:ActivityInvolvedPersonAssociation>
 							<nc:ImmediateFamilyAssociation>
 								<nc:PersonParentReference s:ref="PERSON_01"/>
 								<nc:PersonChildReference s:ref="PERSON_03"/>
@@ -348,18 +349,6 @@
 								<nc:PersonReference s:ref="PERSON_03"/>
 								<nc:ConveyanceReference s:ref="VEHICLE_01"/>
 							</nc:PersonConveyanceAssociation>
-							<nc:PersonLocationAssociation>
-								<nc:PersonReference s:ref="PERSON_03"/>
-								<nc:LocationReference s:ref="LOCATION_04"/>
-							</nc:PersonLocationAssociation>
-							<nc:PersonLocationAssociation>
-								<nc:PersonReference s:ref="PERSON_04"/>
-								<nc:LocationReference s:ref="LOCATION_05"/>
-							</nc:PersonLocationAssociation>
-							<nc:ResidenceAssociation>
-								<nc:PersonReference s:ref="PERSON_03"/>
-								<nc:LocationReference s:ref="LOCATION_01"/>
-							</nc:ResidenceAssociation>
 							<nc:TransportationAssociation>
 								<nc:ConveyanceReference s:ref="VEHICLE_01"/>
 								<nc:ConveyanceOperatorReference s:ref="SUBJECT_01"/>
@@ -386,12 +375,12 @@
 									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_01"/>
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
-							<ndexia:Location>
-								<nc:LocationDescriptionText>Buffalo, NY</nc:LocationDescriptionText>
-								<ndexia:LocationAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_02"/>
-								</ndexia:LocationAugmentation>
-							</ndexia:Location>
+<!-- 							<ndexia:Location> -->
+<!-- 								<nc:LocationDescriptionText>Buffalo, NY</nc:LocationDescriptionText> -->
+<!-- 								<ndexia:LocationAugmentation> -->
+<!-- 									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_02"/> -->
+<!-- 								</ndexia:LocationAugmentation> -->
+<!-- 							</ndexia:Location> -->
 							<ndexia:Location>
 								<nc:LocationHighway>
 									<nc:HighwayID>Rt. 89</nc:HighwayID>
@@ -411,16 +400,6 @@
 									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_04"/>
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
-							<ndexia:Location>
-								<nc:LocationAddress>
-									<nc:StructuredAddress>
-										<nc:LocationCountyName>Chittenden</nc:LocationCountyName>
-									</nc:StructuredAddress>
-								</nc:LocationAddress>
-								<ndexia:LocationAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_05"/>
-								</ndexia:LocationAugmentation>
-							</ndexia:Location>
 							<ndexia:Offense>
 								<ndexia:ActivityAugmentation>
 									<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_01"/>
@@ -438,7 +417,7 @@
 									</j:OrganizationORIIdentification>
 								</j:OrganizationAugmentation>
 								<ndexia:OrganizationAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="ORGANIZATION_02"/>
+									<lexslib:SameAsDigestReference lexslib:ref="AGENCY_01"/>
 								</ndexia:OrganizationAugmentation>
 							</ndexia:Organization>
 							<ndexia:Vehicle>
@@ -480,26 +459,20 @@
 								<inc-ext:RelatedCriminalChargeIndicator>false</inc-ext:RelatedCriminalChargeIndicator>
 							</inc-ext:Charge>
 							<inc-ext:Person>
-								<inc-ext:PersonFAWLicenseIdentification>
+								<inc-ext:PersonFishAndWildlifeLicenseIdentification>
 									<nc:IdentificationID>12345678</nc:IdentificationID>
-								</inc-ext:PersonFAWLicenseIdentification>
-								<inc-ext:PersonDriverLicenseCDLIndicator>false</inc-ext:PersonDriverLicenseCDLIndicator>
+								</inc-ext:PersonFishAndWildlifeLicenseIdentification>
 								<lexslib:SameAsDigestReference lexslib:ref="PERSON_03"/>
 							</inc-ext:Person>
-							<inc-ext:Ticket>
-								<inc-ext:TicketServedDate>
+							<inc-ext:Citation>
+								<inc-ext:CitationServedDate>
 									<nc:Date>2015-10-27</nc:Date>
-								</inc-ext:TicketServedDate>
-								<inc-ext:TicketDeliveredRecipientText>Morways Moving Company</inc-ext:TicketDeliveredRecipientText>
-								<inc-ext:TicketRecipientOrganizationIndicator>true</inc-ext:TicketRecipientOrganizationIndicator>
-								<inc-ext:WaiverAmount>105.00</inc-ext:WaiverAmount>
-								<inc-ext:TicketServedIndicator>true</inc-ext:TicketServedIndicator>
-								<inc-ext:TicketMailedIndicator>false</inc-ext:TicketMailedIndicator>
-								<inc-ext:TicketNotarizedDate>
-									<nc:Date>2015-10-28</nc:Date>
-								</inc-ext:TicketNotarizedDate>
-								<lexslib:SameAsDigestReference lexslib:ref="TICKET_01"/>
-							</inc-ext:Ticket>
+								</inc-ext:CitationServedDate>
+								<inc-ext:CitationWaiverAmount>105.00</inc-ext:CitationWaiverAmount>
+								<inc-ext:CitationServedIndicator>true</inc-ext:CitationServedIndicator>
+								<inc-ext:CitationMailedIndicator>false</inc-ext:CitationMailedIndicator>
+								<lexslib:SameAsDigestReference lexslib:ref="CITATION_01"/>
+							</inc-ext:Citation>
 							<inc-ext:Vehicle>
 								<inc-ext:VehicleHazardousMaterialIndicator>true</inc-ext:VehicleHazardousMaterialIndicator>
 								<lexslib:SameAsDigestReference lexslib:ref="VEHICLE_01"/>
@@ -514,7 +487,7 @@
 									<nc:MeasurePointValue>40.</nc:MeasurePointValue>
 									<nc:MeasureUnitText>mph</nc:MeasureUnitText>
 								</j:DrivingIncidentLegalSpeedRate>
-								<inc-ext:BloodAlcoholContentNumberText>0.2</inc-ext:BloodAlcoholContentNumberText>
+								<inc-ext:SubjectBloodAlcoholContentNumber>0.2</inc-ext:SubjectBloodAlcoholContentNumber>
 								<inc-ext:DrivingAccidentIndicator>false</inc-ext:DrivingAccidentIndicator>
 								<inc-ext:DrivingAccidentFatalityIndicator>false</inc-ext:DrivingAccidentFatalityIndicator>
 								<inc-ext:SeatBeltViolationIndicator>false</inc-ext:SeatBeltViolationIndicator>
@@ -524,10 +497,34 @@
 								<inc-ext:CityReliefActOtherText>Text</inc-ext:CityReliefActOtherText>
 								<lexslib:SameAsDigestReference lexslib:ref="INCIDENT_01"/>
 							</inc-ext:DrivingIncident>
+							<inc-ext:DriverLicense>
+								<inc-ext:DriverLicenseCDLIndicator>false</inc-ext:DriverLicenseCDLIndicator>
+								<lexslib:SameAsDigestReference lexslib:ref="DL001"/>
+							</inc-ext:DriverLicense>
+							<nc:PersonContactInformationAssociation>
+								<nc:PersonReference s:ref="PERSON_03"/>
+								<nc:ContactInformationReference s:ref="LOCATION_01"/>
+							</nc:PersonContactInformationAssociation>
+							<nc:PersonContactInformationAssociation>
+								<nc:PersonReference s:ref="PERSON_01"/>
+								<nc:ContactInformationReference s:ref="LOCATION_04"/>
+							</nc:PersonContactInformationAssociation>
 							<nc:ActivityDocumentAssociation>
 								<nc:ActivityReference s:ref="INCIDENT_01"/>
-								<nc:DocumentReference s:ref="TICKET_01"/>
+								<nc:DocumentReference s:ref="CITATION_01"/>
 							</nc:ActivityDocumentAssociation>
+							<inc-ext:EntityDocumentAssociation>
+								<nc:DocumentReference s:ref="CITATION_01"/>
+								<nc:EntityPersonReference s:ref="SUBJECT_01"/>
+							</inc-ext:EntityDocumentAssociation>
+							<inc-ext:EntityDocumentAssociation>
+								<nc:DocumentReference s:ref="CITATION_01"/>
+								<nc:EntityOrganizationReference s:ref="ORGANIZATION_01"/>
+							</inc-ext:EntityDocumentAssociation>
+							<inc-ext:CitationDeliveryRecipientAssociation>
+								<inc-ext:CitationReference s:ref="CITATION_01"/>
+								<nc:EntityOrganizationReference s:ref="ORGANIZATION_02"/>
+							</inc-ext:CitationDeliveryRecipientAssociation>
 						</inc-ext:IncidentReport>
 					</lexs:StructuredPayload>
 				</lexs:DataItemPackage>

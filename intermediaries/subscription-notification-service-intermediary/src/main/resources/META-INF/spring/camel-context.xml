@@ -426,8 +426,11 @@
 					<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
 					<camel:choice>
 						<camel:when>
-							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/xop:Include/@href!=''</camel:xpath>
-							<camel:to uri="bean:arrestNotificationAttachmentProcessor?method=processMtomAttachment"></camel:to>
+							<camel:xpath>normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject)!=''</camel:xpath>
+							<camel:setHeader headerName="base64BinaryData">
+								<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject</camel:xpath>
+							</camel:setHeader>
+							<camel:to uri="bean:arrestNotificationAttachmentProcessor?method=processBase64BinaryObject"></camel:to>
 						</camel:when>
 					</camel:choice>
 					<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />

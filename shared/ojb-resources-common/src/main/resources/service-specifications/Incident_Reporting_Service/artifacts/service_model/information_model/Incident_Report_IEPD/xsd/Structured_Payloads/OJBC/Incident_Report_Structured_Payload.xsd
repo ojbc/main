@@ -56,12 +56,17 @@
 					<xsd:element ref="inc-ext:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:Booking" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:Warrant" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Ticket" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:Citation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:Vehicle" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:DrivingIncident" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:LocationContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ActivityDocumentAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:EntityDocumentAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonDriverLicenseAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:CitationDeliveryRecipientAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -132,6 +137,7 @@
 			<xsd:extension base="nc:CaseType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:DispositionWaiver" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -143,7 +149,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:TangibleItemType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -157,6 +163,32 @@
 				<xsd:sequence>
 					<xsd:element ref="nc:LocationReference"/>
 					<xsd:element ref="nc:DriverLicenseReference"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="EntityDocumentAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between an entity and a document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="nc:DocumentReference"/>
+					<xsd:element ref="nc:EntityRepresentation"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CitationDeliveryRecipientAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a delivery recipient entity and a citation.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="inc-ext:CitationReference"/>
+					<xsd:element ref="nc:EntityRepresentation"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -182,7 +214,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:SubjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0"/>
 					<xsd:element ref="inc-ext:SubjectIsOfInterestIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:SubjectStatusDescriptionText" minOccurs="0"/>
@@ -201,7 +233,7 @@
 			<xsd:extension base="nc:LocationType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:SpatialReferenceIdentification" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -214,7 +246,7 @@
 			<xsd:extension base="j:ArrestType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:ArrestInvolvedDrugCategoryCode" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -227,7 +259,20 @@
 			<xsd:extension base="j:VictimType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:VictimNarrativeText" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DriverLicenseType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a person who suffers injury, loss, or death as a result of an incident.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:DriverLicenseType">
+				<xsd:sequence>
+					<xsd:element ref="inc-ext:DriverLicenseCDLIndicator" minOccurs="0"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -255,7 +300,7 @@
 			<xsd:extension base="j:EnforcementOfficialType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:OfficerSignatureImage" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -270,8 +315,7 @@
 					<xsd:element ref="j:PersonAugmentation" minOccurs="0"/>
 					<xsd:element ref="inc-ext:PersonDNACollectionRequiredIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:PersonDepartmentOfCorrectionsIdentification" minOccurs="0"/>
-					<xsd:element ref="inc-ext:PersonFAWLicenseIdentification" minOccurs="0"/>
-					<xsd:element ref="inc-ext:PersonDriverLicenseCDLIndicator" minOccurs="0"/>
+					<xsd:element ref="inc-ext:PersonFishAndWildlifeLicenseIdentification" minOccurs="0"/>
 					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -336,7 +380,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:DrivingIncidentType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:BloodAlcoholContentNumberText" minOccurs="0"/>
+					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0"/>
 					<xsd:element ref="inc-ext:DrivingAccidentIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:DrivingAccidentFatalityIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:SeatBeltViolationIndicator" minOccurs="0"/>
@@ -349,20 +393,18 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="TicketType">
+	<xsd:complexType name="CitationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a traffic ticket.</xsd:documentation>
+			<xsd:documentation>A data type for an official summons to appear in court or pay a fine..</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType">
+			<xsd:extension base="j:CitationType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:TicketServedDate" minOccurs="0"/>
-					<xsd:element ref="inc-ext:TicketDeliveredRecipientText" minOccurs="0"/>
-					<xsd:element ref="inc-ext:TicketRecipientOrganizationIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:WaiverAmount" minOccurs="0"/>
-					<xsd:element ref="inc-ext:TicketServedIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:TicketMailedIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:TicketNotarizedDate" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CitationServedDate" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CitationDeliveredRecipientText" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CitationWaiverAmount" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CitationServedIndicator" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CitationMailedIndicator" minOccurs="0"/>
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -427,6 +469,11 @@
 			<xsd:documentation>An association between a driver license and an address on that license.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="EntityDocumentAssociation" type="inc-ext:EntityDocumentAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between an entity and a document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="SubjectBloodAlcoholContentNumber" type="niem-xsd:decimal">
 		<xsd:annotation>
 			<xsd:documentation>A percentage of alcohol in the blood of the subject at the time of the incident</xsd:documentation>
@@ -474,7 +521,12 @@
 	</xsd:element>
 	<xsd:element name="ChargeLocationAssociation" type="inc-ext:ChargeLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a relationship between a charge and a location where activity took place that resulted in the charge.</xsd:documentation>
+			<xsd:documentation>A relationship between a charge and a location where activity took place that resulted in the charge.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationDeliveryRecipientAssociation" type="inc-ext:CitationDeliveryRecipientAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between a delivery recipient entity and a citation.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OfficerSignatureImage" type="nc:ImageType">
@@ -713,12 +765,13 @@
 			<xsd:documentation>A set of instructions pertaining to picking up a person for extradition purposes.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Ticket" type="inc-ext:TicketType">
+	<xsd:element name="Citation" type="inc-ext:CitationType">
 		<xsd:annotation>
-			<xsd:documentation>A traffic ticket..</xsd:documentation>
+			<xsd:documentation>Details about an official summons to appear in court or pay a fine given to a subject from a peace official due to a subjects violation or infraction of a law.
+</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonFAWLicenseIdentification" type="nc:IdentificationType">
+	<xsd:element name="PersonFishAndWildlifeLicenseIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A Fish and Wildlife License number assigned to a person.</xsd:documentation>
 		</xsd:annotation>
@@ -731,11 +784,6 @@
 	<xsd:element name="DrivingIncident" type="inc-ext:DrivingIncidentType">
 		<xsd:annotation>
 			<xsd:documentation>Details about an incident involving a vehicle.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="BloodAlcoholContentNumberText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>A blood-alcohol percentage reading from a Blood Alcohol Test (BAC Test).</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingAccidentIndicator" type="niem-xsd:boolean">
@@ -773,29 +821,24 @@
 			<xsd:documentation>Text of a CRA "other" response.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TicketServedDate" type="nc:DateType">
+	<xsd:element name="CitationServedDate" type="nc:DateType">
 		<xsd:annotation>
-			<xsd:documentation>A traffic ticket.</xsd:documentation>
+			<xsd:documentation>The date a citation was served.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="WaiverAmount" type="nc:AmountType">
+	<xsd:element name="CitationWaiverAmount" type="nc:AmountType">
 		<xsd:annotation>
-			<xsd:documentation>The amount of money paid for pleading admitted or no contest to a traffic ticket.</xsd:documentation>
+			<xsd:documentation>The amount of money paid for pleading admitted or no contest to a citation.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TicketServedIndicator" type="niem-xsd:boolean">
+	<xsd:element name="CitationServedIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the citation was handed to the subject; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TicketMailedIndicator" type="niem-xsd:boolean">
+	<xsd:element name="CitationMailedIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the citation was mailed to the subject; false otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="TicketNotarizedDate" type="nc:DateType">
-		<xsd:annotation>
-			<xsd:documentation>The date the ticket was notarized.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="VehicleHazardousMaterialIndicator" type="niem-xsd:boolean">
@@ -833,19 +876,29 @@
 			<xsd:documentation>Details about a Code of Federal Regulation (CFR) unique identifier of a law, rule, or ordinance within a jurisdiction.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonDriverLicenseCDLIndicator" type="niem-xsd:boolean">
+	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a person's driver license is a commercial driver's license; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a driver license is a commercial driver's license; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TicketDeliveredRecipientText" type="nc:TextType">
+	<xsd:element name="CitationDeliveredRecipientText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>An entity that receives a delivered ticket.</xsd:documentation>
+			<xsd:documentation>An entity that receives a delivered citation.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TicketRecipientOrganizationIndicator" type="niem-xsd:boolean">
+	<xsd:element name="CitationRecipientOrganizationIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a ticket recipient is an organization; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a citation recipient is an organization; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DriverLicense" type="inc-ext:DriverLicenseType">
+		<xsd:annotation>
+			<xsd:documentation>Details about a license issued to a person granting driving privileges.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A reference to a citation.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

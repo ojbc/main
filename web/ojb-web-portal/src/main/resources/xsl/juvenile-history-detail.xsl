@@ -152,7 +152,6 @@
 							</script>
 						</xsl:otherwise>
 					</xsl:choose>
-					<xsl:if test="activeAccordionId"></xsl:if>
 				</xsl:if>
 			</td></tr>
 		</table>
@@ -167,11 +166,14 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="nc:Referral">
+		<xsl:variable name="id">
+			<xsl:value-of select="child::referral-ext:ReferralAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"/>
+		</xsl:variable>
 		<xsl:element name="h3">
 			<xsl:attribute name="id">
-				<xsl:value-of select="child::referral-ext:ReferralAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+				<xsl:value-of select="$id"></xsl:value-of>
 			</xsl:attribute>
-			REFERRAL <xsl:value-of select="position()"/>
+			REFERRAL <xsl:value-of select="$id"/>
 		</xsl:element>
 		<div>
 			<table class="detailsTable">
@@ -215,11 +217,14 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="cyfs:JuvenilePlacement">
+		<xsl:variable name="id">
+			<xsl:value-of select="child::placement-ext:JuvenilePlacementAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+		</xsl:variable>
 		<xsl:element name="h3">
 			<xsl:attribute name="id">
-				<xsl:value-of select="child::placement-ext:JuvenilePlacementAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+				<xsl:value-of select="$id"/>
 			</xsl:attribute>
-			PLACEMENT <xsl:value-of select="position()"/>
+			PLACEMENT <xsl:value-of select="$id"/>
 		</xsl:element>
 		<div>
 			<table class="detailsTable">
@@ -270,11 +275,14 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="cyfs:JuvenileIntakeAssessment">
+		<xsl:variable name="id">
+			<xsl:value-of select="child::intake-ext:JuvenileAssessmentAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+		</xsl:variable>
 		<xsl:element name="h3">
 			<xsl:attribute name="id">
-				<xsl:value-of select="child::intake-ext:JuvenileAssessmentAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+				<xsl:value-of select="$id"/>
 			</xsl:attribute>
-			INTAKE <xsl:value-of select="position()"/>
+			INTAKE <xsl:value-of select="$id"/>
 		</xsl:element>
 		<div>
 			<xsl:variable name="intakeTypes">
@@ -340,11 +348,14 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="j:OffenseChargeAssociation">
+		<xsl:variable name="id">
+			<xsl:value-of select="child::j:Offense/offense-ext:OffenseAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+		</xsl:variable>
 		<xsl:element name="h3">
 			<xsl:attribute name="id">
-				<xsl:value-of select="child::j:Offense/offense-ext:OffenseAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+				<xsl:value-of select="$id"/>
 			</xsl:attribute>
-			OFFENSE <xsl:value-of select="position()"/>
+			OFFENSE <xsl:value-of select="$id"/>
 		</xsl:element>
 		<div>
 			<table class="detailsTable">
@@ -393,9 +404,9 @@
 	</xsl:template>
 	
 	<xsl:template match="cext:RelatedJuvenileHistoryRecord">
-		<xsl:if test="position() != 1"><br/></xsl:if>
 		<xsl:choose>
 			<xsl:when test="cext:RelatedJuvenileHistoryRecordNotSupportedIndicator">
+				<xsl:if test="position() != 1"><br/></xsl:if>
 				<xsl:text>Linkage to </xsl:text>
 				<xsl:value-of select="cext:JuvenileHistoryCategoryCode"/>
 				<xsl:text> not supported</xsl:text>
@@ -410,23 +421,30 @@
 				<xsl:variable name="relatedRecordId">
 					<xsl:value-of select="cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
 				</xsl:variable>
-				<xsl:element name="a">
-					<xsl:attribute name="href">
-						<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id,'&amp;systemName=Juvenile History' , '&amp;identificationSourceText={http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory','&amp;queryType=',$queryType,'&amp;activeAccordionId=',$relatedRecordId)"/>
-					</xsl:attribute>
-					<xsl:value-of select="$relatedRecordId"></xsl:value-of>
-				</xsl:element>
+				
+				<xsl:if test="normalize-space($relatedRecordId)">
+					<xsl:if test="position() != 1"><br/></xsl:if>
+					<xsl:element name="a">
+						<xsl:attribute name="href">
+							<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id,'&amp;systemName=Juvenile History' , '&amp;identificationSourceText={http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory','&amp;queryType=',$queryType,'&amp;activeAccordionId=',$relatedRecordId)"/>
+						</xsl:attribute>
+						<xsl:value-of select="$queryType"/><xsl:text> ID: </xsl:text><xsl:value-of select="$relatedRecordId"></xsl:value-of>
+					</xsl:element>
+				</xsl:if>
 				
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:template match="caseplan-ext:CasePlan">
+		<xsl:variable name="id">
+			<xsl:value-of select="child::caseplan-ext:CasePlanAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+		</xsl:variable>
 		<xsl:element name="h3">
 			<xsl:attribute name="id">
-				<xsl:value-of select="child::caseplan-ext:CasePlanAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+				<xsl:value-of select="$id"/>
 			</xsl:attribute>
-			CASE PLAN <xsl:value-of select="position()"/>
+			CASE PLAN <xsl:value-of select="$id"/>
 		</xsl:element>
 		<div>
 			<table class="detailsTable">
@@ -451,11 +469,14 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="j:CaseHearing">
+		<xsl:variable name="id">
+			<xsl:value-of select="child::hearing-ext:CourtEventAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+		</xsl:variable>
 		<xsl:element name="h3">
 			<xsl:attribute name="id">
-				<xsl:value-of select="child::hearing-ext:CourtEventAugmentation/cext:JuvenileInformationRecordID/nc:IdentificationID"></xsl:value-of>
+				<xsl:value-of select="$id"/>
 			</xsl:attribute>
-			HEARING <xsl:value-of select="position()"/>
+			HEARING <xsl:value-of select="$id"/>
 		</xsl:element>
 		<div>
 			<table class="detailsTable">
