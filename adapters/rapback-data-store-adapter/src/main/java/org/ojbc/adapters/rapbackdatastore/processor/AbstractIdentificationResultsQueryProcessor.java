@@ -52,12 +52,6 @@ public class AbstractIdentificationResultsQueryProcessor {
 		stateSearchResultDocument
 	}
 
-	protected static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
-	
-	protected static final String CID = "cid:";
-
-	protected static final String ATTACHMENT_URL_FORE_STRING = "http://ojbc.org/identification/results/";
-
 	protected final Log log = LogFactory.getLog(this.getClass());
 
     @Resource

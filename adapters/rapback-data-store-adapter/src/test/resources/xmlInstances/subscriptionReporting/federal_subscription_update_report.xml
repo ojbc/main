@@ -41,8 +41,13 @@
 	<nc:Person structures:id="RBP_01">
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
-				<nc:IdentificationID>LI34567898</nc:IdentificationID>
+				<nc:IdentificationID>1234567898</nc:IdentificationID>
 			</j:PersonFBIIdentification>
 		</j:PersonAugmentation>
 	</nc:Person>
+	<fed_subcr_upd-ext:CriminalHistoryDocument structures:id="Doc_01">
+		<nc:DocumentBinary>
+			<fed_subcr_upd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</fed_subcr_upd-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+	</fed_subcr_upd-ext:CriminalHistoryDocument>
 </fed_subcr_upd-doc:FederalSubscriptionUpdateReport>

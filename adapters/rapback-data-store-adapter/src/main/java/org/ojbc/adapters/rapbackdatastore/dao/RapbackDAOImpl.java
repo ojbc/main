@@ -801,5 +801,17 @@ public class RapbackDAOImpl implements RapbackDAO {
 		}
 	}
 
+	@Override
+	public List<SubsequentResults> getSubsequentResultsByUcn(String ucn) {
+		log.info("Retreiving subsequent results by FBI ID " + ucn);
+		
+		final String sql ="SELECT subs.* FROM subsequent_results subs "
+				+ "WHERE subs.ucn = ?";
+		
+		List<SubsequentResults> subsequentResults = 
+				jdbcTemplate.query(sql, new SubsequentResultRowMapper(), ucn);
+		return subsequentResults;
+	}
+
 
 }

@@ -24,8 +24,12 @@ import org.apache.camel.Header;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.xml.security.utils.Base64;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
+import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,13 +38,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 @Service
-public class subscriptionReportingProcessor {
+public class SubscriptionReportingProcessor {
 
-	private static final Log log = LogFactory.getLog( subscriptionReportingProcessor.class );
+	private static final Log log = LogFactory.getLog( SubscriptionReportingProcessor.class );
 	
 	@Autowired
 	protected RapbackDAO rapbackDAO;
 	
+	@Autowired
+	private FbiRapbackDao fbiRapbackDao;
+
 	@Transactional
 	public void processFbiSubscriptionReport(@Body Document report, @Header("operationName") String operationName) throws Exception
 	{
@@ -53,17 +60,35 @@ public class subscriptionReportingProcessor {
 			processFbiSubscriptionUpdateReport(report);
 		}
 		
-		
 	}
 
+	@Transactional
 	private void processFbiSubscriptionUpdateReport(Document report) throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = buildFbiSubscriptionFromUpdate(report);
 		rapbackDAO.updateFbiRapbackSubscription(fbiRapbackSubscription);
+		
+		retrieveAndSaveRapsheet(report, fbiRapbackSubscription);
 	}
 
+	private void retrieveAndSaveRapsheet(Document report,
+			FbiRapbackSubscription fbiRapbackSubscription) {
+		byte[] binaryData = getBinaryData(report);
+		
+		if (binaryData == null || binaryData.length == 0) 
+			return; 
+		
+		SubsequentResults subsequentResults = new SubsequentResults(); 
+		subsequentResults.setRapSheet(binaryData);
+		subsequentResults.setUcn(fbiRapbackSubscription.getUcn());
+		subsequentResults.setResultsSender(ResultSender.FBI);
+		fbiRapbackDao.saveSubsequentResults(subsequentResults);
+	}
+
+	@Transactional
 	private void processFbiSubscriptionCreationReport(Document report) throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = buildNewFbiSubscription(report);
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
+		retrieveAndSaveRapsheet(report, fbiRapbackSubscription);
 	}
 
 	private FbiRapbackSubscription buildFbiSubscriptionFromUpdate(
@@ -133,5 +158,20 @@ public class subscriptionReportingProcessor {
 		fbiRapbackSubscription.setUcn(ucn);
 		return fbiRapbackSubscription;
 	}
+
+	protected byte[] getBinaryData(Node rootNode) {
+		String base64BinaryData;
+		try {
+			base64BinaryData = XmlUtils.xPathStringSearch(rootNode, 
+					"fed_subcr_upd-doc:FederalSubscriptionUpdateReport/fed_subcr_upd-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr_upd-ext:Base64BinaryObject|"
+					+ "fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr-ext:Base64BinaryObject");
+			return Base64.decode(base64BinaryData);
+			
+		} catch (Exception e) {			
+			log.error("Failed to retrieve binary data from the subscription reporting message: ", e);			
+			return null;
+		}
+	}
+
 
 }
