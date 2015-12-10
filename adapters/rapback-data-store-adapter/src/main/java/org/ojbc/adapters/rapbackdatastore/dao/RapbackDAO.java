@@ -67,4 +67,5 @@ public interface RapbackDAO {
 	public int archiveIdentificationResult(String transactionNumber);
 	
 	public List<SubsequentResults> getSubsequentResults(String transactionNumber);
+	public List<SubsequentResults> getSubsequentResultsByUcn(String ucn);
 }
