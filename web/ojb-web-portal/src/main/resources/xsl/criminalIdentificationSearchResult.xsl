@@ -77,7 +77,7 @@
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>					
 			<td align="right" width="115px">
-				<a href="#" class="blueIcon" style="margin-right:3px" title="Initial Results"><i class="fa fa-bell fa-lg"></i></a>
+				<a href="#" class="blueIcon" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-text-o fa-lg"></i></a>
 			</td>
 		</tr>
 	</xsl:template>
