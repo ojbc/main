@@ -48,7 +48,6 @@ import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
@@ -61,7 +60,6 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
       })
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestSubscriptionReportingService {
 	
 	private static final Log log = LogFactory.getLog( TestSubscriptionReportingService.class );

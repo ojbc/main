@@ -813,5 +813,54 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return subsequentResults;
 	}
 
+	@Override
+	public List<CriminalInitialResults> getIdentificationCriminalInitialResults(
+			String transactionNumber) {
+		log.info("Retrieving criminal initial results by transaction number : " + transactionNumber);
+		
+		final String sql = "SELECT * FROM criminal_initial_results t WHERE t.transaction_number = ?";
+		List<CriminalInitialResults> criminalIntialResults = 
+				jdbcTemplate.query(sql, new CriminalInitialResultsRowMapper(), transactionNumber);
+		return criminalIntialResults;
+	}
+
+	private final class CriminalInitialResultsRowMapper implements
+			RowMapper<CriminalInitialResults> {
+		public CriminalInitialResults mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+
+			CriminalInitialResults criminalInitialResults = new CriminalInitialResults();
+
+			criminalInitialResults.setId(rs.getLong("criminal_initial_result_id"));
+			criminalInitialResults.setTransactionNumber(rs
+					.getString("transaction_number"));
+			criminalInitialResults.setResultsSender(ResultSender.values()[rs
+					.getInt("results_sender_id") - 1]);
+			try {
+				criminalInitialResults.setSearchResultFile(ZipUtils.unzip(rs
+						.getBytes("search_result_file")));
+			} catch (Exception e) {
+				log.error("Got exception extracting the search result file for "
+						+ criminalInitialResults.getTransactionNumber(), e);
+			}
+			criminalInitialResults.setTimestamp(toDateTime(rs
+					.getTimestamp("timestamp")));
+
+			return criminalInitialResults;
+		}
+
+	}
+
+	@Override
+	public String getIdentificationCategory(String transactionNumber) {
+		log.info("Retrieving identification category by transaction number : " + transactionNumber);
+		
+		final String sql = "SELECT identification_category FROM identification_transaction t WHERE t.transaction_number = ?"; 
+		
+		List<String> results = jdbcTemplate.queryForList(sql, String.class, transactionNumber);
+		
+		return DataAccessUtils.singleResult(results);
+	}
+
 
 }
