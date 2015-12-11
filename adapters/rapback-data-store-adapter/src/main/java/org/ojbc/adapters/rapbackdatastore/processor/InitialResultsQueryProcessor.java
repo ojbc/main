@@ -36,11 +36,11 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.Body;
-import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -62,10 +62,11 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
      *         schema.
      * @throws Exception 
      */
-    public Document returnInitialResultsQueryResponse(
-    		Exchange exchange, @Body Document report) throws Exception {
+    public Document returnInitialResultsQueryResponse(@Body Document report) throws Exception {
     	
-    	String transactionNumber = XmlUtils.xPathStringSearch(report, "/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel30:SystemIdentification/nc30:IdentificationID");
+    	String transactionNumber = XmlUtils.xPathStringSearch(report, 
+    			"/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest"
+    			+ "/intel30:SystemIdentification/nc30:IdentificationID");
     	
     	if (StringUtils.isBlank(transactionNumber)){
         	throw new IllegalArgumentException(
@@ -74,7 +75,7 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
     	
         Document initialResultsQueryResponseDocument;
 		try {
-			initialResultsQueryResponseDocument = buildInitialResultsQueryResponse(exchange, transactionNumber);
+			initialResultsQueryResponseDocument = buildInitialResultsQueryResponse(transactionNumber);
 		} catch (Exception e) {
 			log.error("Got exception building initial results query response", e);
 			throw e;
@@ -83,24 +84,65 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
         return initialResultsQueryResponseDocument;
     }
     
-    private Document buildInitialResultsQueryResponse(Exchange exchange, String transactionNumber) throws Exception {
+    private Document buildInitialResultsQueryResponse(String transactionNumber) throws Exception {
     	log.info("Get initial results query request, building the response");
     	
-    	List<CivilInitialResults> civilInitialResults = 
-    			rapbackDAO.getIdentificationCivilInitialResults(transactionNumber); 
-        Document document = documentBuilder.newDocument();
-        Element rootElement = createInitialResultsQueryResponseRootElement(exchange, document);
-        
-        for (CivilInitialResults civilInitialResult: civilInitialResults){
-        	createSearchResultDocumentElement(exchange, civilInitialResult, rootElement);
-        	createHistorySummaryDocumentElement(exchange, civilInitialResult, rootElement);
-        }
+    	Document document = documentBuilder.newDocument();
+    	Element rootElement = createInitialResultsQueryResponseRootElement(document);
+    	
+    	String identificationCategory = rapbackDAO.getIdentificationCategory(transactionNumber);
+    	
+    	if ("I".equals(identificationCategory)){
+    		buildResponseWithCivilInitialResults(transactionNumber, rootElement);
+    	}
+    	else{
+    		buildResponseWithCriminalInitialResults(transactionNumber, rootElement);
+    	}
+    	
         return document;
     }
 
+	private void buildResponseWithCriminalInitialResults(
+			String transactionNumber, Element rootElement) {
+		List<CriminalInitialResults> criminalInitialResults = 
+    			rapbackDAO.getIdentificationCriminalInitialResults(transactionNumber);
+		
+        for (CriminalInitialResults criminalInitialResult: criminalInitialResults){
+        	createSearchResultDocumentElement(criminalInitialResult, rootElement);
+        }
+	}
 
-	private void createHistorySummaryDocumentElement(Exchange exchange,
-			CivilInitialResults civilInitialResult, Element parentElement) {
+	private void createSearchResultDocumentElement(
+			CriminalInitialResults criminalInitialResult, Element parentElement) {
+		switch (criminalInitialResult.getResultsSender()){
+		case FBI:
+			
+			appendDocumentElement(parentElement, 
+					QueryResponseElementName.FBIIdentificationSearchResultDocument, 
+					DocumentId.fbiSearchResultDocument.name(),
+					criminalInitialResult.getSearchResultFile());
+			break; 
+		case State: 
+			appendDocumentElement(parentElement, 
+					QueryResponseElementName.StateIdentificationSearchResultDocument, 
+					DocumentId.stateSearchResultDocument.name(),
+					criminalInitialResult.getSearchResultFile());
+			break;
+		}
+	}
+
+	private void buildResponseWithCivilInitialResults(String transactionNumber, Element rootElement) {
+		List<CivilInitialResults> civilInitialResults = 
+    			rapbackDAO.getIdentificationCivilInitialResults(transactionNumber); 
+        
+        for (CivilInitialResults civilInitialResult: civilInitialResults){
+        	createSearchResultDocumentElement(civilInitialResult, rootElement);
+        	createHistorySummaryDocumentElement(civilInitialResult, rootElement);
+        }
+	}
+
+
+	private void createHistorySummaryDocumentElement(CivilInitialResults civilInitialResult, Element parentElement) {
 		if (civilInitialResult.getRapsheets().size() ==0)
 			return; 
 
@@ -128,7 +170,7 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 		
 	}
 
-	private void createSearchResultDocumentElement(Exchange exchange,
+	private void createSearchResultDocumentElement(
 			CivilInitialResults civilIntialResult, Element parentElement) {
 		switch (civilIntialResult.getResultsSender()){
 		case FBI:
@@ -147,8 +189,7 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 		}
 	}
 
-	private Element createInitialResultsQueryResponseRootElement(
-			Exchange exchange, Document document) {
+	private Element createInitialResultsQueryResponseRootElement(Document document) {
         Element rootElement = document.createElementNS(
         		NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS,
         		NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS +":" 

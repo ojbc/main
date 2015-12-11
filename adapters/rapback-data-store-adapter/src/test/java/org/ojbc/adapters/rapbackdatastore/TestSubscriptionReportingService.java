@@ -57,7 +57,6 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
       })
-@DirtiesContext
 public class TestSubscriptionReportingService {
 	
 	private static final Log log = LogFactory.getLog( TestSubscriptionReportingService.class );
