@@ -257,7 +257,7 @@ public class RapbackSearchProcessor {
 					XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
 							NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
 							"SubsequentResultsAvailableIndicator");
-			subsequentResultsAvailableIndicator.setTextContent(havingSubsequentResults.toString());
+			subsequentResultsAvailableIndicator.setTextContent(BooleanUtils.toString(havingSubsequentResults, "true", "false", "false"));
 	}
 
 	private void appendSubscriptionElement(
