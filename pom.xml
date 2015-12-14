@@ -24,6 +24,32 @@
 	<artifactId>ojb-main-aggregate</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
+	
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>A component of the OJBC</description>
+	<url>http://www.ojbc.org/</url>	
+	
+	<licenses>
+	  <license>
+	    <name>RPL-1.5 - OJBC</name>
+	    <url>http://opensource.org/licenses/RPL-1.5</url>
+	  </license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>OJBC Developers</name>
+			<email>info@ojbc.org</email>
+			<organization>OJBC</organization>
+			<organizationUrl>http://www.ojbc.org/</organizationUrl>
+		</developer>
+	</developers>
+	
+	<scm>
+	  <connection>https://github.com/ojbc/main</connection>
+	  <developerConnection>https://github.com/ojbc/main.git</developerConnection>
+	  <url>https://github.com/ojbc/main</url>
+	</scm>	
 
 	<modules>
 		<module>shared</module>
@@ -64,7 +90,7 @@
 
 
 			<!-- Note, if updating license plugin config here, Ensure the second duplicate 
-				declartion is updated also in ojb-build-common project (Plugin declared twice 
+				declaration is updated also in ojb-build-common project (Plugin declared twice 
 				to avoid cyclic dependency) -->
 			<plugin>
 				<groupId>com.mycila</groupId>
