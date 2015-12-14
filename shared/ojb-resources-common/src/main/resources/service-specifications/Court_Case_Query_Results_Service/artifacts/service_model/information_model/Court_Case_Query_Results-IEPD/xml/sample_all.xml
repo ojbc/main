@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:CourtCaseQueryResults xmlns:biom="http://release.niem.gov/niem/domains/biometrics/3.1/" xmlns:exchange="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:usps="http://release.niem.gov/niem/codes/usps_states/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange_schema.xsd ">
+<ccq-res-doc:CourtCaseQueryResults xmlns:biom="http://release.niem.gov/niem/domains/biometrics/3.1/" xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:usps="http://release.niem.gov/niem/codes/usps_states/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange_schema.xsd ">
   <nc:DocumentCreationDate>
     <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
   </nc:DocumentCreationDate>
@@ -27,7 +27,7 @@
   <nc:DocumentReceivedDate>
     <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
   </nc:DocumentReceivedDate>
-  <ext:SourceSystemNameText>ext:SourceSystemNameText</ext:SourceSystemNameText>
+  <ccq-res-ext:SourceSystemNameText>ccq-res-ext:SourceSystemNameText</ccq-res-ext:SourceSystemNameText>
   <nc:Case>
     <nc:ActivityIdentification/>
     <nc:ActivityCategoryText>nc:ActivityCategoryText</nc:ActivityCategoryText>
@@ -41,28 +41,28 @@
     <nc:CaseTrackingID>nc:CaseTrackingID</nc:CaseTrackingID>
     
     <!-- j:CaseAugmentation>
-    <ext:CourtCaseSealedIndicator></ext:CourtCaseSealedIndicator>
-    	<ext:CourtCaseSealedIndicator>true</ext:CourtCaseSealedIndicator>
-    	<ext:RemandDate>2001-12-31</ext:RemandDate>
+    <ccq-res-ext:CourtCaseSealedIndicator></ccq-res-ext:CourtCaseSealedIndicator>
+    	<ccq-res-ext:CourtCaseSealedIndicator>true</ccq-res-ext:CourtCaseSealedIndicator>
+    	<ccq-res-ext:RemandDate>2001-12-31</ccq-res-ext:RemandDate>
     </j:CaseAugmentation-->
   </nc:Case>
-  <ext:Defendant>
+  <ccq-res-ext:Defendant>
     <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
     <nc:PersonName/>
     <nc:Organization/>
     <nc:SupervisionCustodyStatus/>
     <j:DriverLicense/>
-    <ext:JuvenileIDText>ext:JuvenileIDText</ext:JuvenileIDText>
-    <ext:InmateIDText>ext:InmateIDText</ext:InmateIDText>
+    <ccq-res-ext:JuvenileIDText>ccq-res-ext:JuvenileIDText</ccq-res-ext:JuvenileIDText>
+    <ccq-res-ext:InmateIDText>ccq-res-ext:InmateIDText</ccq-res-ext:InmateIDText>
     <nc:PersonOtherIdentification/>
     <biom:PhysicalFeatureDescriptionDetail/>
-    <ext:DefendantCommentText>ext:DefendantCommentText</ext:DefendantCommentText>
-    <ext:ClerkCommentText>ext:ClerkCommentText</ext:ClerkCommentText>
+    <ccq-res-ext:DefendantCommentText>ccq-res-ext:DefendantCommentText</ccq-res-ext:DefendantCommentText>
+    <ccq-res-ext:ClerkCommentText>ccq-res-ext:ClerkCommentText</ccq-res-ext:ClerkCommentText>
     <nc:PersonAliasIdentityAssociation/>
     <nc:Address/>
     <j:ContactPersonTelephoneNumber/>
     <nc:ElectronicAddress/>
-  </ext:Defendant>
+  </ccq-res-ext:Defendant>
   <j:ContactPersonLocation>
     <nc:Address/>
     <nc:LocationArea/>
@@ -194,14 +194,14 @@
     <nc:ActivityDisposition/>
     <j:WarrantCategoryText>j:WarrantCategoryText</j:WarrantCategoryText>
   </j:Warrant>
-  <ext:Payment>
-    <ext:PaymentIDText>ext:PaymentIDText</ext:PaymentIDText>
-    <ext:BankruptIndicator>true</ext:BankruptIndicator>
-    <ext:BadCheckIndicator>true</ext:BadCheckIndicator>
-    <ext:BadCheckPaidIndicator>true</ext:BadCheckPaidIndicator>
-    <ext:BadAddressIndicator>true</ext:BadAddressIndicator>
-    <ext:PaymentLastPaidDate/>
-  </ext:Payment>
+  <ccq-res-ext:Payment>
+    <ccq-res-ext:PaymentIDText>ccq-res-ext:PaymentIDText</ccq-res-ext:PaymentIDText>
+    <ccq-res-ext:BankruptIndicator>true</ccq-res-ext:BankruptIndicator>
+    <ccq-res-ext:BadCheckIndicator>true</ccq-res-ext:BadCheckIndicator>
+    <ccq-res-ext:BadCheckPaidIndicator>true</ccq-res-ext:BadCheckPaidIndicator>
+    <ccq-res-ext:BadAddressIndicator>true</ccq-res-ext:BadAddressIndicator>
+    <ccq-res-ext:PaymentLastPaidDate/>
+  </ccq-res-ext:Payment>
   <nc:Vehicle>
     <nc:VehicleIdentification/>
     <j:VehicleMakeCode>RCHS</j:VehicleMakeCode>
@@ -236,4 +236,4 @@
     <j:VictimPerson/>
     <j:VictimIdentification/>
   </j:Victim>
-</exchange:CourtCaseQueryResults>
+</ccq-res-doc:CourtCaseQueryResults>
