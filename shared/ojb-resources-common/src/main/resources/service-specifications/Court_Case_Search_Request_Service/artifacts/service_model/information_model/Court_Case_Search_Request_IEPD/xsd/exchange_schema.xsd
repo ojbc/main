@@ -17,23 +17,20 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<!-- 11/19/15 msj -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0/"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:exch="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0/"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequest/1.0/"
+	xmlns:ccsr-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0"
+	xmlns:ccsr-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
-	<xsd:import	namespace="http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequest/1.0/" schemaLocation="extension_schema.xsd" />
-
-	<!-- Root data element for the Person Search Request -->
-	<xsd:element name="CourtCaseSearchRequest" type="ext:CourtCaseSearchRequestType">
+	<xsd:import	namespace="http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0" schemaLocation="extension_schema.xsd" />
+	<!-- Root data element for the Court Case Search Request -->
+	<xsd:element name="CourtCaseSearchRequest" type="ccsr-ext:CourtCaseSearchRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A message to submit a person-based search.</xsd:documentation>
+			<xsd:documentation>A message to submit a court case search request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-
 </xsd:schema>
