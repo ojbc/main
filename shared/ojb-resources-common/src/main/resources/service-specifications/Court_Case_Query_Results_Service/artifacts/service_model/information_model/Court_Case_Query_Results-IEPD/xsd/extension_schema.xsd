@@ -86,6 +86,9 @@ xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtensio
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CourtCaseType">
+	
+	<!-- Use nc:CourtCaseAugmentationPoint -->
+	
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a court case.</xsd:documentation>
 		</xsd:annotation>
@@ -145,6 +148,11 @@ xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtensio
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:SubjectType">
+			
+			<!--  Many of the properties below are properties on nc:person -->
+			
+			<!--  A number of the properties below are not consistent with a defendant or person properties -->
+			
 				<xsd:sequence>
 					<xsd:element ref="nc:IdentificationID" />
 					<xsd:element ref="nc:PersonName" />
@@ -178,6 +186,9 @@ xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtensio
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ElectronicAddressAugmentationType">
+	
+	<!-- Where is the element for this type declared ? -->
+	
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information related to an electronic address.</xsd:documentation>
 		</xsd:annotation>
@@ -191,6 +202,9 @@ xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtensio
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CitationAugmentationType">
+	
+	<!--  Where is the element for this type declared ? -->
+	
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a citation.</xsd:documentation>
 		</xsd:annotation>
@@ -218,6 +232,9 @@ xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtensio
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CourtEventAugmentationType">
+	
+		<!--  Where is the element for this type declared ? -->
+	
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a court event.</xsd:documentation>
 		</xsd:annotation>

@@ -45,6 +45,9 @@ xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtensi
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	
+	<!-- No need to extend SystemSourceNameText is in the Search Metadata -->
+	
 	<xsd:complexType name="CourtCaseResultsIdenificationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with Search Results.</xsd:documentation>
@@ -77,7 +80,13 @@ xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtensi
 		<xsd:complexContent>
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
+				
+				<!-- No need to extend j:PersonAugmentation is brought can be used with j:PersonAugmentationPoint -->
+				
 					<xsd:element ref="j:PersonAugmentation" minOccurs="1" maxOccurs="unbounded" />
+					
+					<!--  nc:Organization should not be a property of DefendantType -->
+					
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
