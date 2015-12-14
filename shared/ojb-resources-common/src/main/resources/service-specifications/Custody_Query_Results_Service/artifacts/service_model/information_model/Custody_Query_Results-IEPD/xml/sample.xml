@@ -17,17 +17,15 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:CustodyQueryResults 
-  xmlns:exchange="http://AdamsCounty.gov/IEPD/Exchange/Custody_Query_Results_IEPD/1.0" 
-  xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Custody_Query_Results_IEPD/1.0"
+<cq-res-doc:CustodyQueryResults 
+  xmlns:cq-res-doc="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0" 
+  xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
   xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
   xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://AdamsCounty.gov/IEPD/Exchange/Custody_Query_Results_IEPD/1.0 ../xsd/exchange_schema.xsd ">
-  <!-- Custody Query Results Message -->
-  <!-- Document Identification -->
+  xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0 ../xsd/exchange_schema.xsd ">
   <nc:DocumentCreationDate>
     <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
   </nc:DocumentCreationDate>
@@ -35,9 +33,9 @@
     <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
     <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
   </nc:DocumentIdentification>
-  <ext:SourceSystemNameText>ext:SourceSystemNameText</ext:SourceSystemNameText>
+  <cq-res-ext:SourceSystemNameText>cq-res-ext:SourceSystemNameText</cq-res-ext:SourceSystemNameText>
   <!-- Inmate and Custody information -->
-  <ext:InmateCustody>
+  <cq-res-ext:InmateCustody>
      <nc:PersonBirthDate>
           <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
     </nc:PersonBirthDate>
@@ -61,7 +59,7 @@
         <nc:Amount>333330.0</nc:Amount>
       </j:BailBondAmount>
     </j:BailBond>
-    <ext:Booking>
+    <cq-res-ext:Booking>
       <j:FingerprintDate>
         <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
       </j:FingerprintDate>
@@ -72,10 +70,10 @@
       </j:BookingSubject>
       <nc:Image>
         <nc:ImageLocation>
-          <nc:LocationDescriptionText>http://asco.adamscounty.gov/inmatelookup/image/33334444</nc:LocationDescriptionText>
+          <nc:LocationDescriptionText>http://asco.ojbc.org/inmatelookup/image/33334444</nc:LocationDescriptionText>
         </nc:ImageLocation>
       </nc:Image>
-    </ext:Booking>
+    </cq-res-ext:Booking>
     <j:CaseHearing>
       <j:CourtEventSchedule>
         <nc:ScheduleDayStartTime>12:00:00</nc:ScheduleDayStartTime>
@@ -91,7 +89,7 @@
         </j:StatuteCodeIdentification>
       </j:ChargeStatute>
     </j:Charge>
-    <ext:Supervision>
+    <cq-res-ext:Supervision>
       <nc:ActivityDateRange>
         <nc:StartDate>
           <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
@@ -120,7 +118,7 @@
           <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
         </j:SupervisionCellIdentification>
       </j:SupervisionAugmentation>
-      <ext:HoldForImmigrationIndicator>true</ext:HoldForImmigrationIndicator>
+      <cq-res-ext:HoldForImmigrationIndicator>true</cq-res-ext:HoldForImmigrationIndicator>
       <j:ChargeSentence>
         <j:SentenceCondition>
           <nc:ConditionSetDate>
@@ -131,6 +129,6 @@
       <nc:Organization>
         <nc:OrganizationName>Holding for Agency</nc:OrganizationName>
       </nc:Organization>
-    </ext:Supervision>
-  </ext:InmateCustody>
-</exchange:CustodyQueryResults>
+    </cq-res-ext:Supervision>
+  </cq-res-ext:InmateCustody>
+</cq-res-doc:CustodyQueryResults>
