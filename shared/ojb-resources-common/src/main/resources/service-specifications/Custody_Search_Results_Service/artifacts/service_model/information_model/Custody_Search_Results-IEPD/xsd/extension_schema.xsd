@@ -17,15 +17,14 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<!-- October 2015 - SEARCH - MSJ -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
 xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
 xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
-xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Custody_Search_Results_IEPD/1.0" 
- targetNamespace="http://AdamsCounty.gov/IEPD/Extension/Custody_Search_Results_IEPD/1.0" elementFormDefault="qualified">
+xmlns:cs-res-ext="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0" 
+ targetNamespace="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
@@ -37,8 +36,8 @@ xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Custody_Search_Results_IEPD/1.0
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
-					<xsd:element ref="ext:InmateCustody" minOccurs="0" maxOccurs="unbounded"/> 
+					<xsd:element ref="cs-res-ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="cs-res-ext:InmateCustody" minOccurs="0" maxOccurs="unbounded"/> 
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -51,7 +50,7 @@ xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Custody_Search_Results_IEPD/1.0
 		<xsd:complexContent>
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
-					<xsd:element ref="ext:Booking" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cs-res-ext:Booking" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -76,7 +75,7 @@ xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Custody_Search_Results_IEPD/1.0
 			This can be used to retrieve additional information about the person and/or court case in the search result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateCustody" type="ext:InmateCustodyType">
+	<xsd:element name="InmateCustody" type="cs-res-ext:InmateCustodyType">
 		<xsd:annotation>
 			<xsd:documentation>complex data element to provide information regarding an inmates custody status</xsd:documentation>
 		</xsd:annotation>
@@ -86,7 +85,7 @@ xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Custody_Search_Results_IEPD/1.0
 			<xsd:documentation>True if hold for immigration.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Booking" type="ext:BookingType">
+	<xsd:element name="Booking" type="cs-res-ext:BookingType">
 		<xsd:annotation>
 			<xsd:documentation>complex data element to provide information regarding an inmates booking</xsd:documentation>
 		</xsd:annotation>
