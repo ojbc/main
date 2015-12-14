@@ -18,14 +18,14 @@
 
 -->
 <exchange:CustodySearchResults 
-  xmlns:exchange="http://AdamsCounty.gov/IEPD/Exchange/Custody_Search_Results_IEPD/1.0" 
-  xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Custody_Search_Results_IEPD/1.0"
+  xmlns:exchange="http://ojbc.org/IEPD/Exchange/Custody_Search_Results_IEPD/1.0" 
+  xmlns:ext="http://ojbc.org/IEPD/Extension/Custody_Search_Results_IEPD/1.0"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
   xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
   xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://AdamsCounty.gov/IEPD/Exchange/Custody_Search_Results_IEPD/1.0 ../xsd/exchange_schema.xsd ">
+  xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/Custody_Search_Results_IEPD/1.0 ../xsd/exchange_schema.xsd ">
   <!-- Custody Search Results Message -->
   <!-- Document Identification -->
   <nc:DocumentCreationDate>
@@ -64,7 +64,7 @@
       </j:BookingSubject>
       <nc:Image>
         <nc:ImageLocation>
-          <nc:LocationDescriptionText>http://asco.adamscounty.gov/inmatelookup/image/33334444</nc:LocationDescriptionText>
+          <nc:LocationDescriptionText>http://asco.ojbc.org/inmatelookup/image/33334444</nc:LocationDescriptionText>
         </nc:ImageLocation>
       </nc:Image>
     </ext:Booking>
