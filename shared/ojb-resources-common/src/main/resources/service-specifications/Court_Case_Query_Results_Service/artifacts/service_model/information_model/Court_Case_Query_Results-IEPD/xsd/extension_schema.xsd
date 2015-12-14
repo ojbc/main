@@ -26,7 +26,7 @@ xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
 xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
 xmlns:biom="http://release.niem.gov/niem/domains/biometrics/3.1/"
 xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" 
-xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" 
+xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" 
  targetNamespace="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
@@ -40,9 +40,9 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded"/> 
-					<xsd:element ref="ext:Defendant" minOccurs="0" maxOccurs="unbounded"/> 
+					<xsd:element ref="ccq-res-ext:Defendant" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="j:ContactPersonLocation" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="j:Citation" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/> 
@@ -52,7 +52,7 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 					<xsd:element ref="nc:Supervision" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="j:Warrant" minOccurs="0" maxOccurs="unbounded"/> 
-					<xsd:element ref="ext:Payment" minOccurs="0" maxOccurs="unbounded"/> 
+					<xsd:element ref="ccq-res-ext:Payment" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="j:ChargeSentence" minOccurs="0" maxOccurs="unbounded"/> 
@@ -69,18 +69,18 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CourtCaseSealedIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:RemandDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:UnderAdvisementDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:JuryRequestedIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:JuryVerdictIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:CourtCase"  minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:DefendantCaseFinancials" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:CourtCaseSealedIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:RemandDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:UnderAdvisementDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:JuryRequestedIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:JuryVerdictIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:CourtCase"  minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:DefendantCaseFinancials" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:SupervisionCustodyStatus" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Attorney" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:CaseJudge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:DefendantCase"  minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:Defendant"  minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:DefendantCase"  minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:Defendant"  minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -92,15 +92,15 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="ext:FirstAppearanceDate" />
-					<xsd:element ref="ext:TrialByText" />
-					<xsd:element ref="ext:SpeedyTrialText" />
-					<xsd:element ref="ext:FTPHoldIndefiniteIndicator" />
-					<xsd:element ref="ext:FTAHoldDate" />
-					<xsd:element ref="ext:FTPHoldDate" />
-					<xsd:element ref="ext:FTCHoldDate" />
-					<xsd:element ref="ext:FTPVHoldDate" />
-					<xsd:element ref="ext:FPCNumberText"/>
+					<xsd:element ref="ccq-res-ext:FirstAppearanceDate" />
+					<xsd:element ref="ccq-res-ext:TrialByText" />
+					<xsd:element ref="ccq-res-ext:SpeedyTrialText" />
+					<xsd:element ref="ccq-res-ext:FTPHoldIndefiniteIndicator" />
+					<xsd:element ref="ccq-res-ext:FTAHoldDate" />
+					<xsd:element ref="ccq-res-ext:FTPHoldDate" />
+					<xsd:element ref="ccq-res-ext:FTCHoldDate" />
+					<xsd:element ref="ccq-res-ext:FTPVHoldDate" />
+					<xsd:element ref="ccq-res-ext:FPCNumberText"/>
 					<xsd:element ref="j:CaseCourtEvent" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -114,10 +114,10 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 			<xsd:extension base="nc:AmountType">
 				<xsd:sequence>
 					<xsd:element ref="j:FinancialAccountPresentBalanceAmount" />
-					<xsd:element ref="ext:BalanceDueDate" />
-					<xsd:element ref="ext:BalanceExtensionDate" />
-					<xsd:element ref="ext:DoNotAllowEPaymentIndicator" />
-					<xsd:element ref="ext:InterestStartDate" />
+					<xsd:element ref="ccq-res-ext:BalanceDueDate" />
+					<xsd:element ref="ccq-res-ext:BalanceExtensionDate" />
+					<xsd:element ref="ccq-res-ext:DoNotAllowEPaymentIndicator" />
+					<xsd:element ref="ccq-res-ext:InterestStartDate" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -151,12 +151,12 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 					<xsd:element ref="nc:Organization" />
 					<xsd:element ref="nc:SupervisionCustodyStatus" />
 					<xsd:element ref="j:DriverLicense" />
-					<xsd:element ref="ext:JuvenileIDText" />
-					<xsd:element ref="ext:InmateIDText" />
+					<xsd:element ref="ccq-res-ext:JuvenileIDText" />
+					<xsd:element ref="ccq-res-ext:InmateIDText" />
 					<xsd:element ref="nc:PersonOtherIdentification" />
 					<xsd:element ref="biom:PhysicalFeatureDescriptionDetail" />
-					<xsd:element ref="ext:DefendantCommentText" />
-					<xsd:element ref="ext:ClerkCommentText" />
+					<xsd:element ref="ccq-res-ext:DefendantCommentText" />
+					<xsd:element ref="ccq-res-ext:ClerkCommentText" />
 					<xsd:element ref="nc:PersonAliasIdentityAssociation" />
 					<xsd:element ref="nc:LocationAddressAbstract" />
 					<xsd:element ref="j:ContactPersonTelephoneNumber" />
@@ -172,7 +172,7 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:AddressIDText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:AddressIDText" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -184,8 +184,8 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:ElectronicContactIDText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ElectronicContactTypeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ElectronicContactIDText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ElectronicContactTypeText" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -197,22 +197,22 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CitationIDText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:CitationIDText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:CourtAppearanceDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:DrivingIncidentLegalSpeedRateMeasure" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:DrivingIncidentRecordedSpeedRateMeasure" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:PoundsOverMeasure" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:PoundsOverMeasure" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:IncidentLocation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:MustAppearIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:MustAppearIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:IncidentTrafficAccidentInvolvedIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:IncidentTrafficInjuryIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:IncidentSchoolZoneIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:IncidentTrafficInjuryIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:IncidentSchoolZoneIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:MotorCarrierHazMatTransportationIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:NuclearMaterialIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:NuclearMaterialIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:CaseDomesticViolenceIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:DriverLicenseSurrenderedIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:IncidentTrafficFatalIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:IncidentConstructionZoneIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:DriverLicenseSurrenderedIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:IncidentTrafficFatalIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:IncidentConstructionZoneIndicator" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -224,10 +224,10 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:JSICommentText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:JSICommentText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:HearingCategoryText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:HearingDecisionDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:MinuteOrderDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:MinuteOrderDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -242,10 +242,10 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 					<xsd:element ref="j:ArrestProbableCauseText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ArrestOfficial" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:EnforcementUnitName" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:PointNumberText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:PointsReducesNumberText"  minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:PointNumberText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:PointsReducesNumberText"  minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:PersonBloodAlcoholContentNumberText"  minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:PersonBloodAlcoholContentTestRefusedIndicator"  minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator"  minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Violation"  minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ArrestAgencyRecordIdentification"  minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ChargePlea" minOccurs="0" maxOccurs="unbounded"/>
@@ -260,7 +260,7 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:BondNumberText" minOccurs="0" maxOccurs="unbounded"/>					
+					<xsd:element ref="ccq-res-ext:BondNumberText" minOccurs="0" maxOccurs="unbounded"/>					
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -272,7 +272,7 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:WarrantIDText" minOccurs="0" maxOccurs="unbounded"/>	
+					<xsd:element ref="ccq-res-ext:WarrantIDText" minOccurs="0" maxOccurs="unbounded"/>	
 					<xsd:element ref="nc:ActivityDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ActivityDescriptionText" minOccurs="0" maxOccurs="unbounded"/>				
 				</xsd:sequence>
@@ -286,12 +286,12 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:PaymentIDText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:BankruptIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:BadCheckIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:BadCheckPaidIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:BadAddressIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:PaymentLastPaidDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:PaymentIDText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:BankruptIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:BadCheckIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:BadCheckPaidIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:BadAddressIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:PaymentLastPaidDate" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -303,7 +303,7 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:VehicleIDText" minOccurs="0" maxOccurs="unbounded"/>	
+					<xsd:element ref="ccq-res-ext:VehicleIDText" minOccurs="0" maxOccurs="unbounded"/>	
 					<xsd:element ref="j:ConveyanceRegistrationPlateIdentification" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ConveyanceColorPrimaryCode" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ItemDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
@@ -321,12 +321,12 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SentenceIDText" minOccurs="0" maxOccurs="unbounded"/>	
-					<xsd:element ref="ext:DispositionIDText" minOccurs="0" maxOccurs="unbounded"/>	
-					<xsd:element ref="ext:SentenceDeferredDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:SentenceConfinementComment" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:SentenceIDText" minOccurs="0" maxOccurs="unbounded"/>	
+					<xsd:element ref="ccq-res-ext:DispositionIDText" minOccurs="0" maxOccurs="unbounded"/>	
+					<xsd:element ref="ccq-res-ext:SentenceDeferredDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:SentenceConfinementComment" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:FacilityDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:OtherSentence" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:OtherSentence" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Probation"	minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -339,8 +339,8 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:OtherSentenceIDText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:DispositionIDText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:OtherSentenceIDText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:DispositionIDText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ProgramTitleText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ProgramCondition" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
@@ -354,13 +354,13 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:ConditionDaysToCompleteText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ConditionCompleteInText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ConditionHoursAssignedText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ConditionModificationDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ConditionOtherHoursCompleteText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ConditionOtherTermsText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ProgramCostPerHourAmount" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ConditionDaysToCompleteText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ConditionCompleteInText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ConditionHoursAssignedText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ConditionModificationDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ConditionOtherHoursCompleteText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ConditionOtherTermsText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ProgramCostPerHourAmount" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -372,12 +372,12 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:DispositionIDText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ProbationMinYearsText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ProbationMinMonthsText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ProbationMinDaysText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ProbationActualDate" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ProbationCompleteByDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:DispositionIDText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ProbationMinYearsText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ProbationMinMonthsText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ProbationMinDaysText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ProbationActualDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ProbationCompleteByDate" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -401,8 +401,8 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:StreetTypeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:ApartmentNumberText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:StreetTypeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ApartmentNumberText" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -414,11 +414,11 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:VictimRestitutionAdjustmentAmount" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:VictimRestitutionPaidAmount" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:VictimRestitutionAvailableAmount" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:VictimRestitutionBalanceAmount" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ext:VictimRestitutionHoldDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:VictimRestitutionAdjustmentAmount" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:VictimRestitutionPaidAmount" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:VictimRestitutionAvailableAmount" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:VictimRestitutionBalanceAmount" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:VictimRestitutionHoldDate" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -449,7 +449,7 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 			<xsd:documentation>True if jury reached a verdict.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtCase" type="ext:CourtCaseType">
+	<xsd:element name="CourtCase" type="ccq-res-ext:CourtCaseType">
 		<xsd:annotation>
 			<xsd:documentation>A complex data element for additional information about a court case.</xsd:documentation>
 		</xsd:annotation>
@@ -499,7 +499,7 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 			<xsd:documentation>number for FPC.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DefendantCaseFinancials" type="ext:DefendantCaseFinancialType">
+	<xsd:element name="DefendantCaseFinancials" type="ccq-res-ext:DefendantCaseFinancialType">
 		<xsd:annotation>
 			<xsd:documentation>date for FTAH.</xsd:documentation>
 		</xsd:annotation>
@@ -524,12 +524,12 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 			<xsd:documentation>date interest will begin accuring on balance due</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Defendant" type="ext:DefendantType">
+	<xsd:element name="Defendant" type="ccq-res-ext:DefendantType">
 		<xsd:annotation>
 			<xsd:documentation>information related to the defendant</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DefendantCase" type="ext:DefendantCaseType">
+	<xsd:element name="DefendantCase" type="ccq-res-ext:DefendantCaseType">
 		<xsd:annotation>
 			<xsd:documentation>the defendants case information</xsd:documentation>
 		</xsd:annotation>
@@ -564,7 +564,7 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 			<xsd:documentation>identification for electronic contact.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PoundsOverMeasure" type="ext:PoundsOverMeasureType">
+	<xsd:element name="PoundsOverMeasure" type="ccq-res-ext:PoundsOverMeasureType">
 		<xsd:annotation>
 			<xsd:documentation>pounds over description.</xsd:documentation>
 		</xsd:annotation>
@@ -659,7 +659,7 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 			<xsd:documentation>warrant ID tracking number</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Payment" type="ext:PaymentType" >
+	<xsd:element name="Payment" type="ccq-res-ext:PaymentType" >
 		<xsd:annotation>
 			<xsd:documentation>court case payment information</xsd:documentation>
 		</xsd:annotation>
@@ -729,7 +729,7 @@ xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 			<xsd:documentation>true if sentence includes work release</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="OtherSentence" type="ext:OtherSentenceType">
+	<xsd:element name="OtherSentence" type="ccq-res-ext:OtherSentenceType">
 		<xsd:annotation>
 			<xsd:documentation>additional and other sentence information</xsd:documentation>
 		</xsd:annotation>

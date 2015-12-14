@@ -24,12 +24,11 @@
 	xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/CourtCaseSearchResultsService/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/CourtCaseSearchResultsService/1.0"
-	xmlns:policy="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
 	<wsdl:import
-		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/"
-		location="../../../../policy-assertions/GFIPMUserSystemToSystem.wsdl" />
+		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0"
@@ -48,7 +47,7 @@
 		type="tns:Court-Case-Search-Results-Service">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
-		<wsp:PolicyReference URI="#GFIPMUserSystemToSystem" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
 		<wsdl:operation name="SubmitCourtCaseSearchResults">
 			<soap:operation soapAction="http://ojbc.org/Services/WSDL/CourtCaseSearchResultsService/1.0/SubmitCourtCaseSearchResults"
 				style="document" />
