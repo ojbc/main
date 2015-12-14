@@ -51,9 +51,15 @@
 			<xsd:documentation>A data type for a human being.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
+		
+		<!--  j:PersonAugmentation is substitutable at nc:PersonAugmentationPoint  -->
+		
 			<xsd:extension base="j:PersonAugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="nc:Person"/>
+					
+					<!--  No need to extend Person Use PersonAugmentationPoint for PersonBirthDateRange -->
+					
 					<xsd:element ref="ccs-req-ext:PersonBirthDateRange" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -74,6 +80,11 @@
 	<xsd:element name="Case" type="ccs-req-ext:CaseType" >
 	</xsd:element>
 	<xsd:complexType name="CaseType">
+	
+	<!-- No need to extend “Case” - Use nc:Case/nc:CaseAugmentation/j:CaseCourt/j:CourtName -->
+	
+	<!--  Also nc:Case/nc:CaseAugmentation/j:CaseCourt/j:CourtAugmentationPoint and add element CourtJurisdictionDistrictText -->
+	
 		<xsd:annotation>
 			<xsd:documentation>A data type for a human being.</xsd:documentation>
 		</xsd:annotation>
