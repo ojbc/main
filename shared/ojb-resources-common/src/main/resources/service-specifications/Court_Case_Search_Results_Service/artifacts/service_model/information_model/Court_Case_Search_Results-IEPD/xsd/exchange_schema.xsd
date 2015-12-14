@@ -20,12 +20,12 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
   xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-  xmlns:exchange="http://AdamsCounty.gov/IEPD/Exchange/Court_Case_Search_Results_IEPD/1.0" 
-  xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Court_Case_Search_Results_IEPD/1.0" 
- targetNamespace="http://AdamsCounty.gov/IEPD/Exchange/Court_Case_Search_Results_IEPD/1.0" elementFormDefault="qualified">
+  xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0" 
+  xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" 
+ targetNamespace="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:import namespace="http://AdamsCounty.gov/IEPD/Extension/Court_Case_Search_Results_IEPD/1.0" schemaLocation="extension_schema.xsd"/>
-	<!-- Root data element for a Court Case Search Results -->
-	<xsd:element name="CourtCaseSearchResults" type="ext:CourtCaseSearchResultsType"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" schemaLocation="extension_schema.xsd"/>
+	<!-- Root data element for Court Case Search Results -->
+	<xsd:element name="CourtCaseSearchResults" type="ccs-res-ext:CourtCaseSearchResultsType"/>
 </xsd:schema>
