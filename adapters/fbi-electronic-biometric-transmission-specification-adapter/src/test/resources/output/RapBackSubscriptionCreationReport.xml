@@ -56,4 +56,9 @@
          </jxdm50:PersonFBIIdentification>
       </jxdm50:PersonAugmentation>
    </nc30:Person>
+   <fed_subcr-ext:CriminalHistoryDocument s30:ref="d1e351">
+		<nc:DocumentBinary>
+			<fed_subcr-ext:Base64BinaryObject>Subject's Rap Sheet goes here</fed_subcr-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+	</fed_subcr-ext:CriminalHistoryDocument>
 </fed_subcr-doc:FederalSubscriptionCreationReport>

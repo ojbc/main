@@ -46,4 +46,9 @@
 			</j:PersonFBIIdentification>
 		</j:PersonAugmentation>
 	</nc:Person>
+	<fed_subcr-ext:CriminalHistoryDocument structures:id="Doc_01">
+		<nc:DocumentBinary>
+			<fed_subcr-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</fed_subcr-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+	</fed_subcr-ext:CriminalHistoryDocument>
 </fed_subcr-doc:FederalSubscriptionCreationReport>

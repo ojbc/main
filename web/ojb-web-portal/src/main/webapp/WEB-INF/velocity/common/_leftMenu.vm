@@ -145,7 +145,7 @@
 		});
 		
 		$('#criminalIdLink').click(function() {	  
-	  				  				  					  					    			    	
+	  		$('#filterColumn').css('visibility', 'hidden');		  				  					  					    			    	
     		$.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
     		
 				$('#portalContent').html(data);	
