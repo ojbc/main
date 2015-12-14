@@ -99,8 +99,10 @@
 		<route id="identification_recording_service">
 		
 			<from uri="identificationRecordingAdapterEndpoint" />
-			
+									
 			<to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<log message="\n\n\n ********* \n  identification_recording_service \n\n msgId: ${header.federatedQueryRequestGUID}   \n\n\ ************** \n\n\n\n" />
 			
 			<to uri="direct:processIdentificationReport" />
 			
@@ -116,6 +118,8 @@
 		<route id="identfication_recording_service_process_report">				
 			
 			<from uri="direct:processIdentificationReport" />
+			
+			<log message="\n\n\n * * *  processIdentificationReport 111   * * * \n\n\n"/>
 
 			<setHeader headerName="identificationID">
 				<xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
@@ -131,6 +135,8 @@
 					|/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:TransactionCategoryText
 				</xpath>
 			</setHeader>
+				
+			<log message="\n\n\n * * *  processIdentificationReport 2222   * * * \n\n\n"/>				
 				
 			<doTry>
 						
@@ -148,16 +154,21 @@
 						<to uri="bean:identificationResultsReportProcessor?method=processReport"/>
 					</when>
 					<otherwise>
-						<log message="The operation name '${in.header.operationName}' is not supported."></log>
+						<log message="\n\n\n The operation name '${in.header.operationName}' is not supported. \n\n\n" loggingLevel="WARN"/>
+						
 						<throwException ref="opertaionNameNotSupported"></throwException>
 					</otherwise>
 				</choice>
+				
+				<log message="\n\n\n * * *  Calling  direct:successfulIdentificationRecordingInvocation  * * * \n\n\n"/>
 				
 				<to uri="direct:successfulIdentificationRecordingInvocation"/>
 				
 				<doCatch >
 					<exception>java.lang.Exception</exception>
-					<log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+
+					<log message="\n\n\n An exception was thrown: \n\n ${exception.stacktrace} \n\n\n" loggingLevel="ERROR"/>
+									
 					<to uri="direct:failedIdentificationRecordingInvocation"/>
 				</doCatch>
 			
@@ -167,7 +178,11 @@
 
 		<route id="successful_identification_recording_invocation_route">
 			<from uri="direct:successfulIdentificationRecordingInvocation"/>
+			
 			<to uri="bean:identificationReportingResponseProcessor?method=createSuccessResponse"/>
+			
+			<camel:log message="\n\n\n * * * After createSuccessResponse * * * \n\n\n" />
+			
 			<to uri="direct:sendIdentificationReportingResponseMessage"/>
 		</route>
 		
@@ -193,8 +208,13 @@
 		</route>
 		
 		<route id="send_identification_reporting_response_route">
+			
 			<from uri="direct:sendIdentificationReportingResponseMessage"/>
+			
+			<log message="\n\n\n * * * Calling MessageProcessor sendResponseMessage * * * \n\n\n"/>
+			
 			<to uri="bean:identificationReportingResultMessageProcessor?method=sendResponseMessage"/>
+			
 		</route>
 		
 		<!-- Rapback Search Request flow -->
