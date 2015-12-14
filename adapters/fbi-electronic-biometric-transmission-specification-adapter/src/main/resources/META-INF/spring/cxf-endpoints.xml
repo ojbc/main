@@ -106,6 +106,7 @@
 		endpointName="ojbc:Subscription-Reporting-Secure-Service" 
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
 		<cxf:properties>
+			<entry key="mtom-enabled" value="true"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="fbiEbtsAdapterKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${fbiEbtsAdapter.keystoreCertificateAlias}" />
