@@ -17,15 +17,15 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:BookingRecord xmlns:exchange="http://AdamsCounty.gov/IEPD/Exchange/BookingRecord_IEPD/1.0" xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/BookingRecord_IEPD/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://AdamsCounty.gov/IEPD/Exchange/BookingRecord_IEPD/1.0 ../xsd/exchange_schema.xsd ">
+<br-doc:BookingReport xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport" xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange_schema.xsd ">
   <nc:DocumentCreationDate>
     <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
   </nc:DocumentCreationDate>
   <nc:DocumentIdentification>
-    <nc:IdentificationID>Record ID</nc:IdentificationID>
+    <nc:IdentificationID>Report ID</nc:IdentificationID>
   </nc:DocumentIdentification>
-  <ext:SourceSystemNameText>Source System Name</ext:SourceSystemNameText>
-  <ext:InmateCustody>
+  <br-ext:SourceSystemNameText>Source System Name</br-ext:SourceSystemNameText>
+  <br-ext:InmateCustody>
     <nc:PersonBirthDate>
        <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
     </nc:PersonBirthDate>
@@ -66,14 +66,14 @@
         </j:StatuteCodeIdentification>
       </j:ChargeStatute>
     </j:Charge>
-    <ext:Supervision>
+    <br-ext:Supervision>
     	<nc:SupervisionFacility>
            <nc:FacilityIdentification>
               <nc:IdentificationID>Facility Name</nc:IdentificationID>
         </nc:FacilityIdentification>
       </nc:SupervisionFacility>
       <j:SupervisionAugmentation/>
-      <ext:HoldForImmigrationIndicator>true</ext:HoldForImmigrationIndicator>
+      <br-ext:HoldForImmigrationIndicator>true</br-ext:HoldForImmigrationIndicator>
       <j:ChargeSentence>
          <j:SentenceCondition>
            <nc:ConditionSetDate>
@@ -84,6 +84,6 @@
       <nc:Organization>
         <nc:OrganizationName>Holding for Agency</nc:OrganizationName>
       </nc:Organization>
-    </ext:Supervision>
-  </ext:InmateCustody>
-</exchange:BookingRecord>
+    </br-ext:Supervision>
+  </br-ext:InmateCustody>
+</br-doc:BookingReport>

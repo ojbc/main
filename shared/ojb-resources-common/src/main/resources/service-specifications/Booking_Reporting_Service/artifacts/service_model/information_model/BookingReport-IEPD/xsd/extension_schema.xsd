@@ -29,9 +29,9 @@ xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:complexType name="BookingRecordType">
+	<xsd:complexType name="BookingReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for set of details associated with a query response from the courts.</xsd:documentation>
+			<xsd:documentation>A data type for set of details associated with a booking.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
