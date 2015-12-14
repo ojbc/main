@@ -24,13 +24,12 @@ xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
 xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Court_Case_Search_Results_IEPD/1.0" 
- targetNamespace="http://AdamsCounty.gov/IEPD/Extension/Court_Case_Search_Results_IEPD/1.0" elementFormDefault="qualified">
+xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" 
+ targetNamespace="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
     <xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
-    
 	<!-- court case search results -->
 	<xsd:complexType name="CourtCaseSearchResultsType">
 		<xsd:annotation>
@@ -39,21 +38,21 @@ xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Court_Case_Search_Results_IEPD/
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ext:CourtCaseResultsIdentification" minOccurs="1" maxOccurs="unbounded" />
-					<xsd:element ref="ext:Case" minOccurs="1" maxOccurs="unbounded" />
-					<xsd:element ref="ext:Defendant" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="ccs-res-ext:CourtCaseResultsIdentification" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="ccs-res-ext:Case" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="ccs-res-ext:Defendant" minOccurs="1" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CourtCaseResultsIdenificationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for set of details associated with a Search Results.</xsd:documentation>
+			<xsd:documentation>A data type for set of details associated with Search Results.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:IdentificationType">
 				<xsd:sequence>
-					<xsd:element ref="ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="ccs-res-ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -84,20 +83,18 @@ xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Court_Case_Search_Results_IEPD/
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-
-
 	<!-- Extension Elements -->
-	<xsd:element name="CourtCaseResultsIdentification" type="ext:CourtCaseResultsIdenificationType">
+	<xsd:element name="CourtCaseResultsIdentification" type="ccs-res-ext:CourtCaseResultsIdenificationType">
 		<xsd:annotation>
 			<xsd:documentation>used to identify the source system and records returned.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Case" type="ext:CaseType">
+	<xsd:element name="Case" type="ccs-res-ext:CaseType">
 		<xsd:annotation>
 			<xsd:documentation>The court case.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Defendant" type="ext:DefendantType">
+	<xsd:element name="Defendant" type="ccs-res-ext:DefendantType">
 		<xsd:annotation>
 			<xsd:documentation>The defendant.</xsd:documentation>
 		</xsd:annotation>
@@ -108,5 +105,4 @@ xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Court_Case_Search_Results_IEPD/
 			This can be used to retrieve additional information about the person and/or court case in the search result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
 </xsd:schema>
