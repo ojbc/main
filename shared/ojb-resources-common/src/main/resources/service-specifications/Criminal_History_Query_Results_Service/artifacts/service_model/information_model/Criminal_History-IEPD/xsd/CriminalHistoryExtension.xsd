@@ -17,12 +17,18 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0">
+<xsd:schema xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:scr="http://niem.gov/niem/domains/screening/2.1" xmlns:rap-code="http://nlets.org/niem2/rapsheet/1.0/codes" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:fs="http://niem.gov/niem/domains/familyServices/2.1" targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0">
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" schemaLocation="ErrorReporting.xsd"/>
 	<xsd:import namespace="http://nlets.org/niem2/rapsheet/1.0" schemaLocation="rapsheet.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="NIEM_2.1/structures/2.0/structures.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="NIEM_2.1/niem-core/2.0/niem-core.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="NIEM_2.1/domains/jxdm/4.1/jxdm.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="NIEM_2.1/appinfo/2.0/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/ansi-nist/2.0" schemaLocation="NIEM_2.1/ansi-nist/2.0/ansi-nist.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/screening/2.1" schemaLocation="NIEM_2.1/domains/screening/2.1/screening.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/familyServices/2.1" schemaLocation="NIEM_2.1/domains/familyServices/2.1/familyServices.xsd"/>
+	<xsd:import namespace="http://nlets.org/niem2/rapsheet/1.0/codes" schemaLocation="rap-code.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="NIEM_2.1/proxy/xsd/2.0/xsd.xsd"/>
 	<xsd:complexType name="CriminalHistoryType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with Juvenile Justice.</xsd:documentation>
@@ -41,18 +47,26 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="rap:Metadata" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ansi-nist:TransactionControlIdentification" minOccurs="0"/>
 					<xsd:element ref="rap:Introduction" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:RapSheetPerson" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:PersonBiometricsAssociation" minOccurs="0"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:Court" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:Agency" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ResidenceAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ch-ext:RapSheetCycle" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="rap:RapSheetNonCriminalInformation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="rap:BookingAgencyAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="rap:ChargeAgencyAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:ArrestAgencyAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:CourtActionCourtAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="rap:ProsecutionAgencyAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:SentencingCourtAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:SupervisionAgencyAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="rap:FingerprintActivityAgencyAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="rap:ExtensionField" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ch-ext:Order" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
