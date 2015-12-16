@@ -17,7 +17,6 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<!-- October 2015 - SEARCH - MSJ -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
 xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
@@ -27,20 +26,24 @@ xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
 xmlns:biom="http://release.niem.gov/niem/domains/biometrics/3.1/"
 xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" 
 xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" 
+xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryResultsErrorReporting/1.0" 
+xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" 
  targetNamespace="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/biometrics/3.1/" schemaLocation="./Subset/niem/domains/biometrics/3.1/biom.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" schemaLocation="query-results-metadata.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsErrorReporting/1.0" schemaLocation="query-results-error-reporting.xsd"/>
 	<xsd:complexType name="CourtCaseQueryResultsType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for set of details associated with a query response from the courts.</xsd:documentation>
+			<xsd:documentation>A data type for set of details associated with query results from a court.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="ccq-res-ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
+					<!--  xsd:element ref="ccq-res-ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="ccq-res-ext:Defendant" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="j:ContactPersonLocation" minOccurs="0" maxOccurs="unbounded"/> 
@@ -56,7 +59,8 @@ xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtensio
 					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/> 
 					<xsd:element ref="j:ChargeSentence" minOccurs="0" maxOccurs="unbounded"/> 
-					<xsd:element ref="j:Victim" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Victim" minOccurs="0" maxOccurs="unbounded"/-->
+					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
