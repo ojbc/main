@@ -29,21 +29,19 @@ xmlns:ccq-req-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtensio
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:complexType name="CourtCaseQueryRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for set of details associated with a court case query request.</xsd:documentation>
+			<xsd:documentation>A data type for a court case query request.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:IdentificationType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ccq-req-ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-req-ext:CourtCaseIdentification" minOccurs="1" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<!-- Extension Elements -->
-	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:element name="CourtCaseIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>The name of a system that returned the search result. 
-			This can be used to retrieve additional information about the person and/or court case in the search result.</xsd:documentation>
+			<xsd:documentation>A unique identification assigned to a court case record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
