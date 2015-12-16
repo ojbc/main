@@ -21,12 +21,12 @@
 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
   xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-  xmlns:vc-res-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0" 
-  xmlns:vc-res-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0" 
+  xmlns:vcq-res-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0" 
+  xmlns:vcq-res-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0" 
  targetNamespace="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0" schemaLocation="extension.xsd"/>
 	<!-- Root data element for Vehicle Crash Results -->
-	<xsd:element name="VehicleCrashQueryResults" type="vc-res-ext:VehicleCrashQueryResultsType"/>
+	<xsd:element name="VehicleCrashQueryResults" type="vcq-res-ext:VehicleCrashQueryResultsType"/>
 </xsd:schema>

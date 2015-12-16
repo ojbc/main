@@ -21,9 +21,9 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:vc-req-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryRequest/1.0"
-	xmlns:tns="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0"
-	targetNamespace="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0"
+	xmlns:vcq-res-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0"
+	xmlns:tns="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0"
+	targetNamespace="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
 	<wsdl:import
@@ -31,51 +31,51 @@
 		location="../../../../policy-assertions/GFIPMUserSystemToSystem.wsdl" />
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Vehicle_Crash_Query_Request-IEPD/xsd/exchange.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/Vehicle_Crash_Query_Results-IEPD/xsd/exchange.xsd" />
 		</xsd:schema>
 	</wsdl:types>
-	<wsdl:message name="Vehicle-Crash-Query-Request">
-		<wsdl:part name="Vehicle-Crash-Query-Request" element="vc-req-doc:VehicleCrashQueryRequest" />
+	<wsdl:message name="Vehicle-Crash-Query-Results">
+		<wsdl:part name="Vehicle-Crash-Query-Results" element="vcq-res-doc:VehicleCrashQueryResults" />
 	</wsdl:message>
-	<wsdl:portType name="Vehicle-Crash-Query-Request-Service">
-		<wsdl:operation name="SubmitVehicleCrashQueryRequest">
-			<wsdl:input name="Vehicle-Crash-Query-Request" message="tns:Vehicle-Crash-Query-Request" />
+	<wsdl:portType name="Vehicle-Crash-Query-Results-Service">
+		<wsdl:operation name="SubmitVehicleCrashQueryResults">
+			<wsdl:input name="Vehicle-Crash-Query-Results" message="tns:Vehicle-Crash-Query-Results" />
 		</wsdl:operation>
 	</wsdl:portType>
-	<wsdl:binding name="Vehicle-Crash-Query-Request-Service_SecureSOAPBinding"
-		type="tns:Vehicle-Crash-Query-Request-Service">
+	<wsdl:binding name="Vehicle-Crash-Query-Results-Service_SecureSOAPBinding"
+		type="tns:Vehicle-Crash-Query-Results-Service">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMUserSystemToSystem" />
-		<wsdl:operation name="SubmitVehicleCrashQueryRequest">
-			<soap:operation soapAction="SubmitVehicleCrashQueryRequest"
+		<wsdl:operation name="SubmitVehicleCrashQueryResults">
+			<soap:operation soapAction="SubmitVehicleCrashQueryResults"
 				style="document" />
-			<wsdl:input name="Vehicle-Crash-Query-Request">
+			<wsdl:input name="Vehicle-Crash-Query-Results">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
-	<wsdl:binding name="Vehicle-Crash-Query-Request-ServiceSOAPBinding"
-		type="tns:Vehicle-Crash-Query-Request-Service">
+	<wsdl:binding name="Vehicle-Crash-Query-Results-ServiceSOAPBinding"
+		type="tns:Vehicle-Crash-Query-Results-Service">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsaw:UsingAddressing wsdl:required="true" />
-		<wsdl:operation name="SubmitVehicleCrashQueryRequest">
-			<soap:operation soapAction="SubmitVehicleCrashQueryRequest"
+		<wsdl:operation name="SubmitVehicleCrashQueryResults">
+			<soap:operation soapAction="SubmitVehicleCrashQueryResults"
 				style="document" />
-			<wsdl:input name="Vehicle-Crash-Query-Request">
+			<wsdl:input name="Vehicle-Crash-Query-Results">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
-	<wsdl:service name="Vehicle-Crash-Query-Request-ServiceService">
-		<wsdl:port name="Vehicle-Crash-Query-Request-Service"
-			binding="tns:Vehicle-Crash-Query-Request-ServiceSOAPBinding">
+	<wsdl:service name="Vehicle-Crash-Query-Results-ServiceService">
+		<wsdl:port name="Vehicle-Crash-Query-Results-Service"
+			binding="tns:Vehicle-Crash-Query-Results-ServiceSOAPBinding">
 			<soap:address location="localhost" />
 		</wsdl:port>
-		<wsdl:port name="Vehicle-Crash-Query-Request-Secure-Service"
-			binding="tns:Vehicle-Crash-Query-Request-Service_SecureSOAPBinding">
+		<wsdl:port name="Vehicle-Crash-Query-Results-Secure-Service"
+			binding="tns:Vehicle-Crash-Query-Results-Service_SecureSOAPBinding">
 			<soap:address location="http://localhost/secure" />
 		</wsdl:port>
 	</wsdl:service>

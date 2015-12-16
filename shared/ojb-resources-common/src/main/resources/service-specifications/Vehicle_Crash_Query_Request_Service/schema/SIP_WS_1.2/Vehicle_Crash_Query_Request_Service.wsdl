@@ -21,7 +21,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:vc-req-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryRequest/1.0"
+	xmlns:vcq-req-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryRequest/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
@@ -36,7 +36,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Vehicle-Crash-Query-Request">
-		<wsdl:part name="Vehicle-Crash-Query-Request" element="vc-req-doc:VehicleCrashQueryRequest" />
+		<wsdl:part name="Vehicle-Crash-Query-Request" element="vcq-req-doc:VehicleCrashQueryRequest" />
 	</wsdl:message>
 	<wsdl:portType name="Vehicle-Crash-Query-Request-Service">
 		<wsdl:operation name="SubmitVehicleCrashQueryRequest">

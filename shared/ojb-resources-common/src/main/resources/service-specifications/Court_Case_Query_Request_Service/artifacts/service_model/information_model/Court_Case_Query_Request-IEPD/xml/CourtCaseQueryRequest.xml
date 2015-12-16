@@ -18,7 +18,8 @@
 
 -->
 <ccq-req-doc:CourtCaseQueryRequest xmlns:ccq-req-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0" xmlns:ccq-req-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtension/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0 ../xsd/exchange_schema.xsd ">
-  <nc:IdentificationID>CR-2015-0008770-MC</nc:IdentificationID>
-  <nc:IdentificationSourceText>City of Thornton vs. Bug Test-bkg req bunny</nc:IdentificationSourceText>
-  <ccq-req-ext:SourceSystemNameText>Thornton Municipal Court - FullCourt System 1 (OJBC Record xyz123)</ccq-req-ext:SourceSystemNameText>
+  <ccq-req-ext:CourtCaseIdentification>
+  	<nc:IdentificationID>Court Record ID</nc:IdentificationID>
+  	<nc:IdentificationSourceText>Court Record Source</nc:IdentificationSourceText>
+  </ccq-req-ext:CourtCaseIdentification>
 </ccq-req-doc:CourtCaseQueryRequest>
