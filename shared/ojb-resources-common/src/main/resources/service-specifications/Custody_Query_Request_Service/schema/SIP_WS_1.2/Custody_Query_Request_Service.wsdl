@@ -21,7 +21,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:pqr-doc="http://ojbc.org/IEPD/Exchange/CustodyQueryRequest/1.0"
+	xmlns:cq-req-doc="http://ojbc.org/IEPD/Exchange/CustodyQueryRequest/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0"
 	xmlns:policy="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/"
@@ -33,14 +33,14 @@
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CustodyQueryRequest/1.0"
-				schemaLocation="../../artifacts/service-model/information-model/Custody_Query_Request-IEPD/xsd/Custody_Query_Request.xsd" />
+				schemaLocation="../../artifacts/service_model/information_model/Custody_Query_Request-IEPD/xsd/exchange_schema.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Custody-Query-Request">
-		<wsdl:part name="Custody-Query-Request" element="pqr-doc:CustodyRecordRequest" />
+		<wsdl:part name="Custody-Query-Request" element="cq-req-doc:CustodyQueryRequest" />
 	</wsdl:message>
 	<wsdl:portType name="Custody-Query-Request-Service">
-		<wsdl:operation name="Submit-Custody-Query-Request">
+		<wsdl:operation name="SubmitCustodyQueryRequest">
 			<wsdl:input name="Custody-Query-Request" message="tns:Custody-Query-Request" />
 		</wsdl:operation>
 	</wsdl:portType>
@@ -49,8 +49,8 @@
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMUserSystemToSystem" />
-		<wsdl:operation name="Submit-Custody-Query-Request">
-			<soap:operation soapAction="Submit-Custody-Query-Request"
+		<wsdl:operation name="SubmitCustodyQueryRequest">
+			<soap:operation soapAction="SubmitCustodyQueryRequest"
 				style="document" />
 			<wsdl:input name="Custody-Query-Request">
 				<soap:body use="literal" />
@@ -62,8 +62,8 @@
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsaw:UsingAddressing wsdl:required="true" />
-		<wsdl:operation name="Submit-Custody-Query-Request">
-			<soap:operation soapAction="Submit-Custody-Query-Request"
+		<wsdl:operation name="SubmitCustodyQueryRequest">
+			<soap:operation soapAction="SubmitCustodyQueryRequest"
 				style="document" />
 			<wsdl:input name="Custody-Query-Request">
 				<soap:body use="literal" />

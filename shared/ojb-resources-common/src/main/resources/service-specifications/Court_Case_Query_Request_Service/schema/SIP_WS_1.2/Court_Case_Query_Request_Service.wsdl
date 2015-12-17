@@ -21,7 +21,7 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0"
+	xmlns:ccq-req-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0"
 	xmlns:policy="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/"
@@ -37,10 +37,10 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Court-Case-Query-Request">
-		<wsdl:part name="Court-Case-Query-Request" element="doc:CourtCaseQueryRequest" />
+		<wsdl:part name="Court-Case-Query-Request" element="ccq-req-doc:CourtCaseQueryRequest" />
 	</wsdl:message>
 	<wsdl:portType name="Court-Case-Query-Request-Service">
-		<wsdl:operation name="Submit-Court-Case-Query-Request">
+		<wsdl:operation name="SubmitCourtCaseQueryRequest">
 			<wsdl:input name="Court-Case-Query-Request" message="tns:Court-Case-Query-Request" />
 		</wsdl:operation>
 	</wsdl:portType>
@@ -49,8 +49,8 @@
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMUserSystemToSystem" />
-		<wsdl:operation name="Submit-Court-Case-Query-Request">
-			<soap:operation soapAction="Submit-Court-Case-Query-Request"
+		<wsdl:operation name="SubmitCourtCaseQueryRequest">
+			<soap:operation soapAction="SubmitCourtCaseQueryRequest"
 				style="document" />
 			<wsdl:input name="Court-Case-Query-Request">
 				<soap:body use="literal" />
@@ -62,8 +62,8 @@
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsaw:UsingAddressing wsdl:required="true" />
-		<wsdl:operation name="Submit-Court-Case-Query-Request">
-			<soap:operation soapAction="Submit-Court-Case-Query-Request"
+		<wsdl:operation name="SubmitCourtCaseQueryRequest">
+			<soap:operation soapAction="SubmitCourtCaseQueryRequest"
 				style="document" />
 			<wsdl:input name="Court-Case-Query-Request">
 				<soap:body use="literal" />

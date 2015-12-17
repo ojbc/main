@@ -351,7 +351,7 @@
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 					
-					<camel:log message="About to send entity merge message to ${in.headers.recipientListReplyToEndpoint}" />			
+					<camel:log message="About to send entity merge message to ${in.headers.recipientListReplyToEndpoint} with destination override URL of: ${in.headers.CamelDestinationOverrideUrl}" />			
 
 					<camel:log message="Reply to portal: ${body}" loggingLevel="DEBUG"/>
 								
