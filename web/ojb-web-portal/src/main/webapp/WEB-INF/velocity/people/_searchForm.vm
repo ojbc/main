@@ -219,23 +219,8 @@
         <li><a href="#advancedSearchTab">ADVANCED SEARCH</a></li>
         <li><a href="#simpleSearchTab">SIMPLE SEARCH</a></li>
     </ul>
-	<div id="simpleSearchTab">
-	    <form id='simpleSearchForm'>
-     		#springBind( "personSearchCommand.searchType" )
-			<input type="hidden" name="${status.expression}" value="SIMPLE" /><br/>
-	        <p> Enter search criteria below </p>
-            <div>   
-                #springFormInput("personSearchCommand.simpleSearch" "placeholder='Search Term(s)'") <br/>
-                #springShowErrors( "<br/>" "error" )
-             </div>
-	            
-	         <div class="searchCancelSection" >
-	            <a id="simpleSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
-	            <a id="simpleSearchClearButton" class="grayButton"  >CLEAR</a>
-	        </div>
-        </form>
-      </div>
-      <div id="advancedSearchTab">
+	#parse('people/_simpleSearchTab.vm')
+    <div id="advancedSearchTab">
   	    <form id='advancedSearchForm' >
             #if($errors.hasGlobalErrors())
                 #foreach( $globalError in $errors.globalErrors )
