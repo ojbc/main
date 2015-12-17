@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<exchange:CourtCaseSearchResults xmlns:exchange="http://AdamsCounty.gov/IEPD/Exchange/Court_Case_Search_Results_IEPD/1.0" xmlns:ext="http://AdamsCounty.gov/IEPD/Extension/Court_Case_Search_Results_IEPD/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://AdamsCounty.gov/IEPD/Exchange/Court_Case_Search_Results_IEPD/1.0 ../xsd/exchange_schema.xsd ">
+<ccs-res-doc:CourtCaseSearchResults xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0" xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/Court_Case_Search_Results_IEPD/1.0 ../xsd/exchange_schema.xsd ">
   <structures:ObjectAugmentationPoint/>
-  <ext:CourtCaseResultsIdentification>
+  <ccs-res-extCourtCaseResultsIdentification>
     <structures:ObjectAugmentationPoint/>
     <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
     <nc:IdentificationJurisdiction>
@@ -28,9 +28,9 @@
     <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
     <nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
     <nc:IdentificationAugmentationPoint/>
-    <ext:SourceSystemNameText>ext:SourceSystemNameText</ext:SourceSystemNameText>
-  </ext:CourtCaseResultsIdentification>
-  <ext:Case>
+    <ccs-res-extSourceSystemNameText>ccs-res-extSourceSystemNameText</ccs-res-extSourceSystemNameText>
+  </ccs-res-extCourtCaseResultsIdentification>
+  <ccs-res-extCase>
     <structures:ObjectAugmentationPoint/>
     <nc:CaseGeneralCategoryText>nc:CaseGeneralCategoryText</nc:CaseGeneralCategoryText>
     <nc:CaseTrackingID>nc:CaseTrackingID</nc:CaseTrackingID>
@@ -58,8 +58,8 @@
       <j:CourtDivisionText>j:CourtDivisionText</j:CourtDivisionText>
     </j:CaseCourt>
     <j:JurisdictionDistrictText>j:JurisdictionDistrictText</j:JurisdictionDistrictText>
-  </ext:Case>
-  <ext:Defendant>
+  </ccs-res-extCase>
+  <ccs-res-extDefendant>
     <structures:ObjectAugmentationPoint/>
     <nc:PersonBirthDate>
       <structures:ObjectAugmentationPoint/>
@@ -126,5 +126,5 @@
       <structures:ObjectAugmentationPoint/>
       <nc:OrganizationName>nc:OrganizationName</nc:OrganizationName>
     </nc:Organization>
-  </ext:Defendant>
-</exchange:CourtCaseSearchResults>
+  </ccs-res-extDefendant>
+</ccs-res-doc:CourtCaseSearchResults>
