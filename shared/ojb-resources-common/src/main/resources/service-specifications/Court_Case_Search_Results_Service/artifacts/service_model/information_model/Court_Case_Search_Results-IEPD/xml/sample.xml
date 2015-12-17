@@ -17,62 +17,47 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ccs-res-doc:CourtCaseSearchResults xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0" xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/Court_Case_Search_Results_IEPD/1.0 ../xsd/exchange_schema.xsd ">
-  <structures:ObjectAugmentationPoint/>
-  <ccs-res-extCourtCaseResultsIdentification>
-    <structures:ObjectAugmentationPoint/>
+<ccs-res-doc:CourtCaseSearchResults
+ xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0" 
+ xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" 
+ xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+ xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+ xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" 
+ xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+ xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/Court_Case_Search_Results_IEPD/1.0 ../xsd/exchange_schema.xsd ">
+  
+  <ccs-res-ext:CourtCaseResultsIdentification>
     <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-    <nc:IdentificationJurisdiction>
-      <structures:ObjectAugmentationPoint/>
-    </nc:IdentificationJurisdiction>
-    <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
     <nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-    <nc:IdentificationAugmentationPoint/>
-    <ccs-res-extSourceSystemNameText>ccs-res-extSourceSystemNameText</ccs-res-extSourceSystemNameText>
-  </ccs-res-extCourtCaseResultsIdentification>
-  <ccs-res-extCase>
-    <structures:ObjectAugmentationPoint/>
+    <ccs-res-ext:SourceSystemNameText>ccs-res-ext:SourceSystemNameText</ccs-res-ext:SourceSystemNameText>
+  </ccs-res-ext:CourtCaseResultsIdentification>
+  <ccs-res-ext:Case>
     <nc:CaseGeneralCategoryText>nc:CaseGeneralCategoryText</nc:CaseGeneralCategoryText>
     <nc:CaseTrackingID>nc:CaseTrackingID</nc:CaseTrackingID>
     <nc:CaseDocketID>nc:CaseDocketID</nc:CaseDocketID>
     <j:CaseAugmentation>
       <j:CaseCourt>
-        <structures:ObjectAugmentationPoint/>
         <nc:OrganizationName>nc:OrganizationName</nc:OrganizationName>
         <j:CourtDivisionText>j:CourtDivisionText</j:CourtDivisionText>
       </j:CaseCourt>
       <j:CaseOtherIdentification>
-        <structures:ObjectAugmentationPoint/>
-        <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-        <nc:IdentificationJurisdiction>
-          <structures:ObjectAugmentationPoint/>
-        </nc:IdentificationJurisdiction>
         <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
-        <nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-        <nc:IdentificationAugmentationPoint/>
       </j:CaseOtherIdentification>
     </j:CaseAugmentation>
-    <j:CaseCourt>
-      <structures:ObjectAugmentationPoint/>
-      <nc:OrganizationName>nc:OrganizationName</nc:OrganizationName>
-      <j:CourtDivisionText>j:CourtDivisionText</j:CourtDivisionText>
-    </j:CaseCourt>
     <j:JurisdictionDistrictText>j:JurisdictionDistrictText</j:JurisdictionDistrictText>
-  </ccs-res-extCase>
-  <ccs-res-extDefendant>
-    <structures:ObjectAugmentationPoint/>
+  </ccs-res-ext:Case>
+  <ccs-res-ext:Defendant>
     <nc:PersonBirthDate>
-      <structures:ObjectAugmentationPoint/>
     </nc:PersonBirthDate>
     <nc:PersonEyeColorText>nc:PersonEyeColorText</nc:PersonEyeColorText>
     <nc:PersonHairColorText>nc:PersonHairColorText</nc:PersonHairColorText>
     <nc:PersonHeightMeasure>
-      <structures:ObjectAugmentationPoint/>
       <nc:MeasureValueText>nc:MeasureValueText</nc:MeasureValueText>
       <nc:MeasureUnitText>nc:MeasureUnitText</nc:MeasureUnitText>
     </nc:PersonHeightMeasure>
     <nc:PersonName>
-      <structures:ObjectAugmentationPoint/>
       <nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
       <nc:PersonMiddleName>nc:PersonMiddleName</nc:PersonMiddleName>
       <nc:PersonSurName>nc:PersonSurName</nc:PersonSurName>
@@ -83,48 +68,25 @@
     <j:PersonRaceCode>A</j:PersonRaceCode>
     <j:PersonSexCode>F</j:PersonSexCode>
     <nc:PersonWeightMeasure>
-      <structures:ObjectAugmentationPoint/>
       <nc:MeasureValueText>nc:MeasureValueText</nc:MeasureValueText>
       <nc:MeasureUnitText>nc:MeasureUnitText</nc:MeasureUnitText>
     </nc:PersonWeightMeasure>
     <j:PersonAugmentation>
       <j:DriverLicense>
-        <structures:ObjectAugmentationPoint/>
         <j:DriverLicenseCardIdentification>
-          <structures:ObjectAugmentationPoint/>
           <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-          <nc:IdentificationJurisdiction>
-            <structures:ObjectAugmentationPoint/>
-          </nc:IdentificationJurisdiction>
-          <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
           <nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-          <nc:IdentificationAugmentationPoint/>
         </j:DriverLicenseCardIdentification>
       </j:DriverLicense>
       <j:PersonFBIIdentification>
-        <structures:ObjectAugmentationPoint/>
         <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-        <nc:IdentificationJurisdiction>
-          <structures:ObjectAugmentationPoint/>
-        </nc:IdentificationJurisdiction>
-        <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
-        <nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-        <nc:IdentificationAugmentationPoint/>
       </j:PersonFBIIdentification>
       <j:PersonStateFingerprintIdentification>
-        <structures:ObjectAugmentationPoint/>
         <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-        <nc:IdentificationJurisdiction>
-          <structures:ObjectAugmentationPoint/>
-        </nc:IdentificationJurisdiction>
-        <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
-        <nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-        <nc:IdentificationAugmentationPoint/>
       </j:PersonStateFingerprintIdentification>
     </j:PersonAugmentation>
     <nc:Organization>
-      <structures:ObjectAugmentationPoint/>
       <nc:OrganizationName>nc:OrganizationName</nc:OrganizationName>
     </nc:Organization>
-  </ccs-res-extDefendant>
+  </ccs-res-ext:Defendant>
 </ccs-res-doc:CourtCaseSearchResults>
