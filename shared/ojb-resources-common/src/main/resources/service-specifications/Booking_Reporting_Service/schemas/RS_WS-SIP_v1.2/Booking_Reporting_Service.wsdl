@@ -26,15 +26,15 @@
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	targetNamespace="http://ojbc.org/Services/WSDL/BookingReportingService/1.0">
-	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="./GFIPMSystemToSystem.wsdl"/>
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
-			 schemaLocation="../../artifacts/service_model/information_model/BookingRecord_IEPD/xsd/exchange_schema.xsd"/>
+			 schemaLocation="../../artifacts/service_model/information_model/BookingReport-IEPD/xsd/exchange_schema.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="BookingReport">
-		<wsdl:part name="BookingReport" element="br-doc:BookingRecord" />
+		<wsdl:part name="BookingReport" element="br-doc:BookingReport" />
 	</wsdl:message>
 	<wsdl:portType name="Booking-Reporting-Service">
 		<wsdl:operation name="ReportBooking">
@@ -42,21 +42,40 @@
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- Secure, GFIPM-conforming binding -->
-	<wsdl:binding name="Booking-Reporting-Secure-ServiceSOAPBinding" type="tns:Booking-Reporting-Service">
+	<wsdl:binding name="Booking-Reporting-Service_SecureSOAPBinding"
+		type="tns:Booking-Reporting-Service">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
 		<wsdl:operation name="ReportBooking">
 			<soap:operation soapAction="http://ojbc.org/Services/WSDL/BookingReportingService/1.0/ReportBooking"
 				style="document" />
-			<wsdl:input>
+			<wsdl:input name="BookingReport">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
-	<wsdl:service name="Booking-Reporting-ServiceService">
-		<wsdl:port name="Booking-Reporting-Secure-Service" binding="tns:Booking-Reporting-Secure-ServiceSOAPBinding">
-			<soap:address location="http://localhost" />
+	<wsdl:binding name="Booking-Reporting-ServiceSOAPBinding"
+		type="tns:Booking-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsaw:UsingAddressing wsdl:required="true" />
+		<wsdl:operation name="ReportBooking">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/BookingReportingService/1.0/ReportBooking"
+				style="document" />
+			<wsdl:input name="BookingReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Booking-Reporting-Service">
+		<wsdl:port name="Booking-Reporting-Service"
+			binding="tns:Booking-Reporting-ServiceSOAPBinding">
+			<soap:address location="localhost" />
+		</wsdl:port>
+		<wsdl:port name="Booking-Reporting-Secure-Service"
+			binding="tns:Booking-Reporting-Service_SecureSOAPBinding">
+			<soap:address location="http://localhost/secure" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
