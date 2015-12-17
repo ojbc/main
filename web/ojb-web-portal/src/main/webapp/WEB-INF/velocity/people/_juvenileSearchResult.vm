@@ -123,7 +123,7 @@
   </script>
 <div id="searchResultsContainer" class="contentBox" >
     <div id="searchResultsHeader" > 
-        <p id="search-results-title">JUVENILE SEARCH RESULTS</p>
+        <p id="search-results-title">JUVENILE SEARCH RESULTS $activeSearchTab</p>
         <div style="float:right" >
             <a id="returnToSearchSubmitButton" class="grayButton" >
                 <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Results/icon-back.png')" alt="Search Icon"/>
