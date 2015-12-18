@@ -22,7 +22,6 @@
 		  ojbc.handlePlaceholders(); 
 		  
     	  var index = $('#searchTabs a[href="#${activeSearchTab}"]').parent().index();
-    	  console.log("index:" + index); 
     	  
     	  $( "#searchTabs" ).tabs({ active: index});
     	    
@@ -60,7 +59,7 @@
 
     	    $("a[href='\\#juvenileSearchTab']").click (
                 function(){
-                   $("#search-tab-title").html("ADVANCED SEARCH: PERSON");
+                   $("#search-tab-title").html("ADVANCED SEARCH: JUVENILE");
                 }
             )
             $("a[href='\\#simpleSearchTab']").click (function(){
