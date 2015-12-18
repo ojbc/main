@@ -71,7 +71,11 @@
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>
 
-			<camel:to uri="IncidentReportingServiceEndpoint" />
+			<camel:throttle timePeriodMillis="1000">
+				<constant>1</constant>
+				<camel:to uri="IncidentReportingServiceEndpoint" />
+			</camel:throttle>
+			
 			<camel:log message="Called intermediary" />
 
 		</camel:route>
