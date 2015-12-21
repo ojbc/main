@@ -30,7 +30,7 @@
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
-			 schemaLocation="../../artifacts/service_model/information_model/BookingReport-IEPD/xsd/exchange_schema.xsd"/>
+			 schemaLocation="../../artifacts/service_model/information_model/BookingReport-IEPD/xsd/exchange.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="BookingReport">
@@ -68,7 +68,7 @@
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
-	<wsdl:service name="Booking-Reporting-Service">
+	<wsdl:service name="Booking-Reporting-ServiceService">
 		<wsdl:port name="Booking-Reporting-Service"
 			binding="tns:Booking-Reporting-ServiceSOAPBinding">
 			<soap:address location="localhost" />

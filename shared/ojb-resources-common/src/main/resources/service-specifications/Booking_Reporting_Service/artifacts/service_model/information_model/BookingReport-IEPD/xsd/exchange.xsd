@@ -21,7 +21,7 @@
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" schemaLocation="./extension_schema.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" schemaLocation="./extension.xsd"/>
 	<!-- Root data element for a Booking Report -->
 	<xsd:element name="BookingReport" type="br-ext:BookingReportType"/>
 </xsd:schema>
