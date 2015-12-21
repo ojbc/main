@@ -48,16 +48,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ConditionType">
+  <xs:complexType name="AssociationType">
     <xs:annotation>
-      <xs:documentation>A data type for a requirement or stipulation.</xs:documentation>
+      <xs:documentation>A data type for an association, connection, relationship, or involvement somehow linking people, things, and/or activities together.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="nc:ActivityType">
-        <xs:sequence>
-          <xs:element ref="nc:ConditionSetDate" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
+      <xs:extension base="structures:AssociationType"/>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="DateRangeType">
@@ -106,7 +102,6 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:FacilityIdentification" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:FacilityAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -119,19 +114,6 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:IdentificationCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="LocationType">
-    <xs:annotation>
-      <xs:documentation>A data type for geospatial location.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="nc:LocationDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -163,16 +145,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ScheduleDayType">
+  <xs:complexType name="ReleaseType">
     <xs:annotation>
-      <xs:documentation>A data type for a plan or agenda for the activities of a day.</xs:documentation>
+      <xs:documentation>A data type for a freeing or discharging of someone or something from an activity, supervision, or obligation.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="nc:ScheduleDayStartTime" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
+      <xs:extension base="nc:ActivityType"/>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="SupervisionType">
@@ -182,8 +160,19 @@
     <xs:complexContent>
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
-          <xs:element ref="nc:SupervisionFacility" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:SupervisionAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SystemIdentificationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a number or code assigned to a system to uniquely identify the system.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:IdentificationType">
+        <xs:sequence>
+          <xs:element ref="nc:SystemName" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -196,9 +185,19 @@
       <xs:extension base="niem-xs:string"/>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:element name="Activity" type="nc:ActivityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A single or set of related actions, events, or process steps.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ActivityCategoryText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A kind of activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityDate" type="nc:DateType" substitutionGroup="nc:ActivityDateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A date of an activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ActivityDateRange" type="nc:DateRangeType" substitutionGroup="nc:ActivityDateRepresentation">
@@ -211,14 +210,14 @@
       <xs:documentation>A data concept for a date an activity occurs.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Agency" type="nc:OrganizationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A division of a governmental or international body.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Amount" type="niem-xs:decimal" nillable="true">
     <xs:annotation>
       <xs:documentation>An amount of money.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="ConditionSetDate" type="nc:DateType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A date a condition was set.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Date" type="niem-xs:date" substitutionGroup="nc:DateRepresentation">
@@ -236,11 +235,6 @@
       <xs:documentation>A full date and time.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="Document" type="nc:DocumentType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A paper or electronic document.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
   <xs:element name="DocumentCreationDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date a document was created.</xs:documentation>
@@ -256,34 +250,14 @@
       <xs:documentation>An end date.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="FacilityAugmentationPoint" abstract="true">
-    <xs:annotation>
-      <xs:documentation>An augmentation point for FacilityType.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
   <xs:element name="FacilityIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification assigned to a facility.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="IdentificationCategoryDescriptionText" type="nc:TextType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A description of a kind of identification.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
   <xs:element name="IdentificationID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="LocationDescriptionText" type="nc:TextType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A description of a location.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="Organization" type="nc:OrganizationType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A unit which conducts some sort of business or operations.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationName" type="nc:TextType" nillable="true">
@@ -294,11 +268,6 @@
   <xs:element name="Person" type="nc:PersonType" nillable="true">
     <xs:annotation>
       <xs:documentation>A human being.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonAugmentationPoint" abstract="true">
-    <xs:annotation>
-      <xs:documentation>An augmentation point for PersonType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonBirthDate" type="nc:DateType" nillable="true">
@@ -314,11 +283,6 @@
   <xs:element name="PersonEthnicityText" type="nc:TextType" substitutionGroup="nc:PersonEthnicity">
     <xs:annotation>
       <xs:documentation>A cultural lineage of a person.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonNameAugmentationPoint" abstract="true">
-    <xs:annotation>
-      <xs:documentation>An augmentation point for PersonNameType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonRace" abstract="true">
@@ -341,9 +305,14 @@
       <xs:documentation>A gender or sex of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="ScheduleDayStartTime" type="niem-xs:time" nillable="true">
+  <xs:element name="RoleOf" abstract="true">
     <xs:annotation>
-      <xs:documentation>A time at which an activity is scheduled to begin.</xs:documentation>
+      <xs:documentation>A data concept for a property of a role object. This specifies the base object, of which the role object is a function.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="RoleOfPerson" type="nc:PersonType" substitutionGroup="nc:RoleOf" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person of whom the role object is a function.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="StartDate" type="nc:DateType" nillable="true">
@@ -351,19 +320,14 @@
       <xs:documentation>A date on which something begins.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="Supervision" type="nc:SupervisionType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A process of overseeing, supervising, or keeping track in some capacity of a person.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
   <xs:element name="SupervisionAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for SupervisionType.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="SupervisionFacility" type="nc:FacilityType" nillable="true">
+  <xs:element name="SystemName" type="nc:TextType" nillable="true">
     <xs:annotation>
-      <xs:documentation>A facility at which a subject is being supervised.</xs:documentation>
+      <xs:documentation>A name of the kind or the source of a system identifier.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>

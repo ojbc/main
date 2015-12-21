@@ -18,68 +18,71 @@
 
 -->
 <w:WantList w:release="3.1" w:product="NIEM" w:nillableDefault="true"
+  xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
   xmlns:w="http://niem.gov/niem/wantlist/2.2"
-  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+  xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/">
+  <w:Element w:name="cyfs:NextCourtEvent" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBond" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="j:BailBondAmount" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:BailBondChargeAssociation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Booking" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="j:BookingAugmentationPoint" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="j:BookingSubject" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="j:CaseHearing" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Charge" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="j:ChargeAugmentationPoint" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="j:ChargeSentence" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="j:PersonNameAugmentation" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="j:SupervisionAreaIdentification"
-    w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Detention" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Subject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:SupervisionAugmentation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDateRange" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:Agency" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:DateTime" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="nc:Document" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="nc:Organization" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonEthnicityText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonRaceText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="nc:Supervision" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="nc:SupervisionAugmentationPoint"
-    w:isReference="false" w:nillable="true"/>
-  <w:Type w:name="j:BailBondType" w:isRequested="false">
+  <w:Type w:name="j:ActivityChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:BailBondChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="j:BailBond" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:BailBondType" w:isRequested="true">
     <w:ElementInType w:name="j:BailBondAmount" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:BookingType" w:isRequested="false">
-    <w:ElementInType w:name="j:FingerprintDate" w:isReference="false"
+  <w:Type w:name="j:BookingType" w:isRequested="true">
+    <w:ElementInType w:name="j:BookingDetentionFacility"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:BookingSubject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:ChargeType" w:isRequested="false">
-    <w:ElementInType w:name="j:ChargeCountQuantity"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeSequenceID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeStatute" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:CourtEventType" w:isRequested="false">
-    <w:ElementInType w:name="j:CourtEventSchedule" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
-    <w:ElementInType w:name="j:PersonCharge" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="j:SentenceType" w:isRequested="false">
-    <w:ElementInType w:name="j:SentenceCondition" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
+  <w:Type w:name="j:CourtEventType" w:isRequested="true"/>
   <w:Type w:name="j:StatuteType" w:isRequested="false">
-    <w:ElementInType w:name="j:StatuteCodeIdentification"
+    <w:ElementInType w:name="j:StatuteCodeSectionIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:SubjectType" w:isRequested="false">
-    <w:ElementInType w:name="j:SubjectAugmentationPoint"
+    <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:SupervisionAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="j:SupervisionReleaseDate"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityType" w:isRequested="true">
@@ -92,10 +95,6 @@
     <w:ElementInType w:name="nc:Amount" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:ConditionType" w:isRequested="false">
-    <w:ElementInType w:name="nc:ConditionSetDate" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
   <w:Type w:name="nc:DateRangeType" w:isRequested="false">
     <w:ElementInType w:name="nc:StartDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -106,7 +105,7 @@
     <w:ElementInType w:name="nc:DateRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:DocumentType" w:isRequested="false">
+  <w:Type w:name="nc:DocumentType" w:isRequested="true">
     <w:ElementInType w:name="nc:DocumentCreationDate"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentIdentification"
@@ -115,18 +114,10 @@
   <w:Type w:name="nc:FacilityType" w:isRequested="false">
     <w:ElementInType w:name="nc:FacilityIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:FacilityAugmentationPoint"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:IdentificationType" w:isRequested="false">
+  <w:Type w:name="nc:IdentificationType" w:isRequested="true">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:IdentificationCategoryDescriptionText"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="nc:LocationType" w:isRequested="false">
-    <w:ElementInType w:name="nc:LocationDescriptionText"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:OrganizationType" w:isRequested="false">
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
@@ -142,14 +133,14 @@
     <w:ElementInType w:name="nc:PersonSex" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:ScheduleDayType" w:isRequested="false">
-    <w:ElementInType w:name="nc:ScheduleDayStartTime"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="nc:SupervisionType" w:isRequested="false">
-    <w:ElementInType w:name="nc:SupervisionFacility"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  <w:Type w:name="nc:ReleaseType" w:isRequested="true"/>
+  <w:Type w:name="nc:SupervisionType" w:isRequested="true">
     <w:ElementInType w:name="nc:SupervisionAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:SystemIdentificationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:SystemName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="niem-xs:boolean" w:isRequested="true"/>
 </w:WantList>
