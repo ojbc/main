@@ -29,6 +29,8 @@
     xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
     xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
     xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+	xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"	
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -138,9 +140,20 @@
 				
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 						
-			<camel:setHeader headerName="operationName">
-				<constant>ReportIncident</constant>
-			</camel:setHeader>
+			<camel:filter>
+				<camel:xpath>/ir:IncidentReport</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportIncident</constant>
+				</camel:setHeader>
+			</camel:filter>
+			
+			<camel:filter>
+				<camel:xpath>/iru:IncidentReportUpdate</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportIncidentUpdate</constant>
+				</camel:setHeader>
+			</camel:filter>	
+			
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>				
