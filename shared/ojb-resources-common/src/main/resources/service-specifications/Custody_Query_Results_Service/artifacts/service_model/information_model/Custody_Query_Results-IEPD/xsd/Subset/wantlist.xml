@@ -19,7 +19,9 @@
 -->
 <w:WantList w:release="3.1" w:product="NIEM" w:nillableDefault="true"
   xmlns:w="http://niem.gov/niem/wantlist/2.2"
-  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/">
+  <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBond" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBondAmount" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Booking" w:isReference="false" w:nillable="true"/>
@@ -133,7 +135,7 @@
     <w:ElementInType w:name="nc:FacilityAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:IdentificationType" w:isRequested="false">
+  <w:Type w:name="nc:IdentificationType" w:isRequested="true">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IdentificationCategoryDescriptionText"
@@ -186,5 +188,9 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:SupervisionAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:SystemIdentificationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:SystemName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
 </w:WantList>
