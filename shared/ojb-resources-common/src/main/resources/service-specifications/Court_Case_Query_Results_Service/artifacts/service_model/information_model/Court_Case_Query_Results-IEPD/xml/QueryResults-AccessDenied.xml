@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ccq-res-doc:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange_schema.xsd"
+<ccq-res-doc:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
