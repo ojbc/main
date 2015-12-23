@@ -17,25 +17,19 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema 
-xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
-xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
-xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" 
-targetNamespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/" schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd"/>
 	<xsd:element name="QueryRequestError" type="qrer:QueryRequestErrorType"/>
 	<xsd:complexType name="QueryRequestErrorType">
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="qrer:ErrorText"/>
-					<xsd:element maxOccurs="1" minOccurs="0" ref="qrer:QueryRequestIdentification"/>
-					<!-- xsd:element ref="intel:SystemName" minOccurs="0"/-->
+					<xsd:element ref="qrer:QueryRequestIdentification" minOccurs="0"/>
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
