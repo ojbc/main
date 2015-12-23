@@ -39,6 +39,9 @@
 		</j:BookingDetentionFacility>
 		<j:BookingSubject>
 			<nc:RoleOfPerson structures:ref="Person_01"/>
+			<j:SubjectIdentification>
+				<nc:IdentificationID>Booking Number</nc:IdentificationID>
+			</j:SubjectIdentification>
 		</j:BookingSubject>
 	</j:Booking>
 	<j:Detention structures:id="Detention_01">
@@ -54,6 +57,15 @@
 			<j:SupervisionReleaseDate>
 				<nc:Date>2014-12-17</nc:Date>
 			</j:SupervisionReleaseDate>
+			<j:SupervisionAreaIdentification>
+				<nc:IdentificationID>Cell Block A</nc:IdentificationID>
+			</j:SupervisionAreaIdentification>
+			<j:SupervisionBedIdentification>
+				<nc:IdentificationID>Bed 2</nc:IdentificationID>
+			</j:SupervisionBedIdentification>
+			<j:SupervisionCellIdentification>
+				<nc:IdentificationID>Cell 7</nc:IdentificationID>
+			</j:SupervisionCellIdentification>
 		</j:SupervisionAugmentation>
 		<br-ext:DetentiontImmigrationHoldIndicator>false</br-ext:DetentiontImmigrationHoldIndicator>
 		<br-ext:HoldForAgency>
@@ -85,8 +97,19 @@
 			<nc:Date>1968-12-17</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonEthnicityText>Ethnicity</nc:PersonEthnicityText>
+		<nc:PersonName>
+			<nc:PersonGivenName>Otis</nc:PersonGivenName>
+			<nc:PersonMiddleName>H.</nc:PersonMiddleName>
+			<nc:PersonSurName>Strong</nc:PersonSurName>
+		</nc:PersonName>
 		<nc:PersonRaceText>Race</nc:PersonRaceText>
 		<nc:PersonSexText>Sex</nc:PersonSexText>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonStateIdentification>
+			<nc:IdentificationID>CO123459878</nc:IdentificationID>
+		</nc:PersonStateIdentification>
 	</nc:Person>
 	<j:ActivityChargeAssociation>
 		<nc:Activity structures:ref="Booking_01"/>

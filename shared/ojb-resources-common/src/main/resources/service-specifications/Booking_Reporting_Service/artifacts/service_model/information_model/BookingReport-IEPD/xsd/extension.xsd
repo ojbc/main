@@ -51,7 +51,7 @@
 	</xsd:element>
 	<xsd:element name="DetentiontImmigrationHoldIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if a subject is being held for an immigaration violation; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a subject is being held for an immigration violation; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
