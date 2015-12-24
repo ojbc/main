@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P51">
+        <rap:RapSheetPerson s:id="P51">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Marina Q</nc:PersonGivenName>
                 <nc:PersonSurName>Jones</nc:PersonSurName>
@@ -72,7 +72,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P51"/>
             <nc:Biometric>

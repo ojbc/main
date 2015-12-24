@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P89">
+        <rap:RapSheetPerson s:id="P89">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>JoJo</nc:PersonGivenName>
                 <nc:PersonSurName>Matthews</nc:PersonSurName>
@@ -69,7 +69,7 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
             <rap:SubjectCautionInformationText>Known to carry a hatchet. </rap:SubjectCautionInformationText>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P89"/>
             <nc:Biometric>

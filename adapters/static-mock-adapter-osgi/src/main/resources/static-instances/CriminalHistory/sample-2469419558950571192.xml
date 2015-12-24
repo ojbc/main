@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P57">
+        <rap:RapSheetPerson s:id="P57">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Edward C</nc:PersonGivenName>
                 <nc:PersonSurName>Crandell</nc:PersonSurName>
@@ -68,7 +68,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P57"/>
             <nc:Biometric>

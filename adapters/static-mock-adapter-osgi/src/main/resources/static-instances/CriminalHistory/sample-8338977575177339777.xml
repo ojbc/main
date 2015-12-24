@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P70">
+        <rap:RapSheetPerson s:id="P70">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Eduardo</nc:PersonGivenName>
                 <nc:PersonSurName>Roach-Monroe</nc:PersonSurName>
@@ -72,7 +72,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P70"/>
             <nc:Biometric>

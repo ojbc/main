@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P54">
+        <rap:RapSheetPerson s:id="P54">
             <nc:PersonBirthDate>
                 <nc:Date>1966-03-15</nc:Date>
             </nc:PersonBirthDate>
@@ -60,7 +60,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P54"/>
             <nc:Biometric>
