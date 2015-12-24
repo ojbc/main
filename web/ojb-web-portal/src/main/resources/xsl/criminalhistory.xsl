@@ -208,7 +208,7 @@
         <table class="detailsTable">
             <tr>
                 <td colspan="8" class="detailsFullName">
-                <xsl:value-of select="concat(ch-ext:Person/nc:PersonName/nc:PersonSurName,', ',ch-ext:Person/nc:PersonName/nc:PersonGivenName)" />
+                <xsl:value-of select="concat(rap:RapSheetPerson/nc:PersonName/nc:PersonSurName,', ',rap:RapSheetPerson/nc:PersonName/nc:PersonGivenName)" />
                 </td>
             </tr>
             <tr>
@@ -216,25 +216,25 @@
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">FBI#</td>
-                <td colspan="2"><xsl:value-of select="ch-ext:Person/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID" /></td>
+                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID" /></td>
                 <td colspan="2" class="detailsLabel">GENDER</td>
-                <td colspan="2"><xsl:value-of select="ch-ext:Person/rap:PersonSexText" /></td>
+                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/rap:PersonSexText" /></td>
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">SID/ISSUER</td>
-                <td colspan="1"><xsl:value-of select="ch-ext:Person/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID"/></td>
-                <td colspan="1"><xsl:value-of select="ch-ext:Person/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationJurisdictionText"/></td>
+                <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID"/></td>
+                <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationJurisdictionText"/></td>
                 <td colspan="2" class="detailsLabel">RACE</td>
-                <td colspan="2"><xsl:value-of select="ch-ext:Person/rap:PersonRaceText" /></td>
+                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/rap:PersonRaceText" /></td>
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">DL#/ISSUER</td>
-                <td colspan="1"><xsl:value-of select="ch-ext:Person/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID"/></td>
-                <td colspan="1"><xsl:value-of select="ch-ext:Person/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText"/></td>
+                <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID"/></td>
+                <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText"/></td>
                 <td colspan="2" class="detailsLabel">HEIGHT</td>
                 <td colspan="2">
                 	<xsl:call-template name="formatHeight">
-                		<xsl:with-param name="heightInInches" select="ch-ext:Person/nc:PersonHeightMeasure/nc:MeasurePointValue" />
+                		<xsl:with-param name="heightInInches" select="rap:RapSheetPerson/nc:PersonHeightMeasure/nc:MeasurePointValue" />
                 	</xsl:call-template>
                	</td>
             </tr>
@@ -242,37 +242,37 @@
                 <td colspan="2" class="detailsLabel">SSN</td>
                 <td colspan="2">
                     <xsl:call-template name="formatSSN">
-                   		<xsl:with-param name="ssn" select="ch-ext:Person/nc:PersonSSNIdentification/nc:IdentificationID" />
+                   		<xsl:with-param name="ssn" select="rap:RapSheetPerson/nc:PersonSSNIdentification/nc:IdentificationID" />
                     </xsl:call-template>
                 </td>
                 <td colspan="2" class="detailsLabel">WEIGHT</td>
-                <td colspan="2"><xsl:value-of select="ch-ext:Person/nc:PersonWeightMeasure/nc:MeasurePointValue" /></td>
+                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/nc:PersonWeightMeasure/nc:MeasurePointValue" /></td>
             </tr>
             <tr>
             	<td colspan="2" class="detailsLabel">HAIR COLOR</td>
-                <td colspan="2"><xsl:value-of select="ch-ext:Person/rap:PersonHairColorText" /></td>
+                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/rap:PersonHairColorText" /></td>
                 <td colspan="2" class="detailsLabel">EYE COLOR</td>
-                <td colspan="2"><xsl:value-of select="ch-ext:Person/rap:PersonEyeColorText" /></td>
+                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/rap:PersonEyeColorText" /></td>
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">DOB</td>
                 <td colspan="2">
                 	<xsl:choose>
-                		<xsl:when test="ch-ext:Person/nc:PersonBirthDate/nc:Date">
+                		<xsl:when test="rap:RapSheetPerson/nc:PersonBirthDate/nc:Date">
                 			 <xsl:call-template name="formatDate">
-								<xsl:with-param name="date" select="ch-ext:Person/nc:PersonBirthDate/nc:Date" />
+								<xsl:with-param name="date" select="rap:RapSheetPerson/nc:PersonBirthDate/nc:Date" />
 							</xsl:call-template>
                 		</xsl:when>
-                		<xsl:when test="ch-ext:Person/nc:PersonBirthDate/nc:Year">
-                			<xsl:value-of select="ch-ext:Person/nc:PersonBirthDate/nc:Year"/>
+                		<xsl:when test="rap:RapSheetPerson/nc:PersonBirthDate/nc:Year">
+                			<xsl:value-of select="rap:RapSheetPerson/nc:PersonBirthDate/nc:Year"/>
                 		</xsl:when>
                 	</xsl:choose>
                     
                 </td>
                 <td colspan="2" class="detailsLabel">SCARS/MARKS/TATTOOS</td>
                 <td colspan="2">
-                	<xsl:variable name="smtCount" select="count(ch-ext:Person/nc:PersonPhysicalFeature)"/>
-                	<xsl:apply-templates select="ch-ext:Person/nc:PersonPhysicalFeature">
+                	<xsl:variable name="smtCount" select="count(rap:RapSheetPerson/nc:PersonPhysicalFeature)"/>
+                	<xsl:apply-templates select="rap:RapSheetPerson/nc:PersonPhysicalFeature">
                 		<xsl:with-param name="smtCount" select="$smtCount"/>
                 	</xsl:apply-templates>
                 </td>
@@ -280,8 +280,8 @@
             <tr>
                 <td colspan="2" class="detailsLabel">ALIASES</td>
                 <td colspan="6">
-                	<xsl:variable name="aliasCount" select="count(ch-ext:Person/nc:PersonAlternateName)"/>
-                	<xsl:apply-templates select="ch-ext:Person/nc:PersonAlternateName">
+                	<xsl:variable name="aliasCount" select="count(rap:RapSheetPerson/nc:PersonAlternateName)"/>
+                	<xsl:apply-templates select="rap:RapSheetPerson/nc:PersonAlternateName">
                 		<xsl:with-param name="aliasCount" select="$aliasCount"/>
                 	</xsl:apply-templates>
                 </td>
@@ -302,8 +302,8 @@
             <tr>
                 <td colspan="2" class="detailsLabel">CAUTION DETAILS</td>
                 <xsl:choose>
-                	<xsl:when test ="ch-ext:Person/rap:SubjectCautionInformationText">
-               		 <td colspan="6"><xsl:apply-templates select="ch-ext:Person/rap:SubjectCautionInformationText"/></td>
+                	<xsl:when test ="rap:RapSheetPerson/rap:SubjectCautionInformationText">
+               		 <td colspan="6"><xsl:apply-templates select="rap:RapSheetPerson/rap:SubjectCautionInformationText"/></td>
                		 </xsl:when>
                		 <xsl:otherwise><td colspan="6"><xsl:text>None</xsl:text></td></xsl:otherwise>
                	</xsl:choose>

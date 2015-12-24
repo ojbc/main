@@ -1583,7 +1583,7 @@ public class SubscriptionsController {
 		
 		try{			
 			fbiId = XmlUtils.xPathStringSearch(rapSheetDoc, 
-					"/ch-doc:CriminalHistory/ch-ext:RapSheet/ch-ext:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:RapSheetPerson/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
 					
 		}catch(Exception e){
 			logger.severe("Exception while getting fbi id from rapsheet: \n" + e);
@@ -1622,7 +1622,7 @@ public class SubscriptionsController {
 			rSubscribedPersonNames.setOriginalName(personOrigFullName);			
 		}
 						
-		NodeList altNameNodeList = XmlUtils.xPathNodeListSearch(rapSheetNode, "ch-ext:Person/nc:PersonAlternateName");	
+		NodeList altNameNodeList = XmlUtils.xPathNodeListSearch(rapSheetNode, "rap:RapSheetPerson/nc:PersonAlternateName");	
 				
 		//process the alternate names
 		for(int i=0; i < altNameNodeList.getLength(); i++){
