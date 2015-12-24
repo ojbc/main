@@ -178,7 +178,7 @@
 						<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 					</nc:EndDate>
 				</nc:ActivityDateRange>
-				<nc:ActivityDescriptionText>hearing secription</nc:ActivityDescriptionText>
+				<nc:ActivityDescriptionText>hearing description</nc:ActivityDescriptionText>
 				<nc:ActivityName>hearing name</nc:ActivityName>
 				<nc:ActivityReasonText>hearing reason</nc:ActivityReasonText>
 				<nc:ActivityDisposition>
