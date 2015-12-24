@@ -41,7 +41,7 @@
 				</rap:RapSheetPerson>
 			</rap:RapSheetRequest>
 		</rap:Introduction>
-		<ch-ext:Person s:id="P1">
+		<rap:RapSheetPerson s:id="P1">
 			<nc:PersonAlternateName>
 				<nc:PersonGivenName>Macaroni</nc:PersonGivenName>
 				<nc:PersonSurName>Mouse</nc:PersonSurName>
@@ -93,7 +93,7 @@
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<rap:SubjectCautionInformationText>Caution information about the subject!</rap:SubjectCautionInformationText>
-		</ch-ext:Person>
+		</rap:RapSheetPerson>
 		<nc:Location s:id="L1">
 			<nc:LocationAddress>
 				<nc:StructuredAddress>

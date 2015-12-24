@@ -56,7 +56,7 @@ xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P67">
+        <rap:RapSheetPerson s:id="P67">
         
         	<!--  NOTE the spacing of the name elements is messed up on purpose to make 
         		sure the application trims these without crashing and without sending the 
@@ -119,7 +119,7 @@ xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P67"/>
             <nc:Biometric>
