@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P8">
+        <rap:RapSheetPerson s:id="P8">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>John V</nc:PersonGivenName>
                 <nc:PersonSurName>Reed</nc:PersonSurName>
@@ -64,7 +64,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P8"/>
             <nc:Biometric>
