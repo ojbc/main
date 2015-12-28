@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ldap="http://www.springframework.org/schema/ldap"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/ldap http://www.springframework.org/schema/ldap/spring-ldap.xsd">
+	<bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:/ldap.properties" />
+	</bean>
+
+    <ldap:context-source id="contextSource"
+                         password="${sample.ldap.password}"
+                         url="${sample.ldap.url}"
+                         username="${sample.ldap.userDn}"
+                         base="${sample.ldap.base}" />
+
+
+    <!-- Populates the LDAP server with initial data -->
+    <bean class="org.springframework.ldap.test.LdifPopulator" depends-on="embeddedLdapServer">
+        <property name="contextSource" ref="contextSource" />
+        <property name="resource" value="classpath:/setup_data.ldif" />
+        <property name="base" value="${sample.ldap.base}" />
+        <property name="clean" value="${sample.ldap.clean}" />
+        <property name="defaultBase" value="dc=ojbc,dc=local" />
+    </bean>
+
+    <!--
+        This is for test and demo purposes only - EmbeddedLdapServerFactoryBean launches an in-process
+        LDAP server.
+    -->
+    <bean id="embeddedLdapServer" class="org.springframework.ldap.test.EmbeddedLdapServerFactoryBean">
+        <property name="partitionName" value="example"/>
+        <property name="partitionSuffix" value="${sample.ldap.base}" />
+        <property name="port" value="18880" />
+    </bean>
+
+    <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+		<constructor-arg ref="contextSource" />
+	</bean>
+
+	<bean id="personDao"
+		class="org.springframework.ldap.samples.odm.dao.OdmPersonDaoImpl">
+		<property name="ldapTemplate" ref="ldapTemplate" />
+	</bean>
+
+</beans>
