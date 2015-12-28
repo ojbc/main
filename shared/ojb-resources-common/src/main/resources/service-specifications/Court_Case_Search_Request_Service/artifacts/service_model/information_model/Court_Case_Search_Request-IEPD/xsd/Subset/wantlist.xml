@@ -127,6 +127,12 @@
     <w:ElementInType w:name="nc:RepositoryID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:PersonLocationAssociationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:Person" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Location" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:PersonNameType" w:isRequested="false">
     <w:ElementInType w:name="nc:PersonGivenName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -135,7 +141,7 @@
     <w:ElementInType w:name="nc:PersonSurName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:PersonResidenceAssociationType" w:isRequested="false">
+  <w:Type w:name="nc:PersonResidenceAssociationType" w:isRequested="true">
     <w:ElementInType w:name="nc:ResidenceDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType
