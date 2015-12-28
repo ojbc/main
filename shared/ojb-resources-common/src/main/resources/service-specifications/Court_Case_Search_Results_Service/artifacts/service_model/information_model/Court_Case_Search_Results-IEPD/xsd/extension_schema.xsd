@@ -17,101 +17,65 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<!-- November 2015 - SEARCH - MSJ -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
-xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
-xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
-xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" 
- targetNamespace="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
-    <xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
-	<!-- court case search results -->
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/" schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/" schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
 	<xsd:complexType name="CourtCaseSearchResultsType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for set of Search Results.</xsd:documentation>
+			<xsd:documentation>A data type for a set of details returned about one or more court cases, based on a Court Case Search Request.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ccs-res-ext:CourtCaseResultsIdentification" minOccurs="1" maxOccurs="unbounded" />
-					<xsd:element ref="ccs-res-ext:Case" minOccurs="1" maxOccurs="unbounded" />
-					<xsd:element ref="ccs-res-ext:Defendant" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="ccs-res-ext:CourtCaseSearchResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	
-	<!-- No need to extend SystemSourceNameText is in the Search Metadata -->
-	
-	<xsd:complexType name="CourtCaseResultsIdenificationType">
+	<xsd:complexType name="CourtCaseSearchResultType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for set of details associated with Search Results.</xsd:documentation>
+			<xsd:documentation>A data type for a summary of court case information.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:IdentificationType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ccs-res-ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Case" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Person" maxOccurs="unbounded"/>
+					<xsd:element ref="cyfs:PersonCaseAssociation" maxOccurs="unbounded"/>
+					<xsd:element ref="ccs-res-ext:SourceSystemNameText" minOccurs="0"/>
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0"/>
+					<xsd:element ref="ccs-res-ext:SearchResultCategoryText" minOccurs="0"/>
+					<xsd:element ref="ccs-res-ext:InformationOwningOrganization" minOccurs="0"/>
+					<xsd:element ref="nc:Metadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="CaseType">
+	<xsd:element name="CourtCaseSearchResult" type="ccs-res-ext:CourtCaseSearchResultType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for set of details associated with a Search Results.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="nc:CaseType">
-				<xsd:sequence>
-					<xsd:element ref="j:CaseCourt" minOccurs="1" maxOccurs="unbounded" /> 
-					<xsd:element ref="j:JurisdictionDistrictText" minOccurs="0" maxOccurs="unbounded" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="DefendantType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for set of details associated with a Search Results.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="nc:PersonType">
-				<xsd:sequence>
-				
-				<!-- No need to extend j:PersonAugmentation is brought can be used with j:PersonAugmentationPoint -->
-				
-					<xsd:element ref="j:PersonAugmentation" minOccurs="1" maxOccurs="unbounded" />
-					
-					<!--  nc:Organization should not be a property of DefendantType -->
-					
-					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<!-- Extension Elements -->
-	<xsd:element name="CourtCaseResultsIdentification" type="ccs-res-ext:CourtCaseResultsIdenificationType">
-		<xsd:annotation>
-			<xsd:documentation>used to identify the source system and records returned.</xsd:documentation>
+			<xsd:documentation>A summary of court case information.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Case" type="ccs-res-ext:CaseType">
+	<xsd:element name="InformationOwningOrganization" type="nc:OrganizationType">
 		<xsd:annotation>
-			<xsd:documentation>The court case.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="Defendant" type="ccs-res-ext:DefendantType">
-		<xsd:annotation>
-			<xsd:documentation>The defendant.</xsd:documentation>
+			<xsd:documentation>The organization that owns information contained in the search result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>The name of a system that returned the search result. 
-			This can be used to retrieve additional information about the person and/or court case in the search result.</xsd:documentation>
+			<xsd:documentation>The name of a system that returned the search result. This can be used to retrieve additional information about the person in the search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
