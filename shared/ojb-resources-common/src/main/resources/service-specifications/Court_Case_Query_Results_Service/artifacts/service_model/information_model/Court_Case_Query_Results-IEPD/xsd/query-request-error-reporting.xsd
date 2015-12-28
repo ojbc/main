@@ -29,7 +29,7 @@
 				<xsd:sequence>
 					<xsd:element ref="qrer:ErrorText"/>
 					<xsd:element ref="qrer:QueryRequestIdentification" minOccurs="0"/>
-					<xsd:element ref="intel:SystemIdentification" minOccurs="0"/>
+					<xsd:element ref="nc:SystemName" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

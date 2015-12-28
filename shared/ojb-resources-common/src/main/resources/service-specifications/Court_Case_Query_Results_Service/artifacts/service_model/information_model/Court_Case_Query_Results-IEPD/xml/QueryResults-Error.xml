@@ -23,9 +23,7 @@
 			<qrer:ErrorText>
 				String
 			</qrer:ErrorText>
-			<intel:SystemIdentification>
 				<nc:SystemName>String</nc:SystemName>
-			</intel:SystemIdentification>
 		</qrer:QueryRequestError>
 	</qrm:QueryResultsMetadata>
 </ccq-res-doc:CourtCaseQueryResults>
