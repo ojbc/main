@@ -31,7 +31,7 @@
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:complexType name="CourtCaseSearchRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a message to submit a person and/or court case based search.</xsd:documentation>
+			<xsd:documentation>A data type for a message to submit a person and/or court case based search request.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">

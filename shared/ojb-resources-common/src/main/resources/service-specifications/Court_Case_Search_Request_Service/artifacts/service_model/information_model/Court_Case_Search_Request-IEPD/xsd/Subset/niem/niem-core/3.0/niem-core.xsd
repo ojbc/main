@@ -174,7 +174,12 @@
       <xs:documentation>A data type for an association between a person and a location.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="nc:AssociationType"/>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="PersonNameTextType">
