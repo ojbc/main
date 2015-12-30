@@ -556,7 +556,7 @@
 				</td>
 				<td class="detailsLabel">CITY</td>
 				<td><xsl:value-of select="nc:Location[@s:id = $childLocationId]/nc:Address/nc:LocationCityName" /></td>
-				<td class="detailsLabel">SOURCE DEVISION</td>
+				<td class="detailsLabel">SOURCE DIVISION</td>
 				<td>
 					<xsl:value-of select="cext:JuvenileInformationAvailabilityMetadata/cext:JuvenileInformationOwnerOrganization/nc:OrganizationBranchName"></xsl:value-of>
 				</td>
