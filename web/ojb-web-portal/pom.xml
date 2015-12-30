@@ -37,7 +37,7 @@
 		<server.waitOnStartup>false</server.waitOnStartup>
 
 		<!-- Dependency versions -->
-		<spring.version>3.2.13.RELEASE</spring.version>
+		<spring.version>3.2.16.RELEASE</spring.version>
 		<joda-time.version>2.2</joda-time.version>
 		<saxonHe.version>9.5.1-5</saxonHe.version>
 		<cglib.version>2.2.2</cglib.version>
