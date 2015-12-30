@@ -416,6 +416,9 @@
 				<xsl:variable name="id">
 					<xsl:value-of select="preceding::cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationID"/>
 				</xsl:variable>
+				<xsl:variable name="identificationSourceText">
+					<xsl:value-of select="preceding::cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText"/>
+				</xsl:variable>
 				<xsl:variable name="queryType">
 					<xsl:value-of select="normalize-space(substring-before(substring-after(cext:JuvenileHistoryCategoryCode, 'Juvenile'),'History'))"></xsl:value-of>
 				</xsl:variable>
@@ -427,7 +430,7 @@
 					<xsl:if test="position() != 1"><br/></xsl:if>
 					<xsl:element name="a">
 						<xsl:attribute name="href">
-							<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id,'&amp;systemName=Juvenile History' , '&amp;identificationSourceText={http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory','&amp;queryType=',$queryType,'&amp;activeAccordionId=',$relatedRecordId)"/>
+							<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id,'&amp;systemName=Juvenile History' , '&amp;identificationSourceText=', $identificationSourceText, '&amp;queryType=',$queryType,'&amp;activeAccordionId=',$relatedRecordId)"/>
 						</xsl:attribute>
 						<xsl:value-of select="$queryType"/><xsl:text> ID: </xsl:text><xsl:value-of select="$relatedRecordId"></xsl:value-of>
 					</xsl:element>
