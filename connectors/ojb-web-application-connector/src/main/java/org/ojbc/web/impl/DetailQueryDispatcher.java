@@ -143,7 +143,9 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 		} else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON)){
 			return firearmRegistrationQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
-		} else if (OJBCWebServiceURIs.JUVENILE_HISTORY.equals(requestIdSrcTxt)) {
+		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
+			
+			log.info("Juvenile request query type: " + request.getQueryType());
 			
 			if (request.getQueryType() == null){
 				throw new RuntimeException("Query type required for Juvenile queries");
