@@ -83,6 +83,7 @@
 				<xsl:value-of select="upper-case(substring-before(substring-after(/child::node()/cext:JuvenileHistoryCategoryCode, 'Juvenile'), 'History'))"></xsl:value-of>
 			</xsl:variable>
 			<xsl:variable name="id"><xsl:value-of select="child::node()/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationID"/></xsl:variable>
+			<xsl:variable name="identificationSourceText"><xsl:value-of select="child::node()/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText"/></xsl:variable>
 			<xsl:for-each select="tokenize($queryTypes, '\|')">
 				<xsl:variable name="queryType"><xsl:value-of select="replace(., ' ','')"/></xsl:variable>
 				<xsl:variable name="isActiveTab" select="upper-case($responseType) eq $queryType"/>
@@ -98,7 +99,7 @@
 							<xsl:choose>
 								<xsl:when test="$isActiveTab">#</xsl:when>
 								<xsl:otherwise>
-									<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id , '&amp;systemName=Juvenile History' , '&amp;identificationSourceText={http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory','&amp;queryType=',$queryType)"/>
+									<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id , '&amp;systemName=Juvenile History' , '&amp;identificationSourceText=',$identificationSourceText,'&amp;queryType=',$queryType)"/>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:attribute>
