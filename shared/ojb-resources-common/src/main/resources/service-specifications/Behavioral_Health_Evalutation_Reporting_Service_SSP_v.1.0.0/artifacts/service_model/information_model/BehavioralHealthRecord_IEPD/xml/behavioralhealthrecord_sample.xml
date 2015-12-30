@@ -17,7 +17,15 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<bhr-doc:BehaviorHealthRecord xmlns:bhr-doc="http://ojbc.org/IEPD/Exchange/BehaviorHealthReport/1.0" xmlns:bhr-ext="http://ojbc.org/IEPD/Extensions/BehaviorHealthReportExtension/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BehaviorHealthReport/1.0 ../xsd/exchange_schema.xsd ">
+<bhr-doc:BehavioralHealthRecord xmlns:bhr-doc="http://ojbc.org/IEPD/Exchange/BehavioralHealthRecord/1.0"
+ xmlns:bhr-ext="http://ojbc.org/IEPD/Extensions/BehavioralHealthRecordExtension/1.0" 
+ xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" 
+ xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+ xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+ xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+ xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BehavioralHealthRecord/1.0 ../xsd/exchange_schema.xsd ">
   <nc:DocumentCreationDate>
     <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
   </nc:DocumentCreationDate>
@@ -76,7 +84,7 @@
       </j:SupervisionCellIdentification>
     </j:SupervisionAugmentation>
   </j:Detention>
-  <bhr-ext:BehaviorHealthAssessment structures:id="BeahviorHealthAssessment_01">
+  <bhr-ext:BehavioralHealthAssessment structures:id="BeahviorHealthAssessment_01">
     <bhr-ext:HealthScreeningDate>
       <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
     </bhr-ext:HealthScreeningDate>
@@ -87,5 +95,5 @@
       <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
     </bhr-ext:SeriousMentalHealthEncounterDate>
     <bhr-ext:SeriousMentalHealthTypeCategoryText>SeriousMentalHealthTypeDescription</bhr-ext:SeriousMentalHealthTypeCategoryText>
-  </bhr-ext:BehaviorHealthAssessment>
-</bhr-doc:BehaviorHealthRecord>
+  </bhr-ext:BehavioralHealthAssessment>
+</bhr-doc:BehavioralHealthRecord>

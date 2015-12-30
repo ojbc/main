@@ -1,1 +1,0 @@
-behavior model diagrams are found in Behavior_Health_Assessment_Reporting_BPDD/Artifacts
