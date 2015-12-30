@@ -45,7 +45,7 @@
 			uri="cxf:bean:juvenileCasePlanHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
 
 		<endpoint id="juvenileCasePlanHistoryResultsHandlerServiceEndpoint"
-			uri="cxf:bean:juvenileCasePlanHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+			uri="cxf:bean:juvenileCasePlanHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}&amp;allowStreaming=false" />
 			
 		<endpoint id="juvenileCasePlanHistoryRequestAdapterServiceEndpoint"
 			uri="cxf:bean:juvenileCasePlanHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
@@ -59,7 +59,7 @@
 			uri="cxf:bean:juvenileHearingHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
 
 		<endpoint id="juvenileHearingHistoryResultsHandlerServiceEndpoint"
-			uri="cxf:bean:juvenileHearingHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+			uri="cxf:bean:juvenileHearingHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}&amp;allowStreaming=false" />
 			
 		<endpoint id="juvenileHearingHistoryRequestAdapterServiceEndpoint"
 			uri="cxf:bean:juvenileHearingHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
@@ -72,7 +72,7 @@
 			uri="cxf:bean:juvenileIntakeHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
 
 		<endpoint id="juvenileIntakeHistoryResultsHandlerServiceEndpoint"
-			uri="cxf:bean:juvenileIntakeHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+			uri="cxf:bean:juvenileIntakeHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="juvenileIntakeHistoryRequestAdapterServiceEndpoint"
 			uri="cxf:bean:juvenileIntakeHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
@@ -85,7 +85,7 @@
 			uri="cxf:bean:juvenileOffenseHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
 
 		<endpoint id="juvenileOffenseHistoryResultsHandlerServiceEndpoint"
-			uri="cxf:bean:juvenileOffenseHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+			uri="cxf:bean:juvenileOffenseHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="juvenileOffenseHistoryRequestAdapterServiceEndpoint"
 			uri="cxf:bean:juvenileOffenseHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
@@ -98,7 +98,7 @@
 			uri="cxf:bean:juvenilePlacementHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
 
 		<endpoint id="juvenilePlacementHistoryResultsHandlerServiceEndpoint"
-			uri="cxf:bean:juvenilePlacementHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+			uri="cxf:bean:juvenilePlacementHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="juvenilePlacementHistoryRequestAdapterServiceEndpoint"
 			uri="cxf:bean:juvenilePlacementHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
@@ -111,7 +111,7 @@
 			uri="cxf:bean:juvenileReferralHistoryRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
 
 		<endpoint id="juvenileReferralHistoryResultsHandlerServiceEndpoint"
-			uri="cxf:bean:juvenileReferralHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
+			uri="cxf:bean:juvenileReferralHistoryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="juvenileReferralHistoryRequestAdapterServiceEndpoint"
 			uri="cxf:bean:juvenileReferralHistoryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${juvenileHistoryServices.cxflogging}" />
