@@ -36,8 +36,6 @@ import org.ojbc.util.fedquery.processor.ExchangeDestinationLookupStrategy;
  * 
  * This is needed because each service URL be unique per service and agency.
  * 
- * @author yogeshchawla
- *
  */
 public class ServiceContextExchangeDestinationLookupStrategy implements ExchangeDestinationLookupStrategy{
 
@@ -110,9 +108,16 @@ public class ServiceContextExchangeDestinationLookupStrategy implements Exchange
 				log.debug("Map contains key: " + historyTypeToAddressMapKey +  ", returning endpoint address of: " + historyTypeToAddressMap.get(historyTypeToAddressMapKey));
 				
 				cxfEndpointAddress = historyTypeToAddressMap.get(historyTypeToAddressMapKey);
+			}
+			else
+			{
+				log.debug("No mapping found for: " + historyTypeToAddressMapKey +  " in map: " + historyTypeToAddressMap.toString());					
 			}	
+			
 		}	
 
+		log.debug("This is the CXF endpoint address: " + cxfEndpointAddress);
+		
 		return cxfEndpointAddress;	
 		
 	}
