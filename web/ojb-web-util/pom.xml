@@ -22,7 +22,7 @@
 
     <groupId>org.ojbc.web</groupId>
     <artifactId>ojb-web-util</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>war</packaging>
 
     <name>ojb-web-util</name>
