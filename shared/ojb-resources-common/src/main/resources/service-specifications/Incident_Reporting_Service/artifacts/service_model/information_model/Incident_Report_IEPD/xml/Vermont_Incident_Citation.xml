@@ -491,10 +491,10 @@
 								<inc-ext:DrivingAccidentIndicator>false</inc-ext:DrivingAccidentIndicator>
 								<inc-ext:DrivingAccidentFatalityIndicator>false</inc-ext:DrivingAccidentFatalityIndicator>
 								<inc-ext:SeatBeltViolationIndicator>false</inc-ext:SeatBeltViolationIndicator>
-								<inc-ext:CityReliefActIndicator>true</inc-ext:CityReliefActIndicator>
-								<inc-ext:CityReliefActJuvenileIndicator>true</inc-ext:CityReliefActJuvenileIndicator>
-								<inc-ext:CityReliefActOtherIndicator>true</inc-ext:CityReliefActOtherIndicator>
-								<inc-ext:CityReliefActOtherText>Text</inc-ext:CityReliefActOtherText>
+								<inc-ext:CivilReliefActIndicator>true</inc-ext:CivilReliefActIndicator>
+								<inc-ext:CivilReliefActJuvenileIndicator>true</inc-ext:CivilReliefActJuvenileIndicator>
+								<inc-ext:CivilReliefActOtherIndicator>true</inc-ext:CivilReliefActOtherIndicator>
+								<inc-ext:CivilReliefActOtherText>Text</inc-ext:CivilReliefActOtherText>
 								<lexslib:SameAsDigestReference lexslib:ref="INCIDENT_01"/>
 							</inc-ext:DrivingIncident>
 							<inc-ext:DriverLicense>
