@@ -40,13 +40,10 @@
 		<xsd:complexContent>
 			<xsd:extension base="ecf-cit:CitationCaseType">
 				<xsd:sequence>
-					<!--xsd:element ref="j:CaseAugmentation"/>
-					<xsd:element ref="ecf:CaseAugmentation"/-->
 					<xsd:element ref="ojb-cit-ext:CaseAugmentation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ojb-cit-ext:CitationCaseAugmentation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ojb-cit-ext:CitationDeliveryRecipientAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ImmediateFamilyAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojb-cit-ext:CitationCaseRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -129,10 +126,10 @@
 				<xsd:sequence>
 					<xsd:element ref="ojb-cit-ext:DrivingAccidentFatalityIndicator" minOccurs="0"/>
 					<xsd:element ref="ojb-cit-ext:SeatBeltViolationIndicator" minOccurs="0"/>
-					<xsd:element ref="ojb-cit-ext:CityReliefActIndicator" minOccurs="0"/>
-					<xsd:element ref="ojb-cit-ext:CityReliefActJuvenileIndicator" minOccurs="0"/>
-					<xsd:element ref="ojb-cit-ext:CityReliefActOtherIndicator" minOccurs="0"/>
-					<xsd:element ref="ojb-cit-ext:CityReliefActOtherText" minOccurs="0"/>
+					<xsd:element ref="ojb-cit-ext:CivilReliefActIndicator" minOccurs="0"/>
+					<xsd:element ref="ojb-cit-ext:CivilReliefActJuvenileIndicator" minOccurs="0"/>
+					<xsd:element ref="ojb-cit-ext:CivilReliefActOtherIndicator" minOccurs="0"/>
+					<xsd:element ref="ojb-cit-ext:CivilReliefActOtherText" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -344,22 +341,22 @@
 			<xsd:documentation>True if a seat belt violation is associated with a driving incident; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CityReliefActIndicator" type="niem-xsd:boolean">
+	<xsd:element name="CivilReliefActIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the officer asked CRA and the subject answered no; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CityReliefActJuvenileIndicator" type="niem-xsd:boolean">
+	<xsd:element name="CivilReliefActJuvenileIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the officer asked CRA and the subject is under 17; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CityReliefActOtherIndicator" type="niem-xsd:boolean">
+	<xsd:element name="CivilReliefActOtherIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the officer asked CRA and the subject answered "other"; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CityReliefActOtherText" type="nc:TextType">
+	<xsd:element name="CivilReliefActOtherText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>Text of a CRA "other" response.</xsd:documentation>
 		</xsd:annotation>
@@ -415,15 +412,4 @@
 			<xsd:documentation>A reference to a citation.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CitationCaseDocument" type="nc:DocumentType" substitutionGroup="ojb-cit-ext:CitationCaseRepresentation">
-		<xsd:annotation>
-			<xsd:documentation>A document used to request a person's identity, based on fingerprints, from the State.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="CitationCaseRepresentation" abstract="true">
-		<xsd:annotation>
-			<xsd:documentation>A placeholder for a citation case document.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain"/>
 </xsd:schema>

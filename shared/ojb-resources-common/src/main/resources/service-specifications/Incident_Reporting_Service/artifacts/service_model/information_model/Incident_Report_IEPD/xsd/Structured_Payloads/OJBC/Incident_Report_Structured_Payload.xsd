@@ -384,10 +384,10 @@
 					<xsd:element ref="inc-ext:DrivingAccidentIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:DrivingAccidentFatalityIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:SeatBeltViolationIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CityReliefActIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CityReliefActJuvenileIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CityReliefActOtherIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CityReliefActOtherText" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CivilReliefActIndicator" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CivilReliefActJuvenileIndicator" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CivilReliefActOtherIndicator" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CivilReliefActOtherText" minOccurs="0"/>
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -801,22 +801,22 @@
 			<xsd:documentation>True if a seat belt violation is associated with a driving incident; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CityReliefActIndicator" type="niem-xsd:boolean">
+	<xsd:element name="CivilReliefActIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the officer asked CRA and the subject answered no; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CityReliefActJuvenileIndicator" type="niem-xsd:boolean">
+	<xsd:element name="CivilReliefActJuvenileIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the officer asked CRA and the subject is under 17; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CityReliefActOtherIndicator" type="niem-xsd:boolean">
+	<xsd:element name="CivilReliefActOtherIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the officer asked CRA and the subject answered "other"; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CityReliefActOtherText" type="nc:TextType">
+	<xsd:element name="CivilReliefActOtherText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>Text of a CRA "other" response.</xsd:documentation>
 		</xsd:annotation>

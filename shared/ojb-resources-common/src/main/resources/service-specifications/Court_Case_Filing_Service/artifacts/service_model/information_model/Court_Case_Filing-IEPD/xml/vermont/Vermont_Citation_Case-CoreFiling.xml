@@ -232,7 +232,6 @@
 			<nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
 			<nc:VehicleIdentification>
 				<nc:IdentificationID>VIN</nc:IdentificationID>
-				<nc:IdentificationSourceText>String</nc:IdentificationSourceText>
 			</nc:VehicleIdentification>
 			<nc:VehicleMakeCode>TOYT</nc:VehicleMakeCode>
 			<ojb-cit-ext:VehicleAugmentation>
@@ -297,10 +296,10 @@
 			<ojb-cit-ext:DrivingIncidentAugmentation>
 				<ojb-cit-ext:DrivingAccidentFatalityIndicator>false</ojb-cit-ext:DrivingAccidentFatalityIndicator>
 				<ojb-cit-ext:SeatBeltViolationIndicator>false</ojb-cit-ext:SeatBeltViolationIndicator>
-				<ojb-cit-ext:CityReliefActIndicator>true</ojb-cit-ext:CityReliefActIndicator>
-				<ojb-cit-ext:CityReliefActJuvenileIndicator>true</ojb-cit-ext:CityReliefActJuvenileIndicator>
-				<ojb-cit-ext:CityReliefActOtherIndicator>true</ojb-cit-ext:CityReliefActOtherIndicator>
-				<ojb-cit-ext:CityReliefActOtherText>Text</ojb-cit-ext:CityReliefActOtherText>
+				<ojb-cit-ext:CivilReliefActIndicator>true</ojb-cit-ext:CivilReliefActIndicator>
+				<ojb-cit-ext:CivilReliefActJuvenileIndicator>true</ojb-cit-ext:CivilReliefActJuvenileIndicator>
+				<ojb-cit-ext:CivilReliefActOtherIndicator>true</ojb-cit-ext:CivilReliefActOtherIndicator>
+				<ojb-cit-ext:CivilReliefActOtherText>Text</ojb-cit-ext:CivilReliefActOtherText>
 			</ojb-cit-ext:DrivingIncidentAugmentation>
 		</ojb-cit-ext:DrivingIncident>
 	</ojb-cit-ext:CitationCaseAugmentation>
@@ -312,11 +311,6 @@
 		<nc:PersonParentReference s:ref="PERSON_01"/>
 		<nc:PersonChildReference s:ref="PERSON_03"/>
 	</nc:ImmediateFamilyAssociation>
-	<ojb-cit-ext:CitationCaseDocument s:id="Doc_01">
-		<nc:DocumentBinary>
-			<ojb-cit-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ojb-cit-ext:Base64BinaryObject>
-		</nc:DocumentBinary>
-	</ojb-cit-ext:CitationCaseDocument>
 </ojb-cit-doc:CitationCase>
 	<!-- The following elements are required by ECF DOWN -->
 	<cfm:FilingLeadDocument>
