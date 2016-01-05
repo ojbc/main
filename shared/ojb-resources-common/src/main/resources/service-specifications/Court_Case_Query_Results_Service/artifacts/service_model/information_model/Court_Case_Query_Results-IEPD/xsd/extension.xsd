@@ -184,9 +184,9 @@
 			<xsd:documentation>New appearance in court required of a party.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SpeedyTrialDescriptionText" type="nc:TextType" substitutionGroup="j:CourtEventAugmentationPoint">
+	<xsd:element name="SpeedyTrialDate" type="nc:DateType" substitutionGroup="j:CourtEventAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>Description of how a trial is/was speedy.</xsd:documentation>
+			<xsd:documentation>Date of a trial to ensure it is speedy.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CourtEventCommentsText" type="nc:TextType" substitutionGroup="j:CourtEventAugmentationPoint">
