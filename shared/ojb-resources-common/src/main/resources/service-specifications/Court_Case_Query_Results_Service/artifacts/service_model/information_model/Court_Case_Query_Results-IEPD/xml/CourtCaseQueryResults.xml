@@ -225,7 +225,9 @@
 				<j:JudicialOfficialCategoryText>attorney type</j:JudicialOfficialCategoryText>
 			</j:CaseProsecutionAttorney>
 			<j:CaseTrial>
-				<ccq-res-ext:SpeedyTrialDescriptionText>speedy trial</ccq-res-ext:SpeedyTrialDescriptionText>
+				<ccq-res-ext:SpeedyTrialDate>
+				   <nc:Date>2001-12-17</nc:Date>
+				</ccq-res-ext:SpeedyTrialDate>
 			</j:CaseTrial>
 		</j:CaseAugmentation>
 		<ccq-res-ext:CaseAugmentation>
