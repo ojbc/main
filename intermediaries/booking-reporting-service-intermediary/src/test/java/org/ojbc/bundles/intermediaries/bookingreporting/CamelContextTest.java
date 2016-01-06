@@ -71,6 +71,10 @@ public class CamelContextTest {
         
     @EndpointInject(uri = "mock:log:org.ojbc.intermediaries.bookingreporting")
     protected MockEndpoint loggingEndpoint;
+
+    @EndpointInject(uri = "mock:cxf:bean:bookingReportingServiceAdapter")
+    protected MockEndpoint bookingReportingBrokerServiceMock;
+
     
 	@Before
 	public void setUp() throws Exception {
@@ -84,6 +88,15 @@ public class CamelContextTest {
     	    	replaceFromWith("direct:BookingReportingServiceEndpoint");
     	    	mockEndpoints("log:org.ojbc.intermediaries.bookingreporting*");
     	    	
+    	    }              
+    	});
+    	
+    	//We mock the booking reporting adapter web service endpoint and intercept any submissions
+    	context.getRouteDefinition("callBookingReportingServiceAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	mockEndpointsAndSkip("cxf:bean:bookingReportingServiceAdapter*");
     	    }              
     	});
     	
@@ -106,6 +119,8 @@ public class CamelContextTest {
 		
 		//logging endpoint will get two messages, one from content enricher and one from derived routes.
 		loggingEndpoint.expectedMessageCount(2);
+		
+		bookingReportingBrokerServiceMock.expectedMessageCount(1);
 		
     	//Create a new exchange
     	Exchange senderExchange = new DefaultExchange(context);
@@ -138,6 +153,7 @@ public class CamelContextTest {
 		Thread.sleep(3000);
 
 		loggingEndpoint.assertIsSatisfied();
+		bookingReportingBrokerServiceMock.assertIsSatisfied();
 		
 	}
 	
