@@ -71,6 +71,8 @@
 		<br-ext:HoldForAgency>
 			<nc:OrganizationName>Agency</nc:OrganizationName>
 		</br-ext:HoldForAgency>
+		<br-ext:BedCategoryCode>Type 1</br-ext:BedCategoryCode>
+		<br-ext:PreTrialCategoryCode>In Jail</br-ext:PreTrialCategoryCode>
 	</j:Detention>
 	<j:BailBond structures:id="Bond_01">
 		<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
@@ -79,7 +81,7 @@
 		</j:BailBondAmount>
 	</j:BailBond>
 	<j:Charge structures:id="Charge_01">
-		<j:ChargeDescriptionText>Desc</j:ChargeDescriptionText>
+		<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
 		<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
 		<j:ChargeStatute>
 			<j:StatuteCodeSectionIdentification>
