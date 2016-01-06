@@ -92,8 +92,8 @@
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 									
-			<camel:setHeader headerName="operationName"><constant>SubmitCriminalHistoryQueryRequest</constant></camel:setHeader>
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0</constant></camel:setHeader>
+			<camel:setHeader headerName="operationName"><constant>SubmitCustodyQueryRequest</constant></camel:setHeader>
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0</constant></camel:setHeader>
 									
 			<!-- Since this is a query, we only call one endpoint -->						
 			<camel:setHeader headerName="adapterURI">
@@ -138,7 +138,7 @@
 			<camel:to uri="direct:aggregateFederatedQuery" />		
 		</camel:route>
 	
-		<!--  Criminal History Results Handler Route -->
+		<!--  Custody Results Handler Route -->
 		<camel:route>
 			<camel:from uri="custodyQueryResultsHandlerEndpoint"/>
 			
@@ -214,15 +214,15 @@
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
             		<camel:setHeader headerName="operationName">
-            			<constant>SubmitCriminalHistoryQueryResults</constant>
+            			<constant>SubmitCustodyQueryResults</constant>
             		</camel:setHeader>
 	        		<camel:setHeader headerName="operationNamespace">
-	        			<constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0</constant>
+	        			<constant>http://ojbc.org/Services/WSDL/CustodyQueryResultsService/1.0</constant>
 	        		</camel:setHeader>
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 					
-					<camel:log message="About to send criminal history response message to ${in.headers.recipientListReplyToEndpoint}" />			
+					<camel:log message="About to send custody response message to ${in.headers.recipientListReplyToEndpoint}" />			
 								
 					<camel:recipientList>
 						<camel:header>recipientListReplyToEndpoint</camel:header>
