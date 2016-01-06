@@ -96,20 +96,22 @@
 		<nc:PersonBirthDate>
 			<nc:Date>1968-12-17</nc:Date>
 		</nc:PersonBirthDate>
-		<nc:PersonEthnicityText>Ethnicity</nc:PersonEthnicityText>
+		<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 		<nc:PersonName>
 			<nc:PersonGivenName>Otis</nc:PersonGivenName>
 			<nc:PersonMiddleName>H.</nc:PersonMiddleName>
 			<nc:PersonSurName>Strong</nc:PersonSurName>
 		</nc:PersonName>
-		<nc:PersonRaceText>Race</nc:PersonRaceText>
-		<nc:PersonSexText>Sex</nc:PersonSexText>
+		<j:PersonRaceCode>A</j:PersonRaceCode>
+		<j:PersonSexCode>F</j:PersonSexCode>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<nc:PersonStateIdentification>
-			<nc:IdentificationID>CO123459878</nc:IdentificationID>
-		</nc:PersonStateIdentification>
+		<j:PersonAugmentation>
+          <j:PersonStateFingerprintIdentification>
+            <nc:IdentificationID>CO0120010324</nc:IdentificationID>
+          </j:PersonStateFingerprintIdentification>
+        </j:PersonAugmentation>
 	</nc:Person>
 	<j:ActivityChargeAssociation>
 		<nc:Activity structures:ref="Booking_01"/>
