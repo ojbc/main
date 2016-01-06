@@ -19,34 +19,21 @@
 -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ctx="http://www.springframework.org/schema/context"
-	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:ctx="http://www.springframework.org/schema/context"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 
-	<bean id="bridgePropertyPlaceholder"
-		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
-		<property name="propertiesArray">
-			<array>
-				<!-- We put default values for the properties here and they can be overriden in subsquent entries below -->
-				<!-- This allows implementers to skip setting these properties if their instance does not use them -->
-				<!-- For example, an implementer might not implement the booking reporting adapter and would not want to set an booking adapter endpoint property -->
-				<util:properties>
-					<prop key="bookingReportingService.bookingReportingServiceAdapterEndpoint">https://localhost:8443/OJB/Adapter/BookingReportingService</prop>
-				</util:properties>
-				<!-- The .cfg file from the classpath will be consulted first, followed 
-					by the optional .cfg file under $KARAF_HOME/etc -->
-				<util:properties
-					location="classpath:booking_reporting_service_intermediary.cfg" />
-				<osgix:cm-properties id="osgiProperties"
-					persistent-id="booking_reporting_service_intermediary" />
-			</array>
-		</property>
-	</bean>
+	<bean id="org.ojbc.bundles.intermediaries.court-case-query-service-intermediary-context" class="org.ojbc.util.osgi.OjbcContextImpl"/>
+
+	<util:list id="propertiesList">
+		<ref bean="classpathProperties"/>
+		<ref bean="contextProperties"/>
+		<ref bean="derivedBundleOsgiProperties"/>
+	</util:list>
 
 </beans>

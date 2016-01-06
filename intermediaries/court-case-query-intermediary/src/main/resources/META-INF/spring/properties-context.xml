@@ -19,8 +19,9 @@
 -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ctx="http://www.springframework.org/schema/context"
-	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium" 
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -28,25 +29,27 @@
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
+	
+	<util:properties id="classpathProperties" location="classpath:court_case_query_service_intermediary.cfg" />
 
-	<bean id="bridgePropertyPlaceholder"
-		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+	<util:properties id="contextProperties"/>
+
+	<bean id="derivedBundleOsgiProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="propertiesArray">
-			<array>
-				<!-- We put default values for the properties here and they can be overriden in subsquent entries below -->
-				<!-- This allows implementers to skip setting these properties if their instance does not use them -->
-				<!-- For example, an implementer might not implement the booking reporting adapter and would not want to set an booking adapter endpoint property -->
-				<util:properties>
-					<prop key="bookingReportingService.bookingReportingServiceAdapterEndpoint">https://localhost:8443/OJB/Adapter/BookingReportingService</prop>
-				</util:properties>
-				<!-- The .cfg file from the classpath will be consulted first, followed 
-					by the optional .cfg file under $KARAF_HOME/etc -->
-				<util:properties
-					location="classpath:booking_reporting_service_intermediary.cfg" />
-				<osgix:cm-properties id="osgiProperties"
-					persistent-id="booking_reporting_service_intermediary" />
-			</array>
+			<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="org.ojbc.bundles.intermediaries.court-case-query-service-intermediary-context" />
+				</property>
+				<property name="targetMethod">
+					<value>getPropertiesList</value>
+				</property>
+			</bean>
 		</property>
 	</bean>
 
+	<bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+		<property name="propertiesArray" ref="propertiesList" />
+	</bean>	
+	
 </beans>
+

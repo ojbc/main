@@ -36,7 +36,10 @@
 	
 		<camel:endpoint id="bookingReportingServiceEndpoint"
 			uri="cxf:bean:bookingReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${bookingReportingService.cxflogging}" />
-					
+
+		<camel:endpoint id="bookingReportingServiceAdapterEndpoint"
+			uri="cxf:bean:bookingReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${bookingReportingService.cxflogging}" />
+			
 		<!-- Booking Reporting Service Handler -->
 		<camel:route id="bookingReportingServiceHandlerRoute">
 			<camel:from uri="bookingReportingServiceEndpoint" />
@@ -49,8 +52,19 @@
 			<camel:to uri="direct:enrichContent"/>
 
 			<!-- Multicast to the core services and derived bundle specific routes so each route gets original message.  -->
-			<!-- Booking Reporting Intermediary does not yet define any core services to call -->
+			<!-- Booking Reporting Intermediary defines a booking reporting service adapter as a core service -->
 			<camel:multicast>				
+				<camel:pipeline>
+					<camel:filter>
+						<camel:simple>${properties:bookingReportingService.callbookingReportingServiceAdapter} == true</camel:simple>
+						
+						<camel:log message="About to call booking reporting service adapter endpoint"/>
+						
+						<camel:to uri="direct:callBookingReportingServiceAdapter"/>
+						
+					</camel:filter>	
+				</camel:pipeline>	
+			
 				<camel:pipeline>
 					<camel:to uri="direct:derivedRoutes"/>
 				</camel:pipeline>
@@ -95,6 +109,26 @@
 			</camel:filter>			
 		
 		</camel:route>		
+		
+		<route id="callBookingReportingServiceAdapter">
+            
+            <from uri="direct:callBookingReportingServiceAdapter"/>
+            
+            <log message="In booking reporting service adapter route" />
+											
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+							
+			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+         
+			<camel:log message="This is the booking reporting service message: ${body}" loggingLevel="DEBUG"/>
+			
+            <camel:throttle timePeriodMillis="1000">
+            	<constant>1</constant>
+            	<to uri="bookingReportingServiceAdapterEndpoint"/>
+        	</camel:throttle>    
+            
+        </route>		
 		
 	</camel:camelContext>
 	
