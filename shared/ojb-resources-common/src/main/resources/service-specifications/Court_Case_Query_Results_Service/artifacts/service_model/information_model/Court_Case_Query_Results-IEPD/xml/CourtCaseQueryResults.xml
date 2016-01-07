@@ -389,9 +389,9 @@
 	</j:Arrest>
 	<j:Detention structures:id="Detention_01">
 		<nc:ActivityIdentification>
-			<nc:IdentificationID>String</nc:IdentificationID>
+			<nc:IdentificationID>confinement id</nc:IdentificationID>
 		</nc:ActivityIdentification>
-		<nc:ActivityCategoryText>String</nc:ActivityCategoryText>
+		<nc:ActivityCategoryText>confinement type</nc:ActivityCategoryText>
 		<nc:ActivityDateRange>
 			<nc:StartDate>
 				<nc:Date>2001-12-10</nc:Date>
@@ -401,19 +401,19 @@
 			</nc:EndDate>
 		</nc:ActivityDateRange>
 		<nc:SupervisionCustodyStatus>
-			<nc:StatusDescriptionText>String</nc:StatusDescriptionText>
+			<nc:StatusDescriptionText>custody status</nc:StatusDescriptionText>
 		</nc:SupervisionCustodyStatus>
 		<nc:SupervisionFacility>
 			<nc:FacilityIdentification>
-				<nc:IdentificationID>String</nc:IdentificationID>
+				<nc:IdentificationID>confinement facility</nc:IdentificationID>
 			</nc:FacilityIdentification>
 		</nc:SupervisionFacility>
 	</j:Detention>
 	<j:BailBond structures:id="Bond_01">
 		<nc:ActivityIdentification>
-			<nc:IdentificationID>String</nc:IdentificationID>
+			<nc:IdentificationID>Bond Number</nc:IdentificationID>
 		</nc:ActivityIdentification>
-		<nc:ActivityCategoryText>String</nc:ActivityCategoryText>
+		<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
 		<j:BailBondAmount>
 			<nc:Amount>500.0</nc:Amount>
 		</j:BailBondAmount>
@@ -427,11 +427,11 @@
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>String</nc:IdentificationID>
 		</nc:ActivityIdentification>
-		<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
+		<nc:ActivityDescriptionText>Warrant Description</nc:ActivityDescriptionText>
 		<j:CourtOrderIssuingDate>
 			<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 		</j:CourtOrderIssuingDate>
-		<j:WarrantCategoryText>String</j:WarrantCategoryText>
+		<j:WarrantCategoryText>Warrant Type</j:WarrantCategoryText>
 	</j:Warrant>
 	<nc:Fee structures:id="Fee_01">
 		<nc:ObligationPaidDate>
@@ -524,7 +524,7 @@
 			<nc:PersonFullName>String</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
-			<nc:PhysicalFeatureDescriptionText>String</nc:PhysicalFeatureDescriptionText>
+			<nc:PhysicalFeatureDescriptionText>Scars Marks Tattoos</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
 		<nc:PersonRaceText>String</nc:PersonRaceText>
 		<nc:PersonSexText>String</nc:PersonSexText>
@@ -532,9 +532,7 @@
 			<nc:IdentificationID>String</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
 		<nc:PersonStateIdentification>
-			<nc:IdentificationID>String</nc:IdentificationID>
-			<nc:IdentificationCategoryDescriptionText>String</nc:IdentificationCategoryDescriptionText>
-			<nc:IdentificationSourceText>String</nc:IdentificationSourceText>
+			<nc:IdentificationID>State Criminal History ID</nc:IdentificationID>
 		</nc:PersonStateIdentification>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
@@ -558,9 +556,9 @@
 	</nc:Person>
 	<nc:Location structures:id="Location_01">
 		<nc:Address>
-			<nc:AddressSecondaryUnitText>address line 1</nc:AddressSecondaryUnitText>
+			<nc:AddressSecondaryUnitText>address line 2</nc:AddressSecondaryUnitText>
 			<nc:LocationStreet>
-				<nc:StreetFullText>address line 2</nc:StreetFullText>
+				<nc:StreetFullText>address line 1</nc:StreetFullText>
 			</nc:LocationStreet>
 			<nc:LocationCityName>city</nc:LocationCityName>
 			<nc:LocationStateName>state</nc:LocationStateName>
