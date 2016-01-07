@@ -49,14 +49,49 @@
 			<xsd:documentation>Category code for pretrial status (placeholder)</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
-			<xsd:enumeration value="In Holding Cell">
+			<xsd:enumeration value="SRP">
 				<xsd:annotation>
-					<xsd:documentation>in holding cell awaiting booking</xsd:documentation>
+					<xsd:documentation>Supervised Release Pretrial = under supervised released awaiting trial</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="In Jail">
+			<xsd:enumeration value="C-PR">
 				<xsd:annotation>
-					<xsd:documentation>booked into jail</xsd:documentation>
+					<xsd:documentation>Cash Bond Pretrial = cash bond posted released awaiting trial</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="S-PR">
+				<xsd:annotation>
+					<xsd:documentation>Surety Bond Pretrial = surety bond posted released awaiting trial</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PR">
+				<xsd:annotation>
+					<xsd:documentation>Pretrial Release = released awaiting trial</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="C-SRP">
+				<xsd:annotation>
+					<xsd:documentation>Cash Bond Supervised Release Pretrial = cash bond posted released awaiting trial under supervision</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="S-SRP">
+				<xsd:annotation>
+					<xsd:documentation>Surety Bond Supervised Release Pretrial = surety bond posted released awaiting trial under supervision</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SUR">
+				<xsd:annotation>
+					<xsd:documentation>Surety = surety bond</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Split">
+				<xsd:annotation>
+					<xsd:documentation>bond split between cash and surety</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="No-Bond">
+				<xsd:annotation>
+					<xsd:documentation>In Jail No Bond Posted = in jail bond not posted or granted</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
