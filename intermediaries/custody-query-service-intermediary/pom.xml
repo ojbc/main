@@ -24,10 +24,10 @@
 <modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
-	<artifactId>custody-query-intermediary</artifactId>
+	<artifactId>custody-query-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
 	<version>1.0.0</version>
-	<name>OJB :: custody-query-intermediary :: intermediary</name>
+	<name>OJB :: custody-query-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
 	<properties>
