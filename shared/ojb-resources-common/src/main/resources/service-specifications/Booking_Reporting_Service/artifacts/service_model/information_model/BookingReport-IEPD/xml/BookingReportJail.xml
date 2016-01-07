@@ -72,7 +72,7 @@
 			<nc:OrganizationName>Agency</nc:OrganizationName>
 		</br-ext:HoldForAgency>
 		<br-ext:BedCategoryCode>Type 1</br-ext:BedCategoryCode>
-		<br-ext:PreTrialCategoryCode>In Jail</br-ext:PreTrialCategoryCode>
+		<br-ext:PreTrialCategoryCode>SRP</br-ext:PreTrialCategoryCode>
 	</j:Detention>
 	<j:BailBond structures:id="Bond_01">
 		<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
