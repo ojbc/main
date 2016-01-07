@@ -44,6 +44,80 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:simpleType name="PreTrialCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Category code for pretrial status (placeholder)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="In Holding Cell">
+				<xsd:annotation>
+					<xsd:documentation>in holding cell awaiting booking</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="In Jail">
+				<xsd:annotation>
+					<xsd:documentation>booked into jail</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PreTrialCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>category code for pretrial status</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="br-ext:PreTrialCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="BedCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Category code for bed type (placeholder)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Type 1">
+				<xsd:annotation>
+					<xsd:documentation>type 1</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Type 2">
+				<xsd:annotation>
+					<xsd:documentation>type 2</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Type 3">
+				<xsd:annotation>
+					<xsd:documentation>type 3</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Type 4">
+				<xsd:annotation>
+					<xsd:documentation>type 4</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Type 5">
+				<xsd:annotation>
+					<xsd:documentation>type 5</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Other">
+				<xsd:annotation>
+					<xsd:documentation>Other</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="BedCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>bed type category</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="br-ext:BedCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
 	<xsd:element name="HoldForAgency" type="nc:OrganizationType" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An agency for whom a subject is being held.</xsd:documentation>
@@ -52,6 +126,16 @@
 	<xsd:element name="DetentiontImmigrationHoldIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a subject is being held for an immigration violation; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BedCategoryCode" type="br-ext:BedCategoryCodeType" substitutionGroup="nc:SupervisionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>bed type code</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PreTrialCategoryCode" type="br-ext:PreTrialCategoryCodeType" substitutionGroup="nc:SupervisionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>PreTrial Status Code</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
