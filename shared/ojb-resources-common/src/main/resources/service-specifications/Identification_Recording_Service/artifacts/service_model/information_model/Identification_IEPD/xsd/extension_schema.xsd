@@ -220,6 +220,11 @@
 					<xsd:documentation>Criminal Tenprint Submission</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
+			<xsd:enumeration value="SOR">
+				<xsd:annotation>
+					<xsd:documentation>Sex Offender Registry</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
