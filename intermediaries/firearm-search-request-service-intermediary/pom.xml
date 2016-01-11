@@ -161,7 +161,7 @@
 
 
 		<dependency>
-			<groupId>gov.nij.bundles.shared</groupId>
+			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>Entity_Resolution_Resources</artifactId>
 			<version>${entity-resolution-resources}</version>
 		</dependency>

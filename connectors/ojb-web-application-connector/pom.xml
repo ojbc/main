@@ -63,7 +63,7 @@
 	<dependencies>
 		<!-- ERS Resources -->
 		<dependency>
-			<groupId>gov.nij.bundles.shared</groupId>
+			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>Entity_Resolution_Resources</artifactId>
 			<version>${nij-er-resources-version}</version>
 		</dependency>
