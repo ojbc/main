@@ -40,19 +40,19 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="custody_search_request_service_intermediary">
 
 		<!-- Search Request and Response Federated Endpoints -->
-		<endpoint id="searchRequestFederatedServiceEndpoint"
-			uri="cxf:bean:custodySearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.custodySearchIntermediaryCxflogging}" />
+		<endpoint id="custodySearchRequestServiceEndpoint"
+			uri="cxf:bean:custodySearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.custodySearchIntermediaryCxflogging}" />
 
 		<camel:endpoint id="custodySearchRequestServiceAdapterEndpoint"
 			uri="cxf:bean:custodySearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.custodySearchIntermediaryCxflogging}" />
 
-		<endpoint id="searchResultsFederatedServiceEndpoint"
-			uri="cxf:bean:custodySearchResultsFederatedService?dataFormat=PAYLOAD&amp;allowStreaming=false&amp;loggingFeatureEnabled=${federatedQuery.custodySearchIntermediaryCxflogging}" />
+		<endpoint id="custodySearchResultServiceEndpoint"
+			uri="cxf:bean:custodySearchResultsService?dataFormat=PAYLOAD&amp;allowStreaming=false&amp;loggingFeatureEnabled=${federatedQuery.custodySearchIntermediaryCxflogging}" />
 
 
-		<!-- Federated Search Request Handler-->
+
 		<camel:route>
-			<camel:from uri="searchRequestFederatedServiceEndpoint" />
+			<camel:from uri="custodySearchRequestServiceEndpoint" />
 
 			<camel:choice>
 				<camel:when>
@@ -170,7 +170,7 @@
 		<!-- Search Results Handler Route -->
 		<camel:route>
 		
-			<camel:from uri="searchResultsFederatedServiceEndpoint" />
+			<camel:from uri="custodySearchResultServiceEndpoint" />
 				
 			<camel:log message="Entering Search Results Handler"/>
 
