@@ -225,7 +225,7 @@
 			<xsl:attribute name="id">
 				<xsl:value-of select="$id"/>
 			</xsl:attribute>
-			PLACEMENT <xsl:value-of select="$id"/>
+			PLACEMENT <xsl:value-of select="placement-codes:PlacementCategoryCode"></xsl:value-of><xsl:text> </xsl:text><xsl:apply-templates select="nc:ActivityDateRange/nc:StartDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 		</xsl:element>
 		<div>
 			<table class="detailsTable">
@@ -356,7 +356,8 @@
 			<xsl:attribute name="id">
 				<xsl:value-of select="$id"/>
 			</xsl:attribute>
-			OFFENSE <xsl:value-of select="$id"/>
+			OFFENSE <xsl:value-of select="j:Offense/j:OffenseName |j:Offesne/j:OffenseDesignation"/><xsl:text> </xsl:text><xsl:call-template name="formatDate"><xsl:with-param name="date" select="j:Charge/j:ChargeFilingDate/nc:Date"></xsl:with-param></xsl:call-template>
+			
 		</xsl:element>
 		<div>
 			<table class="detailsTable">
@@ -566,15 +567,15 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="detailsLabel">CHILD IDENTIFIER</td>
+				<td class="detailsLabel">FILE NUMBER</td>
 				<td>
-					<xsl:value-of select="preceding-sibling::cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationID"/>
+					<xsl:value-of select="cext:JuvenileInformationAvailabilityMetadata/cext:JuvenileInformationRecordID/nc:IdentificationID" />
 				</td>
 				<td class="detailsLabel">STATE</td>
 				<td><xsl:value-of select="nc:Location[@s:id = $childLocationId]/nc:Address/nc:LocationStateFIPS5-2AlphaCode
 					|nc:Location[@s:id = $childLocationId]/nc:Address/nc:LocationCanadianProvinceCode" /></td>
-				<td class="detailsLabel">RECORD NUMBER</td>
-				<td><xsl:value-of select="cext:JuvenileInformationAvailabilityMetadata/cext:JuvenileInformationRecordID/nc:IdentificationID" /></td>
+				<td class="detailsLabel"></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td class="detailsLabel">PARENT(S)</td>
