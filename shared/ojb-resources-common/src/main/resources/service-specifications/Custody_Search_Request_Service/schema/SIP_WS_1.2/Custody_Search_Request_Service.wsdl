@@ -39,12 +39,12 @@
 				schemaLocation="../../artifacts/service_model/information_model/Custody_Search_Request-IEPD/xsd/exchange_schema.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
-	<wsdl:message name="Court-Case-Search-Request">
-		<wsdl:part element="cs-req-doc:CustodySearchRequest" name="Court-Case-Search-Request" />
+	<wsdl:message name="Custody-Search-Request">
+		<wsdl:part element="cs-req-doc:CustodySearchRequest" name="Custody-Search-Request" />
 	</wsdl:message>
 	<wsdl:portType name="Custody_Search_Request_Service">
 		<wsdl:operation name="SubmitCustodySearchRequest">
-			<wsdl:input message="tns:Court-Case-Search-Request" />
+			<wsdl:input message="tns:Custody-Search-Request" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="Custody_Search_Request_ServiceSOAPBinding"
