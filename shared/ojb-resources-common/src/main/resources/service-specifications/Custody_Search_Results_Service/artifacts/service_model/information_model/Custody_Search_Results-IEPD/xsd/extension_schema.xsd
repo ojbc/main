@@ -23,21 +23,24 @@ xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
 xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 xmlns:cs-res-ext="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0" 
  targetNamespace="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
 	<xsd:complexType name="CustodySearchResultsType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for set of details associated with a Search response from the courts.</xsd:documentation>
+			<xsd:documentation>A data type for a set of details returned about one or more custody cases, based on a Custody Search Request</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="cs-res-ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
 					<xsd:element ref="cs-res-ext:InmateCustody" minOccurs="0" maxOccurs="unbounded"/> 
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
