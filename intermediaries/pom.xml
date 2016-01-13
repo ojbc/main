@@ -41,6 +41,8 @@
     <module>incident-reporting-service-intermediary</module>
     <module>incident-search-request-service-intermediary</module>
     <module>juvenile-history-service-intermediary</module>
+    <module>organization-identification-results-query-service-intermediary</module>
+    <module>organization-identification-results-search-service-intermediary</module>
 
     <!--
       Upgraded to Java 8 so it will need to be tested separately.
