@@ -257,8 +257,24 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PREFIX_PERSON_QUERY_REQUEST = "pqr";
 	public static final String NS_PERSON_SEARCH_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0";
 	public static final String NS_PREFIX_PERSON_SEARCH_REQUEST_EXT = "psr";
-	public static final String NS_PERSON_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0";
+	
+	public static final String NS_PERSON_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0";	
 	public static final String NS_PREFIX_PERSON_SEARCH_REQUEST_DOC = "psr-doc";
+			
+	public static final String NS_CUSTODY_SEARCH_REQUEST = "http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0";
+	public static final String NS_PREFIX_CUSTODY_SEARCH_REQUEST = "cs-req-doc";
+	
+	public static final String NS_COURT_CASE_SEARCH_REQUEST="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0";
+	public static final String NS_PREFIX_COURT_CASE_SEARCH_REQUEST="ccs-req-doc";
+	
+	
+	public static final String NS_CUSTODY_SEARCH_RESULTS = "http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0";
+	public static final String NS_PREFIX_CUSTODY_SEARCH_RESULTS = "cs-res-doc";
+	
+	public static final String NS_COURT_CASE_SEARCH_RESULTS = "http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0";
+	public static final String NS_PREFIX_COURT_CASE_SEARCH_RESULTS = "ccs-res-doc";
+	
+	
 	public static final String NS_PERSON_SEARCH_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0";
 	public static final String NS_PREFIX_PERSON_SEARCH_RESULTS_EXT = "psres";
 	public static final String NS_PERSON_SEARCH_RESULTS_DOC = "http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0";
@@ -610,10 +626,24 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
-
+	
+	
 	public OjbcNamespaceContext() {
+		
 		prefixToUriMap = new HashMap<String, String>();
-		uriToPrefixMap = new HashMap<String, String>();
+		uriToPrefixMap = new HashMap<String, String>();		
+				
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_RESULTS, NS_CUSTODY_SEARCH_RESULTS);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_RESULTS, NS_PREFIX_CUSTODY_SEARCH_RESULTS);
+		
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_RESULTS, NS_COURT_CASE_SEARCH_RESULTS);
+		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_RESULTS, NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
+				
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_REQUEST, NS_CUSTODY_SEARCH_REQUEST);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_REQUEST, NS_PREFIX_CUSTODY_SEARCH_REQUEST);
+				
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_REQUEST, NS_COURT_CASE_SEARCH_REQUEST);
+		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_REQUEST, NS_PREFIX_COURT_CASE_SEARCH_REQUEST);		
 				
 		prefixToUriMap.put(NS_NIST_BIO_PREFIX, NS_NIST_BIO);
 		uriToPrefixMap.put(NS_NIST_BIO, NS_NIST_BIO_PREFIX);
