@@ -319,13 +319,13 @@
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
-	<!-- Court Case Query response handler -->
+	<!-- Court Case Query response handler TODO fix values -->
 	<cxf:cxfEndpoint id="courtCaseQueryResultsHandlerService"
 		address="${genericMockAdapter.courtCaseQueryResultsHandlerEndpoint}"
-		wsdlURL="classpath:service-specifications/Custody_Query_Results_Service/schemas/RS_WS-SIP_v1.2/Custody_Query_Results_Service.wsdl"
-		serviceName="ojbc:Custody-Query-Results-Service"
-		endpointName="ojbc:Custody-Query-Results-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyQueryResultsService/1.0">
+		wsdlURL="classpath:service-specifications/Court_Case_Query_Results_Service/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
+		serviceName="ojbc:Court-Case-Query-Results-Service"
+		endpointName="ojbc:Court-Case-Query-Results-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0">
 		<cxf:features>
 			<policy:policies>
 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
