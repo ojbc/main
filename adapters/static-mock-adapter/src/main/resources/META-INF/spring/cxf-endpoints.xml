@@ -67,6 +67,76 @@
 			</policy:policies>
 		</cxf:features>
 	</cxf:cxfEndpoint>
+	
+	<!-- Custody Search Request Service -->
+	<cxf:cxfEndpoint id="custodySearchRequestService"
+		address="${genericMockAdapter.custodySearchRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Custody_Search_Request_Service/schema/SIP_WS_1.2/Custody_Search_Request_Service.wsdl"
+		serviceName="ojbc:Custody_Search_Request_Service_Service" 
+		endpointName="ojbc:Custody_Search_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>	
+	
+	<!-- Custody Search Results handler Service -->
+	<cxf:cxfEndpoint id="custodySearchResultsHandlerService"
+		address="${genericMockAdapter.custodySearchResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Custody_Search_Results_Service/schemas/RS_WS-SIP_v1.2/Custody_Search_Results_Service.wsdl"
+		serviceName="ojbc:Custody-Search-Results-Service" 
+		endpointName="ojbc:Custody-Search-Results-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodySearchResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>	
+		
+
+	<cxf:cxfEndpoint id="courtCaseSearchRequestService"
+		address="${genericMockAdapter.courtCaseSearchRequestEndpoint}"
+		wsdlURL="classpath:service-specifications/Court_Case_Search_Request_Service/schema/SIP_WS_1.2/Court_Case_Search_Request_Service.wsdl"
+		serviceName="ojbc:Court_Case_Search_Request_Service_Service" 
+		endpointName="ojbc:Court_Case_Search_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>	
+	
+	<cxf:cxfEndpoint id="courtCaseSearchResultsHandlerService"
+		address="${genericMockAdapter.courtCaseSearchResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Court_Case_Search_Results_Service/schema/SIP_WS_1.2/Court_Case_Search_Results_Service.wsdl"
+		serviceName="ojbc:Court-Case-Search-Results-Service" 
+		endpointName="ojbc:Court-Case-Search-Results-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseSearchResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>	
+
 
 	<!-- Firearm Search Request Service -->
 
@@ -195,6 +265,78 @@
 			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
+
+
+	<!-- Custody Query Request handler -->
+	<cxf:cxfEndpoint id="custodyQueryRequestService"
+		address="${genericMockAdapter.custodyQueryEndpoint}"
+		wsdlURL="classpath:service-specifications/Custody_Query_Request_Service/schema/SIP_WS_1.2/Custody_Query_Request_Service.wsdl"
+		serviceName="ojbc:Custody-Query-Request-Service"
+		endpointName="ojbc:Custody-Query-Request-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Custody Query response handler -->
+	<cxf:cxfEndpoint id="custodyQueryResultsHandlerService"
+		address="${genericMockAdapter.custodyQueryResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Custody_Query_Results_Service/schemas/RS_WS-SIP_v1.2/Custody_Query_Results_Service.wsdl"
+		serviceName="ojbc:Custody-Query-Results-Service"
+		endpointName="ojbc:Custody-Query-Results-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyQueryResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
+	<!-- Court Case Query request handler -->
+	<cxf:cxfEndpoint id="courtCaseQueryRequestService"
+		address="${genericMockAdapter.courtCaseQueryEndpoint}"
+		wsdlURL="classpath:service-specifications/Court_Case_Query_Request_Service/schema/SIP_WS_1.2/Court_Case_Query_Request_Service.wsdl"
+		serviceName="ojbc:Court-Case-Query-Request-Service"
+		endpointName="ojbc:Court-Case-Query-Request-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Court Case Query response handler -->
+	<cxf:cxfEndpoint id="courtCaseQueryResultsHandlerService"
+		address="${genericMockAdapter.courtCaseQueryResultsHandlerEndpoint}"
+		wsdlURL="classpath:service-specifications/Custody_Query_Results_Service/schemas/RS_WS-SIP_v1.2/Custody_Query_Results_Service.wsdl"
+		serviceName="ojbc:Custody-Query-Results-Service"
+		endpointName="ojbc:Custody-Query-Results-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyQueryResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
 
 	<!-- Warrants Request handler -->
 	<cxf:cxfEndpoint id="personQueryRequestWarrantsService"

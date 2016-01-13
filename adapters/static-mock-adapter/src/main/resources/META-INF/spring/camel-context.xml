@@ -41,9 +41,21 @@
 
 		<endpoint id="personSearchRequestServiceEndpoint"
 			uri="cxf:bean:personSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personSearchRequestMockCxflogging}" />
-
+			
 		<endpoint id="personSearchResultsHandlerServiceEndpoint"
 			uri="cxf:bean:personSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personSearchRequestMockCxflogging}" />
+					
+		<endpoint id="custodySearchRequestServiceEndpoint"
+			uri="cxf:bean:custodySearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.custodySearchRequestMockCxflogging}" />
+
+		<endpoint id="custodySearchResultsServiceEndpoint"
+			uri="cxf:bean:custodySearchResultsService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${genericMockAdapter.custodySearchRequestMockCxflogging}" />
+
+		<endpoint id="courtCaseSearchRequestServiceEndpoint"
+			uri="cxf:bean:courtCaseSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseSearchRequestMockCxflogging}" />
+
+		<endpoint id="courtCaseSearchResultsServiceEndpoint"
+			uri="cxf:bean:courtCaseSearchResultsHandlerService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseSearchRequestMockCxflogging}" />
 
 		<endpoint id="personSearchAdapterDir"
 			uri="file:///${genericMockAdapter.personSearchRequest.mockFileEndpoint}" />
@@ -71,6 +83,18 @@
 
 		<endpoint id="incidentSearchResultsServiceEndpoint"
 			uri="cxf:bean:IncidentSearchResultsService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${genericMockAdapter.incidentSearchRequestMockCxflogging}" />
+
+		<endpoint id="custodyQueryRequestServiceEndpoint"
+			uri="cxf:bean:custodyQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.CustodyQueryMockCxflogging}" />
+
+		<endpoint id="custodyQueryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:custodyQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.CustodyQueryMockCxflogging}" />
+
+		<endpoint id="courtCaseQueryRequestServiceEndpoint"
+			uri="cxf:bean:courtCaseQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseQueryMockCxflogging}" />
+
+		<endpoint id="courtCaseQueryResultsServiceEndpoint"
+			uri="cxf:bean:courtCaseQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseQueryMockCxflogging}" />
 
 		<!-- Criminal History Query Endpoints -->
 		<endpoint id="personQueryRequestCriminalHistoryServiceEndpoint"
