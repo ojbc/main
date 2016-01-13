@@ -55,6 +55,10 @@ public class StaticMockQuery {
 	static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History";
+	
+	public static final String CUSTODY_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest";
+	public static final String COURT_CASE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest";
+	
 	public static final String WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants";
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History";
 	public static final String WARRANT_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants";
@@ -72,6 +76,8 @@ public class StaticMockQuery {
 	public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByFirearm";;
 
 	private ClasspathXmlDataSource criminalHistoryDataSource;
+	//TODO init
+	private ClasspathXmlDataSource custodyDataSource;	
 	private ClasspathXmlDataSource warrantDataSource;
 	private ClasspathXmlDataSource incidentDataSource;
 	private ClasspathXmlDataSource firearmRegistrationDataSource;
@@ -281,11 +287,20 @@ public class StaticMockQuery {
 	}
 
 	Document searchDocuments(Document searchRequestMessage, DateTime baseDate, Object context) throws Exception {
+		
 		Element rootElement = searchRequestMessage.getDocumentElement();
 		String rootNamespaceURI = rootElement.getNamespaceURI();
 		String rootLocalName = rootElement.getLocalName();
+		
 		if (OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "PersonSearchRequest".equals(rootLocalName)) {
 			return personSearchDocuments(searchRequestMessage, baseDate);
+								
+		}else if(OjbcNamespaceContext.NS_CUSTODY_SEARCH_REQUEST.equals(rootNamespaceURI)){
+			return custodySearchDocuments(searchRequestMessage, baseDate);			
+		
+		}else if(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_REQUEST.equals(rootNamespaceURI)){
+			return courtCaseSearchDocuments(searchRequestMessage, baseDate);
+						
 		} else if (OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentPersonSearchRequest".equals(rootLocalName)) {
 			return incidentPersonSearchDocuments(searchRequestMessage, baseDate);
 		} else if (OjbcNamespaceContext.NS_FIREARM_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "FirearmSearchRequest".equals(rootLocalName)) {
@@ -655,6 +670,43 @@ public class StaticMockQuery {
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		return db;
 	}
+	
+
+	Document courtCaseSearchDocuments(Document custodySearchRequestMessage, DateTime baseDate) throws Exception {
+				
+		List<IdentifiableDocumentWrapper> instanceWrappers = courtCaseSearchDocumentsAsList(custodySearchRequestMessage, baseDate);
+		
+		Document courtCaseResultsDoc = createNewDocument();
+		
+		Element rootElement = courtCaseResultsDoc.createElementNS(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS, "CourtCaseSearchResults");
+		courtCaseResultsDoc.appendChild(rootElement);		
+		rootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
+		
+		// get matching results
+		for (IdentifiableDocumentWrapper instanceWrapper : instanceWrappers) {			
+			Document instance = instanceWrapper.getDocument();
+		}				
+		return courtCaseResultsDoc;
+	}	
+	
+	
+	Document custodySearchDocuments(Document custodySearchRequestMessage, DateTime baseDate) throws Exception {
+				
+		List<IdentifiableDocumentWrapper> instanceWrappers = custodySearchDocumentsAsList(custodySearchRequestMessage, baseDate);
+				
+		Document custodyResultsDoc = createNewDocument();
+				
+		Element rootElement = custodyResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RESULTS, "CustodySearchResults");		
+		custodyResultsDoc.appendChild(rootElement);		
+		rootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RESULTS);		
+		
+		// get matching results
+		for (IdentifiableDocumentWrapper instanceWrapper : instanceWrappers) {			
+			Document instance = instanceWrapper.getDocument();			
+		}				
+		return custodyResultsDoc;
+	}	
+	
 
 	Document personSearchDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
 
@@ -1332,7 +1384,7 @@ public class StaticMockQuery {
 			Element systemElement = (Element) systemElements.item(i);
 			String systemId = systemElement.getTextContent();
 			if (CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
-				ret.addAll(personSearchCriminalHistoryDocuments(personSearchRequestMessage, baseDate));
+				ret.addAll(personSearchCriminalHistoryDocuments(personSearchRequestMessage, baseDate));				
 			} else if (WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
 				ret.addAll(personSearchWarrantDocuments(personSearchRequestMessage, baseDate));
 			} else if (FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
@@ -1367,6 +1419,18 @@ public class StaticMockQuery {
 	private List<IdentifiableDocumentWrapper> personSearchCriminalHistoryDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
 		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getCriminalHistoryXPaths(), criminalHistoryDataSource);
 	}
+	
+	private List<IdentifiableDocumentWrapper> custodySearchCustodyDocuments(Document custodySearchRequestMessage, DateTime baseDate) throws Exception {
+		return custodySearchDocumentsAsList(custodySearchRequestMessage, baseDate, getCriminalHistoryXPaths(), custodyDataSource);
+	}	
+	
+	
+
+	private List<IdentifiableDocumentWrapper> courtCaseSearchCourtCaseDocuments(Document custodySearchRequestMessage, DateTime baseDate) throws Exception {
+		return custodySearchDocumentsAsList(custodySearchRequestMessage, baseDate, getCriminalHistoryXPaths(), custodyDataSource);
+	}	
+	
+	
 
 	private SearchValueXPaths getIncidentXPaths() {
 		SearchValueXPaths xPaths = new SearchValueXPaths() {
@@ -1514,6 +1578,49 @@ public class StaticMockQuery {
 		return xPaths;
 	}
 
+	
+	private List<IdentifiableDocumentWrapper> courtCaseSearchDocumentsAsList(Document custodySearchRequestMessage, DateTime baseDate) 
+			throws Exception {
+		
+		List<IdentifiableDocumentWrapper> resultList = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		resultList.addAll(courtCaseSearchCourtCaseDocuments(custodySearchRequestMessage, baseDate));
+		
+		return resultList;		
+	}
+	
+	
+	private List<IdentifiableDocumentWrapper> custodySearchDocumentsAsList(Document custodySearchRequestMessage, DateTime baseDate) 
+			throws Exception {
+		
+		List<IdentifiableDocumentWrapper> resultList = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		resultList.addAll(custodySearchCustodyDocuments(custodySearchRequestMessage, baseDate));
+		
+		return resultList;		
+	}
+		
+	private List<IdentifiableDocumentWrapper> custodySearchDocumentsAsList(Document custodySearchRequestMessage, DateTime baseDate, 
+			SearchValueXPaths xPaths, ClasspathXmlDataSource dataSource) throws Exception {
+		
+		List<IdentifiableDocumentWrapper> resultList = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		resultList.addAll(custodySearchCustodyDocuments(custodySearchRequestMessage, baseDate));
+		
+		return resultList;		
+	}
+	
+	private List<IdentifiableDocumentWrapper> courtCaseSearchDocumentsAsList(Document courtCaseSearchRequestMessage, DateTime baseDate, 
+			SearchValueXPaths xPaths, ClasspathXmlDataSource dataSource) throws Exception {
+		
+		List<IdentifiableDocumentWrapper> resultList = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		resultList.addAll(courtCaseSearchCourtCaseDocuments(courtCaseSearchRequestMessage, baseDate));
+		
+		return resultList;		
+	}	
+	
+	
 	private List<IdentifiableDocumentWrapper> personSearchDocumentsAsList(Document personSearchRequestMessage, DateTime baseDate, SearchValueXPaths xPaths, ClasspathXmlDataSource dataSource) throws Exception {
 
 		PersonSearchParameters psp = new StaticMockQuery.PersonSearchParameters(personSearchRequestMessage);
