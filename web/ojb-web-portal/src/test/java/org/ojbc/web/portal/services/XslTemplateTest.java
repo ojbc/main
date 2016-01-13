@@ -345,7 +345,7 @@ public class XslTemplateTest {
 
     @Test
     public void rapbackSearchResult() throws Exception {
-        validateRapbackSearchTransformation("OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchResult.html");
+        validateRapbackSearchTransformation("OrganizationIdentificationResultsSearchResults-civil.xml", "rapbackSearchResult.html");
     }
     
     @Test
