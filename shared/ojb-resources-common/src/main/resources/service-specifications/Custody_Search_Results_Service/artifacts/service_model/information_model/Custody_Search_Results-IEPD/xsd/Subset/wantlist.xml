@@ -19,7 +19,10 @@
 -->
 <w:WantList w:release="3.1" w:product="NIEM" w:nillableDefault="true"
   xmlns:w="http://niem.gov/niem/wantlist/2.2"
-  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/">
+  <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBond" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBondAmount" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Booking" w:isReference="false" w:nillable="true"/>
@@ -30,6 +33,7 @@
   <w:Element w:name="j:ChargeAugmentationPoint" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ChargeSentence" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonNameAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:SupervisionAreaIdentification"
     w:isReference="false" w:nillable="true"/>
@@ -39,6 +43,7 @@
   <w:Element w:name="nc:DateTime" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Document" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Image" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Metadata" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Organization" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonEthnicityText" w:isReference="false" w:nillable="false"/>
@@ -47,6 +52,12 @@
   <w:Element w:name="nc:Supervision" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:SupervisionAugmentationPoint"
     w:isReference="false" w:nillable="true"/>
+  <w:Type w:name="j:ActivityChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:BailBondType" w:isRequested="false">
     <w:ElementInType w:name="j:BailBondAmount" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -74,6 +85,12 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:PersonStateFingerprintIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:PersonChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Person" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:SentenceType" w:isRequested="false">
     <w:ElementInType w:name="j:SentenceCondition" w:isReference="false"
@@ -133,10 +150,12 @@
     <w:ElementInType w:name="nc:FacilityAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:IdentificationType" w:isRequested="false">
+  <w:Type w:name="nc:IdentificationType" w:isRequested="true">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IdentificationCategoryDescriptionText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:IdentificationSourceText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ImageType" w:isRequested="false">
@@ -147,9 +166,21 @@
     <w:ElementInType w:name="nc:LocationDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:OrganizationType" w:isRequested="false">
+  <w:Type w:name="nc:MetadataType" w:isRequested="false">
+    <w:ElementInType w:name="nc:LastUpdatedDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:SourceIDText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:RepositoryID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:OrganizationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:OrganizationBranchName"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:OrganizationAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonNameType" w:isRequested="false">
     <w:ElementInType w:name="nc:PersonGivenName" w:isReference="false"
@@ -186,5 +217,9 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:SupervisionAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:SystemIdentificationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:SystemName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
 </w:WantList>
