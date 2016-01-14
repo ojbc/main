@@ -24,6 +24,19 @@
   <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
   <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
   <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivityChargeAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="BailBondType">
     <xs:annotation>
       <xs:documentation>A data type for an agreement between a bondsman and a subject in which a bondsman pays the subject's bail or portion of the bail in exchange for certain conditions.</xs:documentation>
@@ -88,6 +101,19 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="PersonChargeAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between a person and a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="PersonNameAugmentationType">
     <xs:annotation>
       <xs:documentation>A data type for additional information about a name of a person.</xs:documentation>
@@ -147,6 +173,11 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:element name="ActivityChargeAssociation" type="j:ActivityChargeAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="BailBond" type="j:BailBondType" nillable="true">
     <xs:annotation>
       <xs:documentation>An agreement between a bondsman and a subject in which a bondsman pays the subject's bail or portion of the bail in exchange for certain conditions, including the payment of a certain amount of money and the reappearance of the subject</xs:documentation>
@@ -225,6 +256,11 @@
   <xs:element name="PersonCharge" type="j:ChargeType" nillable="true">
     <xs:annotation>
       <xs:documentation>A sequence of charges against a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonChargeAssociation" type="j:PersonChargeAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between a person and a charge issued to that person.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonNameAugmentation" type="j:PersonNameAugmentationType" substitutionGroup="nc:PersonNameAugmentationPoint" nillable="true">
