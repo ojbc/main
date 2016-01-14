@@ -53,8 +53,11 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="SendingMDELocationID"/>
-					<xsd:element ref="SendingMDEProfileCode"/>
+					<!--  OJB Change -->
+					<!-- xsd:element ref="SendingMDELocationID"/>
+					<xsd:element ref="SendingMDEProfileCode"/-->
+					<xsd:element ref="SendingMDELocationID" minOccurs="0"/>
+					<xsd:element ref="SendingMDEProfileCode" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

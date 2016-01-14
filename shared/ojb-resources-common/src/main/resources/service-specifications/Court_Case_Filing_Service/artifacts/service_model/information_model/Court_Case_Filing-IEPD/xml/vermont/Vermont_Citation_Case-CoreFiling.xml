@@ -30,22 +30,7 @@
 	 xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
 	 xmlns:xop="http://www.w3.org/2004/08/xop/include" 
 	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../xsd/Citation_Case-doc.xsd">
-	<!-- The following elements are required by ECF DOWN -->
-	<ecf:SendingMDELocationID>
-		<nc:IdentificationID>91</nc:IdentificationID>
-	</ecf:SendingMDELocationID>
-	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID</ecf:SendingMDEProfileCode>
-	<!-- The following elements are required by ECF UP -->
 	<ojb-cit-doc:CitationCase>
-	<!-- ECF Required elements below -->
-	<j:CaseAugmentation>
-		<j:CaseCourt/>
-	</j:CaseAugmentation>
-	<ecf:CaseAugmentation/>
-	<ecf-cit:CitationCaseAugmentation>
-		<j:Citation/>
-	</ecf-cit:CitationCaseAugmentation>
-	<!-- ECF Required elements above -->
 	<ojb-cit-ext:CaseAugmentation>
 		<ecf:PersonOrganizationAssociation>
 			<nc:PersonReference s:ref="OFFICER_01"/>
@@ -175,8 +160,6 @@
 		</ojb-cit-ext:CaseParticipant>
 	</ojb-cit-ext:CaseAugmentation>
 	<ojb-cit-ext:CitationCaseAugmentation>
-		<!-- j:Citation is an ECF required element -->
-		<j:Citation/>
 		<j:CaseCharge>
 			<j:ChargeStatute s:id="CHARGE_01">
 				<j:StatuteOffenseIdentification>
@@ -312,18 +295,4 @@
 		<nc:PersonChildReference s:ref="PERSON_03"/>
 	</nc:ImmediateFamilyAssociation>
 </ojb-cit-doc:CitationCase>
-	<!-- The following elements are required by ECF DOWN -->
-	<cfm:FilingLeadDocument>
-		<ecf:DocumentMetadata>
-			<j:RegisterActionDescriptionText/>
-			<ecf:FilingAttorneyID/>
-			<ecf:FilingPartyID/>
-		</ecf:DocumentMetadata>
-		<ecf:DocumentRendition>
-			<ecf:DocumentRenditionMetadata>
-				<ecf:DocumentAttachment/>
-			</ecf:DocumentRenditionMetadata>
-		</ecf:DocumentRendition>
-	</cfm:FilingLeadDocument>
-	<!-- The following elements are required by ECF UP -->
 </cfm:CoreFilingMessage>
