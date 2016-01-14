@@ -38,7 +38,9 @@
 				<xsd:sequence>
 					<xsd:element ref="nc:Case"/>
 					<xsd:element ref="FilingConfidentialityIndicator" minOccurs="0"/>
-					<xsd:element ref="FilingLeadDocument" maxOccurs="unbounded"/>
+					<!--  OJB Change -->
+					<!--  xsd:element ref="FilingLeadDocument" maxOccurs="unbounded"/-->
+					<xsd:element ref="FilingLeadDocument" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="FilingConnectedDocument" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>

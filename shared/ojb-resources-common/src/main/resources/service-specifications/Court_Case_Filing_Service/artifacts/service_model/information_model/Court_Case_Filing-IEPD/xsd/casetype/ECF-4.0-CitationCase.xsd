@@ -49,7 +49,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="j:Citation"/>
+				<!--  OJB Change -->
+					<!-- xsd:element ref="j:Citation"/-->
+					<xsd:element ref="j:Citation" minOccurs="0"/>
 					<xsd:element ref="j:CaseCharge" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ViolatedStatuteAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:CourtAppearance" minOccurs="0"/>
@@ -70,9 +72,13 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:CaseType">
 				<xsd:sequence>
-					<xsd:element ref="j:CaseAugmentation"/>
+					<!--  OJB Change -->
+				<!-- xsd:element ref="j:CaseAugmentation"/>
 					<xsd:element ref="ecf:CaseAugmentation"/>
-					<xsd:element ref="CitationCaseAugmentation"/>
+					<xsd:element ref="CitationCaseAugmentation"/-->
+					<xsd:element ref="j:CaseAugmentation" minOccurs="0"/>
+					<xsd:element ref="ecf:CaseAugmentation" minOccurs="0"/>
+					<xsd:element ref="CitationCaseAugmentation" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
