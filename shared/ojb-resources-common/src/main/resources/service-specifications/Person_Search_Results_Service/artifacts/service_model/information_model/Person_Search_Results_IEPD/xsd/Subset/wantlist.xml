@@ -32,6 +32,7 @@
   <w:Element w:name="cyfs:Placement" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="cyfs:TribalAffiliationText" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="intel:SystemIdentifier" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Case" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:AddressSecondaryUnitText" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactInformation" w:isReference="false" w:nillable="true"/>
@@ -5048,7 +5049,10 @@
     <w:ElementInType w:name="j:PersonStateFingerprintIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
-  <w:Type w:name="nc:ActivityType" w:isRequested="true"/>
+  <w:Type w:name="nc:ActivityType" w:isRequested="true">
+    <w:ElementInType w:name="nc:ActivityIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
   <w:Type w:name="nc:AddressType" w:isRequested="false">
     <w:ElementInType w:name="nc:AddressRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>

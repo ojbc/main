@@ -41,7 +41,11 @@
       </xsd:appinfo>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="s:ComplexObjectType"/>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="nc:ActivityIdentification" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="AddressType">
@@ -68,6 +72,17 @@
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CaseType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an aggregation of information about a set of related activities and events.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="ActivityType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ActivityType"/>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="ContactInformationType">
@@ -480,6 +495,11 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An identification that references an activity.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="AddressDeliveryPoint" abstract="true">
     <xsd:annotation>
       <xsd:documentation>A single place or unit at which mail is delivered.</xsd:documentation>
@@ -496,6 +516,11 @@
       <xsd:appinfo>
         <i:Base i:name="AddressDeliveryPoint"/>
       </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Case" type="nc:CaseType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ContactInformationReference" type="s:ReferenceType">
