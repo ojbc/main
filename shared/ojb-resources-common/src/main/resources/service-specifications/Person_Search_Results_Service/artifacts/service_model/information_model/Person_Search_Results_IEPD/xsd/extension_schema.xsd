@@ -72,6 +72,7 @@
 					<xsd:element ref="cyfs:Placement" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Case" minOccurs="0"/>
 					<xsd:element ref="nc:ResidenceAssociation" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="psres-ext:ParentChildAssociation" minOccurs="0" maxOccurs="unbounded"/>	

@@ -28,6 +28,18 @@
   <xsd:import schemaLocation="../../../appinfo/2.1/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.1"/>
   <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
   <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:complexType name="CaseType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an applied augmentation for type nc:CaseType</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="CaseType"/>
+        <i2:AugmentedTypeIndicator>true</i2:AugmentedTypeIndicator>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:CaseType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="OrganizationType">
     <xsd:annotation>
       <xsd:documentation>A data type for an applied augmentation for type nc:OrganizationType</xsd:documentation>
@@ -57,6 +69,14 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:element name="Case" type="j:CaseType" substitutionGroup="nc:Case" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Applied augmentation for type nc:CaseType</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="Case"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="PersonAugmentation" type="j:PersonAugmentationType" substitutionGroup="s:Augmentation" nillable="true">
     <xsd:annotation>
       <xsd:documentation>Additional information about a person.</xsd:documentation>
