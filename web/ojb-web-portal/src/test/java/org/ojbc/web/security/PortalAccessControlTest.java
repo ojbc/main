@@ -140,7 +140,7 @@ public class PortalAccessControlTest {
     @DirtiesContext
     public void denyAccessToNonCurrentUser() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
-        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:aowen");
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:hpotter");
         customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
         
         Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
