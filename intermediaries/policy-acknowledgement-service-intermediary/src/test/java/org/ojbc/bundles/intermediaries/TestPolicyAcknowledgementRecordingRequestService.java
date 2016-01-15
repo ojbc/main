@@ -178,13 +178,13 @@ public class TestPolicyAcknowledgementRecordingRequestService {
         String requestBody = FileUtils.readFileToString(inputFile);
 
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
-        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:aowen");
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:hpotter");
         customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
 
         org.apache.cxf.message.Message message = createSamlAssertionMessageWithAttributes(customAttributes);
         
         //Pass the ORIs in the SAML assertion to the DAO method. 
-        List<Policy> outStandingPoliciesForOwen = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:aowen", "H00000001"); 
+        List<Policy> outStandingPoliciesForOwen = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:hpotter", "H00000001"); 
         assertEquals(outStandingPoliciesForOwen.size(), 2); 
         assertTrue(outStandingPoliciesForOwen.get(0).getId() == 1); 
         assertTrue(outStandingPoliciesForOwen.get(1).getId() == 3); 
@@ -199,7 +199,7 @@ public class TestPolicyAcknowledgementRecordingRequestService {
         template.sendBodyAndHeaders("direct:acknowlegePolicies", requestBody,
                 headers);
         //Pass the ORIs in the SAML assertion to the DAO method. 
-        List<Policy> outStandingPoliciesForOwenAfter = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:aowen", "H00000001"); 
+        List<Policy> outStandingPoliciesForOwenAfter = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:hpotter", "H00000001"); 
         assertTrue(outStandingPoliciesForOwenAfter.isEmpty()); 
         
         resultEndpoint.assertIsSatisfied();
@@ -214,13 +214,13 @@ public class TestPolicyAcknowledgementRecordingRequestService {
         String requestBody = FileUtils.readFileToString(inputFile);
 
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
-        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:aowen");
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:hpotter");
         customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
 
         org.apache.cxf.message.Message message = createSamlAssertionMessageWithAttributes(customAttributes);
         
         //Pass the ORIs in the SAML assertion to the DAO method. 
-        List<Policy> outStandingPoliciesForOwen = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:aowen", "H00000001"); 
+        List<Policy> outStandingPoliciesForOwen = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:hpotter", "H00000001"); 
         assertEquals(outStandingPoliciesForOwen.size(), 2); 
         assertTrue(outStandingPoliciesForOwen.get(0).getId() == 1); 
         assertTrue(outStandingPoliciesForOwen.get(1).getId() == 3); 
@@ -236,7 +236,7 @@ public class TestPolicyAcknowledgementRecordingRequestService {
                 headers);
         
         //Pass the ORIs in the SAML assertion to the DAO method. 
-        List<Policy> outStandingPoliciesForOwenAfter = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:aowen", "H00000001"); 
+        List<Policy> outStandingPoliciesForOwenAfter = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:hpotter", "H00000001"); 
         assertEquals(outStandingPoliciesForOwenAfter.size(), 2); 
         assertTrue(outStandingPoliciesForOwenAfter.get(0).getId() == 1); 
         assertTrue(outStandingPoliciesForOwenAfter.get(1).getId() == 3); 

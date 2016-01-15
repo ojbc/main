@@ -28,7 +28,7 @@ public class IdentityBasedAccessControlMockImpl implements IdentityBasedAccessCo
     
     private static final String VALID_USER_WITH_SUBSCRIPTION="HIJIS:IDP:HCJDC:USER:demouser"; 
     private static final String VALID_USER_WITHOUT_SUBSCRIPTION="HIJIS:IDP:HCJDC:USER:demouser1"; 
-    private static final String NON_CURRENT_USER_ID="HIJIS:IDP:HCJDC:USER:aowen"; 
+    private static final String NON_CURRENT_USER_ID="HIJIS:IDP:HCJDC:USER:hpotter"; 
     private static final String INVALID_USER_ID="HIJIS:IDP:HCJDC:USER:demouser3";
     
     @Value("${policy.accesscontrol.requestedresource:}")
