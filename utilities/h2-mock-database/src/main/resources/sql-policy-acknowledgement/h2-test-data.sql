@@ -16,8 +16,8 @@
  */
 /*This is the default test data loaded into h2 when this is deployed */
 
-insert into ojbc_user(id, federation_id, create_date) values ('1','HIJIS:IDP:HCJDC:USER:aowen', {ts '2010-09-17 18:47:52.69'});
-insert into ojbc_user(id, federation_id, create_date) values ('2','HIJIS:IDP:HCJDC:USER:ychawla',  {ts '2011-09-17 18:47:52.69'});
+insert into ojbc_user(id, federation_id, create_date) values ('1','HIJIS:IDP:HCJDC:USER:hpotter', {ts '2010-09-17 18:47:52.69'});
+insert into ojbc_user(id, federation_id, create_date) values ('2','HIJIS:IDP:HCJDC:USER:hsimpson',  {ts '2011-09-17 18:47:52.69'});
 
 insert into policy(id,policy_uri,policy_location, active, update_date) values('1', 'http://ojbc.org/policies/privacy/hawaii/ManualSubscriptionPolicy', 'http://hijis.hawaii.gov/privacy-policies/ManualSubscriptionPolicy.html', 'true', {ts '2012-09-17 18:47:52.69'});
 insert into policy(id,policy_uri,policy_location, active, update_date) values('2', 'http://ojbc.org/policies/privacy/hawaii/MockSubscriptionPolicy', 'http://hijis.hawaii.gov/privacy-policies/MockSubscriptionPolicy.html', 'true', {ts '2012-09-17 18:47:52'});
