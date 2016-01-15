@@ -59,6 +59,7 @@
 					<xsd:element ref="oirs-res-ext:Subscription" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SubsequentResultsAvailableIndicator" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:IdentificationReasonRepresentation" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:IdentificationReportedDate" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SourceSystemNameText" minOccurs="0"/>
 					<xsd:element ref="intel:SystemIdentification" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SearchResultCategoryText" minOccurs="0"/>
@@ -318,6 +319,12 @@
 	<xsd:element name="IdentificationReasonRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A representation of a reason why someone is being identified.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="IdentificationReportedDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date that a person's identification was reported by an identifying authority.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	
