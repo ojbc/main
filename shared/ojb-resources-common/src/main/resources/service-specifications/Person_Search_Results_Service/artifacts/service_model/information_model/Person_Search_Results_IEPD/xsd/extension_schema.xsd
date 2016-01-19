@@ -69,7 +69,7 @@
 				<xsd:sequence>
 					<xsd:element ref="psres-ext:Person" />
 					<xsd:element ref="psres-ext:Parent" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="cyfs:Placement" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cyfs:Placement" minOccurs="0" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Case" minOccurs="0"/>
