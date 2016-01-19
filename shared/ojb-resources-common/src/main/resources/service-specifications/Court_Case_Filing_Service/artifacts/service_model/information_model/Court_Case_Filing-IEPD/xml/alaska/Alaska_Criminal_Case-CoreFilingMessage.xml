@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<CoreFilingMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
+<CoreFilingMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0 ../../xsd/casetype/ECF-4.0-CriminalCase.xsd">
 	<!--nc:DocumentCategoryText>String</nc:DocumentCategoryText-->
 	<!--nc:DocumentCreationDate>
 		<nc:Date>1967-08-13</nc:Date>
@@ -36,7 +36,7 @@
 	</ecf:SendingMDELocationID>
 	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID</ecf:SendingMDEProfileCode>
 	<!-- The following elements are required by ECF UP -->
-	<criminal:CriminalCase xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0 ../xsd/casetype/ECF-4.0-CriminalCase.xsd">
+	<criminal:CriminalCase>
 		<nc:CaseCategoryText>Case Category Text</nc:CaseCategoryText>
 		<nc:CaseTrackingID>String</nc:CaseTrackingID>
 		<nc:CaseDocketID>String</nc:CaseDocketID>
