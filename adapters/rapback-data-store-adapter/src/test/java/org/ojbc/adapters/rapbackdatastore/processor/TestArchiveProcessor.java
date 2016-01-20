@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl;
@@ -29,6 +30,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.HierarchyMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
@@ -41,7 +43,6 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestArchiveProcessor {
 
 	private final Log log = LogFactory.getLog(this.getClass());
@@ -55,6 +56,7 @@ public class TestArchiveProcessor {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testProcessArchiveResult() throws Exception
 	{
 		ArchiveProcessor archiveProcessor = new ArchiveProcessor();
@@ -70,6 +72,7 @@ public class TestArchiveProcessor {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testProcessArchiveError() throws Exception
 	{
 		ArchiveProcessor archiveProcessor = new ArchiveProcessor();
