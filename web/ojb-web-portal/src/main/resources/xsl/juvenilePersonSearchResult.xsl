@@ -136,7 +136,7 @@
             	<td><xsl:value-of select="$entityCount"/></td>
                 <td><xsl:apply-templates select="$personName" mode="primaryName"></xsl:apply-templates>
                 </td>
-            	<td ><xsl:value-of select="ext:InformationOwningOrganization/nc:OrganizationName"></xsl:value-of></td>
+            	<td ><xsl:value-of select="ext1:InformationOwningOrganization/nc:OrganizationName"></xsl:value-of></td>
             	<td ><xsl:apply-templates select="$person/nc:PersonAlternateName"/></td>
             	<td>
             		<xsl:if test="$person/nc:PersonBirthDate/nc:Date[. != '']">
@@ -151,7 +151,7 @@
             			<xsl:with-param name="ssn" select="$person/nc:PersonSSNIdentification/nc:IdentificationID" />
             		</xsl:call-template>
             	</td>
-            	<td><xsl:value-of select="$person/j:Case/nc:ActivityIdentification/nc:IdentificationID" /></td>
+            	<td><xsl:value-of select="j:Case/nc:ActivityIdentification/nc:IdentificationID" /></td>
             	<td><xsl:value-of select="cyfs:Placement/micodes:PlacementCategoryCode"/></td>
             	<td><xsl:apply-templates select="ext:Parent/nc:PersonName"/></td>
                 <td><xsl:value-of select="$person/nc:PersonRaceCode" /></td>
