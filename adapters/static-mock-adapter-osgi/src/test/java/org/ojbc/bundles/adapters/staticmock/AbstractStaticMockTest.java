@@ -16,25 +16,20 @@
  */
 package org.ojbc.bundles.adapters.staticmock;
 
-import java.io.IOException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
-import org.ojbc.util.xml.OjbcNamespaceContext;
-import org.ojbc.util.xml.XmlUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public abstract class AbstractStaticMockTest {
 
@@ -48,7 +43,8 @@ public abstract class AbstractStaticMockTest {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
 		documentBuilder = dbf.newDocumentBuilder();
-		staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", "XpathTestSamples/FirearmRegistration", "XpathTestSamples/JuvenileHistory");
+		staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", 
+				"XpathTestSamples/FirearmRegistration", "XpathTestSamples/JuvenileHistory", "XpathTestSamples/Custody", "XpathTestSamples/CourtCase");				
 	}
 
 	protected Document buildBasePersonSearchRequestMessagePersonNameOnly(String systemId) throws Exception {
