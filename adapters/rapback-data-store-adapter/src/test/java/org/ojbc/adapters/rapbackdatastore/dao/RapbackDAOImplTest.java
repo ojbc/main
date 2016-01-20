@@ -52,8 +52,6 @@ import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -167,9 +165,8 @@ public class RapbackDAOImplTest {
 		rapbackDAO.saveIdentificationTransaction(transaction);
 	}
 
-	@Test
+	@Test(expected=IllegalArgumentException.class)
 	@DirtiesContext
-	@ExpectedException(IllegalArgumentException.class)
 	public void testSaveIdentificationTransactionWithoutSubject() throws Exception {
 		IdentificationTransaction transaction = new IdentificationTransaction(); 
 		transaction.setTransactionNumber(TRANSACTION_NUMBER);
@@ -369,8 +366,7 @@ public class RapbackDAOImplTest {
 		
 	}
 	
-	@Test
-	@ExpectedException(DuplicateKeyException.class)
+	@Test(expected=DuplicateKeyException.class)
 	public void testSaveFbiSubscriptionError() throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
 		fbiRapbackSubscription.setFbiSubscriptionId("12345");
