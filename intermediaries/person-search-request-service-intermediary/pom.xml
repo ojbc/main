@@ -26,7 +26,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>person-search-request-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<name>OJB :: person-search-request-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
