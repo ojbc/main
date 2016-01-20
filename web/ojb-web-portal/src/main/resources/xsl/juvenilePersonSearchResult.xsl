@@ -153,7 +153,7 @@
             	</td>
             	<td><xsl:value-of select="j:Case/nc:ActivityIdentification/nc:IdentificationID" /></td>
             	<td><xsl:value-of select="cyfs:Placement/micodes:PlacementCategoryCode"/></td>
-            	<td><xsl:apply-templates select="ext:Parent/nc:PersonName"/></td>
+            	<td><xsl:apply-templates select="ext1:Parent/nc:PersonName"/></td>
                 <td><xsl:value-of select="$person/nc:PersonRaceCode" /></td>
             	<td><xsl:value-of select="$person/nc:PersonEthnicityCode"/></td>
             	<td><xsl:value-of select="$person/cyfs:PersonAugmentation/cyfs:TribalAffiliationText"/></td>
