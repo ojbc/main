@@ -210,7 +210,7 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="nc:PersonAlternateName | nc20:PersonAlternateName">
+	<xsl:template match="nc:PersonAlternateName | nc20:PersonAlternateName | nc:PersonName | nc20:PersonName">
 		<xsl:choose>
 			<xsl:when test="*:PersonGivenName and *:PersonSurName">
 				 <xsl:value-of select="concat(*:PersonGivenName, ' ', *:PersonSurName)"/>
