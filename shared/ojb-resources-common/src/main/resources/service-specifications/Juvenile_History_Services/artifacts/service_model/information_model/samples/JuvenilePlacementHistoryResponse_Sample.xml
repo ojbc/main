@@ -64,6 +64,11 @@
 				<IdentificationID>100</IdentificationID>
 				<IdentificationSourceText>Court</IdentificationSourceText>
 			</jh-ext:JuvenileInformationRecordID>
+			<cyfs:CourtCase>
+				<ActivityIdentification>
+					<IdentificationID>123456</IdentificationID>
+				</ActivityIdentification>
+			</cyfs:CourtCase>
 		</jh-ext:JuvenileInformationAvailabilityMetadata>
 		<Person structures:id="Child1">
 			<PersonName>
