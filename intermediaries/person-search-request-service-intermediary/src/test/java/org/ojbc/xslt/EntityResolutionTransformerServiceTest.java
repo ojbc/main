@@ -100,6 +100,22 @@ public class EntityResolutionTransformerServiceTest {
         assertEquals("Local Firearms", XmlUtils.xPathStringSearch(errorNode, "intel:SystemName"));
 
     }
+    
+    @Test
+    public void noSearchResultsTranform() throws Exception {
+
+        Document inputDocument = parse("xmlInstances/personSearchResults/personSearchResultsNoResults.xml");
+        Document xsltDocument = parse("xslt/NoPersonSearchResultsToMergeNotificationMessage.xsl");
+
+        Document resultDocument = transform(inputDocument, xsltDocument);
+        
+        assertNotNull(resultDocument);
+        
+        XmlUtils.printNode(resultDocument);
+
+        assertEquals("false", XmlUtils.xPathStringSearch(resultDocument, "emrm-exc:EntityMergeResultMessage/emrm-exc:EntityResolutionPerformedIndicator"));
+
+    }
 
     private Document transform(Document inputDocument, Document xsltDocument) throws TransformerFactoryConfigurationError, Exception {
 
