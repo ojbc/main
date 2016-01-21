@@ -60,12 +60,13 @@ public class StaticMockQuery {
 
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History";
 	
-	public static final String CUSTODY_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest";
+	public static final String CUSTODY_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest";	
+	
+	public static final String CUSTODY_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest";
+	
 	public static final String COURT_CASE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest";
 	
-	public static final String CUSTODY_QUERY_SYSTEM_ID = "{http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0}/TODO";
-	public static final String COURT_CASE_QUERY_SYSTEM_ID = "{http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0}/TODO";
-	
+	public static final String COURT_CASE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest";	
 	
 	public static final String WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants";
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History";
@@ -2066,23 +2067,21 @@ public class StaticMockQuery {
 	private SearchValueXPaths getCustodyXPaths(){
 		
 		SearchValueXPaths xPaths = new SearchValueXPaths();
-		
-		//TODO complete xpath's
-		
+				
 		xPaths.ageXPath = null;
-		xPaths.birthdateXPath = null;
-		xPaths.ssnXPath = null;
-		xPaths.sidXPath = null;
+		xPaths.birthdateXPath = "//nc:PersonBirthDate";
+		xPaths.ssnXPath = "//nc:PersonSSNIdentification/nc:IdentificationID";
+		xPaths.sidXPath = "//nc:PersonStateIdentification/nc:IdentificationID";
 		xPaths.fbiXPath = null;
 		xPaths.dlXPath = null;
 		xPaths.dlJurisdictionXPath = null;
-		xPaths.lastNameXPath = null;
-		xPaths.middleNameXPath = null;
-		xPaths.firstNameXPath = null;
+		xPaths.lastNameXPath = "//nc:PersonName/nc:PersonSurName";
+		xPaths.middleNameXPath = "//nc:PersonName/nc:PersonMiddleName";
+		xPaths.firstNameXPath = "//nc:PersonName/nc:PersonGivenName";
 		xPaths.eyeColorXPath = null;
 		xPaths.hairColorXPath = null;
-		xPaths.raceXPath = null;
-		xPaths.sexXPath = null;
+		xPaths.raceXPath = "//nc:PersonRaceText";
+		xPaths.sexXPath = "//nc:PersonSexText";
 		xPaths.heightXPath = null;
 		xPaths.weightXPath = null;
 		
@@ -2095,25 +2094,23 @@ public class StaticMockQuery {
 	
 	private SearchValueXPaths getCourtCaseXPaths() {
 		
-		SearchValueXPaths xPaths = new SearchValueXPaths();
-		
-		//TODO complete xpath's		
+		SearchValueXPaths xPaths = new SearchValueXPaths();				
 		
 		xPaths.ageXPath = null;
-		xPaths.birthdateXPath = null;
-		xPaths.ssnXPath = null;
-		xPaths.sidXPath = null;
+		xPaths.birthdateXPath = "//nc:PersonBirthDate";
+		xPaths.ssnXPath = "//nc:PersonSSNIdentification/nc:IdentificationID";
+		xPaths.sidXPath = "//nc:PersonStateIdentification/nc:IdentificationID";
 		xPaths.fbiXPath = null;
 		xPaths.dlXPath = null;
 		xPaths.dlJurisdictionXPath = null;
-		xPaths.lastNameXPath = null;
-		xPaths.middleNameXPath = null;
-		xPaths.firstNameXPath = null;
-		xPaths.eyeColorXPath = null;
-		xPaths.hairColorXPath = null;
-		xPaths.raceXPath = null;
-		xPaths.sexXPath = null;
-		xPaths.heightXPath = null;
+		xPaths.lastNameXPath = "//nc:PersonSurName";
+		xPaths.middleNameXPath = "//nc:PersonMiddleName";
+		xPaths.firstNameXPath = "//nc:PersonGivenName";
+		xPaths.eyeColorXPath = "//j:PersonEyeColorCode";
+		xPaths.hairColorXPath = "//j:PersonHairColorCode";
+		xPaths.raceXPath = "//nc:PersonRaceText";
+		xPaths.sexXPath = "//nc:PersonSexText";
+		xPaths.heightXPath = "//nc:PersonHeightMeasure/nc:MeasureValueText";
 		xPaths.weightXPath = null;	
 		
 		xPaths.searchSystemId = COURT_CASE_SEARCH_SYSTEM_ID;
