@@ -16,6 +16,8 @@
  */
 package org.ojbc.bundles.adapters.staticmock;
 
+import java.io.IOException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -30,6 +32,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public abstract class AbstractStaticMockTest {
 
@@ -108,6 +111,23 @@ public abstract class AbstractStaticMockTest {
 		Element systemElement = (Element) XmlUtils.xPathNodeSearch(ret.getDocumentElement(), "psr:SourceSystemNameText");
 		systemElement.setTextContent(systemId);
 		return ret;
+	}
+	
+	protected Document buildCustodySearchRequestMessage(String systemId) throws Exception{
+	
+		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+		
+		Resource resource = resourceResolver.getResource("TestRequestMessages/CustodySearchRequest.xml");
+		
+		Document custodySearchRequestDoc = documentBuilder.parse(resource.getInputStream());
+		
+		Element custodySearchRootElement = custodySearchRequestDoc.getDocumentElement();
+		
+//		Element systemNameElement = (Element) XmlUtils.xPathNodeSearch(custodySearchRootElement, "psr:SourceSystemNameText");
+		
+//		systemNameElement.setTextContent(systemId);
+		
+		return custodySearchRequestDoc;
 	}
 
 	protected Document buildJuvenilePersonSearchRequestMessage(String systemId) throws Exception {
