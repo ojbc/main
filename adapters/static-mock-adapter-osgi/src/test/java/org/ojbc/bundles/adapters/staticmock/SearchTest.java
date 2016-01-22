@@ -63,7 +63,20 @@ public class SearchTest extends AbstractStaticMockTest {
     
     	Document custodySearchRequestDoc = buildCustodySearchRequestMessage(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID);
     	
-    	Document custodySearchResponse = staticMockQuery.searchDocuments(custodySearchRequestDoc);
+    	Document custodySearchResultsResponseDoc = staticMockQuery.searchDocuments(custodySearchRequestDoc);
+    	
+    	XmlUtils.printNode(custodySearchResultsResponseDoc);
+    }
+    
+    
+    @Test
+    public void testSearchCourtCaseDocuments() throws Exception{
+    	
+    	Document courtCaseSearchRequestDoc = buildCourtCaseSearchRequestMessage(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID);
+    	
+    	Document courtCaseSearchResultsResponseDoc = staticMockQuery.searchDocuments(courtCaseSearchRequestDoc);
+    	
+    	XmlUtils.printNode(courtCaseSearchResultsResponseDoc);
     }
     
     
