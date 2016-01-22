@@ -30,33 +30,33 @@
     <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
   </nc:DocumentCreationDate>
   <nc:DocumentIdentification>
-    <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-    <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+    <nc:IdentificationID>doc_01</nc:IdentificationID>
+    <nc:IdentificationCategoryDescriptionText>custody overview</nc:IdentificationCategoryDescriptionText>
   </nc:DocumentIdentification>
-  <cq-res-ext:SourceSystemNameText>cq-res-ext:SourceSystemNameText</cq-res-ext:SourceSystemNameText>
+  <cq-res-ext:SourceSystemNameText>Custody Info Database</cq-res-ext:SourceSystemNameText>
   <!-- Inmate and Custody information -->
   <cq-res-ext:InmateCustody>
      <nc:PersonBirthDate>
           <nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
     </nc:PersonBirthDate>
-    <nc:PersonEthnicityText>nc:PersonEthnicityText</nc:PersonEthnicityText>
+    <nc:PersonEthnicityText>yellow</nc:PersonEthnicityText>
     <nc:PersonName>
-      <nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
-      <nc:PersonMiddleName>nc:PersonMiddleName</nc:PersonMiddleName>
-      <nc:PersonSurName>nc:PersonSurName</nc:PersonSurName>
+      <nc:PersonGivenName>Homer</nc:PersonGivenName>
+      <nc:PersonMiddleName>Jay</nc:PersonMiddleName>
+      <nc:PersonSurName>Simpson</nc:PersonSurName>
     </nc:PersonName>
-    <nc:PersonRaceText>nc:PersonRaceText</nc:PersonRaceText>
-    <nc:PersonSexText>nc:PersonSexText</nc:PersonSexText>
+    <nc:PersonRaceText>yellow</nc:PersonRaceText>
+    <nc:PersonSexText>cartoon</nc:PersonSexText>
     <nc:PersonSSNIdentification>
       <nc:IdentificationID>123-45-6789</nc:IdentificationID>
     </nc:PersonSSNIdentification>
     <nc:PersonStateIdentification>
-      <nc:IdentificationID>CO1298765678</nc:IdentificationID>
+      <nc:IdentificationID>NY123456789</nc:IdentificationID>
     </nc:PersonStateIdentification>
     <j:BailBond>
       <nc:ActivityCategoryText>type of bond</nc:ActivityCategoryText>
       <j:BailBondAmount>
-        <nc:Amount>333330.0</nc:Amount>
+        <nc:Amount>24.99</nc:Amount>
       </j:BailBondAmount>
     </j:BailBond>
     <cq-res-ext:Booking>
@@ -65,12 +65,12 @@
       </j:FingerprintDate>
       <j:BookingSubject>
         <j:SubjectIdentification>
-          <nc:IdentificationID>Booking Number</nc:IdentificationID>
+          <nc:IdentificationID>1234</nc:IdentificationID>
         </j:SubjectIdentification>
       </j:BookingSubject>
       <nc:Image>
         <nc:ImageLocation>
-          <nc:LocationDescriptionText>http://asco.ojbc.org/inmatelookup/image/33334444</nc:LocationDescriptionText>
+          <nc:LocationDescriptionText>http://asco.ojbc.org/inmatelookup/image/1234</nc:LocationDescriptionText>
         </nc:ImageLocation>
       </nc:Image>
     </cq-res-ext:Booking>
@@ -80,12 +80,12 @@
       </j:CourtEventSchedule>
     </j:CaseHearing>
     <j:Charge>
-      <j:ChargeCountQuantity>0</j:ChargeCountQuantity>
-      <j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
+      <j:ChargeCountQuantity>99</j:ChargeCountQuantity>
+      <j:ChargeDescriptionText>speeding</j:ChargeDescriptionText>
       <j:ChargeStatute>
         <j:StatuteCodeIdentification>
-          <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-          <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+          <nc:IdentificationID>321</nc:IdentificationID>
+          <nc:IdentificationCategoryDescriptionText>cartoon</nc:IdentificationCategoryDescriptionText>
         </j:StatuteCodeIdentification>
       </j:ChargeStatute>
     </j:Charge>
@@ -100,22 +100,22 @@
       </nc:ActivityDateRange>
       <nc:SupervisionFacility>
         <nc:FacilityIdentification>
-          <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-          <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+          <nc:IdentificationID>678</nc:IdentificationID>
+          <nc:IdentificationCategoryDescriptionText>Springfield Jail</nc:IdentificationCategoryDescriptionText>
         </nc:FacilityIdentification>
       </nc:SupervisionFacility>
       <j:SupervisionAugmentation>
         <j:SupervisionAreaIdentification>
-          <nc:IdentificationID>Block ID</nc:IdentificationID>
-          <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+          <nc:IdentificationID>246</nc:IdentificationID>
+          <nc:IdentificationCategoryDescriptionText>Row 2</nc:IdentificationCategoryDescriptionText>
         </j:SupervisionAreaIdentification>
         <j:SupervisionBedIdentification>
-          <nc:IdentificationID>Bed ID</nc:IdentificationID>
-          <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+          <nc:IdentificationID>789</nc:IdentificationID>
+          <nc:IdentificationCategoryDescriptionText>Beside Wall</nc:IdentificationCategoryDescriptionText>
         </j:SupervisionBedIdentification>
         <j:SupervisionCellIdentification>
-          <nc:IdentificationID>Cell ID</nc:IdentificationID>
-          <nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+          <nc:IdentificationID>456</nc:IdentificationID>
+          <nc:IdentificationCategoryDescriptionText>Cell 2</nc:IdentificationCategoryDescriptionText>
         </j:SupervisionCellIdentification>
       </j:SupervisionAugmentation>
       <cq-res-ext:HoldForImmigrationIndicator>true</cq-res-ext:HoldForImmigrationIndicator>
@@ -127,7 +127,7 @@
         </j:SentenceCondition>
       </j:ChargeSentence>
       <nc:Organization>
-        <nc:OrganizationName>Holding for Agency</nc:OrganizationName>
+        <nc:OrganizationName>Springfield PD</nc:OrganizationName>
       </nc:Organization>
     </cq-res-ext:Supervision>
   </cq-res-ext:InmateCustody>
