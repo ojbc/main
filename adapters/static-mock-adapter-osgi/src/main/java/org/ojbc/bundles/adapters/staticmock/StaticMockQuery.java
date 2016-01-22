@@ -969,29 +969,27 @@ public class StaticMockQuery {
 		Element custodySearchResultElement = custodySearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RESULTS, "CustodySearchResult");
 		custodySearchResultElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RESULTS);
 		
-		XmlUtils.addAttribute(custodySearchResultElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Result_" + resultId);		
-		
-		Date currentDate = new Date();
-		//TODO confirm format and current date or read in from static query result file?
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String sCurrentDate = sdf.format(currentDate);		
+		XmlUtils.addAttribute(custodySearchResultElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Result_" + resultId);				
 				
 		Element docCreateDate = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_NC_30, "DocumentCreationDate");
 		
 		Element docCreateDateTime = XmlUtils.appendElement(docCreateDate, OjbcNamespaceContext.NS_NC_30, "DateTime");
-		docCreateDateTime.setTextContent(sCurrentDate);
+		
+		String sDocCreationDate = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:DocumentCreationDate/nc30:DateTime");
+		
+		docCreateDateTime.setTextContent(sDocCreationDate);
 								
 		Element docIdElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_NC_30, "DocumentIdentification");
 		
 		
-		String documentId = XmlUtils.xPathStringSearch(custodyQueryResult, "/cq-res-ech:CustodyQueryResults/nc:DocumentIdentification/nc:IdentificationID");
+		String documentId = XmlUtils.xPathStringSearch(custodyQueryResult, "/cq-res-ech:CustodyQueryResults/nc30:DocumentIdentification/nc30:IdentificationID");
 		
 		Element docIdValElement = XmlUtils.appendElement(docIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
 		docIdValElement.setTextContent(documentId);
 
 		
 		String idCatDesTxtValue = XmlUtils.xPathStringSearch(custodyQueryResult, 
-				"/cq-res-ech:CustodyQueryResults/nc:DocumentIdentification/nc:IdentificationCategoryDescriptionText");
+				"/cq-res-ech:CustodyQueryResults/nc30:DocumentIdentification/nc30:IdentificationCategoryDescriptionText");
 		
 		Element idCatDescTxtElement = XmlUtils.appendElement(docIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
 		idCatDescTxtElement.setTextContent(idCatDesTxtValue);
@@ -1007,7 +1005,7 @@ public class StaticMockQuery {
 		Element dobDateTimeElement = XmlUtils.appendElement(personDob, OjbcNamespaceContext.NS_NC_30, "DateTime");
 		
 		
-		String dobVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//cq-res-ext:InmateCustody/nc:PersonBirthDate/nc:DateTime");
+		String dobVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//cq-res-ext:InmateCustody/nc30:PersonBirthDate/nc30:DateTime");
 		
 		dobDateTimeElement.setTextContent(dobVal);
 		
@@ -1015,33 +1013,40 @@ public class StaticMockQuery {
 
 		Element personGivenNameElement = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
 		
-		String personGivenName = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc:PersonName/nc:PersonGivenName");
+		String personGivenName = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonName/nc30:PersonGivenName");
 		
 		personGivenNameElement.setTextContent(personGivenName);
 		
 		Element middleNameElement = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
 		
-		String middleNameVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc:PersonName/nc:PersonMiddleName");
+		String middleNameVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonName/nc30:PersonMiddleName");
 		
 		middleNameElement.setTextContent(middleNameVal);
 		
 		
-		String surNameVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc:PersonName/nc:PersonSurName");
+		String surNameVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonName/nc30:PersonSurName");
 		
 		Element surName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
 		surName.setTextContent(surNameVal);			
 		
-		String personSexVal = XmlUtils.xPathStringSearch(custodyQueryResult, "nc:PersonSexText");		
+		String personSexVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonSexText");		
 		Element personSexTxt = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonSexText");
 		personSexTxt.setTextContent(personSexVal);
 		
 		Element personSSNIdentification = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonSSNIdentification");
 		
-		String ssnVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc:PersonSSNIdentification/nc:IdentificationID");
+		String ssnVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonSSNIdentification/nc30:IdentificationID");
 		
 		Element ssnIdVal = XmlUtils.appendElement(personSSNIdentification, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-		ssnIdVal.setTextContent(ssnVal);
-
+		ssnIdVal.setTextContent(ssnVal);		
+		
+		Element personStateIdElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonStateIdentification");
+		
+		Element personStateIdValElement = XmlUtils.appendElement(personStateIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		String personSidVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonStateIdentification/nc30:IdentificationID");		
+		personStateIdValElement.setTextContent(personSidVal);
+		
 		
 		Element booking = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "Booking");		
 		XmlUtils.addAttribute(booking, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Booking" + resultId);
@@ -1050,21 +1055,21 @@ public class StaticMockQuery {
 		
 		Element fingerprintDateTime = XmlUtils.appendElement(fingerprintDate, OjbcNamespaceContext.NS_NC_30, "DateTime");
 		
-		String bookingDateVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//cq-res-ext:Booking/jxdm51:FingerprintDate/nc:DateTime");
+		String bookingDateVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//cq-res-ext:Booking/jxdm51:FingerprintDate/nc30:DateTime");
 		fingerprintDateTime.setTextContent(bookingDateVal);
 		
 		Element bookingSubjectElement = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_JXDM_51, "BookingSubject");
 		Element bookingSubjIdElement = XmlUtils.appendElement(bookingSubjectElement, OjbcNamespaceContext.NS_JXDM_51, "SubjectIdentification");
 		Element bookingSubjIdValElement = XmlUtils.appendElement(bookingSubjIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
 		
-		String bookingSubjIdVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc:IdentificationID");		
+		String bookingSubjIdVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");		
 		bookingSubjIdValElement.setTextContent(bookingSubjIdVal);
 		
 		Element imageElement = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_NC_30, "Image");
 		Element imgLocElement = XmlUtils.appendElement(imageElement, OjbcNamespaceContext.NS_NC_30, "ImageLocation");
 		Element imgLocDescTxtElement = XmlUtils.appendElement(imgLocElement, OjbcNamespaceContext.NS_NC_30, "LocationDescriptionText");
 						
-		String imgLocDescTxt = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc:Image/nc:ImageLocation/nc:LocationDescriptionText");
+		String imgLocDescTxt = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:Image/nc30:ImageLocation/nc30:LocationDescriptionText");
 		imgLocDescTxtElement.setTextContent(imgLocDescTxt);
 
 		Element charge = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");		
@@ -1088,13 +1093,13 @@ public class StaticMockQuery {
 		
 		Element statCodeIdValElement = XmlUtils.appendElement(statuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
 		
-		String chargeStatuteVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:ChargeStatute/jxdm51:StatuteCodeIdentification/nc:IdentificationID");
+		String chargeStatuteVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:ChargeStatute/jxdm51:StatuteCodeIdentification/nc30:IdentificationID");
 		
 		statCodeIdValElement.setTextContent(chargeStatuteVal);
 		
 		Element statCodeIdCatDescTxtElement = XmlUtils.appendElement(statuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
 		
-		String idCatDescTxtVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:ChargeStatute/jxdm51:StatuteCodeIdentification/nc:IdentificationCategoryDescriptionText");
+		String idCatDescTxtVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:ChargeStatute/jxdm51:StatuteCodeIdentification/nc30:IdentificationCategoryDescriptionText");
 		
 		statCodeIdCatDescTxtElement.setTextContent(idCatDescTxtVal);
 		
@@ -1106,8 +1111,7 @@ public class StaticMockQuery {
 				
 		Element personCharge = XmlUtils.appendElement(personChargeAssociation, OjbcNamespaceContext.NS_JXDM_51, "Charge");
 		XmlUtils.addAttribute(personCharge, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Charge_" + resultId);
-		
-		
+				
 		Element activityChargeAssociation = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityChargeAssociation");
 				
 		Element activity = XmlUtils.appendElement(activityChargeAssociation, OjbcNamespaceContext.NS_NC_30, "Activity");
@@ -1117,31 +1121,34 @@ public class StaticMockQuery {
 		XmlUtils.addAttribute(activityCharge, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Charge_" + resultId);
 		
 		
-		Element SourceSystemNameText = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "SourceSystemNameText");
+		Element sourceSystemNameTextElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "SourceSystemNameText");
 		
-		String sourceSysTxt = XmlUtils.xPathStringSearch(custodyQueryResult, "//cq-res-ech:CustodyQueryResults/cq-res-ext:SourceSystemNameText");		
-		SourceSystemNameText.setTextContent(sourceSysTxt);
+		String sourceSystemNameText = XmlUtils.xPathStringSearch(custodyQueryResult, "//cq-res-ech:CustodyQueryResults/cq-res-ext:SourceSystemNameText");
+		
+		sourceSystemNameTextElement.setTextContent(sourceSystemNameText);
 		
 		Element systemIdentification = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_INTEL_31, "SystemIdentification");
 		
-		// TODO correct mapping
 		Element systemIdVal = XmlUtils.appendElement(systemIdentification, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
 		systemIdVal.setTextContent(CUSTODY_SEARCH_SYSTEM_ID);
 		
 		Element systemName = XmlUtils.appendElement(systemIdentification, OjbcNamespaceContext.NS_NC_30, "SystemName");
-		systemName.setTextContent(CUSTODY_SEARCH_SYSTEM_ID);
+		
+		systemName.setTextContent(sourceSystemNameText);
 		
 		Element searchResultCategoryText = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "SearchResultCategoryText");
+				  
+		String idCatDescTxt = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:DocumentIdentification/nc30:IdentificationCategoryDescriptionText");
 		
-		// TODO correct mapping
-		String idCatDescTxt = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc:DocumentIdentification/nc:IdentificationCategoryDescriptionText");		
+		// TODO confirm value		
 		searchResultCategoryText.setTextContent(idCatDescTxt);
 		
 		Element infoOwningOrgElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "InformationOwningOrganization");
 		
 		Element organizationBranchNameElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
 		
-		String orgNameVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc:Organization/nc:OrganizationName");
+		String orgNameVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:Organization/nc30:OrganizationName");
 		
 		organizationBranchNameElement.setTextContent(orgNameVal);
 		
@@ -1150,15 +1157,14 @@ public class StaticMockQuery {
 		organizationName.setTextContent(orgNameVal);
 		
 		Element metaData = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_NC_30, "Metadata");		
-		XmlUtils.addAttribute(metaData, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "M" + resultId);
-		
+		XmlUtils.addAttribute(metaData, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "M" + resultId);		
 		
 		Element lastUpdatedDate = XmlUtils.appendElement(metaData, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");
 		
 		Element lastUpdatedDateVal = XmlUtils.appendElement(lastUpdatedDate, OjbcNamespaceContext.NS_NC_30, "Date");
 		
-		//TODO correct mapping
-		lastUpdatedDateVal.setTextContent(sCurrentDate);		
+		//TODO confirm value
+		lastUpdatedDateVal.setTextContent(sDocCreationDate);		
 		
 		return custodySearchResultElement;
 	}
