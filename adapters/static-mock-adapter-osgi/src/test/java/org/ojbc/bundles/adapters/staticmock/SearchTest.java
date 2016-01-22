@@ -27,14 +27,10 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
-import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
+import org.joda.time.DateTime;
+import org.junit.Test;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
-
-import org.joda.time.DateTime;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -60,6 +56,17 @@ public class SearchTest extends AbstractStaticMockTest {
         response = staticMockQuery.searchDocuments(request);
         assertNotNull(XmlUtils.xPathNodeListSearch(response, "/firearm-search-resp-doc:FirearmSearchResults"));
     }
+    
+    
+    @Test
+    public void testSearchCustodyDocuments() throws Exception{
+    
+    	Document custodySearchRequestDoc = buildCustodySearchRequestMessage(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID);
+    	
+    	Document custodySearchResponse = staticMockQuery.searchDocuments(custodySearchRequestDoc);
+    }
+    
+    
 
     @Test
     public void testInvalidRequestMessage() throws Exception {
