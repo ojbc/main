@@ -698,7 +698,7 @@ public class StaticMockQuery {
 		
 		Element courtCaseSearchResultElement = courtCaseSearchResultsDocument.createElementNS(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS, "CourtCaseSearchResult");	
 		
-		courtCaseSearchResultElement.setPrefix(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS);
+		courtCaseSearchResultElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
 		
 		XmlUtils.addAttribute(courtCaseSearchResultElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Result_" + resultId);
 		
@@ -747,7 +747,8 @@ public class StaticMockQuery {
 		
 		Element idCatDescTxt = XmlUtils.appendElement(caseOtherId, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText"); 
 		
-		String idCatDescTxtVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//j:StatuteCodeIdentification/nc:IdentificationCategoryDescriptionText");
+		String idCatDescTxtVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, 
+				"//jxdm51:StatuteCodeIdentification/nc:IdentificationCategoryDescriptionText");
 		
 		idCatDescTxt.setTextContent(idCatDescTxtVal);
 		
@@ -766,14 +767,14 @@ public class StaticMockQuery {
 		
 		personDobValue.setTextContent(dobVal);
 		
-		String eyeColorVal =  XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Person/j:PersonEyeColorCode");
+		String eyeColorVal =  XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Person/jxdm51:PersonEyeColorCode");
 
 		Element eyeColorElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonEyeColorText");
 		eyeColorElement.setTextContent(eyeColorVal);
 					
 		Element hairColor = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHairColorText");
 		
-		String hairColorVal =  XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Person/j:PersonHairColorCode");
+		String hairColorVal =  XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Person/jxdm51:PersonHairColorCode");
 		hairColor.setTextContent(hairColorVal);
 		
 		Element height = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
@@ -839,7 +840,8 @@ public class StaticMockQuery {
 		Element driverLicenseIdVal = XmlUtils.appendElement(driverLicenseId, OjbcNamespaceContext.NS_NC_30, "IdentificationID"); 
 		
 		
-		String drivLicVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//j:DriverLicense/j:DriverLicenseIdentification/nc:IdentificationID");
+		String drivLicVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, 
+				"//jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc:IdentificationID");
 				
 		driverLicenseIdVal.setTextContent(drivLicVal);
 		
@@ -847,7 +849,8 @@ public class StaticMockQuery {
 		Element drivLicIdSrcTxtElement = XmlUtils.appendElement(driverLicenseId, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText");
 		
 		
-		String dlSourceTxt = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//j:DriverLicense/j:DriverLicenseIdentification/nc:IdentificationSourceText");
+		String dlSourceTxt = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, 
+				"//jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc:IdentificationSourceText");
 		
 		drivLicIdSrcTxtElement.setTextContent(dlSourceTxt);
 		
@@ -949,7 +952,12 @@ public class StaticMockQuery {
 			courtCaseSearchResultsRootElement.appendChild(courtCaseSearchResultElement);
 			
 			detailResultIndex++;
-		}				
+		}		
+		
+		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
+		
+		ojbcNamespaceContext.populateRootNamespaceDeclarations(courtCaseSearchResultsRootElement);
+		
 		return rCourtCaseSearchResultsDoc;
 	}	
 	
@@ -1184,6 +1192,11 @@ public class StaticMockQuery {
 			
 			resultIndex++;
 		}				
+				
+		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
+		
+		ojbcNamespaceContext.populateRootNamespaceDeclarations(custodySearchResultsRootElement);
+		
 		return rCustodySearchResultsDoc;
 	}	
 	
