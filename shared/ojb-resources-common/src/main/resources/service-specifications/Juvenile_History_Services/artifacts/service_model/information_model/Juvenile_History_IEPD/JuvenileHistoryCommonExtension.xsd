@@ -155,6 +155,7 @@
 				<xsd:sequence>
 					<xsd:element ref="jh-ext:JuvenileInformationOwnerOrganization" minOccurs="0"/>
 					<xsd:element ref="jh-ext:JuvenileInformationRecordID" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cyfs:CourtCase" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

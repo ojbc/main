@@ -21,13 +21,11 @@ import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
-import org.ojbc.util.xml.OjbcNamespaceContext;
-import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.w3c.dom.Document;
@@ -48,7 +46,8 @@ public abstract class AbstractStaticMockTest {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
 		documentBuilder = dbf.newDocumentBuilder();
-		staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", "XpathTestSamples/FirearmRegistration", "XpathTestSamples/JuvenileHistory");
+		staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", 
+				"XpathTestSamples/FirearmRegistration", "XpathTestSamples/JuvenileHistory", "XpathTestSamples/Custody", "XpathTestSamples/CourtCase");				
 	}
 
 	protected Document buildBasePersonSearchRequestMessagePersonNameOnly(String systemId) throws Exception {
@@ -113,6 +112,36 @@ public abstract class AbstractStaticMockTest {
 		systemElement.setTextContent(systemId);
 		return ret;
 	}
+	
+	protected Document buildCustodySearchRequestMessage(String systemId) throws Exception{
+	
+		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+		
+		Resource resource = resourceResolver.getResource("TestRequestMessages/CustodySearchRequest.xml");
+		
+		Document custodySearchRequestDoc = documentBuilder.parse(resource.getInputStream());
+		
+		Element custodySearchRootElement = custodySearchRequestDoc.getDocumentElement();
+		
+//		Element systemNameElement = (Element) XmlUtils.xPathNodeSearch(custodySearchRootElement, "psr:SourceSystemNameText");
+		
+//		systemNameElement.setTextContent(systemId);
+		
+		return custodySearchRequestDoc;
+	}
+	
+	
+	protected Document buildCourtCaseSearchRequestMessage(String systemId) throws SAXException, IOException{
+		
+		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+		
+		Resource resource = resourceResolver.getResource("TestRequestMessages/CourtCaseSearchRequest.xml");
+		
+		Document courtCaseSearchRequestDoc = documentBuilder.parse(resource.getInputStream());
+		
+		return courtCaseSearchRequestDoc;		
+	}
+	
 
 	protected Document buildJuvenilePersonSearchRequestMessage(String systemId) throws Exception {
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();

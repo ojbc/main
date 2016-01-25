@@ -322,17 +322,4 @@
 		<span class="error">System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.</span><br />
 	</xsl:template>
 	
-	<xsl:template match="nc:PersonAlternateName">
-		<xsl:choose>
-			<xsl:when test="nc:PersonGivenName or nc:PersonSurName">
-				 <xsl:value-of select="concat(nc:PersonGivenName, ' ', nc:PersonSurName)"/>
-			</xsl:when>
-			<xsl:when test="nc:PersonFullName">
-				<xsl:value-of select="nc:PersonFullName"/>
-			</xsl:when>
-		</xsl:choose>
-       <xsl:if test="position() != last()">
-           <xsl:text>, </xsl:text>
-       </xsl:if>
-	</xsl:template>
 </xsl:stylesheet>

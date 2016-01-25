@@ -16,7 +16,9 @@
  */
 package org.ojbc.bundles.adapters.staticmock;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -50,14 +52,22 @@ public class StaticMockQuery {
 	private static final String WARRANT_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/Warrant";
 	private static final String INCIDENT_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/Incident";
 	private static final String FIREARM_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/FirearmRegistration";
-	private static final String JUVENILE_HISTORY_SAMPLES_DIRECTORY = "static-instances/JuvenileHistory";
+	private static final String JUVENILE_HISTORY_SAMPLES_DIRECTORY = "static-instances/JuvenileHistory";	
+	private static final String CUSTODY_SAMPLES_DIRECTORY = "static-instances/Custody";
+	private static final String COURT_CASE_SAMPLES_DIRECTORY = "static-instances/CourtCase";
 
 	static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History";
 	
-	public static final String CUSTODY_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest";
+	public static final String CUSTODY_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest";	
+	
+	public static final String CUSTODY_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest";
+	
 	public static final String COURT_CASE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest";
+	
+	public static final String COURT_CASE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest";
+		
 	
 	public static final String WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants";
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History";
@@ -75,26 +85,30 @@ public class StaticMockQuery {
 	public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByPerson";
 	public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByFirearm";;
 
-	private ClasspathXmlDataSource criminalHistoryDataSource;
-	//TODO init
-	private ClasspathXmlDataSource custodyDataSource;	
+	private ClasspathXmlDataSource criminalHistoryDataSource;	
+	private ClasspathXmlDataSource custodyDataSource;
+	private ClasspathXmlDataSource courtCaseDataSource;	
 	private ClasspathXmlDataSource warrantDataSource;
 	private ClasspathXmlDataSource incidentDataSource;
 	private ClasspathXmlDataSource firearmRegistrationDataSource;
-
 	private ClasspathXmlDataSource juvenileHistoryDataSource;
 
 	public StaticMockQuery() {
-		this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, FIREARM_PRODUCTION_SAMPLES_DIRECTORY, JUVENILE_HISTORY_SAMPLES_DIRECTORY);
+		this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, 
+				FIREARM_PRODUCTION_SAMPLES_DIRECTORY, JUVENILE_HISTORY_SAMPLES_DIRECTORY, CUSTODY_SAMPLES_DIRECTORY, COURT_CASE_SAMPLES_DIRECTORY);
 	}
 
-	StaticMockQuery(String criminalHistorySampleInstanceDirectoryRelativePath, String warrantSampleInstanceDirectoryRelativePath, String incidentSampleInstanceDirectoryRelativePath, String firearmSampleInstanceDirectoryRelativePath,
-			String juvenileHistorySampleInstanceDirectoryRelativePath) {
+	StaticMockQuery(String criminalHistorySampleInstanceDirectoryRelativePath, String warrantSampleInstanceDirectoryRelativePath, 
+			String incidentSampleInstanceDirectoryRelativePath, String firearmSampleInstanceDirectoryRelativePath,
+			String juvenileHistorySampleInstanceDirectoryRelativePath, String custodySampleDir, String courtCaseSampleDir) {
+		
 		criminalHistoryDataSource = new ClasspathXmlDataSource(criminalHistorySampleInstanceDirectoryRelativePath);
 		warrantDataSource = new ClasspathXmlDataSource(warrantSampleInstanceDirectoryRelativePath);
 		incidentDataSource = new ClasspathXmlDataSource(incidentSampleInstanceDirectoryRelativePath);
 		firearmRegistrationDataSource = new ClasspathXmlDataSource(firearmSampleInstanceDirectoryRelativePath);
-		juvenileHistoryDataSource = new ClasspathXmlDataSource(juvenileHistorySampleInstanceDirectoryRelativePath);
+		juvenileHistoryDataSource = new ClasspathXmlDataSource(juvenileHistorySampleInstanceDirectoryRelativePath);		
+		custodyDataSource = new ClasspathXmlDataSource(custodySampleDir);
+		courtCaseDataSource = new ClasspathXmlDataSource(courtCaseSampleDir);
 	}
 
 	/**
@@ -246,6 +260,10 @@ public class StaticMockQuery {
 			return queryPersonFirearmRegistrationDocuments(documentId);
 		} else if (JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID.equals(systemId)) {
 			return queryJuvenileHistoryDocuments(documentId, context);
+		} else if(CUSTODY_QUERY_SYSTEM_ID.equals(systemId)){
+			return queryCustodyDocuments(documentId);
+		} else if(COURT_CASE_QUERY_SYSTEM_ID.equals(systemId)){
+			return queryCourtCaseDocuments(documentId);						
 		} else {
 			throw new IllegalArgumentException("Unknown system name: " + systemId);
 		}
@@ -295,20 +313,24 @@ public class StaticMockQuery {
 		if (OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "PersonSearchRequest".equals(rootLocalName)) {
 			return personSearchDocuments(searchRequestMessage, baseDate);
 								
-		}else if(OjbcNamespaceContext.NS_CUSTODY_SEARCH_REQUEST.equals(rootNamespaceURI)){
+		}else if(OjbcNamespaceContext.NS_CUSTODY_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "CustodySearchRequest".equals(rootLocalName)){			
 			return custodySearchDocuments(searchRequestMessage, baseDate);			
 		
-		}else if(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_REQUEST.equals(rootNamespaceURI)){
+		}else if(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "CourtCaseSearchRequest".equals(rootLocalName)){			
 			return courtCaseSearchDocuments(searchRequestMessage, baseDate);
 						
 		} else if (OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentPersonSearchRequest".equals(rootLocalName)) {
 			return incidentPersonSearchDocuments(searchRequestMessage, baseDate);
+			
 		} else if (OjbcNamespaceContext.NS_FIREARM_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "FirearmSearchRequest".equals(rootLocalName)) {
 			return firearmSearchDocuments(searchRequestMessage);
+			
 		} else if (OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentSearchRequest".equals(rootLocalName)) {
 			return incidentSearchDocuments(searchRequestMessage, baseDate);
+			
 		} else if (OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentVehicleSearchRequest".equals(rootLocalName)) {
 			return incidentVehicleSearchDocuments(searchRequestMessage, baseDate);
+			
 		} else if (OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "VehicleSearchRequest".equals(rootLocalName)) {
 			return vehicleSearchDocuments(searchRequestMessage, baseDate);
 		}
@@ -671,40 +693,519 @@ public class StaticMockQuery {
 		return db;
 	}
 	
+	
+	
+	Element buildCourtCaseSearchResultElement(Document courtCaseSearchResultsDocument, Document courtCaseDetailDoc, String resultId) throws Exception{
+		
+		Element courtCaseSearchResultElement = courtCaseSearchResultsDocument.createElementNS(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS, "CourtCaseSearchResult");	
+		
+		courtCaseSearchResultElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
+		
+		XmlUtils.addAttribute(courtCaseSearchResultElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Result_" + resultId);
+		
+									
+		// ********* CASE ***************************
+		
+		Element caseElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NC_30, "Case");		
+		XmlUtils.addAttribute(caseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Case_" + resultId);
+		
+		
+		Element caseGenCatTxtElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseGeneralCategoryText");
+		
+		String caseGenCatTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Case/nc30:CaseGeneralCategoryText");
+		
+		caseGenCatTxtElement.setTextContent(caseGenCatTxt);
+		
+		Element caseTrackId = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseTrackingID");
+		
+		String caseTrackingId = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Case/nc30:CaseTrackingID");		
+		caseTrackId.setTextContent(caseTrackingId);
+		
+		Element caseDocketIdElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "nc:CaseDocketID");
+		
+		// TODO get xpath for value
+		String docketIdVal = "";
+		
+		caseDocketIdElement.setTextContent(docketIdVal);						
+		
+		Element caseAugment =  XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_JXDM_51, "CaseAugmentation");
+		
+		Element caseCourt = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseCourt");			
+					
+		Element orgAugment = XmlUtils.appendElement(caseCourt, OjbcNamespaceContext.NS_JXDM_51, "OrganizationAugmentation");
+		
+		Element orgJurisdiction = XmlUtils.appendElement(orgAugment, OjbcNamespaceContext.NS_JXDM_51, "OrganizationJurisdiction");
+		
+		Element jurisdictionTxtElement = XmlUtils.appendElement(orgJurisdiction, OjbcNamespaceContext.NS_NC_30, "JurisdictionText");
+		
+		//TODO get xpath for value
+		String jurisdictionTxtVal = "";
+		
+		jurisdictionTxtElement.setTextContent(jurisdictionTxtVal);
+		
+		
+		Element caseOtherId = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseOtherIdentification");
+		
+		Element idCatDescTxt = XmlUtils.appendElement(caseOtherId, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText"); 
+		
+		String idCatDescTxtVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
+				"//jxdm51:StatuteCodeIdentification/nc30:IdentificationCategoryDescriptionText");
+		
+		idCatDescTxt.setTextContent(idCatDescTxtVal);
+		
+		// ********** PERSON ************
+		
+		Element person =  XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NC_30, "Person");			
+		XmlUtils.addAttribute(person, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Person_" + resultId);		
+		XmlUtils.addAttribute(person, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "M" + resultId);
+		
+		
+		Element personDobElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
+		
+		Element personDobValue = XmlUtils.appendElement(personDobElement, OjbcNamespaceContext.NS_NC_30, "Date");
+		
+		String dobVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Identity/nc30:IdentityPersonRepresentation/nc30:PersonBirthDate/nc30:Date");
+		
+		personDobValue.setTextContent(dobVal);
+		
+		String eyeColorVal =  XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/jxdm51:PersonEyeColorCode");
 
-	Document courtCaseSearchDocuments(Document custodySearchRequestMessage, DateTime baseDate) throws Exception {
+		Element eyeColorElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonEyeColorText");
+		eyeColorElement.setTextContent(eyeColorVal);
+					
+		Element hairColor = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHairColorText");
+		
+		String hairColorVal =  XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/jxdm51:PersonHairColorCode");
+		hairColor.setTextContent(hairColorVal);
+		
+		Element height = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
+		
+		Element measureValueTxt = XmlUtils.appendElement(height, OjbcNamespaceContext.NS_NC_30, "MeasureValueText"); 
+		
+		String heightTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText");
+		
+		measureValueTxt.setTextContent(heightTxt);
+		
+		Element lengthUnitCode = XmlUtils.appendElement(height, OjbcNamespaceContext.NS_NC_30, "LengthUnitCode");
+		
+		
+		String heightUnitTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureUnitText");
+		
+		lengthUnitCode.setTextContent(heightUnitTxt);
+		
+		Element personNameElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element personGivenNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
+		
+		String givenNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:PersonName/nc30:PersonGivenName");
+		
+		personGivenNameElement.setTextContent(givenNameVal);
+		
+		Element personMiddleName = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
+		
+		String middleNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:PersonName/nc30:PersonMiddleName");
+		
+		personMiddleName.setTextContent(middleNameVal);
+		
+		Element personSurNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
+		
+		String personSurNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:PersonName/nc30:PersonSurName");
+		
+		personSurNameElement.setTextContent(personSurNameVal);			
+		
+		Element personRaceCode = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "PersonRaceCode");
+		
+		String raceVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonRaceText");
+		
+		personRaceCode.setTextContent(raceVal);
+					
+		Element personSexCode = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
+		
+		String personSexVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonSexText");
+		
+		personSexCode.setTextContent(personSexVal);
+		
+		Element personWeightMeasure = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonWeightMeasure");
+		Element measureValTxt = XmlUtils.appendElement(personWeightMeasure, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");
+		
+		//TODO
+		String weightVal = "";		
+		measureValTxt.setTextContent(weightVal);
+		
+		Element personAugmentation = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "PersonAugmentation");
+		
+		Element driverLicense = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_51, "DriverLicense");
+		
+		Element driverLicenseId = XmlUtils.appendElement(driverLicense, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseIdentification");
+		
+		Element driverLicenseIdVal = XmlUtils.appendElement(driverLicenseId, OjbcNamespaceContext.NS_NC_30, "IdentificationID"); 
+		
+		
+		String drivLicVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
+				"//jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationID");
 				
-		List<IdentifiableDocumentWrapper> instanceWrappers = courtCaseSearchDocumentsAsList(custodySearchRequestMessage, baseDate);
+		driverLicenseIdVal.setTextContent(drivLicVal);
 		
-		Document courtCaseResultsDoc = createNewDocument();
 		
-		Element rootElement = courtCaseResultsDoc.createElementNS(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS, "CourtCaseSearchResults");
-		courtCaseResultsDoc.appendChild(rootElement);		
-		rootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
+		Element drivLicIdSrcTxtElement = XmlUtils.appendElement(driverLicenseId, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText");
 		
+		
+		String dlSourceTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
+				"//jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationSourceText");
+		
+		drivLicIdSrcTxtElement.setTextContent(dlSourceTxt);
+		
+		Element personFBIId = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_51, "PersonFBIIdentification");
+		
+		Element personFBIIdVal = XmlUtils.appendElement(personFBIId, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		String fbiId = "";		
+		personFBIIdVal.setTextContent(fbiId);
+		
+		Element personSid = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_51, "PersonStateFingerprintIdentification");
+		Element personSidVal = XmlUtils.appendElement(personSid, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		String sidVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonStateIdentification");
+		
+		//TODO check npe note //nc30 causes new line
+		personSidVal.setTextContent(sidVal.trim());			
+		
+		Element personCaseAssociation = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_CYFS, "PersonCaseAssociation");			
+		
+		Element personAssoc = XmlUtils.appendElement(personCaseAssociation, OjbcNamespaceContext.NS_NC_30, "Person");
+		XmlUtils.addAttribute(personAssoc, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Person_" + resultId);
+		
+		Element caseAssoc = XmlUtils.appendElement(personCaseAssociation, OjbcNamespaceContext.NS_NC_30, "Case");
+		XmlUtils.addAttribute(caseAssoc, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Case_" + resultId);
+		
+		
+		Element srcSysNameTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "SourceSystemNameText");
+		
+		String srcSysNameTxtVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//intel:SystemIdentification/nc30:SystemName");
+		
+		srcSysNameTxtElement.setTextContent(srcSysNameTxtVal);
+		
+		Element sysIdElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_INTEL_31, "SystemIdentification");
+		
+		Element sysIdValElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		String sysIdVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//intel:SystemIdentification/nc30:IdentificationID");
+				
+		sysIdValElement.setTextContent(sysIdVal);
+		
+		Element sysName = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "SystemName");
+		sysName.setTextContent(srcSysNameTxtVal);
+		
+		Element srchResCatTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "SearchResultCategoryText");
+		
+		String srchResCatTxtVal = "";
+		
+		srchResCatTxtElement.setTextContent(srchResCatTxtVal);
+		
+		Element infoOwnOrgElement =  XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "InformationOwningOrganization");
+		
+		Element orgBranchNameElement = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
+		
+		String orgBranchNameVal = "";
+		
+		orgBranchNameElement.setTextContent(orgBranchNameVal);
+		
+		Element orgName = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
+		orgName.setTextContent(orgBranchNameVal);
+		
+		Element metadata = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NC_30, "Metadata");
+		XmlUtils.addAttribute(metadata, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "M" + resultId);		
+		
+		Element lastUpdatedDate = XmlUtils.appendElement(metadata, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");
+		
+		Element lastUpdateValElement = XmlUtils.appendElement(lastUpdatedDate, OjbcNamespaceContext.NS_NC_30, "Date");
+		
+		String lastUpdatedDateVal = "";		
+		lastUpdateValElement.setTextContent(lastUpdatedDateVal);		
+						
+		return courtCaseSearchResultElement;
+	}
+
+	
+	Document courtCaseSearchDocuments(Document courtCaseSearchRequestMessage, DateTime baseDate) throws Exception {
+				
 		// get matching results
-		for (IdentifiableDocumentWrapper instanceWrapper : instanceWrappers) {			
-			Document instance = instanceWrapper.getDocument();
-		}				
-		return courtCaseResultsDoc;
+		List<IdentifiableDocumentWrapper> courtCaseDetailResultList = courtCaseSearchDocumentsAsList(courtCaseSearchRequestMessage, baseDate);
+		
+		Document rCourtCaseSearchResultsDoc = createNewDocument();
+		
+		Element courtCaseSearchResultsRootElement = rCourtCaseSearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS, "CourtCaseSearchResults");
+		
+		courtCaseSearchResultsRootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
+		
+		rCourtCaseSearchResultsDoc.appendChild(courtCaseSearchResultsRootElement);						
+				
+		int detailResultIndex = 0;
+		
+		// loop through detail result matches, generate a search results doc
+		for (IdentifiableDocumentWrapper courtCaseDetailResultWrapper : courtCaseDetailResultList) {			
+			
+			Document courtCaseDetailResultDoc =  courtCaseDetailResultWrapper.getDocument();
+			
+			String sResultIndex = String.valueOf(detailResultIndex);
+			
+			Element courtCaseSearchResultElement = buildCourtCaseSearchResultElement(rCourtCaseSearchResultsDoc, courtCaseDetailResultDoc, sResultIndex);
+			
+			courtCaseSearchResultsRootElement.appendChild(courtCaseSearchResultElement);
+			
+			detailResultIndex++;
+		}		
+		
+		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
+		
+		ojbcNamespaceContext.populateRootNamespaceDeclarations(courtCaseSearchResultsRootElement);
+		
+		return rCourtCaseSearchResultsDoc;
 	}	
 	
 	
-	Document custodySearchDocuments(Document custodySearchRequestMessage, DateTime baseDate) throws Exception {
-				
-		List<IdentifiableDocumentWrapper> instanceWrappers = custodySearchDocumentsAsList(custodySearchRequestMessage, baseDate);
-				
-		Document custodyResultsDoc = createNewDocument();
-				
-		Element rootElement = custodyResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RESULTS, "CustodySearchResults");		
-		custodyResultsDoc.appendChild(rootElement);		
-		rootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RESULTS);		
+
+	
+	 Element buildCustodySearchResultElement(Document custodySearchResultsDoc, Document custodyQueryResult, String resultId) throws Exception{
+		 		 
+		Element custodySearchResultElement = custodySearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RESULTS, "CustodySearchResult");
+		custodySearchResultElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RESULTS);
 		
-		// get matching results
-		for (IdentifiableDocumentWrapper instanceWrapper : instanceWrappers) {			
-			Document instance = instanceWrapper.getDocument();			
+		XmlUtils.addAttribute(custodySearchResultElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Result_" + resultId);				
+				
+		Element docCreateDate = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_NC_30, "DocumentCreationDate");
+		
+		Element docCreateDateTime = XmlUtils.appendElement(docCreateDate, OjbcNamespaceContext.NS_NC_30, "DateTime");
+		
+		String sDocCreationDate = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:DocumentCreationDate/nc30:DateTime");
+		
+		docCreateDateTime.setTextContent(sDocCreationDate);
+								
+		Element docIdElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_NC_30, "DocumentIdentification");
+		
+		
+		String documentId = XmlUtils.xPathStringSearch(custodyQueryResult, "/cq-res-ech:CustodyQueryResults/nc30:DocumentIdentification/nc30:IdentificationID");
+		
+		Element docIdValElement = XmlUtils.appendElement(docIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		docIdValElement.setTextContent(documentId);
+
+		
+		String idCatDesTxtValue = XmlUtils.xPathStringSearch(custodyQueryResult, 
+				"/cq-res-ech:CustodyQueryResults/nc30:DocumentIdentification/nc30:IdentificationCategoryDescriptionText");
+		
+		Element idCatDescTxtElement = XmlUtils.appendElement(docIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
+		idCatDescTxtElement.setTextContent(idCatDesTxtValue);
+		
+		
+		Element personElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_NC_30, "Person");
+				
+		XmlUtils.addAttribute(personElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Person_" + resultId);		
+		XmlUtils.addAttribute(personElement, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "M" + resultId);
+		
+		
+		Element personDob = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
+		Element dobDateTimeElement = XmlUtils.appendElement(personDob, OjbcNamespaceContext.NS_NC_30, "DateTime");
+		
+		
+		String dobVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//cq-res-ext:InmateCustody/nc30:PersonBirthDate/nc30:DateTime");
+		
+		dobDateTimeElement.setTextContent(dobVal);
+		
+		Element personName = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+
+		Element personGivenNameElement = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
+		
+		String personGivenName = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonName/nc30:PersonGivenName");
+		
+		personGivenNameElement.setTextContent(personGivenName);
+		
+		Element middleNameElement = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
+		
+		String middleNameVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonName/nc30:PersonMiddleName");
+		
+		middleNameElement.setTextContent(middleNameVal);
+		
+		
+		String surNameVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonName/nc30:PersonSurName");
+		
+		Element surName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
+		surName.setTextContent(surNameVal);			
+		
+		String personSexVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonSexText");		
+		Element personSexTxt = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonSexText");
+		personSexTxt.setTextContent(personSexVal);
+		
+		Element personSSNIdentification = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonSSNIdentification");
+		
+		String ssnVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonSSNIdentification/nc30:IdentificationID");
+		
+		Element ssnIdVal = XmlUtils.appendElement(personSSNIdentification, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		ssnIdVal.setTextContent(ssnVal);		
+		
+		Element personStateIdElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonStateIdentification");
+		
+		Element personStateIdValElement = XmlUtils.appendElement(personStateIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		String personSidVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:PersonStateIdentification/nc30:IdentificationID");		
+		personStateIdValElement.setTextContent(personSidVal);
+		
+		
+		Element booking = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "Booking");		
+		XmlUtils.addAttribute(booking, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Booking" + resultId);
+						
+		Element fingerprintDate = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_JXDM_51, "FingerprintDate");
+		
+		Element fingerprintDateTime = XmlUtils.appendElement(fingerprintDate, OjbcNamespaceContext.NS_NC_30, "DateTime");
+		
+		String bookingDateVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//cq-res-ext:Booking/jxdm51:FingerprintDate/nc30:DateTime");
+		fingerprintDateTime.setTextContent(bookingDateVal);
+		
+		Element bookingSubjectElement = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_JXDM_51, "BookingSubject");
+		Element bookingSubjIdElement = XmlUtils.appendElement(bookingSubjectElement, OjbcNamespaceContext.NS_JXDM_51, "SubjectIdentification");
+		Element bookingSubjIdValElement = XmlUtils.appendElement(bookingSubjIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		String bookingSubjIdVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");		
+		bookingSubjIdValElement.setTextContent(bookingSubjIdVal);
+		
+		Element imageElement = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_NC_30, "Image");
+		Element imgLocElement = XmlUtils.appendElement(imageElement, OjbcNamespaceContext.NS_NC_30, "ImageLocation");
+		Element imgLocDescTxtElement = XmlUtils.appendElement(imgLocElement, OjbcNamespaceContext.NS_NC_30, "LocationDescriptionText");
+						
+		String imgLocDescTxt = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:Image/nc30:ImageLocation/nc30:LocationDescriptionText");
+		imgLocDescTxtElement.setTextContent(imgLocDescTxt);
+
+		Element charge = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");		
+		XmlUtils.addAttribute(charge, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Charge_" + resultId);
+				
+		
+		Element chargeCountQuantityElement = XmlUtils.appendElement(charge, OjbcNamespaceContext.NS_JXDM_51, "ChargeCountQuantity");
+		
+		String chargeCountQuantVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:Charge/jxdm51:ChargeCountQuantity");		
+		chargeCountQuantityElement.setTextContent(chargeCountQuantVal);
+		
+		Element chargeDescriptionTxtElement = XmlUtils.appendElement(charge, OjbcNamespaceContext.NS_JXDM_51, "ChargeDescriptionText");
+		
+		String chargeDescTxt = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:Charge/jxdm51:ChargeDescriptionText");
+		
+		chargeDescriptionTxtElement.setTextContent(chargeDescTxt);
+		
+		Element chargeStatuteElement = XmlUtils.appendElement(charge, OjbcNamespaceContext.NS_JXDM_51, "ChargeStatute");
+		
+		Element statuteCodeIdElement = XmlUtils.appendElement(chargeStatuteElement, OjbcNamespaceContext.NS_JXDM_51, "StatuteCodeIdentification");
+		
+		Element statCodeIdValElement = XmlUtils.appendElement(statuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		String chargeStatuteVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:ChargeStatute/jxdm51:StatuteCodeIdentification/nc30:IdentificationID");
+		
+		statCodeIdValElement.setTextContent(chargeStatuteVal);
+		
+		Element statCodeIdCatDescTxtElement = XmlUtils.appendElement(statuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
+		
+		String idCatDescTxtVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//jxdm51:ChargeStatute/jxdm51:StatuteCodeIdentification/nc30:IdentificationCategoryDescriptionText");
+		
+		statCodeIdCatDescTxtElement.setTextContent(idCatDescTxtVal);
+		
+						
+		Element personChargeAssociation = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_JXDM_51, "PersonChargeAssociation");
+		
+		Element person = XmlUtils.appendElement(personChargeAssociation, OjbcNamespaceContext.NS_NC_30, "Person");		
+		XmlUtils.addAttribute(person, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Person_" + resultId);
+				
+		Element personCharge = XmlUtils.appendElement(personChargeAssociation, OjbcNamespaceContext.NS_JXDM_51, "Charge");
+		XmlUtils.addAttribute(personCharge, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Charge_" + resultId);
+				
+		Element activityChargeAssociation = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityChargeAssociation");
+				
+		Element activity = XmlUtils.appendElement(activityChargeAssociation, OjbcNamespaceContext.NS_NC_30, "Activity");
+		XmlUtils.addAttribute(activity, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Booking_" + resultId);
+		
+		Element activityCharge = XmlUtils.appendElement(activityChargeAssociation, OjbcNamespaceContext.NS_JXDM_51, "Charge");
+		XmlUtils.addAttribute(activityCharge, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Charge_" + resultId);
+		
+		
+		Element sourceSystemNameTextElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "SourceSystemNameText");
+		
+		String sourceSystemNameText = XmlUtils.xPathStringSearch(custodyQueryResult, "//cq-res-ech:CustodyQueryResults/cq-res-ext:SourceSystemNameText");
+		
+		sourceSystemNameTextElement.setTextContent(sourceSystemNameText);
+		
+		Element systemIdentification = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_INTEL_31, "SystemIdentification");
+		
+		Element systemIdVal = XmlUtils.appendElement(systemIdentification, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		systemIdVal.setTextContent(CUSTODY_SEARCH_SYSTEM_ID);
+		
+		Element systemName = XmlUtils.appendElement(systemIdentification, OjbcNamespaceContext.NS_NC_30, "SystemName");
+		
+		systemName.setTextContent(sourceSystemNameText);
+		
+		Element searchResultCategoryText = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "SearchResultCategoryText");
+				  
+		String idCatDescTxt = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:DocumentIdentification/nc30:IdentificationCategoryDescriptionText");
+		
+		// TODO confirm value		
+		searchResultCategoryText.setTextContent(idCatDescTxt);
+		
+		Element infoOwningOrgElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "InformationOwningOrganization");
+		
+		Element organizationBranchNameElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
+		
+		String orgNameVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:Organization/nc30:OrganizationName");
+		
+		organizationBranchNameElement.setTextContent(orgNameVal);
+		
+		Element organizationName = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
+		
+		organizationName.setTextContent(orgNameVal);
+		
+		Element metaData = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_NC_30, "Metadata");		
+		XmlUtils.addAttribute(metaData, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "M" + resultId);		
+		
+		Element lastUpdatedDate = XmlUtils.appendElement(metaData, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");
+		
+		Element lastUpdatedDateVal = XmlUtils.appendElement(lastUpdatedDate, OjbcNamespaceContext.NS_NC_30, "Date");
+		
+		//TODO confirm value
+		lastUpdatedDateVal.setTextContent(sDocCreationDate);		
+		
+		return custodySearchResultElement;
+	}
+	
+	
+	Document custodySearchDocuments(Document custodySearchRequestMessage, DateTime baseDate) throws Exception {
+						
+		// Get a List of individual Custody Query Documents that match search criteria
+		List<IdentifiableDocumentWrapper> custodyDetailResultDocList = custodySearchDocumentsAsList(custodySearchRequestMessage, baseDate);
+				
+		Document rCustodySearchResultsDoc = createNewDocument();
+				
+		Element custodySearchResultsRootElement = rCustodySearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RESULTS, "CustodySearchResults");	
+		
+		custodySearchResultsRootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RESULTS);	
+		
+		rCustodySearchResultsDoc.appendChild(custodySearchResultsRootElement);							
+		
+		int resultIndex = 0;
+		
+		// loop through matches, gather them and generate a search results document with the matches
+		for(IdentifiableDocumentWrapper custodyDetailResultWrapper : custodyDetailResultDocList) {	
+			
+			Document custodyDetailResultDoc = custodyDetailResultWrapper.getDocument();
+			
+			String sResultId = String.valueOf(resultIndex);
+			
+			Element custodySearchResultElement = buildCustodySearchResultElement(rCustodySearchResultsDoc, custodyDetailResultDoc, sResultId);
+			
+			custodySearchResultsRootElement.appendChild(custodySearchResultElement);
+			
+			resultIndex++;
 		}				
-		return custodyResultsDoc;
+				
+		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
+		
+		ojbcNamespaceContext.populateRootNamespaceDeclarations(custodySearchResultsRootElement);
+		
+		return rCustodySearchResultsDoc;
 	}	
 	
 
@@ -743,7 +1244,11 @@ public class StaticMockQuery {
 			} else if (OjbcNamespaceContext.NS_IR.equals(documentRootElement.getNamespaceURI()) && "IncidentReport".equals(documentRootElement.getLocalName())) {
 				xPaths = getIncidentXPaths();
 			} else if (OjbcNamespaceContext.NS_JUVENILE_HISTORY_CONTAINER.equals(documentRootElement.getNamespaceURI()) && "JuvenileHistoryContainer".equals(documentRootElement.getLocalName())) {
-				xPaths = getJuvenileHistoryXPaths();
+				xPaths = getJuvenileHistoryXPaths();			
+			}else if(OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXCH_DOC.equals(documentRootElement.getNamespaceURI()) && "CustodyQueryResults".equals(documentRootElement.getLocalName())){
+				xPaths = getCustodyXPaths();
+			}else if(OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC.equals(documentRootElement.getNamespaceURI()) && "CourtCaseQueryResults".equals(documentRootElement.getLocalName())){
+				xPaths = getCourtCaseXPaths();				
 			} else {
 				throw new IllegalStateException("Unsupported document root element: " + documentRootElement.getLocalName());
 			}
@@ -1393,6 +1898,10 @@ public class StaticMockQuery {
 				ret.addAll(personSearchIncidentDocuments(personSearchRequestMessage, baseDate));
 			} else if (JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
 				ret.addAll(personSearchJuvenileHistoryDocuments(personSearchRequestMessage, baseDate));
+			}else if(CUSTODY_SEARCH_SYSTEM_ID.equals(systemId)){
+				ret.addAll(custodySearchCustodyDocuments(personSearchRequestMessage, baseDate));
+			}else if(COURT_CASE_SEARCH_SYSTEM_ID.equals(systemId)){
+				ret.addAll(courtCaseSearchCourtCaseDocuments(personSearchRequestMessage, baseDate));
 			} else {
 				throw new IllegalArgumentException("Unsupported system name: " + systemId);
 			}
@@ -1420,16 +1929,15 @@ public class StaticMockQuery {
 		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getCriminalHistoryXPaths(), criminalHistoryDataSource);
 	}
 	
-	private List<IdentifiableDocumentWrapper> custodySearchCustodyDocuments(Document custodySearchRequestMessage, DateTime baseDate) throws Exception {
-		return custodySearchDocumentsAsList(custodySearchRequestMessage, baseDate, getCriminalHistoryXPaths(), custodyDataSource);
+	private List<IdentifiableDocumentWrapper> custodySearchCustodyDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
+		
+		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getCustodyXPaths(), custodyDataSource);
 	}	
 	
-	
-
-	private List<IdentifiableDocumentWrapper> courtCaseSearchCourtCaseDocuments(Document custodySearchRequestMessage, DateTime baseDate) throws Exception {
-		return custodySearchDocumentsAsList(custodySearchRequestMessage, baseDate, getCriminalHistoryXPaths(), custodyDataSource);
-	}	
-	
+	private List<IdentifiableDocumentWrapper> courtCaseSearchCourtCaseDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
+		
+		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getCourtCaseXPaths(), courtCaseDataSource);
+	}		
 	
 
 	private SearchValueXPaths getIncidentXPaths() {
@@ -1577,51 +2085,99 @@ public class StaticMockQuery {
 		xPaths.recordType = "Criminal History";
 		return xPaths;
 	}
+	
+	private SearchValueXPaths getCustodyXPaths(){
+		
+		SearchValueXPaths xPaths = new SearchValueXPaths();
+				
+		xPaths.ageXPath = null;
+		xPaths.birthdateXPath = "//nc:PersonBirthDate";
+		xPaths.ssnXPath = "//nc:PersonSSNIdentification/nc:IdentificationID";
+		xPaths.sidXPath = "//nc:PersonStateIdentification/nc:IdentificationID";
+		xPaths.fbiXPath = null;
+		xPaths.dlXPath = null;
+		xPaths.dlJurisdictionXPath = null;
+		xPaths.lastNameXPath = "//nc:PersonName/nc:PersonSurName";
+		xPaths.middleNameXPath = "//nc:PersonName/nc:PersonMiddleName";
+		xPaths.firstNameXPath = "//nc:PersonName/nc:PersonGivenName";
+		xPaths.eyeColorXPath = null;
+		xPaths.hairColorXPath = null;
+		xPaths.raceXPath = "//nc:PersonRaceText";
+		xPaths.sexXPath = "//nc:PersonSexText";
+		xPaths.heightXPath = null;
+		xPaths.weightXPath = null;
+		
+		xPaths.searchSystemId = CUSTODY_SEARCH_SYSTEM_ID;
+		xPaths.systemName = "Custody";
+		xPaths.recordType = "Custody";						
+		
+		return xPaths;
+	}
+	
+	private SearchValueXPaths getCourtCaseXPaths() {
+		
+		SearchValueXPaths xPaths = new SearchValueXPaths();				
+		
+		xPaths.ageXPath = null;
+		xPaths.birthdateXPath = "//nc:PersonBirthDate";
+		xPaths.ssnXPath = "//nc:PersonSSNIdentification/nc:IdentificationID";
+		xPaths.sidXPath = "//nc:PersonStateIdentification/nc:IdentificationID";
+		xPaths.fbiXPath = null;
+		xPaths.dlXPath = null;
+		xPaths.dlJurisdictionXPath = null;
+		xPaths.lastNameXPath = "//nc:PersonSurName";
+		xPaths.middleNameXPath = "//nc:PersonMiddleName";
+		xPaths.firstNameXPath = "//nc:PersonGivenName";
+		xPaths.eyeColorXPath = "//jxdm51:PersonEyeColorCode";
+		xPaths.hairColorXPath = "//jxdm51:PersonHairColorCode";
+		xPaths.raceXPath = "//nc:PersonRaceText";
+		xPaths.sexXPath = "//nc:PersonSexText";
+		xPaths.heightXPath = "//nc:PersonHeightMeasure/nc:MeasureValueText";
+		xPaths.weightXPath = null;	
+		
+		xPaths.searchSystemId = COURT_CASE_SEARCH_SYSTEM_ID;
+		xPaths.systemName = "Court Case";
+		xPaths.recordType = "Court Case";		
+		
+		return xPaths;
+	}
 
 	
-	private List<IdentifiableDocumentWrapper> courtCaseSearchDocumentsAsList(Document custodySearchRequestMessage, DateTime baseDate) 
+	private List<IdentifiableDocumentWrapper> courtCaseSearchDocumentsAsList(Document courtCaseSearchRequestMessage, DateTime baseDate) 
 			throws Exception {
 		
-		List<IdentifiableDocumentWrapper> resultList = new ArrayList<IdentifiableDocumentWrapper>();
+		List<IdentifiableDocumentWrapper> courtCaseSearchDocMatchesList = new ArrayList<IdentifiableDocumentWrapper>();
 		
-		resultList.addAll(courtCaseSearchCourtCaseDocuments(custodySearchRequestMessage, baseDate));
-		
-		return resultList;		
+		for (IdentifiableDocumentWrapper identifyableCourtCaseDoc : courtCaseDataSource.getDocuments()) {
+			
+			// TODO use xpaths from courtCaseSearchRequestMessage against List of docs to reduce result set 
+
+			courtCaseSearchDocMatchesList.add(identifyableCourtCaseDoc);
+		}				
+				
+		return courtCaseSearchDocMatchesList;		
 	}
 	
 	
 	private List<IdentifiableDocumentWrapper> custodySearchDocumentsAsList(Document custodySearchRequestMessage, DateTime baseDate) 
 			throws Exception {
 		
-		List<IdentifiableDocumentWrapper> resultList = new ArrayList<IdentifiableDocumentWrapper>();
+		List<IdentifiableDocumentWrapper> custodyDocSearchMatchesList = new ArrayList<IdentifiableDocumentWrapper>();		
 		
-		resultList.addAll(custodySearchCustodyDocuments(custodySearchRequestMessage, baseDate));
-		
-		return resultList;		
-	}
-		
-	private List<IdentifiableDocumentWrapper> custodySearchDocumentsAsList(Document custodySearchRequestMessage, DateTime baseDate, 
-			SearchValueXPaths xPaths, ClasspathXmlDataSource dataSource) throws Exception {
-		
-		List<IdentifiableDocumentWrapper> resultList = new ArrayList<IdentifiableDocumentWrapper>();
-		
-		resultList.addAll(custodySearchCustodyDocuments(custodySearchRequestMessage, baseDate));
-		
-		return resultList;		
+		for (IdentifiableDocumentWrapper identifyableCustodyDoc : custodyDataSource.getDocuments()) {
+			
+			// TODO use xpaths from custodySearchRequestMessage against List of docs to reduce result set 
+			
+			custodyDocSearchMatchesList.add(identifyableCustodyDoc);			
+		}
+				
+		return custodyDocSearchMatchesList;		
 	}
 	
-	private List<IdentifiableDocumentWrapper> courtCaseSearchDocumentsAsList(Document courtCaseSearchRequestMessage, DateTime baseDate, 
+	
+	
+	private List<IdentifiableDocumentWrapper> personSearchDocumentsAsList(Document personSearchRequestMessage, DateTime baseDate, 
 			SearchValueXPaths xPaths, ClasspathXmlDataSource dataSource) throws Exception {
-		
-		List<IdentifiableDocumentWrapper> resultList = new ArrayList<IdentifiableDocumentWrapper>();
-		
-		resultList.addAll(courtCaseSearchCourtCaseDocuments(courtCaseSearchRequestMessage, baseDate));
-		
-		return resultList;		
-	}	
-	
-	
-	private List<IdentifiableDocumentWrapper> personSearchDocumentsAsList(Document personSearchRequestMessage, DateTime baseDate, SearchValueXPaths xPaths, ClasspathXmlDataSource dataSource) throws Exception {
 
 		PersonSearchParameters psp = new StaticMockQuery.PersonSearchParameters(personSearchRequestMessage);
 		List<IdentifiableDocumentWrapper> matches = new ArrayList<IdentifiableDocumentWrapper>();
@@ -1934,6 +2490,32 @@ public class StaticMockQuery {
 		}
 		return ret;
 	}
+	
+	private List<IdentifiableDocumentWrapper> queryCustodyDocuments(String documentId) throws Exception {
+		
+		List<IdentifiableDocumentWrapper> custodyDetailDocWrapperList = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		IdentifiableDocumentWrapper custodyDetailWrapper = custodyDataSource.getDocument(documentId);
+		
+		if (custodyDetailWrapper != null) {
+			
+			custodyDetailDocWrapperList.add(custodyDetailWrapper);
+		}		
+		return custodyDetailDocWrapperList;
+	}
+	
+	private List<IdentifiableDocumentWrapper> queryCourtCaseDocuments(String documentId) throws Exception {
+		
+		List<IdentifiableDocumentWrapper> rCourtCaseDetailWrapperList = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		IdentifiableDocumentWrapper courtCaseDetailWrapper = courtCaseDataSource.getDocument(documentId);
+		
+		if (courtCaseDetailWrapper != null) {
+			
+			rCourtCaseDetailWrapperList.add(courtCaseDetailWrapper);
+		}		
+		return rCourtCaseDetailWrapperList;
+	}		
 
 	static final class PersonSearchParameters {
 

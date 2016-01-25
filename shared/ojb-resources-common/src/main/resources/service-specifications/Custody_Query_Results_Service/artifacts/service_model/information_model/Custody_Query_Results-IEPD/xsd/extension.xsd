@@ -22,7 +22,8 @@ xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" 
 xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0" 
 xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
 xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
@@ -31,6 +32,7 @@ xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/" schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" schemaLocation="query-results-metadata.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" schemaLocation="query-request-error-reporting.xsd"/>
 	<xsd:complexType name="CustodyQueryResultsType">
@@ -41,7 +43,10 @@ xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="cq-res-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="cq-res-ext:InmateCustody" minOccurs="0" maxOccurs="unbounded"/> 
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cq-res-ext:InmateCustody" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cq-res-ext:InformationOwningOrganization" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Metadata" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -91,6 +96,13 @@ xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
 		</xsd:complexContent>
 	</xsd:complexType>
 <!-- Extension Elements -->
+	<xsd:element name="InformationOwningOrganization" type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The organization that owns information contained
+				in the result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>The name of a system that returned the search result. 

@@ -17,8 +17,14 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cq-req-doc:CustodyQueryRequest xmlns:cq-req-doc="http://ojbc.org/IEPD/Exchange/CustodyQueryRequest/1.0" xmlns:cq-req-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryRequestExtension/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyQueryRequest/1.0 ../xsd/exchange_schema.xsd ">
-  <nc:IdentificationID>record identification</nc:IdentificationID>
-  <nc:IdentificationSourceText>record description</nc:IdentificationSourceText>
-  <cq-req-ext:SourceSystemNameText>ASCO JMS</cq-req-ext:SourceSystemNameText>
-</cq-req-doc:CustodyQueryRequest>
+<psres-doc:PersonSearchResults
+    xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
+    xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
+    xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+    xmlns:psres-ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+    xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+    xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0 ../xsd/exchange_schema.xsd"/>
+
