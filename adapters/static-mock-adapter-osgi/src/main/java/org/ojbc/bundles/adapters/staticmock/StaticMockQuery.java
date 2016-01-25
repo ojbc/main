@@ -66,7 +66,8 @@ public class StaticMockQuery {
 	
 	public static final String COURT_CASE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest";
 	
-	public static final String COURT_CASE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest";	
+	public static final String COURT_CASE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest";
+		
 	
 	public static final String WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants";
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History";
@@ -694,7 +695,7 @@ public class StaticMockQuery {
 	
 	
 	
-	Element buildCourtCaseSearchResultElement(Document courtCaseSearchResultsDocument, Document courtCaseDetailDocument, String resultId) throws Exception{
+	Element buildCourtCaseSearchResultElement(Document courtCaseSearchResultsDocument, Document courtCaseDetailDoc, String resultId) throws Exception{
 		
 		Element courtCaseSearchResultElement = courtCaseSearchResultsDocument.createElementNS(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS, "CourtCaseSearchResult");	
 		
@@ -711,18 +712,18 @@ public class StaticMockQuery {
 		
 		Element caseGenCatTxtElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseGeneralCategoryText");
 		
-		String caseGenCatTxt = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Case/nc:CaseGeneralCategoryText");
+		String caseGenCatTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Case/nc30:CaseGeneralCategoryText");
 		
 		caseGenCatTxtElement.setTextContent(caseGenCatTxt);
 		
 		Element caseTrackId = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseTrackingID");
 		
-		String caseTrackingId = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Case/nc:CaseTrackingID");		
+		String caseTrackingId = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Case/nc30:CaseTrackingID");		
 		caseTrackId.setTextContent(caseTrackingId);
 		
 		Element caseDocketIdElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "nc:CaseDocketID");
 		
-		// TODO 
+		// TODO get xpath for value
 		String docketIdVal = "";
 		
 		caseDocketIdElement.setTextContent(docketIdVal);						
@@ -737,7 +738,7 @@ public class StaticMockQuery {
 		
 		Element jurisdictionTxtElement = XmlUtils.appendElement(orgJurisdiction, OjbcNamespaceContext.NS_NC_30, "JurisdictionText");
 		
-		//TODO
+		//TODO get xpath for value
 		String jurisdictionTxtVal = "";
 		
 		jurisdictionTxtElement.setTextContent(jurisdictionTxtVal);
@@ -747,8 +748,8 @@ public class StaticMockQuery {
 		
 		Element idCatDescTxt = XmlUtils.appendElement(caseOtherId, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText"); 
 		
-		String idCatDescTxtVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, 
-				"//jxdm51:StatuteCodeIdentification/nc:IdentificationCategoryDescriptionText");
+		String idCatDescTxtVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
+				"//jxdm51:StatuteCodeIdentification/nc30:IdentificationCategoryDescriptionText");
 		
 		idCatDescTxt.setTextContent(idCatDescTxtVal);
 		
@@ -763,32 +764,32 @@ public class StaticMockQuery {
 		
 		Element personDobValue = XmlUtils.appendElement(personDobElement, OjbcNamespaceContext.NS_NC_30, "Date");
 		
-		String dobVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:IdentityPersonRepresentation/nc:PersonBirthDate/nc:Date");
+		String dobVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Identity/nc30:IdentityPersonRepresentation/nc30:PersonBirthDate/nc30:Date");
 		
 		personDobValue.setTextContent(dobVal);
 		
-		String eyeColorVal =  XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Person/jxdm51:PersonEyeColorCode");
+		String eyeColorVal =  XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/jxdm51:PersonEyeColorCode");
 
 		Element eyeColorElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonEyeColorText");
 		eyeColorElement.setTextContent(eyeColorVal);
 					
 		Element hairColor = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHairColorText");
 		
-		String hairColorVal =  XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Person/jxdm51:PersonHairColorCode");
+		String hairColorVal =  XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/jxdm51:PersonHairColorCode");
 		hairColor.setTextContent(hairColorVal);
 		
 		Element height = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
 		
 		Element measureValueTxt = XmlUtils.appendElement(height, OjbcNamespaceContext.NS_NC_30, "MeasureValueText"); 
 		
-		String heightTxt = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Person/nc:PersonHeightMeasure/nc:MeasureValueText");
+		String heightTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText");
 		
 		measureValueTxt.setTextContent(heightTxt);
 		
 		Element lengthUnitCode = XmlUtils.appendElement(height, OjbcNamespaceContext.NS_NC_30, "LengthUnitCode");
 		
 		
-		String heightUnitTxt = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Person/nc:PersonHeightMeasure/nc:MeasureUnitText");
+		String heightUnitTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureUnitText");
 		
 		lengthUnitCode.setTextContent(heightUnitTxt);
 		
@@ -796,31 +797,31 @@ public class StaticMockQuery {
 		
 		Element personGivenNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
 		
-		String givenNameVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:PersonName/nc:PersonGivenName");
+		String givenNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:PersonName/nc30:PersonGivenName");
 		
 		personGivenNameElement.setTextContent(givenNameVal);
 		
 		Element personMiddleName = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
 		
-		String middleNameVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:PersonName/nc:PersonMiddleName");
+		String middleNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:PersonName/nc30:PersonMiddleName");
 		
 		personMiddleName.setTextContent(middleNameVal);
 		
 		Element personSurNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
 		
-		String personSurNameVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:PersonName/nc:PersonSurName");
+		String personSurNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:PersonName/nc30:PersonSurName");
 		
 		personSurNameElement.setTextContent(personSurNameVal);			
 		
 		Element personRaceCode = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "PersonRaceCode");
 		
-		String raceVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "nc:PersonRaceText");
+		String raceVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonRaceText");
 		
 		personRaceCode.setTextContent(raceVal);
 					
 		Element personSexCode = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
 		
-		String personSexVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//nc:Person/nc:PersonSexText");
+		String personSexVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonSexText");
 		
 		personSexCode.setTextContent(personSexVal);
 		
@@ -840,8 +841,8 @@ public class StaticMockQuery {
 		Element driverLicenseIdVal = XmlUtils.appendElement(driverLicenseId, OjbcNamespaceContext.NS_NC_30, "IdentificationID"); 
 		
 		
-		String drivLicVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, 
-				"//jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc:IdentificationID");
+		String drivLicVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
+				"//jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationID");
 				
 		driverLicenseIdVal.setTextContent(drivLicVal);
 		
@@ -849,8 +850,8 @@ public class StaticMockQuery {
 		Element drivLicIdSrcTxtElement = XmlUtils.appendElement(driverLicenseId, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText");
 		
 		
-		String dlSourceTxt = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, 
-				"//jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc:IdentificationSourceText");
+		String dlSourceTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
+				"//jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationSourceText");
 		
 		drivLicIdSrcTxtElement.setTextContent(dlSourceTxt);
 		
@@ -864,9 +865,10 @@ public class StaticMockQuery {
 		Element personSid = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_51, "PersonStateFingerprintIdentification");
 		Element personSidVal = XmlUtils.appendElement(personSid, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
 		
-		String sidVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "nc:PersonStateIdentification");
+		String sidVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonStateIdentification");
 		
-		personSidVal.setTextContent(sidVal);			
+		//TODO check npe note //nc30 causes new line
+		personSidVal.setTextContent(sidVal.trim());			
 		
 		Element personCaseAssociation = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_CYFS, "PersonCaseAssociation");			
 		
@@ -879,7 +881,7 @@ public class StaticMockQuery {
 		
 		Element srcSysNameTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "SourceSystemNameText");
 		
-		String srcSysNameTxtVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//intel:SystemIdentification/nc:SystemName");
+		String srcSysNameTxtVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//intel:SystemIdentification/nc30:SystemName");
 		
 		srcSysNameTxtElement.setTextContent(srcSysNameTxtVal);
 		
@@ -887,7 +889,7 @@ public class StaticMockQuery {
 		
 		Element sysIdValElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
 		
-		String sysIdVal = XmlUtils.xPathStringSearch(courtCaseSearchResultElement, "//intel:SystemIdentification/nc:IdentificationID");
+		String sysIdVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//intel:SystemIdentification/nc30:IdentificationID");
 				
 		sysIdValElement.setTextContent(sysIdVal);
 		
