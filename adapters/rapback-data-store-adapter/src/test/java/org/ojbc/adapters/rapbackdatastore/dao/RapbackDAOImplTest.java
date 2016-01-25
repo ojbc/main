@@ -417,6 +417,7 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	@DirtiesContext
+	@Ignore
 	public void testArchiveIdentificationResult() throws Exception {
 		Connection conn = dataSource.getConnection();
 		String sql = "SELECT * "
