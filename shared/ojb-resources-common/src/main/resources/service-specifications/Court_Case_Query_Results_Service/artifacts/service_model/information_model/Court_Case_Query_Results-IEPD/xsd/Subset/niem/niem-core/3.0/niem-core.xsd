@@ -335,6 +335,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="MetadataType">
+    <xs:annotation>
+      <xs:documentation>A data type for information that further qualifies primary data; data about data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:MetadataType">
+        <xs:sequence>
+          <xs:element ref="nc:LastUpdatedDate" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ObligationType">
     <xs:annotation>
       <xs:documentation>A data type for something that is owed to an entity.</xs:documentation>
@@ -357,6 +369,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:OrganizationBranchName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -906,6 +919,11 @@
       <xs:documentation>A location where an incident occurred.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="LastUpdatedDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date information was last modified.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Location" type="nc:LocationType">
     <xs:annotation>
       <xs:documentation>A geospatial location.</xs:documentation>
@@ -991,6 +1009,11 @@
       <xs:documentation>A textual description of a measurement value.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Metadata" type="nc:MetadataType" nillable="true" appinfo:appliesToTypes="structures:ObjectType structures:AssociationType">
+    <xs:annotation>
+      <xs:documentation>Information that further qualifies primary data; data about data.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Obligation" type="nc:ObligationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A thing that is owed to an entity.</xs:documentation>
@@ -1024,6 +1047,11 @@
   <xs:element name="ObligationPaidDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date an obligation was fulfilled.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationBranchName" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of the chapter or branch by which an organization is known within a larger group of organizations.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationName" type="nc:TextType" nillable="true">

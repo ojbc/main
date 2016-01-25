@@ -88,6 +88,7 @@
   <w:Element w:name="nc:LocationStreet" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:MeasureUnitText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:MeasureValueText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:Metadata" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ObligationDueAmount" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ObligationPaidAmount" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonAliasIdentityAssociation"
@@ -532,6 +533,10 @@
     <w:ElementInType w:name="nc:MeasureUnit" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:MetadataType" w:isRequested="false">
+    <w:ElementInType w:name="nc:LastUpdatedDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:ObligationType" w:isRequested="true">
     <w:ElementInType w:name="nc:ObligationDue" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -543,6 +548,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:OrganizationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:OrganizationBranchName"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
