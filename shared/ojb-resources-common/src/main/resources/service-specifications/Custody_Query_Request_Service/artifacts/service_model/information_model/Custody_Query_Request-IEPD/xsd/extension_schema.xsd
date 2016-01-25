@@ -17,33 +17,37 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
-xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
-xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-xmlns:cq-req-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryRequestExtension/1.0" 
- targetNamespace="http://ojbc.org/IEPD/Extensions/CustodyQueryRequestExtension/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+	xmlns:cq-req-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryRequestExtension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/CustodyQueryRequestExtension/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:complexType name="CustodyQueryRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for set of details associated with a custody query request.</xsd:documentation>
+			<xsd:documentation>A data type for a custody query request.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:IdentificationType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="cq-req-ext:SourceSystemNameText" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="cq-req-ext:CustodyRecordIdentification"
+						minOccurs="1" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<!-- Extension Elements -->
-	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+	<xsd:element name="CustodyRecordIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>The name of a system that returned the search result. 
-			This can be used to retrieve additional information about the person's custody information in the search result.</xsd:documentation>
+			<xsd:documentation>A unique identification assigned to a custody
+				record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
