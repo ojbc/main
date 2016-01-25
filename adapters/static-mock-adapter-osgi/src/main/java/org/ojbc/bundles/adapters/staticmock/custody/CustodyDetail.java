@@ -40,7 +40,7 @@ public class CustodyDetail {
 	private String systemName;
 	private String searchResultCategoryDescriptionText;
 	private String organizationName;
-	private String branchName;
+	private String organizationBranchName;
 	private String lastUpdatedDate;
 	
 	public String getDocCreationDate() {
@@ -109,8 +109,8 @@ public class CustodyDetail {
 	public String getOrganizationName() {
 		return organizationName;
 	}
-	public String getBranchName() {
-		return branchName;
+	public String getOrganizationBranchName() {
+		return organizationBranchName;
 	}
 	public String getLastUpdatedDate() {
 		return lastUpdatedDate;
@@ -184,11 +184,11 @@ public class CustodyDetail {
 	public void setOrganizationName(String organizationName) {
 		this.organizationName = organizationName;
 	}
-	public void setBranchName(String branchName) {
-		this.branchName = branchName;
+	public void setOrganizationBranchName(String organizationBranchName) {
+		this.organizationBranchName = organizationBranchName;
 	}
 	public void setLastUpdatedDate(String lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
-		
+
 }
