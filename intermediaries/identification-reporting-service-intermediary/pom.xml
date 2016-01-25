@@ -180,6 +180,12 @@
 			<version>${xmlunit-version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-test-common</artifactId>
+			<version>1.0.0</version>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- logging -->
 		<dependency>
