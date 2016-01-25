@@ -16,9 +16,7 @@
  */
 package org.ojbc.bundles.adapters.staticmock;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -979,6 +977,15 @@ public class StaticMockQuery {
 				"/cq-res-ech:CustodyQueryResults/nc30:DocumentIdentification/nc30:IdentificationCategoryDescriptionText");		
 		rCustodyDetail.setDocumentIdCategoryDescription(docIdCatDescription);
 		
+		
+		String systemId = XmlUtils.xPathStringSearch(custodyQueryResult, 
+				"/cq-res-ech:CustodyQueryResults/intel31:SystemIdentification/nc30:IdentificationID");		
+		rCustodyDetail.setSystemId(systemId);
+				
+		String systemName = XmlUtils.xPathStringSearch(custodyQueryResult, 
+				"/cq-res-ech:CustodyQueryResults/intel31:SystemIdentification/nc30:SystemName");
+		rCustodyDetail.setSystemName(systemName);			
+		
 		String dobVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//cq-res-ext:InmateCustody/nc30:PersonBirthDate/nc30:DateTime");
 		rCustodyDetail.setPersonDob(dobVal);
 				
@@ -1032,13 +1039,18 @@ public class StaticMockQuery {
 		
 		String orgNameVal = XmlUtils.xPathStringSearch(custodyQueryResult, "//nc30:Organization/nc30:OrganizationName");
 		rCustodyDetail.setOrganizationName(orgNameVal);
+								
+		String lastUpdatedDate = XmlUtils.xPathStringSearch(custodyQueryResult, 
+				"/cq-res-ech:CustodyQueryResults/nc30:Metadata/nc30:LastUpdatedDate/nc30:Date");
 		
-		
+		rCustodyDetail.setLastUpdatedDate(lastUpdatedDate);
 		
 		return rCustodyDetail;
 	}
 
 	
+	 // TODO null check elements before writing them
+	 // TOOD trim() all values
 	 Element buildCustodySearchResultElement(Document custodySearchResultsDoc, Document custodyQueryResult, String resultId) throws Exception{
 		 
 		CustodyDetail custodyDetail = getCustodyDetail(custodyQueryResult);
@@ -1179,23 +1191,22 @@ public class StaticMockQuery {
 		Element systemIdentification = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_INTEL_31, "SystemIdentification");
 		
 		Element systemIdVal = XmlUtils.appendElement(systemIdentification, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-		
-		systemIdVal.setTextContent(CUSTODY_SEARCH_SYSTEM_ID);
-		
+								
+		systemIdVal.setTextContent(custodyDetail.getSystemId());
+				
 		Element systemName = XmlUtils.appendElement(systemIdentification, OjbcNamespaceContext.NS_NC_30, "SystemName");
 		
-		systemName.setTextContent(custodyDetail.getSourceSystemNameText());
+		systemName.setTextContent(custodyDetail.getSystemName());
 		
 		Element searchResultCategoryTxtElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "SearchResultCategoryText");
 				  		
-		searchResultCategoryTxtElement.setTextContent(custodyDetail.getSearchResultCategoryDescriptionText());
+		searchResultCategoryTxtElement.setTextContent(custodyDetail.getSearchResultCategoryDescriptionText().trim());
 		
 		Element infoOwningOrgElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "InformationOwningOrganization");
 		
 		Element organizationBranchNameElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
 				
-		// TODO change value
-		organizationBranchNameElement.setTextContent(custodyDetail.getOrganizationName());
+		organizationBranchNameElement.setTextContent(custodyDetail.getOrganizationBranchName());
 		
 		Element organizationName = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
 		
@@ -1208,8 +1219,7 @@ public class StaticMockQuery {
 		
 		Element lastUpdatedDateVal = XmlUtils.appendElement(lastUpdatedDate, OjbcNamespaceContext.NS_NC_30, "Date");
 		
-		//TODO confirm value
-		lastUpdatedDateVal.setTextContent(custodyDetail.getDocCreationDate());		
+		lastUpdatedDateVal.setTextContent(custodyDetail.getLastUpdatedDate());		
 		
 		return custodySearchResultElement;
 	}
