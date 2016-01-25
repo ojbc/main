@@ -17,14 +17,16 @@
 
 -->
 <core:CoreFilingMessage xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:criminalcase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0 ../../xsd/casetype/ECF-4.0-CriminalCase.xsd">
+	<!-- ECF Required Elements > -->
 	<ecf:SendingMDELocationID/>
 	<ecf:SendingMDEProfileCode/>
+	<!-- < ECF Required Elements > -->
 	<criminalcase:CriminalCase>
 		<nc:ActivityDate>
 			<nc:Date>2015-12-18</nc:Date>
 		</nc:ActivityDate>
 		<nc:CaseCategoryText>Department of Public Safety</nc:CaseCategoryText>
-		<nc:CaseTrackingID>2015 CZP 0134</nc:CaseTrackingID>
+		<!--nc:CaseTrackingID>2015 CZP 0134</nc:CaseTrackingID-->
 		<j:CaseAugmentation>
 			<j:CaseCourt>
 				<nc:OrganizationIdentification>
@@ -47,8 +49,8 @@
 					</nc:PersonBirthDate>
 					<nc:PersonName>
 						<nc:PersonGivenName>Leann</nc:PersonGivenName>
-						<nc:PersonMiddleName>Edna Anne</nc:PersonMiddleName>
-						<nc:PersonSurName>Smith or Smith-Jones</nc:PersonSurName>
+						<nc:PersonMiddleName>Edna</nc:PersonMiddleName>
+						<nc:PersonSurName>Smith</nc:PersonSurName>
 						<nc:PersonNameSuffixText>Jr.</nc:PersonNameSuffixText>
 					</nc:PersonName>
 					<nc:PersonOtherIdentification>
@@ -57,11 +59,11 @@
 					</nc:PersonOtherIdentification>
 					<nc:PersonOtherIdentification>
 						<nc:IdentificationID>859644</nc:IdentificationID>
-						<nc:IdentificationCategoryText>APSIN</nc:IdentificationCategoryText>
+						<!--nc:IdentificationCategoryText>APSIN</nc:IdentificationCategoryText-->
 					</nc:PersonOtherIdentification>
 					<nc:PersonOtherIdentification>
 						<nc:IdentificationID>6418462</nc:IdentificationID>
-						<nc:IdentificationCategoryText>DDL</nc:IdentificationCategoryText>
+						<!--nc:IdentificationCategoryText>DDL</nc:IdentificationCategoryText-->
 						<nc:IdentificationSourceText>AK</nc:IdentificationSourceText>
 					</nc:PersonOtherIdentification>
 					<nc:PersonOtherIdentification>
@@ -69,11 +71,11 @@
 						<nc:IdentificationCategoryText>DID</nc:IdentificationCategoryText>
 						<nc:IdentificationSourceText>State</nc:IdentificationSourceText>
 					</nc:PersonOtherIdentification>
-					<nc:PersonOtherIdentification>
+					<!--nc:PersonOtherIdentification>
 						<nc:IdentificationID>CDL123</nc:IdentificationID>
 						<nc:IdentificationCategoryText>DIT</nc:IdentificationCategoryText>
 						<nc:IdentificationSourceText>CDL</nc:IdentificationSourceText>
-					</nc:PersonOtherIdentification>
+					</nc:PersonOtherIdentification-->
 					<ecf:PersonAugmentation>
 						<nc:ContactInformation>
 							<nc:ContactMailingAddress>
@@ -92,7 +94,7 @@
 			</j:CaseDefendantParty>
 			<j:CaseInitiatingParty>
 				<ecf:EntityOrganization>
-					<nc:OrganizationName>Defendant Organization</nc:OrganizationName>
+					<nc:OrganizationName>Case Initiating Organization</nc:OrganizationName>
 				</ecf:EntityOrganization>
 				<ecf:EntityPerson>
 					<nc:PersonName>
@@ -119,12 +121,11 @@
 			</j:ArrestAgencyRecordIdentification>
 			<j:ArrestOfficial>
 				<j:EnforcementOfficialBadgeIdentification>
-					<nc:IdentificationID>BadgeNumber</nc:IdentificationID>
+					<nc:IdentificationID>BN455479</nc:IdentificationID>
 				</j:EnforcementOfficialBadgeIdentification>
 			</j:ArrestOfficial>
 		</criminalcase:CaseArrest>
 		<criminalcase:CaseCharge>
-			<j:ChargeDescriptionText>Charge Text - not needed, not supported by CourtView</j:ChargeDescriptionText>
 			<j:ChargeSequenceID>
 				<nc:IdentificationID>001</nc:IdentificationID>
 			</j:ChargeSequenceID>
@@ -168,16 +169,19 @@
 					<nc:LocationDescriptionText>Anchorage</nc:LocationDescriptionText>
 				</nc:IncidentLocation>
 			</criminalcase:ChargeOffense>
+			<!-- ECF Required Elements > -->
 			<criminalcase:ChargeAmendedIndicator>false</criminalcase:ChargeAmendedIndicator>
+			<!--  < ECF Required Elements  -->
 		</criminalcase:CaseCharge>
 	</criminalcase:CriminalCase>
-	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
+	<!--core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator-->
+	<!-- ECF Required Elements > -->
 	<core:FilingLeadDocument>
 		<nc:DocumentBinary>
 			<nc:BinaryCaptureDate>
 				<nc:Date>2015-04-10</nc:Date>
 			</nc:BinaryCaptureDate>
-			<nc:BinaryCategoryText></nc:BinaryCategoryText>
+			<nc:BinaryCategoryText/>
 		</nc:DocumentBinary>
 		<ecf:DocumentMetadata>
 			<j:RegisterActionDescriptionText/>
@@ -190,4 +194,5 @@
 			</ecf:DocumentRenditionMetadata>
 		</ecf:DocumentRendition>
 	</core:FilingLeadDocument>
+	<!--  < ECF Required Elements  -->
 </core:CoreFilingMessage>

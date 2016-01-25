@@ -210,14 +210,14 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="nc:PersonAlternateName | nc:PersonName">
+	<xsl:template match="nc:PersonAlternateName | nc20:PersonAlternateName | nc:PersonName | nc20:PersonName">
 		<xsl:choose>
-			<xsl:when test="nc:PersonGivenName or nc:PersonSurName">
-				 <xsl:value-of select="concat(nc:PersonGivenName, ' ', nc:PersonSurName)"/>
+			<xsl:when test="*:PersonGivenName and *:PersonSurName">
+				 <xsl:value-of select="concat(*:PersonGivenName, ' ', *:PersonSurName)"/>
 			</xsl:when>
-			<xsl:when test="nc:PersonFullName">
-				<xsl:value-of select="nc:PersonFullName"/>
-			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="*:PersonFullName"/>
+			</xsl:otherwise>
 		</xsl:choose>
        <xsl:if test="position() != last()">
            <xsl:text>, </xsl:text>

@@ -251,6 +251,15 @@
 				<camel:stop/>
 			</camel:filter>
 
+			<!-- In this case, we have errors and no search results, there is no need to call ER -->
+			<camel:filter>
+				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} == 0</camel:simple>
+				<camel:log message="No search results returned or error results"/>
+				<to uri="xslt:xslt/NoPersonSearchResultsToMergeNotificationMessage.xsl"/>	
+				<camel:to uri="direct:sendMergeMessageResponse"/>
+				<camel:stop/>
+			</camel:filter>
+
 			<!-- In this case, we have no errors and no search results, not even a container, create an error message and return -->
 			<camel:filter>
 				<camel:simple>${in.header.personSearchContainerNodeCount} == 0</camel:simple>

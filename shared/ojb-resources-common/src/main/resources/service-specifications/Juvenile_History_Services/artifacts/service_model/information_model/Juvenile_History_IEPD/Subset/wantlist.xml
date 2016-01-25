@@ -4780,7 +4780,7 @@
   </w:Type>
   <w:Type w:name="nc:CaseType" w:isRequested="false">
     <w:ElementInType w:name="nc:CaseAugmentationPoint"
-      w:isReference="false" w:minOccurs="1" w:maxOccurs="1"/>
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="nc:DateRangeType" w:isRequested="false">
     <w:ElementInType w:name="nc:StartDate" w:isReference="false"

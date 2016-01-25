@@ -208,6 +208,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_JXDM_40 = "http://niem.gov/niem/domains/jxdm/4.0";
 	public static final String NS_JXDM_50 = "http://release.niem.gov/niem/domains/jxdm/5.0/";
+	
+	public static final String NS_JXDM_51 = "http://release.niem.gov/niem/domains/jxdm/5.1/";
+	public static final String NS_PREFIX_JXDM_51 = "jxdm51"; 	
+	
 	public static final String NS_USPS_STATES = "http://niem.gov/niem/usps_states/2.0";
 	public static final String NS_ERROR = "http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0";
 	public static final String NS_WARRANT_EXT = "http://ojbc.org/IEPD/Extensions/Warrants/1.0";
@@ -260,14 +264,28 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static final String NS_PERSON_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0";	
 	public static final String NS_PREFIX_PERSON_SEARCH_REQUEST_DOC = "psr-doc";
-			
-	public static final String NS_CUSTODY_SEARCH_REQUEST = "http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0";
+					
+	public static final String NS_CUSTODY_SEARCH_RES_EXT = "http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0";
+	public static final String NS_PREFIX_CUSTODY_SEARCH_RES_EXT = "cs-res-ext";		
+		
+	public static final String NS_CUSTODY_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0";
 	public static final String NS_PREFIX_CUSTODY_SEARCH_REQUEST = "cs-req-doc";
 	
-	public static final String NS_COURT_CASE_SEARCH_REQUEST="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0";
+	public static final String NS_CUSTODY_QUERY_RESULTS_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0";	
+	public static final String NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC = "cq-res-ech";
+	
+	public static final String NS_CUSTODY_QUERY_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0";	
+	public static final String NS_PREFIX_CUSTODY_QUERY_RESULTS_EXT = "cq-res-ext";	
+		
+	public static final String NS_COURT_CASE_SEARCH_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0";
+	public static final String NS_PREFIX_COURT_CASE_SEARCH_RESULTS_EXT = "ccs-res-ext"; 
+	
+	public static final String NS_COURT_CASE_SEARCH_REQUEST_DOC="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0";
 	public static final String NS_PREFIX_COURT_CASE_SEARCH_REQUEST="ccs-req-doc";
 	
-	
+	public static final String NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0";
+	public static final String NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXCH_DOC = "ccq-res-doc";
+		
 	public static final String NS_CUSTODY_SEARCH_RESULTS = "http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0";
 	public static final String NS_PREFIX_CUSTODY_SEARCH_RESULTS = "cs-res-doc";
 	
@@ -291,6 +309,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_INTEL_30 = "http://release.niem.gov/niem/domains/intelligence/3.0/";
 	public static final String NS_PREFIX_INTEL_30 = "intel30";
+	
+	public static final String NS_INTEL_31 = "http://release.niem.gov/niem/domains/intelligence/3.1/";
+	public static final String NS_PREFIX_INTEL_31 = "intel31";		
 	
 	public static final String NS_SEARCH_RESULTS_METADATA_EXT = "http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0";
 	public static final String NS_PREFIX_SEARCH_RESULTS_METADATA_EXT = "srm";
@@ -467,8 +488,6 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_ARREST_REPORTING_SERVICE = "http://ojbc.org/IEPD/Exchange/ArrestReport/1.0";
 	public static final String NS_PREFIX_ARREST_REPORTING_SERVICE = "arrest-exch";
 	
-	//
-	
     public static final String NS_ARU = "http://ojbc.org/IEPD/Exchange/ArrestReportUpdate/1.0";
     public static final String NS_PREFIX_ARU = "aru";
     
@@ -631,7 +650,28 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public OjbcNamespaceContext() {
 		
 		prefixToUriMap = new HashMap<String, String>();
-		uriToPrefixMap = new HashMap<String, String>();		
+		uriToPrefixMap = new HashMap<String, String>();							
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_QUERY_RESULTS_EXT, NS_CUSTODY_QUERY_RESULTS_EXT);
+		uriToPrefixMap.put(NS_CUSTODY_QUERY_RESULTS_EXT, NS_PREFIX_CUSTODY_QUERY_RESULTS_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXCH_DOC, NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC);
+		uriToPrefixMap.put(NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC, NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXCH_DOC);		
+				
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC, NS_CUSTODY_QUERY_RESULTS_EXCH_DOC);		
+		uriToPrefixMap.put(NS_CUSTODY_QUERY_RESULTS_EXCH_DOC, NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC);		
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_RES_EXT, NS_CUSTODY_SEARCH_RES_EXT);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_RES_EXT, NS_PREFIX_CUSTODY_SEARCH_RES_EXT);		
+		
+		prefixToUriMap.put(NS_PREFIX_INTEL_31, NS_INTEL_31);
+		uriToPrefixMap.put(NS_INTEL_31, NS_PREFIX_INTEL_31);
+		
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_RESULTS_EXT, NS_COURT_CASE_SEARCH_RESULTS_EXT);
+		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_RESULTS_EXT, NS_PREFIX_COURT_CASE_SEARCH_RESULTS_EXT);		
+		
+		prefixToUriMap.put(NS_PREFIX_JXDM_51, NS_JXDM_51);
+		uriToPrefixMap.put(NS_JXDM_51, NS_PREFIX_JXDM_51);
 				
 		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_RESULTS, NS_CUSTODY_SEARCH_RESULTS);
 		uriToPrefixMap.put(NS_CUSTODY_SEARCH_RESULTS, NS_PREFIX_CUSTODY_SEARCH_RESULTS);
@@ -639,11 +679,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_RESULTS, NS_COURT_CASE_SEARCH_RESULTS);
 		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_RESULTS, NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
 				
-		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_REQUEST, NS_CUSTODY_SEARCH_REQUEST);
-		uriToPrefixMap.put(NS_CUSTODY_SEARCH_REQUEST, NS_PREFIX_CUSTODY_SEARCH_REQUEST);
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_REQUEST, NS_CUSTODY_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_REQUEST_DOC, NS_PREFIX_CUSTODY_SEARCH_REQUEST);
 				
-		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_REQUEST, NS_COURT_CASE_SEARCH_REQUEST);
-		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_REQUEST, NS_PREFIX_COURT_CASE_SEARCH_REQUEST);		
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_REQUEST, NS_COURT_CASE_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_REQUEST_DOC, NS_PREFIX_COURT_CASE_SEARCH_REQUEST);		
 				
 		prefixToUriMap.put(NS_NIST_BIO_PREFIX, NS_NIST_BIO);
 		uriToPrefixMap.put(NS_NIST_BIO, NS_NIST_BIO_PREFIX);
