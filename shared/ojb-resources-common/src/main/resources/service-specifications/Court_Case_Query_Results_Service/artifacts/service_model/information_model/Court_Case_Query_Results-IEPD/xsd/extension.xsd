@@ -46,7 +46,8 @@
 	<xsd:complexType name="CourtCaseQueryResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with
-				query results from a court.</xsd:documentation>
+				query results from a court.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
@@ -92,8 +93,13 @@
 						minOccurs="0" />
 					<xsd:element ref="nc:PersonAliasIdentityAssociation"
 						minOccurs="0" />
-					<xsd:element ref="ccq-res-ext:InformationOwningOrganization" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Metadata" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:SourceSystemNameText"
+						minOccurs="0" />
+					<xsd:element ref="ccq-res-ext:QueryResultCategoryText"
+						minOccurs="0" />
+					<xsd:element ref="ccq-res-ext:InformationOwningOrganization"
+						minOccurs="0" />
+					<xsd:element ref="nc:Metadata" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -102,7 +108,8 @@
 	<xsd:complexType name="CaseAugmentationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a
-				case.</xsd:documentation>
+				case.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
@@ -123,7 +130,8 @@
 	<xsd:complexType name="ViolationAugmentationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a
-				violation.</xsd:documentation>
+				violation.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
@@ -140,7 +148,8 @@
 	<xsd:complexType name="CitationAugmentationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a
-				citation.</xsd:documentation>
+				citation.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
@@ -160,7 +169,8 @@
 	<xsd:complexType name="SenentceAugmentationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a
-				sentence.</xsd:documentation>
+				sentence.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
@@ -172,13 +182,6 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="InformationOwningOrganization" type="nc:OrganizationType">
-		<xsd:annotation>
-			<xsd:documentation>The organization that owns information contained
-				in the result.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="CaseAugmentation" type="ccq-res-ext:CaseAugmentationType"
 		substitutionGroup="nc:CaseAugmentationPoint">
 		<xsd:annotation>
@@ -267,25 +270,29 @@
 	<xsd:element name="FailureToPayHoldDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The date that will trigger consequence for a
-				failure to pay.</xsd:documentation>
+				failure to pay.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FailureToAppearHoldDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The date that will trigger consequence for a
-				failure to appear.</xsd:documentation>
+				failure to appear.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FailureToComplyHoldDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The date that will trigger consequence for a
-				failure to comply.</xsd:documentation>
+				failure to comply.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FailureToPayVictimHoldDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The date that will trigger consequence for a
-				failure to pay victim.</xsd:documentation>
+				failure to pay victim.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingPointNumberText" type="nc:TextType">
@@ -303,28 +310,32 @@
 		type="xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if a defendant refuses to take a blood
-				alcohol test; false otherwise.</xsd:documentation>
+				alcohol test; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="JuvenileDefendantIndicator" type="xsd:boolean"
 		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a defendant is a juvenile; false
-				otherwise.</xsd:documentation>
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonInmateIdentification" type="nc:IdentificationType"
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An identification of a person based on a person
-				assigend prison number..</xsd:documentation>
+				assigend prison number..
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CommentsForCourtClerk" type="nc:TextType"
 		substitutionGroup="j:CourtEventAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a defendant is a juvenile; false
-				otherwise.</xsd:documentation>
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="VehicleOverweightMeasure" type="nc:MeasureType">
@@ -337,7 +348,8 @@
 		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a court appearance is required; false
-				otherwise.</xsd:documentation>
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="InjuryIndicator" type="xsd:boolean"
@@ -351,14 +363,16 @@
 		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an incident occured within a school zone;
-				false otherwise.</xsd:documentation>
+				false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ConstructionZoneIndicator" type="xsd:boolean"
 		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an incident occured within a school zone;
-				false otherwise.</xsd:documentation>
+				false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="LicenseSurrenderedIndicator" type="xsd:boolean"
@@ -407,7 +421,27 @@
 		substitutionGroup="j:SentenceAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if sentence includes work release; false
-				otherwise.</xsd:documentation>
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InformationOwningOrganization" type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The organization that owns information contained
+				in the result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that returned the result.
+				This can be used to retrieve additional information about the person
+				in the search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="QueryResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of result.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

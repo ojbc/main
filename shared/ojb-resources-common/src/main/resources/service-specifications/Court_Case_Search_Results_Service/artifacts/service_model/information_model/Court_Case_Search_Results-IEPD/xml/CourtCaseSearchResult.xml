@@ -33,6 +33,7 @@
 					<j:CourtName>nc:OrganizationName</j:CourtName>
 				</j:CaseCourt>
 				<j:CaseOtherIdentification>
+					<nc:IdentificationID>other case number</nc:IdentificationID>
 					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
 				</j:CaseOtherIdentification>
 			</j:CaseAugmentation>
@@ -155,7 +156,7 @@
 			<nc:IdentificationID>A0188904</nc:IdentificationID>
 			<nc:SystemName>Court</nc:SystemName>
 		</intel:SystemIdentification>
-		<ccs-res-ext:SearchResultCategoryText>Criminal History</ccs-res-ext:SearchResultCategoryText>
+	<ccs-res-ext:SearchResultCategoryText>Criminal History</ccs-res-ext:SearchResultCategoryText>
 		<ccs-res-ext:InformationOwningOrganization>
 			<nc:OrganizationBranchName>branch</nc:OrganizationBranchName>
 			<nc:OrganizationName>County Court</nc:OrganizationName>

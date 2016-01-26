@@ -54,6 +54,7 @@
 		<nc:CaseCategoryText>case sub type</nc:CaseCategoryText>
 		<nc:CaseGeneralCategoryText>case type</nc:CaseGeneralCategoryText>
 		<nc:CaseTrackingID>case number</nc:CaseTrackingID>
+		<nc:CaseDocketID>nc:CaseDocketID</nc:CaseDocketID>
 		<nc:CaseFiling>
 			<nc:DocumentCreationDate>
 				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
@@ -142,6 +143,11 @@
 				</j:ChargeStatute>
 			</j:CaseCharge>
 			<j:CaseCourt>
+				<j:OrganizationAugmentation>
+					<j:OrganizationJurisdiction>
+						<nc:JurisdictionText>Court Jurisdiction</nc:JurisdictionText>
+					</j:OrganizationJurisdiction>
+				</j:OrganizationAugmentation>
 				<j:CourtName>court name</j:CourtName>
 				<j:CourtDivisionText>court location</j:CourtDivisionText>
 			</j:CaseCourt>
@@ -237,6 +243,8 @@
 			</j:CaseLineageCase>
 			<j:CaseOtherIdentification>
 				<nc:IdentificationID>other case number</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText
+				</nc:IdentificationCategoryDescriptionText>
 			</j:CaseOtherIdentification>
 			<j:CaseProsecutionAttorney>
 				<nc:RoleOfPerson>
@@ -574,12 +582,16 @@
 		</nc:PersonPhysicalFeature>
 		<nc:PersonRaceText>String</nc:PersonRaceText>
 		<nc:PersonSexText>String</nc:PersonSexText>
+
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>String</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
 		<nc:PersonStateIdentification>
 			<nc:IdentificationID>State Criminal History ID</nc:IdentificationID>
 		</nc:PersonStateIdentification>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureValueText>nc:MeasureValueText</nc:MeasureValueText>
+		</nc:PersonWeightMeasure>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
 				<j:DriverLicenseIdentification>
@@ -597,6 +609,9 @@
 				<j:DriverLicenseNonCommercialClassText>String
 				</j:DriverLicenseNonCommercialClassText>
 			</j:DriverLicense>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+			</j:PersonFBIIdentification>
 		</j:PersonAugmentation>
 		<ccq-res-ext:PersonInmateIdentification>
 			<nc:IdentificationID>inmate ID</nc:IdentificationID>
@@ -662,6 +677,8 @@
 		<nc:Person structures:ref="Person_01" />
 		<nc:Identity structures:ref="Identity_01" />
 	</nc:PersonAliasIdentityAssociation>
+	<ccq-res-ext:SourceSystemNameText>Alpha Court System </ccq-res-ext:SourceSystemNameText>
+	<ccq-res-ext:QueryResultCategoryText>Criminal History</ccq-res-ext:QueryResultCategoryText>
 	<ccq-res-ext:InformationOwningOrganization>
 		<nc:OrganizationBranchName>branch</nc:OrganizationBranchName>
 		<nc:OrganizationName>County Court</nc:OrganizationName>
