@@ -610,7 +610,7 @@
 				</j:DriverLicenseNonCommercialClassText>
 			</j:DriverLicense>
 			<j:PersonFBIIdentification>
-				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+				<nc:IdentificationID>4320</nc:IdentificationID>
 			</j:PersonFBIIdentification>
 		</j:PersonAugmentation>
 		<ccq-res-ext:PersonInmateIdentification>
