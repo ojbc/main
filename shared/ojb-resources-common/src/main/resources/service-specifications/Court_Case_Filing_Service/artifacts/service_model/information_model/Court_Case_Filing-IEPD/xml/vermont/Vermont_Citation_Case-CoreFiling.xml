@@ -280,6 +280,7 @@
 				<nc:ConveyanceReference s:ref="VEHICLE_01"/>
 			</nc:IncidentVehicleAssociation>
 			<ojb-cit-ext:DrivingIncidentAugmentation>
+				<ojb-cit-ext:TrafficIncidentAccidentIndicator>false</ojb-cit-ext:TrafficIncidentAccidentIndicator>
 				<ojb-cit-ext:DrivingAccidentFatalityIndicator>false</ojb-cit-ext:DrivingAccidentFatalityIndicator>
 				<ojb-cit-ext:SeatBeltViolationIndicator>false</ojb-cit-ext:SeatBeltViolationIndicator>
 				<ojb-cit-ext:CivilReliefActIndicator>true</ojb-cit-ext:CivilReliefActIndicator>
