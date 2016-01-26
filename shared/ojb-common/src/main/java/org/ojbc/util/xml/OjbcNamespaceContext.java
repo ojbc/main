@@ -286,6 +286,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0";
 	public static final String NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXCH_DOC = "ccq-res-doc";
 		
+	public static final String NS_COURT_CASE_QUERY_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0";
+	public static final String NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXT = "ccq-res-ext";
+		
 	public static final String NS_CUSTODY_SEARCH_RESULTS = "http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0";
 	public static final String NS_PREFIX_CUSTODY_SEARCH_RESULTS = "cs-res-doc";
 	
@@ -526,9 +529,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     
     public static final String NS_HAWAII_HAJIS_DISPOSITION_CODES = "http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0";
     public static final String NS_PREFIX_HAWAII_HAJIS_DISPOSITION_CODES = "hi_hajis_disp_codes";
-	
-	//
-    
+	    
     public static final String NS_AR_HAWAII_EXT = "http://ojbc.org/IEPD/Extensions/Hawaii/IncidentReportStructuredPayload/1.0";
     public static final String NS_PREFIX_AR_HAWAII_EXT = "ar-hi-ext";
     
@@ -650,7 +651,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public OjbcNamespaceContext() {
 		
 		prefixToUriMap = new HashMap<String, String>();
-		uriToPrefixMap = new HashMap<String, String>();							
+		uriToPrefixMap = new HashMap<String, String>();			
+		
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXT, NS_COURT_CASE_QUERY_RESULTS_EXT);
+		uriToPrefixMap.put(NS_COURT_CASE_QUERY_RESULTS_EXT, NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXT);		
 		
 		prefixToUriMap.put(NS_PREFIX_CUSTODY_QUERY_RESULTS_EXT, NS_CUSTODY_QUERY_RESULTS_EXT);
 		uriToPrefixMap.put(NS_CUSTODY_QUERY_RESULTS_EXT, NS_PREFIX_CUSTODY_QUERY_RESULTS_EXT);
