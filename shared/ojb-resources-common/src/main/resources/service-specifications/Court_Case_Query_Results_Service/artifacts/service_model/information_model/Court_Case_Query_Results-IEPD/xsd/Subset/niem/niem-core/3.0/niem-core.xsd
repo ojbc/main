@@ -98,6 +98,7 @@
           <xs:element ref="nc:CaseCategoryText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:CaseGeneralCategoryText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:CaseTrackingID" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:CaseFiling" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:CaseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -307,6 +308,18 @@
       <xs:extension base="structures:ObjectType"/>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="JurisdictionType">
+    <xs:annotation>
+      <xs:documentation>A data type for a geopolitical area in which an organization, person, or object has a specific range of authority.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:JurisdictionAbstract" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="LocationType">
     <xs:annotation>
       <xs:documentation>A data type for geospatial location.</xs:documentation>
@@ -371,6 +384,7 @@
         <xs:sequence>
           <xs:element ref="nc:OrganizationBranchName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -465,6 +479,7 @@
           <xs:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonSSNIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonStateIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonWeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -714,6 +729,11 @@
       <xs:documentation>An outcome or processing of a case.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CaseDocketID" type="niem-xs:string" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identifier used to reference a case docket.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CaseFiling" type="nc:DocumentType" nillable="true">
     <xs:annotation>
       <xs:documentation>A document or other piece of information filed by someone or something involved in a case.</xs:documentation>
@@ -919,6 +939,16 @@
       <xs:documentation>A location where an incident occurred.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="JurisdictionAbstract" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an area, state, region, or other geographic unit over which some kind of authority exists.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="JurisdictionText" type="nc:TextType" substitutionGroup="nc:JurisdictionAbstract">
+    <xs:annotation>
+      <xs:documentation>An area in which an organization or person has some kind of authoritative capacity or responsibility over.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="LastUpdatedDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date information was last modified.</xs:documentation>
@@ -1047,6 +1077,11 @@
   <xs:element name="ObligationPaidDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date an obligation was fulfilled.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for OrganizationType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationBranchName" type="nc:TextType" nillable="true">
@@ -1182,6 +1217,11 @@
   <xs:element name="PersonSurName" type="nc:PersonNameTextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A last name or family name of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonWeightMeasure" type="nc:MeasureType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A measurement of the weight of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PhysicalFeatureDescriptionText" type="nc:TextType" nillable="true">
