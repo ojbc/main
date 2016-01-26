@@ -192,12 +192,15 @@
 					</nc:ContactEntity>
 				</nc:OrganizationPrimaryContactInformation>
 			</j:CitationAgency>
-			<j:CitationIssuingOfficial s:id="OFFICER_01">
+			<ojb-cit-ext:CitationIssuingOfficial s:id="OFFICER_01">
 				<nc:RoleOfPersonReference s:ref="PERSON_02"/>
 				<j:EnforcementOfficialBadgeIdentification>
 					<nc:IdentificationID>12345</nc:IdentificationID>
 				</j:EnforcementOfficialBadgeIdentification>
-			</j:CitationIssuingOfficial>
+				<ojb-cit-ext:EnforcementOfficialIdentification>
+				<nc:IdentificationID>ID34567</nc:IdentificationID>
+				</ojb-cit-ext:EnforcementOfficialIdentification>
+			</ojb-cit-ext:CitationIssuingOfficial>
 			<ojb-cit-ext:CitationAugmentation>
 				<ojb-cit-ext:CitationWaiverAmount>105.00</ojb-cit-ext:CitationWaiverAmount>
 				<ojb-cit-ext:CitationServedIndicator>true</ojb-cit-ext:CitationServedIndicator>

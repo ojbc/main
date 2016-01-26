@@ -124,6 +124,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:AugmentationType">
 				<xsd:sequence>
+					<xsd:element ref="ojb-cit-ext:TrafficIncidentAccidentIndicator" minOccurs="0"/>
 					<xsd:element ref="ojb-cit-ext:DrivingAccidentFatalityIndicator" minOccurs="0"/>
 					<xsd:element ref="ojb-cit-ext:SeatBeltViolationIndicator" minOccurs="0"/>
 					<xsd:element ref="ojb-cit-ext:CivilReliefActIndicator" minOccurs="0"/>
@@ -177,6 +178,18 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="EnforcementOfficialType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an enforcement official.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:EnforcementOfficialType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-cit-ext:EnforcementOfficialIdentification" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="CitationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for citation infomation.</xsd:documentation>
@@ -184,6 +197,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:CitationType">
 				<xsd:sequence>
+					<xsd:element ref="ojb-cit-ext:CitationIssuingOfficial" minOccurs="0"/>
 					<xsd:element ref="ojb-cit-ext:CitationAugmentation" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -284,6 +298,11 @@
 			<xsd:documentation>Information describing an offense.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CitationIssuingOfficial" type="ojb-cit-ext:EnforcementOfficialType">
+		<xsd:annotation>
+			<xsd:documentation>An person involved in the enforcement of law.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<!-- OJB Augmentation Elements -->
 	<xsd:element name="DrivingIncidentAugmentation" type="ojb-cit-ext:DrivingIncidentAugmentationType">
 		<xsd:annotation>
@@ -326,10 +345,20 @@
 			<xsd:documentation>A Fish and Wildlife License number assigned to a person.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="EnforcementOfficialIdentification" type="nc:IdentificationType" >
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to an enforcement official.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="VehicleHazardousMaterialIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if a vehicle is carrying hazardous material; false otherwise.</xsd:documentation>
 		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TrafficIncidentAccidentIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a traffic incident resulted in an accident; false otherwise.</xsd:documentation>
+	</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingAccidentFatalityIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
