@@ -265,6 +265,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PERSON_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0";	
 	public static final String NS_PREFIX_PERSON_SEARCH_REQUEST_DOC = "psr-doc";
 					
+	public static final String NS_CUSTODY_SEARCH_REQ_EXCH = "http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0";
+	public static final String NS_PREFIX_CUSTODY_SEARCH_REQ_EXCH = "cs-req-doc";
+	
+	public static final String NS_CUSTODY_SEARCH_REQ_EXT = "http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0";	
+	public static final String NS_PREFIX_CUSTODY_SEARCH_REQ_EXT = "cs-req-ext";
+	
 	public static final String NS_CUSTODY_SEARCH_RES_EXT = "http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0";
 	public static final String NS_PREFIX_CUSTODY_SEARCH_RES_EXT = "cs-res-ext";		
 		
@@ -272,7 +278,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PREFIX_CUSTODY_SEARCH_REQUEST = "cs-req-doc";
 	
 	public static final String NS_CUSTODY_QUERY_RESULTS_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0";	
-	public static final String NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC = "cq-res-ech";
+	public static final String NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC = "cq-res-exch";
 	
 	public static final String NS_CUSTODY_QUERY_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0";	
 	public static final String NS_PREFIX_CUSTODY_QUERY_RESULTS_EXT = "cq-res-ext";	
@@ -651,7 +657,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public OjbcNamespaceContext() {
 		
 		prefixToUriMap = new HashMap<String, String>();
-		uriToPrefixMap = new HashMap<String, String>();			
+		uriToPrefixMap = new HashMap<String, String>();				
+				
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_REQ_EXT, NS_CUSTODY_SEARCH_REQ_EXT);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_REQ_EXT, NS_PREFIX_CUSTODY_SEARCH_REQ_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_REQ_EXCH, NS_CUSTODY_SEARCH_REQ_EXCH);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_REQ_EXCH, NS_PREFIX_CUSTODY_SEARCH_REQ_EXCH);		
 		
 		prefixToUriMap.put(NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXT, NS_COURT_CASE_QUERY_RESULTS_EXT);
 		uriToPrefixMap.put(NS_COURT_CASE_QUERY_RESULTS_EXT, NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXT);		
