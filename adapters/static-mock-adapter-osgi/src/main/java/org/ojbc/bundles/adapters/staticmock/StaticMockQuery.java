@@ -720,12 +720,12 @@ public class StaticMockQuery {
 		String caseTrackingId = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Case/nc30:CaseTrackingID");		
 		caseTrackId.setTextContent(caseTrackingId);
 		
-		Element caseDocketIdElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "nc:CaseDocketID");
+				
+		String sDocketIdVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Case/nc30:CaseDocketID");		
 		
-		// TODO get xpath for value
-		String docketIdVal = "";
+		Element caseDocketIdElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseDocketID");
 		
-		caseDocketIdElement.setTextContent(docketIdVal);						
+		caseDocketIdElement.setTextContent(sDocketIdVal);						
 		
 		Element caseAugment =  XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_JXDM_51, "CaseAugmentation");
 		
@@ -901,25 +901,30 @@ public class StaticMockQuery {
 		
 		srchResCatTxtElement.setTextContent(srchResCatTxtVal);
 		
-		Element infoOwnOrgElement =  XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "InformationOwningOrganization");
+		Element infoOwnOrgElement =  XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "InformationOwningOrganization");		
 		
 		Element orgBranchNameElement = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
 		
-		String orgBranchNameVal = "";
+		String orgBranchNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//ccq-res-ext:InformationOwningOrganization/nc30:OrganizationBranchName");
 		
 		orgBranchNameElement.setTextContent(orgBranchNameVal);
 		
-		Element orgName = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
-		orgName.setTextContent(orgBranchNameVal);
+		
+		String sOrgName = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//ccq-res-ext:InformationOwningOrganization/nc30:OrganizationName");
+		
+		Element orgNameElement = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
+		
+		orgNameElement.setTextContent(sOrgName);
 		
 		Element metadata = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NC_30, "Metadata");
 		XmlUtils.addAttribute(metadata, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "M" + resultId);		
 		
 		Element lastUpdatedDate = XmlUtils.appendElement(metadata, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");
 		
-		Element lastUpdateValElement = XmlUtils.appendElement(lastUpdatedDate, OjbcNamespaceContext.NS_NC_30, "Date");
+		Element lastUpdateValElement = XmlUtils.appendElement(lastUpdatedDate, OjbcNamespaceContext.NS_NC_30, "Date");									
 		
-		String lastUpdatedDateVal = "";		
+		String lastUpdatedDateVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Metadata/nc30:LastUpdatedDate/nc30:Date");
+		
 		lastUpdateValElement.setTextContent(lastUpdatedDateVal);		
 						
 		return courtCaseSearchResultElement;
