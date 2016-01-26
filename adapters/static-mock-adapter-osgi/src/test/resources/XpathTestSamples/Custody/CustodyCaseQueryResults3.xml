@@ -56,7 +56,7 @@
 			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
 		<nc:PersonStateIdentification>
-			<nc:IdentificationID>CO1298765678</nc:IdentificationID>
+			<nc:IdentificationID>abc123</nc:IdentificationID>
 		</nc:PersonStateIdentification>
 		<j:BailBond>
 			<nc:ActivityCategoryText>type of bond</nc:ActivityCategoryText>

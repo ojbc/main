@@ -34,7 +34,7 @@
 			<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
 		</j:PersonNCICIdentification>
 		<j:PersonStateFingerprintIdentification>
-			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+			<nc:IdentificationID>abc123</nc:IdentificationID>
 			<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
 		</j:PersonStateFingerprintIdentification>
 		<nc:Person>
