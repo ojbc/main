@@ -51,7 +51,7 @@
       <nc:IdentificationID>123-45-6789</nc:IdentificationID>
     </nc:PersonSSNIdentification>
     <nc:PersonStateIdentification>
-      <nc:IdentificationID>NY123456789</nc:IdentificationID>
+      <nc:IdentificationID>abc123</nc:IdentificationID>
     </nc:PersonStateIdentification>
     <j:BailBond>
       <nc:ActivityCategoryText>type of bond</nc:ActivityCategoryText>

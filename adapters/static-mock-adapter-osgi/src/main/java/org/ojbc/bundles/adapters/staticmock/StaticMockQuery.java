@@ -2234,16 +2234,30 @@ public class StaticMockQuery {
 	private List<IdentifiableDocumentWrapper> custodySearchDocumentsAsList(Document custodySearchRequestMessage, DateTime baseDate) 
 			throws Exception {
 		
-		List<IdentifiableDocumentWrapper> custodyDocSearchMatchesList = new ArrayList<IdentifiableDocumentWrapper>();		
+		List<IdentifiableDocumentWrapper> custodySearchResultMatchList = new ArrayList<IdentifiableDocumentWrapper>();		
 		
-		for (IdentifiableDocumentWrapper identifyableCustodyDoc : custodyDataSource.getDocuments()) {
-			
-			// TODO use xpaths from custodySearchRequestMessage against List of docs to reduce result set 
-			
-			custodyDocSearchMatchesList.add(identifyableCustodyDoc);			
+		String custodySearchRequestSid = XmlUtils.xPathStringSearch(custodySearchRequestMessage, 
+				"//cs-req-doc:CustodySearchRequest/cs-req-ext:Person/jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID");		
+		
+		LOG.info("\n\n\n Using sid: " + custodySearchRequestSid + " \n\n\n");
+		
+		if(StringUtils.isBlank(custodySearchRequestSid)){
+			return custodySearchResultMatchList;
 		}
+			
+		for (IdentifiableDocumentWrapper identifyableCustodyDetailDoc : custodyDataSource.getDocuments()) {
+			
+			Document custodyDetailDoc = identifyableCustodyDetailDoc.getDocument();						
+
+			String custodyDetailDocSid = XmlUtils.xPathStringSearch(custodyDetailDoc, 
+					"/cq-res-exch:CustodyQueryResults/cq-res-ext:InmateCustody/nc30:PersonStateIdentification/nc30:IdentificationID");
+			
+			if(StringUtils.isNotBlank(custodyDetailDocSid) && custodySearchRequestSid.equals(custodyDetailDocSid)){
 				
-		return custodyDocSearchMatchesList;		
+				custodySearchResultMatchList.add(identifyableCustodyDetailDoc);
+			}			
+		}						
+		return custodySearchResultMatchList;		
 	}
 	
 	
