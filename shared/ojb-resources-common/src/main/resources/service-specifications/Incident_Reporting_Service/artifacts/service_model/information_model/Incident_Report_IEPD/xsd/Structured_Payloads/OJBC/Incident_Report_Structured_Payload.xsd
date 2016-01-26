@@ -49,6 +49,7 @@
 					<xsd:element ref="inc-ext:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:Arrest" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:Victim" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:EnforcementOfficial" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Document" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:RecordCategoryText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:DocumentRequestorDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
@@ -264,6 +265,19 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="EnforcementOfficialType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a person who suffers injury, loss, or death as a result of an incident.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:EnforcementOfficialType">
+				<xsd:sequence>
+					<xsd:element ref="inc-ext:EnforcementOfficialIdentification" minOccurs="0"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="DriverLicenseType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a person who suffers injury, loss, or death as a result of an incident.</xsd:documentation>
@@ -381,6 +395,7 @@
 			<xsd:extension base="j:DrivingIncidentType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0"/>
+					<xsd:element ref="inc-ext:TrafficIncidentAccidentIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:DrivingAccidentIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:DrivingAccidentFatalityIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:SeatBeltViolationIndicator" minOccurs="0"/>
@@ -424,6 +439,11 @@
 			<!-- Should the extension base bes:ComplexObjectType? -->
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:element name="EnforcementOfficialIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification assigned to an enforcement official.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="IncidentReport" type="inc-ext:IncidentReportType">
 		<xsd:annotation>
 			<xsd:documentation>A report of an incident.</xsd:documentation>
@@ -510,6 +530,11 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Victim" type="inc-ext:VictimType">
+		<xsd:annotation>
+			<xsd:documentation>A person who suffers injury, loss, or death as a result of an incident.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EnforcementOfficial" type="inc-ext:EnforcementOfficialType">
 		<xsd:annotation>
 			<xsd:documentation>A person who suffers injury, loss, or death as a result of an incident.</xsd:documentation>
 		</xsd:annotation>
@@ -784,6 +809,11 @@
 	<xsd:element name="DrivingIncident" type="inc-ext:DrivingIncidentType">
 		<xsd:annotation>
 			<xsd:documentation>Details about an incident involving a vehicle.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TrafficIncidentAccidentIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a traffic incident resulted in an accident; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingAccidentIndicator" type="niem-xsd:boolean">
