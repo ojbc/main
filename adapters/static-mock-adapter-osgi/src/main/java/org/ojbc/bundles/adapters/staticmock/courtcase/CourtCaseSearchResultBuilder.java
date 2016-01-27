@@ -16,6 +16,7 @@
  */
 package org.ojbc.bundles.adapters.staticmock.courtcase;
 
+import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -41,9 +42,9 @@ public class CourtCaseSearchResultBuilder {
 				"//jxdm51:CaseCourt/jxdm51:OrganizationAugmentation/jxdm51:OrganizationJurisdiction/nc30:JurisdictionText");	
 		courtCaseDetail.setJurisdictionText(sJurisdictionTxtVal);
 		
-		String idCatDescTxtVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
-				"//jxdm51:StatuteCodeIdentification/nc30:IdentificationCategoryDescriptionText");		
-		courtCaseDetail.setStatuteCodeIdCatDescText(idCatDescTxtVal);
+		String caseOtherIdCatDescTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
+				"jxdm51:CaseOtherIdentification/nc30:IdentificationCategoryDescriptionText");		
+		courtCaseDetail.setCaseOtherInfoIdCatDescTxt(caseOtherIdCatDescTxt);		
 		
 		String dobVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Identity/nc30:IdentityPersonRepresentation/nc30:PersonBirthDate/nc30:Date");
 		courtCaseDetail.setPersonBirthDate(dobVal);
@@ -127,108 +128,272 @@ public class CourtCaseSearchResultBuilder {
 		courtCaseSearchResultElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
 		
 		XmlUtils.addAttribute(courtCaseSearchResultElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Result_" + resultId);
-											
-		// ********* CASE ***************************		
-		Element caseElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NC_30, "Case");		
-		XmlUtils.addAttribute(caseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Case_" + resultId);
+												
+		Element caseElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NC_30, "Case");
 		
+		XmlUtils.addAttribute(caseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Case_" + resultId);		
 		
 		Element caseGenCatTxtElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseGeneralCategoryText");
 						
 		caseGenCatTxtElement.setTextContent(courtCaseDetail.getCaseGeneralCategoryText());
+								
 		
-		Element caseTrackId = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseTrackingID");					
-		caseTrackId.setTextContent(courtCaseDetail.getCaseTrackingID());								
+		String sTrackingId = courtCaseDetail.getCaseTrackingID();
 		
-		Element caseDocketIdElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseDocketID");		
-		caseDocketIdElement.setTextContent(courtCaseDetail.getCaseDocketID());						
+		if(StringUtils.isNotBlank(sTrackingId)){
 		
-		Element caseAugment =  XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_JXDM_51, "CaseAugmentation");
+			Element caseTrackId = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseTrackingID");		
+			
+			sTrackingId = sTrackingId.trim();
+			
+			caseTrackId.setTextContent(sTrackingId);			
+		}
 		
-		Element caseCourt = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseCourt");			
-					
-		Element orgAugment = XmlUtils.appendElement(caseCourt, OjbcNamespaceContext.NS_JXDM_51, "OrganizationAugmentation");
 		
-		Element orgJurisdiction = XmlUtils.appendElement(orgAugment, OjbcNamespaceContext.NS_JXDM_51, "OrganizationJurisdiction");
+		String sDocketId = courtCaseDetail.getCaseDocketID();
 		
-		Element jurisdictionTxtElement = XmlUtils.appendElement(orgJurisdiction, OjbcNamespaceContext.NS_NC_30, "JurisdictionText");				
-		jurisdictionTxtElement.setTextContent(courtCaseDetail.getJurisdictionText());
+		if(StringUtils.isNotBlank(sDocketId)){
+
+			Element caseDocketIdElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseDocketID");
+			
+			caseDocketIdElement.setTextContent(sDocketId);				
+		}		
 				
-		Element caseOtherId = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseOtherIdentification");
 		
-		Element idCatDescTxt = XmlUtils.appendElement(caseOtherId, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText"); 				
-		idCatDescTxt.setTextContent(courtCaseDetail.getStatuteCodeIdCatDescText());
+		Element caseAugment =  XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_JXDM_51, "CaseAugmentation");		
 		
-		// ********** PERSON ************
+		String sJurisdictionTxt = courtCaseDetail.getJurisdictionText();
 		
+		if(StringUtils.isNotBlank(sJurisdictionTxt)){
+			
+			Element caseCourt = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseCourt");			
+			
+			Element orgAugment = XmlUtils.appendElement(caseCourt, OjbcNamespaceContext.NS_JXDM_51, "OrganizationAugmentation");
+			
+			Element orgJurisdiction = XmlUtils.appendElement(orgAugment, OjbcNamespaceContext.NS_JXDM_51, "OrganizationJurisdiction");
+			
+			Element jurisdictionTxtElement = XmlUtils.appendElement(orgJurisdiction, OjbcNamespaceContext.NS_NC_30, "JurisdictionText");
+			
+			sJurisdictionTxt = sJurisdictionTxt.trim();
+			
+			jurisdictionTxtElement.setTextContent(sJurisdictionTxt);			
+		}
+		
+
+		String sCaseOtherInfoIdCatDescTxt = courtCaseDetail.getCaseOtherInfoIdCatDescTxt();
+		
+		if(StringUtils.isBlank(sCaseOtherInfoIdCatDescTxt)){
+
+			Element caseOtherId = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseOtherIdentification");
+			
+			Element idCatDescTxt = XmlUtils.appendElement(caseOtherId, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText"); 	
+			
+			sCaseOtherInfoIdCatDescTxt = sCaseOtherInfoIdCatDescTxt.trim();
+			
+			idCatDescTxt.setTextContent(sCaseOtherInfoIdCatDescTxt);			
+		}						
+
+				
 		Element person =  XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NC_30, "Person");			
 		XmlUtils.addAttribute(person, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Person_" + resultId);		
-		XmlUtils.addAttribute(person, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "M" + resultId);
+		XmlUtils.addAttribute(person, OjbcNamespaceContext.NS_STRUCTURES_30, "metadata", "M" + resultId);		
+		
+		String personDob = courtCaseDetail.getPersonBirthDate();
+		
+		if(StringUtils.isNotBlank(personDob)){
+			
+			Element personDobElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
+			
+			Element personDobValue = XmlUtils.appendElement(personDobElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+			
+			personDobValue.setTextContent(personDob);						
+		}
 		
 		
-		Element personDobElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
+		String sEyeColor = courtCaseDetail.getPersonEyeColor();
 		
-		Element personDobValue = XmlUtils.appendElement(personDobElement, OjbcNamespaceContext.NS_NC_30, "Date");						
-		personDobValue.setTextContent(courtCaseDetail.getPersonBirthDate());
+		if(StringUtils.isNotBlank(sEyeColor)){
+
+			Element eyeColorElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonEyeColorText");
+			
+			eyeColorElement.setTextContent(sEyeColor);
+		}
 		
-		Element eyeColorElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonEyeColorText");
-		eyeColorElement.setTextContent(courtCaseDetail.getPersonEyeColor());
-					
-		Element hairColor = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHairColorText");				
-		hairColor.setTextContent(courtCaseDetail.getPersonHairColor());
+		String sHairColor = courtCaseDetail.getPersonHairColor();
 		
-		Element height = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
+		if(StringUtils.isNotBlank(sHairColor)){
+			
+			Element hairColor = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHairColorText");	
+			
+			sHairColor = sHairColor.trim();
+			
+			hairColor.setTextContent(sHairColor);			
+		}
+
 		
-		Element measureValueTxt = XmlUtils.appendElement(height, OjbcNamespaceContext.NS_NC_30, "MeasureValueText"); 		
-		measureValueTxt.setTextContent(courtCaseDetail.getPersonHeight());
+		String sHeight = courtCaseDetail.getPersonHeight();		
+		
+		if(StringUtils.isNotBlank(sHeight)){
+
+			Element height = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
+			
+			Element measureValueTxt = XmlUtils.appendElement(height, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");
+			
+			sHeight = sHeight.trim();
+			
+			measureValueTxt.setTextContent(sHeight);	
+						
+			String sHeightUnits = courtCaseDetail.getPersonHeightUnits();
+			
+			if(StringUtils.isNotBlank(sHeightUnits)){
+
+				Element lengthUnitCode = XmlUtils.appendElement(height, OjbcNamespaceContext.NS_NC_30, "LengthUnitCode");
 				
-		Element lengthUnitCode = XmlUtils.appendElement(height, OjbcNamespaceContext.NS_NC_30, "LengthUnitCode");		
-		lengthUnitCode.setTextContent(courtCaseDetail.getPersonHeightUnits());
+				lengthUnitCode.setTextContent(sHeightUnits);				
+			}									
+		}
+
 		
-		Element personNameElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		String personGivenName = courtCaseDetail.getPersonGivenName();		
 		
-		Element personGivenNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");					
-		personGivenNameElement.setTextContent(courtCaseDetail.getPersonGivenName());
+		boolean hasPersonGivenName = StringUtils.isNotBlank(personGivenName);
+				
+		String sPersonMiddleName = courtCaseDetail.getPersonMiddleName();
 		
-		Element personMiddleName = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");						
-		personMiddleName.setTextContent(courtCaseDetail.getPersonMiddleName());
+		boolean hasPersonMiddleName = StringUtils.isNotBlank(sPersonMiddleName);
 		
-		Element personSurNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");		
-		personSurNameElement.setTextContent(courtCaseDetail.getPersonSurName());			
+		String personSurName = courtCaseDetail.getPersonSurName();
 		
-		Element personRaceCode = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "PersonRaceCode");						
-		personRaceCode.setTextContent(courtCaseDetail.getPersonRaceCode());
-					
-		Element personSexCode = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");						
-		personSexCode.setTextContent(courtCaseDetail.getPersonSexCode());
+		boolean hasPersonSurName = StringUtils.isNotBlank(personSurName);
 		
-		Element personWeightMeasure = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonWeightMeasure");
-		Element measureValTxt = XmlUtils.appendElement(personWeightMeasure, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");
-					
-		measureValTxt.setTextContent(courtCaseDetail.getPersonWeight());		
+
+		if(hasPersonGivenName || hasPersonMiddleName || hasPersonSurName){
+			
+			Element personNameElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonName");	
+
+			if(hasPersonGivenName){
+
+				Element personGivenNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
+				
+				personGivenName = personGivenName.trim();
+				
+				personGivenNameElement.setTextContent(personGivenName);
+			}
+			
+			if(hasPersonMiddleName){
+				
+				Element personMiddleNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
+				
+				sPersonMiddleName = sPersonMiddleName.trim();
+				
+				personMiddleNameElement.setTextContent(sPersonMiddleName);				
+			}
+			
+			if(hasPersonSurName){
+
+				Element personSurNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");		
+			
+				personSurName = personSurName.trim();
+				
+				personSurNameElement.setTextContent(personSurName);					
+			}			
+		}
+
+		
+		String sRaceCode = courtCaseDetail.getPersonRaceCode();
+		
+		if(StringUtils.isNotBlank(sRaceCode)){
+			
+			Element personRaceCodeElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "PersonRaceCode");
+			
+			sRaceCode = sRaceCode.trim();
+			
+			personRaceCodeElement.setTextContent(sRaceCode);			
+		}
+				
+		
+		String sPersonSexCode = courtCaseDetail.getPersonSexCode();
+		
+		if(StringUtils.isNotBlank(sPersonSexCode)){
+
+			Element personSexCode = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
+			
+			sPersonSexCode = sPersonSexCode.trim();
+			
+			personSexCode.setTextContent(sPersonSexCode);			
+		}
+		
+		String sPersonWeight = courtCaseDetail.getPersonWeight();
+		
+		if(StringUtils.isNotBlank(sPersonWeight)){
+			
+			Element personWeightMeasure = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonWeightMeasure");
+			
+			Element measureValTxt = XmlUtils.appendElement(personWeightMeasure, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");
+						
+			sPersonWeight = sPersonWeight.trim();
+			
+			measureValTxt.setTextContent(sPersonWeight);					
+		}
+		
 		
 		Element personAugmentation = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "PersonAugmentation");
 		
-		Element driverLicense = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_51, "DriverLicense");
 		
-		Element driverLicenseId = XmlUtils.appendElement(driverLicense, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseIdentification");
+		String sDriversLicenseId = courtCaseDetail.getDriverLicenseId();
 		
-		Element driverLicenseIdVal = XmlUtils.appendElement(driverLicenseId, OjbcNamespaceContext.NS_NC_30, "IdentificationID"); 					
-		driverLicenseIdVal.setTextContent(courtCaseDetail.getDriverLicenseId());
+		if(StringUtils.isNotBlank(sDriversLicenseId)){
+
+			Element driverLicense = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_51, "DriverLicense");
+			
+			Element driverLicenseId = XmlUtils.appendElement(driverLicense, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseIdentification");
+			
+			Element driverLicenseIdVal = XmlUtils.appendElement(driverLicenseId, OjbcNamespaceContext.NS_NC_30, "IdentificationID"); 					
+			
+			sDriversLicenseId = sDriversLicenseId.trim();
+			
+			driverLicenseIdVal.setTextContent(sDriversLicenseId);	
+			
+			String driversLicenseSourceTxt = courtCaseDetail.getDriverLicenseIdSourceTxt();
+			
+			if(StringUtils.isNotBlank(driversLicenseSourceTxt)){
 				
-		Element drivLicIdSrcTxtElement = XmlUtils.appendElement(driverLicenseId, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText");					
-		drivLicIdSrcTxtElement.setTextContent(courtCaseDetail.getDriverLicenseIdSourceTxt());
+				Element drivLicIdSrcTxtElement = XmlUtils.appendElement(driverLicenseId, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText");
+				
+				driversLicenseSourceTxt = driversLicenseSourceTxt.trim();
+				
+				drivLicIdSrcTxtElement.setTextContent(driversLicenseSourceTxt);								
+			}
+		}
 		
-		Element personFBIId = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_51, "PersonFBIIdentification");
 		
-		Element personFBIIdVal = XmlUtils.appendElement(personFBIId, OjbcNamespaceContext.NS_NC_30, "IdentificationID");				
-		personFBIIdVal.setTextContent(courtCaseDetail.getPersonFBIId());
+		String sFbiId = courtCaseDetail.getPersonFBIId();
 		
-		Element personSid = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_51, "PersonStateFingerprintIdentification");
-		Element personSidVal = XmlUtils.appendElement(personSid, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-						
-		personSidVal.setTextContent(courtCaseDetail.getPersonSid());			
+		if(StringUtils.isNotBlank(sFbiId)){
+			
+			Element personFBIId = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_51, "PersonFBIIdentification");
+			
+			Element personFBIIdVal = XmlUtils.appendElement(personFBIId, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+			
+			sFbiId = sFbiId.trim();
+			
+			personFBIIdVal.setTextContent(sFbiId);			
+		}
+
 		
+		String sPersonSid = courtCaseDetail.getPersonSid();
+		
+		if(StringUtils.isNotBlank(sPersonSid)){
+			
+			Element personSid = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_51, "PersonStateFingerprintIdentification");
+			
+			Element personSidVal = XmlUtils.appendElement(personSid, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+							
+			sPersonSid = sPersonSid.trim();
+			
+			personSidVal.setTextContent(sPersonSid);				
+		}
+
 		Element personCaseAssociation = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_CYFS, "PersonCaseAssociation");			
 		
 		Element personAssoc = XmlUtils.appendElement(personCaseAssociation, OjbcNamespaceContext.NS_NC_30, "Person");
@@ -238,44 +403,109 @@ public class CourtCaseSearchResultBuilder {
 		XmlUtils.addAttribute(caseAssoc, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Case_" + resultId);
 		
 		
-		Element srcSysNameTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, 
-				OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "SourceSystemNameText");
-						
-		srcSysNameTxtElement.setTextContent(courtCaseDetail.getSourceSystemNameText());
+		String sourceSystemNameText = courtCaseDetail.getSourceSystemNameText();
 		
-		Element sysIdElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_INTEL_31, "SystemIdentification");
+		if(StringUtils.isNotBlank(sourceSystemNameText)){
+
+			Element srcSysNameTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, 
+					OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "SourceSystemNameText");
+							
+			srcSysNameTxtElement.setTextContent(sourceSystemNameText);			
+		}
 		
-		Element sysIdValElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		String sSystemId = courtCaseDetail.getSystemId();
+		
+		String sSystemName = courtCaseDetail.getSystemName();
+		
+		boolean hasSystemId = StringUtils.isNotBlank(sSystemId);
+		
+		boolean hasSystemName = StringUtils.isNotBlank(sSystemName);
+		
+		if(hasSystemId || hasSystemName){
+			
+			Element sysIdElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_INTEL_31, "SystemIdentification");
+			
+			if(hasSystemId){
+
+				Element sysIdValElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
 				
-		sysIdValElement.setTextContent(courtCaseDetail.getSystemId());
-		
-		Element sysName = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "SystemName");
-						
-		sysName.setTextContent(courtCaseDetail.getSystemName());
-		
-		Element srchResCatTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, 
-				OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "SearchResultCategoryText");
+				sSystemId = sSystemId.trim();
 				
-		srchResCatTxtElement.setTextContent(courtCaseDetail.getSearchResultCategoryText());
-		
-		Element infoOwnOrgElement =  XmlUtils.appendElement(courtCaseSearchResultElement, 
-				OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "InformationOwningOrganization");		
-		
-		Element orgBranchNameElement = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");				
-		orgBranchNameElement.setTextContent(courtCaseDetail.getOrganizationBranchName());
+				sysIdValElement.setTextContent(sSystemId);				
+			}
+			
+			if(hasSystemName){
 				
-		Element orgNameElement = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");		
-		orgNameElement.setTextContent(courtCaseDetail.getOrganizationName());
+				Element sysName = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "SystemName");
+				
+				sSystemName = sSystemName.trim();
+				
+				sysName.setTextContent(sSystemName);				
+			}
+		}
+
 		
-		Element metadata = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NC_30, "Metadata");
-		XmlUtils.addAttribute(metadata, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "M" + resultId);		
 		
-		Element lastUpdatedDate = XmlUtils.appendElement(metadata, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");
+		String sSrchResCatTxt = courtCaseDetail.getSearchResultCategoryText();
 		
-		Element lastUpdateValElement = XmlUtils.appendElement(lastUpdatedDate, OjbcNamespaceContext.NS_NC_30, "Date");									
+		if(StringUtils.isNotBlank(sSrchResCatTxt)){
+			
+			Element srchResCatTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, 
+					OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "SearchResultCategoryText");
+					
+			srchResCatTxtElement.setTextContent(sSrchResCatTxt);
+		}
+		
+		String sOrgBranchName = courtCaseDetail.getOrganizationBranchName();
+		
+		String sOrgName = courtCaseDetail.getOrganizationName();
+		
+		boolean hasOrgBranchName = StringUtils.isNotBlank(sOrgBranchName);
+		
+		boolean hasOrgName = StringUtils.isNotBlank(sOrgName);
 						
-		lastUpdateValElement.setTextContent(courtCaseDetail.getLastUpdatedDate());		
-						
+		if(hasOrgBranchName || hasOrgName){
+			
+			Element infoOwnOrgElement =  XmlUtils.appendElement(courtCaseSearchResultElement, 
+					OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "InformationOwningOrganization");
+			
+			if(hasOrgBranchName){
+				
+				Element orgBranchNameElement = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
+				
+				sOrgBranchName = sOrgBranchName.trim();
+				
+				orgBranchNameElement.setTextContent(sOrgBranchName);				
+			}
+			
+			if(hasOrgName){
+				
+				Element orgNameElement = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
+				
+				sOrgName = sOrgName.trim();
+				
+				orgNameElement.setTextContent(sOrgName);				
+			}
+		}
+		
+		String sLastUpdatedDate = courtCaseDetail.getLastUpdatedDate();
+		
+		if(StringUtils.isNotBlank(sLastUpdatedDate)){
+			
+			Element metadataElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NC_30, "Metadata");
+			
+			XmlUtils.addAttribute(metadataElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "M" + resultId);		
+			
+			Element lastUpdatedDateElement = XmlUtils.appendElement(metadataElement, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");
+			
+			Element lastUpdateValElement = XmlUtils.appendElement(lastUpdatedDateElement, OjbcNamespaceContext.NS_NC_30, "Date");									
+							
+			sLastUpdatedDate = sLastUpdatedDate.trim();
+			
+			lastUpdateValElement.setTextContent(sLastUpdatedDate);				
+		}
+				
 		return courtCaseSearchResultElement;
 	}	
 
