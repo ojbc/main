@@ -120,6 +120,24 @@ public class StaticMockQuery {
 	public int getJuvenileHistoryDocumentCount() throws Exception {
 		return juvenileHistoryDataSource.getDocuments().size();
 	}
+	
+	/**
+	 * Gets the total number of available Custody documents
+	 * @return document count
+	 * @throws Exception
+	 */
+	public int getCustodyDocumentCount() throws Exception{
+		return custodyDataSource.getDocuments().size();
+	}
+	
+	/**
+	 * Gets the total number of available court case documents
+	 * @return document count
+	 * @throws Exception
+	 */
+	public int getCourtCaseDocumentCout() throws Exception{
+		return courtCaseDataSource.getDocuments().size();
+	}
 
 	/**
 	 * Get the total number of available criminal history documents.
@@ -2163,24 +2181,23 @@ public class StaticMockQuery {
 		SearchValueXPaths xPaths = new SearchValueXPaths();
 				
 		xPaths.ageXPath = null;
-		xPaths.birthdateXPath = "//nc:PersonBirthDate";
-		xPaths.ssnXPath = "//nc:PersonSSNIdentification/nc:IdentificationID";
-		xPaths.sidXPath = "//nc:PersonStateIdentification/nc:IdentificationID";
+		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
+		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";
+		xPaths.sidXPath = "//nc30:PersonStateIdentification/nc30:IdentificationID";
 		xPaths.fbiXPath = null;
 		xPaths.dlXPath = null;
 		xPaths.dlJurisdictionXPath = null;
-		xPaths.lastNameXPath = "//nc:PersonName/nc:PersonSurName";
-		xPaths.middleNameXPath = "//nc:PersonName/nc:PersonMiddleName";
-		xPaths.firstNameXPath = "//nc:PersonName/nc:PersonGivenName";
+		xPaths.lastNameXPath = "//nc30:PersonName/nc30:PersonSurName";
+		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
+		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";
 		xPaths.eyeColorXPath = null;
 		xPaths.hairColorXPath = null;
-		xPaths.raceXPath = "//nc:PersonRaceText";
-		xPaths.sexXPath = "//nc:PersonSexText";
+		xPaths.raceXPath = "//nc30:PersonRaceText";
+		xPaths.sexXPath = "//nc30:PersonSexText";
 		xPaths.heightXPath = null;
-		xPaths.weightXPath = null;
-		
-		xPaths.searchSystemId = CUSTODY_SEARCH_SYSTEM_ID;
-		xPaths.systemName = "Custody";
+		xPaths.weightXPath = null;		
+		xPaths.searchSystemId = "//intel31:SystemIdentification/nc30:IdentificationID";		
+		xPaths.systemName = "//intel31:SystemIdentification/nc30:SystemName";		
 		xPaths.recordType = "Custody";						
 		
 		return xPaths;
@@ -2191,24 +2208,24 @@ public class StaticMockQuery {
 		SearchValueXPaths xPaths = new SearchValueXPaths();				
 		
 		xPaths.ageXPath = null;
-		xPaths.birthdateXPath = "//nc:PersonBirthDate";
-		xPaths.ssnXPath = "//nc:PersonSSNIdentification/nc:IdentificationID";
-		xPaths.sidXPath = "//nc:PersonStateIdentification/nc:IdentificationID";
+		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
+		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";
+		xPaths.sidXPath = "//nc30:PersonStateIdentification/nc30:IdentificationID";
 		xPaths.fbiXPath = null;
 		xPaths.dlXPath = null;
 		xPaths.dlJurisdictionXPath = null;
-		xPaths.lastNameXPath = "//nc:PersonSurName";
-		xPaths.middleNameXPath = "//nc:PersonMiddleName";
-		xPaths.firstNameXPath = "//nc:PersonGivenName";
+		xPaths.lastNameXPath = "//nc30:PersonSurName";
+		xPaths.middleNameXPath = "//nc30:PersonMiddleName";
+		xPaths.firstNameXPath = "//nc30:PersonGivenName";
 		xPaths.eyeColorXPath = "//jxdm51:PersonEyeColorCode";
 		xPaths.hairColorXPath = "//jxdm51:PersonHairColorCode";
-		xPaths.raceXPath = "//nc:PersonRaceText";
-		xPaths.sexXPath = "//nc:PersonSexText";
-		xPaths.heightXPath = "//nc:PersonHeightMeasure/nc:MeasureValueText";
+		xPaths.raceXPath = "//nc30:PersonRaceText";
+		xPaths.sexXPath = "//nc30:PersonSexText";
+		xPaths.heightXPath = "//nc30:PersonHeightMeasure/nc30:MeasureValueText";
 		xPaths.weightXPath = null;	
 		
 		xPaths.searchSystemId = COURT_CASE_SEARCH_SYSTEM_ID;
-		xPaths.systemName = "Court Case";
+		xPaths.systemName = "//intel31:SystemIdentification/nc30:SystemName";
 		xPaths.recordType = "Court Case";		
 		
 		return xPaths;
