@@ -27,7 +27,7 @@ public class CourtCaseDetail {
 	
 	private String jurisdictionText;
 
-	private String statuteCodeIdCatDescText;
+	private String caseOtherInfoIdCatDescTxt;
 	
 	private String personBirthDate;
 	
@@ -90,8 +90,8 @@ public class CourtCaseDetail {
 		return jurisdictionText;
 	}
 
-	public String getStatuteCodeIdCatDescText() {
-		return statuteCodeIdCatDescText;
+	public String getCaseOtherInfoIdCatDescTxt() {
+		return caseOtherInfoIdCatDescTxt;
 	}
 
 	public String getPersonBirthDate() {
@@ -198,8 +198,8 @@ public class CourtCaseDetail {
 		this.jurisdictionText = jurisdictionText;
 	}
 
-	public void setStatuteCodeIdCatDescText(String statuteCodeIdCatDescText) {
-		this.statuteCodeIdCatDescText = statuteCodeIdCatDescText;
+	public void setCaseOtherInfoIdCatDescTxt(String caseOtherInfoIdCatDescTxt) {
+		this.caseOtherInfoIdCatDescTxt = caseOtherInfoIdCatDescTxt;
 	}
 
 	public void setPersonBirthDate(String personBirthDate) {
@@ -289,5 +289,6 @@ public class CourtCaseDetail {
 	public void setLastUpdatedDate(String lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
-		
+	
 }
+
