@@ -16,19 +16,17 @@
  */
 package org.ojbc.bundles.adapters.staticmock;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
-import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
-import org.ojbc.util.xml.OjbcNamespaceContext;
-import org.ojbc.util.xml.XmlUtils;
-
 import org.junit.Test;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -63,6 +61,12 @@ public class QueryTest extends AbstractStaticMockTest {
     public void testFirearmRegistrationPersonQuery() throws Exception {
         doPersonTestQuery("sample-9006054698886898174.xml", StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID, "firearm-doc:PersonFirearmRegistrationQueryResults");
     }
+    
+    @Test
+    public void testCustodyPersonQuery() throws ParserConfigurationException, Exception{
+    	doPersonTestQuery("sample-CustodyCaseQueryResults3.xml", StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID, "cq-res-exch:CustodyQueryResults");
+    }
+    
     
     @Test
     public void testJuvenileHistoryQueries() throws Exception {
@@ -121,6 +125,7 @@ public class QueryTest extends AbstractStaticMockTest {
     }
 
     private void doPersonTestQuery(String identifier, String systemId, String rootElementName) throws ParserConfigurationException, Exception {
+    	
         Document queryRequestMessage = buildPersonQueryRequestMessage(systemId, identifier);
         //XmlUtils.printNode(queryRequestMessage);
         List<IdentifiableDocumentWrapper> resultingDocuments = staticMockQuery.queryDocuments(queryRequestMessage);
