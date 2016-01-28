@@ -22,28 +22,28 @@
 		<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 	</nc:DocumentCreationDate>
 	<nc:DocumentIdentification>
-		<nc:IdentificationID>document ID</nc:IdentificationID>
+		<nc:IdentificationID>abc123</nc:IdentificationID>
 	</nc:DocumentIdentification>
 	<intel:SystemIdentification>
-		<nc:IdentificationID>system ID</nc:IdentificationID>
-		<nc:SystemName>system name</nc:SystemName>
+		<nc:IdentificationID>{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest</nc:IdentificationID>
+		<nc:SystemName>Court Case Database</nc:SystemName>
 	</intel:SystemIdentification>
 	<nc:Case structures:id="Case_01">
 		<nc:ActivityIdentification>
-			<nc:IdentificationID>case ID</nc:IdentificationID>
+			<nc:IdentificationID>ABC-123</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:ActivityStatus>
-			<nc:StatusCommentText>generic comment</nc:StatusCommentText>
-			<nc:StatusDescriptionText>current case status</nc:StatusDescriptionText>
+			<nc:StatusCommentText>$5 outstanding balance</nc:StatusCommentText>
+			<nc:StatusDescriptionText>Defendant needs to pay balance</nc:StatusDescriptionText>
 		</nc:ActivityStatus>
 		<nc:CaseDisposition>
 			<nc:DispositionDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</nc:DispositionDate>
 		</nc:CaseDisposition>
-		<nc:CaseCategoryText>case sub type</nc:CaseCategoryText>
-		<nc:CaseGeneralCategoryText>case type</nc:CaseGeneralCategoryText>
-		<nc:CaseTrackingID>case number</nc:CaseTrackingID>
+		<nc:CaseCategoryText>Safety Laws</nc:CaseCategoryText>
+		<nc:CaseGeneralCategoryText>Seatbelt Usage</nc:CaseGeneralCategoryText>
+		<nc:CaseTrackingID>SB1234</nc:CaseTrackingID>
 		<nc:CaseFiling>
 			<nc:DocumentCreationDate>
 				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
@@ -59,7 +59,7 @@
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>String</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>String</nc:IdentificationCategoryDescriptionText>
+						<nc:IdentificationCategoryDescriptionText>More Safety Laws</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 			</j:CaseAmendedCharge>
@@ -137,7 +137,7 @@
 				<j:CourtEventJudge>
 					<nc:RoleOfPerson>
 						<nc:PersonName>
-							<nc:PersonFullName>court event judge</nc:PersonFullName>
+							<nc:PersonFullName>Judge Judy</nc:PersonFullName>
 						</nc:PersonName>
 					</nc:RoleOfPerson>
 				</j:CourtEventJudge>
@@ -160,7 +160,7 @@
 			<j:CaseDefenseAttorney>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
-						<nc:PersonFullName>String</nc:PersonFullName>
+						<nc:PersonFullName>Matlock</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 			</j:CaseDefenseAttorney>
@@ -187,7 +187,7 @@
 				<j:CourtEventJudge>
 					<nc:RoleOfPerson>
 						<nc:PersonName>
-							<nc:PersonFullName>String</nc:PersonFullName>
+							<nc:PersonFullName>Judge Judy Junior</nc:PersonFullName>
 						</nc:PersonName>
 					</nc:RoleOfPerson>
 				</j:CourtEventJudge>
@@ -196,7 +196,7 @@
 			<j:CaseJudge>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
-						<nc:PersonFullName>String</nc:PersonFullName>
+						<nc:PersonFullName>Judge Judy Senior</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 				<j:JudicialOfficialBarMembership>
@@ -214,7 +214,7 @@
 			<j:CaseProsecutionAttorney>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
-						<nc:PersonFullName>String</nc:PersonFullName>
+						<nc:PersonFullName>Matlock Jr.</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 				<j:JudicialOfficialBarMembership>
@@ -268,14 +268,14 @@
 				<nc:Date>2001-12-17</nc:Date>
 			</nc:PersonBirthDate>
 			<nc:PersonName>
-				<nc:PersonGivenName>String</nc:PersonGivenName>
-				<nc:PersonMiddleName>String</nc:PersonMiddleName>
-				<nc:PersonSurName>String</nc:PersonSurName>
-				<nc:PersonNameSuffixText>String</nc:PersonNameSuffixText>
-				<nc:PersonFullName>String</nc:PersonFullName>
+				<nc:PersonGivenName>Homer</nc:PersonGivenName>
+				<nc:PersonMiddleName>Jay</nc:PersonMiddleName>
+				<nc:PersonSurName>Simpson</nc:PersonSurName>
+				<nc:PersonNameSuffixText>Mr.</nc:PersonNameSuffixText>
+				<nc:PersonFullName>Homer Jay Simpson</nc:PersonFullName>
 			</nc:PersonName>
 			<nc:PersonSSNIdentification>
-				<nc:IdentificationID>String</nc:IdentificationID>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
@@ -513,32 +513,32 @@
 		<j:PersonEyeColorCode>BLK</j:PersonEyeColorCode>
 		<j:PersonHairColorCode>BLD</j:PersonHairColorCode>
 		<nc:PersonHeightMeasure>
-			<nc:MeasureValueText>String</nc:MeasureValueText>
-			<nc:MeasureUnitText>String</nc:MeasureUnitText>
+			<nc:MeasureValueText>67</nc:MeasureValueText>
+			<nc:MeasureUnitText>cm</nc:MeasureUnitText>
 		</nc:PersonHeightMeasure>
 		<nc:PersonName>
-			<nc:PersonGivenName>String</nc:PersonGivenName>
-			<nc:PersonMiddleName>String</nc:PersonMiddleName>
-			<nc:PersonSurName>String</nc:PersonSurName>
-			<nc:PersonNameSuffixText>String</nc:PersonNameSuffixText>
-			<nc:PersonFullName>String</nc:PersonFullName>
+			<nc:PersonGivenName>Homer</nc:PersonGivenName>
+			<nc:PersonMiddleName>Jay</nc:PersonMiddleName>
+			<nc:PersonSurName>Simpson</nc:PersonSurName>
+			<nc:PersonNameSuffixText>Mr</nc:PersonNameSuffixText>
+			<nc:PersonFullName>Homer Jay Simpson</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
 			<nc:PhysicalFeatureDescriptionText>Scars Marks Tattoos</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
-		<nc:PersonRaceText>String</nc:PersonRaceText>
-		<nc:PersonSexText>String</nc:PersonSexText>
+		<nc:PersonRaceText>Yellow</nc:PersonRaceText>
+		<nc:PersonSexText>Cartoon</nc:PersonSexText>
 		<nc:PersonSSNIdentification>
-			<nc:IdentificationID>String</nc:IdentificationID>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
 		<nc:PersonStateIdentification>
-			<nc:IdentificationID>State Criminal History ID</nc:IdentificationID>
+			<nc:IdentificationID>123ABC</nc:IdentificationID>
 		</nc:PersonStateIdentification>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
 				<j:DriverLicenseIdentification>
-					<nc:IdentificationID>String</nc:IdentificationID>
-					<nc:IdentificationSourceText>String</nc:IdentificationSourceText>
+					<nc:IdentificationID>4567</nc:IdentificationID>
+					<nc:IdentificationSourceText>MO</nc:IdentificationSourceText>
 				</j:DriverLicenseIdentification>
 				<j:DriverLicenseExpirationDate>
 					<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
@@ -551,7 +551,7 @@
 			</j:DriverLicense>
 		</j:PersonAugmentation>
 		<ccq-res-ext:PersonInmateIdentification>
-			<nc:IdentificationID>inmate ID</nc:IdentificationID>
+			<nc:IdentificationID>1234</nc:IdentificationID>
 		</ccq-res-ext:PersonInmateIdentification>
 	</nc:Person>
 	<nc:Location structures:id="Location_01">

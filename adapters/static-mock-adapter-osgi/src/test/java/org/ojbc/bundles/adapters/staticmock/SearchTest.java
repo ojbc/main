@@ -40,11 +40,15 @@ public class SearchTest extends AbstractStaticMockTest {
 
     @Test
     public void testDocumentCounts() throws Exception {
+    	
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/CriminalHistory", staticMockQuery.getCriminalHistoryDocumentCount());
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Warrant", staticMockQuery.getWarrantDocumentCount());
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Incident", staticMockQuery.getIncidentDocumentCount());
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/FirearmRegistration", staticMockQuery.getFirearmRegistrationDocumentCount());
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenileHistory", staticMockQuery.getJuvenileHistoryDocumentCount());
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenileHistory", staticMockQuery.getJuvenileHistoryDocumentCount());        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Custody", staticMockQuery.getCustodyDocumentCount());        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/CourtCase", staticMockQuery.getCourtCaseDocumentCout());
+        
     }
 
     @Test
@@ -65,6 +69,10 @@ public class SearchTest extends AbstractStaticMockTest {
     	
     	Document custodySearchResultsResponseDoc = staticMockQuery.searchDocuments(custodySearchRequestDoc);
     	
+    	Node custodySearchResultsNode = XmlUtils.xPathNodeSearch(custodySearchResultsResponseDoc, "/cs-res-doc:CustodySearchResults");
+    	
+    	assertNotNull(custodySearchResultsNode);
+    	
     	XmlUtils.printNode(custodySearchResultsResponseDoc);
     }
     
@@ -75,6 +83,10 @@ public class SearchTest extends AbstractStaticMockTest {
     	Document courtCaseSearchRequestDoc = buildCourtCaseSearchRequestMessage(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID);
     	
     	Document courtCaseSearchResultsResponseDoc = staticMockQuery.searchDocuments(courtCaseSearchRequestDoc);
+    	
+    	Node courtCaseSearchResultsNode = XmlUtils.xPathNodeSearch(courtCaseSearchResultsResponseDoc, "ccs-res-doc:CourtCaseSearchResults");
+    	
+    	assertNotNull(courtCaseSearchResultsNode);
     	
     	XmlUtils.printNode(courtCaseSearchResultsResponseDoc);
     }
@@ -304,13 +316,9 @@ public class SearchTest extends AbstractStaticMockTest {
         personNameElement.removeChild(firstNameElement);
         XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
-        //XmlUtils.printNode(personSearchRequestMessage);
+
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(2, matches.size());
-//        for (IdentifiableDocumentWrapper dw : matches) {
-//            Document d = dw.getDocument();
-//            XmlUtils.printNode(d);
-//        }
     }
 
     @Test
@@ -324,9 +332,9 @@ public class SearchTest extends AbstractStaticMockTest {
         personNameElement.removeChild(firstNameElement);
         XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
-        //XmlUtils.printNode(personSearchRequestMessage);
+
         Document response = staticMockQuery.searchDocuments(personSearchRequestMessage);
-        //XmlUtils.printNode(response);
+
         assertTrue(XmlUtils.nodeExists(response, "/psres-doc:PersonSearchResults/srm:SearchResultsMetadata/iad:InformationAccessDenial"));
     }
 
@@ -341,9 +349,9 @@ public class SearchTest extends AbstractStaticMockTest {
         personNameElement.removeChild(firstNameElement);
         XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
-        //XmlUtils.printNode(personSearchRequestMessage);
+
         Document response = staticMockQuery.searchDocuments(personSearchRequestMessage);
-        //XmlUtils.printNode(response);
+
         assertTrue(XmlUtils.nodeExists(response, "/psres-doc:PersonSearchResults/srm:SearchResultsMetadata/srer:SearchErrors"));
     }
 
@@ -357,7 +365,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Element incidentNumberElement = (Element) XmlUtils.xPathNodeSearch(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityIdentification/nc:IdentificationID");
         incidentNumberElement.setTextContent("AccessDenied");
         Document searchResults = staticMockQuery.incidentSearchDocuments(incidentSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
-        //XmlUtils.printNode(searchResults);
+
         assertTrue(XmlUtils.nodeExists(searchResults, "/isres-doc:IncidentSearchResults/srm:SearchResultsMetadata/iad:InformationAccessDenial"));
     }
 
@@ -373,7 +381,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Node serialNumberNode = XmlUtils.xPathNodeSearch(firearmSearchRequestMessage, "firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:Firearm/nc:ItemSerialIdentification/nc:IdentificationID");
         serialNumberNode.setTextContent("AccessDenied");
         Document searchResults = staticMockQuery.firearmSearchDocuments(firearmSearchRequestMessage);
-        //XmlUtils.printNode(searchResults);
+
         assertTrue(XmlUtils.nodeExists(searchResults, "/firearm-search-resp-doc:FirearmSearchResults/srm:SearchResultsMetadata/iad:InformationAccessDenial"));
     }
 
@@ -390,7 +398,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Element root = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest");
         Element secondSourceSystemTextElement = XmlUtils.insertElementBefore(root, sourceSystemTextElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");
         secondSourceSystemTextElement.setTextContent(StaticMockQuery.WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
-        // XmlUtils.printNode(personSearchRequestMessage);
+
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(3, matches.size());
         int criminalHistoryCount = 0;
@@ -424,7 +432,7 @@ public class SearchTest extends AbstractStaticMockTest {
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
         Document personSearchResults = staticMockQuery.searchDocuments(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
-        //XmlUtils.printNode(personSearchResults);
+
         assertNotNull(XmlUtils.xPathNodeSearch(personSearchResults, "/psres-doc:PersonSearchResults/psres:PersonSearchResult/psres:Person[nc:PersonName/nc:PersonSurName='Ivey']"));
     }
 
@@ -438,12 +446,10 @@ public class SearchTest extends AbstractStaticMockTest {
         removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:Firearm/nc:FirearmCategoryCode");
         removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:ItemRegistration");
         removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/nc:PropertyRegistrationAssociation");
-        //XmlUtils.printNode(firearmSearchRequestMessage);
 
         List<IdentifiableDocumentWrapper> matches = submitDocumentFirearmSearch(firearmSearchRequestMessage);
         assertEquals(1, matches.size());
         Document responseDocument = matches.get(0).getDocument();
-        // XmlUtils.printNode(responseDocument);
 
         List<String> schemaPaths = new ArrayList<String>();
         String iepdRootPath = "service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
