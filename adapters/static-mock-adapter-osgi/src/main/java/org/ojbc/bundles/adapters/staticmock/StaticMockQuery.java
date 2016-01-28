@@ -79,7 +79,10 @@ public class StaticMockQuery {
 	public static final String INCIDENT_MOCK_ADAPTER_INCIDENT_PERSON_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS";
 	public static final String INCIDENT_MOCK_ADAPTER_INCIDENT_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS";
 	public static final String INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS";
+	
 	public static final String FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms";
+	
+	
 	public static final String FIREARM_MOCK_ADAPTER_FIREARM_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest";
 	public static final String JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory";
 	public static final String JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory";
@@ -836,15 +839,24 @@ public class StaticMockQuery {
 
 			Element dobElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.birthdateXPath);
 			Element ageElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.ageXPath);
+			
 			if (dobElement != null) {
+				
 				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonAgeMeasure");
 				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "MeasurePointValue");
+				
 				String dob = dobElement.getTextContent();
-				e.setTextContent(String.valueOf(Years.yearsBetween(DATE_FORMATTER_YYYY_MM_DD.parseDateTime(dob), baseDate).getYears()));
+				
+				dob = dob.trim();				
+				
+				e.setTextContent(String.valueOf(Years.yearsBetween(DATE_FORMATTER_YYYY_MM_DD.parseDateTime(dob), baseDate).getYears()));				
+				
 				e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonBirthDate");
 				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
 				e.setTextContent(dob);
+				
 			} else if (ageElement != null) {
+				
 				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonAgeMeasure");
 				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "MeasurePointValue");
 				e.setTextContent(ageElement.getTextContent());
@@ -1694,7 +1706,7 @@ public class StaticMockQuery {
 		xPaths.sexXPath = "//nc30:PersonSexText";
 		xPaths.heightXPath = null;
 		xPaths.weightXPath = null;		
-		xPaths.searchSystemId = "//intel31:SystemIdentification/nc30:IdentificationID";		
+		xPaths.searchSystemId = CUSTODY_SEARCH_SYSTEM_ID;		
 		xPaths.systemName = "//intel31:SystemIdentification/nc30:SystemName";		
 		xPaths.recordType = "Custody";						
 		
@@ -1791,9 +1803,17 @@ public class StaticMockQuery {
 			Element birthdateElement = (Element) XmlUtils.xPathNodeSearch(d, xPaths.birthdateXPath);
 			Integer age = null;
 			DateTime birthdate = null;
+			
 			if (birthdateElement != null) {
-				birthdate = DATE_FORMATTER_YYYY_MM_DD.parseDateTime(birthdateElement.getTextContent());
+				
+				String sDob = birthdateElement.getTextContent();
+				
+				sDob = sDob.trim();
+				
+				birthdate = DATE_FORMATTER_YYYY_MM_DD.parseDateTime(sDob);
+				
 				age = Years.yearsBetween(birthdate, baseDate).getYears();
+				
 			} else {
 				Element ageElement = (Element) XmlUtils.xPathNodeSearch(d, xPaths.ageXPath);
 				if (ageElement != null) {
@@ -1825,10 +1845,6 @@ public class StaticMockQuery {
 					include |= orStack.get(i);
 				}
 			}
-
-			// Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(d, xPaths.lastNameXPath);
-			// Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(d, xPaths.firstNameXPath);
-			// LOG.info("Search of doc for lastName=" + lastNameElement.getTextContent() + ", firstName=" + firstNameElement.getTextContent() + ": include=" + include);
 
 			boolean checkLastName = checkStringFieldMatches(d, psp.lastName, xPaths.lastNameXPath, psp.lastNameSearchStartsWith);
 			boolean checkFirstName = checkStringFieldMatches(d, psp.firstName, xPaths.firstNameXPath, psp.firstNameSearchStartsWith);

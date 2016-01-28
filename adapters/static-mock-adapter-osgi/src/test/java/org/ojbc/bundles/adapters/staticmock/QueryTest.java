@@ -67,6 +67,11 @@ public class QueryTest extends AbstractStaticMockTest {
     	doPersonTestQuery("sample-CustodyCaseQueryResults3.xml", StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID, "cq-res-exch:CustodyQueryResults");
     }
     
+    @Test
+    public void testCourtCasePersonQuery() throws ParserConfigurationException, Exception{
+    	doPersonTestQuery("sample-CourtCaseQueryResults3.xml", StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID, "ccq-res-doc:CourtCaseQueryResults");
+    }
+    
     
     @Test
     public void testJuvenileHistoryQueries() throws Exception {

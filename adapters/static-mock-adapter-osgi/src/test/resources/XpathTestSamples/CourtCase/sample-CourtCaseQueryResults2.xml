@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ccq-res-exch:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd" xmlns:ccq-res-exch="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ccq-res-doc:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd" xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentCreationDate>
 		<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 	</nc:DocumentCreationDate>
@@ -526,8 +526,8 @@
 		<nc:PersonPhysicalFeature>
 			<nc:PhysicalFeatureDescriptionText>Scars Marks Tattoos</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
-		<nc:PersonRaceText>Yellow</nc:PersonRaceText>
-		<nc:PersonSexText>Cartoon</nc:PersonSexText>
+		<nc:PersonRaceText>A</nc:PersonRaceText>
+		<nc:PersonSexText>M</nc:PersonSexText>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
@@ -628,4 +628,4 @@
 			</qrer:QueryRequestIdentification>
 		</qrer:QueryRequestError>
 	</srm:QueryResultsMetadata>
-</ccq-res-exch:CourtCaseQueryResults>
+</ccq-res-doc:CourtCaseQueryResults>
