@@ -53,11 +53,17 @@ public class SearchTest extends AbstractStaticMockTest {
 
     @Test
     public void testSearchDocuments() throws Exception {
+    	
         Document request = buildBasePersonSearchRequestMessage(StaticMockQuery.CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+        
         Document response = staticMockQuery.searchDocuments(request);
+        
         assertNotNull(XmlUtils.xPathNodeListSearch(response, "/psres-doc:PersonSearchResults"));
+        
         request = buildBaseFirearmSearchRequestMessage();
+        
         response = staticMockQuery.searchDocuments(request);
+        
         assertNotNull(XmlUtils.xPathNodeListSearch(response, "/firearm-search-resp-doc:FirearmSearchResults"));
     }
     
@@ -71,9 +77,7 @@ public class SearchTest extends AbstractStaticMockTest {
     	
     	Node custodySearchResultsNode = XmlUtils.xPathNodeSearch(custodySearchResultsResponseDoc, "/cs-res-doc:CustodySearchResults");
     	
-    	assertNotNull(custodySearchResultsNode);
-    	
-    	XmlUtils.printNode(custodySearchResultsResponseDoc);
+    	assertNotNull(custodySearchResultsNode);    	
     }
     
     
@@ -86,9 +90,7 @@ public class SearchTest extends AbstractStaticMockTest {
     	
     	Node courtCaseSearchResultsNode = XmlUtils.xPathNodeSearch(courtCaseSearchResultsResponseDoc, "ccs-res-doc:CourtCaseSearchResults");
     	
-    	assertNotNull(courtCaseSearchResultsNode);
-    	
-    	XmlUtils.printNode(courtCaseSearchResultsResponseDoc);
+    	assertNotNull(courtCaseSearchResultsNode);    	
     }
     
     
@@ -1430,7 +1432,66 @@ public class SearchTest extends AbstractStaticMockTest {
         
         assertNotNull(custodyResult);
         assertNotNull(courtCaseResult);
+        
+        // custody result
+        
+        String sCustodyPersonAge = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonAgeMeasure/nc:MeasurePointValue");
+        assertEquals("11", sCustodyPersonAge);
 
+        String sCustodyPersonDob = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonBirthDate/nc:Date");        
+        assertEquals("2001-12-31", sCustodyPersonDob);        
+        
+        String sCustodyLastName = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonName/nc:PersonSurName");
+        assertEquals("Ivey", sCustodyLastName);
+
+        String sCustodyFirstName = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonName/nc:PersonGivenName");
+        assertEquals("Larry", sCustodyFirstName);
+        
+        String sCustodyPersonSid = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+        assertEquals("abc123", sCustodyPersonSid);
+        
+        String sCustodyPersonRaceCode = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonRaceCode");
+        assertEquals("A", sCustodyPersonRaceCode);
+        
+        String sCustodyPersonSexCode = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonSexCode");
+        assertEquals("M", sCustodyPersonSexCode);
+        
+        String sCustodyPersonSSN = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonSSNIdentification/nc:IdentificationID");
+        assertEquals("123-45-6789", sCustodyPersonSSN);                
+        
+        
+        // court case result
+        
+        String sCourtCasePersonAge = XmlUtils.xPathStringSearch(courtCaseResult, "psres:Person/nc:PersonAgeMeasure/nc:MeasurePointValue");
+        assertEquals("11", sCourtCasePersonAge);
+        
+        String sCourtCasePersonDob = XmlUtils.xPathStringSearch(courtCaseResult, "psres:Person/nc:PersonBirthDate/nc:Date");
+        assertEquals("2001-12-17", sCourtCasePersonDob);
+        
+        String sCourtCasePersonHeight = XmlUtils.xPathStringSearch(courtCaseResult, "psres:Person/nc:PersonHeightMeasure/nc:MeasurePointValue");
+        assertEquals("67", sCourtCasePersonHeight);
+        
+        String sCourtCasePersonSurName = XmlUtils.xPathStringSearch(courtCaseResult, "psres:Person/nc:PersonName/nc:PersonSurName");
+        assertEquals("Ivey", sCourtCasePersonSurName);
+        
+        String sCourtCasePersonGivenName = XmlUtils.xPathStringSearch(courtCaseResult, "psres:Person/nc:PersonName/nc:PersonGivenName");
+        assertEquals("Larry", sCourtCasePersonGivenName);
+        
+        String sCourtCasePersonRaceCode = XmlUtils.xPathStringSearch(courtCaseResult, "psres:Person/nc:PersonRaceCode");
+        assertEquals("A", sCourtCasePersonRaceCode);
+        
+        String sCourtCasePersonSexCode = XmlUtils.xPathStringSearch(courtCaseResult, "psres:Person/nc:PersonSexCode");
+        assertEquals("M", sCourtCasePersonSexCode);
+        
+        String sCourtCasePersonSSN = XmlUtils.xPathStringSearch(courtCaseResult, "psres:Person/nc:PersonSSNIdentification/nc:IdentificationID");
+        assertEquals("123456789", sCourtCasePersonSSN);
+        
+        String sCourtCasePersonSid = XmlUtils.xPathStringSearch(courtCaseResult, "psres:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+        assertEquals("123ABC", sCourtCasePersonSid);
+        
+        
+        // incidentResult
+        
         assertEquals("8", ((Element) XmlUtils.xPathNodeSearch(incidentResult, "intel:SystemIdentifier/nc:IdentificationID")).getTextContent());
         assertEquals("Ivey", ((Element) XmlUtils.xPathNodeSearch(incidentResult, "psres:Person/nc:PersonName/nc:PersonSurName")).getTextContent());
         assertEquals("Larry", ((Element) XmlUtils.xPathNodeSearch(incidentResult, "psres:Person/nc:PersonName/nc:PersonGivenName")).getTextContent());
@@ -1451,6 +1512,9 @@ public class SearchTest extends AbstractStaticMockTest {
         assertEquals("A8116437",
                 ((Element) XmlUtils.xPathNodeSearch(incidentResult, "psres:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID")).getTextContent());
 
+        
+        // criminalHistoryResult
+        
         assertEquals("Ivey", ((Element) XmlUtils.xPathNodeSearch(criminalHistoryResult, "psres:Person/nc:PersonName/nc:PersonSurName")).getTextContent());
         assertEquals("Larry", ((Element) XmlUtils.xPathNodeSearch(criminalHistoryResult, "psres:Person/nc:PersonName/nc:PersonGivenName")).getTextContent());
         assertEquals("C", ((Element) XmlUtils.xPathNodeSearch(criminalHistoryResult, "psres:Person/nc:PersonName/nc:PersonMiddleName")).getTextContent());
@@ -1466,6 +1530,9 @@ public class SearchTest extends AbstractStaticMockTest {
         assertEquals("A8116437",
                 ((Element) XmlUtils.xPathNodeSearch(criminalHistoryResult, "psres:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID")).getTextContent());
 
+        
+        // warrantResult
+        
         assertEquals("Ivey", ((Element) XmlUtils.xPathNodeSearch(warrantResult, "psres:Person/nc:PersonName/nc:PersonSurName")).getTextContent());
         assertEquals("Larry", ((Element) XmlUtils.xPathNodeSearch(warrantResult, "psres:Person/nc:PersonName/nc:PersonGivenName")).getTextContent());
         assertEquals("C", ((Element) XmlUtils.xPathNodeSearch(warrantResult, "psres:Person/nc:PersonName/nc:PersonMiddleName")).getTextContent());
@@ -1483,7 +1550,10 @@ public class SearchTest extends AbstractStaticMockTest {
                         .getTextContent());
         assertNull(((Element) XmlUtils.xPathNodeSearch(warrantResult, "psres:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID")));
         assertNull(((Element) XmlUtils.xPathNodeSearch(warrantResult, "psres:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID")));
-
+        
+        
+        // firearmResult
+        
         assertEquals("Ivey", ((Element) XmlUtils.xPathNodeSearch(firearmResult, "psres:Person/nc:PersonName/nc:PersonSurName")).getTextContent());
         assertEquals("Larry", ((Element) XmlUtils.xPathNodeSearch(firearmResult, "psres:Person/nc:PersonName/nc:PersonGivenName")).getTextContent());
         assertEquals("C", ((Element) XmlUtils.xPathNodeSearch(firearmResult, "psres:Person/nc:PersonName/nc:PersonMiddleName")).getTextContent());

@@ -1721,7 +1721,7 @@ public class StaticMockQuery {
 		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
 		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";
 		xPaths.sidXPath = "//nc30:PersonStateIdentification/nc30:IdentificationID";
-		xPaths.fbiXPath = null;
+		xPaths.fbiXPath = "//nc30:PersonFBIIdentification/nc30:IdentificationID";
 		xPaths.dlXPath = null;
 		xPaths.dlJurisdictionXPath = null;
 		xPaths.lastNameXPath = "//nc30:PersonSurName";
@@ -1732,7 +1732,7 @@ public class StaticMockQuery {
 		xPaths.raceXPath = "//nc30:PersonRaceText";
 		xPaths.sexXPath = "//nc30:PersonSexText";
 		xPaths.heightXPath = "//nc30:PersonHeightMeasure/nc30:MeasureValueText";
-		xPaths.weightXPath = null;	
+		xPaths.weightXPath = "//nc30:PersonWeightMeasure/nc30:MeasureValueText";	
 		
 		xPaths.searchSystemId = COURT_CASE_SEARCH_SYSTEM_ID;
 		xPaths.systemName = "//intel31:SystemIdentification/nc30:SystemName";
@@ -2175,6 +2175,7 @@ public class StaticMockQuery {
 		private boolean parentLastNameStartsWith;
 
 		public PersonSearchParameters(Document personSearchRequestMessage) throws Exception {
+			
 			juvenilePlacement = getElementContent(personSearchRequestMessage, "cyfs21:Placement/jh-placement-search-codes:PlacementCategoryCode");
 			addressStreet = getElementContent(personSearchRequestMessage, "nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetFullText");
 			addressCity = getElementContent(personSearchRequestMessage, "nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName");
