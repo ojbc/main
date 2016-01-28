@@ -288,6 +288,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static final String NS_COURT_CASE_SEARCH_REQUEST_DOC="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0";
 	public static final String NS_PREFIX_COURT_CASE_SEARCH_REQUEST="ccs-req-doc";
+				
+	public static final String NS_COURT_CASE_SEARCH_REQ_EXT = "http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0";
+	public static final String NS_PREFIX_COURT_CASE_SEARCH_REQ_EXT = "ccs-req-ext";
 	
 	public static final String NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0";
 	public static final String NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXCH_DOC = "ccq-res-doc";
@@ -657,8 +660,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public OjbcNamespaceContext() {
 		
 		prefixToUriMap = new HashMap<String, String>();
-		uriToPrefixMap = new HashMap<String, String>();				
-				
+		uriToPrefixMap = new HashMap<String, String>();	
+					
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_REQ_EXT, NS_COURT_CASE_SEARCH_REQ_EXT);
+		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_REQ_EXT, NS_PREFIX_COURT_CASE_SEARCH_REQ_EXT);
+		
 		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_REQ_EXT, NS_CUSTODY_SEARCH_REQ_EXT);
 		uriToPrefixMap.put(NS_CUSTODY_SEARCH_REQ_EXT, NS_PREFIX_CUSTODY_SEARCH_REQ_EXT);
 		
