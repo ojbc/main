@@ -17,8 +17,8 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cq-res-doc:CustodyQueryResults 
-  xmlns:cq-res-doc="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0" 
+<cq-res-exch:CustodyQueryResults 
+  xmlns:cq-res-exch="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0" 
   xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
@@ -51,7 +51,7 @@
       <nc:IdentificationID>123-45-6789</nc:IdentificationID>
     </nc:PersonSSNIdentification>
     <nc:PersonStateIdentification>
-      <nc:IdentificationID>NY123456789</nc:IdentificationID>
+      <nc:IdentificationID>abc123</nc:IdentificationID>
     </nc:PersonStateIdentification>
     <j:BailBond>
       <nc:ActivityCategoryText>type of bond</nc:ActivityCategoryText>
@@ -131,4 +131,4 @@
       </nc:Organization>
     </cq-res-ext:Supervision>
   </cq-res-ext:InmateCustody>
-</cq-res-doc:CustodyQueryResults>
+</cq-res-exch:CustodyQueryResults>

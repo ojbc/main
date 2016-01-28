@@ -20,8 +20,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +33,7 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.test.util.IgnoreNamedElementsDifferenceListener;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 import org.xml.sax.SAXException;
@@ -70,11 +69,6 @@ public class ArrestReportTransformTest {
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/xmlInstances/arrestReport/arrestReport.xml"));
 				
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		String sCurrentDateTime = sdf.format(new Date());
-												
-		expectedXmlString = expectedXmlString.replace("@currentDateTime@", sCurrentDateTime);
-							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
 	
@@ -91,7 +85,8 @@ public class ArrestReportTransformTest {
 		Diff diff = XMLUnit.compareXML(expectedXmlString, actualTransformedXml);		
 		
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
-		
+
+		detailedDiff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener("lexs:MessageDateTime"));
 		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff.getAllDifferences().size());
 	}	
 }

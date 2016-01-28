@@ -120,13 +120,7 @@ public abstract class AbstractStaticMockTest {
 		Resource resource = resourceResolver.getResource("TestRequestMessages/CustodySearchRequest.xml");
 		
 		Document custodySearchRequestDoc = documentBuilder.parse(resource.getInputStream());
-		
-		Element custodySearchRootElement = custodySearchRequestDoc.getDocumentElement();
-		
-//		Element systemNameElement = (Element) XmlUtils.xPathNodeSearch(custodySearchRootElement, "psr:SourceSystemNameText");
-		
-//		systemNameElement.setTextContent(systemId);
-		
+				
 		return custodySearchRequestDoc;
 	}
 	
