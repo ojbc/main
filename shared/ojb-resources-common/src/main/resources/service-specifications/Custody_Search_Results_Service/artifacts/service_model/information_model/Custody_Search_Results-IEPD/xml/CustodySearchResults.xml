@@ -30,8 +30,8 @@
 			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
 		</nc:DocumentCreationDate>
 		<nc:DocumentIdentification>
-			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-			<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+			<nc:IdentificationID>record identification</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>record description</nc:IdentificationCategoryDescriptionText>
 		</nc:DocumentIdentification>
 		<nc:Person structures:id="Person_01" structures:metadata="M001">
 			<nc:PersonBirthDate>
@@ -83,7 +83,7 @@
 			<nc:Activity structures:ref="Booking_01" />
 			<j:Charge structures:ref="Charge_01" />
 		</j:ActivityChargeAssociation>
-		<cs-res-ext:SourceSystemNameText>Alpha Court System </cs-res-ext:SourceSystemNameText>
+		<cs-res-ext:SourceSystemNameText>ASCO JMS</cs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>A0188904</nc:IdentificationID>
 			<nc:SystemName>Court</nc:SystemName>
