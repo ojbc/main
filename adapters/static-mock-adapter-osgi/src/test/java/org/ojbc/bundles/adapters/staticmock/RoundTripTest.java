@@ -48,6 +48,8 @@ public class RoundTripTest extends AbstractStaticMockTest {
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.INCIDENT_MOCK_ADAPTER_INCIDENT_PERSON_SEARCH_SYSTEM_ID, StaticMockQuery.INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID);
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID, StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID);
         
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID, StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID);
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID, StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID);
     }
     
     @Test
@@ -76,52 +78,85 @@ public class RoundTripTest extends AbstractStaticMockTest {
 
     @Test
     public void testPersonSearchRoundTrip() throws Exception {
+    	
         Document personSearchRequestMessage = buildFullResultsPersonSearchRequest();
-        Document searchResults = staticMockQuery.searchDocuments(personSearchRequestMessage, baseDate);
-        int expectedResultCount = 4;
+        
+        Document searchResults = staticMockQuery.searchDocuments(personSearchRequestMessage, baseDate);        
+        
+        int expectedResultCount = 6;
         assertEquals(expectedResultCount, XmlUtils.xPathNodeListSearch(searchResults, "/psres-doc:PersonSearchResults/psres:PersonSearchResult").getLength());
+        
         List<Document> queryRequests = buildQueryRequestMessages(searchResults);
+        
         assertEquals(expectedResultCount, queryRequests.size());
+        
         boolean incidentFound = false;
         boolean firearmFound = false;
         boolean warrantFound = false;
         boolean chFound = false;
+        
+        boolean custodyResultFound = false;
+        
+        boolean courtCaseResultFound = false;
+        
         for (Document queryRequest : queryRequests) {
+        	
             List<IdentifiableDocumentWrapper> queryResultList = staticMockQuery.queryDocuments(queryRequest);
             assertEquals(1, queryResultList.size());
+            
             IdentifiableDocumentWrapper docWrapper = queryResultList.get(0);
             Document doc = docWrapper.getDocument();
             assertNotNull(doc);
+            
             incidentFound |= XmlUtils.nodeExists(doc, "/ir:IncidentReport");
             firearmFound |= XmlUtils.nodeExists(doc, "/firearm-doc:PersonFirearmRegistrationQueryResults");
             warrantFound |= XmlUtils.nodeExists(doc, "/warrant:Warrants");
             chFound |= XmlUtils.nodeExists(doc, "/ch-doc:CriminalHistory");
+                        
+            custodyResultFound |= XmlUtils.nodeExists(doc, "/cq-res-exch:CustodyQueryResults");
+            
+            courtCaseResultFound |= XmlUtils.nodeExists(doc, "/ccq-res-doc:CourtCaseQueryResults");
         }
         assertTrue(incidentFound);
         assertTrue(firearmFound);
         assertTrue(warrantFound);
-        assertTrue(chFound);
+        assertTrue(chFound);        
+        assertTrue(custodyResultFound);
+        assertTrue(courtCaseResultFound);
     }
 
     private List<Document> buildQueryRequestMessages(Document searchResults) throws Exception {
+    	
     	Node rootNode = XmlUtils.xPathNodeSearch(searchResults, "/psres-doc:PersonSearchResults");
+    	
     	String resultNodeXpath = "psres:PersonSearchResult";
+    	
     	if (rootNode == null) {
+    		
     		rootNode = XmlUtils.xPathNodeSearch(searchResults, "/isres-doc:IncidentPersonSearchResults");
     		resultNodeXpath = "isres:IncidentPersonSearchResult";
     	}
+    	
         NodeList resultsNodes = XmlUtils.xPathNodeListSearch(rootNode, resultNodeXpath);
         List<Document> ret = new ArrayList<Document>();
+        
         for (int i = 0; i < resultsNodes.getLength(); i++) {
+        	
             Node resultNode = resultsNodes.item(i);
+            
             String searchSystemID = XmlUtils.xPathStringSearch(resultNode, resultNodeXpath.split(":")[0] + ":SourceSystemNameText");
+            
             String recordID = XmlUtils.xPathStringSearch(resultNode, "intel:SystemIdentifier/nc:IdentificationID");
+            
             if (StaticMockQuery.INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(searchSystemID)) {
+            	
                 Document incidentPersonSearchRequestMessage = buildIncidentPersonSearchRequestMessage(new Integer(recordID));
                 Document incidentPersonSearchResults = staticMockQuery.searchDocuments(incidentPersonSearchRequestMessage, baseDate);
                 List<Document> incidentPersonQueryRequestMessages = buildQueryRequestMessages(incidentPersonSearchResults);
 				ret.addAll(incidentPersonQueryRequestMessages);
+				
             } else {
+            	
                 String querySystemID = personSearchSystemToQuerySystemMap.get(searchSystemID);
                 ret.add(buildPersonQueryRequestMessage(querySystemID, recordID));
             }

@@ -1371,37 +1371,65 @@ public class SearchTest extends AbstractStaticMockTest {
 
     @Test
     public void testSearchResults() throws Exception {
+    	
         Document personSearchRequestMessage = buildFullResultsPersonSearchRequest();
+        
         Document searchResults = staticMockQuery.personSearchDocuments(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
-        // XmlUtils.printNode(searchResults);
+        
+        XmlUtils.printNode(searchResults);
+                
         XmlUtils.validateInstance("service-specifications/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
         NodeList nodes = XmlUtils.xPathNodeListSearch(searchResults, "psres-doc:PersonSearchResults/psres:PersonSearchResult");
+        
         int nodeCount = nodes.getLength();
-        assertEquals(4, nodeCount);
+        assertEquals(6, nodeCount);
+        
         Element criminalHistoryResult = null;
         Element warrantResult = null;
         Element incidentResult = null;
         Element firearmResult = null;
+        
+        Element custodyResult = null;
+        
+        Element courtCaseResult = null;
+        
         for (int i = 0; i < nodeCount && (criminalHistoryResult == null || warrantResult == null); i++) {
+        	
             Element e = (Element) nodes.item(i);
+            
             Element ssnt = (Element) XmlUtils.xPathNodeSearch(e, "psres:SourceSystemNameText");
-            if (StaticMockQuery.CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(ssnt.getTextContent())) {
+            
+            String sourceSysNameText = ssnt.getTextContent();
+            
+            if (StaticMockQuery.CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(sourceSysNameText)) {
                 criminalHistoryResult = e;
             }
-            if (StaticMockQuery.WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(ssnt.getTextContent())) {
+            if (StaticMockQuery.WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(sourceSysNameText)) {
                 warrantResult = e;
             }
-            if (StaticMockQuery.INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(ssnt.getTextContent())) {
+            if (StaticMockQuery.INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(sourceSysNameText)) {
                 incidentResult = e;
             }
-            if (StaticMockQuery.FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(ssnt.getTextContent())) {
+            if (StaticMockQuery.FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(sourceSysNameText)) {
                 firearmResult = e;
             }
+            
+            if(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID.equals(sourceSysNameText)){            	
+            	custodyResult = e;
+            }
+            
+            if(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID.equals(sourceSysNameText)){            	
+            	courtCaseResult = e;
+            }
         }
+        
         assertNotNull(criminalHistoryResult);
         assertNotNull(warrantResult);
         assertNotNull(incidentResult);
         assertNotNull(firearmResult);
+        
+        assertNotNull(custodyResult);
+        assertNotNull(courtCaseResult);
 
         assertEquals("8", ((Element) XmlUtils.xPathNodeSearch(incidentResult, "intel:SystemIdentifier/nc:IdentificationID")).getTextContent());
         assertEquals("Ivey", ((Element) XmlUtils.xPathNodeSearch(incidentResult, "psres:Person/nc:PersonName/nc:PersonSurName")).getTextContent());

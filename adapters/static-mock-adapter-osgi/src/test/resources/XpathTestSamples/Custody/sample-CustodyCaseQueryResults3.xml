@@ -27,7 +27,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0 ../xsd/exchange_schema.xsd ">
 	<nc:DocumentCreationDate>
-		<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+		<nc:DateTime>2001-12-31</nc:DateTime>
 	</nc:DocumentCreationDate>
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
@@ -41,7 +41,7 @@
 	<!-- Inmate and Custody information -->
 	<cq-res-ext:InmateCustody>
 		<nc:PersonBirthDate>
-			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			<nc:DateTime>2001-12-31</nc:DateTime>
 		</nc:PersonBirthDate>
 		<nc:PersonEthnicityText>nc:PersonEthnicityText
 		</nc:PersonEthnicityText>
@@ -66,7 +66,7 @@
 		</j:BailBond>
 		<cq-res-ext:Booking>
 			<j:FingerprintDate>
-				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+				<nc:DateTime>2001-12-31</nc:DateTime>
 			</j:FingerprintDate>
 			<j:BookingSubject>
 				<j:SubjectIdentification>
@@ -100,10 +100,10 @@
 		<cq-res-ext:Supervision>
 			<nc:ActivityDateRange>
 				<nc:StartDate>
-					<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+					<nc:DateTime>2001-12-31</nc:DateTime>
 				</nc:StartDate>
 				<nc:EndDate>
-					<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+					<nc:DateTime>2001-12-31</nc:DateTime>
 				</nc:EndDate>
 			</nc:ActivityDateRange>
 			<nc:SupervisionFacility>
@@ -135,7 +135,7 @@
 			<j:ChargeSentence>
 				<j:SentenceCondition>
 					<nc:ConditionSetDate>
-						<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+						<nc:DateTime>2001-12-31</nc:DateTime>
 					</nc:ConditionSetDate>
 				</j:SentenceCondition>
 			</j:ChargeSentence>
