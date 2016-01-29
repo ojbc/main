@@ -524,8 +524,6 @@
 								</j:DrivingIncidentLegalSpeedRate>
 								<inc-ext:SubjectBloodAlcoholContentNumber>0.2
 								</inc-ext:SubjectBloodAlcoholContentNumber>
-								<inc-ext:TrafficIncidentAccidentIndicator>false
-								</inc-ext:TrafficIncidentAccidentIndicator>
 								<inc-ext:DrivingAccidentIndicator>false
 								</inc-ext:DrivingAccidentIndicator>
 								<inc-ext:DrivingAccidentFatalityIndicator>false
