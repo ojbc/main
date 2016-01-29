@@ -27,19 +27,19 @@
          <nc30:DateTime>2001-12-31</nc30:DateTime>
       </nc30:DocumentCreationDate>
       <nc30:DocumentIdentification>
-         <nc30:IdentificationID>nc:IdentificationID</nc30:IdentificationID>
-         <nc30:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc30:IdentificationCategoryDescriptionText>
+         <nc30:IdentificationID>abc123</nc30:IdentificationID>
+         <nc30:IdentificationCategoryDescriptionText>seat belt</nc30:IdentificationCategoryDescriptionText>
       </nc30:DocumentIdentification>
       <nc30:Person s30:id="Person_0" s30:metadata="M0">
          <nc30:PersonBirthDate>
             <nc30:DateTime>2001-12-31</nc30:DateTime>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
-            <nc30:PersonGivenName>nc:PersonGivenName</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>nc:PersonMiddleName</nc30:PersonMiddleName>
-            <nc30:PersonSurName>nc:PersonSurName</nc30:PersonSurName>
+            <nc30:PersonGivenName>Homer</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>Jay</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Simpson</nc30:PersonSurName>
          </nc30:PersonName>
-         <nc30:PersonSexText>nc:PersonSexText</nc30:PersonSexText>
+         <nc30:PersonSexText>M</nc30:PersonSexText>
          <nc30:PersonSSNIdentification>
             <nc30:IdentificationID>123-45-6789</nc30:IdentificationID>
          </nc30:PersonSSNIdentification>
@@ -53,7 +53,7 @@
          </jxdm51:FingerprintDate>
          <jxdm51:BookingSubject>
             <jxdm51:SubjectIdentification>
-               <nc30:IdentificationID>Booking Number</nc30:IdentificationID>
+               <nc30:IdentificationID>abc123</nc30:IdentificationID>
             </jxdm51:SubjectIdentification>
          </jxdm51:BookingSubject>
          <nc30:Image>
@@ -63,12 +63,12 @@
          </nc30:Image>
       </cs-res-ext:Booking>
       <jxdm51:Charge s30:id="Charge_0">
-         <jxdm51:ChargeCountQuantity>0</jxdm51:ChargeCountQuantity>
-         <jxdm51:ChargeDescriptionText>j:ChargeDescriptionText</jxdm51:ChargeDescriptionText>
+         <jxdm51:ChargeCountQuantity>3</jxdm51:ChargeCountQuantity>
+         <jxdm51:ChargeDescriptionText>Not wearing seatbelt</jxdm51:ChargeDescriptionText>
          <jxdm51:ChargeStatute>
             <jxdm51:StatuteCodeIdentification>
-               <nc30:IdentificationID>nc:IdentificationID</nc30:IdentificationID>
-               <nc30:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc30:IdentificationCategoryDescriptionText>
+               <nc30:IdentificationID>789</nc30:IdentificationID>
+               <nc30:IdentificationCategoryDescriptionText>abc statute</nc30:IdentificationCategoryDescriptionText>
             </jxdm51:StatuteCodeIdentification>
          </jxdm51:ChargeStatute>
       </jxdm51:Charge>
@@ -81,12 +81,12 @@
          <jxdm51:Charge s30:ref="Charge_0"/>
       </jxdm51:ActivityChargeAssociation>
       <intel31:SystemIdentification>
-         <nc30:IdentificationID>system ID</nc30:IdentificationID>
-         <nc30:SystemName>system name</nc30:SystemName>
+         <nc30:IdentificationID>5678</nc30:IdentificationID>
+         <nc30:SystemName>driver data</nc30:SystemName>
       </intel31:SystemIdentification>
-      <cs-res-ext:SearchResultCategoryText>nc:IdentificationCategoryDescriptionText</cs-res-ext:SearchResultCategoryText>
+      <cs-res-ext:SearchResultCategoryText>seat belt</cs-res-ext:SearchResultCategoryText>
       <cs-res-ext:InformationOwningOrganization>
-         <nc30:OrganizationBranchName>branch</nc30:OrganizationBranchName>
+         <nc30:OrganizationBranchName>Judge Judy</nc30:OrganizationBranchName>
          <nc30:OrganizationName>County Court</nc30:OrganizationName>
       </cs-res-ext:InformationOwningOrganization>
       <nc30:Metadata s30:id="M0">

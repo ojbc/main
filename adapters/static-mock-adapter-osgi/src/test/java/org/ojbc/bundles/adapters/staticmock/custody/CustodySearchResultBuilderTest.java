@@ -24,9 +24,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import junit.framework.Assert;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
 import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -64,90 +62,58 @@ public class CustodySearchResultBuilderTest {
 	}
 	
 	
+	@Test
+	public void testgetCustodyDetail() throws Exception{
+		
+		Document custodyDetailDoc = XmlUtils.parseFileToDocument(
+				new File("src/test/resources/DocBuilderTestFiles/Custody/CustodyDetailQueryResults.xml"));		
+				
+		CustodyDetail custodyDetail = CustodySearchResultBuilder.getCustodyDetail(custodyDetailDoc);
+		
+		String bookingSubjectId = custodyDetail.getBookingSubjectId();		
+		Assert.assertEquals("abc123", bookingSubjectId);
+		
+		String chargeCount = custodyDetail.getChargeCount();
+		Assert.assertEquals("3", chargeCount);
+		
+		String chargeDescription = custodyDetail.getChargeDescription();
+		Assert.assertEquals("Not wearing seatbelt", chargeDescription);
+		
+		String statuteCodeId = custodyDetail.getChargeStatuteCodeId();
+		Assert.assertEquals("789", statuteCodeId);
+		
+		String docCreationDate = custodyDetail.getDocCreationDate();
+		Assert.assertEquals("2001-12-31", docCreationDate);
+		
+		String docId = custodyDetail.getDocId();
+		Assert.assertEquals("abc123", docId);
+		
+		String docIdCatDesc = custodyDetail.getDocumentIdCategoryDescription();
+		Assert.assertEquals("seat belt", docIdCatDesc);
+		
+		String fingerprintDate = custodyDetail.getFingerprintDate();
+		Assert.assertEquals("2001-12-31", fingerprintDate);
+		
+		String imgLoc = custodyDetail.getImageLocation();
+		Assert.assertEquals("http://asco.ojbc.org/inmatelookup/image/33334444", imgLoc);
+		
+		String lastUpdatedDate = custodyDetail.getLastUpdatedDate();
+		Assert.assertEquals("2015-09-23", lastUpdatedDate);
+		
+		String orgBranchName = custodyDetail.getOrganizationBranchName();
+		Assert.assertEquals("Judge Judy", orgBranchName);
+		
+		String orgName = custodyDetail.getOrganizationName();
+		Assert.assertEquals("County Court", orgName);
+	}
+	
+	
 	private static Document createNewDocument() throws ParserConfigurationException {
 		
 		DocumentBuilder db = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
 		Document rDocument = db.newDocument();
 		
 		return rDocument;
-	}
-	
-	
-	@Ignore
-	public void getCustodyDetailTest() throws Exception{
-		
-		CustodySearchResultBuilder custodySearchResultBuilder = new CustodySearchResultBuilder();
-		
-		CustodyDetail custodyDetail = custodySearchResultBuilder.getCustodyDetail(null);
-		
-		String bookingSubjectId = custodyDetail.getBookingSubjectId();		
-		Assert.assertEquals("TODO", bookingSubjectId);
-		
-		String chargeCount = custodyDetail.getChargeCount();
-		Assert.assertEquals("TODO", chargeCount);
-		
-		String chargeDescription = custodyDetail.getChargeDescription();
-		Assert.assertEquals("TODO", chargeDescription);
-		
-		String statuteCodeId = custodyDetail.getChargeStatuteCodeId();
-		Assert.assertEquals("TODO", statuteCodeId);
-		
-		String docCreationDate = custodyDetail.getDocCreationDate();
-		Assert.assertEquals("TODO", docCreationDate);
-		
-		String docId = custodyDetail.getDocId();
-		Assert.assertEquals("TODO", docId);
-		
-		String docIdCatDesc = custodyDetail.getDocumentIdCategoryDescription();
-		Assert.assertEquals("TODO", docIdCatDesc);
-		
-		String fingerprintDate = custodyDetail.getFingerprintDate();
-		Assert.assertEquals("TODO", fingerprintDate);
-		
-		String imgLoc = custodyDetail.getImageLocation();
-		Assert.assertEquals("TODO", imgLoc);
-		
-		String lastUpdatedDate = custodyDetail.getLastUpdatedDate();
-		Assert.assertEquals("TODO", lastUpdatedDate);
-		
-		String orgBranchName = custodyDetail.getOrganizationBranchName();
-		Assert.assertEquals("TODO", orgBranchName);
-		
-		String orgName = custodyDetail.getOrganizationName();
-		Assert.assertEquals("TODO", orgName);
-	}
-	
-
-	private CustodyDetail getSampleCustodyDetail(){
-		
-		CustodyDetail custodyDetail = new CustodyDetail();
-		
-		custodyDetail.setBookingSubjectId("123");
-		custodyDetail.setChargeCount("5");
-		custodyDetail.setChargeDescription("No Seatbelt");
-		custodyDetail.setChargeStatuteCodeId("xyz");
-		custodyDetail.setDocCreationDate("2016-01-29");
-		custodyDetail.setDocId("789");
-		custodyDetail.setDocumentIdCategoryDescription("Driving Rules");
-		custodyDetail.setFingerprintDate("2016-01-29");
-		custodyDetail.setImageLocation("http://fingerprints.gov/123.jpg");
-		custodyDetail.setLastUpdatedDate("2016-01-29");
-		custodyDetail.setOrganizationBranchName("Seatbelt branch");
-		custodyDetail.setOrganizationName("Cops");
-		custodyDetail.setPersonDob("1970-01-01");
-		custodyDetail.setPersonGivenName("Homer");
-		custodyDetail.setPersonMiddleName("Jay");
-		custodyDetail.setPersonSurName("Simpson");
-		custodyDetail.setPersonSex("M");
-		custodyDetail.setPersonSsn("123-45-6789");
-		custodyDetail.setPersonStateId("ABCD1234");
-		custodyDetail.setSearchResultCategoryDescriptionText("Custody Results");
-		custodyDetail.setSourceSystemNameText(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID);
-		custodyDetail.setStatuteIdCategoryDescriptionTxt("5678");
-		custodyDetail.setSystemId("jklm");
-		custodyDetail.setSystemName("asdf");
-		
-		return custodyDetail;		
 	}
 
 }
