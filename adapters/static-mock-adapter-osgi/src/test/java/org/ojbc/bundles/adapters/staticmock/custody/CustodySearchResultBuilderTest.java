@@ -24,8 +24,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import junit.framework.Assert;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
-import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
@@ -38,15 +36,6 @@ import org.w3c.dom.Element;
 
 public class CustodySearchResultBuilderTest {
 	
-	@Before
-	public void init(){
-		
-		// TODO put these in XmlTestUtils
-		XMLUnit.setIgnoreAttributeOrder(true);
-		XMLUnit.setIgnoreComments(true);
-		XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
-		XMLUnit.setIgnoreWhitespace(true);
-	}
 	
 	@Test
 	public void testCustodySearchResultBuilder() throws Exception{
