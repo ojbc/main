@@ -395,7 +395,6 @@
 			<xsd:extension base="j:DrivingIncidentType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0"/>
-					<xsd:element ref="inc-ext:TrafficIncidentAccidentIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:DrivingAccidentIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:DrivingAccidentFatalityIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:SeatBeltViolationIndicator" minOccurs="0"/>
@@ -809,11 +808,6 @@
 	<xsd:element name="DrivingIncident" type="inc-ext:DrivingIncidentType">
 		<xsd:annotation>
 			<xsd:documentation>Details about an incident involving a vehicle.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="TrafficIncidentAccidentIndicator" type="niem-xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if a traffic incident resulted in an accident; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingAccidentIndicator" type="niem-xsd:boolean">

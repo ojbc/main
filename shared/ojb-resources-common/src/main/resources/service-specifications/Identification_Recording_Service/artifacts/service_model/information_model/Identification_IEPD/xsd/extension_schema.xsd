@@ -237,5 +237,5 @@
 			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for an arrest, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary" xmime:expectedContentType="text/plain"/>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary" xmime:expectedContentTypes="application/octet-stream, text/html"/>
 </xsd:schema>
