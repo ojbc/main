@@ -25,7 +25,8 @@ import org.w3c.dom.Element;
 public class CustodySearchResultBuilder {
 	
 	
-	 public static Element buildCustodySearchResultElement(Document custodySearchResultsDoc, Document custodyQueryResult, String resultId) throws Exception{
+	 public static Element buildCustodySearchResultElement(Document custodySearchResultsDoc, 
+			 Document custodyQueryResult, String resultId) throws Exception{
 		 
 		CustodyDetail custodyDetail = getCustodyDetail(custodyQueryResult);
 		 		 
@@ -94,6 +95,8 @@ public class CustodySearchResultBuilder {
 			Element personDob = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
 			Element dobDateTimeElement = XmlUtils.appendElement(personDob, OjbcNamespaceContext.NS_NC_30, "DateTime");
 					
+			sPersonDob = sPersonDob.trim();
+			
 			dobDateTimeElement.setTextContent(sPersonDob);						
 		}
 		
@@ -245,6 +248,8 @@ public class CustodySearchResultBuilder {
 		if(StringUtils.isNotBlank(sChargeDesc)){
 			
 			Element chargeDescriptionTxtElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeDescriptionText");
+			
+			sChargeDesc = sChargeDesc.trim();
 			
 			chargeDescriptionTxtElement.setTextContent(sChargeDesc);			
 		}
