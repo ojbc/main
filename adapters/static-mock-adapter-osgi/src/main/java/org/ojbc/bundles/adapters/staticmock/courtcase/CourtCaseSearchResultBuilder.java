@@ -43,7 +43,7 @@ public class CourtCaseSearchResultBuilder {
 		courtCaseDetail.setJurisdictionText(sJurisdictionTxtVal);
 		
 		String caseOtherIdCatDescTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
-				"jxdm51:CaseOtherIdentification/nc30:IdentificationCategoryDescriptionText");		
+				"//jxdm51:CaseOtherIdentification/nc30:IdentificationCategoryDescriptionText");		
 		courtCaseDetail.setCaseOtherInfoIdCatDescTxt(caseOtherIdCatDescTxt);		
 		
 		String dobVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Identity/nc30:IdentityPersonRepresentation/nc30:PersonBirthDate/nc30:Date");
@@ -92,14 +92,18 @@ public class CourtCaseSearchResultBuilder {
 				"//jxdm51:PersonFBIIdentification/nc30:IdentificationID");
 		courtCaseDetail.setPersonFBIId(fbiId);
 		
-		String sidVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonStateIdentification");
+		String sidVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonStateIdentification");				
+		sidVal = sidVal == null ? null : sidVal.trim();		
 		courtCaseDetail.setPersonSid(sidVal);
 		
-		String srcSysNameTxtVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//intel:SystemIdentification/nc30:SystemName");
+		String srcSysNameTxtVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//ccq-res-ext:SourceSystemNameText");
 		courtCaseDetail.setSourceSystemNameText(srcSysNameTxtVal);
 		
-		String sysIdVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//intel:SystemIdentification/nc30:IdentificationID");
+		String sysIdVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//intel31:SystemIdentification/nc30:IdentificationID");
 		courtCaseDetail.setSystemId(sysIdVal);
+		
+		String sysName = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//intel31:SystemIdentification/nc30:SystemName");		
+		courtCaseDetail.setSystemName(sysName);
 		
 		String srchResCatTxtVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
 				"//ccq-res-ext:QueryResultCategoryText");			
@@ -133,9 +137,18 @@ public class CourtCaseSearchResultBuilder {
 		
 		XmlUtils.addAttribute(caseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Case_" + resultId);		
 		
-		Element caseGenCatTxtElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseGeneralCategoryText");
-						
-		caseGenCatTxtElement.setTextContent(courtCaseDetail.getCaseGeneralCategoryText());
+				
+		String courtCaseGeneralCategory = courtCaseDetail.getCaseGeneralCategoryText();
+		
+		if(StringUtils.isNotBlank(courtCaseGeneralCategory)){
+
+			Element caseGenCatTxtElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "CaseGeneralCategoryText");
+			
+			courtCaseGeneralCategory = courtCaseGeneralCategory.trim();
+			
+			caseGenCatTxtElement.setTextContent(courtCaseGeneralCategory);			
+		}		
+
 								
 		
 		String sTrackingId = courtCaseDetail.getCaseTrackingID();
@@ -184,13 +197,13 @@ public class CourtCaseSearchResultBuilder {
 		
 		if(StringUtils.isBlank(sCaseOtherInfoIdCatDescTxt)){
 
-			Element caseOtherId = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseOtherIdentification");
+			Element caseOtherIdElement = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseOtherIdentification");
 			
-			Element idCatDescTxt = XmlUtils.appendElement(caseOtherId, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText"); 	
+			Element idCatDescTxtElement = XmlUtils.appendElement(caseOtherIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText"); 	
 			
 			sCaseOtherInfoIdCatDescTxt = sCaseOtherInfoIdCatDescTxt.trim();
 			
-			idCatDescTxt.setTextContent(sCaseOtherInfoIdCatDescTxt);			
+			idCatDescTxtElement.setTextContent(sCaseOtherInfoIdCatDescTxt);			
 		}						
 
 				
@@ -204,9 +217,11 @@ public class CourtCaseSearchResultBuilder {
 			
 			Element personDobElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
 			
-			Element personDobValue = XmlUtils.appendElement(personDobElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+			Element personDobValueElement = XmlUtils.appendElement(personDobElement, OjbcNamespaceContext.NS_NC_30, "Date");		
 			
-			personDobValue.setTextContent(personDob);						
+			personDob = personDob.trim();
+			
+			personDobValueElement.setTextContent(personDob);						
 		}
 		
 		
@@ -215,6 +230,8 @@ public class CourtCaseSearchResultBuilder {
 		if(StringUtils.isNotBlank(sEyeColor)){
 
 			Element eyeColorElement = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonEyeColorText");
+			
+			sEyeColor = sEyeColor.trim();
 			
 			eyeColorElement.setTextContent(sEyeColor);
 		}
@@ -410,6 +427,8 @@ public class CourtCaseSearchResultBuilder {
 			Element srcSysNameTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, 
 					OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "SourceSystemNameText");
 							
+			sourceSystemNameText = sourceSystemNameText.trim();
+			
 			srcSysNameTxtElement.setTextContent(sourceSystemNameText);			
 		}
 		
@@ -454,6 +473,8 @@ public class CourtCaseSearchResultBuilder {
 			Element srchResCatTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, 
 					OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "SearchResultCategoryText");
 					
+			sSrchResCatTxt = sSrchResCatTxt.trim();
+			
 			srchResCatTxtElement.setTextContent(sSrchResCatTxt);
 		}
 		

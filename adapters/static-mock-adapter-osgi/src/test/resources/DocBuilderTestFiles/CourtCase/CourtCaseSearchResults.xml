@@ -1,0 +1,96 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<ccs-res-doc:CourtCaseSearchResults xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0"
+                                    xmlns:intel31="http://release.niem.gov/niem/domains/intelligence/3.1/"
+                                    xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+                                    xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+                                    xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
+                                    xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
+                                    xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0">
+   <ccs-res-doc:CourtCaseSearchResult s30:id="Result_1">
+      <nc30:Case s30:id="Case_1">
+         <nc30:CaseGeneralCategoryText>seat belt</nc30:CaseGeneralCategoryText>
+         <nc30:CaseTrackingID>123 tracker</nc30:CaseTrackingID>
+         <nc30:CaseDocketID>567</nc30:CaseDocketID>
+         <jxdm51:CaseAugmentation>
+            <jxdm51:CaseCourt>
+               <jxdm51:OrganizationAugmentation>
+                  <jxdm51:OrganizationJurisdiction>
+                     <nc30:JurisdictionText>The Court</nc30:JurisdictionText>
+                  </jxdm51:OrganizationJurisdiction>
+               </jxdm51:OrganizationAugmentation>
+            </jxdm51:CaseCourt>
+         </jxdm51:CaseAugmentation>
+      </nc30:Case>
+      <nc30:Person s30:id="Person_1" s30:metadata="M1">
+         <nc30:PersonBirthDate>
+            <nc30:Date>2001-12-17</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonEyeColorText>BLK</nc30:PersonEyeColorText>
+         <nc30:PersonHairColorText>BLD</nc30:PersonHairColorText>
+         <nc30:PersonHeightMeasure>
+            <nc30:MeasureValueText>67</nc30:MeasureValueText>
+            <nc30:LengthUnitCode>in</nc30:LengthUnitCode>
+         </nc30:PersonHeightMeasure>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Homer</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>Jay</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Simpson</nc30:PersonSurName>
+         </nc30:PersonName>
+         <jxdm51:PersonRaceCode>A</jxdm51:PersonRaceCode>
+         <jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
+         <nc30:PersonWeightMeasure>
+            <nc30:MeasureValueText>144</nc30:MeasureValueText>
+         </nc30:PersonWeightMeasure>
+         <jxdm51:PersonAugmentation>
+            <jxdm51:DriverLicense>
+               <jxdm51:DriverLicenseIdentification>
+                  <nc30:IdentificationID>567890</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>FL</nc30:IdentificationSourceText>
+               </jxdm51:DriverLicenseIdentification>
+            </jxdm51:DriverLicense>
+            <jxdm51:PersonFBIIdentification>
+               <nc30:IdentificationID>4320</nc30:IdentificationID>
+            </jxdm51:PersonFBIIdentification>
+            <jxdm51:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>abcd5678</nc30:IdentificationID>
+            </jxdm51:PersonStateFingerprintIdentification>
+         </jxdm51:PersonAugmentation>
+      </nc30:Person>
+      <cyfs:PersonCaseAssociation>
+         <nc30:Person s30:ref="Person_1"/>
+         <nc30:Case s30:ref="Case_1"/>
+      </cyfs:PersonCaseAssociation>
+      <ccs-res-ext:SourceSystemNameText>Alpha Court System</ccs-res-ext:SourceSystemNameText>
+      <intel31:SystemIdentification>
+         <nc30:IdentificationID>erty</nc30:IdentificationID>
+         <nc30:SystemName>Court DB</nc30:SystemName>
+      </intel31:SystemIdentification>
+      <ccs-res-ext:SearchResultCategoryText>Court Case</ccs-res-ext:SearchResultCategoryText>
+      <ccs-res-ext:InformationOwningOrganization>
+         <nc30:OrganizationBranchName>DOJ</nc30:OrganizationBranchName>
+         <nc30:OrganizationName>County Court</nc30:OrganizationName>
+      </ccs-res-ext:InformationOwningOrganization>
+      <nc30:Metadata s30:id="M1">
+         <nc30:LastUpdatedDate>
+            <nc30:Date>2015-09-23</nc30:Date>
+         </nc30:LastUpdatedDate>
+      </nc30:Metadata>
+   </ccs-res-doc:CourtCaseSearchResult>
+</ccs-res-doc:CourtCaseSearchResults>

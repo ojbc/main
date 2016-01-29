@@ -39,8 +39,11 @@ public class CustodySearchResultBuilderTest {
 	public void testCustodySearchResultBuilder() throws Exception{
 								
 		Document custodySearchResultsDoc = createNewDocument();		
-		Element custodySearchResultsRootElement = custodySearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RESULTS, "CustodySearchResults");			
-		custodySearchResultsRootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RESULTS);			
+		
+		Element custodySearchResultsRootElement = custodySearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RESULTS, "CustodySearchResults");
+		
+		custodySearchResultsRootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RESULTS);
+		
 		custodySearchResultsDoc.appendChild(custodySearchResultsRootElement);							
 
 		
@@ -63,7 +66,7 @@ public class CustodySearchResultBuilderTest {
 	
 	
 	@Test
-	public void testgetCustodyDetail() throws Exception{
+	public void testGetCustodyDetail() throws Exception{
 		
 		Document custodyDetailDoc = XmlUtils.parseFileToDocument(
 				new File("src/test/resources/DocBuilderTestFiles/Custody/CustodyDetailQueryResults.xml"));		
