@@ -36,7 +36,7 @@ targetNamespace="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.
 		<wsdl:part name="ChargeReferralReport" element="crr-doc:ChargeReferralReport"/>
 	</wsdl:message>
 	<wsdl:portType name="Charge-Referral-Reporting-Service">
-		<wsdl:operation name="SubmitChargeReferralReport">
+		<wsdl:operation name="ReportChargeReferral">
 			<wsdl:input name="ChargeReferralReport" message="tns:ChargeReferralReport"/>
 		</wsdl:operation>
 	</wsdl:portType>
@@ -44,8 +44,8 @@ targetNamespace="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.
 	<wsdl:binding name="Charge-Referral-Reporting-ServiceSOAPBinding" type="tns:Charge-Referral-Reporting-Service">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem"/>
-		<wsdl:operation name="SubmitChargeReferralReport">
-			<soap:operation soapAction="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0/SubmitChargeReferralReport" style="document"/>
+		<wsdl:operation name="ReportChargeReferral">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0/ReportChargeReferral" style="document"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>
