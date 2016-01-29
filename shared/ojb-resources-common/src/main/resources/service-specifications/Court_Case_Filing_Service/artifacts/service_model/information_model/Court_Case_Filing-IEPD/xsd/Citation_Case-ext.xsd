@@ -124,7 +124,6 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:TrafficIncidentAccidentIndicator" minOccurs="0"/>
 					<xsd:element ref="ojb-cit-ext:DrivingAccidentFatalityIndicator" minOccurs="0"/>
 					<xsd:element ref="ojb-cit-ext:SeatBeltViolationIndicator" minOccurs="0"/>
 					<xsd:element ref="ojb-cit-ext:CivilReliefActIndicator" minOccurs="0"/>
@@ -354,11 +353,6 @@
 		<xsd:annotation>
 			<xsd:documentation>True if a vehicle is carrying hazardous material; false otherwise.</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="TrafficIncidentAccidentIndicator" type="niem-xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if a traffic incident resulted in an accident; false otherwise.</xsd:documentation>
-	</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingAccidentFatalityIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
