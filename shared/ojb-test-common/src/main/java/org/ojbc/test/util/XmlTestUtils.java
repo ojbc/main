@@ -24,10 +24,18 @@ import junit.framework.Assert;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
+import org.custommonkey.xmlunit.XMLUnit;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
 public class XmlTestUtils {
+	
+	static{		
+		XMLUnit.setIgnoreAttributeOrder(true);
+		XMLUnit.setIgnoreComments(true);
+		XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
+		XMLUnit.setIgnoreWhitespace(true);
+	}
 	
 	public static void compareDocs(String expectedXmlDocFileClasspath, Document actualXmlDocument) throws Exception{
 		
