@@ -32,7 +32,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.ojbc.bundles.adapters.staticmock.courtcase.CourtCaseSearchResultBuilder;
-import org.ojbc.bundles.adapters.staticmock.custody.CustodyDetail;
 import org.ojbc.bundles.adapters.staticmock.custody.CustodySearchResultBuilder;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -51,15 +50,25 @@ public class StaticMockQuery {
 	private static final Log LOG = LogFactory.getLog(StaticMockQuery.class);
 
 	private static final String CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/CriminalHistory";
+	
 	private static final String WARRANT_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/Warrant";
+	
 	private static final String INCIDENT_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/Incident";
+	
 	private static final String FIREARM_PRODUCTION_SAMPLES_DIRECTORY = "static-instances/FirearmRegistration";
+	
 	private static final String JUVENILE_HISTORY_SAMPLES_DIRECTORY = "static-instances/JuvenileHistory";	
+	
 	private static final String CUSTODY_SAMPLES_DIRECTORY = "static-instances/Custody";
+	
 	private static final String COURT_CASE_SAMPLES_DIRECTORY = "static-instances/CourtCase";
+	
+	private static final String VEHICLE_CRASH_SAMPLES_DIRECTORY = "static-instances/VehicleCrash";
 
+	
 	static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 
+	
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History";
 	
 	public static final String CUSTODY_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest";	
@@ -69,51 +78,83 @@ public class StaticMockQuery {
 	public static final String COURT_CASE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest";
 	
 	public static final String COURT_CASE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest";
-		
+	
+	public static final String VEHICLE_CRASH_SEARCH_SYSTEM_ID = "{TODO}/";
+	
+	public static final String VEHICLE_CRASH_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0}/SubmitVehicleCrashQueryRequest";			
 	
 	public static final String WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants";
+	
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History";
+	
 	public static final String WARRANT_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants";
+	
 	public static final String INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS";
+	
 	public static final String INCIDENT_MOCK_ADAPTER_VEHICLE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS";
+	
 	public static final String INCIDENT_MOCK_ADAPTER_INCIDENT_PERSON_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS";
+	
 	public static final String INCIDENT_MOCK_ADAPTER_INCIDENT_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS";
+	
 	public static final String INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS";
 	
 	public static final String FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms";
-	
-	
+		
 	public static final String FIREARM_MOCK_ADAPTER_FIREARM_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest";
+	
 	public static final String JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory";
+	
 	public static final String JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory";
 
 	public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByPerson";
+	
 	public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByFirearm";;
 
+	
 	private ClasspathXmlDataSource criminalHistoryDataSource;	
+	
 	private ClasspathXmlDataSource custodyDataSource;
+	
 	private ClasspathXmlDataSource courtCaseDataSource;	
+	
 	private ClasspathXmlDataSource warrantDataSource;
+	
 	private ClasspathXmlDataSource incidentDataSource;
+	
 	private ClasspathXmlDataSource firearmRegistrationDataSource;
+	
 	private ClasspathXmlDataSource juvenileHistoryDataSource;
+	
+	private ClasspathXmlDataSource vehicleCrashDataSource;
+	
+	
 
 	public StaticMockQuery() {
 		this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, 
-				FIREARM_PRODUCTION_SAMPLES_DIRECTORY, JUVENILE_HISTORY_SAMPLES_DIRECTORY, CUSTODY_SAMPLES_DIRECTORY, COURT_CASE_SAMPLES_DIRECTORY);
+				FIREARM_PRODUCTION_SAMPLES_DIRECTORY, JUVENILE_HISTORY_SAMPLES_DIRECTORY, CUSTODY_SAMPLES_DIRECTORY, COURT_CASE_SAMPLES_DIRECTORY, 
+				VEHICLE_CRASH_SAMPLES_DIRECTORY);
 	}
 
 	StaticMockQuery(String criminalHistorySampleInstanceDirectoryRelativePath, String warrantSampleInstanceDirectoryRelativePath, 
 			String incidentSampleInstanceDirectoryRelativePath, String firearmSampleInstanceDirectoryRelativePath,
-			String juvenileHistorySampleInstanceDirectoryRelativePath, String custodySampleDir, String courtCaseSampleDir) {
+			String juvenileHistorySampleInstanceDirectoryRelativePath, String custodySampleDir, String courtCaseSampleDir, String vehicleCrashSampleDir) {
 		
 		criminalHistoryDataSource = new ClasspathXmlDataSource(criminalHistorySampleInstanceDirectoryRelativePath);
+		
 		warrantDataSource = new ClasspathXmlDataSource(warrantSampleInstanceDirectoryRelativePath);
+		
 		incidentDataSource = new ClasspathXmlDataSource(incidentSampleInstanceDirectoryRelativePath);
+		
 		firearmRegistrationDataSource = new ClasspathXmlDataSource(firearmSampleInstanceDirectoryRelativePath);
+		
 		juvenileHistoryDataSource = new ClasspathXmlDataSource(juvenileHistorySampleInstanceDirectoryRelativePath);		
+		
 		custodyDataSource = new ClasspathXmlDataSource(custodySampleDir);
+		
 		courtCaseDataSource = new ClasspathXmlDataSource(courtCaseSampleDir);
+		
+		vehicleCrashDataSource = new ClasspathXmlDataSource(vehicleCrashSampleDir);
 	}
 
 	/**
@@ -818,23 +859,38 @@ public class StaticMockQuery {
 			Element personElement = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT, "Person");
 			Element documentRootElement = instance.getDocumentElement();
 
+			String rootNamespace = documentRootElement.getNamespaceURI();
+			
+			String rootLocalName = documentRootElement.getLocalName();
+			
 			SearchValueXPaths xPaths = null;
-			if (OjbcNamespaceContext.NS_CH_DOC.equals(documentRootElement.getNamespaceURI()) && "CriminalHistory".equals(documentRootElement.getLocalName())) {
+			
+			if (OjbcNamespaceContext.NS_CH_DOC.equals(rootNamespace) && "CriminalHistory".equals(rootLocalName)) {
 				xPaths = getCriminalHistoryXPaths();
-			} else if (OjbcNamespaceContext.NS_WARRANT.equals(documentRootElement.getNamespaceURI()) && "Warrants".equals(documentRootElement.getLocalName())) {
+				
+			} else if (OjbcNamespaceContext.NS_WARRANT.equals(rootNamespace) && "Warrants".equals(rootLocalName)) {
 				xPaths = getWarrantXPaths();
-			} else if (OjbcNamespaceContext.NS_FIREARM_DOC.equals(documentRootElement.getNamespaceURI()) && "PersonFirearmRegistrationQueryResults".equals(documentRootElement.getLocalName())) {
+				
+			} else if (OjbcNamespaceContext.NS_FIREARM_DOC.equals(rootNamespace) && "PersonFirearmRegistrationQueryResults".equals(rootLocalName)) {
 				xPaths = getFirearmRegistrationXPaths();
-			} else if (OjbcNamespaceContext.NS_IR.equals(documentRootElement.getNamespaceURI()) && "IncidentReport".equals(documentRootElement.getLocalName())) {
+				
+			} else if (OjbcNamespaceContext.NS_IR.equals(rootNamespace) && "IncidentReport".equals(rootLocalName)) {
 				xPaths = getIncidentXPaths();
-			} else if (OjbcNamespaceContext.NS_JUVENILE_HISTORY_CONTAINER.equals(documentRootElement.getNamespaceURI()) && "JuvenileHistoryContainer".equals(documentRootElement.getLocalName())) {
-				xPaths = getJuvenileHistoryXPaths();			
-			}else if(OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXCH_DOC.equals(documentRootElement.getNamespaceURI()) && "CustodyQueryResults".equals(documentRootElement.getLocalName())){
+				
+			} else if (OjbcNamespaceContext.NS_JUVENILE_HISTORY_CONTAINER.equals(rootNamespace) && "JuvenileHistoryContainer".equals(rootLocalName)) {
+				xPaths = getJuvenileHistoryXPaths();
+				
+			}else if(OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CustodyQueryResults".equals(rootLocalName)){
 				xPaths = getCustodyXPaths();
-			}else if(OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC.equals(documentRootElement.getNamespaceURI()) && "CourtCaseQueryResults".equals(documentRootElement.getLocalName())){
-				xPaths = getCourtCaseXPaths();				
+				
+			}else if(OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CourtCaseQueryResults".equals(rootLocalName)){
+				xPaths = getCourtCaseXPaths();
+				
+			}else if(OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "TODO".equals(rootLocalName)){
+				xPaths = getVehicleCrashXPaths();				
+				
 			} else {
-				throw new IllegalStateException("Unsupported document root element: " + documentRootElement.getLocalName());
+				throw new IllegalStateException("Unsupported document root element: " + rootLocalName);
 			}
 
 			Element dobElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.birthdateXPath);
@@ -1472,41 +1528,61 @@ public class StaticMockQuery {
 	}
 
 	List<IdentifiableDocumentWrapper> personSearchDocumentsAsList(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
+		
 		Element rootElement = personSearchRequestMessage.getDocumentElement();
 		String rootNamespaceURI = rootElement.getNamespaceURI();
 		String rootLocalName = rootElement.getLocalName();
+		
 		if (!(OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "PersonSearchRequest".equals(rootLocalName))) {
-			throw new IllegalArgumentException("Invalid message, must have {" + OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_DOC + "}PersonSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
+			
+			throw new IllegalArgumentException("Invalid message, must have {" + OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_DOC 
+					+ "}PersonSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
 		}
-		// XmlUtils.printNode(personSearchRequestMessage);
+		
 		NodeList systemElements = XmlUtils.xPathNodeListSearch(rootElement, "psr:SourceSystemNameText");
 		int systemElementCount;
+		
 		if (systemElements == null || (systemElementCount = systemElements.getLength()) == 0) {
 			throw new IllegalArgumentException("Invalid query request message:  must specify at least one system to query.");
 		}
-		List<IdentifiableDocumentWrapper> ret = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		List<IdentifiableDocumentWrapper> rDocList = new ArrayList<IdentifiableDocumentWrapper>();
+		
 		for (int i = 0; i < systemElementCount; i++) {
+			
 			Element systemElement = (Element) systemElements.item(i);
+			
 			String systemId = systemElement.getTextContent();
+			
 			if (CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
-				ret.addAll(personSearchCriminalHistoryDocuments(personSearchRequestMessage, baseDate));				
+				rDocList.addAll(personSearchCriminalHistoryDocuments(personSearchRequestMessage, baseDate));
+				
 			} else if (WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
-				ret.addAll(personSearchWarrantDocuments(personSearchRequestMessage, baseDate));
+				rDocList.addAll(personSearchWarrantDocuments(personSearchRequestMessage, baseDate));
+				
 			} else if (FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
-				ret.addAll(personSearchFirearmRegistrationDocuments(personSearchRequestMessage, baseDate));
+				rDocList.addAll(personSearchFirearmRegistrationDocuments(personSearchRequestMessage, baseDate));
+				
 			} else if (INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
-				ret.addAll(personSearchIncidentDocuments(personSearchRequestMessage, baseDate));
+				rDocList.addAll(personSearchIncidentDocuments(personSearchRequestMessage, baseDate));
+				
 			} else if (JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
-				ret.addAll(personSearchJuvenileHistoryDocuments(personSearchRequestMessage, baseDate));
+				rDocList.addAll(personSearchJuvenileHistoryDocuments(personSearchRequestMessage, baseDate));
+				
 			}else if(CUSTODY_SEARCH_SYSTEM_ID.equals(systemId)){
-				ret.addAll(custodySearchCustodyDocuments(personSearchRequestMessage, baseDate));
+				rDocList.addAll(custodySearchCustodyDocuments(personSearchRequestMessage, baseDate));
+				
 			}else if(COURT_CASE_SEARCH_SYSTEM_ID.equals(systemId)){
-				ret.addAll(courtCaseSearchCourtCaseDocuments(personSearchRequestMessage, baseDate));
+				rDocList.addAll(courtCaseSearchCourtCaseDocuments(personSearchRequestMessage, baseDate));
+				
+			}else if(VEHICLE_CRASH_SEARCH_SYSTEM_ID.equals(systemId)){
+				rDocList.addAll(vehicleCrashSearchDocuments(personSearchRequestMessage, baseDate));
+				
 			} else {
 				throw new IllegalArgumentException("Unsupported system name: " + systemId);
 			}
 		}
-		return ret;
+		return rDocList;
 	}
 
 	private List<IdentifiableDocumentWrapper> personSearchJuvenileHistoryDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
@@ -1538,6 +1614,11 @@ public class StaticMockQuery {
 		
 		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getCourtCaseXPaths(), courtCaseDataSource);
 	}		
+	
+	private List<IdentifiableDocumentWrapper> vehicleCrashSearchDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception{
+		
+		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getVehicleCrashXPaths(), vehicleCrashDataSource);
+	}
 	
 
 	private SearchValueXPaths getIncidentXPaths() {
@@ -1740,6 +1821,35 @@ public class StaticMockQuery {
 		
 		return xPaths;
 	}
+	
+	private SearchValueXPaths getVehicleCrashXPaths(){
+	
+		SearchValueXPaths xPaths = new SearchValueXPaths();				
+		
+		xPaths.ageXPath = null;
+		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
+		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";
+		xPaths.sidXPath = "//nc30:PersonStateIdentification/nc30:IdentificationID";
+		xPaths.fbiXPath = "//nc30:PersonFBIIdentification/nc30:IdentificationID";
+		xPaths.dlXPath = null;
+		xPaths.dlJurisdictionXPath = null;
+		xPaths.lastNameXPath = "//nc30:PersonSurName";
+		xPaths.middleNameXPath = "//nc30:PersonMiddleName";
+		xPaths.firstNameXPath = "//nc30:PersonGivenName";
+		xPaths.eyeColorXPath = "//jxdm51:PersonEyeColorCode";
+		xPaths.hairColorXPath = "//jxdm51:PersonHairColorCode";
+		xPaths.raceXPath = "//nc30:PersonRaceText";
+		xPaths.sexXPath = "//nc30:PersonSexText";
+		xPaths.heightXPath = "//nc30:PersonHeightMeasure/nc30:MeasureValueText";
+		xPaths.weightXPath = "//nc30:PersonWeightMeasure/nc30:MeasureValueText";	
+		
+		xPaths.searchSystemId = VEHICLE_CRASH_SEARCH_SYSTEM_ID;
+		xPaths.systemName = "//intel31:SystemIdentification/nc30:SystemName";
+		xPaths.recordType = "Vehicle Crash";		
+		
+		return xPaths;		
+		
+	}
 
 	
 	private List<IdentifiableDocumentWrapper> courtCaseSearchDocumentsAsList(Document courtCaseSearchRequestMessage, DateTime baseDate) 
@@ -1756,6 +1866,13 @@ public class StaticMockQuery {
 				
 		return courtCaseSearchDocMatchesList;		
 	}
+	
+	
+	private List<IdentifiableDocumentWrapper> vehicleCrashSearchDocumentsAsList(Document vehicleCrashSearchRequestMessage, DateTime baseDate){
+		
+		return null;
+	}
+	
 	
 	
 	private List<IdentifiableDocumentWrapper> custodySearchDocumentsAsList(Document custodySearchRequestMessage, DateTime baseDate) 
