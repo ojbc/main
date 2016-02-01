@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0" xmlns:vcq-res-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="../../Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0" schemaLocation="../../extension.xsd"/>
+	<xsd:annotation>
+		<xsd:documentation>Maine Vehicle Crash Codes</xsd:documentation>
+	</xsd:annotation>
+	<xsd:simpleType name="VehicleTravelDirectionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Vehicle Travel Direction code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Northbound">
+				<xsd:annotation>
+					<xsd:documentation>North</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Southbound">
+				<xsd:annotation>
+					<xsd:documentation>South</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Eastbound">
+				<xsd:annotation>
+					<xsd:documentation>East</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Westbound">
+				<xsd:annotation>
+					<xsd:documentation>West</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Not on Roadway">
+				<xsd:annotation>
+					<xsd:documentation>Vehicle not on roadway.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Unknown">
+				<xsd:annotation>
+					<xsd:documentation>Unknown</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="VehicleTravelDirectionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Vehicle Travel Direction code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:VehicleTravelDirectionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="VehicleTravelDirectionCode" type="me-crash-codes:VehicleTravelDirectionCodeType" substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the direction of travel of a vehicle.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="GrossVehicleWeightRatingCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Gross Vehicle Weight Rating code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Less Than 10,000 lbs">
+				<xsd:annotation>
+					<xsd:documentation>Less Than 10,000 lbs</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="10,001-26,000 lbs">
+				<xsd:annotation>
+					<xsd:documentation>10,001-26,000 lbs</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Greater Than 26,000 lbs">
+				<xsd:annotation>
+					<xsd:documentation>Greater Than 26,000 lbs</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="GrossVehicleWeightRatingCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Gross Vehicle Weight Rating code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:GrossVehicleWeightRatingCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="GrossVehicleWeightRatingCode" type="me-crash-codes:GrossVehicleWeightRatingCodeType" substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the gross vehicle weight rating.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="DriverCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Driver Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Driver">
+				<xsd:annotation>
+					<xsd:documentation>Driver</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Bicycle">
+				<xsd:annotation>
+					<xsd:documentation>Bicycle</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Pedestrian">
+				<xsd:annotation>
+					<xsd:documentation>Pedestrian</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Last Unknown Operator">
+				<xsd:annotation>
+					<xsd:documentation>Last Unknown Operator</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DriverCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Driver Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:DriverCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="DriverCategoryCode" type="me-crash-codes:DriverCategoryCodeType" substitutionGroup="j:CrashDriverAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the Driver Category.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="DirectionFromNearestIntersectionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Direction From Nearest Intersection code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="At Intersection">
+				<xsd:annotation>
+					<xsd:documentation>At Intersection</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="At Intersection">
+				<xsd:annotation>
+					<xsd:documentation>South</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="North">
+				<xsd:annotation>
+					<xsd:documentation>North</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="South">
+				<xsd:annotation>
+					<xsd:documentation>South</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="East">
+				<xsd:annotation>
+					<xsd:documentation>East</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="West">
+				<xsd:annotation>
+					<xsd:documentation>West</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DirectionFromNearestIntersectionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Direction From Nearest Intersection code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:DirectionFromNearestIntersectionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="DirectionFromNearestIntersectionCode" type="me-crash-codes:DirectionFromNearestIntersectionCodeType" substitutionGroup="nc:LocationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the direction of a crash from the nearest intersection.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="DistanceFromNearestIntersectionNumberUnitCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Distance From Nearest Intersection Number Unit code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Feet">
+				<xsd:annotation>
+					<xsd:documentation>Feet</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Miles">
+				<xsd:annotation>
+					<xsd:documentation>Miles</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DistanceFromNearestIntersectionNumberUnitCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Distance From Nearest Intersection Number Unit code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:DistanceFromNearestIntersectionNumberUnitCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="DistanceFromNearestIntersectionNumberUnitCode" type="me-crash-codes:DistanceFromNearestIntersectionNumberUnitCodeType" substitutionGroup="nc:LocationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes unit of measure of a distance number from the nearest intersection.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="PostedSpeedLimitCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Posted Speed Limit Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Unknown">
+				<xsd:annotation>
+					<xsd:documentation>Unknown</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Not Available">
+				<xsd:annotation>
+					<xsd:documentation>Not Available</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Not Posted 25">
+				<xsd:annotation>
+					<xsd:documentation>Not Posted 25</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Not Posted 45">
+				<xsd:annotation>
+					<xsd:documentation>Not Posted 45</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PostedSpeedLimitCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Posted Speed Limit Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:PostedSpeedLimitCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="PostedSpeedLimitCode" type="me-crash-codes:PostedSpeedLimitCodeType" substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the posted speed limit.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="LawEnforcementPresentAtWorkZoneCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Law Enforcement Present At Work Zone Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Officer Present">
+				<xsd:annotation>
+					<xsd:documentation>Officer Present</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Vehicle Only">
+				<xsd:annotation>
+					<xsd:documentation>Vehicle Only</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="No Presence">
+				<xsd:annotation>
+					<xsd:documentation>No Presence</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="LawEnforcementPresentAtWorkZoneCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Law Enforcement Present At Work Zone Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:LawEnforcementPresentAtWorkZoneCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="LawEnforcementPresentAtWorkZoneCode" type="me-crash-codes:LawEnforcementPresentAtWorkZoneCodeType" substitutionGroup="j:CrashWorkZoneAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the law enforcement presence at a work zone.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="ExtentOfDamageCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Extent Of Damage Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="No Damage Observed">
+				<xsd:annotation>
+					<xsd:documentation>No Damage Observed</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Minor Damage">
+				<xsd:annotation>
+					<xsd:documentation>Minor Damage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Functional Damage">
+				<xsd:annotation>
+					<xsd:documentation>Functional Damage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Towed Due To Disabling Damage">
+				<xsd:annotation>
+					<xsd:documentation>Towed Due To Disabling Damage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ExtentOfDamageCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Extent Of Damage Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:ExtentOfDamageCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="ExtentOfDamageCode" type="me-crash-codes:ExtentOfDamageCodeType" substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the extent of vehicle damage.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="AlcoholTestCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Alcohol Test Category Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Test Not Given">
+				<xsd:annotation>
+					<xsd:documentation>Test Not Given</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Test Refused">
+				<xsd:annotation>
+					<xsd:documentation>Test Refused</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Blood">
+				<xsd:annotation>
+					<xsd:documentation>Blood</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Breath">
+				<xsd:annotation>
+					<xsd:documentation>Breath</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Urine">
+				<xsd:annotation>
+					<xsd:documentation>Urine</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OtherChemical Test">
+				<xsd:annotation>
+					<xsd:documentation>OtherChemical Test</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="AlcoholTestCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Alcohol Test Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:AlcoholTestCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="AlcoholTestCategoryCode" type="me-crash-codes:AlcoholTestCategoryCodeType" substitutionGroup="j:CrashDriverAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a type of alcohol test.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="DrugTestCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Drug Test Category Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Test Not Given">
+				<xsd:annotation>
+					<xsd:documentation>Test Not Given</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Test Refused">
+				<xsd:annotation>
+					<xsd:documentation>Test Refused</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Blood">
+				<xsd:annotation>
+					<xsd:documentation>Blood</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Breath">
+				<xsd:annotation>
+					<xsd:documentation>Breath</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Urine">
+				<xsd:annotation>
+					<xsd:documentation>Urine</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OtherChemical">
+				<xsd:annotation>
+					<xsd:documentation>Other Test</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DrugTestCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Drug Test Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:DrugTestCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="DrugTestCategoryCode" type="me-crash-codes:DrugTestCategoryCodeType" substitutionGroup="j:CrashDriverAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a type of drug test.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="DrugTestResultCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Drug Test Result Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Positive">
+				<xsd:annotation>
+					<xsd:documentation>Positive</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Negative">
+				<xsd:annotation>
+					<xsd:documentation>Negative</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Pending">
+				<xsd:annotation>
+					<xsd:documentation>Pending</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DrugTestResultCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Drug Test Result code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:DrugTestResultCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="DrugTestResultCode" type="me-crash-codes:DrugTestResultCodeType" substitutionGroup="j:CrashDriverAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a drug test result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="PropertyCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Property Category Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="State">
+				<xsd:annotation>
+					<xsd:documentation>State</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="City or Town">
+				<xsd:annotation>
+					<xsd:documentation>City or Town</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Utilities">
+				<xsd:annotation>
+					<xsd:documentation>Utilities</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Private">
+				<xsd:annotation>
+					<xsd:documentation>Private</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PropertyCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Property Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:PropertyCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="PropertyCategoryCode" type="me-crash-codes:PropertyCategoryCodeType" substitutionGroup="nc:ItemAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a type of property damage.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="DriverLicenseCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Driver License Category Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Active">
+				<xsd:annotation>
+					<xsd:documentation>Active</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="No License">
+				<xsd:annotation>
+					<xsd:documentation>No License</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Permit">
+				<xsd:annotation>
+					<xsd:documentation>Permit</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Suspended">
+				<xsd:annotation>
+					<xsd:documentation>Suspended</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DriverLicenseCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Driver License Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:DriverLicenseCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="DriverLicenseCategoryCode" type="me-crash-codes:DriverLicenseCategoryCodeType" substitutionGroup="j:DriverLicenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a type of driver license.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="SchoolBusRelatedCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>School Bus Related Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Yes, Directly Involved">
+				<xsd:annotation>
+					<xsd:documentation>Yes, Directly Involved</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Yes,Indirectly Involved">
+				<xsd:annotation>
+					<xsd:documentation>Yes,Indirectly Involved</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Not Involved">
+				<xsd:annotation>
+					<xsd:documentation>Not Involved</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="SchoolBusRelatedCodeType">
+		<xsd:annotation>
+			<xsd:documentation>School Bus Related code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:SchoolBusRelatedCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="SchoolBusRelatedCode" type="me-crash-codes:SchoolBusRelatedCodeType" substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a school bus related crash.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="PersonCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Person Category Code code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Driver</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Passenger</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>Pedestrian</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="6">
+				<xsd:annotation>
+					<xsd:documentation>Driver/Owner</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="7">
+				<xsd:annotation>
+					<xsd:documentation>Bicycle</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="8">
+				<xsd:annotation>
+					<xsd:documentation>Passenger/Owner</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="24">
+				<xsd:annotation>
+					<xsd:documentation>Last Known Operator</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="25">
+				<xsd:annotation>
+					<xsd:documentation>Last Known Operator/Owner</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>Pedestrian</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PersonCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Person Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="me-crash-codes:PersonCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="PersonCategoryCode" type="me-crash-codes:PersonCategoryCodeType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
