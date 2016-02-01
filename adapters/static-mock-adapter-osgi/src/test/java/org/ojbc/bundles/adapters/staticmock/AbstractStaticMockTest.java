@@ -42,21 +42,27 @@ public abstract class AbstractStaticMockTest {
 
 	@Before
 	public void setUp() throws Exception {
+		
 		log = LogFactory.getLog(getClass());
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
 		documentBuilder = dbf.newDocumentBuilder();
+		
 		staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", 
 				"XpathTestSamples/FirearmRegistration", "XpathTestSamples/JuvenileHistory", "XpathTestSamples/Custody", "XpathTestSamples/CourtCase", 
 				"XpathTestSamples/VehicleCrash");				
 	}
 
 	protected Document buildBasePersonSearchRequestMessagePersonNameOnly(String systemId) throws Exception {
+		
 		Document personSearchRequestMessage = buildBasePersonSearchRequestMessage(systemId);
 		Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
 		NodeList children = personElement.getChildNodes();
+		
 		int childCount = children.getLength();
+		
 		for (int i = childCount - 1; i >= 0; i--) {
+			
 			Node child = children.item(i);
 			if (!("PersonName".equals(child.getLocalName()))) {
 				personElement.removeChild(child);
@@ -268,6 +274,10 @@ public abstract class AbstractStaticMockTest {
 		
 		Element courtCaseSourceSystemElement = XmlUtils.insertElementBefore(root, custodySourceSystemElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");		
 		courtCaseSourceSystemElement.setTextContent(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID);
+		
+		Element vehicleCrashSourceSystemElement = XmlUtils.insertElementBefore(root, courtCaseSourceSystemElement, 
+				OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");		
+		vehicleCrashSourceSystemElement.setTextContent(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID);
 		
 		XmlUtils.printNode(personSearchRequestMessage);
 	
