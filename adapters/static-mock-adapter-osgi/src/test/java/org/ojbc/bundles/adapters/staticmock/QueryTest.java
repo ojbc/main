@@ -73,6 +73,12 @@ public class QueryTest extends AbstractStaticMockTest {
     }
     
     
+    //TODO complete
+    public void testVehicleCrashPersonQuery(){
+    	
+    }
+    
+    
     @Test
     public void testJuvenileHistoryQueries() throws Exception {
     	Document queryRequestMessage = buildPersonQueryRequestMessage(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID, "sample-108040379083497483.xml");

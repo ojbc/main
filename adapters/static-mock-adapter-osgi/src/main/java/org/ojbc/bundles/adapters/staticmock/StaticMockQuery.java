@@ -127,8 +127,7 @@ public class StaticMockQuery {
 	private ClasspathXmlDataSource juvenileHistoryDataSource;
 	
 	private ClasspathXmlDataSource vehicleCrashDataSource;
-	
-	
+		
 
 	public StaticMockQuery() {
 		this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, 
@@ -314,20 +313,31 @@ public class StaticMockQuery {
 
 		if (CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID.equals(systemId)) {
 			return queryCriminalHistoryDocuments(documentId);
+			
 		} else if (WARRANT_MOCK_ADAPTER_QUERY_SYSTEM_ID.equals(systemId)) {
 			return queryWarrantDocuments(documentId);
+			
 		} else if (INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID.equals(systemId)) {
 			return queryIncidentDocuments(documentId);
+			
 		} else if (FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID.equals(systemId)) {
 			return queryPersonFirearmRegistrationDocuments(documentId);
+			
 		} else if (FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID.equals(systemId)) {
 			return queryPersonFirearmRegistrationDocuments(documentId);
+			
 		} else if (JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID.equals(systemId)) {
 			return queryJuvenileHistoryDocuments(documentId, context);
+			
 		} else if(CUSTODY_QUERY_SYSTEM_ID.equals(systemId)){
 			return queryCustodyDocuments(documentId);
+			
 		} else if(COURT_CASE_QUERY_SYSTEM_ID.equals(systemId)){
-			return queryCourtCaseDocuments(documentId);						
+			return queryCourtCaseDocuments(documentId);
+			
+		}else if(VEHICLE_CRASH_QUERY_SYSTEM_ID.equals(systemId)){			
+			return queryVehicleCrashDocuments(systemId);
+			
 		} else {
 			throw new IllegalArgumentException("Unknown system name: " + systemId);
 		}
@@ -2250,6 +2260,23 @@ public class StaticMockQuery {
 		}		
 		return rCourtCaseDetailWrapperList;
 	}		
+	
+	
+	private List<IdentifiableDocumentWrapper> queryVehicleCrashDocuments(String documentId) throws Exception {
+		
+		List<IdentifiableDocumentWrapper> rVehicleCrashDetailWrapperList = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		IdentifiableDocumentWrapper vehicleCrashDetailWrapper = vehicleCrashDataSource.getDocument(documentId);
+		
+		if(vehicleCrashDetailWrapper != null){
+			
+			rVehicleCrashDetailWrapperList.add(vehicleCrashDetailWrapper);			
+		}
+		
+		return rVehicleCrashDetailWrapperList;
+	}
+	
+	
 
 	static final class PersonSearchParameters {
 
