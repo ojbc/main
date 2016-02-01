@@ -42,13 +42,20 @@ public class SearchTest extends AbstractStaticMockTest {
     public void testDocumentCounts() throws Exception {
     	
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/CriminalHistory", staticMockQuery.getCriminalHistoryDocumentCount());
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Warrant", staticMockQuery.getWarrantDocumentCount());
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Incident", staticMockQuery.getIncidentDocumentCount());
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/FirearmRegistration", staticMockQuery.getFirearmRegistrationDocumentCount());
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenileHistory", staticMockQuery.getJuvenileHistoryDocumentCount());        
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Custody", staticMockQuery.getCustodyDocumentCount());        
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/CourtCase", staticMockQuery.getCourtCaseDocumentCout());
         
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Warrant", staticMockQuery.getWarrantDocumentCount());
+        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Incident", staticMockQuery.getIncidentDocumentCount());
+        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/FirearmRegistration", staticMockQuery.getFirearmRegistrationDocumentCount());
+        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/JuvenileHistory", staticMockQuery.getJuvenileHistoryDocumentCount());        
+        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/Custody", staticMockQuery.getCustodyDocumentCount());        
+        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/CourtCase", staticMockQuery.getCourtCaseDocumentCount());
+        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/VehicleCrash", staticMockQuery.getVehicleCrashDocumentCount());        
     }
 
     @Test
