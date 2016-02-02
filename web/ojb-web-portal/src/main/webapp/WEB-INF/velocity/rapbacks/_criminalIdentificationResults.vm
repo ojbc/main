@@ -24,12 +24,12 @@
 		optTable = {
 			"pagingType": "full_numbers",
 			"pageLength": 50,
-			"order": [[ 2, "asc" ]],
+			"order": [[ 1, "asc" ]],
 			"language": {
         		"emptyTable": "No criminal identification record available"
    			 },
 			"columnDefs": [{
-				targets: [ 3 ],
+				targets: [ 2 ],
 			    searchable: false, 
 			    sortable: false
 			} ]

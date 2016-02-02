@@ -87,7 +87,7 @@ public class PortalController implements ApplicationContextAware {
 	public static final String STATE_LINK_TITLE = "State.gov";
     public static final String QUERY_LINK_TITLE = "Query";
 	public static final String SUBSCRIPTION_LINK_TITLE = "Subscriptions";
-	public static final String RAPBACK_LINK_TITLE = "Rap Back";
+	public static final String RAPBACK_LINK_TITLE = "Applicant Rap Back";
 	public static final String CRIMINAL_ID_LINK_TITLE = "Criminal Identification";
 	public static final String HELP_LINK_TITLE = "Help";
 	public static final String PRIVACY_LINK_TITLE = "Privacy Policies";
