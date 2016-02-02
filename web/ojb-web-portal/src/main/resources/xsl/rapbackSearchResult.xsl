@@ -119,13 +119,15 @@
 	</xsl:template>
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
+<!-- Hide the Subscribe button for phase 1 -->	
+<!-- 		
 		<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
 			<i class="fa fa-rss fa-lg"/>
 		</a>
-		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
+ -->		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
