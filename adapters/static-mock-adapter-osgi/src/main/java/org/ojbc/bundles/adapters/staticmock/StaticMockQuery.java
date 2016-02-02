@@ -130,6 +130,7 @@ public class StaticMockQuery {
 		
 
 	public StaticMockQuery() {
+		
 		this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, 
 				FIREARM_PRODUCTION_SAMPLES_DIRECTORY, JUVENILE_HISTORY_SAMPLES_DIRECTORY, CUSTODY_SAMPLES_DIRECTORY, COURT_CASE_SAMPLES_DIRECTORY, 
 				VEHICLE_CRASH_SAMPLES_DIRECTORY);
@@ -180,8 +181,17 @@ public class StaticMockQuery {
 	 * @return document count
 	 * @throws Exception
 	 */
-	public int getCourtCaseDocumentCout() throws Exception{
+	public int getCourtCaseDocumentCount() throws Exception{
 		return courtCaseDataSource.getDocuments().size();
+	}
+	
+	/**
+	 * Gets the total number of available vehicle crash documents
+	 * @return document count
+	 * @throws Exception
+	 */
+	public int getVehicleCrashDocumentCount() throws Exception{
+		return vehicleCrashDataSource.getDocuments().size();
 	}
 
 	/**
