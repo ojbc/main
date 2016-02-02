@@ -36,6 +36,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="AddressType">
+    <xs:annotation>
+      <xs:documentation>A data type for a geophysical location described by postal information.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:AddressFullText" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="AmountType">
     <xs:annotation>
       <xs:documentation>A data type for an amount of money.</xs:documentation>
@@ -215,6 +227,7 @@
           <xs:element ref="nc:PersonEthnicity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonRace" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonResident" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonSSNIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonStateIdentification" minOccurs="0" maxOccurs="unbounded"/>
@@ -238,6 +251,19 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:ScheduleDayStartTime" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ScheduleDayAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StatusType">
+    <xs:annotation>
+      <xs:documentation>A data type for a state of something or someone.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StatusDesignator" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -288,6 +314,16 @@
   <xs:element name="ActivityDateRepresentation" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a date an activity occurs.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Address" type="nc:AddressType" substitutionGroup="nc:LocationAddressAbstract">
+    <xs:annotation>
+      <xs:documentation>A postal location to which paper mail can be directed.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="AddressFullText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A complete address.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Amount" type="niem-xs:decimal" nillable="true">
@@ -368,6 +404,11 @@
   <xs:element name="LastUpdatedDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date information was last modified.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationAddressAbstract" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a set of information, such as postal information, used to describe a location.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="LocationDescriptionText" type="nc:TextType" nillable="true">
@@ -455,6 +496,16 @@
       <xs:documentation>A classification of a person based on factors such as geographical locations and genetics.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonResident" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a manner of residence a person has in a city, town, community, or other area..</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonResidentText" type="nc:TextType" substitutionGroup="nc:PersonResident">
+    <xs:annotation>
+      <xs:documentation>A manner of residence a person has in an area such as a city, town, or community.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonSSNIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A unique identification reference to a living person; assigned by the United States Social Security Administration.</xs:documentation>
@@ -480,6 +531,11 @@
       <xs:documentation>A last name or family name of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ScheduleDayAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ScheduleDayType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ScheduleDayStartTime" type="niem-xs:time" nillable="true">
     <xs:annotation>
       <xs:documentation>A time at which an activity is scheduled to begin.</xs:documentation>
@@ -488,6 +544,16 @@
   <xs:element name="StartDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date on which something begins.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatusDesignator" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a status or condition of something or someone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatusText" type="nc:TextType" substitutionGroup="nc:StatusDesignator">
+    <xs:annotation>
+      <xs:documentation>A status or condition of something or someone.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Supervision" type="nc:SupervisionType" nillable="true">
@@ -503,6 +569,11 @@
   <xs:element name="SupervisionFacility" type="nc:FacilityType" nillable="true">
     <xs:annotation>
       <xs:documentation>A facility at which a subject is being supervised.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SupervisionPersonStatus" type="nc:StatusType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A status of a person under supervision.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SystemName" type="nc:TextType" nillable="true">
