@@ -183,11 +183,9 @@
 				<nc:OrganizationPrimaryContactInformation>
 					<nc:ContactEntity>
 						<ecf:EntityOrganization>
-							<j:OrganizationAugmentation>
-								<j:OrganizationORIIdentification>
-									<nc:IdentificationID>VT0040100</nc:IdentificationID>
-								</j:OrganizationORIIdentification>
-							</j:OrganizationAugmentation>
+						<nc:OrganizationIdentification>
+						<nc:IdentificationID>VT0040100</nc:IdentificationID>
+						</nc:OrganizationIdentification>
 						</ecf:EntityOrganization>
 					</nc:ContactEntity>
 				</nc:OrganizationPrimaryContactInformation>
