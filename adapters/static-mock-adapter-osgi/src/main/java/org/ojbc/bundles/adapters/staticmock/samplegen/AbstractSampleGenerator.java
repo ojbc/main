@@ -549,6 +549,7 @@ public abstract class AbstractSampleGenerator {
 	}
 
 	private void loadIdentityMap() throws IOException {
+		
 		BufferedReader br = getIdentityFileReader();
 		String line = null;
 		//long start = System.currentTimeMillis();
@@ -636,6 +637,7 @@ public abstract class AbstractSampleGenerator {
 	}
 
 	private BufferedReader getIdentityFileReader() {
+		
 		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("static-files/GeneratedIdentities.csv");
 		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream), 1024 * 10);
 		return br;
@@ -677,6 +679,7 @@ public abstract class AbstractSampleGenerator {
 	protected static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 	protected static final DateTimeFormatter DATE_FORMATTER_MM_DD_YYYY = DateTimeFormat.forPattern("MM/dd/yyyy");
 
+	
 	public static void main(String[] args) throws Exception {
 
 		if (args.length < 3) {
@@ -695,11 +698,20 @@ public abstract class AbstractSampleGenerator {
 
 		AbstractPersonSampleGenerator generator = null;
 		DateTime today = new DateTime();
+		
 		List<Document> criminalHistories = new ArrayList<Document>();
+		
 		List<Document> warrants = new ArrayList<Document>();
+		
 		List<Document> incidents = new ArrayList<Document>();
+		
 		List<Document> firearmRegistrations = new ArrayList<Document>();
+		
 		List<Document> juvenileHistories = new ArrayList<Document>();
+		
+		List<Document> custodyDocList = new ArrayList<Document>();
+		
+		List<Document> courtCaseDocList = new ArrayList<Document>();
 
 		if ("ALL".equals(type) || "CRIMINALHISTORY".equals(type)) {
 			generator = new CriminalHistorySampleGenerator();
@@ -725,29 +737,42 @@ public abstract class AbstractSampleGenerator {
 			JuvenileHistorySampleGenerator jhsg = new JuvenileHistorySampleGenerator();
 			juvenileHistories = jhsg.generateSample(sampleCount, today, null);
 		}
+		
+		if("ALL".equals(type) || "CUSTODY".equals(type)){			
+			CustodySampleGenerator custodySampleGenerator = new CustodySampleGenerator();			
+			custodyDocList = custodySampleGenerator.generateCustodySamples(sampleCount);
+		}
+		
+		if("ALL".equals(type) || "COURTCASE".equals(type)){			
+			CourtCaseSampleGenerator courtCaseGenerator = new CourtCaseSampleGenerator();			
+			courtCaseDocList = courtCaseGenerator.generateCourtCaseSamples(sampleCount);
+		}
 
-		List<Document> allSamples = new ArrayList<Document>(criminalHistories.size() + warrants.size() + incidents.size() + firearmRegistrations.size() + juvenileHistories.size());
+		List<Document> allSamples = new ArrayList<Document>(criminalHistories.size() + warrants.size() + incidents.size() + firearmRegistrations.size() 
+				+ juvenileHistories.size() + custodyDocList.size() + courtCaseDocList.size());
+		
 		allSamples.addAll(criminalHistories);
 		allSamples.addAll(warrants);
 		allSamples.addAll(incidents);
 		allSamples.addAll(firearmRegistrations);
-		allSamples.addAll(juvenileHistories);
+		allSamples.addAll(juvenileHistories);		
+		allSamples.addAll(custodyDocList);
+		allSamples.addAll(courtCaseDocList);
 
 		for (Document d : allSamples) {
+			
 			File f = File.createTempFile("sample-", ".xml", destinationFile);
 			FileOutputStream fos = new FileOutputStream(f);
 			XmlUtils.printNode(d, fos);
 			fos.close();
 		}
 
-		System.out.println("Wrote " + allSamples.size() + " files to " + destinationFile.getAbsolutePath());
-
+		LOG.info("Wrote " + allSamples.size() + " files to " + destinationFile.getAbsolutePath());		
 	}
 
 	static void printUsage() {
-
-		System.out.println("Usage: java " + AbstractPersonSampleGenerator.class.getName() + " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|All] [number of samples] [destination directory]");
-
+		
+		LOG.info("Usage: java " + AbstractPersonSampleGenerator.class.getName() + " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|All] [number of samples] [destination directory]");
 	}
 
 }
