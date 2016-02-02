@@ -1,3 +1,19 @@
+/*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ */
 package org.ojbc.bundles.adapters.staticmock.samplegen;
 
 import java.io.IOException;
@@ -154,11 +170,44 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		imgLocDescElement.setTextContent("TODO");
 		
+		Element caseHearingElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_JXDM_51, "CaseHearing");
+		
+		Element courtEventScheduleElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_JXDM_51, "CourtEventSchedule");
+		
+		Element scheduleDayStartTimeElement = XmlUtils.appendElement(courtEventScheduleElement, OjbcNamespaceContext.NS_NC_30, "ScheduleDayStartTime");
+		
+		scheduleDayStartTimeElement.setTextContent("TODO");
 		
 		
+		Element chargeElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");
 		
+		Element chargeCountQuantityElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeCountQuantity");		
+		chargeCountQuantityElement.setTextContent("TODO");
 		
+		Element chargeDescriptionTextElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeDescriptionText");
+		chargeDescriptionTextElement.setTextContent("TODO");
 		
+		Element chargeStatuteElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeStatute");
+		
+		Element chargeStatuteCodeIdElement = XmlUtils.appendElement(chargeStatuteElement, OjbcNamespaceContext.NS_JXDM_51, "StatuteCodeIdentification");
+		
+		Element chargeStatuteCodeIdValElement = XmlUtils.appendElement(chargeStatuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		chargeStatuteCodeIdValElement.setTextContent("TODO");
+		
+		Element chargeStatuteIdCatDescTxtElement = XmlUtils.appendElement(chargeStatuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");		
+		chargeStatuteIdCatDescTxtElement.setTextContent("TODO");
+		
+		Element supervisionElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "Supervision");
+		
+		Element activityDateRangeElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_NC_30, "ActivityDateRange");
+		
+		Element startDateElement = XmlUtils.appendElement(activityDateRangeElement, OjbcNamespaceContext.NS_NC_30, "StartDate");
+		
+		Element startDateValElement = XmlUtils.appendElement(startDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");
+		
+		startDateValElement.setTextContent("TODO");
+		
+			
 		
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 		
