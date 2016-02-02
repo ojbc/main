@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
-<vcq-res-doc:VehicleCrashQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0 ../xsd/impl/maine/vehicle_crash_codes.xsd" xmlns:vcq-res-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0" xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:vcq-res-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
+<vcq-res-doc:VehicleCrashQueryResults
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0 ../xsd/impl/maine/vehicle_crash_codes.xsd"
+	xmlns:vcq-res-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0"
+	xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	xmlns:vcq-res-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<vcq-res-ext:VehicleCrashReport>
 		<nc:DocumentCreationDate>
 			<nc:Date>2015-01-23</nc:Date>
@@ -39,21 +43,22 @@
 			</j:ActivityAugmentation>
 			<j:IncidentAugmentation>
 				<j:IncidentDamagedItem>
-					<nc:ItemDescriptionText>Property Damage Description</nc:ItemDescriptionText>
+					<nc:ItemDescriptionText>Property Damage Description
+					</nc:ItemDescriptionText>
 					<nc:ItemOwner>
-						<nc:EntityOrganization structures:ref="Property_Owner_01"/>
-						<nc:EntityPerson structures:ref="Property_Owner_02"/>
+						<nc:EntityOrganization structures:ref="Property_Owner_01" />
+						<nc:EntityPerson structures:ref="Property_Owner_02" />
 					</nc:ItemOwner>
 					<me-crash-codes:PropertyCategoryCode>Private</me-crash-codes:PropertyCategoryCode>
 				</j:IncidentDamagedItem>
 				<j:IncidentReportingOfficial>
-					<nc:RoleOfPerson structures:ref="Reporting_Official_01"/>
+					<nc:RoleOfPerson structures:ref="Reporting_Official_01" />
 					<j:EnforcementOfficialBadgeIdentification>
 						<nc:IdentificationID>BID456789</nc:IdentificationID>
 					</j:EnforcementOfficialBadgeIdentification>
 				</j:IncidentReportingOfficial>
 				<j:IncidentWitness>
-					<nc:RoleOfPerson structures:ref="Witness_01"/>
+					<nc:RoleOfPerson structures:ref="Witness_01" />
 				</j:IncidentWitness>
 			</j:IncidentAugmentation>
 			<j:CrashInformationSource>
@@ -62,38 +67,48 @@
 				</j:OrganizationORIIdentification>
 			</j:CrashInformationSource>
 			<j:CrashWorkZone>
-				<j:WorkZoneWorkersPresenceIndicationCode>1</j:WorkZoneWorkersPresenceIndicationCode>
+				<j:WorkZoneWorkersPresenceIndicationCode>1
+				</j:WorkZoneWorkersPresenceIndicationCode>
 				<me-crash-codes:LawEnforcementPresentAtWorkZoneCode>No Presence</me-crash-codes:LawEnforcementPresentAtWorkZoneCode>
-				<vcq-res-ext:NearWorkZonetIndicator>true</vcq-res-ext:NearWorkZonetIndicator>
-				<vcq-res-ext:WorkZoneWorkersPresentIndicator>true</vcq-res-ext:WorkZoneWorkersPresentIndicator>
+				<vcq-res-ext:NearWorkZonetIndicator>true
+				</vcq-res-ext:NearWorkZonetIndicator>
+				<vcq-res-ext:WorkZoneWorkersPresentIndicator>true
+				</vcq-res-ext:WorkZoneWorkersPresentIndicator>
 			</j:CrashWorkZone>
 			<j:CrashVehicle>
-				<nc:RoleOfItem structures:ref="Vehicle_01"/>
+				<nc:RoleOfItem structures:ref="Vehicle_01" />
 				<j:VehicleTrafficControlDeviceOperationalIndicator>true</j:VehicleTrafficControlDeviceOperationalIndicator>
 				<j:CrashVehicleLegalSpeedRateMeasure>
 					<nc:MeasureValueText>55</nc:MeasureValueText>
 				</j:CrashVehicleLegalSpeedRateMeasure>
 				<j:CrashDriver>
-					<nc:RoleOfPerson structures:ref="Driver_01"/>
-					<j:DriverLicense structures:ref="Driver_License_01"/>
+					<nc:RoleOfPerson structures:ref="Driver_01" />
+					<j:DriverLicense structures:ref="Driver_License_01" />
 					<me-crash-codes:DriverCategoryCode>Driver</me-crash-codes:DriverCategoryCode>
 					<me-crash-codes:AlcoholTestCategoryCode>Breath</me-crash-codes:AlcoholTestCategoryCode>
 					<me-crash-codes:DrugTestCategoryCode>Test Refused</me-crash-codes:DrugTestCategoryCode>
 					<me-crash-codes:DrugTestResultCode>Pending</me-crash-codes:DrugTestResultCode>
-					<vcq-res-ext:AlcoholTestResultsPendingtIndicator>true</vcq-res-ext:AlcoholTestResultsPendingtIndicator>
+					<vcq-res-ext:AlcoholTestResultsPendingtIndicator>true
+					</vcq-res-ext:AlcoholTestResultsPendingtIndicator>
 				</j:CrashDriver>
 				<j:CrashVehicleOccupant>
-					<nc:RoleOfPerson structures:ref="Occupant_01"/>
+					<nc:RoleOfPerson structures:ref="Driver_01" />
+					<nc:RoleOfPerson structures:ref="Occupant_01" />
+					<nc:RoleOfPerson structures:ref="Vehicle_Owner_01" />
 				</j:CrashVehicleOccupant>
-				<vcq-res-ext:HazmatPlacardIndicator>false</vcq-res-ext:HazmatPlacardIndicator>
+				<vcq-res-ext:HazmatPlacardIndicator>false
+				</vcq-res-ext:HazmatPlacardIndicator>
 				<me-crash-codes:VehicleTravelDirectionCode>Westbound</me-crash-codes:VehicleTravelDirectionCode>
 				<me-crash-codes:GrossVehicleWeightRatingCode>Greater Than 26,000 lbs</me-crash-codes:GrossVehicleWeightRatingCode>
 				<me-crash-codes:ExtentOfDamageCode>Functional Damage</me-crash-codes:ExtentOfDamageCode>
 				<me-crash-codes:PostedSpeedLimitCode>Not Available</me-crash-codes:PostedSpeedLimitCode>
 				<me-crash-codes:SchoolBusRelatedCode>Not Involved</me-crash-codes:SchoolBusRelatedCode>
-				<vcq-res-ext:TotalDamageOverThresholdtIndicator>true</vcq-res-ext:TotalDamageOverThresholdtIndicator>
-				<vcq-res-ext:VehicleNineOrMoreSeatstIndicator>false</vcq-res-ext:VehicleNineOrMoreSeatstIndicator>
-				<vcq-res-ext:ExemptVehicleIndicator>true</vcq-res-ext:ExemptVehicleIndicator>
+				<vcq-res-ext:TotalDamageOverThresholdtIndicator>true
+				</vcq-res-ext:TotalDamageOverThresholdtIndicator>
+				<vcq-res-ext:VehicleNineOrMoreSeatstIndicator>false
+				</vcq-res-ext:VehicleNineOrMoreSeatstIndicator>
+				<vcq-res-ext:ExemptVehicleIndicator>true
+				</vcq-res-ext:ExemptVehicleIndicator>
 			</j:CrashVehicle>
 			<nc:Location structures:id="Incident_Loc_01">
 				<nc:Address>
@@ -110,24 +125,31 @@
 						<nc:LongitudeDegreeValue>-68.7703</nc:LongitudeDegreeValue>
 					</nc:GeographicCoordinateLongitude>
 				</nc:Location2DGeospatialCoordinate>
-				<vcq-res-ext:NearestIntersectingStreetFullText>Jones Road</vcq-res-ext:NearestIntersectingStreetFullText>
-				<vcq-res-ext:DistanceFromNearestIntersectionNumberText>5</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
+				<vcq-res-ext:NearestIntersectingStreetFullText>Jones Road
+				</vcq-res-ext:NearestIntersectingStreetFullText>
+				<vcq-res-ext:DistanceFromNearestIntersectionNumberText>5
+				</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
 				<me-crash-codes:DirectionFromNearestIntersectionCode>North</me-crash-codes:DirectionFromNearestIntersectionCode>
 				<me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>Miles</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>
 			</nc:Location>
 			<vcq-res-ext:AtSceneDateTime>
 				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 			</vcq-res-ext:AtSceneDateTime>
-			<vcq-res-ext:OffRoadIncidentIndicator>false</vcq-res-ext:OffRoadIncidentIndicator>
-			<vcq-res-ext:EmergencyVehicleRespondingToScenetIndicator>true</vcq-res-ext:EmergencyVehicleRespondingToScenetIndicator>
+			<vcq-res-ext:OffRoadIncidentIndicator>false
+			</vcq-res-ext:OffRoadIncidentIndicator>
+			<vcq-res-ext:EmergencyVehicleRespondingToScenetIndicator>true
+			</vcq-res-ext:EmergencyVehicleRespondingToScenetIndicator>
 		</j:Crash>
 		<j:Citation structures:id="Citation_01">
 			<nc:ActivityIdentification>
 				<nc:IdentificationID>C23956</nc:IdentificationID>
 			</nc:ActivityIdentification>
-			<vcq-res-ext:CitationNumberPendingIndicator>false</vcq-res-ext:CitationNumberPendingIndicator>
-			<vcq-res-ext:FirstViolationDescriptionText>First Violation</vcq-res-ext:FirstViolationDescriptionText>
-			<vcq-res-ext:SecondViolationDescriptionText>Second Violation</vcq-res-ext:SecondViolationDescriptionText>
+			<vcq-res-ext:CitationNumberPendingIndicator>false
+			</vcq-res-ext:CitationNumberPendingIndicator>
+			<vcq-res-ext:FirstViolationDescriptionText>First Violation
+			</vcq-res-ext:FirstViolationDescriptionText>
+			<vcq-res-ext:SecondViolationDescriptionText>Second Violation
+			</vcq-res-ext:SecondViolationDescriptionText>
 		</j:Citation>
 		<nc:Person structures:id="Reporting_Official_01">
 			<nc:PersonName>
@@ -147,18 +169,28 @@
 			</nc:PersonName>
 		</nc:Person>
 		<nc:Person structures:id="Driver_01">
+			<nc:PersonBirthDate>
+				<nc:Date>1980-06-26</nc:Date>
+			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>Joel</nc:PersonGivenName>
 				<nc:PersonMiddleName>Francis</nc:PersonMiddleName>
 				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<me-crash-codes:PersonCategoryCode>1</me-crash-codes:PersonCategoryCode>
 		</nc:Person>
 		<nc:Person structures:id="Vehicle_Owner_01">
+			<nc:PersonBirthDate>
+				<nc:Date>1984-01-02</nc:Date>
+			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>George</nc:PersonGivenName>
 				<nc:PersonMiddleName>F</nc:PersonMiddleName>
 				<nc:PersonSurName>Boland</nc:PersonSurName>
 			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<me-crash-codes:PersonCategoryCode>8</me-crash-codes:PersonCategoryCode>
 		</nc:Person>
 		<nc:EntityOrganization structures:id="Property_Owner_01">
 			<nc:OrganizationName>ACME Products</nc:OrganizationName>
@@ -178,7 +210,7 @@
 				<nc:PersonSurName>Gates</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonSexCode>F</j:PersonSexCode>
-			<me-crash-codes:PersonCategoryCode>24</me-crash-codes:PersonCategoryCode>
+			<me-crash-codes:PersonCategoryCode>2</me-crash-codes:PersonCategoryCode>
 		</nc:EntityPerson>
 		<nc:Location structures:id="Driver_Loc_01">
 			<nc:Address>
@@ -248,7 +280,8 @@
 				<nc:IdentificationID>457698098</nc:IdentificationID>
 			</nc:InsurancePolicyIdentification>
 			<nc:InsuranceCarrierName>Allstate</nc:InsuranceCarrierName>
-			<vcq-res-ext:NoInsuranceIndicator>false</vcq-res-ext:NoInsuranceIndicator>
+			<vcq-res-ext:NoInsuranceIndicator>false
+			</vcq-res-ext:NoInsuranceIndicator>
 		</nc:Insurance>
 		<j:CrashDriverLicense structures:id="Driver_License_01">
 			<j:DriverLicenseCardIdentification>
@@ -264,44 +297,45 @@
 				<j:DriverLicenseEndorsementText>Endorsement</j:DriverLicenseEndorsementText>
 			</j:DriverLicenseEndorsement>
 			<me-crash-codes:DriverLicenseCategoryCode>Active</me-crash-codes:DriverLicenseCategoryCode>
-			<vcq-res-ext:DriverLicenseClassCodeText>Class</vcq-res-ext:DriverLicenseClassCodeText>
+			<vcq-res-ext:DriverLicenseClassCodeText>Class
+			</vcq-res-ext:DriverLicenseClassCodeText>
 		</j:CrashDriverLicense>
 		<j:ActivityInformationApproverAssociation>
-			<nc:Activity structures:ref="Crash_01"/>
-			<nc:Person structures:ref="Information_Approver_01"/>
+			<nc:Activity structures:ref="Crash_01" />
+			<nc:Person structures:ref="Information_Approver_01" />
 		</j:ActivityInformationApproverAssociation>
 		<j:PersonBloodAlcoholContentAssociation>
 			<j:PersonBloodAlcoholContentNumberText>0.02</j:PersonBloodAlcoholContentNumberText>
-			<nc:Activity structures:ref="Crash_01"/>
-			<nc:Person structures:ref="Driver_01"/>
+			<nc:Activity structures:ref="Crash_01" />
+			<nc:Person structures:ref="Driver_01" />
 		</j:PersonBloodAlcoholContentAssociation>
 		<nc:ItemInsuranceAssociation>
-			<nc:Insurance structures:ref="Insurance_01"/>
-			<nc:Item structures:ref="Vehicle_01"/>
+			<nc:Insurance structures:ref="Insurance_01" />
+			<nc:Item structures:ref="Vehicle_01" />
 		</nc:ItemInsuranceAssociation>
 		<nc:PersonResidenceAssociation>
-			<nc:Person structures:ref="Driver_01"/>
-			<nc:Location structures:ref="Driver_Loc_01"/>
+			<nc:Person structures:ref="Driver_01" />
+			<nc:Location structures:ref="Driver_Loc_01" />
 		</nc:PersonResidenceAssociation>
 		<nc:PersonResidenceAssociation>
-			<nc:Person structures:ref="Witness_01"/>
-			<nc:Location structures:ref="Witness_Loc_01"/>
+			<nc:Person structures:ref="Witness_01" />
+			<nc:Location structures:ref="Witness_Loc_01" />
 		</nc:PersonResidenceAssociation>
 		<nc:PersonResidenceAssociation>
-			<nc:Person structures:ref="Property_Owner_01"/>
-			<nc:Location structures:ref="Property_Owner_Loc_01"/>
+			<nc:Person structures:ref="Property_Owner_01" />
+			<nc:Location structures:ref="Property_Owner_Loc_01" />
 		</nc:PersonResidenceAssociation>
 		<nc:PersonResidenceAssociation>
-			<nc:Person structures:ref="Vehicle_Owner_01"/>
-			<nc:Location structures:ref="Vehicle_Owner_Loc_01"/>
+			<nc:Person structures:ref="Vehicle_Owner_01" />
+			<nc:Location structures:ref="Vehicle_Owner_Loc_01" />
 		</nc:PersonResidenceAssociation>
 		<nc:ActivityDocumentAssociation>
-			<nc:Activity structures:ref="Crash_01"/>
-			<nc:Document structures:ref="Citation_01"/>
+			<nc:Activity structures:ref="Crash_01" />
+			<nc:Document structures:ref="Citation_01" />
 		</nc:ActivityDocumentAssociation>
 		<j:ConveyanceRegistrationAssociation>
-			<j:ItemRegistration structures:ref="Conveyance_Registration_01"/>
-			<nc:Item structures:ref="Vehicle_01"/>
+			<j:ItemRegistration structures:ref="Conveyance_Registration_01" />
+			<nc:Item structures:ref="Vehicle_01" />
 		</j:ConveyanceRegistrationAssociation>
 	</vcq-res-ext:VehicleCrashReport>
 </vcq-res-doc:VehicleCrashQueryResults>
