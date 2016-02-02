@@ -28,7 +28,6 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.ojbc.bundles.adapters.staticmock.samplegen.JuvenileHistorySampleGenerator.IdentifiableHistoryComponent;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
