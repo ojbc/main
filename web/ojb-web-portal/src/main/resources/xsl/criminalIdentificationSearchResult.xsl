@@ -54,7 +54,6 @@
 				<thead>
 					<tr>
 						<th>NAME</th>
-						<th>DOB</th>
 						<th>OTN</th>
 						<th></th>
 					</tr>
@@ -70,9 +69,6 @@
 		<xsl:variable name="rapbackId" select="intel:SystemIdentifier/nc:IdentificationID"/>
 		<tr>
 			<td><xsl:apply-templates select="child::oirsr-ext:IdentifiedPerson/nc:PersonName" mode="primaryName"></xsl:apply-templates></td>
-			<td>
-				<xsl:apply-templates select="child::oirsr-ext:IdentifiedPerson/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
-			</td>
 			<td>
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>					
