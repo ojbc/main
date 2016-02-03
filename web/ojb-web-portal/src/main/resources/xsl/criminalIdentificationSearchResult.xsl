@@ -55,6 +55,8 @@
 					<tr>
 						<th>NAME</th>
 						<th>OTN</th>
+						<th>DATE</th>
+						<th>TYPE</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -71,12 +73,28 @@
 			<td><xsl:apply-templates select="child::oirsr-ext:IdentifiedPerson/nc:PersonName" mode="primaryName"></xsl:apply-templates></td>
 			<td>
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
-			</td>					
+			</td>	
+			<td>
+				<xsl:apply-templates select="oirsr-ext:IdentificationReportDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+			</td>				
+			<td>
+				<xsl:value-of select="oirsr-ext:CriminalIdentificationReasonCode"></xsl:value-of>
+			</td>	
 			<td align="right" width="115px">
+				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for subscription']" mode="unsubscribed"/>
 				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
 					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-text-o fa-lg"></i></a>
 			</td>
 		</tr>
+	</xsl:template>
+	
+	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
+ 		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-archive fa-lg"></i>
+		</a>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">

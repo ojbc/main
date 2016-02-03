@@ -54,6 +54,7 @@
 			<entry key="ws-security.signature.properties" value-ref="identificationResultsModificationKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${identificationModification.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
 
