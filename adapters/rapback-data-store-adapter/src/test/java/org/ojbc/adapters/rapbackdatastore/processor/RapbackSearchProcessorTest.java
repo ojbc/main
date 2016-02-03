@@ -27,6 +27,7 @@ import junit.framework.Assert;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.TestRapbackSearchRequestService;
@@ -48,6 +49,7 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
+@Ignore
 public class RapbackSearchProcessorTest {
 	private static final Log log = LogFactory.getLog( RapbackSearchProcessorTest.class );
 
