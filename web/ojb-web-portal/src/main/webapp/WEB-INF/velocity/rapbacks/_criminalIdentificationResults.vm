@@ -29,7 +29,7 @@
         		"emptyTable": "No criminal identification record available"
    			 },
 			"columnDefs": [{
-				targets: [ 3 ],
+				targets: [ 4 ],
 			    searchable: false, 
 			    sortable: false
 			} ]
