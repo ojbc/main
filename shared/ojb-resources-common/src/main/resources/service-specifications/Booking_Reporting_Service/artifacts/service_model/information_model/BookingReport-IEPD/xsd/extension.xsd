@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" xmlns:ac-booking-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
@@ -49,122 +49,16 @@
 					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonCriminalHistorySummary" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="cyfs:NextCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:BailBondChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:simpleType name="PreTrialCategoryCodeSimpleType">
-		<xsd:annotation>
-			<xsd:documentation>Category code for pretrial status (placeholder)</xsd:documentation>
-		</xsd:annotation>
-		<xsd:restriction base="xsd:token">
-			<xsd:enumeration value="SRP">
-				<xsd:annotation>
-					<xsd:documentation>Supervised Release Pretrial = under supervised released awaiting trial</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="C-PR">
-				<xsd:annotation>
-					<xsd:documentation>Cash Bond Pretrial = cash bond posted released awaiting trial</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="S-PR">
-				<xsd:annotation>
-					<xsd:documentation>Surety Bond Pretrial = surety bond posted released awaiting trial</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="PR">
-				<xsd:annotation>
-					<xsd:documentation>Pretrial Release = released awaiting trial</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="C-SRP">
-				<xsd:annotation>
-					<xsd:documentation>Cash Bond Supervised Release Pretrial = cash bond posted released awaiting trial under supervision</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="S-SRP">
-				<xsd:annotation>
-					<xsd:documentation>Surety Bond Supervised Release Pretrial = surety bond posted released awaiting trial under supervision</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="SUR">
-				<xsd:annotation>
-					<xsd:documentation>Surety = surety bond</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="Split">
-				<xsd:annotation>
-					<xsd:documentation>bond split between cash and surety</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="No-Bond">
-				<xsd:annotation>
-					<xsd:documentation>In Jail No Bond Posted = in jail bond not posted or granted</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-		</xsd:restriction>
-	</xsd:simpleType>
-	<xsd:complexType name="PreTrialCategoryCodeType">
-		<xsd:annotation>
-			<xsd:documentation>category code for pretrial status</xsd:documentation>
-		</xsd:annotation>
-		<xsd:simpleContent>
-			<xsd:extension base="br-ext:PreTrialCategoryCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
-	<xsd:simpleType name="BedCategoryCodeSimpleType">
-		<xsd:annotation>
-			<xsd:documentation>Category code for bed type (placeholder)</xsd:documentation>
-		</xsd:annotation>
-		<xsd:restriction base="xsd:token">
-			<xsd:enumeration value="Type 1">
-				<xsd:annotation>
-					<xsd:documentation>type 1</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="Type 2">
-				<xsd:annotation>
-					<xsd:documentation>type 2</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="Type 3">
-				<xsd:annotation>
-					<xsd:documentation>type 3</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="Type 4">
-				<xsd:annotation>
-					<xsd:documentation>type 4</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="Type 5">
-				<xsd:annotation>
-					<xsd:documentation>type 5</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="Other">
-				<xsd:annotation>
-					<xsd:documentation>Other</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-		</xsd:restriction>
-	</xsd:simpleType>
-	<xsd:complexType name="BedCategoryCodeType">
-		<xsd:annotation>
-			<xsd:documentation>bed type category</xsd:documentation>
-		</xsd:annotation>
-		<xsd:simpleContent>
-			<xsd:extension base="br-ext:BedCategoryCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-			</xsd:extension>
-		</xsd:simpleContent>
 	</xsd:complexType>
 	<xsd:element name="BookingReport" type="br-ext:BookingReportType">
 		<xsd:annotation>
@@ -181,24 +75,24 @@
 			<xsd:documentation>True if a subject is being held for an immigration violation; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="BedCategoryCode" type="br-ext:BedCategoryCodeType" substitutionGroup="nc:SupervisionAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>bed type code</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="PreTrialCategoryCode" type="br-ext:PreTrialCategoryCodeType" substitutionGroup="nc:SupervisionAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>PreTrial Status Code</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="BookingIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if a booking occured; false otherwise</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonNameIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonNameAugmentationPoint">
+	<xsd:element name="PersonSocioEconomicStatusDescriptionText" type="nc:TextType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if a booking occured; false otherwise</xsd:documentation>
+			<xsd:documentation>A description of a person's income level.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InmateWorkReleaseIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an inmate is on work release; false otherwise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an inmate is a worker in the facility; false otherwise</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
