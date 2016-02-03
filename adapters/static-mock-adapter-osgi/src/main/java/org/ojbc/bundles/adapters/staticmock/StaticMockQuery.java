@@ -862,6 +862,7 @@ public class StaticMockQuery {
 			return errorReturn;
 		}
 
+		// gets documents from each source system requested
 		List<IdentifiableDocumentWrapper> instanceWrappers = personSearchDocumentsAsList(personSearchRequestMessage, baseDate);
 
 		Document ret = createNewDocument();
@@ -873,11 +874,11 @@ public class StaticMockQuery {
 
 		for (IdentifiableDocumentWrapper instanceWrapper : instanceWrappers) {
 
-			Document instance = instanceWrapper.getDocument();
+			Document specificDetailSourceDoc = instanceWrapper.getDocument();
 
 			Element psrElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT, "PersonSearchResult");
 			Element personElement = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT, "Person");
-			Element documentRootElement = instance.getDocumentElement();
+			Element documentRootElement = specificDetailSourceDoc.getDocumentElement();
 
 			String rootNamespace = documentRootElement.getNamespaceURI();
 			
@@ -906,15 +907,15 @@ public class StaticMockQuery {
 			}else if(OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CourtCaseQueryResults".equals(rootLocalName)){
 				xPaths = getCourtCaseXPaths();
 				
-			}else if(OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "TODO".equals(rootLocalName)){
+			}else if(OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC.equals(rootNamespace) && "VehicleCrashQueryResults".equals(rootLocalName)){
 				xPaths = getVehicleCrashXPaths();				
 				
 			} else {
 				throw new IllegalStateException("Unsupported document root element: " + rootLocalName);
 			}
 
-			Element dobElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.birthdateXPath);
-			Element ageElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.ageXPath);
+			Element dobElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.birthdateXPath);
+			Element ageElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.ageXPath);
 			
 			if (dobElement != null) {
 				
@@ -938,7 +939,7 @@ public class StaticMockQuery {
 				e.setTextContent(ageElement.getTextContent());
 			}
 
-			Element heightElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.heightXPath);
+			Element heightElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.heightXPath);
 			if (heightElement != null) {
 				Element phm = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonHeightMeasure");
 				Element e = XmlUtils.appendElement(phm, OjbcNamespaceContext.NS_NC, "MeasurePointValue");
@@ -946,9 +947,9 @@ public class StaticMockQuery {
 				e = XmlUtils.appendElement(phm, OjbcNamespaceContext.NS_NC, "LengthUnitCode");
 				e.setTextContent("INH");
 			}
-			Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.lastNameXPath);
-			Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.firstNameXPath);
-			Element middleNameElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.middleNameXPath);
+			Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.lastNameXPath);
+			Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.firstNameXPath);
+			Element middleNameElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.middleNameXPath);
 			if (lastNameElement != null || firstNameElement != null || middleNameElement != null) {
 				Element nameElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonName");
 				Element e = null;
@@ -965,23 +966,23 @@ public class StaticMockQuery {
 					e.setTextContent(lastNameElement.getTextContent());
 				}
 			}
-			Element raceElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.raceXPath);
+			Element raceElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.raceXPath);
 			if (raceElement != null) {
 				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonRaceCode");
 				e.setTextContent(raceElement.getTextContent());
 			}
-			Element sexElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.sexXPath);
+			Element sexElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.sexXPath);
 			if (sexElement != null) {
 				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonSexCode");
 				e.setTextContent(sexElement.getTextContent());
 			}
-			Element ssnElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.ssnXPath);
+			Element ssnElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.ssnXPath);
 			if (ssnElement != null) {
 				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonSSNIdentification");
 				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
 				e.setTextContent(ssnElement.getTextContent());
 			}
-			Element weightElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.weightXPath);
+			Element weightElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.weightXPath);
 			if (weightElement != null) {
 				Element phm = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonWeightMeasure");
 				Element e = XmlUtils.appendElement(phm, OjbcNamespaceContext.NS_NC, "MeasurePointValue");
@@ -989,13 +990,13 @@ public class StaticMockQuery {
 				e = XmlUtils.appendElement(phm, OjbcNamespaceContext.NS_NC, "WeightUnitCode");
 				e.setTextContent("LBR");
 			}
-			Element dlElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.dlXPath);
-			Element fbiElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.fbiXPath);
-			Element sidElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.sidXPath);
+			Element dlElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.dlXPath);
+			Element fbiElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.fbiXPath);
+			Element sidElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.sidXPath);
 			if (dlElement != null || fbiElement != null || sidElement != null) {
 				Element personAugElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
 				if (dlElement != null) {
-					Element dlJurisdictionElement = (Element) XmlUtils.xPathNodeSearch(instance, xPaths.dlJurisdictionXPath);
+					Element dlJurisdictionElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.dlJurisdictionXPath);
 					Element e = XmlUtils.appendElement(personAugElement, OjbcNamespaceContext.NS_NC, "DriverLicense");
 					Element dlIdElement = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "DriverLicenseIdentification");
 					e = XmlUtils.appendElement(dlIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
@@ -1637,6 +1638,8 @@ public class StaticMockQuery {
 	
 	private List<IdentifiableDocumentWrapper> vehicleCrashSearchDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception{
 		
+		// loops through all VehicleCrashDetail docs in VehicleCrashDataSource, using VehicleCrashXPaths against them to pull their 
+		//	 vehicle values - and compares them against the same values in the personSearchRequestMessage
 		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getVehicleCrashXPaths(), vehicleCrashDataSource);
 	}
 	
@@ -1842,33 +1845,48 @@ public class StaticMockQuery {
 		return xPaths;
 	}
 	
-	private SearchValueXPaths getVehicleCrashXPaths(){
-	
-		SearchValueXPaths xPaths = new SearchValueXPaths();				
+	private SearchValueXPaths getVehicleCrashXPaths() throws Exception{
+			
+		SearchValueXPaths vehicleCrashDetailXpaths = new SearchValueXPaths();				
 		
-		xPaths.ageXPath = null;
-		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
-		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";
-		xPaths.sidXPath = "//nc30:PersonStateIdentification/nc30:IdentificationID";
-		xPaths.fbiXPath = "//nc30:PersonFBIIdentification/nc30:IdentificationID";
-		xPaths.dlXPath = null;
-		xPaths.dlJurisdictionXPath = null;
-		xPaths.lastNameXPath = "//nc30:PersonSurName";
-		xPaths.middleNameXPath = "//nc30:PersonMiddleName";
-		xPaths.firstNameXPath = "//nc30:PersonGivenName";
-		xPaths.eyeColorXPath = "//jxdm51:PersonEyeColorCode";
-		xPaths.hairColorXPath = "//jxdm51:PersonHairColorCode";
-		xPaths.raceXPath = "//nc30:PersonRaceText";
-		xPaths.sexXPath = "//nc30:PersonSexText";
-		xPaths.heightXPath = "//nc30:PersonHeightMeasure/nc30:MeasureValueText";
-		xPaths.weightXPath = "//nc30:PersonWeightMeasure/nc30:MeasureValueText";	
+		vehicleCrashDetailXpaths.ageXPath = null;		
+		vehicleCrashDetailXpaths.ssnXPath = null;
+		vehicleCrashDetailXpaths.sidXPath = null;
+		vehicleCrashDetailXpaths.fbiXPath = null;
+						
+		vehicleCrashDetailXpaths.dlXPath = 
+				"//jxdm51:CrashDriverLicense[@s30:id=//jxdm51:CrashDriver/jxdm51:DriverLicense@s30:ref]/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationID";
+						
+		vehicleCrashDetailXpaths.dlJurisdictionXPath = 
+				"//jxdm51:CrashDriverLicense[@s30:id=//jxdm51:CrashDriver/jxdm51:DriverLicense@s30:ref]/jxdm51:DriverLicenseCardIdentification//nc30:IdentificationJurisdiction/jxdm51:LocationStateNCICLISCode";
+				
+		vehicleCrashDetailXpaths.lastNameXPath = 
+				"//nc30:Person[@s30:id=//jxdm51:CrashDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonName/nc30:PersonSurName"; 
+						
+		vehicleCrashDetailXpaths.middleNameXPath = 
+				"//nc30:Person[@s30:id=//jxdm51:CrashDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonName/nc30:PersonMiddleName";		
 		
-		xPaths.searchSystemId = VEHICLE_CRASH_SEARCH_SYSTEM_ID;
-		xPaths.systemName = "//intel31:SystemIdentification/nc30:SystemName";
-		xPaths.recordType = "Vehicle Crash";		
+		vehicleCrashDetailXpaths.firstNameXPath = 
+				"//nc30:Person[@s30:id=//jxdm51:CrashDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonName/nc30:PersonGivenName";
 		
-		return xPaths;		
+		vehicleCrashDetailXpaths.eyeColorXPath = null;
+		vehicleCrashDetailXpaths.hairColorXPath = null;		
+		vehicleCrashDetailXpaths.raceXPath = null;
+						
+		vehicleCrashDetailXpaths.birthdateXPath = "//nc30:Person[@s30:id=//jxdm51:CrashDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonBirthDate/nc30:Date";
 		
+		vehicleCrashDetailXpaths.sexXPath = "//nc30:Person[@s30:id=//jxdm51:CrashDriver/nc30:RoleOfPerson/@s30:ref]/jxdm51:PersonSexCode";
+		
+		vehicleCrashDetailXpaths.heightXPath = null;
+		vehicleCrashDetailXpaths.weightXPath = null;	
+		
+		vehicleCrashDetailXpaths.searchSystemId = VEHICLE_CRASH_SEARCH_SYSTEM_ID;
+		
+		vehicleCrashDetailXpaths.systemName = VEHICLE_CRASH_SEARCH_SYSTEM_ID;
+		
+		vehicleCrashDetailXpaths.recordType = "Vehicle Crash";		
+		
+		return vehicleCrashDetailXpaths;				
 	}
 
 	
