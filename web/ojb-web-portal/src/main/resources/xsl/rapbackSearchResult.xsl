@@ -58,8 +58,8 @@
 					<tr>
 						<th>NAME</th>
 						<th>OTN</th>
+						<th>DATE</th>
 						<th>START DATE</th>
-						<th>END DATE</th>
 						<th>VALIDATION DUE</th>
 						<th>STATUS</th>
 						<th></th>
@@ -83,11 +83,11 @@
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>					
 			<td>
+				<xsl:apply-templates select="oirsr-ext:IdentificationReportDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+			</td>	
+			<td>
 				<xsl:apply-templates select="oirsr-ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
-			<td>
-				<xsl:apply-templates select="oirsr-ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
-			</td>	
 			<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>				
 			<td>
 				<xsl:if test="$validationDueDate &lt; current-date()">

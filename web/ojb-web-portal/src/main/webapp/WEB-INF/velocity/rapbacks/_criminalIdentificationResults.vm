@@ -29,7 +29,7 @@
         		"emptyTable": "No criminal identification record available"
    			 },
 			"columnDefs": [{
-				targets: [ 2 ],
+				targets: [ 4 ],
 			    searchable: false, 
 			    sortable: false
 			} ]
@@ -37,6 +37,35 @@
 		
 		var oTable = $("#searchResultsTable").DataTable( optTable);
 
+    	$('#searchResultsTable').on('click', 'a.archive',function() {
+    		$.get("#springUrl('/rapbacks/archive')", {transactionNumber: $(this).attr("id")}, function(data) {
+				if (data === 'success'){
+					refreshSearchResultsTable();
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+    	});
+    	
+    	function showErrorMessage(data){
+			if ( $( "#informationMessages" ).length ) {
+			    $( "#informationMessages" ).html(data);
+			}
+			else {
+				$( "#searchResultsTable_wrapper" ).prepend( '<span class="error" id="informationMessages" >'+data+'</span>' );
+			}
+    	}
+    	
+    	function refreshSearchResultsTable(){
+    		$.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
+				$('#portalContent').html(data);	
+			}).fail(ojbc.displayFailMessage);
+							    
+			return false;
+    	}
+    	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');

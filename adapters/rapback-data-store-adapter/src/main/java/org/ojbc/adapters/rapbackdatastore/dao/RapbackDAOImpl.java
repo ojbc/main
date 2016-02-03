@@ -423,7 +423,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		IdentificationTransaction identificationTransaction = new IdentificationTransaction();
 		identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
 		identificationTransaction.setOtn(rs.getString("otn"));
-		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("report_timestamp")));
 		identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
 		identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
 		identificationTransaction.setIdentificationCategory(rs.getString("identification_category"));
@@ -505,7 +505,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
-		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.timestamp as timestamp_received, "
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp as timestamp_received, "
 				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
@@ -565,7 +565,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(
 			String ori) {
 		final String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
-				+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
+				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
@@ -583,7 +583,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
 			String ori) {
 		final String CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
-				+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
+				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "WHERE t.owner_ori = ? and (select count(*)>0 from "

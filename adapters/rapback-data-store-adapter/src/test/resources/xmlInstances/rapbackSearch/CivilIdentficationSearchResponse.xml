@@ -17,12 +17,12 @@
 
 -->
 <oirs-res-doc:OrganizationIdentificationResultsSearchResults xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
-                                                             xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
+                                                             xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+                                                             xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
                                                              xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
                                                              xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
-                                                             xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
-                                                             xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
-                                                             xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/">
+                                                             xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
+                                                             xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
    <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
       <oirs-res-ext:IdentifiedPerson>
          <nc30:PersonBirthDate>
@@ -72,6 +72,10 @@
          </oirs-res-ext:SubscriptionIdentification>
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:CivilIdentificationReasonCode>I</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:IdentificationReportDate>
+         <nc30:Date>2015-10-16</nc30:Date>
+      </oirs-res-ext:IdentificationReportDate>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
       <intel:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339993</nc30:IdentificationID>
@@ -127,6 +131,10 @@
          </oirs-res-ext:SubscriptionIdentification>
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:CivilIdentificationReasonCode>I</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:IdentificationReportDate>
+         <nc30:Date>2016-10-20</nc30:Date>
+      </oirs-res-ext:IdentificationReportDate>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
       <intel:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339995</nc30:IdentificationID>
@@ -182,6 +190,10 @@
          </oirs-res-ext:SubscriptionIdentification>
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:CivilIdentificationReasonCode>I</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:IdentificationReportDate>
+         <nc30:Date>2016-10-20</nc30:Date>
+      </oirs-res-ext:IdentificationReportDate>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
       <intel:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339996</nc30:IdentificationID>
@@ -218,6 +230,10 @@
       </oirs-res-ext:IdentifiedPerson>
       <oirs-res-ext:IdentificationResultStatusCode>Available for subscription</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:CivilIdentificationReasonCode>I</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:IdentificationReportDate>
+         <nc30:Date>2015-10-20</nc30:Date>
+      </oirs-res-ext:IdentificationReportDate>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
       <intel:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339997</nc30:IdentificationID>
