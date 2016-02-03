@@ -92,8 +92,10 @@
 			uri="cxf:bean:identificationResultsModificationResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
 
 		<!-- Automatic Archiving Timer Endpoint -->
-		<endpoint id="automaticArchivingTimerEndpoint"
-			uri="quartz://rapbackDataStore/archiveTimer?cron={{rapbackDatastoreAdapter.archiveTimerCronExpression}}" />
+		<endpoint id="automaticArchivingCivilTimerEndpoint"
+			uri="quartz://rapbackDataStore/archiveCivilTimer?cron={{rapbackDatastoreAdapter.archiveCivilTimerCronExpression}}" />
+		<endpoint id="automaticArchivingCriminalTimerEndpoint"
+			uri="quartz://rapbackDataStore/archiveCriminalTimer?cron={{rapbackDatastoreAdapter.archiveCriminalTimerCronExpression}}" />
 
 		<!-- Incident Reporting Route -->
 		<route id="identification_recording_service">
@@ -378,9 +380,15 @@
 		</route>
 
 		<!-- Automaticly Archive idled records flow -->
-		<route id="automaticArchivingRoute">
-			<from uri="automaticArchivingTimerEndpoint" />
-			<to uri="bean:rapbackDAO?method=archive" />
+		<route id="automaticArchivingCivilRoute">
+			<from uri="automaticArchivingCivilTimerEndpoint" />
+			<to uri="bean:rapbackDAO?method=archiveCivilIdentifications" />
+			<log message="Automatic archiving civil identifications completed"/>
+		</route>
+		
+		<route id="automaticArchivingCriminalRoute">
+			<from uri="automaticArchivingCriminalTimerEndpoint" />
+			<to uri="bean:rapbackDAO?method=archiveCriminalIdentifications" />
 			<log message="Automatic archiving completed"/>
 		</route>
 		
