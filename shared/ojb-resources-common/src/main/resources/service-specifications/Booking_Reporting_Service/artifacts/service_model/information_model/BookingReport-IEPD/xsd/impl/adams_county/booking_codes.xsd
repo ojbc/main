@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0" xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="../../Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" schemaLocation="../../extension.xsd"/>
+	<xsd:annotation>
+		<xsd:documentation>Adams County Booking Codes</xsd:documentation>
+	</xsd:annotation>
+	<xsd:simpleType name="PreTrialCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Pre Trial Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="SRP">
+				<xsd:annotation>
+					<xsd:documentation>Supervised Release Pretrial - under supervised released awaiting trial</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="C-PR">
+				<xsd:annotation>
+					<xsd:documentation>Cash Bond Pretrial - cash bond posted released awaiting trial</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="S-PR">
+				<xsd:annotation>
+					<xsd:documentation>Surety Bond Pretrial - surety bond posted released awaiting trial</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PR">
+				<xsd:annotation>
+					<xsd:documentation>Pretrial Release - released awaiting trial</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="C-SRP">
+				<xsd:annotation>
+					<xsd:documentation>Cash Bond Supervised Release Pretrial - cash bond posted released awaiting trial under supervision</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="S-SRP">
+				<xsd:annotation>
+					<xsd:documentation>Surety Bond Supervised Release Pretrial - surety bond posted released awaiting trial under supervision</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SUR">
+				<xsd:annotation>
+					<xsd:documentation>Surety - surety bond</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Split">
+				<xsd:annotation>
+					<xsd:documentation>bond split between cash and surety</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="No-Bond">
+				<xsd:annotation>
+					<xsd:documentation>In Jail No Bond Posted - in jail bond not posted or granted</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PreTrialCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Pre Trial Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="ac-bkg-codes:PreTrialCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- Note subsitutionGroup -->
+	<xsd:element name="PreTrialCategoryCode" type="ac-bkg-codes:PreTrialCategoryCodeType" substitutionGroup="nc:StatusAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A category code for pretrial status.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- Need Definitions as noted below -->
+	<xsd:simpleType name="BedCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Bed Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Type 1">
+				<xsd:annotation>
+					<xsd:documentation>NEED DEFINITION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Type 2">
+				<xsd:annotation>
+					<xsd:documentation>NEED DEFINITION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Type 3">
+				<xsd:annotation>
+					<xsd:documentation>NEED DEFINITION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Type 4">
+				<xsd:annotation>
+					<xsd:documentation>NEED DEFINITION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Type 5">
+				<xsd:annotation>
+					<xsd:documentation>NEED DEFINITION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Other">
+				<xsd:annotation>
+					<xsd:documentation>Other Bad Category</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="BedCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Pre Trial Category code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="ac-bkg-codes:BedCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- Note subsitutionGroup -->
+	<xsd:element name="BedCategoryCode" type="ac-bkg-codes:BedCategoryCodeType" substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A category code for bed.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
