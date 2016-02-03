@@ -55,6 +55,7 @@
 					<tr>
 						<th>NAME</th>
 						<th>OTN</th>
+						<th>DATE</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -71,7 +72,10 @@
 			<td><xsl:apply-templates select="child::oirsr-ext:IdentifiedPerson/nc:PersonName" mode="primaryName"></xsl:apply-templates></td>
 			<td>
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
-			</td>					
+			</td>	
+			<td>
+				<xsl:apply-templates select="oirsr-ext:IdentificationReportDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+			</td>				
 			<td align="right" width="115px">
 				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
 					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-text-o fa-lg"></i></a>
