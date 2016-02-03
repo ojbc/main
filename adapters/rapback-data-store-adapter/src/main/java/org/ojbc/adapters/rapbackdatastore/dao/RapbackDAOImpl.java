@@ -74,8 +74,11 @@ public class RapbackDAOImpl implements RapbackDAO {
     @Autowired
     private TopicMapValidationDueDateStrategy validationDueDateStrategy;
 	
-    @Value("${rapbackDatastoreAdapter.idlePeriod:60}")
-    private Integer idlePeriod;
+    @Value("${rapbackDatastoreAdapter.civilIdlePeriod:60}")
+    private Integer civilIdlePeriod;
+    
+    @Value("${rapbackDatastoreAdapter.criminalIdlePeriod:60}")
+    private Integer criminalIdlePeriod;
 
 	@Override
 	public Integer saveSubject(final Subject subject) {
@@ -748,19 +751,38 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	@Override
-	public int archive() {
+	public int archiveCivilIdentifications() {
 		log.info("Archiving records that have been available "
-				+ "for subscription for over " + idlePeriod + " days.");
+				+ "for subscription for over " + civilIdlePeriod + " days.");
 		final String sql = "UPDATE identification_transaction t "
 				+ "SET t.archived = 'true' "
-				+ "WHERE t.archived = 'false' AND t.available_for_subscription_start_date < ?";
+				+ "WHERE (select count(*)>0 FROM civil_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "	AND t.archived = 'false' AND t.available_for_subscription_start_date < ?";
 		
 		DateTime currentDate = new DateTime(); 
-		DateTime comparableDate = currentDate.minusDays(idlePeriod);
+		DateTime comparableDate = currentDate.minusDays(civilIdlePeriod);
 		log.info("Comparable Date:" + comparableDate);
 		
 		int updatedRows = jdbcTemplate.update(sql, comparableDate.toDate());
-		log.info("Archived " + updatedRows + " rows that have been idle for over " + idlePeriod + " days ");
+		log.info("Archived " + updatedRows + " rows that have been idle for over " + civilIdlePeriod + " days ");
+		return updatedRows;
+	}
+	
+	@Override
+	public int archiveCriminalIdentifications() {
+		log.info("Archiving records that have been available "
+				+ "for subscription for over " + criminalIdlePeriod + " days.");
+		final String sql = "UPDATE identification_transaction t "
+				+ "SET t.archived = 'true' "
+				+ "WHERE (select count(*)>0 FROM criminal_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "AND t.archived = 'false' AND t.available_for_subscription_start_date < ?";
+		
+		DateTime currentDate = new DateTime(); 
+		DateTime comparableDate = currentDate.minusDays(criminalIdlePeriod);
+		log.info("Comparable Date:" + comparableDate);
+		
+		int updatedRows = jdbcTemplate.update(sql, comparableDate.toDate());
+		log.info("Archived " + updatedRows + " rows that have been idle for over " + criminalIdlePeriod + " days ");
 		return updatedRows;
 	}
 
