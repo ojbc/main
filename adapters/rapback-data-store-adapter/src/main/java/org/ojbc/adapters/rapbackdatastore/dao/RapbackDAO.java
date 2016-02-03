@@ -65,7 +65,8 @@ public interface RapbackDAO {
 	
 	public AgencyProfile getAgencyProfile(String ori);
 	
-	public int archive();
+	public int archiveCivilIdentifications();
+	public int archiveCriminalIdentifications();
 	public int archiveIdentificationResult(String transactionNumber);
 	
 	public List<SubsequentResults> getSubsequentResults(String transactionNumber);

@@ -36,6 +36,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
@@ -50,6 +51,7 @@ import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -72,6 +74,9 @@ public class RapbackDAOImplTest {
 	private static final String COUNT_SID_A123458 = "select count(*) as rowcount from identification_subject "
     		+ "where civil_sid = 'A123458' or criminal_Sid = 'A123458'";
 
+    @Value("${rapbackDatastoreAdapter.civilIdlePeriod:60}")
+    private Integer civilIdlePeriod;
+    
 	private static final String TRANSACTION_NUMBER = "000001820140729014008340000";
 
 	private final Log log = LogFactory.getLog(this.getClass());
@@ -402,18 +407,43 @@ public class RapbackDAOImplTest {
 	@Test
 	@DirtiesContext
 	@Ignore
-	public void testArchive() throws Exception {
+	public void testArchiveCivil() throws Exception {
 		Connection conn = dataSource.getConnection();
+		DateTime currentDate = new DateTime(); 
+		DateTime comparableDate = currentDate.minusDays(civilIdlePeriod);
 		String countQualifiedToArchiveSql = "SELECT count(*) as rowcount "
-				+ "FROM identification_transaction "
-				+ "WHERE archived = 'false' "
-				+ "AND available_for_subscription_start_date < '2015-09-05'";
+				+ "FROM identification_transaction t "
+				+ "WHERE (select count(*)>0 FROM civil_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "AND archived = 'false' "
+				+ "AND available_for_subscription_start_date < '" + comparableDate.toString(RapbackDataStoreAdapterConstants.YYYY_MM_DD) + "'";
 		ResultSet rs = conn.createStatement().executeQuery(countQualifiedToArchiveSql);
 		assertTrue(rs.next());
-		assertEquals(1,rs.getInt("rowcount"));
+		
+		int count = rs.getInt("rowcount");
 
-		int count = rapbackDAO.archive();
-		assertEquals(1, count);
+		int archivedCount = rapbackDAO.archiveCivilIdentifications();
+		assertEquals(count, archivedCount);
+	}
+	
+	@Test
+	@DirtiesContext
+	@Ignore
+	public void testArchiveCriminal() throws Exception {
+		Connection conn = dataSource.getConnection();
+		DateTime currentDate = new DateTime(); 
+		DateTime comparableDate = currentDate.minusDays(civilIdlePeriod);
+		String countQualifiedToArchiveSql = "SELECT count(*) as rowcount "
+				+ "FROM identification_transaction t "
+				+ "WHERE (select count(*)>0 FROM criminal_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "AND archived = 'false' "
+				+ "AND available_for_subscription_start_date < '" + comparableDate.toString(RapbackDataStoreAdapterConstants.YYYY_MM_DD) + "'";
+		ResultSet rs = conn.createStatement().executeQuery(countQualifiedToArchiveSql);
+		assertTrue(rs.next());
+		
+		int count = rs.getInt("rowcount");
+		
+		int archivedCount = rapbackDAO.archiveCriminalIdentifications();
+		assertEquals(count, archivedCount);
 	}
 	
 	@Test
