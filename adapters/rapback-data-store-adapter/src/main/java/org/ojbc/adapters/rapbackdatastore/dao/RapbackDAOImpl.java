@@ -583,7 +583,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
 			String ori) {
 		final String CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
-				+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
+				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
