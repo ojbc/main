@@ -1383,24 +1383,22 @@ public class SearchTest extends AbstractStaticMockTest {
     	
         Document personSearchRequestMessage = buildFullResultsPersonSearchRequest();
         
-        Document searchResults = staticMockQuery.personSearchDocuments(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
-        
-        XmlUtils.printNode(searchResults);
+        Document searchResults = staticMockQuery.personSearchDocuments(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));        
                 
         XmlUtils.validateInstance("service-specifications/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
+        
         NodeList nodes = XmlUtils.xPathNodeListSearch(searchResults, "psres-doc:PersonSearchResults/psres:PersonSearchResult");
         
         int nodeCount = nodes.getLength();
-        assertEquals(6, nodeCount);
+        assertEquals(7, nodeCount);
         
         Element criminalHistoryResult = null;
         Element warrantResult = null;
         Element incidentResult = null;
-        Element firearmResult = null;
-        
-        Element custodyResult = null;
-        
+        Element firearmResult = null;        
+        Element custodyResult = null;        
         Element courtCaseResult = null;
+        Element vehicleCrashResult = null;
         
         for (int i = 0; i < nodeCount && (criminalHistoryResult == null || warrantResult == null); i++) {
         	
@@ -1430,16 +1428,46 @@ public class SearchTest extends AbstractStaticMockTest {
             if(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID.equals(sourceSysNameText)){            	
             	courtCaseResult = e;
             }
+            
+            if(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID.equals(sourceSysNameText)){
+            	vehicleCrashResult = e;
+            }
         }
         
         assertNotNull(criminalHistoryResult);
         assertNotNull(warrantResult);
         assertNotNull(incidentResult);
-        assertNotNull(firearmResult);
-        
+        assertNotNull(firearmResult);        
         assertNotNull(custodyResult);
         assertNotNull(courtCaseResult);
+        assertNotNull(vehicleCrashResult);
         
+        // vehicle crash detail result
+        
+        String sVehicleCrashDob = XmlUtils.xPathStringSearch(vehicleCrashResult, "psres:Person/nc:PersonBirthDate/nc:Date");        
+        assertEquals("1980-06-26", sVehicleCrashDob);
+        
+        String sVehiclePersonSurName = XmlUtils.xPathStringSearch(vehicleCrashResult, "psres:Person/nc:PersonName/nc:PersonSurName");
+        assertEquals("Ivey", sVehiclePersonSurName);
+                
+        String sVehicleCrashMiddleName = XmlUtils.xPathStringSearch(vehicleCrashResult, "psres:Person/nc:PersonName/nc:PersonMiddleName");
+        assertEquals("Francis", sVehicleCrashMiddleName);                
+        
+        String sPersonGivenName = XmlUtils.xPathStringSearch(vehicleCrashResult, "psres:Person/nc:PersonName/nc:PersonGivenName");
+        assertEquals("Larry", sPersonGivenName);
+        
+        String sVehiclePersonSexCode = XmlUtils.xPathStringSearch(vehicleCrashResult, "psres:Person/nc:PersonSexCode");
+        assertEquals("M", sVehiclePersonSexCode);
+        
+        String sVehicleDriverLicId = XmlUtils.xPathStringSearch(vehicleCrashResult, 
+        		"psres:Person/jxdm41:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID");
+        assertEquals("LI45678", sVehicleDriverLicId);
+        
+        String sVehicleDriverLicSource = XmlUtils.xPathStringSearch(vehicleCrashResult, 
+        		"psres:Person/jxdm41:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationSourceText");
+        assertEquals("ME", sVehicleDriverLicSource);
+        
+                
         // custody result
         
         String sCustodyPersonAge = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonAgeMeasure/nc:MeasurePointValue");

@@ -70,12 +70,11 @@ public class QueryTest extends AbstractStaticMockTest {
     @Test
     public void testCourtCasePersonQuery() throws ParserConfigurationException, Exception{
     	doPersonTestQuery("sample-CourtCaseQueryResults3.xml", StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID, "ccq-res-doc:CourtCaseQueryResults");
-    }
+    }    
     
-    
-    //TODO complete
-    public void testVehicleCrashPersonQuery(){
-    	
+    @Test
+    public void testVehicleCrashPersonQuery() throws ParserConfigurationException, Exception{    	
+    	doPersonTestQuery("sample-VehicleCrash.xml", StaticMockQuery.VEHICLE_CRASH_QUERY_SYSTEM_ID, "vcq-res-doc:VehicleCrashQueryResults");    	
     }
     
     

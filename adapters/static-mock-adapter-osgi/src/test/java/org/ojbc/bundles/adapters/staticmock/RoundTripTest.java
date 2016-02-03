@@ -46,10 +46,10 @@ public class RoundTripTest extends AbstractStaticMockTest {
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID, StaticMockQuery.WARRANT_MOCK_ADAPTER_QUERY_SYSTEM_ID);
         // note: incidents are special, because it's a two-stage search.  first we get matching incidents for a person, then we query for individual incidents
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.INCIDENT_MOCK_ADAPTER_INCIDENT_PERSON_SEARCH_SYSTEM_ID, StaticMockQuery.INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID);
-        personSearchSystemToQuerySystemMap.put(StaticMockQuery.FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID, StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID);
-        
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID, StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID);        
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID, StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID);
-        personSearchSystemToQuerySystemMap.put(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID, StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID);
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID, StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID);        
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID, StaticMockQuery.VEHICLE_CRASH_QUERY_SYSTEM_ID);        
     }
     
     @Test
@@ -83,7 +83,7 @@ public class RoundTripTest extends AbstractStaticMockTest {
         
         Document searchResults = staticMockQuery.searchDocuments(personSearchRequestMessage, baseDate);        
         
-        int expectedResultCount = 6;
+        int expectedResultCount = 7;
         assertEquals(expectedResultCount, XmlUtils.xPathNodeListSearch(searchResults, "/psres-doc:PersonSearchResults/psres:PersonSearchResult").getLength());
         
         List<Document> queryRequests = buildQueryRequestMessages(searchResults);
@@ -93,11 +93,10 @@ public class RoundTripTest extends AbstractStaticMockTest {
         boolean incidentFound = false;
         boolean firearmFound = false;
         boolean warrantFound = false;
-        boolean chFound = false;
-        
-        boolean custodyResultFound = false;
-        
+        boolean chFound = false;               
+        boolean custodyResultFound = false;        
         boolean courtCaseResultFound = false;
+        boolean vehicleCrashFound = false;
         
         for (Document queryRequest : queryRequests) {
         	
@@ -111,11 +110,10 @@ public class RoundTripTest extends AbstractStaticMockTest {
             incidentFound |= XmlUtils.nodeExists(doc, "/ir:IncidentReport");
             firearmFound |= XmlUtils.nodeExists(doc, "/firearm-doc:PersonFirearmRegistrationQueryResults");
             warrantFound |= XmlUtils.nodeExists(doc, "/warrant:Warrants");
-            chFound |= XmlUtils.nodeExists(doc, "/ch-doc:CriminalHistory");
-                        
-            custodyResultFound |= XmlUtils.nodeExists(doc, "/cq-res-exch:CustodyQueryResults");
-            
-            courtCaseResultFound |= XmlUtils.nodeExists(doc, "/ccq-res-doc:CourtCaseQueryResults");
+            chFound |= XmlUtils.nodeExists(doc, "/ch-doc:CriminalHistory");                        
+            custodyResultFound |= XmlUtils.nodeExists(doc, "/cq-res-exch:CustodyQueryResults");            
+            courtCaseResultFound |= XmlUtils.nodeExists(doc, "/ccq-res-doc:CourtCaseQueryResults");            
+            vehicleCrashFound |= XmlUtils.nodeExists(doc, "/vcq-res-doc:VehicleCrashQueryResults");
         }
         assertTrue(incidentFound);
         assertTrue(firearmFound);
@@ -123,6 +121,7 @@ public class RoundTripTest extends AbstractStaticMockTest {
         assertTrue(chFound);        
         assertTrue(custodyResultFound);
         assertTrue(courtCaseResultFound);
+        assertTrue(vehicleCrashFound);        
     }
 
     private List<Document> buildQueryRequestMessages(Document searchResults) throws Exception {
