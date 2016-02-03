@@ -49,7 +49,6 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
-@Ignore
 public class RapbackSearchProcessorTest {
 	private static final Log log = LogFactory.getLog( RapbackSearchProcessorTest.class );
 
