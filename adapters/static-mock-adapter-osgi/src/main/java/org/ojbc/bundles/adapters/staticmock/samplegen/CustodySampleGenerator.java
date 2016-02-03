@@ -94,7 +94,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		sysIdSystemNameElement.setTextContent("TODO");
 		
 		
-		Element inmateCustodyElement = XmlUtils.appendElement(rootCustodyResultsElement, OJBC_NAMESPACE_CONTEXT.NS_CUSTODY_QUERY_RESULTS_EXT, "InmateCustody");
+		Element inmateCustodyElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InmateCustody");
 		
 		Element personBirthDateElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
 		
@@ -208,6 +208,82 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		startDateValElement.setTextContent("TODO");
 		
 			
+		Element endDateElement = XmlUtils.appendElement(activityDateRangeElement, OjbcNamespaceContext.NS_NC_30, "EndDate");
+		
+		Element endDateValElement = XmlUtils.appendElement(endDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");
+		
+		endDateValElement.setTextContent("TODO");
+		
+		Element supervisionFacElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_NC_30, "SupervisionFacility");
+		
+		Element facIdElement = XmlUtils.appendElement(supervisionFacElement, OjbcNamespaceContext.NS_NC_30, "FacilityIdentification");
+		
+		Element facIdValElement = XmlUtils.appendElement(facIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		facIdValElement.setTextContent("TODO");
+		
+		Element facIdCatDescTxtElement = XmlUtils.appendElement(facIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
+		facIdCatDescTxtElement.setTextContent("TODO");
+		
+		Element supervisionAugmentElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAugmentation");
+		
+		Element supervisionAreaIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAreaIdentification");
+		
+		Element supervisionAreaIdValElement = XmlUtils.appendElement(supervisionAreaIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		supervisionAreaIdValElement.setTextContent("TODO");
+		
+		Element supervisionAreaIdCatDescTxtElement = XmlUtils.appendElement(supervisionAreaIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
+		supervisionAreaIdCatDescTxtElement.setTextContent("TODO");
+		
+		Element supervisionBedIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionBedIdentification");
+		
+		Element supervisionBedIdValElement = XmlUtils.appendElement(supervisionBedIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		supervisionBedIdValElement.setTextContent("TODO");
+		
+		Element supervisionBedIdCatDescTxtElement = XmlUtils.appendElement(supervisionBedIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
+		supervisionBedIdCatDescTxtElement.setTextContent("TODO");
+		
+		Element supervisionCellIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionCellIdentification");
+		
+		Element supervisionCellIdValElement = XmlUtils.appendElement(supervisionCellIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		supervisionCellIdValElement.setTextContent("TODO");
+		
+		Element supervisionIdCatDescTxtElement = XmlUtils.appendElement(supervisionCellIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");			
+		supervisionIdCatDescTxtElement.setTextContent("TODO");
+		
+		Element holdForImigElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "HoldForImmigrationIndicator");
+		holdForImigElement.setTextContent("TODO");
+		
+		Element chargeSentenceElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeSentence");
+		
+		Element sentenceConditionElement = XmlUtils.appendElement(chargeSentenceElement, OjbcNamespaceContext.NS_JXDM_51, "SentenceCondition");
+		
+		Element conditionSetDateElement = XmlUtils.appendElement(sentenceConditionElement, OjbcNamespaceContext.NS_NC_30, "ConditionSetDate");
+		
+		Element conditionSetDateValElement = XmlUtils.appendElement(conditionSetDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");
+		conditionSetDateValElement.setTextContent("TODO");
+		
+		Element organizationElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_NC_30, "Organization");
+		
+		Element organizationNameElement = XmlUtils.appendElement(organizationElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");	
+		organizationNameElement.setTextContent("TODO");
+		
+		Element infoOwningOrgElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InformationOwningOrganization");
+		
+		Element orgBranchNameElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");		
+		orgBranchNameElement.setTextContent("TODO");
+		
+		Element orgNameElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
+		orgNameElement.setTextContent("TODO");
+		
+		Element metadataElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "Metadata");
+		
+		Element lastUpdatedDateElement = XmlUtils.appendElement(metadataElement, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");
+		
+		Element lastUpdatedDateValElement = XmlUtils.appendElement(lastUpdatedDateElement, OjbcNamespaceContext.NS_NC_30, "Date");
+		
+		lastUpdatedDateValElement.setTextContent("TODO");
+		
+		
 		
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 		
