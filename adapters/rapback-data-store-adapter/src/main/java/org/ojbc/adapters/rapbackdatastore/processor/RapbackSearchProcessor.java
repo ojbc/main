@@ -142,14 +142,14 @@ public class RapbackSearchProcessor {
         List<IdentificationTransaction> identificationTransactions = null;
         if ("Civil".equals(resultsCategoryCode)){
         	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(employerOri);
-        	buildSearchResults(identificationTransactions, rootElement);
+        	buildSearchResults(identificationTransactions, rootElement, true);
         	
         	AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile(employerOri);
         	appendOrganizationInfo(rootElement, agencyProfile);
         }
         else if ("Criminal".equals(resultsCategoryCode)){
         	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(employerOri);
-        	buildSearchResults(identificationTransactions, rootElement);
+        	buildSearchResults(identificationTransactions, rootElement, false);
         }
         return document;
     }
@@ -186,7 +186,7 @@ public class RapbackSearchProcessor {
 
 	private void buildSearchResults(
 			List<IdentificationTransaction> identificationTransactions,
-			Element rootElement) {
+			Element rootElement, boolean isCivilResponse) {
 		
 		if (identificationTransactions.size() > maxResultCount){
 			buildTooManyResultElement(identificationTransactions.size(), rootElement); 
@@ -199,8 +199,15 @@ public class RapbackSearchProcessor {
 				appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, identificationTransaction);
 				appdendStatusElement(organizationIdentificationResultsSearchResultElement,
 						identificationTransaction);
-				appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
 				
+				appendReasonCodeElement(isCivilResponse, identificationTransaction,
+						organizationIdentificationResultsSearchResultElement);
+				
+				appendDateElement(identificationTransaction.getTimestamp(), 
+						organizationIdentificationResultsSearchResultElement, 
+						"IdentificationReportDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+				appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
+ 
 				Element systemIdentifierElement = XmlUtils.appendElement(
 						organizationIdentificationResultsSearchResultElement, NS_INTEL, "SystemIdentification");
 				Element identificationIdElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC_30, "IdentificationID"); 
@@ -209,6 +216,25 @@ public class RapbackSearchProcessor {
 				systemNameElement.setTextContent(SYSTEM_NAME);
 			}
 		}
+	}
+
+	private void appendReasonCodeElement(boolean isCivilResponse,
+			IdentificationTransaction identificationTransaction,
+			Element organizationIdentificationResultsSearchResultElement) {
+		Element identificationReasonCode;
+		if (isCivilResponse){
+			identificationReasonCode = XmlUtils.appendElement(
+					organizationIdentificationResultsSearchResultElement, 
+					NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+					"CivilIdentificationReasonCode");
+		}
+		else{
+			identificationReasonCode = XmlUtils.appendElement(
+					organizationIdentificationResultsSearchResultElement, 
+					NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+					"CriminalIdentificationReasonCode");
+		}
+		identificationReasonCode.setTextContent(identificationTransaction.getIdentificationCategory());
 	}
 
 	private void buildTooManyResultElement(int size, Element rootElement) {
