@@ -102,8 +102,10 @@
         <xs:sequence>
           <xs:element ref="j:ChargeCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeHighestIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -267,6 +269,11 @@
       <xs:documentation>A formal allegation that a specific person has committed a specific offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ChargeType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ChargeCategoryDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of a crime category.</xs:documentation>
@@ -275,6 +282,11 @@
   <xs:element name="ChargeDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A plain language description of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeHighestIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if a charge is the most serious charge within a group of charges; false otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeSequenceID" type="niem-xs:string" nillable="true">

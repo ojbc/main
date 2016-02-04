@@ -19,10 +19,12 @@
 -->
 <br-doc:BookingReports
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0 ../xsd/impl/adams_county/booking_codes.xsd"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
 	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
@@ -99,6 +101,7 @@
 		<j:Charge structures:id="Charge_01">
 			<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
 			<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
+			<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
 			<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
 			<j:ChargeStatute>
 				<j:StatuteCodeSectionIdentification>
