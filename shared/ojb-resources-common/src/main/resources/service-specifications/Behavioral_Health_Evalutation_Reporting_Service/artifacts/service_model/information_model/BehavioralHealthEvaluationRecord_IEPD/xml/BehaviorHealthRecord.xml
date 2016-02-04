@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<bhr-doc:BehavioralHealthEvaluationRecord xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BehavioralHealthEvaluationRecord/1.0 ../xsd/exchange.xsd" xmlns:bhr-doc="http://ojbc.org/IEPD/Exchange/BehavioralHealthEvaluationRecord/1.0" xmlns:bhr-ext="http://ojbc.org/IEPD/Extensions/BehavioralHealthEvaluationRecordExtension/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:DocumentCreationDate>
+		<nc:Date>1967-08-13</nc:Date>
+	</nc:DocumentCreationDate>
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>Document ID</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<intel:SystemIdentification>
+		<nc:IdentificationID>Source System ID</nc:IdentificationID>
+		<nc:SystemName>Source System Name</nc:SystemName>
+	</intel:SystemIdentification>
+	<bhr-ext:BehavioralHealthEvaluation structures:id="Evaluation_01">
+		<nc:ActivityDate>
+			<nc:Date>2015-08-13</nc:Date>
+		</nc:ActivityDate>
+		<j:EvaluationDiagnosisDescriptionText>Diagnosis</j:EvaluationDiagnosisDescriptionText>
+		<j:EvaluationProvider>
+			<nc:EntityPerson>
+				<nc:PersonName>
+					<nc:PersonFullName>Fullname</nc:PersonFullName>
+				</nc:PersonName>
+			</nc:EntityPerson>
+		</j:EvaluationProvider>
+		<bhr-ext:EvaluationReferralDescriptionText>Referral</bhr-ext:EvaluationReferralDescriptionText>
+		<bhr-ext:EvaluationTreatmentServiceCodeText>Treatment Code</bhr-ext:EvaluationTreatmentServiceCodeText>
+		<bhr-ext:SeriousMentalHealthIndicator>true</bhr-ext:SeriousMentalHealthIndicator>
+		<bhr-ext:SeriousMentalHealthEncounterDescriptionText>Description of encounter with law enforcement</bhr-ext:SeriousMentalHealthEncounterDescriptionText>
+		<bhr-ext:SeriousMentalHealthEncounterDate>
+			<nc:Date>2015-08-13</nc:Date>
+		</bhr-ext:SeriousMentalHealthEncounterDate>
+		<bhr-ext:SeriousMentalHealthCategoryText>Type of Serious Mental Health</bhr-ext:SeriousMentalHealthCategoryText>
+	</bhr-ext:BehavioralHealthEvaluation>
+	<nc:Person structures:id="Patient_01">
+		<nc:PersonBirthDate>
+			<nc:Date>1967-08-13</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonEthnicityText>Ethnicity</nc:PersonEthnicityText>
+		<nc:PersonMilitarySummary>
+			<nc:MilitaryStatus>
+				<bhr-ext:VeteranStatusIndicator>true</bhr-ext:VeteranStatusIndicator>
+			</nc:MilitaryStatus>
+		</nc:PersonMilitarySummary>
+		<nc:PersonName>
+		<nc:PersonGivenName>First</nc:PersonGivenName>
+			<nc:PersonMiddleName>First</nc:PersonMiddleName>
+			<nc:PersonSurName>Last</nc:PersonSurName>
+			<nc:PersonFullName>Fullname</nc:PersonFullName>
+		</nc:PersonName>
+		<nc:PersonRaceText>Race</nc:PersonRaceText>
+		<nc:PersonSexText>Sex</nc:PersonSexText>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>SSN</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<j:PersonAugmentation>
+			<j:DriverLicense>
+				<j:DriverLicenseCardIdentification>
+					<nc:IdentificationID>Driver License ID</nc:IdentificationID>
+					<nc:IdentificationSourceText>Colorado</nc:IdentificationSourceText>
+				</j:DriverLicenseCardIdentification>
+			</j:DriverLicense>
+		</j:PersonAugmentation>
+		<bhr-ext:PersonEmploymentStatus>
+			<nc:StatusDescriptionText>Unemployed</nc:StatusDescriptionText>
+		</bhr-ext:PersonEmploymentStatus>
+		<bhr-ext:PersonHousingStatus>
+			<nc:StatusDescriptionText>Living with his sister</nc:StatusDescriptionText>
+		</bhr-ext:PersonHousingStatus>
+		<bhr-ext:PersonIncomeText>Income</bhr-ext:PersonIncomeText>
+		<bhr-ext:PersonPatientIdentification>
+			<nc:IdentificationID>Patient ID</nc:IdentificationID>
+		</bhr-ext:PersonPatientIdentification>
+	</nc:Person>
+	<nc:ActivityPersonAssociation>
+		<nc:Activity structures:ref="Evaluation_01"/>
+		<nc:Person structures:ref="Patient_01"/>
+	</nc:ActivityPersonAssociation>
+</bhr-doc:BehavioralHealthEvaluationRecord>
