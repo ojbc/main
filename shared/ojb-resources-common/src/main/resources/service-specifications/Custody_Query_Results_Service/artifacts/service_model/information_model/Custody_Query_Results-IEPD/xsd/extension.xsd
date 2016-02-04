@@ -17,22 +17,13 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
-xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
-xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" 
-xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" 
-xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0" 
-xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
-xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
- targetNamespace="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/" schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/" schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/" schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" schemaLocation="query-results-metadata.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" schemaLocation="query-request-error-reporting.xsd"/>
 	<xsd:complexType name="CustodyQueryResultsType">
@@ -42,9 +33,10 @@ xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="cq-res-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="intel:SystemIdentification" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="cq-res-ext:InmateCustody" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cq-res-ext:Custody" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cq-res-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cq-res-ext:QueryResultCategoryText" minOccurs="0" />
 					<xsd:element ref="cq-res-ext:InformationOwningOrganization" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Metadata" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0"/>
@@ -52,54 +44,37 @@ xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-<!-- Extension -->
-	<xsd:complexType name="InmateCustodyType">
+	<xsd:complexType name="CustodyType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for additional information about a case.</xsd:documentation>
+			<xsd:documentation>A data type for custody information.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:PersonType">
+			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
+					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="cq-res-ext:Booking" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:CaseHearing" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="cq-res-ext:Supervision" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cyfs:NextCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:BailBondChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="SupervisionType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for additional information about custody and supervision of a person.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="nc:SupervisionType">
-				<xsd:sequence>
-					<xsd:element ref="cq-res-ext:HoldForImmigrationIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:ChargeSentence"  minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/>
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="BookingType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for booking information.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="j:BookingType">
-				<xsd:sequence>
-					<xsd:element ref="nc:Image"  minOccurs="0" maxOccurs="unbounded"/>
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-<!-- Extension Elements -->
 	<xsd:element name="InformationOwningOrganization" type="nc:OrganizationType">
 		<xsd:annotation>
 			<xsd:documentation>The organization that owns information contained
 				in the result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="QueryResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of result.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -109,24 +84,29 @@ xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
 			This can be used to retrieve additional information about the person and/or court case in the search result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateCustody" type="cq-res-ext:InmateCustodyType">
+	<xsd:element name="Custody" type="cq-res-ext:CustodyType">
 		<xsd:annotation>
-			<xsd:documentation>complex data element to provide information regarding an inmates custody status</xsd:documentation>
+			<xsd:documentation>Imprisonment or legal constraint.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="HoldForImmigrationIndicator" type="xsd:boolean" >
+	<xsd:element name="HoldForAgency" type="nc:OrganizationType" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if hold for immigration.</xsd:documentation>
+			<xsd:documentation>An agency for whom a subject is being held.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Supervision" type="cq-res-ext:SupervisionType">
+	<xsd:element name="DetentiontImmigrationHoldIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>complex data element to provide information regarding an inmates supervision</xsd:documentation>
+			<xsd:documentation>True if a subject is being held for an immigration violation; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Booking" type="cq-res-ext:BookingType">
+	<xsd:element name="InmateWorkReleaseIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>complex data element to provide information regarding an inmates booking</xsd:documentation>
+			<xsd:documentation>True if an inmate is on work release; false otherwise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an inmate is a worker in the facility; false otherwise</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
