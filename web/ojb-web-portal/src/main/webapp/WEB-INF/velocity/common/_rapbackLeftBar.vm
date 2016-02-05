@@ -37,4 +37,7 @@
 	<p id="checkbox-subsequentReuslts">
 		<input type="checkbox" name="hasSubsequentResults" id="hasSubsequentResults" value="hasSubsequentResults"><span class="fieldText" >Has Subsequent Results</span>
 	</p>
+	<p id="checkbox-show-archived-only">
+		<input type="checkbox" name="showArchivedOnly" id="showArchivedOnly" value="showArchivedOnly"><span class="fieldText" >Show Archived Only</span>
+	</p>
 </div>
