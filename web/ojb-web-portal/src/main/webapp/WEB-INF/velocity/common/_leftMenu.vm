@@ -145,7 +145,12 @@
 		});
 		
 		$('#criminalIdLink').click(function() {	  
-	  		$('#filterColumn').css('visibility', 'hidden');		  				  					  					    			    	
+			$.post("#springUrl('/portal/criminalIdentificationLeftBar')", function(data) {
+				    	
+    			$('#filterColumn').html(data);
+    			$('#filterColumn').css('visibility', 'visible');
+    		}).fail(ojbc.displayFailMessage);
+    		
     		$.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
     		
 				$('#portalContent').html(data);	

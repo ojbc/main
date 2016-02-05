@@ -16,6 +16,35 @@
  *#
 <!DOCTYPE html>
 <script type="text/javascript">
+
+ 	/* Custom filtering function which will hide or show records based on the values selected in the filtered column input fields */
+	$.fn.dataTable.ext.search.push(
+	    function( settings, data, dataIndex ) {
+	    	var showArchivedOnly = $('#showArchivedOnly').is(":checked");
+	    	var hideArchived = $('#hideArchived').is(":checked");
+	        var status = data[4] ; // use data for the status column
+	    	
+	    	if ( showArchivedOnly ){
+	    		if ( status ==='Archived'){
+	    			return true; 
+	    		}
+	    		else{
+	    			return false; 
+    			}
+	    	}
+	    	
+	    	if ( hideArchived ){
+	    		if ( status ==='Archived'){
+	    			return false; 
+	    		}
+	    		else{
+	    			return true; 
+    			}
+	    	}
+	    	
+	    	return true;
+	    }
+	);
  
 	$(function() {
 	  
@@ -37,6 +66,20 @@
 		
 		var oTable = $("#searchResultsTable").DataTable( optTable);
 
+		$('#filterColumn').on("change", '#showArchivedOnly', function() {
+			if ($('#showArchivedOnly').is(":checked")){
+				$('#hideArchived').attr('checked', false);
+			}
+        	oTable.draw();
+    	} );
+
+		$('#filterColumn').on("change", '#hideArchived', function() {
+			if ($('#hideArchived').is(":checked")){
+				$('#showArchivedOnly').attr('checked', false);
+			}
+        	oTable.draw();
+    	} );
+    	
     	$('#searchResultsTable').on('click', 'a.archive',function() {
     		$.get("#springUrl('/rapbacks/archive')", {transactionNumber: $(this).attr("id")}, function(data) {
 				if (data === 'success'){

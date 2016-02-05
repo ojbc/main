@@ -234,6 +234,11 @@ public class PortalController implements ApplicationContextAware {
         return "common/_rapbackLeftBar";
     }
     
+    @RequestMapping(value="criminalIdentificationLeftBar", method=RequestMethod.POST)
+    public String criminalIdentificationLeftBar(Map<String, Object> model){   
+    	return "common/_criminalIdentificationLeftBar";
+    }
+    
     @RequestMapping(value="leftBar", method=RequestMethod.POST)
        public String leftBar(HttpServletRequest request, @ModelAttribute("personFilterCommand") PersonFilterCommand personFilterCommand, 
 			Map<String, Object> model){
