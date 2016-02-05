@@ -44,8 +44,8 @@
     	Vehicle Crash Request Service, hosted by this intermediary 
     -->
     <cxf:cxfEndpoint 
-        id="personQueryRequestVehicleCrashService"
-        address="${federatedQuery.vehicleCrash.personQueryEndpoint}"
+        id="personQueryVehicleCrashRequestService"
+        address="${personQuery.vehicleCrash.requestEndpoint}"
         wsdlURL="classpath:service-specifications/Vehicle_Crash_Query_Request_Service/schema/SIP_WS_1.2/Vehicle_Crash_Query_Request_Service.wsdl"
         serviceName="ojbc:Vehicle-Crash-Query-Request-ServiceService"
         endpointName="ojbc:Vehicle-Crash-Query-Request-Service"
@@ -64,7 +64,7 @@
     	Vehicle Crash results handler, hosted by this intermediary, called by adapter, address is static  
     --> 
     <cxf:cxfEndpoint 
-        id="personQueryResultsHandlerVehicleCrashService"
+        id="personQueryVehicleCrashResultsService"
         address="${personQueryVehicleCrashResultsHandlerEndpoint}"
         wsdlURL="classpath:service-specifications/Vehicle_Crash_Query_Results_Service/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
         serviceName="ojbc:Vehicle-Crash-Query-Results-ServiceService"
@@ -86,7 +86,7 @@
     <!-- 
     	Vehicle Crash Request Service Adapter, hosted by adapter, called by broker, address set dynamically 
     -->
-	<cxf:cxfEndpoint id="personQueryRequestVehicleCrashServiceAdapter"
+	<cxf:cxfEndpoint id="personQueryVehicleCrashAdapterService"
 		wsdlURL="classpath:service-specifications/Vehicle_Crash_Query_Request_Service/schema/SIP_WS_1.2/Vehicle_Crash_Query_Request_Service.wsdl"
 		serviceName="ojbc:Vehicle-Crash-Query-Request-ServiceService"
 		endpointName="ojbc:Vehicle-Crash-Query-Request-Service"

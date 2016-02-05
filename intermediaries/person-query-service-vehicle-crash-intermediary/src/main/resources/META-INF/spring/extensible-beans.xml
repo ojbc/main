@@ -53,7 +53,7 @@
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-vehicle-crash-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<util:map map-class="java.util.HashMap">
-		        <entry key="${personQuery.vehicleCrash.presentResultsEndpoint}" value="presentPersonQueryResultsVehicleCrashServiceEndpoint"/>
+		        <entry key="${personQuery.vehicleCrash.presentResultsEndpoint}" value="presentPersonQueryVehicleCrashResultsServiceEndpoint"/>
 		  	</util:map>
 		</constructor-arg>
 	</bean>	
@@ -65,13 +65,13 @@
 			<bean class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
 				<property name="federatedQueryEndpointMap">
 					<util:map >
-						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash" value="personQueryRequestVehicleCrashServiceAdapterEndpoint" />
+						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash" value="personQueryVehicleCrashAdapterEndpoint" />
 					</util:map>	
 				</property>
 
 				<property name="adapterURItoAddressMap">
 					<util:map >
-						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash" value="${federatedQuery.vehicleCrash.personQueryCriminalHistoryEndpoint}" />
+						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash" value="${personQuery.vehicleCrash.adapterEndpoint}" />
 					</util:map>	
 				</property>
 		  	</bean>

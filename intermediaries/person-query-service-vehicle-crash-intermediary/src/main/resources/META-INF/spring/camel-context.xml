@@ -37,22 +37,22 @@
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="personQueryVehicleCrashContext">
 	
-		<endpoint id="personQueryRequestVehicleCrashServiceEndpoint"
-			uri="cxf:bean:personQueryRequestVehicleCrashService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}" />
+		<endpoint id="personQueryVehicleCrashRequestServiceEndpoint"
+			uri="cxf:bean:personQueryVehicleCrashRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}" />
 
-		<endpoint id="personQueryResultsHandlerVehicleCrashServiceEndpoint"
-			uri="cxf:bean:personQueryResultsHandlerVehicleCrashService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}" />
+		<endpoint id="personQueryVehicleCrashResultsEndpoint"
+			uri="cxf:bean:personQueryVehicleCrashResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}" />
 
-	    <endpoint id="personQueryRequestVehicleCrashServiceAdapterEndpoint" 
-	    	uri="cxf:bean:personQueryRequestVehicleCrashServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}"/>
+	    <endpoint id="personQueryVehicleCrashAdapterEndpoint" 
+	    	uri="cxf:bean:personQueryVehicleCrashAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}"/>
 	
-		<endpoint id="presentPersonQueryResultsVehicleCrashServiceEndpoint" 
+		<endpoint id="presentPersonQueryVehicleCrashResultsServiceEndpoint" 
 			uri="cxf:bean:presentPersonQueryResultsVehicleCrashService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}"/>                        
 
 
 		<!-- Federated Search Request Handler-->
 		<camel:route>
-			<camel:from uri="personQueryRequestVehicleCrashServiceEndpoint" />
+			<camel:from uri="personQueryVehicleCrashRequestServiceEndpoint" />
 			
 			<camel:choice>
 				<camel:when>
@@ -118,7 +118,7 @@
 
 			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
 				<camel:xpath>//nc20:IdentificationSourceText</camel:xpath>
-				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+				<camel:log message="\n\n\n Split body: ${body}.\n  Webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
 				
 				<camel:recipientList>
 					<camel:header>webServiceEndpointToCall</camel:header>
@@ -138,7 +138,7 @@
 	
 		<!--  Vehicle Crash Results Handler Route -->
 		<camel:route>
-			<camel:from uri="personQueryResultsHandlerVehicleCrashServiceEndpoint"/>
+			<camel:from uri="personQueryVehicleCrashResultsEndpoint"/>
 			
 			<camel:choice>
 				<camel:when>
@@ -172,7 +172,7 @@
 	    
 	      <from uri="direct:aggregateFederatedQuery" />
 	      
-			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
+			<log message="\n\n\n In aggregator with correlation id: ${in.header.federatedQueryRequestGUID} \n\n\n"/>
 			
 			<aggregate groupExchanges="true" eagerCheckCompletion="true">
 			
@@ -186,7 +186,7 @@
 					<header>federatedQueryNumberOfEndpointsRequested</header>
 				</completionSize>
 				
-				<log message="completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.vehicleCrash.queryTimeout}}"></log>
+				<log message="\n\n\n completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.vehicleCrash.queryTimeout}} \n\n\n"></log>
 				
 				<to uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
