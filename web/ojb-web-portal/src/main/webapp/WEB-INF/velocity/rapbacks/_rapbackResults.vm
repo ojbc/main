@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <script type="text/javascript">
  
-	/* Custom filtering function which will search data in column 5 among filtered values */
+	/* Custom filtering function which will hide or show records based on the values selected in the filtered column input fields */
 	$.fn.dataTable.ext.search.push(
 	    function( settings, data, dataIndex ) {
 	    	var showArchivedOnly = $('#showArchivedOnly').is(":checked");
