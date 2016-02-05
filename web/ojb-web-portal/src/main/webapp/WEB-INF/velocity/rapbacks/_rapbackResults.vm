@@ -20,19 +20,35 @@
 	/* Custom filtering function which will search data in column 5 among filtered values */
 	$.fn.dataTable.ext.search.push(
 	    function( settings, data, dataIndex ) {
+	    	var showArchivedOnly = $('#showArchivedOnly').is(":checked");
+	        var status = data[5] ; // use data for the status column
+	    	
+	    	var result = true; 
+	    	if ( showArchivedOnly ){
+	    		if ( status ==='Archived'){
+	    			result = true; 
+	    		}
+	    		else{
+	    			result = false; 
+    			}
+	    	}
+	    	
 	    	var hasSubsequentResultsChecked = $('#hasSubsequentResults').is(":checked");
 	 		var className = settings.aoData[dataIndex].nTr.className;
 	 		if (hasSubsequentResultsChecked && className.indexOf("subsequentResults") === -1) {
-	 			return false;
+	 			result = false;
 	 		}
 	 		
 	        var filter = $('#rapbacksFilter').val();
-	        var status = data[5] ; // use data for the status column
 	        if ( ( !filter || filter ==='') ||
 	             ( filter != status )){
-	            return true;
+	            result = result && true;
 	        }
-	        return false;
+	        else {
+	        	result = false;
+	        }
+	        
+	        return result;
 	    }
 	);
 	
@@ -65,6 +81,13 @@
     	} );
     	
 		$('#filterColumn').on("change", '#hasSubsequentResults', function() {
+        	oTable.draw();
+    	} );
+    	
+		$('#filterColumn').on("change", '#showArchivedOnly', function() {
+			if ($('#showArchivedOnly').is(":checked")){
+				$('#rapbacksFilter').val('');
+			}
         	oTable.draw();
     	} );
     	
