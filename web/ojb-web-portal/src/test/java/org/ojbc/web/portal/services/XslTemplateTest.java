@@ -353,7 +353,6 @@ public class XslTemplateTest {
         validateRapbackSearchTransformation("AccessDenial_OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchAccessDenied.html");
         validateRapbackSearchTransformation("Error_OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchRequestError.html");
         validateRapbackSearchTransformation("NoResults_OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchNoRecord.html");
-        validateRapbackSearchTransformation("OrganizationIdentificationResultsSearchResults_FullName.xml", "rapbackSearchFullName.html");
     }
     
 
