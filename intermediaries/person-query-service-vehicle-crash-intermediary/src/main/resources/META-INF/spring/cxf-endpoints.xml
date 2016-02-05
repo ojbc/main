@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"
+       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:util="http://www.springframework.org/schema/util"        
+	   xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+       ">
+       
+    <!-- 
+    	Vehicle Crash Request Service, hosted by this intermediary 
+    -->
+    <cxf:cxfEndpoint 
+        id="personQueryVehicleCrashRequestService"
+        address="${personQuery.vehicleCrash.requestEndpoint}"
+        wsdlURL="classpath:service-specifications/Vehicle_Crash_Query_Request_Service/schema/SIP_WS_1.2/Vehicle_Crash_Query_Request_Service.wsdl"
+        serviceName="ojbc:Vehicle-Crash-Query-Request-ServiceService"
+        endpointName="ojbc:Vehicle-Crash-Query-Request-Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0">
+        
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="vehicleCrashRequestKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.vehicleCrash.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>
+	  
+    <!-- 
+    	Vehicle Crash results handler, hosted by this intermediary, called by adapter, address is static  
+    --> 
+    <cxf:cxfEndpoint 
+        id="personQueryVehicleCrashResultsService"
+        address="${personQueryVehicleCrashResultsHandlerEndpoint}"
+        wsdlURL="classpath:service-specifications/Vehicle_Crash_Query_Results_Service/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
+        serviceName="ojbc:Vehicle-Crash-Query-Results-ServiceService"
+		endpointName="ojbc:Vehicle-Crash-Query-Results-Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0">
+        
+     <cxf:features>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy/>
+          </wsam:Addressing>
+        </wsp:Policy>
+       </policy:policies>
+    </cxf:features>
+   </cxf:cxfEndpoint>      
+
+                        
+    <!-- 
+    	Vehicle Crash Request Service Adapter, hosted by adapter, called by broker, address set dynamically 
+    -->
+	<cxf:cxfEndpoint id="personQueryVehicleCrashAdapterService"
+		wsdlURL="classpath:service-specifications/Vehicle_Crash_Query_Request_Service/schema/SIP_WS_1.2/Vehicle_Crash_Query_Request_Service.wsdl"
+		serviceName="ojbc:Vehicle-Crash-Query-Request-ServiceService"
+		endpointName="ojbc:Vehicle-Crash-Query-Request-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0">
+		<cxf:properties>
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="vehicleCrashRequestKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.vehicleCrash.keystoreCertificateAlias}" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	
+    <!-- 
+    	Present Vehicle Crash Query Results typically hosted by a Web App, called by broker, address set dynamically
+    -->
+    <cxf:cxfEndpoint id="presentPersonQueryResultsVehicleCrashService"
+        address="${personQuery.vehicleCrash.presentResultsEndpoint}"
+        wsdlURL="classpath:service-specifications/Vehicle_Crash_Query_Results_Service/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
+        serviceName="ojbc:Vehicle-Crash-Query-Results-ServiceService"
+		endpointName="ojbc:Vehicle-Crash-Query-Results-Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0">
+        
+     	<cxf:features>
+	      <policy:policies>
+	        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	          <wsam:Addressing>
+	            <wsp:Policy/>
+	          </wsam:Addressing>
+	        </wsp:Policy>
+	       </policy:policies>
+	    </cxf:features>
+    </cxf:cxfEndpoint>
+
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${federatedQuery.vehicleCrash.truststorePassword}"
+					file="${federatedQuery.vehicleCrash.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>
+   
+   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${federatedQuery.vehicleCrash.keystoreCertificateAlias}" value="${federatedQuery.vehicleCrash.keyPassword}"/>
+            </map>
+        </property>
+	</bean>
+   
+   	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+
+	<util:properties id="vehicleCrashRequestKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${federatedQuery.vehicleCrash.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${federatedQuery.vehicleCrash.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${federatedQuery.vehicleCrash.keystoreLocation}</prop>
+	</util:properties>	
+      
+</beans>
