@@ -57,6 +57,7 @@
 						<th>OTN</th>
 						<th>DATE</th>
 						<th>TYPE</th>
+						<th>STATUS</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -79,6 +80,11 @@
 			</td>				
 			<td>
 				<xsl:value-of select="oirsr-ext:CriminalIdentificationReasonCode"></xsl:value-of>
+			</td>	
+			<td>
+				<xsl:if test="oirsr-ext:IdentificationResultStatusCode = 'Archived'">
+					<xsl:text>Archived</xsl:text>
+				</xsl:if>
 			</td>	
 			<td align="right" width="115px">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for subscription']" mode="unsubscribed"/>
