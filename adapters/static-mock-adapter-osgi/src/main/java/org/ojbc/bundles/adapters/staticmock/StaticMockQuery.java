@@ -79,7 +79,7 @@ public class StaticMockQuery {
 	
 	public static final String COURT_CASE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest";
 	
-	public static final String VEHICLE_CRASH_SEARCH_SYSTEM_ID = "{TODO}/";
+	public static final String VEHICLE_CRASH_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Vehicle_Crash/1.0}Submit-Vehicle-Crash-Search";
 	
 	public static final String VEHICLE_CRASH_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0}/SubmitVehicleCrashQueryRequest";			
 	
@@ -257,7 +257,7 @@ public class StaticMockQuery {
 	 * @throws Exception
 	 */
 	public List<IdentifiableDocumentWrapper> queryDocuments(Document queryRequestMessage, Object context) throws Exception {
-
+		
 		Element rootElement = queryRequestMessage.getDocumentElement();
 
 		String documentId = null;
@@ -346,7 +346,7 @@ public class StaticMockQuery {
 			return queryCourtCaseDocuments(documentId);
 			
 		}else if(VEHICLE_CRASH_QUERY_SYSTEM_ID.equals(systemId)){			
-			return queryVehicleCrashDocuments(systemId);
+			return queryVehicleCrashDocuments(documentId);
 			
 		} else {
 			throw new IllegalArgumentException("Unknown system name: " + systemId);
@@ -1855,10 +1855,10 @@ public class StaticMockQuery {
 		vehicleCrashDetailXpaths.fbiXPath = null;
 						
 		vehicleCrashDetailXpaths.dlXPath = 
-				"//jxdm51:CrashDriverLicense[@s30:id=//jxdm51:CrashDriver/jxdm51:DriverLicense@s30:ref]/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationID";
+				"//jxdm51:CrashDriverLicense[@s30:id=//jxdm51:CrashDriver/jxdm51:DriverLicense/@s30:ref]/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationID";
 						
 		vehicleCrashDetailXpaths.dlJurisdictionXPath = 
-				"//jxdm51:CrashDriverLicense[@s30:id=//jxdm51:CrashDriver/jxdm51:DriverLicense@s30:ref]/jxdm51:DriverLicenseCardIdentification//nc30:IdentificationJurisdiction/jxdm51:LocationStateNCICLISCode";
+				"//jxdm51:CrashDriverLicense[@s30:id=//jxdm51:CrashDriver/jxdm51:DriverLicense/@s30:ref]/jxdm51:DriverLicenseCardIdentification//nc30:IdentificationJurisdiction/jxdm51:LocationStateNCICLISCode";
 				
 		vehicleCrashDetailXpaths.lastNameXPath = 
 				"//nc30:Person[@s30:id=//jxdm51:CrashDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonName/nc30:PersonSurName"; 
@@ -1904,13 +1904,6 @@ public class StaticMockQuery {
 				
 		return courtCaseSearchDocMatchesList;		
 	}
-	
-	
-	private List<IdentifiableDocumentWrapper> vehicleCrashSearchDocumentsAsList(Document vehicleCrashSearchRequestMessage, DateTime baseDate){
-		
-		return null;
-	}
-	
 	
 	
 	private List<IdentifiableDocumentWrapper> custodySearchDocumentsAsList(Document custodySearchRequestMessage, DateTime baseDate) 
@@ -2102,6 +2095,11 @@ public class StaticMockQuery {
 			if (!startsWithCheck) {
 				ret = checkFieldEqual(d, value, xPath);
 			} else {
+				
+				LOG.debug("Looking up field for: " + xPath);
+				XmlUtils.printNode(d);
+				
+				
 				Element documentElement = (Element) XmlUtils.xPathNodeSearch(d, xPath);
 				// LOG.info("xPath=" + xPath + ", documentElement=" + documentElement);
 				if (documentElement != null) {

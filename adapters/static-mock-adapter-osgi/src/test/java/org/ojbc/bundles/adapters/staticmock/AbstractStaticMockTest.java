@@ -276,7 +276,8 @@ public abstract class AbstractStaticMockTest {
 		courtCaseSourceSystemElement.setTextContent(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID);
 		
 		Element vehicleCrashSourceSystemElement = XmlUtils.insertElementBefore(root, courtCaseSourceSystemElement, 
-				OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");		
+				OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");	
+		
 		vehicleCrashSourceSystemElement.setTextContent(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID);
 		
 		XmlUtils.printNode(personSearchRequestMessage);
