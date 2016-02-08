@@ -547,7 +547,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			log.error("Got exception extracting the search result file for " + 
 					civilInitialResults.getTransactionNumber(), e);
 		}
-		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("report_timestamp")));
 		return civilInitialResults;
 	}
 
