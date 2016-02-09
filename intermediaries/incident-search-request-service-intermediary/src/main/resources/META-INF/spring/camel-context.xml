@@ -49,7 +49,7 @@
 			uri="cxf:bean:incidentSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
 
 		<endpoint id="searchResultsFederatedServiceEndpoint"
-				uri="cxf:bean:incidentSearchResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+				uri="cxf:bean:incidentSearchResultsFederatedService?dataFormat=PAYLOAD&amp;allowStreaming=false&amp;loggingFeatureEnabled=${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
 
 		<endpoint id="incidentSearchRequestServiceAdapterEndpoint"
 			uri="cxf:bean:incidentSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
