@@ -35,7 +35,7 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
 	
 		<camel:endpoint id="arrestReportingServiceEndpoint"
-			uri="cxf:bean:ArrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${arrestReportingService.cxflogging}" />
+			uri="cxf:bean:ArrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${arrestReportingService.cxflogging}&amp;allowStreaming=false" />
 		
 		<camel:endpoint id="notificationBrokerServiceEndpoint"
 			uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${arrestReportingService.cxflogging}"/>
