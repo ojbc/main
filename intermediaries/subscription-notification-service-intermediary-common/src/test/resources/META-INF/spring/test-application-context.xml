@@ -30,6 +30,7 @@
 
     <bean id="subscriptionSearchQueryDAO" class="org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO">
         <property name="dataSource" ref="dataSource"/>
+		<property name="fbiSubscriptionMember" value="true"/>
     </bean>
     
     <bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
