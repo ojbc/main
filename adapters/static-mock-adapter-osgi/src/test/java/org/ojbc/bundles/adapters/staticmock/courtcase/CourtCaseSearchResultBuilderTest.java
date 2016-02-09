@@ -56,12 +56,9 @@ public class CourtCaseSearchResultBuilderTest {
 		
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 		
-		ojbcNamespaceContext.populateRootNamespaceDeclarations(courtCaseSearchResultsRootElement);
+		ojbcNamespaceContext.populateRootNamespaceDeclarations(courtCaseSearchResultsRootElement);		
 		
-		XmlUtils.printNode(courtCaseSearchResultsRootElement);
-		
-		XmlTestUtils.compareDocs("src/test/resources/DocBuilderTestFiles/CourtCase/CourtCaseSearchResults.xml", courtCaseSearchResultsDoc);
-	
+		XmlTestUtils.compareDocs("src/test/resources/DocBuilderTestFiles/CourtCase/CourtCaseSearchResults.xml", courtCaseSearchResultsDoc);	
 	}
 	
 	@Test

@@ -48,7 +48,9 @@ public abstract class AbstractPersonSampleGeneratorTestCase extends AbstractSamp
     
     @Test
     public final void testCreateSample() throws Exception {
+    	
         final List<Document> list = sampleGenerator.generateSample(INSTANCE_COUNT, dateFormatter.parseDateTime("1-1-2013"));
+        
         //XmlUtils.printNode(list.get(0));
         validateDocumentList(list);
     }
