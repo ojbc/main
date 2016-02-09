@@ -69,6 +69,7 @@ public class SubscriptionSearchQueryDAO {
     private JdbcTemplate jdbcTemplate;
     private SubscriptionResultsSetExtractor resultSetExtractor;
     private boolean baseNotificationsOnEventDate = true;
+    private boolean fbiSubscriptionMember = false;
     
     public SubscriptionSearchQueryDAO() {
         resultSetExtractor = new SubscriptionResultsSetExtractor();
@@ -461,8 +462,10 @@ public class SubscriptionSearchQueryDAO {
             };
             String queryString = "update subscription s set s.active=0 where s.topic=? and s.id=?";
             returnCount = this.jdbcTemplate.update(queryString, criteriaArray);
-
-            unsubscribeIdentificationTransaction(Integer.valueOf(subscriptionSystemId));
+            
+            if (fbiSubscriptionMember){
+            	unsubscribeIdentificationTransaction(Integer.valueOf(subscriptionSystemId));
+            }
             return returnCount;
 
         }
@@ -553,5 +556,13 @@ public class SubscriptionSearchQueryDAO {
             }
         };
     }
+
+	public boolean isFbiSubscriptionMember() {
+		return fbiSubscriptionMember;
+	}
+
+	public void setFbiSubscriptionMember(boolean fbiSubscriptionMember) {
+		this.fbiSubscriptionMember = fbiSubscriptionMember;
+	}
 
 }

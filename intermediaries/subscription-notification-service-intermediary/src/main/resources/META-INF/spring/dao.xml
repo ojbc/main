@@ -33,6 +33,7 @@
 		<property name="validationDueDateStrategy" ref="validationDueDateStrategy"/>
 		<property name="gracePeriodStrategy" ref="gracePeriodStrategy"/>
 		<property name="validationExemptionFilter" ref="validationExemptionFilter"/>
+		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember:false}"/>
     </bean>
 
 	<bean id="arrestSubscriptionProcessor"
