@@ -1,0 +1,146 @@
+<cq-res-exch:CustodyQueryResults xmlns:cq-res-exch="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0"
+                                 xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+                                 xmlns:intel31="http://release.niem.gov/niem/domains/intelligence/3.1/"
+                                 xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+                                 xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+                                 xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
+                                 xmlns:cyfs-31="http://release.niem.gov/niem/domains/cyfs/3.1/"
+                                 xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0">
+   <nc30:DocumentCreationDate>
+      <nc30:DateTime>2016-02-09</nc30:DateTime>
+   </nc30:DocumentCreationDate>
+   <nc30:DocumentIdentification>
+      <nc30:IdentificationID>3666164</nc30:IdentificationID>
+   </nc30:DocumentIdentification>
+   <intel31:SystemIdentification>
+      <nc30:IdentificationID>299919</nc30:IdentificationID>
+      <nc30:SystemName>Custody Detail</nc30:SystemName>
+   </intel31:SystemIdentification>
+   <cq-res-ext:Custody>
+      <jxdm51:Booking s30:id="Booking_3">
+         <nc30:ActivityDate>
+            <nc30:DateTime>2016-02-09</nc30:DateTime>
+         </nc30:ActivityDate>
+         <jxdm51:BookingDetentionFacility>
+            <nc30:FacilityIdentification>
+               <nc30:IdentificationID>622067</nc30:IdentificationID>
+            </nc30:FacilityIdentification>
+         </jxdm51:BookingDetentionFacility>
+         <jxdm51:BookingSubject>
+            <nc30:RoleOfPerson s30:ref="Person_3"/>
+            <jxdm51:SubjectIdentification>
+               <nc30:IdentificationID>NEsrouEk</nc30:IdentificationID>
+            </jxdm51:SubjectIdentification>
+         </jxdm51:BookingSubject>
+      </jxdm51:Booking>
+      <jxdm51:Detention s30:id="Detention_3">
+         <nc30:ActivityDate>
+            <nc30:Date>2016-02-09</nc30:Date>
+         </nc30:ActivityDate>
+         <nc30:SupervisionCustodyStatus>
+            <nc30:StatusDescriptionText>Post-Trial</nc30:StatusDescriptionText>
+            <ac-bkg-codes:PreTrialCategoryCode>B-897</ac-bkg-codes:PreTrialCategoryCode>
+         </nc30:SupervisionCustodyStatus>
+         <jxdm51:SupervisionAugmentation>
+            <jxdm51:SupervisionReleaseDate>
+               <nc30:DateTime>2016-02-09</nc30:DateTime>
+            </jxdm51:SupervisionReleaseDate>
+            <jxdm51:SupervisionAreaIdentification>
+               <nc30:IdentificationID>874281377</nc30:IdentificationID>
+            </jxdm51:SupervisionAreaIdentification>
+         </jxdm51:SupervisionAugmentation>
+         <cq-res-ext:DetentiontImmigrationHoldIndicator>false</cq-res-ext:DetentiontImmigrationHoldIndicator>
+         <cq-res-ext:HoldForAgency>
+            <nc30:OrganizationName>Acme</nc30:OrganizationName>
+         </cq-res-ext:HoldForAgency>
+         <cq-res-ext:InmateWorkReleaseIndicator>true</cq-res-ext:InmateWorkReleaseIndicator>
+         <cq-res-ext:InmateWorkerIndicator>true</cq-res-ext:InmateWorkerIndicator>
+      </jxdm51:Detention>
+      <jxdm51:BailBond s30:id="Bond_3">
+         <nc30:ActivityCategoryText>Noise Violation</nc30:ActivityCategoryText>
+         <nc30:ActivityStatus>
+            <nc30:StatusDescriptionText>Unpaid</nc30:StatusDescriptionText>
+         </nc30:ActivityStatus>
+         <jxdm51:BailBondAmount>
+            <nc30:Amount>8393</nc30:Amount>
+         </jxdm51:BailBondAmount>
+      </jxdm51:BailBond>
+      <jxdm51:Charge s30:id="Charge_3">
+         <jxdm51:ChargeCategoryDescriptionText>Speeding</jxdm51:ChargeCategoryDescriptionText>
+         <jxdm51:ChargeDescriptionText>Speeding</jxdm51:ChargeDescriptionText>
+         <jxdm51:ChargeHighestIndicator>false</jxdm51:ChargeHighestIndicator>
+         <jxdm51:ChargeSequenceID>2336184</jxdm51:ChargeSequenceID>
+         <jxdm51:ChargeStatute>
+            <jxdm51:StatuteCodeSectionIdentification>
+               <nc30:IdentificationID>773801</nc30:IdentificationID>
+            </jxdm51:StatuteCodeSectionIdentification>
+         </jxdm51:ChargeStatute>
+      </jxdm51:Charge>
+      <jxdm51:Arrest s30:id="Arrest_3">
+         <jxdm51:ArrestAgency>
+            <nc30:OrganizationName>Matlock</nc30:OrganizationName>
+         </jxdm51:ArrestAgency>
+         <jxdm51:ArrestLocation s30:ref="Loc_3"/>
+      </jxdm51:Arrest>
+      <cyfs-31:NextCourtEvent s30:id="Event_3">
+         <nc30:ActivityDate>
+            <nc30:Date>2016-02-09</nc30:Date>
+         </nc30:ActivityDate>
+         <jxdm51:CourtEventCourt>
+            <jxdm51:CourtName>Matlock</jxdm51:CourtName>
+         </jxdm51:CourtEventCourt>
+      </cyfs-31:NextCourtEvent>
+      <nc30:Person s30:id="Person_3">
+         <nc30:PersonBirthDate>
+            <nc30:Date>1962-08-05</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonDigitalImage>
+            <nc30:Base64BinaryObject>uc4Ljouf8yTwK5oeclQE</nc30:Base64BinaryObject>
+         </nc30:PersonDigitalImage>
+         <jxdm51:PersonEthnicityCode>Caucasion</jxdm51:PersonEthnicityCode>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Russell</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>D</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Gutierrez</nc30:PersonSurName>
+         </nc30:PersonName>
+         <jxdm51:PersonRaceCode>W</jxdm51:PersonRaceCode>
+         <nc30:PersonResidentText>Waterview Lane</nc30:PersonResidentText>
+         <jxdm51:PersonSexCode>male</jxdm51:PersonSexCode>
+         <nc30:PersonSSNIdentification>
+            <nc30:IdentificationID>883804112</nc30:IdentificationID>
+         </nc30:PersonSSNIdentification>
+         <jxdm51:PersonAugmentation>
+            <jxdm51:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>SY4MbjS0</nc30:IdentificationID>
+            </jxdm51:PersonStateFingerprintIdentification>
+         </jxdm51:PersonAugmentation>
+      </nc30:Person>
+      <nc30:Location s30:id="Loc_3">
+         <nc30:Address>
+            <nc30:AddressFullText>Waterview Lane</nc30:AddressFullText>
+         </nc30:Address>
+      </nc30:Location>
+      <jxdm51:ActivityChargeAssociation>
+         <nc30:Activity s30:ref="Booking_3"/>
+         <nc30:Activity s30:ref="Event_3"/>
+         <nc30:Activity s30:ref="Detention_3"/>
+         <nc30:Activity s30:ref="Arrest_3"/>
+         <jxdm51:Charge s30:ref="Charge_3"/>
+      </jxdm51:ActivityChargeAssociation>
+      <jxdm51:BailBondChargeAssociation>
+         <jxdm51:BailBond s30:ref="Bond_3"/>
+         <jxdm51:Charge s30:ref="Charge_3"/>
+      </jxdm51:BailBondChargeAssociation>
+   </cq-res-ext:Custody>
+   <cq-res-ext:SourceSystemNameText>Custody</cq-res-ext:SourceSystemNameText>
+   <cq-res-ext:QueryResultCategoryText>Custody Detail</cq-res-ext:QueryResultCategoryText>
+   <cq-res-ext:InformationOwningOrganization>
+      <nc30:OrganizationBranchName>EMT</nc30:OrganizationBranchName>
+      <nc30:OrganizationName>FLPD</nc30:OrganizationName>
+   </cq-res-ext:InformationOwningOrganization>
+   <nc30:Metadata>
+      <nc30:LastUpdatedDate>
+         <nc30:Date>2016-02-09</nc30:Date>
+      </nc30:LastUpdatedDate>
+   </nc30:Metadata>
+</cq-res-exch:CustodyQueryResults>
