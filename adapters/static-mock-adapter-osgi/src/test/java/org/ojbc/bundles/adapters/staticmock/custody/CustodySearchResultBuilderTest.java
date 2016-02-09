@@ -45,7 +45,6 @@ public class CustodySearchResultBuilderTest {
 		custodySearchResultsRootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RESULTS);
 		
 		custodySearchResultsDoc.appendChild(custodySearchResultsRootElement);							
-
 		
 		Document custodyDetailDoc = XmlUtils.parseFileToDocument(
 				new File("src/test/resources/DocBuilderTestFiles/Custody/CustodyDetailQueryResults.xml"));
@@ -56,9 +55,7 @@ public class CustodySearchResultBuilderTest {
 		
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 		
-		ojbcNamespaceContext.populateRootNamespaceDeclarations(custodySearchResultsRootElement);		
-		
-		XmlUtils.printNode(custodySearchResultsDoc);
+		ojbcNamespaceContext.populateRootNamespaceDeclarations(custodySearchResultsRootElement);				
 		
 		XmlTestUtils.compareDocs("src/test/resources/DocBuilderTestFiles/Custody/CustodySearchResults.xml", 
 				custodySearchResultsDoc);		
