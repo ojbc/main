@@ -136,7 +136,7 @@ insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWN
 	values ('000001820140729014008339997', '4', '0400026', '1234567890', 'ID12345', 'I', 'false', '2015-10-20');
 	
 insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE, REPORT_TIMESTAMP) 
-	values ('000001820140729014008339998', '5', '0400025', '1234567890', 'ID12345', 'I', 'false', '62727', '2016-10-20');	
+	values ('000001820140729014008339998', '5', '0400025', '1234567890', 'ID12345', 'I', 'false', '62727', '2016-10-20','2016-10-20');	
 
 /*http://stackoverflow.com/questions/2607326/insert-a-blob-via-a-sql-script*/
 insert into CIVIL_FINGER_PRINTS (TRANSACTION_NUMBER, FINGER_PRINTS_FILE, FINGER_PRINTS_TYPE_ID) 
@@ -213,25 +213,25 @@ insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NU
 			values ('4', '000001820140729014008339994', '78DAAD555D6FA240147D37F13FDC7DD8F052C2E047ADB34842D1AE340A8DD0ECF308834E96AFC018659BFDEF3B608D35B5966E4BC23019CEB9F79C3B3733DA9AC791AEAD290974ADE065448197191D499CEEB8E21785A4B75BDA3759860C9E32B2A2F232A7E4B74C424E730C24DA92B2F80BB27C80F1009EC234E1724862169518661B9F0504CC3429D2885E81C7625A804DB7B0486392FC801A5DB03F1430A8D7D9EE24DAFAABA229B5395D536AABED96585AA641A96B9C2C85E92D0BF87A24A9087D976099E601CD4712AACC83C673810A8457B64A46924F1361BD2ECB6BEA0BBC48550DD5BBA7887F63C2A95249C680064A17291DA4F6017571EF061EE695CA67E891ABEC87FC6264CDF5168EFD53D71E056C4AB68431307316B3844470BF2938F32988E4A27035A1CAF428C21C6817D24285AD8DFE87E3135D56201659C87CC2599A804B49EEAF61418B4DC43F2888E7FBF999C93B5ADFDC4C23CB22212DA9A51C6BFE265EE8CE44135208F33406978B9D3DC36C28F24C6B9DA48D68C8AB659B54AD33B35CE30A5C6BFEE03AF645B907DED8B9C5E0981EA81D508737C34624D7B531F4077D79389407D783413312DD61B89BCC8DD9A4117E417CE1686AFC322CCBB01B57F042FE175D85C176606E78E6F40B025B630C86DAE9F6FACDCA77776B81BD8997D53139EC8807A99F57E178624F500F21D4E93752E19806066FE27A9FCF6DAC68E28B23786ADE8FCD8F847BEEF6E3777FF02AF5D5D36EFD034689F124', '2');
 			
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date, 
-	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, report_timestamp)
 values
 	('fbiSubscriptionId', 'CI', '5', '2015-12-19', '2019-12-19', '2014-10-19', false, '2', 
 	'123456789', {ts '2014-10-19 18:47:52.69'});			
 	
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date,
-	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, report_timestamp)
 values
 	('fbiSubscriptionId_2', 'CI', '2', '2015-12-19','2016-12-19', '2014-10-19', false, '1', 
 	'074644NG0', {ts '2014-10-19 18:47:52.69'});	
 	
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date, 
-	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, report_timestamp)
 values
 	('fbiSubscriptionId_3', 'CI', '5', '2015-12-19', '2019-12-19', '2014-10-19', false, '2', 
 	'9222201', {ts '2014-10-19 18:47:52.69'});			
 	
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date,
-	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, report_timestamp)
 values
 	('UnsubscribeFbiUcnIdTest', 'CI', '2', '2015-12-19','2016-12-19', '2014-10-19', false, '1', 
 	'1234', {ts '2014-10-19 18:47:52.69'});	
