@@ -80,6 +80,9 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Document rCustodyDetailDoc = getNewDocument();
 		
+		String personRecId = "Person_" + recordId;	
+		
+		
 		Element rootCustodyResultsElement = rCustodyDetailDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXCH_DOC, "CustodyQueryResults"); 		
 		rootCustodyResultsElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC);		
 		rCustodyDetailDoc.appendChild(rootCustodyResultsElement);
@@ -115,20 +118,20 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element activityDateElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");	
 		Element activityDateTimeElement = XmlUtils.appendElement(activityDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
-		activityDateTimeElement.setTextContent("TODO");
+		activityDateTimeElement.setTextContent(CURRENT_DATE);
 		
 				
 		Element detentionFacElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, "BookingDetentionFacility");		
 		Element bookingFacIdElement = XmlUtils.appendElement(detentionFacElement, OjbcNamespaceContext.NS_NC_30, "FacilityIdentification");		
-		Element facIdValElement = XmlUtils.appendElement(bookingFacIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
-		facIdValElement.setTextContent("TODO");
-		
-		
+		Element facIdValElement = XmlUtils.appendElement(bookingFacIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");			
+		String facIdSample = RandomStringUtils.randomNumeric(6);		
+		facIdValElement.setTextContent(facIdSample);
+				
 		
 		Element bookingSubjectElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, "BookingSubject");
 		
 		Element roleOfPersonElement = XmlUtils.appendElement(bookingSubjectElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");		
-		XmlUtils.addAttribute(roleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Person_TODO");
+		XmlUtils.addAttribute(roleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", personRecId);
 		
 		Element bookingSubjectIdElement = XmlUtils.appendElement(bookingSubjectElement, OjbcNamespaceContext.NS_JXDM_51, "SubjectIdentification");		
 		Element bookingSubjectIdValElement = XmlUtils.appendElement(bookingSubjectIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");				
@@ -143,24 +146,30 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element detentionActivityDate = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");		
 		Element detentionDateValElement = XmlUtils.appendElement(detentionActivityDate, OjbcNamespaceContext.NS_NC_30, "Date");		
-		detentionDateValElement.setTextContent("TODO");
+		detentionDateValElement.setTextContent(CURRENT_DATE);
 		
 		
 		Element supervisionCustodyStatusElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "SupervisionCustodyStatus");
 		
 		Element supervCustStatusDescTxtElement = XmlUtils.appendElement(supervisionCustodyStatusElement, OjbcNamespaceContext.NS_NC_30, "StatusDescriptionText");		
-		supervCustStatusDescTxtElement.setTextContent("TODO");
+		List<String> supervCustStatusDecTxtList = Arrays.asList("Pretrial", "Post-Trial", "In-Trial");		
+		int custStatusIndex = RANDOM.nextInt(supervCustStatusDecTxtList.size());		
+		String custStatusSample = supervCustStatusDecTxtList.get(custStatusIndex);		
+		supervCustStatusDescTxtElement.setTextContent(custStatusSample);
 		
 		Element pretrialCatCodeElement = XmlUtils.appendElement(supervisionCustodyStatusElement, OjbcNamespaceContext.NS_ADAMS_CO_BOOKING_CODES_EXT, "PreTrialCategoryCode");
-		pretrialCatCodeElement.setTextContent("TODO");
 		
+		List<String> pretrialCatCodeList = Arrays.asList("C-SRP", "A-XYZ", "B-897");		
+		int pretrialCatCodeIndex = RANDOM.nextInt(pretrialCatCodeList.size());		
+		String pretrialCatCodeSample = pretrialCatCodeList.get(pretrialCatCodeIndex);		
+		pretrialCatCodeElement.setTextContent(pretrialCatCodeSample);		
 		
 		Element supervisionAugmentElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAugmentation");
 				
 		Element supervisionReleaseDateElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionReleaseDate");
 		
 		Element supervisionReleaseDateValElement = XmlUtils.appendElement(supervisionReleaseDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
-		supervisionReleaseDateValElement.setTextContent("TODO");
+		supervisionReleaseDateValElement.setTextContent(CURRENT_DATE);
 		
 		Element supervisionAreaIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAreaIdentification");
 		
@@ -169,18 +178,32 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		supervisionAreaIdValElement.setTextContent(supervisionAreaId);		
 				
 		Element immigrationHoldElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "DetentiontImmigrationHoldIndicator");				
-		immigrationHoldElement.setTextContent("TODO");
+		
+		boolean detentImmigHoldSample = RANDOM.nextBoolean();
+		String sDetentImmigHoldSample = String.valueOf(detentImmigHoldSample);		
+		immigrationHoldElement.setTextContent(sDetentImmigHoldSample);
 		
 		Element holdForAgencyElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "HoldForAgency");		
-		Element orgNameElement = XmlUtils.appendElement(holdForAgencyElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");		
-		orgNameElement.setTextContent("TODO");
+		Element orgNameElement = XmlUtils.appendElement(holdForAgencyElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");	
+		
+		List<String> holdForAgencyOrgNameList = Arrays.asList("Acme", "Chips");
+		
+		int holdForAgencyIndex = RANDOM.nextInt(holdForAgencyOrgNameList.size());		
+		String sHoldForAgencyOrgNameSample = holdForAgencyOrgNameList.get(holdForAgencyIndex);		
+		orgNameElement.setTextContent(sHoldForAgencyOrgNameSample);
 		
 		
-		Element inmateWorkReleaseIndicator = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InmateWorkReleaseIndicator");		
-		inmateWorkReleaseIndicator.setTextContent("TODO");
+		Element inmateWorkReleaseIndicator = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InmateWorkReleaseIndicator");
+		
+		boolean inmateWorkReleaseSample = RANDOM.nextBoolean();		
+		String sInmateWorkReleaseSample = String.valueOf(inmateWorkReleaseSample);		
+		inmateWorkReleaseIndicator.setTextContent(sInmateWorkReleaseSample);
 		
 		Element inmateWorkerIndicatorElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InmateWorkerIndicator");
-		inmateWorkerIndicatorElement.setTextContent("TODO");
+		
+		boolean bInmateWorkerSample = RANDOM.nextBoolean();		
+		String sInmateWorkerSample = String.valueOf(bInmateWorkerSample);		
+		inmateWorkerIndicatorElement.setTextContent(sInmateWorkerSample);
 		
 		
 		Element bailBondElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "BailBond");			
@@ -198,7 +221,12 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element activityStatusElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_NC_30, "ActivityStatus");
 		
 		Element activityStatusDescTxtElement = XmlUtils.appendElement(activityStatusElement, OjbcNamespaceContext.NS_NC_30, "StatusDescriptionText");
-		activityStatusDescTxtElement.setTextContent("TODO");
+				
+		List<String> bailBondStatusList = Arrays.asList("Paid", "Unpaid", "Partial Payment");		
+		int bailBondStatusIndex = RANDOM.nextInt(bailBondStatusList.size());		
+		String sBailBond = bailBondStatusList.get(bailBondStatusIndex);		
+		
+		activityStatusDescTxtElement.setTextContent(sBailBond);
 		
 		
 		Element bailBondAmountElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_JXDM_51, "BailBondAmount");		
@@ -211,9 +239,12 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String chargeId = "Charge_" + recordId;		
 		XmlUtils.addAttribute(chargeElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", chargeId);
 				
+		List<String> chargeCatList = Arrays.asList("Speeding", "Seat Belt Usage");		
+		int chargeCatIndex = RANDOM.nextInt(chargeCatList.size());		
+		String sChargeCatSample = chargeCatList.get(chargeCatIndex);
 		
 		Element chargeCatDescTxtElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeCategoryDescriptionText");
-		chargeCatDescTxtElement.setTextContent("TODO");
+		chargeCatDescTxtElement.setTextContent(sChargeCatSample);
 				
 		List<String> chargeDescriptionTxtList = Arrays.asList("Intoxicated", "Speeding", "No Seatbelt");		
 		int chargeDescRandomIndex = RANDOM.nextInt(chargeDescriptionTxtList.size());
@@ -222,10 +253,18 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		chargeDescriptionTextElement.setTextContent(sChargeDesc);
 				
 		Element chargeHighestIndicatorElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeHighestIndicator");
-		chargeHighestIndicatorElement.setTextContent("TODO");
+		
+		boolean bChargeHighestIndicatorSample = RANDOM.nextBoolean();
+		
+		String sChargeHighestIndicatorSample = String.valueOf(bChargeHighestIndicatorSample);
+		
+		chargeHighestIndicatorElement.setTextContent(sChargeHighestIndicatorSample);
 		
 		Element chargeSequenceIDElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeSequenceID");
-		chargeSequenceIDElement.setTextContent("TODO");
+		
+		String sChargeSeqId = RandomStringUtils.randomNumeric(7);
+		
+		chargeSequenceIDElement.setTextContent(sChargeSeqId);
 		
 		
 		Element chargeStatuteElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeStatute");
@@ -245,8 +284,12 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element arrestAgencyElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestAgency");
 		
-		Element arrestOrgName = XmlUtils.appendElement(arrestAgencyElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");		
-		arrestOrgName.setTextContent("TODO");
+		Element arrestOrgName = XmlUtils.appendElement(arrestAgencyElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");	
+		
+		List<String> arrestAgencyList = Arrays.asList("NYPD", "LAPD", "CHIPS", "Acme", "Matlock");		
+		int arrestAgencyIndex = RANDOM.nextInt(arrestAgencyList.size());		
+		String sArrestAgency = arrestAgencyList.get(arrestAgencyIndex);		
+		arrestOrgName.setTextContent(sArrestAgency);
 		
 		
 		Element arrestLocationElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestLocation");		
@@ -261,18 +304,22 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element nextCourtActivityDateElement = XmlUtils.appendElement(nextCourtEventElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
 		
 		Element activityDateValElement = XmlUtils.appendElement(nextCourtActivityDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
-		activityDateValElement.setTextContent("TODO");
+		activityDateValElement.setTextContent(CURRENT_DATE);
 		
 		
 		Element courtEventCourtElement = XmlUtils.appendElement(nextCourtEventElement, OjbcNamespaceContext.NS_JXDM_51, "CourtEventCourt");
 		
 		Element courtNameElement = XmlUtils.appendElement(courtEventCourtElement, OjbcNamespaceContext.NS_JXDM_51, "CourtName");
 		
-		courtNameElement.setTextContent("TODO");
+		List<String> courtNameSampleList = Arrays.asList("Matlock", "Supreme Court", "Traffic Court");		
+		int courtSampleIndex = RANDOM.nextInt(courtNameSampleList.size());		
+		String sCourtSample = courtNameSampleList.get(courtSampleIndex);
+		
+		courtNameElement.setTextContent(sCourtSample);
 		
 		
 		Element personElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Person");		
-		String personRecId = "Person_" + recordId;		
+			
 		XmlUtils.addAttribute(personElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", personRecId);
 		
 		DateTime personDob = person.birthdate;
@@ -282,8 +329,10 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		personDobValElement.setTextContent(sPersonDob);			
 		
 		Element personDigitalImgElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonDigitalImage");		
-		Element personImgBinElement = XmlUtils.appendElement(personDigitalImgElement, OjbcNamespaceContext.NS_NC_30, "Base64BinaryObject");		
-		personImgBinElement.setTextContent("TODO");
+		Element personImgBinElement = XmlUtils.appendElement(personDigitalImgElement, OjbcNamespaceContext.NS_NC_30, "Base64BinaryObject");	
+				
+		String sSampleImgBin = RandomStringUtils.randomAlphanumeric(20);		
+		personImgBinElement.setTextContent(sSampleImgBin);
 		
 		
 		List<String> ethnicitySampleList = Arrays.asList("African American", "Latino", "Caucasion");		
@@ -315,11 +364,10 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String sRandomRace = raceSampleList.get(raceIndex);				
 		Element personRaceElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonRaceCode");		
 		personRaceElement.setTextContent(sRandomRace);
-		
-		
-		Element personResidentTxtElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonResidentText");
-		personResidentTxtElement.setTextContent("TODO");
-		
+				
+		Element personResidentTxtElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonResidentText");		
+		String sampleResidentTxt = person.addressStreetName;		
+		personResidentTxtElement.setTextContent(sampleResidentTxt);		
 		
 		String sPersonSex = person.sex;
 		Element personSexElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
@@ -337,7 +385,10 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element personStateFingerIdElement = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "PersonStateFingerprintIdentification");
 		
 		Element personStateFingerIdValElement = XmlUtils.appendElement(personStateFingerIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
-		personStateFingerIdValElement.setTextContent("TODO");
+		
+		String sPersonSid = RandomStringUtils.randomAlphanumeric(8);
+		
+		personStateFingerIdValElement.setTextContent(sPersonSid);
 		
 		
 		Element locationElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Location");
@@ -347,7 +398,10 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element locationAddressElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC_30, "Address");
 		
 		Element locAddressFullElement = XmlUtils.appendElement(locationAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressFullText");
-		locAddressFullElement.setTextContent("TODO");					
+		
+		String locAddress = person.addressStreetName;
+		
+		locAddressFullElement.setTextContent(locAddress);					
 		
 		Element activityChargeAssocElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityChargeAssociation");
 		
@@ -377,16 +431,13 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		
 		Element sourceSysNameTxtElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "SourceSystemNameText");
-		sourceSysNameTxtElement.setTextContent("TODO");
+		sourceSysNameTxtElement.setTextContent("Custody");
 		
 		
 		Element queryResultCatTxtElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "QueryResultCategoryText"); 
-		queryResultCatTxtElement.setTextContent("TODO");
-		
-		
-		
-		Element infoOwningOrgElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InformationOwningOrganization");
-		
+		queryResultCatTxtElement.setTextContent("Custody Detail");
+				
+		Element infoOwningOrgElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InformationOwningOrganization");		
 		
 		List<String> orgBranchNameList = Arrays.asList("Police", "Fire Department", "Public Safety", "EMT");		
 		int branchNameIndex = RANDOM.nextInt(orgBranchNameList.size());		
@@ -395,12 +446,17 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element orgBranchNameElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
 		
 		orgBranchNameElement.setTextContent(sBranchName);
-		
-		
+				
 		Element infoOwnOrgElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
-		infoOwnOrgElement.setTextContent("TODO");
 		
+		List<String> orgNameList = Arrays.asList("FLPD", "RIPD", "HIPD", "MEPD");
 		
+		int orgNameIndex = RANDOM.nextInt(orgNameList.size());
+		
+		String sOrgSample = orgNameList.get(orgNameIndex);
+		
+		infoOwnOrgElement.setTextContent(sOrgSample);
+				
 		Element metadataElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_NC_30, "Metadata");		
 		Element lastUpdatedDateElement = XmlUtils.appendElement(metadataElement, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");		
 		Element lastUpdatedDateValElement = XmlUtils.appendElement(lastUpdatedDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
