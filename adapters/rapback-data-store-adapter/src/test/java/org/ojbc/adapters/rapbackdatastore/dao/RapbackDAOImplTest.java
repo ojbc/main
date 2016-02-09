@@ -33,7 +33,6 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants;
@@ -374,7 +373,6 @@ public class RapbackDAOImplTest {
 	
 	@Test(expected=DuplicateKeyException.class)
 	@DirtiesContext
-	@Ignore
 	public void testSaveFbiSubscriptionError() throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
 		fbiRapbackSubscription.setFbiSubscriptionId("fbiSubscriptionId");
@@ -408,7 +406,6 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	@DirtiesContext
-	@Ignore
 	public void testArchiveCivil() throws Exception {
 		Connection conn = dataSource.getConnection();
 		DateTime currentDate = new DateTime(); 
@@ -429,7 +426,6 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	@DirtiesContext
-	@Ignore
 	public void testArchiveCriminal() throws Exception {
 		Connection conn = dataSource.getConnection();
 		DateTime currentDate = new DateTime(); 
@@ -450,7 +446,6 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	@DirtiesContext
-	@Ignore
 	public void testArchiveIdentificationResult() throws Exception {
 		Connection conn = dataSource.getConnection();
 		String sql = "SELECT * "
@@ -472,7 +467,6 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	@DirtiesContext
-	@Ignore
 	public void testConsolidateSid() throws Exception {
 		Connection conn = dataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery(COUNT_SID_A123458);
@@ -493,7 +487,6 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	@DirtiesContext
-	@Ignore
 	public void testConsolidateUcn() throws Exception {
 		Connection conn = dataSource.getConnection();
 		String countSubjectUcn9222201 = "select count(*) as rowcount from identification_subject where ucn = '9222201'";
