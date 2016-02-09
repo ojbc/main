@@ -53,11 +53,17 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		List<Document> rCustodyDocList = new ArrayList<Document>(recordCount);
 		
+		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
+		
 		for(int i=0; i < recordCount; i++){
 		
 			PersonElementWrapper iGeneratedPerson = getRandomIdentity(null);
 			
 			Document custodyDoc = buildCustodyDetailDoc(iGeneratedPerson);
+			
+			Element custodyDocRootElement = custodyDoc.getDocumentElement();
+			
+			ojbcNamespaceContext.populateRootNamespaceDeclarations(custodyDocRootElement);
 			
 			rCustodyDocList.add(custodyDoc);
 		}
@@ -72,10 +78,8 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Document rCustodyDetailDoc = getNewDocument();
 		
-		Element rootCustodyResultsElement = rCustodyDetailDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXCH_DOC, "CustodyQueryResults"); 
-		
-		rootCustodyResultsElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC);
-		
+		Element rootCustodyResultsElement = rCustodyDetailDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXCH_DOC, "CustodyQueryResults"); 		
+		rootCustodyResultsElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC);		
 		rCustodyDetailDoc.appendChild(rootCustodyResultsElement);
 		
 		Element docCreationDateElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_NC_30, "DocumentCreationDate");		
@@ -89,48 +93,194 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String sDocId = RandomStringUtils.randomNumeric(7);		
 		docIdValElement.setTextContent(sDocId);		
 		
-		
-		
-		List<String> idCatDescSampleList = Arrays.asList("tall", "short", "bald", "dreadlocks");		
-		int idCatDescRandomIndex = RANDOM.nextInt(idCatDescSampleList.size());		
-		String idCatDesc = idCatDescSampleList.get(idCatDescRandomIndex);				
-		Element idCatDescTxtElement = XmlUtils.appendElement(documentIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");		
-		idCatDescTxtElement.setTextContent(idCatDesc);
-		
-		
-		
+				
 		Element sysIdElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_INTEL_31, "SystemIdentification");		
-		Element sysIdValElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_INTEL_31, "IdentificationID");		
+		Element sysIdValElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
 		String systemId = RandomStringUtils.randomNumeric(6);		
 		sysIdValElement.setTextContent(systemId);
-		
-		
-		
-		
-		Element sysIdSystemNameElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "SystemName");
-		
+				
+		Element sysIdSystemNameElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "SystemName");		
 		sysIdSystemNameElement.setTextContent("Custody Detail");
 		
 		
-		Element inmateCustodyElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InmateCustody");
+		Element custodyElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "Custody");
 		
+		
+		Element bookingElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "Booking");		
+		XmlUtils.addAttribute(bookingElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Booking_TODO");
+		
+		Element activityDateElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");	
+		Element activityDateTimeElement = XmlUtils.appendElement(activityDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
+		activityDateTimeElement.setTextContent("TODO");
+		
+				
+		Element detentionFacElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, "BookingDetentionFacility");		
+		Element bookingFacIdElement = XmlUtils.appendElement(detentionFacElement, OjbcNamespaceContext.NS_NC_30, "FacilityIdentification");		
+		Element facIdValElement = XmlUtils.appendElement(bookingFacIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		facIdValElement.setTextContent("TODO");
+		
+		
+		
+		Element bookingSubjectElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, "BookingSubject");
+		
+		Element roleOfPersonElement = XmlUtils.appendElement(bookingSubjectElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");		
+		XmlUtils.addAttribute(roleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Person_TODO");
+		
+		Element bookingSubjectIdElement = XmlUtils.appendElement(bookingSubjectElement, OjbcNamespaceContext.NS_JXDM_51, "SubjectIdentification");		
+		Element bookingSubjectIdValElement = XmlUtils.appendElement(bookingSubjectIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");				
+		String bookingSubjectId = RandomStringUtils.randomAlphanumeric(8);		
+		bookingSubjectIdValElement.setTextContent(bookingSubjectId);		
+		
+		
+		Element detentionElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "Detention");		
+		XmlUtils.addAttribute(detentionElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Detention_TODO");
+		
+		
+		Element detentionActivityDate = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");		
+		Element detentionDateValElement = XmlUtils.appendElement(detentionActivityDate, OjbcNamespaceContext.NS_NC_30, "Date");		
+		detentionDateValElement.setTextContent("TODO");
+		
+		
+		Element supervisionCustodyStatusElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "SupervisionCustodyStatus");
+		
+		Element supervCustStatusDescTxtElement = XmlUtils.appendElement(supervisionCustodyStatusElement, OjbcNamespaceContext.NS_NC_30, "StatusDescriptionText");		
+		supervCustStatusDescTxtElement.setTextContent("TODO");
+		
+		Element pretrialCatCodeElement = XmlUtils.appendElement(supervisionCustodyStatusElement, OjbcNamespaceContext.NS_ADAMS_CO_BOOKING_CODES_EXT, "PreTrialCategoryCode");
+		pretrialCatCodeElement.setTextContent("TODO");
+		
+		
+		Element supervisionAugmentElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAugmentation");
+				
+		Element supervisionReleaseDateElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionReleaseDate");
+		
+		Element supervisionReleaseDateValElement = XmlUtils.appendElement(supervisionReleaseDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
+		supervisionReleaseDateValElement.setTextContent("TODO");
+		
+		Element supervisionAreaIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAreaIdentification");
+		
+		Element supervisionAreaIdValElement = XmlUtils.appendElement(supervisionAreaIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");				
+		String supervisionAreaId = RandomStringUtils.randomNumeric(9); 		
+		supervisionAreaIdValElement.setTextContent(supervisionAreaId);		
+				
+		Element immigrationHoldElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "DetentiontImmigrationHoldIndicator");				
+		immigrationHoldElement.setTextContent("TODO");
+		
+		Element holdForAgencyElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "HoldForAgency");		
+		Element orgNameElement = XmlUtils.appendElement(holdForAgencyElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");		
+		orgNameElement.setTextContent("TODO");
+		
+		
+		Element inmateWorkReleaseIndicator = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InmateWorkReleaseIndicator");		
+		inmateWorkReleaseIndicator.setTextContent("TODO");
+		
+		Element inmateWorkerIndicatorElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InmateWorkerIndicator");
+		inmateWorkerIndicatorElement.setTextContent("TODO");
+		
+		
+		Element bailBondElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "BailBond");		
+		XmlUtils.addAttribute(bailBondElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "TODO");
+				
+		Element activityCatElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_NC_30, "ActivityCategoryText");
+		
+		List<String> bailBondActivitySampleList = Arrays.asList("Traffic Violation", "Speeding", "Noise Violation");				
+		int bailBondActivityIndex = RANDOM.nextInt(bailBondActivitySampleList.size());		
+		String bailBondActivity = bailBondActivitySampleList.get(bailBondActivityIndex);		
+		activityCatElement.setTextContent(bailBondActivity);
+		
+				
+		Element activityStatusElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_NC_30, "ActivityStatus");
+		
+		Element activityStatusDescTxtElement = XmlUtils.appendElement(activityStatusElement, OjbcNamespaceContext.NS_NC_30, "StatusDescriptionText");
+		activityStatusDescTxtElement.setTextContent("TODO");
+		
+		
+		Element bailBondAmountElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_JXDM_51, "BailBondAmount");		
+		Element bailBondAmountValElement = XmlUtils.appendElement(bailBondAmountElement, OjbcNamespaceContext.NS_NC_30, "Amount");				
+		String sBailAmount = RandomStringUtils.randomNumeric(4);		
+		bailBondAmountValElement.setTextContent(sBailAmount);
+		
+		
+		Element chargeElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");		
+		XmlUtils.addAttribute(chargeElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Charge_TODO");
+				
+		
+		Element chargeCatDescTxtElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeCategoryDescriptionText");
+		chargeCatDescTxtElement.setTextContent("TODO");
+				
+		List<String> chargeDescriptionTxtList = Arrays.asList("Intoxicated", "Speeding", "No Seatbelt");		
+		int chargeDescRandomIndex = RANDOM.nextInt(chargeDescriptionTxtList.size());
+		String sChargeDesc = chargeDescriptionTxtList.get(chargeDescRandomIndex);				
+		Element chargeDescriptionTextElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeDescriptionText");
+		chargeDescriptionTextElement.setTextContent(sChargeDesc);
+				
+		Element chargeHighestIndicatorElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeHighestIndicator");
+		chargeHighestIndicatorElement.setTextContent("TODO");
+		
+		Element chargeSequenceIDElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeSequenceID");
+		chargeSequenceIDElement.setTextContent("TODO");
+		
+		
+		Element chargeStatuteElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeStatute");
+		
+		Element chargeStatuteCodeIdElement = XmlUtils.appendElement(chargeStatuteElement, OjbcNamespaceContext.NS_JXDM_51, "StatuteCodeSectionIdentification");
+		
+		Element chargeStatuteCodeIdValElement = XmlUtils.appendElement(chargeStatuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		String sStatuteCodeId = RandomStringUtils.randomNumeric(6);		
+		chargeStatuteCodeIdValElement.setTextContent(sStatuteCodeId);		
+		
+		// Arrest
+		
+		Element arrestElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "Arrest");		
+		XmlUtils.addAttribute(arrestElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Arrest_TODO");
+		
+		Element arrestAgencyElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestAgency");
+		
+		Element arrestOrgName = XmlUtils.appendElement(arrestAgencyElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");		
+		arrestOrgName.setTextContent("TODO");
+		
+		
+		Element arrestLocationElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestLocation");		
+		XmlUtils.addAttribute(arrestLocationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Loc_TODO");
+								
+		Element nextCourtEventElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NIEM_CYFS_31, "NextCourtEvent");
+		
+		Element nextCourtActivityDateElement = XmlUtils.appendElement(nextCourtEventElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
+		
+		Element activityDateValElement = XmlUtils.appendElement(nextCourtActivityDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		activityDateValElement.setTextContent("TODO");
+		
+		
+		Element courtEventCourtElement = XmlUtils.appendElement(nextCourtEventElement, OjbcNamespaceContext.NS_JXDM_51, "CourtEventCourt");
+		
+		Element courtNameElement = XmlUtils.appendElement(courtEventCourtElement, OjbcNamespaceContext.NS_JXDM_51, "CourtName");
+		
+		courtNameElement.setTextContent("TODO");
+		
+		
+		Element personElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Person");		
+		XmlUtils.addAttribute(personElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Person_TODO");
 		
 		DateTime personDob = person.birthdate;
-		Element personBirthDateElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");		
-		Element personDobValElement = XmlUtils.appendElement(personBirthDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");	
+		Element personBirthDateElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");		
+		Element personDobValElement = XmlUtils.appendElement(personBirthDateElement, OjbcNamespaceContext.NS_NC_30, "Date");	
 		String sPersonDob = personDob.toString("yyyy-MM-dd");		
 		personDobValElement.setTextContent(sPersonDob);			
+		
+		Element personDigitalImgElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonDigitalImage");		
+		Element personImgBinElement = XmlUtils.appendElement(personDigitalImgElement, OjbcNamespaceContext.NS_NC_30, "Base64BinaryObject");		
+		personImgBinElement.setTextContent("TODO");
 		
 		
 		List<String> ethnicitySampleList = Arrays.asList("African American", "Latino", "Caucasion");		
 		int ethnicityRandomIndex = RANDOM.nextInt(ethnicitySampleList.size());		
-		String ethnicitySample = ethnicitySampleList.get(ethnicityRandomIndex);				
-		Element ethnicityElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_NC_30, "PersonEthnicityText");		
-		ethnicityElement.setTextContent(ethnicitySample);
-				
+		String ethnicitySample = ethnicitySampleList.get(ethnicityRandomIndex);
 		
+		Element ethnicityElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonEthnicityCode");		
+		ethnicityElement.setTextContent(ethnicitySample);						
 		
-		Element personNameElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_NC_30, "PersonName");		
+		Element personNameElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonName");		
 				
 		String sPersonFirstName = person.firstName;		
 		Element personGivenNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");		
@@ -150,225 +300,95 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		List<String> raceSampleList = Arrays.asList("B", "A", "W");				
 		int raceIndex = RANDOM.nextInt(raceSampleList.size());		
 		String sRandomRace = raceSampleList.get(raceIndex);				
-		Element personRaceElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_NC_30, "PersonRaceText");		
+		Element personRaceElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonRaceCode");		
 		personRaceElement.setTextContent(sRandomRace);
 		
 		
+		Element personResidentTxtElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonResidentText");
+		personResidentTxtElement.setTextContent("TODO");
+		
+		
 		String sPersonSex = person.sex;
-		Element personSexElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_NC_30, "PersonSexText");
+		Element personSexElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
 		personSexElement.setTextContent(sPersonSex);
 		
+		
 		String sPersonSSN = RandomStringUtils.randomNumeric(9);
-		Element personSsnElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_NC_30, "PersonSSNIdentification");		
+		Element personSsnElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonSSNIdentification");		
 		Element personSsnValElement = XmlUtils.appendElement(personSsnElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
 		personSsnValElement.setTextContent(sPersonSSN);
 		
 		
-		String sPersonSid = person.id;
-		Element personSidElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_NC_30, "PersonStateIdentification");		
-		Element personSidValElement = XmlUtils.appendElement(personSidElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-		personSidValElement.setTextContent(sPersonSid);
+		Element personAugmentElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonAugmentation");
 		
-		Element bailBondElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_JXDM_51, "BailBond");
+		Element personStateFingerIdElement = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "PersonStateFingerprintIdentification");
 		
-		Element activityCatElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_NC_30, "ActivityCategoryText");
+		Element personStateFingerIdValElement = XmlUtils.appendElement(personStateFingerIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		personStateFingerIdValElement.setTextContent("TODO");
 		
-		List<String> bailBondActivitySampleList = Arrays.asList("Traffic Violation", "Speeding", "Noise Violation");				
-		int bailBondActivityIndex = RANDOM.nextInt(bailBondActivitySampleList.size());		
-		String bailBondActivity = bailBondActivitySampleList.get(bailBondActivityIndex);		
-		activityCatElement.setTextContent(bailBondActivity);
 		
-				
-		Element bailBondAmountElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_JXDM_51, "BailBondAmount");		
-		Element bailBondAmountValElement = XmlUtils.appendElement(bailBondAmountElement, OjbcNamespaceContext.NS_NC_30, "Amount");				
-		String sBailAmount = RandomStringUtils.randomNumeric(4);		
-		bailBondAmountValElement.setTextContent(sBailAmount);
+		Element locationElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Location");				
+		XmlUtils.addAttribute(locationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Loc_TODO");
 		
+		Element locationAddressElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC_30, "Address");
 		
-		Element bookingElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "Booking");		
-		Element fingerprintDateElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, "FingerprintDate");		
-		Element fingerprintDateValElement = XmlUtils.appendElement(fingerprintDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
-		fingerprintDateValElement.setTextContent(CURRENT_DATE);
+		Element locAddressFullElement = XmlUtils.appendElement(locationAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressFullText");
+		locAddressFullElement.setTextContent("TODO");					
 		
-						
-		Element bookingSubjectElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, "BookingSubject");
+		Element activityChargeAssocElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityChargeAssociation");
 		
-		Element bookingSubjectIdElement = XmlUtils.appendElement(bookingSubjectElement, OjbcNamespaceContext.NS_JXDM_51, "SubjectIdentification");		
-		Element bookingSubjectIdValElement = XmlUtils.appendElement(bookingSubjectIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");				
-		String bookingSubjectId = RandomStringUtils.randomAlphanumeric(8);		
-		bookingSubjectIdValElement.setTextContent(bookingSubjectId);
+		Element activityElement = XmlUtils.appendElement(activityChargeAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity");
 		
+		XmlUtils.addAttribute(activityChargeAssocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Booking_TODO");
 		
+		//TODO
+//		<nc:Activity structures:ref="Event_01"/>
+//		<nc:Activity structures:ref="Detention_01"/>
+//		<nc:Activity structures:ref="Arrest_01"/>
+//		<nc:Activity structures:ref="Event_01"/>
+//		<j:Charge structures:ref="Charge_01"/>
 		
-		List<String> imgLocSampleList = Arrays.asList("http://acme.org/profile_123.jpg", "http://pd.gov/profile_abc.jpg");		
-		int imgLocRandomIndex = RANDOM.nextInt(imgLocSampleList.size());		
-		String imgLocSample = imgLocSampleList.get(imgLocRandomIndex);						
-		Element imageElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_NC_30, "Image");		
-		Element imgLocElement = XmlUtils.appendElement(imageElement, OjbcNamespaceContext.NS_NC_30, "ImageLocation");		
-		Element imgLocDescElement = XmlUtils.appendElement(imgLocElement, OjbcNamespaceContext.NS_NC_30, "LocationDescriptionText");		
-		imgLocDescElement.setTextContent(imgLocSample);
 		
+		Element bailBondChargeAssocElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "BailBondChargeAssociation");
 		
+		Element bailBondRefElement = XmlUtils.appendElement(bailBondChargeAssocElement, OjbcNamespaceContext.NS_JXDM_51, "BailBond");
+		XmlUtils.addAttribute(bailBondRefElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Bond_TODO");
 		
-		Element caseHearingElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_JXDM_51, "CaseHearing");
+		Element bailBondChargeRefElement = XmlUtils.appendElement(bailBondChargeAssocElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");
+		XmlUtils.addAttribute(bailBondChargeRefElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Charge_TODO");
 		
-		Element courtEventScheduleElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_JXDM_51, "CourtEventSchedule");		
-		Element scheduleDayStartTimeElement = XmlUtils.appendElement(courtEventScheduleElement, OjbcNamespaceContext.NS_NC_30, "ScheduleDayStartTime");		
-		scheduleDayStartTimeElement.setTextContent(CURRENT_DATE);
 		
+		Element sourceSysNameTxtElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "SourceSystemNameText");
+		sourceSysNameTxtElement.setTextContent("TODO");
 		
-		Element chargeElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");		
-		Element chargeCountQuantityElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeCountQuantity");				
-		String sChargeCount = RandomStringUtils.randomNumeric(2);		
-		chargeCountQuantityElement.setTextContent(sChargeCount);
 		
+		Element queryResultCatTxtElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "QueryResultCategoryText"); 
+		queryResultCatTxtElement.setTextContent("TODO");
 		
 		
-		List<String> chargeDescriptionTxtList = Arrays.asList("Intoxicated", "Speeding", "No Seatbelt");		
-		int chargeDescRandomIndex = RANDOM.nextInt(chargeDescriptionTxtList.size());		
-		
-		String sChargeDesc = chargeDescriptionTxtList.get(chargeDescRandomIndex);				
-		Element chargeDescriptionTextElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeDescriptionText");
-		chargeDescriptionTextElement.setTextContent(sChargeDesc);
-		
-		
-		
-		Element chargeStatuteElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeStatute");
-		
-		Element chargeStatuteCodeIdElement = XmlUtils.appendElement(chargeStatuteElement, OjbcNamespaceContext.NS_JXDM_51, "StatuteCodeIdentification");
-		
-		Element chargeStatuteCodeIdValElement = XmlUtils.appendElement(chargeStatuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-		
-		String sStatuteCodeId = RandomStringUtils.randomNumeric(6);		
-		chargeStatuteCodeIdValElement.setTextContent(sStatuteCodeId);
-		
-		
-		List<String> idCatDescTxtList = Arrays.asList("Driver License", "Gvmt Id Card", "Concealed Weapon Permit");		
-		int idCatListIndex = RANDOM.nextInt(idCatDescTxtList.size());		
-		String sIdCatDesc = idCatDescTxtList.get(idCatListIndex);
-		
-		Element chargeStatuteIdCatDescTxtElement = XmlUtils.appendElement(chargeStatuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
-		
-		chargeStatuteIdCatDescTxtElement.setTextContent(sIdCatDesc);
-		
-		
-		
-		Element supervisionElement = XmlUtils.appendElement(inmateCustodyElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "Supervision");		
-		
-		Element activityDateRangeElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_NC_30, "ActivityDateRange");
-		
-		Element startDateElement = XmlUtils.appendElement(activityDateRangeElement, OjbcNamespaceContext.NS_NC_30, "StartDate");
-		
-		Element startDateValElement = XmlUtils.appendElement(startDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");
-		
-		startDateValElement.setTextContent(CURRENT_DATE);
-		
-			
-		Element endDateElement = XmlUtils.appendElement(activityDateRangeElement, OjbcNamespaceContext.NS_NC_30, "EndDate");
-		
-		Element endDateValElement = XmlUtils.appendElement(endDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");
-		
-		endDateValElement.setTextContent(CURRENT_DATE);
-		
-		
-		
-		Element supervisionFacElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_NC_30, "SupervisionFacility");
-		
-		Element facIdElement = XmlUtils.appendElement(supervisionFacElement, OjbcNamespaceContext.NS_NC_30, "FacilityIdentification");
-		
-		Element facIdValElement = XmlUtils.appendElement(facIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-		
-		String sSupervistionFacilityId = RandomStringUtils.randomNumeric(9);
-		
-		facIdValElement.setTextContent(sSupervistionFacilityId);
-		
-		
-		List<String> facilityCategoryList = Arrays.asList("Jail", "Prison", "Shelter");		
-		int facilityCategoryIndex = RANDOM.nextInt(facilityCategoryList.size());		
-		String sFacilityCategory = facilityCategoryList.get(facilityCategoryIndex);
-				
-		Element facIdCatDescTxtElement = XmlUtils.appendElement(facIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
-		facIdCatDescTxtElement.setTextContent(sFacilityCategory);
-		
-		
-		Element supervisionAugmentElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAugmentation");
-		
-		Element supervisionAreaIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAreaIdentification");
-		
-		Element supervisionAreaIdValElement = XmlUtils.appendElement(supervisionAreaIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-				
-		String supervisionAreaId = RandomStringUtils.randomNumeric(9); 
-		
-		supervisionAreaIdValElement.setTextContent(supervisionAreaId);
-		
-		
-		
-		List<String> bedAreaList = Arrays.asList("Window", "Hallway", "Bunk Beds", "Corner");		
-		int bedCategoryIndex = RANDOM.nextInt(bedAreaList.size());		
-		String sBedAreaCategory = bedAreaList.get(bedCategoryIndex);
-		
-		Element supervisionAreaIdCatDescTxtElement = XmlUtils.appendElement(supervisionAreaIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
-		supervisionAreaIdCatDescTxtElement.setTextContent(sBedAreaCategory);
-				
-		Element supervisionBedIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionBedIdentification");
-		
-		Element supervisionBedIdValElement = XmlUtils.appendElement(supervisionBedIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-				
-		String sBedId = RandomStringUtils.randomNumeric(3);		
-		supervisionBedIdValElement.setTextContent(sBedId);
-		
-								
-		List<String> bedIdCatList = Arrays.asList("Double", "Queen", "King");		
-		int bedIdCatIndex = RANDOM.nextInt(bedIdCatList.size());		
-		String sBedIdCat = bedIdCatList.get(bedIdCatIndex);				
-		Element supervisionBedIdCatDescTxtElement = XmlUtils.appendElement(supervisionBedIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");		
-		supervisionBedIdCatDescTxtElement.setTextContent(sBedIdCat);		
-		
-				
-		Element supervisionCellIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionCellIdentification");		
-		Element supervisionCellIdValElement = XmlUtils.appendElement(supervisionCellIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");				
-		String sCellId = RandomStringUtils.randomNumeric(3);		
-		supervisionCellIdValElement.setTextContent(sCellId);		
-		
-		
-		Element supervisionIdCatDescTxtElement = XmlUtils.appendElement(supervisionCellIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");			
-		supervisionIdCatDescTxtElement.setTextContent("TODO");
-		
-		Element holdForImigElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "HoldForImmigrationIndicator");
-		holdForImigElement.setTextContent("TODO");
-		
-		Element chargeSentenceElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeSentence");
-		
-		Element sentenceConditionElement = XmlUtils.appendElement(chargeSentenceElement, OjbcNamespaceContext.NS_JXDM_51, "SentenceCondition");
-		
-		Element conditionSetDateElement = XmlUtils.appendElement(sentenceConditionElement, OjbcNamespaceContext.NS_NC_30, "ConditionSetDate");
-		
-		Element conditionSetDateValElement = XmlUtils.appendElement(conditionSetDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");
-		conditionSetDateValElement.setTextContent("TODO");
-		
-		Element organizationElement = XmlUtils.appendElement(supervisionElement, OjbcNamespaceContext.NS_NC_30, "Organization");
-		
-		Element organizationNameElement = XmlUtils.appendElement(organizationElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");	
-		organizationNameElement.setTextContent("TODO");
 		
 		Element infoOwningOrgElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InformationOwningOrganization");
 		
-		Element orgBranchNameElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");		
-		orgBranchNameElement.setTextContent("TODO");
 		
-		Element orgNameElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
-		orgNameElement.setTextContent("TODO");
+		List<String> orgBranchNameList = Arrays.asList("Police", "Fire Department", "Public Safety", "EMT");		
+		int branchNameIndex = RANDOM.nextInt(orgBranchNameList.size());		
+		String sBranchName = orgBranchNameList.get(branchNameIndex);
 		
-		Element metadataElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "Metadata");
+		Element orgBranchNameElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
 		
-		Element lastUpdatedDateElement = XmlUtils.appendElement(metadataElement, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");
-		
-		Element lastUpdatedDateValElement = XmlUtils.appendElement(lastUpdatedDateElement, OjbcNamespaceContext.NS_NC_30, "Date");
-		
-		lastUpdatedDateValElement.setTextContent("TODO");
+		orgBranchNameElement.setTextContent(sBranchName);
 		
 		
+		Element infoOwnOrgElement = XmlUtils.appendElement(infoOwningOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
+		infoOwnOrgElement.setTextContent("TODO");
 		
+		
+		Element metadataElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_NC_30, "Metadata");		
+		Element lastUpdatedDateElement = XmlUtils.appendElement(metadataElement, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");		
+		Element lastUpdatedDateValElement = XmlUtils.appendElement(lastUpdatedDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		lastUpdatedDateValElement.setTextContent(CURRENT_DATE);				
+		
+				
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 		
 		ojbcNamespaceContext.populateRootNamespaceDeclarations(rootCustodyResultsElement);
@@ -389,6 +409,3 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 	}
 
 }
-
-
-
