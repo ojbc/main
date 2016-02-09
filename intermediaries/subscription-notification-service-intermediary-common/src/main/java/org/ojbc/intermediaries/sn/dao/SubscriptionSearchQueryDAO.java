@@ -36,6 +36,7 @@ import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.Header;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -462,7 +463,8 @@ public class SubscriptionSearchQueryDAO {
             };
             String queryString = "update subscription s set s.active=0 where s.topic=? and s.id=?";
             returnCount = this.jdbcTemplate.update(queryString, criteriaArray);
-            
+
+            log.debug("fbiSubscriptionMember? " + BooleanUtils.toStringTrueFalse(fbiSubscriptionMember));
             if (fbiSubscriptionMember){
             	unsubscribeIdentificationTransaction(Integer.valueOf(subscriptionSystemId));
             }
