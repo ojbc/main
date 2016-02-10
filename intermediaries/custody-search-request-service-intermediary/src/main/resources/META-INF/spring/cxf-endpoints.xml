@@ -41,7 +41,7 @@
 	<!-- Custody Search Request Service, hosted by OJB  -->
 	<cxf:cxfEndpoint id="custodySearchRequestService"
 		address="${federatedQuery.custodySearchEndpoint}"
-		wsdlURL="classpath:service-specifications/Custody_Search_Request_Service/schema/SIP_WS_1.2/Custody_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Custody_Search_Request_Service/schema/SIP_WS_1.2/Custody_Search_Request_Service.wsdl"
 		serviceName="ojbc:Custody_Search_Request_Service_Service" 
 		endpointName="ojbc:Custody_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0">
@@ -56,7 +56,7 @@
 	
 	<!-- Custody Search Request Adapter, address will be set dynamically -->
 	<cxf:cxfEndpoint id="custodySearchRequestServiceAdapter"
-		wsdlURL="classpath:service-specifications/Custody_Search_Request_Service/schema/SIP_WS_1.2/Custody_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Custody_Search_Request_Service/schema/SIP_WS_1.2/Custody_Search_Request_Service.wsdl"
 		serviceName="ojbc:Custody_Search_Request_Service_Service" 
 		endpointName="ojbc:Custody_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0">
@@ -71,7 +71,7 @@
 	<!-- Custody Search Results Handler Service, hosted by OJB  -->
 	<cxf:cxfEndpoint id="custodySearchResultsService"
 		address="${federatedQuery.custodySearchResultsEndpoint}"
-		wsdlURL="classpath:service-specifications/Custody_Search_Results_Service/schemas/RS_WS-SIP_v1.2/Custody_Search_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Custody_Search_Results_Service/schemas/RS_WS-SIP_v1.2/Custody_Search_Results_Service.wsdl"
 		serviceName="ojbc:Custody-Search-Results-Service" 
 		endpointName="ojbc:Custody-Search-Results-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodySearchResultsService/1.0">

@@ -46,7 +46,7 @@
     <cxf:cxfEndpoint 
         id="bookingReportingService"
         address="${bookingReportingService.bookingReportingServiceEndpoint}" 
-		wsdlURL="classpath:service-specifications/Booking_Reporting_Service/schemas/RS_WS-SIP_v1.2/Booking_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Booking_Reporting_Service/schemas/RS_WS-SIP_v1.2/Booking_Reporting_Service.wsdl"
 		serviceName="ojbc:Booking-Reporting-ServiceService" 
 		endpointName="ojbc:Booking-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BookingReportingService/1.0">
@@ -61,7 +61,7 @@
     <cxf:cxfEndpoint 
         id="bookingReportingServiceAdapter"
         address="${bookingReportingService.bookingReportingServiceAdapterEndpoint}" 
-		wsdlURL="classpath:service-specifications/Booking_Reporting_Service/schemas/RS_WS-SIP_v1.2/Booking_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Booking_Reporting_Service/schemas/RS_WS-SIP_v1.2/Booking_Reporting_Service.wsdl"
 		serviceName="ojbc:Booking-Reporting-ServiceService" 
 		endpointName="ojbc:Booking-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BookingReportingService/1.0">

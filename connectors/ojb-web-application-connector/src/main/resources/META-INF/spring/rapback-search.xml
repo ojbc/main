@@ -52,7 +52,7 @@
 	<cxf:cxfEndpoint 
 	        id="rapbackSearchRequestService"
 	        address="${webapplication.rapbackSearch.rapbackSearchEndpoint}"
-			wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Request_Service.wsdl"
+			wsdlURL="classpath:ssp/Organization_Identification_Results_Search_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Request_Service.wsdl"
 			serviceName="ojbc:Organization_Identification_Results_Search_Request_Service_Service" 
 			endpointName="ojbc:Organization_Identification_Results_Search_Request_Secure_Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchRequestService/1.0">

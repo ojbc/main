@@ -46,7 +46,7 @@
     <!-- Incident Report Request Service, hosted by broker, called by requesting application (usually a portal) address is static-->
 	<cxf:cxfEndpoint id="incidentReportRequestFederatedService"
 		address="${federatedQuery.incidentReport.personQueryEndpoint}"
-		wsdlURL="classpath:service-specifications/Incident_Report_Request_Service/schema/SIP_WS_1.2/Incident_Report_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Report_Request_Service/schema/SIP_WS_1.2/Incident_Report_Request_Service.wsdl"
 		serviceName="ojbc:Incident_Report_Request_Service_Service" endpointName="ojbc:Incident_Report_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0">
 		<cxf:properties>
@@ -61,7 +61,7 @@
     <!-- Incident Report Results Handler Service, hosted by broker, called by adapter, address is static --> 
 	<cxf:cxfEndpoint id="incidentReportResultsFederatedService"
 		address="${federatedQuery.incidentReport.personQueryResultsHandlerIncidentReportRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
 		 <cxf:features> 
@@ -77,7 +77,7 @@
                         
     <!-- Warrants Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
 	<cxf:cxfEndpoint id="incidentReportRequestFederatedServiceAdapter"
-		wsdlURL="classpath:service-specifications/Incident_Report_Request_Service/schema/SIP_WS_1.2/Incident_Report_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Report_Request_Service/schema/SIP_WS_1.2/Incident_Report_Request_Service.wsdl"
 		serviceName="ojbc:Incident_Report_Request_Service_Service" endpointName="ojbc:Incident_Report_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0">
 		<cxf:properties>
@@ -91,7 +91,7 @@
     <!-- Present Warrant Query Results typically hosted by a Web App, called by broker, address set dynamically-->
 	<cxf:cxfEndpoint id="presentIncidentReportResultsFederatedService"
 		address="${federatedQuery.incidentReport.presentPersonQueryResultsWebApplicationEndpoint}"
-		wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
 		 <cxf:features> 

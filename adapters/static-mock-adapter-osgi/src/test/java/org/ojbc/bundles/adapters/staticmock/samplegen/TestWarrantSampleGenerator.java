@@ -56,7 +56,7 @@ public class TestWarrantSampleGenerator extends AbstractPersonSampleGeneratorTes
 
     @Override
     protected String getIEPDRootPath() {
-        return "service-specifications/Person_Query_Results_Handler_Service_-_Warrants/artifacts/service-model/information-model/Person_Query_Results_-_Warrants-IEPD/xsd/";
+        return "ssp/Person_Query_Results_Handler_Service_-_Warrants/artifacts/service-model/information-model/Person_Query_Results_-_Warrants-IEPD/xsd/";
     }
 
     @Override

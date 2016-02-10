@@ -224,7 +224,7 @@
 						<Import-Package>
 							org.springframework.beans.factory.config,
 							javax.xml.namespace,
-							service-specifications.*,
+							ssp.*,
 							org.ojbc.*,
 							org.apache.cxf.bus.spring,
 							org.apache.camel.spring.spi,

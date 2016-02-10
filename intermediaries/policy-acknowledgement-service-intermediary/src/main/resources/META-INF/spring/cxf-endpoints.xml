@@ -45,7 +45,7 @@
     <cxf:cxfEndpoint 
         id="accessControlRequestService"
         address="${accessControl.accessControlRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Access_Control_Request_Service/schemas/SIP_WS_1.3/Access_Control_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Access_Control_Request_Service/schemas/SIP_WS_1.3/Access_Control_Request_Service.wsdl"
 		serviceName="ojbc:Access-Control-Request-ServiceService" 
 		endpointName="ojbc:Access-Control-Request-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0">
@@ -63,7 +63,7 @@
     <cxf:cxfEndpoint 
         id="accessControlResponseService"
 		address="${accessControl.accessControlResponseEndpoint}"
-        wsdlURL="classpath:service-specifications/Access_Control_Response_Service/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
+        wsdlURL="classpath:ssp/Access_Control_Response_Service/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
         serviceName="ojbc:Access-Control-Response-ServiceService"
         endpointName="ojbc:Access-Control-Response-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0"
@@ -82,7 +82,7 @@
 	<!-- Policy Acknowledgement Recording Request Service  -->
 	<cxf:cxfEndpoint id="policyAcknowledgementRecordingRequestService"
 		address="${accessControl.policyAcknowledgementRecordingRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Policy_Acknowledgement_Recording_Request_Service/schemas/SIP_WS_1.3/Policy_Acknowledgement_Recording_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Policy_Acknowledgement_Recording_Request_Service/schemas/SIP_WS_1.3/Policy_Acknowledgement_Recording_Request_Service.wsdl"
 		serviceName="ojbc:Policy-Acknowledgement-Recording-Request-ServiceService" endpointName="ojbc:Policy-Acknowledgement-Recording-Request-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/PolicyAcknowledgementRecordingRequestService/1.0">
 		<cxf:properties>
@@ -97,7 +97,7 @@
 	<!-- Policy Acknowledgement Recording Request Service  -->
 	<cxf:cxfEndpoint id="policyAcknowledgementRecordingResponseService"
 		address="${accessControl.policyAcknowledgementRecordingResponseEndpoint}"
-		wsdlURL="classpath:service-specifications/Policy_Acknowledgement_Recording_Response_Service/schemas/SIP_WS_1.3/Policy_Acknowledgement_Recording_Response_Service.wsdl"
+		wsdlURL="classpath:ssp/Policy_Acknowledgement_Recording_Response_Service/schemas/SIP_WS_1.3/Policy_Acknowledgement_Recording_Response_Service.wsdl"
 		serviceName="ojbc:Policy-Acknowledgement-Recording-Response-ServiceService" endpointName="ojbc:Policy-Acknowledgement-Recording-Response-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/PolicyAcknowledgementRecordingResponseService/1.0">
         <cxf:features>

@@ -93,7 +93,7 @@ public class FirearmQueryRequestTest {
 		assertTrue(containsIdNode);
 
 		Document resultingDoc = OJBUtils.loadXMLFromString(sQueryRequest);
-		XmlUtils.validateInstance("service-specifications/Firearm_Registration_Query_Request_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",resultingDoc);
+		XmlUtils.validateInstance("ssp/Firearm_Registration_Query_Request_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",resultingDoc);
 		
 	}
 

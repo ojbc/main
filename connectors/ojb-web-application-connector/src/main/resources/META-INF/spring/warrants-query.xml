@@ -52,7 +52,7 @@
 	<cxf:cxfEndpoint 
 	        id="personQueryRequestWarrantsService"
 	        address="${webapplication.personQuery.personQueryWarrantsEndpoint}"
-	        wsdlURL="classpath:service-specifications/Person_Query_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Service_-_Warrants.wsdl"
+	        wsdlURL="classpath:ssp/Person_Query_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Service_-_Warrants.wsdl"
 	        serviceName="ojbc:Person-Query-Service---WarrantsService"
 			endpointName="ojbc:Person-Query-Secure-Service---Warrants"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0"

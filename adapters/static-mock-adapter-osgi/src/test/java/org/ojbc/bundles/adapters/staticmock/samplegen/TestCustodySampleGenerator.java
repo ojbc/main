@@ -49,7 +49,7 @@ public class TestCustodySampleGenerator extends AbstractSampleGeneratorTestCase{
 	@Override
 	protected String getIEPDRootPath() {
 
-		return "service-specifications/Custody_Query_Results_Service/artifacts/service_model/information_model/Custody_Query_Results-IEPD/xsd/";
+		return "ssp/Custody_Query_Results_Service/artifacts/service_model/information_model/Custody_Query_Results-IEPD/xsd/";
 	}
 
 	@Override

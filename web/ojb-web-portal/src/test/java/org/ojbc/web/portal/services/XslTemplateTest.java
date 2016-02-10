@@ -416,7 +416,7 @@ public class XslTemplateTest {
     private void validateRapbackSearchTransformation(String inputXmlPath, String expectedHtmlPath) throws Exception {
         
         String xmlInput = WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                "/service-specifications/Organization_Identification_Results_Search_Results_Service"
+                "/ssp/Organization_Identification_Results_Search_Results_Service"
                 + "/artifacts/service_model/information_model/Organization_Identification_Results_Search_Results_IEPD/xml/" + inputXmlPath));
         
         List<String> expectedHtml = IOUtils.readLines(new ClassPathResource("xslTransformTest/" + expectedHtmlPath).getInputStream(), CharEncoding.UTF_8);

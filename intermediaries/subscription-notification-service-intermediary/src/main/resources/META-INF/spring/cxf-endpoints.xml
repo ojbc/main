@@ -74,7 +74,7 @@
 	<!-- OJB Notification Broker Service -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
 		address="${publishSubscribe.notificationBrokerEndpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" 
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
         <cxf:properties>
@@ -87,7 +87,7 @@
     <cxf:cxfEndpoint 
         id="notificationBrokerServiceSecure"
         address="${publishSubscribe.notificationBrokerSecureEndpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/Secure_OJBWSNotification.wsdl"
 		serviceName="ojbc:SecureNotificationBrokerServiceService" 
 		endpointName="ojbc:SecureNotificationBrokerService"
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
@@ -104,7 +104,7 @@
     <cxf:cxfEndpoint 
         id="criminalHistoryConsolidationReportingService"
         address="${publishSubscribe.criminalHistoryConsolidationReportingSecureEndpoint}" 
-		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
 		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
 		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
@@ -121,7 +121,7 @@
      <cxf:cxfEndpoint 
         id="fbiEbtsSubscriptionRequestService"
         address="${publishSubscribe.fbiEbtsSubscriptionRequestSecureEndpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojbc:NotificationBrokerServiceService" 
 		endpointName="ojbc:NotificationBrokerService"
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
@@ -130,7 +130,7 @@
 	<!-- FBI EBTS Adapter endpoint for Unsubscribe/Modify, called by this s/n intermediary -->
 	<cxf:cxfEndpoint id="fbiEbtsSubscriptionManagerService"
 		address="${publishSubscribe.fbiEbtsSubscriptionManagerEndpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
 		serviceName="ojb-sm:SubscriptionManagerServiceService"
 		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
 	</cxf:cxfEndpoint>     
@@ -139,7 +139,7 @@
 	<!-- OJB Subscription Manager Service -->
 	<cxf:cxfEndpoint id="subscriptionManagerService"
 		address="${publishSubscribe.subscriptionManagerEndpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
 		serviceName="ojb-sm:SubscriptionManagerServiceService"
 		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
 	</cxf:cxfEndpoint>
@@ -148,7 +148,7 @@
     <cxf:cxfEndpoint 
         id="subscriptionManagerServiceSecure"
         address="${publishSubscribe.subscriptionManagerSecureEndpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSubscriptionManager.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/Secure_OJBWSubscriptionManager.wsdl"
 		serviceName="ojbc:SecureSubscriptionManagerServiceService" 
 		endpointName="ojbc:SecureSubscriptionManager"
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
@@ -167,7 +167,7 @@
     <cxf:cxfEndpoint 
         id="subscriptionSearchRequestService"
         address="${subscriptionSearchQuery.subscriptionSearchRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Subscription_Search_Request_Service/schema/SIP_WS_1.2/Subscription_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Search_Request_Service/schema/SIP_WS_1.2/Subscription_Search_Request_Service.wsdl"
 		serviceName="ojbc:Subscription_Search_Request_Service_Service" 
 		endpointName="ojbc:Subscription_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0">
@@ -187,7 +187,7 @@
     <cxf:cxfEndpoint 
         id="subscriptionSearchResultsHandlerService"
 		address="${subscriptionSearchQuery.subscriptionSearchResultsEndpoint}"
-        wsdlURL="classpath:service-specifications/Subscription_Search_Results_Service/schema/SIP_WS_1.2/Subscription_Search_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Subscription_Search_Results_Service/schema/SIP_WS_1.2/Subscription_Search_Results_Service.wsdl"
         serviceName="ojbc:Subscription_Search_Results_Service_Service"
         endpointName="ojbc:Subscription_Search_Results_Secure_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionSearchResultsService/1.0"
@@ -209,7 +209,7 @@
     <cxf:cxfEndpoint 
         id="subscriptionQueryRequestService"
         address="${subscriptionSearchQuery.subscriptionQueryRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Subscription_Query_Request_Service/schema/SIP_WS_1.2/Subscription_Query_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Query_Request_Service/schema/SIP_WS_1.2/Subscription_Query_Request_Service.wsdl"
 		serviceName="ojbc:Subscription_Query_Request_Service_Service" 
 		endpointName="ojbc:Subscription_Query_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionQueryRequestService/1.0">
@@ -229,7 +229,7 @@
     <cxf:cxfEndpoint 
         id="subscriptionQueryResultsHandlerService"
 		address="${subscriptionSearchQuery.subscriptionQueryResultsEndpoint}"
-        wsdlURL="classpath:service-specifications/Subscription_Query_Results_Service/schema/SIP_WS_1.2/Subscription_Query_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Subscription_Query_Results_Service/schema/SIP_WS_1.2/Subscription_Query_Results_Service.wsdl"
 		serviceName="ojbc:Subscription_Query_Results_Service_Service" 
 		endpointName="ojbc:Subscription_Query_Results_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0">
