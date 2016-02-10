@@ -43,7 +43,7 @@ public class RapbackSearchMockImpl implements RapbackSearchInterface{
         logger.info("Getting mock rapback search results.");
         
         String searchResult = WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                "/service-specifications/Organization_Identification_Results_Search_Results_Service"
+                "/ssp/Organization_Identification_Results_Search_Results_Service"
                 + "/artifacts/service_model/information_model/Organization_Identification_Results_Search_Results_IEPD/xml/OrganizationIdentificationResultsSearchResults.xml"));	
         
         return searchResult;

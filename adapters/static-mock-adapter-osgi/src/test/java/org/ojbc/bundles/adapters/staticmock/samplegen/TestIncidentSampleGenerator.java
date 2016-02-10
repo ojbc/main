@@ -60,7 +60,7 @@ public class TestIncidentSampleGenerator extends AbstractSampleGeneratorTestCase
 
     @Override
     protected String getIEPDRootPath() {
-        return "service-specifications/Incident_Reporting_Service/artifacts/service_model/information_model/Incident_Report_IEPD/xsd/";
+        return "ssp/Incident_Reporting_Service/artifacts/service_model/information_model/Incident_Report_IEPD/xsd/";
     }
 
     @Override

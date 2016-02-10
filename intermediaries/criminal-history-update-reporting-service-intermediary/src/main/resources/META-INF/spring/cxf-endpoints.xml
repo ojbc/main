@@ -41,7 +41,7 @@
 	<!-- hosted by this intermediary, invoked by connector -->
 	<cxf:cxfEndpoint id="CriminalHistoryUpdateReportingService"
 		address="${criminalHistoryReportingServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Criminal_History_Update_Reporting_Service/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting_Service/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
 		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
 		endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
@@ -55,7 +55,7 @@
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
 		address="${criminalHistoryUpdateReportingService.notificationBrokerEndpoint}"
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" 
 		endpointName="ojb-nb:NotificationBrokerService"
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">

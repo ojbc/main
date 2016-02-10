@@ -51,7 +51,7 @@
 		<!-- Firearm Search Request Service hosted by the OJB -->
 		<cxf:cxfEndpoint id="firearmSearchRequestService"
 			address="${webapplication.firearmSearch.firearmSearchRequestEndpoint}"
-			wsdlURL="classpath:service-specifications/Firearm_Search_Request_Service/schema/SIP_WS_1.2/Firearm_Search_Request_Service.wsdl"
+			wsdlURL="classpath:ssp/Firearm_Search_Request_Service/schema/SIP_WS_1.2/Firearm_Search_Request_Service.wsdl"
 			serviceName="ojbc:Firearm_Search_Request_Service_Service" endpointName="ojbc:Firearm_Search_Request_Secure_Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0">
 			<cxf:properties>

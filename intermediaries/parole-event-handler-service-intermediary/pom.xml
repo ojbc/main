@@ -203,7 +203,7 @@
 						<Import-Package>
 							org.springframework.beans.factory.config,
 							javax.xml.namespace,
-							service-specifications.*,
+							ssp.*,
 							org.ojbc.*,
 							*
 						</Import-Package>

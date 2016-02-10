@@ -40,7 +40,7 @@
 	
 	<cxf:cxfEndpoint id="dispositionReportingServiceIntermediary"
 		address="${dispositionReportingService.dispositionServiceIntermediaryEndpoint}"
-		wsdlURL="classpath:service-specifications/Disposition_Reporting_Service/schemas/SIP_WS_1.3/Disposition_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Disposition_Reporting_Service/schemas/SIP_WS_1.3/Disposition_Reporting_Service.wsdl"
 		serviceName="ojbc:Disposition-Reporting-ServiceService" 
 		endpointName="ojbc:Disposition-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/DispositionReportingService/1.0">
@@ -53,7 +53,7 @@
 
 	<cxf:cxfEndpoint id="dispositionReportingServiceAdapter"
 		address="${dispositionReportingService.dispositionServiceAdapterEndpoint}"
-		wsdlURL="classpath:service-specifications/Disposition_Reporting_Service/schemas/SIP_WS_1.3/Disposition_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Disposition_Reporting_Service/schemas/SIP_WS_1.3/Disposition_Reporting_Service.wsdl"
 		serviceName="ojbc:Disposition-Reporting-ServiceService" 
 		endpointName="ojbc:Disposition-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/DispositionReportingService/1.0">

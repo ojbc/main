@@ -106,7 +106,7 @@ public class TestSubscriptionSearchQueryProcessor {
 
         //XmlUtils.printNode(doc);
         
-        //XmlUtils.validateInstance("service-specifications/Subscription_Search_Results_Service/schema/information/Subscription_Search_Results_IEPD/xsd", 
+        //XmlUtils.validateInstance("ssp/Subscription_Search_Results_Service/schema/information/Subscription_Search_Results_IEPD/xsd", 
         //      "Subset/niem", "exchange_schema.xsd", doc);
         
         NodeList subscriptions = XmlUtils.xPathNodeListSearch(doc, "/sqr:SubscriptionQueryResults/sqr-ext:SubscriptionQueryResult");
@@ -243,7 +243,7 @@ public class TestSubscriptionSearchQueryProcessor {
 
         // XmlUtils.printNode(doc);
 
-        // XmlUtils.validateInstance("service-specifications/Subscription_Search_Results_Service/schema/information/Subscription_Search_Results_IEPD/xsd",
+        // XmlUtils.validateInstance("ssp/Subscription_Search_Results_Service/schema/information/Subscription_Search_Results_IEPD/xsd",
         // "Subset/niem", "exchange_schema.xsd", doc);
 
         NodeList subscriptions = XmlUtils.xPathNodeListSearch(doc, "/ssr:SubscriptionSearchResults/ssr-ext:SubscriptionSearchResult");

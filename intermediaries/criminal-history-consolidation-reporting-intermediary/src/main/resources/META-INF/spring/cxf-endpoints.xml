@@ -61,7 +61,7 @@
     <cxf:cxfEndpoint 
         id="hostedChConsolidateService"
         address="${chConsolidate.hostedchConsolidateServiceEndpoint}" 
-		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
 		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
 		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
@@ -77,7 +77,7 @@
     <cxf:cxfEndpoint 
         id="subNotifyChConsolidateReportService"
         address="${chConsolidate.subNotifyChConsolidateReportEndpoint}" 
-		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
 		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
 		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
@@ -92,7 +92,7 @@
     <cxf:cxfEndpoint 
         id="rapBackChConsolidateReportService"
         address="${chConsolidate.rapBackChConsolidateReportSecureEndpoint}" 
-		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
 		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
 		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">

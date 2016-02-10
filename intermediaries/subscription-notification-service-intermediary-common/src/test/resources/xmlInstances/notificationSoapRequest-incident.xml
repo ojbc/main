@@ -16,7 +16,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<!-- This is based on the OJB_Resources/src/main/resources/service-specifications/Subscription_Notification_Service/samples/notification/Incident_NotificationMessage_Sample.xml -->
+<!-- This is based on the OJB_Resources/src/main/resources/ssp/Subscription_Notification_Service/samples/notification/Incident_NotificationMessage_Sample.xml -->
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing">
     <soapenv:Header>
         <add:Action>http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify</add:Action>

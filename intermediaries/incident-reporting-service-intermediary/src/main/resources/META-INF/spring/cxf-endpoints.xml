@@ -46,7 +46,7 @@
 	<!-- OJB Incident Reporting Service, hosted by this intermediary -->
 	<cxf:cxfEndpoint id="IncidentReportingService"
 		address="${incidentReportingService.incidentReportingServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
  		<cxf:properties>
@@ -59,7 +59,7 @@
 	<!-- OJB NDEx Submission Service, called by this intermediary -->
 	<cxf:cxfEndpoint id="N-DexSubmissionServiceFacade"
 		address="${NDExSubmission.N-DexSubmissionServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
  		<cxf:properties>
@@ -72,7 +72,7 @@
 	<!-- OJB Charge Referral Service, called by this intermediary -->
 	<cxf:cxfEndpoint id="ChargeReferralService"
 		address="${incidentReportingService.chargeReferralServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Charge_Referral_Service/schema/SIP_WS_1.2/Charge_Referral_Service.wsdl"
+		wsdlURL="classpath:ssp/Charge_Referral_Service/schema/SIP_WS_1.2/Charge_Referral_Service.wsdl"
 	    serviceName="ojbc:Charge-Referral-ServiceService"
 	    endpointName="ojbc:Charge-Referral-Service"
 	    xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0">
@@ -86,7 +86,7 @@
 	<!-- Arrest Reporting Service, called by this intermediary -->
 	<cxf:cxfEndpoint id="arrestReportingService"
 		address="${incidentReportingService.arrestReportingServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Arrest_Reporting_Service/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Arrest_Reporting_Service/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
 		serviceName="ojbc:Arrest-Reporting-ServiceService" endpointName="ojbc:Arrest-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
 		 <cxf:features> 
@@ -103,7 +103,7 @@
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
 		address="${incidentReportingService.notificationBrokerEndpoint}"
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" endpointName="ojb-nb:NotificationBrokerService"
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
 	</cxf:cxfEndpoint>

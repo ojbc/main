@@ -209,7 +209,7 @@ public class SearchTest extends AbstractStaticMockTest {
     	assertNotNull(searchResults);
     	assertNotNull(XmlUtils.xPathNodeSearch(searchResults, "/vsres-exch:VehicleSearchResults/vsres:VehicleSearchResult[vsres:Vehicle/nc:VehicleIdentification/nc:IdentificationID='V125646899264104931']"));
     	//XmlUtils.printNode(searchResults);
-        XmlUtils.validateInstance("service-specifications/Vehicle_Search_Results_Service/artifacts/service_model/information_model/Vehicle_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
+        XmlUtils.validateInstance("ssp/Vehicle_Search_Results_Service/artifacts/service_model/information_model/Vehicle_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
     }
     
     @Test
@@ -301,14 +301,14 @@ public class SearchTest extends AbstractStaticMockTest {
 	@Test
     public void testIncidentPersonSearch() throws Exception {
         Document incidentPersonSearchRequestMessage = buildIncidentPersonSearchRequestMessage(8);
-        XmlUtils.validateInstance("service-specifications/Incident_Search_Request_Service/artifacts/service_model/information_model/Incident_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Incident_Search_Request_Service/artifacts/service_model/information_model/Incident_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 incidentPersonSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = staticMockQuery.incidentPersonSearchDocumentsAsList(incidentPersonSearchRequestMessage,
                 StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
         assertEquals(1, matches.size());
         Document d = staticMockQuery.incidentPersonSearchDocuments(incidentPersonSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
         // XmlUtils.printNode(d);
-        XmlUtils.validateInstance("service-specifications/Incident_Search_Results_Service/artifacts/service_model/information_model/Incident_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", d);
+        XmlUtils.validateInstance("ssp/Incident_Search_Results_Service/artifacts/service_model/information_model/Incident_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", d);
         incidentPersonSearchRequestMessage = buildIncidentPersonSearchRequestMessage(80);
         matches = staticMockQuery.incidentPersonSearchDocumentsAsList(incidentPersonSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
         assertEquals(0, matches.size());
@@ -323,7 +323,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Ivey");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
 
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -339,7 +339,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("AccessDenied");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
 
         Document response = staticMockQuery.searchDocuments(personSearchRequestMessage);
@@ -356,7 +356,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("ErrorReported");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
 
         Document response = staticMockQuery.searchDocuments(personSearchRequestMessage);
@@ -436,7 +436,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Ivey");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -461,7 +461,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Document responseDocument = matches.get(0).getDocument();
 
         List<String> schemaPaths = new ArrayList<String>();
-        String iepdRootPath = "service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
+        String iepdRootPath = "ssp/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
         schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
         XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, responseDocument);
         assertEquals(1, matches.size());
@@ -491,7 +491,7 @@ public class SearchTest extends AbstractStaticMockTest {
         List<IdentifiableDocumentWrapper> matches = submitDocumentFirearmSearch(firearmSearchRequestMessage);
         Document responseDocument = matches.get(0).getDocument();
         List<String> schemaPaths = new ArrayList<String>();
-        String iepdRootPath = "service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
+        String iepdRootPath = "ssp/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
         schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
         XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, responseDocument);
         assertEquals(1, matches.size());
@@ -631,7 +631,7 @@ public class SearchTest extends AbstractStaticMockTest {
                 "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:Firearm/nc:ItemSerialIdentification/nc:IdentificationID");
         serialNumberNode.setTextContent("doesnt exist");
         Document responseDocument = staticMockQuery.firearmSearchDocuments(firearmSearchRequestMessage);
-        XmlUtils.validateInstance("service-specifications/Firearm_Search_Results_Service/artifacts/service_model/information_model/Firearm_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
+        XmlUtils.validateInstance("ssp/Firearm_Search_Results_Service/artifacts/service_model/information_model/Firearm_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
         Node root = XmlUtils.xPathNodeSearch(responseDocument, "firearm-search-resp-doc:FirearmSearchResults");
         assertNotNull(root);
         NodeList descendants = ((Element) root).getChildNodes();
@@ -654,7 +654,7 @@ public class SearchTest extends AbstractStaticMockTest {
         // XmlUtils.printNode(responseDocument);
 
         List<String> schemaPaths = new ArrayList<String>();
-        String iepdRootPath = "service-specifications/Firearm_Search_Results_Service/artifacts/service_model/information_model/Firearm_Search_Results_IEPD/xsd/";
+        String iepdRootPath = "ssp/Firearm_Search_Results_Service/artifacts/service_model/information_model/Firearm_Search_Results_IEPD/xsd/";
         schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
         XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, responseDocument);
 
@@ -794,7 +794,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("McElroy-McNamara");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -809,7 +809,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("McElroy-McNamara");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         firstNameElement.setTextContent("Rafael");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -824,7 +824,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Smith");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(2, matches.size());
@@ -839,7 +839,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Ivey");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         firstNameElement.setTextContent("Larry");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -854,7 +854,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Smith");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         firstNameElement.setTextContent("Ross");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -869,7 +869,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Ivey");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         firstNameElement.setTextContent("Larry");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1013,7 +1013,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("850182LE0");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         // XmlUtils.(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1030,7 +1030,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("327656OB5");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         // XmlUtils.(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1047,7 +1047,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("A5572940");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         // XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1067,7 +1067,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("A8116437");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1086,7 +1086,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("A1019440");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         // XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1107,7 +1107,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("FL6767046");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         // XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1128,7 +1128,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("MS8602341");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         // XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1149,7 +1149,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("FL6767046");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         // XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1170,7 +1170,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("FL6767046");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         // XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1189,7 +1189,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Ivey");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         // XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1208,7 +1208,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Smith");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         // XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1226,7 +1226,7 @@ public class SearchTest extends AbstractStaticMockTest {
         personNameElement.removeChild(firstNameElement);
         Element sexElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "nc:PersonSexCode");
         sexElement.setTextContent("F");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1243,7 +1243,7 @@ public class SearchTest extends AbstractStaticMockTest {
         personNameElement.removeChild(firstNameElement);
         Element sexElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "nc:PersonSexCode");
         sexElement.setTextContent("F");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1261,7 +1261,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Ivey");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1273,7 +1273,7 @@ public class SearchTest extends AbstractStaticMockTest {
         dateElement = XmlUtils.appendElement(dobRangeElement, OjbcNamespaceContext.NS_NC, "EndDate");
         dateElement = XmlUtils.appendElement(dateElement, OjbcNamespaceContext.NS_NC, "Date");
         dateElement.setTextContent("1960-01-01");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(2, matches.size());
@@ -1294,17 +1294,17 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Ivey");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
         rangeMaxElement.setTextContent("88");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(2, matches.size());
         rangeMinElement.setTextContent("87");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(0, matches.size());
@@ -1325,17 +1325,17 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Smith");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
         rangeMaxElement.setTextContent("65");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(2, matches.size());
         rangeMinElement.setTextContent("64");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(0, matches.size());
@@ -1356,7 +1356,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Smith");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1372,7 +1372,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
         Document searchResults = staticMockQuery.personSearchDocuments(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
-        XmlUtils.validateInstance("service-specifications/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
+        XmlUtils.validateInstance("ssp/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
         NodeList nodes = XmlUtils.xPathNodeListSearch(searchResults, "psres-doc:PersonSearchResults/psres:PersonSearchResult");
         int nodeCount = nodes.getLength();
         assertEquals(1, nodeCount);
@@ -1385,7 +1385,7 @@ public class SearchTest extends AbstractStaticMockTest {
         
         Document searchResults = staticMockQuery.personSearchDocuments(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));        
                 
-        XmlUtils.validateInstance("service-specifications/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
+        XmlUtils.validateInstance("ssp/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
         
         NodeList nodes = XmlUtils.xPathNodeListSearch(searchResults, "psres-doc:PersonSearchResults/psres:PersonSearchResult");
         
@@ -1610,7 +1610,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Curl");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1629,7 +1629,7 @@ public class SearchTest extends AbstractStaticMockTest {
         personElement.insertBefore(alternateNameElement, personNameElement);
         Element aliasFirstNameElement = XmlUtils.appendElement(alternateNameElement, OjbcNamespaceContext.NS_NC, "PersonGivenName");
         aliasFirstNameElement.setTextContent("Davis");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1647,7 +1647,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("130-52-4238");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1679,7 +1679,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Element parentLastNameElement = (Element) XmlUtils.xPathNodeSearch(parentNameElement, "nc:PersonSurName");
         parentLastNameElement.setTextContent("Curl");
         //XmlUtils.printNode(personSearchRequestMessage);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1713,7 +1713,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Element placementElement = (Element) XmlUtils.xPathNodeSearch(requestElement, "cyfs21:Placement/jh-placement-search-codes:PlacementCategoryCode");
         placementElement.setTextContent("Relative/Fictive Kin");
         List<String> schemaPaths = new ArrayList<String>();
-        String iepdRootPath = "service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd/";
+        String iepdRootPath = "ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd/";
         schemaPaths.add(iepdRootPath + "impl/michigan/michigan-codes.xsd");
         //XmlUtils.printNode(personSearchRequestMessage);
         XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, personSearchRequestMessage);
@@ -1755,7 +1755,7 @@ public class SearchTest extends AbstractStaticMockTest {
         stateElement.setTextContent("NY");
         Element zipElement = (Element) XmlUtils.xPathNodeSearch(addressElement, "nc:LocationPostalCode");
         zipElement.setTextContent("12345");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         //XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1790,7 +1790,7 @@ public class SearchTest extends AbstractStaticMockTest {
         idElement.setTextContent("A3203477");
         Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
         personElement.removeChild(personNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         //XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
@@ -1810,7 +1810,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Curl");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1822,7 +1822,7 @@ public class SearchTest extends AbstractStaticMockTest {
         dateElement = XmlUtils.appendElement(dobRangeElement, OjbcNamespaceContext.NS_NC, "EndDate");
         dateElement = XmlUtils.appendElement(dateElement, OjbcNamespaceContext.NS_NC, "Date");
         dateElement.setTextContent("2002-03-03");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1837,7 +1837,7 @@ public class SearchTest extends AbstractStaticMockTest {
         lastNameElement.setTextContent("Curl");
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         firstNameElement.setTextContent("Abel");
-        XmlUtils.validateInstance("service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
@@ -1848,7 +1848,7 @@ public class SearchTest extends AbstractStaticMockTest {
 
     private List<IdentifiableDocumentWrapper> submitDocumentPersonSearch(Document personSearchRequestMessage) throws Exception {
         List<String> schemaPaths = new ArrayList<String>();
-        String iepdRootPath = "service-specifications/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd/";
+        String iepdRootPath = "ssp/Person_Search_Request_Service/artifacts/service_model/information_model/Person_Search_Request_IEPD/xsd/";
         schemaPaths.add(iepdRootPath + "impl/michigan/michigan-codes.xsd");
         XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, personSearchRequestMessage);
         return staticMockQuery.personSearchDocumentsAsList(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
@@ -1856,7 +1856,7 @@ public class SearchTest extends AbstractStaticMockTest {
 
     private List<IdentifiableDocumentWrapper> submitDocumentFirearmSearch(Document firearmSearchRequestMessage) throws Exception {
         List<String> schemaPaths = new ArrayList<String>();
-        String iepdRootPath = "service-specifications/Firearm_Search_Request_Service/artifacts/service_model/information_model/Firearm_Search_Request_IEPD/xsd/";
+        String iepdRootPath = "ssp/Firearm_Search_Request_Service/artifacts/service_model/information_model/Firearm_Search_Request_IEPD/xsd/";
         schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
         XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, firearmSearchRequestMessage);
         return staticMockQuery.firearmSearchDocumentsAsList(firearmSearchRequestMessage);

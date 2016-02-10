@@ -48,7 +48,7 @@
 		<!-- Firearm Registration Query Request Service hosted by the OJB -->
 		<cxf:cxfEndpoint id="firearmRegistrationQueryRequestService"
 		address="${webapplication.firearmQuery.firearmQueryRequestEndpoint}"
-			wsdlURL="classpath:service-specifications/Firearm_Registration_Query_Request_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Request_Service.wsdl"
+			wsdlURL="classpath:ssp/Firearm_Registration_Query_Request_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Request_Service.wsdl"
 			serviceName="ojbc:Firearm_Registration_Query_Request_Service_Service" endpointName="ojbc:Firearm_Registration_Query_Request_Secure_Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0">
 			<cxf:properties>

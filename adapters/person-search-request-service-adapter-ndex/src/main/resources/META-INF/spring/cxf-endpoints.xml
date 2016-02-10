@@ -43,7 +43,7 @@
     <cxf:cxfEndpoint 
         id="personSearchRequestService"
         address="${personSearch.ndex.personSearchRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Person_Search_Request_Service/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Person_Search_Request_Service/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
 		serviceName="ojbc:Person_Search_Request_Service_Service" 
 		endpointName="ojbc:Person_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0">
@@ -59,7 +59,7 @@
     <cxf:cxfEndpoint 
         id="personSearchResultsHandlerService"
         address="${personSearch.ndex.personSearchResultsHandlerEndpoint}"
-        wsdlURL="classpath:service-specifications/Person_Search_Results_Service/schema/SIP_WS_1.2/Person_Search_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Person_Search_Results_Service/schema/SIP_WS_1.2/Person_Search_Results_Service.wsdl"
         serviceName="ojbc:Person_Search_Results_Service_Service"
         endpointName="ojbc:Person_Search_Results_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchResultsService/1.0"

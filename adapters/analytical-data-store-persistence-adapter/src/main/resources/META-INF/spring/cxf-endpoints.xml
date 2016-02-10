@@ -41,7 +41,7 @@
 
 	<cxf:cxfEndpoint id="pretrialEnrollmentRequestAdapter"
 		address="${analyticsAdapter.pretrialEnrollmentRequestAdapterEndpoint}"
-		wsdlURL="classpath:service-specifications/Pretrial_Service_Enrollment_Reporting_Service/schemas/SIP_WS_1.3/Pretrial_Service_Enrollment_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Pretrial_Service_Enrollment_Reporting_Service/schemas/SIP_WS_1.3/Pretrial_Service_Enrollment_Reporting_Service.wsdl"
 		serviceName="ojbc:Pretrial-Service-Enrollment-Reporting-ServiceService" endpointName="ojbc:Pretrial-Service-Enrollment-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/PretrialServiceEnrollmentReportingService/1.0">
 		<cxf:properties>
@@ -53,7 +53,7 @@
 
 	<cxf:cxfEndpoint id="dispositionReportingServiceAdapter"
 		address="${analyticsAdapter.dispositionServiceAdapterEndpoint}"
-		wsdlURL="classpath:service-specifications/Disposition_Reporting_Service/schemas/SIP_WS_1.3/Disposition_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Disposition_Reporting_Service/schemas/SIP_WS_1.3/Disposition_Reporting_Service.wsdl"
 		serviceName="ojbc:Disposition-Reporting-ServiceService" 
 		endpointName="ojbc:Disposition-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/DispositionReportingService/1.0">
@@ -66,7 +66,7 @@
 	
 	<cxf:cxfEndpoint id="incidentReportingServiceAdapter"
 		address="${incidentReportingService.incidentReportingServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
  		<cxf:properties>

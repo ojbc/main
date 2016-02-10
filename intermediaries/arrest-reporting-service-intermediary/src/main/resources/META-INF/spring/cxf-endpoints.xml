@@ -43,7 +43,7 @@
 	<!-- OJB Arrest Reporting Service, hosted by this intermediary -->
 	<cxf:cxfEndpoint id="ArrestReportingService"
 		address="${arrestReportingService.arrestReportingServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Arrest_Reporting_Service/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Arrest_Reporting_Service/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
 		serviceName="ojbc:Arrest-Reporting-ServiceService" endpointName="ojbc:Arrest-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
         <cxf:properties>
@@ -64,7 +64,7 @@
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
 		address="${arrestReportingService.notificationBrokerEndpoint}"
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" endpointName="ojb-nb:NotificationBrokerService"
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
         <cxf:properties>

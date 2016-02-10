@@ -41,7 +41,7 @@
 	<!-- Incident Search Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="incidentSearchRequestFederatedService"
 		address="${federatedQuery.incidentSearch.incidentSearchIntermediaryEndpoint}"
-		wsdlURL="classpath:service-specifications/Incident_Search_Request_Service/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Search_Request_Service/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
 		serviceName="ojbc:Incident_Search_Request_Service_Service" endpointName="ojbc:Incident_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0">
 		<cxf:properties>
@@ -55,7 +55,7 @@
 
 	<!-- Called by Intermediary, Adapter -->
 	<cxf:cxfEndpoint id="incidentSearchRequestServiceAdapter"
-		wsdlURL="classpath:service-specifications/Incident_Search_Request_Service/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Search_Request_Service/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
 		serviceName="ojbc:Incident_Search_Request_Service_Service" endpointName="ojbc:Incident_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0">
 		<cxf:properties>
@@ -69,7 +69,7 @@
 	<!-- Hosted by Intermediary, Results Service -->
 	<cxf:cxfEndpoint id="incidentSearchResultsFederatedService"
 		address="${federatedQuery.incidentSearch.incidentSearchIntermediaryResultsEndpoint}"
-		wsdlURL="classpath:service-specifications/Incident_Search_Results_Service/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Search_Results_Service/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
 		serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
 		 <cxf:features> 
@@ -87,7 +87,7 @@
     <!-- OJB Entity Resolution Request handler -->
 	<cxf:cxfEndpoint id="entityResolutionRequestService"
 		address="${federatedQuery.entityResolutionRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Entity_Resolution_Service/schemas/SIP_WS_1.3/Entity_Resolution_Service.wsdl"
+		wsdlURL="classpath:ssp/Entity_Resolution_Service/schemas/SIP_WS_1.3/Entity_Resolution_Service.wsdl"
 		serviceName="ers:Entity-Resolution-ServiceService" endpointName="ers:Entity-Resolution-Service"
 		xmlns:ers="http://nij.gov/Services/WSDL/EntityResolutionService/1.0">
 		<cxf:features>
@@ -104,7 +104,7 @@
 	<!-- OJB Merge Notification Service handler -->
 	<cxf:cxfEndpoint id="mergeNotificationService"
 		address="${federatedQuery.mergeNotificationServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+		wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
 		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
 		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
 		<cxf:features>
@@ -121,7 +121,7 @@
 	<!-- Incident Search Results Service, called by intermediary for Incident Person and Vehicle Results -->
 	<cxf:cxfEndpoint id="presentIncidentSearchResultsService"
 		address="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationEndpoint}"
-		wsdlURL="classpath:service-specifications/Incident_Search_Results_Service/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Search_Results_Service/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
 		serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
 		 <cxf:features> 
@@ -138,7 +138,7 @@
 		<!-- Present Merge Notification Service Results -->
 	<cxf:cxfEndpoint id="presentMergeNotificationServiceResults"
 		address="${federatedQuery.incidentSearch.presentMergeNotificationResultsEndpoint}"
-		wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+		wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
 		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
 		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
 		<cxf:features>

@@ -58,27 +58,27 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 	            }
 	            else if (request.getQueryType().equalsIgnoreCase("CasePlan")){
 	                return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-	                        "/service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileCasePlanHistoryResponse_Sample.xml"));
+	                        "/ssp/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileCasePlanHistoryResponse_Sample.xml"));
 	            }
 	            else if (request.getQueryType().equalsIgnoreCase("Hearing")){
                     return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                            "/service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileHearingHistoryResponse_Sample.xml"));
+                            "/ssp/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileHearingHistoryResponse_Sample.xml"));
 	            }  
 	            else if (request.getQueryType().equalsIgnoreCase("Intake")){
                     return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                            "/service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileIntakeHistoryResponse_Sample.xml"));
+                            "/ssp/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileIntakeHistoryResponse_Sample.xml"));
 	            }
 	            else if (request.getQueryType().equalsIgnoreCase("Offense")){
                     return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                            "/service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileOffenseHistoryResponse_Sample.xml"));
+                            "/ssp/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileOffenseHistoryResponse_Sample.xml"));
 	            }
 	            else if (request.getQueryType().equalsIgnoreCase("Placement")){
                     return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                            "/service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenilePlacementHistoryResponse_Sample.xml"));
+                            "/ssp/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenilePlacementHistoryResponse_Sample.xml"));
 	            }
 	            else if (request.getQueryType().equalsIgnoreCase("Referral")){
                     return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                            "/service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileReferralHistoryResponse_Sample.xml"));
+                            "/ssp/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileReferralHistoryResponse_Sample.xml"));
 	            }   
 		}
 		

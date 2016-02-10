@@ -269,7 +269,7 @@
 							org.h2.jdbcx;resolution:=optional,
 							org.springframework.beans.factory.config,
 							javax.xml.namespace,
-							service-specifications.*,
+							ssp.*,
 							org.ojbc.*,
 							com.mysql.jdbc,
 							<!--packages needed to use annotation driven beans  -->

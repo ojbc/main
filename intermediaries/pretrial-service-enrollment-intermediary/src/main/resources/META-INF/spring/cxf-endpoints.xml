@@ -43,7 +43,7 @@
 	<!-- Pretrial Enrollment Request Service  -->
 	<cxf:cxfEndpoint id="pretrialEnrollmentRequestService"
 		address="${pretrialEnrollment.pretrialEnrollmentRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Pretrial_Service_Enrollment_Reporting_Service/schemas/SIP_WS_1.3/Pretrial_Service_Enrollment_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Pretrial_Service_Enrollment_Reporting_Service/schemas/SIP_WS_1.3/Pretrial_Service_Enrollment_Reporting_Service.wsdl"
 		serviceName="ojbc:Pretrial-Service-Enrollment-Reporting-ServiceService" endpointName="ojbc:Pretrial-Service-Enrollment-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/PretrialServiceEnrollmentReportingService/1.0">
 		<cxf:properties>
@@ -55,7 +55,7 @@
 	
 	<cxf:cxfEndpoint id="pretrialEnrollmentRequestAdapter"
 		address="${pretrialEnrollment.pretrialEnrollmentRequestAdapterEndpoint}"
-		wsdlURL="classpath:service-specifications/Pretrial_Service_Enrollment_Reporting_Service/schemas/SIP_WS_1.3/Pretrial_Service_Enrollment_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Pretrial_Service_Enrollment_Reporting_Service/schemas/SIP_WS_1.3/Pretrial_Service_Enrollment_Reporting_Service.wsdl"
 		serviceName="ojbc:Pretrial-Service-Enrollment-Reporting-ServiceService" endpointName="ojbc:Pretrial-Service-Enrollment-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/PretrialServiceEnrollmentReportingService/1.0">
 		<cxf:properties>
