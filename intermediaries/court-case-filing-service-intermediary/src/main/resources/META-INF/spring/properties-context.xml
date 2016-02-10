@@ -42,7 +42,7 @@
 				<util:properties
 					location="classpath:court_case_filing_service_intermediary.cfg" />
 				<osgix:cm-properties id="osgiProperties"
-					persistent-id="court_case_filing_service_intermediary.cfg" />
+					persistent-id="court_case_filing_service_intermediary" />
 			</array>
 		</property>
 	</bean>
