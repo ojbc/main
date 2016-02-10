@@ -17,7 +17,18 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cs-req-doc:CustodySearchRequest xmlns:cs-req-doc="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0" xmlns:cs-req-ext="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/" xmlns:usps="http://release.niem.gov/niem/codes/usps_states/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0 ../xsd/exchange_schema.xsd" structures:metadata="SM003">
+<cs-req-doc:CustodySearchRequest
+	xmlns:cs-req-doc="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0"
+	xmlns:cs-req-ext="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/"
+	xmlns:usps="http://release.niem.gov/niem/codes/usps_states/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0 ../xsd/exchange_schema.xsd"
+	structures:metadata="SM003">
 	<cs-req-ext:Person structures:id="Person_01">
 		<j:DriverLicense>
 			<j:DriverLicenseCardIdentification>
@@ -44,18 +55,19 @@
 					<nc:RangeMinimumIntegerValue>0</nc:RangeMinimumIntegerValue>
 				</nc:MeasureIntegerRange>
 				<nc:MeasureDate>
-        </nc:MeasureDate>
+				</nc:MeasureDate>
 				<nc:LengthUnitCode>4H</nc:LengthUnitCode>
 			</nc:PersonAgeMeasure>
 			<nc:PersonEyeColorText>nc:PersonEyeColorText</nc:PersonEyeColorText>
-			<nc:PersonHairColorText>nc:PersonHairColorText</nc:PersonHairColorText>
+			<nc:PersonHairColorText>nc:PersonHairColorText
+			</nc:PersonHairColorText>
 			<nc:PersonHeightMeasure>
 				<nc:MeasureIntegerRange>
 					<nc:RangeMaximumIntegerValue>0</nc:RangeMaximumIntegerValue>
 					<nc:RangeMinimumIntegerValue>0</nc:RangeMinimumIntegerValue>
 				</nc:MeasureIntegerRange>
 				<nc:MeasureDate>
-        </nc:MeasureDate>
+				</nc:MeasureDate>
 				<nc:LengthUnitCode>4H</nc:LengthUnitCode>
 			</nc:PersonHeightMeasure>
 			<nc:PersonName>
@@ -75,34 +87,43 @@
 					<nc:RangeMinimumIntegerValue>0</nc:RangeMinimumIntegerValue>
 				</nc:MeasureIntegerRange>
 				<nc:MeasureDate>
-        </nc:MeasureDate>
+				</nc:MeasureDate>
 				<nc:LengthUnitCode>4H</nc:LengthUnitCode>
 			</nc:PersonWeightMeasure>
 			<j:PersonAugmentation>
 				<j:DriverLicense>
 					<j:DriverLicenseCardIdentification>
 						<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-						<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
+						<nc:IdentificationSourceText>nc:IdentificationSourceText
+						</nc:IdentificationSourceText>
 					</j:DriverLicenseCardIdentification>
 				</j:DriverLicense>
 				<j:PersonFBIIdentification>
 					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-					<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
+					<nc:IdentificationSourceText>nc:IdentificationSourceText
+					</nc:IdentificationSourceText>
 				</j:PersonFBIIdentification>
 				<j:PersonNCICIdentification>
 					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-					<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
+					<nc:IdentificationSourceText>nc:IdentificationSourceText
+					</nc:IdentificationSourceText>
 				</j:PersonNCICIdentification>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-					<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
+					<nc:IdentificationSourceText>nc:IdentificationSourceText
+					</nc:IdentificationSourceText>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<cs-req-ext:PersonBirthDateRange>
+				<nc:StartDate>
+				</nc:StartDate>
+				<nc:EndDate>
+				</nc:EndDate>
+			</cs-req-ext:PersonBirthDateRange>
+			<cs-req-ext:PersonRecordIdentification>
+				<nc:IdentificationID>R34567</nc:IdentificationID>
+			</cs-req-ext:PersonRecordIdentification>
 		</nc:Person>
-		<cs-req-ext:PersonBirthDateRange>
-			<nc:StartDate> </nc:StartDate>
-			<nc:EndDate> </nc:EndDate>
-		</cs-req-ext:PersonBirthDateRange>
 		<j:BookingSubject>
 			<j:SubjectIdentification>
 				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
@@ -120,13 +141,14 @@
 		<nc:Address>
 			<nc:AddressFullText>nc:AddressFullText</nc:AddressFullText>
 			<nc:LocationCityName>nc:LocationCityName</nc:LocationCityName>
-			<nc:LocationStateUSPostalServiceCode>AA</nc:LocationStateUSPostalServiceCode>
+			<nc:LocationStateUSPostalServiceCode>AA
+			</nc:LocationStateUSPostalServiceCode>
 			<nc:LocationPostalCode>nc:LocationPostalCode</nc:LocationPostalCode>
 		</nc:Address>
 	</nc:Location>
 	<nc:PersonResidenceAssociation>
-		<nc:Person structures:ref="Person_01"/>
-		<nc:Location structures:ref="Loc_01"/>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Location structures:ref="Loc_01" />
 		<nc:ResidenceDescriptionText>nc:ResidenceDescriptionText</nc:ResidenceDescriptionText>
 		<j:ResidenceAssociationAugmentation>
 			<j:ReleaseResidenceIndicator>true</j:ReleaseResidenceIndicator>
@@ -142,7 +164,9 @@
 		<cs-req-ext:SearchQualifierCode>startsWith</cs-req-ext:SearchQualifierCode>
 	</cs-req-ext:SearchMetadata>
 	<cs-req-ext:SearchMetadata structures:id="SM003">
-		<cs-req-ext:SearchRequestOnBehalfOfText>John Doe</cs-req-ext:SearchRequestOnBehalfOfText>
-		<cs-req-ext:SearchPurposeText>Criminal Justice</cs-req-ext:SearchPurposeText>
+		<cs-req-ext:SearchRequestOnBehalfOfText>John Doe
+		</cs-req-ext:SearchRequestOnBehalfOfText>
+		<cs-req-ext:SearchPurposeText>Criminal Justice
+		</cs-req-ext:SearchPurposeText>
 	</cs-req-ext:SearchMetadata>
 </cs-req-doc:CustodySearchRequest>
