@@ -105,6 +105,11 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A system-assigned unique identifier for a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="SearchMetadata" type="ccs-req-ext:SearchMetadataType">
 		<xsd:annotation>
 			<xsd:documentation>Information that further qualifies the search.</xsd:documentation>
