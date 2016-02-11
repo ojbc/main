@@ -26,23 +26,23 @@ public class JuvenileHistoryContainerTestUtils {
 
 	static void validateInstance(Document d, String historyComponentFolderName, String historyComponentSchemaPath) throws Exception {
 		List<String> paths = new ArrayList<String>();
-		paths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Subset");
-		paths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Subset/niem");
-		paths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/");
-		paths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Referral");
-		paths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Placement");
-		paths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Intake");
-		paths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Hearing");
-		paths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Offense");
+		paths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Subset");
+		paths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Subset/niem");
+		paths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/");
+		paths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Referral");
+		paths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Placement");
+		paths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Intake");
+		paths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Hearing");
+		paths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Offense");
 		
 		List<String> additionalPaths = new ArrayList<String>();
-		additionalPaths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Referral/impl/michigan/codes.xsd");
-		additionalPaths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Placement/impl/michigan/codes.xsd");
-		additionalPaths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Intake/impl/michigan/codes.xsd");
-		additionalPaths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Hearing/impl/michigan/codes.xsd");
-		additionalPaths.add("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/Offense/impl/michigan/codes.xsd");
+		additionalPaths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Referral/impl/michigan/codes.xsd");
+		additionalPaths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Placement/impl/michigan/codes.xsd");
+		additionalPaths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Intake/impl/michigan/codes.xsd");
+		additionalPaths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Hearing/impl/michigan/codes.xsd");
+		additionalPaths.add("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/Offense/impl/michigan/codes.xsd");
 		
-		XmlUtils.validateInstanceWithAbsoluteClasspaths("ssp/Juvenile_History_Services/artifacts/service_model/information_model/Juvenile_History_IEPD/" + historyComponentSchemaPath,
+		XmlUtils.validateInstanceWithAbsoluteClasspaths("ssp/Juvenile_History/artifacts/service_model/information_model/Juvenile_History_IEPD/" + historyComponentSchemaPath,
 				paths, additionalPaths, d);
 	}
 

@@ -463,7 +463,7 @@
 	<!-- Juvenile Case Plan History Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileCasePlanHistoryRequestService"
 		address="${genericMockAdapter.casePlanHistoryRequestServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 		serviceName="ojbc:JuvenileCasePlanHistoryRequestService"
 		endpointName="ojbc:JuvenileCasePlanHistoryRequest_Secure_SOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -480,7 +480,7 @@
 	<!-- Juvenile Case Plan History Results Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileCasePlanHistoryResultsService"
 		address="${genericMockAdapter.casePlanHistoryResultsServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 		serviceName="ojbc:JuvenileCasePlanHistoryResultsService"
 		endpointName="ojbc:JuvenileCasePlanHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
@@ -498,7 +498,7 @@
 	<!-- Juvenile Hearing History Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileHearingHistoryRequestService"
 		address="${genericMockAdapter.hearingHistoryRequestServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 		serviceName="ojbc:JuvenileHearingHistoryRequestService"
 		endpointName="ojbc:JuvenileHearingHistoryRequest_Secure_SOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -515,7 +515,7 @@
 	<!-- Juvenile Hearing History Results Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileHearingHistoryResultsService"
 		address="${genericMockAdapter.hearingHistoryResultsServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 		serviceName="ojbc:JuvenileHearingHistoryResultsService"
 		endpointName="ojbc:JuvenileHearingHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
@@ -533,7 +533,7 @@
 	<!-- Juvenile Intake History Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileIntakeHistoryRequestService"
 		address="${genericMockAdapter.intakeHistoryRequestServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 		serviceName="ojbc:JuvenileIntakeHistoryRequestService"
 		endpointName="ojbc:JuvenileIntakeHistoryRequest_Secure_SOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -550,7 +550,7 @@
 	<!-- Juvenile Intake History Results Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileIntakeHistoryResultsService"
 		address="${genericMockAdapter.intakeHistoryResultsServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 		serviceName="ojbc:JuvenileIntakeHistoryResultsService"
 		endpointName="ojbc:JuvenileIntakeHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
@@ -568,7 +568,7 @@
 	<!-- Juvenile Offense History Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileOffenseHistoryRequestService"
 		address="${genericMockAdapter.offenseHistoryRequestServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 		serviceName="ojbc:JuvenileOffenseHistoryRequestService"
 		endpointName="ojbc:JuvenileOffenseHistoryRequest_Secure_SOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -585,7 +585,7 @@
 	<!-- Juvenile Offense History Results Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileOffenseHistoryResultsService"
 		address="${genericMockAdapter.offenseHistoryResultsServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 		serviceName="ojbc:JuvenileOffenseHistoryResultsService"
 		endpointName="ojbc:JuvenileOffenseHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
@@ -603,7 +603,7 @@
 	<!-- Juvenile Placement History Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenilePlacementHistoryRequestService"
 		address="${genericMockAdapter.placementHistoryRequestServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 		serviceName="ojbc:JuvenilePlacementHistoryRequestService"
 		endpointName="ojbc:JuvenilePlacementHistoryRequest_Secure_SOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -620,7 +620,7 @@
 	<!-- Juvenile Placement History Results Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenilePlacementHistoryResultsService"
 		address="${genericMockAdapter.placementHistoryResultsServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 		serviceName="ojbc:JuvenilePlacementHistoryResultsService"
 		endpointName="ojbc:JuvenilePlacementHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
@@ -639,7 +639,7 @@
 	<!-- Juvenile Referral History Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileReferralHistoryRequestService"
 		address="${genericMockAdapter.referralHistoryRequestServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 		serviceName="ojbc:JuvenileReferralHistoryRequestService"
 		endpointName="ojbc:JuvenileReferralHistoryRequest_Secure_SOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -656,7 +656,7 @@
 	<!-- Juvenile Referral History Results Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileReferralHistoryResultsService"
 		address="${genericMockAdapter.referralHistoryResultsServiceEndpoint}"
-		wsdlURL="classpath:ssp/Juvenile_History_Services/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
+		wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Results_Service_Core.wsdl"
 		serviceName="ojbc:JuvenileReferralHistoryResultsService"
 		endpointName="ojbc:JuvenileReferralHistoryResultsSOAPPort"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryResults/1.0">
