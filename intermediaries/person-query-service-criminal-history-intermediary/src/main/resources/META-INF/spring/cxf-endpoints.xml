@@ -65,7 +65,7 @@
     <cxf:cxfEndpoint 
         id="personQueryResultsHandlerCriminalHistoryService"
         address="${federatedQuery.criminalHistory.personQueryResultsHandlerCriminalHistoryEndpoint}"
-        wsdlURL="classpath:ssp/Criminal_History_Query_Results_Service/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Criminal_History_Query_Results/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
         serviceName="ojbc:Criminal-History-Query-Results-ServiceService"
 		endpointName="ojbc:Criminal-History-Query-Results-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
@@ -100,7 +100,7 @@
     <!-- Present Criminal History Query Results typically hosted by a Web App, called by broker, address set dynamically-->
     <cxf:cxfEndpoint id="presentPersonQueryResultsCriminalHistoryService"
         address="${federatedQuery.criminalHistory.presentPersonQueryResultsEndpoint}"
-        wsdlURL="classpath:ssp/Criminal_History_Query_Results_Service/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Criminal_History_Query_Results/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
         serviceName="ojbc:Criminal-History-Query-Results-ServiceService"
 		endpointName="ojbc:Criminal-History-Query-Results-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"

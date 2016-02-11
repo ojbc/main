@@ -497,7 +497,7 @@
 	    <cxf:cxfEndpoint 
 	        id="personQueryResultsHandlerCriminalHistoryService"
 	        address="${webapplication.personQuery.personQueryResultsHandlerCriminalHistoryEndpoint}"
-	        wsdlURL="classpath:ssp/Criminal_History_Query_Results_Service/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
+	        wsdlURL="classpath:ssp/Criminal_History_Query_Results/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
 	        serviceName="ojbc:Criminal-History-Query-Results-ServiceService"
 			endpointName="ojbc:Criminal-History-Query-Results-Service"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
