@@ -1372,7 +1372,7 @@ public class SearchTest extends AbstractStaticMockTest {
         Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
         personNameElement.removeChild(firstNameElement);
         Document searchResults = staticMockQuery.personSearchDocuments(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
-        XmlUtils.validateInstance("ssp/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
+        XmlUtils.validateInstance("ssp/Person_Search_Results/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
         NodeList nodes = XmlUtils.xPathNodeListSearch(searchResults, "psres-doc:PersonSearchResults/psres:PersonSearchResult");
         int nodeCount = nodes.getLength();
         assertEquals(1, nodeCount);
@@ -1385,7 +1385,7 @@ public class SearchTest extends AbstractStaticMockTest {
         
         Document searchResults = staticMockQuery.personSearchDocuments(personSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));        
                 
-        XmlUtils.validateInstance("ssp/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
+        XmlUtils.validateInstance("ssp/Person_Search_Results/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
         
         NodeList nodes = XmlUtils.xPathNodeListSearch(searchResults, "psres-doc:PersonSearchResults/psres:PersonSearchResult");
         

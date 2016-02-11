@@ -69,7 +69,7 @@
 	<!-- Person Search Results Handler Service, hosted by OJB  -->
 	<cxf:cxfEndpoint id="personSearchResultsFederatedService"
 		address="${federatedQuery.personSearch.personSearchResultsEndpoint}"
-		wsdlURL="classpath:ssp/Person_Search_Results_Service/schema/SIP_WS_1.2/Person_Search_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Person_Search_Results/schema/SIP_WS_1.2/Person_Search_Results_Service.wsdl"
 		serviceName="ojbc:Person_Search_Results_Service_Service" endpointName="ojbc:Person_Search_Results_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchResultsService/1.0">
 		 <cxf:features> 
