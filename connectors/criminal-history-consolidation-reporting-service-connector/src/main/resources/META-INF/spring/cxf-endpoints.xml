@@ -47,7 +47,7 @@
     <cxf:cxfEndpoint 
         id="criminalhistoryConsolidationReportingService"
         address="${criminalHistoryConsolidation.criminalHistoryConsolidationReportingServiceEndpoint}" 
-		wsdlURL="classpath:ssp/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Criminal_History_Consolidation_Reporting/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
 		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
 		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
