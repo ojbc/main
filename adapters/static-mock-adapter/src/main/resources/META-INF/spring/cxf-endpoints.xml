@@ -38,7 +38,7 @@
 	<!-- Person Search Request Service -->
 	<cxf:cxfEndpoint id="personSearchRequestService"
 		address="${genericMockAdapter.personSearchRequestEndpoint}"
-		wsdlURL="classpath:ssp/Person_Search_Request_Service/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Person_Search_Request/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
 		serviceName="ojbc:Person_Search_Request_Service_Service" endpointName="ojbc:Person_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0">
 		<cxf:properties>
