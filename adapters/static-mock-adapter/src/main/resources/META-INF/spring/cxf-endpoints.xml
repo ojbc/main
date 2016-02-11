@@ -122,7 +122,7 @@
 	
 	<cxf:cxfEndpoint id="courtCaseSearchResultsHandlerService"
 		address="${genericMockAdapter.courtCaseSearchResultsHandlerEndpoint}"
-		wsdlURL="classpath:ssp/Court_Case_Search_Results_Service/schema/SIP_WS_1.2/Court_Case_Search_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Court_Case_Search_Results/schema/SIP_WS_1.2/Court_Case_Search_Results_Service.wsdl"
 		serviceName="ojbc:Court-Case-Search-Results-Service" 
 		endpointName="ojbc:Court-Case-Search-Results-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseSearchResultsService/1.0">
