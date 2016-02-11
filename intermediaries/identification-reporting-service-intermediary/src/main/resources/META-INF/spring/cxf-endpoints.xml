@@ -61,7 +61,7 @@
 	<!-- Identification Recording Service, called by this intermediary -->
 	<cxf:cxfEndpoint id="IdentificationRecordingService"
 		address="${identificationReportingService.identificationRecordingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Identification_Recording_Service/schemas/SIP_WS_1.3/Identification_Recording_Service.wsdl"
+		wsdlURL="classpath:ssp/Identification_Recording/schemas/SIP_WS_1.3/Identification_Recording_Service.wsdl"
 		serviceName="ojbc:Identification-Recording-ServiceService" endpointName="ojbc:Identification-Recording-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0">
  		<cxf:properties>
