@@ -64,7 +64,7 @@
     <cxf:cxfEndpoint 
         id="courtCaseQueryResultsHandlerService"
         address="${federatedQuery.courtCaseQueryResultsHandlerEndpoint}"
-        wsdlURL="classpath:ssp/Court_Case_Query_Results_Service/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Court_Case_Query_Results/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
         serviceName="ojbc:Court-Case-Query-Results-Service"
 		endpointName="ojbc:Court-Case-Query-Results-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0">
@@ -98,7 +98,7 @@
     <!-- Present Court Case Query Results typically hosted by a Web App, called by broker, address set dynamically-->
     <cxf:cxfEndpoint id="courtCasePresentQueryResultsService"
         address="${federatedQuery.presentCourtCaseQueryResultsEndpoint}"
-        wsdlURL="classpath:ssp/Court_Case_Query_Results_Service/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Court_Case_Query_Results/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
         serviceName="ojbc:Court-Case-Query-Results-Service"
 		endpointName="ojbc:Court-Case-Query-Results-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0">

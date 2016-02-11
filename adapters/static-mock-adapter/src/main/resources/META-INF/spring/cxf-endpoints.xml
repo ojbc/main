@@ -322,7 +322,7 @@
 	<!-- Court Case Query response handler TODO fix values -->
 	<cxf:cxfEndpoint id="courtCaseQueryResultsHandlerService"
 		address="${genericMockAdapter.courtCaseQueryResultsHandlerEndpoint}"
-		wsdlURL="classpath:ssp/Court_Case_Query_Results_Service/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Court_Case_Query_Results/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
 		serviceName="ojbc:Court-Case-Query-Results-Service"
 		endpointName="ojbc:Court-Case-Query-Results-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0">
