@@ -372,7 +372,7 @@
 		<!-- Person/Vehicle to Incident Search Results Service, hosted by Web Application -->
 		<cxf:cxfEndpoint id="personVehicleToIncidentSearchResultsHandlerService"
 			address="${webapplication.personSearch.personVehicleToIncidentSearchRequestResultsEndpoint}"
-			wsdlURL="classpath:ssp/Incident_Search_Results_Service/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
+			wsdlURL="classpath:ssp/Incident_Search_Results/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
 			serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
 			 <cxf:features> 
