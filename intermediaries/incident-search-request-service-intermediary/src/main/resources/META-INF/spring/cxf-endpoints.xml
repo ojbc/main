@@ -41,7 +41,7 @@
 	<!-- Incident Search Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="incidentSearchRequestFederatedService"
 		address="${federatedQuery.incidentSearch.incidentSearchIntermediaryEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Search_Request_Service/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Search_Request/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
 		serviceName="ojbc:Incident_Search_Request_Service_Service" endpointName="ojbc:Incident_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0">
 		<cxf:properties>
@@ -55,7 +55,7 @@
 
 	<!-- Called by Intermediary, Adapter -->
 	<cxf:cxfEndpoint id="incidentSearchRequestServiceAdapter"
-		wsdlURL="classpath:ssp/Incident_Search_Request_Service/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Search_Request/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
 		serviceName="ojbc:Incident_Search_Request_Service_Service" endpointName="ojbc:Incident_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0">
 		<cxf:properties>
