@@ -71,7 +71,7 @@
 	<!-- OJB Parole Event Handler Service, hosted by intermediary -->
 	<cxf:cxfEndpoint id="paroleEventHandlerService"
 		address="${publishSubscribe.paroleEventHandlerEndpoint}"
-		wsdlURL="classpath:ssp/Parole_Event_Handler_Service/schema/SIP_WS_1.2/Parole_Event_Handler_Service.wsdl"
+		wsdlURL="classpath:ssp/Parole_Event_Handler/schema/SIP_WS_1.2/Parole_Event_Handler_Service.wsdl"
 		serviceName="ojbcParole:Parole-Event-Handler-ServiceService"
 		endpointName="ojbcParole:Parole-Event-Handler-Service"
 		xmlns:ojbcParole="http://ojbc.org/Services/WSDL/Parole_Event_Handler_Service/1.0">
