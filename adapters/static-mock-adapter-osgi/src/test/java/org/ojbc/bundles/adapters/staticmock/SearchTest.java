@@ -1856,7 +1856,7 @@ public class SearchTest extends AbstractStaticMockTest {
 
     private List<IdentifiableDocumentWrapper> submitDocumentFirearmSearch(Document firearmSearchRequestMessage) throws Exception {
         List<String> schemaPaths = new ArrayList<String>();
-        String iepdRootPath = "ssp/Firearm_Search_Request_Service/artifacts/service_model/information_model/Firearm_Search_Request_IEPD/xsd/";
+        String iepdRootPath = "ssp/Firearm_Search_Request/artifacts/service_model/information_model/Firearm_Search_Request_IEPD/xsd/";
         schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
         XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, firearmSearchRequestMessage);
         return staticMockQuery.firearmSearchDocumentsAsList(firearmSearchRequestMessage);
