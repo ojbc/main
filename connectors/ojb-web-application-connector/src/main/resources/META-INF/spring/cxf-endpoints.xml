@@ -424,7 +424,7 @@
 		<!-- Incident Report Results Handler, hosted by Web Application -->
 		<cxf:cxfEndpoint id="incidentReportResultsHandlerService"
 			address="${webapplication.personQuery.incidentReportRequestResultsEndpoint}"
-			wsdlURL="classpath:ssp/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+			wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 			serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
 			 <cxf:features> 

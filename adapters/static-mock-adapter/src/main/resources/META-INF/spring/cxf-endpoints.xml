@@ -411,7 +411,7 @@
 	<!-- Incident Report Response Handler -->
 	<cxf:cxfEndpoint id="incidentReportResultsService"
 		address="${genericMockAdapter.personQueryResultsHandlerIncidentReportResultsEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
 		<cxf:features>

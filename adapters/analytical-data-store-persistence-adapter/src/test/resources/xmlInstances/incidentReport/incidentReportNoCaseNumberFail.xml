@@ -17,7 +17,7 @@
 
 -->
 <IncidentReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../../../../../../../shared/ojb-resources-common/src/main/resources/ssp/Incident_Reporting_Service/artifacts/service_model/information_model/Incident_Report_IEPD/xsd/exchange_schema/Incident_Report.xsd"
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../../../../../../../shared/ojb-resources-common/src/main/resources/ssp/Incident_Reporting/artifacts/service_model/information_model/Incident_Report_IEPD/xsd/exchange_schema/Incident_Report.xsd"
  xmlns="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0">
     <doPublish xmlns="http://usdoj.gov/leisp/lexs/publishdiscover/3.1">
         <PublishMessageContainer xmlns="http://usdoj.gov/leisp/lexs/3.1">
