@@ -97,7 +97,7 @@
 	<!-- Identification Response Handler - hosted by the intermediary, called by the rapback data store adapter -->
 	<cxf:cxfEndpoint id="identificationReportingResponseService"
 		address="${identificationReportingService.identificationReportingResponseServiceEndpoint}"
-		wsdlURL="classpath:ssp/Identification_Reporting_Response_Service/schemas/SIP_WS_1.3/Identification_Reporting_Response_Service.wsdl"
+		wsdlURL="classpath:ssp/Identification_Reporting_Response/schemas/SIP_WS_1.3/Identification_Reporting_Response_Service.wsdl"
 		serviceName="ojbc:Identification-Reporting-Response-ServiceService"
 		endpointName="ojbc:Identification-Reporting-Response-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0">
