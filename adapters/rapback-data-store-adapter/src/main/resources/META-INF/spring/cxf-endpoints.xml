@@ -98,7 +98,7 @@
     <cxf:cxfEndpoint 
         id="rapbackSearchResponseService"
 		address="${rapbackDatastoreAdapter.rapbackSearchResponseEndpoint}"
-        wsdlURL="classpath:ssp/Organization_Identification_Results_Search_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Organization_Identification_Results_Search_Results/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Results_Service.wsdl"
         serviceName="ojbc:OrganizationIdentificationResults_Search_Results_Service_Service"
         endpointName="ojbc:OrganizationIdentificationResults_Search_Results_Secure_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0"
