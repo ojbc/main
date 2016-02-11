@@ -86,7 +86,7 @@
 	<!-- Arrest Reporting Service, called by this intermediary -->
 	<cxf:cxfEndpoint id="arrestReportingService"
 		address="${incidentReportingService.arrestReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Arrest_Reporting_Service/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Arrest_Reporting/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
 		serviceName="ojbc:Arrest-Reporting-ServiceService" endpointName="ojbc:Arrest-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
 		 <cxf:features> 
