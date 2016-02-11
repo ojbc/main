@@ -46,7 +46,7 @@
 	<!-- OJB Identification Request Reporting Service, hosted by this intermediary -->
 	<cxf:cxfEndpoint id="IdentificationReportingService"
 		address="${identificationReportingService.identificationReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Identification_Reporting_Service/schemas/SIP_WS_1.3/Identification_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Identification_Reporting/schemas/SIP_WS_1.3/Identification_Reporting_Service.wsdl"
 		serviceName="ojbc:Identification-Reporting-ServiceService" endpointName="ojbc:Identification-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0">
  		<cxf:properties>
