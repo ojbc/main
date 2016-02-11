@@ -63,7 +63,7 @@
     <cxf:cxfEndpoint 
         id="accessControlResponseService"
 		address="${pdp.accessControlResponseEndpoint}"
-        wsdlURL="classpath:ssp/Access_Control_Response_Service/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
+        wsdlURL="classpath:ssp/Access_Control_Response/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
         serviceName="ojbc:Access-Control-Response-ServiceService"
         endpointName="ojbc:Access-Control-Response-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0"
@@ -101,7 +101,7 @@
     <cxf:cxfEndpoint 
         id="accessControlResponseServicePolicyAcknowledgement"
 		address="${pdp.accessControlResponsePolicyAcknowledgementEndpoint}"
-        wsdlURL="classpath:ssp/Access_Control_Response_Service/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
+        wsdlURL="classpath:ssp/Access_Control_Response/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
         serviceName="ojbc:Access-Control-Response-ServiceService"
         endpointName="ojbc:Access-Control-Response-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0"
