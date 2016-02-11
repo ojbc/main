@@ -72,7 +72,7 @@
 	<!-- OJB Charge Referral Service, called by this intermediary -->
 	<cxf:cxfEndpoint id="ChargeReferralService"
 		address="${incidentReportingService.chargeReferralServiceEndpoint}"
-		wsdlURL="classpath:ssp/Charge_Referral_Service/schema/SIP_WS_1.2/Charge_Referral_Service.wsdl"
+		wsdlURL="classpath:ssp/Charge_Referral/schema/SIP_WS_1.2/Charge_Referral_Service.wsdl"
 	    serviceName="ojbc:Charge-Referral-ServiceService"
 	    endpointName="ojbc:Charge-Referral-Service"
 	    xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0">
