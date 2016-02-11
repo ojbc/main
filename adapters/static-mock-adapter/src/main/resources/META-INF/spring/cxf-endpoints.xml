@@ -88,7 +88,7 @@
 	<!-- Custody Search Results handler Service -->
 	<cxf:cxfEndpoint id="custodySearchResultsHandlerService"
 		address="${genericMockAdapter.custodySearchResultsHandlerEndpoint}"
-		wsdlURL="classpath:ssp/Custody_Search_Results_Service/schemas/RS_WS-SIP_v1.2/Custody_Search_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Custody_Search_Results/schemas/RS_WS-SIP_v1.2/Custody_Search_Results_Service.wsdl"
 		serviceName="ojbc:Custody-Search-Results-Service" 
 		endpointName="ojbc:Custody-Search-Results-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodySearchResultsService/1.0">
