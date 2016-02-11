@@ -445,7 +445,7 @@
 	<!-- Firearm Reg Query Response Handler -->
 	<cxf:cxfEndpoint id="firearmRegistrationQueryResultsService"
 		address="${genericMockAdapter.personQueryResultsHandlerFirearmEndpoint}"
-		wsdlURL="classpath:ssp/Firearm_Registration_Query_Results_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Firearm_Registration_Query_Results/schema/SIP_WS_1.2/Firearm_Registration_Query_Results_Service.wsdl"
 		serviceName="ojbc:Firearm_Registration_Query_Results_Service_Service"
 		endpointName="ojbc:Firearm_Registration_Query_Results_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0">

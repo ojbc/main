@@ -37,7 +37,7 @@ public class TestFirearmRegistrationSampleGenerator extends AbstractPersonSample
 
     @Override
     protected String getIEPDRootPath() {
-        return "ssp/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
+        return "ssp/Firearm_Registration_Query_Results/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
     }
 
     @Override
