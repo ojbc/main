@@ -71,7 +71,7 @@
 	<!-- Custody Search Results Handler Service, hosted by OJB  -->
 	<cxf:cxfEndpoint id="custodySearchResultsService"
 		address="${federatedQuery.custodySearchResultsEndpoint}"
-		wsdlURL="classpath:ssp/Custody_Search_Results_Service/schemas/RS_WS-SIP_v1.2/Custody_Search_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Custody_Search_Results/schemas/RS_WS-SIP_v1.2/Custody_Search_Results_Service.wsdl"
 		serviceName="ojbc:Custody-Search-Results-Service" 
 		endpointName="ojbc:Custody-Search-Results-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodySearchResultsService/1.0">
