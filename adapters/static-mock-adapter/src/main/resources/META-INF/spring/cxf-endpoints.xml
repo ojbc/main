@@ -287,7 +287,7 @@
 	<!-- Custody Query response handler -->
 	<cxf:cxfEndpoint id="custodyQueryResultsHandlerService"
 		address="${genericMockAdapter.custodyQueryResultsHandlerEndpoint}"
-		wsdlURL="classpath:ssp/Custody_Query_Results_Service/schemas/RS_WS-SIP_v1.2/Custody_Query_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Custody_Query_Results/schemas/RS_WS-SIP_v1.2/Custody_Query_Results_Service.wsdl"
 		serviceName="ojbc:Custody-Query-Results-Service"
 		endpointName="ojbc:Custody-Query-Results-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyQueryResultsService/1.0">
