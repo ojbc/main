@@ -69,7 +69,7 @@
 	<!-- Hosted by Intermediary, Results Service -->
 	<cxf:cxfEndpoint id="incidentSearchResultsFederatedService"
 		address="${federatedQuery.incidentSearch.incidentSearchIntermediaryResultsEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Search_Results_Service/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Search_Results/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
 		serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
 		 <cxf:features> 
@@ -121,7 +121,7 @@
 	<!-- Incident Search Results Service, called by intermediary for Incident Person and Vehicle Results -->
 	<cxf:cxfEndpoint id="presentIncidentSearchResultsService"
 		address="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Search_Results_Service/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Search_Results/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
 		serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
 		 <cxf:features> 

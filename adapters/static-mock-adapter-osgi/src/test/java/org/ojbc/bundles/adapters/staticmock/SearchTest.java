@@ -308,7 +308,7 @@ public class SearchTest extends AbstractStaticMockTest {
         assertEquals(1, matches.size());
         Document d = staticMockQuery.incidentPersonSearchDocuments(incidentPersonSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
         // XmlUtils.printNode(d);
-        XmlUtils.validateInstance("ssp/Incident_Search_Results_Service/artifacts/service_model/information_model/Incident_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", d);
+        XmlUtils.validateInstance("ssp/Incident_Search_Results/artifacts/service_model/information_model/Incident_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", d);
         incidentPersonSearchRequestMessage = buildIncidentPersonSearchRequestMessage(80);
         matches = staticMockQuery.incidentPersonSearchDocumentsAsList(incidentPersonSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
         assertEquals(0, matches.size());
