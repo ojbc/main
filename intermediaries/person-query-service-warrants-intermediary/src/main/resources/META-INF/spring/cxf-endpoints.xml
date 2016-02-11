@@ -47,7 +47,7 @@
 	<cxf:cxfEndpoint 
 	        id="personQueryRequestWarrantsService"
 	        address="${federatedQuery.warrants.personQueryEndpoint}"
-	        wsdlURL="classpath:ssp/Person_Query_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Service_-_Warrants.wsdl"
+	        wsdlURL="classpath:ssp/Person_Query_Service_Warrants/schema/SIP_WS_1.2/Person_Query_Service_-_Warrants.wsdl"
 	        serviceName="ojbc:Person-Query-Service---WarrantsService"
 			endpointName="ojbc:Person-Query-Secure-Service---Warrants"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0"
@@ -84,7 +84,7 @@
                         
     <!-- Warrants Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
 	<cxf:cxfEndpoint id="personQueryRequestWarrantsServiceAdapter"
-        wsdlURL="classpath:ssp/Person_Query_Service_-_Warrants/schema/SIP_WS_1.2/Person_Query_Service_-_Warrants.wsdl"
+        wsdlURL="classpath:ssp/Person_Query_Service_Warrants/schema/SIP_WS_1.2/Person_Query_Service_-_Warrants.wsdl"
         serviceName="ojbc:Person-Query-Service---WarrantsService"
 		endpointName="ojbc:Person-Query-Secure-Service---Warrants"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0">
