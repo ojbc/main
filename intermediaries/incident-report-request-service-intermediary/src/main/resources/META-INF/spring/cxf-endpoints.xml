@@ -61,7 +61,7 @@
     <!-- Incident Report Results Handler Service, hosted by broker, called by adapter, address is static --> 
 	<cxf:cxfEndpoint id="incidentReportResultsFederatedService"
 		address="${federatedQuery.incidentReport.personQueryResultsHandlerIncidentReportRequestEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
 		 <cxf:features> 
@@ -91,7 +91,7 @@
     <!-- Present Warrant Query Results typically hosted by a Web App, called by broker, address set dynamically-->
 	<cxf:cxfEndpoint id="presentIncidentReportResultsFederatedService"
 		address="${federatedQuery.incidentReport.presentPersonQueryResultsWebApplicationEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
 		 <cxf:features> 
