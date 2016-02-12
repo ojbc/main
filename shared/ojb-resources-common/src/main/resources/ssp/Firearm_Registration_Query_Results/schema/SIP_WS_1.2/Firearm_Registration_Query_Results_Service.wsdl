@@ -21,7 +21,7 @@
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema targetNamespace="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0">
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0" schemaLocation="../../artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/exchange_schema.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Firearm-Registration-Query-Results">
