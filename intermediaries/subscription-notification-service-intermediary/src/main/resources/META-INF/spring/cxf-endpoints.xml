@@ -209,7 +209,7 @@
     <cxf:cxfEndpoint 
         id="subscriptionQueryRequestService"
         address="${subscriptionSearchQuery.subscriptionQueryRequestEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Query_Request_Service/schema/SIP_WS_1.2/Subscription_Query_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Query_Request/schema/SIP_WS_1.2/Subscription_Query_Request_Service.wsdl"
 		serviceName="ojbc:Subscription_Query_Request_Service_Service" 
 		endpointName="ojbc:Subscription_Query_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionQueryRequestService/1.0">
