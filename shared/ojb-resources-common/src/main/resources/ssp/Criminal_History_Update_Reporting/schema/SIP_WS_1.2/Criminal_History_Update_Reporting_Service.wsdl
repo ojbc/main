@@ -21,9 +21,9 @@
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0" schemaLocation="../../artifacts/service_model/information_model/Criminal_History_Update_Report-IEPD/xsd/CycleTrackingIdentifierAssignmentReport-exchange.xsd"/>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0" schemaLocation="../../artifacts/service_model/information_model/Criminal_History_Update_Report-IEPD/xsd/CourtDispositionRecordingReport-exchange.xsd"/>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0" schemaLocation="../../artifacts/service_model/information_model/Criminal_History_Update_Report-IEPD/xsd/ProsecutionDecisionRecordingReport-exchange.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CycleTrackingIdentifierAssignmentReport-exchange.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CourtDispositionRecordingReport-exchange.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/ProsecutionDecisionRecordingReport-exchange.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="CycleTrackingIdentifierAssignmentReport">
