@@ -30,7 +30,7 @@
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
-			 schemaLocation="../../artifacts/service_model/information_model/BookingReport-IEPD/xsd/exchange.xsd"/>
+			 schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="BookingReport">
