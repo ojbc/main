@@ -29,7 +29,7 @@ targetNamespace="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0" schemaLocation="../../artifacts/service_model/information_model/Charge_Referral_Reporting_IEPD/xsd/exchange_schema/Charge_Referral_Report.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema/Charge_Referral_Report.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="ChargeReferralReport">
