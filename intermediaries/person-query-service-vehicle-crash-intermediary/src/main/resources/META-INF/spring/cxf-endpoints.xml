@@ -66,7 +66,7 @@
     <cxf:cxfEndpoint 
         id="personQueryVehicleCrashResultsService"
         address="${personQueryVehicleCrashResultsHandlerEndpoint}"
-        wsdlURL="classpath:ssp/Vehicle_Crash_Query_Results_Service/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Vehicle_Crash_Query_Results/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
         serviceName="ojbc:Vehicle-Crash-Query-Results-ServiceService"
 		endpointName="ojbc:Vehicle-Crash-Query-Results-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0">
@@ -105,7 +105,7 @@
     -->
     <cxf:cxfEndpoint id="presentPersonQueryResultsVehicleCrashService"
         address="${personQuery.vehicleCrash.presentResultsEndpoint}"
-        wsdlURL="classpath:ssp/Vehicle_Crash_Query_Results_Service/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Vehicle_Crash_Query_Results/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
         serviceName="ojbc:Vehicle-Crash-Query-Results-ServiceService"
 		endpointName="ojbc:Vehicle-Crash-Query-Results-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0">
