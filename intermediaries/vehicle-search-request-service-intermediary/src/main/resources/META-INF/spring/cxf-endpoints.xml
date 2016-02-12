@@ -41,7 +41,7 @@
 	<!-- Vehicle Search Request Service, hosted by OJB  -->
 	<cxf:cxfEndpoint id="vehicleSearchRequestFederatedService"
 		address="${federatedQuery.vehicleSearch.vehicleSearchFederatedServiceEndpoint}"
-		wsdlURL="classpath:ssp/Vehicle_Search_Request_Service/schema/SIP_WS_1.2/Vehicle_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Vehicle_Search_Request/schema/SIP_WS_1.2/Vehicle_Search_Request_Service.wsdl"
 		serviceName="ojbc:Vehicle_Search_Request_Service_Service" endpointName="ojbc:Vehicle_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0">
 		<cxf:properties>
@@ -54,7 +54,7 @@
 	</cxf:cxfEndpoint>
 
 	<cxf:cxfEndpoint id="vehicleSearchRequestServiceAdapter"
-		wsdlURL="classpath:ssp/Vehicle_Search_Request_Service/schema/SIP_WS_1.2/Vehicle_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Vehicle_Search_Request/schema/SIP_WS_1.2/Vehicle_Search_Request_Service.wsdl"
 		serviceName="ojbc:Vehicle_Search_Request_Service_Service" endpointName="ojbc:Vehicle_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0">
 		<cxf:properties>
