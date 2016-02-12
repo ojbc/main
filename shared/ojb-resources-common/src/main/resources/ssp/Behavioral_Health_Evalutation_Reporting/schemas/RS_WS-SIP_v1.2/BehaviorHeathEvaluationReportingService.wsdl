@@ -31,7 +31,7 @@
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/BehavioralHealthEvaluationRecord/1.0"
-			 schemaLocation="../../artifacts/service_model/information_model/BehavioralHealthEvaluationRecord_IEPD/xsd/exchange.xsd"/>
+			 schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="BehavioralHealthEvaluationRecord">
