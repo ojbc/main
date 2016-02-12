@@ -46,7 +46,7 @@
 	<!-- OJB Subscription Request Reporting Service, hosted by this intermediary -->
 	<cxf:cxfEndpoint id="subscriptionReportingRequestService"
 		address="${subscriptionReportingService.subscriptionReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Reporting_Service/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Reporting/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
 		serviceName="ojbc:Subscription-Reporting-ServiceService" endpointName="ojbc:Subscription-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
  		<cxf:properties>
@@ -61,7 +61,7 @@
 	<!-- Rapback Data Store Adapter, called by the intermediary -->
 	<cxf:cxfEndpoint id="subscriptionReportingRequestAdapter"
         address="${subscriptionReportingService.subscriptionReportingRequestAdapterEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Reporting_Service/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Reporting/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
 		serviceName="ojbc:Subscription-Reporting-ServiceService" endpointName="ojbc:Subscription-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
 		<cxf:properties>
