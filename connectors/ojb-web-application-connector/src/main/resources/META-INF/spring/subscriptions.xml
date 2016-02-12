@@ -51,7 +51,7 @@
 	    <cxf:cxfEndpoint 
 	        id="notificationBrokerServiceSecure"
 	        address="${webapplication.subscription.notificationBrokerSecureEndpoint}" 
-			wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/Secure_OJBWSNotification.wsdl"
+			wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSNotification.wsdl"
 			serviceName="ojbc:SecureNotificationBrokerServiceService" 
 			endpointName="ojbc:SecureNotificationBrokerService"
 			xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
@@ -67,7 +67,7 @@
 	    <cxf:cxfEndpoint 
 	        id="subscriptionManagerServiceSecure"
 	        address="${webapplication.subscription.subscriptionManagerSecureEndpoint}" 
-			wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/Secure_OJBWSubscriptionManager.wsdl"
+			wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSubscriptionManager.wsdl"
 			serviceName="ojbc:SecureSubscriptionManagerServiceService" 
 			endpointName="ojbc:SecureSubscriptionManager"
 			xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">

@@ -40,16 +40,16 @@ public class SubscriptionDocumentBuilderTest {
 		
 		Document subDoc = getSampleSubDoc();
 		
-		String b2RootXsdPath = "ssp/Subscription_Notification_Service/WSDL/wsn/b-2.xsd";		
+		String b2RootXsdPath = "ssp/Subscription_Notification/WSDL/wsn/b-2.xsd";		
 						
 		// directories needed for locating different xsd's needed in validating xml doc
-		String b2RootXsdDir =  "ssp/Subscription_Notification_Service/WSDL/wsn";
-		String subscribeDocXsdDirPath = "ssp/Subscription_Notification_Service/information_model/Subscription_Document-IEPD/xsd";		
-		String neimXsdDirPath = "ssp/Subscription_Notification_Service/information_model/Subscription_Document-IEPD/xsd/NIEM_2.1";
+		String b2RootXsdDir =  "ssp/Subscription_Notification/WSDL/wsn";
+		String subscribeDocXsdDirPath = "ssp/Subscription_Notification/information_model/Subscription_Document-IEPD/xsd";		
+		String neimXsdDirPath = "ssp/Subscription_Notification/information_model/Subscription_Document-IEPD/xsd/NIEM_2.1";
 		
 		//note these 2 dirs are needed to pass test from mvn install but not when running from the ide
-		String wsdlDir = "ssp/Subscription_Notification_Service/WSDL";
-		String subNotDir = "ssp/Subscription_Notification_Service";
+		String wsdlDir = "ssp/Subscription_Notification/WSDL";
+		String subNotDir = "ssp/Subscription_Notification";
 		
 		
 		List<String> xsdDirPaths = Arrays.asList(b2RootXsdDir, subscribeDocXsdDirPath, neimXsdDirPath, wsdlDir, subNotDir);		

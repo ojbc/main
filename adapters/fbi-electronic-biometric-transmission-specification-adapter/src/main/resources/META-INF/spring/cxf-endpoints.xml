@@ -41,7 +41,7 @@
      <cxf:cxfEndpoint 
         id="fbiEbtsService"
         address="${fbiEbtsAdapter.secureEndpoint}" 
-		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" 
 		endpointName="ojb-nb:NotificationBrokerService"
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
@@ -50,7 +50,7 @@
 
 	<cxf:cxfEndpoint id="fbiEbtsSubscriptionManagerService"
 		address="${fbiEbtsAdapter.unsubscribeServiceEndpoint}" 
-		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSubscriptionManager.wsdl"
 		serviceName="ojb-sm:SubscriptionManagerServiceService"
 		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
 	</cxf:cxfEndpoint>        
