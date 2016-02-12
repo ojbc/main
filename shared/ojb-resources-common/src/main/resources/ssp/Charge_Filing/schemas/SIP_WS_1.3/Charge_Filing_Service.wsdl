@@ -29,7 +29,7 @@
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" schemaLocation="../../artifacts/service_model/information_model/Charge_Filing_IEPD/xsd/message/ECF-4.0-CoreFilingMessage.xsd"/>
+			<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/message/ECF-4.0-CoreFilingMessage.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="ChargeFiling">
