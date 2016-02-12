@@ -70,7 +70,7 @@
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 			xmlns:jh-req-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0"
 			xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
-			xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0 ../../../artifacts/service_model/information_model/Juvenile_History_IEPD/Query/JuvenileHistoryQuery.xsd">
+			xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0 ../../../artifacts/service_model/information_model/IEPD/Query/JuvenileHistoryQuery.xsd">
 			<jh-ext:JuvenileHistoryQueryCriteria>
 				<jh-ext:JuvenileInformationRecordID>
 					<IdentificationID>100</IdentificationID>

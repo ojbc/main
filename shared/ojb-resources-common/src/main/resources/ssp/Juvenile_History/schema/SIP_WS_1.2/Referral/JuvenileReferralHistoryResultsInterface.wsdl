@@ -33,7 +33,7 @@
 
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0" schemaLocation="../../../artifacts/service_model/information_model/Juvenile_History_IEPD/Referral/JuvenileReferralHistoryResponse.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0" schemaLocation="../../../artifacts/service_model/information_model/IEPD/Referral/JuvenileReferralHistoryResponse.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="JuvenileReferralHistoryResponseMessage">
