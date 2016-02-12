@@ -36,7 +36,7 @@
 		<xsd:schema
 			targetNamespace="http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Custody_Search_Request-IEPD/xsd/exchange_schema.xsd"></xsd:import>
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Custody-Search-Request">
