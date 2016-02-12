@@ -55,7 +55,7 @@
 	<!-- OJB Probation Hander Service, Hosted by intermediary -->
 	<cxf:cxfEndpoint id="probationEventHandlerService"
 		address="${publishSubscribe.probationEventHandlerEndpoint}"
-		wsdlURL="classpath:ssp/Probation_Event_Handler_Service/schema/SIP_WS_1.2/Probation_Event_Handler_Service.wsdl"
+		wsdlURL="classpath:ssp/Probation_Event_Handler/schema/SIP_WS_1.2/Probation_Event_Handler_Service.wsdl"
 		serviceName="probation:Probation-Event-Handler-ServiceService"
 		endpointName="probation:Probation-Event-Handler-Service"
 		xmlns:probation="http://ojbc.org/Services/WSDL/Probation_Event_Handler_Service/1.0">
