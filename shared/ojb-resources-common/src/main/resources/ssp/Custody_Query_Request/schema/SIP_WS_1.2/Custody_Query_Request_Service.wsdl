@@ -33,7 +33,7 @@
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CustodyQueryRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Custody_Query_Request-IEPD/xsd/exchange_schema.xsd" />
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Custody-Query-Request">
