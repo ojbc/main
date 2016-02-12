@@ -30,8 +30,8 @@
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" schemaLocation="../../artifacts/service_model/information_model/Incident_Report_IEPD/xsd/exchange_schema/Incident_Report.xsd"/>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0" schemaLocation="../../artifacts/service_model/information_model/Incident_Report_IEPD/xsd/exchange_schema/Incident_Report_Update.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema/Incident_Report.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema/Incident_Report_Update.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="IncidentReport">
