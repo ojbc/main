@@ -30,7 +30,7 @@
 		<xsd:schema
 			targetNamespace="http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Incident_Report_Request_IEPD/xsd/exchange_schema.xsd" />
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Incident-Identifer-Incident-Report-Request">
