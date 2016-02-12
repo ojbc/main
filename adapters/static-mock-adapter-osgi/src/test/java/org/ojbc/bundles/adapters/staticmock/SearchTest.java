@@ -301,7 +301,7 @@ public class SearchTest extends AbstractStaticMockTest {
 	@Test
     public void testIncidentPersonSearch() throws Exception {
         Document incidentPersonSearchRequestMessage = buildIncidentPersonSearchRequestMessage(8);
-        XmlUtils.validateInstance("ssp/Incident_Search_Request/artifacts/service_model/information_model/Incident_Search_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
+        XmlUtils.validateInstance("ssp/Incident_Search_Request/artifacts/service_model/information_model/IEPD/xsd", "Subset/niem", "exchange_schema.xsd",
                 incidentPersonSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = staticMockQuery.incidentPersonSearchDocumentsAsList(incidentPersonSearchRequestMessage,
                 StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));

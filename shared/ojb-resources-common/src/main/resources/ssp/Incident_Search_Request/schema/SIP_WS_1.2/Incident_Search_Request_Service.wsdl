@@ -29,7 +29,7 @@
 	<wsdl:types>
 		<xsd:schema targetNamespace="http://ojbc.org/Incident_Search_Request_Service/">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Incident_Search_Request_IEPD/xsd/exchange_schema.xsd"></xsd:import>
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Incident-Search-Request">
