@@ -64,7 +64,7 @@
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
 		address="${arrestReportingService.notificationBrokerEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" endpointName="ojb-nb:NotificationBrokerService"
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
         <cxf:properties>
