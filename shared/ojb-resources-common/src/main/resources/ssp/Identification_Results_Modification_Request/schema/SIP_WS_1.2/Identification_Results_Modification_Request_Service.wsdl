@@ -33,7 +33,7 @@
 		<xsd:schema
 			targetNamespace="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Identification_Results_Modification_Request_IEPD/xsd/IdentificationResultsArchiveRequest.xsd"></xsd:import>
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/IdentificationResultsArchiveRequest.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Identification-Results-Archive-Request">
