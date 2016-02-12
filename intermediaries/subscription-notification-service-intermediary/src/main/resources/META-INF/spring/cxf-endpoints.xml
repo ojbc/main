@@ -167,7 +167,7 @@
     <cxf:cxfEndpoint 
         id="subscriptionSearchRequestService"
         address="${subscriptionSearchQuery.subscriptionSearchRequestEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Search_Request_Service/schema/SIP_WS_1.2/Subscription_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Search_Request/schema/SIP_WS_1.2/Subscription_Search_Request_Service.wsdl"
 		serviceName="ojbc:Subscription_Search_Request_Service_Service" 
 		endpointName="ojbc:Subscription_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0">

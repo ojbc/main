@@ -162,7 +162,7 @@
 	<!-- Subscription Reporting Adapter - hosted by the rapback data store adapter, called by the intermediary -->
 	<cxf:cxfEndpoint id="subscriptionReportingAdapter"
 		address="${rapbackDatastoreAdapter.subscriptionReportingEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Reporting_Service/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Reporting/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
 		serviceName="ojbc:Subscription-Reporting-ServiceService" endpointName="ojbc:Subscription-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
 		<cxf:properties>

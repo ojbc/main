@@ -101,7 +101,7 @@
 	
 	<cxf:cxfEndpoint id="subscriptionReportingService"
 		address="${fbiEbtsAdapter.subscriptionReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Reporting_Service/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Reporting/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
 		serviceName="ojbc:Subscription-Reporting-ServiceService" 
 		endpointName="ojbc:Subscription-Reporting-Secure-Service" 
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
