@@ -33,7 +33,7 @@
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Court_Case_Query_Request-IEPD/xsd/exchange_schema.xsd" />
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Court-Case-Query-Request">
