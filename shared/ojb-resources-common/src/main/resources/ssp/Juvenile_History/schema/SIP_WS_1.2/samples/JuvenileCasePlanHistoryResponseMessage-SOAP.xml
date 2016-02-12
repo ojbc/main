@@ -74,7 +74,7 @@
 			xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 			xmlns:jh-case-plan-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0" 
 			xmlns:jh-case-plan="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileCasePlanHistoryExtension/1.0"  
-			xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0 ../../../artifacts/service_model/information_model/Juvenile_History_IEPD/CasePlan/JuvenileCasePlanHistoryResponse.xsd">
+			xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileCasePlanHistoryResponse/1.0 ../../../artifacts/service_model/information_model/IEPD/CasePlan/JuvenileCasePlanHistoryResponse.xsd">
 			<jh-ext:JuvenileHistoryCategoryCode>JuvenileCasePlanHistory</jh-ext:JuvenileHistoryCategoryCode>
 	<jh-ext:JuvenileHistoryQueryCriteria>
 		<jh-ext:JuvenileInformationRecordID>
