@@ -355,7 +355,7 @@
 		<!-- Policy Acknowledgement Recording Request Service  -->
 		<cxf:cxfEndpoint id="policyAcknowledgementRecordingResponseService"
 			address="${webapplication.accessControl.policyAcknowledgementRecordingResponseEndpoint}"
-			wsdlURL="classpath:ssp/Policy_Acknowledgement_Recording_Response_Service/schemas/SIP_WS_1.3/Policy_Acknowledgement_Recording_Response_Service.wsdl"
+			wsdlURL="classpath:ssp/Policy_Acknowledgement_Recording_Response/schemas/SIP_WS_1.3/Policy_Acknowledgement_Recording_Response_Service.wsdl"
 			serviceName="ojbc:Policy-Acknowledgement-Recording-Response-ServiceService" endpointName="ojbc:Policy-Acknowledgement-Recording-Response-Secure-Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/PolicyAcknowledgementRecordingResponseService/1.0">
 	        <cxf:features>
