@@ -631,7 +631,7 @@ public class SearchTest extends AbstractStaticMockTest {
                 "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:Firearm/nc:ItemSerialIdentification/nc:IdentificationID");
         serialNumberNode.setTextContent("doesnt exist");
         Document responseDocument = staticMockQuery.firearmSearchDocuments(firearmSearchRequestMessage);
-        XmlUtils.validateInstance("ssp/Firearm_Search_Results/artifacts/service_model/information_model/Firearm_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
+        XmlUtils.validateInstance("ssp/Firearm_Search_Results/artifacts/service_model/information_model/IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
         Node root = XmlUtils.xPathNodeSearch(responseDocument, "firearm-search-resp-doc:FirearmSearchResults");
         assertNotNull(root);
         NodeList descendants = ((Element) root).getChildNodes();
@@ -654,7 +654,7 @@ public class SearchTest extends AbstractStaticMockTest {
         // XmlUtils.printNode(responseDocument);
 
         List<String> schemaPaths = new ArrayList<String>();
-        String iepdRootPath = "ssp/Firearm_Search_Results/artifacts/service_model/information_model/Firearm_Search_Results_IEPD/xsd/";
+        String iepdRootPath = "ssp/Firearm_Search_Results/artifacts/service_model/information_model/IEPD/xsd/";
         schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
         XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, responseDocument);
 
