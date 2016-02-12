@@ -36,7 +36,7 @@
 		<xsd:schema
 			targetNamespace="http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Court_Case_Search_Request-IEPD/xsd/exchange_schema.xsd"></xsd:import>
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Court-Case-Search-Request">
