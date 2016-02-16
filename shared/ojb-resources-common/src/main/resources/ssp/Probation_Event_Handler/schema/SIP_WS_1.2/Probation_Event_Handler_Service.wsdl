@@ -28,9 +28,9 @@
 	targetNamespace="http://ojbc.org/Services/WSDL/Probation_Event_Handler_Service/1.0">
     <wsdl:types>
         <xsd:schema>
-        	<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ProbationCaseInitiation/1.0" schemaLocation="../../artifacts/service_model/information_model/Probation_Case-IEPD/xsd/Probation_Case_Initiation.xsd"/>
-            <xsd:import namespace="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0" schemaLocation="../../artifacts/service_model/information_model/Probation_Case-IEPD/xsd/Probation_Case_Termination.xsd"/>
-            <xsd:import namespace="http://ojbc.org/IEPD/Exchange/ProbationCaseOfficerChange/1.0" schemaLocation="../../artifacts/service_model/information_model/Probation_Case-IEPD/xsd/Probation_Officer_Change.xsd"/>
+        	<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ProbationCaseInitiation/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Probation_Case_Initiation.xsd"/>
+            <xsd:import namespace="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Probation_Case_Termination.xsd"/>
+            <xsd:import namespace="http://ojbc.org/IEPD/Exchange/ProbationCaseOfficerChange/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Probation_Officer_Change.xsd"/>
         </xsd:schema>
  	</wsdl:types>
     <wsdl:message name="Probation-Case-Initiation">
