@@ -30,7 +30,7 @@
 		<xsd:schema
 			targetNamespace="http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Subscription_Search_Request_IEPD/xsd/exchange_schema.xsd"></xsd:import>
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Subscription-Search-Request">
