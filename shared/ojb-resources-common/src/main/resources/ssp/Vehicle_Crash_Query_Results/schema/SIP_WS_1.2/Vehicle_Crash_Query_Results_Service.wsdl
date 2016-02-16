@@ -32,7 +32,7 @@
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Vehicle_Crash_Query_Results-IEPD/xsd/exchange.xsd" />
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Vehicle-Crash-Query-Results">
