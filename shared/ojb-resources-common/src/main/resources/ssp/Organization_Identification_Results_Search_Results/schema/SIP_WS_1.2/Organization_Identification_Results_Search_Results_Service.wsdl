@@ -31,7 +31,7 @@
 		<xsd:schema
 			targetNamespace="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Organization_Identification_Results_Search_Results_IEPD/xsd/exchange_schema.xsd"/>
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="OrganizationIdentificationResults-Search-Results">
