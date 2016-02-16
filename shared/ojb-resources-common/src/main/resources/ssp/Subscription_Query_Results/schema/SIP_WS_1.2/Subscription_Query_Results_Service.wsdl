@@ -31,7 +31,7 @@
 		<xsd:schema
 			targetNamespace="http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Subscription_Query_Results_IEPD/xsd/exchange_schema.xsd"></xsd:import>
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Subscription-Query-Results">
