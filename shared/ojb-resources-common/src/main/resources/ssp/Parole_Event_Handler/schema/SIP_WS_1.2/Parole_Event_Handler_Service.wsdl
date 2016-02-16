@@ -28,15 +28,15 @@
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Parole_Case-IEPD/xsd/Parole_Officer_Change.xsd" />
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Parole_Officer_Change.xsd" />
 		</xsd:schema>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Parole_Case-IEPD/xsd/Parole_Case_Termination.xsd" />
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Parole_Case_Termination.xsd" />
 		</xsd:schema>
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Parole_Case-IEPD/xsd/Parole_Case_Initiation.xsd" />
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Parole_Case_Initiation.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Parole-Case-Initiation">
