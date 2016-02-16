@@ -29,7 +29,7 @@
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/AcknowledgementRecordingResponse/1.0" schemaLocation="../../artifacts/service_model/information_model/Policy_Acknowledgement_Response_IEPD/xsd/AcknowledgementRecordingResponse.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/AcknowledgementRecordingResponse/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/AcknowledgementRecordingResponse.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="AcknowledgementRecordingResponse">
