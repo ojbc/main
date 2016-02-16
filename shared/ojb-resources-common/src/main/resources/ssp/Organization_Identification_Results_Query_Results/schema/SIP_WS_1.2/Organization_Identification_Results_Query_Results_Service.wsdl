@@ -30,8 +30,8 @@
 	<wsdl:types>
 		<xsd:schema
 			targetNamespace="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0">
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryResults/1.0" schemaLocation="../../artifacts/service_model/information_model/Organization_Identification_Results_Query_Results_IEPD/xsd/InitialResultsQueryResults_schema.xsd"></xsd:import>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0" schemaLocation="../../artifacts/service_model/information_model/Organization_Identification_Results_Query_Results_IEPD/xsd/SubsequentResultsQueryResults_schema.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryResults/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/InitialResultsQueryResults_schema.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/SubsequentResultsQueryResults_schema.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Organization-Identification-Initial-Results-Query-Results">
