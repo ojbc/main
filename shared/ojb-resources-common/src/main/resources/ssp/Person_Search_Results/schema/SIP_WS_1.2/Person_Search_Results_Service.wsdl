@@ -31,7 +31,7 @@
 		<xsd:schema
 			targetNamespace="http://ojbc.org/Services/WSDL/PersonSearchResultsService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd/exchange_schema.xsd"></xsd:import>
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Person-Search-Results">
