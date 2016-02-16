@@ -30,7 +30,7 @@
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
     <wsdl:types>
         <xsd:schema>
-            <xsd:import namespace="http://hijis.hawaii.gov/PersonSearchResultsCombined/1.0" schemaLocation="../../artifacts/service_model/information_model/Person_Search_Results-IEPD/xsd/Person_Search_Results_-_Combined.xsd"/>
+            <xsd:import namespace="http://hijis.hawaii.gov/PersonSearchResultsCombined/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Person_Search_Results_-_Combined.xsd"/>
         </xsd:schema>
     </wsdl:types>
     <wsdl:message name="Person-Search-Results---Combined">
