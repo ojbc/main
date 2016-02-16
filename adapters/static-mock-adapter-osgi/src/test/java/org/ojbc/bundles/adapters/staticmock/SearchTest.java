@@ -209,7 +209,7 @@ public class SearchTest extends AbstractStaticMockTest {
     	assertNotNull(searchResults);
     	assertNotNull(XmlUtils.xPathNodeSearch(searchResults, "/vsres-exch:VehicleSearchResults/vsres:VehicleSearchResult[vsres:Vehicle/nc:VehicleIdentification/nc:IdentificationID='V125646899264104931']"));
     	//XmlUtils.printNode(searchResults);
-        XmlUtils.validateInstance("ssp/Vehicle_Search_Results/artifacts/service_model/information_model/Vehicle_Search_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
+        XmlUtils.validateInstance("ssp/Vehicle_Search_Results/artifacts/service_model/information_model/IEPD/xsd", "Subset/niem", "exchange_schema.xsd", searchResults);
     }
     
     @Test
