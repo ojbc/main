@@ -417,7 +417,7 @@ public class XslTemplateTest {
         
         String xmlInput = WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
                 "/ssp/Organization_Identification_Results_Search_Results"
-                + "/artifacts/service_model/information_model/Organization_Identification_Results_Search_Results_IEPD/xml/" + inputXmlPath));
+                + "/artifacts/service_model/information_model/IEPD/xml/" + inputXmlPath));
         
         List<String> expectedHtml = IOUtils.readLines(new ClassPathResource("xslTransformTest/" + expectedHtmlPath).getInputStream(), CharEncoding.UTF_8);
         
