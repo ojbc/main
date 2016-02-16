@@ -31,7 +31,7 @@
 		<xsd:schema
 			targetNamespace="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IdentificationResultsModificationResponse/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/Identification_Results_Modification_Response_IEPD/xsd/IdentificationResultsModificationResponse.xsd"></xsd:import>
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/IdentificationResultsModificationResponse.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Identification-Results-Modification-Response">
