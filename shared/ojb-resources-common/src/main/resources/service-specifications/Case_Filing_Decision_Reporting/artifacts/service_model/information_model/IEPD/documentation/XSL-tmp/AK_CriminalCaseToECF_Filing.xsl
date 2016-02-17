@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsl:stylesheet version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:criminalcase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:cc-filing-doc="http://ojbc.org/IEPD/Exchange/CourtCaseFiling/1.0" xmlns:cc-filing-ext="http://ojbc.org/IEPD/Extension/CourtCaseFiling/1.0" xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/">
+<xsl:stylesheet version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:criminalcase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0" xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0" xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
-	<xsl:template match="/cc-filing-doc:CourtCaseFilingDocument">
+	<xsl:template match="/cfd-doc:CaseFilingDecisionReport">
 		<core:CoreFilingMessage>
 			<xsl:apply-templates select="." mode="ecf"/>
 			<criminalcase:CriminalCase>
@@ -103,7 +103,7 @@
 		<j:CaseAugmentation>
 			<xsl:apply-templates select="j51:CaseCourt"/>
 			<xsl:apply-templates select="j51:CaseCourtEvent"/>
-			<xsl:apply-templates select="/cc-filing-doc:CourtCaseFilingDocument/nc30:Person[@structures:id=/cc-filing-doc:CourtCaseFilingDocument/nc30:PersonResidenceAssociation/nc30:Person/@structures:ref]" mode="subject"/>
+			<xsl:apply-templates select="/cfd-doc:CaseFilingDecisionReport/nc30:Person[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:PersonResidenceAssociation/nc30:Person/@structures:ref]" mode="subject"/>
 			<xsl:apply-templates select="j51:CaseInitiatingParty"/>
 			<xsl:apply-templates select="j51:CaseProsecutionAttorney/j51:JudicialOfficialBarMembership/j51:JudicialOfficialBarIdentification/nc30:IdentificationID" mode="prosecutor"/>
 		</j:CaseAugmentation>
@@ -131,17 +131,17 @@
 			<ecf:EntityPerson>
 				<xsl:apply-templates select="nc30:PersonBirthDate"/>
 				<xsl:apply-templates select="nc30:PersonName"/>
-				<xsl:apply-templates select="cc-filing-ext:OperatorLicenseIdentification"/>
-				<xsl:apply-templates select="cc-filing-ext:AlaskaPublicSafetyInformationNetworkIdentification"/>
+				<xsl:apply-templates select="cfd-ext:OperatorLicenseIdentification"/>
+				<xsl:apply-templates select="cfd-ext:AlaskaPublicSafetyInformationNetworkIdentification"/>
 				<xsl:apply-templates select="j51:PersonAugmentation/j51:DriverLicense/j51:DriverLicenseIdentification"/>
-				<xsl:apply-templates select="/cc-filing-doc:CourtCaseFilingDocument/nc30:Location[@structures:id=/cc-filing-doc:CourtCaseFilingDocument/nc30:PersonResidenceAssociation/nc30:Location/@structures:ref]/nc30:Address" mode="subject"/>
+				<xsl:apply-templates select="/cfd-doc:CaseFilingDecisionReport/nc30:Location[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:PersonResidenceAssociation/nc30:Location/@structures:ref]/nc30:Address" mode="subject"/>
 			</ecf:EntityPerson>
 		</j:CaseDefendantParty>
 	</xsl:template>
 	<xsl:template match="j51:CaseInitiatingParty">
 		<j:CaseInitiatingParty>
-			<xsl:apply-templates select="/cc-filing-doc:CourtCaseFilingDocument/nc30:Organization[@structures:id=/cc-filing-doc:CourtCaseFilingDocument/nc30:Case/j51:CaseAugmentation/j51:CaseInitiatingParty/nc30:EntityOrganization/@structures:ref]/nc30:OrganizationName" mode="initiating_party"/>
-			<xsl:apply-templates select="/cc-filing-doc:CourtCaseFilingDocument/nc30:Person[@structures:id=/cc-filing-doc:CourtCaseFilingDocument/j51:JudicialOfficial[@structures:id=/cc-filing-doc:CourtCaseFilingDocument/nc30:Case/j51:CaseAugmentation/j51:CaseInitiatingParty/nc30:EntityPerson/@structures:ref]/nc30:RoleOfPerson/@structures:ref]/nc30:PersonName" mode="initiating_party"/>
+			<xsl:apply-templates select="/cfd-doc:CaseFilingDecisionReport/nc30:Organization[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:Case/j51:CaseAugmentation/j51:CaseInitiatingParty/nc30:EntityOrganization/@structures:ref]/nc30:OrganizationName" mode="initiating_party"/>
+			<xsl:apply-templates select="/cfd-doc:CaseFilingDecisionReport/nc30:Person[@structures:id=/cfd-doc:CaseFilingDecisionReport/j51:JudicialOfficial[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:Case/j51:CaseAugmentation/j51:CaseInitiatingParty/nc30:EntityPerson/@structures:ref]/nc30:RoleOfPerson/@structures:ref]/nc30:PersonName" mode="initiating_party"/>
 		</j:CaseInitiatingParty>
 	</xsl:template>
 	<xsl:template match="nc30:OrganizationName" mode="initiating_party">
@@ -180,13 +180,13 @@
 			<xsl:apply-templates select="nc30:PersonFullName"/>
 		</nc:PersonName>
 	</xsl:template>
-	<xsl:template match="cc-filing-ext:OperatorLicenseIdentification">
+	<xsl:template match="cfd-ext:OperatorLicenseIdentification">
 		<nc:PersonOtherIdentification>
 			<xsl:apply-templates select="nc30:IdentificationID"/>
 			<xsl:apply-templates select="nc30:IdentificationCategoryText"/>
 		</nc:PersonOtherIdentification>
 	</xsl:template>
-	<xsl:template match="cc-filing-ext:AlaskaPublicSafetyInformationNetworkIdentification">
+	<xsl:template match="cfd-ext:AlaskaPublicSafetyInformationNetworkIdentification">
 		<nc:PersonOtherIdentification>
 			<xsl:apply-templates select="nc30:IdentificationID"/>
 			<nc:IdentificationCategoryText>APSIN</nc:IdentificationCategoryText>
@@ -200,7 +200,7 @@
 		</nc:PersonOtherIdentification>
 	</xsl:template>
 	<!-- MATCH -->
-	<xsl:template match="cc-filing-doc:CourtCaseFilingDocument" mode="ecf">
+	<xsl:template match="cfd-doc:CaseFilingDecisionReport" mode="ecf">
 		<ecf:SendingMDELocationID/>
 		<ecf:SendingMDEProfileCode/>
 	</xsl:template>
