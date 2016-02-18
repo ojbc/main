@@ -79,25 +79,7 @@
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>	              
-              
-	<httpj:engine-factory bus="cxf">
-		<httpj:engine port="${criminalHistoryReportingService.portNumber}"> 
-			<httpj:tlsServerParameters>
-				<sec:keyManagers keyPassword="${criminalHistoryReporting.intermediaryKeyPassword}">
-					<sec:keyStore type="jks" 
-						password="${criminalHistoryReporting.intermediaryKeystorePassword}" 
-						file="${criminalHistoryReporting.intermediaryKeystoreLocation}" />
-				</sec:keyManagers>
-				<sec:cipherSuitesFilter>
-					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				</sec:cipherSuitesFilter>
-			</httpj:tlsServerParameters>
-		</httpj:engine>
-	</httpj:engine-factory>               
-                            	          
+
 	<!-- 
 		Define a Properties object with the properties required by the org.apache.ws.security.components.crypto.Merlin 
 		WSS4j Crypto implementation. This crypto config is used for signature creation and validation. 

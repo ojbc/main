@@ -52,7 +52,6 @@
 			<xsd:extension base="j:PersonAugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="nc:Person"/>
-					<xsd:element ref="cs-req-ext:PersonBirthDateRange" minOccurs="0"/>
 					<xsd:element ref="j:BookingSubject" minOccurs="0" />
 					<xsd:element ref="nc:Supervision" minOccurs="0" />
 				</xsd:sequence>
@@ -66,7 +65,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonBirthDateRange" type="nc:DateRangeType">
+	<xsd:element name="PersonBirthDateRange" type="nc:DateRangeType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A range of possible dates of birth for a person.</xsd:documentation>
 		</xsd:annotation>
@@ -77,6 +76,11 @@
 				Absence of this element indicates that all known systems shall be
 				queried.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A system-assigned unique identifier for a person.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SearchMetadata" type="cs-req-ext:SearchMetadataType">

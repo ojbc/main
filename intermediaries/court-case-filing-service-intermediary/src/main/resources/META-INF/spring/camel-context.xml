@@ -32,19 +32,45 @@
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
 
-		<camel:endpoint id="courtCaseFilingServiceEndpoint"
-			uri="cxf:bean:courtCaseFilingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseFilingService.cxflogging}" />
+		<camel:endpoint id="courtCaseFilingServiceIntermediaryEndpoint"
+			uri="cxf:bean:courtCaseFilingServiceIntermediary?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseFilingService.cxflogging}" />
+
+		<camel:endpoint id="courtCaseFilingServiceAdapterEndpoint"
+			uri="cxf:bean:courtCaseFilingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseFilingService.cxflogging}" />
 			
 		<!-- Incident Reporting Service Handler -->
-		<camel:route id="CourtCaseFilingServiceHandlerRoute" errorHandlerRef="deadLetterErrorHandler">
-			<camel:from uri="courtCaseFilingServiceEndpoint" />
+		<camel:route id="courtCaseFilingServiceIntermediaryRoute" errorHandlerRef="deadLetterErrorHandler">
+			<camel:from uri="courtCaseFilingServiceIntermediaryEndpoint" />
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 
 			<convertBodyTo type="java.lang.String" />
 			
-			<camel:log message="Inbound court case filing message: ${body}"/>
+			<camel:log message="Inbound court case filing message: ${body}" loggingLevel="DEBUG"/>
 			
+			<camel:log message="Call court case filing service adapter: {{courtCaseFilingService.callCourtCaseFilingServiceAdapter}}"/>
+			
+			<!-- Multicast to the core services and derived bundle specific routes 
+				so each route gets original message -->
+			<camel:multicast stopOnException="false">
+				<camel:pipeline>
+					<camel:filter>
+						<camel:simple>{{courtCaseFilingService.callCourtCaseFilingServiceAdapter}} == 'true'</camel:simple>
+
+						<camel:to uri="direct:callCourtFilingServiceAdapter" />
+
+					</camel:filter>
+				</camel:pipeline>
+			</camel:multicast>
+			
+		</camel:route>
+
+		<camel:route id="callCourtFilingServiceAdapterRoute">
+			<camel:from uri="direct:callCourtFilingServiceAdapter" />
+			
+			<camel:log message="About to call court case filing service adapter."/>
+			
+			<camel:to uri="courtCaseFilingServiceAdapterEndpoint"/>
 		</camel:route>
 
 	</camel:camelContext>
