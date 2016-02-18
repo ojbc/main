@@ -26,7 +26,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>criminal-history-update-reporting-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<name>OJB :: criminal-history-update-reporting-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 

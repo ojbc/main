@@ -206,6 +206,10 @@ public class SAMLAssertionBuilder {
 		//The SAMLTokenProvider shows how to do this
 		SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(assertion);
 	
+		String alias = "";
+		String password = "";
+		Crypto signatureCrypto = null;
+		
 		if (StringUtils.isNotEmpty(keyAlias) 
 			&& 	StringUtils.isNotEmpty(keystorePassword)
 			&& 	StringUtils.isNotEmpty(keystoreLocation)
@@ -216,21 +220,37 @@ public class SAMLAssertionBuilder {
 			Properties sigProperties = new Properties();
 			sigProperties.put("org.apache.wss4j.crypto.provider", SECURITY_CRYPTO_PROVIDER_VALUE);
 			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_TYPE, MERLIN_KEYSTORE_TYPE_VALUE);
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS, keyAlias);
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_PASSWORD, keystorePassword );
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_FILE, keystoreLocation);
+	        
+			signatureCrypto = CryptoFactory.getInstance(sigProperties);
+			
+			alias = sigProperties.getProperty(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS);
+
+			password = keyPassword;
+		}
+		else
+		{
+			Properties sigProperties = new Properties();
+			sigProperties.put("org.apache.wss4j.crypto.provider", SECURITY_CRYPTO_PROVIDER_VALUE);
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_TYPE, MERLIN_KEYSTORE_TYPE_VALUE);
 			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS, MERLIN_KEYSTORE_ALIAS_VALUE);
 			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_PASSWORD, MERLIN_KEYSTORE_PASSWORD_VALUE );
 			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_FILE, MERLIN_KEYSTORE_FILE_VALUE);
 	        
-			Crypto signatureCrypto = CryptoFactory.getInstance(sigProperties);
+			signatureCrypto = CryptoFactory.getInstance(sigProperties);
 			
-			String alias = sigProperties.getProperty(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS);
+			alias = sigProperties.getProperty(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS);
 
-			String password = KEY_PASSWORD_VALUE;
-
-			assertionWrapper.signAssertion(
-					alias, password, signatureCrypto, false, defaultCanonicalizationAlgorithm,
-		            defaultRSASignatureAlgorithm
-		        );
+			password = KEY_PASSWORD_VALUE;
 		}	
+
+		assertionWrapper.signAssertion(
+				alias, password, signatureCrypto, false, defaultCanonicalizationAlgorithm,
+	            defaultRSASignatureAlgorithm
+	        );
+	
 		
 		// if you don't do this, it appears that the assertion object does not get fully created. uncomment the second line if you want to display it to stdout
 		assertionWrapper.assertionToString();

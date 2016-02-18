@@ -21,13 +21,13 @@
 <!-- Configures the CXF beans-->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
 	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:sec="http://cxf.apache.org/configuration/security" 
+	xmlns:sec="http://cxf.apache.org/configuration/security"
 	xmlns:http="http://cxf.apache.org/transports/http/configuration"
 	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
-	xmlns:policy="http://cxf.apache.org/policy" 
+	xmlns:policy="http://cxf.apache.org/policy"
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
 	xsi:schemaLocation="
@@ -42,10 +42,10 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
        ">
-       
+
 	<!-- OJB Court Case Filing Reporting Service, hosted by this intermediary -->
-	<cxf:cxfEndpoint id="courtCaseFilingService"
-		address="${courtCaseFilingService.courtCaseFilingServiceEndpoint}"
+	<cxf:cxfEndpoint id="courtCaseFilingServiceIntermediary"
+		address="${courtCaseFilingService.courtCaseFilingServiceIntermediaryEndpoint}"
 		wsdlURL="classpath:ssp/Court_Case_Filing/schema/SIP_WS_1.3/Court_Case_Filing_Service.wsdl"
 		serviceName="ojbc:Court-Case-Filing-ServiceService" endpointName="ojbc:Court-Case-Filing-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0/">
@@ -53,7 +53,20 @@
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="courtCaseFilingKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${courtCaseFilingService.intermediarykeystoreCertificateAlias}" />
-		</cxf:properties> 
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- OJB Court Case Filing Reporting Service, conditionally called by this intermediary -->
+	<cxf:cxfEndpoint id="courtCaseFilingServiceAdapter"
+		address="${courtCaseFilingService.courtCaseFilingServiceAdapterEndpoint}"
+		wsdlURL="classpath:service-specifications/Court_Case_Filing_Service/schema/SIP_WS_1.3/Court_Case_Filing_Service.wsdl"
+		serviceName="ojbc:Court-Case-Filing-ServiceService" endpointName="ojbc:Court-Case-Filing-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0/">
+ 		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="courtCaseFilingKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${courtCaseFilingService.intermediarykeystoreCertificateAlias}" />
+		</cxf:properties>
 	</cxf:cxfEndpoint>
 
 	<!-- Conduit for http clients -->
@@ -83,8 +96,8 @@
         </property>
 	</bean>
 
-	<!-- Define a Properties object with the properties required by the org.apache.ws.security.components.crypto.Merlin 
-		WSS4j Crypto implementation. This crypto config is used for signature creation 
+	<!-- Define a Properties object with the properties required by the org.apache.ws.security.components.crypto.Merlin
+		WSS4j Crypto implementation. This crypto config is used for signature creation
 		and validation. -->
 	<util:properties id="courtCaseFilingKeystoreProperties">
 		<!-- Defines the implementation class. -->

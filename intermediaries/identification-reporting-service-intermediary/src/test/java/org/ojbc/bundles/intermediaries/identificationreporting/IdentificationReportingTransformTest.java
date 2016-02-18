@@ -38,7 +38,7 @@ import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 import org.xml.sax.SAXException;
 
-public class ArrestReportTransformTest {
+public class IdentificationReportingTransformTest {
 	
 	private XsltTransformer xsltTransformer;
 	
