@@ -126,7 +126,7 @@
 			<xsd:documentation>True if total damage is over threshold; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="NearWorkZonetIndicator" type="niem-xs:boolean" substitutionGroup="j:CrashWorkZoneAugmentationPoint">
+	<xsd:element name="NearWorkZoneIndicator" type="niem-xs:boolean" substitutionGroup="j:CrashWorkZoneAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a crash occurs near a work zone; false otherwise.</xsd:documentation>
 		</xsd:annotation>
