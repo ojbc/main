@@ -76,8 +76,8 @@
 				<j:WorkZoneWorkersPresenceIndicationCode>1
 				</j:WorkZoneWorkersPresenceIndicationCode>
 				<me-crash-codes:LawEnforcementPresentAtWorkZoneCode>No Presence</me-crash-codes:LawEnforcementPresentAtWorkZoneCode>
-				<vcq-res-ext:NearWorkZonetIndicator>true
-				</vcq-res-ext:NearWorkZonetIndicator>
+				<vcq-res-ext:NearWorkZoneIndicator>true
+				</vcq-res-ext:NearWorkZoneIndicator>
 				<vcq-res-ext:WorkZoneWorkersPresentIndicator>true
 				</vcq-res-ext:WorkZoneWorkersPresentIndicator>
 			</j:CrashWorkZone>
