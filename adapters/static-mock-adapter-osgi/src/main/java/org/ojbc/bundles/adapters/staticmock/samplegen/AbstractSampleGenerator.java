@@ -712,6 +712,8 @@ public abstract class AbstractSampleGenerator {
 		List<Document> custodyDocList = new ArrayList<Document>();
 		
 		List<Document> courtCaseDocList = new ArrayList<Document>();
+		
+		List<Document> vehicleCrashDocList = new ArrayList<Document>();
 
 		if ("ALL".equals(type) || "CRIMINALHISTORY".equals(type)) {
 			generator = new CriminalHistorySampleGenerator();
@@ -746,6 +748,11 @@ public abstract class AbstractSampleGenerator {
 		if("ALL".equals(type) || "COURTCASE".equals(type)){			
 			CourtCaseSampleGenerator courtCaseGenerator = new CourtCaseSampleGenerator();			
 			courtCaseDocList = courtCaseGenerator.generateCourtCaseSamples(sampleCount);
+		}
+		
+		if("ALL".equals(type) || "VEHICLECRASH".equals(type)){
+			VehicleCrashSampleGenerator vehicleCrashGenerator = new VehicleCrashSampleGenerator();			
+			vehicleCrashDocList = vehicleCrashGenerator.generateVehicleCrashDetailSamples(sampleCount);
 		}
 
 		List<Document> allSamples = new ArrayList<Document>(criminalHistories.size() + warrants.size() + incidents.size() + firearmRegistrations.size() 
