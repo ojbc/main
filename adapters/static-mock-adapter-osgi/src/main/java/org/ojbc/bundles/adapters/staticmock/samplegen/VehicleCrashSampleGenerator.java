@@ -431,8 +431,149 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element occupantCatCodeElement = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PersonCategoryCode");
 		occupantCatCodeElement.setTextContent("TODO");
 		
+		Element driverLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");		
+		XmlUtils.addAttribute(driverLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Driver_Loc_" + recordId);
 		
+		Element driverLocAddressElement = XmlUtils.appendElement(driverLocElement, OjbcNamespaceContext.NS_NC_30, "Address");
 		
+		Element driverLocStreetElement =  XmlUtils.appendElement(driverLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
+				
+		Element driverLocStreetValElement = XmlUtils.appendElement(driverLocStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetFullText");		
+		driverLocStreetValElement.setTextContent("TODO");		
+		
+ 		Element driverLocCityElement = XmlUtils.appendElement(driverLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationCityName");
+ 		driverLocCityElement.setTextContent("TODO");
+ 		
+ 		Element driverLocStateElement = XmlUtils.appendElement(driverLocAddressElement, OjbcNamespaceContext.NS_JXDM_51, "LocationStateNCICLISCode");
+ 		driverLocStateElement.setTextContent("TODO");
+ 		
+ 		Element driverLocZipElement = XmlUtils.appendElement(driverLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode");
+ 		driverLocZipElement.setTextContent("TODO");
+ 		
+ 		
+
+
+ 		Element witnessLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");		
+ 		XmlUtils.addAttribute(witnessLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Witness_Loc_" + recordId);
+
+ 		Element witnessLocAddressElement = XmlUtils.appendElement(witnessLocElement, OjbcNamespaceContext.NS_NC_30, "Address");
+
+ 		Element witnessLocStreetElement =  XmlUtils.appendElement(witnessLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
+ 		    
+ 		Element witnessLocStreetValElement = XmlUtils.appendElement(witnessLocStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetFullText");		
+ 		witnessLocStreetValElement.setTextContent("TODO");		
+
+ 		Element witnessLocCityElement = XmlUtils.appendElement(witnessLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationCityName");
+ 		witnessLocCityElement.setTextContent("TODO");
+
+ 		Element witnessLocStateElement = XmlUtils.appendElement(witnessLocAddressElement, OjbcNamespaceContext.NS_JXDM_51, "LocationStateNCICLISCode");
+ 		witnessLocStateElement.setTextContent("TODO");
+
+ 		Element witnessLocZipElement = XmlUtils.appendElement(witnessLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode");
+ 		witnessLocZipElement.setTextContent("TODO");
+ 		
+ 		
+ 		
+ 		Element propOwnerLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");		
+ 		XmlUtils.addAttribute(propOwnerLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Property_Owner_Loc" + recordId);
+
+ 		Element propOwnerLocAddressElement = XmlUtils.appendElement(propOwnerLocElement, OjbcNamespaceContext.NS_NC_30, "Address");
+
+ 		Element propOwnerLocStreetElement =  XmlUtils.appendElement(propOwnerLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
+ 		    
+ 		Element propOwnerLocStreetValElement = XmlUtils.appendElement(propOwnerLocStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetFullText");		
+ 		propOwnerLocStreetValElement.setTextContent("TODO");		
+
+ 		Element propOwnerLocCityElement = XmlUtils.appendElement(propOwnerLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationCityName");
+ 		propOwnerLocCityElement.setTextContent("TODO");
+
+ 		Element propOwnerLocStateElement = XmlUtils.appendElement(propOwnerLocAddressElement, OjbcNamespaceContext.NS_JXDM_51, "LocationStateNCICLISCode");
+ 		propOwnerLocStateElement.setTextContent("TODO");
+
+ 		Element propOwnerLocZipElement = XmlUtils.appendElement(propOwnerLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode");
+ 		propOwnerLocZipElement.setTextContent("TODO"); 		
+ 		
+ 		
+
+		
+		Element vehicleOwnerLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");		
+		XmlUtils.addAttribute(vehicleOwnerLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Vehicle_Owner_Loc_" + recordId);
+		
+		Element vehicleOwnerLocAddressElement = XmlUtils.appendElement(vehicleOwnerLocElement, OjbcNamespaceContext.NS_NC_30, "Address");
+		
+		Element vehicleOwnerLocStreetElement =  XmlUtils.appendElement(vehicleOwnerLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
+		    
+		Element vehicleOwnerLocStreetValElement = XmlUtils.appendElement(vehicleOwnerLocStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetFullText");		
+		vehicleOwnerLocStreetValElement.setTextContent("TODO");		
+		
+		Element vehicleOwnerLocCityElement = XmlUtils.appendElement(vehicleOwnerLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationCityName");
+		vehicleOwnerLocCityElement.setTextContent("TODO");
+		
+		Element vehicleOwnerLocStateElement = XmlUtils.appendElement(vehicleOwnerLocAddressElement, OjbcNamespaceContext.NS_JXDM_51, "LocationStateNCICLISCode");
+		vehicleOwnerLocStateElement.setTextContent("TODO");
+		
+		Element vehicleOwnerLocZipElement = XmlUtils.appendElement(vehicleOwnerLocAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode");
+		vehicleOwnerLocZipElement.setTextContent("TODO");
+
+ 		
+		Element vehicleElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Vehicle");
+ 		XmlUtils.addAttribute(vehicleElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Vehicle_" + recordId);
+ 		
+ 		Element vehicleColorElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceColorPrimaryCode"); 		
+ 		vehicleColorElement.setTextContent("TODO");
+ 		
+ 		Element vehcicleYearElement = XmlUtils.appendElement(vehicleColorElement, OjbcNamespaceContext.NS_NC_30, "ItemModelYearDate");
+ 		vehcicleYearElement.setTextContent("TODO");
+ 		
+ 		Element vehicleIdElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC_30, "VehicleIdentification");
+ 		
+ 		Element vehicleIdValElement = XmlUtils.appendElement(vehicleIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+ 		vehicleIdValElement.setTextContent("TODO");
+ 		
+ 		Element vehicleIdJurisdictionElement = XmlUtils.appendElement(vehicleIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationJurisdiction");
+ 		
+ 		Element vehicleIdStateCodeElement = XmlUtils.appendElement(vehicleIdJurisdictionElement, OjbcNamespaceContext.NS_JXDM_51, "LocationStateNCICLISCode");
+ 		vehicleIdStateCodeElement.setTextContent("TODO");
+ 		
+ 		Element vehicleMakeElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_JXDM_51, "VehicleMakeCode");
+ 		vehicleMakeElement.setTextContent("TODO");
+ 		
+ 		Element vehicleUnitIdElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "VehicleUnitIdentification");
+ 		
+ 		Element vehicleUnitIdValElement = XmlUtils.appendElement(vehicleUnitIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+ 		vehicleUnitIdValElement.setTextContent("TODO");
+ 		
+ 		Element hitRunIndicatorElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "HitRunIndicator");
+ 		hitRunIndicatorElement.setTextContent("TODO");
+ 		
+ 		
+ 		Element conveyRegElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistration"); 		
+ 		XmlUtils.addAttribute(conveyRegElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Conveyance_Registration_" + recordId);
+ 		
+ 		Element conveyRegIdElement = XmlUtils.appendElement(conveyRegElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistrationPlateIdentification");
+ 		
+ 		Element conveyRegIdValElement = XmlUtils.appendElement(conveyRegIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID"); 		
+ 		conveyRegIdValElement.setTextContent("TODO");
+ 		
+ 		
+ 		Element conveyIdRegJurisdictElement = XmlUtils.appendElement(conveyRegIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationJurisdiction");
+ 	
+ 		Element conveyIdRegStateCodeElement = XmlUtils.appendElement(conveyIdRegJurisdictElement, OjbcNamespaceContext.NS_JXDM_51, "LocationStateNCICLISCode");
+ 		
+ 		conveyIdRegStateCodeElement.setTextContent("TODO");
+ 		
+ 		Element insuranceElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Insurance"); 		
+ 		XmlUtils.addAttribute(insuranceElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Insurance_" + recordId);
+ 		
+ 		Element insPolicyIdElement = XmlUtils.appendElement(insuranceElement, OjbcNamespaceContext.NS_NC_30, "InsurancePolicyIdentification");
+ 		
+ 		Element insPolicyIdValElement = XmlUtils.appendElement(insPolicyIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+ 		insPolicyIdValElement.setTextContent("TODO");
+ 		
+ 		
+ 		
+ 		
+ 		
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 		
 		ojbcNamespaceContext.populateRootNamespaceDeclarations(rootVehicCrashElement);
