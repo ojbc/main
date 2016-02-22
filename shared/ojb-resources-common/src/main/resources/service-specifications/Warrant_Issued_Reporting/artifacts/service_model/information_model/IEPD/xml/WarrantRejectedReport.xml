@@ -21,7 +21,7 @@
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0 ../xsd/WarrantRejectedReport.xsd"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:wrr-doc="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0"
-	xmlns:wr-ext="http://ojbc.org/IEPD/Extensions/WarrantReportingExtension/1.0"
+	xmlns:wir-ext="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<j:Warrant structures:id="Warrant_01">
@@ -48,8 +48,8 @@
 		</nc:PersonName>
 		<j:PersonRaceCode>A</j:PersonRaceCode>
 		<j:PersonSexCode>M</j:PersonSexCode>
-		<wr-ext:PersonRecordIdentification>
+		<wir-ext:PersonRecordIdentification>
 			<nc:IdentificationID>R69458998</nc:IdentificationID>
-		</wr-ext:PersonRecordIdentification>
+		</wir-ext:PersonRecordIdentification>
 	</nc:Person>
 </wrr-doc:WarrantRejectedReport>

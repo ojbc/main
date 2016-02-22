@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:wr-ext="http://ojbc.org/IEPD/Extensions/WarrantReportingExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/WarrantReportingExtension/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:wir-ext="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
@@ -79,12 +79,12 @@
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="nc:ExpirationDate" minOccurs="0"/>
-					<xsd:element ref="wr-ext:PersonRecordIdentification" minOccurs="0"/>
-					<xsd:element ref="wr-ext:ExtraditionIndicator" minOccurs="0"/>
-					<xsd:element ref="wr-ext:ExtradictionLimitsCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="wr-ext:SubjectPickupRadiusCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="wr-ext:WarrantBroadcastCodeText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="wr-ext:ProsecutionWarrantCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="wir-ext:PersonRecordIdentification" minOccurs="0"/>
+					<xsd:element ref="wir-ext:ExtraditionIndicator" minOccurs="0"/>
+					<xsd:element ref="wir-ext:ExtradictionLimitsCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="wir-ext:SubjectPickupRadiusCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="wir-ext:WarrantBroadcastCodeText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="wir-ext:ProsecutionWarrantCodeText" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -124,7 +124,7 @@
 			<xsd:documentation>Additional information about a vehicle.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="WarrantAugmentation" type="wr-ext:WarrantAugmentationType" substitutionGroup="j:WarrantAugmentationPoint">
+	<xsd:element name="WarrantAugmentation" type="wir-ext:WarrantAugmentationType" substitutionGroup="j:WarrantAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a warrant.</xsd:documentation>
 		</xsd:annotation>
