@@ -314,7 +314,122 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element offRoadElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "OffRoadIncidentIndicator");
 		offRoadElement.setTextContent("TODO");
 		
+		Element emergVehicle = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "EmergencyVehicleRespondingToScenetIndicator");
+		emergVehicle.setTextContent("TODO");
 		
+		
+		Element citationElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "Citation");		
+		XmlUtils.addAttribute(citationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Citation_" + recordId);
+				
+		Element activityIdElement = XmlUtils.appendElement(citationElement, OjbcNamespaceContext.NS_NC_30, "ActivityIdentification");
+		
+		Element activityIdValElement = XmlUtils.appendElement(activityIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		activityIdValElement.setTextContent("TODO");
+		
+		
+		Element citationNumPendingElement = XmlUtils.appendElement(citationElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "CitationNumberPendingIndicator");		
+		citationNumPendingElement.setTextContent("TODO");
+		
+		Element firstVilationDescTxtElement = XmlUtils.appendElement(citationElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "FirstViolationDescriptionText");
+		firstVilationDescTxtElement.setTextContent("TODO");
+		
+		Element secondViolationElement = XmlUtils.appendElement(citationElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "SecondViolationDescriptionText");
+		secondViolationElement.setTextContent("TODO");
+		
+		Element reportOfficialElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Person");		
+		XmlUtils.addAttribute(reportOfficialElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Reporting_Official_" + recordId);
+		
+		Element reportOfficialNameElement = XmlUtils.appendElement(reportOfficialElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element reportOfficialFullName = XmlUtils.appendElement(reportOfficialNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");		
+		reportOfficialFullName.setTextContent("TODO");
+				
+		Element witnessPersonElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Person");
+		XmlUtils.addAttribute(witnessPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Witness_" + recordId);
+		
+		Element witnessPersonNameElement = XmlUtils.appendElement(witnessPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element witnessGivenName = XmlUtils.appendElement(witnessPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
+		witnessGivenName.setTextContent("TODO");
+		
+		Element witnessMiddleName = XmlUtils.appendElement(witnessPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
+		witnessMiddleName.setTextContent("TODO");
+		
+		Element witnessSurName = XmlUtils.appendElement(witnessPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
+		witnessSurName.setTextContent("TODO");
+		
+		
+		Element infoApproverPersonElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Person");
+		XmlUtils.addAttribute(infoApproverPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Information_Approver_" + recordId);
+		
+		Element infoApproverPersonNameElement = XmlUtils.appendElement(infoApproverPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element personFullNameElement = XmlUtils.appendElement(infoApproverPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
+		personFullNameElement.setTextContent("TODO");
+		
+		Element driverPersonElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Person");
+		XmlUtils.addAttribute(driverPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Driver_" + recordId);
+		
+		Element driverDobElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");				
+		Element driverDobValElement = XmlUtils.appendElement(driverDobElement, OjbcNamespaceContext.NS_NC_30, "Date");				
+		driverDobValElement.setTextContent("TODO");
+		
+		Element driverNameElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element driverGivenNameElement = XmlUtils.appendElement(driverNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");		
+		driverGivenNameElement.setTextContent("TODO");
+		
+		Element driverMiddleName = XmlUtils.appendElement(driverNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
+		driverMiddleName.setTextContent("TODO");
+		
+		Element driverSurNameElement = XmlUtils.appendElement(driverNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
+		driverSurNameElement.setTextContent("TODO");
+		
+		Element driverSexCodeElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
+		driverSexCodeElement.setTextContent("TODO");
+		
+		Element driverPersonCatCodeElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PersonCategoryCode");
+		driverPersonCatCodeElement.setTextContent("TODO");
+		
+		
+		Element propOwner1EntOrgElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");		
+		XmlUtils.addAttribute(propOwner1EntOrgElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Property_Owner_TODO" + recordId);
+		
+		Element propOwner1EntOrgNameElement = XmlUtils.appendElement(propOwner1EntOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");		
+		propOwner1EntOrgNameElement.setTextContent("TODO");
+		
+		Element propOwner2EntPersonElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "EntityPerson");
+		XmlUtils.addAttribute(propOwner2EntPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Property_Owner_TODO" + recordId);
+		
+		Element propOwnerEntPersonName = XmlUtils.appendElement(propOwner2EntPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element propOwnerEntFullName = XmlUtils.appendElement(propOwnerEntPersonName, OjbcNamespaceContext.NS_NC_30, "PersonFullName");		
+		propOwnerEntFullName.setTextContent("TODO");
+		
+		
+		Element occupant1EntPersonElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "EntityPerson");
+		XmlUtils.addAttribute(occupant1EntPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Occupant_01");
+		
+		Element occupantDobElement = XmlUtils.appendElement(occupant1EntPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");		
+		Element occupantDobValElement = XmlUtils.appendElement(occupantDobElement, OjbcNamespaceContext.NS_NC_30, "Date");
+		occupantDobValElement.setTextContent("TODO");
+		
+		Element occupantPersonNameElement = XmlUtils.appendElement(occupant1EntPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element occupantGivenNameElement = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
+		occupantGivenNameElement.setTextContent("TODO");
+		
+		Element occupantMiddleName = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
+		occupantMiddleName.setTextContent("TODO");
+		
+		Element occupantSurName = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
+		occupantSurName.setTextContent("TODO");
+		
+		Element occupantSexCodeElement = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
+		occupantSexCodeElement.setTextContent("TODO");
+		
+		Element occupantCatCodeElement = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PersonCategoryCode");
+		occupantCatCodeElement.setTextContent("TODO");
 		
 		
 		
