@@ -17,14 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cs-res-doc:CustodySearchResults
-	xmlns:cs-res-doc="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0"
-	xmlns:cs-res-ext="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0 ../xsd/exchange_schema.xsd ">
+<cs-res-doc:CustodySearchResults xmlns:cs-res-doc="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0" xmlns:cs-res-ext="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0 ../xsd/exchange_schema.xsd ">
 	<cs-res-ext:CustodySearchResult structures:id="Result_01">
 		<nc:DocumentCreationDate>
 			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
@@ -46,9 +39,11 @@
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
-			<nc:PersonStateIdentification>
-				<nc:IdentificationID>CO1298765678</nc:IdentificationID>
-			</nc:PersonStateIdentification>
+			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>CO1298765678</nc:IdentificationID>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
 		</nc:Person>
 		<cs-res-ext:Booking structures:id="Booking_01">
 			<j:FingerprintDate>
@@ -76,12 +71,12 @@
 			</j:ChargeStatute>
 		</j:Charge>
 		<j:PersonChargeAssociation>
-			<nc:Person structures:ref="Person_01" />
-			<j:Charge structures:ref="Charge_01" />
+			<nc:Person structures:ref="Person_01"/>
+			<j:Charge structures:ref="Charge_01"/>
 		</j:PersonChargeAssociation>
 		<j:ActivityChargeAssociation>
-			<nc:Activity structures:ref="Booking_01" />
-			<j:Charge structures:ref="Charge_01" />
+			<nc:Activity structures:ref="Booking_01"/>
+			<j:Charge structures:ref="Charge_01"/>
 		</j:ActivityChargeAssociation>
 		<cs-res-ext:SourceSystemNameText>ASCO JMS</cs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
@@ -120,9 +115,11 @@
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
-			<nc:PersonStateIdentification>
-				<nc:IdentificationID>CO1298765678</nc:IdentificationID>
-			</nc:PersonStateIdentification>
+			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>CO1298765678</nc:IdentificationID>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
 		</nc:Person>
 		<cs-res-ext:Booking structures:id="Booking_02">
 			<j:FingerprintDate>
@@ -150,12 +147,12 @@
 			</j:ChargeStatute>
 		</j:Charge>
 		<j:PersonChargeAssociation>
-			<nc:Person structures:ref="Person_02" />
-			<j:Charge structures:ref="Charge_02" />
+			<nc:Person structures:ref="Person_02"/>
+			<j:Charge structures:ref="Charge_02"/>
 		</j:PersonChargeAssociation>
 		<j:ActivityChargeAssociation>
-			<nc:Activity structures:ref="Booking_02" />
-			<j:Charge structures:ref="Charge_02" />
+			<nc:Activity structures:ref="Booking_02"/>
+			<j:Charge structures:ref="Charge_02"/>
 		</j:ActivityChargeAssociation>
 		<cs-res-ext:SourceSystemNameText>Alpha Court System </cs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>

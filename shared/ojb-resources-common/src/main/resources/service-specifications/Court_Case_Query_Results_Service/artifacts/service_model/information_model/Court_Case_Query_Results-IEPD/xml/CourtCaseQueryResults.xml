@@ -599,9 +599,6 @@
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>String</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<nc:PersonStateIdentification>
-			<nc:IdentificationID>State Criminal History ID</nc:IdentificationID>
-		</nc:PersonStateIdentification>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>nc:MeasureValueText</nc:MeasureValueText>
 		</nc:PersonWeightMeasure>
@@ -625,6 +622,9 @@
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
 			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>Fingerprint ID</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 		<ccq-res-ext:PersonInmateIdentification>
 			<nc:IdentificationID>inmate ID</nc:IdentificationID>
