@@ -158,7 +158,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		XmlUtils.addAttribute(witnessRolePersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Witness_" + recordId);
 		
 		
-		Element crashInfoSourceElement = XmlUtils.appendElement(incidentAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CrashInformationSource");
+		Element crashInfoSourceElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_JXDM_51, "CrashInformationSource");
 		
 		Element orgORIIdElement = XmlUtils.appendElement(crashInfoSourceElement, OjbcNamespaceContext.NS_JXDM_51, "OrganizationORIIdentification");
 		
@@ -166,7 +166,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		orgOriIdValElement.setTextContent("TODO");
 		
 		
-		Element crashWorkZoneElement = XmlUtils.appendElement(incidentAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CrashWorkZone");
+		Element crashWorkZoneElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_JXDM_51, "CrashWorkZone");
 		
 		Element workersPresentElement = XmlUtils.appendElement(crashWorkZoneElement, OjbcNamespaceContext.NS_JXDM_51, "WorkZoneWorkersPresenceIndicationCode");
 		
@@ -185,7 +185,9 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		workZoneWorkersPresentIndicator.setTextContent("TODO");
 		
 		
-		Element crashVehicleElement = XmlUtils.appendElement(incidentAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CrashVehicle");
+		
+		
+		Element crashVehicleElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_JXDM_51, "CrashVehicle");
 		
 		Element roleOfItemElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_NC_30, "RoleOfItem");
 		
@@ -264,7 +266,10 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element exemptVehicleElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "ExemptVehicleIndicator");
 		exemptVehicleElement.setTextContent("TODO");
 		
-		Element locationElement = XmlUtils.appendElement(incidentAugmentElement, OjbcNamespaceContext.NS_NC_30, "Location");
+		
+		
+		
+		Element locationElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_NC_30, "Location");
 		XmlUtils.addAttribute(locationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Incident_Loc_" + recordId);
 				
 		Element addressElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC_30, "Address");		
@@ -284,9 +289,33 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element longitudeElement = XmlUtils.appendElement(loc2DElement, OjbcNamespaceContext.NS_NC_30, "GeographicCoordinateLongitude");
 		
-		Element longValElement = XmlUtils.appendElement(longitudeElement, OjbcNamespaceContext.NS_NC_30, "LongitudeDegreeValue");
-		
+		Element longValElement = XmlUtils.appendElement(longitudeElement, OjbcNamespaceContext.NS_NC_30, "LongitudeDegreeValue");		
 		longValElement.setTextContent("TODO");
+		
+		
+		Element intersectionElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "NearestIntersectingStreetFullText");
+		intersectionElement.setTextContent("TODO");
+		
+		Element distanceToIntersectionElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, 
+				"DistanceFromNearestIntersectionNumberText");
+		distanceToIntersectionElement.setTextContent("TODO");
+		
+		Element directionFromIntersectionElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DirectionFromNearestIntersectionCode");
+		directionFromIntersectionElement.setTextContent("TODO");
+		
+		Element intersectDistUnitsElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DistanceFromNearestIntersectionNumberUnitCode");
+		intersectDistUnitsElement.setTextContent("TODO");
+		
+		
+		Element atSceneDateElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "AtSceneDateTime");
+		Element atSceneDateValElement = XmlUtils.appendElement(atSceneDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");
+		atSceneDateValElement.setTextContent("TODO");
+				
+		Element offRoadElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "OffRoadIncidentIndicator");
+		offRoadElement.setTextContent("TODO");
+		
+		
+		
 		
 		
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
