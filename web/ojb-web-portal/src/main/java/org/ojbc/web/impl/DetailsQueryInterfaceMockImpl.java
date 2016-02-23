@@ -78,7 +78,14 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.VEHICLE_TO_INCIDENT)) {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 	        		"/sampleResponses/vehicleToIncident/Incident_Vehicle_Search_Results.xml"));
-		}else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
+		} else if (OJBCWebServiceURIs.COURT_CASE.equals(requestIdSrcTxt)){
+			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+	        		"/sampleResponses/courtCase/CourtCaseSearchResult.xml"));
+		} else if (OJBCWebServiceURIs.JAIL.equals(requestIdSrcTxt)){
+			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+	        		"/sampleResponses/jailCustody/CustodySearch_Results.xml"));
+		}
+		else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 	          if (request.getQueryType() == null){
 	                throw new RuntimeException("Query type required for Juvenile queries");
 	            }
