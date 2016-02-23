@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xs:annotation>
+    <xs:documentation>Justice</xs:documentation>
+  </xs:annotation>
+  <xs:import schemaLocation="../../../codes/fbi_ncic/3.1/fbi_ncic.xsd" namespace="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"/>
+  <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
+  <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="CourtOrderType">
+    <xs:annotation>
+      <xs:documentation>A data type for a direction of a judge not including a judgement, which determines some point or directs some steps in proceedings.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:CourtOrderDesignatedSubject" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtOrderEnforcementAgency" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OrganizationAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about an organization.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SubjectType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person or organization that is involved or suspected of being involved in a violation of a criminal statute, ordinance or rule.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="WarrantType">
+    <xs:annotation>
+      <xs:documentation>A data type for an authorization for an enforcement official to perform a specified action.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:CourtOrderType">
+        <xs:sequence>
+          <xs:element ref="j:WarrantAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="CourtOrderDesignatedSubject" type="j:SubjectType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person to which a court order applies. The subject could be a Protected Party, the recipient of a Summons or Subpoena, the subject of a Warrant, etc.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtOrderEnforcementAgency" type="nc:OrganizationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An agency responsible for enforcing a court order.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="nc:OrganizationAugmentationPoint">
+    <xs:annotation>
+      <xs:documentation>Additional information about an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationIdentification" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an identification for an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationORIIdentification" type="nc:IdentificationType" substitutionGroup="j:OrganizationIdentification">
+    <xs:annotation>
+      <xs:documentation>A unique nine character NCIC identification (ORI) assigned to a justice-related organization by the FBI CJIS Division.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonRaceCode" type="ncic:RACCodeType" substitutionGroup="nc:PersonRace">
+    <xs:annotation>
+      <xs:documentation>A classification of a person based on factors such as geographical locations and genetics.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonSexCode" type="ncic:SEXCodeType" substitutionGroup="nc:PersonSex">
+    <xs:annotation>
+      <xs:documentation>A gender or sex of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Warrant" type="j:WarrantType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An authorization for an enforcement official to perform a specified action.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="WarrantAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for WarrantType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>
