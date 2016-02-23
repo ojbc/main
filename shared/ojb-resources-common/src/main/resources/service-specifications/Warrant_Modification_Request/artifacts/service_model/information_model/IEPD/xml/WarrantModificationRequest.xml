@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<wmr-doc:WarrantModificationRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0 ../xsd/WarrantModificationRequest.xsd" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:wmr-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0" xmlns:wmr-ext="http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<wm-req-doc:WarrantModificationRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0 ../xsd/WarrantModificationRequest.xsd" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:wm-req-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0" xmlns:wm-req-ext="http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Case structures:id="Case_01">
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>CN</nc:IdentificationID>
@@ -25,9 +25,9 @@
 		<nc:CaseDocketID>Docket8987</nc:CaseDocketID>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<wmr-ext:OffenseCodeText>OC45656-09</wmr-ext:OffenseCodeText>
-				<wmr-ext:ChargeCodeText>CHG5678</wmr-ext:ChargeCodeText>
-				<wmr-ext:OriginalOffenseCodeText>OO4356788</wmr-ext:OriginalOffenseCodeText>
+				<wm-req-ext:OffenseCodeText>OC45656-09</wm-req-ext:OffenseCodeText>
+				<wm-req-ext:ChargeCodeText>CHG5678</wm-req-ext:ChargeCodeText>
+				<wm-req-ext:OriginalOffenseCodeText>OO4356788</wm-req-ext:OriginalOffenseCodeText>
 			</j:CaseCharge>
 		</j:CaseAugmentation>
 	</nc:Case>
@@ -60,9 +60,9 @@
 		</j:CourtOrderIssuingDate>
 		<j:CourtOrderRequestEntity>
 			<nc:EntityPerson>
-				<wmr-ext:PersonEmployeeIdentification>
+				<wm-req-ext:PersonEmployeeIdentification>
 					<nc:IdentificationID>ID45656768</nc:IdentificationID>
-				</wmr-ext:PersonEmployeeIdentification>
+				</wm-req-ext:PersonEmployeeIdentification>
 			</nc:EntityPerson>
 		</j:CourtOrderRequestEntity>
 		<j:WarrantAppearanceBail>
@@ -70,19 +70,19 @@
 				<nc:Amount>5000</nc:Amount>
 			</j:BailSetAmount>
 		</j:WarrantAppearanceBail>
-		<wmr-ext:WarrantAugmentation>
+		<wm-req-ext:WarrantAugmentation>
 			<nc:ExpirationDate>
 				<nc:Date>2016-08-13</nc:Date>
 			</nc:ExpirationDate>
-			<wmr-ext:PersonRecordIdentification>
+			<wm-req-ext:PersonRecordIdentification>
 				<nc:IdentificationID>R69458998</nc:IdentificationID>
-			</wmr-ext:PersonRecordIdentification>
-			<wmr-ext:ExtraditionIndicator>true</wmr-ext:ExtraditionIndicator>
-			<wmr-ext:ExtradictionLimitsCodeText>MC23</wmr-ext:ExtradictionLimitsCodeText>
-			<wmr-ext:SubjectPickupRadiusCodeText>500</wmr-ext:SubjectPickupRadiusCodeText>
-			<wmr-ext:WarrantBroadcastCodeText>B26</wmr-ext:WarrantBroadcastCodeText>
-			<wmr-ext:ProsecutionWarrantCodeText>PW56</wmr-ext:ProsecutionWarrantCodeText>
-		</wmr-ext:WarrantAugmentation>
+			</wm-req-ext:PersonRecordIdentification>
+			<wm-req-ext:ExtraditionIndicator>true</wm-req-ext:ExtraditionIndicator>
+			<wm-req-ext:ExtradictionLimitsCodeText>MC23</wm-req-ext:ExtradictionLimitsCodeText>
+			<wm-req-ext:SubjectPickupRadiusCodeText>500</wm-req-ext:SubjectPickupRadiusCodeText>
+			<wm-req-ext:WarrantBroadcastCodeText>B26</wm-req-ext:WarrantBroadcastCodeText>
+			<wm-req-ext:ProsecutionWarrantCodeText>PW56</wm-req-ext:ProsecutionWarrantCodeText>
+		</wm-req-ext:WarrantAugmentation>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
 		<nc:PersonBirthDate>
@@ -133,14 +133,14 @@
 			</j:PersonFBIIdentification>
 			<j:PersonBirthplaceCode>0P</j:PersonBirthplaceCode>
 		</j:PersonAugmentation>
-		<wmr-ext:PersonAdditionalInformationText>Gang Member</wmr-ext:PersonAdditionalInformationText>
-		<wmr-ext:PersonCautionCodeText>G45</wmr-ext:PersonCautionCodeText>
-		<wmr-ext:PersonMiscellaneousRecordIdentification>
+		<wm-req-ext:PersonAdditionalInformationText>Gang Member</wm-req-ext:PersonAdditionalInformationText>
+		<wm-req-ext:PersonCautionCodeText>G45</wm-req-ext:PersonCautionCodeText>
+		<wm-req-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>MR456782</nc:IdentificationID>
-		</wmr-ext:PersonMiscellaneousRecordIdentification>
-		<wmr-ext:PersonRecordIdentification>
+		</wm-req-ext:PersonMiscellaneousRecordIdentification>
+		<wm-req-ext:PersonRecordIdentification>
 			<nc:IdentificationID>R69458998</nc:IdentificationID>
-		</wmr-ext:PersonRecordIdentification>
+		</wm-req-ext:PersonRecordIdentification>
 	</nc:Person>
 	<nc:Identity structures:id="Alias_01">
 		<nc:IdentityPersonRepresentation>
@@ -163,13 +163,13 @@
 		</nc:VehicleIdentification>
 		<j:VehicleMakeCode>AAA</j:VehicleMakeCode>
 		<j:VehicleModelCode>002</j:VehicleModelCode>
-		<wmr-ext:VehicleRecordExpirationDate>
+		<wm-req-ext:VehicleRecordExpirationDate>
 			<nc:Date>2016-09-23</nc:Date>
-		</wmr-ext:VehicleRecordExpirationDate>
-		<wmr-ext:VehicleAdditionalInformationText>Excessive Rust</wmr-ext:VehicleAdditionalInformationText>
-		<wmr-ext:VehicleRecordIdentification>
+		</wm-req-ext:VehicleRecordExpirationDate>
+		<wm-req-ext:VehicleAdditionalInformationText>Excessive Rust</wm-req-ext:VehicleAdditionalInformationText>
+		<wm-req-ext:VehicleRecordIdentification>
 			<nc:IdentificationID>V345678</nc:IdentificationID>
-		</wmr-ext:VehicleRecordIdentification>
+		</wm-req-ext:VehicleRecordIdentification>
 	</nc:Vehicle>
 	<j:ConveyanceRegistration structures:id="Reg_01">
 		<j:ConveyanceRegistrationPlateIdentification>
@@ -189,7 +189,7 @@
 			<nc:LocationCountyName>Taylor</nc:LocationCountyName>
 			<nc:LocationStateName>Michigan</nc:LocationStateName>
 			<nc:LocationPostalCode>63412</nc:LocationPostalCode>
-			<wmr-ext:AddressCategoryText>Mail</wmr-ext:AddressCategoryText>
+			<wm-req-ext:AddressCategoryText>Mail</wm-req-ext:AddressCategoryText>
 		</nc:ContactMailingAddress>
 	</nc:ContactInformation>
 	<nc:ContactInformationAssociation>
@@ -216,4 +216,4 @@
 		<nc:Person structures:ref="Person_01"/>
 		<nc:Identity structures:ref="Alias_01"/>
 	</nc:PersonAliasIdentityAssociation>
-</wmr-doc:WarrantModificationRequest>
+</wm-req-doc:WarrantModificationRequest>
