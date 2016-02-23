@@ -96,6 +96,11 @@
 		<nc:PersonStateIdentification>
 			<nc:IdentificationID>SID23456</nc:IdentificationID>
 		</nc:PersonStateIdentification>
+		<j:PersonAugmentation>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>Fingerprint ID</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
 	</nc:Person>
 	<nc:Organization structures:id="Org_001">
 		<j:OrganizationAugmentation>

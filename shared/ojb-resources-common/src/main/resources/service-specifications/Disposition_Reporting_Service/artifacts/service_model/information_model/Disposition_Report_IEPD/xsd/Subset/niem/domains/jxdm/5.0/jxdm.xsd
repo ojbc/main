@@ -340,6 +340,7 @@
     <xs:complexContent>
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
+          <xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:PersonAgeMeasure" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -867,6 +868,11 @@
   <xs:element name="PersonRaceCode" type="ncic:RACCodeType" substitutionGroup="nc:PersonRace">
     <xs:annotation>
       <xs:documentation>A classification of a person based on factors such as geographical locations and genetics.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PleaAugmentationPoint" abstract="true">
