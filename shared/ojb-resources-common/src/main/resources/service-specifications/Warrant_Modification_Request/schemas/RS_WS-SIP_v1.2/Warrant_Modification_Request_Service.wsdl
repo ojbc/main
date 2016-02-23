@@ -17,48 +17,68 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wmr-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0">
-	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wm-req-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0"
+	xmlns:tns="http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	targetNamespace="http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0">
+	<wsdl:import
+		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantModificationRequest.xsd"/>
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantModificationRequest.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="WarrantModificationRequest">
-		<wsdl:part name="WarrantModificationRequest" element="wmr-doc:WarrantModificationRequest"/>
+		<wsdl:part name="WarrantModificationRequest" element="wm-req-doc:WarrantModificationRequest" />
 	</wsdl:message>
 	<wsdl:portType name="Warrant-Modification-Request-Service">
 		<wsdl:operation name="SubmitWarrantModificationRequest">
-			<wsdl:input name="WarrantModificationRequest" message="tns:WarrantModificationRequest"/>
+			<wsdl:input name="WarrantModificationRequest" message="tns:WarrantModificationRequest" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- Secure, GFIPM-conforming binding -->
-	<wsdl:binding name="Warrant-Modification-Request-Secure-ServiceSOAPBinding" type="tns:Warrant-Modification-Request-Service">
-		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsp:PolicyReference URI="#GFIPMSystemToSystem"/>
+	<wsdl:binding name="Warrant-Modification-Request-Secure-ServiceSOAPBinding"
+		type="tns:Warrant-Modification-Request-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
 		<wsdl:operation name="SubmitWarrantModificationRequest">
-			<soap:operation soapAction="http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0/SubmitWarrantModificationRequest" style="document"/>
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0/SubmitWarrantModificationRequest"
+				style="document" />
 			<wsdl:input name="WarrantModificationRequest">
-				<soap:body use="literal"/>
+				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
-	<wsdl:binding name="Warrant-Modification-Request-ServiceSOAPBinding" type="tns:Warrant-Modification-Request-Service">
-		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsaw:UsingAddressing wsdl:required="true"/>
+	<wsdl:binding name="Warrant-Modification-Request-ServiceSOAPBinding"
+		type="tns:Warrant-Modification-Request-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsaw:UsingAddressing wsdl:required="true" />
 		<wsdl:operation name="SubmitWarrantModificationRequest">
-			<soap:operation soapAction="http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0/SubmitWarrantModificationRequest" style="document"/>
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0/SubmitWarrantModificationRequest"
+				style="document" />
 			<wsdl:input name="WarrantModificationRequest">
-				<soap:body use="literal"/>
+				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="Warrant-Modification-Request-ServiceService">
-		<wsdl:port name="Warrant-Modification-Request-Service" binding="tns:Warrant-Modification-Request-ServiceSOAPBinding">
-			<soap:address location="localhost"/>
+		<wsdl:port name="Warrant-Modification-Request-Service"
+			binding="tns:Warrant-Modification-Request-ServiceSOAPBinding">
+			<soap:address location="localhost" />
 		</wsdl:port>
-		<wsdl:port name="Warrant-Modification-Request-Secure-Service" binding="tns:Warrant-Modification-Request-Secure-ServiceSOAPBinding">
-			<soap:address location="http://localhost/secure"/>
+		<wsdl:port name="Warrant-Modification-Request-Secure-Service"
+			binding="tns:Warrant-Modification-Request-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost/secure" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
