@@ -17,11 +17,11 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:wir-doc="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0" xmlns:wr-ext="http://ojbc.org/IEPD/Extensions/WarrantReportingExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:wir-doc="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0" xmlns:wir-ext="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/WarrantReportingExtension/1.0" schemaLocation="./WarrantReporting_Ext.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0" schemaLocation="./WarrantReporting_Ext.xsd"/>
 	<!-- Root data element for Warrant Issued Report -->
-	<xsd:element name="WarrantIssuedReport" type="wr-ext:WarrantIssuedReportType"/>
+	<xsd:element name="WarrantIssuedReport" type="wir-ext:WarrantIssuedReportType"/>
 </xsd:schema>
