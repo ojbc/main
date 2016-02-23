@@ -128,7 +128,7 @@
 					<nc:ContactInformationReference
 						s:ref="CI001" />
 				</nc:PersonContactInformationAssociation>
-				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest</ext1:SourceSystemNameText>
+				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS</ext1:SourceSystemNameText>
 				<intel:SystemIdentifier>
 					<nc:IdentificationID>7777</nc:IdentificationID>
 					<intel:SystemName>Law Enforcement RMS</intel:SystemName>
@@ -217,7 +217,7 @@
 					<nc:ContactInformationReference
 						s:ref="CI002" />
 				</nc:PersonContactInformationAssociation>
-				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Burlington</ext1:SourceSystemNameText>
+				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS</ext1:SourceSystemNameText>
 				<intel:SystemIdentifier>
 					<nc:IdentificationID>12345</nc:IdentificationID>
 					<intel:SystemName>Law Enforcement RMS</intel:SystemName>
@@ -2162,6 +2162,179 @@
 				<ext1:SearchResultCategoryText>Juvenile History</ext1:SearchResultCategoryText>
 			</ext1:PersonSearchResult>
 		</ext:Entity>
+		<ext:Entity s:id="PSR024">
+			<ext1:PersonSearchResult 
+				xmlns:ext1="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+				xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+				xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+				<ext1:Person s:id="P024">
+					<nc:PersonBirthDate>
+						<nc:Date>1964-03-15</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+					<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
+					<nc:PersonHeightMeasure>
+						<nc:MeasurePointValue>65</nc:MeasurePointValue>
+						<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+					</nc:PersonHeightMeasure>
+					<nc:PersonName>
+						<nc:PersonGivenName>Michael</nc:PersonGivenName>
+						<nc:PersonMiddleName>Gary</nc:PersonMiddleName>
+						<nc:PersonSurName>Scott</nc:PersonSurName>
+					</nc:PersonName>
+					<nc:PersonPhysicalFeature>
+						<nc:PhysicalFeatureCategoryText>tattoo
+						</nc:PhysicalFeatureCategoryText>
+						<nc:PhysicalFeatureDescriptionText>bird
+						</nc:PhysicalFeatureDescriptionText>
+						<nc:PhysicalFeatureLocationText>left arm
+						</nc:PhysicalFeatureLocationText>
+					</nc:PersonPhysicalFeature>
+					<nc:PersonRaceCode>W</nc:PersonRaceCode>
+					<nc:PersonSexCode>M</nc:PersonSexCode>
+					<nc:PersonSSNIdentification>
+						<nc:IdentificationID>55566777</nc:IdentificationID>
+					</nc:PersonSSNIdentification>
+					<nc:PersonWeightMeasure>
+						<nc:MeasurePointValue>165</nc:MeasurePointValue>
+						<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+					</nc:PersonWeightMeasure>
+					<j:PersonAugmentation>
+						<nc:DriverLicense>
+							<nc:DriverLicenseIdentification>
+								<nc:IdentificationID>DRLIC1</nc:IdentificationID>
+								<nc:IdentificationSourceText>WA</nc:IdentificationSourceText>
+							</nc:DriverLicenseIdentification>
+						</nc:DriverLicense>
+						<j:PersonFBIIdentification>
+							<nc:IdentificationID>98787</nc:IdentificationID>
+						</j:PersonFBIIdentification>
+						<j:PersonStateFingerprintIdentification>
+							<nc:IdentificationID>345322</nc:IdentificationID>
+							<nc:IdentificationSourceText>VT</nc:IdentificationSourceText>
+						</j:PersonStateFingerprintIdentification>
+					</j:PersonAugmentation>
+				</ext1:Person>
+				<nc:Location s:id="L024">
+					<nc:LocationAddress>
+						<nc:StructuredAddress>
+							<nc:LocationStreet>
+								<nc:StreetNumberText>1202</nc:StreetNumberText>
+								<nc:StreetName>Maine Street</nc:StreetName>
+							</nc:LocationStreet>
+							<nc:LocationCityName>Scranton</nc:LocationCityName>
+							<nc:LocationStateNCICRESCode>PA</nc:LocationStateNCICRESCode>
+							<nc:LocationPostalCode>18500</nc:LocationPostalCode>
+						</nc:StructuredAddress>
+					</nc:LocationAddress>
+				</nc:Location>
+				<nc:ContactInformation s:id="CI024">
+					<nc:ContactTelephoneNumber>
+						<nc:FullTelephoneNumber>
+							<nc:TelephoneNumberFullID>555-555-1234</nc:TelephoneNumberFullID>
+						</nc:FullTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+				</nc:ContactInformation>
+				<nc:ResidenceAssociation>
+					<nc:PersonReference s:ref="P024" />
+					<nc:LocationReference s:ref="L024" />
+				</nc:ResidenceAssociation>
+				<nc:PersonContactInformationAssociation>
+					<nc:PersonReference s:ref="P024" />
+					<nc:ContactInformationReference
+						s:ref="CI024" />
+				</nc:PersonContactInformationAssociation>
+				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court
+				</ext1:SourceSystemNameText>
+				<intel:SystemIdentifier>
+					<nc:IdentificationID>7777</nc:IdentificationID>
+					<intel:SystemName>Court Case</intel:SystemName>
+				</intel:SystemIdentifier>
+				<ext1:SearchResultCategoryText>Court Case</ext1:SearchResultCategoryText>
+			</ext1:PersonSearchResult>
+		</ext:Entity>
+		<ext:Entity s:id="PSR025">
+			<ext1:PersonSearchResult 
+				xmlns:ext1="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+				xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+				xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+				<ext1:Person s:id="P025">
+					<nc:PersonBirthDate>
+						<nc:Date>1962-04-15</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+					<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
+					<nc:PersonHeightMeasure>
+						<nc:MeasurePointValue>66</nc:MeasurePointValue>
+						<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+					</nc:PersonHeightMeasure>
+					<nc:PersonName>
+						<nc:PersonGivenName>Sara</nc:PersonGivenName>
+						<nc:PersonSurName>O'Connor</nc:PersonSurName>
+					</nc:PersonName>
+					<nc:PersonRaceCode>B</nc:PersonRaceCode>
+					<nc:PersonSexCode>F</nc:PersonSexCode>
+					<nc:PersonSSNIdentification>
+						<nc:IdentificationID>77788999</nc:IdentificationID>
+					</nc:PersonSSNIdentification>
+					<nc:PersonWeightMeasure>
+						<nc:MeasurePointValue>155</nc:MeasurePointValue>
+						<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+					</nc:PersonWeightMeasure>
+					<j:PersonAugmentation>
+						<nc:DriverLicense>
+							<nc:DriverLicenseIdentification>
+								<nc:IdentificationID>DL123*23</nc:IdentificationID>
+								<nc:IdentificationSourceText>VT</nc:IdentificationSourceText>
+							</nc:DriverLicenseIdentification>
+						</nc:DriverLicense>
+						<j:PersonFBIIdentification>
+							<nc:IdentificationID>12345</nc:IdentificationID>
+						</j:PersonFBIIdentification>
+						<j:PersonStateFingerprintIdentification>
+							<nc:IdentificationID>12345</nc:IdentificationID>
+							<nc:IdentificationSourceText>VT</nc:IdentificationSourceText>
+						</j:PersonStateFingerprintIdentification>
+					</j:PersonAugmentation>
+				</ext1:Person>
+				<nc:Location s:id="L025">
+					<nc:LocationAddress>
+						<nc:StructuredAddress>
+							<nc:LocationStreet>
+								<nc:StreetNumberText>3001</nc:StreetNumberText>
+								<nc:StreetName>Elmer Street</nc:StreetName>
+							</nc:LocationStreet>
+							<nc:LocationCityName>Scranton</nc:LocationCityName>
+							<nc:LocationStateNCICRESCode>PA</nc:LocationStateNCICRESCode>
+							<nc:LocationPostalCode>18501</nc:LocationPostalCode>
+						</nc:StructuredAddress>
+					</nc:LocationAddress>
+				</nc:Location>
+				<nc:ContactInformation s:id="CI025">
+					<nc:ContactTelephoneNumber>
+						<nc:FullTelephoneNumber>
+							<nc:TelephoneNumberFullID>555-555-1233</nc:TelephoneNumberFullID>
+						</nc:FullTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+				</nc:ContactInformation>
+				<nc:ResidenceAssociation>
+					<nc:PersonReference s:ref="P025" />
+					<nc:LocationReference s:ref="L025" />
+				</nc:ResidenceAssociation>
+				<nc:PersonContactInformationAssociation>
+					<nc:PersonReference s:ref="P025" />
+					<nc:ContactInformationReference
+						s:ref="CI025" />
+				</nc:PersonContactInformationAssociation>
+				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail
+				</ext1:SourceSystemNameText>
+				<intel:SystemIdentifier>
+					<nc:IdentificationID>123459998393983983</nc:IdentificationID>
+					<intel:SystemName>Custody</intel:SystemName>
+				</intel:SystemIdentifier>
+				<ext1:SearchResultCategoryText>Custody</ext1:SearchResultCategoryText>
+			</ext1:PersonSearchResult>
+		</ext:Entity>
 	</exc:EntityContainer>
 	<exc:MergedRecords>
 		<ext:MergedRecord>
@@ -2173,6 +2346,8 @@
 			<ext:OriginalRecordReference s:ref="PSR015" />
 			<ext:OriginalRecordReference s:ref="PSR016" />
 			<ext:OriginalRecordReference s:ref="PSR021" />
+			<ext:OriginalRecordReference s:ref="PSR024" />
+			<ext:OriginalRecordReference s:ref="PSR022" />
 			<ext:MergeQuality>
 				<ext:StringDistanceStatistics>
 					<ext:AttributeXPath></ext:AttributeXPath>
@@ -2191,6 +2366,7 @@
 			<ext:OriginalRecordReference s:ref="PSR008" />
 			<ext:OriginalRecordReference s:ref="PSR019" />
 			<ext:OriginalRecordReference s:ref="PSR020" />
+			<ext:OriginalRecordReference s:ref="PSR025" />
 			<ext:MergeQuality>
 				<ext:StringDistanceStatistics>
 					<ext:AttributeXPath></ext:AttributeXPath>
@@ -2238,7 +2414,6 @@
 			</ext:MergeQuality>
 		</ext:MergedRecord>
 		<ext:MergedRecord>
-			<ext:OriginalRecordReference s:ref="PSR022" />
 			<ext:OriginalRecordReference s:ref="PSR023" />
 			<ext:MergeQuality>
 				<ext:StringDistanceStatistics>
