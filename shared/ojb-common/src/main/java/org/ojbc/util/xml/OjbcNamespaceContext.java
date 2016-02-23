@@ -268,8 +268,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PERSON_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0";	
 	public static final String NS_PREFIX_PERSON_SEARCH_REQUEST_DOC = "psr-doc";
 					
-	public static final String NS_ME_VEHICLE_CRASH_CODES = "me-crash-codes";
-	public static final String NS_PREFIX_ME_VEHICLE_CRASH_CODES = "http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0";
+	public static final String NS_ME_VEHICLE_CRASH_CODES = "http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0";
+	public static final String NS_PREFIX_ME_VEHICLE_CRASH_CODES = "me-crash-codes";
 	
 	public static final String NS_VEHICLE_CRASH_QUERY_RESULT_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0";
 	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXT = "vcq-res-ext";	
