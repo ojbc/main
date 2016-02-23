@@ -28,7 +28,7 @@
 	<jh-ext:JuvenileHistoryQueryCriteria>
 		<jh-ext:JuvenileInformationRecordID>
 			<nc:IdentificationID>100</nc:IdentificationID>
-			<nc:IdentificationSourceText>Court</nc:IdentificationSourceText>
+			<nc:IdentificationSourceText>{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory</nc:IdentificationSourceText>
 		</jh-ext:JuvenileInformationRecordID>
 	</jh-ext:JuvenileHistoryQueryCriteria>
 </jh-req-doc:JuvenileHistoryQuery>

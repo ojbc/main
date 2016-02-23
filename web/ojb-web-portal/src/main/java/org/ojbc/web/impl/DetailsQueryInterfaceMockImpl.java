@@ -16,7 +16,13 @@
  */
 package org.ojbc.web.impl;
 
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.WebUtils;
@@ -26,33 +32,53 @@ import org.w3c.dom.Element;
 
 @Service
 public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
+	@Resource(name = "searchURIToQueryURIMap")
+	private Map<String, String> searchURIToQueryURIMap;	
+	
+	private static final Log log = LogFactory.getLog( DetailsQueryInterfaceMockImpl.class );
 	
 	@Override
 	public String invokeRequest(DetailsRequest request, String federatedQueryID, Element samlToken) throws Exception {
+
+		String requestIdSrcTxt = request.getIdentificationSourceText().trim();
+
+		log.info("Identification Source text in request: " + requestIdSrcTxt);
+		log.info("Identification ID in request: " + request.getIdentificationID());
+		
+		//Check the map to see if there is a mapping of search URI to query URI
+		if (searchURIToQueryURIMap != null)
+		{
+			if (searchURIToQueryURIMap.containsKey(requestIdSrcTxt))
+			{
+				request.setIdentificationSourceText(searchURIToQueryURIMap.get(requestIdSrcTxt));
+				requestIdSrcTxt = searchURIToQueryURIMap.get(requestIdSrcTxt);
+				log.info("Translating Identification Source text to: " + requestIdSrcTxt);
+			}	
+		}	
 
 		if (StringUtils.isEmpty(federatedQueryID)) {
 			throw new IllegalStateException("Federated Query ID not set");
 		}
 
-		if (OJBCWebServiceURIs.CRIMINAL_HISTORY.equals(request.getIdentificationSourceText().trim())) {
+		if (OJBCWebServiceURIs.CRIMINAL_HISTORY.equals(requestIdSrcTxt)) {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 					"/sampleResponses/criminalHistory/DetailedCJISResponse.out.xml"));
-		} else if (OJBCWebServiceURIs.WARRANTS.equals(request.getIdentificationSourceText().trim())) {
+		} else if (OJBCWebServiceURIs.WARRANTS.equals(requestIdSrcTxt)) {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 			        "/sampleResponses/warrants/Person_Query_Results_-_Warrants.xml"));
-		} else if (OJBCWebServiceURIs.FIREARMS.equals(request.getIdentificationSourceText().trim())) {
+		} else if (OJBCWebServiceURIs.FIREARMS.equals(requestIdSrcTxt)) {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 			        "/sampleResponses/firearms/FirearmRegistrationQueryResults-multiple.xml"));
-		} else if (request.getIdentificationSourceText().trim().contains(OJBCWebServiceURIs.INCIDENT_REPORT)) {
+		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.INCIDENT_REPORT)) {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 	        		"/sampleResponses/incidentReport/Incident_Sample.xml"));
-		} else if (request.getIdentificationSourceText().trim().contains(OJBCWebServiceURIs.PERSON_TO_INCIDENT)) {
+		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.PERSON_TO_INCIDENT)) {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 	        		"/sampleResponses/personToIncident/Incident_Person_Search_Results.xml"));
-		} else if (request.getIdentificationSourceText().trim().contains(OJBCWebServiceURIs.VEHICLE_TO_INCIDENT)) {
+		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.VEHICLE_TO_INCIDENT)) {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 	        		"/sampleResponses/vehicleToIncident/Incident_Vehicle_Search_Results.xml"));
-		}else if(OJBCWebServiceURIs.JUVENILE_HISTORY.equals(request.getIdentificationSourceText().trim())) {
+		}else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 	          if (request.getQueryType() == null){
 	                throw new RuntimeException("Query type required for Juvenile queries");
 	            }
@@ -68,7 +94,7 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
                     return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
                             "/service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileIntakeHistoryResponse_Sample.xml"));
 	            }
-	            else if (request.getQueryType().equalsIgnoreCase("Offense")){
+	            else if (request.getQueryType().equalsIgnoreCase("Person")||request.getQueryType().equalsIgnoreCase("Offense")){
                     return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
                             "/service-specifications/Juvenile_History_Services/artifacts/service_model/information_model/samples/JuvenileOffenseHistoryResponse_Sample.xml"));
 	            }
