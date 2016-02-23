@@ -105,6 +105,9 @@
 					<nc:IdentificationID>ME32456789</nc:IdentificationID>
 				</nc:DriverLicenseIdentification>
 			</nc:DriverLicense>
+			<j:PersonStateFingerprintIdentification>
+			<nc:IdentificationID>Fingerprint ID</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 	</j:Person>
 	<j:Organization s:id="d1e132">
