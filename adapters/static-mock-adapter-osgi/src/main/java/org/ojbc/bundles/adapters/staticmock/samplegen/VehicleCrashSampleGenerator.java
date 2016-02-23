@@ -570,6 +570,101 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		Element insPolicyIdValElement = XmlUtils.appendElement(insPolicyIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
  		insPolicyIdValElement.setTextContent("TODO");
  		
+ 		Element insCarrierNameElement = XmlUtils.appendElement(insuranceElement, OjbcNamespaceContext.NS_NC_30, "InsuranceCarrierName"); 		
+ 		insCarrierNameElement.setTextContent("TODO");
+ 		
+ 		Element noInsuranceElement = XmlUtils.appendElement(insuranceElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "NoInsuranceIndicator");
+ 		noInsuranceElement.setTextContent("TODO");
+ 		
+ 		
+ 		Element crashDriverLicElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "CrashDriverLicense"); 		
+ 		XmlUtils.addAttribute(crashDriverLicElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Driver_License_" + recordId);
+ 		
+ 		Element dlCardIdElement = XmlUtils.appendElement(crashDriverLicElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseCardIdentification");
+ 		
+ 		Element dlCardIdValueElement = XmlUtils.appendElement(dlCardIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+ 		dlCardIdValueElement.setTextContent("TODO");
+ 		 		
+ 		Element dlJurisdictElement = XmlUtils.appendElement(dlCardIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationJurisdiction");
+ 		
+ 		Element dlStateElement = XmlUtils.appendElement(dlJurisdictElement, OjbcNamespaceContext.NS_JXDM_51, "LocationStateNCICLISCode"); 		
+ 		dlStateElement.setTextContent("TODO");
+ 		
+ 		Element dlRestrictElement = XmlUtils.appendElement(crashDriverLicElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseRestriction");
+ 		
+ 		Element dlRestrictTxtElement = XmlUtils.appendElement(dlRestrictElement, OjbcNamespaceContext.NS_JXDM_51, "DrivingRestrictionText");
+ 		dlRestrictTxtElement.setTextContent("TODO");
+ 		
+ 		
+ 		Element dlEndorsementElement = XmlUtils.appendElement(crashDriverLicElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseEndorsement"); 		
+ 		Element dlEndorsementTxtElement = XmlUtils.appendElement(dlEndorsementElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseEndorsementText");
+ 		dlEndorsementTxtElement.setTextContent("TODO");
+ 		
+ 		Element dlCatCodeElement = XmlUtils.appendElement(crashDriverLicElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DriverLicenseCategoryCode");
+ 		dlCatCodeElement.setTextContent("TODO");
+ 		 		
+ 		Element dlClassCodeElement = XmlUtils.appendElement(crashDriverLicElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "DriverLicenseClassCodeText");
+ 		dlClassCodeElement.setTextContent("TODO");
+ 		
+ 		Element activityInfoApproverAssocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityInformationApproverAssociation");
+ 		
+ 		Element aprovAsocActivElement = XmlUtils.appendElement(activityInfoApproverAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity"); 		
+ 		XmlUtils.addAttribute(aprovAsocActivElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Crash_TODO");
+ 		
+ 		Element activInfoAprovAsocPersonElement = XmlUtils.appendElement(activityInfoApproverAssocElement, OjbcNamespaceContext.NS_NC_30, "Person"); 		
+ 		XmlUtils.addAttribute(activInfoAprovAsocPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Information_Approver_TODO");
+ 		
+ 		
+ 		Element bloodAlcAssocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "PersonBloodAlcoholContentAssociation");
+ 		
+ 		Element bloodTxtElement = XmlUtils.appendElement(bloodAlcAssocElement, OjbcNamespaceContext.NS_JXDM_51, "PersonBloodAlcoholContentNumberText");
+ 		bloodTxtElement.setTextContent("TODO");
+ 		
+ 		Element bloodActivityElement = XmlUtils.appendElement(bloodAlcAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity"); 		
+ 		XmlUtils.addAttribute(bloodActivityElement, OjbcNamespaceContext.NS_NC_30, "ref", "Crash_TODO");
+ 		
+ 		Element bloodPersonElement = XmlUtils.appendElement(bloodAlcAssocElement, OjbcNamespaceContext.NS_NC_30, "Person"); 		
+ 		XmlUtils.addAttribute(bloodPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_TODO");
+ 		
+ 		
+ 		
+ 		Element itemInsAssocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "ItemInsuranceAssociation");
+ 		
+ 		Element itemAssocInsElement = XmlUtils.appendElement(itemInsAssocElement, OjbcNamespaceContext.NS_NC_30, "Insurance"); 		
+ 		XmlUtils.addAttribute(itemAssocInsElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Insurance_TODO");
+ 		
+ 		
+ 		Element insuranceItemElement = XmlUtils.appendElement(itemInsAssocElement, OjbcNamespaceContext.NS_NC_30, "Item");
+ 		XmlUtils.addAttribute(insuranceItemElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Vehicle_TODO");
+ 		
+ 		
+ 		Element personResAsocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "PersonResidenceAssociation");
+ 		
+ 		Element prsnResAssocPrsnElement = XmlUtils.appendElement(personResAsocElement, OjbcNamespaceContext.NS_NC_30, "Person"); 		
+ 		XmlUtils.addAttribute(prsnResAssocPrsnElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_01");
+ 		
+ 		Element prsnRestAsocLocElement = XmlUtils.appendElement(personResAsocElement, OjbcNamespaceContext.NS_NC_30, "Location");
+ 		XmlUtils.addAttribute(prsnRestAsocLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_Loc_01");
+ 		
+ 		
+ 		Element witnessAssocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "PersonResidenceAssociation");
+ 		
+ 		Element witnessPersonResElement = XmlUtils.appendElement(witnessAssocElement, OjbcNamespaceContext.NS_NC_30, "Person"); 		
+ 		XmlUtils.addAttribute(witnessPersonResElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Witness_01");
+ 		
+ 		Element witnessPrsnResLocElement = XmlUtils.appendElement(witnessAssocElement, OjbcNamespaceContext.NS_NC_30, "nc:Location"); 		
+ 		XmlUtils.addAttribute(witnessPrsnResLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Witness_Loc_01");
+ 		
+ 		
+ 		Element propOwnerResAsocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "PersonResidenceAssociation");
+ 		
+ 		Element propOwnerPersonElement = XmlUtils.appendElement(propOwnerResAsocElement, OjbcNamespaceContext.NS_NC_30, "Person"); 		
+ 		XmlUtils.addAttribute(propOwnerPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_TODO");
+ 		
+ 		Element propOwnerResLocElement = XmlUtils.appendElement(propOwnerResAsocElement, OjbcNamespaceContext.NS_NC_30, "Location");
+ 		XmlUtils.addAttribute(propOwnerResLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_Loc_TODO");
+ 		
+ 		
  		
  		
  		
