@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -499,6 +500,17 @@ public abstract class AbstractSampleGenerator {
 		int i = randomGenerator.nextInt(0, list.size() - 1);
 		return list.get(i);
 	}
+	
+	
+	String randomBooleanString(){
+		
+		boolean sampleFlag = coinFlip(.5);
+		
+		String sSampleFlag = String.valueOf(sampleFlag);
+		
+		return sSampleFlag;
+	}
+	
 
 	/**
 	 * Generates a random letter from the alphabet
