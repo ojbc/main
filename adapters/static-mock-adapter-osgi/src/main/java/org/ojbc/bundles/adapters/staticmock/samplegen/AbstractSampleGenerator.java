@@ -793,7 +793,7 @@ public abstract class AbstractSampleGenerator {
 	static void printUsage() {
 		
 		LOG.info("Usage: java " + AbstractPersonSampleGenerator.class.getName() 
-				+ " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|Custody|CourtCase|All] [number of samples] [destination directory]");
+				+ " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|Custody|CourtCase|VehicleCrash|All] [number of samples] [destination directory]");
 	}
 
 }
