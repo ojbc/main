@@ -143,8 +143,8 @@
 			</vcq-res-ext:AtSceneDateTime>
 			<vcq-res-ext:OffRoadIncidentIndicator>false
 			</vcq-res-ext:OffRoadIncidentIndicator>
-			<vcq-res-ext:EmergencyVehicleRespondingToScenetIndicator>true
-			</vcq-res-ext:EmergencyVehicleRespondingToScenetIndicator>
+			<vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>true
+			</vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>
 		</j:Crash>
 		<j:Citation structures:id="Citation_01">
 			<nc:ActivityIdentification>
