@@ -24,8 +24,8 @@
 	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
 	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
 	xmlns:cfdu-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReportUpdate/1.0"
-	xmlns:tns="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0/"
-	targetNamespace="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0/">
+	xmlns:tns="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0"
+	targetNamespace="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0">
 	<wsdl:import
 		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
 		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />

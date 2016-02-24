@@ -765,6 +765,7 @@ public abstract class AbstractSampleGenerator {
 		allSamples.addAll(juvenileHistories);		
 		allSamples.addAll(custodyDocList);
 		allSamples.addAll(courtCaseDocList);
+		allSamples.addAll(vehicleCrashDocList);
 
 		for (Document d : allSamples) {
 			

@@ -85,9 +85,6 @@
 						<nc:IdentificationID>1234-56-789</nc:IdentificationID>
 					</nc:PersonOtherIdentification>
 					<nc:PersonSexCode>M</nc:PersonSexCode>
-					<nc:PersonStateIdentification>
-						<nc:IdentificationID>String</nc:IdentificationID>
-					</nc:PersonStateIdentification>
 				</ecf:EntityPerson>
 				<ecf:CaseParticipantRoleCode/>
 				<nc:ContactInformation>
