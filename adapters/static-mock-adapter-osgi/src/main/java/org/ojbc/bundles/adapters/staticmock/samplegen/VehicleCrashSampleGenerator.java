@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,18 +28,15 @@ import javax.xml.parsers.ParserConfigurationException;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.xml.security.configuration.InOutAttrType;
 import org.joda.time.DateTime;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
-import org.opensaml.common.impl.RandomIdentifierGenerator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
 public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 	
-	private static final Random RANDOM = new Random();
 	
 	private static final String CURRENT_DATE = DateTime.now().toString("yyyy-MM-dd");
 	
@@ -58,11 +54,9 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 						
 		for(int i=0; i < recordCount; i++){
 			
-			PersonElementWrapper iGeneratedPerson = getRandomIdentity(null);
+			PersonElementWrapper iGeneratedPerson = getRandomIdentity(null);						
 			
-			String recordId = String.valueOf(i);
-			
-			Document vehicleCrashDetailDoc = buildVehicleCrashDetailDoc(iGeneratedPerson, recordId);
+			Document vehicleCrashDetailDoc = buildVehicleCrashDetailDoc(iGeneratedPerson);
 						
 			rVehicleCrashDocList.add(vehicleCrashDetailDoc);
 		}
@@ -71,8 +65,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 	}
 
 
-	private Document buildVehicleCrashDetailDoc(
-			PersonElementWrapper iGeneratedPerson, String recordId) throws ParserConfigurationException, IOException {
+	private Document buildVehicleCrashDetailDoc(PersonElementWrapper iGeneratedPerson) 
+			throws ParserConfigurationException, IOException {
 
 		PersonElementWrapper randomPerson2 = getRandomIdentity(null);
 		
@@ -107,7 +101,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element crashElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "Crash");
 		
-		XmlUtils.addAttribute(crashElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Crash_" + recordId);
+		XmlUtils.addAttribute(crashElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Crash_01");
 		
 		
 		Element activityDateElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
@@ -149,12 +143,12 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element itemOwnerEntOrgElement = XmlUtils.appendElement(itemOwnerElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");
 		
-		XmlUtils.addAttribute(itemOwnerEntOrgElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_" + "TODO");
+		XmlUtils.addAttribute(itemOwnerEntOrgElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_01");
 		
 		
 		Element entityPersonElement = XmlUtils.appendElement(itemOwnerEntOrgElement, OjbcNamespaceContext.NS_NC_30, "EntityPerson");
 		
-		XmlUtils.addAttribute(entityPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_" + "TODO");
+		XmlUtils.addAttribute(entityPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_02");
 		
 		Element crashCodesElement = XmlUtils.appendElement(incidentDamagedItemElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PropertyCategoryCode");	
 		
@@ -168,7 +162,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element roleOfPersonElement = XmlUtils.appendElement(incidentReportingOfficialElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");
 		
-		XmlUtils.addAttribute(roleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Reporting_Official_" + recordId);
+		XmlUtils.addAttribute(roleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Reporting_Official_01");
 		
 		
 		Element badgeIdElement = XmlUtils.appendElement(incidentReportingOfficialElement, OjbcNamespaceContext.NS_JXDM_51, "EnforcementOfficialBadgeIdentification");
@@ -183,7 +177,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element witnessRolePersonElement = XmlUtils.appendElement(incidentWitnessElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");
 		
-		XmlUtils.addAttribute(witnessRolePersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Witness_" + recordId);
+		XmlUtils.addAttribute(witnessRolePersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Witness_01");
 		
 		
 		Element crashInfoSourceElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_JXDM_51, "CrashInformationSource");
@@ -223,7 +217,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element roleOfItemElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_NC_30, "RoleOfItem");
 		
-		XmlUtils.addAttribute(roleOfItemElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Vehicle_" + recordId);
+		XmlUtils.addAttribute(roleOfItemElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Vehicle_01");
 		
 		
 		Element trafficDeviceWorksElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_JXDM_51, "VehicleTrafficControlDeviceOperationalIndicator");
@@ -242,11 +236,11 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element crashDriverRoleOfPersonElement = XmlUtils.appendElement(crashDriverElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");		
 		
-		XmlUtils.addAttribute(crashDriverRoleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_" + recordId);
+		XmlUtils.addAttribute(crashDriverRoleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_01");
 		
 		Element driverLicenseElement = XmlUtils.appendElement(crashDriverElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicense");
 		
-		XmlUtils.addAttribute(driverLicenseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_License_" + recordId);
+		XmlUtils.addAttribute(driverLicenseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_License_01");
 		
 		Element driverCatCodeElement = XmlUtils.appendElement(crashDriverElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DriverCategoryCode");	
 		
@@ -277,13 +271,13 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element crashVehicleOccupantElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_JXDM_51, "CrashVehicleOccupant"); 
 		
 		Element driverRoleOfPersonElement = XmlUtils.appendElement(crashVehicleOccupantElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");
-		XmlUtils.addAttribute(driverRoleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_" + recordId);
+		XmlUtils.addAttribute(driverRoleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_01");
 		
 		Element occupantRoleOfPersonElement = XmlUtils.appendElement(crashVehicleOccupantElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");
-		XmlUtils.addAttribute(occupantRoleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Occupant_" + recordId);
+		XmlUtils.addAttribute(occupantRoleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Occupant_01");
 		
 		Element vehicleOwnerRoleOfPersonElement = XmlUtils.appendElement(crashVehicleOccupantElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");
-		XmlUtils.addAttribute(vehicleOwnerRoleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Vehicle_Owner_" + recordId);
+		XmlUtils.addAttribute(vehicleOwnerRoleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Vehicle_Owner_01");
 		
 		Element hazmatElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "HazmatPlacardIndicator");
 		hazmatElement.setTextContent(randomBooleanString());
@@ -334,7 +328,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		
 		Element locationElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_NC_30, "Location");
-		XmlUtils.addAttribute(locationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Incident_Loc_" + recordId);
+		XmlUtils.addAttribute(locationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Incident_Loc_01");
 				
 		Element addressElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC_30, "Address");		
 		Element cityElement = XmlUtils.appendElement(addressElement, OjbcNamespaceContext.NS_NC_30, "LocationCityName");
@@ -411,7 +405,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		
 		Element citationElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "Citation");		
-		XmlUtils.addAttribute(citationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Citation_" + recordId);
+		XmlUtils.addAttribute(citationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Citation_01");
 				
 		Element activityIdElement = XmlUtils.appendElement(citationElement, OjbcNamespaceContext.NS_NC_30, "ActivityIdentification");
 		
@@ -443,7 +437,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		PersonElementWrapper reportOfficalRandomPerson = getRandomIdentity(null);
 		
 		Element reportOfficialElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Person");		
-		XmlUtils.addAttribute(reportOfficialElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Reporting_Official_" + recordId);
+		XmlUtils.addAttribute(reportOfficialElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Reporting_Official_01");
 		
 		Element reportOfficialNameElement = XmlUtils.appendElement(reportOfficialElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
@@ -454,7 +448,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		reportOfficialFullName.setTextContent(sampleReportOfficialFullName);
 				
 		Element witnessPersonElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Person");
-		XmlUtils.addAttribute(witnessPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Witness_" + recordId);
+		XmlUtils.addAttribute(witnessPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Witness_01");
 		
 		Element witnessPersonNameElement = XmlUtils.appendElement(witnessPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
@@ -474,7 +468,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		PersonElementWrapper infoApprovPerson = getRandomIdentity(null);
 		
 		Element infoApproverPersonElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Person");
-		XmlUtils.addAttribute(infoApproverPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Information_Approver_" + recordId);
+		
+		XmlUtils.addAttribute(infoApproverPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Information_Approver_01");
 		
 		Element infoApproverPersonNameElement = XmlUtils.appendElement(infoApproverPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
@@ -487,7 +482,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		PersonElementWrapper sampleDriverPerson = getRandomIdentity(null);
 		
 		Element driverPersonElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Person");
-		XmlUtils.addAttribute(driverPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Driver_" + recordId);
+		XmlUtils.addAttribute(driverPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Driver_01");
 		
 		Element driverDobElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");				
 		
@@ -533,7 +528,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element vehicleOwnerElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Person");
 		
-		XmlUtils.addAttribute(vehicleOwnerElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Vehicle_Owner_TODO" + recordId);
+		XmlUtils.addAttribute(vehicleOwnerElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Vehicle_Owner_01");
 
 		Element vehicleOwnerDobElement = XmlUtils.appendElement(vehicleOwnerElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");				
 		
@@ -562,8 +557,9 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		vehicleOwnerCatCodeElement.setTextContent(sampleVehicleOwnerCatCode);
 		
 		
-		Element propOwner1EntOrgElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");		
-		XmlUtils.addAttribute(propOwner1EntOrgElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Property_Owner_TODO" + recordId);
+		Element propOwner1EntOrgElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");
+		
+		XmlUtils.addAttribute(propOwner1EntOrgElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Property_Owner_01");
 		
 		Element propOwner1EntOrgNameElement = XmlUtils.appendElement(propOwner1EntOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");		
 								
@@ -574,7 +570,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element propOwner2EntPersonElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "EntityPerson");
 		
-		XmlUtils.addAttribute(propOwner2EntPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Property_Owner_TODO" + recordId);
+		XmlUtils.addAttribute(propOwner2EntPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Property_Owner_02");
 		
 		Element propOwnerEntPersonName = XmlUtils.appendElement(propOwner2EntPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
@@ -585,6 +581,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		propOwnerEntFullName.setTextContent(samplePropOwnerFullName);		
 		
 		Element occupant1EntPersonElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "EntityPerson");
+		
 		XmlUtils.addAttribute(occupant1EntPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Occupant_01");
 		
 		Element occupantDobElement = XmlUtils.appendElement(occupant1EntPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
@@ -618,8 +615,9 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		PersonElementWrapper sampleDriver = getRandomIdentity(null);
 		
-		Element driverLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");		
-		XmlUtils.addAttribute(driverLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Driver_Loc_" + recordId);
+		Element driverLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");
+		
+		XmlUtils.addAttribute(driverLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Driver_Loc_01");
 		
 		Element driverLocAddressElement = XmlUtils.appendElement(driverLocElement, OjbcNamespaceContext.NS_NC_30, "Address");
 		
@@ -645,8 +643,9 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 
  		PersonElementWrapper sampleWitness = getRandomIdentity(null);
  		
- 		Element witnessLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");		
- 		XmlUtils.addAttribute(witnessLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Witness_Loc_" + recordId);
+ 		Element witnessLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");	
+ 		
+ 		XmlUtils.addAttribute(witnessLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Witness_Loc_01");
 
  		Element witnessLocAddressElement = XmlUtils.appendElement(witnessLocElement, OjbcNamespaceContext.NS_NC_30, "Address");
 
@@ -671,8 +670,9 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		
  		PersonElementWrapper propOwnerSample = getRandomIdentity(null);
  		
- 		Element propOwnerLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");		
- 		XmlUtils.addAttribute(propOwnerLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Property_Owner_Loc" + recordId);
+ 		Element propOwnerLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");	
+ 		
+ 		XmlUtils.addAttribute(propOwnerLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Property_Owner_Loc_01");
 
  		Element propOwnerLocAddressElement = XmlUtils.appendElement(propOwnerLocElement, OjbcNamespaceContext.NS_NC_30, "Address");
 
@@ -694,8 +694,9 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		PersonElementWrapper vehicOwnerSample = getRandomIdentity(null);
  		
  		
-		Element vehicleOwnerLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");		
-		XmlUtils.addAttribute(vehicleOwnerLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Vehicle_Owner_Loc_" + recordId);
+		Element vehicleOwnerLocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Location");
+		
+		XmlUtils.addAttribute(vehicleOwnerLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Vehicle_Owner_Loc_01");
 		
 		Element vehicleOwnerLocAddressElement = XmlUtils.appendElement(vehicleOwnerLocElement, OjbcNamespaceContext.NS_NC_30, "Address");
 		
@@ -715,7 +716,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 
  		
 		Element vehicleElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Vehicle");
- 		XmlUtils.addAttribute(vehicleElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Vehicle_" + recordId);
+		
+ 		XmlUtils.addAttribute(vehicleElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Vehicle_01");
  		
  		Element vehicleColorElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceColorPrimaryCode");
  		
@@ -770,8 +772,9 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		
  		hitRunIndicatorElement.setTextContent(randomBooleanString());
  		 		
- 		Element conveyRegElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistration"); 		
- 		XmlUtils.addAttribute(conveyRegElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Conveyance_Registration_" + recordId);
+ 		Element conveyRegElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistration"); 
+ 		
+ 		XmlUtils.addAttribute(conveyRegElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Conveyance_Registration_01");
  		
  		Element conveyRegIdElement = XmlUtils.appendElement(conveyRegElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistrationPlateIdentification");
  		
@@ -788,8 +791,9 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		 		 		
  		conveyIdRegStateCodeElement.setTextContent(sampleVehicleOwner.state);
  		
- 		Element insuranceElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Insurance"); 		
- 		XmlUtils.addAttribute(insuranceElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Insurance_" + recordId);
+ 		Element insuranceElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "Insurance"); 	
+ 		
+ 		XmlUtils.addAttribute(insuranceElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Insurance_01");
  		
  		Element insPolicyIdElement = XmlUtils.appendElement(insuranceElement, OjbcNamespaceContext.NS_NC_30, "InsurancePolicyIdentification");
  		
@@ -812,8 +816,9 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		noInsuranceElement.setTextContent(randomBooleanString());
  		
  		
- 		Element crashDriverLicElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "CrashDriverLicense"); 		
- 		XmlUtils.addAttribute(crashDriverLicElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Driver_License_" + recordId);
+ 		Element crashDriverLicElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "CrashDriverLicense"); 	
+ 		
+ 		XmlUtils.addAttribute(crashDriverLicElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Driver_License_01");
  		
  		Element dlCardIdElement = XmlUtils.appendElement(crashDriverLicElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseCardIdentification");
  		
@@ -868,10 +873,10 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		Element activityInfoApproverAssocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityInformationApproverAssociation");
  		
  		Element aprovAsocActivElement = XmlUtils.appendElement(activityInfoApproverAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity"); 		
- 		XmlUtils.addAttribute(aprovAsocActivElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Crash_TODO"); 		 		
+ 		XmlUtils.addAttribute(aprovAsocActivElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Crash_01"); 		 		
  		 		
  		Element activInfoAprovAsocPersonElement = XmlUtils.appendElement(activityInfoApproverAssocElement, OjbcNamespaceContext.NS_NC_30, "Person"); 		
- 		XmlUtils.addAttribute(activInfoAprovAsocPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Information_Approver_TODO"); 		
+ 		XmlUtils.addAttribute(activInfoAprovAsocPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Information_Approver_01"); 		
  		
  		Element bloodAlcAssocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "PersonBloodAlcoholContentAssociation");
  		
@@ -881,20 +886,21 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		
  		bloodTxtElement.setTextContent(sampleBloodContent);
  		
- 		Element bloodActivityElement = XmlUtils.appendElement(bloodAlcAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity"); 		
- 		XmlUtils.addAttribute(bloodActivityElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Crash_TODO");
+ 		Element bloodActivityElement = XmlUtils.appendElement(bloodAlcAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity");
+ 		
+ 		XmlUtils.addAttribute(bloodActivityElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Crash_01");
  		
  		Element bloodPersonElement = XmlUtils.appendElement(bloodAlcAssocElement, OjbcNamespaceContext.NS_NC_30, "Person"); 		
- 		XmlUtils.addAttribute(bloodPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_TODO");
+ 		XmlUtils.addAttribute(bloodPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Driver_01");
  		 		 		
  		Element itemInsAssocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "ItemInsuranceAssociation");
  		
  		Element itemAssocInsElement = XmlUtils.appendElement(itemInsAssocElement, OjbcNamespaceContext.NS_NC_30, "Insurance"); 		
- 		XmlUtils.addAttribute(itemAssocInsElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Insurance_TODO");
+ 		XmlUtils.addAttribute(itemAssocInsElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Insurance_01");
  		
  		
  		Element insuranceItemElement = XmlUtils.appendElement(itemInsAssocElement, OjbcNamespaceContext.NS_NC_30, "Item");
- 		XmlUtils.addAttribute(insuranceItemElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Vehicle_TODO");
+ 		XmlUtils.addAttribute(insuranceItemElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Vehicle_01");
  		
  		
  		Element personResAsocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "PersonResidenceAssociation");
@@ -918,10 +924,10 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		Element propOwnerResAsocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "PersonResidenceAssociation");
  		
  		Element propOwnerPersonElement = XmlUtils.appendElement(propOwnerResAsocElement, OjbcNamespaceContext.NS_NC_30, "Person"); 		
- 		XmlUtils.addAttribute(propOwnerPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_TODO");
+ 		XmlUtils.addAttribute(propOwnerPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_01");
  		
  		Element propOwnerResLocElement = XmlUtils.appendElement(propOwnerResAsocElement, OjbcNamespaceContext.NS_NC_30, "Location");
- 		XmlUtils.addAttribute(propOwnerResLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_Loc_TODO");
+ 		XmlUtils.addAttribute(propOwnerResLocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_Loc_01");
  		
  		
  		
@@ -947,7 +953,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		Element conveyRegAssocElement = XmlUtils.appendElement(activityDocAssocElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistrationAssociation");
  		
  		Element conveyItemRegElement = XmlUtils.appendElement(conveyRegAssocElement, OjbcNamespaceContext.NS_JXDM_51, "ItemRegistration"); 		
- 		XmlUtils.addAttribute(conveyItemRegElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Conveyance_Registration_TODO");
+ 		XmlUtils.addAttribute(conveyItemRegElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Conveyance_Registration_01");
  		
  		
  		Element conveyRetAsocItemElement = XmlUtils.appendElement(conveyRegAssocElement, OjbcNamespaceContext.NS_NC_30, "Item"); 		
