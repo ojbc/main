@@ -76,8 +76,8 @@
 				<j:WorkZoneWorkersPresenceIndicationCode>1
 				</j:WorkZoneWorkersPresenceIndicationCode>
 				<me-crash-codes:LawEnforcementPresentAtWorkZoneCode>No Presence</me-crash-codes:LawEnforcementPresentAtWorkZoneCode>
-				<vcq-res-ext:NearWorkZonetIndicator>true
-				</vcq-res-ext:NearWorkZonetIndicator>
+				<vcq-res-ext:NearWorkZoneIndicator>true
+				</vcq-res-ext:NearWorkZoneIndicator>
 				<vcq-res-ext:WorkZoneWorkersPresentIndicator>true
 				</vcq-res-ext:WorkZoneWorkersPresentIndicator>
 			</j:CrashWorkZone>
@@ -179,9 +179,9 @@
 				<nc:Date>1980-06-26</nc:Date>
 			</nc:PersonBirthDate>
 			<nc:PersonName>
-				<nc:PersonGivenName>Larry</nc:PersonGivenName>
+				<nc:PersonGivenName>Joel</nc:PersonGivenName>
 				<nc:PersonMiddleName>Francis</nc:PersonMiddleName>
-				<nc:PersonSurName>Ivey</nc:PersonSurName>
+				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
 			<me-crash-codes:PersonCategoryCode>1</me-crash-codes:PersonCategoryCode>

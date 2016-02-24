@@ -52,6 +52,8 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	
 	Document buildCourtCaseDetailDoc(PersonElementWrapper person){
 	
+		// TODO build document
+		
 		return null;
 	}
 

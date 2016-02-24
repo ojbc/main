@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -499,6 +500,17 @@ public abstract class AbstractSampleGenerator {
 		int i = randomGenerator.nextInt(0, list.size() - 1);
 		return list.get(i);
 	}
+	
+	
+	String randomBooleanString(){
+		
+		boolean sampleFlag = coinFlip(.5);
+		
+		String sSampleFlag = String.valueOf(sampleFlag);
+		
+		return sSampleFlag;
+	}
+	
 
 	/**
 	 * Generates a random letter from the alphabet
@@ -712,6 +724,8 @@ public abstract class AbstractSampleGenerator {
 		List<Document> custodyDocList = new ArrayList<Document>();
 		
 		List<Document> courtCaseDocList = new ArrayList<Document>();
+		
+		List<Document> vehicleCrashDocList = new ArrayList<Document>();
 
 		if ("ALL".equals(type) || "CRIMINALHISTORY".equals(type)) {
 			generator = new CriminalHistorySampleGenerator();
@@ -747,6 +761,11 @@ public abstract class AbstractSampleGenerator {
 			CourtCaseSampleGenerator courtCaseGenerator = new CourtCaseSampleGenerator();			
 			courtCaseDocList = courtCaseGenerator.generateCourtCaseSamples(sampleCount);
 		}
+		
+		if("ALL".equals(type) || "VEHICLECRASH".equals(type)){
+			VehicleCrashSampleGenerator vehicleCrashGenerator = new VehicleCrashSampleGenerator();			
+			vehicleCrashDocList = vehicleCrashGenerator.generateVehicleCrashDetailSamples(sampleCount);
+		}
 
 		List<Document> allSamples = new ArrayList<Document>(criminalHistories.size() + warrants.size() + incidents.size() + firearmRegistrations.size() 
 				+ juvenileHistories.size() + custodyDocList.size() + courtCaseDocList.size());
@@ -758,6 +777,7 @@ public abstract class AbstractSampleGenerator {
 		allSamples.addAll(juvenileHistories);		
 		allSamples.addAll(custodyDocList);
 		allSamples.addAll(courtCaseDocList);
+		allSamples.addAll(vehicleCrashDocList);
 
 		for (Document d : allSamples) {
 			
@@ -773,7 +793,7 @@ public abstract class AbstractSampleGenerator {
 	static void printUsage() {
 		
 		LOG.info("Usage: java " + AbstractPersonSampleGenerator.class.getName() 
-				+ " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|Custody|CourtCase|All] [number of samples] [destination directory]");
+				+ " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|Custody|CourtCase|VehicleCrash|All] [number of samples] [destination directory]");
 	}
 
 }
