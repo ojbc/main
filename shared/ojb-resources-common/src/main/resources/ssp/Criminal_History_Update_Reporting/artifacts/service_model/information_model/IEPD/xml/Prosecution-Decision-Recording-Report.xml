@@ -85,6 +85,9 @@
 					<nc:IdentificationID>ME32456789</nc:IdentificationID>
 				</j:DriverLicenseCardIdentification>
 			</j:DriverLicense>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>Fingerprint ID</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 	</nc:Person>
 	<nc:Location structures:id="LOC001">

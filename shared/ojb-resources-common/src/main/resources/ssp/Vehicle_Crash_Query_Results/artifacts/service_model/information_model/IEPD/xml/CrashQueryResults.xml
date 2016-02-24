@@ -76,8 +76,8 @@
 				<j:WorkZoneWorkersPresenceIndicationCode>1
 				</j:WorkZoneWorkersPresenceIndicationCode>
 				<me-crash-codes:LawEnforcementPresentAtWorkZoneCode>No Presence</me-crash-codes:LawEnforcementPresentAtWorkZoneCode>
-				<vcq-res-ext:NearWorkZonetIndicator>true
-				</vcq-res-ext:NearWorkZonetIndicator>
+				<vcq-res-ext:NearWorkZoneIndicator>true
+				</vcq-res-ext:NearWorkZoneIndicator>
 				<vcq-res-ext:WorkZoneWorkersPresentIndicator>true
 				</vcq-res-ext:WorkZoneWorkersPresentIndicator>
 			</j:CrashWorkZone>
@@ -143,8 +143,8 @@
 			</vcq-res-ext:AtSceneDateTime>
 			<vcq-res-ext:OffRoadIncidentIndicator>false
 			</vcq-res-ext:OffRoadIncidentIndicator>
-			<vcq-res-ext:EmergencyVehicleRespondingToScenetIndicator>true
-			</vcq-res-ext:EmergencyVehicleRespondingToScenetIndicator>
+			<vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>true
+			</vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>
 		</j:Crash>
 		<j:Citation structures:id="Citation_01">
 			<nc:ActivityIdentification>

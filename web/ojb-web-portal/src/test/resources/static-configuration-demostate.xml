@@ -549,6 +549,56 @@
 		<entry key="Inactive" value="Inactive" />
 		<entry key="Expiring" value="Expiring" />
 	</util:map>
+	
+    <util:map id="searchURIToQueryURIMap">
+    	<!-- PERSON SEARCH DETAIL QUERIES -->
+    	<!-- Person Warrants -->
+    	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.WARRANTS" />
+		</entry>
+		
+		<!-- Person Criminal History -->
+    	<entry key ="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.CRIMINAL_HISTORY" />
+		</entry>
+		
+		<!-- Person Firearms -->
+    	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON" />
+		</entry>
+		
+		<!-- Person to Incident list, not supported by static mock adapter --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"/>
+		
+		<!-- Juvenile History detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" 
+			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory"/>
+		
+		<!-- Court Case History detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" 
+			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-Court"/>
+		
+		<!-- Jail Custody History detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" 
+			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-Jail"/>
+		
+		<!-- Incident List (person) to Incident Detail -->		
+		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"/>
+		
+		<!-- INCIDENT SEARCH DETAIL QUERIES -->
+		<!-- Incident Search to Incident Detail -->		
+		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"/>
+		
+		<!-- FIREARMS SEARCH DETAIL QUERIES -->
+		<!-- Firearms Search to Firearms Detail -->
+		<entry key="{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_FIREARM" />
+		</entry>
+
+		<!-- VEHICLE SEARCH DETAIL QUERIES -->
+		<!-- Vehicle Search to Incident list, not supported by static mock adapter-->
+		<entry key="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"/>
+    </util:map>   
 
 </beans>                      
 

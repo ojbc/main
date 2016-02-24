@@ -31,6 +31,9 @@
 			<nc:PersonStateIdentification>
 				<nc:IdentificationID>SID3456789</nc:IdentificationID>
 			</nc:PersonStateIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>Fingerprint ID</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI2095607</nc:IdentificationID>
 			</j:PersonFBIIdentification>

@@ -207,6 +207,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonStateIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ScheduleDayType" w:isRequested="false">
     <w:ElementInType w:name="nc:ScheduleDayStartTime"

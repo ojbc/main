@@ -22,64 +22,63 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
-	xmlns:cfdu-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReportUpdate/1.0"
-	xmlns:tns="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0/"
-	targetNamespace="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0/">
+	xmlns:cfm="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:cc-filing-doc="http://ojbc.org/IEPD/Exchange/CourtCaseFiling/1.0"
+	xmlns:ccu-filing-doc="http://ojbc.org/IEPD/Exchange/CourtCaseFilingUpdate/1.0"
+	xmlns:tns="http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0"
+	targetNamespace="http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0">
 	<wsdl:import
 		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
 		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import
-				namespace="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CaseFilingDecisionReport.xsd" />
-			<xsd:import
-				namespace="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReportUpdate/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CaseFilingDecisionReportUpdate.xsd" />
+				namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+				schemaLocation="../../artifacts/service_model/information_model/Court_Case_Filing-IEPD/xsd/message/ECF-4.0-CoreFilingMessage.xsd" />
+			<!-- xsd:import namespace="http://ojbc.org/IEPD/Exchange/CourtCaseFilingUpdate/1.0" 
+				schemaLocation="../../artifacts/service_model/information_model/Court_Case_Filing_IEPD/xsd/CourtCaseFilingUpdate_Exchange.xsd"/ -->
 		</xsd:schema>
 	</wsdl:types>
-	<wsdl:message name="CaseFilingDecisionReport">
-		<wsdl:part name="CaseFilingDecisionReport" element="cfd-doc:CaseFilingDecisionReport" />
+	<wsdl:message name="CourtCaseFiling">
+		<wsdl:part name="CourtCaseFiling" element="cfm:CoreFilingMessage" />
 	</wsdl:message>
-	<wsdl:message name="CaseFilingDecisionReportUpdate">
-		<wsdl:part name="CaseFilingDecisionReportUpdate" element="cfdu-doc:CaseFilingDecisionReportUpdate" />
+	<wsdl:message name="CourtCaseFilingUpdate">
+		<wsdl:part name="CourtCaseFilingUpdate" element="cfm:CoreFilingMessage" />
 	</wsdl:message>
-	<wsdl:portType name="Case-Filing-Decision-Reporting-Service">
-		<wsdl:operation name="ReportCaseFilingDecision">
-			<wsdl:input name="CaseFilingDecisionReport" message="tns:CaseFilingDecisionReport" />
+	<wsdl:portType name="Court-Case-Filing-Service">
+		<wsdl:operation name="FileCourtCase">
+			<wsdl:input name="CourtCaseFiling" message="tns:CourtCaseFiling" />
 		</wsdl:operation>
-		<wsdl:operation name="ReportCaseFilingDecisionUpdate">
-			<wsdl:input name="CaseFilingDecisionReportUpdate" message="tns:CaseFilingDecisionReportUpdate" />
+		<wsdl:operation name="FileCourtCaseUpdate">
+			<wsdl:input name="CourtCaseFilingUpdate" message="tns:CourtCaseFilingUpdate" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- Secure, GFIPM-conforming binding -->
-	<wsdl:binding
-		name="Case-Filing-Decision-Reporting-Service-Secure-ServiceSOAPBinding"
-		type="tns:Case-Filing-Decision-Reporting-Service">
+	<wsdl:binding name="Court-Case-Filing-Service-Secure-ServiceSOAPBinding"
+		type="tns:Court-Case-Filing-Service">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
-		<wsdl:operation name="ReportCaseFilingDecision">
+		<wsdl:operation name="FileCourtCase">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0/ReportCaseFilingDecision"
+				soapAction="http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0/FileCourtCase"
 				style="document" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="ReportCaseFilingDecisionUpdate">
+		<wsdl:operation name="FileCourtCaseUpdate">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0/ReportCaseFilingDecisionUpdate"
+				soapAction="http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0/FileCourtCaseUpdate"
 				style="document" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
-	<wsdl:service name="Case-Filing-Decision-Reporting-ServiceService">
-		<wsdl:port name="Case-Filing-Decision-Reporting-Service"
-			binding="tns:Case-Filing-Decision-Reporting-Service-Secure-ServiceSOAPBinding">
+	<wsdl:service name="Court-Case-Filing-ServiceService">
+		<wsdl:port name="Court-Case-Filing-Service"
+			binding="tns:Court-Case-Filing-Service-Secure-ServiceSOAPBinding">
 			<soap:address location="http://localhost" />
 		</wsdl:port>
 	</wsdl:service>

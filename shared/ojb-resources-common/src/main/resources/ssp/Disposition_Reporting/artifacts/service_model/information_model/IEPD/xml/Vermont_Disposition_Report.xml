@@ -41,6 +41,9 @@
 				<nc:IdentificationID>String</nc:IdentificationID>
 			</nc:PersonStateIdentification>
 			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>Fingerprint ID</nc:IdentificationID>
+				</j:PersonStateFingerprintIdentification>
 				<vt_codes:AgeGroupCode>1</vt_codes:AgeGroupCode>
 			</j:PersonAugmentation>
 		</nc:RoleOfPerson>
