@@ -41,10 +41,11 @@
        ">
 
 	<!-- OJB Case Filing Decision Reporting Service, hosted by this intermediary -->
-	<cxf:cxfEndpoint id="caeFilingDecisionReportingService"
+	<cxf:cxfEndpoint id="CaseFilingDecisionReportingService"
 		address="${caseFilingDecisionReportingService.caseFilingDecisionReportingServiceEndpoint}"
 		wsdlURL="classpath:ssp/Case_Filing_Decision_Reporting/schema/RS_WS-SIP_v1.2/Case_Filing_Decision_Reporting_Service.wsdl"
-		serviceName="ojbc:Case-Filing-Decision-Reporting-ServiceService" endpointName="ojbc:Case-Filing-Decision-Reporting-Service"
+		serviceName="ojbc:Case-Filing-Decision-Reporting-ServiceService" 
+		endpointName="ojbc:Case-Filing-Decision-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0">
         <cxf:properties>
         	<entry key="mtom-enabled" value="false"/>
@@ -64,8 +65,9 @@
 	<!-- OJB Court_Case_Filing_Service adapter invoked by intermediary -->
 	<cxf:cxfEndpoint id="courtCaseFilingService"
 		address="${caseFilingDecisionReportingService.courtCaseFilingEndpoint}"
-		wsdlURL="classpath:ssp/Court_Case_Filing_Service/schema/RS_WS-SIP_v1.2/Court_Case_Filing_Service.wsdl"
-		serviceName="ojb-nb:Case-Filing-Decision-Reporting-ServiceService" endpointName="ojbc:Court-Case-filing-Service"
+		wsdlURL="classpath:ssp/Court_Case_Filing/schema/RS_WS-SIP_v1.2/Court_Case_Filing_Service.wsdl"
+		serviceName="ojbc:Court-Case-Filing-ServiceService" 
+		endpointName="ojbc:Court-Case-Filing-Service"									
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0">
         <cxf:properties>
         	<entry key="mtom-enabled" value="false"/>
