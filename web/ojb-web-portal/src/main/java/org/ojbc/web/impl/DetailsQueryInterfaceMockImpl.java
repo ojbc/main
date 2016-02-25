@@ -83,7 +83,7 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 	        		"/sampleResponses/courtCase/CourtCaseSearchResult.xml"));
 		} else if (OJBCWebServiceURIs.JAIL.equals(requestIdSrcTxt)){
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-	        		"/sampleResponses/jailCustody/CustodySearch_Results.xml"));
+	        		"/sampleResponses/jailCustody/CustodySearchResults.xml"));
 		}
 		else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 	          if (request.getQueryType() == null){
