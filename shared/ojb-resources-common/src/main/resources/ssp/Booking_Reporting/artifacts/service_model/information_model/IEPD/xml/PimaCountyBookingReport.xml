@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<br-doc:BookingReports
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0 ../xsd/impl/adams_county/booking_codes.xsd"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
+	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	   <br-ext:BookingIndicator>true</br-ext:BookingIndicator>
+   <br-ext:BookingReport>
+      <j:Booking>
+         <nc:ActivityDate>
+            <nc:DateTime>2015-12-23T03:02:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <j:BookingAgency>
+            <nc:OrganizationName>PCSD</nc:OrganizationName>
+         </j:BookingAgency>
+         <j:BookingAgencyRecordIdentification>
+            <nc:IdentificationID>151223012</nc:IdentificationID>
+         </j:BookingAgencyRecordIdentification>
+         <j:BookingSubject>
+            <nc:RoleOfPerson structures:ref="d1e3"/>
+         </j:BookingSubject>
+      </j:Booking>
+      <nc:Person structures:id="d1e3">
+         <nc:PersonBirthDate>
+            <nc:Date>1985-05-18</nc:Date>
+         </nc:PersonBirthDate>
+         <nc:PersonName>
+            <nc:PersonGivenName>bill</nc:PersonGivenName>
+            <nc:PersonMiddleName>a</nc:PersonMiddleName>
+            <nc:PersonSurName>smith</nc:PersonSurName>
+            <br-ext:PersonNameIdentification>
+               <nc:IdentificationID>99999</nc:IdentificationID>
+            </br-ext:PersonNameIdentification>
+         </nc:PersonName>
+         <nc:PersonSexText>F</nc:PersonSexText>
+      </nc:Person>
+   </br-ext:BookingReport>
+</br-doc:BookingReports>
