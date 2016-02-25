@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<arrest-exch:ArrestReport xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1"
+                          xmlns:arrest-exch="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
+                          xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+                          xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+                          xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+                          xmlns:s="http://niem.gov/niem/structures/2.0"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+                          xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+                          xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+                          xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+                          xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0"
+                          xmlns:itl="http://biometrics.nist.gov/standard/2011"
+                          xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+                          xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+   <lexspd:doPublish>
+      <lexs:PublishMessageContainer>
+         <lexs:PublishMessage>
+            <lexs:PDMessageMetadata>
+               <lexs:LEXSVersion>3.1</lexs:LEXSVersion>
+               <lexs:MessageDateTime>2007-01-01T00:00:01Z</lexs:MessageDateTime>
+               <lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
+            </lexs:PDMessageMetadata>
+            <lexs:DataSubmitterMetadata>
+               <lexs:SystemIdentifier>
+                  <nc:OrganizationName>FBI</nc:OrganizationName>
+               </lexs:SystemIdentifier>
+            </lexs:DataSubmitterMetadata>
+            <lexs:DataItemPackage>
+               <lexs:PackageMetadata>
+                  <lexs:DataOwnerMetadata>
+                     <lexs:DataOwnerIdentifier>
+                        <lexs:ORI>NY0303000</lexs:ORI>
+                     </lexs:DataOwnerIdentifier>
+                  </lexs:DataOwnerMetadata>
+               </lexs:PackageMetadata>
+               <lexs:Digest>
+                  <lexsdigest:EntityPerson>
+                     <lexsdigest:Person s:id="d1e346">
+                        <nc:PersonBirthDate>
+                           <nc:Date>1977-08-25</nc:Date>
+                        </nc:PersonBirthDate>
+                        <nc:PersonName>
+                           <nc:PersonGivenName>ANTHONY</nc:PersonGivenName>
+                           <nc:PersonMiddleName>PAUL</nc:PersonMiddleName>
+                           <nc:PersonSurName>JONES</nc:PersonSurName>
+                        </nc:PersonName>
+                        <j:PersonAugmentation>
+                           <j:PersonFBIIdentification>
+                              <nc:IdentificationID>
+                        62760NY12
+                    </nc:IdentificationID>
+                           </j:PersonFBIIdentification>
+                           <j:PersonStateFingerprintIdentification>
+                              <nc:IdentificationID>A398118900</nc:IdentificationID>
+                           </j:PersonStateFingerprintIdentification>
+                        </j:PersonAugmentation>
+                     </lexsdigest:Person>
+                     <j:ArrestSubject>
+                        <nc:RoleOfPersonReference s:ref="d1e346"/>
+                     </j:ArrestSubject>
+                  </lexsdigest:EntityPerson>
+               </lexs:Digest>
+               <lexs:StructuredPayload>
+                  <lexs:StructuredPayloadMetadata>
+                     <lexs:CommunityURI>http://www.ojbc.org</lexs:CommunityURI>
+                     <lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
+                     <lexs:CommunityVersion>1.0</lexs:CommunityVersion>
+                  </lexs:StructuredPayloadMetadata>
+                  <ojbc:ArrestReport>
+                     <ojbc:RelatedFBISubscription>
+                        <ojbc:RecordRapBackSubscriptionIdentification>
+                           <nc:IdentificationID>123456</nc:IdentificationID>
+                        </ojbc:RecordRapBackSubscriptionIdentification>
+                     </ojbc:RelatedFBISubscription>
+                     <ojbc:FederalCriminalHistoryRecordDocument>
+                        <nc:DocumentBinary>
+                           <ojbc:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</ojbc:Base64BinaryObject>
+                        </nc:DocumentBinary>
+                     </ojbc:FederalCriminalHistoryRecordDocument>
+                  </ojbc:ArrestReport>
+               </lexs:StructuredPayload>
+            </lexs:DataItemPackage>
+         </lexs:PublishMessage>
+      </lexs:PublishMessageContainer>
+   </lexspd:doPublish>
+</arrest-exch:ArrestReport>

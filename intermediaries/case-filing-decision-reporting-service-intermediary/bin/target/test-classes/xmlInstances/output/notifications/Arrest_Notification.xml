@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<b:Notify xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+          xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+          xmlns:s="http://niem.gov/niem/structures/2.0"
+          xmlns:xop="http://www.w3.org/2004/08/xop/include"
+          xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+          xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+          xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+          xmlns:add="http://www.w3.org/2005/08/addressing"
+          xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+          xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+          xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+          xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+   <b:NotificationMessage>
+      <b:SubscriptionReference>
+         <add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+         <add:ReferenceParameters/>
+         <add:Metadata/>
+      </b:SubscriptionReference>
+      <b:Topic xmlns:topics="http://ojbc.org/wsn/topics"
+               Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b:Topic>
+      <b:ProducerReference>
+         <add:Address>http://www.ojbc.org/arrestNotificationProducer</add:Address>
+         <add:ReferenceParameters/>
+         <add:Metadata/>
+      </b:ProducerReference>
+      <b:Message>
+         <notification:NotificationMessage>
+            <notificationExt:NotifyingArrest s:id="A001">
+               <notificationExt:NotifyingActivityReportingOrganization>
+                  <nc:OrganizationName>FBI</nc:OrganizationName>
+               </notificationExt:NotifyingActivityReportingOrganization>
+               <notificationExt:NotifyingActivityReportingSystemNameText/>
+               <notificationExt:RelatedFBISubscription>
+                  <notificationExt:RecordRapBackSubscriptionIdentification>
+                     <nc:IdentificationID>123456</nc:IdentificationID>
+                  </notificationExt:RecordRapBackSubscriptionIdentification>
+               </notificationExt:RelatedFBISubscription>
+               <notificationExt:CriminalHistoryRecordDocument>
+                  <nc:DocumentBinary>
+                     <notificationExt:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</notificationExt:Base64BinaryObject>
+                  </nc:DocumentBinary>
+               </notificationExt:CriminalHistoryRecordDocument>
+            </notificationExt:NotifyingArrest>
+            <nc:ActivityInvolvedPersonAssociation>
+               <nc:ActivityReference s:ref="A001"/>
+               <nc:PersonReference s:ref="d1e25"/>
+               <nc:PersonActivityInvolvementText>Arrest Subject</nc:PersonActivityInvolvementText>
+            </nc:ActivityInvolvedPersonAssociation>
+            <j:Person s:id="d1e25">
+               <nc:PersonBirthDate>
+                  <nc:Date>1977-08-25</nc:Date>
+               </nc:PersonBirthDate>
+               <nc:PersonName>
+                  <nc:PersonGivenName>ANTHONY</nc:PersonGivenName>
+                  <nc:PersonMiddleName>PAUL</nc:PersonMiddleName>
+                  <nc:PersonSurName>JONES</nc:PersonSurName>
+               </nc:PersonName>
+            </j:Person>
+         </notification:NotificationMessage>
+      </b:Message>
+   </b:NotificationMessage>
+</b:Notify>
