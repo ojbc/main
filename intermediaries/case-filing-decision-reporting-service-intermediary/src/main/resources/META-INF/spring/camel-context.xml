@@ -35,9 +35,9 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
 	
 		<camel:endpoint id="caseFilingDecisionReportingServiceEndpoint"
-			uri="cxf:bean:CaseFilingDecisionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisiontReportingService.cxflogging}&amp;allowStreaming=false" />
+			uri="cxf:bean:CaseFilingDecisionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false" />
 		
-		<camel:endpoint id="courtCaseFilingrServiceEndpoint"
+		<camel:endpoint id="courtCaseFilingServiceEndpoint"
 			uri="cxf:bean:courtCaseFilingService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}"/>
 			
 		<!-- Case Filing Decision Reporting Service Handler -->

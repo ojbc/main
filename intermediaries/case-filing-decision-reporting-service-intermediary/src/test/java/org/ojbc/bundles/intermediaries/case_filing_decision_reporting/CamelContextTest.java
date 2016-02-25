@@ -137,8 +137,8 @@ public class CamelContextTest {
 		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
 		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
 
-	    //Read the case filing decision report from the file system
-	    File inputFile = new File("src/test/resources/xmlInstances/caseFilingDecisionReport/AK-CourtFilingDecisionReport.xml");
+	    //Read the case filing decision report from the file system																							
+	    File inputFile = new File("src/test/resources/xmlInstances/caseFilingDecisionReport/AK-CaseFilingDecisionReport.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 	    
 	    assertNotNull(inputStr);
