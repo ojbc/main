@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+ <ar:ArrestReport xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+               xmlns:add="http://www.w3.org/2005/08/addressing"
+               xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1"
+               xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+               xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+               xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+               xmlns:s="http://niem.gov/niem/structures/2.0"
+               xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+               xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+               xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+               xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+               xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+               xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+               xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+               xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
+               xmlns:oar="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0">
+     
+         <lexspd:doPublish>
+            <lexs:PublishMessageContainer>
+               <lexs:PublishMessage>
+                  <PDMessageMetadata xmlns="http://usdoj.gov/leisp/lexs/3.1"
+                                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+					                <LEXSVersion>3.1.4</LEXSVersion>
+					                <MessageDateTime>2014-12-29T14:37:48</MessageDateTime>
+					                <MessageSequenceNumber>1</MessageSequenceNumber>
+					                <DataSensitivity>SBU</DataSensitivity>
+				              </PDMessageMetadata>
+                  <lexs:DataSubmitterMetadata xmlns="http://usdoj.gov/leisp/lexs/3.1"
+                                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+					                <lexs:SystemIdentifier>
+						                  <lexs:ORI>99999</lexs:ORI>
+						                  <nc:OrganizationName>CJIS</nc:OrganizationName>
+						                  <lexs:SystemID>CJIS</lexs:SystemID>
+					                </lexs:SystemIdentifier>
+					                <SystemContact>
+						                  <nc:PersonGivenName>Joe</nc:PersonGivenName>
+						                  <nc:PersonSurName>Contact</nc:PersonSurName>
+						                  <nc:PersonFullName>Joe Contact</nc:PersonFullName>
+						                  <nc:ContactTelephoneNumber>
+							                    <nc:NANPTelephoneNumber>
+								                      <nc:TelephoneAreaCodeID>123</nc:TelephoneAreaCodeID>
+								                      <nc:TelephoneExchangeID>456</nc:TelephoneExchangeID>
+								                      <nc:TelephoneLineID>7890</nc:TelephoneLineID>
+							                    </nc:NANPTelephoneNumber>
+						                  </nc:ContactTelephoneNumber>
+						                  <nc:OrganizationName>CJIS data center</nc:OrganizationName>
+					                </SystemContact>
+				              </lexs:DataSubmitterMetadata>
+                  <lexs:DataItemPackage>
+                     <lexs:PackageMetadata xmlns="http://usdoj.gov/leisp/lexs/3.1"
+                                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						                  <lexs:DataItemID>9999999</lexs:DataItemID>
+						                  <DataItemContact>
+							                    <nc:PersonGivenName>Frank</nc:PersonGivenName>
+							                    <nc:PersonSurName>Smith</nc:PersonSurName>
+							                    <nc:PersonFullName>Frank Smith</nc:PersonFullName>
+							                    <nc:ContactTelephoneNumber>
+								                      <nc:NANPTelephoneNumber>
+									                        <nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
+									                        <nc:TelephoneExchangeID>888</nc:TelephoneExchangeID>
+									                        <nc:TelephoneLineID>7777</nc:TelephoneLineID>
+								                      </nc:NANPTelephoneNumber>
+							                    </nc:ContactTelephoneNumber>
+						                  </DataItemContact>
+						                  <lexs:DataItemReferenceID>9999999</lexs:DataItemReferenceID>
+						                  <lexs:DataItemPublishInstruction>Insert
+						</lexs:DataItemPublishInstruction>
+						                  <lexs:DataItemStatus>Status Placeholder</lexs:DataItemStatus>
+						                  <lexs:DataOwnerMetadata>
+							                    <lexs:DataOwnerIdentifier>
+								                      <lexs:ORI>LCL0000000</lexs:ORI>
+								                      <nc:OrganizationName>Local PD</nc:OrganizationName>
+								                      <lexs:SystemID>Local RMS</lexs:SystemID>
+							                    </lexs:DataOwnerIdentifier>
+							                    <DataOwnerContact>
+								                      <nc:PersonGivenName>Bill</nc:PersonGivenName>
+								                      <nc:PersonSurName>Johnson</nc:PersonSurName>
+								                      <nc:PersonFullName>Bill Johnson</nc:PersonFullName>
+								                      <nc:ContactTelephoneNumber>
+									                        <nc:NANPTelephoneNumber>
+										                          <nc:TelephoneAreaCodeID>456</nc:TelephoneAreaCodeID>
+										                          <nc:TelephoneExchangeID>876</nc:TelephoneExchangeID>
+										                          <nc:TelephoneLineID>1212</nc:TelephoneLineID>
+									                        </nc:NANPTelephoneNumber>
+								                      </nc:ContactTelephoneNumber>
+							                    </DataOwnerContact>
+						                  </lexs:DataOwnerMetadata>
+						                  <lexs:DisseminationCriteriaValue>
+							                    <lexs:DisseminationCriteriaDomainText>N-DEx
+							</lexs:DisseminationCriteriaDomainText>
+							                    <lexs:DisseminationCriteriaText>Green
+							</lexs:DisseminationCriteriaText>
+						                  </lexs:DisseminationCriteriaValue>
+						                  <lexs:DataItemCategory>
+							                    <lexs:DataItemCategoryText>Incident Report
+							</lexs:DataItemCategoryText>
+						                  </lexs:DataItemCategory>
+					                </lexs:PackageMetadata>
+                     <lexs:Digest>
+                        <EntityActivity xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <Metadata>
+								                      <LastUpdatedDate xmlns="http://niem.gov/niem/niem-core/2.0">
+									                        <DateTime>2014-12-29T13:54:37</DateTime>
+								                      </LastUpdatedDate>
+								                      <ReportedDate xmlns="http://niem.gov/niem/niem-core/2.0">
+									                        <DateTime>2014-12-13T20:25:59</DateTime>
+								                      </ReportedDate>
+							                    </Metadata>
+							                    <Activity xmlns="http://niem.gov/niem/niem-core/2.0"
+                                     xmlns:NS1="http://niem.gov/niem/structures/2.0"
+                                     NS1:id="IDI14A105705">
+								                      <ActivityIdentification>
+									                        <IdentificationID>9999999</IdentificationID>
+								                      </ActivityIdentification>
+								                      <ActivityCategoryText>Incident</ActivityCategoryText>
+								                      <ActivityDateRange>
+									                        <StartDate>
+										                          <DateTime>2014-12-13T20:25:47</DateTime>
+									                        </StartDate>
+									                        <EndDate>
+										                          <DateTime>2014-12-13T20:25:47</DateTime>
+									                        </EndDate>
+								                      </ActivityDateRange>
+								                      <ActivityDescriptionText>NARRATIVE</ActivityDescriptionText>
+							                    </Activity>
+						                  </EntityActivity>
+                        <EntityActivity xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <Activity xmlns="http://niem.gov/niem/niem-core/2.0"
+                                     xmlns:NS1="http://niem.gov/niem/structures/2.0"
+                                     NS1:id="IDArrest787878">
+								                      <nc:ActivityIdentification>
+									                        <nc:IdentificationID>9999999</nc:IdentificationID>
+								                      </nc:ActivityIdentification>
+								                      <nc:ActivityCategoryText>Arrest</nc:ActivityCategoryText>
+								                      <ActivityDate>
+									                        <DateTime>2014-12-13T20:25:00</DateTime>
+								                      </ActivityDate>
+							                    </Activity>
+						                  </EntityActivity>
+                        <EntityActivity xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <Activity xmlns="http://niem.gov/niem/niem-core/2.0"
+                                     xmlns:NS1="http://niem.gov/niem/structures/2.0"
+                                     NS1:id="IDJO500332">
+								                      <nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+							                    </Activity>
+						                  </EntityActivity>
+                        <EntityPerson xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <Metadata>
+								                      <SourceIDText xmlns="http://niem.gov/niem/niem-core/2.0">787878</SourceIDText>
+							                    </Metadata>
+							                    <Person s:id="PERSON787878">
+								                      <PersonAgeMeasure xmlns="http://niem.gov/niem/niem-core/2.0">
+									                        <MeasurePointValue>62</MeasurePointValue>
+									                        <TimeUnitCode>ANN</TimeUnitCode>
+								                      </PersonAgeMeasure>
+								                      <PersonBirthDate xmlns="http://niem.gov/niem/niem-core/2.0">
+									                        <Date>1952-02-12</Date>
+								                      </PersonBirthDate>
+								                      <nc:PersonEyeColorCode>BLU
+								</nc:PersonEyeColorCode>
+								                      <nc:PersonHairColorCode>RED
+								</nc:PersonHairColorCode>
+								                      <PersonName xmlns="http://niem.gov/niem/niem-core/2.0">
+									                        <PersonGivenName>Walter</PersonGivenName>
+									                        <PersonMiddleName>L</PersonMiddleName>
+									                        <PersonSurName>White</PersonSurName>
+								                      </PersonName>
+								                      <nc:PersonSexCode>F</nc:PersonSexCode>
+								                      <nc:PersonWeightMeasure>
+									                        <nc:MeasurePointValue>162</nc:MeasurePointValue>
+									                        <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+								                      </nc:PersonWeightMeasure>
+								                      <PersonAugmentation xmlns="http://niem.gov/niem/domains/jxdm/4.0">
+									                        <DriverLicense xmlns="http://niem.gov/niem/niem-core/2.0">
+										                          <DriverLicenseIdentification>
+											                            <IdentificationID>9999999</IdentificationID>
+											                            <IdentificationSourceText>VT</IdentificationSourceText>
+										                          </DriverLicenseIdentification>
+									                        </DriverLicense>
+								                      </PersonAugmentation>
+							                    </Person>
+							                    <j:ArrestSubject>
+								                      <nc:RoleOfPersonReference s:ref="PERSON787878"/>
+							                    </j:ArrestSubject>
+						                  </EntityPerson>
+                        <EntityPerson xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <Person s:id="OFFICER01">
+								                      <PersonName xmlns="http://niem.gov/niem/niem-core/2.0">
+									                        <PersonFullName>Last, First Officer</PersonFullName>
+								                      </PersonName>
+							                    </Person>
+							                    <j:EnforcementOfficial s:id="OFFICER01IssuingOfficer">
+								                      <nc:RoleOfPersonReference s:ref="OFFICER01"/>
+							                    </j:EnforcementOfficial>
+						                  </EntityPerson>
+                        <EntityVehicle xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <Metadata>
+								                      <SourceIDText xmlns="http://niem.gov/niem/niem-core/2.0">876542</SourceIDText>
+							                    </Metadata>
+							                    <Vehicle xmlns="http://niem.gov/niem/niem-core/2.0">
+								                      <nc:ItemColorDescriptionText>SIL</nc:ItemColorDescriptionText>
+								                      <nc:ItemMakeName>JEEP </nc:ItemMakeName>
+								                      <nc:ItemModelName>GCH
+								</nc:ItemModelName>
+								                      <nc:ItemModelYearDate>2005
+								</nc:ItemModelYearDate>
+								                      <nc:ConveyanceRegistrationPlateIdentification>
+									                        <nc:IdentificationID>1234ABC</nc:IdentificationID>
+								                      </nc:ConveyanceRegistrationPlateIdentification>
+								                      <nc:VehicleIdentification>
+									                        <nc:IdentificationID>1JZZZZZZZZ</nc:IdentificationID>
+								                      </nc:VehicleIdentification>
+							                    </Vehicle>
+						                  </EntityVehicle>
+                        <EntityLocation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <nc:Location s:id="INCIDENTLOCATION14A105705">
+								                      <nc:LocationAddress>
+									                        <nc:StructuredAddress>
+										                          <nc:LocationStreet>
+											                            <nc:StreetFullText>Road RD</nc:StreetFullText>
+										                          </nc:LocationStreet>
+										                          <nc:LocationCityName>City</nc:LocationCityName>
+										                          <nc:LocationStateName>State</nc:LocationStateName>
+										                          <nc:LocationPostalCode>99999</nc:LocationPostalCode>
+									                        </nc:StructuredAddress>
+								                      </nc:LocationAddress>
+							                    </nc:Location>
+						                  </EntityLocation>
+                        <EntityLocation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <nc:Location s:id="PERSONLOCATION787878">
+								                      <nc:LocationAddress>
+									                        <nc:StructuredAddress>
+										                          <nc:LocationStreet>
+											                            <nc:StreetFullText>550 Road DR</nc:StreetFullText>
+										                          </nc:LocationStreet>
+										                          <nc:LocationCityName>City</nc:LocationCityName>
+										                          <nc:LocationStateName>State</nc:LocationStateName>
+										                          <nc:LocationPostalCode>99999</nc:LocationPostalCode>
+									                        </nc:StructuredAddress>
+								                      </nc:LocationAddress>
+							                    </nc:Location>
+						                  </EntityLocation>
+                        <EntityLocation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <nc:Location s:id="ARRESTLOCATION787878">
+								                      <nc:LocationAddress>
+									                        <nc:StructuredAddress>
+										                          <nc:LocationCityName>City</nc:LocationCityName>
+									                        </nc:StructuredAddress>
+								                      </nc:LocationAddress>
+							                    </nc:Location>
+						                  </EntityLocation>
+                        <EntityOrganization xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <nc:Organization s:id="AGENCY01">
+								                      <nc:OrganizationCategoryText>Criminal Justice
+								</nc:OrganizationCategoryText>
+								                      <nc:OrganizationName>State Police</nc:OrganizationName>
+							                    </nc:Organization>
+						                  </EntityOrganization>
+                        <EntityTelephoneNumber xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <TelephoneNumber s:id="TELEPHONEH787878">
+								                      <nc:FullTelephoneNumber>
+									                        <nc:TelephoneNumberFullID>(888)555-6666
+									</nc:TelephoneNumberFullID>
+								                      </nc:FullTelephoneNumber>
+							                    </TelephoneNumber>
+						                  </EntityTelephoneNumber>
+                        <EntityTelephoneNumber xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <TelephoneNumber s:id="TELEPHONEW787878">
+								                      <nc:FullTelephoneNumber>
+									                        <nc:TelephoneNumberFullID>(888)555-6666
+									</nc:TelephoneNumberFullID>
+								                      </nc:FullTelephoneNumber>
+							                    </TelephoneNumber>
+						                  </EntityTelephoneNumber>
+                        <lexsdigest:Associations>
+                           <j:ActivityEnforcementOfficialAssociation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                                                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <nc:ActivityReference s:ref="IDI14A105705"/>
+								                      <nc:PersonReference s:ref="OFFICER01"/>
+							                    </j:ActivityEnforcementOfficialAssociation>
+                           <lexsdigest:ArrestOffenseAssociation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <nc:ActivityReference s:ref="IDArrest787878"/>
+								                      <nc:ActivityReference s:ref="IDJO500332"/>
+							                    </lexsdigest:ArrestOffenseAssociation>
+                           <lexsdigest:ArrestSubjectAssociation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <nc:ActivityReference s:ref="IDArrest787878"/>
+								                      <nc:PersonReference s:ref="PERSON787878"/>
+							                    </lexsdigest:ArrestSubjectAssociation>
+                           <IncidentLocationAssociation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <nc:ActivityReference s:ref="IDI14A105705"/>
+								                      <nc:LocationReference s:ref="INCIDENTLOCATION14A105705"/>
+							                    </IncidentLocationAssociation>
+                           <lexsdigest:PersonArrestLocationAssociation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                                                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <nc:PersonReference s:ref="PERSON787878"/>
+								                      <nc:LocationReference s:ref="ARRESTLOCATION787878"/>
+							                    </lexsdigest:PersonArrestLocationAssociation>
+                           <PersonContactAssociation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <PersonReference xmlns="http://niem.gov/niem/niem-core/2.0" s:ref="PERSON787878"/>
+								                      <ContactPersonTelephoneNumberReference s:ref="TELEPHONEH787878"/>
+							                    </PersonContactAssociation>
+                           <PersonContactAssociation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <PersonReference xmlns="http://niem.gov/niem/niem-core/2.0" s:ref="PERSON787878"/>
+								                      <ContactPersonTelephoneNumberReference s:ref="TELEPHONEW787878"/>
+							                    </PersonContactAssociation>
+                           <nc:PersonAssignedUnitAssociation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <nc:PersonReference s:ref="OFFICER01"/>
+								                      <nc:OrganizationReference s:ref="AGENCY01"/>
+							                    </nc:PersonAssignedUnitAssociation>
+                           <nc:ResidenceAssociation xmlns="http://usdoj.gov/leisp/lexs/digest/3.1"
+                                                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <nc:PersonReference s:ref="PERSON787878"/>
+								                      <nc:LocationReference s:ref="PERSONLOCATION787878"/>
+							                    </nc:ResidenceAssociation>
+                        </lexsdigest:Associations>
+                     </lexs:Digest>
+                     <lexs:StructuredPayload>
+                        <StructuredPayloadMetadata xmlns="http://usdoj.gov/leisp/lexs/3.1"
+                                                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <CommunityURI>http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1</CommunityURI>
+							                    <CommunityDescription>N-DEx IncidentArrest</CommunityDescription>
+							                    <CommunityVersion>2.1</CommunityVersion>
+						                  </StructuredPayloadMetadata>
+                        <ndexia:ArrestReport>
+                           <ndexia:Incident xmlns="http://usdoj.gov/leisp/lexs/3.1"
+                                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <ndexia:ActivityStatus>
+									                        <ndexia:ActivityStatusAugmentation>
+										                          <ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+									                        </ndexia:ActivityStatusAugmentation>
+								                      </ndexia:ActivityStatus>
+								                      <ndexia:IncidentAugmentation>
+									                        <lexslib:SameAsDigestReference xmlns:NS1="http://usdoj.gov/leisp/lexs/library/3.1" NS1:ref="IDI14A105705"/>
+									                        <ndexia:IncidentCaseNumberText>9999999
+									</ndexia:IncidentCaseNumberText>
+								                      </ndexia:IncidentAugmentation>
+							                    </ndexia:Incident>
+                           <ndexia:Offense xmlns="http://usdoj.gov/leisp/lexs/3.1"
+                                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								                      <ndexia:ActivityAugmentation>
+									                        <lexslib:SameAsDigestReference lexslib:ref="IDJO500332"/>
+								                      </ndexia:ActivityAugmentation>
+								                      <ndexia:OffenseText>DUI</ndexia:OffenseText>
+							                    </ndexia:Offense>
+                        </ndexia:ArrestReport>
+                     </lexs:StructuredPayload>
+                     <lexs:StructuredPayload>
+                        <StructuredPayloadMetadata xmlns:NS1="http://niem.gov/niem/structures/2.0"
+                                                   xmlns="http://usdoj.gov/leisp/lexs/3.1"
+                                                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							                    <CommunityURI>http://www.ojbc.org</CommunityURI>
+							                    <CommunityDescription>OJBC</CommunityDescription>
+							                    <CommunityVersion>1.0</CommunityVersion>
+						                  </StructuredPayloadMetadata>
+                        <oar:ArrestReport>
+                           <oar:Offense>
+                              <lexslib:SameAsDigestReference xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+                                                             xmlns:NS1="http://niem.gov/niem/structures/2.0"
+                                                             xmlns="http://usdoj.gov/leisp/lexs/3.1"
+                                                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                                             lexslib:ref="IDJO500332"/>
+                           </oar:Offense>
+                        </oar:ArrestReport>
+                     </lexs:StructuredPayload>
+                  </lexs:DataItemPackage>
+               </lexs:PublishMessage>
+            </lexs:PublishMessageContainer>
+         </lexspd:doPublish>
+      </ar:ArrestReport>
+
