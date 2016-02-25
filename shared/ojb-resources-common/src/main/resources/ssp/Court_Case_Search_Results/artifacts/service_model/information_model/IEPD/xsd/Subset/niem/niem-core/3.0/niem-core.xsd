@@ -30,7 +30,11 @@
       <xs:documentation>A data type for a single or set of related actions, events, or process steps.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="structures:ObjectType"/>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:ActivityStatus" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="AddressType">
@@ -293,6 +297,18 @@
       <xs:extension base="nc:TextType"/>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:complexType name="StatusType">
+    <xs:annotation>
+      <xs:documentation>A data type for a state of something or someone.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StatusDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="SupervisionType">
     <xs:annotation>
       <xs:documentation>A data type for an act of officially overseeing, supervising, or keeping track in some capacity of a person.</xs:documentation>
@@ -325,6 +341,11 @@
       <xs:extension base="niem-xs:string"/>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:element name="ActivityStatus" type="nc:StatusType">
+    <xs:annotation>
+      <xs:documentation>A status of an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Address" type="nc:AddressType" substitutionGroup="nc:LocationAddressAbstract">
     <xs:annotation>
       <xs:documentation>A postal location to which paper mail can be directed.</xs:documentation>
@@ -643,6 +664,11 @@
   <xs:element name="StartDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date on which something begins.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatusDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a status or condition of something or someone.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Supervision" type="nc:SupervisionType" nillable="true">
