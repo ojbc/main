@@ -64,7 +64,6 @@ public class CaseFilingDecisionReportingTransformerServiceTest {
         Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());						
 	}
 
-	@Test
 	
 	private DetailedDiff runTransform(String inputFileClasspath, String xsltClasspath, String expectedOutputFileClasspath) throws Exception{
 
@@ -84,8 +83,7 @@ public class CaseFilingDecisionReportingTransformerServiceTest {
 				
 		DetailedDiff detailedDiff = new DetailedDiff(XMLUnit.compareXML(expectedXml, actualTransformedResultXml));	
 		
-		return detailedDiff;
-		
+		return detailedDiff;		
 	}
 	
 }
