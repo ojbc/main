@@ -75,6 +75,7 @@ public class CamelContextTest {
     @EndpointInject(uri = "mock:cxf:bean:courtCaseFilingService")
     protected MockEndpoint courtCaseFilingServiceMockEndpoint;
     
+      
     @EndpointInject(uri = "mock:log:org.ojbc.intermediaries.case_filing_decision_reporting")
     protected MockEndpoint loggingEndpoint;
 
@@ -88,7 +89,7 @@ public class CamelContextTest {
     	    @Override
     	    public void configure() throws Exception {
     	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:CaseFilingDecisionReportingServiceEndpoint");
+    	    	replaceFromWith("direct:caseFilingDecisionReportingServiceEndpoint");
     	    	mockEndpoints("log:org.ojbc.intermediaries.case_filing_decision_reporting*");
     	    	
     	    }              
@@ -147,7 +148,7 @@ public class CamelContextTest {
 	    senderExchange.getIn().setBody(inputStr);
 
 	    //Send the one-way exchange.  Using template.send will send an one way message
-		Exchange returnExchange = template.send("direct:CaseFilingDecisionReportingServiceEndpoint", senderExchange);
+		Exchange returnExchange = template.send("direct:caseFilingDecisionReportingServiceEndpoint", senderExchange);
 		
 		//Use getException to see if we received an exception
 		if (returnExchange.getException() != null)
@@ -186,14 +187,10 @@ public class CamelContextTest {
 		Exchange derivedBundleExchange = loggingEndpoint.getExchanges().get(0);
 
 		Document returnDocumentDerivedBundle = derivedBundleExchange.getIn().getBody(Document.class);
-
+				
 		//Make sure the root node here is the message to the original exchange
 		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentDerivedBundle, "/cfd-doc:CaseFilingDecisionReport");
 		assertNotNull(rootNode);
-
-		//XmlUtils.printNode(returnDocumentDerivedBundle);
-
-		
 	}
 	
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
