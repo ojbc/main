@@ -70,7 +70,7 @@
 					<xsl:otherwise>
 						<script type="text/javascript">
 							$(function () {
-								$('#custodyTable tr').click(function () {
+								$('#custodyTable tbody tr').click(function () {
 								
 									var systemName =$(this).attr('systemName');
 									var identificationSourceText = $(this).attr('identificationSourceText');
@@ -82,9 +82,9 @@
 									
 									var tempDiv = '<div id="incidentDetailTemp" style="height:50%;width:100%"/>';
 									// tempDiv for css spinner - replaced upon receipt of get data
-									$('#incidentDetailTabsHolder').html(tempDiv);                                         
+									$('#custodyDetailTabsHolder').html(tempDiv);                                         
 								
-									$.get("incidentDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
+									$.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
 										$('#custodyDetailTabsHolder').html(data);
 									}).fail(ojbc.displayIncidentDetailFailMessage);
 								
@@ -97,12 +97,14 @@
 						</script>
 						
 						<table id="custodyTable" class="detailsTable">
-							<tr>
+							<thead>
 								<td class="detailsTitle" >ARREST ID</td>
 								<td class="detailsTitle">AGENCY</td>
 								<td class="detailsTitle">DATE ARRESTED</td>
-							</tr>
-							<xsl:apply-templates /> 
+							</thead>
+							<tbody>
+								<xsl:apply-templates /> 
+							</tbody>
 						</table>
 						<div id="custodyDetailTabsHolder"></div>   
 					</xsl:otherwise>
@@ -112,12 +114,15 @@
 	</xsl:template>
 	
 	<xsl:template match="cs-res-ext:CustodySearchResult">
+<!--		
 		<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(cs-res-ext:SourceSystemNameText)"/></xsl:variable>
+-->		
+		<xsl:variable name="systemSource"><xsl:text>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JailDetail</xsl:text></xsl:variable>
 		<tr 
-			systemName="{intel:SystemIdentification/nc:SystemName}"
+			systemName="Custody Detail"
 			identificationSourceText="{$systemSource}"   
 			>
-			<xsl:attribute name="identificationID"><xsl:value-of select="intel:SystemIdentification/nc:IdentificationID"/></xsl:attribute>
+			<xsl:attribute name="identificationID"><xsl:value-of select="cs-res-ext:Booking/j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/></xsl:attribute>
 			
 			<td><xsl:value-of select="cs-res-ext:Booking/j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/></td>
 			<td>
