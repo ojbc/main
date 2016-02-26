@@ -114,15 +114,15 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ccq-res-ext:CaseSealedIndicator" />
-					<xsd:element ref="ccq-res-ext:RemandDate" />
-					<xsd:element ref="ccq-res-ext:CaseUnderAdvisementDate" />
-					<xsd:element ref="ccq-res-ext:JuryRequestedIndicator" />
-					<xsd:element ref="ccq-res-ext:JuryVerdictIndicator" />
-					<xsd:element ref="ccq-res-ext:FailureToPayHoldDate" />
-					<xsd:element ref="ccq-res-ext:FailureToAppearHoldDate" />
-					<xsd:element ref="ccq-res-ext:FailureToComplyHoldDate" />
-					<xsd:element ref="ccq-res-ext:FailureToPayVictimHoldDate" />
+					<xsd:element ref="ccq-res-ext:CaseSealedIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:RemandDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:CaseUnderAdvisementDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:JuryRequestedIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:JuryVerdictIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:FailureToPayHoldDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:FailureToAppearHoldDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:FailureToComplyHoldDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:FailureToPayVictimHoldDate" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -136,11 +136,10 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ccq-res-ext:DrivingPointNumberText" />
-					<xsd:element ref="ccq-res-ext:DrivingPointNumberReducedText" />
-					<xsd:element
-						ref="ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator" />
-					<xsd:element ref="j:PersonBloodAlcoholContentNumberText" />
+					<xsd:element ref="ccq-res-ext:DrivingPointNumberText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:DrivingPointNumberReducedText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonBloodAlcoholContentNumberText" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -154,14 +153,14 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="j:CourtAppearanceDate" />
-					<xsd:element ref="ccq-res-ext:VehicleOverweightMeasure" />
-					<xsd:element ref="ccq-res-ext:CourtAppearanceRequiredIndicator" />
-					<xsd:element ref="ccq-res-ext:InjuryIndicator" />
-					<xsd:element ref="ccq-res-ext:SchoolZoneIndicator" />
-					<xsd:element ref="ccq-res-ext:ConstructionZoneIndicator" />
-					<xsd:element ref="ccq-res-ext:LicenseSurrenderedIndicator" />
-					<xsd:element ref="ccq-res-ext:FatalityIndicator" />
+					<xsd:element ref="j:CourtAppearanceDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:VehicleOverweightMeasure" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:CourtAppearanceRequiredIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:InjuryIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:SchoolZoneIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:ConstructionZoneIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:LicenseSurrenderedIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:FatalityIndicator" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -175,9 +174,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ccq-res-ext:SentenceDeferredDate" />
-					<xsd:element ref="ccq-res-ext:SentenceConfinementComment" />
-					<xsd:element ref="ccq-res-ext:SentenceWorkReleaseIndicator" />
+					<xsd:element ref="ccq-res-ext:SentenceDeferredDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:SentenceConfinementComment" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:SentenceWorkReleaseIndicator" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
