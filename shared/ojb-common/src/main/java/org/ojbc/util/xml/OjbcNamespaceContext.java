@@ -38,7 +38,10 @@ import org.w3c.dom.NodeList;
 public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
-				
+	
+	public static final String NS_CASE_FILE_DECISION_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0";	
+	public static final String NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH = "cfd-doc";
+	
 	public static final String NS_NIST_BIO = "http://biometrics.nist.gov/standard/2011";
 	public static final String NS_NIST_BIO_PREFIX = "nistbio";
 					
@@ -1313,6 +1316,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    
 	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
 	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
+	    	    
+	    prefixToUriMap.put(NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_CASE_FILE_DECISION_REPORT_DOC_EXCH);
+	    uriToPrefixMap.put(NS_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH);	    
 	}
 
 	@Override
