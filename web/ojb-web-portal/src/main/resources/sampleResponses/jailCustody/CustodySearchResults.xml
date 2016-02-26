@@ -17,14 +17,24 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cs-res-doc:CustodySearchResults xmlns:cs-res-doc="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0" xmlns:cs-res-ext="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0 ../xsd/exchange_schema.xsd ">
+<cs-res-doc:CustodySearchResults
+	xmlns:cs-res-doc="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0"
+	xmlns:cs-res-ext="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0 ../xsd/exchange_schema.xsd ">
 	<cs-res-ext:CustodySearchResult structures:id="Result_01">
 		<nc:DocumentCreationDate>
 			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
 		</nc:DocumentCreationDate>
 		<nc:DocumentIdentification>
 			<nc:IdentificationID>record identification</nc:IdentificationID>
-			<nc:IdentificationCategoryDescriptionText>record description</nc:IdentificationCategoryDescriptionText>
+			<nc:IdentificationCategoryDescriptionText>record
+				description</nc:IdentificationCategoryDescriptionText>
 		</nc:DocumentIdentification>
 		<nc:Person structures:id="Person_01" structures:metadata="M001">
 			<nc:PersonBirthDate>

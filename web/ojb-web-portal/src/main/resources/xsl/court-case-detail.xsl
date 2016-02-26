@@ -18,47 +18,142 @@
 
 -->
 <xsl:stylesheet version="2.0" 
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
-    xmlns:rap="http://nlets.org/niem2/rapsheet/1.0"
-    xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
-    xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0"
-    xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
-    xmlns:screening="http://niem.gov/niem/domains/screening/2.0"
-    xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-    xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0"
+	xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     exclude-result-prefixes="#all">
 	<xsl:import href="_formatters.xsl" />
 	
     <xsl:output method="html" encoding="UTF-8" />
 
-    <xsl:template match="/">
-       <table>
-            <tr>
-                <td style="vertical-align: top;"><div class="bigPersonImage"></div></td>
-                <td> 
-                    <xsl:apply-templates /> 
-                </td>                
-            </tr>
-       </table>
-       <table class="detailsTable">
-			<tr>
-				<td colspan="8" class="detailsTitle">
-					Court Case
-				</td>
-			</tr>
-<!--        		<xsl:choose>
-				<xsl:when test="//ch-ext:RapSheetCycle/rap:Supervision/nc:ActivityCategoryText[.='CUSTODY']">
-					<xsl:call-template name="custodyTableRows"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<tr>
-						<td colspan="8">
-							No Custody information available
-						</td>
-					</tr>
-				</xsl:otherwise>
-			</xsl:choose>
- -->       </table>
- 	</xsl:template>
+	<xsl:template match="/ccs-res-doc:CourtCaseSearchResults">
+    	<xsl:choose>
+    		<xsl:when test="srm:SearchResultsMetadata/srer:SearchRequestError 
+    						| srm:SearchResultsMetadata/iad:InformationAccessDenial
+    						| srm:SearchResultsMetadata/srer:SearchErrors/srer:SearchResultsExceedThresholdError">
+    			<table id="searchResultsError" class="detailsTable">
+		            <tr>
+		                <td class="detailsTitle" >SEARCH RESULTS ERROR</td>
+		            </tr>
+		            <tr>
+			            <td>
+			            	<xsl:apply-templates select="srm:SearchResultsMetadata/srer:SearchRequestError" /> 
+			            	<xsl:apply-templates select="srm:SearchResultsMetadata/iad:InformationAccessDenial" /> 
+			            	<xsl:apply-templates select="srm:SearchResultsMetadata/srer:SearchErrors/srer:SearchResultsExceedThresholdError" /> 
+			            </td>
+		            </tr>
+		        </table>
+    		</xsl:when>
+    		
+    		<!-- 
+    		<xsl:when test="not(//srm:SearchResultsMetadata/srer:SearchRequestError) and count(exchange:IncidentPersonSearchResults/ext:IncidentPersonSearchResult) = 0">
+    			<table id="incidentsError" class="detailsTable">
+		            <tr>
+		                <td class="detailsTitle" >NO ASSOCIATED INCIDENTS</td>
+		            </tr>
+		            <tr>
+			            <td>
+			            	<span class="error">There are no incidents associated with this person record.</span><br /> 
+			            </td>
+		            </tr>
+		        </table>
+    		</xsl:when>
+    		 -->
+    		<xsl:otherwise>
+    			<xsl:choose>
+    				<xsl:when test="count(ccs-res-ext:CourtCaseSearchResult) = 0">
+    					<table id="incidentsError" class="detailsTable">
+    						<tr>
+    							<td class="detailsTitle" >NO ASSOCIATED COURT CASE</td>
+    						</tr>
+    						<tr>
+    							<td>
+    								<span class="error">There is no court case associated with this person record.</span><br /> 
+    							</td>
+    						</tr>
+    					</table>
+    				</xsl:when>
+    				<xsl:otherwise>
+    					<script type="text/javascript">
+    						$(function () {
+    						$('#courtCaseTable tr').click(function () {
+    						
+	    						var systemName =$(this).attr('systemName');
+	    						var identificationSourceText = $(this).attr('identificationSourceText');
+	    						var identificationID = $(this).attr('identificationID');
+	    						
+	    						
+	    						$('#courtCaseTable tr').removeClass("selected");
+	    						$(this).addClass("selected");
+	    						
+	    						var tempDiv = '<div id="incidentDetailTemp" style="height:50%;width:100%"/>';
+	    						// tempDiv for css spinner - replaced upon receipt of get data
+	    						$('#incidentDetailTabsHolder').html(tempDiv);                                         
+	    						
+	    						$.get("incidentDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
+	    							$('#incidentDetailTabsHolder').html(data);
+	    						}).fail(ojbc.displayIncidentDetailFailMessage);
+    						
+    						}).hover(function () {
+    								$(this).addClass("incidentHover");
+    							}, function () {
+    								$(this).removeClass("incidentHover");
+    							});
+    						});
+    					</script>
+    					
+    					<table id="courtCaseTable" class="detailsTable">
+    						<tr>
+    							<td class="detailsTitle" >CASE NUMBER</td>
+    							<td class="detailsTitle">CAPTION/STYLE</td>
+    							<td class="detailsTitle">CASE STATUS</td>
+    						</tr>
+    						<xsl:apply-templates /> 
+    					</table>
+    					<div id="incidentDetailTabsHolder"></div>   
+    				</xsl:otherwise>
+    			</xsl:choose>
+	        </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+	
+	<xsl:template match="ccs-res-ext:CourtCaseSearchResult">
+		<xsl:variable name="associatedCaseId"><xsl:value-of select="nc:Case/@structures:id"></xsl:value-of></xsl:variable>
+		<xsl:variable name="associatedPersonId"><xsl:value-of select="cyfs:PersonCaseAssociation[nc:Case/@structures:ref = $associatedCaseId]/nc:Person/@structures:ref"/></xsl:variable>
+		<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ccs-res-ext:SourceSystemNameText)"/></xsl:variable>
+        <tr 
+            systemName="{intel:SystemIdentification/nc:SystemName}"
+            identificationSourceText="{$systemSource}"   
+            >
+            <xsl:attribute name="identificationID"><xsl:value-of select="intel:SystemIdentification/nc:IdentificationID"/></xsl:attribute>
+            
+            <td><xsl:value-of select="nc:Case/nc:CaseTrackingID"/></td>
+            <td>
+            	<xsl:value-of select="normalize-space(nc:Case/j:CaseAugmentation/j:CaseCourt/j:CourtName)"/>
+            	<xsl:text> vs. </xsl:text>
+            	<xsl:apply-templates select="nc:Person[@structures:id = $associatedPersonId]/nc:PersonName" mode="primaryName"></xsl:apply-templates>            
+            </td>
+        	<td>
+        		<xsl:value-of select="nc:Case/nc:ActivityStatus/nc:StatusDescriptionText"></xsl:value-of>
+        	</td>
+		</tr>		
+	</xsl:template>
+    <xsl:template match="srer:SearchRequestError">
+    	<span class="error">System Name: <xsl:value-of select="nc:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/></span><br />
+    </xsl:template>
+    <xsl:template match="iad:InformationAccessDenial">
+    	<span class="error">Access to System <xsl:value-of select="iad:InformationAccessDenyingSystemNameText" /> Denied. Denied Reason: <xsl:value-of select="iad:InformationAccessDenialReasonText"/></span><br />
+    </xsl:template>
+    <xsl:template match="srer:SearchResultsExceedThresholdError">
+    	<span class="error">System <xsl:value-of select="preceding-sibling::nc:SystemName" /> returned too many records. Record count <xsl:value-of select="srer:SearchResultsRecordCount"/></span><br />
+    </xsl:template>
 </xsl:stylesheet>
