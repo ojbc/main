@@ -60,8 +60,6 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	}
 	
 	
-	
-	
 	Document buildCourtCaseDetailDoc(PersonElementWrapper person) throws ParserConfigurationException{
 			
 		Document rCourtCaseDetailDoc = getNewDocument();
@@ -377,9 +375,90 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		
 		Element caseJudgeNameElement = XmlUtils.appendElement(caseJudgeRolePersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");		
 		
-		Element caseJudgePersonNameElement = XmlUtils.appendElement(caseJudgeNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
-		
+		Element caseJudgePersonNameElement = XmlUtils.appendElement(caseJudgeNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");		
 		caseJudgePersonNameElement.setTextContent(getRandomName());
+		
+		Element judicBarMemberElement = XmlUtils.appendElement(caseJudgeElement, OjbcNamespaceContext.NS_JXDM_51, "JudicialOfficialBarMembership");
+		
+		Element judicBarIdElement = XmlUtils.appendElement(judicBarMemberElement, OjbcNamespaceContext.NS_JXDM_51, "JudicialOfficialBarIdentification");
+		
+		Element judicBarIdValElement = XmlUtils.appendElement(judicBarIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		judicBarIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
+		
+		Element caseLieneageElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseLineageCase");
+		
+		Element caseTrackingIdElement = XmlUtils.appendElement(caseLieneageElement, OjbcNamespaceContext.NS_NC_30, "CaseTrackingID");		
+		caseTrackingIdElement.setTextContent(RandomStringUtils.randomNumeric(8));
+		
+		Element caseProsecAtrnyElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseProsecutionAttorney");
+		
+		Element prosecAtrnyRoleElement = XmlUtils.appendElement(caseProsecAtrnyElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");
+		
+		Element prosecPersonElement = XmlUtils.appendElement(prosecAtrnyRoleElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element prosecAtrnyNameElement = XmlUtils.appendElement(prosecPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");		
+		prosecAtrnyNameElement.setTextContent(getRandomName());
+		
+		Element prosecutorBarElement = XmlUtils.appendElement(caseProsecAtrnyElement, OjbcNamespaceContext.NS_JXDM_51, "JudicialOfficialBarMembership");
+		
+		Element prosecutorOfficBarIdElement = XmlUtils.appendElement(prosecutorBarElement, OjbcNamespaceContext.NS_JXDM_51, "JudicialOfficialBarIdentification");
+		
+		Element prosecutorOfficBarIdValElement = XmlUtils.appendElement(prosecutorOfficBarIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		prosecutorOfficBarIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
+						
+		Element caseAugmentExtElement = XmlUtils.appendElement(caseFilingElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "CaseAugmentation");
+		
+		Element caseSealedIndicatorElement = XmlUtils.appendElement(caseAugmentExtElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "CaseSealedIndicator");		
+		caseSealedIndicatorElement.setTextContent(getRandomBooleanString());
+		
+		Element remandDateElement = XmlUtils.appendElement(caseAugmentExtElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "RemandDate");
+		
+		Element remandDateValElement = XmlUtils.appendElement(remandDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		remandDateValElement.setTextContent(CURRENT_DATE);
+		
+		Element apelateCaseElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_JXDM_51, "AppellateCase");		
+		XmlUtils.addAttribute(apelateCaseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Appel_Case_01");
+		
+		Element apelateCaseTrackIdElement = XmlUtils.appendElement(apelateCaseElement, OjbcNamespaceContext.NS_NC_30, "CaseTrackingID");
+		apelateCaseTrackIdElement.setTextContent(RandomStringUtils.randomNumeric(8));
+		
+		Element apelateCaseFilingElement = XmlUtils.appendElement(apelateCaseElement, OjbcNamespaceContext.NS_NC_30, "CaseFiling");
+		
+		Element apelateCaseFileDocCreateDateElement = XmlUtils.appendElement(apelateCaseFilingElement, OjbcNamespaceContext.NS_NC_30, "DocumentCreationDate");
+		
+		Element apelateCaseFileDocDateVal = XmlUtils.appendElement(apelateCaseFileDocCreateDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		apelateCaseFileDocDateVal.setTextContent(CURRENT_DATE);
+		
+		Element identityElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "Identity");		
+		XmlUtils.addAttribute(identityElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Identity_01");
+		
+		
+		Element idPersonRepElement = XmlUtils.appendElement(identityElement, OjbcNamespaceContext.NS_NC_30, "IdentityPersonRepresentation");
+		
+		Element idPersonDobElement = XmlUtils.appendElement(idPersonRepElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
+		
+		Element idPersonDobValElement = XmlUtils.appendElement(idPersonDobElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		idPersonDobValElement.setTextContent(CURRENT_DATE);
+		
+		Element idPersonNameElement = XmlUtils.appendElement(idPersonRepElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element idPersonGivenName = XmlUtils.appendElement(idPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");		
+		idPersonGivenName.setTextContent("TODO");
+		
+		Element idPersonMiddleName = XmlUtils.appendElement(idPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
+		idPersonMiddleName.setTextContent("TODO");
+		
+		Element idPersonSurNameElement = XmlUtils.appendElement(idPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName"); 
+		idPersonSurNameElement.setTextContent("TODO");
+		
+		Element idPersonFullNameElement = XmlUtils.appendElement(idPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
+		idPersonFullNameElement.setTextContent("TODO");
+		
+		Element idPersonSsnElement = XmlUtils.appendElement(idPersonRepElement, OjbcNamespaceContext.NS_NC_30, "PersonSSNIdentification");
+		
+		Element idPersonSsnIdElement = XmlUtils.appendElement(idPersonSsnElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		idPersonSsnIdElement.setTextContent(RandomStringUtils.randomNumeric(8));
 		
 		
 		// TODO build document
