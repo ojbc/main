@@ -29,6 +29,7 @@
     xmlns:sec="http://cxf.apache.org/configuration/security"
     xmlns:http="http://cxf.apache.org/transports/http/configuration"
 	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"    
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
 	   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -38,6 +39,7 @@
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
 	   http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
 	   http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 
 	<!-- OJB Case Filing Decision Reporting Service, hosted by this intermediary -->
@@ -47,19 +49,11 @@
 		serviceName="ojbc:Case-Filing-Decision-Reporting-ServiceService" 
 		endpointName="ojbc:Case-Filing-Decision-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0">
-        <cxf:properties>
-        	<entry key="mtom-enabled" value="false"/>
-        	<entry key="dataFormat" value="PAYLOAD"/>
-        </cxf:properties>
-		 <cxf:features> 
- 			<policy:policies> 
- 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
- 					<wsam:Addressing> 
- 						<wsp:Policy /> 
- 					</wsam:Addressing> 
- 				</wsp:Policy> 
- 			</policy:policies> 
- 		</cxf:features>	 
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRecordInformationKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${caseFilingDecisionReportingService.keystoreCertificateAlias}" />
+		</cxf:properties>		
 	</cxf:cxfEndpoint>
 	    
 	<!-- OJB Court_Case_Filing_Service adapter invoked by intermediary -->
@@ -69,10 +63,50 @@
 		serviceName="ojbc:Court-Case-Filing-ServiceService" 
 		endpointName="ojbc:Court-Case-Filing-Service"									
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0">
-        <cxf:properties>
-        	<entry key="mtom-enabled" value="false"/>
-        	<entry key="dataFormat" value="PAYLOAD"/>
-        </cxf:properties>
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRecordInformationKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${caseFilingDecisionReportingService.keystoreCertificateAlias}" />
+		</cxf:properties>		
 	</cxf:cxfEndpoint>
+	
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${caseFilingDecisionReportingService.keystoreCertificateAlias}" value="${caseFilingDecisionReportingService.keyPassword}"/>
+            </map>
+        </property>
+	</bean>
+	
+	<!-- Define a Properties object with the properties required by the org.apache.ws.security.components.crypto.Merlin 
+		WSS4j Crypto implementation. This crypto config is used for signature creation and validation. -->
+	<util:properties id="criminalHistoryRecordInformationKeystoreProperties">		
+		<!-- Defines the implementation class. -->
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>		
+		<!-- The type of the keystore pointed to by org.apache.ws.security.crypto.merlin.file. -->
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>		
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${caseFilingDecisionReportingService.keystorePassword}</prop>				
+		<prop key="org.apache.ws.security.crypto.merlin.file">${caseFilingDecisionReportingService.keystoreLocation}</prop>		
+	</util:properties>		
+		      	
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${caseFilingDecisionReportingService.truststorePassword}"
+					file="${caseFilingDecisionReportingService.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>	
+	
 	
 </beans>
