@@ -502,13 +502,30 @@ public abstract class AbstractSampleGenerator {
 	}
 	
 	
-	String randomBooleanString(){
+	protected String getRandomBooleanString(){
 		
 		boolean sampleFlag = coinFlip(.5);
 		
 		String sSampleFlag = String.valueOf(sampleFlag);
 		
 		return sSampleFlag;
+	}
+	
+	protected String getRandomName(){
+		
+		PersonElementWrapper person = null;
+		
+		String fullName = null;
+		
+		try{
+			person = getRandomIdentity(null);
+		}catch(Exception e){
+			e.printStackTrace();
+		}				 
+		
+		fullName = person.firstName + " " + person.middleName + " " + person.lastName;
+		 
+		return fullName;
 	}
 	
 

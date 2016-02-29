@@ -212,8 +212,174 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		String sampleSentStatId = RandomStringUtils.randomNumeric(8);		
 		sentStatCodeIdValElement.setTextContent(sampleSentStatId);
 		
+		Element chargeSentenceTermElement = XmlUtils.appendElement(chargeSentenceChargeElement, OjbcNamespaceContext.NS_JXDM_51, "SentenceTerm");
+		
+		Element chargeSentMaxTermElement = XmlUtils.appendElement(chargeSentenceTermElement, OjbcNamespaceContext.NS_JXDM_51, "TermMaximumDuration");
+		
+		String sampleMaxTerm = getRandomString("TOOD", "TODO");		
+		chargeSentMaxTermElement.setTextContent(sampleMaxTerm);
+		
+		Element chargeSentMinTermElement = XmlUtils.appendElement(chargeSentenceTermElement, OjbcNamespaceContext.NS_JXDM_51, "TermMinimumDuration");
+		chargeSentMinTermElement.setTextContent(getRandomString("TODO", "TODO"));
+		
+		Element chargeSentSuperviseFineAmountElement = XmlUtils.appendElement(chargeSentenceElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionFineAmount");
+		
+		Element chargeSentFineAmountValElement = XmlUtils.appendElement(chargeSentSuperviseFineAmountElement, OjbcNamespaceContext.NS_NC_30, "Amount");		
+		chargeSentFineAmountValElement.setTextContent(getRandomString("25.70", "9800.99"));
+		
+		Element caseChargeSeqIdElement = XmlUtils.appendElement(caseChargeFilingDateElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeSequenceID");		
+		caseChargeSeqIdElement.setTextContent(RandomStringUtils.randomNumeric(2));
+				
+		Element caseChargeStatuteElement = XmlUtils.appendElement(caseChargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeStatute");
+		
+		Element caseChargeStatuteCodeIdElement = XmlUtils.appendElement(caseChargeStatuteElement, OjbcNamespaceContext.NS_JXDM_51, "StatuteCodeIdentification");
+		
+		Element caseChargeStatCodeIdValElement = XmlUtils.appendElement(caseChargeStatuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		caseChargeStatCodeIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
+		
+		Element caseChargeStatIdCatDescTxtElement = XmlUtils.appendElement(caseChargeStatuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
+		caseChargeStatIdCatDescTxtElement.setTextContent("TODO");
+		
+		// TODO confirm 2nd Case Charge element is needed
+		
+		Element caseCourtElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseCourt");
+		
+		Element caseCourtOrgAugmentElement = XmlUtils.appendElement(caseCourtElement, OjbcNamespaceContext.NS_JXDM_51, "OrganizationAugmentation");
+		
+		Element caseCourtOrgJurisdictElement = XmlUtils.appendElement(caseCourtOrgAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "OrganizationJurisdiction");
+		
+		Element caseCourtOrgAutJurisdicTxtElement = XmlUtils.appendElement(caseCourtOrgJurisdictElement, OjbcNamespaceContext.NS_NC_30, "JurisdictionText");		
+		caseCourtOrgAutJurisdicTxtElement.setTextContent("TODO");
+		
+		Element caseCourtNameElement = XmlUtils.appendElement(caseCourtElement, OjbcNamespaceContext.NS_JXDM_51, "CourtName");
+		caseCourtNameElement.setTextContent("TODO");
+		
+		Element caseCourtDivTxtElement = XmlUtils.appendElement(caseCourtElement, OjbcNamespaceContext.NS_JXDM_51, "CourtDivisionText");
+		caseCourtDivTxtElement.setTextContent("TODO");
 		
 		
+		Element caseCourtEventElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseCourtEvent");
+		
+		Element caseCourtEventActivIdElement = XmlUtils.appendElement(caseCourtEventElement, OjbcNamespaceContext.NS_NC_30, "ActivityIdentification");
+		
+		Element caseCourtActivIdValElement = XmlUtils.appendElement(caseCourtEventActivIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		caseCourtActivIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
+		
+		Element caseCourtActivDateElement = XmlUtils.appendElement(caseCourtEventElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
+		
+		Element caseCourtActivityDateValElement = XmlUtils.appendElement(caseCourtActivDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		caseCourtActivityDateValElement.setTextContent(CURRENT_DATE);
+		
+		Element caseCourtActivDescTxxtElement = XmlUtils.appendElement(caseCourtEventElement, OjbcNamespaceContext.NS_NC_30, "ActivityDescriptionText");		
+		caseCourtActivDescTxxtElement.setTextContent("TODO");
+				
+		Element activityNameElement = XmlUtils.appendElement(caseCourtEventElement, OjbcNamespaceContext.NS_NC_30, "ActivityName");
+		activityNameElement.setTextContent("TODO");
+		
+		Element courtEventJudgeElement = XmlUtils.appendElement(caseCourtEventElement, OjbcNamespaceContext.NS_JXDM_51, "CourtEventJudge");
+		
+		Element roleOfPersonElement = XmlUtils.appendElement(courtEventJudgeElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");
+		
+		Element judgeNameElement = XmlUtils.appendElement(roleOfPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element judgeFullNameElement = XmlUtils.appendElement(judgeNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");		
+		judgeFullNameElement.setTextContent("TODO");
+		
+		Element firstCourtAprncElement = XmlUtils.appendElement(courtEventJudgeElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "FirstCourtAppearance");
+		
+		Element courtAprncDatElement = XmlUtils.appendElement(firstCourtAprncElement, OjbcNamespaceContext.NS_JXDM_51, "CourtAppearanceDate");
+		
+		Element courtAprncDatValElement = XmlUtils.appendElement(courtAprncDatElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		courtAprncDatValElement.setTextContent("TODO");
+		
+		Element courtEventCommentsTxtElement = XmlUtils.appendElement(courtEventJudgeElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "CourtEventCommentsText");		
+		courtEventCommentsTxtElement.setTextContent("TODO");
+		
+		Element defendantSelfRepIndicElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseDefendantSelfRepresentationIndicator");		
+		defendantSelfRepIndicElement.setTextContent(getRandomBooleanString());
+		
+		Element caseDefendantPartyElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseDefendantParty");
+		
+		Element defendantEntOrgElement = XmlUtils.appendElement(caseDefendantPartyElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");
+		
+		Element entOrgNameElement = XmlUtils.appendElement(defendantEntOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
+		entOrgNameElement.setTextContent(getRandomString("TODO", "TODO"));
+		
+		Element entPersonElement = XmlUtils.appendElement(caseDefendantPartyElement, OjbcNamespaceContext.NS_NC_30, "EntityPerson");
+		
+		XmlUtils.addAttribute(entPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Person_01");
+		
+		
+		Element caseDefenseAtterneyElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseDefenseAttorney");
+		
+		Element defenseAttortyPersonRoleElement = XmlUtils.appendElement(caseDefenseAtterneyElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");
+		
+		Element defenseAtrnyPersonNameElement = XmlUtils.appendElement(defenseAttortyPersonRoleElement, OjbcNamespaceContext.NS_NC_30, "PersonName");;
+		
+		Element defenseAtrnyFullNameElement = XmlUtils.appendElement(defenseAtrnyPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
+		defenseAtrnyFullNameElement.setTextContent("TODO");
+		
+		Element caseDomViolenceElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseDomesticViolenceIndicator");
+		caseDomViolenceElement.setTextContent(getRandomBooleanString());
+		
+		Element caseHearingElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseHearing");
+		
+		Element caseHearingActivIdElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityIdentification");		
+		caseHearingActivIdElement.setTextContent(RandomStringUtils.randomNumeric(8));
+		
+		Element activCatTxtElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityCategoryText");		
+		activCatTxtElement.setTextContent("TODO");
+		
+		Element caseHearingActivDateRangeElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDateRange");
+		
+		Element caseHearingStartDateElement = XmlUtils.appendElement(caseHearingActivDateRangeElement, OjbcNamespaceContext.NS_NC_30, "StartDate");
+		
+		Element caseHearingStartDateValElement = XmlUtils.appendElement(caseHearingStartDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
+		caseHearingStartDateValElement.setTextContent(CURRENT_DATE);
+		
+		Element caseHearingEndDateElement = XmlUtils.appendElement(caseHearingActivDateRangeElement, OjbcNamespaceContext.NS_NC_30, "EndDate");
+		
+		Element caseHearingEndDateValElement = XmlUtils.appendElement(caseHearingEndDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");
+		caseHearingEndDateValElement.setTextContent(CURRENT_DATE);
+		
+		Element activDescTxtElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDescriptionText");
+		activDescTxtElement.setTextContent("TODO");
+		
+		Element hearingActivNameElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityName");
+		hearingActivNameElement.setTextContent(getRandomString("TODO", ""));
+		
+		 Element activReasonElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityReasonText");
+		 activReasonElement.setTextContent(getRandomString("TODO", "", ""));
+		 
+		Element activDispElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDisposition");
+		
+		Element activDispDescTxtElement = XmlUtils.appendElement(activDispElement, OjbcNamespaceContext.NS_NC_30, "DispositionDescriptionText");		
+		activDispDescTxtElement.setTextContent(getRandomString("TODO", ""));
+		
+		
+		Element caseHearingCourtEventJudgeElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_JXDM_51, "CourtEventJudge");
+		
+		Element caseHearingJudgeRoleElement = XmlUtils.appendElement(caseHearingCourtEventJudgeElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");
+		
+		Element caseHearingJudgeNameElement = XmlUtils.appendElement(caseHearingJudgeRoleElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
+		
+		Element caseJudgeFullNameElement = XmlUtils.appendElement(caseHearingJudgeNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
+		
+		caseJudgeFullNameElement.setTextContent("TODO");
+		
+		Element caseHearingCommentsTxtElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "CourtEventCommentsText");
+		
+		caseHearingCommentsTxtElement.setTextContent("TODO");
+		
+		Element caseJudgeElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseJudge");
+		
+		Element caseJudgeRolePersonElement = XmlUtils.appendElement(caseJudgeElement, OjbcNamespaceContext.NS_JXDM_51, "RoleOfPerson");
+		
+		Element caseJudgeNameElement = XmlUtils.appendElement(caseJudgeRolePersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");		
+		
+		Element caseJudgePersonNameElement = XmlUtils.appendElement(caseJudgeNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
+		
+		caseJudgePersonNameElement.setTextContent(getRandomName());
 		
 		
 		// TODO build document
