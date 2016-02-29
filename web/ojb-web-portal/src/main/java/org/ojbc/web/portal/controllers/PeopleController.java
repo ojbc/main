@@ -22,6 +22,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.SearchFieldMetadata;
@@ -49,12 +51,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/people/*")
 @SessionAttributes({"personSearchCommand", "juvenileHistoryDetailResponses"})
 public class PeopleController {
+	private final Log log = LogFactory.getLog(this.getClass());
 	public static final String PAGINATE_URL = "../people/paginate";
 
 	public static final int ROWS_PER_PAGE = 50;
@@ -270,13 +274,11 @@ public class PeopleController {
 		}
 	}
 
-	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
-	public String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
+	@RequestMapping(value = "instanceDetails", method = RequestMethod.GET)
+	public @ResponseBody String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
 	        throws Exception {
-		processDetailRequest(request, systemName, detailsRequest, model);
-
-		return "people/_incidentDetails";
+		return getConvertedSearchResult(request, systemName, detailsRequest, model);
 	}
 	
     @ModelAttribute
@@ -324,7 +326,16 @@ public class PeopleController {
 
 	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
 			throws Exception {
-	    String searchContent = null; 
+	    String convertedContent = getConvertedSearchResult(request, systemName,
+				detailsRequest, model);
+         model.put("searchContent", convertedContent); 
+
+	}
+
+	private String getConvertedSearchResult(HttpServletRequest request, String systemName,
+			DetailsRequest detailsRequest, Map<String, Object> model)
+			throws Exception {
+		String searchContent = null; 
 		if (detailsRequest.isJuvenileDetailRequest() ) {
 		    PersonSearchDetailResponses juvenileHistoryDetailResponses = 
 		            (PersonSearchDetailResponses) model.get("juvenileHistoryDetailResponses"); 
@@ -347,8 +358,7 @@ public class PeopleController {
 		}
 		
 	     String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName, detailsRequest.getActiveAccordionId());
-         model.put("searchContent", convertedContent); 
-
+		return convertedContent;
 	}
 
 
@@ -376,7 +386,7 @@ public class PeopleController {
 		
 		String searchContent = config.getPersonSearchBean().invokePersonSearchRequest(personSearchRequest,
 				getFederatedQueryId(), samlService.getSamlAssertion(request));
-		
+		log.debug("searchContent: " + searchContent);
 		userSession.setMostRecentSearchResult(searchContent);
 		userSession.setSavedMostRecentSearchResult(null);
 		String convertPersonSearchResult = searchResultConverter.convertPersonSearchResult(searchContent,getParams( personSearchRequest.getPurpose(), personSearchRequest.getOnBehalfOf()));

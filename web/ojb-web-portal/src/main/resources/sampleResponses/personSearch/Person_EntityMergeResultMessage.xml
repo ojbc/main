@@ -128,7 +128,7 @@
 					<nc:ContactInformationReference
 						s:ref="CI001" />
 				</nc:PersonContactInformationAssociation>
-				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS</ext1:SourceSystemNameText>
+				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS</ext1:SourceSystemNameText>
 				<intel:SystemIdentifier>
 					<nc:IdentificationID>7777</nc:IdentificationID>
 					<intel:SystemName>Law Enforcement RMS</intel:SystemName>

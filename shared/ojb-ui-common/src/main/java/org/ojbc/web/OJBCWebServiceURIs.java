@@ -31,5 +31,7 @@ public class OJBCWebServiceURIs {
 	public static final String JUVENILE_HISTORY_SEARCH = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory";
 	public static final String COURT_CASE = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-Court";
 	public static final String JAIL = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-Jail";
+	public static final String COURT_CASE_DETAIL = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-CourtDetail";
+	public static final String JAIL_DETAIL = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JailDetail";
 	
 }

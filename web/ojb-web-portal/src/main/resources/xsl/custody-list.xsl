@@ -70,7 +70,7 @@
 					<xsl:otherwise>
 						<script type="text/javascript">
 							$(function () {
-								$('#custodyTable tbody tr').click(function () {
+								$('#custodyTable tr').click(function () {
 								
 									var systemName =$(this).attr('systemName');
 									var identificationSourceText = $(this).attr('identificationSourceText');
@@ -82,7 +82,7 @@
 									
 									var tempDiv = '<div id="incidentDetailTemp" style="height:50%;width:100%"/>';
 									// tempDiv for css spinner - replaced upon receipt of get data
-									$('#custodyDetailTabsHolder').html(tempDiv);                                         
+									$('#incidentDetailTabsHolder').html(tempDiv);                                         
 								
 									$.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
 										$('#custodyDetailTabsHolder').html(data);
@@ -97,14 +97,12 @@
 						</script>
 						
 						<table id="custodyTable" class="detailsTable">
-							<thead>
+							<tr>
 								<td class="detailsTitle" >ARREST ID</td>
 								<td class="detailsTitle">AGENCY</td>
 								<td class="detailsTitle">DATE ARRESTED</td>
-							</thead>
-							<tbody>
-								<xsl:apply-templates /> 
-							</tbody>
+							</tr>
+							<xsl:apply-templates /> 
 						</table>
 						<div id="custodyDetailTabsHolder"></div>   
 					</xsl:otherwise>
