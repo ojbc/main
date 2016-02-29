@@ -1314,3 +1314,25 @@ text-shadow: 0 1px #fff; */
     font-size:small;
     font-family:Calibri;
 }
+
+#courtCaseDetailTabs {
+    margin: 0 !important; 
+    padding:0 ;
+}
+
+#courtCaseDetailTabs ul{display: table-row;}
+#courtCaseDetailTabs li { 
+	white-space:normal; 
+	height: 50px; 
+	margin: 0 !important;  
+	padding:0!important; 
+	width: 9.5%; }
+
+#courtCaseDetailTabs li:last-child{
+	width:12.2%; 
+	border-right:0;}
+ 
+#courtCaseDetailTabs li a {
+	font-size: 11px!important; 
+	margin: 0 !important; 
+	white-space:normal;}
