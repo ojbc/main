@@ -97,10 +97,10 @@
 	    						
 	    						var tempDiv = '<div id="incidentDetailTemp" style="height:50%;width:100%"/>';
 	    						// tempDiv for css spinner - replaced upon receipt of get data
-	    						$('#incidentDetailTabsHolder').html(tempDiv);                                         
+	    						$('#instanceDetailTabsHolder').html(tempDiv);                                         
 	    						
 	    						$.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
-	    							$('#incidentDetailTabsHolder').html(data);
+	    							$('#instanceDetailTabsHolder').html(data);
 	    						}).fail(ojbc.displayIncidentDetailFailMessage);
     						
     						}).hover(function () {
@@ -119,7 +119,7 @@
     						</tr>
     						<xsl:apply-templates /> 
     					</table>
-    					<div id="incidentDetailTabsHolder"></div>   
+    					<div id="instanceDetailTabsHolder"></div>   
     				</xsl:otherwise>
     			</xsl:choose>
 	        </xsl:otherwise>
