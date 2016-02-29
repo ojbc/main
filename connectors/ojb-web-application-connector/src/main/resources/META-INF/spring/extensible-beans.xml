@@ -64,16 +64,25 @@
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" 
 			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory"/>
 		
-		<!-- Court Case History detail --> 
+		<!-- Court Case search --> 
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" 
 			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-Court"/>
 		
+		<!-- Court Case detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-CourtDetail" 
+			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-CourtDetail"/>
+		
 		<!-- Jail Custody History detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JailDetail" 
+			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JailDetail"/>
+		
+		<!-- Jail Custody History search --> 
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" 
 			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-Jail"/>
 		
 		<!-- Incident List (person) to Incident Detail -->		
-		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"/>
+		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"
+			value="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"/>
 		
 		<!-- INCIDENT SEARCH DETAIL QUERIES -->
 		<!-- Incident Search to Incident Detail -->		

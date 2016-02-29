@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<ccq-res-doc:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd" xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:DocumentCreationDate>
+		<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+	</nc:DocumentCreationDate>
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>document ID</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<intel:SystemIdentification>
+		<nc:IdentificationID>system ID</nc:IdentificationID>
+		<nc:SystemName>system name</nc:SystemName>
+	</intel:SystemIdentification>
+	<nc:Case structures:id="Case_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>case ID</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityStatus>
+			<nc:StatusCommentText>generic comment</nc:StatusCommentText>
+			<nc:StatusDescriptionText>current case status</nc:StatusDescriptionText>
+		</nc:ActivityStatus>
+		<nc:CaseDisposition>
+			<nc:DispositionDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</nc:DispositionDate>
+		</nc:CaseDisposition>
+		<nc:CaseCategoryText>case sub type</nc:CaseCategoryText>
+		<nc:CaseGeneralCategoryText>case type</nc:CaseGeneralCategoryText>
+		<nc:CaseTrackingID>case number</nc:CaseTrackingID>
+		<nc:CaseDocketID>nc:CaseDocketID</nc:CaseDocketID>
+		<nc:CaseFiling>
+			<nc:DocumentCreationDate>
+				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			</nc:DocumentCreationDate>
+		</nc:CaseFiling>
+		<j:CaseAugmentation>
+			<j:CaseAmendedCharge>
+				<j:ChargeCountQuantity>2</j:ChargeCountQuantity>
+				<j:ChargeDescriptionText>charge description
+				</j:ChargeDescriptionText>
+				<j:ChargeFilingDate>
+					<nc:Date>2001-12-17</nc:Date>
+				</j:ChargeFilingDate>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>String</nc:IdentificationID>
+						<nc:IdentificationCategoryDescriptionText>String
+						</nc:IdentificationCategoryDescriptionText>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:CaseAmendedCharge>
+			<j:CaseCharge>
+				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+				<j:ChargeDescriptionText>String</j:ChargeDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2001-12-17</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>finding
+					</nc:DispositionDescriptionText>
+					<j:ChargeDispositionOtherText>other finding
+					</j:ChargeDispositionOtherText>
+				</j:ChargeDisposition>
+				<j:ChargeFilingDate>
+					<nc:Date>2001-12-17</nc:Date>
+				</j:ChargeFilingDate>
+				<j:ChargePlea>
+					<nc:ActivityDate>
+						<nc:Date>2001-12-17</nc:Date>
+					</nc:ActivityDate>
+					<j:PleaCategoryCode>A</j:PleaCategoryCode>
+				</j:ChargePlea>
+				<j:ChargeSentence>
+					<nc:ActivityIdentification>
+						<nc:IdentificationID>SentenceID</nc:IdentificationID>
+					</nc:ActivityIdentification>
+					<nc:ActivityDate>
+						<nc:Date>2001-12-17</nc:Date>
+					</nc:ActivityDate>
+					<nc:ActivityStatus>
+						<nc:StatusDescriptionText>sentence status
+						</nc:StatusDescriptionText>
+					</nc:ActivityStatus>
+					<j:SentenceCharge>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>charge code</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
+					</j:SentenceCharge>
+					<j:SentenceTerm>
+						<j:TermMaximumDuration>P1Y2M3DT10H30M0S</j:TermMaximumDuration>
+						<j:TermMinimumDuration>P1Y2M3DT10H30M0S</j:TermMinimumDuration>
+					</j:SentenceTerm>
+					<j:SupervisionFineAmount>
+						<nc:Amount>0.0</nc:Amount>
+					</j:SupervisionFineAmount>
+					<ccq-res-ext:SentenceDeferredDate>
+						<nc:Date>2001-12-17</nc:Date>
+					</ccq-res-ext:SentenceDeferredDate>
+					<ccq-res-ext:SentenceConfinementCategoryText>confinement type
+					</ccq-res-ext:SentenceConfinementCategoryText>
+					<ccq-res-ext:SentenceConfinementComment>confinement comment
+					</ccq-res-ext:SentenceConfinementComment>
+					<ccq-res-ext:SentenceWorkReleaseIndicator>true
+					</ccq-res-ext:SentenceWorkReleaseIndicator>
+				</j:ChargeSentence>
+				<j:ChargeSequenceID>2</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>charge statute</nc:IdentificationID>
+						<nc:IdentificationCategoryDescriptionText>charge statute
+							description
+						</nc:IdentificationCategoryDescriptionText>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:CaseCharge>
+			<j:CaseCharge>
+				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+				<j:ChargeDescriptionText>String</j:ChargeDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2001-12-17</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>finding
+					</nc:DispositionDescriptionText>
+					<j:ChargeDispositionOtherText>other finding
+					</j:ChargeDispositionOtherText>
+				</j:ChargeDisposition>
+				<j:ChargeFilingDate>
+					<nc:Date>2001-12-17</nc:Date>
+				</j:ChargeFilingDate>
+				<j:ChargeSequenceID>2</j:ChargeSequenceID>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>charge statute</nc:IdentificationID>
+						<nc:IdentificationCategoryDescriptionText>charge statute
+							description
+						</nc:IdentificationCategoryDescriptionText>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:CaseCharge>
+			<j:CaseCourt>
+				<j:OrganizationAugmentation>
+					<j:OrganizationJurisdiction>
+						<nc:JurisdictionText>Court Jurisdiction</nc:JurisdictionText>
+					</j:OrganizationJurisdiction>
+				</j:OrganizationAugmentation>
+				<j:CourtName>court name</j:CourtName>
+				<j:CourtDivisionText>court location</j:CourtDivisionText>
+			</j:CaseCourt>
+			<j:CaseCourtEvent>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>case court event ID</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityDate>
+					<nc:Date>2001-12-17</nc:Date>
+				</nc:ActivityDate>
+				<nc:ActivityDescriptionText>case court event description
+				</nc:ActivityDescriptionText>
+				<nc:ActivityName>case court event name</nc:ActivityName>
+				<j:CourtEventJudge>
+					<nc:RoleOfPerson>
+						<nc:PersonName>
+							<nc:PersonFullName>court event judge</nc:PersonFullName>
+						</nc:PersonName>
+					</nc:RoleOfPerson>
+				</j:CourtEventJudge>
+				<ccq-res-ext:CommentsForCourtClerk/>
+				<ccq-res-ext:FirstCourtAppearance>
+					<j:CourtAppearanceDate>
+						<nc:Date>2001-12-17</nc:Date>
+					</j:CourtAppearanceDate>
+				</ccq-res-ext:FirstCourtAppearance>
+				<ccq-res-ext:CourtEventCommentsText>String
+				</ccq-res-ext:CourtEventCommentsText>
+			</j:CaseCourtEvent>
+			<j:CaseDefendantSelfRepresentationIndicator>true
+			</j:CaseDefendantSelfRepresentationIndicator>
+			<j:CaseDefendantParty>
+				<nc:EntityOrganization>
+					<nc:OrganizationName>String</nc:OrganizationName>
+				</nc:EntityOrganization>
+				<nc:EntityPerson structures:ref="Person_01">
+				</nc:EntityPerson>
+			</j:CaseDefendantParty>
+			<j:CaseDefenseAttorney>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<nc:PersonFullName>String</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+			</j:CaseDefenseAttorney>
+			<j:CaseDomesticViolenceIndicator>true
+			</j:CaseDomesticViolenceIndicator>
+			<j:CaseHearing>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>hearing ID</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityCategoryText>type of hearing</nc:ActivityCategoryText>
+				<nc:ActivityDateRange>
+					<nc:StartDate>
+						<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+					</nc:EndDate>
+				</nc:ActivityDateRange>
+				<nc:ActivityDescriptionText>hearing description
+				</nc:ActivityDescriptionText>
+				<nc:ActivityName>hearing name</nc:ActivityName>
+				<nc:ActivityReasonText>hearing reason</nc:ActivityReasonText>
+				<nc:ActivityDisposition>
+					<nc:DispositionDescriptionText>hearing results
+					</nc:DispositionDescriptionText>
+				</nc:ActivityDisposition>
+				<j:CourtEventJudge>
+					<nc:RoleOfPerson>
+						<nc:PersonName>
+							<nc:PersonFullName>String</nc:PersonFullName>
+						</nc:PersonName>
+					</nc:RoleOfPerson>
+				</j:CourtEventJudge>
+				<ccq-res-ext:CourtEventCommentsText>hearing minutes
+				</ccq-res-ext:CourtEventCommentsText>
+			</j:CaseHearing>
+			<j:CaseJudge>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<nc:PersonFullName>String</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+				<j:JudicialOfficialBarMembership>
+					<j:JudicialOfficialBarIdentification>
+						<nc:IdentificationID>String</nc:IdentificationID>
+					</j:JudicialOfficialBarIdentification>
+				</j:JudicialOfficialBarMembership>
+			</j:CaseJudge>
+			<j:CaseLineageCase>
+				<nc:CaseTrackingID>previous case number</nc:CaseTrackingID>
+			</j:CaseLineageCase>
+			<j:CaseOtherIdentification>
+				<nc:IdentificationID>other case number</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText
+				</nc:IdentificationCategoryDescriptionText>
+			</j:CaseOtherIdentification>
+			<j:CaseProsecutionAttorney>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<nc:PersonFullName>String</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+				<j:JudicialOfficialBarMembership>
+					<j:JudicialOfficialBarIdentification>
+						<nc:IdentificationID>String</nc:IdentificationID>
+					</j:JudicialOfficialBarIdentification>
+				</j:JudicialOfficialBarMembership>
+				<j:JudicialOfficialCategoryText>attorney type
+				</j:JudicialOfficialCategoryText>
+			</j:CaseProsecutionAttorney>
+			<j:CaseTrial>
+				<ccq-res-ext:SpeedyTrialDate>
+					<nc:Date>2001-12-17</nc:Date>
+				</ccq-res-ext:SpeedyTrialDate>
+			</j:CaseTrial>
+		</j:CaseAugmentation>
+		<ccq-res-ext:CaseAugmentation>
+			<ccq-res-ext:CaseSealedIndicator>true
+			</ccq-res-ext:CaseSealedIndicator>
+			<ccq-res-ext:RemandDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</ccq-res-ext:RemandDate>
+			<ccq-res-ext:CaseUnderAdvisementDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</ccq-res-ext:CaseUnderAdvisementDate>
+			<ccq-res-ext:JuryRequestedIndicator>true
+			</ccq-res-ext:JuryRequestedIndicator>
+			<ccq-res-ext:JuryVerdictIndicator>true
+			</ccq-res-ext:JuryVerdictIndicator>
+			<ccq-res-ext:FailureToPayHoldDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</ccq-res-ext:FailureToPayHoldDate>
+			<ccq-res-ext:FailureToAppearHoldDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</ccq-res-ext:FailureToAppearHoldDate>
+			<ccq-res-ext:FailureToComplyHoldDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</ccq-res-ext:FailureToComplyHoldDate>
+			<ccq-res-ext:FailureToPayVictimHoldDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</ccq-res-ext:FailureToPayVictimHoldDate>
+		</ccq-res-ext:CaseAugmentation>
+	</nc:Case>
+	<j:AppellateCase structures:id="Appel_Case_01">
+		<nc:CaseTrackingID>String</nc:CaseTrackingID>
+		<nc:CaseFiling>
+			<nc:DocumentCreationDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</nc:DocumentCreationDate>
+		</nc:CaseFiling>
+	</j:AppellateCase>
+	<nc:Identity structures:id="Identity_01">
+		<nc:IdentityPersonRepresentation>
+			<nc:PersonBirthDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>String</nc:PersonGivenName>
+				<nc:PersonMiddleName>String</nc:PersonMiddleName>
+				<nc:PersonSurName>String</nc:PersonSurName>
+				<nc:PersonNameSuffixText>String</nc:PersonNameSuffixText>
+				<nc:PersonFullName>String</nc:PersonFullName>
+			</nc:PersonName>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>String</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+		</nc:IdentityPersonRepresentation>
+	</nc:Identity>
+	<nc:ContactInformation structures:id="CI_01">
+		<nc:ContactTelephoneNumber>
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>String</nc:TelephoneNumberFullID>
+			</nc:FullTelephoneNumber>
+			<nc:TelephoneNumberCategoryText>String
+			</nc:TelephoneNumberCategoryText>
+		</nc:ContactTelephoneNumber>
+		<ccq-res-ext:ElectronicContactIdentification>
+			<nc:IdentificationID>electronic ID</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>type of electronic ID
+			</nc:IdentificationCategoryDescriptionText>
+		</ccq-res-ext:ElectronicContactIdentification>
+	</nc:ContactInformation>
+	<j:Citation structures:id="Citation_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>citation number</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<j:CitationViolation>
+			<nc:ActivityDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</nc:ActivityDate>
+			<nc:IncidentLocation>
+				<nc:Address>
+					<nc:AddressSecondaryUnitText>apartment number
+					</nc:AddressSecondaryUnitText>
+					<nc:AddressDeliveryPointID>street number
+					</nc:AddressDeliveryPointID>
+					<nc:LocationStreet>
+						<nc:StreetName>street name</nc:StreetName>
+						<nc:StreetCategoryText>street type</nc:StreetCategoryText>
+					</nc:LocationStreet>
+					<nc:LocationCountyName>county</nc:LocationCountyName>
+				</nc:Address>
+				<nc:AddressCrossStreet>
+					<nc:CrossStreetDescriptionText>intersection
+					</nc:CrossStreetDescriptionText>
+				</nc:AddressCrossStreet>
+				<nc:LocationDescriptionText>location description</nc:LocationDescriptionText>
+				<nc:LocationName>String</nc:LocationName>
+			</nc:IncidentLocation>
+			<ccq-res-ext:ViolationAugmentation>
+				<ccq-res-ext:DrivingPointNumberText>String
+				</ccq-res-ext:DrivingPointNumberText>
+				<ccq-res-ext:DrivingPointNumberReducedText>String
+				</ccq-res-ext:DrivingPointNumberReducedText>
+				<ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>true
+				</ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>
+				<j:PersonBloodAlcoholContentNumberText>String
+				</j:PersonBloodAlcoholContentNumberText>
+			</ccq-res-ext:ViolationAugmentation>
+		</j:CitationViolation>
+		<ccq-res-ext:CitationAugmentation>
+			<j:CourtAppearanceDate>
+				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			</j:CourtAppearanceDate>
+			<ccq-res-ext:VehicleOverweightMeasure>
+				<nc:MeasureValueText>String</nc:MeasureValueText>
+			</ccq-res-ext:VehicleOverweightMeasure>
+			<ccq-res-ext:CourtAppearanceRequiredIndicator>true
+			</ccq-res-ext:CourtAppearanceRequiredIndicator>
+			<ccq-res-ext:InjuryIndicator>true</ccq-res-ext:InjuryIndicator>
+			<ccq-res-ext:SchoolZoneIndicator>true
+			</ccq-res-ext:SchoolZoneIndicator>
+			<ccq-res-ext:ConstructionZoneIndicator>true
+			</ccq-res-ext:ConstructionZoneIndicator>
+			<ccq-res-ext:LicenseSurrenderedIndicator>true
+			</ccq-res-ext:LicenseSurrenderedIndicator>
+			<ccq-res-ext:FatalityIndicator>true</ccq-res-ext:FatalityIndicator>
+		</ccq-res-ext:CitationAugmentation>
+	</j:Citation>
+	<j:DrivingIncident structures:id="Incident_01">
+		<nc:ActivityDescriptionText>incident description</nc:ActivityDescriptionText>
+		<j:DrivingIncidentRecordedSpeedRateMeasure>
+			<nc:MeasureValueText>60</nc:MeasureValueText>
+			<nc:MeasureUnitText>mph</nc:MeasureUnitText>
+		</j:DrivingIncidentRecordedSpeedRateMeasure>
+		<j:DrivingIncidentCollisionIndicator>true</j:DrivingIncidentCollisionIndicator>
+		<j:DrivingIncidentLegalSpeedRateMeasure>
+			<nc:MeasureValueText>40</nc:MeasureValueText>
+			<nc:MeasureUnitText>mph</nc:MeasureUnitText>
+		</j:DrivingIncidentLegalSpeedRateMeasure>
+	</j:DrivingIncident>
+	<j:Arrest structures:id="Arrest_01">
+		<nc:ActivityDate>
+			<nc:Date>2001-12-17</nc:Date>
+		</nc:ActivityDate>
+		<j:ArrestAgencyRecordIdentification>
+			<nc:IdentificationID>arrest report number</nc:IdentificationID>
+		</j:ArrestAgencyRecordIdentification>
+		<j:ArrestCharge>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>arrest charge</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+		</j:ArrestCharge>
+		<j:ArrestLocation>
+			<nc:LocationDescriptionText>arrest location description</nc:LocationDescriptionText>
+		</j:ArrestLocation>
+		<j:ArrestOfficial structures:id="Officer_01">
+			<nc:RoleOfPerson>
+				<nc:PersonName>
+					<nc:PersonFullName>String</nc:PersonFullName>
+				</nc:PersonName>
+			</nc:RoleOfPerson>
+			<j:EnforcementOfficialUnit>
+				<j:EnforcementUnitName>String</j:EnforcementUnitName>
+			</j:EnforcementOfficialUnit>
+		</j:ArrestOfficial>
+		<j:ArrestOfficial structures:id="Officer_02">
+			<nc:RoleOfPerson>
+				<nc:PersonName>
+					<nc:PersonFullName>String</nc:PersonFullName>
+				</nc:PersonName>
+			</nc:RoleOfPerson>
+			<j:EnforcementOfficialUnit>
+				<j:EnforcementUnitName>String</j:EnforcementUnitName>
+			</j:EnforcementOfficialUnit>
+		</j:ArrestOfficial>
+	</j:Arrest>
+	<j:Detention structures:id="Detention_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>confinement id</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityCategoryText>confinement type</nc:ActivityCategoryText>
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:Date>2001-12-10</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>2001-12-10</nc:Date>
+			</nc:EndDate>
+		</nc:ActivityDateRange>
+		<nc:SupervisionCustodyStatus>
+			<nc:StatusDescriptionText>custody status</nc:StatusDescriptionText>
+		</nc:SupervisionCustodyStatus>
+		<nc:SupervisionFacility>
+			<nc:FacilityIdentification>
+				<nc:IdentificationID>confinement facility</nc:IdentificationID>
+			</nc:FacilityIdentification>
+		</nc:SupervisionFacility>
+	</j:Detention>
+	<j:BailBond structures:id="Bond_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>Bond Number</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
+		<j:BailBondAmount>
+			<nc:Amount>500.0</nc:Amount>
+		</j:BailBondAmount>
+		<j:BailBondIssuerEntity>
+			<nc:EntityOrganization>
+				<nc:OrganizationName>String</nc:OrganizationName>
+			</nc:EntityOrganization>
+		</j:BailBondIssuerEntity>
+	</j:BailBond>
+	<j:Warrant structures:id="Warrant_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>String</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDescriptionText>Warrant Description</nc:ActivityDescriptionText>
+		<j:CourtOrderIssuingDate>
+			<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+		</j:CourtOrderIssuingDate>
+		<j:WarrantCategoryText>Warrant Type</j:WarrantCategoryText>
+	</j:Warrant>
+	<nc:Fee structures:id="Fee_01">
+		<nc:ObligationPaidDate>
+			<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+		</nc:ObligationPaidDate>
+	</nc:Fee>
+	<nc:Vehicle structures:id="Vehicle_01">
+		<nc:VehicleCMVIndicator>true</nc:VehicleCMVIndicator>
+		<nc:VehicleIdentification>
+			<nc:IdentificationID>VIN</nc:IdentificationID>
+		</nc:VehicleIdentification>
+		<j:VehicleMakeCode>AAA</j:VehicleMakeCode>
+		<j:VehicleModelCode>002</j:VehicleModelCode>
+	</nc:Vehicle>
+	<nc:Program structures:id="Program_01">
+		<nc:ActivityName>String</nc:ActivityName>
+		<nc:ProgramCondition>
+			<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
+		</nc:ProgramCondition>
+	</nc:Program>
+	<j:Probation structures:id="Probation_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>String</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityCategoryText>String</nc:ActivityCategoryText>
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</nc:EndDate>
+		</nc:ActivityDateRange>
+		<nc:SupervisionCustodyStatus>
+			<nc:StatusDescriptionText>String</nc:StatusDescriptionText>
+		</nc:SupervisionCustodyStatus>
+		<nc:SupervisionSupervisor>
+			<nc:EntityPerson>
+				<nc:PersonName>
+					<nc:PersonFullName>Probation Officer</nc:PersonFullName>
+				</nc:PersonName>
+			</nc:EntityPerson>
+			<ccq-res-ext:LicenseSurrenderedIndicator>true
+			</ccq-res-ext:LicenseSurrenderedIndicator>
+		</nc:SupervisionSupervisor>
+		<j:SupervisionAugmentation>
+			<j:SupervisionReleaseDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</j:SupervisionReleaseDate>
+			<j:SupervisionAssignedTerm>
+				<j:TermMinimumDuration>P1Y2M3DT10H30M0S</j:TermMinimumDuration>
+			</j:SupervisionAssignedTerm>
+			<j:SupervisionCondition>
+				<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
+			</j:SupervisionCondition>
+		</j:SupervisionAugmentation>
+	</j:Probation>
+	<j:Victim structures:id="Victim_01">
+		<nc:RoleOfPerson>
+			<nc:PersonName>
+				<nc:PersonFullName>String</nc:PersonFullName>
+			</nc:PersonName>
+		</nc:RoleOfPerson>
+		<j:VictimSeeksRestitutionDescriptionText>String</j:VictimSeeksRestitutionDescriptionText>
+	</j:Victim>
+	<nc:DisciplinaryActionRestitution structures:id="Restitution_01">
+		<nc:ObligationDueAmount>
+			<nc:Amount>0.0</nc:Amount>
+		</nc:ObligationDueAmount>
+		<nc:ObligationPaidAmount>
+			<nc:Amount>0.0</nc:Amount>
+		</nc:ObligationPaidAmount>
+	</nc:DisciplinaryActionRestitution>
+	<nc:Person structures:id="Person_01">
+		<nc:PersonBirthDate>
+			<nc:Date>2001-12-17</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonDescriptionText>String</nc:PersonDescriptionText>
+		<nc:PersonEthnicityText>String</nc:PersonEthnicityText>
+		<j:PersonEyeColorCode>BLK</j:PersonEyeColorCode>
+		<j:PersonHairColorCode>BLD</j:PersonHairColorCode>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureValueText>String</nc:MeasureValueText>
+			<nc:MeasureUnitText>String</nc:MeasureUnitText>
+		</nc:PersonHeightMeasure>
+		<nc:PersonName>
+			<nc:PersonGivenName>String</nc:PersonGivenName>
+			<nc:PersonMiddleName>String</nc:PersonMiddleName>
+			<nc:PersonSurName>String</nc:PersonSurName>
+			<nc:PersonNameSuffixText>String</nc:PersonNameSuffixText>
+			<nc:PersonFullName>String</nc:PersonFullName>
+		</nc:PersonName>
+		<nc:PersonPhysicalFeature>
+			<nc:PhysicalFeatureDescriptionText>Scars Marks Tattoos</nc:PhysicalFeatureDescriptionText>
+		</nc:PersonPhysicalFeature>
+		<nc:PersonRaceText>String</nc:PersonRaceText>
+		<nc:PersonSexText>String</nc:PersonSexText>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>String</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureValueText>nc:MeasureValueText</nc:MeasureValueText>
+		</nc:PersonWeightMeasure>
+		<j:PersonAugmentation>
+			<j:DriverLicense>
+				<j:DriverLicenseIdentification>
+					<nc:IdentificationID>String</nc:IdentificationID>
+					<nc:IdentificationSourceText>String</nc:IdentificationSourceText>
+				</j:DriverLicenseIdentification>
+				<j:DriverLicenseExpirationDate>
+					<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				</j:DriverLicenseExpirationDate>
+				<j:DriverLicenseIssueDate>
+					<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				</j:DriverLicenseIssueDate>
+				<j:DriverLicenseCommercialClassText>String
+				</j:DriverLicenseCommercialClassText>
+				<j:DriverLicenseNonCommercialClassText>String
+				</j:DriverLicenseNonCommercialClassText>
+			</j:DriverLicense>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>Fingerprint ID</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+		<ccq-res-ext:PersonInmateIdentification>
+			<nc:IdentificationID>inmate ID</nc:IdentificationID>
+		</ccq-res-ext:PersonInmateIdentification>
+	</nc:Person>
+	<nc:Location structures:id="Location_01">
+		<nc:Address>
+			<nc:AddressSecondaryUnitText>address line 2
+			</nc:AddressSecondaryUnitText>
+			<nc:LocationStreet>
+				<nc:StreetFullText>address line 1</nc:StreetFullText>
+			</nc:LocationStreet>
+			<nc:LocationCityName>city</nc:LocationCityName>
+			<nc:LocationStateName>state</nc:LocationStateName>
+			<nc:LocationPostalCode>zip</nc:LocationPostalCode>
+		</nc:Address>
+		<nc:LocationCategoryText>address type</nc:LocationCategoryText>
+	</nc:Location>
+	<j:ActivityCaseAssociation>
+		<nc:Activity structures:ref="Citation_01"/>
+		<nc:Activity structures:ref="Arrest_01"/>
+		<nc:Activity structures:ref="Detention_01"/>
+		<nc:Activity structures:ref="Bond_01"/>
+		<nc:Activity structures:ref="Warrant_01"/>
+		<nc:Activity structures:ref="Program_01"/>
+		<nc:Activity structures:ref="Probation_01"/>
+		<nc:Activity structures:ref="Citation_01"/>
+		<nc:Case structures:ref="Case_01"/>
+	</j:ActivityCaseAssociation>
+	<nc:RelatedCaseAssociation>
+		<nc:Activity structures:ref="Case_01"/>
+		<nc:Activity structures:ref="Appel_Case_01"/>
+	</nc:RelatedCaseAssociation>
+	<j:ActivityFeeAssociation>
+		<nc:Activity structures:ref="Case_01"/>
+		<nc:Fee structures:ref="Fee_01"/>
+	</j:ActivityFeeAssociation>
+	<j:ActivityVictimAssociation>
+		<nc:Activity structures:ref="Case_01"/>
+		<j:Victim structures:ref="Victim_01"/>
+	</j:ActivityVictimAssociation>
+	<j:ActivityIncidentAssociation>
+		<nc:Activity structures:ref="Citation_01"/>
+		<nc:Incident structures:ref="Incident_01"/>
+	</j:ActivityIncidentAssociation>
+	<j:ObligationPersonAssociation>
+		<nc:Obligation structures:ref="Restitution_01"/>
+		<nc:Person structures:ref="Person_01"/>
+	</j:ObligationPersonAssociation>
+	<nc:ContactInformationAssociation>
+		<nc:ContactEntity structures:ref="Person_01"/>
+		<nc:ContactInformation structures:ref="CI_01"/>
+	</nc:ContactInformationAssociation>
+	<nc:PersonConveyanceAssociation>
+		<nc:Person structures:ref="Person_01"/>
+		<nc:Conveyance structures:ref="Vehicle_01"/>
+	</nc:PersonConveyanceAssociation>
+	<nc:PersonResidenceAssociation>
+		<nc:Person structures:ref="Person_01"/>
+		<nc:Location structures:ref="Location_01"/>
+	</nc:PersonResidenceAssociation>
+	<nc:PersonAliasIdentityAssociation>
+		<nc:Person structures:ref="Person_01"/>
+		<nc:Identity structures:ref="Identity_01"/>
+	</nc:PersonAliasIdentityAssociation>
+	<ccq-res-ext:SourceSystemNameText>Alpha Court System </ccq-res-ext:SourceSystemNameText>
+	<ccq-res-ext:QueryResultCategoryText>Criminal History</ccq-res-ext:QueryResultCategoryText>
+	<ccq-res-ext:InformationOwningOrganization>
+		<nc:OrganizationBranchName>branch</nc:OrganizationBranchName>
+		<nc:OrganizationName>County Court</nc:OrganizationName>
+	</ccq-res-ext:InformationOwningOrganization>
+	<nc:Metadata>
+		<nc:LastUpdatedDate>
+			<nc:Date>2015-09-23</nc:Date>
+		</nc:LastUpdatedDate>
+	</nc:Metadata>
+	<srm:QueryResultsMetadata>
+		<iad:InformationAccessDenial>
+			<iad:InformationAccessDenialIndicator>true</iad:InformationAccessDenialIndicator>
+			<iad:InformationAccessDenyingSystemNameText>String</iad:InformationAccessDenyingSystemNameText>
+			<iad:InformationAccessDenialReasonText>String</iad:InformationAccessDenialReasonText>
+		</iad:InformationAccessDenial>
+		<qrer:QueryRequestError>
+			<qrer:ErrorText>String</qrer:ErrorText>
+			<qrer:QueryRequestIdentification>
+				<nc:IdentificationID>String</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>String</nc:IdentificationCategoryDescriptionText>
+				<nc:IdentificationSourceText>String</nc:IdentificationSourceText>
+			</qrer:QueryRequestIdentification>
+		</qrer:QueryRequestError>
+	</srm:QueryResultsMetadata>
+</ccq-res-doc:CourtCaseQueryResults>

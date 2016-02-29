@@ -542,8 +542,10 @@
 		<entry key="SubscriptionResults" value="subscriptionSearchResult.xsl" />
 		<entry key="Juvenile History" value="juvenile-history-detail.xsl" />
 		<entry key="Juvenile Court Case Management System" value="juvenile-history-detail.xsl" />
-		<entry key="Court Case" value="court-case-detail.xsl" />
-		<entry key="Custody" value="custody-detail.xsl" />
+		<entry key="Court Case" value="court-case-list.xsl" />
+		<entry key="Custody" value="custody-list.xsl" />
+		<entry key="Court Case Detail" value="court-case-detail.xsl" />
+		<entry key="Custody Detail" value="custody-detail.xsl" />
 	</util:map>
 	<util:map id="placements" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Placement" />
