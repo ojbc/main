@@ -670,6 +670,21 @@ public abstract class AbstractSampleGenerator {
 		int line = randomGenerator.nextInt(0, zipList.size() - 1);
 		return zipList.get(line).city;
 	}
+	
+	
+	/**
+	 * Gets a random string from the input
+	 * @param items
+	 * 	 input items to get a random string from
+	 * @return
+	 * 	 random string
+	 */
+	protected final String getRandomString(String...items ){
+	
+		String randomString = (String)generateRandomValueFromList(items);
+		
+		return randomString;
+	}
 
 	/**
 	 * Get a randomly selected county that is within the specified state, from US Postal Service data
