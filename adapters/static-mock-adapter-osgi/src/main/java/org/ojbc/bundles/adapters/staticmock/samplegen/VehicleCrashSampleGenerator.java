@@ -196,21 +196,21 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element workersPresentElement = XmlUtils.appendElement(crashWorkZoneElement, OjbcNamespaceContext.NS_JXDM_51, "WorkZoneWorkersPresenceIndicationCode");
 		
 				
-		workersPresentElement.setTextContent(randomBooleanString());		
+		workersPresentElement.setTextContent(getRandomBooleanString());		
 		
 		
 		Element copsAtWorkZoneCodeElement = XmlUtils.appendElement(crashWorkZoneElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "LawEnforcementPresentAtWorkZoneCode");
 		
-		copsAtWorkZoneCodeElement.setTextContent(randomBooleanString());
+		copsAtWorkZoneCodeElement.setTextContent(getRandomBooleanString());
 				
 		Element nearWorkZoneElement = XmlUtils.appendElement(crashWorkZoneElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "NearWorkZoneIndicator");
 		
-		nearWorkZoneElement.setTextContent(randomBooleanString());
+		nearWorkZoneElement.setTextContent(getRandomBooleanString());
 				
 
 		Element workZoneWorkersPresentIndicator = XmlUtils.appendElement(crashWorkZoneElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "WorkZoneWorkersPresentIndicator");
 		
-		workZoneWorkersPresentIndicator.setTextContent(randomBooleanString());				
+		workZoneWorkersPresentIndicator.setTextContent(getRandomBooleanString());				
 		
 		
 		Element crashVehicleElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_JXDM_51, "CrashVehicle");
@@ -222,7 +222,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element trafficDeviceWorksElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_JXDM_51, "VehicleTrafficControlDeviceOperationalIndicator");
 				
-		trafficDeviceWorksElement.setTextContent(randomBooleanString());
+		trafficDeviceWorksElement.setTextContent(getRandomBooleanString());
 		
 		Element crashVehicleSpeedElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_JXDM_51, "CrashVehicleLegalSpeedRateMeasure");
 		
@@ -262,11 +262,11 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element drugTestResultCodeElement = XmlUtils.appendElement(crashDriverElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DrugTestResultCode");
 				
-		drugTestResultCodeElement.setTextContent(randomBooleanString());
+		drugTestResultCodeElement.setTextContent(getRandomBooleanString());
 		
 		Element alcoholTestResultsPendingElement = XmlUtils.appendElement(crashDriverElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "AlcoholTestResultsPendingtIndicator");
 		
-		alcoholTestResultsPendingElement.setTextContent(randomBooleanString());
+		alcoholTestResultsPendingElement.setTextContent(getRandomBooleanString());
 		
 		Element crashVehicleOccupantElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_JXDM_51, "CrashVehicleOccupant"); 
 		
@@ -280,7 +280,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		XmlUtils.addAttribute(vehicleOwnerRoleOfPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Vehicle_Owner_01");
 		
 		Element hazmatElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "HazmatPlacardIndicator");
-		hazmatElement.setTextContent(randomBooleanString());
+		hazmatElement.setTextContent(getRandomBooleanString());
 		
 		Element carDirectionElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "VehicleTravelDirectionCode");
 		
@@ -312,19 +312,19 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		
 		Element schoolBusElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "SchoolBusRelatedCode");
-		schoolBusElement.setTextContent(randomBooleanString());
+		schoolBusElement.setTextContent(getRandomBooleanString());
 		
 		Element damageOverThreshElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "TotalDamageOverThresholdtIndicator");
 						
-		damageOverThreshElement.setTextContent(randomBooleanString());
+		damageOverThreshElement.setTextContent(getRandomBooleanString());
 		
 		Element nineSeatsElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "VehicleNineOrMoreSeatstIndicator");
 		
-		nineSeatsElement.setTextContent(randomBooleanString());
+		nineSeatsElement.setTextContent(getRandomBooleanString());
 		
 		Element exemptVehicleElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "ExemptVehicleIndicator");
 		
-		exemptVehicleElement.setTextContent(randomBooleanString());				
+		exemptVehicleElement.setTextContent(getRandomBooleanString());				
 		
 		
 		Element locationElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_NC_30, "Location");
@@ -397,11 +397,11 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 				
 		Element offRoadElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "OffRoadIncidentIndicator");
 		
-		offRoadElement.setTextContent(randomBooleanString());
+		offRoadElement.setTextContent(getRandomBooleanString());
 		
 		Element emergVehicle = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "EmergencyVehicleRespondingToSceneIndicator");
 		
-		emergVehicle.setTextContent(randomBooleanString());
+		emergVehicle.setTextContent(getRandomBooleanString());
 		
 		
 		Element citationElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "Citation");		
@@ -417,7 +417,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 				
 		Element citationNumPendingElement = XmlUtils.appendElement(citationElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "CitationNumberPendingIndicator");
 		
-		citationNumPendingElement.setTextContent(randomBooleanString());
+		citationNumPendingElement.setTextContent(getRandomBooleanString());
 		
 		Element firstVilationDescTxtElement = XmlUtils.appendElement(citationElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "FirstViolationDescriptionText");
 		
@@ -770,7 +770,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		
  		Element hitRunIndicatorElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "HitRunIndicator");
  		
- 		hitRunIndicatorElement.setTextContent(randomBooleanString());
+ 		hitRunIndicatorElement.setTextContent(getRandomBooleanString());
  		 		
  		Element conveyRegElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistration"); 
  		
@@ -813,7 +813,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		
  		Element noInsuranceElement = XmlUtils.appendElement(insuranceElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "NoInsuranceIndicator");
  		
- 		noInsuranceElement.setTextContent(randomBooleanString());
+ 		noInsuranceElement.setTextContent(getRandomBooleanString());
  		
  		
  		Element crashDriverLicElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "CrashDriverLicense"); 	
