@@ -1315,24 +1315,25 @@ text-shadow: 0 1px #fff; */
     font-family:Calibri;
 }
 
-#courtCaseDetailTabs {
-    margin: 0 !important; 
-    padding:0 ;
-}
-
-#courtCaseDetailTabs ul{display: table-row;}
-#courtCaseDetailTabs li { 
+#courtCaseDetailTabs > ul li { 
 	white-space:normal; 
 	height: 50px; 
-	margin: 0 !important;  
-	padding:0!important; 
-	width: 9.5%; }
+	margin-right: 0 !important;  
+	margin-left:0 !important;
+	width: 9.4%; }
 
-#courtCaseDetailTabs li:last-child{
-	width:12.2%; 
+#courtCaseDetailTabs > ul li:last-child{
+	width:12%; 
 	border-right:0;}
  
-#courtCaseDetailTabs li a {
+#courtCaseDetailTabs > ul li a {
 	font-size: 11px!important; 
-	margin: 0 !important; 
-	white-space:normal;}
+	white-space:normal;} 
+
+.detailTable{
+	width: 100%;
+	font-size: smaller;
+}	
+
+.detailTable th{
+	text-align: left;} 
