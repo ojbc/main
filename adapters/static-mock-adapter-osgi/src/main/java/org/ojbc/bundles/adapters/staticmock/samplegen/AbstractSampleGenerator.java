@@ -696,7 +696,7 @@ public abstract class AbstractSampleGenerator {
 	 * @return
 	 * 	 random string
 	 */
-	protected final String getRandomString(String...items ){
+	protected final String randomString(String...items ){
 	
 		String randomString = (String)generateRandomValueFromList(items);
 		
