@@ -52,6 +52,7 @@
 					}); 
 					
 					$('#criminalCaseTabs').tabs();
+					$('#partyTabs').tabs();
 			});
 		</script>
 
@@ -93,7 +94,7 @@
 				<p><xsl:apply-templates select="nc:Case" mode="criminalCase"/></p>	
 			</div>
 			<div id="partyTab">
-				<p>party</p>
+				<p><xsl:apply-templates select="." mode="party"/></p>	
 			</div>
 			<div id="chargeTab">
 				<p>charge</p>
@@ -149,39 +150,45 @@
 	<xsl:template match="nc:Case" mode="caseInfo">
 		<table class="detailTable">
 			<tr>
-				<th>Judge</th>
-				<td>
+				<th>
+					<label>Judge: </label>
 					<xsl:for-each select="j:CaseAugmentation/j:CaseJudge/nc:RoleOfPerson/nc:PersonName">
 						<xsl:if test="position() > 1"><xsl:text>&#x0A;</xsl:text></xsl:if>
 						<xsl:apply-templates select="." mode="firstNameFirst"/>
 					</xsl:for-each>
-				</td>
-				<th>Under Advisement Date</th>
-				<td><xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:CaseUnderAdvisementDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+				</th>
+				<th>
+					<label>Under Advisement Date: </label>
+					<xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:CaseUnderAdvisementDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				</th>
 			</tr>
 			<tr>
-				<th>Case Subtype</th>
-				<td><xsl:value-of select="nc:CaseCategoryText"/></td>
-				<th>Domestic Violence</th>
-				<td><xsl:value-of select="j:CaseAugmentation/j:CaseDomesticViolenceIndicator"></xsl:value-of></td>
+				<th>
+					<label>Case Subtype: </label>
+					<xsl:value-of select="nc:CaseCategoryText"/></th>
+				<th>
+					<label>Domestic Violence: </label>
+					<xsl:value-of select="j:CaseAugmentation/j:CaseDomesticViolenceIndicator"></xsl:value-of></th>
 			</tr>
 			<tr>
-				<th>Court Location</th>
-				<td><xsl:value-of select="j:CaseAugmentation/j:CaseCourt/j:CourtDivisionText"/></td>
-				<th>Jury Verdict</th>
-				<td><xsl:value-of select="ccq-res-ext:CaseAugmentation/ccq-res-ext:JuryVerdictIndicator"/></td>
+				<th>
+					<label>Court Location: </label>
+					<xsl:value-of select="j:CaseAugmentation/j:CaseCourt/j:CourtDivisionText"/>
+				</th>
+				<th><label>Jury Verdict: </label>
+				<xsl:value-of select="ccq-res-ext:CaseAugmentation/ccq-res-ext:JuryVerdictIndicator"/></th>
 			</tr>
 			<tr>
-				<th>Jurisdiction</th>
-				<td><xsl:value-of select="j:CaseAugmentation/j:CaseCourt/j:CourtName"/></td>
-				<th>Previous Case Number</th>
-				<td><xsl:value-of select="j:CaseAugmentation/j:CaseLineageCase/nc:CaseTrackingID"></xsl:value-of></td>
+				<th><label>Jurisdiction: </label>
+				<xsl:value-of select="j:CaseAugmentation/j:CaseCourt/j:CourtName"/></th>
+				<th><label>Previous Case Number: </label>
+				<xsl:value-of select="j:CaseAugmentation/j:CaseLineageCase/nc:CaseTrackingID"></xsl:value-of></th>
 			</tr>
 			<tr>
-				<th>Filing Date</th>
-				<td><xsl:apply-templates select="nc:CaseFiling/child::nc:DocumentCreationDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"/></td>
-				<th>Other Agency Case Number</th>
-				<td><xsl:value-of select="j:CaseAugmentation/j:CaseOtherIdentification/nc:IdentificationID"></xsl:value-of></td>
+				<th><label>Filing Date: </label>
+				<xsl:apply-templates select="nc:CaseFiling/child::nc:DocumentCreationDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"/></th>
+				<th><label>Other Agency Case Number: </label>
+				<xsl:value-of select="j:CaseAugmentation/j:CaseOtherIdentification/nc:IdentificationID"></xsl:value-of></th>
 			</tr>
 		</table>
 	</xsl:template>
@@ -190,76 +197,179 @@
 		<xsl:variable name="defendantID"><xsl:value-of select="j:CaseAugmentation/j:CaseDefendantParty/nc:EntityPerson/@structures:ref"></xsl:value-of></xsl:variable>
 		<table class="detailTable">
 			<tr>
-				<th>Defendant</th>
-				<td>
+				<th><label>Defendant: </label>
+				
 					<xsl:apply-templates select="ancestor::ccq-res-doc:CourtCaseQueryResults/nc:Person[@structures:id = $defendantID]/nc:PersonName" mode="firstNameFirst"></xsl:apply-templates>
-				</td>
+				</th>
 				<th colspan="2"/>
 			</tr>
 			<tr>
-				<th>Next Appearance</th>
-				<td>No Mapping</td>
+				<th><label>Next Appearance: </label>
+				No Mapping</th>
 				<th colspan="2"/>
 			</tr>
 			<tr>
-				<th>Trial By</th>
-				<td>No Mapping</td>
-				<th>Money Due</th>
-				<td>No Mapping</td>
+				<th><label>Trial By: </label>
+				No Mapping</th>
+				<th><label>Money Due: </label>
+				No Mapping</th>
 			</tr>
 			<tr>
-				<th>Speedy Trial</th>
-				<td><xsl:apply-templates select="j:CaseAugmentation/j:CaseTrial/ccq-res-ext:SpeedyTrialDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
-				<th>Extension Date</th>
-				<td>No Mapping</td>
+				<th><label>Speedy Trial: </label>
+				<xsl:apply-templates select="j:CaseAugmentation/j:CaseTrial/ccq-res-ext:SpeedyTrialDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
+				<th><label>Extension Date: </label>
+				No Mapping</th>
 			</tr>
 			<tr>
-				<th>FTP Hold Indefinite</th>
-				<td>No Mapping</td>
-				<th>Amount Due</th>
-				<td>No Mapping</td>
+				<th><label>FTP Hold Indefinite: </label>
+				No Mapping</th>
+				<th><label>Amount Due: </label>
+				No Mapping</th>
 			</tr>
 			<tr>
-				<th>FTA Hold Date</th>
-				<td><xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToAppearHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
-				<th>FTP Hold Date</th>
-				<td><xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToPayHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+				<th><label>FTA Hold Date: </label>
+				<xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToAppearHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
+				<th><label>FTP Hold Date: </label>
+				<xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToPayHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
 			</tr>
 			<tr>
-				<th>FTC Hold Date</th>
-				<td><xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToComplyHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
-				<th>FTPV Hold Date</th>
-				<td><xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToPayVictimHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+				<th><label>FTC Hold Date: </label>
+				<xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToComplyHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
+				<th><label>FTPV Hold Date: </label>
+				<xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToPayVictimHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
 			</tr>
 			<tr>
-				<th>Lead Attorney</th>
-				<td><xsl:apply-templates select="j:CaseAugmentation/j:CaseDefenseAttorney/nc:RoleOfPerson/nc:PersonName" mode="firstNameFirst"/></td>
-				<th>Attorney Waived</th>
-				<td><xsl:value-of select="j:CaseAugmentation/j:CaseDefendantSelfRepresentationIndicator"></xsl:value-of></td>
+				<th><label>Lead Attorney: </label>
+				<xsl:apply-templates select="j:CaseAugmentation/j:CaseDefenseAttorney/nc:RoleOfPerson/nc:PersonName" mode="firstNameFirst"/></th>
+				<th><label>Attorney Waived: </label>
+				<xsl:value-of select="j:CaseAugmentation/j:CaseDefendantSelfRepresentationIndicator"></xsl:value-of></th>
 			</tr>
 			<tr>
-				<th>FPC Member</th>
-				<td>No Mapping</td>
-				<th>Custody Status</th>
-				<td><xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/j:Detention/nc:SupervisionCustodyStatus/nc:StatusDescriptionText"/></td>
+				<th><label>FPC Member: </label>
+				No Mapping</th>
+				<th><label>Custody Status: </label>
+				<xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/j:Detention/nc:SupervisionCustodyStatus/nc:StatusDescriptionText"/></th>
 			</tr>
 			<tr>
-				<th>Epayments Not Allowed</th>
-				<td>No Mapping</td>
-				<th>Interest Start Date</th>
-				<td>No Mapping</td>
+				<th><label>Epayments Not Allowed: </label>
+				No Mapping</th>
+				<th><label>Interest Start Date: </label>
+				No Mapping</th>
 			</tr>
 		</table>
 	</xsl:template>
 	
-	<xsl:template name="partyTab">
-		<table>
+	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="party">
+		<xsl:variable name="defendantID"><xsl:value-of select="nc:Case/j:CaseAugmentation/j:CaseDefendantParty/nc:EntityPerson/@structures:ref"/></xsl:variable>
+		<div id="partyTabs">
+			<ul>
+				<li>
+					<a href="#partyInfoTab">Party Information</a>
+				</li>
+				<li>
+					<a href="#licenseInfoTab">License Information</a>
+				</li>
+				<li>
+					<a href="#idAndPaymentInfoTab">ID And Payment Information</a>
+				</li>
+				<li>
+					<a href="#commentsTab">Comments</a>
+				</li>
+			</ul>
+			
+			<div id="partyInfoTab">
+				<p><xsl:apply-templates select="nc:Person[@structures:id = $defendantID]" mode="partyInfo"/></p>	
+			</div>
+			<div id="licenseInfoTab">
+				<p><xsl:apply-templates select="." mode="licenseInfo"/></p>
+			</div>
+			<div id="idAndPaymentInfoTab">
+				<p><xsl:apply-templates select="." mode="idAndPaymentInfo"/></p>
+			</div>
+			<div id="commentsTab">
+				<p><xsl:apply-templates select="." mode="partyComments"/></p>
+			</div>
+		</div>
+	</xsl:template>
+	
+	<xsl:template match="nc:Person" mode="partyInfo">
+		<xsl:variable name="personId"><xsl:value-of select="@structures:id"></xsl:value-of></xsl:variable>
+		<xsl:variable name="locationId">
+			<xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:PersonResidenceAssociation[nc:Person/@structures:ref=$personId]/nc:Location/@structures:ref"/></xsl:variable>
+		<xsl:variable name="contactInfoId">
+			<xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:ContactInformationAssociation[nc:ContactEntity/@structures:ref=$personId]/nc:ContactInformation/@structures:ref"/></xsl:variable>
+		
+		<table class="detailTable">
 			<tr>
-				<td class="incidentLabel">Role</td>
-				<td class="incidentLabel">Name</td>
-				<td class="incidentLabel">DOB</td>
-				<td class="incidentLabel">Race</td>
-				<td class="incidentLabel">Gender</td>
+				<th colspan="2">
+					<label>State ID: </label>
+					<xsl:value-of select="j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID"/>
+				</th>
+			</tr>
+			<tr>
+				<th><label>Last Name: </label>
+					<xsl:value-of select="nc:PersonName/nc:PersonSurName"/>
+				</th>
+				<th><label>Company: </label>
+					<xsl:value-of select="preceding-sibling::nc:Case/j:CaseAugmentation/j:CaseDefendantParty/nc:EntityOrganization/nc:OrganizationName"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th><label>First Name: </label>
+					<xsl:value-of select="nc:PersonName/nc:PersonGivenName"/></th>
+				<th colspan="2"/>		
+			</tr>
+			<tr>
+				<th>
+					<label>Middle Name: </label>
+					<xsl:value-of select="nc:PersonName/nc:PersonMiddleName"/></th>
+				<th>
+					<label>SSN: </label>
+					<xsl:value-of select="nc:PersonSSNIdentification/nc:IdentificationID"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Suffix: </label>
+					<xsl:value-of select="nc:PersonName/nc:PersonNameSuffixText"></xsl:value-of>	
+				</th>
+				<th>
+					<label>DOB: </label>
+					<xsl:apply-templates select="nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"></xsl:apply-templates>
+				</th>
+			</tr>
+			<tr>
+				<th><label>Sex: </label>
+					<xsl:value-of select="nc:PersonSexText"/>
+				</th>
+				<th><label>Eyes: </label>
+					<xsl:value-of select="j:PersonEyeColorCode"/></th>
+			</tr>
+			<tr>
+				<th><label>Hair: </label>
+					<xsl:value-of select="j:PersonHairColorCode"/></th>
+				<th><label>Weight: </label>
+					<xsl:value-of select="nc:PersonWeightMeasure/child::nc:MeasureValueText"></xsl:value-of>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="nc:PersonWeightMeasure/child::nc:MeasureUnitText"></xsl:value-of>
+				</th>
+			</tr>
+				<th><label>Height: </label>
+					<xsl:value-of select="nc:PersonHeightMeasure/nc:MeasureValueText"/><xsl:text> </xsl:text>
+					<xsl:value-of select="nc:PersonHeightMeasure/nc:MeasureUnitText"></xsl:value-of>
+				</th>
+				<th><label>Language: </label>
+					No Mapping</th>
+			<tr>
+				<th><label>Race: </label>
+					<xsl:value-of select="nc:PersonEthnicityText"></xsl:value-of>	
+				</th>
+				<th><label>Epayments Not Allowed: </label>
+					No Mapping</th>
+			</tr>
+			<tr>
+				<th colspan="2"><label>Juvenile: </label>
+					No Mapping</th>
 			</tr>
 		</table>
 	</xsl:template>
