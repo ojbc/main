@@ -1315,25 +1315,30 @@ text-shadow: 0 1px #fff; */
     font-family:Calibri;
 }
 
+#courtCaseDetailTabs li {
+	margin-right: 0 !important; 
+	margin-left:0!important;
+}
 #courtCaseDetailTabs > ul li { 
 	white-space:normal; 
 	height: 50px; 
-	margin-right: 0 !important;  
-	margin-left:0 !important;
 	width: 9.4%; }
 
 #courtCaseDetailTabs > ul li:last-child{
 	width:12%; 
 	border-right:0;}
  
-#courtCaseDetailTabs > ul li a {
+#courtCaseDetailTabs li a {
 	font-size: 11px!important; 
 	white-space:normal;} 
 
 .detailTable{
 	width: 100%;
-	font-size: smaller;
+	font-size: 12px;
 }	
 
 .detailTable th{
 	text-align: left;} 
+.detailTable th label{
+	color:gray; } 
+	
