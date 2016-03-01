@@ -598,10 +598,84 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element arrestLocDescTxtElement = XmlUtils.appendElement(arrestLocElement, OjbcNamespaceContext.NS_NC_30, "LocationDescriptionText");		
 		arrestLocDescTxtElement.setTextContent("TODO");
 		
+		Element arrestOfficialElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestOfficial");		
+		XmlUtils.addAttribute(arrestOfficialElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Officer_01");
 		
+		Element officalRoleElement = XmlUtils.appendElement(arrestOfficialElement, OjbcNamespaceContext.NS_NC_30, "RoleOfPerson");
 		
+		Element arrestOfficNameElement = XmlUtils.appendElement(officalRoleElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
+		Element arrestFullNameElement = XmlUtils.appendElement(arrestOfficNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");			
+		arrestFullNameElement.setTextContent(getRandomName());
 		
+		Element leEnforcUnitElement = XmlUtils.appendElement(arrestOfficialElement, OjbcNamespaceContext.NS_JXDM_51, "EnforcementOfficialUnit");
+		
+		Element leEnforceUnitNameElement = XmlUtils.appendElement(leEnforcUnitElement, OjbcNamespaceContext.NS_JXDM_51, "EnforcementUnitName");		
+		leEnforceUnitNameElement.setTextContent(getRandomString("TODO", ""));
+		
+		Element detentionElement = XmlUtils.appendElement(drivingIncidentElement, OjbcNamespaceContext.NS_JXDM_51, "Detention");
+		XmlUtils.addAttribute(detentionElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Detention_01");
+				
+		Element detentionActivElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "ActivityIdentification");
+		
+		Element detActivIdElement = XmlUtils.appendElement(detentionActivElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		
+		detActivIdElement.setTextContent(RandomStringUtils.randomNumeric(8));
+				
+		Element detActivCatTxtElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "ActivityCategoryText");
+		detActivCatTxtElement.setTextContent(getRandomString("TODO", "TODO"));
+		
+		Element detActivDatRangeElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "ActivityDateRange");
+		
+		Element detStartDateElement = XmlUtils.appendElement(detActivDatRangeElement, OjbcNamespaceContext.NS_NC_30, "StartDate");
+		
+		Element detStartDateValElement = XmlUtils.appendElement(detStartDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		detStartDateValElement.setTextContent("TODO");
+		
+		Element detEndDateElement = XmlUtils.appendElement(detActivDatRangeElement, OjbcNamespaceContext.NS_NC_30, "EndDate");
+		
+		Element endDateValElement = XmlUtils.appendElement(detEndDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		endDateValElement.setTextContent(CURRENT_DATE);
+		
+		Element superviseCustStatus = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "SupervisionCustodyStatus");
+		
+	 	Element superviseStatDescTxtElement = XmlUtils.appendElement(superviseCustStatus, OjbcNamespaceContext.NS_NC_30, "StatusDescriptionText");		
+	 	superviseStatDescTxtElement.setTextContent(getRandomString("TODO", ""));
+	 	
+	 	Element supervisFacElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "SupervisionFacility");
+		
+	 	Element facIdElement = XmlUtils.appendElement(supervisFacElement, OjbcNamespaceContext.NS_NC_30, "FacilityIdentification");
+	 	
+	 	Element facIdValElement = XmlUtils.appendElement(facIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+	 	facIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
+	 	
+	 	Element bailBondElement = XmlUtils.appendElement(drivingIncidentElement, OjbcNamespaceContext.NS_JXDM_51, "BailBond");	 	
+	 	XmlUtils.addAttribute(bailBondElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Bond_01");
+	 	
+	 	Element bailBondActivIdElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_NC_30, "ActivityIdentification");
+	 	
+	 	Element bailBondActivIdValElement = XmlUtils.appendElement(bailBondActivIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");	 	
+	 	bailBondActivIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
+	 	
+	 	Element bailBondActivCatTxtElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_NC_30, "ActivityCategoryText");
+	 	bailBondActivCatTxtElement.setTextContent(getRandomString("TODO", ""));
+	 	
+	 	Element bailBondAmountElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_JXDM_51, "BailBondAmount");
+	 	
+	 	Element bailBondAmountValElement = XmlUtils.appendElement(bailBondAmountElement, OjbcNamespaceContext.NS_NC_30, "Amount");
+		
+	 	bailBondAmountValElement.setTextContent(RandomStringUtils.randomNumeric(4));
+	 	
+	 	
+	 	Element bondIssuerElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_JXDM_51, "BailBondIssuerEntity"); 
+	 	
+	 	Element bondEntOrgElement = XmlUtils.appendElement(bondIssuerElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");
+	 	
+	 	Element bondOrgNameElement = XmlUtils.appendElement(bondEntOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
+	 	
+	 	bondOrgNameElement.setTextContent(getRandomString("TODO", ""));
+	 	
+	 	
 		// TODO build document
 		
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
