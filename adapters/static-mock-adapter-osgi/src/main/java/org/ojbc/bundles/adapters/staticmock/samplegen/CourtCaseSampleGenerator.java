@@ -60,7 +60,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	}
 	
 	
-	Document buildCourtCaseDetailDoc(PersonElementWrapper person) throws ParserConfigurationException{
+	Document buildCourtCaseDetailDoc(PersonElementWrapper person) throws ParserConfigurationException, IOException{
 			
 		Document rCourtCaseDetailDoc = getNewDocument();
 		
@@ -460,6 +460,147 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element idPersonSsnIdElement = XmlUtils.appendElement(idPersonSsnElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
 		idPersonSsnIdElement.setTextContent(RandomStringUtils.randomNumeric(8));
 		
+		Element contactInfoElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "ContactInformation");
+		XmlUtils.addAttribute(contactInfoElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "CI_01");
+		
+		Element phoneElement = XmlUtils.appendElement(contactInfoElement, OjbcNamespaceContext.NS_NC_30, "ContactTelephoneNumber");
+		
+		Element fullPhoneElement = XmlUtils.appendElement(phoneElement, OjbcNamespaceContext.NS_NC_30, "FullTelephoneNumber");
+		
+		Element phoneValElement = XmlUtils.appendElement(fullPhoneElement, OjbcNamespaceContext.NS_NC_30, "TelephoneNumberFullID");
+		
+		String samplePhone = (String)getRandomIdentity(null).telephoneNumber;
+		phoneValElement.setTextContent(samplePhone);
+		
+		Element elecContactIdElement = XmlUtils.appendElement(contactInfoElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "ElectronicContactIdentification");
+		
+		Element electContactIdValElement = XmlUtils.appendElement(elecContactIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		electContactIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
+		
+		Element electContactIdCatDescTxtElement = XmlUtils.appendElement(elecContactIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
+		electContactIdCatDescTxtElement.setTextContent(getRandomString("TODO", ""));
+		
+		Element citationElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_JXDM_51, "Citation");
+		XmlUtils.addAttribute(citationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Citation_01");
+		
+		Element citationActivIdElement = XmlUtils.appendElement(citationElement, OjbcNamespaceContext.NS_NC_30, "ActivityIdentification");
+		
+		Element citationAcivIdVAlElement = XmlUtils.appendElement(citationActivIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		citationAcivIdVAlElement.setTextContent(RandomStringUtils.randomNumeric(8));
+		
+		Element citationViolationElement = XmlUtils.appendElement(citationElement, OjbcNamespaceContext.NS_JXDM_51, "CitationViolation");
+		
+		Element citationActivDateElement = XmlUtils.appendElement(citationViolationElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
+		
+		Element citationActivDateValElement = XmlUtils.appendElement(citationActivDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		citationActivDateValElement.setTextContent(CURRENT_DATE);
+		
+		
+		Element incidentLocationElement = XmlUtils.appendElement(citationViolationElement, OjbcNamespaceContext.NS_NC_30, "IncidentLocation");
+		
+		Element incidentAddressElement = XmlUtils.appendElement(incidentLocationElement, OjbcNamespaceContext.NS_NC_30, "Address");
+		
+		Element incidentAddressUnitElement = XmlUtils.appendElement(incidentAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressSecondaryUnitText");
+		incidentAddressUnitElement.setTextContent("TODO");
+		
+		Element addressPointElement = XmlUtils.appendElement(incidentAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressDeliveryPointID");
+		addressPointElement.setTextContent("TODO");
+		
+		Element incidentLocStreetElement = XmlUtils.appendElement(incidentAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
+		
+		Element locStreetNameElement = XmlUtils.appendElement(incidentLocStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetName");
+		locStreetNameElement.setTextContent("TODO");
+		
+		Element locStreetCatTxtElement = XmlUtils.appendElement(incidentLocStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetCategoryText");
+		locStreetCatTxtElement.setTextContent("TODO");
+		
+		Element locCountyNameElement = XmlUtils.appendElement(incidentAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationCountyName");
+		locCountyNameElement.setTextContent("TODO");
+		
+		Element locDescTxtElement = XmlUtils.appendElement(incidentLocationElement, OjbcNamespaceContext.NS_NC_30, "LocationDescriptionText");
+		locDescTxtElement.setTextContent("TODO");
+		
+		Element locNameElement = XmlUtils.appendElement(incidentLocationElement, OjbcNamespaceContext.NS_NC_30, "LocationName");
+		locNameElement.setTextContent("TODO");
+		
+		Element violationAugmentElement = XmlUtils.appendElement(citationViolationElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "ViolationAugmentation");
+		
+		Element drivingPointNumTxtElement = XmlUtils.appendElement(violationAugmentElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "DrivingPointNumberText");
+		drivingPointNumTxtElement.setTextContent("TODO");
+		
+		Element drivingPointReducedTxtElement = XmlUtils.appendElement(violationAugmentElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "DrivingPointNumberReducedText");
+		drivingPointReducedTxtElement.setTextContent("TODO");
+		
+		Element bacTestRefusedElement = XmlUtils.appendElement(violationAugmentElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "PersonBloodAlcoholContentTestRefusedIndicator");
+		bacTestRefusedElement.setTextContent(getRandomBooleanString());
+		
+		
+		Element citationAugElement = XmlUtils.appendElement(citationElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "CitationAugmentation");
+		
+		Element courtAprncDateElement = XmlUtils.appendElement(citationAugElement, OjbcNamespaceContext.NS_JXDM_51, "CourtAppearanceDate");
+		
+		Element courtApncDateTimeElement = XmlUtils.appendElement(courtAprncDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
+		courtApncDateTimeElement.setTextContent(CURRENT_DATE);
+		
+		Element crtApncRqdElement = XmlUtils.appendElement(citationAugElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "CourtAppearanceRequiredIndicator");
+		crtApncRqdElement.setTextContent(getRandomBooleanString());
+		
+		Element licSurndrdElement = XmlUtils.appendElement(citationAugElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "LicenseSurrenderedIndicator");
+		licSurndrdElement.setTextContent(getRandomBooleanString());
+		
+		Element drivingIncidentElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_JXDM_51, "DrivingIncident");		
+		XmlUtils.addAttribute(drivingIncidentElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Incident_01");
+		
+		Element incidentDescTxtElement = XmlUtils.appendElement(drivingIncidentElement, OjbcNamespaceContext.NS_NC_30, "ActivityDescriptionText");
+		incidentDescTxtElement.setTextContent(getRandomString("TODO", "TODO"));
+		
+		Element driverSpeedElement = XmlUtils.appendElement(drivingIncidentElement, OjbcNamespaceContext.NS_JXDM_51, "DrivingIncidentRecordedSpeedRateMeasure");
+		
+		Element speedMeasElement = XmlUtils.appendElement(driverSpeedElement, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");
+		speedMeasElement.setTextContent(RandomStringUtils.randomNumeric(3));
+		
+		Element speedUnitElement = XmlUtils.appendElement(driverSpeedElement, OjbcNamespaceContext.NS_NC_30, "MeasureUnitText");
+		speedUnitElement.setTextContent(getRandomString("kt", "mph", "kph", "mpm"));
+		
+		Element speedLimitElement = XmlUtils.appendElement(drivingIncidentElement, OjbcNamespaceContext.NS_JXDM_51, "DrivingIncidentLegalSpeedRateMeasure");
+		
+		Element speedLimitNumElement = XmlUtils.appendElement(speedLimitElement, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");		
+		speedLimitNumElement.setTextContent(RandomStringUtils.randomNumeric(2));
+		
+		Element speedUnitsElement = XmlUtils.appendElement(speedLimitElement, OjbcNamespaceContext.NS_NC_30, "MeasureUnitText");
+		speedUnitsElement.setTextContent(getRandomString("kt", "mph", "kph", "mpm"));
+		
+		Element arrestElement = XmlUtils.appendElement(drivingIncidentElement, OjbcNamespaceContext.NS_JXDM_51, "Arrest");
+		XmlUtils.addAttribute(arrestElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Arrest_01");
+		
+		Element arrestActivDateElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
+		
+		Element arrestActivDateValElement = XmlUtils.appendElement(arrestActivDateElement, OjbcNamespaceContext.NS_NC_30, "Date");
+		arrestActivDateValElement.setTextContent(CURRENT_DATE);
+		
+		Element arrestAgencyRecIdElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestAgencyRecordIdentification");
+		
+		Element arrestRecIdElement = XmlUtils.appendElement(arrestAgencyRecIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		arrestRecIdElement.setTextContent(RandomStringUtils.randomNumeric(8));
+		
+		
+		Element arrestChargeElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestCharge");
+		
+		Element arrestChargeStatuteElement = XmlUtils.appendElement(arrestChargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeStatute");
+		
+		Element arrestChargeStatCodeIdElement = XmlUtils.appendElement(arrestChargeStatuteElement, OjbcNamespaceContext.NS_JXDM_51, "StatuteCodeIdentification");
+		
+		Element arrestChargeIdElement = XmlUtils.appendElement(arrestChargeStatCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		arrestChargeIdElement.setTextContent(RandomStringUtils.randomNumeric(8));
+		
+		Element arrestLocElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestLocation");
+		
+		Element arrestLocDescTxtElement = XmlUtils.appendElement(arrestLocElement, OjbcNamespaceContext.NS_NC_30, "LocationDescriptionText");		
+		arrestLocDescTxtElement.setTextContent("TODO");
+		
+		
+		
+		
 		
 		// TODO build document
 		
@@ -482,4 +623,5 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		return doc;
 	}	
 
+	
 }
