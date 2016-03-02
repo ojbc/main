@@ -514,6 +514,12 @@
 		<entry key="Statewide Firearm Registry" value="firearm-details.xsl" />
 		<entry key="Firearm Reg." value="firearm-details.xsl" />
 		<entry key="SubscriptionResults" value="subscriptionSearchResult.xsl" />
+		<entry key="Juvenile History" value="juvenile-history-detail.xsl" />
+		<entry key="Juvenile Court Case Management System" value="juvenile-history-detail.xsl" />
+		<entry key="Court Case" value="court-case-list.xsl" />
+		<entry key="Custody" value="custody-list.xsl" />
+		<entry key="Court Case Detail" value="court-case-detail.xsl" />
+		<entry key="Custody Detail" value="custody-detail.xsl" />
 	</util:map>
 
 	<!-- This map is used to allow conditional includes into the Velocity templates 
