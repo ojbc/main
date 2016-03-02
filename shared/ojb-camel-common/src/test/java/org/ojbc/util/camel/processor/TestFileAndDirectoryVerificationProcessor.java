@@ -27,7 +27,7 @@ import org.junit.Test;
 public class TestFileAndDirectoryVerificationProcessor {
 
 	@Test
-	public void testWereDispositionsSentToday() throws Exception
+	public void testDoesDirectoryWithFilesExist() throws Exception
 	{
 		FileAndDirectoryVerificationProcessor fileAndDirectoryVerificationProcessor = new FileAndDirectoryVerificationProcessor();
 		
