@@ -465,7 +465,6 @@
 		<nc:Activity structures:ref="Arrest_01"/>
 		<nc:Activity structures:ref="Detention_01"/>
 		<nc:Activity structures:ref="Bond_01"/>
-		<nc:Activity structures:ref="Citation_01"/>
 		<nc:Case structures:ref="Case_01"/>
 	</j:ActivityCaseAssociation>
 	<nc:RelatedCaseAssociation>
