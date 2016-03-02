@@ -281,7 +281,7 @@
 				<p><xsl:apply-templates select="nc:Person[@structures:id = $defendantID]" mode="partyInfo"/></p>	
 			</div>
 			<div id="licenseInfoTab">
-				<p><xsl:apply-templates select="." mode="licenseInfo"/></p>
+				<p><xsl:apply-templates select="nc:Person[@structures:id = $defendantID]/j:PersonAugmentation/j:DriverLicense"/></p>
 			</div>
 			<div id="idAndPaymentInfoTab">
 				<p><xsl:apply-templates select="." mode="idAndPaymentInfo"/></p>
@@ -374,48 +374,34 @@
 		</table>
 	</xsl:template>
 	
-	<xsl:template name="vehicleTab">
-		<table>
+	<xsl:template match="j:DriverLicense">
+		<table class="detailTable">
 			<tr>
-				<td class="incidentLabel">Type</td>
-				<td class="incidentLabel">Make</td>
-				<td class="incidentLabel">Model</td>
-				<td class="incidentLabel">Year</td>
-				<td class="incidentLabel">Color</td>
-				<td class="incidentLabel">Plate #</td>
-				<td class="incidentLabel">VIN</td>
+				<th>
+					<label>License Number: </label>
+					<xsl:value-of select="j:DriverLicenseIdentification/nc:IdentificationID"/>
+				</th>
+				<th>
+					<label>License State: </label>
+					<xsl:value-of select="j:DriverLicenseIdentification/nc:IdentificationSourceText"/>
+				</th>
+				<th>
+					<label>Commercial: </label>
+					<xsl:value-of select="j:DriverLicenseCommercialClassText"/>
+				</th>
+			</tr>
+			<tr>
+				<th><label>License Class: </label>
+					<xsl:value-of select="j:DriverLicenseNonCommercialClassText"/>
+				</th>
+				<th><label>License Issued: </label>
+					<xsl:apply-templates select="j:DriverLicenseIssueDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"></xsl:apply-templates>
+				</th>
+				<th><label>License Expires: </label>
+					<xsl:apply-templates select="j:DriverLicenseExpirationDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"></xsl:apply-templates>
+				</th>
 			</tr>
 		</table>
-	</xsl:template>
-	
-	<xsl:template name="propertyTab">
-		<table>
-			<tr>
-				<td class="incidentLabel">Type</td>
-				<td class="incidentLabel">Make/Brand</td>
-				<td class="incidentLabel">Model</td>
-				<td class="incidentLabel">Serial #</td>
-				<td class="incidentLabel">Quantity</td>
-				<td class="incidentLabel">Value</td>
-				<td class="incidentLabel">Description</td>
-			</tr>
-		</table>
-	</xsl:template>
-	
-	<xsl:template name="chargeOffenseTab">
-		<table>
-			<tr>
-				<td class="incidentLabel">Code</td>
-				<td class="incidentLabel">Description</td>
-				<td class="incidentLabel">Status</td>
-				<td class="incidentLabel"># Premises Entered</td>
-				<td class="incidentLabel">Entry Method</td>
-				<td class="incidentLabel">Location</td>
-				<td class="incidentLabel">Bias</td>
-				<td class="incidentLabel">Weapon</td>
-			</tr>
-		</table>
-		
 	</xsl:template>
 	
 </xsl:stylesheet>
