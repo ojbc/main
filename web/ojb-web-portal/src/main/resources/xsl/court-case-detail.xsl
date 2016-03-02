@@ -284,10 +284,10 @@
 				<p><xsl:apply-templates select="nc:Person[@structures:id = $defendantID]/j:PersonAugmentation/j:DriverLicense"/></p>
 			</div>
 			<div id="idAndPaymentInfoTab">
-				<p><xsl:apply-templates select="." mode="idAndPaymentInfo"/></p>
+				<p><xsl:apply-templates select="nc:Person[@structures:id = $defendantID]" mode="idAndPaymentInfo"/></p>
 			</div>
 			<div id="commentsTab">
-				<p><xsl:apply-templates select="." mode="partyComments"/></p>
+				<p><xsl:apply-templates select="nc:Person[@structures:id = $defendantID]" mode="partyComments"/></p>
 			</div>
 		</div>
 	</xsl:template>
@@ -404,4 +404,43 @@
 		</table>
 	</xsl:template>
 	
+	<xsl:template match="nc:Person" mode="idAndPaymentInfo">
+		<table class="detailTable">
+			<tr>
+				<th colspan="3">
+					<label>Party ID: </label>
+					No Mapping
+				</th>
+			</tr>
+			<tr>
+				<th><label>Juvenile ID: </label>
+					No Mapping
+				</th>
+				<th><label>Inmate ID: </label>
+					<xsl:value-of select="ccq-res-ext:PersonInmateIdentification/nc:IdentificationID"></xsl:value-of>
+				</th>
+				<th><label>Other ID: </label>
+					No Mapping
+				</th>
+			</tr>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="nc:Person" mode="partyComments">
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>Body Marks: </label>
+					<xsl:value-of select="nc:PersonPhysicalFeature/nc:PhysicalFeatureDescriptionText"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>General Comments: </label>
+					No Mapping
+				</th>
+			</tr>
+		</table>
+	</xsl:template>
+		
 </xsl:stylesheet>
