@@ -33,7 +33,7 @@ public class FileAndDirectoryVerificationProcessor {
 
 	private String directoryPath;
 	
-	public boolean wereDispositionsSentToday()
+	public boolean doesDirectoryWithFilesExist()
 	{
 		File directory = new File(directoryPath);  
 		File[] files = directory.listFiles();

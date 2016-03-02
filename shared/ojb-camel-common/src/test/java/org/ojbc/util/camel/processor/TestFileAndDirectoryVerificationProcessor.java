@@ -32,7 +32,7 @@ public class TestFileAndDirectoryVerificationProcessor {
 		FileAndDirectoryVerificationProcessor fileAndDirectoryVerificationProcessor = new FileAndDirectoryVerificationProcessor();
 		
 		fileAndDirectoryVerificationProcessor.setDirectoryPath("/tmp/ojb/someDirectory");
-		assertFalse(fileAndDirectoryVerificationProcessor.wereDispositionsSentToday());
+		assertFalse(fileAndDirectoryVerificationProcessor.doesDirectoryWithFilesExist());
 		
 		File parentFolder = new File("/tmp/ojb/someDirectory");
 		parentFolder.mkdirs();
@@ -40,7 +40,7 @@ public class TestFileAndDirectoryVerificationProcessor {
 		File emptyFile = new File("/tmp/ojb/someDirectory/file.txt");
 		emptyFile.createNewFile();
 		
-		assertTrue(fileAndDirectoryVerificationProcessor.wereDispositionsSentToday());
+		assertTrue(fileAndDirectoryVerificationProcessor.doesDirectoryWithFilesExist());
 		
 		FileUtils.deleteDirectory(parentFolder);
 	}
