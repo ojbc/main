@@ -43,7 +43,8 @@
 
 	<xsl:template match="/ccq-res-doc:CourtCaseQueryResults">
 		<script type="text/javascript">
-			$(function () {
+	
+	$(function () {
 		 			$('#courtCaseDetailTabs').tabs({
 						activate: function( event, ui ) {
 							var modalIframe = $("#modalIframe", parent.document);
@@ -103,7 +104,7 @@
 				<p><xsl:apply-templates select="nc:Case" mode="chargeSummary"/></p>
 			</div>
 			<div id="hearingTab">
-				<p>hearing</p>
+				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="hearing"/></p>
 			</div>
 			<div id="roaListingTab">
 				<p>roalisting</p>
@@ -129,7 +130,44 @@
 	<xsl:template match="qrer:QueryRequestError">
 		<span class="error">System Name: <xsl:value-of select="nc:SystemName" /><br/> Error: <xsl:value-of select="qrer:ErrorText"/></span><br />
 	</xsl:template>
+	
+	<xsl:template match="j:CaseAugmentation" mode="hearing">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Hearing Type</th>
+					<th>Hearing Reason</th>
+					<th>Court Case #</th>
+					<th>Judge</th>
+					<th>Court Room</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Hearing Minutes</th>
+					<th>Result</th>
+					<th>Comment</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:CaseHearing"/>
+			</tbody>
+		</table>
+	</xsl:template>
 
+	<xsl:template match="j:CaseHearing">
+		<tr>
+			<td><xsl:value-of select="nc:ActivityCategoryText"/></td>
+			<td><xsl:value-of select="nc:ActivityReasonText"/></td>
+			<td><xsl:value-of select="nc:ActivityName"/></td>
+			<td><xsl:value-of select="j:CourtEventJudge/nc:RoleOfPerson/nc:PersonName/nc:PersonFullName"/></td>
+			<td>No Mapping</td>
+			<td><xsl:apply-templates select="nc:ActivityDateRange/nc:StartDate/nc:DateTime" mode="formatDateTime"/></td>
+			<td><xsl:apply-templates select="nc:ActivityDateRange/nc:EndDate/nc:DateTime" mode="formatDateTime"/></td>
+			<td><xsl:value-of select="ccq-res-ext:CourtEventCommentsText"/></td>
+			<td><xsl:value-of select="nc:ActivityDisposition/nc:DispositionDescriptionText"/></td>
+			<td><xsl:value-of select="nc:ActivityDescriptionText"/></td>
+		</tr>	
+	</xsl:template>
+	
 	<xsl:template match="nc:Case" mode="chargeSummary">
 		<table class="detailDataTable display">
 			<thead>
