@@ -32,7 +32,7 @@
 		                    // tempDiv for css spinner - replaced upon receipt of get data
 		                    $('#incidentDetailTabsHolder').html(tempDiv);                                         
 		                    
-		                    $.get("incidentDetails?identificationID="+identificationID+"&systemName="+systemName+"&identificationSourceText="+identificationSourceText,function(data) {
+		                    $.get("instanceDetails?identificationID="+identificationID+"&systemName="+systemName+"&identificationSourceText="+identificationSourceText,function(data) {
 		                      $('#incidentDetailTabsHolder').html(data);
 		                    }).fail(ojbc.displayIncidentDetailFailMessage);
 		                    

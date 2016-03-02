@@ -51,7 +51,7 @@
 		<j:CaseAugmentation>
 			<j:CaseAmendedCharge>
 				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-				<j:ChargeDescriptionText>charge description</j:ChargeDescriptionText>
+				<j:ChargeDescriptionText>Aggravated Assault</j:ChargeDescriptionText>
 				<j:ChargeFilingDate>
 					<nc:Date>2001-12-17</nc:Date>
 				</j:ChargeFilingDate>
@@ -64,13 +64,13 @@
 			</j:CaseAmendedCharge>
 			<j:CaseCharge>
 				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-				<j:ChargeDescriptionText>String</j:ChargeDescriptionText>
+				<j:ChargeDescriptionText>Aggravated Assault</j:ChargeDescriptionText>
 				<j:ChargeDisposition>
 					<nc:DispositionDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:DispositionDate>
-					<nc:DispositionDescriptionText>finding</nc:DispositionDescriptionText>
-					<j:ChargeDispositionOtherText>other finding</j:ChargeDispositionOtherText>
+					<nc:DispositionDescriptionText>Plea agreement</nc:DispositionDescriptionText>
+					<j:ChargeDispositionOtherText>Plea agreement dismiss Assault on a Police Officer combine with Aggravated Assault charge</j:ChargeDispositionOtherText>
 				</j:ChargeDisposition>
 				<j:ChargeFilingDate>
 					<nc:Date>2001-12-17</nc:Date>
@@ -106,7 +106,7 @@
 						<nc:Amount>0.0</nc:Amount>
 					</j:SupervisionFineAmount>
 				</j:ChargeSentence>
-				<j:ChargeSequenceID>2</j:ChargeSequenceID>
+				<j:ChargeSequenceID>1</j:ChargeSequenceID>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>charge statute</nc:IdentificationID>
@@ -116,13 +116,13 @@
 			</j:CaseCharge>
 			<j:CaseCharge>
 				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-				<j:ChargeDescriptionText>String</j:ChargeDescriptionText>
+				<j:ChargeDescriptionText>Assault on a Police Officer</j:ChargeDescriptionText>
 				<j:ChargeDisposition>
 					<nc:DispositionDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:DispositionDate>
-					<nc:DispositionDescriptionText>finding</nc:DispositionDescriptionText>
-					<j:ChargeDispositionOtherText>other finding</j:ChargeDispositionOtherText>
+					<nc:DispositionDescriptionText>Dismissed</nc:DispositionDescriptionText>
+					<j:ChargeDispositionOtherText>Dismissed plea to Aggravated Assault</j:ChargeDispositionOtherText>
 				</j:ChargeDisposition>
 				<j:ChargeFilingDate>
 					<nc:Date>2001-12-17</nc:Date>
@@ -465,7 +465,6 @@
 		<nc:Activity structures:ref="Arrest_01"/>
 		<nc:Activity structures:ref="Detention_01"/>
 		<nc:Activity structures:ref="Bond_01"/>
-		<nc:Activity structures:ref="Citation_01"/>
 		<nc:Case structures:ref="Case_01"/>
 	</j:ActivityCaseAssociation>
 	<nc:RelatedCaseAssociation>
