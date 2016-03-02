@@ -25,8 +25,6 @@ import org.apache.camel.Header;
  * This class is used by subscription notification intermediaries
  * to map system names to topics.
  * 
- * @author yogeshchawla
- *
  */
 public class SystemNameToTopicExpressionMapper {
 	
