@@ -341,20 +341,14 @@
 			<tr>
 				<th><label>Trial By: </label>
 				No Mapping</th>
-				<th><label>Money Due: </label>
-				No Mapping</th>
+				<th><label>Custody Status: </label>
+					<xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/j:Detention/nc:SupervisionCustodyStatus/nc:StatusDescriptionText"/></th>
 			</tr>
 			<tr>
 				<th><label>Speedy Trial: </label>
 				<xsl:apply-templates select="j:CaseAugmentation/j:CaseTrial/ccq-res-ext:SpeedyTrialDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
-				<th><label>Extension Date: </label>
-				No Mapping</th>
-			</tr>
-			<tr>
 				<th><label>FTP Hold Indefinite: </label>
-				No Mapping</th>
-				<th><label>Amount Due: </label>
-				No Mapping</th>
+					No Mapping</th>
 			</tr>
 			<tr>
 				<th><label>FTA Hold Date: </label>
@@ -373,18 +367,6 @@
 				<xsl:apply-templates select="j:CaseAugmentation/j:CaseDefenseAttorney/nc:RoleOfPerson/nc:PersonName" mode="firstNameFirst"/></th>
 				<th><label>Attorney Waived: </label>
 				<xsl:value-of select="j:CaseAugmentation/j:CaseDefendantSelfRepresentationIndicator"></xsl:value-of></th>
-			</tr>
-			<tr>
-				<th><label>FPC Member: </label>
-				No Mapping</th>
-				<th><label>Custody Status: </label>
-				<xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/j:Detention/nc:SupervisionCustodyStatus/nc:StatusDescriptionText"/></th>
-			</tr>
-			<tr>
-				<th><label>Epayments Not Allowed: </label>
-				No Mapping</th>
-				<th><label>Interest Start Date: </label>
-				No Mapping</th>
 			</tr>
 		</table>
 	</xsl:template>
@@ -494,10 +476,6 @@
 				<th><label>Race: </label>
 					<xsl:value-of select="nc:PersonEthnicityText"></xsl:value-of>	
 				</th>
-				<th><label>Epayments Not Allowed: </label>
-					No Mapping</th>
-			</tr>
-			<tr>
 				<th colspan="2"><label>Juvenile: </label>
 					No Mapping</th>
 			</tr>
