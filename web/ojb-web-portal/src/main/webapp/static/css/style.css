@@ -1341,4 +1341,7 @@ text-shadow: 0 1px #fff; */
 	text-align: left;} 
 .detailTable th label{
 	color:gray; } 
+.detailDataTable {
+	font-size: smaller;
+}	
 	

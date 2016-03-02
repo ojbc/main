@@ -53,6 +53,9 @@
 					
 					$('#criminalCaseTabs').tabs();
 					$('#partyTabs').tabs();
+					$('.detailDataTable').DataTable({
+ 						"dom": 'rt' 
+					});
 			});
 		</script>
 
@@ -97,7 +100,7 @@
 				<p><xsl:apply-templates select="." mode="party"/></p>	
 			</div>
 			<div id="chargeTab">
-				<p>charge</p>
+				<p><xsl:apply-templates select="nc:Case" mode="chargeSummary"/></p>
 			</div>
 			<div id="hearingTab">
 				<p>hearing</p>
@@ -127,6 +130,66 @@
 		<span class="error">System Name: <xsl:value-of select="nc:SystemName" /><br/> Error: <xsl:value-of select="qrer:ErrorText"/></span><br />
 	</xsl:template>
 
+	<xsl:template match="nc:Case" mode="chargeSummary">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Charge</th>
+					<th>Count</th>
+					<th>Statute Number</th>
+					<th>Statute Description</th>
+					<th>Charge Description</th>
+					<th>Charge Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:CaseAugmentation/j:CaseCharge"></xsl:apply-templates>
+			</tbody>
+		</table>
+		<xsl:if test="j:CaseAugmentation/j:CaseAmendedCharge[normalize-space()]">
+			<pre>
+				
+				
+				
+			</pre>
+			<table class="detailDataTable display">
+				<thead>
+					<tr>
+						<th>Amended Charge Count</th>
+						<th>Amended Statute</th>
+						<th>Amended Statute Description</th>
+						<th>Amended Charge Description</th>
+						<th>Amended Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<xsl:apply-templates select="j:CaseAugmentation/j:CaseAmendedCharge"></xsl:apply-templates>
+				</tbody>
+			</table>
+		</xsl:if>
+	</xsl:template>
+		
+	<xsl:template match="j:CaseCharge">
+		<tr>
+			<td><xsl:value-of select="j:ChargeSequenceID"/></td>
+			<td><xsl:value-of select="j:ChargeCountQuantity"/></td>
+			<td><xsl:value-of select="j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationCategoryDescriptionText"/></td>
+			<td><xsl:value-of select="j:ChargeDescriptionText"/></td>
+			<td><xsl:apply-templates select="j:ChargeFilingDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+		</tr>
+	</xsl:template>
+	
+	<xsl:template match="j:CaseAmendedCharge">
+		<tr>
+			<td><xsl:value-of select="j:ChargeCountQuantity"/></td>
+			<td><xsl:value-of select="j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationCategoryDescriptionText"/></td>
+			<td><xsl:value-of select="j:ChargeDescriptionText"/></td>
+			<td><xsl:apply-templates select="j:ChargeFilingDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+		</tr>
+	</xsl:template>
+	
 	<xsl:template match="nc:Case" mode="criminalCase">
 		<div id="criminalCaseTabs">
 			<ul>
