@@ -17,9 +17,9 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xs:schema targetNamespace="http://release.niem.gov/niem/domains/intelligence/3.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/cyfs/3.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <xs:annotation>
-    <xs:documentation>Intelligence</xs:documentation>
+    <xs:documentation>Children, Youth, and Family Services</xs:documentation>
   </xs:annotation>
   <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
   <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
@@ -30,24 +30,19 @@
     <xs:complexContent>
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
-          <xs:element ref="intel:PersonSystemIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="cyfs:StudentIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="PersonAugmentation" type="intel:PersonAugmentationType" substitutionGroup="nc:PersonAugmentationPoint" nillable="true">
+  <xs:element name="PersonAugmentation" type="cyfs:PersonAugmentationType" substitutionGroup="nc:PersonAugmentationPoint" nillable="true">
     <xs:annotation>
       <xs:documentation>Additional information about a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="PersonSystemIdentification" type="nc:SystemIdentificationType" nillable="true">
+  <xs:element name="StudentIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
-      <xs:documentation>A system identification that references a person.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="SystemIdentification" type="nc:SystemIdentificationType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A number or code identification assigned by a system to uniquely identify a person or object.</xs:documentation>
+      <xs:documentation>A unique alphanumeric identification assigned to a student by an education organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>

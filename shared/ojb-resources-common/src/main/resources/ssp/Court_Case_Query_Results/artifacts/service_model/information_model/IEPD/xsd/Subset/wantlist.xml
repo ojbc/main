@@ -21,9 +21,12 @@
   xmlns:w="http://niem.gov/niem/wantlist/2.2"
   xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+  xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
   xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
   xmlns:core_misc="http://release.niem.gov/niem/codes/core_misc/3.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.1/">
+  <w:Element w:name="cyfs:PersonAugmentation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="intel:PersonAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityArrestAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityCaseAssociation" w:isReference="false" w:nillable="true"/>
@@ -35,6 +38,8 @@
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBond" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:CaseCourt" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:CaseHearing" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Citation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CourtAppearanceDate" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Detention" w:isReference="false" w:nillable="true"/>
@@ -44,6 +49,8 @@
   <w:Element w:name="j:EnforcementOfficial" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:FinancialAccount" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ObligationPersonAssociation"
+    w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:OffenseDomesticViolenceIndicator"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:OrganizationAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="false"/>
@@ -62,6 +69,7 @@
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDateRange" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ActivityDisposition" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ActivityStatus" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:AddressCrossStreet" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:AddressDeliveryPointID" w:isReference="false" w:nillable="false"/>
@@ -83,6 +91,7 @@
   <w:Element w:name="nc:FullTelephoneNumber" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Identity" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:JurisdictionText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:LanguageName" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Location" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationCountyName" w:isReference="false" w:nillable="false"/>
@@ -93,17 +102,20 @@
   <w:Element w:name="nc:Metadata" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ObligationDueAmount" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ObligationPaidAmount" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonAliasIdentityAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonConveyanceAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonEthnicityText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonPrimaryLanguage" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonRaceText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonResidenceAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Program" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:RelatedCaseAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:StatusDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Supervision" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:TelephoneNumberCategoryText"
     w:isReference="false" w:nillable="false"/>
@@ -118,6 +130,14 @@
     <w:Facet w:facet="enumeration" w:value="N"/>
     <w:Facet w:facet="enumeration" w:value="U"/>
     <w:Facet w:facet="enumeration" w:value="X"/>
+  </w:Type>
+  <w:Type w:name="cyfs:PersonAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="cyfs:StudentIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="intel:PersonAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="intel:PersonSystemIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:ActivityArrestAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="false"
@@ -159,6 +179,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ArrestOfficial" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ArrestProbableCauseText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:BailBondType" w:isRequested="true">
     <w:ElementInType w:name="j:BailBondAmount" w:isReference="false"
@@ -246,6 +268,8 @@
   <w:Type w:name="j:CourtAppearanceType" w:isRequested="true">
     <w:ElementInType w:name="j:CourtAppearanceCase"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CourtAppearanceCourt"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtAppearanceDate"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtAppearanceReasonText"
@@ -258,6 +282,8 @@
   <w:Type w:name="j:CourtEventType" w:isRequested="true">
     <w:ElementInType w:name="j:CourtEventAppearance"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CourtEventCourt" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtEventJudge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtEventAugmentationPoint"
@@ -583,6 +609,10 @@
     <w:ElementInType w:name="nc:Identity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:PersonLanguageType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Language" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:PersonLocationAssociationType" w:isRequested="true">
     <w:ElementInType w:name="nc:Person" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -617,7 +647,11 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonOtherIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonPhysicalFeature"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonPrimaryLanguage"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonRace" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -647,6 +681,8 @@
   <w:Type w:name="nc:StatusType" w:isRequested="false">
     <w:ElementInType w:name="nc:StatusCommentText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:StatusDateRepresentation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:StatusDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
