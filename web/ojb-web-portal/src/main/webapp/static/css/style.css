@@ -1021,11 +1021,13 @@ a.grayButton:hover {
 	background-color: #ffffff;
 }
 
-.detailsTable tr.incidentSelected {
+.detailsTable tr.incidentSelected, 
+.detailsTable tr.selected {
 	background-color: #edf2f8;
 }
 
-.detailsTable tr.incidentHover {
+.detailsTable tr.incidentHover,
+.detailsTable tr.hover {
 	background-color: #ccdff6;
 	cursor: pointer;
 }
@@ -1315,24 +1317,37 @@ text-shadow: 0 1px #fff; */
     font-family:Calibri;
 }
 
-#courtCaseDetailTabs {
-    margin: 0 !important; 
-    padding:0 ;
+#courtCaseDetailTabs li {
+	margin-right: 0 !important; 
+	margin-left:0!important;
 }
-
-#courtCaseDetailTabs ul{display: table-row;}
-#courtCaseDetailTabs li { 
+#courtCaseDetailTabs > ul li { 
 	white-space:normal; 
 	height: 50px; 
-	margin: 0 !important;  
-	padding:0!important; 
-	width: 9.5%; }
+	width: 9.4%; }
 
-#courtCaseDetailTabs li:last-child{
-	width:12.2%; 
+#courtCaseDetailTabs > ul li:last-child{
+	width:12%; 
 	border-right:0;}
  
 #courtCaseDetailTabs li a {
 	font-size: 11px!important; 
-	margin: 0 !important; 
-	white-space:normal;}
+	white-space:normal;} 
+
+.detailTable{
+	width: 100%;
+	font-size: 12px;
+}	
+
+.detailTable th{
+	text-align: left;} 
+.detailTable th label{
+	color:gray; } 
+.detailDataTable {
+	font-size: 11px;
+}	
+
+.detailDataTable thead th{
+	font-weight: bold;
+}
+	

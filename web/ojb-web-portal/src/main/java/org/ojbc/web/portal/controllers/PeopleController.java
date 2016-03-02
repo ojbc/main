@@ -275,7 +275,7 @@ public class PeopleController {
 	}
 
 	@RequestMapping(value = "instanceDetails", method = RequestMethod.GET)
-	public @ResponseBody String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
+	public @ResponseBody String instanceDetails(HttpServletRequest request, @RequestParam String systemName,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
 	        throws Exception {
 		return getConvertedSearchResult(request, systemName, detailsRequest, model);

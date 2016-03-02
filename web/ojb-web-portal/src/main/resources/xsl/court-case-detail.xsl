@@ -19,429 +19,536 @@
 -->
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
-	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
-	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" 
-	xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
-	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
-	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
-	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
-    xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
-    xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0"
+	xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	exclude-result-prefixes="#all">
 	
 	<xsl:import href="_formatters.xsl" />
 	
 	<xsl:output method="html" encoding="UTF-8" />
 	
-	<xsl:variable name="enforcementOfficialAssociaiton" select="/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:Associations/j:ActivityEnforcementOfficialAssociation"/>
+	<xsl:variable name="enforcementOfficialAssociaiton" select="."/>
 	
-	<xsl:template match="/ir:IncidentReport/srm:SearchResultsMetadata">
-		<xsl:apply-templates select="srer:SearchRequestError" />
+	<xsl:template match="/ccq-res-doc:CourtCaseQueryResults/srm:QueryResultsMetadata">
+		<xsl:apply-templates select="qrer:QueryRequestError" />
+		<xsl:apply-templates select="iad:InformationAccessDenial" />
 	</xsl:template>
 
-	<xsl:template match="/ir:IncidentReport/lexspd:doPublish">
+	<xsl:template match="/ccq-res-doc:CourtCaseQueryResults">
 		<script type="text/javascript">
-			$(function () {
-				$('#incidentDetailTabs').tabs({
-					activate: function( event, ui ) {
-						var modalIframe = $("#modalIframe", parent.document);
-						modalIframe.height(modalIframe.contents().find("body").height() + 16);
-					}
-				});
+	
+	$(function () {
+		 			$('#courtCaseDetailTabs').tabs({
+						activate: function( event, ui ) {
+							var modalIframe = $("#modalIframe", parent.document);
+							modalIframe.height(modalIframe.contents().find("body").height() + 16);
+						}
+					}); 
+					
+					$('#criminalCaseTabs').tabs();
+					$('#partyTabs').tabs();
+					$('.detailDataTable').DataTable({
+ 						"dom": 'rt' 
+					});
 			});
 		</script>
 
-		<div id="incidentDetailTabs">
-			<ul>
+		<div id="courtCaseDetailTabs">
+			<ul class="courtCaseDetailUl">
 				<li>
-					<a href="#detailsTab">DETAILS</a>
+					<a href="#criminalCaseTab">CRIMINAL CASE</a>
 				</li>
 				<li>
-					<a href="#partyTab">PARTY(S)</a>
+					<a href="#partyTab">PARTY DETAIL</a>
 				</li>
 				<li>
-					<a href="#vehicleTab">VEHICLE(S)</a>
+					<a href="#chargeTab">CHARGE SUMMARY</a>
 				</li>
 				<li>
-					<a href="#propertyTab">PROPERTY(S)</a>
+					<a href="#hearingTab">HEARING SUMMARY</a>
 				</li>
 				<li>
-					<a href="#chargeOffenseTab">CHARGE(S)/OFFENSE(S)</a>
+					<a href="#roaListingTab">ROA LISTING</a>
 				</li>
 				<li>
-					<a href="#narrativeTab">NARRATIVE</a>
+					<a href="#criminalWarrantTab">CRIMINAL WARRANT HISTORY</a>
 				</li>
 				<li>
-					<a href="#documentTab">DOCUMENT(S)</a>
+					<a href="#criminalBondTab">CRIMINAL BOND SUMMARY</a>
+				</li>
+				<li>
+					<a href="#victimTab">VICTIMS</a>
+				</li>
+				<li>
+					<a href="#defenseAttorneyTab">DEFENSE ATTORNEYS</a>
+				</li>
+				<li>
+					<a href="#prosecutorTab">PROSECUTORS</a>
 				</li>
 			</ul>
 
-			<div id="detailsTab">
-				<xsl:call-template name="detailsTab" />
+			<div id="criminalCaseTab">
+				<p><xsl:apply-templates select="nc:Case" mode="criminalCase"/></p>	
 			</div>
 			<div id="partyTab">
-				<xsl:call-template name="partyTab" />
+				<p><xsl:apply-templates select="." mode="party"/></p>	
 			</div>
-			<div id="vehicleTab"> 
-				<xsl:call-template name="vehicleTab" />
+			<div id="chargeTab">
+				<p><xsl:apply-templates select="nc:Case" mode="chargeSummary"/></p>
 			</div>
-			<div id="propertyTab">
-				<xsl:call-template name="propertyTab" />
+			<div id="hearingTab">
+				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="hearing"/></p>
 			</div>
-			<div id="chargeOffenseTab">
-				<xsl:call-template name="chargeOffenseTab" />				
+			<div id="roaListingTab">
+				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="ROA"/></p>
 			</div>
-			<div id="narrativeTab"> 
-				<xsl:call-template name="narrativeTab" />
+			<div id="criminalWarrantTab">
+				<p>criminalWarrantTab</p>
 			</div>
-			<div id="documentTab"> </div>
+			<div id="criminalBondTab">
+				<p>criminalBondTab</p>
+			</div>
+			<div id="victimTab">
+				<p>victimTab</p>
+			</div>
+			<div id="defenseAttorneyTab">
+				<p>defenseAttorneyTab</p>
+			</div>
+			<div id="prosecutorTab">
+				<p>prosecutorTab</p>
+			</div>
 		</div>
 	</xsl:template>
 	
-	<xsl:template match="srer:SearchRequestError">
-		<span class="error">System Name: <xsl:value-of select="intel:SystemName" /><br/> Error: <xsl:value-of select="srer:ErrorText"/></span><br />
+	<xsl:template match="qrer:QueryRequestError">
+		<span class="error">System Name: <xsl:value-of select="nc:SystemName" /><br/> Error: <xsl:value-of select="qrer:ErrorText"/></span><br />
 	</xsl:template>
-
-	<xsl:template name="detailsTab">
-<!-- 		<xsl:variable name="officerName" select="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:Person/@s:id=//lexsdigest:Associations/j:ActivityEnforcementOfficialAssociation[nc:ActivityReference/@s:ref=//lexsdigest:EntityActivity/nc:Activity/@s:id]/nc:PersonReference/@s:ref]/lexsdigest:Person/nc:PersonName/nc:PersonFullName"/> -->
-<!-- 		<xsl:variable name="officerBadge" select="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:Person/@s:id=//lexsdigest:Associations/j:ActivityEnforcementOfficialAssociation[nc:ActivityReference/@s:ref=//lexsdigest:EntityActivity/nc:Activity/@s:id]/nc:PersonReference/@s:ref]/j:EnforcementOfficial/j:EnforcementOfficialBadgeIdentification/nc:IdentificationID"/> -->
-		<xsl:variable name="reportingAgency" select="//lexs:Digest/lexsdigest:EntityOrganization/nc:Organization[@s:id=//lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation[nc:ActivityReference/@s:ref=//lexsdigest:EntityActivity/nc:Activity/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName"/>
-		<xsl:variable name="officerAgency" select="//lexsdigest:EntityOrganization/nc:Organization[@s:id=//nc:PersonAssignedUnitAssociation[nc:PersonReference/@s:ref=//lexsdigest:EntityPerson/lexsdigest:Person[@s:id=../j:EnforcementOfficial/nc:RoleOfPersonReference/@s:ref]/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName"/>
-		<xsl:variable name="incidentStructuredLocation" select="//lexs:Digest/lexsdigest:EntityLocation/nc:Location[@s:id=//lexsdigest:Associations/lexsdigest:IncidentLocationAssociation[nc:ActivityReference/@s:ref=//lexsdigest:EntityActivity/nc:Activity/@s:id]/nc:LocationReference/@s:ref]/nc:LocationAddress/nc:StructuredAddress" />
-		<table>
-			<tr>
-				<td class="incidentLabel">Case Number:</td>
-				<td>
-					<xsl:value-of select="/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Incident/ndexia:IncidentAugmentation/ndexia:IncidentCaseNumberText" />
-				</td>
-				<td class="incidentLabel">Officer:</td>
-				<td>
-<!-- 					<xsl:value-of select="$officerName"/> -->
-<!-- 					<xsl:if test="$officerBadge"> -->
-<!-- 						<xsl:if test="$officerName"><xsl:text>, </xsl:text></xsl:if> -->
-<!-- 						<xsl:text>Badge #: </xsl:text><xsl:value-of select="$officerBadge" /> -->
-<!-- 					</xsl:if> -->
-					<xsl:apply-templates select="$enforcementOfficialAssociaiton"/>
-				</td>
-			</tr>
-			<tr>
-				<td class="incidentLabel"> Type:</td>
-				<td><xsl:value-of select="//ext:IncidentReport/ext:Incident/ext:IncidentCategoryCode"/></td>
-				<td class="incidentLabel"></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="incidentLabel"> Start Date/Time:</td>
-				<td>
-					<xsl:variable name="startDate" select="//lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityDateRange/nc:StartDate/nc:DateTime" />
-					<xsl:value-of select="replace($startDate,'T',' ')" />
-				</td>
-				<td class="incidentLabel">End Date/Time:</td>
-				<td>
-					<xsl:variable name="endDate" select="//lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityDateRange/nc:EndDate/nc:DateTime" />
-					<xsl:value-of select="replace($endDate,'T',' ')" />
-				</td>
-			</tr>
-			<tr>
-				<td class="incidentLabel">Agency:</td>
-				<td>
-					<xsl:choose>
-						<xsl:when test="$officerAgency">
-							<xsl:value-of select="$officerAgency"/>
-						</xsl:when>
-						<xsl:when test="$reportingAgency">
-							<xsl:value-of select="$reportingAgency"/>
-						</xsl:when>
-					</xsl:choose>
-				</td>
-				<td class="incidentLabel">Location:</td>
-				<td>
-					<xsl:choose>
-						<xsl:when test="$incidentStructuredLocation/nc:LocationStreet/nc:StreetFullText[.!='']">
-							<xsl:value-of select="concat($incidentStructuredLocation/nc:LocationStreet/nc:StreetFullText,' ',$incidentStructuredLocation/nc:LocationCityName,',', $incidentStructuredLocation/nc:LocationStateName,' ',$incidentStructuredLocation/nc:LocationPostalCode)"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="concat($incidentStructuredLocation/nc:LocationStreet/nc:StreetNumberText,' ', $incidentStructuredLocation/nc:LocationStreet/nc:StreetName,' ', $incidentStructuredLocation/nc:LocationCityName,',', $incidentStructuredLocation/nc:LocationStateName,' ',$incidentStructuredLocation/nc:LocationPostalCode)"/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</td>
-			</tr>
-		</table>
-	</xsl:template>
-
-	<xsl:template name="partyTab">
-		<table>
-			<tr>
-				<td class="incidentLabel">Role</td>
-				<td class="incidentLabel">Name</td>
-				<td class="incidentLabel">DOB</td>
-				<td class="incidentLabel">Race</td>
-				<td class="incidentLabel">Gender</td>
-			</tr>
-			<xsl:apply-templates
-				select="//lexs:Digest/lexsdigest:EntityPerson[j:ArrestSubject/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
-			<xsl:apply-templates
-				select="//lexs:Digest/lexsdigest:EntityPerson[j:Victim/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
-			<xsl:apply-templates
-				select="//lexs:Digest/lexsdigest:EntityPerson[j:Witness/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
-			<xsl:apply-templates
-				select="//lexs:Digest/lexsdigest:EntityPerson[j:IncidentSubject/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
-			<xsl:apply-templates
-				select="//lexs:Digest/lexsdigest:EntityPerson[j:Suspect/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
-			<xsl:apply-templates select="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:Person/@s:id=//nc:ActivityInvolvedPersonAssociation[nc:PersonActivityInvolvementText='Complainant']/nc:PersonReference/@s:ref]/lexsdigest:Person" />
-			<xsl:apply-templates select="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:OtherInvolvedPerson/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" mode="involvedPersons"/>
+	
+	<xsl:template match="j:CaseAugmentation" mode="ROA">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Court Event ID</th>
+					<th>Event Date</th>
+					<th>Event Name</th>
+					<th>Event Description</th>
+					<th>Judge Name</th>
+					<th>Comments</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:CaseCourtEvent"/>
+			</tbody>
 		</table>
 	</xsl:template>
 	
-	<xsl:template match="//lexs:Digest/lexsdigest:EntityPerson/lexsdigest:Person" mode="involvedPersons">
-		<xsl:variable name="id" select="@s:id"/>
-		<xsl:variable name="involvedRole" select="//nc:ActivityInvolvedPersonAssociation[nc:PersonReference/@s:ref=$id]/nc:PersonActivityInvolvementText"/>
-		<xsl:call-template name="partyRow">
-			<xsl:with-param name="role"><xsl:value-of select="$involvedRole"/></xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template
-		match="//lexs:Digest/lexsdigest:EntityPerson[j:Victim/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person">
-		<xsl:call-template name="partyRow">
-			<xsl:with-param name="role">Victim</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-
-	<xsl:template
-		match="//lexs:Digest/lexsdigest:EntityPerson[j:Witness/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person">
-		<xsl:call-template name="partyRow">
-			<xsl:with-param name="role">Witness</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-
-	<xsl:template
-		match="//lexs:Digest/lexsdigest:EntityPerson[j:IncidentSubject/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person">
-		<xsl:call-template name="partyRow">
-			<xsl:with-param name="role">Incident Subject</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template
-		match="//lexs:Digest/lexsdigest:EntityPerson[j:ArrestSubject/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person">
-		<xsl:call-template name="partyRow">
-			<xsl:with-param name="role">Arrest Subject</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template
-		match="//lexs:Digest/lexsdigest:EntityPerson[j:Suspect/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person">
-		<xsl:call-template name="partyRow">
-			<xsl:with-param name="role">Suspect</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template
-		match="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:Person/@s:id=//nc:ActivityInvolvedPersonAssociation[nc:PersonActivityInvolvementText='Complainant']/nc:PersonReference/@s:ref]/lexsdigest:Person">
-		<xsl:call-template name="partyRow">
-			<xsl:with-param name="role">Complainant</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-
-	<xsl:template name="partyRow">
-		<xsl:param name="role" />
-		<xsl:variable name="id" select="@s:id"/>
+	<xsl:template match="j:CaseCourtEvent">
 		<tr>
-			<td>
-				<xsl:value-of select="$role" />
-			</td>
-			<td>
-				<xsl:value-of
-					select="nc:PersonName/nc:PersonGivenName | nc:PersonName/nc:PersonSurName" />
-			</td>
-			<td>
-				<xsl:variable name="dateOfBirth" select="nc:PersonBirthDate/nc:Date" />
-				<xsl:value-of
-					select="concat(substring($dateOfBirth,6,2),'-',substring($dateOfBirth,9,2),'-',substring($dateOfBirth,3,2))" />
-			</td>
-			<td>
-				<xsl:choose>
-					<xsl:when test="//ndexia:Person/ndexia:PersonAugmentation[lexslib:SameAsDigestReference/@lexslib:ref=$id]/ndexia:PersonRaceCode">
-						<xsl:value-of select="//ndexia:Person/ndexia:PersonAugmentation[lexslib:SameAsDigestReference/@lexslib:ref=$id]/ndexia:PersonRaceCode"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:call-template name="formatRace" >
-							<xsl:with-param name="raceCode" select="nc:PersonRaceText" />
-						</xsl:call-template>
-					</xsl:otherwise>
-				</xsl:choose>
-			</td>
-			<td>
-				<xsl:call-template name="formatSex">
-				<xsl:with-param name="sexCode" select="nc:PersonSexCode" />
-				</xsl:call-template>
-			</td>
+			<td><xsl:value-of select="nc:ActivityIdentification/nc:IdentificationID"></xsl:value-of></td>
+			<td><xsl:apply-templates select="nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+			<td><xsl:value-of select="nc:ActivityName"/></td>
+			<td><xsl:value-of select="nc:ActivityDescriptionText"/></td>
+			<td><xsl:value-of select="j:CourtEventJudge/nc:RoleOfPerson/nc:PersonName/nc:PersonFullName"/></td>
+			<td><xsl:value-of select="ccq-res-ext:CourtEventCommentsText"/></td>
 		</tr>
 	</xsl:template>
 	
-	<xsl:template name="vehicleTab">
-		<table>
-			<tr>
-				<td class="incidentLabel">Type</td>
-				<td class="incidentLabel">Make</td>
-				<td class="incidentLabel">Model</td>
-				<td class="incidentLabel">Year</td>
-				<td class="incidentLabel">Color</td>
-				<td class="incidentLabel">Plate #</td>
-				<td class="incidentLabel">VIN</td>
-			</tr>
-			<xsl:apply-templates select="//lexsdigest:EntityVehicle/nc:Vehicle" />
+	<xsl:template match="j:CaseAugmentation" mode="hearing">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Hearing Type</th>
+					<th>Hearing Reason</th>
+					<th>Court Case #</th>
+					<th>Judge</th>
+					<th>Court Room</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Hearing Minutes</th>
+					<th>Result</th>
+					<th>Comments</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:CaseHearing"/>
+			</tbody>
 		</table>
 	</xsl:template>
-	
-	<xsl:template match="//lexsdigest:EntityVehicle/nc:Vehicle" >
-		<xsl:variable name="vehicleID" select="@s:id"/>
-		<xsl:variable name="ndexStyleCode" select="//lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Vehicle/ndexia:VehicleAugmentation[lexslib:SameAsDigestReference/@lexslib:ref=$vehicleID]/ndexia:VehicleStyleCategoryCode"/>
+
+	<xsl:template match="j:CaseHearing">
 		<tr>
-			<td>
-				<xsl:choose>
-					<xsl:when test="$ndexStyleCode[.!='']">
-						<xsl:value-of select="$ndexStyleCode"/>
-					</xsl:when>
-					<xsl:when test="nc:ItemCategoryText[. !='']">
-						<xsl:value-of select="nc:ItemCategoryText"/>
-					</xsl:when>
-				</xsl:choose>
-			</td>
-			<td>
-				<xsl:choose>
-					<xsl:when test="nc:VehicleMakeCode[.!='']">
-						<xsl:value-of select="nc:VehicleMakeCode" />
-					</xsl:when>
-					<xsl:when test="nc:ItemMakeName[.!='']">
-						<xsl:value-of select="nc:ItemMakeName" />
-					</xsl:when>
-				</xsl:choose>
-			</td>
-			<td>
-				<xsl:choose>
-					<xsl:when test="nc:VehicleModelCode[.!='']">
-						<xsl:value-of select="nc:VehicleModelCode" />
-					</xsl:when>
-					<xsl:when test="nc:ItemModelName[.!='']">
-						<xsl:value-of select="nc:ItemModelName" />
-					</xsl:when>
-				</xsl:choose>
-			</td>
-			<td><xsl:value-of select="nc:ItemModelYearDate" /></td>
-			<td><xsl:value-of select="nc:ItemColorDescriptionText" /></td>
-			<td><xsl:value-of select="nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID" /></td>
-			<td><xsl:value-of select="nc:VehicleIdentification/nc:IdentificationID" /></td>
-		</tr>
+			<td><xsl:value-of select="nc:ActivityCategoryText"/></td>
+			<td><xsl:value-of select="nc:ActivityReasonText"/></td>
+			<td><xsl:value-of select="nc:ActivityName"/></td>
+			<td><xsl:value-of select="j:CourtEventJudge/nc:RoleOfPerson/nc:PersonName/nc:PersonFullName"/></td>
+			<td>No Mapping</td>
+			<td><xsl:apply-templates select="nc:ActivityDateRange/nc:StartDate/nc:DateTime" mode="formatDateTime"/></td>
+			<td><xsl:apply-templates select="nc:ActivityDateRange/nc:EndDate/nc:DateTime" mode="formatDateTime"/></td>
+			<td><xsl:value-of select="ccq-res-ext:CourtEventCommentsText"/></td>
+			<td><xsl:value-of select="nc:ActivityDisposition/nc:DispositionDescriptionText"/></td>
+			<td><xsl:value-of select="nc:ActivityDescriptionText"/></td>
+		</tr>	
 	</xsl:template>
-	<xsl:template name="propertyTab">
-		<table>
-			<tr>
-				<td class="incidentLabel">Type</td>
-				<td class="incidentLabel">Make/Brand</td>
-				<td class="incidentLabel">Model</td>
-				<td class="incidentLabel">Serial #</td>
-				<td class="incidentLabel">Quantity</td>
-				<td class="incidentLabel">Value</td>
-				<td class="incidentLabel">Description</td>
-			</tr>
-			<xsl:apply-templates select="//lexsdigest:EntityTangibleItem/nc:TangibleItem" />
+	
+	<xsl:template match="nc:Case" mode="chargeSummary">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Charge</th>
+					<th>Count</th>
+					<th>Statute Number</th>
+					<th>Statute Description</th>
+					<th>Charge Description</th>
+					<th>Charge Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:CaseAugmentation/j:CaseCharge"></xsl:apply-templates>
+			</tbody>
 		</table>
+		<xsl:if test="j:CaseAugmentation/j:CaseAmendedCharge[normalize-space()]">
+			<pre>
+				
+				
+				
+			</pre>
+			<table class="detailDataTable display">
+				<thead>
+					<tr>
+						<th>Amended Charge Count</th>
+						<th>Amended Statute</th>
+						<th>Amended Statute Description</th>
+						<th>Amended Charge Description</th>
+						<th>Amended Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<xsl:apply-templates select="j:CaseAugmentation/j:CaseAmendedCharge"></xsl:apply-templates>
+				</tbody>
+			</table>
+		</xsl:if>
 	</xsl:template>
-	
-	<xsl:template match="//lexsdigest:EntityTangibleItem/nc:TangibleItem">
-		<xsl:variable name="tangibleItemID" select="@s:id"/>
-		<tr>
-			<td><xsl:value-of select="nc:ItemCategoryText"/></td>
-			<td><xsl:value-of select="nc:ItemMakeName"/></td>
-			<td><xsl:value-of select="nc:ItemModelName"/></td>
-			<td><xsl:value-of select="nc:ItemSerialIdentification/nc:IdentificationID"/></td>
-			<td><xsl:value-of select="//ndexia:IncidentReport/ndexia:TangibleItem/ndexia:TangibleItemAugmentation[lexslib:SameAsDigestReference/@lexslib:ref=$tangibleItemID]/ndexia:ItemQuantityStatusValue/nc:ItemQuantity"/></td>
-			<td><xsl:value-of select="//ndexia:IncidentReport/ndexia:TangibleItem/ndexia:TangibleItemAugmentation[lexslib:SameAsDigestReference/@lexslib:ref=$tangibleItemID]/ndexia:ItemQuantityStatusValue/ndexia:ItemValue/nc:ItemValueAmount"/></td>
-			<td><xsl:value-of select="nc:ItemDescriptionText"/></td>
-		</tr>
-	</xsl:template>
-	
-	<xsl:template name="chargeOffenseTab">
-		<table>
-			<tr>
-				<td class="incidentLabel">Code</td>
-				<td class="incidentLabel">Description</td>
-				<td class="incidentLabel">Status</td>
-				<td class="incidentLabel"># Premises Entered</td>
-				<td class="incidentLabel">Entry Method</td>
-				<td class="incidentLabel">Location</td>
-				<td class="incidentLabel">Bias</td>
-				<td class="incidentLabel">Weapon</td>
-			</tr>
-<!-- 			<xsl:apply-templates select="//lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref=//lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Offense']/@s:id]" /> -->
-				<xsl:apply-templates select="//lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference]" />
 		
-		</table>
-		
-	</xsl:template>
-	
-	<xsl:template match="//lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense">
-		<xsl:variable name="offenseID" select="ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref"/>
-		<xsl:variable name="structuredOffenseLocation" select="//lexs:Digest/lexsdigest:EntityLocation/nc:Location[@s:id=//lexsdigest:Associations/lexsdigest:OffenseLocationAssociation[nc:ActivityReference/@s:ref=//lexsdigest:EntityActivity/nc:Activity/@s:id]/nc:LocationReference/@s:ref]/nc:LocationAddress/nc:StructuredAddress" />	
+	<xsl:template match="j:CaseCharge">
 		<tr>
-			<td>
-				<xsl:choose>
-					<xsl:when test="ndexia:OffenseCode[.!='']">
-						<xsl:value-of select="ndexia:OffenseCode"/>
-					</xsl:when>
-					<xsl:otherwise>				
-						<xsl:value-of select="//ext:Offense[lexslib:SameAsDigestReference/@lexslib:ref=$offenseID]/ext:OffenseCodeText"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</td>
-			<td><xsl:value-of select="ndexia:OffenseText"/></td>
-			<td><xsl:value-of select="//ndexia:IncidentReport/ndexia:Incident/ndexia:ActivityStatus/ndexia:ActivityStatusAugmentation/ndexia:IncidentStatusCode"/></td>
-			<td><!-- Premises entered goes in here --></td>
-			<td><xsl:value-of select="ndexia:OffenseEntryPoint/ndexia:PassagePointAugmentation/ndexia:MethodOfAccessText"/></td>
-			<td>
-				<xsl:choose>
-					<xsl:when test="$structuredOffenseLocation/nc:LocationStreet/nc:StreetFullText[.!='']">
-						<xsl:value-of select="concat($structuredOffenseLocation/nc:LocationStreet/nc:StreetFullText,' ',$structuredOffenseLocation/nc:LocationCityName,',', $structuredOffenseLocation/nc:LocationStateName,' ',$structuredOffenseLocation/nc:LocationPostalCode)"/>
-					</xsl:when>
-					<xsl:otherwise>
-							<xsl:value-of select="concat($structuredOffenseLocation/nc:LocationStreet/nc:StreetNumberText,' ', $structuredOffenseLocation/nc:LocationStreet/nc:StreetName,' ', $structuredOffenseLocation/nc:LocationCityName,',', $structuredOffenseLocation/nc:LocationStateName,' ',$structuredOffenseLocation/nc:LocationPostalCode)"/>
-					</xsl:otherwise>
-				</xsl:choose>			
-			</td>
-			<td><!-- Bias entered goes in here --></td>
-			<td><xsl:value-of select="//lexsdigest:EntityTangibleItem/nc:TangibleItem[@s:id=//lexsdigest:Associations/lexsdigest:OffenseWeaponAssociation/nc:ItemReference/@s:ref]/nc:ItemDescriptionText"/></td>
+			<td><xsl:value-of select="j:ChargeSequenceID"/></td>
+			<td><xsl:value-of select="j:ChargeCountQuantity"/></td>
+			<td><xsl:value-of select="j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationCategoryDescriptionText"/></td>
+			<td><xsl:value-of select="j:ChargeDescriptionText"/></td>
+			<td><xsl:apply-templates select="j:ChargeFilingDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
 		</tr>
 	</xsl:template>
 	
-	<xsl:template name="narrativeTab" >
-		<xsl:value-of select="//lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityDescriptionText" />
+	<xsl:template match="j:CaseAmendedCharge">
+		<tr>
+			<td><xsl:value-of select="j:ChargeCountQuantity"/></td>
+			<td><xsl:value-of select="j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationCategoryDescriptionText"/></td>
+			<td><xsl:value-of select="j:ChargeDescriptionText"/></td>
+			<td><xsl:apply-templates select="j:ChargeFilingDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+		</tr>
 	</xsl:template>
 	
-	<xsl:template match="j:ActivityEnforcementOfficialAssociation">
-		<xsl:variable name="activityID" select="nc:ActivityReference/@s:ref"/>
-		<xsl:variable name="officerID" select="nc:PersonReference/@s:ref"/>
-		<xsl:variable name="officerName" select="/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityPerson/lexsdigest:Person[@s:id = $officerID]/nc:PersonName"/>
-		<xsl:variable name="officerBadge" select="/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityPerson[lexsdigest:Person/@s:id = $officerID]/j:EnforcementOfficial/j:EnforcementOfficialBadgeIdentification/nc:IdentificationID"/>
-		
-		<xsl:choose>
-			<xsl:when test="$officerName/nc:PersonFullName">
-				<xsl:value-of select="$officerName/nc:PersonFullName"/>
-			</xsl:when>
-			<xsl:when test="$officerName/nc:PersonGivenName or $officerName/nc:PersonSurName">
-				<xsl:value-of select="$officerName/nc:PersonGivenName"/><xsl:text> </xsl:text><xsl:value-of select="$officerName/nc:PersonSurName"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="$officerName"/>
-			</xsl:otherwise>
-		</xsl:choose>
-		
-		<xsl:text> (Badge #: </xsl:text><xsl:value-of select="$officerBadge"/><xsl:text>)</xsl:text> <br/>
-		
+	<xsl:template match="nc:Case" mode="criminalCase">
+		<div id="criminalCaseTabs">
+			<ul>
+				<li>
+					<a href="#caseInfoTab">Case Information</a>
+				</li>
+				<li>
+					<a href="#defendantInfoTab">Defendant Information</a>
+				</li>
+			</ul>
+			
+			<div id="caseInfoTab">
+				<p><xsl:apply-templates select="." mode="caseInfo"/></p>	
+			</div>
+			<div id="defendantInfoTab">
+				<p><xsl:apply-templates select="." mode="defendantInfo"/></p>
+			</div>
+		</div>
 	</xsl:template>
+	
+	<xsl:template match="nc:Case" mode="caseInfo">
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>Judge: </label>
+					<xsl:for-each select="j:CaseAugmentation/j:CaseJudge/nc:RoleOfPerson/nc:PersonName">
+						<xsl:if test="position() > 1"><xsl:text>&#x0A;</xsl:text></xsl:if>
+						<xsl:apply-templates select="." mode="firstNameFirst"/>
+					</xsl:for-each>
+				</th>
+				<th>
+					<label>Under Advisement Date: </label>
+					<xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:CaseUnderAdvisementDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Case Subtype: </label>
+					<xsl:value-of select="nc:CaseCategoryText"/></th>
+				<th>
+					<label>Domestic Violence: </label>
+					<xsl:value-of select="j:CaseAugmentation/j:CaseDomesticViolenceIndicator"></xsl:value-of></th>
+			</tr>
+			<tr>
+				<th>
+					<label>Court Location: </label>
+					<xsl:value-of select="j:CaseAugmentation/j:CaseCourt/j:CourtDivisionText"/>
+				</th>
+				<th><label>Jury Verdict: </label>
+				<xsl:value-of select="ccq-res-ext:CaseAugmentation/ccq-res-ext:JuryVerdictIndicator"/></th>
+			</tr>
+			<tr>
+				<th><label>Jurisdiction: </label>
+				<xsl:value-of select="j:CaseAugmentation/j:CaseCourt/j:OrganizationAugmentation/j:OrganizationJurisdiction/nc:JurisdictionText"/></th>
+				<th><label>Previous Case Number: </label>
+				<xsl:value-of select="j:CaseAugmentation/j:CaseLineageCase/nc:CaseTrackingID"></xsl:value-of></th>
+			</tr>
+			<tr>
+				<th><label>Filing Date: </label>
+				<xsl:apply-templates select="nc:CaseFiling/child::nc:DocumentCreationDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"/></th>
+				<th><label>Other Agency Case Number: </label>
+				<xsl:value-of select="j:CaseAugmentation/j:CaseOtherIdentification/nc:IdentificationID"></xsl:value-of></th>
+			</tr>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="nc:Case" mode="defendantInfo">
+		<xsl:variable name="defendantID"><xsl:value-of select="j:CaseAugmentation/j:CaseDefendantParty/nc:EntityPerson/@structures:ref"></xsl:value-of></xsl:variable>
+		<table class="detailTable">
+			<tr>
+				<th><label>Defendant: </label>
+				
+					<xsl:apply-templates select="ancestor::ccq-res-doc:CourtCaseQueryResults/nc:Person[@structures:id = $defendantID]/nc:PersonName" mode="firstNameFirst"></xsl:apply-templates>
+				</th>
+				<th colspan="2"/>
+			</tr>
+			<tr>
+				<th><label>Next Appearance: </label>
+				No Mapping</th>
+				<th colspan="2"/>
+			</tr>
+			<tr>
+				<th><label>Trial By: </label>
+				No Mapping</th>
+				<th><label>Custody Status: </label>
+					<xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/j:Detention/nc:SupervisionCustodyStatus/nc:StatusDescriptionText"/></th>
+			</tr>
+			<tr>
+				<th><label>Speedy Trial: </label>
+				<xsl:apply-templates select="j:CaseAugmentation/j:CaseTrial/ccq-res-ext:SpeedyTrialDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
+				<th><label>FTP Hold Indefinite: </label>
+					No Mapping</th>
+			</tr>
+			<tr>
+				<th><label>FTA Hold Date: </label>
+				<xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToAppearHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
+				<th><label>FTP Hold Date: </label>
+				<xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToPayHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
+			</tr>
+			<tr>
+				<th><label>FTC Hold Date: </label>
+				<xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToComplyHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
+				<th><label>FTPV Hold Date: </label>
+				<xsl:apply-templates select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToPayVictimHoldDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
+			</tr>
+			<tr>
+				<th><label>Lead Attorney: </label>
+				<xsl:apply-templates select="j:CaseAugmentation/j:CaseDefenseAttorney/nc:RoleOfPerson/nc:PersonName" mode="firstNameFirst"/></th>
+				<th><label>Attorney Waived: </label>
+				<xsl:value-of select="j:CaseAugmentation/j:CaseDefendantSelfRepresentationIndicator"></xsl:value-of></th>
+			</tr>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="party">
+		<xsl:variable name="defendantID"><xsl:value-of select="nc:Case/j:CaseAugmentation/j:CaseDefendantParty/nc:EntityPerson/@structures:ref"/></xsl:variable>
+		<div id="partyTabs">
+			<ul>
+				<li>
+					<a href="#partyInfoTab">Party Information</a>
+				</li>
+				<li>
+					<a href="#licenseInfoTab">License Information</a>
+				</li>
+				<li>
+					<a href="#idAndPaymentInfoTab">ID And Payment Information</a>
+				</li>
+				<li>
+					<a href="#commentsTab">Comments</a>
+				</li>
+			</ul>
+			
+			<div id="partyInfoTab">
+				<p><xsl:apply-templates select="nc:Person[@structures:id = $defendantID]" mode="partyInfo"/></p>	
+			</div>
+			<div id="licenseInfoTab">
+				<p><xsl:apply-templates select="nc:Person[@structures:id = $defendantID]/j:PersonAugmentation/j:DriverLicense"/></p>
+			</div>
+			<div id="idAndPaymentInfoTab">
+				<p><xsl:apply-templates select="nc:Person[@structures:id = $defendantID]" mode="idAndPaymentInfo"/></p>
+			</div>
+			<div id="commentsTab">
+				<p><xsl:apply-templates select="nc:Person[@structures:id = $defendantID]" mode="partyComments"/></p>
+			</div>
+		</div>
+	</xsl:template>
+	
+	<xsl:template match="nc:Person" mode="partyInfo">
+		<xsl:variable name="personId"><xsl:value-of select="@structures:id"></xsl:value-of></xsl:variable>
+		<xsl:variable name="locationId">
+			<xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:PersonResidenceAssociation[nc:Person/@structures:ref=$personId]/nc:Location/@structures:ref"/></xsl:variable>
+		<xsl:variable name="contactInfoId">
+			<xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:ContactInformationAssociation[nc:ContactEntity/@structures:ref=$personId]/nc:ContactInformation/@structures:ref"/></xsl:variable>
+		
+		<table class="detailTable">
+			<tr>
+				<th colspan="2">
+					<label>State ID: </label>
+					<xsl:value-of select="j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID"/>
+				</th>
+			</tr>
+			<tr>
+				<th><label>Last Name: </label>
+					<xsl:value-of select="nc:PersonName/nc:PersonSurName"/>
+				</th>
+				<th><label>Company: </label>
+					<xsl:value-of select="preceding-sibling::nc:Case/j:CaseAugmentation/j:CaseDefendantParty/nc:EntityOrganization/nc:OrganizationName"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th><label>First Name: </label>
+					<xsl:value-of select="nc:PersonName/nc:PersonGivenName"/></th>
+				<th colspan="2"/>		
+			</tr>
+			<tr>
+				<th>
+					<label>Middle Name: </label>
+					<xsl:value-of select="nc:PersonName/nc:PersonMiddleName"/></th>
+				<th>
+					<label>SSN: </label>
+					<xsl:value-of select="nc:PersonSSNIdentification/nc:IdentificationID"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Suffix: </label>
+					<xsl:value-of select="nc:PersonName/nc:PersonNameSuffixText"></xsl:value-of>	
+				</th>
+				<th>
+					<label>DOB: </label>
+					<xsl:apply-templates select="nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"></xsl:apply-templates>
+				</th>
+			</tr>
+			<tr>
+				<th><label>Sex: </label>
+					<xsl:value-of select="nc:PersonSexText"/>
+				</th>
+				<th><label>Eyes: </label>
+					<xsl:value-of select="j:PersonEyeColorCode"/></th>
+			</tr>
+			<tr>
+				<th><label>Hair: </label>
+					<xsl:value-of select="j:PersonHairColorCode"/></th>
+				<th><label>Weight: </label>
+					<xsl:value-of select="nc:PersonWeightMeasure/child::nc:MeasureValueText"></xsl:value-of>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="nc:PersonWeightMeasure/child::nc:MeasureUnitText"></xsl:value-of>
+				</th>
+			</tr>
+				<th><label>Height: </label>
+					<xsl:value-of select="nc:PersonHeightMeasure/nc:MeasureValueText"/><xsl:text> </xsl:text>
+					<xsl:value-of select="nc:PersonHeightMeasure/nc:MeasureUnitText"></xsl:value-of>
+				</th>
+				<th><label>Language: </label>
+					No Mapping</th>
+			<tr>
+				<th><label>Race: </label>
+					<xsl:value-of select="nc:PersonEthnicityText"></xsl:value-of>	
+				</th>
+				<th colspan="2"><label>Juvenile: </label>
+					No Mapping</th>
+			</tr>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="j:DriverLicense">
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>License Number: </label>
+					<xsl:value-of select="j:DriverLicenseIdentification/nc:IdentificationID"/>
+				</th>
+				<th>
+					<label>License State: </label>
+					<xsl:value-of select="j:DriverLicenseIdentification/nc:IdentificationSourceText"/>
+				</th>
+				<th>
+					<label>Commercial: </label>
+					<xsl:value-of select="j:DriverLicenseCommercialClassText"/>
+				</th>
+			</tr>
+			<tr>
+				<th><label>License Class: </label>
+					<xsl:value-of select="j:DriverLicenseNonCommercialClassText"/>
+				</th>
+				<th><label>License Issued: </label>
+					<xsl:apply-templates select="j:DriverLicenseIssueDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"></xsl:apply-templates>
+				</th>
+				<th><label>License Expires: </label>
+					<xsl:apply-templates select="j:DriverLicenseExpirationDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"></xsl:apply-templates>
+				</th>
+			</tr>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="nc:Person" mode="idAndPaymentInfo">
+		<table class="detailTable">
+			<tr>
+				<th colspan="3">
+					<label>Party ID: </label>
+					No Mapping
+				</th>
+			</tr>
+			<tr>
+				<th><label>Juvenile ID: </label>
+					No Mapping
+				</th>
+				<th><label>Inmate ID: </label>
+					<xsl:value-of select="ccq-res-ext:PersonInmateIdentification/nc:IdentificationID"></xsl:value-of>
+				</th>
+				<th><label>Other ID: </label>
+					No Mapping
+				</th>
+			</tr>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="nc:Person" mode="partyComments">
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>Body Marks: </label>
+					<xsl:value-of select="nc:PersonPhysicalFeature/nc:PhysicalFeatureDescriptionText"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>General Comments: </label>
+					No Mapping
+				</th>
+			</tr>
+		</table>
+	</xsl:template>
+		
 </xsl:stylesheet>

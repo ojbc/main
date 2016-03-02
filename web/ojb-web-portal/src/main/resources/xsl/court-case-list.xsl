@@ -53,21 +53,6 @@
 		            </tr>
 		        </table>
     		</xsl:when>
-    		
-    		<!-- 
-    		<xsl:when test="not(//srm:SearchResultsMetadata/srer:SearchRequestError) and count(exchange:IncidentPersonSearchResults/ext:IncidentPersonSearchResult) = 0">
-    			<table id="incidentsError" class="detailsTable">
-		            <tr>
-		                <td class="detailsTitle" >NO ASSOCIATED INCIDENTS</td>
-		            </tr>
-		            <tr>
-			            <td>
-			            	<span class="error">There are no incidents associated with this person record.</span><br /> 
-			            </td>
-		            </tr>
-		        </table>
-    		</xsl:when>
-    		 -->
     		<xsl:otherwise>
     			<xsl:choose>
     				<xsl:when test="count(ccs-res-ext:CourtCaseSearchResult) = 0">
@@ -104,9 +89,9 @@
 	    						}).fail(ojbc.displayIncidentDetailFailMessage);
     						
     						}).hover(function () {
-    								$(this).addClass("incidentHover");
+    								$(this).addClass("hover");
     							}, function () {
-    								$(this).removeClass("incidentHover");
+    								$(this).removeClass("hover");
     							});
     						});
     					</script>
@@ -141,7 +126,7 @@
             <td>
             	<xsl:value-of select="normalize-space(nc:Case/j:CaseAugmentation/j:CaseCourt/j:CourtName)"/>
             	<xsl:text> vs. </xsl:text>
-            	<xsl:apply-templates select="nc:Person[@structures:id = $associatedPersonId]/nc:PersonName" mode="primaryName"></xsl:apply-templates>            
+            	<xsl:apply-templates select="nc:Person[@structures:id = $associatedPersonId]/nc:PersonName" mode="firstNameFirst"></xsl:apply-templates>            
             </td>
         	<td>
         		<xsl:value-of select="nc:Case/nc:ActivityStatus/nc:StatusDescriptionText"></xsl:value-of>

@@ -34,6 +34,15 @@
 		<xsl:value-of select="format-date(.,'[M01]/[D01]/[Y0001]')"/>
 	</xsl:template>
 	
+	<xsl:template match="*|@*" mode="formatDateTimeAsMMDDYYYY">
+		<xsl:value-of select="format-dateTime(.,'[M01]/[D01]/[Y0001]')"/>
+	</xsl:template>
+	
+	<!-- Converts YYYY-MM-DD to MM/DD/YYYY - HH:mm -->
+	<xsl:template match="*|@*" mode="formatDateTime">
+		<xsl:value-of select="format-dateTime(.,'[M01]/[D01]/[Y0001] - [H01]:[m01]')"/>
+	</xsl:template>
+	
 	<xsl:template name="formatSSN">
 		<xsl:param name="ssn" />
 	
