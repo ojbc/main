@@ -119,6 +119,7 @@
 					<xsd:element ref="ccq-res-ext:CaseUnderAdvisementDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ccq-res-ext:JuryRequestedIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ccq-res-ext:JuryVerdictIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:FailureToPayHoldIndefiniteIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ccq-res-ext:FailureToPayHoldDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ccq-res-ext:FailureToAppearHoldDate" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ccq-res-ext:FailureToComplyHoldDate" minOccurs="0" maxOccurs="unbounded"/>
@@ -232,6 +233,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="FailureToPayHoldIndefiniteIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if failure to pay hold is indefinite; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="FirstCourtAppearance" type="j:CourtAppearanceType"
 		substitutionGroup="j:CourtEventAugmentationPoint">
 		<xsd:annotation>
@@ -243,6 +250,13 @@
 		substitutionGroup="j:CourtEventAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>New appearance in court required of a party.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TrialByText" type="nc:TextType"
+		substitutionGroup="j:CourtEventAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Date of a trial to ensure it is speedy.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -316,9 +330,7 @@
 	<xsd:element name="JuvenileDefendantIndicator" type="xsd:boolean"
 		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if a defendant is a juvenile; false
-				otherwise.
-			</xsd:documentation>
+			<xsd:documentation>True if a defendant is a juvenile; false otherwise.	</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonInmateIdentification" type="nc:IdentificationType"

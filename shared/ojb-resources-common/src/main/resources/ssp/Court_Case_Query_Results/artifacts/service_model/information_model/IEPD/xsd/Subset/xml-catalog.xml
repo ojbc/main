@@ -23,6 +23,7 @@
   <uri name="http://release.niem.gov/niem/codes/core_misc/3.0/" uri="niem/codes/core_misc/3.0/core_misc.xsd"/>
   <uri name="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" uri="niem/codes/fbi_ncic/3.1/fbi_ncic.xsd"/>
   <uri name="http://release.niem.gov/niem/conformanceTargets/3.0/" uri="niem/conformanceTargets/3.0/conformanceTargets.xsd"/>
+  <uri name="http://release.niem.gov/niem/domains/cyfs/3.1/" uri="niem/domains/cyfs/3.1/cyfs.xsd"/>
   <uri name="http://release.niem.gov/niem/domains/intelligence/3.1/" uri="niem/domains/intelligence/3.1/intelligence.xsd"/>
   <uri name="http://release.niem.gov/niem/domains/jxdm/5.1/" uri="niem/domains/jxdm/5.1/jxdm.xsd"/>
   <uri name="http://release.niem.gov/niem/domains/screening/3.1/" uri="niem/domains/screening/3.1/screening.xsd"/>

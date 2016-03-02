@@ -110,6 +110,7 @@
           <xs:element ref="j:ArrestCharge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestLocation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestOfficial" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ArrestProbableCauseText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -233,6 +234,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="j:CourtAppearanceCase" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtAppearanceCourt" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CourtAppearanceDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CourtAppearanceReasonText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CourtAppearanceCategoryText" minOccurs="0" maxOccurs="unbounded"/>
@@ -249,6 +251,7 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:CourtEventAppearance" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtEventCourt" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CourtEventJudge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CourtEventAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -595,6 +598,11 @@
       <xs:documentation>A peace official who makes an arrest.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ArrestProbableCauseText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An observed or reported violation of a law or ordinance, which can be a sufficient cause to arrest a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="BailBond" type="j:BailBondType">
     <xs:annotation>
       <xs:documentation>An agreement between a bondsman and a subject in which a bondsman pays the subject's bail or portion of the bail in exchange for certain conditions, including the payment of a certain amount of money and the reappearance of the subject</xs:documentation>
@@ -625,7 +633,7 @@
       <xs:documentation>A charge or accusation a person is being tried for in a court of law.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="CaseCourt" type="j:CourtType" nillable="true">
+  <xs:element name="CaseCourt" type="j:CourtType">
     <xs:annotation>
       <xs:documentation>A court of law in which the case is being tried.</xs:documentation>
     </xs:annotation>
@@ -655,7 +663,7 @@
       <xs:documentation>True if the case involves domestic violence; false otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="CaseHearing" type="j:CourtEventType" nillable="true">
+  <xs:element name="CaseHearing" type="j:CourtEventType">
     <xs:annotation>
       <xs:documentation>An appearance before a judicial official conducted in person, by telephone, or by video. </xs:documentation>
     </xs:annotation>
@@ -795,6 +803,11 @@
       <xs:documentation>A kind of appearance a party is required to make in court.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CourtAppearanceCourt" type="j:CourtType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A court in which a party is required to appear.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CourtAppearanceDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date on which a party must appear in court.</xs:documentation>
@@ -823,6 +836,11 @@
   <xs:element name="CourtEventAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for CourtEventType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtEventCourt" type="j:CourtType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A court in which a court event occurs.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CourtEventJudge" type="j:JudicialOfficialType" nillable="true">
@@ -953,6 +971,11 @@
   <xs:element name="ObligationPersonAssociation" type="j:ObligationPersonAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An association between an obligation and a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseDomesticViolenceIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if an offense involves the infliction of physical injury, or the creation of a reasonable fear that physical injury or harm will be inflicted, by a parent or member or former member of a child's household, against a child or against another member of the household; false otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="nc:OrganizationAugmentationPoint">
