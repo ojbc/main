@@ -19,127 +19,137 @@
 -->
 <xsl:stylesheet version="2.0" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:cs-res-doc="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0"
-    xmlns:cs-res-ext="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0"
+    xmlns:cq-res-doc="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0"
+    xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0"
     xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-    xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
     xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+    xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
     xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
     xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+    xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+    xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
-    xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+    xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+    xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
     xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+    xmlns:fo="http://www.w3.org/1999/XSL/Format"
     exclude-result-prefixes="#all">
 	<xsl:import href="_formatters.xsl" />
 	
 	<xsl:output method="html" encoding="UTF-8" />
-	
-	<xsl:template match="/cs-res-doc:CustodySearchResults">
+		
+	<xsl:template match="/cq-res-doc:CustodyQueryResults">
 		<xsl:choose>
-			<xsl:when test="srm:SearchResultsMetadata/srer:SearchRequestError 
-				| srm:SearchResultsMetadata/iad:InformationAccessDenial
-				| srm:SearchResultsMetadata/srer:SearchErrors/srer:SearchResultsExceedThresholdError">
-				<table id="searchResultsError" class="detailsTable">
-					<tr>
-						<td class="detailsTitle" >SEARCH RESULTS ERROR</td>
-					</tr>
-					<tr>
-						<td>
-							<xsl:apply-templates select="srm:SearchResultsMetadata/srer:SearchRequestError" /> 
-							<xsl:apply-templates select="srm:SearchResultsMetadata/iad:InformationAccessDenial" /> 
-							<xsl:apply-templates select="srm:SearchResultsMetadata/srer:SearchErrors/srer:SearchResultsExceedThresholdError" /> 
-						</td>
-					</tr>
-				</table>
+			<xsl:when test="qrm:QueryResultsMetadata/qrer:QueryRequestError | qrm:QueryResultsMetadata/iad:InformationAccessDenial">
+				<xsl:apply-templates select="qrm:QueryResultsMetadata/qrer:QueryRequestError" />
+				<xsl:apply-templates select="qrm:QueryResultsMetadata/iad:InformationAccessDenial" />
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:choose>
-					<xsl:when test="count(cs-res-ext:CustodySearchResult) = 0">
-						<table id="incidentsError" class="detailsTable">
-							<tr>
-								<td class="detailsTitle" >NO ASSOCIATED JAIL CUSTODY</td>
-							</tr>
-							<tr>
-								<td>
-									<span class="error">There is no court case associated with this person record.</span><br /> 
-								</td>
-							</tr>
-						</table>
-					</xsl:when>
-					<xsl:otherwise>
-						<script type="text/javascript">
-							$(function () {
-								$('#custodyTable tbody tr').click(function () {
-								
-									var systemName =$(this).attr('systemName');
-									var identificationSourceText = $(this).attr('identificationSourceText');
-									var identificationID = $(this).attr('identificationID');
-									
-									
-									$('#custodyTable tr').removeClass("selected");
-									$(this).addClass("selected");
-									
-									var tempDiv = '<div id="incidentDetailTemp" style="height:50%;width:100%"/>';
-									// tempDiv for css spinner - replaced upon receipt of get data
-									$('#custodyDetailTabsHolder').html(tempDiv);                                         
-								
-									$.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
-										$('#custodyDetailTabsHolder').html(data);
-									}).fail(ojbc.displayIncidentDetailFailMessage);
-								
-								}).hover(function () {
-										$(this).addClass("incidentHover");
-								}, function () {
-										$(this).removeClass("incidentHover");
-								});
-							});
-						</script>
-						
-						<table id="custodyTable" class="detailsTable">
-							<thead>
-								<td class="detailsTitle" >ARREST ID</td>
-								<td class="detailsTitle">AGENCY</td>
-								<td class="detailsTitle">DATE ARRESTED</td>
-							</thead>
-							<tbody>
-								<xsl:apply-templates /> 
-							</tbody>
-						</table>
-						<div id="custodyDetailTabsHolder"></div>   
-					</xsl:otherwise>
-				</xsl:choose>
+				<script type="text/javascript">
+					$(function () {
+						$('#custodyDetailTabs').tabs({
+							activate: function( event, ui ) {
+								var modalIframe = $("#modalIframe", parent.document);
+								modalIframe.height(modalIframe.contents().find("body").height() + 16);
+							}
+						}); 
+					
+					});
+				</script>
+				<div id="custodyDetailTabs">
+					<ul>
+						<li>
+							<a href="#bond">BOND</a>
+						</li>
+						<li>
+							<a href="#booking">BOOKING</a>
+						</li>
+						<li>
+							<a href="#nextCourtEvent">NEXT COURT EVENT</a>
+						</li>
+						<li>
+							<a href="#charge">CHARGE</a>
+						</li>
+						<li>
+							<a href="#detention">DETENTION</a>
+						</li>
+					</ul>
+					
+					<div id="bond">
+						<p><xsl:apply-templates select="cq-res-ext:Custody/j:BailBond[@structures:id = parent::cq-res-ext:Custody/j:BailBondChargeAssociation/j:BailBond/@structures:ref]"/></p>	
+					</div>
+					<div id="booking">
+						<p><xsl:apply-templates select="cq-res-ext:Custody/j:Booking[@structures:id= parent::cq-res-ext:Custody/j:ActivityChargeAssociation/nc:Activity/@structures:ref]"/></p>	
+					</div>
+					<div id="nextCourtEvent">
+						<p>nextCourtEvent</p>
+					</div>
+					<div id="charge">
+						<p>charge</p>
+					</div>
+					<div id="detention">
+						<p>detention</p>
+					</div>
+				</div>
 			</xsl:otherwise>
 		</xsl:choose>
+		
 	</xsl:template>
 	
-	<xsl:template match="cs-res-ext:CustodySearchResult">
-<!--		
-		<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(cs-res-ext:SourceSystemNameText)"/></xsl:variable>
--->		
-		<xsl:variable name="systemSource"><xsl:text>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JailDetail</xsl:text></xsl:variable>
-		<tr 
-			systemName="Custody Detail"
-			identificationSourceText="{$systemSource}"   
-			>
-			<xsl:attribute name="identificationID"><xsl:value-of select="cs-res-ext:Booking/j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/></xsl:attribute>
-			
-			<td><xsl:value-of select="cs-res-ext:Booking/j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/></td>
-			<td>
-				<xsl:value-of select="cs-res-ext:InformationOwningOrganization/nc:OrganizationName"></xsl:value-of>
-			</td>
-			<td>
-				<xsl:value-of select="format-dateTime(cs-res-ext:Booking/j:FingerprintDate/nc:DateTime, '[M01]/[D01]/[Y0001]')"/>
-			</td>
-		</tr>		
+	<xsl:template match="j:BailBond">
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>Bond Amount: </label>
+					<xsl:value-of select="j:BailBondAmount/nc:Amount"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Bond Type: </label>
+					<xsl:value-of select="nc:ActivityCategoryText"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Bond Status: </label>
+					<xsl:value-of select="nc:ActivityStatus/nc:StatusDescriptionText"></xsl:value-of>
+				</th>
+			</tr>
+		</table>
 	</xsl:template>
-	<xsl:template match="srer:SearchRequestError">
-		<span class="error">System Name: <xsl:value-of select="nc:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/></span><br />
+	
+	<xsl:template match="j:Booking">
+		<xsl:variable name="base64Image">
+			<xsl:text>data:image/jpg;base64,</xsl:text>
+			<xsl:value-of select="parent::cq-res-ext:Custody/nc:Person[@structures:id=parent::cq-res-ext:Custody/j:Booking/j:BookingSubject/nc:RoleOfPerson/@structures:ref]/nc:PersonDigitalImage/nc:Base64BinaryObject"></xsl:value-of>
+		</xsl:variable>
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>Booking Number: </label>
+					<xsl:value-of select="j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Booking Date/Time: </label>
+					<xsl:apply-templates select="nc:ActivityDate/nc:DateTime" mode="formatDateTime"/>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Booking Image: </label>
+					<fo:external-graphic src="{$base64Image}"/>
+				</th>
+			</tr>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="qrer:QueryRequestError">
+		<span class="error">System Name: <xsl:value-of select="intel:SystemIdentification/nc:SystemName" />, Error: <xsl:value-of select="qrer:ErrorText"/></span><br />
 	</xsl:template>
 	<xsl:template match="iad:InformationAccessDenial">
 		<span class="error">Access to System <xsl:value-of select="iad:InformationAccessDenyingSystemNameText" /> Denied. Denied Reason: <xsl:value-of select="iad:InformationAccessDenialReasonText"/></span><br />
-	</xsl:template>
-	<xsl:template match="srer:SearchResultsExceedThresholdError">
-		<span class="error">System <xsl:value-of select="preceding-sibling::nc:SystemName" /> returned too many records. Record count <xsl:value-of select="srer:SearchResultsRecordCount"/></span><br />
 	</xsl:template>
 </xsl:stylesheet>
