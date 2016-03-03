@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +41,8 @@ import org.joda.time.Days;
 import org.joda.time.Seconds;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -702,6 +701,24 @@ public abstract class AbstractSampleGenerator {
 		
 		return randomString;
 	}
+	
+		
+	protected final String randomDate() throws IOException{
+		
+		return randomDate("yyyy-MM-dd");
+	}
+	
+	
+	protected final String randomDate(String sdfDateFormat) throws IOException{
+		
+		PersonElementWrapper randomPerson = getRandomIdentity(null);
+		
+		String sDob = randomPerson.birthdate.toString(sdfDateFormat); 
+		
+		return sDob;		
+	}
+	
+	
 
 	/**
 	 * Get a randomly selected county that is within the specified state, from US Postal Service data
