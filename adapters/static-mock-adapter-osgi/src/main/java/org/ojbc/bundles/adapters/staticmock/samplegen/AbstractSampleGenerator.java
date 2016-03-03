@@ -702,6 +702,24 @@ public abstract class AbstractSampleGenerator {
 		
 		return randomString;
 	}
+	
+		
+	protected final String randomDate() throws IOException{
+		
+		return randomDate("yyyy-MM-dd");
+	}
+	
+	
+	protected final String randomDate(String sdfDateFormat) throws IOException{
+		
+		PersonElementWrapper randomPerson = getRandomIdentity(null);
+		
+		String sDob = randomPerson.birthdate.toString(sdfDateFormat); 
+		
+		return sDob;		
+	}
+	
+	
 
 	/**
 	 * Get a randomly selected county that is within the specified state, from US Postal Service data
