@@ -110,7 +110,11 @@
       <xs:documentation>A data type for a requirement or stipulation.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="nc:ActivityType"/>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="nc:ConditionAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="ContactInformationAssociationType">
@@ -144,7 +148,11 @@
       <xs:documentation>A data type for a means of transport from place to place.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="nc:ItemType"/>
+      <xs:extension base="nc:ItemType">
+        <xs:sequence>
+          <xs:element ref="nc:ConveyanceAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="CrossStreetType">
@@ -305,7 +313,11 @@
       <xs:documentation>A data type for an article or thing.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="structures:ObjectType"/>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:ItemColor" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="JurisdictionType">
@@ -630,6 +642,7 @@
           <xs:element ref="nc:VehicleIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:VehicleMake" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:VehicleModel" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:VehicleAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -769,6 +782,11 @@
       <xs:documentation>An identifier used to track a case.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ConditionAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ConditionType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Contact" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a person or organization to contact.</xs:documentation>
@@ -809,6 +827,11 @@
       <xs:documentation>A means of transport.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ConveyanceAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ConveyanceType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CrossStreetDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of a street intersection.</xs:documentation>
@@ -834,7 +857,7 @@
       <xs:documentation>An activity assigned to a person for the purpose of self-improvement, punishment, or restitution.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="DisciplinaryActionRestitution" type="nc:ObligationType" nillable="true">
+  <xs:element name="DisciplinaryActionRestitution" type="nc:ObligationType">
     <xs:annotation>
       <xs:documentation>A requirement for a person to financially or otherwise compensate another person as  a disciplinary action.</xs:documentation>
     </xs:annotation>
@@ -914,6 +937,11 @@
       <xs:documentation>A full telephone number.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="IdentificationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for IdentificationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="IdentificationCategoryDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of a kind of identification.</xs:documentation>
@@ -952,6 +980,11 @@
   <xs:element name="IncidentLocation" type="nc:LocationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A location where an incident occurred.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemColor" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a color of an item.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="JurisdictionAbstract" abstract="true">
@@ -1384,6 +1417,11 @@
       <xs:documentation>A conveyance designed to carry an operator, passengers and/or cargo, over land.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="VehicleAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for VehicleType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="VehicleCMVIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if a vehicle is a commercial motor vehicle; false otherwise.</xs:documentation>
@@ -1402,6 +1440,11 @@
   <xs:element name="VehicleModel" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a specific design or class of vehicle made by a manufacturer.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="YearDate" type="niem-xs:gYear" substitutionGroup="nc:DateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A year.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>

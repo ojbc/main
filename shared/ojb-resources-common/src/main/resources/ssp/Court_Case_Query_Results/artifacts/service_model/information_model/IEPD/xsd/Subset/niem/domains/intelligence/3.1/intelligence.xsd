@@ -23,6 +23,19 @@
   </xs:annotation>
   <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
   <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="IdentificationAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about an identification.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="intel:IdentificationIssuingStateName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="intel:IdentificationIssuingLocalityText" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="PersonAugmentationType">
     <xs:annotation>
       <xs:documentation>A data type for additional information about a person.</xs:documentation>
@@ -35,6 +48,21 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:element name="IdentificationAugmentation" type="intel:IdentificationAugmentationType" substitutionGroup="nc:IdentificationAugmentationPoint" nillable="true">
+    <xs:annotation>
+      <xs:documentation>Additional information about an identification.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IdentificationIssuingLocalityText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A Geographic Location from which this identification was issued.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IdentificationIssuingStateName" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of a major administrative district or division of a country from which this identification was issued.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonAugmentation" type="intel:PersonAugmentationType" substitutionGroup="nc:PersonAugmentationPoint" nillable="true">
     <xs:annotation>
       <xs:documentation>Additional information about a person.</xs:documentation>

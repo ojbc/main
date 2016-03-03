@@ -97,8 +97,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<nc:ActivityDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:ActivityDate>
+					<j:PleaDescriptionText>condtions of plea agreement</j:PleaDescriptionText>
+					<j:PleaRecommendationText>charges resulting from plea</j:PleaRecommendationText>
 					<j:PleaCategoryCode>A</j:PleaCategoryCode>
-					
 				</j:ChargePlea>
 				<j:ChargeSentence>
 					<nc:ActivityIdentification>
@@ -505,9 +506,21 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		</nc:ObligationPaidDate>
 	</nc:Fee>
 	<nc:Vehicle structures:id="Vehicle_01">
+		<j:ConveyanceAugmentation>
+			<j:ModelYearRange>
+				<nc:StartDate>
+					<nc:Date>2001-01-01</nc:Date>
+				</nc:StartDate>
+			</j:ModelYearRange>
+		</j:ConveyanceAugmentation>
+		<j:ConveyanceColorPrimaryCode>BLK</j:ConveyanceColorPrimaryCode>
 		<nc:VehicleCMVIndicator>true</nc:VehicleCMVIndicator>
 		<nc:VehicleIdentification>
-			<nc:IdentificationID>VIN</nc:IdentificationID>
+			<j:ConvenyanceRegistrationPlateIdendification>
+				<nc:IdentificationID>plate1</nc:IdentificationID>
+				<nc:IdentificationSourceText>Montana</nc:IdentificationSourceText>
+			</j:ConvenyanceRegistrationPlateIdendification>
+			<nc:IdentificationID>VIN number</nc:IdentificationID>
 		</nc:VehicleIdentification>
 		<j:VehicleMakeCode>AAA</j:VehicleMakeCode>
 		<j:VehicleModelCode>002</j:VehicleModelCode>

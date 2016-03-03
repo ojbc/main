@@ -46,8 +46,8 @@
 			<nc:PersonSurName>Jones</nc:PersonSurName>
 			<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
 		</nc:PersonName>
-		<j:PersonRaceCode>A</j:PersonRaceCode>
-		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonRaceText>A</nc:PersonRaceText>
+		<nc:PersonSexText>M</nc:PersonSexText>
 		<wir-ext:PersonRecordIdentification>
 			<nc:IdentificationID>R69458998</nc:IdentificationID>
 		</wir-ext:PersonRecordIdentification>

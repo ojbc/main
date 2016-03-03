@@ -179,6 +179,203 @@ https://www.leo.gov</xs:documentation>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:simpleType name="VCOCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for Vehicle Color.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="AME">
+        <xs:annotation>
+          <xs:documentation>Amethyst (purple)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BGE">
+        <xs:annotation>
+          <xs:documentation>Beige</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLK">
+        <xs:annotation>
+          <xs:documentation>Black</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLU">
+        <xs:annotation>
+          <xs:documentation>Blue</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRO">
+        <xs:annotation>
+          <xs:documentation>Brown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRZ">
+        <xs:annotation>
+          <xs:documentation>Bronze</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CAM">
+        <xs:annotation>
+          <xs:documentation>Camouflage</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COM">
+        <xs:annotation>
+          <xs:documentation>Stainless Steel</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COM">
+        <xs:annotation>
+          <xs:documentation>Chrome</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CPR">
+        <xs:annotation>
+          <xs:documentation>Copper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRM">
+        <xs:annotation>
+          <xs:documentation>Cream</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRM">
+        <xs:annotation>
+          <xs:documentation>Ivory</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DBL">
+        <xs:annotation>
+          <xs:documentation>Blue, Dark</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DGR">
+        <xs:annotation>
+          <xs:documentation>Green, Dark</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GLD">
+        <xs:annotation>
+          <xs:documentation>Gold</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GRN">
+        <xs:annotation>
+          <xs:documentation>Green</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GRY">
+        <xs:annotation>
+          <xs:documentation>Gray</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LAV">
+        <xs:annotation>
+          <xs:documentation>Lavender (purple)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LBL">
+        <xs:annotation>
+          <xs:documentation>Blue, Light</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LGR">
+        <xs:annotation>
+          <xs:documentation>Green, Light</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MAR">
+        <xs:annotation>
+          <xs:documentation>Maroon</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MAR">
+        <xs:annotation>
+          <xs:documentation>Burgundy (purple)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MUL/COL">
+        <xs:annotation>
+          <xs:documentation>Multicolored</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MVE">
+        <xs:annotation>
+          <xs:documentation>Mauve (purple)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ONG">
+        <xs:annotation>
+          <xs:documentation>Orange</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PLE">
+        <xs:annotation>
+          <xs:documentation>Purple</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PNK">
+        <xs:annotation>
+          <xs:documentation>Pink</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RED">
+        <xs:annotation>
+          <xs:documentation>Red</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SIL">
+        <xs:annotation>
+          <xs:documentation>Silver</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SIL">
+        <xs:annotation>
+          <xs:documentation>Aluminum</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAN">
+        <xs:annotation>
+          <xs:documentation>Tan</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TEA">
+        <xs:annotation>
+          <xs:documentation>Teal (green)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TPE">
+        <xs:annotation>
+          <xs:documentation>Taupe (brown)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TRQ">
+        <xs:annotation>
+          <xs:documentation>Turquoise (blue)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WHI">
+        <xs:annotation>
+          <xs:documentation>White</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="YEL">
+        <xs:annotation>
+          <xs:documentation>Yellow</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="VCOCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for Vehicle Color.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ncic:VCOCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
   <xs:simpleType name="VMACodeSimpleType">
     <xs:annotation>
       <xs:documentation>A data type for Vehicle Make.</xs:documentation>
