@@ -29,6 +29,13 @@
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 		</j:CourtOrderEnforcementAgency>
+		<j:CourtOrderRequestEntity>
+			<nc:EntityPerson>
+				<wir-ext:PersonEmployeeIdentification>
+					<nc:IdentificationID>ID45656768</nc:IdentificationID>
+				</wir-ext:PersonEmployeeIdentification>
+			</nc:EntityPerson>
+		</j:CourtOrderRequestEntity>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
 		<nc:PersonBirthDate>
@@ -40,8 +47,8 @@
 			<nc:PersonSurName>Jones</nc:PersonSurName>
 			<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
 		</nc:PersonName>
-		<j:PersonRaceCode>A</j:PersonRaceCode>
-		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonRaceText>A</nc:PersonRaceText>
+		<nc:PersonSexText>M</nc:PersonSexText>
 		<wir-ext:PersonRecordIdentification>
 			<nc:IdentificationID>R69458998</nc:IdentificationID>
 		</wir-ext:PersonRecordIdentification>
