@@ -239,12 +239,49 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element caseChargeStatIdCatDescTxtElement = XmlUtils.appendElement(caseChargeStatuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
 		caseChargeStatIdCatDescTxtElement.setTextContent("TODO");
 		
-		// TODO confirm 2nd Case Charge element is needed
+
+		// 2nd CaseCharge element
 		
-//		caseAugmentElement
 		
-//		Element caseCharge2Element = XmlUtils.appendElement(parent, ns, "CaseCharge");
+		Element caseCharge2Element = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseCharge");
 		
+		
+		Element caseCharge2ChargeCount = XmlUtils.appendElement(caseCharge2Element, OjbcNamespaceContext.NS_JXDM_51, "ChargeCountQuantity");		
+		caseCharge2ChargeCount.setTextContent("TODO");
+		
+		Element caseCharge2DescElement = XmlUtils.appendElement(caseCharge2Element, OjbcNamespaceContext.NS_JXDM_51, "ChargeDescriptionText");
+		caseCharge2DescElement.setTextContent("TODO");
+		
+		Element caseCharge2DispElement = XmlUtils.appendElement(caseCharge2Element, OjbcNamespaceContext.NS_JXDM_51, "ChargeDisposition");
+		
+		Element caseCharge2DispDateElement = XmlUtils.appendElement(caseCharge2DispElement, OjbcNamespaceContext.NS_NC_30, "DispositionDate");
+		
+		Element caseCharge2DispDateValElement = XmlUtils.appendElement(caseCharge2DispDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		caseCharge2DispDateValElement.setTextContent(CURRENT_DATE);
+		
+		Element caseCharge2DispDescTxtElement = XmlUtils.appendElement(caseCharge2DispElement, OjbcNamespaceContext.NS_NC_30, "DispositionDescriptionText");		
+		caseCharge2DispDescTxtElement.setTextContent("TODO");
+		
+		Element casseCharge2DispOtherElement = XmlUtils.appendElement(caseCharge2DispElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeDispositionOtherText");
+		casseCharge2DispOtherElement.setTextContent("TODO");
+		
+		Element caseCharge2FilingDateElement = XmlUtils.appendElement(caseCharge2Element, OjbcNamespaceContext.NS_JXDM_51, "ChargeFilingDate");
+		
+		Element caseCharge2FileDateValElement = XmlUtils.appendElement(caseCharge2FilingDateElement, OjbcNamespaceContext.NS_NC_30, "Date");
+		caseCharge2FileDateValElement.setTextContent(CURRENT_DATE);
+		
+		Element caseCharge2SeqIdElement = XmlUtils.appendElement(caseCharge2Element, OjbcNamespaceContext.NS_JXDM_51, "ChargeSequenceID");		
+		caseCharge2SeqIdElement.setTextContent("TODO");
+		
+		Element caseCharge2StatuteEl = XmlUtils.appendElement(caseCharge2Element, OjbcNamespaceContext.NS_JXDM_51, "ChargeStatute");
+		
+		Element caseCharge2StatCodIdEl = XmlUtils.appendElement(caseCharge2StatuteEl, OjbcNamespaceContext.NS_JXDM_51, "StatuteCodeIdentification");
+		
+		Element caseCharge2StatCodeIdValEl = XmlUtils.appendElement(caseCharge2StatCodIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		caseCharge2StatCodeIdValEl.setTextContent("TODO");
+		
+		Element caseCharge2StatDescEl = XmlUtils.appendElement(caseCharge2StatCodIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
+		caseCharge2StatDescEl.setTextContent("TODO");
 		
 		
 		
