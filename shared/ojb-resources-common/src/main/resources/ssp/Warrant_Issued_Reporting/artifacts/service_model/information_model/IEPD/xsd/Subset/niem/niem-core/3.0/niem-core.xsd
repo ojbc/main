@@ -179,6 +179,8 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:ItemColor" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ItemMakeName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ItemModelName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ItemModelYearDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ItemStyle" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -204,6 +206,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:LocationCategory" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -522,6 +525,16 @@
       <xs:documentation>A data concept for a color of an item.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ItemMakeName" type="nc:ProperNameTextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of the manufacturer that produced an item.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemModelName" type="nc:ProperNameTextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of a specific design or kind of item made by a manufacturer.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ItemModelYearDate" type="niem-xs:gYear" nillable="true">
     <xs:annotation>
       <xs:documentation>A year in which an item was manufactured or produced.</xs:documentation>
@@ -532,6 +545,11 @@
       <xs:documentation>A data concept for a style of an item.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ItemStyleText" type="nc:TextType" substitutionGroup="nc:ItemStyle">
+    <xs:annotation>
+      <xs:documentation>A style of a property item.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="JurisdictionAbstract" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for an area, state, region, or other geographic unit over which some kind of authority exists.</xs:documentation>
@@ -540,6 +558,16 @@
   <xs:element name="JurisdictionText" type="nc:TextType" substitutionGroup="nc:JurisdictionAbstract">
     <xs:annotation>
       <xs:documentation>An area in which an organization or person has some kind of authoritative capacity or responsibility over.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind or functional description of a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationCategoryText" type="nc:TextType" substitutionGroup="nc:LocationCategory">
+    <xs:annotation>
+      <xs:documentation>A kind or functional description of a location.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="LocationCityName" type="nc:ProperNameTextType" nillable="true">
@@ -725,6 +753,11 @@
   <xs:element name="PersonRace" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a classification of a person based on factors such as geographical locations and genetics.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonRaceText" type="nc:TextType" substitutionGroup="nc:PersonRace">
+    <xs:annotation>
+      <xs:documentation>A classification of a person based on factors such as geographical locations and genetics.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonSSNIdentification" type="nc:IdentificationType" nillable="true">
