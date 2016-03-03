@@ -112,10 +112,10 @@
 				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="ROA"/></p>
 			</div>
 			<div id="criminalWarrantTab">
-				<p>criminalWarrantTab</p>
+				<p><xsl:apply-templates select="." mode="warrants"/></p>
 			</div>
 			<div id="criminalBondTab">
-				<p>criminalBondTab</p>
+				<p><xsl:apply-templates select="." mode="bonds"/></p>
 			</div>
 			<div id="victimTab">
 				<p>victimTab</p>
@@ -131,6 +131,56 @@
 	
 	<xsl:template match="qrer:QueryRequestError">
 		<span class="error">System Name: <xsl:value-of select="nc:SystemName" /><br/> Error: <xsl:value-of select="qrer:ErrorText"/></span><br />
+	</xsl:template>
+	
+	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="bonds">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Bond Type</th>
+					<th>Bond Number</th>
+					<th>Bond Amount</th>
+					<th>Bonding Agency</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:BailBond"/>
+			</tbody>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="j:BailBond">
+		<tr>
+			<td><xsl:value-of select="nc:ActivityCategoryText"/></td>
+			<td><xsl:value-of select="nc:ActivityIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:BailBondAmount/nc:Amount"/></td>
+			<td><xsl:value-of select="j:BailBondIssuerEntity/nc:EntityOrganization/nc:OrganizationName"/></td>
+		</tr>	
+	</xsl:template>
+	
+	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="warrants">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Warrant Number</th>
+					<th>Warrant Type</th>
+					<th>Issue Date</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:Warrant"/>
+			</tbody>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="j:Warrant">
+		<tr>
+			<td><xsl:value-of select="nc:ActivityIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:WarrantCategoryText"/></td>
+			<td><xsl:apply-templates select="j:CourtOrderIssuingDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"/></td>
+			<td><xsl:value-of select="nc:ActivityDescriptionText"/></td>
+		</tr>	
 	</xsl:template>
 	
 	<xsl:template match="j:CaseAugmentation" mode="ROA">
