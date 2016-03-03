@@ -34,6 +34,9 @@
 		</nc:ActivityIdentification>
 		<nc:ActivityStatus>
 			<nc:StatusCommentText>generic comment</nc:StatusCommentText>
+			<nc:StatusDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</nc:StatusDate>
 			<nc:StatusDescriptionText>current case status</nc:StatusDescriptionText>
 		</nc:ActivityStatus>
 		<nc:CaseDisposition>
@@ -53,16 +56,14 @@
 		<j:CaseAugmentation>
 			<j:CaseAmendedCharge>
 				<j:ChargeCountQuantity>2</j:ChargeCountQuantity>
-				<j:ChargeDescriptionText>charge description
-				</j:ChargeDescriptionText>
+				<j:ChargeDescriptionText>charge description	</j:ChargeDescriptionText>
 				<j:ChargeFilingDate>
 					<nc:Date>2001-12-17</nc:Date>
 				</j:ChargeFilingDate>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>String</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>String
-						</nc:IdentificationCategoryDescriptionText>
+						<nc:IdentificationCategoryDescriptionText>String</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 			</j:CaseAmendedCharge>
@@ -173,8 +174,7 @@
 				<nc:ActivityDate>
 					<nc:Date>2001-12-17</nc:Date>
 				</nc:ActivityDate>
-				<nc:ActivityDescriptionText>case court event description
-				</nc:ActivityDescriptionText>
+				<nc:ActivityDescriptionText>case court event description</nc:ActivityDescriptionText>
 				<nc:ActivityName>case court event name</nc:ActivityName>
 				<j:CourtEventJudge>
 					<nc:RoleOfPerson>
@@ -189,8 +189,7 @@
 						<nc:Date>2001-12-17</nc:Date>
 					</j:CourtAppearanceDate>
 				</ccq-res-ext:FirstCourtAppearance>
-				<ccq-res-ext:CourtEventCommentsText>String
-				</ccq-res-ext:CourtEventCommentsText>
+				<ccq-res-ext:CourtEventCommentsText>String</ccq-res-ext:CourtEventCommentsText>
 			</j:CaseCourtEvent>
 			<j:CaseDefendantSelfRepresentationIndicator>true
 			</j:CaseDefendantSelfRepresentationIndicator>
@@ -208,8 +207,7 @@
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 			</j:CaseDefenseAttorney>
-			<j:CaseDomesticViolenceIndicator>true
-			</j:CaseDomesticViolenceIndicator>
+			<j:CaseDomesticViolenceIndicator>true</j:CaseDomesticViolenceIndicator>
 			<j:CaseHearing>
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>hearing ID</nc:IdentificationID>
@@ -231,6 +229,11 @@
 					<nc:DispositionDescriptionText>hearing results
 					</nc:DispositionDescriptionText>
 				</nc:ActivityDisposition>
+				<j:CourtEventAppearance>
+					<j:CourtAppearanceCourt>
+						<j:CourtName>hearing court room</j:CourtName>
+					</j:CourtAppearanceCourt>
+				</j:CourtEventAppearance>
 				<j:CourtEventJudge>
 					<nc:RoleOfPerson>
 						<nc:PersonName>
@@ -238,8 +241,7 @@
 						</nc:PersonName>
 					</nc:RoleOfPerson>
 				</j:CourtEventJudge>
-				<ccq-res-ext:CourtEventCommentsText>hearing minutes
-				</ccq-res-ext:CourtEventCommentsText>
+				<ccq-res-ext:CourtEventCommentsText>hearing minutes</ccq-res-ext:CourtEventCommentsText>
 			</j:CaseHearing>
 			<j:CaseJudge>
 				<nc:RoleOfPerson>
@@ -276,24 +278,23 @@
 				</j:JudicialOfficialCategoryText>
 			</j:CaseProsecutionAttorney>
 			<j:CaseTrial>
+				<ccq-res-ext:TrialByText>jury</ccq-res-ext:TrialByText>
 				<ccq-res-ext:SpeedyTrialDate>
 					<nc:Date>2001-12-17</nc:Date>
 				</ccq-res-ext:SpeedyTrialDate>
 			</j:CaseTrial>
 		</j:CaseAugmentation>
 		<ccq-res-ext:CaseAugmentation>
-			<ccq-res-ext:CaseSealedIndicator>true
-			</ccq-res-ext:CaseSealedIndicator>
+			<ccq-res-ext:CaseSealedIndicator>true</ccq-res-ext:CaseSealedIndicator>
 			<ccq-res-ext:RemandDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</ccq-res-ext:RemandDate>
 			<ccq-res-ext:CaseUnderAdvisementDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</ccq-res-ext:CaseUnderAdvisementDate>
-			<ccq-res-ext:JuryRequestedIndicator>true
-			</ccq-res-ext:JuryRequestedIndicator>
-			<ccq-res-ext:JuryVerdictIndicator>true
-			</ccq-res-ext:JuryVerdictIndicator>
+			<ccq-res-ext:JuryRequestedIndicator>true</ccq-res-ext:JuryRequestedIndicator>
+			<ccq-res-ext:JuryVerdictIndicator>true</ccq-res-ext:JuryVerdictIndicator>
+			<ccq-res-ext:FailureToPayHoldIndefiniteIndicator>true</ccq-res-ext:FailureToPayHoldIndefiniteIndicator>
 			<ccq-res-ext:FailureToPayHoldDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</ccq-res-ext:FailureToPayHoldDate>
@@ -573,6 +574,11 @@
 		</nc:ObligationPaidAmount>
 	</nc:DisciplinaryActionRestitution>
 	<nc:Person structures:id="Person_01">
+		<cyfs:PersonAugmentation>
+			<cyfs:StudentIdentifiation>
+				
+			</cyfs:StudentIdentifiation>
+		</cyfs:PersonAugmentation>
 		<nc:PersonBirthDate>
 			<nc:Date>2001-12-17</nc:Date>
 		</nc:PersonBirthDate>
@@ -594,6 +600,9 @@
 		<nc:PersonPhysicalFeature>
 			<nc:PhysicalFeatureDescriptionText>Scars Marks Tattoos</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
+		<nc:PersonPrimaryLanguage>
+			<nc:LanguageName>English</nc:LanguageName>
+		</nc:PersonPrimaryLanguage>
 		<nc:PersonRaceText>String</nc:PersonRaceText>
 		<nc:PersonSexText>String</nc:PersonSexText>
 		<nc:PersonSSNIdentification>
@@ -602,6 +611,12 @@
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>nc:MeasureValueText</nc:MeasureValueText>
 		</nc:PersonWeightMeasure>
+		<
+		<intel:PersonAugmentation>
+			<intel:PersonSystemIdentification>
+				<nc:IdentificationID>Party ID</nc:IdentificationID>
+			</intel:PersonSystemIdentification>
+		</intel:PersonAugmentation>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
 				<j:DriverLicenseIdentification>
@@ -614,10 +629,8 @@
 				<j:DriverLicenseIssueDate>
 					<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 				</j:DriverLicenseIssueDate>
-				<j:DriverLicenseCommercialClassText>String
-				</j:DriverLicenseCommercialClassText>
-				<j:DriverLicenseNonCommercialClassText>String
-				</j:DriverLicenseNonCommercialClassText>
+				<j:DriverLicenseCommercialClassText>String</j:DriverLicenseCommercialClassText>
+				<j:DriverLicenseNonCommercialClassText>String</j:DriverLicenseNonCommercialClassText>
 			</j:DriverLicense>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
