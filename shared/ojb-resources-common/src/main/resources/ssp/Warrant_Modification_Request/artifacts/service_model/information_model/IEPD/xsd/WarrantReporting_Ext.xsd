@@ -107,6 +107,8 @@
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="nc:ExpirationDate" minOccurs="0" />
+					<xsd:element ref="wir-ext:PersonRecordIdentification"
+						minOccurs="0" />
 					<xsd:element ref="wir-ext:ExtraditionIndicator"
 						minOccurs="0" />
 					<xsd:element ref="wir-ext:ExtradictionLimitsCodeText"
@@ -119,14 +121,17 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="scr:TransactionControlNumberIdentification"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:WarrantAdditionalInformationText"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:WarrantEntryCategoryCodeText"
-						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification assigned to a person
+				record.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="PersonMiscellaneousRecordIdentification"
 		type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
@@ -145,6 +150,20 @@
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A cautionary code for a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleRecordIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:VehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification assigned to a vehicle
+				record.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleRecordExpirationDate" type="nc:DateType"
+		substitutionGroup="nc:VehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The expiration date of a vehicle record.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -231,18 +250,6 @@
 		substitutionGroup="nc:OrganizationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Originating Case Agency number (OCA).</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="WarrantAdditionalInformationText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a warrant.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="WarrantEntryCategoryCodeText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>A type of warrant entry.
-			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

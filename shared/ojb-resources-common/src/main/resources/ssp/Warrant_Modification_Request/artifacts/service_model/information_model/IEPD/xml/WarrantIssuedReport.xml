@@ -17,7 +17,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<wm-req-doc:WarrantModificationRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0 ../xsd/WarrantModificationRequest.xsd" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:wm-req-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0" xmlns:wm-req-ext="http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<wir-doc:WarrantIssuedReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0 ../xsd/WarrantIssuedReport.xsd"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:wir-doc="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0"
+	xmlns:wir-ext="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:scr="http://release.niem.gov/niem/domains/screening/3.1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Case structures:id="Case_01">
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>CN</nc:IdentificationID>
@@ -25,18 +34,16 @@
 		<nc:CaseDocketID>Docket8987</nc:CaseDocketID>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<wm-req-ext:OffenseCodeText>OC45656-09</wm-req-ext:OffenseCodeText>
-				<wm-req-ext:ChargeCodeText>CHG5678</wm-req-ext:ChargeCodeText>
-				<wm-req-ext:OriginalOffenseCodeText>OO4356788</wm-req-ext:OriginalOffenseCodeText>
+				<wir-ext:OffenseCodeText>OC45656-09</wir-ext:OffenseCodeText>
+				<wir-ext:ChargeCodeText>CHG5678</wir-ext:ChargeCodeText>
+				<wir-ext:OriginalOffenseCodeText>OO4356788
+				</wir-ext:OriginalOffenseCodeText>
 			</j:CaseCharge>
 		</j:CaseAugmentation>
 	</nc:Case>
 	<j:Warrant structures:id="Warrant_01">
-		<nc:ActivityIdentification>
-			<nc:IdentificationID>W45678</nc:IdentificationID>
-		</nc:ActivityIdentification>
 		<j:CourtOrderDesignatedSubject>
-			<nc:RoleOfPerson structures:ref="Person_01"/>
+			<nc:RoleOfPerson structures:ref="Person_01" />
 			<j:SubjectCorrectionsIdentification>
 				<nc:IdentificationID>PN3929593</nc:IdentificationID>
 			</j:SubjectCorrectionsIdentification>
@@ -47,6 +54,9 @@
 					<nc:IdentificationID>758075800</nc:IdentificationID>
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
+			<wir-ext:AgencyRecordIdentification>
+		<nc:IdentificationID>OCA4576</nc:IdentificationID>
+</wir-ext:AgencyRecordIdentification>
 		</j:CourtOrderEnforcementAgency>
 		<j:CourtOrderIssuingCourt>
 			<j:OrganizationAugmentation>
@@ -60,9 +70,9 @@
 		</j:CourtOrderIssuingDate>
 		<j:CourtOrderRequestEntity>
 			<nc:EntityPerson>
-				<wm-req-ext:PersonEmployeeIdentification>
+				<wir-ext:PersonEmployeeIdentification>
 					<nc:IdentificationID>ID45656768</nc:IdentificationID>
-				</wm-req-ext:PersonEmployeeIdentification>
+				</wir-ext:PersonEmployeeIdentification>
 			</nc:EntityPerson>
 		</j:CourtOrderRequestEntity>
 		<j:WarrantAppearanceBail>
@@ -70,31 +80,39 @@
 				<nc:Amount>5000</nc:Amount>
 			</j:BailSetAmount>
 		</j:WarrantAppearanceBail>
-		<wm-req-ext:WarrantAugmentation>
+		<wir-ext:WarrantAugmentation>
 			<nc:ExpirationDate>
 				<nc:Date>2016-08-13</nc:Date>
 			</nc:ExpirationDate>
-			<wm-req-ext:PersonRecordIdentification>
+			<wir-ext:PersonRecordIdentification>
 				<nc:IdentificationID>R69458998</nc:IdentificationID>
-			</wm-req-ext:PersonRecordIdentification>
-			<wm-req-ext:ExtraditionIndicator>true</wm-req-ext:ExtraditionIndicator>
-			<wm-req-ext:ExtradictionLimitsCodeText>MC23</wm-req-ext:ExtradictionLimitsCodeText>
-			<wm-req-ext:SubjectPickupRadiusCodeText>500</wm-req-ext:SubjectPickupRadiusCodeText>
-			<wm-req-ext:WarrantBroadcastCodeText>B26</wm-req-ext:WarrantBroadcastCodeText>
-			<wm-req-ext:ProsecutionWarrantCodeText>PW56</wm-req-ext:ProsecutionWarrantCodeText>
-		</wm-req-ext:WarrantAugmentation>
+			</wir-ext:PersonRecordIdentification>
+			<wir-ext:ExtraditionIndicator>true</wir-ext:ExtraditionIndicator>
+			<wir-ext:ExtradictionLimitsCodeText>MC23
+			</wir-ext:ExtradictionLimitsCodeText>
+			<wir-ext:SubjectPickupRadiusCodeText>500
+			</wir-ext:SubjectPickupRadiusCodeText>
+			<wir-ext:WarrantBroadcastCodeText>B26
+			</wir-ext:WarrantBroadcastCodeText>
+			<wir-ext:CriminalTrackingNumber>PW56
+			</wir-ext:CriminalTrackingNumber>
+			<scr:TransactionControlNumberIdentification>
+			<nc:IdentificationID>TCN345665</nc:IdentificationID>
+			</scr:TransactionControlNumberIdentification>
+		</wir-ext:WarrantAugmentation>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
 		<nc:PersonBirthDate>
 			<nc:Date>1967-08-13</nc:Date>
 		</nc:PersonBirthDate>
-		<!--nc:PersonBirthLocation>
-			<nc:LocationDescriptionText>String</nc:LocationDescriptionText>
-		</nc:PersonBirthLocation-->
-		<nc:PersonCitizenshipISO3166Alpha2Code>AO</nc:PersonCitizenshipISO3166Alpha2Code>
+		<nc:PersonBirthLocation>
+			<nc:LocationCategoryText>OP</nc:LocationCategoryText>
+		</nc:PersonBirthLocation>
+		<nc:PersonCitizenshipISO3166Alpha2Code>AO
+		</nc:PersonCitizenshipISO3166Alpha2Code>
 		<j:PersonEthnicityCode>N</j:PersonEthnicityCode>
-		<j:PersonEyeColorCode>BLK</j:PersonEyeColorCode>
-		<j:PersonHairColorCode>ONG</j:PersonHairColorCode>
+		<nc:PersonEyeColorText>BLK</nc:PersonEyeColorText>
+		<nc:PersonHairColorText>ONG</nc:PersonHairColorText>
 		<nc:PersonHeightMeasure>
 			<nc:MeasureValueText>71</nc:MeasureValueText>
 			<nc:MeasureUnitText>inches</nc:MeasureUnitText>
@@ -107,14 +125,18 @@
 			<nc:PersonFullName>Peter J Jones Jr</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
-			<j:PhysicalFeatureCategoryCode>ART ARM</j:PhysicalFeatureCategoryCode>
+			<intel:PhysicalFeatureCategoryCodeText>ART ARM
+			</intel:PhysicalFeatureCategoryCodeText>
 		</nc:PersonPhysicalFeature>
 		<j:PersonRaceCode>A</j:PersonRaceCode>
 		<j:PersonSexCode>M</j:PersonSexCode>
-		<j:PersonSkinToneCode>ALB</j:PersonSkinToneCode>
+		<nc:PersonSkinToneText>ALB</nc:PersonSkinToneText>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>098213455</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
+			<nc:PersonStateIdentification>
+	<nc:IdentificationID>SID56567</nc:IdentificationID>
+	</nc:PersonStateIdentification>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>165</nc:MeasureValueText>
 			<nc:MeasureUnitText>ibs</nc:MeasureUnitText>
@@ -133,14 +155,15 @@
 			</j:PersonFBIIdentification>
 			<j:PersonBirthplaceCode>0P</j:PersonBirthplaceCode>
 		</j:PersonAugmentation>
-		<wm-req-ext:PersonAdditionalInformationText>Gang Member</wm-req-ext:PersonAdditionalInformationText>
-		<wm-req-ext:PersonCautionCodeText>G45</wm-req-ext:PersonCautionCodeText>
-		<wm-req-ext:PersonMiscellaneousRecordIdentification>
+		<wir-ext:PersonAdditionalInformationText>Gang Member
+		</wir-ext:PersonAdditionalInformationText>
+		<wir-ext:PersonCautionCodeText>G45</wir-ext:PersonCautionCodeText>
+		<wir-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>MR456782</nc:IdentificationID>
-		</wm-req-ext:PersonMiscellaneousRecordIdentification>
-		<wm-req-ext:PersonRecordIdentification>
+		</wir-ext:PersonMiscellaneousRecordIdentification>
+		<wir-ext:PersonRecordIdentification>
 			<nc:IdentificationID>R69458998</nc:IdentificationID>
-		</wm-req-ext:PersonRecordIdentification>
+		</wir-ext:PersonRecordIdentification>
 	</nc:Person>
 	<nc:Identity structures:id="Alias_01">
 		<nc:IdentityPersonRepresentation>
@@ -154,28 +177,30 @@
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
 	<nc:Vehicle structures:id="Vehicle_01">
-		<j:ConveyanceColorPrimaryCode>BGE</j:ConveyanceColorPrimaryCode>
-		<j:ConveyanceColorSecondaryCode>BRO</j:ConveyanceColorSecondaryCode>
+	<j:ConveyanceColorPrimaryCode>BGE</j:ConveyanceColorPrimaryCode>
+	<j:ConveyanceColorSecondaryCode>BRO</j:ConveyanceColorSecondaryCode>
 		<nc:ItemModelYearDate>2012</nc:ItemModelYearDate>
 		<j:VehicleStyleCode>2D</j:VehicleStyleCode>
 		<nc:VehicleIdentification>
 			<nc:IdentificationID>VIN3458745679777</nc:IdentificationID>
 		</nc:VehicleIdentification>
 		<j:VehicleMakeCode>AAA</j:VehicleMakeCode>
-		<j:VehicleModelCode>002</j:VehicleModelCode>
-		<wm-req-ext:VehicleRecordExpirationDate>
+		<j:VehicleModelCode>DIA</j:VehicleModelCode>
+		<wir-ext:VehicleRecordExpirationDate>
 			<nc:Date>2016-09-23</nc:Date>
-		</wm-req-ext:VehicleRecordExpirationDate>
-		<wm-req-ext:VehicleAdditionalInformationText>Excessive Rust</wm-req-ext:VehicleAdditionalInformationText>
-		<wm-req-ext:VehicleRecordIdentification>
+		</wir-ext:VehicleRecordExpirationDate>
+		<wir-ext:VehicleAdditionalInformationText>Excessive Rust
+		</wir-ext:VehicleAdditionalInformationText>
+		<wir-ext:VehicleRecordIdentification>
 			<nc:IdentificationID>V345678</nc:IdentificationID>
-		</wm-req-ext:VehicleRecordIdentification>
+		</wir-ext:VehicleRecordIdentification>
 	</nc:Vehicle>
 	<j:ConveyanceRegistration structures:id="Reg_01">
 		<j:ConveyanceRegistrationPlateIdentification>
 			<nc:IdentificationID>LP4365-0234</nc:IdentificationID>
 		</j:ConveyanceRegistrationPlateIdentification>
-		<j:ConveyanceRegistrationPlateCategoryText>LP-category</j:ConveyanceRegistrationPlateCategoryText>
+		<j:ConveyanceRegistrationPlateCategoryText>LP-category
+		</j:ConveyanceRegistrationPlateCategoryText>
 	</j:ConveyanceRegistration>
 	<nc:ContactInformation>
 		<nc:ContactMailingAddress structures:id="Address_01">
@@ -189,31 +214,31 @@
 			<nc:LocationCountyName>Taylor</nc:LocationCountyName>
 			<nc:LocationStateName>Michigan</nc:LocationStateName>
 			<nc:LocationPostalCode>63412</nc:LocationPostalCode>
-			<wm-req-ext:AddressCategoryText>Mail</wm-req-ext:AddressCategoryText>
+			<wir-ext:AddressCategoryText>Mail</wir-ext:AddressCategoryText>
 		</nc:ContactMailingAddress>
 	</nc:ContactInformation>
 	<nc:ContactInformationAssociation>
 		<nc:ContactEntity>
-			<nc:EntityPerson structures:ref="Person_01"/>
+			<nc:EntityPerson structures:ref="Person_01" />
 		</nc:ContactEntity>
 		<nc:ContactInformation>
-			<nc:ContactMailingAddress structures:ref="Address_01"/>
+			<nc:ContactMailingAddress structures:ref="Address_01" />
 		</nc:ContactInformation>
 	</nc:ContactInformationAssociation>
 	<j:ConveyanceRegistrationAssociation>
-		<j:ItemRegistration structures:ref="Reg_01"/>
-		<nc:Item structures:ref="Vehicle_01"/>
+		<j:ItemRegistration structures:ref="Reg_01" />
+		<nc:Item structures:ref="Vehicle_01" />
 	</j:ConveyanceRegistrationAssociation>
 	<nc:PersonConveyanceAssociation>
-		<nc:Person structures:ref="Person_01"/>
-		<nc:Conveyance structures:ref="Vehicle_01"/>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Conveyance structures:ref="Vehicle_01" />
 	</nc:PersonConveyanceAssociation>
 	<j:ActivityWarrantAssociation>
-		<nc:Activity structures:ref="Case_01"/>
-		<j:Warrant structures:ref="Warrant_01"/>
+		<nc:Activity structures:ref="Case_01" />
+		<j:Warrant structures:ref="Warrant_01" />
 	</j:ActivityWarrantAssociation>
 	<nc:PersonAliasIdentityAssociation>
-		<nc:Person structures:ref="Person_01"/>
-		<nc:Identity structures:ref="Alias_01"/>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Identity structures:ref="Alias_01" />
 	</nc:PersonAliasIdentityAssociation>
-</wm-req-doc:WarrantModificationRequest>
+</wir-doc:WarrantIssuedReport>
